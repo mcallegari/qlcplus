@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -147,17 +148,13 @@ Rectangle
             visible: showFlags
             implicitWidth: UISettings.chPropsPrecedenceWidth
             height: parent.height - 2
-
-            ListModel
-            {
-                id: precModel
-                ListElement { mLabel: qsTr("Auto (HTP)"); mValue: FixtureManager.AutoHTP }
-                ListElement { mLabel: qsTr("Auto (LTP)"); mValue: FixtureManager.AutoLTP }
-                ListElement { mLabel: qsTr("Forced HTP"); mValue: FixtureManager.ForcedHTP }
-                ListElement { mLabel: qsTr("Forced LTP"); mValue: FixtureManager.ForcedLTP }
-            }
-            model: precModel
-            onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
+            model: [
+                { mLabel: qsTr("Auto (HTP)"), mValue: FixtureManager.AutoHTP },
+                { mLabel: qsTr("Auto (LTP)"), mValue: FixtureManager.AutoLTP },
+                { mLabel: qsTr("Forced HTP"), mValue: FixtureManager.ForcedHTP },
+                { mLabel: qsTr("Forced LTP"), mValue: FixtureManager.ForcedLTP }
+            ]
+            onValueChanged: (value) => fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
         }
 
         // divider

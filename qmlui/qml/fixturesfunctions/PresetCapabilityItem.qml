@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -143,7 +143,7 @@ Rectangle
         hoverEnabled: true
         preventStealing: false
 
-        onPositionChanged: capBar.width = mouse.x
+        onPositionChanged: (mouse) => { capBar.width = mouse.x }
         onExited: capBar.width = 0
         onClicked:
         {

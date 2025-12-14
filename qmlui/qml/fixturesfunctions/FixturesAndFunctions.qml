@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.8
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "."
 
@@ -30,14 +30,33 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property string currentViewQML: "qrc:/2DView.qml"
+    // will be set later depending on currentView
+    property string currentViewQML: ""
 
     // string holding the current view. Used by the C++ code
     // for dynamic items creation
-    property string currentView: "2D"
-    //property bool docLoaded: qlcplus.docLoaded
+    property string currentView: contextManager.currentSubContext
 
-    Component.onCompleted: contextManager.updateFixturesCapabilities()
+    Component.onCompleted:
+    {
+        switch (contextManager.currentSubContext)
+        {
+            case "UNIGRID":
+                currentViewQML = "qrc:/UniverseGridView.qml"
+            break
+            case "DMX":
+                currentViewQML = "qrc:/DMXView.qml"
+            break
+            case "2D":
+                currentViewQML = "qrc:/2DView.qml"
+            break
+            case "3D":
+                currentViewQML = "qrc:/3DView.qml"
+            break
+        }
+
+        contextManager.updateFixturesCapabilities()
+    }
 
     function enableContext(ctx, setChecked)
     {
@@ -58,6 +77,7 @@ Rectangle
                 item.checked = true
         }
         settingsButton.checked = false
+        contextManager.currentSubContext = ctx
     }
 
     function loadContext(checked, qmlres, ctx)
@@ -67,7 +87,7 @@ Rectangle
 
         settingsButton.checked = false
         currentViewQML = qmlres
-        currentView = ctx
+        contextManager.currentSubContext = ctx
     }
 
     LeftPanel
@@ -128,6 +148,7 @@ Rectangle
                     id: uniView
                     imgSource: "uniview.svg"
                     entryText: qsTr("Universe View")
+                    checked: contextManager.currentSubContext === "UNIGRID"
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
@@ -144,8 +165,10 @@ Rectangle
                 MenuBarEntry
                 {
                     id: dmxView
+                    visible: !ViewDMX.detached
                     imgSource: "dmxview.svg"
                     entryText: qsTr("DMX View")
+                    checked: contextManager.currentSubContext === "DMX"
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
@@ -155,16 +178,17 @@ Rectangle
                     {
                         if (checked)
                             uniView.checked = true
-                        dmxView.visible = false
+
                         contextManager.detachContext("DMX")
                     }
                 }
                 MenuBarEntry
                 {
                     id: twodView
+                    visible: !View2D.detached
                     imgSource: "2dview.svg"
                     entryText: qsTr("2D View")
-                    checked: true
+                    checked: contextManager.currentSubContext === "2D"
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
@@ -174,15 +198,17 @@ Rectangle
                     {
                         if (checked)
                             dmxView.checked = true
-                        twodView.visible = false
+
                         contextManager.detachContext("2D")
                     }
                 }
                 MenuBarEntry
                 {
                     id: threedView
+                    visible: !View3D.detached
                     imgSource: "3dview.svg"
                     entryText: qsTr("3D View")
+                    checked: contextManager.currentSubContext === "3D"
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
@@ -201,7 +227,7 @@ Rectangle
                     {
                         if (checked)
                             twodView.checked = true
-                        threedView.visible = false
+
                         contextManager.detachContext("3D")
                     }
                 }
@@ -209,17 +235,18 @@ Rectangle
                 CustomComboBox
                 {
                     id: viewUniverseCombo
-                    width: UISettings.bigItemHeight * 1.5
+                    implicitWidth: UISettings.bigItemHeight * 2
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
                     currValue: contextManager.universeFilter
 
                     onValueChanged:
-                    {
-                        contextManager.universeFilter = value
-                        fixtureManager.universeFilter = value
-                    }
+                        function(value)
+                        {
+                            contextManager.universeFilter = value
+                            fixtureManager.universeFilter = value
+                        }
                 }
 
                 Rectangle { Layout.fillWidth: true; color: "transparent" }

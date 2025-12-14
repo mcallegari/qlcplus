@@ -84,6 +84,10 @@ bool AudioDecoderSndFile::initialize(const QString &path)
         sf_command (m_sndfile, SFC_SET_SCALE_FLOAT_INT_READ, NULL, SF_TRUE);
     }
 
+    /* Enable libsndfile clipping correction for MP3 decoding to avoid
+       16-bit PCM wrapping artifacts on sample overflow */
+    sf_command(m_sndfile, SFC_SET_CLIPPING, NULL, SF_TRUE);
+
     AudioFormat pcmFormat = PCM_S16LE;
     switch(snd_info.format & SF_FORMAT_SUBMASK)
     {
@@ -145,6 +149,8 @@ QStringList AudioDecoderSndFile::supportedFormats()
             caps << "*.oga" << "*.ogg";
         else if (ext == "wav" && !caps.contains("*.wav"))
             caps << "*.wav";
+        else if (ext == "mp3" && !caps.contains("*.mp3"))
+            caps << "*.mp3";
     }
 
     return caps;

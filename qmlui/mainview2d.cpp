@@ -101,6 +101,8 @@ bool MainView2D::initialize2DProperties()
 {
     emit pointOfViewChanged(m_monProps->pointOfView());
     setGridSize(m_monProps->gridSize());
+    if (!m_monProps->commonBackgroundImage().isEmpty())
+        emit backgroundImageChanged();
 
     m_gridItem = qobject_cast<QQuickItem*>(contextItem()->findChild<QObject *>("twoDContents"));
 
@@ -294,7 +296,7 @@ int MainView2D::itemIDAtPos(QPointF pos)
         qreal itemHeight = fxItem->property("height").toReal();
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
-        qDebug() << "Point:" << pos << "itemRect:" << itemRect;
+        //qDebug() << "Point:" << pos << "itemRect:" << itemRect;
 
         if (itemRect.contains(pos))
             return i.key();
@@ -390,18 +392,24 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 
     quint32 masterDimmerChannel = fixture->masterIntensityChannel();
-    qreal masterDimmerValue = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
+    qreal masterDimmerValue = masterDimmerChannel != QLCChannel::invalid() ?
+                              qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0 : 1.0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
         quint32 headDimmerChannel = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
         if (headDimmerChannel == QLCChannel::invalid())
-            headDimmerChannel = fixture->masterIntensityChannel();
+            headDimmerChannel = masterDimmerChannel;
 
-        //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+        //qDebug() << "Head" << headIdx << "dimmer channel:" << headDimmerChannel;
         qreal intensityValue = 1.0;
+        bool hasDimmer = false;
+
         if (headDimmerChannel != QLCChannel::invalid())
+        {
             intensityValue = (qreal)fixture->channelValueAt(headDimmerChannel) / 255;
+            hasDimmer = true;
+        }
 
         if (headDimmerChannel != masterDimmerChannel)
             intensityValue *= masterDimmerValue;
@@ -410,7 +418,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 Q_ARG(QVariant, headIdx),
                 Q_ARG(QVariant, intensityValue));
 
-        color = FixtureUtils::headColor(fixture, headIdx);
+        color = FixtureUtils::headColor(fixture, hasDimmer, headIdx);
 
         QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                   Q_ARG(QVariant, headIdx),
@@ -557,7 +565,11 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
 
     if (enable)
     {
-        QQuickItem *dragArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("contentsDragArea"));
+        QQuickItem *rootObj = m_view->rootObject();
+        if (rootObj == nullptr)
+            return;
+
+        QQuickItem *dragArea = qobject_cast<QQuickItem*>(rootObj->findChild<QObject *>("contentsDragArea"));
         if (dragArea)
             fxItem->setParentItem(dragArea);
     }
@@ -604,6 +616,8 @@ void MainView2D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
             fxItem->setProperty("rotation", degrees.z());
         break;
         case MonitorProperties::LeftSideView:
+            fxItem->setProperty("rotation", -degrees.x());
+        break;
         case MonitorProperties::RightSideView:
             fxItem->setProperty("rotation", degrees.x());
         break;
@@ -765,16 +779,17 @@ QString MainView2D::backgroundImage()
     return m_monProps->commonBackgroundImage();
 }
 
-void MainView2D::setBackgroundImage(QString image)
+void MainView2D::setBackgroundImage(QString path)
 {
-    QString strippedPath = image.replace("file://", "");
+    if (path.startsWith("file:"))
+        path = QUrl(path).toLocalFile();
     QString currentImage = m_monProps->commonBackgroundImage();
 
-    if (strippedPath == currentImage)
+    if (path == currentImage)
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, QVariant(currentImage), QVariant(strippedPath));
-    m_monProps->setCommonBackgroundImage(strippedPath);
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, currentImage, path);
+    m_monProps->setCommonBackgroundImage(path);
     emit backgroundImageChanged();
 }
 

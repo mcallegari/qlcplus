@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import "."
 
@@ -74,6 +74,11 @@ Rectangle
             function loadTool(item, fixtureID, chIndex, value)
             {
                 channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
+            }
+
+            function closeTool()
+            {
+                channelToolLoader.visible = false
             }
 
             function itemWidthChanged(width)

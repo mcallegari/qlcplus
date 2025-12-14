@@ -61,24 +61,23 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    float timeScale = 50 / float(m_timeScale);
+    float xpos = 0;
+    float timeUnit = 50.0 / float(getTimeScale());
 
     ShowItem::paint(painter, option, widget);
 
-    quint32 matrixDuration = getDuration();
+    int loopCount = 0;
+    if (getDuration() == Function::infiniteSpeed())
+        loopCount = 10000 / m_matrix->duration();
+    else if (getDuration() > 0)
+        loopCount = qFloor(getDuration() / m_matrix->duration());
 
-    if (matrixDuration)
+    for (int i = 0; i < loopCount; i++)
     {
-        float xpos = 0;
-        int loopCount = m_function->duration() ? qFloor(m_function->duration() / m_matrix->totalDuration()) : 0;
-
-        for (int i = 0; i < loopCount; i++)
-        {
-            xpos += ((timeScale * float(m_matrix->totalDuration())) / 1000);
-            // draw loop vertical delimiter
-            painter->setPen(QPen(Qt::white, 1));
-            painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);
-        }
+        xpos += ((timeUnit * float(m_matrix->totalDuration())) / 1000);
+        // draw loop vertical delimiter
+        painter->setPen(QPen(Qt::white, 1));
+        painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);
     }
 
     ShowItem::postPaint(painter);

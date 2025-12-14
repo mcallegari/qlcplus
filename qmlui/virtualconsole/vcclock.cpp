@@ -26,21 +26,21 @@
 #include "vcclock.h"
 #include "doc.h"
 
-#define KXMLQLCVCClockEnabled   QString("Enable")
-#define KXMLQLCVCClockType      QString("Type")
-#define KXMLQLCVCClockTime      QString("Time")
+#define KXMLQLCVCClockEnabled   QStringLiteral("Enable")
+#define KXMLQLCVCClockType      QStringLiteral("Type")
+#define KXMLQLCVCClockTime      QStringLiteral("Time")
 
-#define KXMLQLCVCClockHours     QString("Hours")     // LEGACY
-#define KXMLQLCVCClockMinutes   QString("Minutes")   // LEGACY
-#define KXMLQLCVCClockSeconds   QString("Seconds")   // LEGACY
+#define KXMLQLCVCClockHours     QStringLiteral("Hours")     // LEGACY
+#define KXMLQLCVCClockMinutes   QStringLiteral("Minutes")   // LEGACY
+#define KXMLQLCVCClockSeconds   QStringLiteral("Seconds")   // LEGACY
 
-#define KXMLQLCVCClockSchedule          QString("Schedule")
-#define KXMLQLCVCClockScheduleFunc      QString("Function")
-#define KXMLQLCVCClockScheduleStartTime QString("StartTime")
-#define KXMLQLCVCClockScheduleStopTime  QString("StopTime")
-#define KXMLQLCVCClockScheduleWeekFlags QString("WeekFlags")
+#define KXMLQLCVCClockSchedule          QStringLiteral("Schedule")
+#define KXMLQLCVCClockScheduleFunc      QStringLiteral("Function")
+#define KXMLQLCVCClockScheduleStartTime QStringLiteral("StartTime")
+#define KXMLQLCVCClockScheduleStopTime  QStringLiteral("StopTime")
+#define KXMLQLCVCClockScheduleWeekFlags QStringLiteral("WeekFlags")
 
-#define KXMLQLCVCClockScheduleTime QString("Time")  // LEGACY
+#define KXMLQLCVCClockScheduleTime QStringLiteral("Time")  // LEGACY
 
 VCClock::VCClock(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
@@ -364,7 +364,7 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
 
 void VCClock::addSchedules(QVariantList idsList)
 {
-    for (QVariant vID : idsList) // C++11
+    for (QVariant &vID : idsList) // C++11
     {
         quint32 funcID = vID.toUInt();
         if (m_doc->function(funcID) == nullptr)

@@ -45,6 +45,21 @@ HIDDevice::~HIDDevice()
 /*****************************************************************************
  * File operations
  *****************************************************************************/
+bool HIDDevice::hasMergerMode()
+{
+    return false; //usual HIDDevices don't offer a merger mode
+}
+
+bool HIDDevice::isMergerModeEnabled()
+{
+    return false; //never enabled when not offered
+}
+
+void HIDDevice::enableMergerMode(bool mergerModeEnabled)
+{
+    Q_UNUSED(mergerModeEnabled);
+}
+
 
 bool HIDDevice::openInput()
 {

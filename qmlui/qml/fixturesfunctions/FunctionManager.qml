@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -33,7 +33,7 @@ Rectangle
 
     property bool allowEditing: true
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
     signal doubleClicked(int ID, int type)
 
     function loadFunctionEditor(funcID, funcType)
@@ -52,7 +52,7 @@ Rectangle
             mainView.switchToContext("SHOWMGR", editorRes)
         }
         else
-            fmContainer.requestView(funcID, editorRes)
+            fmContainer.requestView(funcID, editorRes, false)
     }
 
     function setFunctionFilter(fType, checked)
@@ -71,7 +71,7 @@ Rectangle
       Rectangle
       {
         id: topBar
-        width: fmContainer.width
+        Layout.fillWidth: true
         height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
@@ -219,7 +219,7 @@ Rectangle
                 height: topBar.height - 2
                 bgColor: UISettings.bgMedium
                 faColor: checked ? "white" : "gray"
-                faSource: FontAwesome.fa_search
+                faSource: FontAwesome.fa_magnifying_glass
                 checkable: true
                 tooltip: qsTr("Set a Function search filter")
                 onToggled:
@@ -236,7 +236,7 @@ Rectangle
       {
           id: searchBox
           visible: searchFunc.checked
-          width: fmContainer.width
+          Layout.fillWidth: true
           height: UISettings.iconSizeMedium
           z: 5
           color: UISettings.bgMedium
@@ -252,21 +252,20 @@ Rectangle
               width: parent.width
               color: UISettings.fgMain
               text: functionManager.searchFilter
-              font.family: "Roboto Condensed"
+              font.family: UISettings.robotoFontName
               font.pixelSize: parent.height - 6
               selectionColor: UISettings.highlightPressed
               selectByMouse: true
 
-              onTextChanged: functionManager.searchFilter = text
+              onTextEdited: functionManager.searchFilter = text
           }
       }
 
       ListView
       {
           id: functionsListView
-          width: fmContainer.width
+          Layout.fillWidth: true
           height: fmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
-          //anchors.fill: parent
           z: 4
           boundsBehavior: Flickable.StopAtBounds
           Layout.fillHeight: true

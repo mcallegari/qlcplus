@@ -24,10 +24,10 @@
 #include "colorfilters.h"
 #include "qlcfile.h"
 
-#define KXMLColorFiltersName  QString("Name")
-#define KXMLColorFiltersColor QString("Color")
-#define KXMLColorFiltersRGB   QString("RGB")
-#define KXMLColorFiltersWAUV  QString("WAUV")
+#define KXMLColorFiltersName  QStringLiteral("Name")
+#define KXMLColorFiltersColor QStringLiteral("Color")
+#define KXMLColorFiltersRGB   QStringLiteral("RGB")
+#define KXMLColorFiltersWAUV  QStringLiteral("WAUV")
 
 ColorFilters::ColorFilters(QObject *parent)
     : QObject(parent)

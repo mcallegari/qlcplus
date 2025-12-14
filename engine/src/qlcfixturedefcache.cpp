@@ -35,8 +35,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define FIXTURES_MAP_NAME QString("FixturesMap.xml")
-#define KXMLQLCFixtureMap QString("FixturesMap")
+#define FIXTURES_MAP_NAME QStringLiteral("FixturesMap.xml")
+#define KXMLQLCFixtureMap QStringLiteral("FixturesMap")
 
 QLCFixtureDefCache::QLCFixtureDefCache()
 {
@@ -142,6 +142,9 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
 
     file.write(data.toUtf8());
     file.close();
+#ifdef Q_OS_UNIX
+    sync();
+#endif
 
     // reload user definitions
     load(userDefinitionDirectory());
@@ -162,6 +165,26 @@ bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
     QLCFixtureDef *origDef = new QLCFixtureDef();
     origDef->loadXML(absPath);
     m_defs << origDef;
+
+    return true;
+}
+
+bool QLCFixtureDefCache::reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef)
+{
+    QListIterator <QLCFixtureDef*> it(m_defs);
+    while (it.hasNext() == true)
+    {
+        QLCFixtureDef *def = it.next();
+        if (def->manufacturer() == fixtureDef->manufacturer() &&
+            def->model() == fixtureDef->model())
+        {
+            def->setIsUser(true);
+            def = fixtureDef;
+            return true;
+        }
+    }
+
+    addFixtureDef(fixtureDef);
 
     return true;
 }

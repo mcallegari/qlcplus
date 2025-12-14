@@ -24,18 +24,18 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCCueList                    QString("CueList")
-#define KXMLQLCVCCueListChaser              QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout      QString("PlaybackLayout")
-#define KXMLQLCVCCueListNextPrevBehavior    QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade           QString("Crossfade")
-#define KXMLQLCVCCueListNext                QString("Next")
-#define KXMLQLCVCCueListPrevious            QString("Previous")
-#define KXMLQLCVCCueListPlayback            QString("Playback")
-#define KXMLQLCVCCueListStop                QString("Stop")
-#define KXMLQLCVCCueListSlidersMode         QString("SlidersMode")
-#define KXMLQLCVCCueListCrossfadeLeft       QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight      QString("CrossRight")
+#define KXMLQLCVCCueList                    QStringLiteral("CueList")
+#define KXMLQLCVCCueListChaser              QStringLiteral("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout      QStringLiteral("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior    QStringLiteral("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade           QStringLiteral("Crossfade")
+#define KXMLQLCVCCueListNext                QStringLiteral("Next")
+#define KXMLQLCVCCueListPrevious            QStringLiteral("Previous")
+#define KXMLQLCVCCueListPlayback            QStringLiteral("Playback")
+#define KXMLQLCVCCueListStop                QStringLiteral("Stop")
+#define KXMLQLCVCCueListSlidersMode         QStringLiteral("SlidersMode")
+#define KXMLQLCVCCueListCrossfadeLeft       QStringLiteral("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight      QStringLiteral("CrossRight")
 
 class ListModel;
 

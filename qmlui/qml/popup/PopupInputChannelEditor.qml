@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -223,21 +224,17 @@ CustomPopupDialog
                     CustomComboBox
                     {
                         id: midiMessageCombo
-                        ListModel
-                        {
-                            id: midiTypeModel
-                            ListElement { mLabel: "Control Change"; mValue: InputProfEditor.ControlChange }
-                            ListElement { mLabel: "Note On/Off"; mValue: InputProfEditor.NoteOnOff }
-                            ListElement { mLabel: "Note Aftertouch"; mValue: InputProfEditor.NoteAftertouch }
-                            ListElement { mLabel: "Program Change"; mValue: InputProfEditor.ProgramChange }
-                            ListElement { mLabel: "Channel Aftertouch"; mValue: InputProfEditor.ChannelAfterTouch }
-                            ListElement { mLabel: "Pitch Wheel"; mValue: InputProfEditor.PitchWheel }
-                            ListElement { mLabel: "Beat Clock: Start/Stop/Continue"; mValue: InputProfEditor.MBCPlayback }
-                            ListElement { mLabel: "Beat Clock: Beat"; mValue: InputProfEditor.MBCBeat }
-                        }
-
                         Layout.fillWidth: true
-                        model: midiTypeModel
+                        model: [
+                            { mLabel: "Control Change", mValue: InputProfEditor.ControlChange },
+                            { mLabel: "Note On/Off", mValue: InputProfEditor.NoteOnOff },
+                            { mLabel: "Note Aftertouch", mValue: InputProfEditor.NoteAftertouch },
+                            { mLabel: "Program Change", mValue: InputProfEditor.ProgramChange },
+                            { mLabel: "Channel Aftertouch", mValue: InputProfEditor.ChannelAfterTouch },
+                            { mLabel: "Pitch Wheel", mValue: InputProfEditor.PitchWheel },
+                            { mLabel: "Beat Clock: Start/Stop/Continue", mValue: InputProfEditor.MBCPlayback },
+                            { mLabel: "Beat Clock: Beat", mValue: InputProfEditor.MBCBeat }
+                        ]
                         onValueChanged: updateChannel()
                     }
 

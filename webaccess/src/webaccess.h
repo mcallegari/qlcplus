@@ -59,7 +59,7 @@ public:
 
 private:
     bool sendFile(QHttpResponse *response, QString filename, QString contentType);
-    void sendWebSocketMessage(QByteArray message);
+    void sendWebSocketMessage(const QString &message);
 
     QString getWidgetBackgroundImage(VCWidget *widget);
     QString getWidgetHTML(VCWidget *widget);
@@ -80,7 +80,7 @@ private:
     QString getSimpleDeskHTML();
 
 protected slots:
-    void slotHandleRequest(QHttpRequest *req, QHttpResponse *resp);
+    void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp);
     void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
     void slotHandleWebSocketClose(QHttpConnection *conn);
 
@@ -106,8 +106,7 @@ protected slots:
     void slotFramePageChanged(int pageNum);
     void slotFrameDisableStateChanged(bool disable);
     void slotMatrixSliderValueChanged(int value);
-    void slotMatrixStartColorChanged();
-    void slotMatrixEndColorChanged();
+    void slotMatrixColorChanged(int);
     void slotMatrixAnimationValueChanged(QString name);
     void slotMatrixControlKnobValueChanged(int controlID, int value);
 

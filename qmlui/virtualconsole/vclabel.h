@@ -22,7 +22,7 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCLabel QString("Label")
+#define KXMLQLCVCLabel QStringLiteral("Label")
 
 class VCLabel : public VCWidget
 {

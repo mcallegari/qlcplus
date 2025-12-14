@@ -789,7 +789,7 @@ void ChaserEditor::slotPasteClicked()
     updateStepNumbers();
     updateClipboardButtons();
 
-    // this is done here cause of a misterious performance issue
+    // this is done here cause of a mysterious performance issue
     foreach (QTreeWidgetItem *item, selectionList)
         item->setSelected(true);
 }

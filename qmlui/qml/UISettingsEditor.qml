@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -55,11 +55,12 @@ Rectangle
         property Item rectItem
         property Item selectedItem
 
-        onColorChanged:
-        {
-            rectItem.color = Qt.rgba(r, g, b, 1.0)
-            selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))
-        }
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                rectItem.color = Qt.rgba(r, g, b, 1.0)
+                selectedItem.updateColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
@@ -68,6 +69,17 @@ Rectangle
         id: messagePopup
         standardButtons: Dialog.Ok
         onAccepted: close()
+    }
+
+    GenericButton
+    {
+        width: height
+        height: UISettings.iconSizeDefault
+        anchors.right: parent.right
+        border.color: UISettings.bgMedium
+        useFontawesome: true
+        label: FontAwesome.fa_xmark
+        onClicked: mainView.loadResource("qrc:/FixturesAndFunctions.qml")
     }
 
     Component

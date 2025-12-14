@@ -105,8 +105,8 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
                 if (!pValue.isEmpty())
                     propCombo->setCurrentText(pValue);
 
-                connect(propCombo, SIGNAL(currentIndexChanged(QString)),
-                        this, SLOT(slotPropertyComboChanged(QString)));
+                connect(propCombo, SIGNAL(currentIndexChanged(int)),
+                        this, SLOT(slotPropertyComboChanged(int)));
 
                 m_propertiesLayout->addWidget(propCombo, gridRowIdx, 1);
                 m_properties[prop.m_name] = pValue;
@@ -182,16 +182,18 @@ void VCMatrixPresetSelection::displayProperties(RGBScript *script)
 void VCMatrixPresetSelection::slotUpdatePresetProperties()
 {
     resetProperties(m_propertiesLayout->layout());
-    RGBScript selScript = m_doc->rgbScriptsCache()->script(m_presetCombo->currentText());
-    displayProperties(&selScript);
+    RGBScript* selScript = m_doc->rgbScriptsCache()->script(m_presetCombo->currentText());
+    displayProperties(selScript);
+    delete selScript;
 }
 
-void VCMatrixPresetSelection::slotPropertyComboChanged(QString value)
+void VCMatrixPresetSelection::slotPropertyComboChanged(int index)
 {
-    qDebug() << "Property combo changed to" << value;
     QComboBox *combo = qobject_cast<QComboBox *>(sender());
     QString pName = combo->property("pName").toString();
-    m_properties[pName] = value;
+    QString pValue = combo->itemText(index);
+    qDebug() << "Property combo changed to" << pValue;
+    m_properties[pName] = pValue;
 }
 
 void VCMatrixPresetSelection::slotPropertySpinChanged(int value)
@@ -223,7 +225,7 @@ QString VCMatrixPresetSelection::selectedPreset()
     return m_presetCombo->currentText();
 }
 
-QHash<QString, QString> VCMatrixPresetSelection::customizedProperties()
+QMap<QString, QString> VCMatrixPresetSelection::customizedProperties()
 {
     return m_properties;
 }

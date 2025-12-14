@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.5
+import QtQuick
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -94,12 +94,12 @@ Item
                 item.currentValue = itemRoot.channelValue
                 item.targetColor = itemRoot.channelType
             }
-            else if (channelType == QLCChannel.Intensity)
+            else if (channelType === QLCChannel.Intensity)
             {
-                item.show(itemRoot.channelValue)
+                item.setValue(itemRoot.channelValue)
             }
-            else if (channelType == QLCChannel.Pan ||
-                     channelType == QLCChannel.Tilt)
+            else if (channelType === QLCChannel.Pan ||
+                     channelType === QLCChannel.Tilt)
             {
                 item.currentValue = itemRoot.channelValue
                 item.maxDegrees = fixtureManager.channelDegrees(itemRoot.fixtureId, itemRoot.channelIndex)
@@ -117,9 +117,9 @@ Item
         {
             ignoreUnknownSignals: true
             target: toolLoader.item
-            function onValueChanged()
+            function onValueChanged(value)
             {
-                itemRoot.valueChanged(itemRoot.fixtureId, itemRoot.channelIndex, target.currentValue)
+                itemRoot.valueChanged(itemRoot.fixtureId, itemRoot.channelIndex, value)
             }
             function onClose()
             {

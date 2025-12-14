@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -113,6 +113,37 @@ Item
         source: "qrc:/lock.svg"
         sourceSize: Qt.size(width, height)
         visible: sfRef ? (sfRef.locked ? true : false) : false
+    }
+
+    /* Waveform for audio items */
+    Image
+    {
+        id: waveformImage
+        z: 3
+        anchors.fill: parent
+        visible: funcRef && funcRef.type === QLCFunction.AudioType
+        cache: false
+        fillMode: Image.Stretch
+
+        source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
+
+        function reload()
+        {
+            const old = source;
+            source = "";
+            source = old;
+        }
+
+        Connections
+        {
+            target: waveformProvider
+
+            function onWaveformUpdated(fid)
+            {
+                if (funcRef && fid === funcRef.id)
+                    waveformImage.reload()
+            }
+        }
     }
 
     Canvas
@@ -370,9 +401,9 @@ Item
 
             onPressed: isDragging = true
 
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var hdlPos = mapToItem(itemRoot.parent, horLeftHandler.x, horLeftHandler.y)
                     itemRoot.width = itemRoot.width + (itemRoot.x - hdlPos.x + mouse.x)
@@ -385,7 +416,7 @@ Item
             }
             onReleased:
             {
-                if (drag.active == false)
+                if (drag.active === false)
                     return
 
                 if (sfRef)
@@ -460,11 +491,11 @@ Item
 
             onPressed: isDragging = true
 
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
                 //var mp = mapToItem(itemRoot, mouseX, mouseY)
                 //console.log("Mouse position: " + mp.x)
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
                     //console.log("Mapped position: " + obj.x)
@@ -476,7 +507,7 @@ Item
             }
             onReleased:
             {
-                if (drag.active == false)
+                if (drag.active === false)
                     return
 
                 if (sfRef)

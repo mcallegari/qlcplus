@@ -1,4 +1,6 @@
-body { margin: 0px; }
+body {
+ margin: 0px;
+}
 
 form {
  position: absolute;
@@ -20,7 +22,7 @@ input:focus-visible {
  align-items: center;
  justify-content: center;
  box-sizing: border-box;
- border: 3px solid #A0A0A0;
+ border: 3px solid #a0a0a0;
  border-radius: 4px;
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
@@ -28,7 +30,7 @@ input:focus-visible {
 }
 
 .vcbutton-disabled {
- color: #A0A0A0!important;
+ color: #a0a0a0!important;
 }
 
 .vccuelist {
@@ -40,12 +42,7 @@ input:focus-visible {
 .vccuelistButton {
  display: inline-block;
  vertical-align: top;
- background: linear-gradient(to bottom, #F6F6F6 0%, #DFDDDC 100%);
- background: -ms-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
- background: -moz-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
- background: -o-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #DFDDDC));
- background: -webkit-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
+ background: linear-gradient(to bottom, #f6f6f6 0%, #dfdddc 100%);
  border-radius: 3px;
  border: 1px solid #808080;
  margin: 2px 2px 0 0;
@@ -61,10 +58,12 @@ input:focus-visible {
 }
 
 .vccuelistButtonPaused {
- background: #5B81FF!important;
+ background: #5b81ff!important;
 }
 
-.vccuelistButton:active { background: #868585; }
+.vccuelistButton:active {
+ background: #868585;
+}
 
 .vccuelistFadeButton {
  border-radius: 3px;
@@ -83,7 +82,7 @@ input:focus-visible {
 .vccuelistProgress {
  margin-top: 2px;
  width: 100%;
- background-color: #C3C3C3;
+ background-color: #c3c3c3;
  border: 1px solid grey;
  height: 20px;
 }
@@ -91,28 +90,28 @@ input:focus-visible {
 .vccuelistProgressBar {
  width: 0%;
  height: 20px;
- background-color: #0F9BEC;
+ background-color: #0f9bec;
 }
 
 .vccuelistProgressVal {
-  width: 100%;
-  text-align: center;
-  height: 27px;
-  line-height: 20px;
-  margin-top: -20px;
+ width: 100%;
+ text-align: center;
+ height: 27px;
+ line-height: 20px;
+ margin-top: -20px;
 }
 
 table.hovertable {
- font-family: verdana,arial,sans-serif;
- font-size:11px;
- color:#333333;
+ font-family: verdana, arial, sans-serif;
+ font-size: 11px;
+ color: #333333;
  border-width: 1px;
  border-color: #999999;
  border-collapse: collapse;
 }
 
 table.hovertable th {
- background-color:#DCD9D6;
+ background-color: #dcd9d6;
  border-width: 1px;
  padding: 3px;
  border-style: solid;
@@ -121,15 +120,15 @@ table.hovertable th {
 }
 
 table.hovertable tr {
- background-color:#ffffff;
+ background-color: #ffffff;
 }
 
 table.cell-disabled tr {
-  background-color: #eee;
- }
+ background-color: #eee;
+}
 
 table.hovertable tr:hover {
- background-color:#CCD9FF;
+ background-color: #ccd9ff;
 }
 
 table.hovertable td {
@@ -148,11 +147,6 @@ table.hovertable td {
 
 .vcframeHeader {
  background: linear-gradient(to bottom, #666666 0%, #000000 100%);
- background: -ms-linear-gradient(top, #666666 0%, #000000 100%);
- background: -moz-linear-gradient(top, #666666 0%, #000000 100%);
- background: -o-linear-gradient(top, #666666 0%, #000000 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
- background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
  margin: 2px 0 0 2px;
  padding: 0 0 0 3px;
@@ -161,7 +155,7 @@ table.hovertable td {
 
 .vcFrameText {
  height: 30px;
- font:normal 14px/1.0em sans-serif;
+ font: normal 14px/1.0em sans-serif;
  white-space: nowrap;
  overflow: hidden;
  text-overflow: clip;
@@ -173,7 +167,7 @@ table.hovertable td {
 .vcframeButton {
  display: inline-block;
  vertical-align: top;
- background: #E0DFDF;
+ background: #e0dfdf;
  border-radius: 3px;
  border: 1px solid #000;
  margin: 2px 0 0 2px;
@@ -182,7 +176,9 @@ table.hovertable td {
  width: 28px;
 }
 
-.vcframeButton:active { background: #868585; }
+.vcframeButton:active {
+ background: #868585;
+}
 
 .vcframePageLabel {
  display: inline-block;
@@ -206,23 +202,20 @@ table.hovertable td {
 }
 
 .vcsoloframeHeader {
- background: linear-gradient(to bottom, #BC0A0A 0%, #370303 100%);
- background: -ms-linear-gradient(top, #BC0A0A 0%, #370303 100%);
- background: -moz-linear-gradient(top, #BC0A0A 0%, #370303 100%);
- background: -o-linear-gradient(top, #BC0A0A 0%, #370303 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
- background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
+ background: linear-gradient(to bottom, #bc0a0a 0%, #370303 100%);
  border-radius: 3px;
  margin: 2px 2px 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
 
-.vclabel-wrapper { position: absolute; }
+.vclabel-wrapper {
+ position: absolute;
+}
 
 .vclabel {
  display: table-cell;
- border: 1px solid #A0A0A0;
+ border: 1px solid #a0a0a0;
  border-radius: 3px;
  font-family: arial, verdana, sans-serif;
  text-align:center;
@@ -230,7 +223,7 @@ table.hovertable td {
 }
 
 .vclabel-disabled {
- color: #A0A0A0!important;
+ color: #a0a0a0!important;
 }
 
 .vcclock, .vcclockcount {
@@ -246,41 +239,35 @@ table.hovertable td {
 }
 
 .vcslLabel {
- height:20px;
- text-align:center;
- font:normal 16px sans-serif;
+ height: 20px;
+ text-align: center;
+ font: normal 16px sans-serif;
 }
 
 .vcslLabel-disabled {
- color: #A0A0A0!important;
+ color: #a0a0a0!important;
 }
 
-input[type=range]{
- -webkit-appearance: none;
+input[type="range"] {
+ appearance: none;
 }
 
-/* Chrome, Firefox */
 input[type="range"].vVertical {
  --rotate: 270;
  height: 4px;
- border: 1px solid #8E8A86;
+ border: 1px solid #8e8a86;
  background-color: #888888;
- -webkit-transform:rotate(calc(var(--rotate) * 1deg));
- -webkit-transform-origin: 0% 50%;
- -moz-transform:rotate(calc(var(--rotate) * 1deg));
- -o-transform:rotate(calc(var(--rotate) * 1deg));
- -ms-transform:rotate(calc(var(--rotate) * 1deg));
- -ms-transform-origin:0% 50%;
- transform:rotate(calc(var(--rotate) * 1deg));
- transform-origin:0% 50%;
+ transform: rotate(calc(var(--rotate) * 1deg));
+ transform-origin: 0% 50%;
 }
 
 input[type="range"].vVertical-disabled {
  background-color: #ccc!important;
 }
 
+/* Chrome, Edge, Opera */
 input[type="range"]::-webkit-slider-thumb {
- -webkit-appearance: none;
+ appearance: none;
  background-color: #999999;
  border-radius: 4px;
  border: 1px solid #5c5c5c;
@@ -289,17 +276,22 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 input[type="range"]:disabled::-webkit-slider-thumb {
- -webkit-appearance: none;
+ appearance: none;
  background-color: #ccc;
 }
 
 /* Firefox */
-input[type=range]::-moz-range-thumb {
- background-color: #ccc;
+input[type="range"]::-moz-range-thumb {
+ appearance: none;
+ background-color: #999999;
+ border-radius: 4px;
+ border: 1px solid #5c5c5c;
+ width: 20px;
+ height: 36px;
 }
 
-input[type="range"]:disabled::-webkit-slider-thumb {
- -webkit-appearance: none;
+input[type="range"]:disabled::-moz-range-thumb {
+ appearance: none;
  background-color: #ccc;
 }
 
@@ -310,24 +302,21 @@ input[type="range"]:disabled::-webkit-slider-thumb {
 }
 
 .vcaudioHeader {
- background: linear-gradient(to bottom, #345D27 0%, #0E1A0A 100%);
- background: -ms-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
- background: -moz-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
- background: -o-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #345D27), color-stop(1, #0E1A0A));
- background: -webkit-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
+ background: linear-gradient(to bottom, #345d27 0%, #0e1a0a 100%);
  border-radius: 3px;
  height: 32px;
  margin: 2px;
  padding: 0 0 0 3px;
- font:normal 20px/1.2em sans-serif;
+ font: normal 20px/1.2em sans-serif;
 }
 
-.vcatbutton-wrapper { position: absolute; }
+.vcatbutton-wrapper {
+ position: absolute;
+}
 
 .vcatbutton {
  display: table-cell;
- border: 3px solid #A0A0A0;
+ border: 3px solid #a0a0a0;
  border-radius: 4px;
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
@@ -339,15 +328,13 @@ input[type="range"]:disabled::-webkit-slider-thumb {
  position: absolute;
  border: 1px solid #777777;
  border-radius: 3px;
- font-family: arial, verdana, sans-serif;
- font-size: 18px/1.0em;
+ font: 18px/1.0em arial, verdana, sans-serif;
 }
 
 .vcmatrix {
  position: absolute;
  border: 1px solid #777777;
- font-family: arial, verdana, sans-serif;
- font-size: 18px/1.0em;
+ font: 18px/1.0em arial, verdana, sans-serif;
 }
 
 input[type="color"].vMatrix {
@@ -368,7 +355,7 @@ input[type="color"].vMatrix {
 
 .pushButton {
  height: 32px;
- border: 2px solid #6A6A6A;
+ border: 2px solid #6a6a6a;
  border-radius: 5px;
  cursor: pointer;
  display: flex;
@@ -380,15 +367,15 @@ input[type="color"].vMatrix {
  font-size: 12px;
 }
 .pushButton:disabled {
- border: 2px solid #BBBBBB;
+ border: 2px solid #bbbbbb;
  color: #8f8f8f
 }
 
 .pushButton:active {
- border: 2px solid #0000FF;
+ border: 2px solid #0000ff;
 }
 
-@property --degValue{
+@property --degValue {
  syntax: '<number>';
  inherits: true;
  initial-value: 0;
@@ -405,33 +392,33 @@ input[type="color"].vMatrix {
 }
 
 .pie {
- --degValue:20;
- --pieWidth:150px;
+ --degValue: 20;
+ --pieWidth: 150px;
  --color1: lime;
  --color2: #555;
 
- width:var(--pieWidth);
+ width: var(--pieWidth);
  height: var(--pieWidth);
- aspect-ratio:1;
- position:relative;
- display:flex;
+ aspect-ratio: 1;
+ position: relative;
+ display: flex;
  align-items: center;
  justify-content: center;
 }
 
 .pie::before {
- content:"";
- position:absolute;
- border-radius:50%;
- inset:0;
+ content: "";
+ position: absolute;
+ border-radius: 50%;
+ inset: 0;
  transform: rotate(190deg);
  background: conic-gradient(var(--color1) calc(var(--degValue) * 1deg), var(--color2) calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
 }
 
 .knobWrapper {
- --knobWrapperWidth:145px;
+ --knobWrapperWidth: 145px;
 
- width:var(--knobWrapperWidth);
+ width: var(--knobWrapperWidth);
  height: var(--knobWrapperWidth);
  background-color: #aaa;
  border-radius: 50%;
@@ -443,9 +430,9 @@ input[type="color"].vMatrix {
 }
 
 .knob {
- --knobWidth:110px;
+ --knobWidth: 110px;
 
- width:var(--knobWidth);
+ width: var(--knobWidth);
  height: var(--knobWidth);
  background: #bbb;
  border-radius: 50%;
@@ -454,9 +441,9 @@ input[type="color"].vMatrix {
 }
 
 .spot {
- --spotWidth:15px;
+ --spotWidth: 15px;
 
- width:var(--spotWidth);
+ width: var(--spotWidth);
  height: var(--spotWidth);
  background-color: #ccc;
  border-radius: 50%;
@@ -469,22 +456,22 @@ input[type="color"].vMatrix {
 }
 
 .mpie {
- --degValue:0;
+ --degValue: 0;
 
  width: 36px;
  height: 36px;
- aspect-ratio:1;
- position:relative;
- display:flex;
+ aspect-ratio: 1;
+ position: relative;
+ display: flex;
  align-items: center;
  justify-content: center;
 }
 
 .mpie::before {
- content:"";
- position:absolute;
- border-radius:50%;
- inset:0;
+ content: "";
+ position: absolute;
+ border-radius: 50%;
+ inset: 0;
  transform: rotate(190deg);
  background: conic-gradient(lime calc(var(--degValue) * 1deg), #555 calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
 }
@@ -521,4 +508,28 @@ input[type="color"].vMatrix {
  transform: translate(-50%, -50%);
  cursor: pointer;
  border: solid 1px;
+}
+
+#vc {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ height: calc(100vh - 40px); /* Minus controlBar height */
+}
+
+#vcScrollContainer {
+ overflow: auto;
+}
+
+#vcGM {
+ height: calc(100vh - 40px);
+ width: 40px;
+ background-color: #ccc;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+}
+
+#vcGM .vcslLabel {
+ height: auto;
 }

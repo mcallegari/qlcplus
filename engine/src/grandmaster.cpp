@@ -22,12 +22,12 @@
 #include "grandmaster.h"
 #include "qlcmacros.h"
 
-#define KXMLQLCGMValueModeLimit "Limit"
-#define KXMLQLCGMValueModeReduce "Reduce"
-#define KXMLQLCGMChannelModeAllChannels "All"
-#define KXMLQLCGMChannelModeIntensity "Intensity"
-#define KXMLQLCGMSliderModeNormal "Normal"
-#define KXMLQLCGMSliderModeInverted "Inverted"
+#define KXMLQLCGMValueModeLimit            QStringLiteral("Limit")
+#define KXMLQLCGMValueModeReduce           QStringLiteral("Reduce")
+#define KXMLQLCGMChannelModeAllChannels    QStringLiteral("All")
+#define KXMLQLCGMChannelModeIntensity      QStringLiteral("Intensity")
+#define KXMLQLCGMSliderModeNormal          QStringLiteral("Normal")
+#define KXMLQLCGMSliderModeInverted        QStringLiteral("Inverted")
 
 GrandMaster::GrandMaster(QObject *parent)
     : QObject(parent)

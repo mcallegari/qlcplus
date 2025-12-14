@@ -17,7 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
+import QtQuick.Layouts
+
 import "."
 
 Rectangle
@@ -36,7 +38,7 @@ Rectangle
 
     onVisibleChanged:
     {
-        if(visible == false)
+        if (visible === false)
             editorLoader.source = ""
         else
             editorLoader.source = editorSource
@@ -93,29 +95,6 @@ Rectangle
             GradientStop { position: 1; color: "#141414" }
         }
 
-        IconButton
-        {
-            id: expandButton
-            x: parent.width - width - 4
-            z: 2
-            anchors.verticalCenter: parent.verticalCenter
-            width: height * 1.2
-            height: parent.height * 0.7
-            checkable: true
-            tooltip: qsTr("Expand/Collapse this panel")
-            onToggled: animatePanel(checked)
-
-            Image
-            {
-                anchors.centerIn: parent
-                source: "qrc:/arrow-down.svg"
-                width: parent.width * 0.8
-                height: parent.height * 0.5
-                rotation: expandButton.checked ? 0 : 180
-                sourceSize: Qt.size(width, height)
-            }
-        }
-
         MouseArea
         {
             id: rpClickArea
@@ -130,7 +109,7 @@ Rectangle
 
             onPositionChanged:
             {
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var newHeight = bottomSidePanel.parent.height - bottomSidePanel.y
                     if (newHeight < collapseHeight)
@@ -139,6 +118,62 @@ Rectangle
                 }
             }
             //onClicked: animatePanel()
+        }
+
+        RowLayout
+        {
+            anchors.fill: parent
+            z: 2
+
+            // filler
+            Rectangle
+            {
+                height: parent.height
+                Layout.fillWidth: true
+                color: "transparent"
+            }
+
+            IconButton
+            {
+                visible: isOpen && editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Copy the selected channel values to all the fixtures of the same type")
+                enabled: isOpen && sceneEditor.selectedChannelCount > 0 ? true : false
+                onClicked: if (sceneEditor) sceneEditor.pasteToAllFixtureSameType()
+            }
+
+            IconButton
+            {
+                visible: isOpen && editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                imgSource: "qrc:/multiple.svg"
+                tooltip: qsTr("Toggle multiple channel selection")
+                checkable: true
+                onToggled: editorLoader.item.multipleSelection = checked
+            }
+
+            IconButton
+            {
+                id: expandButton
+                width: height * 1.2
+                height: parent.height * 0.7
+                checkable: true
+                tooltip: qsTr("Expand/Collapse this panel")
+                onToggled: animatePanel(checked)
+
+                Text
+                {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: UISettings.fgLight
+                    font.family: UISettings.fontAwesomeFontName
+                    font.pixelSize: parent.height - 8
+                    text: expandButton.checked ? FontAwesome.fa_chevron_down : FontAwesome.fa_chevron_up
+                }
+            }
         }
     }
 

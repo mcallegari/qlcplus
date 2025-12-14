@@ -83,7 +83,12 @@ public slots:
     void slotAttributeChanged(int attrIndex, qreal value);
 
 protected slots:
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     void slotMetaDataChanged(const QString &key, const QVariant &value);
+#else
+    void slotDurationChanged(qint64 duration);
+    void slotMetaDataChanged();
+#endif
     void slotWindowClosing();
 
 protected:

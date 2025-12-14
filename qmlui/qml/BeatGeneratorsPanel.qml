@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "GenericHelpers.js" as Helpers
 import "."
@@ -72,7 +72,7 @@ Rectangle
             anchors.right: parent.right
             border.color: UISettings.bgMedium
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
             onClicked: beatChooserBox.visible = false
         }
     }
@@ -160,7 +160,7 @@ Rectangle
             visible: ioManager.beatType === "INTERNAL"
             commandString: ioManager.bpmNumber
 
-            onExecuteCommand:
+            onExecuteCommand: (cmd) =>
             {
                 var intCmd = parseInt(cmd)
                 if (intCmd === 0 || intCmd > 300)
@@ -170,7 +170,7 @@ Rectangle
             }
             onEscapePressed: beatChooserBox.visible = false
 
-            onTapTimeChanged: ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
+            onTapTimeChanged: (time) => ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
         }
     }
 }

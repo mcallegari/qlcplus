@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>massimo</Author>
+ </Creator>
+ <Manufacturer>M-Wave</Manufacturer>
+ <Model>SMC Mixer</Model>
+ <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
+ <Channel Number="16">
+  <Name>Encoder 1</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="17">
+  <Name>Encoder 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Encoder 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Encoder 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Encoder 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Encoder 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Encoder 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Encoder 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="128">
+  <Name>Record 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>Record 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Record 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Record 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Record 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Record 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Record 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Record 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Solo 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Solo 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Solo 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Solo 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Solo 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Solo 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Solo 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Solo 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Mute 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Mute 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Mute 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Mute 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Mute 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Mute 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Mute 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Mute 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Stop 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Stop 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Stop 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Stop 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Stop 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>Stop 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>Stop 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Stop 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Previous</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Next</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>Rewind</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>Forward</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="221">
+  <Name>Pause</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="222">
+  <Name>Play</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="223">
+  <Name>Record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="513">
+  <Name>Fader 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4609">
+  <Name>Fader 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8705">
+  <Name>Fader 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12801">
+  <Name>Fader 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16897">
+  <Name>Fader 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20993">
+  <Name>Fader 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25089">
+  <Name>Fader 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29185">
+  <Name>Fader 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

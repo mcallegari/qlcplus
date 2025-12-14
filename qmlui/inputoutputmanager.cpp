@@ -213,6 +213,11 @@ void InputOutputManager::removeLastUniverse()
     emit universeNamesChanged();
 }
 
+int InputOutputManager::universesCount()
+{
+    return m_ioMap->universesCount();
+}
+
 bool InputOutputManager::blackout() const
 {
     return m_blackout;
@@ -490,17 +495,37 @@ void InputOutputManager::addInputPatch(int universe, QString plugin, QString lin
     emit inputCanConfigureChanged();
 }
 
-void InputOutputManager::setFeedbackPatch(int universe, bool enable)
+bool InputOutputManager::setFeedbackPatch(int universe, bool enable)
 {
     InputPatch *patch = m_ioMap->inputPatch(universe);
 
     if (patch == nullptr)
-        return;
+        return false;
 
     if (enable)
-        m_ioMap->setOutputPatch(universe, patch->pluginName(), "", patch->input(), true);
+    {
+        // find a matching output line
+        QString inputName = patch->inputName();
+        int i = 0;
+        bool found = false;
+
+        for (QString &pLine : m_ioMap->pluginOutputs(patch->pluginName()))
+        {
+            if (pLine == inputName)
+            {
+                m_ioMap->setOutputPatch(universe, patch->pluginName(), "", i, true);
+                found = true;
+                break;
+            }
+            i++;
+        }
+        return found;
+    }
     else
+    {
         m_ioMap->setOutputPatch(universe, KInputNone, "", QLCIOPlugin::invalidLine(), true);
+    }
+    return true;
 }
 
 void InputOutputManager::removeInputPatch(int universe)

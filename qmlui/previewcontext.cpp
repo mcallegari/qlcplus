@@ -186,6 +186,8 @@ void PreviewContext::setDetached(bool detached)
     }
 
     m_detached = detached;
+
+    emit detachedChanged();
 }
 
 void PreviewContext::handleKeyEvent(QKeyEvent *e, bool pressed)

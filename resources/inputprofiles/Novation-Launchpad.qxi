@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE InputProfile>
 <InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.5 GIT</Version>
-  <Author>Maikel Boerebach</Author>
+  <Version>4.13.1</Version>
+  <Author>Maikel Boerebach+Jan Fries</Author>
  </Creator>
  <Manufacturer>Novation</Manufacturer>
  <Model>Launchpad</Model>
@@ -329,4 +329,29 @@
   <Name>Button 9-8</Name>
   <Type>Button</Type>
  </Channel>
+ <ColorTable>
+  <Color Value="18" Label="Flash Red Low" RGB="#550000"/>
+  <Color Value="20" Label="Flash Red Medium" RGB="#aa0000"/>
+  <Color Value="22" Label="Flash Red Full" RGB="#ff0000"/>
+  <Color Value="24" Label="Off" RGB="#000000"/>
+  <Color Value="26" Label="Red Low" RGB="#550000"/>
+  <Color Value="28" Label="Red Medium" RGB="#aa0000"/>
+  <Color Value="30" Label="Red Full" RGB="#ff0000"/>
+  <Color Value="48" Label="Flash Green Low" RGB="#005500"/>
+  <Color Value="50" Label="Flash Amber Low" RGB="#906000"/>
+  <Color Value="56" Label="Green Low" RGB="#005500"/>
+  <Color Value="58" Label="Amber Low" RGB="#906000"/>
+  <Color Value="80" Label="Flash Green Medium" RGB="#00aa00"/>
+  <Color Value="82" Label="Flash Yellow Medium" RGB="#aaaa00"/>
+  <Color Value="84" Label="Flash Amber Medium" RGB="#cc8800"/>
+  <Color Value="88" Label="Green Medium" RGB="#00aa00"/>
+  <Color Value="90" Label="Yellow Medium" RGB="#aaaa00"/>
+  <Color Value="92" Label="Amber Medium" RGB="#cc8800"/>
+  <Color Value="112" Label="Flash Green Full" RGB="#00ff00"/>
+  <Color Value="116" Label="Flash Yellow Full" RGB="#ffff00"/>
+  <Color Value="118" Label="Flash Amber Full" RGB="#ffaa00"/>
+  <Color Value="120" Label="Green Full" RGB="#00ff00"/>
+  <Color Value="124" Label="Yellow Full" RGB="#ffff00"/>
+  <Color Value="126" Label="Amber Full" RGB="#ffaa00"/>
+ </ColorTable>
 </InputProfile>

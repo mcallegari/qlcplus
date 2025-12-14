@@ -55,6 +55,7 @@ private:
 
 signals:
     void itemsCountChanged(int itemsCount);
+    void itemSelectionChanged(int itemIndex, bool selected);
 
 private:
     /** List of the currently selected item indices */

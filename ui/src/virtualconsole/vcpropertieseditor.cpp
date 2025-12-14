@@ -196,6 +196,8 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         restoreGeometry(geometrySettings.toByteArray());
 
     /* Grand Master page */
+    m_gmVisible->setChecked(properties.grandMasterVisible());
+
     switch (properties.grandMasterChannelMode())
     {
     default:
@@ -218,7 +220,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         break;
     }
 
-    switch (properties.grandMasterSlideMode())
+    switch (properties.grandMasterSliderMode())
     {
     default:
     case GrandMaster::Normal:
@@ -332,6 +334,11 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
 /*****************************************************************************
  * Grand Master page
  *****************************************************************************/
+
+void VCPropertiesEditor::slotGrandMasterVisibleToggled(bool checked)
+{
+    m_properties.setGrandMasterVisible(checked);
+}
 
 void VCPropertiesEditor::slotGrandMasterIntensityToggled(bool checked)
 {

@@ -284,7 +284,7 @@ void Tardis::run()
                     action.m_objID == m_history.at(i).m_objID &&
                     action.m_oldValue == m_history.at(i).m_newValue)
                 {
-                    qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
+                    //qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
                     action.m_oldValue = m_history.at(i).m_oldValue;
                     m_history.replace(i, action);
                     match = true;
@@ -310,7 +310,7 @@ void Tardis::run()
 
         m_historyIndex = m_history.count() - 1;
 
-        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
+        //qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, int(m_history.count()));
 
         /* If there are active network connections, send the action there too */
         forwardActionToNetwork(action.m_action, action);
@@ -889,6 +889,12 @@ int Tardis::processAction(TardisAction &action, bool undo)
             processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
             return undo ? EFXAddFixture : EFXRemoveFixture;
 
+        case EFXFixturePropagation:
+        {
+            auto member = std::mem_fn(&EFX::setPropagationMode);
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), EFX::PropagationMode(value->toInt()));
+        }
+        break;
         case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
@@ -1001,16 +1007,34 @@ int Tardis::processAction(TardisAction &action, bool undo)
             matrix->setAlgorithm(algo);
         }
         break;
-        case RGBMatrixSetStartColor:
+        case RGBMatrixSetColor1:
         {
-            auto member = std::mem_fn(&RGBMatrix::setStartColor);
-            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 0, value->value<QColor>());
         }
         break;
-        case RGBMatrixSetEndColor:
+        case RGBMatrixSetColor2:
         {
-            auto member = std::mem_fn(&RGBMatrix::setEndColor);
-            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 1, value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetColor3:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 2, value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetColor4:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 3, value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetColor5:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), 4, value->value<QColor>());
         }
         break;
         case RGBMatrixSetScriptIntValue:

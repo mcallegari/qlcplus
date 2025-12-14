@@ -21,10 +21,12 @@
 #ifndef DMXINTERFACE_H
 #define DMXINTERFACE_H
 
-#include <QtCore>
+#include <QThread>
+#include <QString>
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 #define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
+#define READ_CHUNK_SIZE 512
 
 class DMXInterface
 {
@@ -47,8 +49,6 @@ public:
 
     /** Destructor */
     virtual ~DMXInterface();
-
-    virtual bool readLabel(uchar label, int &ESTA_code, QString &strParam) = 0;
 
     /** Get the widget's USB serial number */
     QString serial() const;
@@ -165,7 +165,7 @@ public:
     /**
      * Set the widget in "low latency mode". Some DMX controllers send DMX
      * frames at a much higher rate than the specified value. USB widget may
-     * have difficulties to read independant frames in this case and need
+     * have difficulties to read independent frames in this case and need
      * some configuration.
      *
      * @param lowLatency true for low latency, false otherwise
@@ -186,7 +186,7 @@ public:
     virtual bool write(const QByteArray& data) = 0;
 
     /** Read data from a previously-opened line. Optionally provide own data buffer. */
-    virtual QByteArray read(int size, uchar* buffer = NULL) = 0;
+    virtual QByteArray read(int size) = 0;
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
     virtual uchar readByte(bool* ok = NULL) = 0;

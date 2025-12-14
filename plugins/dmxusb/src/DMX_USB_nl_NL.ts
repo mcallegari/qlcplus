@@ -140,37 +140,37 @@
 <context>
     <name>EnttecDMXUSBOpen</name>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="117"/>
+        <location filename="enttecdmxusbopen.cpp" line="116"/>
         <source>Protocol</source>
         <translation>Protocol</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="122"/>
+        <location filename="enttecdmxusbopen.cpp" line="121"/>
         <source>DMX Channels</source>
         <translation>DMX kanalen</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="125"/>
+        <location filename="enttecdmxusbopen.cpp" line="124"/>
         <source>DMX Frame Frequency</source>
         <translation>DMX Frame frequentie</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="129"/>
+        <location filename="enttecdmxusbopen.cpp" line="128"/>
         <source>Bad</source>
         <translation>Foutief</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="131"/>
+        <location filename="enttecdmxusbopen.cpp" line="130"/>
         <source>Good</source>
         <translation>Goed</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="133"/>
+        <location filename="enttecdmxusbopen.cpp" line="132"/>
         <source>Patch this widget to a universe to find out.</source>
         <translation type="unfinished">Patch deze widget aan een te ontdekken universe.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="134"/>
+        <location filename="enttecdmxusbopen.cpp" line="133"/>
         <source>System Timer Accuracy</source>
         <translation>Systeemklok precisie</translation>
     </message>
@@ -178,18 +178,18 @@
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="115"/>
-        <location filename="enttecdmxusbpro.cpp" line="117"/>
+        <location filename="enttecdmxusbpro.cpp" line="314"/>
+        <location filename="enttecdmxusbpro.cpp" line="316"/>
         <source>Protocol</source>
         <translation>Protocol</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="120"/>
+        <location filename="enttecdmxusbpro.cpp" line="319"/>
         <source>Manufacturer</source>
         <translation>Fabrikant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="122"/>
+        <location filename="enttecdmxusbpro.cpp" line="321"/>
         <source>Serial number</source>
         <translation>Serienummer</translation>
     </message>
@@ -200,7 +200,7 @@
         <location filename="euroliteusbdmxpro.cpp" line="171"/>
         <location filename="nanodmx.cpp" line="236"/>
         <location filename="stageprofi.cpp" line="141"/>
-        <location filename="vinceusbdmx512.cpp" line="47"/>
+        <location filename="vinceusbdmx512.cpp" line="233"/>
         <source>Protocol</source>
         <translation>Protocol</translation>
     </message>
@@ -208,13 +208,13 @@
         <location filename="euroliteusbdmxpro.cpp" line="173"/>
         <location filename="nanodmx.cpp" line="238"/>
         <location filename="stageprofi.cpp" line="143"/>
-        <location filename="vinceusbdmx512.cpp" line="49"/>
+        <location filename="vinceusbdmx512.cpp" line="235"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="126"/>
-        <location filename="enttecdmxusbopen.cpp" line="119"/>
+        <location filename="enttecdmxusbopen.cpp" line="118"/>
         <location filename="euroliteusbdmxpro.cpp" line="175"/>
         <location filename="nanodmx.cpp" line="240"/>
         <location filename="stageprofi.cpp" line="145"/>
@@ -225,27 +225,27 @@
         <location filename="euroliteusbdmxpro.cpp" line="178"/>
         <location filename="nanodmx.cpp" line="243"/>
         <location filename="stageprofi.cpp" line="148"/>
-        <location filename="vinceusbdmx512.cpp" line="51"/>
+        <location filename="vinceusbdmx512.cpp" line="237"/>
         <source>Serial number</source>
         <translation>Serienummer</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="326"/>
+        <location filename="enttecdmxusbpro.cpp" line="579"/>
         <source>MIDI Input</source>
         <translation>MIDI Ingang</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="328"/>
+        <location filename="enttecdmxusbpro.cpp" line="581"/>
         <source>DMX Input</source>
         <translation>DMX Ingang</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="333"/>
+        <location filename="enttecdmxusbpro.cpp" line="586"/>
         <source>MIDI Output</source>
         <translation>MIDI Uitgang</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="335"/>
+        <location filename="enttecdmxusbpro.cpp" line="588"/>
         <source>DMX Output</source>
         <translation>DMX Uitgang
 </translation>

@@ -74,7 +74,7 @@
   <Capability Min="127" Max="128">No rotation</Capability>
   <Capability Min="129" Max="255">Backwards rotation from slow to fast</Capability>
  </Channel>
- <Channel Name="Rotating gobos; continous rotation">
+ <Channel Name="Rotating gobos; continuous rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="31">Open</Capability>
   <Capability Min="32" Max="63">Rotation gobo 1 (dichroic)</Capability>
@@ -118,7 +118,7 @@
   <Channel Number="7">No function</Channel>
   <Channel Number="8">Frost, correction filters, 3-facet prism, Macros</Channel>
   <Channel Number="9">3-facet prism rotation control</Channel>
-  <Channel Number="10">Rotating gobos; continous rotation</Channel>
+  <Channel Number="10">Rotating gobos; continuous rotation</Channel>
   <Channel Number="11">Rotating gobo indexing, rotating gobo rotation</Channel>
   <Channel Number="12">No function 2</Channel>
   <Channel Number="13">Focus</Channel>

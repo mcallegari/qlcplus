@@ -17,20 +17,27 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Dialogs
+
 import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
 {
+    id: fixtureEditorView
     visible: true
     width: 800
     height: 600
     anchors.fill: parent
     color: UISettings.bgMedium
+
+    function setDimScreen(enable)
+    {
+        dimScreen.visible = enable
+    }
 
     FontLoader
     {
@@ -40,43 +47,111 @@ Rectangle
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
-        source: "qrc:/FontAwesome.otf"
+        source: "qrc:/FontAwesome7-Free-Solid-900.otf"
     }
 
-    FileDialog
-    {
-        id: openDialog
-        visible: false
-        title: qsTr("Open a fixture definition")
-        nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
+    property string dialogTitle
+    property url dialogCurrentFolder: fixtureEditor.workingPath
+    property url dialogSelectedFile
+    property var dialogNameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
+    property int dialogFileMode: FileDialog.OpenFile
+    property int dialogOpMode: App.OpenMode
 
-        onAccepted:
+    function openDialog(opMode)
+    {
+        var saveFilename = ""
+
+        dialogOpMode = opMode
+        switch (dialogOpMode)
         {
-            fixtureEditor.workingPath = folder.toString()
-            if (fixtureEditor.loadDefinition(fileUrl) === false)
+            case App.OpenMode:
+                dialogTitle = qsTr("Open a fixture definition")
+                dialogFileMode = FileDialog.OpenFile
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+                dialogTitle = qsTr("Save definition as...")
+                dialogFileMode = FileDialog.SaveFile
+                saveFilename = editor.editorView.fileName
+                if (saveFilename === "")
+                    saveFilename = editor.editorView.manufacturer.replace(" ", "-") + "-" +
+                                   editor.editorView.model.replace(" ", "-")
+            break
+        }
+
+        if (Qt.platform.os === "linux")
+        {
+            if (saveFilename !== "")
+                customDialog.selectedFile = saveFilename
+            customDialog.open()
+        }
+        else
+        {
+            if (saveFilename !== "")
+                nativeDialog.selectedFile = saveFilename
+            nativeDialog.open()
+        }
+    }
+
+    function handleAccept()
+    {
+        console.log("Selected file: " + dialogSelectedFile)
+
+        switch (dialogOpMode)
+        {
+            case App.OpenMode:
             {
-                editor.visible = false
-                messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
-                                            "It could be invalid or corrupted.")
-                messagePopup.open()
+                fixtureEditor.workingPath = dialogCurrentFolder.toString()
+
+                if (fixtureEditor.loadDefinition(dialogSelectedFile) === false)
+                {
+                    editor.visible = false
+                    messagePopup.message = qsTr("An error occurred while loading the selected file.<br>" +
+                                                "It could be invalid or corrupted.")
+                    messagePopup.open()
+                }
             }
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+            {
+                editor.save(dialogSelectedFile)
+                qlcplus.reloadFixture(dialogSelectedFile)
+            }
+            break
         }
     }
 
     FileDialog
     {
-        id: saveDialog
-        visible: false
-        title: qsTr("Save definition as...")
-        selectExisting: false
-        nameFilters: [ qsTr("Fixture definition files") + " (*.qxf)", qsTr("All files") + " (*)" ]
-        defaultSuffix: "qxf"
-        //fileMode: FileDialog.SaveFile
+        id: nativeDialog
+        title: dialogTitle
+        fileMode: dialogFileMode
+        currentFolder: "file:///" + dialogCurrentFolder
+        nameFilters: dialogNameFilters
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            editor.save(fileUrl)
+            dialogSelectedFile = selectedFile
+            dialogCurrentFolder = currentFolder
+            handleAccept()
+        }
+    }
+
+    PopupFolderBrowser
+    {
+        id: customDialog
+        title: dialogTitle
+        currentFolder: dialogCurrentFolder
+        nameFilters: dialogNameFilters
+        standardButtons: Dialog.Cancel |
+            ((dialogOpMode === App.SaveMode | dialogOpMode === App.SaveAsMode) ? Dialog.Save : Dialog.Open)
+
+        onAccepted:
+        {
+            dialogSelectedFile = currentFolder + folderSeparator() + selectedFile
+            dialogCurrentFolder = currentFolder
+            handleAccept()
         }
     }
 
@@ -100,32 +175,32 @@ Rectangle
         property var editRef
 
         onClicked:
-        {
-            if (role === Dialog.Yes)
+            function (role)
             {
-                if (editRef.fileName === "")
+                if (role === Dialog.Yes)
                 {
-                    saveDialog.folder = fixtureEditor.workingPath
-                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                    saveDialog.open()
+                    if (editRef.fileName === "")
+                    {
+                        dialogCurrentFolder = fixtureEditor.workingPath
+                        openDialog(App.SaveMode)
+                    }
+                    else
+                    {
+                        editRef.save("")
+                    }
                 }
-                else
+                else if (role === Dialog.No)
                 {
-                    editRef.save("")
+                    fixtureEditor.deleteEditor(editRef.id)
                 }
-            }
-            else if (role === Dialog.No)
-            {
-                fixtureEditor.deleteEditor(editRef.id)
-            }
-            else if (role === Dialog.Cancel)
-            {
-                return
-            }
+                else if (role === Dialog.Cancel)
+                {
+                    return
+                }
 
-            close()
-            checkBeforeExit()
-        }
+                close()
+                checkBeforeExit()
+            }
     }
 
     function checkBeforeExit()
@@ -170,9 +245,9 @@ Rectangle
 
             MenuBarEntry
             {
-                imgSource: "qrc:/arrow-right.svg"
+                faSource: FontAwesome.fa_chevron_left
+                faColor: UISettings.fgLight
                 entryText: qsTr("Back to QLC+")
-                iconRotation: 180
                 autoExclusive: false
                 checkable: false
                 onClicked: checkBeforeExit()
@@ -192,8 +267,8 @@ Rectangle
                 entryText: qsTr("Open definition")
                 onClicked:
                 {
-                    openDialog.folder = fixtureEditor.workingPath
-                    openDialog.open()
+                    dialogCurrentFolder = fixtureEditor.workingPath
+                    openDialog(App.OpenMode)
                 }
                 autoExclusive: false
                 checkable: false
@@ -208,9 +283,8 @@ Rectangle
                 {
                     if (editor.editorView.fileName === "")
                     {
-                        saveDialog.folder = fixtureEditor.workingPath
-                        //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                        saveDialog.open()
+                        dialogCurrentFolder = fixtureEditor.workingPath
+                        openDialog(App.SaveMode)
                     }
                     else
                     {
@@ -226,9 +300,8 @@ Rectangle
                 checkable: false
                 onClicked:
                 {
-                    saveDialog.folder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
-                    //saveDialog.currentFile = "file:///" + editor.editorView.fileName
-                    saveDialog.open()
+                    dialogCurrentFolder = fixtureEditor.workingPath + "/" + editor.editorView.fileName
+                    openDialog(App.SaveAsMode)
                 }
             }
             // filler
@@ -264,7 +337,7 @@ Rectangle
                 id: editorsRepeater
                 model: fixtureEditor ? fixtureEditor.editorsList : null
 
-                onItemAdded: item.clicked()
+                onItemAdded: (index,item) => item.clicked()
 
                 delegate:
                     MenuBarEntry

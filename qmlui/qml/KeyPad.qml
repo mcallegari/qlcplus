@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import "TimeUtils.js" as TimeUtils
 
@@ -96,7 +96,7 @@ Rectangle
             implicitHeight: itemHeight
             label: qsTr("Tap")
 
-            onClicked:
+            onClicked: (mouseButton) =>
             {
                 /* right click resets the current TAP time */
                 if (mouseButton === Qt.RightButton)
@@ -230,11 +230,13 @@ Rectangle
         {
             Layout.fillWidth: true
             implicitHeight: itemHeight
-            label: "-"
+            label: showDMXcontrol ? "-%" : "-"
             repetition: true
             onClicked:
             {
-                if (showDMXcontrol == false)
+                if (showDMXcontrol)
+                    commandBox.appendText(" -% ")
+                else
                     commandBox.text = parseInt(commandBox.text) - 1
             }
         }
@@ -249,11 +251,13 @@ Rectangle
         {
             Layout.fillWidth: true
             implicitHeight: itemHeight
-            label: "+"
+            label: showDMXcontrol ? "+%" : "+"
             repetition: true
             onClicked:
             {
-                if (showDMXcontrol == false)
+                if (showDMXcontrol)
+                    commandBox.appendText(" +% ")
+                else
                     commandBox.text = parseInt(commandBox.text) + 1
             }
         }

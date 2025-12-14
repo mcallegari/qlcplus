@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Maurizio</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>LED Beam 8x12W RGBW</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Horizontal operation" Preset="PositionTilt"/>
+ <Channel Name="Horizontal speed" Preset="SpeedTiltSlowFast"/>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">no effect</Capability>
+  <Capability Min="11" Max="20">built-in effect 1</Capability>
+  <Capability Min="21" Max="31">built-in effect 2</Capability>
+  <Capability Min="32" Max="42">built-in effect 3</Capability>
+  <Capability Min="43" Max="53">built-in effect 4</Capability>
+  <Capability Min="54" Max="64">built-in effect 5</Capability>
+  <Capability Min="65" Max="75">built-in effect 6</Capability>
+  <Capability Min="76" Max="86">built-in effect 7</Capability>
+  <Capability Min="87" Max="97">built-in effect 8</Capability>
+  <Capability Min="98" Max="108">built-in effect 9</Capability>
+  <Capability Min="109" Max="119">built-in effect 10</Capability>
+  <Capability Min="120" Max="130">built-in effect 11</Capability>
+  <Capability Min="131" Max="141">built-in effect 12</Capability>
+  <Capability Min="142" Max="152">built-in effect 13</Capability>
+  <Capability Min="153" Max="163">built-in effect 14</Capability>
+  <Capability Min="164" Max="174">built-in effect 15</Capability>
+  <Capability Min="175" Max="185">built-in effect 16</Capability>
+  <Capability Min="186" Max="196">built-in effect 17</Capability>
+  <Capability Min="197" Max="207">built-in effect 18</Capability>
+  <Capability Min="208" Max="218">built-in effect 19</Capability>
+  <Capability Min="219" Max="229">built-in effect 20</Capability>
+  <Capability Min="230" Max="240">built-in effect 21</Capability>
+  <Capability Min="241" Max="250">built-in effect 22</Capability>
+  <Capability Min="251" Max="255">Voice control effect</Capability>
+ </Channel>
+ <Channel Name="Built-in effect speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Built-in effect speed</Capability>
+ </Channel>
+ <Channel Name="Total dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Bar1 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar1 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar1 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar1 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar2 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar2 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar2 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar2 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar3 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar3 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar3 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar3 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar4 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar4 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar4 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar4 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar5 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar5 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar5 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar5 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar6 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar6 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar6 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar6 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar7 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar7 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar7 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar7 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Bar8 R dimming" Preset="IntensityRed"/>
+ <Channel Name="Bar8 G dimming" Preset="IntensityGreen"/>
+ <Channel Name="Bar8 B dimming" Preset="IntensityBlue"/>
+ <Channel Name="Bar8 W dimming" Preset="IntensityWhite"/>
+ <Channel Name="Red dimming" Preset="IntensityRed"/>
+ <Channel Name="Green dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue dimming" Preset="IntensityBlue"/>
+ <Channel Name="White dimming" Preset="IntensityWhite"/>
+ <Mode Name="38 Channel">
+  <Channel Number="0">Horizontal operation</Channel>
+  <Channel Number="1">Horizontal speed</Channel>
+  <Channel Number="2">Effect</Channel>
+  <Channel Number="3">Built-in effect speed</Channel>
+  <Channel Number="4">Total dimming</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Bar1 R dimming</Channel>
+  <Channel Number="7">Bar1 G dimming</Channel>
+  <Channel Number="8">Bar1 B dimming</Channel>
+  <Channel Number="9">Bar1 W dimming</Channel>
+  <Channel Number="10">Bar2 R dimming</Channel>
+  <Channel Number="11">Bar2 G dimming</Channel>
+  <Channel Number="12">Bar2 B dimming</Channel>
+  <Channel Number="13">Bar2 W dimming</Channel>
+  <Channel Number="14">Bar3 R dimming</Channel>
+  <Channel Number="15">Bar3 G dimming</Channel>
+  <Channel Number="16">Bar3 B dimming</Channel>
+  <Channel Number="17">Bar3 W dimming</Channel>
+  <Channel Number="18">Bar4 R dimming</Channel>
+  <Channel Number="19">Bar4 G dimming</Channel>
+  <Channel Number="20">Bar4 B dimming</Channel>
+  <Channel Number="21">Bar4 W dimming</Channel>
+  <Channel Number="22">Bar5 R dimming</Channel>
+  <Channel Number="23">Bar5 G dimming</Channel>
+  <Channel Number="24">Bar5 B dimming</Channel>
+  <Channel Number="25">Bar5 W dimming</Channel>
+  <Channel Number="26">Bar6 R dimming</Channel>
+  <Channel Number="27">Bar6 G dimming</Channel>
+  <Channel Number="28">Bar6 B dimming</Channel>
+  <Channel Number="29">Bar6 W dimming</Channel>
+  <Channel Number="30">Bar7 R dimming</Channel>
+  <Channel Number="31">Bar7 G dimming</Channel>
+  <Channel Number="32">Bar7 B dimming</Channel>
+  <Channel Number="33">Bar7 W dimming</Channel>
+  <Channel Number="34">Bar8 R dimming</Channel>
+  <Channel Number="35">Bar8 G dimming</Channel>
+  <Channel Number="36">Bar8 B dimming</Channel>
+  <Channel Number="37">Bar8 W dimming</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Horizontal operation</Channel>
+  <Channel Number="1">Horizontal speed</Channel>
+  <Channel Number="2">Effect</Channel>
+  <Channel Number="3">Built-in effect speed</Channel>
+  <Channel Number="4">Total dimming</Channel>
+  <Channel Number="5">Red dimming</Channel>
+  <Channel Number="6">Green dimming</Channel>
+  <Channel Number="7">Blue dimming</Channel>
+  <Channel Number="8">White dimming</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.5" Width="1070" Height="130" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="0" TiltMax="180"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

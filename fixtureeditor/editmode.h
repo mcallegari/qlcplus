@@ -21,6 +21,7 @@
 #define EDITMODE_H
 
 #include <QDialog>
+#include <QComboBox>
 #include "ui_editmode.h"
 
 #include "qlcphysical.h"
@@ -76,6 +77,7 @@ protected:
     void refreshChannelList();
     QLCChannel *currentChannel();
     void selectChannel(const QString &name);
+    void disableComboItem(QComboBox *comboBox, int index);
 
 private slots:
     void setActsOnChannel(int index);

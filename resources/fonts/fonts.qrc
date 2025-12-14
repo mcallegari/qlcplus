@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file alias="RobotoCondensed-Regular.ttf">RobotoCondensed-Regular.ttf</file>
         <file alias="RobotoMono-Regular.ttf">RobotoMono-Regular.ttf</file>
-        <file alias="FontAwesome.otf">FontAwesome.otf</file>
+        <file alias="FontAwesome7-Free-Solid-900.otf">FontAwesome7-Free-Solid-900.otf</file>
     </qresource>
 </RCC>

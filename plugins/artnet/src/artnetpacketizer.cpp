@@ -79,8 +79,8 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
     data.append((char)0x19);     // Port MSB
     data.append((char)0x04);     // Version MSB
     data.append((char)0x20);     // Version LSB
-    data.append((char)0x00);     // Sub Switch MSB
-    data.append((char)0x00);     // Sub Switch LSB
+    data.append((char)((universe >> 8) & 0xFF)); // NetSwitch (universe bits 14-8)Add commentMore actions
+    data.append((char)((universe >> 4) & 0x0F)); // SubSwitch (universe bits 7-4)
     data.append((char)0xFF);     // OEM Value MSB
     data.append((char)0xFF);     // OEM Value LSB
     data.append((char)0x00);     // UBEA version
@@ -234,11 +234,22 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
 
     QByteArray shortName = data.mid(26, 18);
     QByteArray longName = data.mid(44, 64);
-    info.shortName = QString(shortName.data()).simplified();
-    info.longName = QString(longName.data()).simplified();
+    QByteArray nodeReport = data.mid(108, 64);
+        uchar inputStatus = uchar(data.at(178));
 
-    qDebug() << "getArtPollReplyInfo shortName: " << info.shortName;
-    qDebug() << "getArtPollReplyInfo longName: " << info.longName;
+    info.shortName = QString(shortName.replace(0, 0x20)).simplified();
+    info.longName = QString(longName.replace(0, 0x20)).simplified();
+    info.portsNumber = (uchar(data.at(172)) << 8) + uchar(data.at(173));
+    info.isInput = (inputStatus & 0x04) == 0 ? true : false;
+    info.isOutput = (inputStatus & 0x04) ? true : false;
+    info.universe = (ushort(data.at(18)) << 8) + (ushort(data.at(19)) << 4) + ushort(data.at(186));
+
+#if 0
+    qDebug() << "getArtPollReplyInfo shortName:" << info.shortName;
+    qDebug() << "getArtPollReplyInfo longName:" << info.longName;Add commentMore actions
+    qDebug() << "getArtPollReplyInfo nodeReport:" << QString(nodeReport).simplified();
+    qDebug() << "getArtPollReplyInfo universe:" << QString::number(info.universe);
+#endif
 
     return true;
 }

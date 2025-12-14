@@ -69,7 +69,7 @@ ArtNetController::~ArtNetController()
 ArtNetController::Type ArtNetController::type()
 {
     int type = Unknown;
-    foreach (UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap)
     {
         type |= info.type;
     }

@@ -186,6 +186,9 @@ bool EFXFixture::isValid() const
 
 void EFXFixture::durationChanged()
 {
+    if (m_elapsed == 0)
+        return;
+
     // To avoid jumps when changing duration,
     // the elapsed time is rescaled to the
     // new duration.
@@ -194,12 +197,13 @@ void EFXFixture::durationChanged()
             float(0), float(m_parent->loopDuration()));
 
     // Serial or Asymmetric propagation mode:
-    // we must substract the offset from the current position
-    if (timeOffset())
+    // we must subtract the offset from the current position
+    uint offset = timeOffset();
+    if (offset)
     {
-        if (m_elapsed < timeOffset())
+        if (m_elapsed < offset)
             m_elapsed += m_parent->loopDuration();
-        m_elapsed -= timeOffset();
+        m_elapsed -= offset;
     }
 }
 

@@ -17,17 +17,18 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
 
 Column
 {
+    id: itemRoot
     width: parent.width
 
-    property var dObjRef: null
+    property var widgetObjRef: null
     property bool invalid: false
     property int controlID
     property alias inputModel: controlsCombo.model
@@ -36,8 +37,8 @@ Column
     property string uniName
     property string chName
     property bool customFeedback: false
-    property int lowerFb: 0
-    property int upperFb: 255
+
+    signal requestCustomFeedbackPopup()
 
     GridLayout
     {
@@ -52,17 +53,47 @@ Column
             height: UISettings.listItemHeight
             label: qsTr("Control")
         }
+
         CustomComboBox
         {
             id: controlsCombo
             Layout.fillWidth: true
-            Layout.columnSpan: 2
             height: UISettings.listItemHeight
             currValue: controlID
-            onValueChanged:
+            onValueChanged: (value) =>
             {
                 controlID = value
-                dObjRef.updateInputSourceControlID(universe, channel, controlID)
+                widgetObjRef.updateInputSourceControlID(universe, channel, controlID)
+            }
+        }
+
+        IconButton
+        {
+            width: UISettings.iconSizeMedium
+            height: width
+            checkable: true
+            checked: invalid
+            faSource: FontAwesome.fa_wand_magic_sparkles
+            faColor: "cyan"
+            tooltip: qsTr("Activate auto detection")
+
+            onToggled:
+            {
+                if (checked === true)
+                {
+                    if (invalid === false &&
+                        virtualConsole.enableInputSourceAutoDetection(widgetObjRef, controlID, universe, channel) === true)
+                        invalid = true
+                    else
+                        checked = false
+                }
+                else
+                {
+                    virtualConsole.disableAutoDetection()
+                    invalid = false
+                    uniNameBox.color = UISettings.bgLight
+                    chNameBox.color = UISettings.bgLight
+                }
             }
         }
 
@@ -72,6 +103,7 @@ Column
             height: UISettings.listItemHeight
             label: qsTr("Universe")
         }
+
         RobotoText
         {
             id: uniNameBox
@@ -88,33 +120,16 @@ Column
                 loops: Animation.Infinite
             }
         }
+
         IconButton
         {
             width: UISettings.iconSizeMedium
             height: width
-            checkable: true
-            checked: invalid
-            imgSource: "qrc:/inputoutput.svg"
-            tooltip: qsTr("Activate auto detection")
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
+            tooltip: qsTr("Remove this input source")
 
-            onToggled:
-            {
-                if (checked == true)
-                {
-                    if (invalid === false &&
-                        virtualConsole.enableInputSourceAutoDetection(dObjRef, controlID, universe, channel) === true)
-                        invalid = true
-                    else
-                        checked = false
-                }
-                else
-                {
-                    virtualConsole.disableAutoDetection()
-                    invalid = false
-                    uniNameBox.color = UISettings.bgLight
-                    chNameBox.color = UISettings.bgLight
-                }
-            }
+            onClicked: virtualConsole.deleteInputSource(widgetObjRef, controlID, universe, channel)
         }
 
         // row 3
@@ -123,6 +138,7 @@ Column
             height: UISettings.listItemHeight
             label: qsTr("Channel")
         }
+
         RobotoText
         {
             id: chNameBox
@@ -139,53 +155,18 @@ Column
                 loops: Animation.Infinite
             }
         }
+
         IconButton
         {
+            visible: customFeedback
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/remove.svg"
-            tooltip: qsTr("Remove this input source")
+            imgSource: "qrc:/inputoutput.svg"
+            tooltip: qsTr("Custom feedback selection")
 
-            onClicked: virtualConsole.deleteInputSource(dObjRef, controlID, universe, channel)
-        }
-
-        RobotoText
-        {
-            Layout.columnSpan: 3
-            Layout.fillWidth: true
-            height: UISettings.listItemHeight
-            visible: customFeedback
-            label: qsTr("Custom feedback")
-            color: UISettings.bgMedium
-        }
-
-        Row
-        {
-            id: cfRow
-            Layout.columnSpan: 3
-            Layout.fillWidth: true
-            spacing: 5
-            visible: customFeedback
-
-            RobotoText { id: cfLower; height: UISettings.listItemHeight; label: qsTr("Lower") }
-            CustomSpinBox
+            onClicked:
             {
-                id: lowerSpin
-                width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
-                from: 0
-                to: 255
-                value: lowerFb
-                onValueChanged: if (dObjRef) dObjRef.updateInputSourceRange(universe, channel, value, upperSpin.value)
-            }
-            RobotoText { id: cfUpper; height: UISettings.listItemHeight; label: qsTr("Upper") }
-            CustomSpinBox
-            {
-                id: upperSpin
-                width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
-                from: 0
-                to: 255
-                value: upperFb
-                onValueChanged: if (dObjRef) dObjRef.updateInputSourceRange(universe, channel, lowerSpin.value, value)
+                itemRoot.requestCustomFeedbackPopup()
             }
         }
     } // end of GridLayout

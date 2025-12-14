@@ -19,9 +19,9 @@ endif()
 
 if(qmlui)
     add_definitions(-DQMLUI)
-    set(APPVERSION "5.0.0 Beta 3")
+    set(APPVERSION "5.1.0 GIT")
 else()
-    set(APPVERSION "4.13.1 GIT")
+    set(APPVERSION "4.14.4 GIT")
 endif()
 
 if(UNIX)
@@ -89,7 +89,7 @@ if (WIN32)
 elseif (APPLE)
     set(LIBSDIR "Frameworks")
 elseif (UNIX)
-    set(LIBSDIR "lib/${CMAKE_C_LIBRARY_ARCHITECTURE}")
+    set(LIBSDIR "${CMAKE_INSTALL_LIBDIR}")
 endif ()
 
 if (ANDROID)
@@ -287,9 +287,9 @@ elseif (APPLE)
     set(PLUGINDIR "PlugIns")
 elseif (UNIX)
     if (appimage)
-        set(PLUGINDIR "../lib/qt5/plugins/qlcplus")
+        set(PLUGINDIR "../lib/qt${QT_MAJOR_VERSION}/plugins/qlcplus")
     else ()
-        set(PLUGINDIR "${LIBSDIR}/qt5/plugins/qlcplus")
+        set(PLUGINDIR "${LIBSDIR}/qt${QT_MAJOR_VERSION}/plugins/qlcplus")
     endif ()
 endif ()
 
@@ -427,10 +427,11 @@ endif ()
 
 # udev rules
 if(UNIX AND NOT APPLE)
-    if (${INSTALL_ROOT} STREQUAL "/")
+    if (NOT UDEVRULESDIR)
         set(UDEVRULESDIR "/etc/udev/rules.d")
-    else()
-        set(UDEVRULESDIR "${INSTALL_ROOT}/etc/udev/rules.d")
+    endif()
+    if (NOT ${INSTALL_ROOT} STREQUAL "/")
+        set(UDEVRULESDIR "${INSTALL_ROOT}${UDEVRULESDIR}")
     endif()
 endif()
 
@@ -497,13 +498,9 @@ endif()
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4701")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4101")
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4456")   # Suppress warning C4456: declaration of '_container_' hides previous local declaration in foreach
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
-
 elseif(NOT APPLE AND NOT IOS)
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")

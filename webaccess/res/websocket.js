@@ -91,10 +91,16 @@ function connect() {
       setCueButtonStyle(msgParams[0], msgParams[2], msgParams[3], msgParams[4], msgParams[5]);
     } else if (msgParams[1] === "MATRIX_SLIDER") {
       setMatrixSliderValue(msgParams[0], msgParams[2]);
-    } else if (msgParams[1] === "MATRIX_START_COLOR") {
-      setMatrixStartColorValue(msgParams[0], msgParams[2]);
-    } else if (msgParams[1] === "MATRIX_END_COLOR") {
-      setMatrixEndColorValue(msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COLOR_1") {
+      setMatrixColorValue(1, msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COLOR_2") {
+      setMatrixColorValue(2, msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COLOR_3") {
+      setMatrixColorValue(3, msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COLOR_4") {
+      setMatrixColorValue(4, msgParams[0], msgParams[2]);
+    } else if (msgParams[1] === "MATRIX_COLOR_5") {
+      setMatrixColorValue(5, msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_COMBO") {
       setMatrixComboValue(msgParams[0], msgParams[2]);
     } else if (msgParams[1] === "MATRIX_KNOB") {

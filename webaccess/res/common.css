@@ -6,21 +6,19 @@
  color: #ffffff;
 }
 
-.button
-{
+.button {
  height: 30px;
  margin-left: 5px;
  margin-top: 5px;
  text-decoration: none;
- font: 22px/1.2em 'Trebuchet MS',Arial, Helvetica;
+ font: 22px/1.2em 'Trebuchet MS', Arial, Helvetica, sans-serif;
  display: inline-block;
  text-align: center;
  color: #fff;
  border: 1px solid #555;
 }
 
-.button, .button span  {
- -moz-border-radius: .2em;
+.button, .button span {
  border-radius: .2em;
 }
 
@@ -31,8 +29,6 @@
 
 .button:hover {
  box-shadow: 0 0 .1em rgba(0,0,0,0.4);
- -moz-box-shadow: 0 0 .1em rgba(0,0,0,0.4);
- -webkit-box-shadow: 0 0 .1em rgba(0,0,0,0.4);
 }
 
 .button:active {
@@ -49,7 +45,9 @@
  color: #000;
 }
 
-.button-blue:active { background: #4477a1; }
+.button-blue:active {
+ background: #4477a1;
+}
 
 .swInfo {
  position: absolute;
@@ -59,16 +57,16 @@
 }
 
 table.hovertable {
- font-family: verdana,arial,sans-serif;
- font-size:11px;
- color:#333333;
+ font-family: verdana, arial, sans-serif;
+ font-size: 11px;
+ color: #333333;
  border-width: 1px;
  border-color: #999999;
  border-collapse: collapse;
 }
 
 table.hovertable th {
- background-color:#DCD9D6;
+ background-color: #dcd9d6;
  border-width: 1px;
  padding: 3px;
  border-style: solid;
@@ -76,7 +74,7 @@ table.hovertable th {
 }
 
 table.hovertable tr {
- background-color:#ffffff;
+ background-color: #ffffff;
 }
 
 table.hovertable td {

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -28,7 +28,6 @@ Popup
     id: menuRoot
     padding: 0
 
-    signal requestFolder()
     signal entryClicked(int fType)
 
     background:
@@ -46,7 +45,7 @@ Popup
             entryText: qsTr("New folder")
             onClicked:
             {
-                functionManager.createFolder()
+                menuRoot.requestFolder()
                 menuRoot.close()
             }
         }

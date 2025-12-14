@@ -33,7 +33,6 @@
 #include <Qt3DRender/QMaterial>
 #include <Qt3DRender/QSceneLoader>
 #include <Qt3DRender/QRenderTarget>
-#include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DRender/QPaintedTextureImage>
 
 #include "previewcontext.h"
@@ -75,7 +74,7 @@ typedef struct
 {
     /** Reference to the fixture root item, for hierarchy walk and function calls */
     QEntity *m_rootItem;
-    /** Reference to the root item tranform component, to perform translations/rotations */
+    /** Reference to the root item transform component, to perform translations/rotations */
     Qt3DCore::QTransform *m_rootTransform;
     /** Reference to the arm entity used by moving heads */
     QEntity *m_armItem;
@@ -261,7 +260,7 @@ protected:
     void initialize3DProperties();
 
     /** Bounding box volume calculation methods */
-    void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
+    //void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
     void addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */
@@ -355,7 +354,7 @@ private:
     QList<int> m_genericSelectedItems;
 
     /** Map of the generic items in the scene */
-    QMap<int, SceneItem*> m_genericMap;
+    QMap<quint32, SceneItem*> m_genericMap;
 
     /*********************************************************************
      * Environment
@@ -376,6 +375,7 @@ public:
         ParMeshType,
         MovingHeadMeshType,
         ScannerMeshType,
+        StrobeMeshType,
         LEDBarMeshType,
         DefaultMeshType
     };
@@ -401,8 +401,16 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers);
+
 protected:
     void createStage();
+    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos);
+    bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
+                           const QVector3D &center, const QVector3D &extents, float &hitDistance);
+
+    quint32 itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
+                             QMap<quint32, SceneItem *> &map, bool generic);
 
 signals:
     void renderQualityChanged(RenderQuality renderQuality);

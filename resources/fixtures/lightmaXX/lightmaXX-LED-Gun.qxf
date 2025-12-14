@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Scox</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>LED Gun</Model>
+ <Type>Flower</Type>
+ <Channel Name="Sound to Light">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function (better to control channels 2 to 4)</Capability>
+  <Capability Min="10" Max="255">Sound to Light</Capability>
+ </Channel>
+ <Channel Name="Color" Default="255">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red + Yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue + Green</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green + Yellow</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue + Yellow</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffffff">Yellow + White</Capability>
+  <Capability Min="160" Max="169">Red + Green + Blue</Capability>
+  <Capability Min="170" Max="179">Red + Green + White</Capability>
+  <Capability Min="180" Max="189">Red + Green + Yellow</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Green + Yellow + White</Capability>
+  <Capability Min="210" Max="219">Red + Green + Blue + White</Capability>
+  <Capability Min="220" Max="229">Red + Green + Blue + Yellow</Capability>
+  <Capability Min="230" Max="239">Green + Blue + Yellow + White</Capability>
+  <Capability Min="240" Max="255">Red + Green + Blue + Yellow + White</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Sound to Light</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="300" Height="230" Depth="230"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

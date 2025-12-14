@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 import "."
 
 Rectangle
@@ -31,6 +31,7 @@ Rectangle
     property bool isExpanded: true
     property string sectionLabel: ""
     property Component sectionContents
+    property alias loadedItem: sectionLoader.item
 
     Column
     {
@@ -55,9 +56,9 @@ Rectangle
             {
                 x: parent.width - UISettings.listItemHeight
                 anchors.verticalCenter: parent.verticalCenter
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: UISettings.textSizeDefault * 1.2
-                text: boxRoot.isExpanded ? FontAwesome.fa_minus_square : FontAwesome.fa_plus_square
+                text: boxRoot.isExpanded ? FontAwesome.fa_square_minus : FontAwesome.fa_square_plus
                 color: "white"
             }
 

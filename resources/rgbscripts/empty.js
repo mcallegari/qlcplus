@@ -24,18 +24,57 @@ var testAlgo;
   function()
   {
     var algo = new Object;
-    algo.apiVersion = 2;
+    algo.apiVersion = 3;
     algo.name = "Script name";
     algo.author = "Your Name";
+    algo.acceptColors = 2;
     algo.properties = new Array();
+
+    var util = new Object;
+    util.colorArray = new Array(algo.acceptColors);
+
+    /**
+     * Evaluates the rawColors parameter and returns the idx value
+     *
+     * @param idx The index of the color in the array
+     * @return The requested array color or zero in case of invalid input
+     */
+    util.getRawColor = function (idx) {
+      var color = 0;
+      if (Array.isArray(util.colorArray) && util.colorArray.length > idx && util.colorArray[idx]) {
+        color = util.colorArray[idx];
+      }
+      return color;
+    }
+  
+    /**
+     * Ingests the colors as received through the parameter
+     *
+     * @param rawColors The array of colors 
+     */
+    algo.rgbMapSetColors = function(rawColors)
+    {
+      if (! Array.isArray(rawColors))
+        return;
+      for (var i = 0; i < algo.acceptColors; i++) {
+        if (i < rawColors.length)
+        {
+          util.colorArray[i] = rawColors[i];
+        } else {
+          util.colorArray[i] = 0;
+        }
+      }
+    }
 
     /**
       * The actual "algorithm" for this RGB script. Produces a map of
       * size($width, $height) each time it is called.
       *
+      * @param width The width of the matrix in pixels
+      * @param height The height of the matrix in pixels
+      * @param rgb Tells the color requested by user in the UI, interpolated between stepCount.
       * @param step The step number that is requested (0 to (algo.rgbMapStepCount - 1))
-      * @param rgb Tells the color requested by user in the UI.
-      * @return A two-dimensional array[height][width].
+      * @return A two-dimensional matrix array[height][width].
       */
     algo.rgbMap = function(width, height, rgb, step)
     {
@@ -44,7 +83,7 @@ var testAlgo;
       {
         map[y] = new Array();
         for (var x = 0; x < width; x++) {
-          map[y][x] = 0; // <-- elapsed color goes here
+          map[y][x] = rgb; // <-- step color goes here
         }
       }
 

@@ -1,5 +1,7 @@
 set(module_name "qlcpluswebaccess")
 
+include(../../variables.cmake)
+
 set(TS_FILES
     webaccess_fi_FI.ts
     webaccess_de_DE.ts
@@ -17,22 +19,6 @@ if(QT_VERSION_MAJOR GREATER 5)
     qt_add_translation(QM_FILES ${TS_FILES})
 else()
     qt5_add_translation(QM_FILES ${TS_FILES})
-endif()
-
-if((((QT_VERSION_MAJOR LESS 5)) AND (APPLE)))
-    if (${PORTAUDIO_2_FOUND})
-        target_compile_definitions(${module_name} PUBLIC
-            HAS_PORTAUDIO
-        )
-
-        target_include_directories(${module_name} PUBLIC
-            ${PORTAUDIO_2_INCLUDE_DIRS}
-        )
-
-        target_link_libraries(${module_name} PUBLIC
-            ${PORTAUDIO_2_LIBRARIES}
-        )
-    endif()
 endif()
 
 add_library(${module_name}
@@ -64,12 +50,15 @@ target_compile_definitions(${module_name} PUBLIC
     USE_WEBSOCKET
 )
 
+find_package(Qt${QT_MAJOR_VERSION} REQUIRED COMPONENTS WebSockets)
+
 target_link_libraries(${module_name} PUBLIC
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
     Qt${QT_MAJOR_VERSION}::Network
     Qt${QT_MAJOR_VERSION}::Widgets
+    Qt${QT_MAJOR_VERSION}::WebSockets
     qlcplusengine
     qlcplusui
 )
@@ -87,13 +76,8 @@ if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
 endif()
 
 if(WIN32)
-    target_include_directories(${module_name} PUBLIC
-        /
-    )
-
-    target_link_libraries(${module_name} PUBLIC
-        ws2_32
-    )
+    target_include_directories(${module_name} PUBLIC /)
+    target_link_libraries(${module_name} PUBLIC ws2_32)
 endif()
 
 if(UNIX AND NOT APPLE)

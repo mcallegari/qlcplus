@@ -26,6 +26,7 @@
 #include <math.h>
 
 #include "qlcmacros.h"
+#include "qlcfile.h"
 
 #include "scriptwrapper.h"
 #include "mastertimer.h"
@@ -334,7 +335,7 @@ bool Function::saveXMLCommon(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
     doc->writeAttribute(KXMLQLCFunctionName, name());
     if (isVisible() == false)
-        doc->writeAttribute(KXMLQLCFunctionHidden, "True");
+        doc->writeAttribute(KXMLQLCFunctionHidden, KXMLQLCTrue);
     if (path(true).isEmpty() == false)
         doc->writeAttribute(KXMLQLCFunctionPath, path(true));
     if (blendMode() != Universe::NormalBlend)
@@ -586,6 +587,34 @@ void Function::slotBPMChanged(int bpmNumber)
 {
     Q_UNUSED(bpmNumber)
     m_beatResyncNeeded = true;
+}
+
+bool Function::saveXMLTempoType(QXmlStreamWriter *doc) const
+{
+    Q_ASSERT(doc != NULL);
+
+    /* Make this optional to keep projects lighter */
+    if (tempoType() == Beats)
+        doc->writeTextElement(KXMLQLCFunctionTempoType, tempoTypeToString(tempoType()));
+
+    return true;
+}
+
+bool Function::loadXMLTempoType(QXmlStreamReader &root)
+{
+    if (root.name() != KXMLQLCFunctionTempoType)
+    {
+        qWarning() << Q_FUNC_INFO << "Tempo type node not found";
+        return false;
+    }
+
+    QString str = root.readElementText();
+    if (str.isEmpty())
+        return false;
+
+    setTempoType(stringToTempoType(str));
+
+    return true;
 }
 
 /****************************************************************************
@@ -1252,11 +1281,12 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
 
     if (m_attributes.at(attributeIndex).m_flags & Single)
     {
-        foreach (int id, m_overrideMap.keys())
+        QMap <int, AttributeOverride>::iterator it = m_overrideMap.begin();
+        for (; it != m_overrideMap.end(); it++)
         {
-            if (m_overrideMap[id].m_attrIndex == attributeIndex)
+            if (it.value().m_attrIndex == attributeIndex)
             {
-                attributeID = id;
+                attributeID = it.key();
                 break;
             }
         }
@@ -1409,7 +1439,7 @@ void Function::calculateOverrideValue(int attributeIndex)
     if (origAttr.m_flags & Multiply)
         finalValue = origAttr.m_value;
 
-    foreach (AttributeOverride attr, m_overrideMap.values())
+    foreach (AttributeOverride attr, m_overrideMap)
     {
         if (attr.m_attrIndex != attributeIndex)
             continue;

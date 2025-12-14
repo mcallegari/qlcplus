@@ -58,6 +58,11 @@ void Chaser_Test::cleanupTestCase()
 void Chaser_Test::init()
 {
     m_doc = new Doc(this);
+
+    QDir dir(INTERNAL_FIXTUREDIR);
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void Chaser_Test::cleanup()
@@ -878,7 +883,7 @@ void Chaser_Test::preRun()
     c->postRun(&timer, ua);
 }
 
-void Chaser_Test::write()
+void Chaser_Test::writeHTP()
 {
     Fixture* fxi = new Fixture(m_doc);
     fxi->setAddress(0);
@@ -907,6 +912,8 @@ void Chaser_Test::write()
     c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
+
+    // check step 1
     for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
@@ -916,6 +923,7 @@ void Chaser_Test::write()
         QVERIFY(s2->isRunning() == false);
     }
 
+    // check step 2
     for (uint i = 0; i < c->duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
@@ -923,6 +931,86 @@ void Chaser_Test::write()
         QVERIFY(c->stopped() == false);
         QVERIFY(s1->isRunning() == false);
         QVERIFY(s2->isRunning() == true);
+    }
+}
+
+void Chaser_Test::writeLTP()
+{
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Clay Paky", "Sharpy");
+    QVERIFY(def != NULL);
+
+    QLCFixtureMode* mode = def->mode("Standard");
+    QVERIFY(mode != NULL);
+
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setFixtureDefinition(def, mode);
+    QCOMPARE(fxi->channels(), quint32(16));
+    m_doc->addFixture(fxi);
+
+    Chaser* c = new Chaser(m_doc);
+    c->setDuration(MasterTimer::tick() * 10);
+    m_doc->addFunction(c);
+
+    Scene* s1 = new Scene(m_doc);
+    s1->setValue(fxi->id(), 0, 20);
+    m_doc->addFunction(s1);
+    c->addStep(s1->id());
+
+    Scene* s2 = new Scene(m_doc);
+    s2->setValue(fxi->id(), 0, 142);
+    m_doc->addFunction(s2);
+    c->addStep(s2->id());
+
+    MasterTimer timer(m_doc);
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+
+    QVERIFY(c->isRunning() == false);
+    QVERIFY(c->stopped() == true);
+    c->start(&timer, FunctionParent::master());
+
+    timer.timerTick();
+
+    // check step 1
+    for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
+    {
+        timer.timerTick();
+        QVERIFY(c->isRunning() == true);
+        QVERIFY(c->stopped() == false);
+        QVERIFY(s1->isRunning() == true);
+        QVERIFY(s2->isRunning() == false);
+        ua = m_doc->inputOutputMap()->claimUniverses();
+        ua[0]->processFaders();
+        QVERIFY(ua[0]->preGMValues()[0] == (char)20);
+        m_doc->inputOutputMap()->releaseUniverses(false);
+    }
+
+    // check step 2
+    for (uint i = 0; i < c->duration(); i += MasterTimer::tick())
+    {
+        timer.timerTick();
+        QVERIFY(c->isRunning() == true);
+        QVERIFY(c->stopped() == false);
+        QVERIFY(s1->isRunning() == false);
+        QVERIFY(s2->isRunning() == true);
+        ua = m_doc->inputOutputMap()->claimUniverses();
+        ua[0]->processFaders();
+        QVERIFY(ua[0]->preGMValues()[0] == (char)142);
+        m_doc->inputOutputMap()->releaseUniverses(false);
+    }
+
+    // check step 1 again
+    for (uint i = 0; i < c->duration(); i += MasterTimer::tick())
+    {
+        timer.timerTick();
+        QVERIFY(c->isRunning() == true);
+        QVERIFY(c->stopped() == false);
+        QVERIFY(s1->isRunning() == true);
+        QVERIFY(s2->isRunning() == false);
+        ua = m_doc->inputOutputMap()->claimUniverses();
+        ua[0]->processFaders();
+        QVERIFY(ua[0]->preGMValues()[0] == (char)20);
+        m_doc->inputOutputMap()->releaseUniverses(false);
     }
 }
 

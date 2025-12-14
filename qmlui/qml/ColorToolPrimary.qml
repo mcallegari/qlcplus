@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -115,8 +115,8 @@ Rectangle
                 boxRoot.valueChanged(val)
             }
 
-            onPressed: calculateValue()
-            onPositionChanged:
+            onPressed: (mouse) => calculateValue(mouse)
+            onPositionChanged: (mouse) =>
             {
                 if (!pressed)
                     return

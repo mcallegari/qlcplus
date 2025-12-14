@@ -99,7 +99,7 @@ bool DMXUSB::openOutput(quint32 output, quint32 universe)
         {
             EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
             connect(pro, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)),
-                    this , SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)));
+                    this, SIGNAL(rdmValueChanged(quint32, quint32, QVariantMap)), Qt::QueuedConnection);
         }
         addToMap(universe, output, Output);
         return m_outputs.at(output)->open(output, false);

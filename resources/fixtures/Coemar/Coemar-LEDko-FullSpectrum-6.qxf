@@ -106,7 +106,7 @@
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="9">no effect</Capability>
-  <Capability Min="10" Max="123">exalts the green color in the mixing ans diminishes the presence of magenta</Capability>
+  <Capability Min="10" Max="123">exalts the green color in the mixing and diminishes the presence of magenta</Capability>
   <Capability Min="124" Max="132">no effect</Capability>
   <Capability Min="133" Max="246">diminishes the presence of green in the mixing and exalts the magenta color</Capability>
   <Capability Min="247" Max="255">no effect</Capability>

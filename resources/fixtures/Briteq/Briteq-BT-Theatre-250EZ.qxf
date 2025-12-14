@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0</Version>
+  <Author>Christoph Müllner</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT Theatre 250EZ (and 250EZ Mk2)</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="125" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="126" Max="135" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="136" Max="255" Preset="StrobeRandomSlowToFast">Random strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Mode Name="1 Channel Dimmer">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel Dimmer + Strobe">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel Dimmer + Strobe + Focus">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Focus</Channel>
+ </Mode>
+ <Mode Name="2 Channel Dimmer 16 bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="3 Channel Dimmer 16 bit + Strobe">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Channel Dimmer 16 bit + Strobe + Focus">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Focus</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="14000" ColourTemperature="3200"/>
+  <Dimensions Weight="9" Width="336" Height="297" Depth="458"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

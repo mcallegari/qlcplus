@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Layouts 1.14
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -56,7 +56,8 @@ CustomPopupDialog
                 {
                     width: UISettings.iconSizeMedium
                     height: width
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: qsTr("Insert a modified value after the selected")
                     onClicked: {}
                 }
@@ -65,7 +66,8 @@ CustomPopupDialog
                 {
                     width: UISettings.iconSizeMedium
                     height: width
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Delete the selected modifier value")
                     onClicked: {}
                 }

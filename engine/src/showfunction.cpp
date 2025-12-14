@@ -25,11 +25,11 @@
 #include "function.h"
 #include "doc.h"
 
-#define KXMLShowFunctionID "ID"
-#define KXMLShowFunctionStartTime "StartTime"
-#define KXMLShowFunctionDuration "Duration"
-#define KXMLShowFunctionColor "Color"
-#define KXMLShowFunctionLocked "Locked"
+#define KXMLShowFunctionID QStringLiteral("ID")
+#define KXMLShowFunctionStartTime QStringLiteral("StartTime")
+#define KXMLShowFunctionDuration QStringLiteral("Duration")
+#define KXMLShowFunctionColor QStringLiteral("Color")
+#define KXMLShowFunctionLocked QStringLiteral("Locked")
 
 ShowFunction::ShowFunction(quint32 id, QObject *parent)
     : QObject(parent)

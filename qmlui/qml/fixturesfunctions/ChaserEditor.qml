@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -32,9 +32,9 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property bool isSequence: chaserEditor.isSequence
+    property bool isSequence: chaserEditor ? chaserEditor.isSequence : false
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     function deleteSelectedItems()
     {
@@ -79,7 +79,7 @@ Rectangle
             {
                 id: topbar
                 visible: !isSequence
-                text: chaserEditor.functionName
+                text: chaserEditor ? chaserEditor.functionName : ""
                 onTextChanged: chaserEditor.functionName = text
 
                 onBackClicked:
@@ -92,17 +92,17 @@ Rectangle
                     }
 
                     var prevID = chaserEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
 
                 IconButton
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/back.svg"
+                    faSource: FontAwesome.fa_circle_left
+                    faColor: "lightcyan"
                     tooltip: qsTr("Preview the previous step")
-                    visible: chaserEditor.previewEnabled
+                    visible: chaserEditor ? chaserEditor.previewEnabled : false
                     onClicked: chaserEditor.gotoPreviousStep()
                 }
 
@@ -110,9 +110,10 @@ Rectangle
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/forward.svg"
+                    faSource: FontAwesome.fa_circle_right
+                    faColor: "lightcyan"
                     tooltip: qsTr("Preview the next step")
-                    visible: chaserEditor.previewEnabled
+                    visible: chaserEditor ? chaserEditor.previewEnabled : false
                     onClicked: chaserEditor.gotoNextStep()
                 }
 
@@ -121,9 +122,10 @@ Rectangle
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     checkable: true
-                    enabled: !chaserEditor.previewEnabled
+                    enabled: chaserEditor ? !chaserEditor.previewEnabled : true
                     tooltip: qsTr("Add a new step")
 
                     onCheckedChanged:
@@ -148,7 +150,8 @@ Rectangle
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/edit-copy.svg"
+                    faSource: FontAwesome.fa_clone
+                    faColor: UISettings.fgMain
                     tooltip: qsTr("Duplicate the selected step(s)")
                     enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
                     onClicked: chaserEditor.duplicateSteps(chWidget.selector.itemsList())
@@ -156,12 +159,24 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    faSource: FontAwesome.fa_shuffle
+                    faColor: "gold"
+                    tooltip: qsTr("Randomize the selected step(s) order")
+                    enabled: chaserEditor ? !chaserEditor.previewEnabled : true
+                    onClicked: chaserEditor.shuffleSteps(chWidget.selector.itemsList())
+                }
+
+                IconButton
+                {
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected steps")
-                    enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    enabled: chaserEditor && !chaserEditor.previewEnabled && chWidget.selector.itemsCount
                     onClicked: deleteSelectedItems()
                 }
 
@@ -170,7 +185,8 @@ Rectangle
                     id: printButton
                     width: height
                     height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/printer.svg"
+                    faSource: FontAwesome.fa_print
+                    faColor: UISettings.fgMain
                     tooltip: qsTr("Print the Chaser steps")
                     onClicked:
                     {
@@ -193,15 +209,14 @@ Rectangle
                 tempoType: chaserEditor.tempoType
                 isRunning: chaserEditor.previewEnabled
 
-                onIndexChanged: chaserEditor.playbackIndex = index
-                onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
-                onNoteTextChanged: chaserEditor.setStepNote(index, text)
-                onAddFunctions: chaserEditor.addFunctions(list, index)
-                onMoveSteps: chaserEditor.moveSteps(list, index)
-                onRequestEditor:
+                onIndexChanged: (index) => chaserEditor.playbackIndex = index
+                onStepValueChanged: (index, value, type) => chaserEditor.setStepSpeed(index, value, type)
+                onNoteTextChanged: (index, text) => chaserEditor.setStepNote(index, text)
+                onAddFunctions: (list, index) => chaserEditor.addFunctions(list, index)
+                onMoveSteps: (list, index) => chaserEditor.moveSteps(list, index)
+                onRequestEditor: (funcID) =>
                 {
-                    functionManager.setEditorFunction(funcID, false, false)
-                    requestView(funcID, functionManager.getEditorResource(funcID))
+                    requestView(funcID, functionManager.getEditorResource(funcID), false)
                 }
             }
 
@@ -224,18 +239,15 @@ Rectangle
                     // Row 1
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: runOrderModel
-                            ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
-                            ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
-                            ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
-                            ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: QLCFunction.Random }
-                        }
-                        model: runOrderModel
+                        model: [
+                            { mLabel: qsTr("Loop"), faIcon: FontAwesome.fa_retweet, mValue: QLCFunction.Loop },
+                            { mLabel: qsTr("Single Shot"), faIcon: FontAwesome.fa_right_long, mValue: QLCFunction.SingleShot },
+                            { mLabel: qsTr("Ping Pong"), faIcon: FontAwesome.fa_right_left, mValue: QLCFunction.PingPong },
+                            { mLabel: qsTr("Random"), faIcon: FontAwesome.fa_shuffle, mValue: QLCFunction.Random }
+                        ]
 
                         currValue: chaserEditor.runOrder
-                        onValueChanged: chaserEditor.runOrder = value
+                        onValueChanged: (value) => chaserEditor.runOrder = value
                     }
                     RobotoText
                     {
@@ -245,16 +257,13 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: directionModel
-                            ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
-                            ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
-                        }
-                        model: directionModel
+                        model: [
+                            { mLabel: qsTr("Forward"), faIcon: FontAwesome.fa_angles_right, mValue: QLCFunction.Forward },
+                            { mLabel: qsTr("Backward"), faIcon: FontAwesome.fa_angles_left, mValue: QLCFunction.Backward }
+                        ]
 
                         currValue: chaserEditor.direction
-                        onValueChanged: chaserEditor.direction = value
+                        onValueChanged: (value) => chaserEditor.direction = value
                     }
                     RobotoText
                     {
@@ -264,16 +273,13 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: tempoModel
-                            ListElement { mLabel: qsTr("Time"); mTextIcon: "T"; mValue: QLCFunction.Time }
-                            ListElement { mLabel: qsTr("Beats"); mTextIcon: "B"; mValue: QLCFunction.Beats }
-                        }
-                        model: tempoModel
+                        model: [
+                            { mLabel: qsTr("Time"), mTextIcon: "T", mValue: QLCFunction.Time },
+                            { mLabel: qsTr("Beats"), mTextIcon: "B", mValue: QLCFunction.Beats }
+                        ]
 
                         currValue: chaserEditor.tempoType
-                        onValueChanged: chaserEditor.tempoType = value
+                        onValueChanged: (value) => chaserEditor.tempoType = value
                     }
                     RobotoText
                     {
@@ -284,17 +290,14 @@ Rectangle
                     // Row 2
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: fadeInModel
-                            ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
-                            ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
-                            ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        }
-                        model: fadeInModel
+                        model: [
+                            { mLabel: qsTr("Default"), mTextIcon: "D", mValue: Chaser.Default },
+                            { mLabel: qsTr("Common"), mTextIcon: "C", mValue: Chaser.Common },
+                            { mLabel: qsTr("Per Step"), mTextIcon: "S", mValue: Chaser.PerStep }
+                        ]
 
                         currValue: chaserEditor.stepsFadeIn
-                        onValueChanged: chaserEditor.stepsFadeIn = value
+                        onValueChanged: (value) => chaserEditor.stepsFadeIn = value
                     }
                     RobotoText
                     {
@@ -304,17 +307,14 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: fadeOutModel
-                            ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
-                            ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
-                            ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        }
-                        model: fadeOutModel
+                        model: [
+                            { mLabel: qsTr("Default"), mTextIcon: "D", mValue: Chaser.Default },
+                            { mLabel: qsTr("Common"), mTextIcon: "C", mValue: Chaser.Common },
+                            { mLabel: qsTr("Per Step"), mTextIcon: "S", mValue: Chaser.PerStep }
+                        ]
 
                         currValue: chaserEditor.stepsFadeOut
-                        onValueChanged: chaserEditor.stepsFadeOut = value
+                        onValueChanged: (value) => chaserEditor.stepsFadeOut = value
                     }
                     RobotoText
                     {
@@ -324,16 +324,13 @@ Rectangle
 
                     IconPopupButton
                     {
-                        ListModel
-                        {
-                            id: durationModel
-                            ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
-                            ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        }
-                        model: durationModel
+                        model: [
+                            { mLabel: qsTr("Common"), mTextIcon: "C", mValue: Chaser.Common },
+                            { mLabel: qsTr("Per Step"), mTextIcon: "S", mValue: Chaser.PerStep }
+                        ]
 
                         currValue: chaserEditor.stepsDuration
-                        onValueChanged: chaserEditor.stepsDuration = value
+                        onValueChanged: (value) => chaserEditor.stepsDuration = value
                     }
                     RobotoText
                     {

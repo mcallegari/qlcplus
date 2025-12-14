@@ -118,8 +118,8 @@ void QLCFixtureEditor::init()
             this, SLOT(slotModelTextEdited(const QString&)));
 
     m_typeCombo->setCurrentIndex(m_typeCombo->findText(m_fixtureDef->typeToString(m_fixtureDef->type())));
-    connect(m_typeCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotTypeActivated(const QString&)));
+    connect(m_typeCombo, SIGNAL(activated(int)),
+            this, SLOT(slotTypeActivated(int)));
 
     // Display author name or suggest current user name if there isn't one.
     // When the def already has an author, disable the field to prevent modification.
@@ -319,8 +319,8 @@ bool QLCFixtureEditor::saveAs()
     path = dialog.selectedFiles().first();
     if (path.length() != 0)
     {
-        if (path.right(strlen(KExtFixture)) != QString(KExtFixture))
-            path += QString(KExtFixture);
+        if (path.right(KExtFixture.length()) != KExtFixture)
+            path += KExtFixture;
 
         m_fixtureDef->setPhysical(m_phyEdit->physical());
         QFile::FileError error = m_fixtureDef->saveXML(path);
@@ -406,9 +406,9 @@ void QLCFixtureEditor::slotAuthorTextEdited(const QString &text)
     setModified();
 }
 
-void QLCFixtureEditor::slotTypeActivated(const QString &text)
+void QLCFixtureEditor::slotTypeActivated(int)
 {
-    m_fixtureDef->setType(m_fixtureDef->stringToType(text));
+    m_fixtureDef->setType(m_fixtureDef->stringToType(m_typeCombo->currentText()));
     setModified();
 }
 

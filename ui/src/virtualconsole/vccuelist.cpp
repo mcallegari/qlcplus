@@ -556,9 +556,10 @@ qreal VCCueList::getPrimaryIntensity() const
     return m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
 }
 
-void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
+void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored)
 {
-    Q_UNUSED(intensity);
+    Q_UNUSED(intensity)
+    Q_UNUSED(excludeMonitored)
 
     if (mode() == Doc::Design)
         return;
@@ -1206,6 +1207,7 @@ bool VCCueList::primaryTop()
 void VCCueList::slotSideFaderButtonChecked(bool enable)
 {
     m_crossfadeButton->setChecked(enable);
+    emit sideFaderButtonChecked();
 }
 
 bool VCCueList::isSideFaderVisible()
@@ -1213,7 +1215,7 @@ bool VCCueList::isSideFaderVisible()
     return m_sideFader->isVisible();
 }
 
-bool VCCueList::sideFaderButtonChecked()
+bool VCCueList::sideFaderButtonIsChecked()
 {
     return m_crossfadeButton->isChecked();
 }

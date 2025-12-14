@@ -33,8 +33,8 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCPalette   QString("Palette")
-#define KXMLQLCPaletteID QString("ID")
+#define KXMLQLCPalette   QStringLiteral("Palette")
+#define KXMLQLCPaletteID QStringLiteral("ID")
 
 /**
  * QLCPalette represents a QLC+ Palette, which is the definition
@@ -50,6 +50,7 @@ class QLCPalette : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int intValue1 READ intValue1 CONSTANT)
     Q_PROPERTY(int intValue2 READ intValue2 CONSTANT)
+    Q_PROPERTY(float floatValue1 READ floatValue1 CONSTANT)
     Q_PROPERTY(QString strValue1 READ strValue1 CONSTANT)
     Q_PROPERTY(QColor rgbValue READ rgbValue CONSTANT)
     Q_PROPERTY(QColor wauvValue READ wauvValue CONSTANT)
@@ -66,13 +67,14 @@ public:
     enum PaletteType
     {
         Undefined = 0,
-        Dimmer    = 1 << 0,
-        Color     = 1 << 1,
-        Pan       = 1 << 2,
-        Tilt      = 1 << 3,
-        PanTilt   = 1 << 4,
-        Shutter   = 1 << 5,
-        Gobo      = 1 << 6
+        Dimmer,
+        Color,
+        Pan,
+        Tilt,
+        PanTilt,
+        Shutter,
+        Gobo,
+        Zoom
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PaletteType)
@@ -116,6 +118,7 @@ public:
     QVariant value() const;
     int intValue1() const;
     int intValue2() const;
+    float floatValue1() const;
     QString strValue1() const;
     QColor rgbValue() const;
     QColor wauvValue() const;

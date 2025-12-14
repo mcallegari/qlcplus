@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1</Version>
+  <Author>plugz</Author>
+ </Creator>
+ <Manufacturer>OXO</Manufacturer>
+ <Model>ColorZoom 180</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">LED off</Capability>
+  <Capability Min="11" Max="20" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="21" Max="80" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="81" Max="90" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="91" Max="150" Preset="PulseSlowToFast">Pulse in sequences</Capability>
+  <Capability Min="151" Max="160" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="161" Max="220" Preset="StrobeRandomSlowToFast">Random Strobe slow to fast</Capability>
+  <Capability Min="221" Max="230" Preset="ResetZoom">Reset Zoom after 5s</Capability>
+  <Capability Min="231" Max="255" Preset="ShutterOpen">LED on</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="1">Colour</Group>
+  <Capability Min="0" Max="4">No Function</Capability>
+  <Capability Min="5" Max="8">White 2700K</Capability>
+  <Capability Min="9" Max="12">White 3200K</Capability>
+  <Capability Min="13" Max="16">White 3500K</Capability>
+  <Capability Min="17" Max="20">White 4000K</Capability>
+  <Capability Min="21" Max="24">White 4500K</Capability>
+  <Capability Min="25" Max="28">White 5000K</Capability>
+  <Capability Min="29" Max="32">White 5600K</Capability>
+  <Capability Min="33" Max="36">White 6000K</Capability>
+  <Capability Min="37" Max="40">White 6500K</Capability>
+  <Capability Min="41" Max="44">White 7000K</Capability>
+  <Capability Min="45" Max="48">White 7500K</Capability>
+  <Capability Min="49" Max="52">White 8000K</Capability>
+  <Capability Min="53" Max="56">Mauve 126</Capability>
+  <Capability Min="57" Max="60">Ultimate Violet 707</Capability>
+  <Capability Min="61" Max="64">Dark Lavender 180</Capability>
+  <Capability Min="65" Max="68">Cold Lavender 703</Capability>
+  <Capability Min="69" Max="72">Light Lavender 052</Capability>
+  <Capability Min="73" Max="76">Midnight Maya 508</Capability>
+  <Capability Min="77" Max="80">Tokyo Blue 71</Capability>
+  <Capability Min="81" Max="84">Zenith Blue 195</Capability>
+  <Capability Min="85" Max="88">Elysian Blue 714</Capability>
+  <Capability Min="89" Max="92">Just Blue 079</Capability>
+  <Capability Min="93" Max="96">Sky Blue 68</Capability>
+  <Capability Min="97" Max="100">Medium Blue 132</Capability>
+  <Capability Min="101" Max="104">Glacier Blue 352</Capability>
+  <Capability Min="105" Max="108">Steel Blue 117</Capability>
+  <Capability Min="109" Max="112">Lagon Blue 172</Capability>
+  <Capability Min="113" Max="116">Peacock Blue 115</Capability>
+  <Capability Min="117" Max="120">Jade 323</Capability>
+  <Capability Min="121" Max="124">Dark Yellow Green 090</Capability>
+  <Capability Min="125" Max="128">Lee Green 121</Capability>
+  <Capability Min="129" Max="132">Fern Green 122</Capability>
+  <Capability Min="133" Max="136">Moss Green 089</Capability>
+  <Capability Min="137" Max="140">Sally Green 505</Capability>
+  <Capability Min="141" Max="144">Ice and a Slice 513</Capability>
+  <Capability Min="145" Max="148">Light Amber 102</Capability>
+  <Capability Min="149" Max="152">Surprise Peach 017</Capability>
+  <Capability Min="153" Max="156">Dark Salmon 008</Capability>
+  <Capability Min="157" Max="160">Madge 507</Capability>
+  <Capability Min="161" Max="164">Light Red 182</Capability>
+  <Capability Min="165" Max="168">Scarlet 024</Capability>
+  <Capability Min="169" Max="172">Pink 157</Capability>
+  <Capability Min="173" Max="176">Rose Pink 002</Capability>
+  <Capability Min="177" Max="180">Magical Magenta 795</Capability>
+  <Capability Min="181" Max="184">Bright Pink 128</Capability>
+  <Capability Min="185" Max="188">Magenta 113</Capability>
+  <Capability Min="189" Max="192">Lavander Tint 003</Capability>
+  <Capability Min="193" Max="200">Fade macro 1 to 12</Capability>
+  <Capability Min="201" Max="209">Fade macro 13 to 47</Capability>
+  <Capability Min="210" Max="218">Fade macro 13 to 18</Capability>
+  <Capability Min="219" Max="227">Fade macro 19 to 29</Capability>
+  <Capability Min="228" Max="236">Fade macro 30 to 34</Capability>
+  <Capability Min="237" Max="245">Fade macro 35 to 41</Capability>
+  <Capability Min="246" Max="255">Fade macro 42 to 47</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Zoom</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Color macro</Channel>
+  <Channel Number="7">Macro Speed</Channel>
+  <Channel Number="8">Zoom</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White fine</Channel>
+  <Channel Number="10">Shutter</Channel>
+  <Channel Number="11">Color macro</Channel>
+  <Channel Number="12">Macro Speed</Channel>
+  <Channel Number="13">Zoom</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.5" Width="440" Height="360" Depth="300"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="53"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="220" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

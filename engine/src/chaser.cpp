@@ -33,11 +33,11 @@
 #include "doc.h"
 #include "bus.h"
 
-#define KXMLQLCChaserSpeedModeCommon "Common"
-#define KXMLQLCChaserSpeedModePerStep "PerStep"
-#define KXMLQLCChaserSpeedModeDefault "Default"
+#define KXMLQLCChaserSpeedModeCommon  QStringLiteral("Common")
+#define KXMLQLCChaserSpeedModePerStep QStringLiteral("PerStep")
+#define KXMLQLCChaserSpeedModeDefault QStringLiteral("Default")
 
-#define KXMLQLCChaserLegacySequence QString("Sequence")
+#define KXMLQLCChaserLegacySequence QStringLiteral("Sequence")
 
 /*****************************************************************************
  * Initialization
@@ -342,6 +342,9 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
+    /* Save Tempo type */
+    saveXMLTempoType(doc);
+
     /* Speed */
     saveXMLSpeed(doc);
 
@@ -419,6 +422,10 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionRunOrder)
         {
             loadXMLRunOrder(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {

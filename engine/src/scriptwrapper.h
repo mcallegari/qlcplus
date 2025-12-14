@@ -2,7 +2,7 @@
 #ifndef SCRIPTWRAPPER_H
 #define SCRIPTWRAPPER_H
 
-#ifdef QT_QML_LIB
+#ifdef QMLUI
   #include "scriptv4.h"
 #else
   #include "script.h"

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -156,7 +156,7 @@ GridLayout
             border.color: UISettings.bgMedium
             //bgColor: buttonsBgColor
             useFontawesome: true
-            label: FontAwesome.fa_times
+            label: FontAwesome.fa_xmark
 
             onClicked:
             {

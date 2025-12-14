@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.1 GIT</Version>
+  <Author>Mitsch</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Twin Scan Bar</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="31">Pan / Tilt program 1</Capability>
+  <Capability Min="32" Max="63">Pan / Tilt program 2</Capability>
+  <Capability Min="64" Max="95">Pan / Tilt program 3</Capability>
+  <Capability Min="96" Max="127">Pan / Tilt program 4</Capability>
+  <Capability Min="128" Max="159">Pan / Tilt program 5</Capability>
+  <Capability Min="160" Max="191">Pan / Tilt program 6</Capability>
+  <Capability Min="192" Max="223">Pan / Tilt program 7</Capability>
+  <Capability Min="224" Max="255">Pan / Tilt program 8</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Default="255" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe effects">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">On</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterClose">Off</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe (slow to fast)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">On</Capability>
+ </Channel>
+ <Channel Name="Scanner Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM/gobo00181.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="Robe/gobo00053.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="Chauvet/gobo00104.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo open+1</Capability>
+  <Capability Min="144" Max="159">Gobo 2+3</Capability>
+  <Capability Min="160" Max="175">Gobo 4+5</Capability>
+  <Capability Min="176" Max="191">Gobo 6+7</Capability>
+  <Capability Min="192" Max="207">Gobo open+7</Capability>
+  <Capability Min="208" Max="223">Gobo 1+6</Capability>
+  <Capability Min="224" Max="239">Gobo 2+5</Capability>
+  <Capability Min="240" Max="255">Gobo 3+4</Capability>
+ </Channel>
+ <Channel Name="Scanner color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff00ff">Color 1</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Color 2</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Color 3</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ffff">Color 4</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff0000">Color 5</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ff7f00">Color 6</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#0000ff">Color 7</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff00ff">Open + Color 1</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Color 2 + Color 3</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ffff">Color 4 + Color 5</Capability>
+  <Capability Min="176" Max="191" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff7f00">Color 6 + Color 7</Capability>
+  <Capability Min="192" Max="207" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Open + Color 2</Capability>
+  <Capability Min="208" Max="223" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Color 1 + Color 3</Capability>
+  <Capability Min="224" Max="239" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff7f00">Color 4 + Color 6</Capability>
+  <Capability Min="240" Max="250" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Color 5 + Color 7</Capability>
+  <Capability Min="251" Max="255">Rainbow effect</Capability>
+ </Channel>
+ <Channel Name="PAN/TILT programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="31">Pan / Tilt program 1</Capability>
+  <Capability Min="32" Max="63">Pan / Tilt program 2</Capability>
+  <Capability Min="64" Max="95">Pan / Tilt program 3</Capability>
+  <Capability Min="96" Max="127">Pan / Tilt program 4</Capability>
+  <Capability Min="128" Max="159">Pan / Tilt program 5</Capability>
+  <Capability Min="160" Max="191">Pan / Tilt program 6</Capability>
+  <Capability Min="192" Max="223">Pan / Tilt program 7</Capability>
+  <Capability Min="224" Max="255">Pan / Tilt program 8</Capability>
+ </Channel>
+ <Channel Name="Horizontal Movement (PAN)" Default="127" Preset="PositionPan"/>
+ <Channel Name="Vertical Movement (TILT)" Default="127" Preset="PositionTilt"/>
+ <Channel Name="Speed PAN-/TILT-Movement" Default="127" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Pan / Tilt">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Moves identic</Capability>
+  <Capability Min="21" Max="40">Pan / Tilt inverted</Capability>
+  <Capability Min="41" Max="60">Pan inverted</Capability>
+  <Capability Min="61" Max="80">Tilt inverted</Capability>
+  <Capability Min="81" Max="90">Delay 25%</Capability>
+  <Capability Min="91" Max="100">Delay 50%</Capability>
+  <Capability Min="101" Max="110">Delay 75%</Capability>
+  <Capability Min="111" Max="120">Delay 100%</Capability>
+  <Capability Min="121" Max="130">Pan / Tilt program 1</Capability>
+  <Capability Min="131" Max="140">Pan / Tilt program 2</Capability>
+  <Capability Min="141" Max="150">Pan / Tilt program 3</Capability>
+  <Capability Min="151" Max="160">Pan / Tilt program 4</Capability>
+  <Capability Min="161" Max="170">Pan / Tilt program 5</Capability>
+  <Capability Min="171" Max="180">Pan / Tilt program 6</Capability>
+  <Capability Min="181" Max="190">Pan / Tilt program 7</Capability>
+  <Capability Min="191" Max="200">Pan / Tilt program 8</Capability>
+  <Capability Min="201" Max="210">Pan program speed 1 (Tilt CH2)</Capability>
+  <Capability Min="211" Max="220">Pan program speed 2 (Tilt CH2)</Capability>
+  <Capability Min="221" Max="230">Pan program speed 3 (Tilt CH2)</Capability>
+  <Capability Min="231" Max="240">Tilt program speed 1 (Pan CH1)</Capability>
+  <Capability Min="241" Max="250">Tilt program speed 2 (Pan CH1)</Capability>
+  <Capability Min="251" Max="255">Tilt program speed 3 (Pan CH1)</Capability>
+ </Channel>
+ <Channel Name="Horizontal Movement (PAN) [Scanner 1]" Default="127" Preset="PositionPan"/>
+ <Channel Name="Vertical Movement (TILT) [Scanner 1]" Default="127" Preset="PositionTilt"/>
+ <Channel Name="Horizontal Movement (PAN) [Scanner 2]" Default="127" Preset="PositionPan"/>
+ <Channel Name="Vertical Movement (TILT) [Scanner 2]" Default="127" Preset="PositionTilt"/>
+ <Channel Name="Speed PAN-/TILT-Movement [Scanner 1]" Default="127" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Speed PAN-/TILT-Movement [Scanner 2]" Default="127" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Scanner color wheel [Scanner 1]">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff00ff">Color 1</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Color 2</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Color 3</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ffff">Color 4</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff0000">Color 5</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ff7f00">Color 6</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#0000ff">Color 7</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff00ff">Open + Color 1</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Color 2 + Color 3</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ffff">Color 4 + Color 5</Capability>
+  <Capability Min="176" Max="191" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff7f00">Color 6 + Color 7</Capability>
+  <Capability Min="192" Max="207" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Open + Color 2</Capability>
+  <Capability Min="208" Max="223" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Color 1 + Color 3</Capability>
+  <Capability Min="224" Max="239" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff7f00">Color 4 + Color 6</Capability>
+  <Capability Min="240" Max="250" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Color 5 + Color 7</Capability>
+  <Capability Min="251" Max="255">Rainbow effect</Capability>
+ </Channel>
+ <Channel Name="Scanner color wheel [Scanner 2]">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff00ff">Color 1</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Color 2</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Color 3</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ffff">Color 4</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff0000">Color 5</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ff7f00">Color 6</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#0000ff">Color 7</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff00ff">Open + Color 1</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Color 2 + Color 3</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ffff">Color 4 + Color 5</Capability>
+  <Capability Min="176" Max="191" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff7f00">Color 6 + Color 7</Capability>
+  <Capability Min="192" Max="207" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Open + Color 2</Capability>
+  <Capability Min="208" Max="223" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Color 1 + Color 3</Capability>
+  <Capability Min="224" Max="239" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff7f00">Color 4 + Color 6</Capability>
+  <Capability Min="240" Max="250" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Color 5 + Color 7</Capability>
+  <Capability Min="251" Max="255">Rainbow effect</Capability>
+ </Channel>
+ <Channel Name="Scanner Gobos [Scanner 1]">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM/gobo00181.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="Robe/gobo00053.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="Chauvet/gobo00104.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo open+1</Capability>
+  <Capability Min="144" Max="159">Gobo 2+3</Capability>
+  <Capability Min="160" Max="175">Gobo 4+5</Capability>
+  <Capability Min="176" Max="191">Gobo 6+7</Capability>
+  <Capability Min="192" Max="207">Gobo open+7</Capability>
+  <Capability Min="208" Max="223">Gobo 1+6</Capability>
+  <Capability Min="224" Max="239">Gobo 2+5</Capability>
+  <Capability Min="240" Max="255">Gobo 3+4</Capability>
+ </Channel>
+ <Channel Name="Scanner Gobos [Scanner 2]">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="SGM/gobo00181.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="Robe/gobo00053.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="Chauvet/gobo00104.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo open+1</Capability>
+  <Capability Min="144" Max="159">Gobo 2+3</Capability>
+  <Capability Min="160" Max="175">Gobo 4+5</Capability>
+  <Capability Min="176" Max="191">Gobo 6+7</Capability>
+  <Capability Min="192" Max="207">Gobo open+7</Capability>
+  <Capability Min="208" Max="223">Gobo 1+6</Capability>
+  <Capability Min="224" Max="239">Gobo 2+5</Capability>
+  <Capability Min="240" Max="255">Gobo 3+4</Capability>
+ </Channel>
+ <Channel Name="Scanner Dimmer [Scanner 1]" Default="255" Preset="IntensityDimmer"/>
+ <Channel Name="Scanner Dimmer [Scanner 2]" Default="255" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe effects [Scanner 1]">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">On</Capability>
+  <Capability Min="4" Max="7">Off</Capability>
+  <Capability Min="8" Max="76">Strobe (slow to fast)</Capability>
+  <Capability Min="77" Max="145">Pulse strobe (slow to fast)</Capability>
+  <Capability Min="146" Max="215">Random strobe (slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="StrobeSlowToFast">On</Capability>
+ </Channel>
+ <Channel Name="Strobe effects [Scanner 2]">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">On</Capability>
+  <Capability Min="4" Max="7">Off</Capability>
+  <Capability Min="8" Max="76">Strobe (slow to fast)</Capability>
+  <Capability Min="77" Max="145">Pulse strobe (slow to fast)</Capability>
+  <Capability Min="146" Max="215">Random strobe (slow to fast)</Capability>
+  <Capability Min="216" Max="255" Preset="StrobeSlowToFast">On</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Internal programs</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe effects</Channel>
+  <Channel Number="2">Scanner Gobos</Channel>
+  <Channel Number="3">Scanner color wheel</Channel>
+  <Channel Number="4">PAN/TILT programs</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Horizontal Movement (PAN)</Channel>
+  <Channel Number="1">Vertical Movement (TILT)</Channel>
+  <Channel Number="2">Speed PAN-/TILT-Movement</Channel>
+  <Channel Number="3">Scanner color wheel</Channel>
+  <Channel Number="4">Scanner Gobos</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Strobe effects</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Horizontal Movement (PAN)</Channel>
+  <Channel Number="1">Vertical Movement (TILT)</Channel>
+  <Channel Number="2">Speed PAN-/TILT-Movement</Channel>
+  <Channel Number="3">Scanner color wheel</Channel>
+  <Channel Number="4">Scanner Gobos</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Strobe effects</Channel>
+  <Channel Number="7">Pan / Tilt</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Horizontal Movement (PAN) [Scanner 1]</Channel>
+  <Channel Number="1">Vertical Movement (TILT) [Scanner 1]</Channel>
+  <Channel Number="2">Speed PAN-/TILT-Movement [Scanner 1]</Channel>
+  <Channel Number="3">Scanner color wheel [Scanner 1]</Channel>
+  <Channel Number="4">Scanner Gobos [Scanner 1]</Channel>
+  <Channel Number="5">Scanner Dimmer [Scanner 1]</Channel>
+  <Channel Number="6">Strobe effects [Scanner 1]</Channel>
+  <Channel Number="7">Horizontal Movement (PAN) [Scanner 2]</Channel>
+  <Channel Number="8">Vertical Movement (TILT) [Scanner 2]</Channel>
+  <Channel Number="9">Speed PAN-/TILT-Movement [Scanner 2]</Channel>
+  <Channel Number="10">Scanner color wheel [Scanner 2]</Channel>
+  <Channel Number="11">Scanner Gobos [Scanner 2]</Channel>
+  <Channel Number="12">Scanner Dimmer [Scanner 2]</Channel>
+  <Channel Number="13">Strobe effects [Scanner 2]</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8500"/>
+  <Dimensions Weight="6" Width="118" Height="285" Depth="600"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Mirror" PanMax="150" TiltMax="70"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="125" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

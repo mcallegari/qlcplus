@@ -31,7 +31,7 @@
  *****************************************************************************/
 
 OS2LPlugin::~OS2LPlugin()
-{
+{20 3D 3D 3D 3E 20 4D 49 44 49 2D 4F 58 20 56 65 72 73 69 6F 6E 3A 20 37 2E 30 2E 32 2E 33 37 32 0D 0A 20 3D 3D 3D 3E 20 44 65 76 69 63 65 20 4C 6F 67 20 53 74 61 72 74 3A 20 53 75 6E 20 31 34 2D 44 65 63 2D 32 30 32 35 20 31 30 3A 32 39 3A 31 33 20 3D 3D 3D 3E 0D 0A 20 20 20 20 20 20 20 20 20 51 75 65 72 79 20 44 65 76 69 63 65 73 2E 2E 2E 0D 0A 20 3C 3D 3D 3D 20 4D 49 44 49 2D 4F 58 20 44 65 76 69 63 65 20 4C 6F 67 20 43 6C 6F 73 65 64 3A 20 53 75 6E 20 31 34 2D 44 65 63 2D 32 30 32 35 20 31 30 3A 32 39 3A 31 33 20 3C 3D 3D 3D 0D 0A 20 3D 3D 3D 3E 20 4D 49 44 49 2D 4F 58 20 56 65 72 73 69 6F 6E 3A 20 37 2E 30 2E 32 2E 33 37 32 0D 0A 20 3D 3D 3D 3E 20 44 65 76 69 63 65 20 4C 6F 67 20 53 74 61 72 74 3A 20 53 75 6E 20 31 34 2D 44 65 63 2D 32 30 32 35 20 31 30 3A 32 39 3A 31 34 20 3D 3D 3D 3E 0D 0A 20 3E 3E 20 4F 75 74 3A 20 42 65 67 69 6E 20 4F 70 65 6E 2D 44 65 76 69 63 65 3A 20 20 20 20 20 30 2C 20 4D 69 63 72 6F 73 6F 66 74 20 47 53 20 57 61 76 65 74 61 62 6C 65 20 53 79 6E 74 68 0D 0A 20 3E 3E 20 4F 75 74 3A 20 4F 70 65 6E 2D 44 65 76 69 63 65 20 53 75 63 63 65 65 64 65 64 3A 20 30 2C 20 4D 69 63 72 6F 73 6F 66 74 20 47 53 20 57 61 76 65 74 61 62 6C 65 20 53 79 6E 74 68 0D 0A 20 3C 3D 3D 3D 20 4D 49 44 49 2D 4F 58 20 44 65 76 69 63 65 20 4C 6F 67 20 43 6C 6F 73 65 64 3A 20 53 75 6E 20 31 34 2D 44 65 63 2D 32 30 32 35 20 31 30 3A 32 39 3A 31 35 20 3C 3D 3D 3D 0D 0A 
     enableTCPServer(false);
 }
 
@@ -175,12 +175,7 @@ quint16 OS2LPlugin::getHash(QString channel)
     else
     {
         /** No existing hash found. Add a new key to the table */
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        hash = qChecksum(channel.toUtf8().data(), channel.length());
-#else
-        QByteArrayView bav(channel.toUtf8().data(), channel.length());
-        hash = qChecksum(bav);
-#endif
+        hash = Utils::getChecksum(channel.toUtf8());
         m_hashMap[channel] = hash;
     }
 
@@ -213,39 +208,55 @@ void OS2LPlugin::slotProcessTCPPackets()
     if (socket == NULL)
         return;
 
-    QHostAddress senderAddress = socket->peerAddress();
-    QByteArray message = socket->readAll();
-    QJsonDocument json = QJsonDocument::fromJson(message);
+    QHostAddress senderAddress = QHostAddress(socket->peerAddress().toIPv4Address());
 
-    qDebug() << "[TCP] Received" << message.length() << "bytes from" << senderAddress.toString();
-    QJsonObject jsonObj = json.object();
-    QJsonValue jEvent = jsonObj.value("evt");
-    if (jEvent.isUndefined())
-        return;
+    while (1)
+    {
+        m_packetLeftOver.append(socket->readAll());
 
-    QString event = jEvent.toString();
+        int endIndex = m_packetLeftOver.indexOf("}");
+        if (endIndex == -1)
+        {
+            if (socket->bytesAvailable())
+                continue;
+            else
+                break;
+        }
 
-    if (event == "btn")
-    {
-        QJsonValue jName = jsonObj.value("name");
-        QJsonValue jState = jsonObj.value("state");
-        qDebug() << "Got button event with name" << jName.toString() << "and state" << jState.toString();
-        uchar value = jState.toString() == "off" ? 0 : 255;
-        emit valueChanged(m_inputUniverse, 0, getHash(jName.toString()), value, jName.toString());
-    }
-    else if (event == "cmd")
-    {
-        QJsonValue jId = jsonObj.value("id");
-        QJsonValue jParam = jsonObj.value("param");
-        qDebug() << "Got CMD message" << jId.toInt() << "with param" << jParam.toDouble();
-        quint32 channel = quint32(jId.toInt());
-        QString cmd = QString("cmd%1").arg(channel);
-        emit valueChanged(m_inputUniverse, 0, quint32(jId.toInt()), uchar(jParam.toDouble()), cmd);
-    }
-    else if (event == "beat")
-    {
-       qDebug() << "Got beat message" << message;
-       emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+        QByteArray message = m_packetLeftOver.left(endIndex + 1);
+        m_packetLeftOver.remove(0, endIndex + 1);
+        QJsonDocument json = QJsonDocument::fromJson(message);
+
+        qDebug() << "[TCP] Received" << message.length() << "bytes from" << senderAddress.toString();
+        QJsonObject jsonObj = json.object();
+        QJsonValue jEvent = jsonObj.value("evt");
+        if (jEvent.isUndefined())
+            return;
+
+        QString event = jEvent.toString();
+
+        if (event == "btn")
+        {
+            QJsonValue jName = jsonObj.value("name");
+            QJsonValue jState = jsonObj.value("state");
+            qDebug() << "Got button event with name" << jName.toString() << "and state" << jState.toString();
+            uchar value = jState.toString() == "off" ? 0 : 255;
+            emit valueChanged(m_inputUniverse, 0, getHash(jName.toString()), value, jName.toString());
+        }
+        else if (event == "cmd")
+        {
+            QJsonValue jId = jsonObj.value("id");
+            QJsonValue jParam = jsonObj.value("param");
+            qDebug() << "Got CMD message" << jId.toInt() << "with param" << jParam.toDouble();
+            quint32 channel = quint32(jId.toInt());
+            QString cmd = QString("cmd%1").arg(channel);
+            emit valueChanged(m_inputUniverse, 0, quint32(jId.toInt()), uchar(jParam.toDouble()), cmd);
+        }
+        else if (event == "beat")
+        {
+           qDebug() << "Got beat message" << message;
+           emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+        }
     }
 }
 

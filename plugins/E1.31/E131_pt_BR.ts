@@ -59,37 +59,37 @@
         <translation>Universo</translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="92"/>
+        <location filename="configuree131.cpp" line="99"/>
         <source>Inputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="98"/>
+        <location filename="configuree131.cpp" line="105"/>
         <source>Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="182"/>
+        <location filename="configuree131.cpp" line="189"/>
         <source>Full</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="183"/>
+        <location filename="configuree131.cpp" line="190"/>
         <source>Partial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="191"/>
+        <location filename="configuree131.cpp" line="198"/>
         <source>%1 - min, %2 - default, %3 - max</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="238"/>
+        <location filename="configuree131.cpp" line="245"/>
         <source>Invalid IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configuree131.cpp" line="238"/>
+        <location filename="configuree131.cpp" line="245"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation type="unfinished"></translation>

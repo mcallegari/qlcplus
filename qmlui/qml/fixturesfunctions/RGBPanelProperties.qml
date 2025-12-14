@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.14
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -100,7 +100,7 @@ Rectangle
                 text: name
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onTextChanged: fixtureBrowser.fixtureName = text
+                onTextEdited: fixtureBrowser.fixtureName = text
             }
 
             // row 2
@@ -145,19 +145,15 @@ Rectangle
                 id: componentsCombo
                 height: propsGrid.itemsHeight
                 Layout.fillWidth: true
-                model: compModel
-
-                ListModel
-                {
-                    id: compModel
-                    ListElement { mLabel: "RGB"; mValue: Fixture.RGB }
-                    ListElement { mLabel: "BGR"; mValue: Fixture.BGR }
-                    ListElement { mLabel: "BRG"; mValue: Fixture.BRG }
-                    ListElement { mLabel: "GBR"; mValue: Fixture.GBR }
-                    ListElement { mLabel: "GRB"; mValue: Fixture.GRB }
-                    ListElement { mLabel: "RBG"; mValue: Fixture.RBG }
-                    ListElement { mLabel: "RGBW"; mValue: Fixture.RGBW }
-                }
+                model: [
+                    { mLabel: "RGB", mValue: Fixture.RGB },
+                    { mLabel: "BGR", mValue: Fixture.BGR },
+                    { mLabel: "BRG", mValue: Fixture.BRG },
+                    { mLabel: "GBR", mValue: Fixture.GBR },
+                    { mLabel: "GRB", mValue: Fixture.GRB },
+                    { mLabel: "RBG", mValue: Fixture.RBG },
+                    { mLabel: "RGBW", mValue: Fixture.RGBW }
+                ]
             }
 
             // row 4
@@ -241,16 +237,12 @@ Rectangle
                 height: propsGrid.itemsHeight
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                model: cornerModel
-
-                ListModel
-                {
-                    id: cornerModel
-                    ListElement { mLabel: qsTr("Top-Left"); mValue: FixtureManager.TopLeft }
-                    ListElement { mLabel: qsTr("Top-Right"); mValue: FixtureManager.TopRight }
-                    ListElement { mLabel: qsTr("Bottom-Left"); mValue: FixtureManager.BottomLeft }
-                    ListElement { mLabel: qsTr("Bottom-Right"); mValue: FixtureManager.BottomRight }
-                }
+                model: [
+                    { mLabel: qsTr("Top-Left"), mValue: FixtureManager.TopLeft },
+                    { mLabel: qsTr("Top-Right"), mValue: FixtureManager.TopRight },
+                    { mLabel: qsTr("Bottom-Left"), mValue: FixtureManager.BottomLeft },
+                    { mLabel: qsTr("Bottom-Right"), mValue: FixtureManager.BottomRight }
+                ]
             }
 
             // row 7
@@ -265,14 +257,10 @@ Rectangle
                 id: dispCombo
                 height: propsGrid.itemsHeight
                 Layout.fillWidth: true
-                model: dispModel
-
-                ListModel
-                {
-                    id: dispModel
-                    ListElement { mLabel: qsTr("Snake"); mValue: FixtureManager.Snake }
-                    ListElement { mLabel: qsTr("Zig Zag"); mValue: FixtureManager.ZigZag }
-                }
+                model: [
+                    { mLabel: qsTr("Snake"), mValue: FixtureManager.Snake },
+                    { mLabel: qsTr("Zig Zag"), mValue: FixtureManager.ZigZag }
+                ]
             }
             RobotoText
             {
@@ -285,14 +273,10 @@ Rectangle
                 id: directionCombo
                 height: propsGrid.itemsHeight
                 Layout.fillWidth: true
-                model: dirModel
-
-                ListModel
-                {
-                    id: dirModel
-                    ListElement { mLabel: qsTr("Horizontal"); mValue: FixtureManager.Horizontal }
-                    ListElement { mLabel: qsTr("Vertical"); mValue: FixtureManager.Vertical }
-                }
+                model: [
+                    { mLabel: qsTr("Horizontal"), mValue: FixtureManager.Horizontal },
+                    { mLabel: qsTr("Vertical"), mValue: FixtureManager.Vertical }
+                ]
             }
         } // end of GridLayout
 

@@ -37,36 +37,36 @@ class Fixture;
  * @{
  */
 
-#define KXMLQLCEFXPropagationMode           QString("PropagationMode")
-#define KXMLQLCEFXPropagationModeParallel   QString("Parallel")
-#define KXMLQLCEFXPropagationModeSerial     QString("Serial")
-#define KXMLQLCEFXPropagationModeAsymmetric QString("Asymmetric")
-#define KXMLQLCEFXAlgorithm                 QString("Algorithm")
-#define KXMLQLCEFXWidth                     QString("Width")
-#define KXMLQLCEFXHeight                    QString("Height")
-#define KXMLQLCEFXRotation                  QString("Rotation")
-#define KXMLQLCEFXStartOffset               QString("StartOffset")
-#define KXMLQLCEFXIsRelative                QString("IsRelative")
-#define KXMLQLCEFXAxis                      QString("Axis")
-#define KXMLQLCEFXOffset                    QString("Offset")
-#define KXMLQLCEFXFrequency                 QString("Frequency")
-#define KXMLQLCEFXPhase                     QString("Phase")
-#define KXMLQLCEFXChannel                   QString("Channel")
-#define KXMLQLCEFXX                         QString("X")
-#define KXMLQLCEFXY                         QString("Y")
-#define KXMLQLCEFXStartScene                QString("StartScene")
-#define KXMLQLCEFXStopScene                 QString("StopScene")
+#define KXMLQLCEFXPropagationMode           QStringLiteral("PropagationMode")
+#define KXMLQLCEFXPropagationModeParallel   QStringLiteral("Parallel")
+#define KXMLQLCEFXPropagationModeSerial     QStringLiteral("Serial")
+#define KXMLQLCEFXPropagationModeAsymmetric QStringLiteral("Asymmetric")
+#define KXMLQLCEFXAlgorithm                 QStringLiteral("Algorithm")
+#define KXMLQLCEFXWidth                     QStringLiteral("Width")
+#define KXMLQLCEFXHeight                    QStringLiteral("Height")
+#define KXMLQLCEFXRotation                  QStringLiteral("Rotation")
+#define KXMLQLCEFXStartOffset               QStringLiteral("StartOffset")
+#define KXMLQLCEFXIsRelative                QStringLiteral("IsRelative")
+#define KXMLQLCEFXAxis                      QStringLiteral("Axis")
+#define KXMLQLCEFXOffset                    QStringLiteral("Offset")
+#define KXMLQLCEFXFrequency                 QStringLiteral("Frequency")
+#define KXMLQLCEFXPhase                     QStringLiteral("Phase")
+#define KXMLQLCEFXChannel                   QStringLiteral("Channel")
+#define KXMLQLCEFXX                         QStringLiteral("X")
+#define KXMLQLCEFXY                         QStringLiteral("Y")
+#define KXMLQLCEFXStartScene                QStringLiteral("StartScene")
+#define KXMLQLCEFXStopScene                 QStringLiteral("StopScene")
 
-#define KXMLQLCEFXCircleAlgorithmName       QString("Circle")
-#define KXMLQLCEFXEightAlgorithmName        QString("Eight")
-#define KXMLQLCEFXLineAlgorithmName         QString("Line")
-#define KXMLQLCEFXLine2AlgorithmName        QString("Line2")
-#define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
-#define KXMLQLCEFXSquareAlgorithmName       QString("Square")
-#define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
-#define KXMLQLCEFXSquareTrueAlgorithmName   QString("SquareTrue")
-#define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
-#define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
+#define KXMLQLCEFXCircleAlgorithmName       QStringLiteral("Circle")
+#define KXMLQLCEFXEightAlgorithmName        QStringLiteral("Eight")
+#define KXMLQLCEFXLineAlgorithmName         QStringLiteral("Line")
+#define KXMLQLCEFXLine2AlgorithmName        QStringLiteral("Line2")
+#define KXMLQLCEFXDiamondAlgorithmName      QStringLiteral("Diamond")
+#define KXMLQLCEFXSquareAlgorithmName       QStringLiteral("Square")
+#define KXMLQLCEFXSquareChoppyAlgorithmName QStringLiteral("SquareChoppy")
+#define KXMLQLCEFXSquareTrueAlgorithmName   QStringLiteral("SquareTrue")
+#define KXMLQLCEFXLeafAlgorithmName         QStringLiteral("Leaf")
+#define KXMLQLCEFXLissajousAlgorithmName    QStringLiteral("Lissajous")
 
 /**
  * An EFX (effects) function that is used to create
@@ -525,6 +525,9 @@ public:
         Serial,     /**< Pattern propagates to the next fixture after a delay */
         Asymmetric  /**< All fixtures move with an offset */
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PropagationMode)
+#endif
 
     /** Set the EFX's fixture propagation mode (see the enum above) */
     void setPropagationMode(PropagationMode mode);

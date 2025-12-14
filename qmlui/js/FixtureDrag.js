@@ -87,7 +87,7 @@ function handleDrag(mouse)
 function endDrag(mouse)
 {
     if (draggedItem == null)
-        return;
+        return false;
 
     var currContext = previewLoader.item.contextName;
     var offset = 0;
@@ -103,11 +103,12 @@ function endDrag(mouse)
 
     if (x >= 0 && y >= 0)
     {
-        fixtureManager.addFixture(manufacturer, model, mode, name, universeIndex,
-                                  draggedItem.address, channels, quantity, gap, x, y);
+        var ret = fixtureManager.addFixture(manufacturer, model, mode, name, universeIndex,
+                                            draggedItem.address, channels, quantity, gap, x, y);
     }
 
     draggedItem.destroy();
     draggedItem = null;
+    return ret;
 }
 

@@ -86,6 +86,18 @@ bool EditorView::isUser() const
     return m_fixtureDef->isUser();
 }
 
+void EditorView::remapFilename(QString userFolder)
+{
+    if (!isUser())
+    {
+        const QString file = QFileInfo(m_fileName).fileName();
+        m_fileName = QDir(userFolder).filePath(file);
+        m_fixtureDef->setIsUser(true);
+        m_fixtureDef->setDefinitionSourceFile(m_fileName);
+        qDebug() << "Definition name remapped to" << m_fileName;
+    }
+}
+
 int EditorView::productType() const
 {
     return int(m_fixtureDef->type());
@@ -170,6 +182,17 @@ void EditorView::updateChannelList()
     emit channelsChanged();
 }
 
+void EditorView::dismissChannelEditor()
+{
+    if (m_channelEdit == nullptr)
+        return;
+
+    disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
+    disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
+    delete m_channelEdit;
+    m_channelEdit = nullptr;
+}
+
 QVariant EditorView::channels() const
 {
     return QVariant::fromValue(m_channelList);
@@ -177,12 +200,8 @@ QVariant EditorView::channels() const
 
 ChannelEdit *EditorView::requestChannelEditor(QString name)
 {
-    if (m_channelEdit != nullptr)
-    {
-        disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
-        disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
-        delete m_channelEdit;
-    }
+    dismissModeEditor();
+    dismissChannelEditor();
 
     QLCChannel *ch = m_fixtureDef->channel(name);
     if (ch == nullptr)
@@ -305,12 +324,8 @@ QVariant EditorView::modes() const
 
 ModeEdit *EditorView::requestModeEditor(QString name)
 {
-    if (m_modeEdit != nullptr)
-    {
-        disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
-        disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
-        delete m_modeEdit;
-    }
+    dismissChannelEditor();
+    dismissModeEditor();
 
     QLCFixtureMode *mode = m_fixtureDef->mode(name);
     if (mode == nullptr)
@@ -327,6 +342,23 @@ ModeEdit *EditorView::requestModeEditor(QString name)
     return m_modeEdit;
 }
 
+bool EditorView::deleteMode(QString name)
+{
+    qDebug() << "Remove mode" << name;
+    QLCFixtureMode *mode = m_fixtureDef->mode(name);
+    if (mode != nullptr)
+    {
+        bool ret = m_fixtureDef->removeMode(mode);
+        if (ret == true)
+        {
+            updateModeList();
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void EditorView::updateModeList()
 {
     m_modeList->clear();
@@ -341,6 +373,17 @@ void EditorView::updateModeList()
     }
 
     emit modesChanged();
+}
+
+void EditorView::dismissModeEditor()
+{
+    if (m_modeEdit == nullptr)
+        return;
+
+    disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
+    disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
+    delete m_modeEdit;
+    m_modeEdit = nullptr;
 }
 
 void EditorView::modeNameChanged()
@@ -416,6 +459,7 @@ QString EditorView::save()
         return tr("Could not save file! (%1)").arg(QLCFile::errorString(error));
 
     setModified(false);
+    emit definitionSaved(m_fixtureDef);
     return errors;
 }
 

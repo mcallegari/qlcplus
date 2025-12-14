@@ -97,6 +97,8 @@ public:
     bool isLooped();
     void setLooped(bool looped);
 
+    bool isEos();
+
 private:
     bool m_looped;
 
@@ -105,7 +107,6 @@ private:
      *********************************************************************/
 public:
     void setFadeIn(uint fadeTime);
-
     void setFadeOut(uint fadeTime);
 
 private:
@@ -122,7 +123,7 @@ public:
 
 protected:
     /** State machine variables */
-    bool m_userStop, m_pause;
+    bool m_userStop, m_pause, m_isEos;
 
 private:
     /** Local copy of the audio function intensity */
@@ -136,9 +137,6 @@ protected:
      * Subclass should reimplement this function.
      */
     virtual qint64 writeAudio(unsigned char *data, qint64 maxSize) = 0;
-
-signals:
-    void endOfStreamReached();
 
 private:
     /** Reference to the decoder to be used as data source */

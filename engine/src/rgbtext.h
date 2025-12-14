@@ -30,7 +30,7 @@
  * @{
  */
 
-#define KXMLQLCRGBText "Text"
+#define KXMLQLCRGBText QStringLiteral("Text")
 
 class RGBText : public RGBAlgorithm
 {
@@ -97,6 +97,12 @@ private:
 public:
     /** @reimp */
     int rgbMapStepCount(const QSize& size);
+
+    /** @reimp */
+    void rgbMapSetColors(const QVector<uint> &colors);
+
+    /** @reimp */
+    QVector<uint> rgbMapGetColors();
 
     /** @reimp */
     void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);

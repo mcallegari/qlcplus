@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-project(qlcplus VERSION 4.13.0 LANGUAGES C CXX)
+project(qlcplus VERSION 4.14.2 LANGUAGES C CXX)
+
+option(qmlui "Build for QLC+ 5 QML UI" OFF)
 
 # Set Release build type by default
 if(NOT CMAKE_BUILD_TYPE)
@@ -145,18 +147,15 @@ add_custom_target(lcov
 # Translations
 if (qmlui)
   add_custom_target(translations ALL
-    COMMAND ./translate.sh "qmlui"
+    COMMAND ./translate.sh release qmlui
     COMMENT "Translating qmlui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 else ()
   add_custom_target(translations ALL
-    COMMAND ./translate.sh "ui"
+    COMMAND ./translate.sh release ui
     COMMENT "Translating ui translations..."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
-
-## Add the generated qm files to the list
-file(GLOB translations_qm_files "${CMAKE_CURRENT_SOURCE_DIR}/*.qm")
 
 ## Install the qm files
 if (appimage)
@@ -165,7 +164,16 @@ else ()
   set(translations_install_path "${INSTALLROOT}/${TRANSLATIONDIR}")
 endif()
 
-install(FILES ${translations_qm_files} DESTINATION ${translations_install_path})
+# Define the pattern for the .qm files
+set(translations_qm_pattern "${CMAKE_CURRENT_SOURCE_DIR}/qlcplus_*.qm")
+
+# Install command using a custom script
+install(CODE "
+  file(GLOB qm_files \"${translations_qm_pattern}\")
+  foreach(file IN LISTS qm_files)
+    file(INSTALL DESTINATION \"${translations_install_path}\" TYPE FILE FILES \"\${file}\")
+  endforeach()
+" COMPONENT translations)
 
 ## Clean the generated files
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_BINARY_DIR}/*.qm")
@@ -219,3 +227,12 @@ INCLUDE(CPack)
 
 # Leave this on the last row of this file
 add_subdirectory(platforms)
+
+# HELPER: PRINT ALL VARIABLES KNOWN BY CMAKE
+
+#message("QTDIR: ${QT_DIR}")
+#get_cmake_property(_variableNames VARIABLES)
+#list (SORT _variableNames)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()

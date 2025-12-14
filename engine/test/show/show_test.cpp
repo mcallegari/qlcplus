@@ -156,7 +156,7 @@ void Show_Test::tracks()
 
     // check automatic attribute registration
     QCOMPARE(s.attributes().count(), 1);
-    QVERIFY(s.attributes().at(0).m_name == "First track");
+    QVERIFY(s.attributes().at(0).m_name == "First track-0");
 
     // add a second track and move it up
     QVERIFY(s.addTrack(t2) == true);

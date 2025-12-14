@@ -192,7 +192,7 @@ void MultiTrackView::addTrack(Track *track)
 
 void MultiTrackView::setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum)
 {
-    qDebug() << "Start time:" << func->startTime() << "Duration:" << func->duration();
+    qDebug() << "[" << func->functionID() << "] Start time:" << func->startTime() << "Duration:" << func->duration();
 
     item->setTrackIndex(trackNum);
 
@@ -492,6 +492,23 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 
     QGraphicsView::mouseReleaseEvent(e);
     //qDebug() << Q_FUNC_INFO << "View clicked at pos: " << e->pos().x() << e->pos().y();
+}
+
+void MultiTrackView::wheelEvent(QWheelEvent *event)
+{
+    if (event->modifiers() & Qt::ControlModifier)
+    {
+        int zoomValue = m_timeSlider->value();
+        if (event->pixelDelta().y() > 0)
+            zoomValue++;
+        else
+            zoomValue--;
+
+        if (zoomValue >= m_timeSlider->minimum() && zoomValue <= m_timeSlider->maximum())
+            m_timeSlider->setValue(zoomValue);
+        return;
+    }
+    QGraphicsView::wheelEvent(event);
 }
 
 void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent *event)

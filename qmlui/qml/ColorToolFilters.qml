@@ -17,9 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -45,7 +46,7 @@ Rectangle
 
     property int currentFilterIndex: -1
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
 
     onFilterRGBChanged:
     {
@@ -67,7 +68,7 @@ Rectangle
     {
         if (isUpdating)
             return
-        colorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
+        toolColorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
     }
 
     function updateFilter()
@@ -419,7 +420,8 @@ Rectangle
             ContextMenuEntry
             {
                 height: UISettings.listItemHeight
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Add a new filter")
                 enabled: cfRef && cfRef.isUser ? true : false
@@ -439,7 +441,8 @@ Rectangle
             ContextMenuEntry
             {
                 height: UISettings.listItemHeight
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Delete the selected filter")
                 enabled: cfRef && cfRef.isUser ? true : false
@@ -456,7 +459,8 @@ Rectangle
             ContextMenuEntry
             {
                 height: UISettings.listItemHeight
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Paste the latest picked color as new filter")
                 enabled: cfRef && cfRef.isUser ? true : false

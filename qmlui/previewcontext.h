@@ -51,6 +51,7 @@ class PreviewContext : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
+    Q_PROPERTY(bool detached READ detached WRITE setDetached NOTIFY detachedChanged)
 
 public:
     explicit PreviewContext(QQuickView *view, Doc *doc, QString name, QObject *parent = 0);
@@ -102,13 +103,14 @@ protected slots:
 
 signals:
     void universeFilterChanged(quint32 universeFilter);
+    void detachedChanged();
     void keyPressed(QKeyEvent *e);
     void keyReleased(QKeyEvent *e);
 
 protected:
     /** Reference to the current view window.
      *  If the context is not detached, this is equal to $m_mainView,
-     *  otherwise this is an indipendent view */
+     *  otherwise this is an independent view */
     QQuickView *m_view;
 
     /** Reference to the root QML view */

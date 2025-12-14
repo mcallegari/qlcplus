@@ -14,13 +14,13 @@
         <translation type="unfinished">Jaettua kirjastoa usbdmx.dll ei löytynyt tai nykyinen versio on liian vanha QLC:n kanssa käytetäväksi.</translation>
     </message>
     <message>
+        <location filename="unix/peperoni.cpp" line="210"/>
         <location filename="win32/peperoni.cpp" line="221"/>
-        <location filename="unix/peperoni.cpp" line="212"/>
         <source>Do you wish to re-scan your hardware?</source>
         <translation type="unfinished">Etsitäänkö lisää laitteita?</translation>
     </message>
     <message>
-        <location filename="unix/peperoni.cpp" line="102"/>
+        <location filename="unix/peperoni.cpp" line="101"/>
         <source>This plugin provides DMX input and output support for Peperoni DMX devices.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28,8 +28,8 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="70"/>
         <location filename="unix/peperonidevice.cpp" line="172"/>
+        <location filename="win32/peperonidevice.cpp" line="70"/>
         <source>Device is working correctly.</source>
         <translation>Laite toimii oikein.</translation>
     </message>
@@ -44,8 +44,8 @@
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="win32/peperonidevice.cpp" line="111"/>
         <location filename="unix/peperonidevice.cpp" line="140"/>
+        <location filename="win32/peperonidevice.cpp" line="111"/>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
     </message>

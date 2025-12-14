@@ -507,6 +507,13 @@ bool VCWidget::allowResize() const
     return m_allowResize;
 }
 
+void VCWidget::notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored)
+{
+    Q_UNUSED(fid)
+    Q_UNUSED(intensity)
+    Q_UNUSED(excludeMonitored)
+}
+
 /*****************************************************************************
  * Properties
  *****************************************************************************/
@@ -685,11 +692,12 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint8 id) const
 
 void VCWidget::remapInputSources(int pgNum)
 {
-    foreach (quint8 s, m_inputs.keys())
+    QHash <quint8, QSharedPointer<QLCInputSource> >::iterator it = m_inputs.begin();
+    for (; it != m_inputs.end(); it++)
     {
-        QSharedPointer<QLCInputSource> src(m_inputs.value(s));
+        const QSharedPointer<QLCInputSource>& src(it.value());
         src->setPage(pgNum);
-        setInputSource(src, s);
+        setInputSource(src, it.key());
     }
 }
 
@@ -734,7 +742,7 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs.values())
+    foreach (QSharedPointer<QLCInputSource> const& source, m_inputs)
     {
         if (!source.isNull() && source->universe() == universe)
         {
@@ -780,11 +788,12 @@ QKeySequence VCWidget::stripKeySequence(const QKeySequence& seq)
             keys[i] = seq[i];
     }
 #else
-    QKeyCombination keys[4] = { Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown, Qt::Key_unknown};
+    QKeyCombination keys[4] = { Qt::Key_unknown, QKeyCombination::fromCombined(0),
+                               QKeyCombination::fromCombined(0), QKeyCombination::fromCombined(0)};
     for (int i = 0; i < (int)seq.count() && i < 4; i++)
     {
         if ((seq[i].toCombined() & Qt::ControlModifier) != 0)
-            keys[i].fromCombined(seq[i].toCombined() & (~Qt::ControlModifier));
+            keys[i] = keys[i].fromCombined(seq[i].toCombined() & (~Qt::ControlModifier));
         else
             keys[i] = seq[i];
     }

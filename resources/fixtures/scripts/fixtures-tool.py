@@ -286,9 +286,14 @@ def check_physical(absname, node, hasPan, hasTilt, hasZoom, errNum):
             errNum += 1
 
         if tech_tag is not None:
+            connectorsArray = [ "3-pin", "5-pin", "3-pin and 5-pin", "3-pin IP65", "5-pin IP65", "3.5 mm stereo jack", "Wireless", "Other" ]
             power = int(tech_tag.attrib.get('PowerConsumption', 0))
             if power == 0:
                 print(absname + ": Invalid power consumption")
+                errNum += 1
+            dmxConnector = tech_tag.attrib.get('DmxConnector', "")
+            if dmxConnector not in connectorsArray:
+                print(absname + ": Invalid DMX connector")
                 errNum += 1
 
     return errNum
@@ -604,6 +609,24 @@ def validate_fx_channels(absname, xmlObj, errNum, colorRgb):
                 errNum += 1
             else:
                 groupByte = group_tag.attrib['Byte']
+
+        # Extra semantic hints to align with PHP validator
+        #lname = chName.lower()
+        #if group_tag is not None and group_tag.text and qlc_version >= 41207:
+        #    # strobe -> Shutter
+        #    if 'strobe' in lname and '/' not in lname and group_tag.text != 'Shutter':
+        #        print(absname + ":" + chName + ": group should be set to 'Shutter'")
+        #        errNum += 1
+        #    # speed -> Speed
+        #    if 'speed' in lname and '/' not in lname and group_tag.text != 'Speed':
+        #        print(absname + ":" + chName + ": group should be set to 'Speed'")
+        #        errNum += 1
+        # color channel names shouldn't use group 'Colour'
+        #def _is_color(n):
+        #    return any(c in n for c in ['red','green','blue','cyan','magenta','yellow','amber','white','uv','lime','indigo'])
+        #if _is_color(lname) and group_tag.text == 'Colour':
+        #    print(absname + ":" + chName + ": group should be 'Intensity' with proper Color")
+        #    errNum += 1
 
         if chPreset:
             if chPreset == "PositionPan" or chPreset == "PositionPanFine" or chPreset == "PositionXAxis":
@@ -928,7 +951,10 @@ if args.validate is not None:
         files += get_validation_files(path)
 
     for file in files:
-        #print("Processing file " + filepath)
+        #print("Processing file " + file)
+        if (' ' in file) == True:
+            print("Error - space in filename: " + file)
+            sys.exit(1)
         errorCount += validate_fixture(file, colorRgb)
 
     print(str(len(files)) + " definitions processed. " + str(errorCount) + " errors detected")

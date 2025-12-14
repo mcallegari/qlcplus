@@ -46,6 +46,7 @@ HEADERS += \
     fixturegroupeditor.h \
     fixturemanager.h \
     fixtureutils.h \
+    folderbrowser.h \
     functioneditor.h \
     functionmanager.h \
     importmanager.h \
@@ -81,6 +82,7 @@ SOURCES += main.cpp \
     fixturegroupeditor.cpp \
     fixturemanager.cpp \
     fixtureutils.cpp \
+    folderbrowser.cpp \
     functioneditor.cpp \
     functionmanager.cpp \
     importmanager.cpp \

@@ -92,6 +92,7 @@ void GenericFader::add(const FadeChannel& ch)
 {
     quint32 hash = channelHash(ch.fixture(), ch.channel());
 
+    QWriteLocker l(&m_channelsLock);
     QHash<quint32,FadeChannel>::iterator channelIterator = m_channels.find(hash);
     if (channelIterator != m_channels.end())
     {
@@ -109,6 +110,7 @@ void GenericFader::add(const FadeChannel& ch)
 void GenericFader::replace(const FadeChannel &ch)
 {
     quint32 hash = channelHash(ch.fixture(), ch.channel());
+    QWriteLocker l(&m_channelsLock);
     m_channels.insert(hash, ch);
 }
 
@@ -118,12 +120,14 @@ void GenericFader::remove(FadeChannel *ch)
         return;
 
     quint32 hash = channelHash(ch->fixture(), ch->channel());
+    QWriteLocker l(&m_channelsLock);
     if (m_channels.remove(hash) == 0)
         qDebug() << "No FadeChannel found with hash" << hash;
 }
 
 void GenericFader::removeAll()
 {
+    QWriteLocker l(&m_channelsLock);
     m_channels.clear();
 }
 
@@ -149,11 +153,13 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
     else
         hash = channelHash(fc.fixture(), fc.channel());
 
+    m_channelsLock.lockForRead();
     // search for existing FadeChannel
     QHash<quint32,FadeChannel>::iterator channelIterator = m_channels.find(hash);
     if (channelIterator != m_channels.end())
     {
         FadeChannel *fcFound = &channelIterator.value();
+        m_channelsLock.unlock();
 
         if (handleSecondary() &&
             fcFound->channelCount() == 1 &&
@@ -166,25 +172,29 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
         }
         return fcFound;
     }
+    m_channelsLock.unlock();
 
     // set current universe value
     if (universe)
         fc.setCurrent(universe->preGMValue(fc.address()));
 
     // new channel. Add to GenericFader
-    m_channels[hash] = fc;
+    QWriteLocker l(&m_channelsLock);
+    channelIterator = m_channels.insert(hash, fc);
     //qDebug() << "Added new fader with hash" << hash;
 
-    return &m_channels[hash];
+    return &channelIterator.value();
 }
 
-const QHash<quint32, FadeChannel> &GenericFader::channels() const
+QHash<quint32, FadeChannel> GenericFader::channels() const
 {
+    QReadLocker l(&m_channelsLock);
     return m_channels;
 }
 
 int GenericFader::channelsCount() const
 {
+    QReadLocker l(&m_channelsLock);
     return m_channels.count();
 }
 
@@ -197,15 +207,21 @@ void GenericFader::write(Universe *universe)
 
     //qDebug() << "[GenericFader] writing channels: " << this << m_channels.count();
 
+    // iterate through all the channels handled by this fader
+    QWriteLocker l(&m_channelsLock);
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
         int flags = fc.flags();
-        int address = int(fc.addressInUniverse());
+        quint32 address = fc.addressInUniverse();
         int channelCount = fc.channelCount();
 
-        // iterate through all the channels handled by this fader
+        if (address == QLCChannel::invalid())
+        {
+            qWarning() << "Invalid channel found";
+            continue;
+        }
 
         if (flags & FadeChannel::SetTarget)
         {
@@ -227,7 +243,10 @@ void GenericFader::write(Universe *universe)
             if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
             {
                 // morph start <-> target depending on intensities
-                value = quint32(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
+                bool rampUp = fc.target() > fc.start() ? true : false;
+                value = rampUp ? fc.target() - fc.start() : fc.start() - fc.target();
+                value = qreal(value) * intensity();
+                value = qreal(rampUp ? fc.start() + value : fc.start() - value) * parentIntensity();
             }
             else if (flags & FadeChannel::Intensity)
             {
@@ -235,7 +254,7 @@ void GenericFader::write(Universe *universe)
             }
         }
 
-        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << (address + i) << ", value:" << value << "int:" << compIntensity;
+        //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value << "int:" << compIntensity;
         if (flags & FadeChannel::Override)
         {
             universe->write(address, value, true);
@@ -247,7 +266,9 @@ void GenericFader::write(Universe *universe)
         }
         else if (flags & FadeChannel::Flashing)
         {
-            universe->writeMultiple(address, value, channelCount);
+            for (int i = 0; i < channelCount; i++)
+                universe->write(address + i, ((uchar *)&value)[channelCount - 1 - i],
+                                flags & FadeChannel::ForceLTP ? true : false);
             continue;
         }
         else
@@ -271,7 +292,7 @@ void GenericFader::write(Universe *universe)
     }
 
     // self-request deletion when fadeout is complete
-    if (m_fadeOut && channelsCount() == 0)
+    if (m_fadeOut && m_channels.isEmpty())
     {
         m_fadeOut = false;
         requestDelete();
@@ -332,21 +353,26 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
     if (fadeTime == 0)
         return;
 
+    QReadLocker l(&m_channelsLock);
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
 
-        // non-intensity channels (eg LTP) should fade
-        // to the current universe value
-        if ((fc.flags() & FadeChannel::Intensity) == 0)
-            fc.addFlag(FadeChannel::SetTarget);
-
         fc.setStart(fc.current());
+        // if not HTP and/or flashing, request channels
+        // to target the current universe value
+        // (will be handled in the write method)
+        if (((fc.flags() & FadeChannel::Flashing) == 0) &&
+            ((fc.flags() & FadeChannel::Intensity) == 0))
+            fc.addFlag(FadeChannel::SetTarget);
         fc.setTarget(0);
         fc.setElapsed(0);
         fc.setReady(false);
         fc.setFadeTime(fc.canFade() ? fadeTime : 0);
+        // if flashing, remove the flag and treat
+        // it like a regular fade out to target
+        fc.removeFlag(FadeChannel::Flashing);
     }
 }
 
@@ -363,6 +389,7 @@ void GenericFader::setMonitoring(bool enable)
 void GenericFader::resetCrossfade()
 {
     qDebug() << name() << "resetting crossfade channels";
+    QReadLocker l(&m_channelsLock);
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {

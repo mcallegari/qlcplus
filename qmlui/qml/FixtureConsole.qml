@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -48,12 +48,14 @@ Rectangle
     property bool showEnablers: false
     property bool sceneConsole: false
     property bool externalChange: false
+    property bool multipleSelection: false
 
     signal doubleClicked
     signal clicked
     signal sizeChanged(var w, var h)
     signal valueChanged(var fixtureID, var chIndex, var value)
     signal requestTool(var item, var fixtureID, var chIndex, var value)
+    signal closeTool()
 
     onValuesChanged:
     {
@@ -144,7 +146,7 @@ Rectangle
                     Rectangle
                     {
                         id: chDelegate
-                        color: "transparent"
+                        color: isSelected ? UISettings.selection : "transparent"
                         border.width: 1
                         border.color: UISettings.borderColorDark
                         width: UISettings.iconSizeDefault
@@ -152,6 +154,7 @@ Rectangle
 
                         property real dmxValue
                         property bool isEnabled: showEnablers ? false : true
+                        property bool isSelected: false
 
                         function updateChannel()
                         {
@@ -210,7 +213,7 @@ Rectangle
                                 height: UISettings.iconSizeMedium / 2
                                 radius: 2
                                 visible: showEnablers
-                                color: isEnabled ? UISettings.highlight : UISettings.bgLight
+                                color: isEnabled ? (chDelegate.isSelected ? UISettings.selection : UISettings.highlight) : UISettings.bgLight
                                 border.width: 1
                                 border.color: isEnabled ? "white" : UISettings.bgLighter
                                 //Layout.alignment: Qt.AlignCenter
@@ -218,8 +221,15 @@ Rectangle
                                 MouseArea
                                 {
                                     anchors.fill: parent
-                                    onClicked:
+                                    onClicked: (mouse) =>
                                     {
+                                        if (isEnabled && ((mouse.modifiers & Qt.ControlModifier) || multipleSelection))
+                                        {
+                                            chDelegate.isSelected = !chDelegate.isSelected
+                                            sceneEditor.setChannelSelection(fixtureObj.id, index, chDelegate.isSelected);
+                                            return
+                                        }
+
                                         isEnabled = !isEnabled
                                         if (sceneConsole == true)
                                         {
@@ -242,11 +252,16 @@ Rectangle
                                 border.width: 0
                                 tooltip: fixtureObj ? fixtureManager.channelName(fixtureObj.id, index) : ""
                                 imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                                focusPolicy: Qt.ClickFocus
 
                                 onClicked:
                                 {
                                     if (fixtureObj)
                                         consoleRoot.requestTool(chColumn, fixtureObj.id, index, dmxValue)
+                                }
+                                Keys.onPressed: (event) => {
+                                    if (event.key === Qt.Key_Escape)
+                                        consoleRoot.closeTool()
                                 }
                             }
 
@@ -261,6 +276,7 @@ Rectangle
                                 to: 255
                                 value: dmxValue
                                 enabled: showEnablers ? isEnabled : true
+                                focusPolicy: Qt.NoFocus
                                 onMoved: dmxValue = valueAt(position)
 
                                 Component.onCompleted:

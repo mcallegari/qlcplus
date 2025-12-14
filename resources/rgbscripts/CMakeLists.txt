@@ -3,7 +3,6 @@ project(scripts)
 set(SCRIPT_FILES
     alternate.js
     balls.js
-    ballscolors.js
     blinder.js
     circles.js
     circular.js
@@ -22,7 +21,6 @@ set(SCRIPT_FILES
     onebyone.js
     opposite.js
     plasma.js
-    plasmacolors.js
     randomcolumn.js
     randomfillcolumn.js
     randomfillrow.js
@@ -31,6 +29,7 @@ set(SCRIPT_FILES
     randompixelperrowmulticolor.js
     randomrow.js
     randomsingle.js
+    sinewave.js
     snowbubbles.js
     squares.js
     squaresfromcenter.js

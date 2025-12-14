@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -71,7 +71,9 @@ Rectangle
         if (enableContext(ctx, true) === true)
         {
             currentContext = ctx
-            mainToolbar.visible = true
+            // show toolbar only if not in kiosk mode
+            if (qlcplus.accessMask !== App.AC_VCControl)
+                mainToolbar.visible = true
         }
         else
         {
@@ -118,13 +120,13 @@ Rectangle
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
-        source: "qrc:/FontAwesome.otf"
+        source: "qrc:/FontAwesome7-Free-Solid-900.otf"
     }
 
     Rectangle
     {
         id: mainToolbar
-        visible: qlcplus.accessMask !== App.AC_VCControl
+        visible: qlcplus.accessMask & App.AC_VCControl ? false : true // this is kiosk mode
         width: parent.width
         height: UISettings.iconSizeDefault
         z: 50
@@ -169,13 +171,14 @@ Rectangle
                 Layout.alignment: Qt.AlignTop
                 property string ctxRes: "qrc:/FixturesAndFunctions.qml"
 
+                //visible: qlcplus.accessMask & App.AC_FunctionEditing
                 imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
                 checked: false
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(fnfEntry.ctxName, fnfEntry.ctxRes)
                 }
             }
@@ -192,7 +195,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(vcEntry.ctxName, vcEntry.ctxRes)
                 }
                 onRightClicked:
@@ -214,7 +217,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(sdEntry.ctxName, sdEntry.ctxRes)
                 }
                 onRightClicked:
@@ -236,7 +239,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(smEntry.ctxName, smEntry.ctxRes)
                 }
                 onRightClicked:
@@ -258,7 +261,7 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    if (checked == true)
+                    if (checked === true)
                         switchToContext(ioEntry.ctxName, ioEntry.ctxRes)
                 }
                 onRightClicked:
@@ -274,6 +277,163 @@ Rectangle
                 implicitHeight: parent.height
                 color: "transparent"
             }
+
+            // ################## DMX DUMP ##################
+            IconButton
+            {
+                id: sceneDump
+                z: 2
+                implicitWidth: UISettings.iconSizeDefault
+                implicitHeight: UISettings.iconSizeDefault
+                Layout.alignment: Qt.AlignTop
+                bgColor: "transparent"
+                imgSource: "qrc:/dmxdump.svg"
+                imgMargins: 10
+                tooltip: qsTr("Dump DMX values on a Scene")
+                counter: (qlcplus.accessMask & App.AC_FunctionEditing)
+
+                property string bubbleLabel: {
+                    if (currentContext === sdEntry.ctxName)
+                        return simpleDesk ? simpleDesk.dumpValuesCount : ""
+                    else
+                        return contextManager ? contextManager.dumpValuesCount : ""
+                }
+
+                function updateDumpVariables()
+                {
+                    if (currentContext === sdEntry.ctxName)
+                    {
+                        dmxDumpDialog.capabilityMask = simpleDesk ? simpleDesk.dumpChannelMask : 0
+                        dmxDumpDialog.channelSetMask = simpleDesk ? simpleDesk.dumpChannelMask : 0
+                    }
+                    else
+                    {
+                        dmxDumpDialog.capabilityMask = fixtureManager ? fixtureManager.capabilityMask : 0
+                        dmxDumpDialog.channelSetMask = contextManager ? contextManager.dumpChannelMask : 0
+                    }
+                }
+
+                // channel count bubble
+                Rectangle
+                {
+                    x: -3
+                    y: parent.height - height + 3
+                    width: sceneDump.width * 0.4
+                    height: width
+                    color: "red"
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+                    visible: sceneDump.bubbleLabel !== "0" ? true : false
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: sceneDump.bubbleLabel
+                        fontSize: height
+                    }
+                }
+
+                MouseArea
+                {
+                    id: dumpDragArea
+                    anchors.fill: parent
+                    drag.target: dumpDragItem
+                    drag.threshold: 10
+
+                    onClicked: (mouse) =>
+                    {
+                        sceneDump.updateDumpVariables()
+                        dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
+                    }
+
+                    property bool dragActive: drag.active
+
+                    onDragActiveChanged:
+                    {
+                        console.log("Drag active changed: " + dragActive)
+                        if (dragActive == false)
+                        {
+                            dumpDragItem.Drag.drop()
+                            dumpDragItem.parent = sceneDump
+                            dumpDragItem.x = 0
+                            dumpDragItem.y = 0
+                        }
+                        else
+                        {
+                            dumpDragItem.parent = mainView
+                        }
+
+                        dumpDragItem.Drag.active = dragActive
+                    }
+                }
+
+                Item
+                {
+                    id: dumpDragItem
+                    z: 99
+                    visible: dumpDragArea.drag.active
+
+                    Drag.source: dumpDragItem
+                    Drag.keys: [ "dumpValues" ]
+
+                    function itemDropped(id, name)
+                    {
+                        console.log("Dump values dropped on " + id)
+                        functionManager.selectFunctionID(id, false)
+                        sceneDump.updateDumpVariables()
+                        dmxDumpDialog.sceneName = name
+                        dmxDumpDialog.existingScene = true
+                        dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
+                    }
+
+                    Rectangle
+                    {
+                        width: UISettings.iconSizeMedium
+                        height: width
+                        radius: width / 4
+                        color: "red"
+
+                        RobotoText
+                        {
+                            anchors.centerIn: parent
+                            label: sceneDump.bubbleLabel
+                        }
+                    }
+                }
+
+                PopupDMXDump
+                {
+                    id: dmxDumpDialog
+                    implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+
+                    onAccepted:
+                    {
+                        if (currentContext === sdEntry.ctxName)
+                        {
+                            simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
+                        }
+                        else
+                        {
+                            contextManager.dumpDmxChannels(getChannelsMask(), sceneName, existingScene && func ? func.id : -1,
+                                        allChannels, nonZeroOnly);
+                        }
+                    }
+                }
+            }
+
+            // spacer
+            Rectangle
+            {
+                width: UISettings.iconSizeDefault / 2
+                color: "transparent"
+            }
+
+            // ################## BEATS ##################
             RobotoText
             {
                 label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
@@ -308,7 +468,7 @@ Rectangle
                 Layout.alignment: Qt.AlignVCenter
                 radius: height / 2
                 border.width: 2
-                border.color: "#333"
+                border.color: UISettings.bgMedium
                 color: UISettings.fgMedium
 
                 ColorAnimation on color
@@ -331,6 +491,15 @@ Rectangle
                     }
                 }
             }
+
+            // spacer
+            Rectangle
+            {
+                width: UISettings.iconSizeDefault / 2
+                color: "transparent"
+            }
+
+            // ################## STOP ALL FUNCTIONS ##################
             IconButton
             {
                 id: stopAllButton
@@ -339,13 +508,23 @@ Rectangle
                 Layout.alignment: Qt.AlignTop
                 enabled: runningCount ? true : false
                 bgColor: "transparent"
-                imgSource: "qrc:/stop.svg"
+                faSource: FontAwesome.fa_octagon
+                faColor: "red"
                 tooltip: qsTr("Stop all the running functions")
+
                 onClicked: qlcplus.stopAllFunctions()
 
                 property int runningCount: qlcplus.runningFunctionsCount
 
                 onRunningCountChanged: console.log("Functions running: " + runningCount)
+
+                RobotoText
+                {
+                    anchors.centerIn: parent
+                    height: parent.height * 0.2
+                    fontSize: height
+                    label: "STOP"
+                }
 
                 Rectangle
                 {
@@ -413,5 +592,5 @@ Rectangle
         color: Qt.rgba(0, 0, 0, 0.5)
     }
 
-    PopupDisclaimer { }
+    //PopupDisclaimer { }
 }

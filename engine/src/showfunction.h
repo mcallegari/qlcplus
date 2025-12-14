@@ -31,9 +31,9 @@ class Doc;
  * @{
  */
 
-#define KXMLShowFunction QString("ShowFunction")
-#define KXMLShowFunctionUid QString("UID")
-#define KXMLShowFunctionTrackId QString("TrackID")
+#define KXMLShowFunction QStringLiteral("ShowFunction")
+#define KXMLShowFunctionUid QStringLiteral("UID")
+#define KXMLShowFunctionTrackId QStringLiteral("TrackID")
 
 class ShowFunction: public QObject
 {

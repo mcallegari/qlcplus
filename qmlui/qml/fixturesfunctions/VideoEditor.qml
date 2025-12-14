@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Layouts 1.0
-import QtQuick.Dialogs 1.2
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -33,7 +33,7 @@ Rectangle
     property int functionID: -1
     property var mediaInfo: videoEditor.mediaInfo
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     function updateCustomGeometry()
     {
@@ -54,8 +54,7 @@ Rectangle
         onBackClicked:
         {
             var prevID = videoEditor.previousID
-            functionManager.setEditorFunction(prevID, false, true)
-            requestView(prevID, functionManager.getEditorResource(prevID))
+            requestView(prevID, functionManager.getEditorResource(prevID), true)
         }
     }
 
@@ -66,7 +65,7 @@ Rectangle
 
         onAccepted:
         {
-            videoEditor.sourceFileName = openVideoDialog.fileUrl
+            videoEditor.sourceFileName = openVideoDialog.selectedFile
         }
     }
 
@@ -126,7 +125,8 @@ Rectangle
 
             IconButton
             {
-                imgSource: "qrc:/global.svg"
+                faSource: FontAwesome.fa_globe
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Set a URL")
                 onClicked: getUrlDialog.visible = true
 

@@ -21,6 +21,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
+#include <cmath>
 #include <QList>
 #include <QFile>
 
@@ -206,8 +207,10 @@ QList<quint32> Scene::components()
 {
     QList<quint32> ids;
 
-    foreach (SceneValue scv, m_values.keys())
+    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    for (; it != m_values.end(); it++)
     {
+        const SceneValue& scv = it.key();
         if (ids.contains(scv.fxi) == false)
             ids.append(scv.fxi);
     }
@@ -222,8 +225,11 @@ QColor Scene::colorValue(quint32 fxi)
     bool found = false;
     QColor CMYcol;
 
-    foreach (SceneValue scv, m_values.keys())
+    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    for (; it != m_values.end(); it++)
     {
+        const SceneValue& scv = it.key();
+
         if (fxi != Fixture::invalidId() && fxi != scv.fxi)
             continue;
 
@@ -425,6 +431,9 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
+    /* Tempo type */
+    saveXMLTempoType(doc);
+
     /* Speed */
     saveXMLSpeed(doc);
 
@@ -533,6 +542,10 @@ bool Scene::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCSceneChannelGroups)
         {
@@ -666,8 +679,11 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
         {
             // Keep HTP and LTP channels up. Flash is more or less a forceful intervention
             // so enforce all values that the user has chosen to flash.
-            foreach (const SceneValue& sv, m_values.keys())
+            QMap <SceneValue, uchar>::iterator it = m_values.begin();
+            for (; it != m_values.end(); it++)
             {
+                const SceneValue& sv = it.key();
+
                 FadeChannel fc(doc(), sv.fxi, sv.channel);
                 quint32 universe = fc.universe();
                 if (universe == Universe::invalid())
@@ -711,24 +727,26 @@ void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, S
     if (fixture == NULL)
         return;
 
-    quint32 universe = fixture->universe();
-    if (universe == Universe::invalid())
+    int universeIndex = floor((fixture->universeAddress() + scv.channel) / 512);
+    if (universeIndex >= ua.count())
         return;
 
-    QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+    Universe *universe = ua.at(universeIndex);
+
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universe->id(), QSharedPointer<GenericFader>());
     if (fader.isNull())
     {
-        fader = ua[universe]->requestFader();
+        fader = universe->requestFader();
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
         fader->setName(name());
         fader->setParentFunctionID(id());
         fader->setParentIntensity(getAttributeValue(ParentIntensity));
         fader->setHandleSecondary(true);
-        m_fadersMap[universe] = fader;
+        m_fadersMap[universe->id()] = fader;
     }
 
-    FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+    FadeChannel *fc = fader->getChannelFader(doc(), universe, scv.fxi, scv.channel);
     int chIndex = fc->channelIndex(scv.channel);
 
     /** If a blend Function has been set, check if this channel needs to
@@ -792,7 +810,7 @@ void Scene::handleFadersEnd(MasterTimer *timer)
         if (tempoType() == Beats)
             fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
 
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->setFadeOut(true, fadeout);
@@ -861,7 +879,7 @@ void Scene::setPause(bool enable)
     if (!isRunning())
         return;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->setPaused(enable);
@@ -879,7 +897,7 @@ int Scene::adjustAttribute(qreal fraction, int attributeId)
 
     if (attrIndex == Intensity)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->adjustIntensity(getAttributeValue(Function::Intensity));
@@ -887,7 +905,7 @@ int Scene::adjustAttribute(qreal fraction, int attributeId)
     }
     else if (attrIndex == ParentIntensity)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->setParentIntensity(getAttributeValue(ParentIntensity));
@@ -908,7 +926,7 @@ void Scene::setBlendMode(Universe::BlendMode mode)
 
     qDebug() << "Scene" << name() << "blend mode set to" << Universe::blendModeToString(mode);
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->setBlendMode(mode);
@@ -927,7 +945,7 @@ void Scene::setBlendFunctionID(quint32 fid)
     m_blendFunctionID = fid;
     if (isRunning() && fid == Function::invalidId())
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->resetCrossfade();

@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>477</width>
-    <height>452</height>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,6 +51,13 @@
       </property>
       <item>
        <layout class="QGridLayout" name="gridLayout">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Components</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
@@ -58,10 +65,13 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="m_nameEdit">
-          <property name="text">
-           <string>RGB Panel</string>
+        <item row="5" column="1">
+         <widget class="QComboBox" name="m_compCombo">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
          </widget>
         </item>
@@ -72,9 +82,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="m_uniCombo"/>
-        </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
@@ -82,7 +89,28 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="5" column="2">
+         <widget class="QCheckBox" name="m_16bitCheck">
+          <property name="text">
+           <string notr="true">16bit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QLabel" name="m_addrErrorLabel">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QCheckBox" name="m_crossUniverseCheck">
+          <property name="text">
+           <string>Allow cross-universe addressing [EXPERIMENTAL]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" colspan="2">
          <widget class="QSpinBox" name="m_addressSpin">
           <property name="minimum">
            <number>1</number>
@@ -92,22 +120,15 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="m_addrErrorLabel">
+        <item row="1" column="1" colspan="2">
+         <widget class="QComboBox" name="m_uniCombo"/>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QLineEdit" name="m_nameEdit">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>RGB Panel</string>
           </property>
          </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Components</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QComboBox" name="m_compCombo"/>
         </item>
        </layout>
       </item>
@@ -363,6 +384,27 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_nameEdit</tabstop>
+  <tabstop>m_uniCombo</tabstop>
+  <tabstop>m_addressSpin</tabstop>
+  <tabstop>m_crossUniverseCheck</tabstop>
+  <tabstop>m_compCombo</tabstop>
+  <tabstop>m_16bitCheck</tabstop>
+  <tabstop>m_columnSpin</tabstop>
+  <tabstop>m_rowSpin</tabstop>
+  <tabstop>m_phyWidthSpin</tabstop>
+  <tabstop>m_phyHeightSpin</tabstop>
+  <tabstop>m_oriTopLeftRadio</tabstop>
+  <tabstop>m_oriTopRightRadio</tabstop>
+  <tabstop>m_oriBottomLeftRadio</tabstop>
+  <tabstop>m_oriBottomRightRadio</tabstop>
+  <tabstop>m_snakeRadio</tabstop>
+  <tabstop>m_zigzagRadio</tabstop>
+  <tabstop>m_horizontalRadio</tabstop>
+  <tabstop>m_verticalRadio</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
  </resources>

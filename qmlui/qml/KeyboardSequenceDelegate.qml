@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -27,11 +27,13 @@ Column
 {
     width: parent.width
 
-    property var dObjRef: null
+    property var widgetObjRef: null
     property int controlID
     property alias inputModel: controlsCombo.model
     property string sequence
     property bool invalid: false
+
+    signal requestCustomFeedbackPopup()
 
     GridLayout
     {
@@ -52,13 +54,13 @@ Column
             Layout.columnSpan: 3
             height: UISettings.listItemHeight
             currValue: controlID
-            onValueChanged:
+            onActivated: (index) =>
             {
-                if (dObjRef && value != controlID)
+                if (widgetObjRef && currValue !== controlID)
                 {
-                    console.log("Key control changed " + value)
-                    controlID = value
-                    virtualConsole.updateKeySequenceControlID(dObjRef, controlID, sequence)
+                    console.log("Key control changed " + currValue)
+                    controlID = currValue
+                    virtualConsole.updateKeySequenceControlID(widgetObjRef, controlID, sequence)
                 }
             }
         }
@@ -95,10 +97,10 @@ Column
 
             onToggled:
             {
-                if (checked == true)
+                if (checked === true)
                 {
                     if (invalid === false &&
-                        virtualConsole.enableKeyAutoDetection(dObjRef, controlID, sequence) === true)
+                        virtualConsole.enableKeyAutoDetection(widgetObjRef, controlID, sequence) === true)
                         invalid = true
                     else
                         checked = false
@@ -115,10 +117,11 @@ Column
         {
             width: UISettings.iconSizeMedium
             height: width
-            imgSource: "qrc:/remove.svg"
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
             tooltip: qsTr("Remove this keyboard combination")
 
-            onClicked: virtualConsole.deleteKeySequence(dObjRef, controlID, sequence)
+            onClicked: virtualConsole.deleteKeySequence(widgetObjRef, controlID, sequence)
         }
     }
 }

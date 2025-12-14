@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.14
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import "."
 
@@ -99,7 +99,7 @@ Rectangle
                 text: fxName
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onTextChanged: fixtureBrowser.fixtureName = text
+                onTextEdited: fixtureBrowser.fixtureName = text
             }
 
             // row 2
@@ -157,6 +157,7 @@ Rectangle
             CustomSpinBox
             {
                 id: fxModeChSpin
+                enabled: fixtureBrowser.modesList.length ? false : true
                 Layout.fillWidth: true
                 from: 1
                 to: 512
@@ -214,7 +215,8 @@ Rectangle
                         id: fxModeInfo
                         width: propsGrid.itemsHeight
                         height: width
-                        imgSource: "qrc:/info.svg"
+                        faSource: FontAwesome.fa_circle_info
+                        faColor: "skyblue"
                         checkable: true
                     }
                 }

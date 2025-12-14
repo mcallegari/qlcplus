@@ -37,7 +37,7 @@ class VCFrame;
 class VCPage;
 class Doc;
 
-#define KXMLQLCVirtualConsole QString("VirtualConsole")
+#define KXMLQLCVirtualConsole QStringLiteral("VirtualConsole")
 
 class VirtualConsole : public PreviewContext
 {
@@ -145,7 +145,7 @@ public:
     Q_INVOKABLE void setPageScale(qreal factor);
 
 signals:
-    /** Notify the listeners that the currenly selected VC page has changed */
+    /** Notify the listeners that the currently selected VC page has changed */
     void selectedPageChanged(int selectedPage);
 
     /** Notify the listener that some page names have changed */
@@ -209,7 +209,7 @@ public:
     Q_INVOKABLE QString widgetIcon(int type);
 
 signals:
-    /** Notify the listeners that the currenly selected VC widget has changed */
+    /** Notify the listeners that the currently selected VC widget has changed */
     void selectedWidgetChanged();
 
     void selectedWidgetsCountChanged();
@@ -243,7 +243,7 @@ protected:
     QVariantList m_clipboardIDList;
 
     /*********************************************************************
-     * External input
+     * External controllers input
      *********************************************************************/
 public:
     /** Enable the autodetection process for an external controller.
@@ -255,34 +255,21 @@ public:
      *  add it to $widget. This is used for manual input source selection */
     Q_INVOKABLE void createAndAddInputSource(VCWidget *widget, quint32 universe, quint32 channel);
 
-    /** Enable the autodetection process for a key sequence.
-     *  This method creates an empty QKeySequence in the specified
-     *  $widget and updates it later once the first key press is received */
-    Q_INVOKABLE bool createAndDetectInputKey(VCWidget *widget);
-
     /** Enable the autodetection process for a specific input source
      *  bound to an external controller. */
     Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
-
-    /** Enable the autodetection process for a specific key sequence */
-    Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
-
-    /** Update the control ID of a key sequence with $keyText for the specified $widget */
-    Q_INVOKABLE void updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText);
-
-    /** Disable a previously started autodetection process */
-    Q_INVOKABLE void disableAutoDetection();
 
     /** Delete an existing input source from the specified $widget.
      *  $type, $universe and $channel are also needed to remove the
      *  source from a VC Page multi hash map */
     Q_INVOKABLE void deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
 
-    /** Delete an existing key sequence from the specified $widget */
-    Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
+    /** Disable a previously started autodetection process */
+    Q_INVOKABLE void disableAutoDetection();
 
-    /** @reimp */
-    void handleKeyEvent(QKeyEvent *e, bool pressed);
+    /** Resets and update the lookup maps dedicated to input signals
+     *  destined to VC pages */
+    void updatePageInputs();
 
     Q_INVOKABLE QVariant inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel();
@@ -307,11 +294,40 @@ protected:
     VCWidget *m_autoDetectionWidget;
 
     QSharedPointer<QLCInputSource> m_autoDetectionSource;
-    QKeySequence m_autoDetectionKey;
-    quint32 m_autoDetectionKeyId;
 
     /** Data model used by the QML UI to represent groups/input channels */
     TreeModel *m_inputChannelsTree;
+
+    /** Maps to efficiently handle input signals destined to a page.
+     *  This avoids a deep lookup throughout all the pages.
+     *  The key is the pahge number and the value is the QLCInputSource/KeySequence */
+    QMultiHash <int, quint32> m_pagesInputSourcesMap;
+    QMultiHash <int, QKeySequence> m_pagesKeySequencesMap;
+
+    /*********************************************************************
+     * Keyboard input
+     *********************************************************************/
+public:
+    /** Enable the autodetection process for a key sequence.
+     *  This method creates an empty QKeySequence in the specified
+     *  $widget and updates it later once the first key press is received */
+    Q_INVOKABLE bool createAndDetectInputKey(VCWidget *widget);
+
+    /** Enable the autodetection process for a specific key sequence */
+    Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
+
+    /** Update the control ID of a key sequence with $keyText for the specified $widget */
+    Q_INVOKABLE void updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText);
+
+    /** Delete an existing key sequence from the specified $widget */
+    Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
+
+    /** @reimp */
+    void handleKeyEvent(QKeyEvent *e, bool pressed);
+
+protected:
+    QKeySequence m_autoDetectionKey;
+    quint32 m_autoDetectionKeyId;
 
     /*********************************************************************
      * Load & Save

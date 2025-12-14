@@ -47,20 +47,20 @@ class Doc;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse             QString("Universe")
-#define KXMLQLCUniverseName         QString("Name")
-#define KXMLQLCUniverseID           QString("ID")
-#define KXMLQLCUniversePassthrough  QString("Passthrough")
+#define KXMLQLCUniverse             QStringLiteral("Universe")
+#define KXMLQLCUniverseName         QStringLiteral("Name")
+#define KXMLQLCUniverseID           QStringLiteral("ID")
+#define KXMLQLCUniversePassthrough  QStringLiteral("Passthrough")
 
-#define KXMLQLCUniverseInputPatch    QString("Input")
-#define KXMLQLCUniverseOutputPatch   QString("Output")
-#define KXMLQLCUniverseFeedbackPatch QString("Feedback")
+#define KXMLQLCUniverseInputPatch    QStringLiteral("Input")
+#define KXMLQLCUniverseOutputPatch   QStringLiteral("Output")
+#define KXMLQLCUniverseFeedbackPatch QStringLiteral("Feedback")
 
-#define KXMLQLCUniversePlugin           QString("Plugin")
-#define KXMLQLCUniverseLine             QString("Line")
-#define KXMLQLCUniverseLineUID          QString("UID")
-#define KXMLQLCUniverseProfileName      QString("Profile")
-#define KXMLQLCUniversePluginParameters QString("PluginParameters")
+#define KXMLQLCUniversePlugin           QStringLiteral("Plugin")
+#define KXMLQLCUniverseLine             QStringLiteral("Line")
+#define KXMLQLCUniverseLineUID          QStringLiteral("UID")
+#define KXMLQLCUniverseProfileName      QStringLiteral("Profile")
+#define KXMLQLCUniversePluginParameters QStringLiteral("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
  */
@@ -265,7 +265,7 @@ private:
     InputPatch *m_inputPatch;
 
     /** List of references to the output patches associated to this universe. */
-    QList<OutputPatch*>m_outputPatchList;
+    QList<OutputPatch*> m_outputPatchList;
 
     /** Reference to the feedback patch associated to this universe. */
     OutputPatch *m_fbPatch;
@@ -355,6 +355,10 @@ public:
      *  to the requested pause state */
     void setFaderPause(quint32 functionID, bool enable);
 
+    /** Set a fade out time to every fader of this universe.
+     *  This is used from the fadeAndStopAll functionality */
+    void setFaderFadeOut(int fadeTime);
+
 public slots:
     void tick();
 
@@ -375,7 +379,14 @@ protected:
 
     /** IMPORTANT: this is the list of faders that will compose
      *  the Universe values. The order is very important ! */
-    QList<QSharedPointer<GenericFader> > m_faders;
+    QList<QSharedPointer<GenericFader>> m_faders;
+
+    /** Mutex used to protect the access to the m_faders array */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    QMutex m_fadersMutex;
+#else
+    QRecursiveMutex m_fadersMutex;
+#endif
 
     /************************************************************************
      * Values
@@ -514,6 +525,7 @@ public:
      *
      * @param address The DMX start address to write to
      * @param value The value to write
+     * @param forceLTP Force to skip the HTP check
      *
      * @return true if successful, otherwise false
      */
@@ -525,6 +537,7 @@ public:
      * @param address The DMX start address to write to
      * @param value the DMX value(s) to set
      * @param channelCount number of channels that value represents
+     *
      * @return always true
      */
     bool writeMultiple(int address, quint32 value, int channelCount);

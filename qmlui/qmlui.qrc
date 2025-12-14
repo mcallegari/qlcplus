@@ -66,7 +66,9 @@
     <file alias="PopupChannelModifiers.qml">qml/popup/PopupChannelModifiers.qml</file>
     <file alias="PopupChannelWizard.qml">qml/popup/PopupChannelWizard.qml</file>
     <file alias="PopupCreatePalette.qml">qml/popup/PopupCreatePalette.qml</file>
+    <file alias="PopupCustomFeedback.qml">qml/popup/PopupCustomFeedback.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
+    <file alias="PopupFolderBrowser.qml">qml/popup/PopupFolderBrowser.qml</file>
     <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
@@ -78,6 +80,7 @@
     <file alias="PopupNetworkServer.qml">qml/popup/PopupNetworkServer.qml</file>
     <file alias="PopupManualInputSource.qml">qml/popup/PopupManualInputSource.qml</file>
     <file alias="PopupInputChannelEditor.qml">qml/popup/PopupInputChannelEditor.qml</file>
+    <file alias="PopupInputNumber.qml">qml/popup/PopupInputNumber.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
@@ -139,6 +142,7 @@
     <file alias="LightEntity.qml">qml/fixturesfunctions/3DView/LightEntity.qml</file>
     <file alias="MultiBeams3DItem.qml">qml/fixturesfunctions/3DView/MultiBeams3DItem.qml</file>
     <file alias="PixelBar3DItem.qml">qml/fixturesfunctions/3DView/PixelBar3DItem.qml</file>
+    <file alias="Strobe3DItem.qml">qml/fixturesfunctions/3DView/Strobe3DItem.qml</file>
     <file alias="Generic3DItem.qml">qml/fixturesfunctions/3DView/Generic3DItem.qml</file>
     <file alias="DepthTarget.qml">qml/fixturesfunctions/3DView/DepthTarget.qml</file>
     <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>
@@ -235,8 +239,8 @@
     <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
     <file alias="VCAnimationItem.qml">qml/virtualconsole/VCAnimationItem.qml</file>
     <file alias="VCAnimationProperties.qml">qml/virtualconsole/VCAnimationProperties.qml</file>
-    <file alias="VCAudioTriggerItem.qml">qml/virtualconsole/VCAudioTriggerItem.qml</file>
-    <file alias="VCAudioTriggerProperties.qml">qml/virtualconsole/VCAudioTriggerProperties.qml</file>
+    <file alias="VCAudioTriggersItem.qml">qml/virtualconsole/VCAudioTriggersItem.qml</file>
+    <file alias="VCAudioTriggersProperties.qml">qml/virtualconsole/VCAudioTriggersProperties.qml</file>
     <file alias="VCXYPadItem.qml">qml/virtualconsole/VCXYPadItem.qml</file>
     <file alias="VCXYPadProperties.qml">qml/virtualconsole/VCXYPadProperties.qml</file>
     <file alias="VCSpeedDialItem.qml">qml/virtualconsole/VCSpeedDialItem.qml</file>

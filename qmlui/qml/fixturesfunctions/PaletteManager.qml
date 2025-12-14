@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -47,293 +47,309 @@ Rectangle
 
     ColumnLayout
     {
-      anchors.fill: parent
-      spacing: 3
+        anchors.fill: parent
+        spacing: 3
 
-      Rectangle
-      {
-        id: topBar
-        width: pmContainer.width
-        height: UISettings.iconSizeMedium
-        z: 5
-        gradient: Gradient
+        Rectangle
         {
-            GradientStop { position: 0; color: UISettings.toolbarStartSub }
-            GradientStop { position: 1; color: UISettings.toolbarEnd }
-        }
-
-        RowLayout
-        {
-            width: parent.width
-            height: parent.height
-            y: 1
-
-            spacing: 4
-
-            IconButton
+            id: topBar
+            Layout.fillWidth: true
+            height: UISettings.iconSizeMedium
+            z: 5
+            gradient: Gradient
             {
-                id: searchFunc
-                z: 2
-                width: height
-                height: topBar.height - 2
-                bgColor: UISettings.bgMedium
-                faColor: checked ? "white" : "gray"
-                faSource: FontAwesome.fa_search
-                checkable: true
-                tooltip: qsTr("Search a palette")
-                onToggled:
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
+            }
+
+            RowLayout
+            {
+                width: parent.width
+                height: parent.height
+                y: 1
+
+                spacing: 4
+
+                IconButton
                 {
-                    paletteManager.searchFilter = ""
-                    if (checked)
-                        sTextInput.forceActiveFocus()
-                }
-            }
-            IconButton
-            {
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/intensity.svg"
-                checkable: true
-                checked: paletteManager.typeFilter & QLCPalette.Dimmer
-                tooltip: qsTr("Intensity")
-                counter: paletteManager.dimmerCount
-                onCheckedChanged: setTypeFilter(QLCPalette.Dimmer, checked)
-            }
-            IconButton
-            {
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/color.svg"
-                checkable: true
-                checked: paletteManager.typeFilter & QLCPalette.Color
-                tooltip: qsTr("Color")
-                counter: paletteManager.colorCount
-                onCheckedChanged: setTypeFilter(QLCPalette.Color, checked)
-            }
-            IconButton
-            {
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/position.svg"
-                checkable: true
-                checked: paletteManager.typeFilter & (QLCPalette.Pan || QLCPalette.Tilt || QLCPalette.PanTilt)
-                tooltip: qsTr("Position")
-                counter: paletteManager.positionCount
-                onCheckedChanged: setTypeFilter(QLCPalette.Pan | QLCPalette.Tilt | QLCPalette.PanTilt, checked)
-            }
-
-            Rectangle { Layout.fillWidth: true }
-
-            IconButton
-            {
-                z: 2
-                width: height
-                height: topBar.height - 2
-                visible: allowEditing
-                imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Delete the selected palette(s)")
-                enabled: pDragItem.itemsList.length
-                onClicked:
-                {
-                    var selNames = []
-                    for (var i = 0; i < pDragItem.itemsList.length; i++)
-                        selNames.push(pDragItem.itemsList[i].cRef.name)
-
-                    //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
-                    deleteItemsPopup.open()
-                }
-
-                CustomPopupDialog
-                {
-                    id: deleteItemsPopup
-                    title: qsTr("Delete items")
-                    onAccepted:
+                    id: searchFunc
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    bgColor: UISettings.bgMedium
+                    faColor: checked ? "white" : "gray"
+                    faSource: FontAwesome.fa_magnifying_glass
+                    checkable: true
+                    tooltip: qsTr("Search a palette")
+                    onToggled:
                     {
-                        var idList = []
-                        for (var i = 0; i < pDragItem.itemsList.length; i++)
-                            idList.push(pDragItem.itemsList[i].cRef.id)
-
-                        paletteManager.deletePalettes(idList)
-                        pDragItem.itemsList = []
+                        paletteManager.searchFilter = ""
+                        if (checked)
+                            sTextInput.forceActiveFocus()
                     }
                 }
+                IconButton
+                {
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/intensity.svg"
+                    checkable: true
+                    checked: paletteManager.typeFilter & QLCPalette.Dimmer
+                    tooltip: qsTr("Intensity")
+                    counter: paletteManager.dimmerCount
+                    onCheckedChanged: setTypeFilter(QLCPalette.Dimmer, checked)
+                }
+                IconButton
+                {
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/color.svg"
+                    checkable: true
+                    checked: paletteManager.typeFilter & QLCPalette.Color
+                    tooltip: qsTr("Color")
+                    counter: paletteManager.colorCount
+                    onCheckedChanged: setTypeFilter(QLCPalette.Color, checked)
+                }
+                IconButton
+                {
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/position.svg"
+                    checkable: true
+                    checked: paletteManager.typeFilter & (QLCPalette.Pan || QLCPalette.Tilt || QLCPalette.PanTilt)
+                    tooltip: qsTr("Position")
+                    counter: paletteManager.positionCount
+                    onCheckedChanged: setTypeFilter(QLCPalette.Pan | QLCPalette.Tilt | QLCPalette.PanTilt, checked)
+                }
+
+                Rectangle { Layout.fillWidth: true }
+
+                IconButton
+                {
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    visible: allowEditing
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
+                    tooltip: qsTr("Delete the selected palette(s)")
+                    enabled: pDragItem.itemsList.length
+                    onClicked:
+                    {
+                        var selNames = []
+                        for (var i = 0; i < pDragItem.itemsList.length; i++)
+                            selNames.push(pDragItem.itemsList[i].cRef.name)
+
+                        //console.log(selNames)
+                        deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
+                        deleteItemsPopup.open()
+                    }
+
+                    CustomPopupDialog
+                    {
+                        id: deleteItemsPopup
+                        title: qsTr("Delete items")
+                        onAccepted:
+                        {
+                            var idList = []
+                            for (var i = 0; i < pDragItem.itemsList.length; i++)
+                                idList.push(pDragItem.itemsList[i].cRef.id)
+
+                            paletteManager.deletePalettes(idList)
+                            pDragItem.itemsList = []
+                        }
+                    }
+                }
+            } // RowLayout
+        } // Rectangle - topBar
+
+        Rectangle
+        {
+            id: searchBox
+            visible: searchFunc.checked
+            Layout.fillWidth: true
+            height: UISettings.iconSizeMedium
+            z: 5
+            color: UISettings.bgMedium
+            radius: 5
+            border.width: 2
+            border.color: UISettings.borderColorDark
+
+            TextInput
+            {
+                id: sTextInput
+                y: 3
+                height: parent.height - 6
+                width: parent.width
+                color: UISettings.fgMain
+                text: paletteManager.searchFilter
+                font.family: UISettings.robotoFontName
+                font.pixelSize: parent.height - 6
+                selectionColor: UISettings.highlightPressed
+                selectByMouse: true
+
+                onTextEdited: paletteManager.searchFilter = text
             }
-        } // RowLayout
-      } // Rectangle - topBar
+        } // Rectangle - searchBox
 
-      Rectangle
-      {
-          id: searchBox
-          visible: searchFunc.checked
-          width: pmContainer.width
-          height: UISettings.iconSizeMedium
-          z: 5
-          color: UISettings.bgMedium
-          radius: 5
-          border.width: 2
-          border.color: UISettings.borderColorDark
+        ListView
+        {
+            id: pListView
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            z: 4
+            boundsBehavior: Flickable.StopAtBounds
 
-          TextInput
-          {
-              id: sTextInput
-              y: 3
-              height: parent.height - 6
-              width: parent.width
-              color: UISettings.fgMain
-              text: paletteManager.searchFilter
-              font.family: "Roboto Condensed"
-              font.pixelSize: parent.height - 6
-              selectionColor: UISettings.highlightPressed
-              selectByMouse: true
+            property bool dragActive: false
 
-              onTextChanged: paletteManager.searchFilter = text
-          }
-      } // Rectangle - searchBox
+            Component.onDestruction: pmSelector.resetSelection(pListView.model)
 
-      ListView
-      {
-          id: pListView
-          width: pmContainer.width
-          Layout.fillHeight: true
-          z: 4
-          boundsBehavior: Flickable.StopAtBounds
+            model: paletteManager.paletteList
+            delegate:
+                Item
+                {
+                    width: pListView.width
+                    height: UISettings.listItemHeight
 
-          property bool dragActive: false
+                    property alias dItem: pDelegate
 
-          Component.onDestruction: pmSelector.resetSelection(pListView.model)
+                    MouseArea
+                    {
+                        id: delegateRoot
+                        width: pListView.width
+                        height: parent.height
 
-          model: paletteManager.paletteList
-          delegate:
-              Item
-              {
-                  width: pListView.width
-                  height: UISettings.listItemHeight
+                        property bool dragActive: drag.active
 
-                  MouseArea
-                  {
-                      id: delegateRoot
-                      width: pListView.width
-                      height: parent.height
+                        drag.target: pDragItem
+                        drag.threshold: height / 2
 
-                      property bool dragActive: drag.active
+                        onPressed: (mouse) =>
+                        {
+                            if (model.isSelected)
+                                return
 
-                      drag.target: pDragItem
-                      drag.threshold: height / 2
+                            var posnInWindow = pDelegate.mapToItem(mainView, pDelegate.x, pDelegate.y)
+                            pDragItem.parent = mainView
+                            pDragItem.x = posnInWindow.x - (pDragItem.width / 4)
+                            pDragItem.y = posnInWindow.y - (pDragItem.height / 4)
+                            pDragItem.z = 10
 
-                      onPressed:
-                      {
-                          if (model.isSelected)
-                              return
+                            pmSelector.selectItem(index, pListView.model, mouse.modifiers)
 
-                          var posnInWindow = pDelegate.mapToItem(mainView, pDelegate.x, pDelegate.y)
-                          pDragItem.parent = mainView
-                          pDragItem.x = posnInWindow.x - (pDragItem.width / 4)
-                          pDragItem.y = posnInWindow.y - (pDragItem.height / 4)
-                          pDragItem.z = 10
+                            var selIndices = pmSelector.itemsList()
+                            var arr = []
 
-                          pmSelector.selectItem(index, pListView.model, mouse.modifiers)
+                            for (var i = 0; i < pListView.count; i++)
+                            {
+                                for (var s = 0; s < selIndices.length; s++)
+                                {
+                                    if (selIndices[s] === i)
+                                    {
+                                        var item = pListView.itemAtIndex(i)
+                                        arr.push(item.dItem)
+                                        break
+                                    }
+                                }
+                            }
 
-                          if ((mouse.modifiers & Qt.ControlModifier) == 0)
-                              pDragItem.itemsList = []
+                            pDragItem.itemsList = arr
+                        }
+                        onDoubleClicked:
+                        {
+                            var paletteType = pDelegate.cRef.type
+                            toolLoader.paletteID = pDelegate.cRef.id
+                            console.log("Palette type: " + paletteType + ", id: " + toolLoader.paletteID)
 
-                          // workaround array length notification
-                          var arr = pDragItem.itemsList
-                          arr.push(pDelegate)
-                          pDragItem.itemsList = arr
-                      }
-                      onDoubleClicked:
-                      {
-                          var paletteType = pDelegate.cRef.type
-                          console.log("Palette type: " + paletteType)
-                          toolLoader.paletteID = pDelegate.cRef.id
+                            switch (paletteType)
+                            {
+                                case QLCPalette.Dimmer:
+                                    toolLoader.source = "qrc:/IntensityTool.qml"
+                                break
+                                case QLCPalette.Color:
+                                    toolLoader.source = "qrc:/ColorTool.qml"
+                                break
+                                case QLCPalette.Pan:
+                                case QLCPalette.Tilt:
+                                case QLCPalette.PanTilt:
+                                    toolLoader.source = "qrc:/PositionTool.qml"
+                                break
+                                case QLCPalette.Zoom:
+                                    toolLoader.source = "qrc:/BeamTool.qml"
+                                break
+                            }
+                        }
 
-                          switch (paletteType)
-                          {
-                              case QLCPalette.Dimmer:
-                                  toolLoader.source = "qrc:/IntensityTool.qml"
-                              break
-                              case QLCPalette.Color:
-                                  toolLoader.source = "qrc:/ColorTool.qml"
-                              break
-                              case QLCPalette.Pan:
-                              case QLCPalette.Tilt:
-                              case QLCPalette.PanTilt:
-                                  toolLoader.source = "qrc:/PositionTool.qml"
-                              break
-                          }
-                      }
+                        onDragActiveChanged:
+                        {
+                            if (dragActive)
+                            {
+                                pDragItem.itemLabel = pEntryItem.tLabel
+                                pDragItem.itemIcon = pEntryItem.iSrc
+                                pListView.dragActive = true
+                            }
+                            else
+                            {
+                                pDragItem.Drag.drop()
+                                pDragItem.parent = pListView
+                                pDragItem.x = 0
+                                pDragItem.y = 0
+                                pListView.dragActive = false
+                            }
+                        }
 
-                      onDragActiveChanged:
-                      {
-                          if (dragActive)
-                          {
-                              pDragItem.itemLabel = pEntryItem.tLabel
-                              pDragItem.itemIcon = pEntryItem.iSrc
-                              pListView.dragActive = true
-                          }
-                          else
-                          {
-                              pDragItem.Drag.drop()
-                              pDragItem.parent = pListView
-                              pDragItem.x = 0
-                              pDragItem.y = 0
-                              pListView.dragActive = false
-                          }
-                      }
+                        Rectangle
+                        {
+                            id: pDelegate
+                            width: pListView.width
+                            height: UISettings.listItemHeight
+                            color: "transparent"
 
-                      Rectangle
-                      {
-                          id: pDelegate
-                          width: pListView.width
-                          height: UISettings.listItemHeight
-                          color: "transparent"
+                            property QLCPalette cRef: paletteManager.getPalette(model.paletteID)
+                            property int itemType: App.PaletteDragItem
 
-                          property QLCPalette cRef: paletteManager.getPalette(model.paletteID)
-                          property int itemType: App.PaletteDragItem
+                            Rectangle
+                            {
+                                anchors.fill: parent
+                                radius: 3
+                                color: UISettings.highlight
+                                visible: model.isSelected
+                            }
 
-                          Rectangle
-                          {
-                              anchors.fill: parent
-                              radius: 3
-                              color: UISettings.highlight
-                              visible: model.isSelected
-                          }
+                            IconTextEntry
+                            {
+                                id: pEntryItem
+                                width: parent.width
+                                height: parent.height
+                                iSrc: pDelegate.cRef.iconResource(true)
+                                tLabel: pDelegate.cRef ? pDelegate.cRef.name : ""
+                            }
 
-                          IconTextEntry
-                          {
-                              id: pEntryItem
-                              width: parent.width
-                              height: parent.height
-                              iSrc: pDelegate.cRef.iconResource(true)
-                              tLabel: pDelegate.cRef ? pDelegate.cRef.name : ""
-                          }
+                            // items divider
+                            Rectangle
+                            {
+                                width: parent.width
+                                height: 1
+                                y: parent.height - 1
+                                color: UISettings.bgLight
+                            }
+                        }
+                    }
+                }
+            GenericMultiDragItem
+            {
+                id: pDragItem
 
-                          // items divider
-                          Rectangle
-                          {
-                              width: parent.width
-                              height: 1
-                              y: parent.height - 1
-                              color: UISettings.bgLight
-                          }
-                      }
-                  }
-              }
-          GenericMultiDragItem
-          {
-              id: pDragItem
+                visible: pListView.dragActive
 
-              visible: pListView.dragActive
-
-              Drag.active: pListView.dragActive
-              Drag.source: pDragItem
-              Drag.keys: [ "palette" ]
-          }
-      } // ListView
+                Drag.active: pListView.dragActive
+                Drag.source: pDragItem
+                Drag.keys: [ "palette" ]
+            }
+        } // ListView
     } // ColumnLayout
 
     Loader

@@ -55,6 +55,7 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_ovrResetSelWidget = NULL;
 
     setupUi(this);
+    m_levelList->sortByColumn(KColumnName, Qt::AscendingOrder);
 
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
@@ -429,7 +430,7 @@ void VCSliderProperties::levelUpdateChannelNode(QTreeWidgetItem* parent,
         item->setCheckState(KColumnName, Qt::Unchecked);
     }
 
-    item->setText(KColumnName, QString("%1:%2").arg(ch + 1)
+    item->setText(KColumnName, QString("%1:%2").arg(ch + 1, 3, 10, QChar('0'))
                   .arg(channel->name()));
     item->setIcon(KColumnName, channel->getIcon());
     if (channel->group() == QLCChannel::Intensity &&

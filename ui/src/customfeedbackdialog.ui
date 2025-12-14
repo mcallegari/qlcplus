@@ -218,6 +218,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_lowerSpin</tabstop>
+  <tabstop>m_lowerColor</tabstop>
+  <tabstop>m_upperSpin</tabstop>
+  <tabstop>m_upperColor</tabstop>
+  <tabstop>m_monitorSpin</tabstop>
+  <tabstop>m_monitorColor</tabstop>
+  <tabstop>m_lowerChannelCombo</tabstop>
+  <tabstop>m_upperChannelCombo</tabstop>
+  <tabstop>m_monitorChannelCombo</tabstop>
+  <tabstop>m_profileColorsTree</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

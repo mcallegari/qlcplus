@@ -27,8 +27,17 @@ add_library(${module_name}
 )
 
 if(WIN32)
+    target_link_libraries(${module_name} PRIVATE winmm)
     set(FTD2XXDIR "C:/projects/D2XXSDK")
-    target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/amd64/libftd2xx.a)
+    if (DEFINED ENV{MSYSTEM_CARCH})
+        set(SYSTEM_ARCH "$ENV{MSYSTEM_CARCH}")
+        if (SYSTEM_ARCH STREQUAL "x86_64")
+            target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/amd64/libftd2xx.a)
+        endif()
+    else()
+        target_link_libraries(${module_name} PRIVATE ${FTD2XXDIR}/i386/libftd2xx.a)
+
+    endif()
     target_include_directories(${module_name} PRIVATE ${FTD2XXDIR})
 	message("Building with FTD2xx support.")
     set(WITH_D2XX TRUE)
@@ -162,8 +171,12 @@ if (UNIX AND NOT APPLE)
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.dmxusb.metainfo.xml"
            DESTINATION ${METAINFODIR})
 elseif (WITH_D2XX)
-   install(FILES ${FTD2XXDIR}/amd64/ftd2xx64.dll
-           DESTINATION  ${INSTALLROOT}/${LIBSDIR})
+    if (DEFINED ENV{MSYSTEM_CARCH})
+        set(SYSTEM_ARCH "$ENV{MSYSTEM_CARCH}")
+        if (SYSTEM_ARCH STREQUAL "x86_64")
+            install(FILES ${FTD2XXDIR}/amd64/ftd2xx64.dll DESTINATION  ${INSTALLROOT}/${LIBSDIR})
+        endif()
+    endif()
 endif()
 
 install(TARGETS ${module_name}

@@ -29,9 +29,9 @@
 #include "show.h"
 #include "doc.h"
 
-#define KXMLQLCShowTimeDivision QString("TimeDivision")
-#define KXMLQLCShowTimeType     QString("Type")
-#define KXMLQLCShowTimeBPM      QString("BPM")
+#define KXMLQLCShowTimeDivision QStringLiteral("TimeDivision")
+#define KXMLQLCShowTimeType     QStringLiteral("Type")
+#define KXMLQLCShowTimeBPM      QStringLiteral("BPM")
 
 /*****************************************************************************
  * Initialization
@@ -65,7 +65,7 @@ quint32 Show::totalDuration()
 {
     quint32 totalDuration = 0;
 
-    foreach (Track *track, tracks())
+    foreach (Track *track, m_tracks)
     {
         foreach (ShowFunction *sf, track->showFunctions())
         {
@@ -229,7 +229,7 @@ bool Show::addTrack(Track *track, quint32 id)
      track->setShowId(this->id());
      m_tracks[id] = track;
 
-     registerAttribute(track->name());
+     registerAttribute(QString("%1-%2").arg(track->name()).arg(track->id()));
 
      return true;
 }
@@ -238,13 +238,13 @@ bool Show::removeTrack(quint32 id)
 {
     if (m_tracks.contains(id) == true)
     {
-        Track* trk = m_tracks.take(id);
-        Q_ASSERT(trk != NULL);
+        Track* track = m_tracks.take(id);
+        Q_ASSERT(track != NULL);
 
-        unregisterAttribute(trk->name());
+        unregisterAttribute(QString("%1-%2").arg(track->name()).arg(track->id()));
 
         //emit trackRemoved(id);
-        delete trk;
+        delete track;
 
         return true;
     }
@@ -257,10 +257,7 @@ bool Show::removeTrack(quint32 id)
 
 Track* Show::track(quint32 id) const
 {
-    if (m_tracks.contains(id) == true)
-        return m_tracks[id];
-    else
-        return NULL;
+    return m_tracks.value(id, NULL);
 }
 
 Track* Show::getTrackFromSceneID(quint32 id)
@@ -478,7 +475,7 @@ void Show::preRun(MasterTimer* timer)
 
     m_runner = new ShowRunner(doc(), this->id(), elapsed());
     int i = 0;
-    foreach (Track *track, m_tracks.values())
+    foreach (Track *track, m_tracks)
         m_runner->adjustIntensity(getAttributeValue(i++), track);
 
     connect(m_runner, SIGNAL(timeChanged(quint32)), this, SIGNAL(timeChanged(quint32)));

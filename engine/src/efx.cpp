@@ -247,12 +247,20 @@ void EFX::previewFixtures(QVector <QPolygonF>& polygons) const
 {
     polygons.resize(m_fixtures.size());
     for (int i = 0; i < m_fixtures.size(); ++i)
-        preview(polygons[i], m_fixtures[i]->m_direction, m_fixtures[i]->m_startOffset);
+    {
+        int propagationOffset =
+            (m_propagationMode == EFX::Asymmetric || m_propagationMode == EFX::Serial)
+                ? 360 / m_fixtures.size() * i
+                : 0;
+
+        preview(polygons[i], m_fixtures[i]->m_direction,
+                m_fixtures[i]->m_startOffset + propagationOffset);
+    }
 }
 
 void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
-    float stepCount = 128.0;
+    float stepCount = 512.0;
     int step = 0;
     float stepSize = 1.0 / (stepCount / (M_PI * 2.0));
 
@@ -841,6 +849,8 @@ bool EFX::saveXML(QXmlStreamWriter *doc)
     /* Propagation mode */
     doc->writeTextElement(KXMLQLCEFXPropagationMode, propagationModeToString(m_propagationMode));
 
+    /* Tempo type */
+    saveXMLTempoType(doc);
     /* Speeds */
     saveXMLSpeed(doc);
     /* Direction */
@@ -928,6 +938,10 @@ bool EFX::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionSpeed)
         {
             loadXMLSpeed(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCEFXFixture)
         {
@@ -1076,7 +1090,7 @@ QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
     if (fader.isNull())
     {
-        fader = universes[universeID]->requestFader();
+        fader = universes[universeID]->requestFader(isRelative() ? Universe::Override : Universe::Auto);
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
         fader->setName(name());
@@ -1165,7 +1179,7 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
             {
                 if (!fader.isNull())
                     fader->adjustIntensity(getAttributeValue(Function::Intensity));
@@ -1194,7 +1208,7 @@ void EFX::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->setBlendMode(mode);

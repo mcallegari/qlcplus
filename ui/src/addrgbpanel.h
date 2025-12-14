@@ -21,6 +21,7 @@
 #define ADDRGBPANEL_H
 
 #include <QDialog>
+
 #include "ui_addrgbpanel.h"
 #include "fixture.h"
 
@@ -68,6 +69,8 @@ public:
     Type type();
     Direction direction();
     Fixture::Components components();
+    bool is16Bit();
+    bool crossUniverse();
 
 private:
     /** Check if an address is available for contiguous channels.
@@ -77,6 +80,7 @@ private:
 
 protected slots:
     void slotUniverseChanged();
+    void slotComponentsChanged();
     void slotAddressChanged();
     void slotSizeChanged(int val);
 

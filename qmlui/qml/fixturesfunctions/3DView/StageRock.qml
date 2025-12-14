@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
+import QtQuick
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Input 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Input
+import Qt3D.Extras
 
 Entity
 {
@@ -42,8 +42,8 @@ Entity
             effect: stage.effect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "lightgray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.color("lightgray") },
+                Parameter { name: "specular"; value: Qt.color("black") },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -203,7 +203,7 @@ Entity
         ObjectPicker
         {
             id: stagePicker
-            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+            onClicked: (pick) => contextManager.setPositionPickPoint(pick.worldIntersection)
         }
 
         components: [

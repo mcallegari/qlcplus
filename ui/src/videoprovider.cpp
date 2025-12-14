@@ -117,8 +117,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
             this, SLOT(slotSetPause(bool)));
     connect(m_video, SIGNAL(requestStop()),
             this, SLOT(slotStopVideo()));
-    connect(m_video, SIGNAL(requestBrightnessAdjust(int)),
-            this, SLOT(slotBrightnessAdjust(int)));
+    connect(m_video, SIGNAL(requestBrightnessVolumeAdjust(qreal)),
+            this, SLOT(slotBrightnessVolumeAdjust(qreal)));
 
     QString sourceURL = m_video->sourceUrl();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -310,13 +310,19 @@ void VideoWidget::slotStopVideo()
     m_video->stop(functionParent());
 }
 
-void VideoWidget::slotBrightnessAdjust(int value)
+void VideoWidget::slotBrightnessVolumeAdjust(qreal value)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (m_videoWidget != NULL)
-        m_videoWidget->setBrightness(value);
+    int brightness = -100 + (int)(qreal(100.0) * value);
+    int volume = 100 * (int)QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    if (m_videoWidget)
+        m_videoWidget->setBrightness(brightness);
+    if (m_videoPlayer)
+        m_videoPlayer->setVolume(volume);
 #else
-    Q_UNUSED(value)
+    qreal linearVolume = QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    if (m_audioOutput)
+        m_audioOutput->setVolume(linearVolume);
 #endif
 }
 

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,9 +30,9 @@ Rectangle
     width: mainView.width / 5
     height: parent.height
 
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.width: 1
-    border.color: "#222"
+    border.color: UISettings.bgStrong
 
     property vector3d envSize: contextManager ? contextManager.environmentSize : Qt.vector3d(0, 0, 0)
     property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
@@ -48,7 +48,7 @@ Rectangle
 
     function updateRotation(degrees)
     {
-        if (visible == false)
+        if (visible === false)
             return;
 
         var rot
@@ -85,14 +85,19 @@ Rectangle
         y: UISettings.bigItemHeight
         visible: false
 
-        onColorChanged: contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                contextManager.setFixturesGelColor(Qt.rgba(r, g, b, 1.0))
+            }
         onClose: visible = false
     }
 
     Column
     {
         id: settingsColumn
-        width: parent.width
+        x: 5
+        width: parent.width - 10
         spacing: 2
 
         SectionBox
@@ -162,16 +167,12 @@ Rectangle
                     RobotoText { height: UISettings.listItemHeight; label: qsTr("Grid units") }
                     CustomComboBox
                     {
-                        ListModel
-                        {
-                            id: unitsModel
-                            ListElement { mLabel: qsTr("Meters"); mValue: MonitorProperties.Meters }
-                            ListElement { mLabel: qsTr("Feet"); mValue: MonitorProperties.Feet }
-                        }
-
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
-                        model: unitsModel
+                        model: [
+                            { mLabel: qsTr("Meters"), mValue: MonitorProperties.Meters },
+                            { mLabel: qsTr("Feet"), mValue: MonitorProperties.Feet }
+                        ]
                         currentIndex: View2D.gridUnits
                         onCurrentIndexChanged:
                         {
@@ -184,18 +185,14 @@ Rectangle
                     RobotoText { height: UISettings.listItemHeight; label: qsTr("Point of view") }
                     CustomComboBox
                     {
-                        ListModel
-                        {
-                            id: povModel
-                            ListElement { mLabel: qsTr("Top view"); mValue: MonitorProperties.TopView }
-                            ListElement { mLabel: qsTr("Front view"); mValue: MonitorProperties.FrontView }
-                            ListElement { mLabel: qsTr("Right side view"); mValue: MonitorProperties.RightSideView }
-                            ListElement { mLabel: qsTr("Left side view"); mValue: MonitorProperties.LeftSideView }
-                        }
-
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
-                        model: povModel
+                        model: [
+                            { mLabel: qsTr("Top view"), mValue: MonitorProperties.TopView },
+                            { mLabel: qsTr("Front view"), mValue: MonitorProperties.FrontView },
+                            { mLabel: qsTr("Right side view"), mValue: MonitorProperties.RightSideView },
+                            { mLabel: qsTr("Left side view"), mValue: MonitorProperties.LeftSideView }
+                        ]
                         currentIndex: View2D.pointOfView - 1
                         onCurrentIndexChanged:
                         {
@@ -218,7 +215,9 @@ Rectangle
                         id: imgButton
                         width: UISettings.iconSizeMedium
                         height: width
-                        imgSource: "qrc:/background.svg"
+                        faSource: FontAwesome.fa_image
+                        faColor: "lightyellow"
+                        tooltip: qsTr("Set a custom background")
 
                         onClicked: fileDialog.open()
 
@@ -231,7 +230,7 @@ Rectangle
 
                             onAccepted:
                             {
-                                View2D.backgroundImage = fileDialog.fileUrl
+                                View2D.backgroundImage = fileDialog.selectedFile
                             }
                         }
                     }
@@ -248,7 +247,7 @@ Rectangle
                         z: 2
                         width: UISettings.iconSizeMedium
                         height: width
-                        faSource: FontAwesome.fa_times
+                        faSource: FontAwesome.fa_xmark
                         tooltip: qsTr("Reset background")
                         onClicked: View2D.backgroundImage = ""
                     }
@@ -273,11 +272,13 @@ Rectangle
                     // row 1
                     RobotoText
                     {
+                        visible: contextManager.selectedDimmersCount
                         height: UISettings.listItemHeight
                         label: qsTr("Gel color")
                     }
                     Rectangle
                     {
+                        visible: contextManager.selectedDimmersCount
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
                         color: gelColorTool.currentRGB
@@ -290,6 +291,25 @@ Rectangle
                     }
 
                     // row 2
+                    RobotoText
+                    {
+                        visible: contextManager.selectedDimmersCount
+                        height: UISettings.listItemHeight
+                        label: qsTr("Fixed zoom")
+                    }
+
+                    CustomSpinBox
+                    {
+                        visible: contextManager.selectedDimmersCount
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        from: 0
+                        to: 180
+                        suffix: "°"
+                        onValueModified: contextManager.setFixedZoom(value)
+                    }
+
+                    // row 3
                     RobotoText
                     {
                         height: UISettings.listItemHeight
@@ -321,7 +341,7 @@ Rectangle
                         onValueModified: updateRotation(value)
                     }
 
-                    // row 3
+                    // row 4
                     RobotoText
                     {
                         height: UISettings.listItemHeight;
@@ -354,7 +374,7 @@ Rectangle
                         }
                     }
 
-                    // row 3
+                    // row 5
                     RobotoText
                     {
                         height: UISettings.listItemHeight;

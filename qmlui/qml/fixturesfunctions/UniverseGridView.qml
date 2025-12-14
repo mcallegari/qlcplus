@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.14
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import "."
 
@@ -77,7 +77,8 @@ Flickable
         IconButton
         {
             id: cutBtn
-            imgSource: "qrc:/edit-cut.svg"
+            faSource: FontAwesome.fa_scissors
+            faColor: "lightpink"
             tooltip: qsTr("Cut the selected items into clipboard")
             onClicked: fixtureClipboard = contextManager.selectedFixtureIDVariantList()
         }
@@ -86,7 +87,8 @@ Flickable
         {
             id: pasteBtn
             enabled: fixtureClipboard && fixtureClipboard.length
-            imgSource: "qrc:/edit-paste.svg"
+            faSource: FontAwesome.fa_paste
+            faColor: "lightgreen"
             tooltip: qsTr("Paste items in the clipboard at the first available position")
             onClicked:
             {
@@ -125,7 +127,7 @@ Flickable
             return fixtureManager.getTooltip(uniAddress)
         }
 
-        onPressed:
+        onPressed: (xPos, yPos, mods) =>
         {
             universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
@@ -152,7 +154,7 @@ Flickable
             prevFixtureID = currentItemID
         }
 
-        onReleased:
+        onReleased: (xPos, yPos, offset, mods) =>
         {
             universeGridView.interactive = true
 
@@ -163,7 +165,7 @@ Flickable
             fixtureManager.moveFixture(currentItemID, selectionData[0] + offset)
         }
 
-        onDragEntered:
+        onDragEntered: (xPos, yPos, dragEvent) =>
         {
             var channels = dragEvent.source.channels
             console.log("Drag entered. Channels: " + channels)
@@ -180,7 +182,7 @@ Flickable
             setSelectionData(tmp)
         }
 
-        onDragPositionChanged:
+        onDragPositionChanged: (xPos, yPos, offset, dragEvent) =>
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             dragEvent.source.address = uniAddress
@@ -193,7 +195,7 @@ Flickable
                 validSelection = false
         }
 
-        onPositionChanged:
+        onPositionChanged: (xPos, yPos, offset, mods) =>
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             var freeAddr = fixtureBrowser.availableChannel(currentItemID, uniAddress)

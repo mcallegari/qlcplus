@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QApplication>
 #include <QSurfaceFormat>
 #include <QCommandLineParser>
@@ -30,18 +31,7 @@
 #define endl Qt::endl
 #endif
 
-void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(context)
-    Q_UNUSED(type)
-
-    QByteArray localMsg = msg.toLocal8Bit();
-    //if (type >= QtSystemMsg)
-    {
-        fprintf(stderr, "%s\n", localMsg.constData());
-        fflush(stderr);
-    }
-}
+QFile logFile;
 
 /**
  * Prints the application version
@@ -62,9 +52,14 @@ void printVersion()
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+// Since Qt6, the default rendering backend is Rhi. QLC doesn't support it yet so OpenGL have to be forced.
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
+    qputenv("QT3D_RENDERER", "opengl");
+#endif
 
     QApplication::setOrganizationName("qlcplus");
-    QApplication::setOrganizationDomain("org");
+    QApplication::setOrganizationDomain("qlcplus.org");
     QApplication::setApplicationName(APPNAME);
     QApplication::setApplicationVersion(QString(APPVERSION));
 
@@ -75,14 +70,15 @@ int main(int argc, char *argv[])
 
     parser.addHelpOption();
     parser.addVersionOption();
-    QCommandLineOption debugOption(QStringList() << "d" << "debug",
-                                      "Enable debug messages.");
-    parser.addOption(debugOption);
 
     QCommandLineOption openFileOption(QStringList() << "o" << "open",
                                       "Specify a file to open.",
                                       "filename", "");
     parser.addOption(openFileOption);
+
+    QCommandLineOption openLastOption(QStringList() << "9" << "openlast",
+                                      "Open the file from last session.");
+    parser.addOption(openLastOption);
 
     QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
                                       "Enable kiosk mode (only Virtual Console)");
@@ -93,12 +89,21 @@ int main(int argc, char *argv[])
                                       "locale", "");
     parser.addOption(localeOption);
 
+    QCommandLineOption debugOption(QStringList() << "d" << "debug",
+                                   "Enable debug messages.");
+    parser.addOption(debugOption);
+
+    QCommandLineOption logOption(QStringList() << "g" << "log",
+                                   "Log debug messages to a file.");
+    parser.addOption(logOption);
+
     QCommandLineOption threedSupportOption(QStringList() << "3" << "no3d",
                                       "Disable the 3D preview.");
     parser.addOption(threedSupportOption);
 
     parser.process(app);
 
+    // 3D enablement
 #if !defined Q_OS_ANDROID
     if (!parser.isSet(threedSupportOption))
     {
@@ -109,20 +114,54 @@ int main(int argc, char *argv[])
         QSurfaceFormat::setDefaultFormat(format);
     }
 #endif
-    if (parser.isSet(debugOption))
-        qInstallMessageHandler(debugMessageHandler);
 
+    if (parser.isSet(logOption))
+    {
+        QString logFilename = QDir::homePath() + QDir::separator() + "QLC+.log";
+        logFile.setFileName(logFilename);
+        if (!logFile.open(QIODevice::Append))
+            qWarning("Warning: Unable to open log file.");
+    }
+
+    // logging option
+    if (parser.isSet(debugOption))
+        qInstallMessageHandler(
+            [](QtMsgType, const QMessageLogContext &, const QString &msg) {
+                QByteArray localMsg = msg.toLocal8Bit();
+                //if (type >= QtSystemMsg)
+                {
+                    if (logFile.isOpen())
+                    {
+                        logFile.write(localMsg);
+                        logFile.write((char *)"\n");
+                        logFile.flush();
+                    }
+
+                    fprintf(stderr, "%s\n", localMsg.constData());
+                    fflush(stderr);
+                }
+        });
+
+    // language settings
     QString locale = parser.value(localeOption);
 
     App qlcplusApp;
+    if (locale.isEmpty())
+    {
+        QSettings settings;
+        QVariant language = settings.value(SETTINGS_LANGUAGE);
+        if (language.isValid())
+            locale = language.toString();
+    }
     qlcplusApp.setLanguage(locale);
 
+    // kiosk mode
     if (parser.isSet(kioskOption))
         qlcplusApp.enableKioskMode();
 
     qlcplusApp.startup();
-    qlcplusApp.show();
 
+    // open file
     QString filename = parser.value(openFileOption);
     if (filename.isEmpty() == false)
     {
@@ -131,6 +170,10 @@ int main(int argc, char *argv[])
         else
             qlcplusApp.loadWorkspace(filename);
     }
+
+    // open last file
+    if (parser.isSet(openLastOption))
+        qlcplusApp.loadLastWorkspace();
 
     return app.exec();
 }

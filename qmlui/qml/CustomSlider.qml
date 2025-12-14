@@ -18,8 +18,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.9
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls.Basic
+
 import "."
 
 Slider

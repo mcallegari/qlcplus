@@ -29,3 +29,8 @@ SidePanel 0.1 ../SidePanel.qml
 TimeEditTool 0.1 ../TimeEditTool.qml
 TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
 WindowLoader 0.1 ../WindowLoader.qml
+
+CustomPopupDialog 0.1 CustomPopupDialog.qml
+PopupCustomFeedback 0.1 PopupCustomFeedback.qml
+PopupPINSetup 0.1 PopupPINSetup.qml
+PopupPINRequest 0.1 PopupPINRequest.qml

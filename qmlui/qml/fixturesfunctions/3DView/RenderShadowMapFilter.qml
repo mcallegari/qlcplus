@@ -17,10 +17,9 @@
   limitations under the License.
 */
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-
-import QtQuick 2.0
+import QtQuick
+import Qt3D.Core
+import Qt3D.Render
 
 LayerFilter
 {
@@ -40,7 +39,7 @@ LayerFilter
                 RenderPassFilter
                 {
                     id: geometryPass
-                    matchAny: FilterKey { name: "pass"; value: { return fixtureItem.lightIntensity ? "shadows" : "invalid" } }
+                    matchAny: FilterKey { name: "pass"; value: { return fixtureItem && fixtureItem.lightIntensity ? "shadows" : "invalid" } }
 
                     parameters: [
                         Parameter { name: "lightViewMatrix"; value: fixtureItem ? fixtureItem.lightViewMatrix : Qt.matrix4x4() },

@@ -15,7 +15,7 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_4.13.1.exe"
+OutFile "QLC+_4.14.4.exe"
 InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
@@ -125,7 +125,7 @@ Section "Uninstall"
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
 	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\platforms
-        RMDir /r $INSTDIR\imageformats
+	RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\multimedia
 	RMDir /r $INSTDIR\styles
 	Delete $INSTDIR\Sample.qxw

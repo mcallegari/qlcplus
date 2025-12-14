@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -103,9 +103,9 @@ Rectangle
 
                 drag.target: dragItem
 
-                onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-                onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-                onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+                onPressed: (mouse) => funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+                onClicked: (mouse) => funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+                onDoubleClicked: (mouse) => funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
             }
 
             DropArea

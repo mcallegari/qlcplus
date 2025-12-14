@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -103,7 +103,8 @@ Rectangle
                     height: topBar.height - 2
                     visible: profEditor.isEditing
                     checkable: true
-                    imgSource: "qrc:/wizard.svg"
+                    faSource: FontAwesome.fa_wand_magic_sparkles
+                    faColor: "cyan"
                     tooltip: qsTr("Toggle the automatic detection procedure")
 
                     onToggled:
@@ -121,7 +122,8 @@ Rectangle
                 {
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     tooltip: profEditor.isEditing ? qsTr("Add a new channel") : qsTr("Create a new input profile")
 
                     onClicked:
@@ -166,7 +168,8 @@ Rectangle
                 {
                     width: height
                     height: topBar.height - 2
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: profEditor.isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
                     enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0 && profListView.selectedIsUser
 
@@ -193,7 +196,7 @@ Rectangle
                     visible: profEditor.isEditing
                     border.color: UISettings.bgMedium
                     useFontawesome: true
-                    label: FontAwesome.fa_times
+                    label: FontAwesome.fa_xmark
                     onClicked:
                     {
                         if (profileEditor.modified)
@@ -291,7 +294,7 @@ Rectangle
                                 anchors.rightMargin: 5
                                 anchors.verticalCenter: parent.verticalCenter
                                 color: UISettings.fgMain
-                                font.family: "FontAwesome"
+                                font.family: UISettings.fontAwesomeFontName
                                 font.pixelSize: parent.height / 2
                                 text: FontAwesome.fa_user
                             }

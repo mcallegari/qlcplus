@@ -217,7 +217,7 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 
     // request to delete all the active faders
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->requestDelete();
@@ -281,6 +281,9 @@ bool VCSlider::copyFrom(const VCWidget* widget)
 
     /* Copy monitor mode */
     setChannelsMonitorEnabled(slider->channelsMonitorEnabled());
+
+    /* Copy flash enabling */
+    setPlaybackFlashEnable(slider->playbackFlashEnable());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -358,7 +361,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         {
             m_doc->masterTimer()->unregisterDMXSource(this);
             // request to delete all the active faders
-            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
             {
                 if (!fader.isNull())
                     fader->requestDelete();
@@ -873,11 +876,12 @@ void VCSlider::slotResetButtonClicked()
                                  .arg(m_slider->palette().window().color().name()));
 
     // request to delete all the active fader channels
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->removeAll();
     }
+    updateOverrideFeedback(false);
 
     emit monitorDMXValueChanged(m_monitorValue);
 }
@@ -1004,8 +1008,10 @@ uchar VCSlider::playbackValue() const
     return m_playbackValue;
 }
 
-void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
+void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity, bool excludeMonitored)
 {
+    Q_UNUSED(excludeMonitored)
+
     if (mode() == Doc::Design || sliderMode() != Playback)
         return;
 
@@ -1034,7 +1040,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
     }
 }
 
-bool VCSlider::playbackFlashEnable()
+bool VCSlider::playbackFlashEnable() const
 {
     return m_playbackFlashEnable;
 }
@@ -1367,6 +1373,7 @@ void VCSlider::setSliderValue(uchar value, bool scale, bool external)
             {
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
+                updateOverrideFeedback(true);
             }
             setLevelValue(val, external);
             setClickAndGoWidgetFromLevel(val);
@@ -1507,6 +1514,13 @@ void VCSlider::updateFeedback()
     sendFeedback(fbv);
 }
 
+void VCSlider::updateOverrideFeedback(bool on)
+{
+    QSharedPointer<QLCInputSource> src = inputSource(overrideResetInputSourceId);
+    if (!src.isNull() && src->isValid() == true)
+        sendFeedback(src->feedbackValue(on ? QLCInputFeedback::UpperValue : QLCInputFeedback::LowerValue), overrideResetInputSourceId);
+}
+
 void VCSlider::slotSliderMoved(int value)
 {
     /* Set text for the top label */
@@ -1571,6 +1585,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
             {
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
+                updateOverrideFeedback(true);
             }
 
             if (invertedAppearance())
@@ -1606,7 +1621,7 @@ void VCSlider::adjustIntensity(qreal val)
     }
     else if (sliderMode() == Level)
     {
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->adjustIntensity(val);

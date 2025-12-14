@@ -29,17 +29,17 @@
 
 #define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
-#define KXMLQLCVCClockType      QString("Type")
-#define KXMLQLCVCClockHours     QString("Hours")
-#define KXMLQLCVCClockMinutes   QString("Minutes")
-#define KXMLQLCVCClockSeconds   QString("Seconds")
+#define KXMLQLCVCClockType      QStringLiteral("Type")
+#define KXMLQLCVCClockHours     QStringLiteral("Hours")
+#define KXMLQLCVCClockMinutes   QStringLiteral("Minutes")
+#define KXMLQLCVCClockSeconds   QStringLiteral("Seconds")
 
-#define KXMLQLCVCClockSchedule      QString("Schedule")
-#define KXMLQLCVCClockScheduleFunc  QString("Function")
-#define KXMLQLCVCClockScheduleTime  QString("Time")
+#define KXMLQLCVCClockSchedule      QStringLiteral("Schedule")
+#define KXMLQLCVCClockScheduleFunc  QStringLiteral("Function")
+#define KXMLQLCVCClockScheduleTime  QStringLiteral("Time")
 
-#define KXMLQLCVCClockPlay  QString("PlayPause")
-#define KXMLQLCVCClockReset QString("Reset")
+#define KXMLQLCVCClockPlay  QStringLiteral("PlayPause")
+#define KXMLQLCVCClockReset QStringLiteral("Reset")
 
 const quint8 VCClock::playInputSourceId = 0;
 const quint8 VCClock::resetInputSourceId = 1;
@@ -123,7 +123,7 @@ VCClock::ClockType VCClock::clockType() const
     return m_clocktype;
 }
 
-QString VCClock::typeToString(VCClock::ClockType type)
+QString VCClock::typeToString(VCClock::ClockType type) const
 {
     if (type == Stopwatch)
         return "Stopwatch";
@@ -133,7 +133,7 @@ QString VCClock::typeToString(VCClock::ClockType type)
         return "Clock";
 }
 
-VCClock::ClockType VCClock::stringToType(QString str)
+VCClock::ClockType VCClock::stringToType(QString str) const
 {
     if (str == "Stopwatch")
         return Stopwatch;
@@ -164,7 +164,7 @@ void VCClock::removeAllSchedule()
     m_scheduleList.clear();
 }
 
-QList<VCClockSchedule> VCClock::schedules()
+QList<VCClockSchedule> VCClock::schedules() const
 {
     return m_scheduleList;
 }
@@ -190,9 +190,28 @@ void VCClock::slotUpdateTime()
         if (m_isPaused == false)
         {
             if (m_clocktype == Stopwatch)
+            {
                 m_currentTime++;
+            }
             else if (m_clocktype == Countdown && m_currentTime > 0)
+            {
                 m_currentTime--;
+
+                if (m_currentTime == 0)
+                {
+                    for (int i = 0; i < m_scheduleList.count(); i++)
+                    {
+                        VCClockSchedule sch = m_scheduleList.at(i);
+                        quint32 fid = sch.function();
+                        Function *func = m_doc->function(fid);
+                        if (func != NULL)
+                        {
+                            func->start(m_doc->masterTimer(), functionParent());
+                            qDebug() << "VC Clock starting function:" << func->name();
+                        }
+                    }
+                }
+            }
 
             emit timeChanged(m_currentTime);
         }

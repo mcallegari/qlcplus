@@ -31,10 +31,10 @@ class QLCIOPlugin;
 
 #define KOutputNone QObject::tr("None")
 
-#define KXMLQLCOutputPatch "Patch"
-#define KXMLQLCOutputPatchUniverse "Universe"
-#define KXMLQLCOutputPatchPlugin "Plugin"
-#define KXMLQLCOutputPatchOutput "Output"
+#define KXMLQLCOutputPatch          QStringLiteral("Patch")
+#define KXMLQLCOutputPatchUniverse  QStringLiteral("Universe")
+#define KXMLQLCOutputPatchPlugin    QStringLiteral("Plugin")
+#define KXMLQLCOutputPatchOutput    QStringLiteral("Output")
 
 class OutputPatch : public QObject
 {

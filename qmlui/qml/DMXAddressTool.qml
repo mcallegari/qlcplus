@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.2
+import QtQuick
+import QtQuick.Layouts
 
 import "."
 
@@ -45,7 +45,7 @@ GridLayout
         flipHorizontally: toolRoot.flipHorizontally
         flipVertically: toolRoot.flipVertically
         currentValue: toolRoot.value
-        onValueChanged: toolRoot.value = value
+        onValueChanged: (value) => toolRoot.value = value
     }
 
     // row 2

@@ -28,7 +28,7 @@
  * @{
  */
 
-#define KXMLQLCRGBPlain "Plain"
+#define KXMLQLCRGBPlain QStringLiteral("Plain")
 
 class RGBPlain : public QObject, public RGBAlgorithm
 {
@@ -50,6 +50,12 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
+    void rgbMapSetColors(const QVector<uint> &colors);
+
+    /** @reimp */
+    QVector<uint> rgbMapGetColors();
+
+    /** @reimp */
     void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
@@ -62,7 +68,7 @@ public:
     int apiVersion() const;
 
     /** @reimp */
-    void setColors(QColor start, QColor end);
+    void setColors(QVector<QColor> colors);
 
     /** @reimp */
     RGBAlgorithm::Type type() const;

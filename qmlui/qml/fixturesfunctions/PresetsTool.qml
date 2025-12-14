@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import org.qlcplus.classes 1.0
+import QtQuick
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -27,7 +27,7 @@ Rectangle
     id: toolRoot
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 3
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.color: UISettings.bgLight
     border.width: 2
     clip: true
@@ -46,12 +46,9 @@ Rectangle
 
     function updatePresets(presetModel)
     {
-        if (visible === true)
-        {
-            selectedFixture = -1
-            prList.model = null // force reload
-            prList.model = presetModel
-        }
+        selectedFixture = -1
+        prList.model = null // force reload
+        prList.model = presetModel
     }
 
     MouseArea
@@ -155,7 +152,7 @@ Rectangle
                     capability: modelData
                     capIndex: index + 1
                     visible: (capability.min <= toolRoot.rangeHighLimit || capability.max <= toolRoot.rangeLowLimit)
-                    onValueChanged:
+                    onValueChanged: function(value)
                     {
                         var val = Math.min(Math.max(value, rangeLowLimit), rangeHighLimit)
                         toolRoot.currentValue = val

@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.13
-import QtQml.Models 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
+import QtQml.Models
 
 import org.qlcplus.classes 1.0
 import "."
@@ -123,13 +124,15 @@ ColumnLayout
         channelList.selectedChannelNumber = -1
     }
 
+    Component.onDestruction: ioManager.finishInputProfile()
+
     CustomPopupDialog
     {
         id: messagePopup
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
 
-        onClicked:
+        onClicked: (role) =>
         {
             if (role === Dialog.Yes)
             {
@@ -186,7 +189,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 text: peContainer.visible ? profileEditor.manufacturer : ""
-                onTextChanged: profileEditor.manufacturer = text
+                onTextEdited: profileEditor.manufacturer = text
             }
             RobotoText
             {
@@ -197,7 +200,7 @@ ColumnLayout
             {
                 Layout.fillWidth: true
                 text: peContainer.visible ? profileEditor.model : ""
-                onTextChanged: profileEditor.model = text
+                onTextEdited: profileEditor.model = text
             }
             RobotoText
             {
@@ -206,19 +209,15 @@ ColumnLayout
             }
             CustomComboBox
             {
-                ListModel
-                {
-                    id: profTypeModel
-                    ListElement { mLabel: "MIDI"; mValue: 0 }
-                    ListElement { mLabel: "OS2L"; mValue: 1 }
-                    ListElement { mLabel: "OSC"; mValue: 2 }
-                    ListElement { mLabel: "HID"; mValue: 3 }
-                    ListElement { mLabel: "DMX"; mValue: 4 }
-                    ListElement { mLabel: "ENTTEC"; mValue: 5 }
-                }
-
                 Layout.fillWidth: true
-                model: profTypeModel
+                model: [
+                    { mLabel: "MIDI", mValue: 0 },
+                    { mLabel: "OS2L", mValue: 1 },
+                    { mLabel: "OSC", mValue: 2 },
+                    { mLabel: "HID", mValue: 3 },
+                    { mLabel: "DMX", mValue: 4 },
+                    { mLabel: "ENTTEC", mValue: 5 }
+                ]
                 currValue: peContainer.visible ? profileEditor.type : 0
                 onValueChanged: profileEditor.type = currentValue
             }
@@ -335,7 +334,7 @@ ColumnLayout
                     {
                         Layout.fillWidth: true
                         height: UISettings.listItemHeight
-                        label: channel.name
+                        label: channel ? channel.name : ""
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight; color: UISettings.fgMedium }
 
@@ -343,8 +342,8 @@ ColumnLayout
                     {
                         width: UISettings.bigItemHeight * 1.5
                         height: UISettings.listItemHeight
-                        tLabel: channel.typeString
-                        iSrc: channel.iconResource(channel.type, true)
+                        tLabel: channel ? channel.typeString : ""
+                        iSrc: channel ? channel.iconResource(channel.type, true) : ""
                     }
                 }
 
@@ -414,15 +413,11 @@ ColumnLayout
             CustomComboBox
             {
                 id: movementCombo
-                ListModel
-                {
-                    id: moveTypeModel
-                    ListElement { mLabel: "Absolute"; mValue: QLCInputChannel.Absolute }
-                    ListElement { mLabel: "Relative"; mValue: QLCInputChannel.Relative }
-                }
-
                 implicitHeight: UISettings.listItemHeight
-                model: moveTypeModel
+                model: [
+                    { mLabel: "Absolute", mValue: QLCInputChannel.Absolute },
+                    { mLabel: "Relative", mValue: QLCInputChannel.Relative }
+                ]
                 currentIndex: channelList.selectedChannel ? channelList.selectedChannel.movementType : QLCInputChannel.Absolute
                 onValueChanged: channelList.selectedChannel.movementType = currentValue
             }

@@ -173,6 +173,7 @@ protected:
     QAction* m_addAnimationAction;
 
     QAction* m_toolsSettingsAction;
+    QAction* m_functionWizardAction;
 
     QAction* m_editCutAction;
     QAction* m_editCopyAction;
@@ -248,6 +249,7 @@ public slots:
      * Tools menu callbacks
      *********************************************************************/
 public slots:
+    void slotWizard();
     void slotToolsSettings();
 
     /*********************************************************************
@@ -345,7 +347,7 @@ protected:
      *********************************************************************/
 
 protected:
-    /** Handler for keyboard key presse events */
+    /** Handler for keyboard key press events */
     void keyPressEvent(QKeyEvent* event);
 
     /** Handler for keyboard key release events */

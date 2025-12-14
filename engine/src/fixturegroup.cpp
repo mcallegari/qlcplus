@@ -27,9 +27,9 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCFixtureGroupHead QString("Head")
-#define KXMLQLCFixtureGroupSize QString("Size")
-#define KXMLQLCFixtureGroupName QString("Name")
+#define KXMLQLCFixtureGroupHead QStringLiteral("Head")
+#define KXMLQLCFixtureGroupSize QStringLiteral("Size")
+#define KXMLQLCFixtureGroupName QStringLiteral("Name")
 
 /****************************************************************************
  * Initialization
@@ -181,10 +181,13 @@ bool FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
 
 void FixtureGroup::resignFixture(quint32 id)
 {
-    foreach (QLCPoint pt, m_heads.keys())
+    QMap <QLCPoint,GroupHead>::iterator it = m_heads.begin();
+    while(it != m_heads.end())
     {
-        if (m_heads[pt].fxi == id)
-            m_heads.remove(pt);
+        if (it.value().fxi == id)
+            it = m_heads.erase(it);
+        else
+            it++;
     }
 
     emit changed(this->id());
@@ -192,16 +195,11 @@ void FixtureGroup::resignFixture(quint32 id)
 
 bool FixtureGroup::resignHead(const QLCPoint& pt)
 {
-    if (m_heads.contains(pt) == true)
-    {
-        m_heads.remove(pt);
+    const int removed = m_heads.remove(pt);
+    if (removed)
         emit changed(this->id());
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+
+    return removed;
 }
 
 void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
@@ -246,7 +244,8 @@ QMap<QLCPoint, GroupHead> FixtureGroup::headsMap() const
 QList <quint32> FixtureGroup::fixtureList() const
 {
     QList <quint32> list;
-    foreach (GroupHead head, headList())
+
+    foreach (GroupHead head, m_heads)
     {
         if (list.contains(head.fxi) == false)
             list << head.fxi;
@@ -377,11 +376,11 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Fixture heads */
-    QList<QLCPoint> pointsList = m_heads.keys();
-
-    foreach (QLCPoint pt, pointsList)
+    QMap <QLCPoint,GroupHead>::iterator it = m_heads.begin();
+    for (; it != m_heads.end(); it++)
     {
-        GroupHead head = m_heads[pt];
+        QLCPoint pt = it.key();
+        GroupHead head = it.value();
         doc->writeStartElement(KXMLQLCFixtureGroupHead);
         doc->writeAttribute("X", QString::number(pt.x()));
         doc->writeAttribute("Y", QString::number(pt.y()));

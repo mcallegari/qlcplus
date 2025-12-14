@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QList>
 #include <QHash>
+#include <QReadWriteLock>
 
 #include "universe.h"
 #include "scenevalue.h"
@@ -105,7 +106,7 @@ public:
     FadeChannel *getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel);
 
     /** Get all channels in a non-modifiable hashmap */
-    const QHash <quint32,FadeChannel>& channels() const;
+    QHash <quint32,FadeChannel> channels() const;
 
     /** Return the number of channel added to this fader */
     int channelsCount() const;
@@ -165,6 +166,7 @@ private:
     int m_priority;
     bool m_handleSecondary;
     QHash <quint32,FadeChannel> m_channels;
+    mutable QReadWriteLock m_channelsLock;
     qreal m_intensity;
     qreal m_parentIntensity;
     bool m_paused;

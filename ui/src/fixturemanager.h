@@ -42,8 +42,8 @@ class QMenu;
  * @{
  */
 
-#define KXMLQLCFixtureManager "FixtureManager"
-#define KXMLQLCFixtureManagerSplitterSize "SplitterSize"
+#define KXMLQLCFixtureManager             QStringLiteral("FixtureManager")
+#define KXMLQLCFixtureManagerSplitterSize QStringLiteral("SplitterSize")
 
 class FixtureManager : public QWidget
 {

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,7 +30,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: (paletteToolbar.visible ? paletteToolbar.height : 0) +
             colorToolBar.height + toolLoader.height + paletteBox.height
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
 
     property bool closeOnSelect: false
     property var dragTarget: null
@@ -40,7 +40,7 @@ Rectangle
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
     property alias showPalette: paletteBox.visible
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
     signal close()
 
     onVisibleChanged:
@@ -173,7 +173,7 @@ Rectangle
                     height: parent.height
                     border.color: UISettings.bgMedium
                     useFontawesome: true
-                    label: FontAwesome.fa_times
+                    label: FontAwesome.fa_xmark
                     onClicked: colorToolBox.close()
                 }
             }
@@ -202,9 +202,9 @@ Rectangle
                 target: toolLoader.item
                 ignoreUnknownSignals: true
 
-                function onColorChanged(r, g, b, w, a, uv)
+                function onToolColorChanged(r, g, b, w, a, uv)
                 {
-                    paletteBox.updateValue(currentRGB)
+                    paletteBox.updateValue(Qt.rgba(r, g, b, 1.0))
 
                     if (paletteBox.checked && paletteBox.isPicking)
                     {
@@ -217,7 +217,7 @@ Rectangle
                         //console.log("MAIN w:"+w+" a:"+a+" uv:"+uv)
                         currentRGB = Qt.rgba(r, g, b, 1.0)
                         currentWAUV = Qt.rgba(w, a, uv, 1.0)
-                        colorToolBox.colorChanged(r, g, b, w, a, uv)
+                        colorToolBox.toolColorChanged(r, g, b, w, a, uv)
                     }
 
                     if (paletteBox.isEditing || paletteBox.checked)

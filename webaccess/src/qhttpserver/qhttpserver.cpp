@@ -22,7 +22,6 @@
 
 #include "qhttpserver.h"
 
-#include <QTcpServer>
 #include <QTcpSocket>
 #include <QVariant>
 
@@ -93,36 +92,25 @@ QHttpServer::~QHttpServer()
 {
 }
 
-void QHttpServer::newConnection()
-{
-    Q_ASSERT(m_tcpServer);
-
-    while (m_tcpServer->hasPendingConnections())
-    {
-        QHttpConnection *connection =
-            new QHttpConnection(m_tcpServer->nextPendingConnection(), this);
-        connect(connection, SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)), this,
-                SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)));
-        connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
-                this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
-        connect(connection, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
-                this, SIGNAL(webSocketConnectionClose(QHttpConnection*)));
-    }
-}
-
 bool QHttpServer::listen(const QHostAddress &address, quint16 port)
 {
     Q_ASSERT(!m_tcpServer);
-    m_tcpServer = new QTcpServer(this);
+    m_tcpServer = new CustomTcpServer(this);
 
-    bool couldBindToPort = m_tcpServer->listen(address, port);
-    if (couldBindToPort) {
-        connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
-    } else {
+    connect(m_tcpServer, SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)), this,
+            SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)));
+    connect(m_tcpServer, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
+            this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
+    connect(m_tcpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
+            this, SIGNAL(webSocketConnectionClose(QHttpConnection*)));
+
+    if (!m_tcpServer->listen(address, port))
+    {
         delete m_tcpServer;
         m_tcpServer = NULL;
+        return false;
     }
-    return couldBindToPort;
+    return true;
 }
 
 bool QHttpServer::listen(quint16 port)
@@ -134,4 +122,23 @@ void QHttpServer::close()
 {
     if (m_tcpServer)
         m_tcpServer->close();
+}
+
+CustomTcpServer::CustomTcpServer(QObject *parent)
+    : QTcpServer(parent)
+{
+}
+
+void CustomTcpServer::incomingConnection(qintptr handle)
+{
+    QTcpSocket *socket = new QTcpSocket(this);
+    socket->setSocketDescriptor(handle);
+
+    QHttpConnection *connection = new QHttpConnection(socket);
+    connect(connection, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
+            this, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)));
+    connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
+            this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
+    connect(connection, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
+            this, SIGNAL(webSocketConnectionClose(QHttpConnection*)));
 }

@@ -23,6 +23,10 @@
 
 #include <ftd2xx.h>
 
+#define EEPROM_VID_OFFSET       1
+#define EEPROM_PID_OFFSET       2
+#define EEPROM_VENDOR_OFFSET    13
+
 /**
  * Get some interesting strings from the device.
  *
@@ -33,44 +37,77 @@
  * @return FT_OK if strings were extracted successfully
  */
 static FT_STATUS get_interface_info(DWORD deviceIndex,
-                                     QString& vendor, QString& description,
-                                     QString& serial, quint16 &VID, quint16 &PID)
+                                    QString& vendor, QString& description,
+                                    QString& serial, quint16 &VID, quint16 &PID)
 {
-    char cVendor[256];
-    char cVendorId[256];
-    char cDescription[256];
-    char cSerial[256];
-
     FT_HANDLE handle;
+    if (FT_Open(deviceIndex, &handle) != FT_OK)
+        return FT_DEVICE_NOT_OPENED;
 
-    FT_STATUS status = FT_Open(deviceIndex, &handle);
-    if (status != FT_OK)
-        return status;
+    FT_STATUS status = FT_OK;
+    WORD value;
 
-    FT_PROGRAM_DATA pData;
-    pData.Signature1 = 0;
-    pData.Signature2 = 0xFFFFFFFF;
-    pData.Version = 0x00000005;
-    pData.Manufacturer = cVendor;
-    pData.ManufacturerId = cVendorId;
-    pData.Description = cDescription;
-    pData.SerialNumber = cSerial;
-    status = FT_EE_Read(handle, &pData);
-    if (status == FT_OK)
+#if 0 // uncomment to dump eeprom content
+    QByteArray eepromData;
+    for (int i = 0; i < 64; i++)
     {
-        VID = pData.VendorId;
-        PID = pData.ProductId;
-
-        if (pData.ProductId == DMXInterface::DMX4ALLPID)
-            vendor = QString("DMX4ALL");
-        else
-            vendor = QString(cVendor);
-        description = QString(cDescription);
-        serial = QString(cSerial);
+        FT_STATUS ret = FT_ReadEE(handle, i, &value);
+        eepromData.append(value >> 8);
+        eepromData.append(value & 0xFF);
     }
+    qDebug() << "EEPROM DUMP:" << eepromData.toHex(',');
+#endif
+
+    auto readWord = [&](int offset, WORD &val) -> FT_STATUS
+    {
+        return FT_ReadEE(handle, offset, &val);
+    };
+
+    auto readStringDescriptor = [&](int &offset, QString &out) -> bool
+    {
+        WORD val;
+        if (readWord(offset, val) != FT_OK || (val >> 8) != 0x03)
+            return false;
+
+        int length = ((val & 0xFF) / 2) - 1;
+        offset++;
+        for (int i = 0; i < length; ++i)
+        {
+            if (readWord(offset++, val) != FT_OK)
+                return false;
+
+            // filter non-visible characters
+            if (val < 0x20)
+                continue;
+
+            out.append(char(val & 0xFF));
+        }
+        return true;
+    };
+
+    if (readWord(EEPROM_VID_OFFSET, value) == FT_OK)
+        VID = value;
+    else
+        status = FT_EEPROM_READ_FAILED;
+
+    if (status == FT_OK && readWord(EEPROM_PID_OFFSET, value) == FT_OK)
+        PID = value;
+    else if (status == FT_OK)
+        status = FT_EEPROM_READ_FAILED;
+
+    int offset = EEPROM_VENDOR_OFFSET;
+
+    if (status == FT_OK && !readStringDescriptor(offset, vendor))
+        status = FT_EEPROM_READ_FAILED;
+    if (status == FT_OK && !readStringDescriptor(offset, description))
+        status = FT_EEPROM_READ_FAILED;
+    if (status == FT_OK && !readStringDescriptor(offset, serial))
+        status = FT_EEPROM_READ_FAILED;
+
+    if (status == FT_OK && PID == DMXInterface::DMX4ALLPID)
+        vendor = QString("DMX4ALL");
 
     FT_Close(handle);
-
     return status;
 }
 
@@ -85,92 +122,6 @@ FTD2XXInterface::~FTD2XXInterface()
 {
     if (isOpen() == true)
         close();
-}
-
-bool FTD2XXInterface::readLabel(uchar label, int &intParam, QString &strParam)
-{
-    FT_HANDLE ftdi = NULL;
-
-    if (FT_Open(id(), &ftdi) != FT_OK)
-        return false;
-
-    if (FT_ResetDevice(ftdi) != FT_OK)
-        return false;
-
-    if (FT_SetBaudRate(ftdi, 250000) != FT_OK)
-        return false;
-
-    if (FT_SetDataCharacteristics(ftdi, FT_BITS_8, FT_STOP_BITS_2, FT_PARITY_NONE) != FT_OK)
-        return false;
-
-    if (FT_SetFlowControl(ftdi, 0, 0, 0) != FT_OK)
-        return false;
-
-    QByteArray request;
-    request.append(ENTTEC_PRO_START_OF_MSG);
-    request.append(label);
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-    request.append(ENTTEC_PRO_END_OF_MSG);
-
-    DWORD written = 0;
-    if (FT_Write(ftdi, (char*) request.data(), request.size(), &written) != FT_OK)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
-        FT_Close(ftdi);
-        return false;
-    }
-
-    if (written == 0)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device" << id();
-        FT_Close(ftdi);
-        return false;
-    }
-
-    uchar buffer[40];
-    int read = 0;
-    QByteArray array;
-
-    FT_SetTimeouts(ftdi, 500,0);
-    FT_Read(ftdi, buffer, 40, (LPDWORD) &read);
-    array = QByteArray::fromRawData((char*) buffer, read);
-
-    if (array.size() == 0)
-    {
-        FT_Close(ftdi);
-        return false;
-    }
-
-    if (array[0] != ENTTEC_PRO_START_OF_MSG)
-    {
-        qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-        FT_Close(ftdi);
-        return false;
-    }
-
-    // start | label | data length
-    if (array.size() < 4)
-    {
-        FT_Close(ftdi);
-        return false;
-    }
-
-    int dataLen = (array[3] << 8) | array[2];
-    if (dataLen == 1)
-    {
-        intParam = array[4];
-        FT_Close(ftdi);
-        return true;
-    }
-
-    intParam = (array[5] << 8) | array[4];
-    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
-    array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
-    strParam = QString(array);
-
-    FT_Close(ftdi);
-    return true;
 }
 
 DMXInterface::Type FTD2XXInterface::type()
@@ -434,7 +385,7 @@ bool FTD2XXInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
+QByteArray FTD2XXInterface::read(int size)
 {
     if (m_handle == NULL)
         return QByteArray();
@@ -447,27 +398,15 @@ QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
 
     uchar* buffer = NULL;
 
-    if (userBuffer == NULL)
-        buffer = (uchar*) malloc(sizeof(uchar) * size);
-    else
-        buffer = userBuffer;
+    buffer = (uchar*) malloc(sizeof(uchar) * size);
     Q_ASSERT(buffer != NULL);
 
     int read = 0;
     QByteArray array;
     FT_Read(m_handle, buffer, size, (LPDWORD) &read);
-    if (userBuffer == NULL)
-    {
-        for (int i = 0; i < read; i++)
-            array.append((char) buffer[i]);
-    }
-    else
-    {
-        array = QByteArray((char*) buffer, read);
-    }
+    array = QByteArray((char*) buffer, read);
 
-    if (userBuffer == NULL)
-        free(buffer);
+    free(buffer);
 
     return array;
 }

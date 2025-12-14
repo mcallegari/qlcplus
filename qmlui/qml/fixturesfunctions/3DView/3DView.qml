@@ -17,13 +17,13 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
+import QtQuick
 
-import QtQuick.Scene3D 2.0
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Input 2.0
-import Qt3D.Extras 2.0
+import QtQuick.Scene3D
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Input
+import Qt3D.Extras
 
 Rectangle
 {
@@ -318,6 +318,19 @@ Rectangle
             });
         }
 
+        function selectFixtureItem(itemID, select, modifiers)
+        {
+            console.log("Select item: " + itemID + ", select: " + select)
+            contextManager.setItemSelection(itemID, select, modifiers)
+        }
+
+        function selectGenericItem(itemID, select, modifiers, worldIntersection)
+        {
+            console.log("Select item: " + itemID + ", select: " + select)
+            View3D.setItemSelection(itemID, select, modifiers)
+            contextManager.setPositionPickPoint(worldIntersection)
+        }
+
         Entity
         {
             objectName: "scene3DEntity"
@@ -330,7 +343,7 @@ Rectangle
 
                 projectionType: CameraLens.PerspectiveProjection
                 fieldOfView: 45
-                aspectRatio: viewSize.width / viewSize.height
+                aspectRatio: viewCamera.width / viewCamera.height
                 nearPlane: 1.0
                 farPlane: 1000.0
                 position: View3D.cameraPosition
@@ -339,7 +352,12 @@ Rectangle
 
                 function setZoom(amount)
                 {
+                    if ((amount < 0 && View3D.cameraPosition.z < 1) ||
+                        (amount > 0 && View3D.cameraPosition.z > 30))
+                        return
+
                     translate(Qt.vector3d(0, 0, -amount), Camera.DontTranslateViewCenter)
+                    View3D.cameraPosition = viewCamera.position
                 }
             }
 
@@ -360,7 +378,7 @@ Rectangle
                 property int selGenericCount: View3D.genericSelectedCount
 
                 sourceDevice: mDevice
-                onPressed:
+                onPressed: (mouse) =>
                 {
                     directionCounter = 0
                     dx = 0
@@ -368,7 +386,20 @@ Rectangle
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onPositionChanged:
+                onClicked: (mouse) =>
+                {
+                    // calculate normalized coordinates
+                    // (x, y) screen coords → [-1, 1] range
+                    var ndcX = ((2.0 * mouse.x) / scene3d.width) - 1.0
+                    var ndcY = 1.0 - ((2.0 * mouse.y) / scene3d.height);
+
+                    //console.log("Mouse x: " + mouse.x + ", y: " + mouse.y)
+                    //console.log("NDC x: " + ndcX + ", y: " + ndcY)
+
+                    View3D.pickEntity(viewCamera.aspectRatio, Qt.vector2d(ndcX, ndcY), mouse.modifiers)
+                }
+
+                onPositionChanged: (mouse) =>
                 {
                     if (directionCounter < 3)
                     {
@@ -444,7 +475,7 @@ Rectangle
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Horizontal))
                             viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
                         if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
-                            viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
+                            viewCamera.tiltAboutViewCenter(yDelta)
 
                         View3D.cameraPosition = viewCamera.position
                         View3D.cameraUpVector = viewCamera.upVector
@@ -464,7 +495,7 @@ Rectangle
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }
 
-                onWheel:
+                onWheel: (wheel) =>
                 {
                     if (wheel.angleDelta.y > 0)
                         viewCamera.setZoom(-1)

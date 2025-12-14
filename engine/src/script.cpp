@@ -28,7 +28,10 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #include <QRandomGenerator>
 #endif
- 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QRegularExpression>
+#endif
+
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
@@ -36,23 +39,26 @@
 #include "script.h"
 #include "doc.h"
 
-#define KXMLQLCScriptCommand "Command"
+#define KXMLQLCScriptCommand QStringLiteral("Command")
 
-const QString Script::startFunctionCmd = QString("startfunction");
-const QString Script::stopFunctionCmd = QString("stopfunction");
-const QString Script::blackoutCmd = QString("blackout");
+const QString Script::stopOnExitCmd = QStringLiteral("stoponexit");
+const QString Script::startFunctionCmd = QStringLiteral("startfunction");
+const QString Script::stopFunctionCmd = QStringLiteral("stopfunction");
+const QString Script::blackoutCmd = QStringLiteral("blackout");
 
-const QString Script::waitCmd = QString("wait");
-const QString Script::waitKeyCmd = QString("waitkey");
+const QString Script::waitCmd = QStringLiteral("wait");
+const QString Script::waitKeyCmd = QStringLiteral("waitkey");
+const QString Script::waitFunctionStartCmd = QStringLiteral("waitfunctionstart");
+const QString Script::waitFunctionStopCmd = QStringLiteral("waitfunctionstop");
 
-const QString Script::setFixtureCmd = QString("setfixture");
-const QString Script::systemCmd = QString("systemcommand");
+const QString Script::setFixtureCmd = QStringLiteral("setfixture");
+const QString Script::systemCmd = QStringLiteral("systemcommand");
 
-const QString Script::labelCmd = QString("label");
-const QString Script::jumpCmd = QString("jump");
+const QString Script::labelCmd = QStringLiteral("label");
+const QString Script::jumpCmd = QStringLiteral("jump");
 
-const QString Script::blackoutOn = QString("on");
-const QString Script::blackoutOff = QString("off");
+const QString Script::blackoutOn = QStringLiteral("on");
+const QString Script::blackoutOff = QStringLiteral("off");
 
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 
@@ -63,6 +69,7 @@ const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
     , m_currentCommand(0)
     , m_waitCount(0)
+    , m_waitFunction(NULL)
 {
     setName(tr("New Script"));
 }
@@ -142,7 +149,11 @@ bool Script::setData(const QString& str)
     if (m_data.isEmpty() == false)
     {
         int i = 1;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        QStringList lines = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
+#else
         QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
+#endif
         foreach (QString line, lines)
         {
             bool ok = false;
@@ -156,6 +167,13 @@ bool Script::setData(const QString& str)
         }
     }
 
+    scanForLabels();
+
+    return true;
+}
+
+void Script::scanForLabels()
+{
     // Map all labels to their individual line numbers for fast jumps
     m_labels.clear();
     for (int i = 0; i < m_lines.size(); i++)
@@ -165,10 +183,9 @@ bool Script::setData(const QString& str)
             line.first().size() == 2 && line.first()[0] == Script::labelCmd)
         {
             m_labels[line.first()[1]] = i;
+            qDebug() << QString("Map label '%1' to line '%2'").arg(line.first()[1]).arg(i);
         }
     }
-
-    return true;
 }
 
 bool Script::appendData(const QString &str)
@@ -186,7 +203,11 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QStringList result = m_data.split(QRegularExpression("(\\r\\n|\\n\\r|\\r|\\n)"));
+#else
     QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
+#endif
     while (result.count() && result.last().isEmpty())
         result.takeLast();
 
@@ -284,6 +305,8 @@ bool Script::loadXML(QXmlStreamReader &root)
         }
     }
 
+    scanForLabels();
+
     return true;
 }
 
@@ -326,8 +349,10 @@ void Script::preRun(MasterTimer *timer)
 {
     // Reset
     m_waitCount = 0;
+    m_waitFunction = NULL;
     m_currentCommand = 0;
     m_startedFunctions.clear();
+    m_stopOnExit = true;
 
     Function::preRun(timer);
 }
@@ -350,8 +375,8 @@ void Script::write(MasterTimer *timer, QList<Universe *> universes)
                 break; // Executed command told to skip to the next cycle
         }
 
-        // In case wait() is the last command, don't stop the script prematurely
-        if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
+        // In case a wait command is the last command, don't stop the script prematurely
+        if (m_currentCommand >= m_lines.size() && m_waitCount == 0 && m_waitFunction == NULL)
             stop(FunctionParent::master());
     }
 
@@ -381,11 +406,13 @@ bool Script::waiting()
         m_waitCount--;
         return true;
     }
-    else
+    else if (m_waitFunction != NULL)
     {
-        // Not waiting.
-        return false;
+        // Still waiting for the function to start/stop.
+        return true;
     }
+    // Not waiting.
+    return false;
 }
 
 quint32 Script::getValueFromString(QString str, bool *ok)
@@ -431,6 +458,10 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     {
         error = QString("Syntax error");
     }
+    else if (tokens[0][0] == Script::stopOnExitCmd)
+    {
+        error = handleStopOnExit(tokens);
+    }
     else if (tokens[0][0] == Script::startFunctionCmd)
     {
         error = handleStartFunction(tokens, timer);
@@ -459,6 +490,24 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
         // skipping straight to the next command. If there is no error in waitkey
         // parsing,we must wait at least one cycle.
         error = handleWaitKey(tokens);
+        if (error.isEmpty() == true)
+            continueLoop = false;
+    }
+    else if (tokens[0][0] == Script::waitFunctionStartCmd)
+    {
+        // Waiting for a funcion should break out of the execution loop to
+        // prevent skipping straight to the next command. If there is no error
+        // in waitfunctionstart parsing, we must wait at least one cycle.
+        error = handleWaitFunction(tokens, true);
+        if (error.isEmpty() == true)
+            continueLoop = false;
+    }
+    else if (tokens[0][0] == Script::waitFunctionStopCmd)
+    {
+        // Waiting for a funcion should break out of the execution loop to
+        // prevent skipping straight to the next command. If there is no error
+        // in waitfunctionstop parsing, we must wait at least one cycle.
+        error = handleWaitFunction(tokens, false);
         if (error.isEmpty() == true)
             continueLoop = false;
     }
@@ -495,6 +544,20 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     return continueLoop;
 }
 
+QString Script::handleStopOnExit(const QList<QStringList>& tokens)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if (tokens.size() > 1)
+        return QString("Too many arguments");
+
+    bool flag = QVariant(tokens[0][1]).toBool();
+    
+    m_stopOnExit = flag;
+
+    return QString();
+}
+
 QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTimer* timer)
 {
     qDebug() << Q_FUNC_INFO;
@@ -515,7 +578,10 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     {
         function->start(timer, FunctionParent::master());
 
-        m_startedFunctions << function;
+        if (m_stopOnExit)
+        {
+            m_startedFunctions << function;
+        }
         return QString();
     }
     else
@@ -611,6 +677,64 @@ QString Script::handleWaitKey(const QList<QStringList>& tokens)
     qDebug() << "Ought to wait for" << key;
 
     return QString();
+}
+
+QString Script::handleWaitFunction(const QList<QStringList> &tokens, bool start)
+{
+    qDebug() << Q_FUNC_INFO << tokens;
+
+    if (tokens.size() > 1)
+        return QString("Too many arguments");
+
+    bool ok = false;
+    quint32 id = tokens[0][1].toUInt(&ok);
+    if (ok == false)
+        return QString("Invalid function ID: %1").arg(tokens[0][1]);
+
+    Doc *doc = qobject_cast<Doc *>(parent());
+    Q_ASSERT(doc != NULL);
+
+    Function *function = doc->function(id);
+    if (function == NULL)
+    {
+        return QString("No such function (ID %1)").arg(id);
+    }
+
+    if (start)
+    {
+        if (!function->isRunning())
+        {
+            m_waitFunction = function;
+            connect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+        }
+    }
+    else
+    {
+        if (!function->stopped())
+        {
+            m_waitFunction = function;
+            connect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        }
+    }
+
+    return QString();
+}
+
+void Script::slotWaitFunctionStarted(quint32 fid)
+{
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
+        disconnect(m_waitFunction, SIGNAL(running(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+        m_waitFunction = NULL;
+    }
+}
+
+void Script::slotWaitFunctionStopped(quint32 fid)
+{
+    if (m_waitFunction != NULL && m_waitFunction->id() == fid) {
+        disconnect(m_waitFunction, SIGNAL(stopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+        m_startedFunctions.removeAll(m_waitFunction);
+        m_waitFunction = NULL;
+    }
 }
 
 QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Universe *> universes)
@@ -725,6 +849,8 @@ QString Script::handleLabel(const QList<QStringList>& tokens)
     if (tokens.size() > 1)
         return QString("Too many arguments");
 
+    qDebug() << QString("Found label '%1'").arg(tokens[0][1]);
+
     return QString();
 }
 
@@ -740,6 +866,16 @@ QString Script::handleJump(const QList<QStringList>& tokens)
         int lineNumber = m_labels[tokens[0][1]];
         Q_ASSERT(lineNumber >= 0 && lineNumber < m_lines.size());
         m_currentCommand = lineNumber;
+
+        // cleanup m_startedFunctions to avoid infinite growth
+        QList<Function*>::iterator it = m_startedFunctions.begin();
+        while (it != m_startedFunctions.end()) {
+            if ((*it)->stopped())
+                it = m_startedFunctions.erase(it);
+            else
+                ++it;
+        }
+
         return QString();
     }
     else
@@ -823,7 +959,11 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             else
             {
                 // No quotes. Find the next whitespace.
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                right = line.indexOf(QRegularExpression("\\s"), left);
+#else
                 right = line.indexOf(QRegExp("\\s"), left);
+#endif
                 if (right == -1)
                 {
                     qDebug() << "Syntax error:" << line.mid(left);

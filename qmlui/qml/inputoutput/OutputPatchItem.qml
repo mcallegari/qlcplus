@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -58,7 +58,8 @@ Rectangle
 
                 IconButton
                 {
-                    imgSource: checked ? "qrc:/pause.svg" : "qrc:/play.svg"
+                    faSource: checked ? FontAwesome.fa_pause : FontAwesome.fa_play
+                    faColor: UISettings.fgMain
                     bgColor: "green"
                     checkedColor: "red"
                     checkable: true

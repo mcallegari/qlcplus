@@ -1,7 +1,10 @@
 set(module_name "qlcplusengine")
 
+include(../../variables.cmake)
+
 add_library(${module_name} SHARED
     ../../plugins/interfaces/qlcioplugin.cpp ../../plugins/interfaces/qlcioplugin.h
+    ../../plugins/interfaces/utils.h
     avolitesd4parser.cpp avolitesd4parser.h
     bus.cpp bus.h
     channelmodifier.cpp channelmodifier.h
@@ -68,7 +71,6 @@ add_library(${module_name} SHARED
     showrunner.cpp showrunner.h
     track.cpp track.h
     universe.cpp universe.h
-    utils.h
     video.cpp video.h
 )
 target_include_directories(${module_name} PUBLIC
@@ -103,6 +105,12 @@ endif()
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
     target_link_libraries(${module_name} PUBLIC
         asound
+    )
+endif()
+
+if(UNIX)
+    target_sources(${module_name} PRIVATE
+        mastertimer-unix.cpp mastertimer-unix.h
     )
 endif()
 
@@ -142,19 +150,14 @@ endif()
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
     target_sources(${module_name} PRIVATE
         rgbscriptv4.cpp rgbscriptv4.h
-        scriptrunner.cpp scriptrunner.h
-        scriptv4.cpp scriptv4.h
     )
 
     target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Qml
     )
-endif()
-
-if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
+else()
     target_sources(${module_name} PRIVATE
         rgbscript.cpp rgbscript.h
-        script.cpp script.h
     )
 
     target_link_libraries(${module_name} PUBLIC
@@ -162,9 +165,14 @@ if(NOT (qmlui OR (QT_VERSION_MAJOR GREATER 5)))
     )
 endif()
 
-if(UNIX)
+if(qmlui)
     target_sources(${module_name} PRIVATE
-        mastertimer-unix.cpp mastertimer-unix.h
+        scriptrunner.cpp scriptrunner.h
+        scriptv4.cpp scriptv4.h
+    )
+else()
+    target_sources(${module_name} PRIVATE
+        script.cpp script.h
     )
 endif()
 

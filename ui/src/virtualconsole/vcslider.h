@@ -42,35 +42,35 @@ class VCSliderProperties;
  * @{
  */
 
-#define KXMLQLCVCSlider             QString("Slider")
-#define KXMLQLCVCSliderMode         QString("SliderMode")
-#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
+#define KXMLQLCVCSlider             QStringLiteral("Slider")
+#define KXMLQLCVCSliderMode         QStringLiteral("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle  QStringLiteral("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
-#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
-#define KXMLQLCVCSliderCatchValues                  QString("CatchValues")
+#define KXMLQLCVCSliderValueDisplayStyle            QStringLiteral("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact       QStringLiteral("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage  QStringLiteral("Percentage")
+#define KXMLQLCVCSliderCatchValues                  QStringLiteral("CatchValues")
 
-#define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
+#define KXMLQLCVCSliderClickAndGoType QStringLiteral("ClickAndGoType")
 
-#define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
+#define KXMLQLCVCSliderInvertedAppearance QStringLiteral("InvertedAppearance")
 
-#define KXMLQLCVCSliderBusLowLimit  QString("LowLimit")
-#define KXMLQLCVCSliderBusHighLimit QString("HighLimit")
+#define KXMLQLCVCSliderBusLowLimit  QStringLiteral("LowLimit")
+#define KXMLQLCVCSliderBusHighLimit QStringLiteral("HighLimit")
 
-#define KXMLQLCVCSliderLevel            QString("Level")
-#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
-#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
-#define KXMLQLCVCSliderLevelValue       QString("Value")
-#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
-#define KXMLQLCVCSliderOverrideReset    QString("Reset")
+#define KXMLQLCVCSliderLevel            QStringLiteral("Level")
+#define KXMLQLCVCSliderLevelLowLimit    QStringLiteral("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit   QStringLiteral("HighLimit")
+#define KXMLQLCVCSliderLevelValue       QStringLiteral("Value")
+#define KXMLQLCVCSliderLevelMonitor     QStringLiteral("Monitor")
+#define KXMLQLCVCSliderOverrideReset    QStringLiteral("Reset")
 
-#define KXMLQLCVCSliderChannel          QString("Channel")
-#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
+#define KXMLQLCVCSliderChannel          QStringLiteral("Channel")
+#define KXMLQLCVCSliderChannelFixture   QStringLiteral("Fixture")
 
-#define KXMLQLCVCSliderPlayback         QString("Playback")
-#define KXMLQLCVCSliderPlaybackFunction QString("Function")
-#define KXMLQLCVCSliderPlaybackFlash    QString("Flash")
+#define KXMLQLCVCSliderPlayback         QStringLiteral("Playback")
+#define KXMLQLCVCSliderPlaybackFunction QStringLiteral("Function")
+#define KXMLQLCVCSliderPlaybackFlash    QStringLiteral("Flash")
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -392,10 +392,10 @@ public:
     void setPlaybackValue(uchar value);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
     /** Get/Set the status of the flash button enablement */
-    bool playbackFlashEnable();
+    bool playbackFlashEnable() const;
     void setPlaybackFlashEnable(bool enable);
 
 protected:
@@ -493,6 +493,8 @@ public:
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
     void updateFeedback();
+
+    void updateOverrideFeedback(bool on);
 
 signals:
     void requestSliderUpdate(int value);

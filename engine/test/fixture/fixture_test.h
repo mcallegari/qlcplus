@@ -39,6 +39,7 @@ private slots:
     void type();
     void dimmer();
     void rgbPanel();
+    void rgbPanel16bit();
     void fixtureDef();
     void channels();
     void degrees();

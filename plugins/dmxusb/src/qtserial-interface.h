@@ -38,9 +38,6 @@ public:
 
     void setInfo(QSerialPortInfo info);
 
-    /** @reimpl */
-    bool readLabel(uchar label, int &intParam, QString &strParam);
-
     /************************************************************************
      * DMX/Serial Interface Methods
      ************************************************************************/
@@ -91,7 +88,7 @@ public:
     bool write(const QByteArray& data);
 
     /** @reimpl */
-    QByteArray read(int size, uchar* buffer = NULL);
+    QByteArray read(int size);
 
     /** @reimpl */
     uchar readByte(bool* ok = NULL);

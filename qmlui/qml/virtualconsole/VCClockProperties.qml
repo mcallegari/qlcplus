@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -141,7 +141,8 @@ Rectangle
 
                             width: height
                             height: parent.height
-                            imgSource: "qrc:/add.svg"
+                            faSource: FontAwesome.fa_plus
+                            faColor: "limegreen"
                             checkable: true
                             tooltip: qsTr("Add a function schedule")
                             onCheckedChanged:
@@ -172,228 +173,227 @@ Rectangle
 
                         model: widgetRef ? widgetRef.scheduleList : null
                         delegate:
-                            Rectangle
+                            GridLayout
                             {
                                 width: parent.width
-                                height: 180
-                                color: "transparent"
+                                columns: 3
+                                columnSpacing: 5
+                                rowSpacing: 3
 
                                 property VCClockSchedule schedule: modelData
                                 property QLCFunction func
 
-                                GridLayout
+                                // row 1
+                                IconTextEntry
                                 {
-                                    anchors.fill: parent
-                                    columns: 2
-                                    columnSpacing: 3
-                                    rowSpacing: 3
+                                    Layout.columnSpan: 3
+                                    Layout.fillWidth: true
+                                    height: gridItemsHeight
 
-                                    // row 1
-                                    IconTextEntry
+                                    Component.onCompleted:
                                     {
-                                        Layout.columnSpan: 2
-                                        Layout.fillWidth: true
+                                        func = functionManager.getFunction(schedule.functionID)
+                                        tLabel = func.name
+                                        functionType = func.type
+                                    }
+
+                                    IconButton
+                                    {
+                                        id: fontButton
                                         height: gridItemsHeight
-
-                                        Component.onCompleted:
+                                        width: height
+                                        anchors.top: parent.top
+                                        anchors.right: parent.right
+                                        faSource: FontAwesome.fa_trash_can
+                                        faColor: "darkred"
+                                        tooltip: qsTr("Remove this schedule")
+                                        onClicked:
                                         {
-                                            func = functionManager.getFunction(schedule.functionID)
-                                            tLabel = func.name
-                                            functionType = func.type
-                                        }
-
-                                        IconButton
-                                        {
-                                            id: fontButton
-                                            height: gridItemsHeight
-                                            width: height
-                                            anchors.top: parent.top
-                                            anchors.right: parent.right
-                                            imgSource: "qrc:/cancel.svg"
-                                            tooltip: qsTr("Remove this schedule")
-                                            onClicked:
-                                            {
-                                                widgetRef.removeSchedule(index)
-                                            }
+                                            widgetRef.removeSchedule(index)
                                         }
                                     }
+                                }
 
-                                    // row 2
-                                    RobotoText
-                                    {
-                                        height: gridItemsHeight
-                                        label: qsTr("Start time")
-                                    }
-                                    DayTimeTool
-                                    {
-                                        height: gridItemsHeight
-                                        timeValue: schedule ? schedule.startTime : 0
-                                        onTimeValueChanged: if (schedule) schedule.startTime = timeValue
-                                    }
+                                // row 2
+                                RobotoText
+                                {
+                                    height: gridItemsHeight
+                                    label: qsTr("Start time")
+                                }
+                                DayTimeTool
+                                {
+                                    Layout.fillWidth: true
+                                    height: gridItemsHeight
+                                    timeValue: schedule ? schedule.startTime : 0
+                                    onTimeValueChanged: if (schedule) schedule.startTime = timeValue
+                                }
+                                Rectangle
+                                {
+                                    width: gridItemsHeight
+                                    height: width
+                                    color: "transparent"
+                                }
 
-                                    // row 3
-                                    RobotoText
-                                    {
-                                        height: gridItemsHeight
-                                        label: qsTr("Stop time")
-                                    }
+                                // row 3
+                                RobotoText
+                                {
+                                    height: gridItemsHeight
+                                    label: qsTr("Stop time")
+                                }
+
+                                DayTimeTool
+                                {
+                                    Layout.fillWidth: true
+                                    enabled: stEnableCheck.checked
+                                    timeValue: schedule ? schedule.stopTime : 0
+
+                                    onTimeValueChanged: if (schedule) schedule.stopTime = timeValue
+
                                     Rectangle
                                     {
-                                        height: UISettings.listItemHeight
-                                        Layout.fillWidth: true
-                                        color: "transparent"
-                                        Row
-                                        {
-                                            spacing: 5
-                                            DayTimeTool
-                                            {
-                                                enabled: stEnableCheck.checked
-                                                timeValue: schedule ? schedule.stopTime : 0
-
-                                                onTimeValueChanged: if (schedule) schedule.stopTime = timeValue
-
-                                                Rectangle
-                                                {
-                                                    anchors.fill: parent
-                                                    color: "black"
-                                                    opacity: 0.7
-                                                    visible: !stEnableCheck.checked
-                                                }
-                                            }
-                                            CustomCheckBox
-                                            {
-                                                implicitWidth: UISettings.iconSizeMedium
-                                                implicitHeight: implicitWidth
-                                                id: stEnableCheck
-                                                tooltip: qsTr("Enable the stop time")
-                                                checked: schedule ? schedule.stopTime !== -1 : false
-                                            }
-                                        }
+                                        anchors.fill: parent
+                                        color: "black"
+                                        opacity: 0.7
+                                        visible: !stEnableCheck.checked
                                     }
+                                }
+                                CustomCheckBox
+                                {
+                                    implicitWidth: gridItemsHeight
+                                    implicitHeight: implicitWidth
+                                    id: stEnableCheck
+                                    tooltip: qsTr("Enable the stop time")
+                                    checked: schedule ? schedule.stopTime !== -1 : false
+                                }
 
-                                    Row
+                                // row 4
+                                RobotoText
+                                {
+                                    height: gridItemsHeight
+                                    label: qsTr("Days")
+                                }
+
+                                Row
+                                {
+                                    spacing: 5
+
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("M", "As in Monday") }
+                                    CustomCheckBox
                                     {
-                                        Layout.columnSpan: 2
-                                        spacing: 1
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("M", "As in Monday") }
-                                        CustomCheckBox
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x01 : false
+                                        onCheckedChanged:
                                         {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x01 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags = schedule.weekFlags | 0x01
-                                                else schedule.weekFlags &= ~0x01
-                                            }
-                                        }
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T", "As in Tuesday") }
-                                        CustomCheckBox
-                                        {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x02 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x02
-                                                else schedule.weekFlags &= ~0x02
-                                            }
-                                        }
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("W", "As in Wednesday") }
-                                        CustomCheckBox
-                                        {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x04 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x04
-                                                else schedule.weekFlags &= ~0x04
-                                            }
-                                        }
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T", "As in Thursday") }
-                                        CustomCheckBox
-                                        {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x08 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x08
-                                                else schedule.weekFlags &= ~0x08
-                                            }
-                                        }
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("F", "As in Friday") }
-                                        CustomCheckBox
-                                        {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x10 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x10
-                                                else schedule.weekFlags &= ~0x10
-                                            }
-                                        }
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S", "As in Saturday") }
-                                        CustomCheckBox
-                                        {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x20 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x20
-                                                else schedule.weekFlags &= ~0x20
-                                            }
-                                        }
-
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S", "As in Sunday") }
-                                        CustomCheckBox
-                                        {
-                                            implicitWidth: UISettings.iconSizeMedium
-                                            implicitHeight: implicitWidth
-                                            checked: schedule ? schedule.weekFlags & 0x40 : false
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x40
-                                                else schedule.weekFlags &= ~0x40
-                                            }
-                                        }
-
-                                        IconButton
-                                        {
-                                            width: UISettings.iconSizeMedium
-                                            height: width
-                                            imgSource: "qrc:/loop.svg"
-                                            checkable: true
-                                            checked: schedule ? schedule.weekFlags & 0x80 : false
-                                            tooltip: qsTr("Repeat weekly")
-                                            onCheckedChanged:
-                                            {
-                                                if(checked) schedule.weekFlags |= 0x80
-                                                else schedule.weekFlags &= ~0x80
-                                            }
+                                            if(checked) schedule.weekFlags = schedule.weekFlags | 0x01
+                                            else schedule.weekFlags &= ~0x01
                                         }
                                     }
 
-                                } // end of GridLayout
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("T", "As in Tuesday") }
+                                    CustomCheckBox
+                                    {
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x02 : false
+                                        onCheckedChanged:
+                                        {
+                                            if(checked) schedule.weekFlags |= 0x02
+                                            else schedule.weekFlags &= ~0x02
+                                        }
+                                    }
+
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("W", "As in Wednesday") }
+                                    CustomCheckBox
+                                    {
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x04 : false
+                                        onCheckedChanged:
+                                        {
+                                            if(checked) schedule.weekFlags |= 0x04
+                                            else schedule.weekFlags &= ~0x04
+                                        }
+                                    }
+
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("T", "As in Thursday") }
+                                    CustomCheckBox
+                                    {
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x08 : false
+                                        onCheckedChanged:
+                                        {
+                                            if(checked) schedule.weekFlags |= 0x08
+                                            else schedule.weekFlags &= ~0x08
+                                        }
+                                    }
+
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("F", "As in Friday") }
+                                    CustomCheckBox
+                                    {
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x10 : false
+                                        onCheckedChanged:
+                                        {
+                                            if(checked) schedule.weekFlags |= 0x10
+                                            else schedule.weekFlags &= ~0x10
+                                        }
+                                    }
+
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("S", "As in Saturday") }
+                                    CustomCheckBox
+                                    {
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x20 : false
+                                        onCheckedChanged:
+                                        {
+                                            if(checked) schedule.weekFlags |= 0x20
+                                            else schedule.weekFlags &= ~0x20
+                                        }
+                                    }
+
+                                    RobotoText { height: UISettings.listItemHeight; label: qsTr("S", "As in Sunday") }
+                                    CustomCheckBox
+                                    {
+                                        implicitWidth: gridItemsHeight
+                                        implicitHeight: implicitWidth
+                                        checked: schedule ? schedule.weekFlags & 0x40 : false
+                                        onCheckedChanged:
+                                        {
+                                            if(checked) schedule.weekFlags |= 0x40
+                                            else schedule.weekFlags &= ~0x40
+                                        }
+                                    }
+                                }
+
+                                IconButton
+                                {
+                                    width: gridItemsHeight
+                                    height: width
+                                    faSource: FontAwesome.fa_repeat
+                                    faColor: UISettings.fgMain
+                                    checkable: true
+                                    checked: schedule ? schedule.weekFlags & 0x80 : false
+                                    tooltip: qsTr("Repeat weekly")
+                                    onCheckedChanged:
+                                    {
+                                        if(checked) schedule.weekFlags |= 0x80
+                                        else schedule.weekFlags &= ~0x80
+                                    }
+                                }
 
                                 // items divider
                                 Rectangle
                                 {
-                                    width: parent.width
+                                    Layout.columnSpan: 3
+                                    Layout.fillWidth: true
                                     height: 1
-                                    y: parent.height - 1
                                     color: UISettings.fgMedium
                                 }
-                            }
+                            } // end of GridLayout
                     } // end of ListView
 
                     Rectangle

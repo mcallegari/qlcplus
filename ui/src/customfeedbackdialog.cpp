@@ -134,6 +134,7 @@ void CustomFeedbackDialog::setMonitoringVisibility(bool visible)
 {
     m_monitorLabel->setVisible(visible);
     m_monitorSpin->setVisible(visible);
+    m_monitorColor->setVisible(visible);
     m_monitorChannelCombo->setVisible(visible);
 }
 

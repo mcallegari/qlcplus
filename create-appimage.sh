@@ -11,7 +11,7 @@ set -e
 TARGET_DIR=~/qlcplus.AppDir
 
 # Compile translations
-./translate.sh "qmlui"
+./translate.sh release qmlui
 
 # Build
 if [ -n "$QTDIR" ]; then
@@ -58,7 +58,7 @@ cp -v platforms/linux/qlcplus.desktop $TARGET_DIR
 sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' $TARGET_DIR/qlcplus.desktop
 
 # There might be a new version of the tool available.
-wget -c https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage
+wget -c https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O /tmp/appimagetool-x86_64.AppImage
 chmod a+x /tmp/appimagetool-x86_64.AppImage
 
 pushd $TARGET_DIR/..

@@ -52,9 +52,15 @@ private slots:
     /** Callback for HIDInput::deviceRemoved() signals. */
     void slotDeviceRemoved(HIDDevice* device);
 
+    /** Change the merger mode. */
+    void slotMergerModeChanged(int state);
+
 private:
     /** Refresh the interface list */
     void refreshList();
+
+    /** Checkbox for merger mode (de-)activation. */
+    QWidget* createMergerModeWidget(bool mergerModeEnabled);
 };
 
 #endif

@@ -18,11 +18,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.7 as QQ2
+import QtQuick as QQ2
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
@@ -35,7 +35,8 @@ Entity
 
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
-    property int headsNumber: 1
+    property int headsNumber: 0
+    property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
     property bool useScattering: false
     property bool useShadows: false
@@ -81,8 +82,8 @@ Entity
             effect: sceneEffect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "gray" },
-                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "diffuse"; value: Qt.color("gray") },
+                Parameter { name: "specular"; value: Qt.color("black") },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
             ]
@@ -101,10 +102,10 @@ Entity
         id: headsRepeater
         //model: fixtureEntity.headsNumber
 
-        onObjectAdded:
+        onObjectAdded: (index) =>
         {
-            console.log("Head " + index + " added ----------------")
-            if (index == fixtureEntity.headsNumber - 1)
+            //console.log("Head " + index + " added ----------------")
+            if (index === fixtureEntity.headsNumber - 1)
                 View3D.initializeFixture(itemID, fixtureEntity, null)
         }
 
@@ -114,7 +115,8 @@ Entity
                 id: headDelegate
                 property real dimmerValue: 0
                 property real lightIntensity: dimmerValue * shutterValue
-                property real headWidth: phySize.x / fixtureEntity.headsNumber
+                property real headWidth: phySize.x / headsLayout.width
+                property real headHeight: phySize.z / headsLayout.height
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
 
                 enabled: lightIntensity === 0 || lightColor === Qt.rgba(0, 0, 0, 1) ? false : true
@@ -123,15 +125,21 @@ Entity
                 {
                     id: headMesh
                     width: headWidth
-                    height: phySize.z
+                    height: headHeight
                     meshResolution: Qt.size(2, 2)
                 }
 
                 property Transform headTransform:
                     Transform
                     {
-                        translation: Qt.vector3d(-(phySize.x / 2) + (headWidth * index) + (headWidth / 2),
-                                                 (phySize.y / 2) + 0.001, 0)
+                        translation: {
+                            var row = Math.floor(index / headsLayout.width)
+                            var column = index % headsLayout.width
+                            var xPos = (column * headWidth) + (headWidth / 2)
+                            var zPos = (row * headHeight) + (headHeight / 2)
+
+                            return Qt.vector3d(-(phySize.x / 2) + xPos, (phySize.y / 2) + 0.001, -(phySize.z / 2) + zPos)
+                        }
                     }
 
                 property Material headMaterial:
@@ -144,7 +152,7 @@ Entity
                                 name: "diffuse"
                                 value: Qt.rgba(lightColor.r * lightIntensity, lightColor.g * lightIntensity, lightColor.b * lightIntensity, 1)
                             },
-                            Parameter { name: "specular"; value: "black" },
+                            Parameter { name: "specular"; value: Qt.color("black") },
                             Parameter { name: "shininess"; value: 1.0 },
                             Parameter { name: "bloom"; value: 1 }
                         ]
@@ -167,7 +175,7 @@ Entity
 
         property var lastPos
 
-        onClicked:
+        onClicked: (pick) =>
         {
             console.log("3D item clicked")
             isSelected = !isSelected

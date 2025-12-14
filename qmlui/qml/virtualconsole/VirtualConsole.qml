@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -34,6 +34,8 @@ Rectangle
     property string contextName: "VC"
     property int selectedPage: virtualConsole.selectedPage
     property bool docLoaded: qlcplus.docLoaded
+
+    Component.onCompleted: virtualConsole.editMode = false
 
     onDocLoadedChanged:
     {
@@ -54,12 +56,19 @@ Rectangle
     function enableContext(ctx, setChecked)
     {
         console.log("VC enable context " + ctx)
+
         for (var i = 0; i < pagesRepeater.count; i++)
         {
             console.log("Item " + i + " name: " + pagesRepeater.itemAt(i).contextName)
             if (pagesRepeater.itemAt(i).contextName === ctx)
                 pagesRepeater.itemAt(i).visible = true
         }
+    }
+
+    function activatePage(pageIndex)
+    {
+        var pageItem = pagesRepeater.itemAt(pageIndex)
+        pageItem.click()
     }
 
     function requestMatrixPopup(target, mparent, type, pos)
@@ -128,7 +137,7 @@ Rectangle
 
                             onCheckedChanged:
                             {
-                                if (wObj && checked == true)
+                                if (wObj && checked === true)
                                 {
                                     if (wObj.requirePIN())
                                         pinRequestPopup.open()
@@ -265,7 +274,7 @@ Rectangle
                     from: 1
                     to: 999
                     suffix: "px"
-                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 10
+                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 15
                 }
 
                 RobotoText  { label: qsTr("Height") }
@@ -275,7 +284,7 @@ Rectangle
                     from: 1
                     to: 999
                     suffix: "px"
-                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 35
+                    value: addMatrixPopup.wType === "buttonmatrix" ? screenPixelDensity * 17 : screenPixelDensity * 40
                 }
 
                 // row 3

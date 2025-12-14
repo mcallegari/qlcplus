@@ -40,12 +40,12 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 void ChaserEditor::setFunctionID(quint32 ID)
 {
     if (m_chaser)
-        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
+        disconnect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_chaser != nullptr)
-        connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
+        connect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
@@ -230,6 +230,49 @@ bool ChaserEditor::duplicateSteps(QVariantList indicesList)
 
         Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
             Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), m_chaser->stepsCount() - 1));
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+
+    return true;
+}
+
+bool ChaserEditor::shuffleSteps(QVariantList indicesList)
+{
+    if (m_chaser == nullptr || indicesList.count() == 1)
+        return false;
+
+    if (indicesList.isEmpty())
+    {
+        for (int i = 0; i < m_chaser->stepsCount(); i++)
+            indicesList.append(i);
+    }
+
+    // convert indices to a sorted integer array
+    std::vector<int> indicesToShuffle;
+    for (QVariant &vIdx : indicesList)
+        indicesToShuffle.push_back(vIdx.toInt());
+    std::sort(indicesToShuffle.begin(), indicesToShuffle.end());
+
+    // shuffle the selected steps using the Fisher-Yates algorithm
+    // see https://bost.ocks.org/mike/shuffle/ for information on the algorithm
+    int unshuffledCount = indicesList.count();
+
+    while (unshuffledCount > 0)
+    {
+        // pick a random unshuffled selected and swap it with
+        // the last unshuffled one -> now it is a shuffled step
+        int toShuffle = rand() % unshuffledCount;
+        unshuffledCount--;
+        int indexToShuffle = indicesToShuffle[toShuffle];
+        int lastUnshuffledIndex = indicesToShuffle[unshuffledCount];
+
+        if (indexToShuffle != lastUnshuffledIndex)
+        {
+            m_chaser->moveStep(indexToShuffle, lastUnshuffledIndex);
+            m_chaser->moveStep(lastUnshuffledIndex - 1, indexToShuffle);
+        }
     }
 
     updateStepsList(m_doc, m_chaser, m_stepsList);

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -61,7 +61,7 @@ CustomPopupDialog
                 inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
                 maximumLength: 4
 
-                onTextChanged: currentPIN = text
+                onTextEdited: currentPIN = text
             }
 
             // Row 2

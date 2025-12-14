@@ -60,22 +60,22 @@
         <translation>Número de canal</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="88"/>
+        <location filename="configureosc.cpp" line="97"/>
         <source>Inputs</source>
         <translation>Entrades</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="94"/>
+        <location filename="configureosc.cpp" line="103"/>
         <source>Outputs</source>
         <translation>Sortides</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="176"/>
+        <location filename="configureosc.cpp" line="185"/>
         <source>Invalid IP</source>
         <translation>IP Invàlida</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="176"/>
+        <location filename="configureosc.cpp" line="185"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 no es una IP vàlida.

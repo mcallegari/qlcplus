@@ -7,7 +7,6 @@ ColorToolFull 0.1 ../ColorToolFull.qml
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
 CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
-CustomPopupDialog 0.1 ../popup/CustomPopupDialog.qml
 CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomDoubleSpinBox 0.1 ../CustomDoubleSpinBox.qml
@@ -24,6 +23,7 @@ IconPopupButton 0.1 ../IconPopupButton.qml
 IconTextEntry 0.1 ../IconTextEntry.qml
 MenuBarEntry 0.1 ../MenuBarEntry.qml
 MultiColorBox 0.1 ../MultiColorBox.qml
+PaletteFanningBox 0.1 ../PaletteFanningBox.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
 RobotoText 0.1 ../RobotoText.qml
 SectionBox 0.1 ../SectionBox.qml
@@ -33,3 +33,8 @@ TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
 WindowLoader 0.1 ../WindowLoader.qml
 ZoomItem 0.1 ../ZoomItem.qml
 
+CustomPopupDialog 0.1 ../popup/CustomPopupDialog.qml
+PopupMonitor 0.1 ../popup/PopupMonitor.qml
+PopupInputNumber 0.1 ../popup/PopupInputNumber.qml
+PopupChannelModifiers 0.1 ../popup/PopupChannelModifiers.qml
+PopupRenameItems 0.1 ../popup/PopupRenameItems.qml

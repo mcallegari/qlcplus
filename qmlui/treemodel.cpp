@@ -48,15 +48,16 @@ void TreeModel::clear()
     if (itemsCount == 0)
         return;
 
+    beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
     for (int i = 0; i < itemsCount; i++)
     {
         TreeModelItem *item = m_items.takeLast();
         if (item->hasChildren())
             item->children()->clear();
-        beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
+
         delete item;
-        endRemoveRows();
     }
+    endRemoveRows();
     m_items.clear();
     m_itemsPathMap.clear();
 }

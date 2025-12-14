@@ -62,6 +62,10 @@ public:
     /** Get if the definition is user or system */
     bool isUser() const;
 
+    /** When editing a system definition this method is called
+     *  to turn it into a user definition */
+    Q_INVOKABLE void remapFilename(QString userFolder);
+
     /** Get/Set the fixture type */
     int productType() const;
     void setProductType(int type);
@@ -88,6 +92,7 @@ signals:
     void manufacturerChanged(QString manufacturer);
     void modelChanged(QString model);
     void authorChanged(QString author);
+    void definitionSaved(QLCFixtureDef *def);
 
 private:
     /** Reference to the QML view root */
@@ -127,6 +132,7 @@ public:
 
 private:
     void updateChannelList();
+    void dismissChannelEditor();
 
 private:
     /** Reference to a channel list usable in QML */
@@ -149,8 +155,11 @@ public:
      *  If name is empty, a new mode is added */
     Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
 
+    Q_INVOKABLE bool deleteMode(QString name);
+
 private:
     void updateModeList();
+    void dismissModeEditor();
 
 protected slots:
     void modeNameChanged();

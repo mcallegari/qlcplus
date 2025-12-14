@@ -148,7 +148,7 @@
          <number>1</number>
         </property>
         <property name="maximum">
-         <number>128</number>
+         <number>1000</number>
         </property>
         <property name="value">
          <number>1</number>
@@ -240,7 +240,7 @@
          <number>1</number>
         </property>
         <property name="maximum">
-         <number>128</number>
+         <number>512</number>
         </property>
        </widget>
       </item>
@@ -257,7 +257,7 @@
          <string>Number of empty channels to leave between added fixtures</string>
         </property>
         <property name="maximum">
-         <number>128</number>
+         <number>511</number>
         </property>
        </widget>
       </item>

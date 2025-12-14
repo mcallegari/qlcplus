@@ -43,7 +43,7 @@ public:
     /**
      * Get a script instance by name
      */
-    RGBScript const& script(QString name) const;
+    RGBScript* script(QString name) const;
 
     /**
      * Load RGB scripts from the given path. Ignores duplicates.
@@ -74,9 +74,8 @@ public:
     static QDir userScriptsDirectory();
 
 private:
-    Doc* m_doc;
-    QMap<QString, RGBScript*> m_scriptsMap; //! One instance of each script, filename-based map
-    RGBScript* m_dummyScript; //! Dummy empty script
+    Doc *m_doc;
+    QMap<QString, QString> m_scriptsMap; //! Map of name/filename of the available RGB scripts
 };
 
 /** @} */

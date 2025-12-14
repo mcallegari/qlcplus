@@ -8,6 +8,7 @@ TARGET   = qlcpluswebaccess
 CONFIG += qt
 QT     += core gui network
 QT     += widgets multimedia
+QT     += websockets
 qmlui|greaterThan(QT_MAJOR_VERSION, 5) {
   QT += qml
 } else {

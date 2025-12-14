@@ -19,6 +19,7 @@
 
 #include <QQmlContext>
 
+#include "waveformimageprovider.h"
 #include "showmanager.h"
 #include "sequence.h"
 #include "tardis.h"
@@ -43,11 +44,23 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
     qmlRegisterUncreatableType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction", "Can't create a ShowFunction");
 
+
+    /* Create and register a Waveform image provider */
+    m_waveformProvider = new WaveformImageProvider(doc);
+    view->engine()->addImageProvider(QLatin1String("waveform"), m_waveformProvider);
+    view->rootContext()->setContextProperty("waveformProvider", m_waveformProvider);
+
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
+}
 
+void ShowManager::initialize()
+{
     App *app = qobject_cast<App *>(m_view);
     m_tickSize = app->pixelDensity() * 18;
+
+    if (m_waveformProvider)
+        m_waveformProvider->setPixelDensity(app->pixelDensity());
 
     siComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/ShowItem.qml"));
     if (siComponent->isError())

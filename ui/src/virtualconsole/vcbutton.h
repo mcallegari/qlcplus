@@ -41,27 +41,27 @@ class QEvent;
  * @{
  */
 
-#define KXMLQLCVCButton     QString("Button")
-#define KXMLQLCVCButtonIcon QString("Icon")
+#define KXMLQLCVCButton     QStringLiteral("Button")
+#define KXMLQLCVCButtonIcon QStringLiteral("Icon")
 
-#define KXMLQLCVCButtonFunction     QString("Function")
-#define KXMLQLCVCButtonFunctionID   QString("ID")
+#define KXMLQLCVCButtonFunction     QStringLiteral("Function")
+#define KXMLQLCVCButtonFunctionID   QStringLiteral("ID")
 
-#define KXMLQLCVCButtonAction           QString("Action")
-#define KXMLQLCVCButtonActionFlash      QString("Flash")
-#define KXMLQLCVCButtonActionToggle     QString("Toggle")
-#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
-#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
+#define KXMLQLCVCButtonAction           QStringLiteral("Action")
+#define KXMLQLCVCButtonActionFlash      QStringLiteral("Flash")
+#define KXMLQLCVCButtonActionToggle     QStringLiteral("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QStringLiteral("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QStringLiteral("StopAll")
 
-#define KXMLQLCVCButtonFlashOverride    QString("Override")
-#define KXMLQLCVCButtonFlashForceLTP    QString("ForceLTP")
+#define KXMLQLCVCButtonFlashOverride    QStringLiteral("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QStringLiteral("ForceLTP")
 
-#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
+#define KXMLQLCVCButtonStopAllFadeTime  QStringLiteral("FadeOut")
 
-#define KXMLQLCVCButtonKey QString("Key")
+#define KXMLQLCVCButtonKey QStringLiteral("Key")
 
-#define KXMLQLCVCButtonIntensity        QString("Intensity")
-#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
+#define KXMLQLCVCButtonIntensity        QStringLiteral("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QStringLiteral("Adjust")
 
 class VCButton : public VCWidget
 {
@@ -193,7 +193,7 @@ public:
     void adjustFunctionIntensity(Function *f, qreal value);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
 protected slots:
     /** Invalidates the button's function if the function is destroyed */

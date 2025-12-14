@@ -20,8 +20,9 @@
 */
 
 #include <QToolButton>
-#include <QtCore>
 #include <QtWidgets>
+#include <unistd.h>
+#include <QtCore>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
@@ -61,6 +62,20 @@
 extern void qt_set_sequence_auto_mnemonic(bool b);
 #endif
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+// Defined in Windows 11 headers but not in earlier versions.
+#ifndef PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION
+#define PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION 0x4
+#endif
+
+typedef BOOL (WINAPI *SetProcessInformationType)(
+    HANDLE hProcess,
+    PROCESS_INFORMATION_CLASS ProcessInformationClass,
+    LPVOID ProcessInformation,
+    DWORD ProcessInformationSize
+);
+#endif
+
 //#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
@@ -68,10 +83,10 @@ extern void qt_set_sequence_auto_mnemonic(bool b);
  QTime speedTime;
 #endif
 
-#define SETTINGS_GEOMETRY "workspace/geometry"
-#define SETTINGS_WORKINGPATH "workspace/workingpath"
-#define SETTINGS_RECENTFILE "workspace/recent"
-#define KXMLQLCWorkspaceWindow "CurrentWindow"
+#define SETTINGS_GEOMETRY      QStringLiteral("workspace/geometry")
+#define SETTINGS_WORKINGPATH   QStringLiteral("workspace/workingpath")
+#define SETTINGS_RECENTFILE    QStringLiteral("workspace/recent")
+#define KXMLQLCWorkspaceWindow QStringLiteral("CurrentWindow")
 
 #define MAX_RECENT_FILES    10
 
@@ -118,7 +133,7 @@ App::App()
     , m_videoProvider(NULL)
 {
     QCoreApplication::setOrganizationName("qlcplus");
-    QCoreApplication::setOrganizationDomain("sf.net");
+    QCoreApplication::setOrganizationDomain("qlcplus.org");
     QCoreApplication::setApplicationName(APPNAME);
 }
 
@@ -302,6 +317,10 @@ void App::init()
 
 #if defined(WIN32) || defined(Q_OS_WIN)
     HotPlugMonitor::setWinId(winId());
+    
+    // When on Windows 11, disable system timer resolution throttling when
+    // app is minimised, occluded, etc.
+    disableTimerResolutionThrottling();
 #endif
 
     this->setStyleSheet(AppUtil::getStyleSheet("MAIN"));
@@ -331,6 +350,44 @@ bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
     Q_UNUSED(eventType)
     //qDebug() << Q_FUNC_INFO << eventType;
     return HotPlugMonitor::parseWinEvent(message, result);
+}
+
+void App::disableTimerResolutionThrottling()
+{
+    // On Windows 11, we want it to always honour system timer resolution requests,
+    // because otherwise by default when an application is minimised, or otherwise
+    // non-visible or non-audible to the end-user, Windows may ignore timer
+    // resolution requests and not give a higher resolution than the default system
+    // timer resolution (typically 15.625 ms).
+    
+    // Note: we must resolve the SetProcessInformation API function at run-time
+    // because it does not exist prior to Windows 8. On supported Windows versions
+    // earlier than 11, the call to SetProcessInformation will just fail, which we
+    // can ignore.
+    
+    HMODULE hKernel32 = LoadLibrary(L"kernel32.dll");
+    Q_ASSERT(hKernel32 != NULL); // Shouldn't ever fail because kernel32 already loaded into every process
+
+    // Extra void* cast to avoid -Wcast-function-type warning.
+    SetProcessInformationType pfnSetProcessInformation = (SetProcessInformationType)(void *)GetProcAddress(hKernel32, "SetProcessInformation");
+
+    if (pfnSetProcessInformation != NULL)
+    {
+        PROCESS_POWER_THROTTLING_STATE pwrState = {
+                .Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION,
+                .ControlMask = PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION,
+                .StateMask = 0 // Disables timer resolution throttling
+        };
+
+        if (!pfnSetProcessInformation(GetCurrentProcess(), ProcessPowerThrottling, &pwrState, sizeof(pwrState)))
+        {
+            qWarning() << Q_FUNC_INFO << "SetProcessInformation() failed with error" << GetLastError() << "(ignore if Windows version < 11)";
+        }
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "SetProcessInformation() API does not exist on this version of Windows";
+    }
 }
 #endif
 
@@ -441,6 +498,7 @@ void App::initDoc()
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
+    connect(m_doc, SIGNAL(needAutosave()), this, SLOT(slotDocAutosave()));
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
 #ifdef DEBUG_SPEED
     speedTime.start();
@@ -497,6 +555,11 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption + QString(" *"));
     else
         setWindowTitle(caption);
+}
+
+void App::slotDocAutosave()
+{
+    saveXML(autoSaveFileName(), true);
 }
 
 void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
@@ -617,15 +680,15 @@ void App::initActions()
 {
     /* File actions */
     m_fileNewAction = new QAction(QIcon(":/filenew.png"), tr("&New"), this);
-    m_fileNewAction->setShortcut(QKeySequence(tr("CTRL+N", "File|New")));
+    m_fileNewAction->setShortcut(QKeySequence("CTRL+N"));
     connect(m_fileNewAction, SIGNAL(triggered(bool)), this, SLOT(slotFileNew()));
 
     m_fileOpenAction = new QAction(QIcon(":/fileopen.png"), tr("&Open"), this);
-    m_fileOpenAction->setShortcut(QKeySequence(tr("CTRL+O", "File|Open")));
+    m_fileOpenAction->setShortcut(QKeySequence("CTRL+O"));
     connect(m_fileOpenAction, SIGNAL(triggered(bool)), this, SLOT(slotFileOpen()));
 
     m_fileSaveAction = new QAction(QIcon(":/filesave.png"), tr("&Save"), this);
-    m_fileSaveAction->setShortcut(QKeySequence(tr("CTRL+S", "File|Save")));
+    m_fileSaveAction->setShortcut(QKeySequence("CTRL+S"));
     connect(m_fileSaveAction, SIGNAL(triggered(bool)), this, SLOT(slotFileSave()));
 
     m_fileSaveAsAction = new QAction(QIcon(":/filesaveas.png"), tr("Save &As..."), this);
@@ -634,11 +697,11 @@ void App::initActions()
     /* Control actions */
     m_modeToggleAction = new QAction(QIcon(":/operate.png"), tr("&Operate"), this);
     m_modeToggleAction->setToolTip(tr("Switch to operate mode"));
-    m_modeToggleAction->setShortcut(QKeySequence(tr("CTRL+F12", "Control|Toggle operate/design mode")));
+    m_modeToggleAction->setShortcut(QKeySequence("CTRL+F12"));
     connect(m_modeToggleAction, SIGNAL(triggered(bool)), this, SLOT(slotModeToggle()));
 
     m_controlMonitorAction = new QAction(QIcon(":/monitor.png"), tr("&Monitor"), this);
-    m_controlMonitorAction->setShortcut(QKeySequence(tr("CTRL+M", "Control|Monitor")));
+    m_controlMonitorAction->setShortcut(QKeySequence("CTRL+M"));
     connect(m_controlMonitorAction, SIGNAL(triggered(bool)), this, SLOT(slotControlMonitor()));
 
     m_addressToolAction = new QAction(QIcon(":/diptool.png"), tr("Address Tool"), this);
@@ -659,7 +722,7 @@ void App::initActions()
     m_liveEditVirtualConsoleAction->setEnabled(false);
 
     m_dumpDmxAction = new QAction(QIcon(":/add_dump.png"), tr("Dump DMX values to a function"), this);
-    m_dumpDmxAction->setShortcut(QKeySequence(tr("CTRL+D", "Control|Dump DMX")));
+    m_dumpDmxAction->setShortcut(QKeySequence("CTRL+D"));
     connect(m_dumpDmxAction, SIGNAL(triggered()), this, SLOT(slotDumpDmxIntoFunction()));
 
     m_controlPanicAction = new QAction(QIcon(":/panic.png"), tr("Stop ALL functions!"), this);
@@ -691,12 +754,12 @@ void App::initActions()
 
     m_controlFullScreenAction = new QAction(QIcon(":/fullscreen.png"), tr("Toggle Full Screen"), this);
     m_controlFullScreenAction->setCheckable(true);
-    m_controlFullScreenAction->setShortcut(QKeySequence(tr("CTRL+F11", "Control|Toggle Full Screen")));
+    m_controlFullScreenAction->setShortcut(QKeySequence("CTRL+F11"));
     connect(m_controlFullScreenAction, SIGNAL(triggered(bool)), this, SLOT(slotControlFullScreen()));
 
     /* Help actions */
     m_helpIndexAction = new QAction(QIcon(":/help.png"), tr("&Index"), this);
-    m_helpIndexAction->setShortcut(QKeySequence(tr("SHIFT+F1", "Help|Index")));
+    m_helpIndexAction->setShortcut(QKeySequence("SHIFT+F1"));
     connect(m_helpIndexAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpIndex()));
 
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
@@ -845,10 +908,11 @@ void App::updateFileOpenMenu(QString addRecent)
     if (m_fileOpenMenu == NULL)
     {
         m_fileOpenMenu = new QMenu(this);
-        QString style = "QMenu { background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #B9D9E8, stop:1 #A4C0CE);"
+        QPalette p = palette();
+        QString style = QString("QMenu { background: %1;"
                         "border: 1px solid black; font:bold; }"
                         "QMenu::item { background-color: transparent; padding: 5px 10px 5px 10px; border: 1px solid black; }"
-                        "QMenu::item:selected { background-color: #2D8CFF; }";
+                        "QMenu::item:selected { background-color: #2D8CFF; }").arg(p.color(QPalette::Window).name());
         m_fileOpenMenu->setStyleSheet(style);
         connect(m_fileOpenMenu, SIGNAL(triggered(QAction*)),
                 this, SLOT(slotRecentFileClicked(QAction*)));
@@ -984,6 +1048,7 @@ QFile::FileError App::slotFileOpen()
 QFile::FileError App::slotFileSave()
 {
     QFile::FileError error;
+    QString asfName = autoSaveFileName();
 
     /* Attempt to save with the existing name. Fall back to Save As. */
     if (fileName().isEmpty() == true)
@@ -991,13 +1056,19 @@ QFile::FileError App::slotFileSave()
     else
         error = saveXML(fileName());
 
-    handleFileError(error);
+    if (handleFileError(error))
+    {
+        QFile asFile(asfName);
+        if (asFile.exists())
+            asFile.remove();
+    }
     return error;
 }
 
 QFile::FileError App::slotFileSaveAs()
 {
     QString fn;
+    QString asfName = autoSaveFileName();
 
     /* Create a file save dialog */
     QFileDialog dialog(this);
@@ -1039,7 +1110,14 @@ QFile::FileError App::slotFileSaveAs()
 
     /* Save the document and set workspace name */
     QFile::FileError error = saveXML(fn);
-    handleFileError(error);
+
+    if (handleFileError(error))
+    {
+        /* remove autosave file if present */
+        QFile asFile(asfName);
+        if (asFile.exists())
+            asFile.remove();
+    }
 
     updateFileOpenMenu(fn);
     return error;
@@ -1276,6 +1354,21 @@ QString App::fileName() const
     return m_fileName;
 }
 
+QString App::autoSaveFileName() const
+{
+    QString fName = m_fileName;
+
+    if (fName.isEmpty())
+        fName = "NewProject.autosave.qxw";
+    else
+    {
+        fName.remove(".qxw");
+        fName.append(".autosave.qxw");
+    }
+
+    return fName;
+}
+
 QFile::FileError App::loadXML(const QString& fileName)
 {
     QFile::FileError retval = QFile::NoError;
@@ -1407,7 +1500,7 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
     return true;
 }
 
-QFile::FileError App::saveXML(const QString& fileName)
+QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 {
     QString tempFileName(fileName);
     tempFileName += ".temp";
@@ -1452,6 +1545,9 @@ QFile::FileError App::saveXML(const QString& fileName)
     /* End the document and close all the open elements */
     doc.writeEndDocument();
     file.close();
+#ifdef Q_OS_UNIX
+    sync();
+#endif
 
     // Save to actual requested file name
     QFile currFile(fileName);
@@ -1466,10 +1562,13 @@ QFile::FileError App::saveXML(const QString& fileName)
         return file.error();
     }
 
-    /* Set the file name for the current Doc instance and
-       set it also in an unmodified state. */
-    setFileName(fileName);
-    m_doc->resetModified();
+    if (!autosave)
+    {
+        /* Set the file name for the current Doc instance and
+           set it also in an unmodified state. */
+        setFileName(fileName);
+        m_doc->resetModified();
+    }
 
     return QFile::NoError;
 }

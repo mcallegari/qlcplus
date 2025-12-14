@@ -77,8 +77,12 @@ void QHttpResponse::writeHeaders()
     if (m_finished)
         return;
 
-    foreach (const QString & name, m_headers.keys()) {
-        QString value = m_headers[name];
+    HeaderHash::iterator it = m_headers.begin();
+    for (; it != m_headers.end(); it++)
+    {
+        QString name = it.key();
+        QString value = it.value();
+
         if (name.compare("connection", Qt::CaseInsensitive) == 0) {
             m_sentConnectionHeader = true;
             if (value.compare("close", Qt::CaseInsensitive) == 0)
@@ -183,9 +187,9 @@ QByteArray QHttpResponse::getWebSocketHandshake(QString clientKey)
     return crypto.result().toBase64();
 }
 
-QHttpConnection *QHttpResponse::enableWebSocket(bool enable)
+QHttpConnection *QHttpResponse::enableWebSocket()
 {
-    return m_connection->enableWebSocket(enable);
+    return m_connection->enableWebSocket();
 }
 
 void QHttpResponse::end(const QByteArray &data)

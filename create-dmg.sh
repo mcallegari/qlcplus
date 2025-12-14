@@ -8,9 +8,9 @@ if [ -n "$QTDIR" ]; then
     make distclean
     # Compile translations
     if [[ $1 == *"qmlui"* ]]; then
-        ./translate.sh "qmlui"
+        ./translate.sh release qmlui
     else
-        ./translate.sh "ui"
+        ./translate.sh release ui
     fi
     $QTDIR/bin/qmake $1
 else

@@ -34,11 +34,11 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define KXMLQLCVCATKey          QString("Key")
-#define KXMLQLCVCATBarsNumber   QString("BarsNumber")
+#define KXMLQLCVCATKey          QStringLiteral("Key")
+#define KXMLQLCVCATBarsNumber   QStringLiteral("BarsNumber")
 
-#define KXMLQLCVolumeBar    QString("VolumeBar")
-#define KXMLQLCSpectrumBar  QString("SpectrumBar")
+#define KXMLQLCVolumeBar    QStringLiteral("VolumeBar")
+#define KXMLQLCSpectrumBar  QStringLiteral("SpectrumBar")
 
 const QSize VCAudioTriggers::defaultSize(QSize(300, 200));
 
@@ -107,6 +107,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     // create the  AudioBar items to hold the spectrum data.
     // To be loaded from the project
     m_volumeBar = new AudioBar(AudioBar::None, 0, id());
+    m_spectrumBars.reserve(m_inputCapture->defaultBarsNumber());
     for (int i = 0; i < m_inputCapture->defaultBarsNumber(); i++)
     {
         AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
@@ -151,6 +152,9 @@ VCAudioTriggers::~VCAudioTriggers()
 
     if (m_inputCapture == capture.data())
         m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
+
+    qDeleteAll(m_spectrumBars);
+    delete m_volumeBar;
 }
 
 void VCAudioTriggers::enableWidgetUI(bool enable)
@@ -161,11 +165,13 @@ void VCAudioTriggers::enableWidgetUI(bool enable)
     m_volumeSlider->setEnabled(enable);
 }
 
-void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity)
+void VCAudioTriggers::notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored)
 {
     // Stop on any other function started
-    Q_UNUSED(fid);
-    Q_UNUSED(intensity);
+    Q_UNUSED(fid)
+    Q_UNUSED(intensity)
+    Q_UNUSED(excludeMonitored)
+
     if (m_button->isChecked() == true)
         enableCapture(false);
 }
@@ -480,7 +486,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
 
         // request to delete all the active faders
-        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
         {
             if (!fader.isNull())
                 fader->requestDelete();
@@ -507,6 +513,7 @@ AudioBar *VCAudioTriggers::getSpectrumBar(int index)
 QList<AudioBar *> VCAudioTriggers::getAudioBars()
 {
     QList <AudioBar *> list;
+    list.reserve(1 + m_spectrumBars.size());
     list.append(m_volumeBar);
     list.append(m_spectrumBars);
 
@@ -528,7 +535,7 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
     {
         int barsToRemove = m_spectrumBars.count() - num;
         for (int i = 0 ; i < barsToRemove; i++)
-            m_spectrumBars.removeLast();
+            delete m_spectrumBars.takeLast();
     }
 
     if (m_spectrum != NULL)
@@ -564,6 +571,7 @@ void VCAudioTriggers::editProperties()
         // restore the previous bars backup
         delete m_volumeBar;
         m_volumeBar = tmpVolume;
+        qDeleteAll(m_spectrumBars);
         m_spectrumBars.clear();
         foreach (AudioBar *bar, tmpSpectrumBars)
             m_spectrumBars.append(bar);

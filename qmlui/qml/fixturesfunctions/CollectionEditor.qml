@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -32,7 +32,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     ModelSelector
     {
@@ -86,8 +86,7 @@ Rectangle
                     }
 
                     var prevID = collectionEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
 
                 IconButton
@@ -95,7 +94,8 @@ Rectangle
                     id: addFunc
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/add.svg"
+                    faSource: FontAwesome.fa_plus
+                    faColor: "limegreen"
                     checkable: true
                     tooltip: qsTr("Add a function")
                     onCheckedChanged:
@@ -121,7 +121,8 @@ Rectangle
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium
-                    imgSource: "qrc:/remove.svg"
+                    faSource: FontAwesome.fa_minus
+                    faColor: "crimson"
                     tooltip: qsTr("Remove the selected function")
                     onClicked: deleteItemsPopup.open()
 
@@ -161,11 +162,11 @@ Rectangle
                             drag.target: cfDelegate
                             drag.threshold: height / 2
 
-                            onPressed: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers)
+                            onPressed: (mouse) => ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers)
                             onDoubleClicked:
                             {
-                                functionManager.setEditorFunction(model.funcID, false, false)
-                                requestView(model.funcID, functionManager.getEditorResource(model.funcID))
+                                var fId = cfDelegate.functionID
+                                requestView(fId, functionManager.getEditorResource(fId), false)
                             }
 
                             onReleased:
@@ -231,7 +232,7 @@ Rectangle
 
                         cFunctionList.dragInsertIndex = -1
                     }
-                    onPositionChanged:
+                    onPositionChanged: (drag) =>
                     {
                         var idx = cFunctionList.indexAt(drag.x, drag.y)
                         //console.log("Item index:" + idx)

@@ -17,12 +17,13 @@
   limitations under the License.
 */
 
+#include <QUrl>
 #include <QDebug>
 #include <QLabel>
 #include <QTimer>
-#include <QDesktopServices>
-#include <QUrl>
 #include <QAction>
+#include <QMessageBox>
+#include <QDesktopServices>
 
 #include "qlcconfig.h"
 #include "aboutbox.h"
@@ -43,6 +44,8 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
     connect(m_websiteLabel, SIGNAL(linkActivated(QString)),
             this, SLOT(slotWebsiteClicked()));
+    connect(m_qtButton, SIGNAL(clicked()),
+            this, SLOT(slotAboutQt()));
 
     connect(m_contributors, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(slotItemClicked()));
@@ -117,4 +120,9 @@ void AboutBox::slotItemClicked()
 void AboutBox::slotWebsiteClicked()
 {
     QDesktopServices::openUrl(QUrl("http://www.qlcplus.org/"));
+}
+
+void AboutBox::slotAboutQt()
+{
+    QMessageBox::aboutQt(this, QString(APPNAME));
 }

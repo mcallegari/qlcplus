@@ -18,7 +18,7 @@ BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(libftdi1)
 BuildRequires:  pkgconfig(libola)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(mad)
+#BuildRequires:  pkgconfig(mad)
 BuildRequires:  pkgconfig(sndfile)
 %if %{defined fedora}
 BuildRequires:  pkgconfig(libusb-1.0)
@@ -61,10 +61,10 @@ sed -ie '/UDEVRULESDIR/s|/etc/udev/rules.d|/usr/lib/udev/rules.d|' variables.pri
 # qmake-qt5 will only include existing files in install_translations - create the .qm files first
 
 %if "%{ui}" == "qmlui"
-    ./translate.sh qmlui
+    ./translate.sh release qmlui
     qmake-qt5 CONFIG+=qmlui
 %else
-    ./translate.sh ui
+    ./translate.sh release ui
     qmake-qt5
 %endif
 make %{?_smp_mflags}
@@ -121,7 +121,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %else
 %{_datadir}/qlcplus/web
 %endif
-%_libdir/qt5/plugins/qlcplus/audio/libmadplugin.so
+#%_libdir/qt5/plugins/qlcplus/audio/libmadplugin.so
 %_libdir/qt5/plugins/qlcplus/audio/libsndfileplugin.so
 %_libdir/qt5/plugins/qlcplus/libartnet.so
 %_libdir/qt5/plugins/qlcplus/libdmx4linux.so
