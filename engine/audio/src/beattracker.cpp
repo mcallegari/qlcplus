@@ -19,7 +19,6 @@
 
 #include <algorithm>
 #include <stdexcept>
-#include <climits>
 #include <limits>
 #include <cmath>
 
@@ -50,8 +49,10 @@ BeatTracker::BeatTracker(int sampleRate,
     m_channels(std::max(1, channels)),
     m_sensitivity(sensitivity),
     m_fftInput(nullptr),
+#ifdef HAS_FFTW3
     m_fftOutput(nullptr),
     m_fftPlan(nullptr),
+#endif
     m_historySize(historySize),
     m_historyIndex(0),
     m_historyFilled(false),
@@ -123,10 +124,10 @@ void BeatTracker::allocateFft()
         throw std::runtime_error("BeatTracker: FFTW malloc failed");
 
     m_fftPlan = fftw_plan_dft_r2c_1d(m_fftSize, m_fftInput, m_fftOutput, FFTW_MEASURE);
-#endif
 
     if (!m_fftPlan)
         throw std::runtime_error("BeatTracker: FFTW plan creation failed");
+#endif
 }
 
 void BeatTracker::freeFft()
@@ -260,8 +261,13 @@ double BeatTracker::computeSpectralFlux()
 
     for (int k = m_minBin; k <= m_maxBin && k < binCount; ++k)
     {
+#ifdef HAS_FFTW3
         double re = m_fftOutput[k][0];
         double im = m_fftOutput[k][1];
+#else
+        double re = 0;
+        double im = 0;
+#endif
         double magLin = std::sqrt(re * re + im * im);
 
         // log compression reduces huge differences between hits

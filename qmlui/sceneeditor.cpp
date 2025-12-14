@@ -527,7 +527,7 @@ void SceneEditor::setCacheChannelValue(SceneValue scv)
     if (m_channelsCache.contains(scv.fxi))
     {
         QByteArray values = m_channelsCache[scv.fxi];
-        if (values.length() < scv.channel)
+        if (values.length() < qsizetype(scv.channel))
             return;
 
         values[scv.channel] = scv.value;
