@@ -86,7 +86,16 @@ set(SRC_FILES
 
 if(ANDROID)
     qt_add_executable(${module_name} ${SRC_FILES} ${QM_FILES})
-    set_target_properties(${module_name} PROPERTIES OUTPUT_NAME "qlcplus")
+    set_target_properties(${module_name} PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR "${ANDROID_PACKAGE_STAGING_DIR}"
+        QT_ANDROID_APP_ICON "@drawable/ic_launcher"
+        QT_ANDROID_PACKAGE_NAME "org.qlcplus"
+        OUTPUT_NAME "qlcplus"
+    )
+
+    # Copy overlay resources into build tree
+    file(MAKE_DIRECTORY "${ANDROID_PACKAGE_STAGING_DIR}")
+    file(COPY "${PROJECT_SOURCE_DIR}/platforms/android/" DESTINATION "${ANDROID_PACKAGE_STAGING_DIR}")
 else()
     add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES})
 endif()

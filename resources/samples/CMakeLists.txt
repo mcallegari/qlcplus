@@ -5,7 +5,7 @@ file(GLOB SAMPLE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.qxw")
 # Only perform the copy if we're building for Android
 if(ANDROID)
     # Define the destination directory for the sample files within the Android package
-    set(SAMPLES_ASSETS_DIR "${ANDROID_PACKAGE_SOURCE_DIR}/${SAMPLESDIR}")
+    set(SAMPLES_ASSETS_DIR "${QT_ANDROID_PACKAGE_SOURCE_DIR}/${SAMPLESDIR}")
 
     # Create the samples assets directory if it doesn't exist
     file(MAKE_DIRECTORY ${SAMPLES_ASSETS_DIR})

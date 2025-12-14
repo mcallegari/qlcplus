@@ -14,7 +14,7 @@ if(ANDROID)
             set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/${FIXTURE_FILE_AND_DIRECTORY}")
 
             # Calculate the full path to the destination directory within the Android package
-            set(DESTINATION_DIR "${ANDROID_PACKAGE_SOURCE_DIR}/${FIXTUREDIR}")
+            set(DESTINATION_DIR "${QT_ANDROID_PACKAGE_SOURCE_DIR}/${FIXTUREDIR}")
 
             # Copy the directory to the assets directory
             file(COPY ${SOURCE_DIR} DESTINATION ${DESTINATION_DIR})
@@ -23,7 +23,7 @@ if(ANDROID)
 
     # Copy the FixturesMap.xml file to the assets directory
     set(SOURCE_FIXTURES_MAP "${CMAKE_CURRENT_SOURCE_DIR}/FixturesMap.xml")
-    set(DESTINATION_FIXTURES_MAP "${ANDROID_PACKAGE_SOURCE_DIR}/${FIXTUREDIR}")
+    set(DESTINATION_FIXTURES_MAP "${QT_ANDROID_PACKAGE_SOURCE_DIR}/${FIXTUREDIR}")
     file(COPY ${SOURCE_FIXTURES_MAP} DESTINATION ${DESTINATION_FIXTURES_MAP})
 endif()
 

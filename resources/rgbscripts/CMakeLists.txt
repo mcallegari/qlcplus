@@ -44,7 +44,7 @@ set(SCRIPT_FILES
 # Only perform the copy if we're building for Android
 if(ANDROID)
     # Define the destination directory for the script files within the Android package
-    set(SCRIPTS_ASSETS_DIR "${ANDROID_PACKAGE_SOURCE_DIR}/${INSTALLROOT}/${RGBSCRIPTDIR}")
+    set(SCRIPTS_ASSETS_DIR "${QT_ANDROID_PACKAGE_SOURCE_DIR}/${INSTALLROOT}/${RGBSCRIPTDIR}")
 
     # Create the scripts assets directory if it doesn't exist
     file(MAKE_DIRECTORY ${SCRIPTS_ASSETS_DIR})

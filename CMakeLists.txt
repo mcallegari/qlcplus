@@ -27,11 +27,9 @@ if (ANDROID OR IOS)
 endif()
 
 if (ANDROID)
-    if(QT_VERSION_MAJOR GREATER 5)
-        set(QT_ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
-    else()
-        set(ANDROID_PACKAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/platforms/android CACHE INTERNAL "")
-    endif()
+    set(ANDROID_PACKAGE_STAGING_DIR "${CMAKE_BINARY_DIR}/android-package")
+    # Tell Qt/Gradle to use the build-tree template
+    set(QT_ANDROID_PACKAGE_SOURCE_DIR "${ANDROID_PACKAGE_STAGING_DIR}" CACHE PATH "" FORCE)
 endif()
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
