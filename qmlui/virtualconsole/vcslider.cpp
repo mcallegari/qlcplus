@@ -1671,7 +1671,11 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
         doc->writeEndElement();
 
         if (adjustFlashEnabled())
-            saveXMLInputControl(doc, INPUT_SLIDER_FLASH_ID, false, KXMLQLCVCSliderFunctionFlash);
+        {
+            doc->writeStartElement(KXMLQLCVCSliderFunctionFlash);
+            saveXMLInputControl(doc, INPUT_SLIDER_FLASH_ID, false);
+            doc->writeEndElement();
+        }
     }
 
     /* End the <Slider> tag */
