@@ -216,7 +216,7 @@ QList<VCWidget *> VCFrame::children(bool recursive)
     return widgetsList;
 }
 
-void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
+VCWidget *VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 {
     VCWidget::WidgetType type = stringToType(wType);
 
@@ -240,6 +240,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame, currentPage());
             frame->render(m_vc->view(), parent);
+            return frame;
         }
         break;
         case SoloFrameWidget:
@@ -252,6 +253,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe, currentPage());
             soloframe->render(m_vc->view(), parent);
+            return soloframe;
         }
         break;
         case ButtonWidget:
@@ -264,6 +266,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button, currentPage());
             button->render(m_vc->view(), parent);
+            return button;
         }
         break;
         case LabelWidget:
@@ -276,6 +279,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label, currentPage());
             label->render(m_vc->view(), parent);
+            return label;
         }
         break;
         case SliderWidget:
@@ -295,6 +299,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
+            return slider;
         }
         break;
         case AnimationWidget:
@@ -307,6 +312,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 60, m_vc->pixelDensity() * 45));
             setupWidget(animation, currentPage());
             animation->render(m_vc->view(), parent);
+            return animation;
         }
         break;
         case AudioTriggersWidget:
@@ -319,6 +325,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(audioTrigger, currentPage());
             audioTrigger->render(m_vc->view(), parent);
+            return audioTrigger;
         }
         break;
         case XYPadWidget:
@@ -331,6 +338,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             xyPad->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(xyPad, currentPage());
             xyPad->render(m_vc->view(), parent);
+            return xyPad;
         }
         break;
         case SpeedWidget:
@@ -343,6 +351,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             speed->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
             setupWidget(speed, currentPage());
             speed->render(m_vc->view(), parent);
+            return speed;
         }
         break;
         case ClockWidget:
@@ -355,6 +364,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 40, m_vc->pixelDensity() * 10));
             setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
+            return clock;
         }
         break;
         case CueListWidget:
@@ -367,11 +377,14 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
             setupWidget(cuelist, currentPage());
             cuelist->render(m_vc->view(), parent);
+            return cuelist;
         }
         break;
         default:
         break;
     }
+
+    return nullptr;
 }
 
 void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
@@ -432,7 +445,8 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
         for (int col = 0; col < matrixSize.width(); col++)
         {
-            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? "Button" : "Slider", QPoint(xPos, yPos));
+            VCWidget *widget = frame->addWidget(nullptr, matrixType == "buttonmatrix" ? "Button" : "Slider", QPoint(xPos, yPos));
+            widget->setGeometry(QRectF(xPos, yPos, widgetSize.width(), widgetSize.height()));
             xPos += widgetSize.width();
         }
         yPos += widgetSize.height();

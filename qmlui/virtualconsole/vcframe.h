@@ -110,7 +110,7 @@ public:
 
     /** Add a new widget of type $wType at position $pos to this frame.
      *  $parent is used only to render the new widget */
-    Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
+    Q_INVOKABLE VCWidget *addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
     /** Add an existing widget at position $pos to this frame.
      *  $parent is used only to render the new widget */
