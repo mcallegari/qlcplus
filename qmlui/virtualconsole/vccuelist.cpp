@@ -268,13 +268,16 @@ void VCCueList::setSideFaderLevel(int level)
             //qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
         }
 
+        if (newStep == ch->currentStepIndex())
+            return;
+
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = newStep;
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
         ch->setAction(action);
-
-        if (newStep == ch->currentStepIndex())
-            return;
     }
     else
     {
