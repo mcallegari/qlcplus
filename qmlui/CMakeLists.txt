@@ -85,11 +85,10 @@ set(SRC_FILES
 )
 
 if(ANDROID)
-    add_library(${module_name} SHARED ${SRC_FILES} ${QM_FILES})
-    set_target_properties(${module_name} PROPERTIES LIBRARY_OUTPUT_NAME qlcplus)
+    qt_add_executable(${module_name} ${SRC_FILES} ${QM_FILES})
+    set_target_properties(${module_name} PROPERTIES OUTPUT_NAME "qlcplus")
 else()
-    add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES}
-    )
+    add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES})
 endif()
 
 if(WIN32)
@@ -160,5 +159,4 @@ else()
     )
 endif()
 
-install(TARGETS ${module_name} DESTINATION ${INSTALLROOT}/${BINDIR}
-)
+install(TARGETS ${module_name} DESTINATION ${INSTALLROOT}/${BINDIR})
