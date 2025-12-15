@@ -779,8 +779,7 @@ void VCCueList::stopClicked()
     }
     else
     {
-        //m_primaryIndex = 0;
-        //m_tree->setCurrentItem(m_tree->topLevelItem(getFirstIndex()));
+        setPlaybackIndex(-1);
     }
 }
 
@@ -905,7 +904,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     if (fid == m_chaserID)
     {
         emit playbackStatusChanged();
-        setPlaybackIndex(-1);
+
         sendFeedback(0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
 
         m_timer->stop();
