@@ -105,6 +105,7 @@ void VCSoloFrame::setSoloframeMixing(bool soloframeMixing)
         return;
 
     m_soloframeMixing = soloframeMixing;
+    setDocModified();
 
     emit soloframeMixingChanged();
 }
@@ -120,6 +121,7 @@ void VCSoloFrame::setExcludeMonitoredFunctions(bool exclude)
         return;
 
     m_excludeMonitored = exclude;
+    setDocModified();
 
     emit excludeMonitoredFunctionsChanged();
 }

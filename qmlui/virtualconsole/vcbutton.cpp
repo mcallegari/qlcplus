@@ -20,8 +20,10 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#include "chaseraction.h"
 #include "qlcmacros.h"
 #include "vcbutton.h"
+#include "chaser.h"
 #include "tardis.h"
 #include "doc.h"
 
@@ -220,34 +222,25 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
 
     qDebug() << "notifyFunctionStarting" << widget->caption() << fid << fIntensity;
 
-    if (m_functionID == Function::invalidId() || actionType() != VCButton::Toggle)
-        return;
-
-    Function *f = m_doc->function(m_functionID);
-    if (f == nullptr)
+    if (fid == m_functionID || m_functionID == Function::invalidId())
         return;
 
     if (excludeMonitored)
     {
         // stop the controlled Function only if actively started
         // by this Button or if monitoring the startup Function
-        if (m_state != Active && m_functionID != fid && m_functionID != m_doc->startupFunction())
+        if (state() != Active && m_functionID != m_doc->startupFunction())
             return;
     }
 
-    if (m_functionID != fid)
+    if (actionType() == VCButton::Toggle)
     {
-        if (f->isRunning())
+        Function *f = m_doc->function(m_functionID);
+        if (f != NULL)
         {
             f->stop(functionParent());
             resetIntensityOverrideAttribute();
         }
-    }
-    else
-    {
-        adjustFunctionIntensity(f, intensity());
-        f->start(m_doc->masterTimer(), functionParent());
-        setState(Active);
     }
 }
 
@@ -356,24 +349,41 @@ void VCButton::requestStateChange(bool pressed)
         case Toggle:
         {
             Function *f = m_doc->function(m_functionID);
-            if (f == nullptr)
+            if (f == NULL)
                 return;
 
-            if (state() != Active && pressed == true)
+            // if the button is in a SoloFrame and the function is running but was
+            // started by a different function (a chaser or collection), turn other
+            // functions off and start this one.
+            if (state() == Active && !(hasSoloParent() && f->startedAsChild()))
             {
-                if (hasSoloParent())
-                    emit functionStarting(this, m_functionID);
-                else
-                    notifyFunctionStarting(this, m_functionID, 1.0, false);
+                f->stop(functionParent());
+                resetIntensityOverrideAttribute();
+                setState(Inactive);
             }
-            else if (state() == Active && pressed == false)
+            else
             {
-                if (f->isRunning())
+                adjustFunctionIntensity(f, intensity());
+
+                // starting a Chaser is a special case, since it is necessary
+                // to use Chaser Actions to properly start the first
+                // Chaser step with the right intensity
+                if (f->type() == Function::ChaserType || f->type() == Function::SequenceType)
                 {
-                    f->stop(functionParent());
-                    resetIntensityOverrideAttribute();
-                    setState(Inactive);
+                    ChaserAction action;
+                    action.m_action = ChaserSetStepIndex;
+                    action.m_stepIndex = 0;
+                    action.m_masterIntensity = intensity();
+                    action.m_stepIntensity = 1.0;
+                    action.m_fadeMode = Chaser::FromFunction;
+
+                    Chaser *chaser = qobject_cast<Chaser*>(f);
+                    chaser->setAction(action);
                 }
+
+                f->start(m_doc->masterTimer(), functionParent());
+                setState(Active);
+                emit functionStarting(this, m_functionID);
             }
         }
         break;
