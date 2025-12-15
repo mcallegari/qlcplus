@@ -1251,6 +1251,20 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             else
                 setShowEnable(false);
         }
+        else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameMixing)
+        {
+            if (root.readElementText() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(true);
+            else
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(false);
+        }
+        else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameExclude)
+        {
+            if (root.readElementText() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setExcludeMonitoredFunctions(true);
+            else
+                reinterpret_cast<VCSoloFrame*>(this)->setExcludeMonitoredFunctions(false);
+        }
         else if (root.name() == KXMLQLCVCFramePIN)
         {
             SimpleCrypt crypter(encKey);
@@ -1358,16 +1372,17 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     /* ShowEnableButton */
     doc->writeTextElement(KXMLQLCVCFrameShowEnableButton, showEnable() ? KXMLQLCTrue : KXMLQLCFalse);
 
-#if 0 // TODO
-    /* Solo frame mixing */
+    /* Solo frame mixing and monitored functions exclusion */
     if (this->type() == SoloFrameWidget)
     {
-        if (reinterpret_cast<VCSoloFrame*>(this)->soloframeMixing())
+        VCSoloFrame *solo = reinterpret_cast<VCSoloFrame*>(this);
+        if (solo->soloframeMixing())
             doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCTrue);
-        else
-            doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCFalse);
+
+        if (solo->excludeMonitoredFunctions())
+            doc->writeTextElement(KXMLQLCVCSoloFrameExclude, KXMLQLCTrue);
     }
-#endif
+
     /* Collapsed */
     doc->writeTextElement(KXMLQLCVCFrameIsCollapsed, isCollapsed() ? KXMLQLCTrue : KXMLQLCFalse);
 

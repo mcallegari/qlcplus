@@ -115,7 +115,7 @@ public:
     Q_INVOKABLE void requestStateChange(bool pressed);
 
     /** @reimp */
-    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored);
 
 signals:
     void functionIDChanged(quint32 id);

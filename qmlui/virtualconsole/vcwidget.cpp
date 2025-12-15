@@ -533,11 +533,13 @@ bool VCWidget::hasSoloParent()
     return false;
 }
 
-void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid,
+                                      qreal fIntensity, bool excludeMonitored)
 {
     Q_UNUSED(widget)
-    Q_UNUSED(fid);
-    Q_UNUSED(fIntensity);
+    Q_UNUSED(fid)
+    Q_UNUSED(fIntensity)
+    Q_UNUSED(excludeMonitored)
 }
 
 /*********************************************************************

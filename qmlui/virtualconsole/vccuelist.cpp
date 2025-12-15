@@ -436,6 +436,18 @@ void VCCueList::setStepNote(int index, QString text)
     m_stepsList->setDataWithRole(mIdx, "note", text);
 }
 
+void VCCueList::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored)
+{
+    Q_UNUSED(widget)
+    Q_UNUSED(fIntensity)
+    Q_UNUSED(excludeMonitored)
+
+    if (fid == m_chaserID)
+        return;
+
+    stopChaser();
+}
+
 quint32 VCCueList::chaserID() const
 {
     return m_chaserID;

@@ -184,6 +184,9 @@ public:
 
     Q_INVOKABLE void setStepNote(int index, QString text);
 
+    /** @reimp */
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored);
+
 private slots:
     void slotFunctionRemoved(quint32 fid);
     void slotFunctionNameChanged(quint32 fid);

@@ -22,11 +22,16 @@
 
 #include "vcframe.h"
 
-#define KXMLQLCVCSoloFrame QStringLiteral("SoloFrame")
+#define KXMLQLCVCSoloFrame          QStringLiteral("SoloFrame")
+#define KXMLQLCVCSoloFrameMixing    QStringLiteral("Mixing")
+#define KXMLQLCVCSoloFrameExclude   QStringLiteral("ExcludeMonitored")
 
 class VCSoloFrame : public VCFrame
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool soloframeMixing READ soloframeMixing WRITE setSoloframeMixing NOTIFY soloframeMixingChanged)
+    Q_PROPERTY(bool excludeMonitoredFunctions READ excludeMonitoredFunctions WRITE setExcludeMonitoredFunctions NOTIFY excludeMonitoredFunctionsChanged)
 
     /*********************************************************************
      * Initialization
@@ -47,6 +52,26 @@ public:
 protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget);
+
+    /*****************************************************************************
+     * Properties
+     *****************************************************************************/
+public:
+    bool soloframeMixing() const;
+    void setSoloframeMixing(bool soloframeMixing);
+
+    /** Get/Set a behaviour to prevent stopping Functions controlled
+     *  by VC Buttons even if they are monitored */
+    bool excludeMonitoredFunctions() const;
+    void setExcludeMonitoredFunctions(bool exclude);
+
+signals:
+    void soloframeMixingChanged();
+    void excludeMonitoredFunctionsChanged();
+
+protected:
+    bool m_soloframeMixing;
+    bool m_excludeMonitored;
 
     /*********************************************************************
      * Widget Function

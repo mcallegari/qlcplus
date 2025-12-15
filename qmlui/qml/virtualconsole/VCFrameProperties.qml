@@ -86,6 +86,37 @@ Rectangle
 
         SectionBox
         {
+            visible: widgetRef && widgetRef.type === VCWidget.SoloFrameWidget ? true : false
+            sectionLabel: qsTr("Solo Frame Options")
+
+            sectionContents:
+              GridLayout
+              {
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 3
+
+                // row 1
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Exclude monitored functions")
+                }
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.excludeMonitoredFunctions : false
+                    onCheckedChanged: if (widgetRef) widgetRef.excludeMonitoredFunctions = checked
+                }
+              }
+        }
+
+        SectionBox
+        {
             sectionLabel: qsTr("Pages")
 
             sectionContents:

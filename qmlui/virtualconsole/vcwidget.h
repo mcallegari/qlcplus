@@ -398,7 +398,7 @@ public:
      *  and Audio Triggers can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
+    virtual void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored);
 
     virtual void adjustFunctionIntensity(Function *f, qreal value);
 

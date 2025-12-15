@@ -21,6 +21,8 @@
 
 VCSoloFrame::VCSoloFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCFrame(doc, vc, parent)
+    , m_soloframeMixing(false)
+    , m_excludeMonitored(false)
 {
     setType(VCWidget::SoloFrameWidget);
 }
@@ -88,6 +90,40 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
     return VCFrame::copyFrom(widget);
 }
 
+/*****************************************************************************
+ * Properties
+ *****************************************************************************/
+
+bool VCSoloFrame::soloframeMixing() const
+{
+    return m_soloframeMixing;
+}
+
+void VCSoloFrame::setSoloframeMixing(bool soloframeMixing)
+{
+    if (soloframeMixing == m_soloframeMixing)
+        return;
+
+    m_soloframeMixing = soloframeMixing;
+
+    emit soloframeMixingChanged();
+}
+
+bool VCSoloFrame::excludeMonitoredFunctions() const
+{
+    return m_excludeMonitored;
+}
+
+void VCSoloFrame::setExcludeMonitoredFunctions(bool exclude)
+{
+    if (exclude == m_excludeMonitored)
+        return;
+
+    m_excludeMonitored = exclude;
+
+    emit excludeMonitoredFunctionsChanged();
+}
+
 /*********************************************************************
  * Widget Function
  *********************************************************************/
@@ -95,12 +131,15 @@ bool VCSoloFrame::copyFrom(const VCWidget *widget)
 void VCSoloFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity)
 {
     qDebug() << "[VCSoloFrame] requested to start a Function with ID:" << fid << intensity << widget->caption();
-    foreach (VCWidget *child, children(true))
+
+    qreal wIntensity = soloframeMixing() ? intensity : 1.0;
+
+    for (VCWidget *child : children(true))
     {
         if (child != widget)
-            child->notifyFunctionStarting(widget, fid, intensity);
+            child->notifyFunctionStarting(widget, fid, wIntensity, m_excludeMonitored);
     }
-    widget->notifyFunctionStarting(widget, fid, intensity);
+    widget->notifyFunctionStarting(widget, fid, wIntensity, m_excludeMonitored);
 }
 
 /*****************************************************************************

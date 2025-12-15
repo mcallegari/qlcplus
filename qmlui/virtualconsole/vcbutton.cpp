@@ -213,7 +213,7 @@ void VCButton::adjustIntensity(qreal val)
     }
 }
 
-void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored)
 {
     Q_UNUSED(widget)
     Q_UNUSED(fIntensity)
@@ -226,6 +226,14 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
     Function *f = m_doc->function(m_functionID);
     if (f == nullptr)
         return;
+
+    if (excludeMonitored)
+    {
+        // stop the controlled Function only if actively started
+        // by this Button or if monitoring the startup Function
+        if (m_state != Active && m_functionID != fid && m_functionID != m_doc->startupFunction())
+            return;
+    }
 
     if (m_functionID != fid)
     {
@@ -356,7 +364,7 @@ void VCButton::requestStateChange(bool pressed)
                 if (hasSoloParent())
                     emit functionStarting(this, m_functionID);
                 else
-                    notifyFunctionStarting(this, m_functionID, 1.0);
+                    notifyFunctionStarting(this, m_functionID, 1.0, false);
             }
             else if (state() == Active && pressed == false)
             {
