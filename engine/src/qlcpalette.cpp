@@ -409,7 +409,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                     if (ch->group() == QLCChannel::Beam &&
                         (ch->preset() == QLCChannel::BeamZoomSmallBig || ch->preset() == QLCChannel::BeamZoomBigSmall))
                     {
-                        list << SceneValue(id, i, uchar(value().toUInt()));
+                        list << fixture->zoomToValues(value().toFloat(), false);
                         break;
                     }
                 }
