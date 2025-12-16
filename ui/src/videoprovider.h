@@ -21,6 +21,9 @@
 #define VIDEOPROVIDER_H
 
 #include <QMediaPlayer>
+#include <QGraphicsView>
+#include <QGraphicsVideoItem>
+#include <QGraphicsRectItem>
 #include <QObject>
 #include <QHash>
 
@@ -29,7 +32,7 @@
 class Doc;
 class QVideoWidget;
 
-class VideoWidget: public QObject
+class VideoWidget : public QObject
 {
     Q_OBJECT
 
@@ -51,24 +54,29 @@ protected slots:
     void slotBrightnessVolumeAdjust(qreal value);
 
 private:
-    int getScreenCount();
+    int getScreenCount() const;
 
 protected:
     /** reference to the actual Video Function */
     Video *m_video;
     /** output interface to render video data */
     QMediaPlayer *m_videoPlayer;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    /** Qt widget that actually displays the video */
+    QGraphicsView *m_videoWidget;
+    QGraphicsVideoItem* m_videoItem;
+    QGraphicsRectItem* m_videoOverlay;
+    QAudioOutput *m_audioOutput;
+#else
     /** Qt widget that actually displays the video */
     QVideoWidget *m_videoWidget;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    QAudioOutput *m_audioOutput;
 #endif
 
 private:
     FunctionParent functionParent() const;
 };
 
-class VideoProvider: public QObject
+class VideoProvider : public QObject
 {
     Q_OBJECT
 public:
