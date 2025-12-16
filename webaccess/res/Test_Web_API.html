@@ -215,6 +215,22 @@ function connectToWebSocket(host) {
       {
         document.getElementById('getWidgetTypeBox').innerHTML = msgParams[3];
       }
+      else if (msgParams[1] === "getWidgetFunction")
+      {
+        // Expected:
+        // QLC+API|getWidgetFunction|<widgetId>|<functionId>|<functionType>|<functionName?>
+        var wid = msgParams[2] || "";
+        var fid = msgParams[3] || "0";
+        var ftype = msgParams[4] || "Undefined";
+        var fname = msgParams[5] || "";
+
+        var tableCode = "<table class='apiTable'><tr>" +
+                        "<th>Widget ID</th><th>Function ID</th><th>Function Type</th><th>Function Name</th></tr>";
+        tableCode += "<tr><td>" + wid + "</td><td>" + fid + "</td><td>" + ftype + "</td><td>" + fname + "</td></tr>";
+        tableCode += "</table>";
+
+        document.getElementById('getWidgetFunctionBox').innerHTML = tableCode;
+      }
       else if (msgParams[1] === "getWidgetStatus")
       {
         var status = msgParams[3];
@@ -456,6 +472,18 @@ Load a project:
   </td>
   <td>Retrieve the type of a Virtual Console Widget with the given ID</td>
   <td><div id="getWidgetTypeBox" class="resultBox"></div></td>
+ </tr>
+
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetFunction', 'wFuncID');">getWidgetFunction</div><br>
+    Widget ID: <input id="wFuncID" type="text" value="0" size="6">
+  </td>
+  <td>
+    Retrieve the Function bound to a Virtual Console widget (where applicable). Returns widget ID plus function ID/type/name.
+    Supported widget types: Button, Cue List, Slider (Playback mode only).
+  </td>
+  <td><div id="getWidgetFunctionBox" style="height: 80px; overflow-y: auto;"></div></td>
  </tr>
 
  <tr>
