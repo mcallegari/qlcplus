@@ -11,7 +11,7 @@ This area is reserved to developers.
 If you are not a developer, you are in the wrong place and your issue will be closed.
 
 For discussions, feedbacks, ideas and new fixtures, go to:
-http://www.qlcplus.org/forum/index.php
+https://www.qlcplus.org/forum/index.php
 and provide as many details as possible regarding your findings.
 
 Before reporting new issue, please discuss it on the forum. Let's keep the issues tidy!

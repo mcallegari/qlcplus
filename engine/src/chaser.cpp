@@ -448,7 +448,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCChaserLegacySequence)
         {
             doc()->appendToErrorLog(QString("<b>Unsupported sequences found</b>. Please convert your project "
-                                            "at <a href=http://www.qlcplus.org/sequence_migration.php>http://www.qlcplus.org/sequence_migration.php</a>"));
+                                            "at <a href=https://www.qlcplus.org/sequence_migration.php>https://www.qlcplus.org/sequence_migration.php</a>"));
             root.skipCurrentElement();
         }
         else

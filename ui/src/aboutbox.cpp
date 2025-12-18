@@ -41,7 +41,7 @@ AboutBox::AboutBox(QWidget* parent) : QDialog (parent)
     m_versionLabel->setText(APPVERSION);
     m_copyrightLabel->setText(QString("Copyright &copy; <B>Heikki Junnila, Massimo Callegari</B> %1")
                               .arg(tr("and contributors:")));
-    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"http://www.qlcplus.org/\">http://www.qlcplus.org/</A>"));
+    m_websiteLabel->setText(tr("Website: %1").arg("<A HREF=\"https://www.qlcplus.org/\">https://www.qlcplus.org/</A>"));
     connect(m_websiteLabel, SIGNAL(linkActivated(QString)),
             this, SLOT(slotWebsiteClicked()));
     connect(m_qtButton, SIGNAL(clicked()),
@@ -119,7 +119,7 @@ void AboutBox::slotItemClicked()
 
 void AboutBox::slotWebsiteClicked()
 {
-    QDesktopServices::openUrl(QUrl("http://www.qlcplus.org/"));
+    QDesktopServices::openUrl(QUrl("https://www.qlcplus.org/"));
 }
 
 void AboutBox::slotAboutQt()

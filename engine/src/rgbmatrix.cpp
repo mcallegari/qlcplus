@@ -871,7 +871,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             //
             // The rest of the dimmer channels are set to full if dimmer control is
             // enabled and target color is > 0 (see
-            // http://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
+            // https://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
             //
             // Note: If there is only one head, and only one dimmer channel,
             // make it a master dimmer in fixture definition.
