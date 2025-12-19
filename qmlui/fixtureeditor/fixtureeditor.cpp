@@ -18,6 +18,7 @@
 */
 
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QSettings>
 
 #include "qlcfixturedef.h"
@@ -91,8 +92,10 @@ void FixtureEditor::createDefinition()
 {
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setIsUser(true);
-    m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
-    connect(m_editors[m_lastId], &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
+    EditorView *editor = new EditorView(m_view, m_lastId, def);
+    QQmlEngine::setObjectOwnership(editor, QQmlEngine::CppOwnership);
+    m_editors[m_lastId] = editor;
+    connect(editor, &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
     //connect(m_editors[m_lastId], SIGNAL(definitionSaved(QString)),
     //        this, SLOT(slotReloadFixture(QString)));
     m_lastId++;
@@ -130,8 +133,10 @@ bool FixtureEditor::loadDefinition(QString fileName)
 
     def->setDefinitionSourceFile(localFilename);
     def->setIsUser(true);
-    m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
-    connect(m_editors[m_lastId], &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
+    EditorView *editor = new EditorView(m_view, m_lastId, def);
+    m_editors[m_lastId] = editor;
+    QQmlEngine::setObjectOwnership(editor, QQmlEngine::CppOwnership);
+    connect(editor, &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
     m_lastId++;
     emit editorsListChanged();
     return true;
@@ -144,8 +149,10 @@ bool FixtureEditor::editDefinition(QString manufacturer, QString model)
     if (def == nullptr)
         return false;
 
-    m_editors[m_lastId] = new EditorView(m_view, m_lastId, def);
-    connect(m_editors[m_lastId], &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
+    EditorView *editor = new EditorView(m_view, m_lastId, def);
+    QQmlEngine::setObjectOwnership(editor, QQmlEngine::CppOwnership);
+    m_editors[m_lastId] = editor;
+    connect(editor, &EditorView::definitionSaved, this, &FixtureEditor::slotReloadFixture);
     m_lastId++;
     emit editorsListChanged();
     return true;

@@ -46,10 +46,6 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
 
 ChannelEdit::~ChannelEdit()
 {
-    disconnect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
-    disconnect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
-    disconnect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
-    disconnect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
 }
 
 QLCChannel *ChannelEdit::channel()

@@ -64,11 +64,8 @@ EditorView::~EditorView()
     delete m_channelList;
     delete m_globalPhy;
 
-    if (m_channelEdit)
-        delete m_channelEdit;
-
-    if (m_modeEdit)
-        delete m_modeEdit;
+    dismissChannelEditor();
+    dismissModeEditor();
 }
 
 int EditorView::id() const
@@ -207,13 +204,15 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     if (ch == nullptr)
     {
         ch = new QLCChannel();
-        QQmlEngine::setObjectOwnership(ch, QQmlEngine::CppOwnership);
         ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
         updateChannelList();
         setModified(true);
     }
+    QQmlEngine::setObjectOwnership(ch, QQmlEngine::CppOwnership);
+
     m_channelEdit = new ChannelEdit(ch);
+    QQmlEngine::setObjectOwnership(m_channelEdit, QQmlEngine::CppOwnership);
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
     return m_channelEdit;
