@@ -165,7 +165,7 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
             fcFound->channelCount() == 1 &&
             primary != QLCChannel::invalid())
         {
-            qDebug() << "Adding channel to primary" << channel;
+            //qDebug() << "Adding channel to primary" << channel;
             fcFound->addChannel(channel);
             if (universe)
                 fcFound->setCurrent(universe->preGMValue(fcFound->address() + 1), 1);

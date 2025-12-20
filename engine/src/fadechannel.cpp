@@ -207,7 +207,7 @@ quint32 FadeChannel::universe() const
 void FadeChannel::addChannel(quint32 num)
 {
     m_channels.append(num);
-    qDebug() << "[FadeChannel] ADD channel" << num << "count:" << m_channels.count();
+    //qDebug() << "[FadeChannel] ADD channel" << num << "count:" << m_channels.count();
 
     // on secondary channel, shift values 8bits up
     if (m_channels.count() > 1)

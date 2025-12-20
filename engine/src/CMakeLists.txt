@@ -84,44 +84,25 @@ target_link_libraries(${module_name} PUBLIC
     Qt${QT_MAJOR_VERSION}::Multimedia
 )
 
-target_link_libraries(${module_name} PRIVATE
-    qlcplusaudio
-)
+target_link_libraries(${module_name} PRIVATE qlcplusaudio)
 
 if(NOT ANDROID AND NOT IOS)
-    target_include_directories(${module_name} PUBLIC
-        ../../hotplugmonitor/src
-    )
-
-    target_link_libraries(${module_name} PUBLIC
-        hotplugmonitor
-    )
-
-    target_link_directories(${module_name} PUBLIC
-        ${CMAKE_CURRENT_BINARY_DIR}/../../hotplugmonitor/src
-    )
+    target_include_directories(${module_name} PUBLIC ../../hotplugmonitor/src)
+    target_link_libraries(${module_name} PUBLIC hotplugmonitor)
+    target_link_directories(${module_name} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/../../hotplugmonitor/src)
 endif()
 
 if(UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
-    target_link_libraries(${module_name} PUBLIC
-        asound
-    )
+    target_link_libraries(${module_name} PUBLIC asound)
 endif()
 
 if(UNIX)
-    target_sources(${module_name} PRIVATE
-        mastertimer-unix.cpp mastertimer-unix.h
-    )
+    target_sources(${module_name} PRIVATE mastertimer-unix.cpp mastertimer-unix.h)
 endif()
 
 if(WIN32)
-    target_sources(${module_name} PRIVATE
-        mastertimer-win32.cpp mastertimer-win32.h
-    )
-
-    target_include_directories(${module_name} PUBLIC
-        /
-    )
+    target_sources(${module_name} PRIVATE mastertimer-win32.cpp mastertimer-win32.h)
+    target_include_directories(${module_name} PUBLIC /)
 
     target_link_libraries(${module_name} PUBLIC
         Qt${QT_MAJOR_VERSION}::Widgets
@@ -148,21 +129,12 @@ if(APPLE)
 endif()
 
 if(qmlui OR (QT_VERSION_MAJOR GREATER 5))
-    target_sources(${module_name} PRIVATE
-        rgbscriptv4.cpp rgbscriptv4.h
-    )
+    target_sources(${module_name} PRIVATE rgbscriptv4.cpp rgbscriptv4.h)
 
-    target_link_libraries(${module_name} PUBLIC
-        Qt${QT_MAJOR_VERSION}::Qml
-    )
+    target_link_libraries(${module_name} PUBLIC Qt${QT_MAJOR_VERSION}::Qml)
 else()
-    target_sources(${module_name} PRIVATE
-        rgbscript.cpp rgbscript.h
-    )
-
-    target_link_libraries(${module_name} PUBLIC
-        Qt${QT_MAJOR_VERSION}::Script
-    )
+    target_sources(${module_name} PRIVATE rgbscript.cpp rgbscript.h)
+    target_link_libraries(${module_name} PUBLIC Qt${QT_MAJOR_VERSION}::Script)
 endif()
 
 if(qmlui)
@@ -171,24 +143,13 @@ if(qmlui)
         scriptv4.cpp scriptv4.h
     )
 else()
-    target_sources(${module_name} PRIVATE
-        script.cpp script.h
-    )
+    target_sources(${module_name} PRIVATE script.cpp script.h)
 endif()
 
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
-    target_compile_definitions(${module_name} PUBLIC
-        HAS_FFTW3
-    )
-endif()
-
-if(((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND})))
-    target_link_directories(${module_name} PUBLIC
-        ${FFTW3_LIBRARY_DIRS}
-    )
-    target_link_libraries(${module_name} PUBLIC
-        ${FFTW3_LIBRARIES}
-    )
+    target_compile_definitions(${module_name} PUBLIC HAS_FFTW3)
+    target_link_directories(${module_name} PUBLIC ${FFTW3_LIBRARY_DIRS})
+    target_link_libraries(${module_name} PUBLIC ${FFTW3_LIBRARIES})
 endif()
 
 set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
