@@ -7,7 +7,9 @@ ColorToolFull 0.1 ../ColorToolFull.qml
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
 CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
+CustomRangeSlider 0.1 ../CustomRangeSlider.qml
 CustomScrollBar 0.1 ../CustomScrollBar.qml
+CustomSlider 0.1 ../CustomSlider.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
 DayTimeTool 0.1 ../DayTimeTool.qml
