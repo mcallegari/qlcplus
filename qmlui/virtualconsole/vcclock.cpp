@@ -26,6 +26,8 @@
 #include "vcclock.h"
 #include "doc.h"
 
+/** ************** XML Tags and Attributes ************** */
+
 #define KXMLQLCVCClockEnabled   QStringLiteral("Enable")
 #define KXMLQLCVCClockType      QStringLiteral("Type")
 #define KXMLQLCVCClockTime      QStringLiteral("Time")

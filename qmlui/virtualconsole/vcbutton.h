@@ -24,23 +24,6 @@
 
 #define KXMLQLCVCButton QStringLiteral("Button")
 
-#define KXMLQLCVCButtonFunction     QStringLiteral("Function")
-#define KXMLQLCVCButtonFunctionID   QStringLiteral("ID")
-
-#define KXMLQLCVCButtonAction           QStringLiteral("Action")
-#define KXMLQLCVCButtonActionFlash      QStringLiteral("Flash")
-#define KXMLQLCVCButtonActionToggle     QStringLiteral("Toggle")
-#define KXMLQLCVCButtonActionBlackout   QStringLiteral("Blackout")
-#define KXMLQLCVCButtonActionStopAll    QStringLiteral("StopAll")
-
-#define KXMLQLCVCButtonFlashOverride    QStringLiteral("Override")
-#define KXMLQLCVCButtonFlashForceLTP    QStringLiteral("ForceLTP")
-
-#define KXMLQLCVCButtonStopAllFadeTime  QStringLiteral("FadeOut")
-
-#define KXMLQLCVCButtonIntensity        QStringLiteral("Intensity")
-#define KXMLQLCVCButtonIntensityAdjust  QStringLiteral("Adjust")
-
 class FunctionParent;
 
 class VCButton : public VCWidget

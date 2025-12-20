@@ -27,33 +27,6 @@
 
 #define KXMLQLCVCSlider QStringLiteral("Slider")
 
-#define KXMLQLCVCSliderMode         QStringLiteral("SliderMode")
-#define KXMLQLCVCSliderWidgetStyle  QStringLiteral("WidgetStyle")
-
-#define KXMLQLCVCSliderValueDisplayStyle            QStringLiteral("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact       QStringLiteral("Exact")
-#define KXMLQLCVCSliderValueDisplayStylePercentage  QStringLiteral("Percentage")
-
-#define KXMLQLCVCSliderClickAndGoType QStringLiteral("ClickAndGoType")
-
-#define KXMLQLCVCSliderInvertedAppearance QStringLiteral("InvertedAppearance")
-
-#define KXMLQLCVCSliderLevel            QStringLiteral("Level")
-#define KXMLQLCVCSliderLevelLowLimit    QStringLiteral("LowLimit")
-#define KXMLQLCVCSliderLevelHighLimit   QStringLiteral("HighLimit")
-#define KXMLQLCVCSliderLevelValue       QStringLiteral("Value")
-#define KXMLQLCVCSliderLevelMonitor     QStringLiteral("Monitor")
-#define KXMLQLCVCSliderOverrideReset    QStringLiteral("Reset")
-#define KXMLQLCVCSliderFunctionFlash    QStringLiteral("Flash")
-
-#define KXMLQLCVCSliderChannel          QStringLiteral("Channel")
-#define KXMLQLCVCSliderChannelFixture   QStringLiteral("Fixture")
-
-#define KXMLQLCVCSliderPlayback             QStringLiteral("Playback") // LEGACY
-#define KXMLQLCVCSliderAdjust               QStringLiteral("Adjust")
-#define KXMLQLCVCSliderAdjustAttribute      QStringLiteral("Attribute")
-#define KXMLQLCVCSliderControlledFunction   QStringLiteral("Function")
-
 class FunctionParent;
 class GenericFader;
 
