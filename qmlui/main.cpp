@@ -80,6 +80,10 @@ int main(int argc, char *argv[])
                                       "Open the file from last session.");
     parser.addOption(openLastOption);
 
+    QCommandLineOption fullscreenOption(QStringList() << "f" << "fullscreen",
+                                        "Start the application in fullscreen mode");
+    parser.addOption(fullscreenOption);
+
     QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
                                       "Enable kiosk mode (only Virtual Console)");
     parser.addOption(kioskOption);
@@ -174,6 +178,10 @@ int main(int argc, char *argv[])
     // open last file
     if (parser.isSet(openLastOption))
         qlcplusApp.loadLastWorkspace();
+
+    // fullscreen mode
+    if (parser.isSet(fullscreenOption))
+        qlcplusApp.toggleFullscreen();
 
     return app.exec();
 }
