@@ -36,31 +36,75 @@ VCWidgetItem
         setCommonProperties(xyPadObj)
     }
 
-    Row
+    GridLayout
     {
+        id: itemsLayout
         anchors.fill: parent
+        rowSpacing: 0
+        columnSpacing: 0
+        columns: 3
 
-        // value text box
-        Text
+        // row 1
+        Rectangle
         {
-            width: parent.width
-            height: parent.height
-            color: "#bbb"
-            lineHeight: 0.8
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            textFormat: Text.RichText
-            wrapMode: Text.Wrap
-            text: "VCXYPad not implemented yet.<br />See <a href=\"https://docs.google.com/spreadsheets/d/1J1BK0pYCsLVBfLpDZ-GqpNgUzbgTwmhf9zOjg4J_MWg\">QML Status</a>"
+            height: UISettings.listItemHeight
+            width: height
+            color: "transparent"
+        }
 
-            onLinkActivated: Qt.openUrlExternally(link)
+        CustomRangeSlider
+        {
+            Layout.fillWidth: true
+            topPadding: 0
+            bottomPadding: 0
+        }
 
-            MouseArea
-            {
-                anchors.fill: parent
-                acceptedButtons: Qt.NoButton
-                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
-            }
+        Rectangle
+        {
+            height: UISettings.listItemHeight
+            width: height
+            color: "transparent"
+        }
+
+        // row 2
+        CustomRangeSlider
+        {
+            Layout.fillHeight: true
+            rightPadding: 0
+            orientation: Qt.Vertical
+        }
+
+        Rectangle
+        {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            color: UISettings.bgStrong
+        }
+
+        CustomSlider
+        {
+            Layout.fillHeight: true
+            orientation: Qt.Vertical
+        }
+
+        // row 3
+        Rectangle
+        {
+            height: UISettings.listItemHeight
+            width: height
+            color: "transparent"
+        }
+
+        CustomSlider
+        {
+            Layout.fillWidth: true
+        }
+
+        Rectangle
+        {
+            height: UISettings.listItemHeight
+            width: height
+            color: "transparent"
         }
     }
 }
