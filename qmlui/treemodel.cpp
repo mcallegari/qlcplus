@@ -104,13 +104,13 @@ void TreeModel::setSingleSelection(TreeModelItem *item)
 
 TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
-    //qDebug() << "Adding item" << label << path;
+    //qDebug() << "Adding item" << label << path << data;
 
     TreeModelItem *item = nullptr;
 
     // fewer roles are allowed, while exceeding are probably a mistake
     if (data.count() > m_roles.count())
-        qDebug() << "Item roles exceeds tree roles!" << data.count() << m_roles.count();
+        qDebug() << "Item roles exceed tree roles!" << data.count() << m_roles.count();
 
     if (m_checkable)
         flags |= Checkable;

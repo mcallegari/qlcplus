@@ -40,6 +40,8 @@ class VCXYPad : public VCWidget, public DMXSource
     Q_PROPERTY(QPointF verticalRange READ verticalRange WRITE setVerticalRange NOTIFY verticalRangeChanged FINAL)
 
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
 
     /*********************************************************************
      * Initialization

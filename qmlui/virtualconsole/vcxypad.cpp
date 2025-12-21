@@ -74,6 +74,8 @@ VCXYPad::VCXYPad(Doc *doc, QObject *parent)
     , m_horizontalRange(QPointF(0.0, 1.0))
     , m_verticalRange(QPointF(0.0, 1.0))
     , m_positionChanged(false)
+    , m_fixtureTree(nullptr)
+    , m_searchFilter(QString())
 {
     setType(VCWidget::XYPadWidget);
 
@@ -290,12 +292,12 @@ QVariant VCXYPad::groupsTreeModel()
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
         QStringList treeColumns;
-        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+        treeColumns << "classRef" << "type" << "id" << "subid" << "head";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
 
         FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
-                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowHeads);
+                                         FixtureManager::ShowGroups | FixtureManager::ShowHeads);
     }
 
     return QVariant::fromValue(m_fixtureTree);
@@ -319,7 +321,7 @@ void VCXYPad::setSearchFilter(QString searchFilter)
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
     {
         FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
-                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowHeads);
+                                         FixtureManager::ShowGroups | FixtureManager::ShowHeads);
         emit groupsTreeModelChanged();
     }
 
@@ -472,8 +474,6 @@ void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
             if (universe == Universe::invalid())
                 continue;
 
-            qDebug() << "HERE -1-";
-
             QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
@@ -485,8 +485,6 @@ void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
             if (fixture.m_xMSB == QLCChannel::invalid() || fixture.m_yMSB == QLCChannel::invalid())
                 return;
 
-            qDebug() << "HERE -2-";
-
             ushort xVal = floor(fixture.m_xRange * x + fixture.m_xOffset + 0.5);
             ushort yVal = floor(fixture.m_yRange * y + fixture.m_yOffset + 0.5);
 
@@ -497,11 +495,13 @@ void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
             fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_yMSB);
             updateChannel(fc, uchar(yVal >> 8));
 
-            if (fixture.m_xLSB != QLCChannel::invalid() && fixture.m_yLSB != QLCChannel::invalid())
+            if (fixture.m_xLSB != QLCChannel::invalid())
             {
                 fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_xLSB);
                 updateChannel(fc, uchar(xVal & 0xFF));
-
+            }
+            if (fixture.m_yLSB != QLCChannel::invalid())
+            {
                 fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_yLSB);
                 updateChannel(fc, uchar(yVal & 0xFF));
             }
