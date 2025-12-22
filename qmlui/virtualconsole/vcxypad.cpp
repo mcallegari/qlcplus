@@ -71,8 +71,8 @@ VCXYPad::VCXYPad(Doc *doc, QObject *parent)
     , m_invertedAppearance(false)
     , m_displayMode(Degrees)
     , m_currentPosition(QPointF(0, 0))
-    , m_horizontalRange(QPointF(0.0, 1.0))
-    , m_verticalRange(QPointF(0.0, 1.0))
+    , m_horizontalRange(QPointF(0.0, 255.0))
+    , m_verticalRange(QPointF(0.0, 255.0))
     , m_positionChanged(false)
     , m_fixtureTree(nullptr)
     , m_searchFilter(QString())
@@ -649,12 +649,12 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCXYPadPan)
         {
-            currPos.setX(root.attributes().value(KXMLQLCVCXYPadPosition).toDouble());
+            currPos.setX(root.attributes().value(KXMLQLCVCXYPadPosition).toFloat());
             loadXMLSources(root, INPUT_PAN_ID);
         }
         else if (root.name() == KXMLQLCVCXYPadTilt)
         {
-            currPos.setY(root.attributes().value(KXMLQLCVCXYPadPosition).toDouble());
+            currPos.setY(root.attributes().value(KXMLQLCVCXYPadPosition).toFloat());
             loadXMLSources(root, INPUT_TILT_ID);
         }
         else if (root.name() == KXMLQLCVCXYPadRangeWindow)

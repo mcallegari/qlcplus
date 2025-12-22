@@ -36,6 +36,8 @@ RangeSlider
 
     padding: 2
 
+    property color bgColor: UISettings.highlight
+
     first.handle:
         Rectangle
         {
@@ -78,7 +80,7 @@ RangeSlider
                 width: control.horizontal ? control.second.position * parent.width - control.first.position * parent.width - UISettings.listItemHeight * 0.15 : UISettings.listItemHeight * 0.15
                 height: control.horizontal ? UISettings.listItemHeight * 0.15 : control.second.position * parent.height - control.first.position * parent.height - UISettings.listItemHeight * 0.15
 
-                color: UISettings.highlight
+                color: control.bgColor
             }
         }
 }
