@@ -26,6 +26,7 @@
 #include "fadechannel.h"
 #include "genericfader.h"
 #include "fixturemanager.h"
+#include "qlcfixturemode.h"
 #include "listmodel.h"
 #include "treemodel.h"
 #include "doc.h"
@@ -33,7 +34,9 @@
 /** ************** XML Tags and Attributes ************** */
 
 #define KXMLQLCVCXYPadPan           QStringLiteral("Pan")
+#define KXMLQLCVCXYPadPanFine       QStringLiteral("PanFine")
 #define KXMLQLCVCXYPadTilt          QStringLiteral("Tilt")
+#define KXMLQLCVCXYPadTiltFine      QStringLiteral("TiltFine")
 #define KXMLQLCVCXYPadWidth         QStringLiteral("Width")
 #define KXMLQLCVCXYPadHeight        QStringLiteral("Height")
 #define KXMLQLCVCXYPadPosition      QStringLiteral("Position")
@@ -262,7 +265,7 @@ void VCXYPad::setVerticalRange(QPointF newVerticalRange)
 
 void VCXYPad::addGroup(QVariant reference)
 {
-    Q_UNUSED(reference)
+    Q_UNUSED(reference) // TODO
 }
 
 void VCXYPad::addFixture(QVariant reference)
@@ -271,8 +274,50 @@ void VCXYPad::addFixture(QVariant reference)
         return;
 
     Fixture *fixture = reference.value<Fixture *>();
+    int hIdx = 0;
 
-    Q_UNUSED(fixture)
+    for (QLCFixtureHead const &head : fixture->fixtureMode()->heads())
+    {
+        quint32 panCh = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+        quint32 tiltCh = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+
+        if (panCh == QLCChannel::invalid() && tiltCh == QLCChannel::invalid())
+            continue;
+
+        XYPadFixture fxItem;
+        initXYFixtureItem(fxItem);
+
+        fxItem.m_head.fxi = fixture->id();
+        fxItem.m_head.head = hIdx++;
+        fxItem.m_universe = fixture->universe();
+        fxItem.m_xMSB = panCh;
+        fxItem.m_xLSB = head.channelNumber(QLCChannel::Pan, QLCChannel::LSB);
+        fxItem.m_yMSB = tiltCh;
+        fxItem.m_yLSB = head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB);
+
+        computeRange(fxItem);
+        m_fixtures.append(fxItem);
+    }
+    updateFixtureList();
+}
+
+void VCXYPad::addHead(int fixtureID, int headIndex)
+{
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    XYPadFixture fxItem;
+    initXYFixtureItem(fxItem);
+
+    fxItem.m_head.fxi = fixture->id();
+    fxItem.m_head.head = headIndex;
+    fxItem.m_universe = fixture->universe();
+
+    computeRange(fxItem);
+    m_fixtures.append(fxItem);
+
+    updateFixtureList();
 }
 
 void VCXYPad::removeFixture(QVariant reference)
@@ -326,6 +371,24 @@ void VCXYPad::setSearchFilter(QString searchFilter)
     }
 
     emit searchFilterChanged();
+}
+
+void VCXYPad::initXYFixtureItem(XYPadFixture &fixture)
+{
+    fixture.m_head.fxi = Fixture::invalidId();
+    fixture.m_head.head = 0;
+    fixture.m_universe = Universe::invalid();
+    fixture.m_xMSB = QLCChannel::invalid();
+    fixture.m_xLSB = QLCChannel::invalid();
+    fixture.m_yMSB = QLCChannel::invalid();
+    fixture.m_yLSB = QLCChannel::invalid();
+    fixture.m_xReverse = false;
+    fixture.m_yReverse = false;
+    fixture.m_xMin = 0;
+    fixture.m_xMax = 1.0;
+    fixture.m_yMin = 0;
+    fixture.m_yMax = 1.0;
+    fixture.m_enabled = true;
 }
 
 void VCXYPad::computeRange(XYPadFixture &fixture)
@@ -527,10 +590,12 @@ void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
     switch (id)
     {
         case INPUT_PAN_ID:
+            setCurrentPosition(QPointF(value, m_currentPosition.y()));
         break;
         case INPUT_PAN_FINE_ID:
         break;
         case INPUT_TILT_ID:
+            setCurrentPosition(QPointF(m_currentPosition.x(), value));
         break;
         case INPUT_TILT_FINE_ID:
         break;
@@ -554,16 +619,11 @@ bool VCXYPad::loadXMLFixture(QXmlStreamReader &root)
     }
 
     XYPadFixture fxItem;
+    initXYFixtureItem(fxItem);
 
     /* Fixture ID */
     fxItem.m_head.fxi = root.attributes().value(KXMLQLCVCXYPadFixtureID).toUInt();
     fxItem.m_head.head = root.attributes().value(KXMLQLCVCXYPadFixtureHead).toInt();
-    fxItem.m_universe = Universe::invalid();
-    fxItem.m_xMSB = QLCChannel::invalid();
-    fxItem.m_xLSB = QLCChannel::invalid();
-    fxItem.m_yMSB = QLCChannel::invalid();
-    fxItem.m_yLSB = QLCChannel::invalid();
-    fxItem.m_enabled = true;
 
     /* Children */
     while (root.readNextStartElement())
@@ -687,6 +747,43 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
     return true;
 }
 
+bool VCXYPad::saveXMLFixture(QXmlStreamWriter *doc, XYPadFixture &fxItem)
+{
+    Q_ASSERT(doc != NULL);
+
+    /* VCXYPad Fixture */
+    doc->writeStartElement(KXMLQLCVCXYPadFixture);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureID, QString("%1").arg(fxItem.m_head.fxi));
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureHead, QString("%1").arg(fxItem.m_head.head));
+
+    /* X-Axis */
+    doc->writeStartElement(KXMLQLCVCXYPadFixtureAxis);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisID, KXMLQLCVCXYPadFixtureAxisX);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisLowLimit, QString("%1").arg(fxItem.m_xMin));
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisHighLimit, QString("%1").arg(fxItem.m_xMax));
+    if (fxItem.m_xReverse == true)
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCTrue);
+    else
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCFalse);
+    doc->writeEndElement();
+
+    /* Y-Axis */
+    doc->writeStartElement(KXMLQLCVCXYPadFixtureAxis);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisID, KXMLQLCVCXYPadFixtureAxisY);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisLowLimit, QString("%1").arg(fxItem.m_yMin));
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisHighLimit, QString("%1").arg(fxItem.m_yMax));
+    if (fxItem.m_yReverse == true)
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCTrue);
+    else
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCFalse);
+    doc->writeEndElement();
+
+    /* End the <Fixture> tag */
+    doc->writeEndElement();
+
+    return true;
+}
+
 bool VCXYPad::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != nullptr);
@@ -696,11 +793,48 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
 
     saveXMLCommon(doc);
 
+    doc->writeAttribute(KXMLQLCVCXYPadInvertedAppearance, QString::number(invertedAppearance()));
+
     /* Window state */
     saveXMLWindowState(doc);
 
     /* Appearance */
     saveXMLAppearance(doc);
+
+    /* Fixtures */
+    for (XYPadFixture &fixture : m_fixtures)
+        saveXMLFixture(doc, fixture);
+
+    /* Custom range window */
+    if (m_horizontalRange.x() != 0 ||
+        m_horizontalRange.x() != 255 ||
+        m_verticalRange.x() != 0 ||
+        m_verticalRange.y() != 256)
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadRangeWindow);
+        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_horizontalRange.x()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMax, QString::number(m_horizontalRange.y()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMin, QString::number(m_verticalRange.x()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMax, QString::number(m_verticalRange.y()));
+        doc->writeEndElement();
+    }
+
+    /* Pan */
+    doc->writeStartElement(KXMLQLCVCXYPadPan);
+    doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(m_currentPosition.x()));
+    saveXMLInputControl(doc, INPUT_PAN_ID, false);
+    doc->writeEndElement();
+
+    /* Tilt */
+    doc->writeStartElement(KXMLQLCVCXYPadTilt);
+    doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(m_currentPosition.y()));
+    saveXMLInputControl(doc, INPUT_TILT_ID, false);
+    doc->writeEndElement();
+
+    saveXMLInputControl(doc, INPUT_PAN_FINE_ID, false, KXMLQLCVCXYPadPanFine);
+    saveXMLInputControl(doc, INPUT_TILT_FINE_ID, false, KXMLQLCVCXYPadTiltFine);
+    saveXMLInputControl(doc, INPUT_WIDTH_ID, false, KXMLQLCVCXYPadWidth);
+    saveXMLInputControl(doc, INPUT_HEIGHT_ID, false, KXMLQLCVCXYPadHeight);
 
     /* Write the <end> tag */
     doc->writeEndElement();

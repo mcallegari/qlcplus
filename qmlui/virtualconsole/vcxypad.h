@@ -158,6 +158,9 @@ public:
     /** Add a Fixture to this XY Pad */
     Q_INVOKABLE void addFixture(QVariant reference);
 
+    /** Add a single head to this XY Pad */
+    Q_INVOKABLE void addHead(int fixtureID, int headIndex);
+
     /** Remove a Fixture from this XY Pad */
     Q_INVOKABLE void removeFixture(QVariant reference);
 
@@ -172,6 +175,7 @@ public:
     void setSearchFilter(QString searchFilter);
 
 protected:
+    void initXYFixtureItem(XYPadFixture &fixture);
     void computeRange(XYPadFixture &fixture);
     void updateFixtureList();
 
@@ -229,6 +233,8 @@ public:
 
     /** @reimp */
     bool loadXML(QXmlStreamReader &root);
+
+    bool saveXMLFixture(QXmlStreamWriter *doc, XYPadFixture &fxItem);
 
     /** @reimp */
     bool saveXML(QXmlStreamWriter *doc);

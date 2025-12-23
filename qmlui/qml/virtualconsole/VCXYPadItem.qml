@@ -104,6 +104,7 @@ VCWidgetItem
             // range window
             Rectangle
             {
+                id: rangeWindow
                 visible: horizRange.x !== 0 || horizRange.y !== 255 || vertRange.x !== 0 || vertRange.y !== 255
                 x: (horizRange.x * previewArea.width) / 255.0
                 y: (vertRange.x * previewArea.height) / 255.0
@@ -142,8 +143,8 @@ VCWidgetItem
 
                 function getXYPosition(mouse)
                 {
-                    var x = clamp(mouse.x, 0, previewArea.width)
-                    var y = clamp(mouse.y, 0, previewArea.height)
+                    var x = clamp(mouse.x, rangeWindow.x, rangeWindow.x + rangeWindow.width)
+                    var y = clamp(mouse.y, rangeWindow.y, rangeWindow.y + rangeWindow.height)
                     return Qt.point((x * 255.0) / previewArea.width,
                                     (y * 255.0) / previewArea.height)
                 }

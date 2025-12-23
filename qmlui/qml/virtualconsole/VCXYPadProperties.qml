@@ -351,7 +351,7 @@ Rectangle
                     {
                         id: newFixtureBox
                         Layout.fillWidth: true
-                        Layout.columnSpan: 5
+                        Layout.columnSpan: 3
                         height: UISettings.bigItemHeight * 0.6
                         color: "transparent"
                         radius: 10
@@ -400,13 +400,13 @@ Rectangle
                                     {
                                         case App.UniverseDragItem:
                                         case App.FixtureGroupDragItem:
-                                            efxEditor.addGroup(drag.source.itemsList[i].cRef)
+                                            widgetRef.addGroup(drag.source.itemsList[i].cRef)
                                         break;
                                         case App.FixtureDragItem:
-                                            efxEditor.addFixture(drag.source.itemsList[i].cRef)
+                                            widgetRef.addFixture(drag.source.itemsList[i].cRef)
                                         break;
                                         case App.HeadDragItem:
-                                            efxEditor.addHead(drag.source.itemsList[i].fixtureID, drag.source.itemsList[i].headIndex)
+                                            widgetRef.addHead(drag.source.itemsList[i].fixtureID, drag.source.itemsList[i].headIndex)
                                         break;
                                     }
                                 }
