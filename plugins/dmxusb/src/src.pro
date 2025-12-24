@@ -31,7 +31,7 @@ QT += serialport
 CONFIG(ftd2xx) {
     # FTD2XX is a proprietary interface by FTDI Ltd. and would therefore taint the
     # 100% FLOSS codebase of QLC if distributed along with QLC sources. Download
-    # the latest driver package from http://www.ftdichip.com/Drivers/D2XX.htm and
+    # the latest driver package from https://ftdichip.com/drivers/d2xx-drivers/ and
     # extract its contents under FTD2XXDIR below (unix: follow the instructions in
     # the package README.dat to install under /usr/local/) before compiling this
     # plugin.

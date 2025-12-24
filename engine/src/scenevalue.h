@@ -54,7 +54,7 @@ class QXmlStreamReader;
  * SceneValue represents value 127 for absolute DMX channel 105. If the address
  * of the fixture is changed, the SceneValue doesn't need to be touched at all.
  */
-class SceneValue
+class SceneValue final
 {
 public:
     /** Normal constructor */
@@ -70,7 +70,6 @@ public:
      *  No class derives from this one and we need to keep the memory footprint
      *  as low as possible.
      *
-     *  TODO C++11: mark this as final
      */
     ~SceneValue();
 

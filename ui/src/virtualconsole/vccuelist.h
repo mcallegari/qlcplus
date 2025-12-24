@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList                QStringLiteral("CueList")
-#define KXMLQLCVCCueListFunction        QStringLiteral("Function") // Legacy
-#define KXMLQLCVCCueListChaser          QStringLiteral("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout  QStringLiteral("PlaybackLayout")
+#define KXMLQLCVCCueList                 QStringLiteral("CueList")
+#define KXMLQLCVCCueListFunction         QStringLiteral("Function") // Legacy
+#define KXMLQLCVCCueListChaser           QStringLiteral("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout   QStringLiteral("PlaybackLayout")
 #define KXMLQLCVCCueListNextPrevBehavior QStringLiteral("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade       QStringLiteral("Crossfade")
-#define KXMLQLCVCCueListBlend           QStringLiteral("Blend")
-#define KXMLQLCVCCueListLinked          QStringLiteral("Linked")
-#define KXMLQLCVCCueListNext            QStringLiteral("Next")
-#define KXMLQLCVCCueListPrevious        QStringLiteral("Previous")
-#define KXMLQLCVCCueListPlayback        QStringLiteral("Playback")
-#define KXMLQLCVCCueListStop            QStringLiteral("Stop")
-#define KXMLQLCVCCueListCrossfadeLeft   QStringLiteral("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight  QStringLiteral("CrossRight")
-#define KXMLQLCVCCueListSlidersMode     QStringLiteral("SlidersMode")
+#define KXMLQLCVCCueListCrossfade        QStringLiteral("Crossfade")
+#define KXMLQLCVCCueListBlend            QStringLiteral("Blend")
+#define KXMLQLCVCCueListLinked           QStringLiteral("Linked")
+#define KXMLQLCVCCueListNext             QStringLiteral("Next")
+#define KXMLQLCVCCueListPrevious         QStringLiteral("Previous")
+#define KXMLQLCVCCueListPlayback         QStringLiteral("Playback")
+#define KXMLQLCVCCueListStop             QStringLiteral("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft    QStringLiteral("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight   QStringLiteral("CrossRight")
+#define KXMLQLCVCCueListSlidersMode      QStringLiteral("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.

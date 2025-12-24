@@ -66,10 +66,10 @@ class Doc;
 #define KXMLQLCVCXYPadRangeVertMin  QStringLiteral("vMin")
 #define KXMLQLCVCXYPadRangeVertMax  QStringLiteral("vMax")
 
-#define KXMLQLCVCXYPadPositionX "X" // Legacy
-#define KXMLQLCVCXYPadPositionY "Y" // Legacy
+#define KXMLQLCVCXYPadPositionX QStringLiteral("X") // Legacy
+#define KXMLQLCVCXYPadPositionY QStringLiteral("Y") // Legacy
 
-#define KXMLQLCVCXYPadInvertedAppearance "InvertedAppearance"
+#define KXMLQLCVCXYPadInvertedAppearance QStringLiteral("InvertedAppearance")
 
 typedef struct
 {
