@@ -217,8 +217,15 @@ void ShowManager::setTimeScale(float timeScale)
     m_timeScale = timeScale;
     float tickScale = timeDivision() == Show::Time ? 1.0 : timeScale;
 
-    App *app = qobject_cast<App *>(m_view);
-    m_tickSize = app->pixelDensity() * (18 * tickScale);
+    if (m_detached)
+    {
+        m_tickSize = pixelDensity() * (18 * tickScale);
+    }
+    else
+    {
+        App *app = qobject_cast<App *>(m_view);
+        m_tickSize = app->pixelDensity() * (18 * tickScale);
+    }
 
     emit tickSizeChanged(m_tickSize);
     emit timeScaleChanged(timeScale);

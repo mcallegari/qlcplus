@@ -114,10 +114,19 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
 
 qreal VirtualConsole::pixelDensity() const
 {
-    App *app = qobject_cast<App *>(m_view);
-    if (app == nullptr)
-        return 0;
-    return app->pixelDensity();
+    if (m_detached)
+    {
+        return PreviewContext::pixelDensity();
+    }
+    else
+    {
+        App *app = qobject_cast<App *>(m_view);
+        if (app == nullptr)
+            return 0;
+        return app->pixelDensity();
+    }
+
+    return 0;
 }
 
 void VirtualConsole::resetContents()

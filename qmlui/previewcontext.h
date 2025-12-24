@@ -91,6 +91,9 @@ public:
     bool detached() const;
     void setDetached(bool detached);
 
+    /** Return the number of pixels in 1mm */
+    virtual qreal pixelDensity() const;
+
     /** Virtual method to handle a key press event.
      *  Subclasses should reimplement this if interested in key events */
     virtual void handleKeyEvent(QKeyEvent *e, bool pressed);
@@ -132,6 +135,9 @@ protected:
 
     /** A string with the QML resource URL representing the context */
     QString m_resource;
+
+    /** The number of pixels in one millimeter */
+    qreal m_pixelDensity;
 
     /** Flag that holds the enable status of the view.
      *  Enabled means visible on the screen */
