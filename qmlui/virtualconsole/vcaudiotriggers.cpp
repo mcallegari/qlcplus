@@ -875,6 +875,14 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
         {
             loadXMLAppearance(root);
         }
+        else if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInputSource(root);
+        }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            loadXMLInputKey(root);
+        }
         else if (root.name() == KXMLQLCAudioTriggerBar ||
                  root.name() == KXMLQLCVolumeBar ||
                  root.name() == KXMLQLCSpectrumBar)
