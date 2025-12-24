@@ -216,6 +216,33 @@ VCXYPad::DisplayMode VCXYPad::displayMode() const
     return m_displayMode;
 }
 
+static constexpr qreal kPosMax = 255.0 + (255.0 / 256.0);
+
+static inline qreal clampPos(qreal v)
+{
+    return CLAMP(v, 0.0, kPosMax);
+}
+
+// Range sliders are MSB-only in 0..255, expand to full 16-bit span.
+static inline int clampMSB(qreal v)
+{
+    return CLAMP(int(qRound(v)), 0, 255);
+};
+
+static inline quint16 posToU16(qreal v)
+{
+    v = clampPos(v);
+    const int msb = int(qFloor(v));
+    int lsb = int(qRound((v - qFloor(v)) * 256.0));
+    lsb = CLAMP(lsb, 0, 255);
+    return quint16((msb << 8) | lsb);
+}
+
+static inline qreal u16ToPos(quint16 v)
+{
+    return qreal(v >> 8) + (qreal(v & 0xFF) / 256.0);
+}
+
 QPointF VCXYPad::currentPosition() const
 {
     return m_currentPosition;
@@ -226,7 +253,14 @@ void VCXYPad::setCurrentPosition(QPointF newCurrentPosition)
     if (m_currentPosition == newCurrentPosition)
         return;
 
+    newCurrentPosition.setX(clampPos(newCurrentPosition.x()));
+    newCurrentPosition.setY(clampPos(newCurrentPosition.y()));
+
     m_currentPosition = newCurrentPosition;
+
+    m_x16 = posToU16(m_currentPosition.x());
+    m_y16 = posToU16(m_currentPosition.y());
+
     m_positionChanged = true;
     emit currentPositionChanged();
 }
@@ -297,6 +331,7 @@ void VCXYPad::addFixture(QVariant reference)
 
         computeRange(fxItem);
         m_fixtures.append(fxItem);
+        m_doc->setModified();
     }
     updateFixtureList();
 }
@@ -316,13 +351,34 @@ void VCXYPad::addHead(int fixtureID, int headIndex)
 
     computeRange(fxItem);
     m_fixtures.append(fxItem);
+    m_doc->setModified();
 
     updateFixtureList();
 }
 
-void VCXYPad::removeFixture(QVariant reference)
+void VCXYPad::removeHeads(QVariantList heads)
 {
-    Q_UNUSED(reference)
+    for (QVariant &vIdx : heads)
+    {
+        QModelIndex idx = m_fixtureList->index(vIdx.toInt(), 0, QModelIndex());
+        QVariant fixtureID = m_fixtureList->data(idx, "fxID");
+        QVariant headIndex = m_fixtureList->data(idx, "head");
+
+        qDebug() << "Removing fixture" << fixtureID << "head" << headIndex;
+
+        int fIdx = 0;
+        for (XYPadFixture &fixture : m_fixtures)
+        {
+            if (fixture.m_head.fxi == fixtureID && fixture.m_head.head == headIndex)
+            {
+                m_fixtures.takeAt(fIdx);
+                m_doc->setModified();
+                break;
+            }
+            fIdx++;
+        }
+    }
+    updateFixtureList();
 }
 
 QVariant VCXYPad::fixtureList() const
@@ -516,58 +572,85 @@ void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
     if (m_positionChanged == false)
         return;
 
+    // Read current position
     QPointF pt = currentPosition();
+    quint16 x16 = posToU16(pt.x());
+    quint16 y16 = posToU16(pt.y());
 
-    /* Scale XY coordinate values to 0.0 - 1.0 */
-    qreal x = SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(1));
-    qreal y = SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(1));
+    int hMinMSB = clampMSB(m_horizontalRange.x());
+    int hMaxMSB = clampMSB(m_horizontalRange.y());
+    int vMinMSB = clampMSB(m_verticalRange.x());
+    int vMaxMSB = clampMSB(m_verticalRange.y());
+
+    if (hMaxMSB < hMinMSB)
+        qSwap(hMinMSB, hMaxMSB);
+    if (vMaxMSB < vMinMSB)
+        qSwap(vMinMSB, vMaxMSB);
+
+    const quint16 hMin16 = quint16((hMinMSB << 8) | 0x00);
+    const quint16 hMax16 = quint16((hMaxMSB << 8) | 0xFF);
+    const quint16 vMin16 = quint16((vMinMSB << 8) | 0x00);
+    const quint16 vMax16 = quint16((vMaxMSB << 8) | 0xFF);
+
+    // Clamp to window (do NOT renormalize: UI already clamps, and we want output limited)
+    x16 = CLAMP(x16, hMin16, hMax16);
+    y16 = CLAMP(y16, vMin16, vMax16);
+
+    // Convert to absolute multipliers 0..1 in 16-bit space
+    qreal x = qreal(x16) / qreal(USHRT_MAX);
+    qreal y = qreal(y16) / qreal(USHRT_MAX);
 
     if (invertedAppearance())
-        y = qreal(1) - y;
+        y = 1.0 - y;
 
-    /* Write values outside of mutex lock to keep UI snappy */
+    // Write DMX values
     for (XYPadFixture &fixture : m_fixtures)
     {
-        if (fixture.m_universe == Universe::invalid())
+        if (fixture.m_enabled == false)
             continue;
 
-        if (fixture.m_enabled)
+        const quint32 universe = fixture.m_universe;
+        if (universe == Universe::invalid())
+            continue;
+
+        if (universe >= quint32(universes.size()) || universes[universe] == nullptr)
+            continue;
+
+        // Skip fixtures that cannot be driven (do NOT abort the whole pad)
+        if (fixture.m_xMSB == QLCChannel::invalid() || fixture.m_yMSB == QLCChannel::invalid())
+            continue;
+
+        QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+        if (fader.isNull())
         {
-            quint32 universe = fixture.m_universe;
-            if (universe == Universe::invalid())
-                continue;
+            fader = universes[universe]->requestFader();
+            m_fadersMap[universe] = fader;
+        }
 
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
-            if (fader.isNull())
-            {
-                fader = universes[universe]->requestFader();
-                fader->adjustIntensity(intensity());
-                m_fadersMap[universe] = fader;
-            }
+        // Keep intensity coherent
+        fader->adjustIntensity(intensity());
 
-            if (fixture.m_xMSB == QLCChannel::invalid() || fixture.m_yMSB == QLCChannel::invalid())
-                return;
+        const ushort xVal = ushort(floor(fixture.m_xRange * x + fixture.m_xOffset + 0.5));
+        const ushort yVal = ushort(floor(fixture.m_yRange * y + fixture.m_yOffset + 0.5));
 
-            ushort xVal = floor(fixture.m_xRange * x + fixture.m_xOffset + 0.5);
-            ushort yVal = floor(fixture.m_yRange * y + fixture.m_yOffset + 0.5);
+        Universe *pUniverse = universes[universe];
 
-            Universe *pUniverse = universes[universe];
-            FadeChannel *fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_xMSB);
-            updateChannel(fc, uchar(xVal >> 8));
+        FadeChannel *fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_xMSB);
+        updateChannel(fc, uchar(xVal >> 8));
 
-            fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_yMSB);
-            updateChannel(fc, uchar(yVal >> 8));
+        fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_yMSB);
+        updateChannel(fc, uchar(yVal >> 8));
 
-            if (fixture.m_xLSB != QLCChannel::invalid())
-            {
-                fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_xLSB);
-                updateChannel(fc, uchar(xVal & 0xFF));
-            }
-            if (fixture.m_yLSB != QLCChannel::invalid())
-            {
-                fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_yLSB);
-                updateChannel(fc, uchar(yVal & 0xFF));
-            }
+        if (fixture.m_xLSB != QLCChannel::invalid())
+        {
+            fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_xLSB);
+            updateChannel(fc, uchar(xVal & 0xFF));
+        }
+
+        if (fixture.m_yLSB != QLCChannel::invalid())
+        {
+            fc = fader->getChannelFader(m_doc, pUniverse, fixture.m_head.fxi, fixture.m_yLSB);
+            updateChannel(fc, uchar(yVal & 0xFF));
         }
     }
 
@@ -585,19 +668,25 @@ void VCXYPad::updateFeedback()
 
 void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
 {
-    Q_UNUSED(value)
-
     switch (id)
     {
         case INPUT_PAN_ID:
-            setCurrentPosition(QPointF(value, m_currentPosition.y()));
+            value = SCALE(value, 0, 255, m_horizontalRange.x(), m_horizontalRange.y());
+            m_x16 = quint16((quint16(value) << 8) | (m_x16 & 0x00FF));
+            setCurrentPosition(QPointF(u16ToPos(m_x16), m_currentPosition.y()));
         break;
         case INPUT_PAN_FINE_ID:
+            m_x16 = quint16((m_x16 & 0xFF00) | quint16(value));
+            setCurrentPosition(QPointF(u16ToPos(m_x16), m_currentPosition.y()));
         break;
         case INPUT_TILT_ID:
-            setCurrentPosition(QPointF(m_currentPosition.x(), value));
+            value = SCALE(value, 0, 255, m_verticalRange.x(), m_verticalRange.y());
+            m_y16 = quint16((quint16(value) << 8) | (m_y16 & 0x00FF));
+            setCurrentPosition(QPointF(m_currentPosition.x(), u16ToPos(m_y16)));
         break;
         case INPUT_TILT_FINE_ID:
+            m_y16 = quint16((m_y16 & 0xFF00) | quint16(value));
+            setCurrentPosition(QPointF(m_currentPosition.x(), u16ToPos(m_y16)));
         break;
         case INPUT_WIDTH_ID:
         break;
@@ -716,6 +805,22 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         {
             currPos.setY(root.attributes().value(KXMLQLCVCXYPadPosition).toFloat());
             loadXMLSources(root, INPUT_TILT_ID);
+        }
+        else if (root.name() == KXMLQLCVCXYPadPanFine)
+        {
+            loadXMLSources(root, INPUT_PAN_FINE_ID);
+        }
+        else if (root.name() == KXMLQLCVCXYPadTiltFine)
+        {
+            loadXMLSources(root, INPUT_TILT_FINE_ID);
+        }
+        else if (root.name() == KXMLQLCVCXYPadWidth)
+        {
+            loadXMLSources(root, INPUT_WIDTH_ID);
+        }
+        else if (root.name() == KXMLQLCVCXYPadHeight)
+        {
+            loadXMLSources(root, INPUT_HEIGHT_ID);
         }
         else if (root.name() == KXMLQLCVCXYPadRangeWindow)
         {

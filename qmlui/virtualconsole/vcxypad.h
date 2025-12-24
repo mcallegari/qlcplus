@@ -119,6 +119,13 @@ private:
     QPointF m_verticalRange;
     bool m_positionChanged;
 
+    /** Cached MSB/LSB values for an
+     *  efficient DMX computation */
+    quint16 m_x16 = 0;
+    quint16 m_y16 = 0;
+    quint16 m_lastX16 = 0xFFFF;
+    quint16 m_lastY16 = 0xFFFF;
+
     /*************************************************************************
      * Fixtures
      *************************************************************************/
@@ -162,7 +169,7 @@ public:
     Q_INVOKABLE void addHead(int fixtureID, int headIndex);
 
     /** Remove a Fixture from this XY Pad */
-    Q_INVOKABLE void removeFixture(QVariant reference);
+    Q_INVOKABLE void removeHeads(QVariantList heads);
 
     /** Get the fixture list for the UI */
     QVariant fixtureList() const;

@@ -202,7 +202,7 @@ Rectangle
                             faSource: FontAwesome.fa_minus
                             faColor: "crimson"
                             tooltip: qsTr("Remove the selected fixture head(s)")
-                            //onClicked: widgetRef.removeHeads(fxSelector.itemsList())
+                            onClicked: widgetRef.removeHeads(fxSelector.itemsList())
                         }
                     }
 
@@ -284,7 +284,7 @@ Rectangle
                                 MouseArea
                                 {
                                     anchors.fill: parent
-                                    onClicked:
+                                    onClicked: (mouse) =>
                                     {
                                         fxSelector.selectItem(index, fixtureListView.model, mouse.modifiers)
                                     }
