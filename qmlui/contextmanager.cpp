@@ -654,6 +654,9 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
 
 void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
 {
+    if (fixtureID == Fixture::invalidId())
+        return;
+
     for (quint32 &subID : m_monProps->fixtureIDList(fixtureID))
     {
         quint16 headIndex = m_monProps->fixtureHeadIndex(subID);

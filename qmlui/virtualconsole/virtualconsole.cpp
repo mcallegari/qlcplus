@@ -1095,7 +1095,8 @@ QVariantList VirtualConsole::universeListModel()
 
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
+    //qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
+
     if (m_inputDetectionEnabled == false)
     {
         quint32 inputSourceKey = (universe << 16) | channel;

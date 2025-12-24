@@ -406,11 +406,12 @@ void MonitorProperties::setFixtureItem(quint32 fid, quint16 head, quint16 linked
 QList<quint32> MonitorProperties::fixtureIDList(quint32 fid) const
 {
     QList<quint32> list;
+
+    // always add the basic fixture item ID
+    list.append(0);
+
     if (m_fixtureItems.contains(fid) == false)
         return list;
-
-    // add the basic fixture item ID
-    list.append(0);
 
     FixturePreviewItem fxItem = m_fixtureItems[fid];
     list.append(fxItem.m_subItems.keys());

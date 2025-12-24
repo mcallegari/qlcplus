@@ -1423,90 +1423,106 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool
 {
     Q_ASSERT(doc != nullptr);
 
-    bool controlTagWritten = false;
-    bool inputTagWritten = false;
-
-    for (QSharedPointer<QLCInputSource> &source : m_inputSources) // C++11
+    // 1) Collect sources for this controlId
+    QVector<QSharedPointer<QLCInputSource>> sources;
+    sources.reserve(m_inputSources.size());
+    for (const QSharedPointer<QLCInputSource> &src : m_inputSources)
     {
-        if (source->id() != controlId)
-            continue;
+        if (src && src->id() == controlId)
+            sources.append(src);
+    }
 
-        if (controlTagWritten == false && tagName.isEmpty() == false)
-        {
-            doc->writeStartElement(tagName);
-            controlTagWritten = true;
-        }
+    // 2) Collect keys for this controlId
+    QVector<QKeySequence> keys;
+    keys.reserve(m_keySequenceMap.size());
+    for (auto it = m_keySequenceMap.constBegin(); it != m_keySequenceMap.constEnd(); ++it)
+    {
+        if (it.value() == controlId)
+            keys.append(it.key());
+    }
 
-        if (unified == false || (unified == true && inputTagWritten == false))
-        {
-            doc->writeStartElement(KXMLQLCVCWidgetInput);
-            doc->writeAttribute(KXMLQLCVCWidgetInputId, QString::number(controlId));
-            inputTagWritten = true;
-        }
+    if (sources.isEmpty() && keys.isEmpty())
+        return true;
 
-        doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(source->universe()));
-        doc->writeAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(source->channel()));
+    bool controlTagWritten = false;
+    if (!tagName.isEmpty())
+    {
+        doc->writeStartElement(tagName);
+        controlTagWritten = true;
+    }
+
+    auto writeSourceAttrs = [&](const QSharedPointer<QLCInputSource> &source)
+    {
+        doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString::number(source->universe()));
+        doc->writeAttribute(KXMLQLCVCWidgetInputChannel,  QString::number(source->channel()));
 
         if (source->feedbackValue(QLCInputFeedback::LowerValue) != 0)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(source->feedbackValue(QLCInputFeedback::LowerValue)));
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue,
+                                QString::number(source->feedbackValue(QLCInputFeedback::LowerValue)));
         if (source->feedbackValue(QLCInputFeedback::UpperValue) != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(source->feedbackValue(QLCInputFeedback::UpperValue)));
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue,
+                                QString::number(source->feedbackValue(QLCInputFeedback::UpperValue)));
         if (source->feedbackValue(QLCInputFeedback::MonitorValue) != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorValue, QString::number(source->feedbackValue(QLCInputFeedback::MonitorValue)));
+            doc->writeAttribute(KXMLQLCVCWidgetInputMonitorValue,
+                                QString::number(source->feedbackValue(QLCInputFeedback::MonitorValue)));
 
-        // save feedback extra params
         QVariant extraParams = source->feedbackExtraParams(QLCInputFeedback::LowerValue);
-
         if (extraParams.isValid() && extraParams.userType() == QMetaType::Int && extraParams.toInt() != -1)
             doc->writeAttribute(KXMLQLCVCWidgetInputLowerParams, QString::number(extraParams.toInt()));
 
         extraParams = source->feedbackExtraParams(QLCInputFeedback::UpperValue);
-
         if (extraParams.isValid() && extraParams.userType() == QMetaType::Int && extraParams.toInt() != -1)
             doc->writeAttribute(KXMLQLCVCWidgetInputUpperParams, QString::number(extraParams.toInt()));
 
         extraParams = source->feedbackExtraParams(QLCInputFeedback::MonitorValue);
-
         if (extraParams.isValid() && extraParams.userType() == QMetaType::Int && extraParams.toInt() != -1)
             doc->writeAttribute(KXMLQLCVCWidgetInputMonitorParams, QString::number(extraParams.toInt()));
-    }
+    };
 
-    auto i = m_keySequenceMap.constBegin();
-    while (i != m_keySequenceMap.constEnd())
+    if (unified == false)
     {
-        if (i.value() != controlId)
-        {
-            ++i;
-            continue;
-        }
+        // Non-unified schema:
+        // <Input .../>
+        // <Key>...</Key>
 
-        if (controlTagWritten == false && tagName.isEmpty() == false)
-        {
-            doc->writeStartElement(tagName);
-            controlTagWritten = true;
-        }
-
-        if (unified == true && inputTagWritten == false)
+        // Save input sources
+        for (const auto &src : sources)
         {
             doc->writeStartElement(KXMLQLCVCWidgetInput);
             doc->writeAttribute(KXMLQLCVCWidgetInputId, QString::number(controlId));
-            inputTagWritten = true;
+            writeSourceAttrs(src);
+            doc->writeEndElement();
         }
 
-        if (unified == false)
-            doc->writeTextElement(KXMLQLCVCWidgetKey, i.key().toString());
-        else
-            doc->writeAttribute(KXMLQLCVCWidgetKey, i.key().toString());
-
-        ++i;
+        // Save key sequences
+        for (const auto &seq : keys)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, seq.toString());
     }
+    else
+    {
+        // Unified schema:
+        // <Input ... Key="..."/>
+        const int n = qMax(sources.size(), keys.size());
+        for (int i = 0; i < n; ++i)
+        {
+            doc->writeStartElement(KXMLQLCVCWidgetInput);
+            doc->writeAttribute(KXMLQLCVCWidgetInputId, QString::number(controlId));
 
-    if (inputTagWritten)
-        doc->writeEndElement();
+            if (i < sources.size())
+                writeSourceAttrs(sources[i]);
+
+            if (i < keys.size())
+                doc->writeAttribute(KXMLQLCVCWidgetKey, keys[i].toString());
+
+            doc->writeEndElement();
+        }
+    }
 
     if (controlTagWritten)
         doc->writeEndElement();
 
     return true;
 }
+
+
 

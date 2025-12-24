@@ -36,6 +36,8 @@ RangeSlider
 
     padding: 2
 
+    property color bgColor: UISettings.highlight
+
     first.handle:
         Rectangle
         {
@@ -44,6 +46,7 @@ RangeSlider
             implicitWidth: UISettings.listItemHeight * 0.8
             implicitHeight: UISettings.listItemHeight * 0.8
             radius: implicitWidth / 5
+            color: UISettings.fgMain
         }
 
     second.handle:
@@ -54,6 +57,7 @@ RangeSlider
             implicitWidth: UISettings.listItemHeight * 0.8
             implicitHeight: UISettings.listItemHeight * 0.8
             radius: implicitWidth / 5
+            color: UISettings.fgMain
         }
 
     background:
@@ -61,8 +65,8 @@ RangeSlider
         {
             x: control.leftPadding + (control.horizontal ? 0 : (control.availableWidth - width) / 2)
             y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : 0)
-            implicitWidth: control.horizontal ? 200 : 6
-            implicitHeight: control.horizontal ? 6 : 200
+            implicitWidth: control.horizontal ? 200 : UISettings.listItemHeight * 0.15
+            implicitHeight: control.horizontal ? UISettings.listItemHeight * 0.15 : 200
             width: control.horizontal ? control.availableWidth : implicitWidth
             height: control.horizontal ? implicitHeight : control.availableHeight
             radius: 3
@@ -73,10 +77,10 @@ RangeSlider
             {
                 x: control.horizontal ? control.first.position * parent.width + 3 : 0
                 y: control.horizontal ? 0 : control.second.visualPosition * parent.height + 3
-                width: control.horizontal ? control.second.position * parent.width - control.first.position * parent.width - 6 : 6
-                height: control.horizontal ? 6 : control.second.position * parent.height - control.first.position * parent.height - 6
+                width: control.horizontal ? control.second.position * parent.width - control.first.position * parent.width - UISettings.listItemHeight * 0.15 : UISettings.listItemHeight * 0.15
+                height: control.horizontal ? UISettings.listItemHeight * 0.15 : control.second.position * parent.height - control.first.position * parent.height - UISettings.listItemHeight * 0.15
 
-                color: UISettings.highlight
+                color: control.bgColor
             }
         }
 }

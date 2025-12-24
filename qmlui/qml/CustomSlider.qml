@@ -65,6 +65,7 @@ Slider
             implicitWidth: UISettings.listItemHeight * 0.8
             implicitHeight: UISettings.listItemHeight * 0.8
             radius: implicitWidth / 5
+            color: UISettings.fgMain
         }
 
     Rectangle
