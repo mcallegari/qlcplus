@@ -636,8 +636,17 @@ protected:
     /** Write this widget's geometry and visibility to an XML document */
     bool saveXMLWindowState(QXmlStreamWriter *doc);
 
-    /** Save all the input sources and key combination with the given $controlId
-     *  in a tag with the given $tagName */
+    /** Save all the input sources and key combination with the given
+     *  $controlId in a tag with the given $tagName
+     *  When $unified is set to true, an input control will look like this
+     *
+     *  <Input ID="1" Universe="0" Channel="68" Key="G"/>
+     *
+     *  When false, it will look like this
+     *
+     *  <Input ID="1" Universe="0" Channel="68"/>
+     *  <Key>G</Key>
+     */
     bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString());
 };
 
