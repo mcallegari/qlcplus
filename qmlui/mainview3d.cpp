@@ -28,13 +28,7 @@
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DCore/QNode>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
- #include <Qt3DRender/QGeometry>
- #include <Qt3DRender/QAttribute>
- #include <Qt3DRender/QBuffer>
-#else
- #include <Qt3DCore/QAttribute>
-#endif
+#include <Qt3DCore/QAttribute>
 #include <Qt3DRender/QParameter>
 #include <Qt3DExtras/QPhongMaterial>
 #include <Qt3DRender/QGeometryRenderer>
@@ -737,17 +731,7 @@ void getMeshCorners(QGeometryRenderer *mesh,
 
     if (!meshGeometry)
         return;
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    Qt3DRender::QAttribute *vPosAttribute = nullptr;
-    for (Qt3DRender::QAttribute *attribute : meshGeometry->attributes())
-    {
-        if (attribute->name() == Qt3DRender::QAttribute::defaultPositionAttributeName())
-        {
-            vPosAttribute = attribute;
-            break;
-        }
-    }
-#else
+
     Qt3DCore::QAttribute *vPosAttribute = nullptr;
     for (Qt3DCore::QAttribute *attribute : meshGeometry->attributes())
     {
@@ -757,7 +741,7 @@ void getMeshCorners(QGeometryRenderer *mesh,
             break;
         }
     }
-#endif
+
     if (vPosAttribute)
     {
         const float *bufferPtr =

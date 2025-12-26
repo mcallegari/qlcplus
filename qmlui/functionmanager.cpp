@@ -73,9 +73,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     // register SceneValue to perform QVariant comparisons
     qRegisterMetaType<SceneValue>();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QMetaType::registerComparators<SceneValue>();
-#endif
+
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;

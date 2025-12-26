@@ -96,11 +96,7 @@ private:
 
 protected slots:
     void slotDurationChanged(qint64 duration);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    void slotMetaDataChanged(QString key, QVariant data);
-#else
     void slotMetaDataChanged();
-#endif
 
 signals:
     void sourceFileNameChanged(QString sourceFileName);

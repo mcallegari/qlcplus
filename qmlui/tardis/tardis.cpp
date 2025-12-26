@@ -411,11 +411,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 
 bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (value.type() != QVariant::ByteArray)
-#else
     if (value.metaType().id() != QMetaType::QByteArray)
-#endif
     {
         qWarning("Action 0x%02X is not buffered!", action);
         return false;

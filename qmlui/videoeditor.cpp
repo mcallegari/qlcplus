@@ -18,10 +18,8 @@
 */
 
 #include <QGuiApplication>
-#include <QScreen>
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QMediaMetaData>
-#endif
+#include <QScreen>
 
 #include "videoeditor.h"
 #include "tardis.h"
@@ -57,33 +55,17 @@ void VideoEditor::detectMedia()
     else
     {
         QString sourceURL = m_video->sourceUrl();
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        m_mediaPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
-
-        connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SLOT(slotMetaDataChanged(QString,QVariant)));
-#else
         m_mediaPlayer = new QMediaPlayer(this);
 
         connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
                 this, SLOT(slotMetaDataChanged()));
-#endif
-
         connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)),
                 this, SLOT(slotDurationChanged(qint64)));
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        if (sourceURL.contains("://"))
-            m_mediaPlayer->setMedia(QUrl(sourceURL));
-        else
-            m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
-#else
         if (sourceURL.contains("://"))
             m_mediaPlayer->setSource(QUrl(sourceURL));
         else
             m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
-#endif
     }
 }
 
@@ -143,14 +125,6 @@ void VideoEditor::slotDurationChanged(qint64 duration)
     emit mediaInfoChanged();
 }
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
-{
-    qDebug() << "Got meta data:" << key;
-    infoMap.insert(key, data);
-    emit mediaInfoChanged();
-}
-#else
 void VideoEditor::slotMetaDataChanged()
 {
     if (m_video == NULL)
@@ -187,7 +161,6 @@ void VideoEditor::slotMetaDataChanged()
     }
     emit mediaInfoChanged();
 }
-#endif
 
 QStringList VideoEditor::screenList() const
 {

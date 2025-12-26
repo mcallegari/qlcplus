@@ -276,17 +276,8 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (openglContext() == nullptr)
-        return false;
-
-    int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
-    return glVersion < 33 ? false : true;
-#else
     // TODO: Qt6
-
     return true;
-#endif
 }
 
 void App::aboutQt()
@@ -347,14 +338,7 @@ bool App::event(QEvent *event)
 
 void App::slotSceneGraphInitialized()
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (openglContext() == nullptr)
-        return;
-
-    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
-#else
     // TODO: Qt6
-#endif
 }
 
 void App::slotScreenChanged(QScreen *screen)
@@ -909,9 +893,7 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    doc.setCodec("UTF-8");
-#endif
+
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
 
