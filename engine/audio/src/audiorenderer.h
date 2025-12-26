@@ -120,6 +120,7 @@ public:
     virtual void run(); //thread run function
 
     void stop();
+    void userStart();
 
 protected:
     /** State machine variables */

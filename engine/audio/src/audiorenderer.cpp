@@ -106,6 +106,12 @@ void AudioRenderer::stop()
     m_currentIntensity = 1.0;
 }
 
+void AudioRenderer::userStart()
+{
+    m_userStop = false;
+}
+
+
 /*********************************************************************
  * Thread functions
  *********************************************************************/
@@ -113,7 +119,6 @@ void AudioRenderer::stop()
 void AudioRenderer::run()
 {
     qint64 audioDataWritten;
-    m_userStop = false;
     audioDataRead = 0;
 
     int sampleSize = m_adec->audioParameters().sampleSize();
