@@ -76,8 +76,8 @@ Entity
             height: 1024
             format: Texture.D32F
             generateMipMaps: false
-            magnificationFilter: Texture.Linear
-            minificationFilter: Texture.Linear
+            magnificationFilter: Texture.Nearest
+            minificationFilter: Texture.Nearest
             wrapMode
             {
                 x: WrapMode.ClampToEdge
