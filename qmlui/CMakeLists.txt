@@ -12,14 +12,9 @@ set(TS_FILES
     qlcplus_ru_RU.ts
     qlcplus_uk_UA.ts
 )
+qt_add_translation(QM_FILES ${TS_FILES})
 
 set(QML_IMPORT_PATH ".")
-
-if(QT_VERSION_MAJOR GREATER 5)
-    qt_add_translation(QM_FILES ${TS_FILES})
-else()
-    qt5_add_translation(QM_FILES ${TS_FILES})
-endif()
 
 set(SRC_FILES
     ../plugins/interfaces/utils.h
@@ -236,16 +231,9 @@ if(lupdate_only)
     )
 endif()
 
-if(QT_VERSION_MAJOR EQUAL 5)
-    qt5_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
-    target_sources(${module_name} PUBLIC
-        ${qlcplusqmlui_resource_files}
-    )
-else()
-    qt_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
-    target_sources(${module_name} PUBLIC
-        ${qlcplusqmlui_resource_files}
-    )
-endif()
+qt_add_resources(qlcplusqmlui_resource_files qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc)
+target_sources(${module_name} PUBLIC
+    ${qlcplusqmlui_resource_files}
+)
 
 install(TARGETS ${module_name} DESTINATION ${INSTALLROOT}/${BINDIR})
