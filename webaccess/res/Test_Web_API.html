@@ -1,6 +1,7 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>QLC+ Web API Test</title>
 <script>
 
@@ -146,7 +147,7 @@ function connectToWebSocket(host) {
 
   websocket.onopen = function(ev) {
     //alert("QLC+ connection successful");
-    document.getElementById('connStatus').innerHTML = "<font color=green>Connected</font>";
+    document.getElementById('connStatus').innerHTML = "<span style=\"color: green;\">Connected</span>";
     isConnected = true;
   };
 
@@ -271,12 +272,12 @@ function loadProject () {
 
 </script>
 
-<style type="text/css">
+<style>
 
 body {
   background-color: #45484d;
   color: white;
-  font:normal 18px/1.2em sans-serif;
+  font: normal 18px/1.2em sans-serif;
 }
 
 iframe {
@@ -297,6 +298,7 @@ iframe {
 
 .apiTable {
   border-collapse: collapse;
+  width: 45%;
 }
 
 .apiTable th {
@@ -305,6 +307,7 @@ iframe {
   background-color: #3da1ff;
   border: solid 1px grey;
   padding: 10px 0 10px 0 !important;
+  width: 30%;
 }
 
 .apiTable tr {
@@ -322,6 +325,7 @@ iframe {
   font-size: 18px;
   background-color: #3bc247;
   padding: 10px 0 10px 0 !important;
+  text-align: center;
 }
 
 .apiButton {
@@ -330,7 +334,7 @@ iframe {
   text-align: center;
   font-weight: bold;
   color: black;
-  cursor:pointer;
+  cursor: pointer;
   height: 30px;
   padding: 0 10px 0 10px;
   background: #7497b6;
@@ -358,13 +362,13 @@ iframe {
 <h2>Q Light Controller+ Web API test page</h2>
 
 <!-- ############## Project box to display what QLC+ is doing ####################### -->
-<div id="prjBox"><iframe name="projectFrame" src="" id="projectFrame"></iframe></div>
+<div id="prjBox"><iframe name="projectFrame" id="projectFrame"></iframe></div>
 
 <!-- ############## Websocket connection code ####################### -->
 QLC+ IP:
-<input type="text" id="qlcplusIP" value="127.0.0.1:9999"/>
+<input type="text" id="qlcplusIP" value="127.0.0.1:9999">
 <input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);">
-<div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
+<div id="connStatus" style="display: inline-block;"><span style="color: red;">Not connected</span></div>
 <br><br>
 
 <!-- ############## Project load code ####################### -->
@@ -377,17 +381,17 @@ Load a project:
 
 <!-- ############## Individual API tests ####################### -->
 
-<table class="apiTable" width=45%>
+<table class="apiTable">
  <tr>
-  <th width=30%><b>API Function</b></th>
-  <th width=30%><b>Description</b></th>
-  <th width=40%><b>Result</b></th>
+  <th><b>API Function</b></th>
+  <th><b>Description</b></th>
+  <th style="width: 40%;"><b>Result</b></th>
  </tr>
 
 <!-- ############## Channels API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center" class="apiHeader"><b>Channels APIs</b></td>
+  <td colspan="3" class="apiHeader"><b>Channels APIs</b></td>
  </tr>
 
  <tr>
@@ -405,7 +409,7 @@ Load a project:
 <!-- ############## Functions API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center" class="apiHeader"><b>Function APIs</b></td>
+  <td colspan="3" class="apiHeader"><b>Function APIs</b></td>
  </tr>
 
  <tr>
@@ -451,7 +455,7 @@ Load a project:
 <!-- ############## Widgets API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center" class="apiHeader"><b>Virtual Console Widget APIs</b></td>
+  <td colspan="3" class="apiHeader"><b>Virtual Console Widget APIs</b></td>
  </tr>
 
  <tr>
@@ -521,7 +525,7 @@ Load a project:
 <!-- ############## High rate API tests ####################### -->
 
  <tr>
-  <td colspan="3" align="center" class="apiHeader"><b>High rate APIs</b></td>
+  <td colspan="3" class="apiHeader"><b>High rate APIs</b></td>
  </tr>
  <tr>
   <td colspan="3">Due to the nature of some type of transmissions (for example a slider changing rapidly),
