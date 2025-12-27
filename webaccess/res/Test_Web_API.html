@@ -215,6 +215,43 @@ function connectToWebSocket(host) {
       {
         document.getElementById('getWidgetTypeBox').innerHTML = msgParams[3];
       }
+      else if (msgParams[1] === "getWidgetParent")
+      {
+        // Reply format:
+        // QLC+API|getWidgetParent|<widgetId>|<parentId>|<parentType>
+        // parentId=0 indicates Virtual Console root
+        var tableCode = "<table class='apiTable'><tr><th>Widget ID</th><th>Parent ID</th><th>Parent Type</th></tr>";
+        if (msgParams.length >= 5)
+        {
+          tableCode += "<tr><td>" + msgParams[2] + "</td><td>" + msgParams[3] + "</td><td>" + msgParams[4] + "</td></tr>";
+        }
+        tableCode += "</table>";
+        document.getElementById('getWidgetParentBox').innerHTML = tableCode;
+      }
+      else if (msgParams[1] === "getWidgetHierarchy")
+      {
+        // Reply format (flat edge list):
+        // QLC+API|getWidgetHierarchy|
+        // <childId>|<parentId>|<childType>|<parentType>|<childCaption>|<parentCaption>|...
+        var tableCode = "<table class='apiTable'><tr>"
+                      + "<th>Child ID</th><th>Parent ID</th><th>Child Type</th><th>Parent Type</th>"
+                      + "<th>Child Caption</th><th>Parent Caption</th></tr>";
+
+        // Data starts at index 2, 6 fields per row
+        for (i = 2; i + 5 < msgParams.length; i += 6)
+        {
+          tableCode += "<tr>"
+                    + "<td>" + msgParams[i]     + "</td>"
+                    + "<td>" + msgParams[i + 1] + "</td>"
+                    + "<td>" + msgParams[i + 2] + "</td>"
+                    + "<td>" + msgParams[i + 3] + "</td>"
+                    + "<td>" + msgParams[i + 4] + "</td>"
+                    + "<td>" + msgParams[i + 5] + "</td>"
+                    + "</tr>";
+        }
+        tableCode += "</table>";
+        document.getElementById('getWidgetHierarchyBox').innerHTML = tableCode;
+      }
       else if (msgParams[1] === "getWidgetStatus")
       {
         var status = msgParams[3];
@@ -456,6 +493,21 @@ Load a project:
   </td>
   <td>Retrieve the type of a Virtual Console Widget with the given ID</td>
   <td><div id="getWidgetTypeBox" class="resultBox"></div></td>
+ </tr>
+
+ <tr>
+  <td>
+    <div class="apiButton" onclick="javascript:requestAPIWithParam('getWidgetParent', 'wParentID');">getWidgetParent</div><br>
+    Widget ID: <input id="wParentID" type="text" value="0" size="6">
+  </td>
+  <td>Retrieve the parent information of a Virtual Console Widget with the given ID. A parent ID of 0 indicates the Virtual Console root.</td>
+  <td><div id="getWidgetParentBox" style="height: 80px; overflow-y: auto;"></div></td>
+ </tr>
+
+ <tr>
+  <td><div class="apiButton" onclick="javascript:requestAPI('getWidgetHierarchy');">getWidgetHierarchy</div></td>
+  <td>Retrieve the full Virtual Console widget hierarchy as a flat list of (child, parent) relationships.</td>
+  <td><div id="getWidgetHierarchyBox" style="height: 150px; overflow-y: scroll;"></div></td>
  </tr>
 
  <tr>

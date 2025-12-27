@@ -21,6 +21,8 @@
 #include <QProcess>
 #include <QSettings>
 #include <QMap>
+#include <QSet>
+#include <algorithm>
 #include <qmath.h>
 
 #include "webaccess.h"
@@ -655,6 +657,151 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                 wsAPIMessage.append(QString("%1|%2").arg(wID).arg(widget->typeToString(widget->type())));
             else
                 wsAPIMessage.append(QString("%1|%2").arg(wID).arg(widget->typeToString(VCWidget::UnknownWidget)));
+        }
+        else if (apiCmd == "getWidgetParent")
+        {
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 wID = cmdList[2].toUInt();
+            VCWidget *widget = m_vc->widget(wID);
+
+            // Reply format:
+            // QLC+API|getWidgetParent|<widgetId>|<parentId>|<parentType>
+            // parentId=0 indicates Virtual Console root
+            wsAPIMessage.append(QString("%1|").arg(wID));
+
+            if (widget == NULL)
+            {
+                wsAPIMessage.append("0|Undefined");
+            }
+            else
+            {
+                VCFrame *mainFrame = m_vc->contents();
+
+                QWidget *p = widget->parentWidget();
+                QSet<const QWidget*> visited;
+                VCWidget *parentVC = NULL;
+
+                while (p != NULL && !visited.contains(p))
+                {
+                    visited.insert(p);
+
+                    VCWidget *candidate = qobject_cast<VCWidget*>(p);
+                    if (candidate != NULL)
+                    {
+                        parentVC = candidate;
+                        break;
+                    }
+                    p = p->parentWidget();
+                }
+
+                // Treat the main VC contents frame as root (0)
+                if (parentVC == NULL || parentVC == mainFrame)
+                {
+                    wsAPIMessage.append("0|VirtualConsole");
+                }
+                else
+                {
+                    wsAPIMessage.append(QString("%1|%2")
+                        .arg(parentVC->id())
+                        .arg(parentVC->typeToString(parentVC->type())));
+                }
+            }
+        }
+        else if (apiCmd == "getWidgetHierarchy")
+        {
+            VCFrame *mainFrame = m_vc->contents();
+            QList<VCWidget *> widgets = mainFrame->findChildren<VCWidget*>();
+
+            // Deterministic ordering: parentId, childType, childCaption, childId
+            // (Empty captions sort first within a type; clients can apply their own labeling.)
+            std::sort(widgets.begin(), widgets.end(),
+                [this, mainFrame](VCWidget *a, VCWidget *b) -> bool
+                {
+                    auto parentIdOf = [mainFrame](VCWidget *w) -> quint32
+                    {
+                        QWidget *p = w->parentWidget();
+                        QSet<const QWidget*> visited;
+
+                        while (p != NULL && !visited.contains(p))
+                        {
+                            visited.insert(p);
+                            VCWidget *vc = qobject_cast<VCWidget*>(p);
+                            if (vc != NULL)
+                            {
+                                if (vc == mainFrame)
+                                    return 0;
+                                return vc->id();
+                            }
+                            p = p->parentWidget();
+                        }
+                        return 0;
+                    };
+
+                    quint32 pa = parentIdOf(a);
+                    quint32 pb = parentIdOf(b);
+                    if (pa != pb) return pa < pb;
+
+                    QString ta = a->typeToString(a->type());
+                    QString tb = b->typeToString(b->type());
+                    if (ta != tb) return ta < tb;
+
+                    QString ca = a->caption();
+                    QString cb = b->caption();
+                    if (ca != cb) return ca < cb;
+
+                    return a->id() < b->id();
+                });
+
+            // Reply format (flat edge list):
+            // QLC+API|getWidgetHierarchy|<childId>|<parentId>|<childType>|<parentType>|<childCaption>|<parentCaption>|...
+            // parentId=0, parentType="VirtualConsole", parentCaption="" indicates root
+            foreach (VCWidget *widget, widgets)
+            {
+                quint32 childId = widget->id();
+                QString childType = widget->typeToString(widget->type());
+                QString childCaption = widget->caption();
+
+                quint32 parentId = 0;
+                QString parentType = "VirtualConsole";
+                QString parentCaption = "";
+
+                QWidget *p = widget->parentWidget();
+                QSet<const QWidget*> visited;
+                VCWidget *parentVC = NULL;
+
+                while (p != NULL && !visited.contains(p))
+                {
+                    visited.insert(p);
+                    VCWidget *candidate = qobject_cast<VCWidget*>(p);
+                    if (candidate != NULL)
+                    {
+                        parentVC = candidate;
+                        break;
+                    }
+                    p = p->parentWidget();
+                }
+
+                if (parentVC != NULL && parentVC != mainFrame)
+                {
+                    parentId = parentVC->id();
+                    parentType = parentVC->typeToString(parentVC->type());
+                    parentCaption = parentVC->caption();
+                }
+
+                wsAPIMessage.append(QString("%1|%2|%3|%4|%5|%6|")
+                    .arg(childId)
+                    .arg(parentId)
+                    .arg(childType)
+                    .arg(parentType)
+                    .arg(childCaption)
+                    .arg(parentCaption));
+            }
+
+            // Remove trailing separator if any widgets were appended
+            if (wsAPIMessage.endsWith("|"))
+                wsAPIMessage.truncate(wsAPIMessage.length() - 1);
         }
         else if (apiCmd == "getWidgetStatus")
         {
