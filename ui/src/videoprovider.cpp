@@ -23,7 +23,6 @@
  #include <QAudioOutput>
 #endif
 #include <QApplication>
-#include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QScreen>
 
@@ -78,6 +77,11 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
     , m_video(video)
     , m_videoPlayer(NULL)
     , m_videoWidget(NULL)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    , m_videoItem(NULL)
+    , m_videoOverlay(NULL)
+    , m_audioOutput(NULL)
+#endif
 {
     Q_ASSERT(video != NULL);
 
@@ -90,12 +94,31 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
 #endif
     m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (QLCFile::getQtRuntimeVersion() >= 50700 && m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
         m_videoWidget->setStyleSheet("background-color:black;");
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
+#else
+    m_videoItem = new QGraphicsVideoItem();
+    m_videoPlayer->setVideoOutput(m_videoItem);
+
+    m_videoOverlay = new QGraphicsRectItem();
+    m_videoOverlay->setZValue(1);
+    m_videoOverlay->setBrush(Qt::black);
+    m_videoOverlay->setOpacity(0);
+
+    QGraphicsScene* scene = new QGraphicsScene();
+    scene->setBackgroundBrush(Qt::black);
+    scene->addItem(m_videoItem);
+    scene->addItem(m_videoOverlay);
+
+    m_videoWidget = new QGraphicsView(scene);
+    m_videoWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    m_videoWidget->setStyleSheet("border-style: none;");
+#endif
 
     connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
             this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
@@ -248,27 +271,49 @@ void VideoWidget::slotPlaybackVideo()
     QScreen *scr = screens.count() > screen ? screens.at(screen) : screens.first();
     QRect rect = scr->availableGeometry();
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
         m_videoWidget->setStyleSheet("background-color:black;");
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
+#else
+    bool skipAdjustSize = false;
+#endif
 
     m_videoWidget->setWindowFlags(m_videoWidget->windowFlags() | Qt::WindowStaysOnTopHint);
 
     if (m_video->fullscreen() == false)
     {
         QSize resolution = m_video->resolution();
+
+    #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         m_videoWidget->setFullScreen(false);
         if (resolution.isEmpty())
             m_videoWidget->setGeometry(0, 50, 640, 480);
         else
             m_videoWidget->setGeometry(0, 50, resolution.width(), resolution.height());
         m_videoWidget->move(rect.topLeft());
+    #else
+        if (resolution.isEmpty())
+        {
+            m_videoItem->setSize(QSize(640, 480));
+        }
+        else
+        {
+            m_videoItem->setSize(resolution);
+            if (resolution.height() > rect.height())
+            {
+                m_videoWidget->setGeometry(0, 30, resolution.width()+1, resolution.height()+1);
+                skipAdjustSize = true;
+            }
+        }
+    #endif
     }
     else
     {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #if defined(WIN32) || defined(Q_OS_WIN)
         m_videoWidget->setFullScreen(true);
         m_videoWidget->setGeometry(rect);
@@ -276,14 +321,32 @@ void VideoWidget::slotPlaybackVideo()
         m_videoWidget->setGeometry(rect);
         m_videoWidget->setFullScreen(true);
 #endif
+#else
+        m_videoItem->setSize(rect.size());
+#endif
     }
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    m_videoOverlay->setRect(0, 0, m_videoItem->size().width()-1, m_videoItem->size().height()-1);
+#endif
 
     if (m_videoPlayer->isSeekable())
         m_videoPlayer->setPosition(m_video->elapsed());
     else
         m_videoPlayer->setPosition(0);
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_videoWidget->show();
+#else
+    m_videoWidget->scene()->setSceneRect(m_videoWidget->scene()->itemsBoundingRect());
+    if (!skipAdjustSize)
+        m_videoWidget->adjustSize();
+
+    if (m_video->fullscreen())
+        m_videoWidget->showFullScreen();
+    else
+        m_videoWidget->showNormal();
+#endif
     m_videoPlayer->play();
 }
 
@@ -303,7 +366,13 @@ void VideoWidget::slotStopVideo()
     if (m_videoWidget != NULL)
     {
         if (m_video->fullscreen())
+        {
+        #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
             m_videoWidget->setFullScreen(false);
+        #else
+            m_videoWidget->setWindowState(Qt::WindowNoState);
+        #endif
+        }
         m_videoWidget->hide();
     }
 
@@ -313,24 +382,24 @@ void VideoWidget::slotStopVideo()
 void VideoWidget::slotBrightnessVolumeAdjust(qreal value)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    int brightness = -100 + (int)(qreal(100.0) * value);
-    int volume = 100 * (int)QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    int brightness = -100 - (int)((qreal)-100.0 * value);
+    int volume = (int)(100 * QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale));
     if (m_videoWidget)
         m_videoWidget->setBrightness(brightness);
     if (m_videoPlayer)
         m_videoPlayer->setVolume(volume);
 #else
     qreal linearVolume = QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    if (m_videoOverlay)
+        m_videoOverlay->setOpacity(1-value);
     if (m_audioOutput)
         m_audioOutput->setVolume(linearVolume);
 #endif
 }
 
-int VideoWidget::getScreenCount()
+int VideoWidget::getScreenCount() const
 {
-    int screenCount = QGuiApplication::screens().count();
-
-    return screenCount;
+    return QGuiApplication::screens().count();
 }
 
 FunctionParent VideoWidget::functionParent() const
