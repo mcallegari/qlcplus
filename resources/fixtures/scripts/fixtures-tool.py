@@ -10,6 +10,7 @@ import sys
 import os
 import re
 import argparse
+import csv
 import lxml.etree as etree
 
 singleCapCount = 0
@@ -885,6 +886,49 @@ def get_validation_files(path):
     return files
 
 ###########################################################################################
+# createFixturesReport
+#
+# Creates a CSV report with basic fixture data for each mode
+#
+# paths: list of paths to scan for fixtures
+# reportFile: output CSV file name
+###########################################################################################
+
+def createFixturesReport(paths, reportFile):
+    global namespace
+
+    files = []
+    for path in paths:
+        files += get_validation_files(path)
+
+    if (sys.version_info >= (3, 0)):
+        csvFile = open(reportFile, "w", newline='')
+    else:
+        csvFile = open(reportFile, "wb")
+
+    writer = csv.writer(csvFile)
+    writer.writerow(["manufacturer", "model", "mode", "channels", "heads number"])
+
+    for absname in files:
+        parser = etree.XMLParser(ns_clean=True, recover=True)
+        xmlObj = etree.parse(absname, parser=parser)
+        root = xmlObj.getroot()
+
+        manuf_tag = root.find('{' + namespace + '}Manufacturer')
+        model_tag = root.find('{' + namespace + '}Model')
+        manufacturer = manuf_tag.text if manuf_tag is not None and manuf_tag.text else ""
+        model = model_tag.text if model_tag is not None and model_tag.text else ""
+
+        for mode in root.findall('{' + namespace + '}Mode'):
+            mode_name = mode.attrib.get('Name', '')
+            mode_channels = len(mode.findall('{' + namespace + '}Channel'))
+            mode_heads = len(mode.findall('{' + namespace + '}Head'))
+            writer.writerow([manufacturer, model, mode_name, mode_channels, mode_heads])
+
+    csvFile.close()
+    print("Report written to " + reportFile)
+
+###########################################################################################
 #
 #                                       MAIN
 #
@@ -896,6 +940,8 @@ parser.add_argument('--convert <source> <destination>', help='Convert an "old" s
                     nargs='*', dest='convert')
 parser.add_argument('--validate [<path> ...]', help='Validate fixtures in the specified path',
                     nargs='*', dest='validate')
+parser.add_argument('--report [<path> ...]', help='Create a CSV report for fixtures in the specified path',
+                    nargs='*', dest='report')
 args = parser.parse_args()
 
 print(args)
@@ -962,3 +1008,8 @@ if args.validate is not None:
     if errorCount != 0:
         sys.exit(1)
 
+if args.report is not None:
+    paths = ["."]
+    if len(args.report) >= 1:
+        paths = args.report
+    createFixturesReport(paths, "FixturesReport.csv")
