@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>504</width>
-    <height>134</height>
+    <height>146</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -213,7 +213,7 @@
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Orientation::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -231,6 +231,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="m_syncColour">
+        <property name="text">
+         <string>Sync with VC Button Colour</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1" colspan="2">
        <widget class="QLineEdit" name="m_inputUniverseEdit">

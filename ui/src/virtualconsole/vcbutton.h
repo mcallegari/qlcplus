@@ -120,6 +120,7 @@ protected:
 public:
     /** Set the button's background color */
     void setBackgroundColor(const QColor& color);
+    void setBackgroundColor(int value, QSharedPointer<QLCInputSource> src);
 
     /** Get the button's background color */
     QColor backgroundColor() const;
@@ -407,6 +408,9 @@ protected:
 
     void mousePressEvent(QMouseEvent* e);
     void mouseReleaseEvent(QMouseEvent* e);
+
+public:
+    bool syncStatus;
 };
 
 /** @} */
