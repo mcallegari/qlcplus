@@ -406,13 +406,18 @@ bool FixtureManager::deleteFixtureInGroup(quint32 groupID, quint32 itemID, QStri
     //quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
     //quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
-    //TODO: tardis
+    //Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fxID,
+    //                                  Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxID), QVariant());
 
     qDebug() << "Removing fixture" << fxID << "from group" << group->name();
     group->resignFixture(fxID);
 
     m_fixtureTree->removeItem(path);
     emit groupsTreeModelChanged();
+
+    // if the group is empty, remove the group too
+    if (group->fixtureList().isEmpty())
+        deleteFixtureGroups(QVariantList() << group->id());
 
     return true;
 }

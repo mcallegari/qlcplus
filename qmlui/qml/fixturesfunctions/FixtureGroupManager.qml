@@ -240,16 +240,16 @@ Rectangle
                             switch (item.itemType)
                             {
                                 case App.UniverseDragItem:
-                                break;
+                                break
                                 case App.FixtureGroupDragItem:
                                     fxGroupDeleteList.push(item.cRef.id)
-                                break;
+                                break
                                 case App.FixtureDragItem:
                                     if (item.inGroup)
                                         fixtureManager.deleteFixtureInGroup(item.subID, item.itemID, item.nodePath)
                                     else
                                         fxDeleteList.push(item.itemID)
-                                break;
+                                break
                             }
                         }
 
