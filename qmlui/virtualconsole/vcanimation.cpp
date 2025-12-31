@@ -427,6 +427,10 @@ bool VCAnimation::loadXML(QXmlStreamReader &root)
         {
             setVisibilityMask(root.readElementText().toUInt());
         }
+        else if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInputSource(root, INPUT_FADER_ID);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown animation tag:" << root.name().toString();
@@ -463,6 +467,9 @@ bool VCAnimation::saveXML(QXmlStreamWriter *doc)
     /* Controls visibility mask */
     if (m_visibilityMask != defaultVisibilityMask())
         doc->writeTextElement(KXMLQLCVCAnimationVisibilityMask, QString::number(m_visibilityMask));
+
+    /* External control */
+    saveXMLInputControl(doc, INPUT_FADER_ID, false);
 
     /* Write the <end> tag */
     doc->writeEndElement();
