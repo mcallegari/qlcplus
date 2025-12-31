@@ -100,6 +100,7 @@ public:
 private:
     struct ftdi_context m_handle;
     quint8 m_busLocation;
+    enum ftdi_interface get_ftdi_interface();
 };
 
 #endif

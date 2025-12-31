@@ -70,8 +70,7 @@ QString LibFTDIInterface::typeString()
 
 QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discoveredList)
 {
-    QList <DMXInterface*> interfacesList;
-    int id = 0;
+    QList<DMXInterface *> interfacesList;
 
     struct ftdi_context ftdi;
 
@@ -81,6 +80,7 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
     libusb_device *dev;
     libusb_device **devs;
     struct libusb_device_descriptor dev_descriptor;
+    struct libusb_config_descriptor *config_descriptor;
     int i = 0;
 
     if (libusb_get_device_list(ftdi.usb_ctx, &devs) < 0)
@@ -112,9 +112,9 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
 
     for (bus = usb_get_busses(); bus; bus = bus->next)
     {
-      for (dev = bus->devices; dev; dev = dev->next)
-      {
-        dev_descriptor = dev->descriptor;
+        for (dev = bus->devices; dev; dev = dev->next)
+        {
+            dev_descriptor = dev->descriptor;
 #endif
         Q_ASSERT(dev != NULL);
 
@@ -151,20 +151,43 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         }
         if (found == false)
         {
-            LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
-                                                           dev_descriptor.idProduct, id++);
+
 #ifdef LIBFTDI1
-            iface->setBusLocation(libusb_get_port_number(dev));
+
+            uint8_t nbrInterface = 1;
+
+            // Detect number of output
+            if (libusb_get_active_config_descriptor(dev, &config_descriptor) == 0)
+            {
+                nbrInterface = config_descriptor->bNumInterfaces;
+                qDebug() << Q_FUNC_INFO << "Nbr Interface: " << QString::number(nbrInterface, 8);
+                libusb_free_config_descriptor(config_descriptor);
+            }
+
+            // Add each output
+            for (int o = 0; o < nbrInterface; o++)
+            {
+                // Instanciate LibFTDIInterface with id as output number
+                LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor, dev_descriptor.idProduct, o);
+                iface->setBusLocation(libusb_get_port_number(dev));
+
+                // Append to the global list
+                interfacesList << iface;
+            }
+
 #else
-            iface->setBusLocation(dev->bus->location);
+                LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
+                                                               dev_descriptor.idProduct, -1);
+                iface->setBusLocation(dev->bus->location);
+                interfacesList << iface;
+
 #endif
-            interfacesList << iface;
         }
 
 #ifndef LIBFTDI1
-      }
-#endif
     }
+#endif
+}
 
 #ifdef LIBFTDI1
     libusb_free_device_list(devs, 1);
@@ -184,6 +207,13 @@ bool LibFTDIInterface::open()
     const char *ser = NULL;
     if (serial().isEmpty() == false)
         ser = (const char *)sba.data();
+
+    // Choose output based on id
+    if (ftdi_set_interface(&m_handle, get_ftdi_interface()) < 0)
+    {
+        qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+        return false;
+    }
 
     if (ftdi_usb_open_desc(&m_handle, vendorID(), productID(),
                            name().toLatin1(), ser) < 0)
@@ -403,4 +433,21 @@ uchar LibFTDIInterface::readByte(bool* ok)
     }
 
     return 0;
+}
+
+enum ftdi_interface LibFTDIInterface::get_ftdi_interface()
+{
+    switch (id())
+    {
+    case 0:
+        return INTERFACE_A;
+    case 1:
+        return INTERFACE_B;
+    case 2:
+        return INTERFACE_C;
+    case 3:
+        return INTERFACE_D;
+    default:
+        return INTERFACE_ANY; // fallback
+    }
 }
