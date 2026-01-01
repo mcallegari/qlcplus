@@ -371,6 +371,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->adjustIntensity(m_volume * getAttributeValue(Intensity));
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
+        m_audio_out->setUserStop(false);
         m_audio_out->start();
     }
 
