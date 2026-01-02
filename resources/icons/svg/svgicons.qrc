@@ -91,11 +91,13 @@
     <file alias="laser.svg">laser.svg</file>
     <file alias="layout-btf.svg">layout-btf.svg</file>
     <file alias="layout-btt.svg">layout-btt.svg</file>
-    <file alias="layout-center.svg">layout-center.svg</file>
     <file alias="layout-ftb.svg">layout-ftb.svg</file>
     <file alias="layout-ltr.svg">layout-ltr.svg</file>
     <file alias="layout-rtl.svg">layout-rtl.svg</file>
     <file alias="layout-ttb.svg">layout-ttb.svg</file>
+    <file alias="layout-xcenter.svg">layout-xcenter.svg</file>
+    <file alias="layout-ycenter.svg">layout-ycenter.svg</file>
+    <file alias="layout-zcenter.svg">layout-zcenter.svg</file>
     <file alias="ledbar_beams.svg">ledbar_beams.svg</file>
     <file alias="ledbar_pixels.svg">ledbar_pixels.svg</file>
     <file alias="lime.svg">lime.svg</file>
