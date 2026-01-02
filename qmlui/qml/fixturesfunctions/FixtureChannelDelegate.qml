@@ -84,8 +84,8 @@ Rectangle
             {
                 anchors.fill: parent
 
-                onPressed: chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
-                onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
+                onPressed: (mouse) => chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
+                onClicked: (mouse) => chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
                 onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
             }
         }
@@ -154,7 +154,7 @@ Rectangle
                 { mLabel: qsTr("Forced HTP"), mValue: FixtureManager.ForcedHTP },
                 { mLabel: qsTr("Forced LTP"), mValue: FixtureManager.ForcedLTP }
             ]
-            onValueChanged: (value) => fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
+            onActivated: (index) => fixtureManager.setItemRoleData(itemID, chIndex, "precedence", currValue)
         }
 
         // divider

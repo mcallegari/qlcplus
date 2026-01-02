@@ -508,7 +508,7 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     if (index >= 0 && channel == nullptr)
         return;
 
-    qDebug() << "Set fixture data" << fixture->name() << role << value;
+    qDebug() << "Set fixture data" << fixture->name() << index << role << value;
 
     if (role == "flags")
     {
@@ -540,11 +540,11 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
                 forcedLTP.removeOne(index);
             break;
             case ForcedHTP:
-                if (channel->group() != QLCChannel::Intensity)
+                if (channel->group() != QLCChannel::Intensity && !forcedHTP.contains(index))
                     forcedHTP.append(index);
             break;
             case ForcedLTP:
-                if (channel->group() == QLCChannel::Intensity)
+                if (channel->group() == QLCChannel::Intensity && !forcedLTP.contains(index))
                     forcedLTP.append(index);
             break;
         }

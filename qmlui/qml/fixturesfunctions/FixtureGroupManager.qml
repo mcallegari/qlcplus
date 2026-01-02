@@ -43,6 +43,9 @@ Rectangle
 
     function updateButtons(itemType, itemID)
     {
+        if (itemType === App.ChannelDragItem || itemType === App.HeadDragItem)
+            return
+
         // update info button
         infoButton.enabled = itemType !== App.HeadDragItem ? true : false
         updateInfoView(infoButton.checked)
@@ -567,17 +570,17 @@ Rectangle
                                     {
                                         case App.FixtureDragItem:
                                             contextManager.setFixtureSelection(iID, -1, true)
-                                        break;
+                                        break
                                         case App.HeadDragItem:
                                             itemID = qItem.itemID
-                                            contextManager.setFixtureSelection(qItem.itemID, iID, true);
-                                        break;
+                                            contextManager.setFixtureSelection(qItem.itemID, iID, true)
+                                        break
                                         case App.UniverseDragItem:
                                             contextManager.setFixtureGroupSelection(iID, true, true)
-                                        break;
+                                        break
                                         case App.FixtureGroupDragItem:
                                             contextManager.setFixtureGroupSelection(iID, true, false)
-                                        break;
+                                        break
                                     }
 
                                     updateButtons(qItem.itemType, itemID)
