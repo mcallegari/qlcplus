@@ -175,8 +175,6 @@ void SceneEditor::slotFixtureRemoved(quint32 id)
 
 void SceneEditor::init(bool applyValues)
 {
-    QVariant tabMode = m_scene->uiStateValue(UI_STATE_TAB_MODE);
-
     this->layout()->setContentsMargins(8, 3, 8, 3);
 
     /* Actions */
@@ -219,7 +217,7 @@ void SceneEditor::init(bool applyValues)
     m_blindAction->setCheckable(true);
 
     m_tabViewAction->setCheckable(true);
-    if (tabMode.isNull() || tabMode.toInt() == UI_STATE_TABBED_FIXTURES)
+    if (tabMode())
         m_tabViewAction->setChecked(true);
 
     // Chaser combo init
@@ -379,10 +377,7 @@ void SceneEditor::init(bool applyValues)
     }
 
     // Create the actual tab view
-    if (tabMode.isNull() || tabMode.toInt() == UI_STATE_TABBED_FIXTURES)
-        slotViewModeChanged(true, applyValues);
-    else
-        slotViewModeChanged(false, applyValues);
+    slotViewModeChanged(tabMode(), applyValues);
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -902,6 +897,8 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
 
 void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
 {
+    setTabMode(tabbed);
+
     m_tab->blockSignals(true);
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
     {
@@ -990,8 +987,6 @@ void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
             }
         }
     }
-
-    m_scene->setUiStateValue(UI_STATE_TAB_MODE, tabbed ? UI_STATE_TABBED_FIXTURES : UI_STATE_ALL_FIXTURES);
 
     if (m_tab->count() == 0)
     {
@@ -1520,47 +1515,141 @@ FixtureConsole* SceneEditor::fixtureConsole(Fixture* fixture)
 void SceneEditor::addFixtureTab(Fixture* fixture, quint32 channel)
 {
     Q_ASSERT(fixture != NULL);
+    Q_ASSERT(m_tab != NULL);
 
-    /* Put the console inside a scroll area */
-    QScrollArea* scrollArea = new QScrollArea(m_tab);
-    scrollArea->setWidgetResizable(true);
+    if (tabMode())
+    {
+        /* Put the console inside a scroll area */
+        QScrollArea* scrollArea = new QScrollArea(m_tab);
+        scrollArea->setWidgetResizable(true);
 
-    FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
-    console->setFixture(fixture->id());
-    m_consoleList[fixture->id()] = console;
-    scrollArea->setWidget(console);
-    int tIdx = m_tab->addTab(scrollArea, fixture->name());
-    m_tab->setTabToolTip(tIdx, fixture->name());
+        FixtureConsole* console = new FixtureConsole(scrollArea, m_doc);
+        console->setFixture(fixture->id());
+        m_consoleList[fixture->id()] = console;
+        scrollArea->setWidget(console);
+        int tIdx = m_tab->addTab(scrollArea, fixture->name());
+        m_tab->setTabToolTip(tIdx, fixture->name());
 
-    /* Start off with all channels disabled */
-    console->setChecked(false);
+        /* Start off with all channels disabled */
+        console->setChecked(false);
 
-    connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
-            this, SLOT(slotValueChanged(quint32,quint32,uchar)));
-    connect(console, SIGNAL(checked(quint32,quint32,bool)),
-            this, SLOT(slotChecked(quint32,quint32,bool)));
+        connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+        connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                this, SLOT(slotChecked(quint32,quint32,bool)));
 
-    if (channel != QLCChannel::invalid())
-        console->setChecked(true, channel);
+        if (channel != QLCChannel::invalid())
+            console->setChecked(true, channel);
+    }
+    else
+    {
+        QScrollArea* scrollArea = qobject_cast<QScrollArea*>(m_tab->widget(m_fixtureFirstTabIndex));
+        if (scrollArea == NULL)
+        {
+            scrollArea = new QScrollArea(m_tab);
+            scrollArea->setWidgetResizable(true);
+            int tIdx = m_tab->addTab(scrollArea, tr("All fixtures"));
+            m_tab->setTabToolTip(tIdx, tr("All fixtures"));
+        }
+
+        QGroupBox* grpBox = qobject_cast<QGroupBox*>(scrollArea->widget());
+        if (grpBox == NULL)
+        {
+            grpBox = new QGroupBox(scrollArea);
+            grpBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+            scrollArea->setWidget(grpBox);
+        }
+
+        QHBoxLayout* fixturesLayout = qobject_cast<QHBoxLayout*>(grpBox->layout());
+        if (fixturesLayout == NULL)
+        {
+            fixturesLayout = new QHBoxLayout(grpBox);
+            grpBox->setLayout(fixturesLayout);
+            fixturesLayout->setSpacing(2);
+            fixturesLayout->setContentsMargins(0, 2, 2, 2);
+            fixturesLayout->addStretch(1);
+        }
+
+        const FixtureConsole::GroupType type = ((selectedFixtures(true).count() % 2) == 0) ? FixtureConsole::GroupOdd : FixtureConsole::GroupEven;
+        FixtureConsole* console = new FixtureConsole(scrollArea, m_doc, type);
+        console->setFixture(fixture->id());
+        m_consoleList[fixture->id()] = console;
+
+        /* Start off with all channels disabled */
+        console->setChecked(false);
+
+        connect(console, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotValueChanged(quint32,quint32,uchar)));
+        connect(console, SIGNAL(checked(quint32,quint32,bool)),
+                this, SLOT(slotChecked(quint32,quint32,bool)));
+
+        if (channel != QLCChannel::invalid())
+            console->setChecked(true, channel);
+
+        fixturesLayout->insertWidget(fixturesLayout->count()-1, console);
+    }
 }
 
 void SceneEditor::removeFixtureTab(quint32 fixtureID)
 {
-    /* Start searching from the first fixture tab */
-    for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
+    Q_ASSERT(m_tab != NULL);
+
+    if (tabMode())
     {
-        FixtureConsole* fc = fixtureConsoleTab(i);
-        if (fc != NULL && fc->fixture() == fixtureID)
+        /* Start searching from the first fixture tab */
+        for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
         {
-            /* First remove the tab because otherwise Qt might
-               remove two tabs -- undocumented feature, which
-               might be intended or it might not. */
-            QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
-            Q_ASSERT(area != NULL);
-            m_tab->removeTab(i);
-            m_consoleList.take(fixtureID);
-            delete area; // Deletes also FixtureConsole
-            break;
+            FixtureConsole* fc = fixtureConsoleTab(i);
+            if (fc != NULL && fc->fixture() == fixtureID)
+            {
+                /* First remove the tab because otherwise Qt might
+                   remove two tabs -- undocumented feature, which
+                   might be intended or it might not. */
+                QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
+                Q_ASSERT(area != NULL);
+                m_tab->removeTab(i);
+                m_consoleList.take(fixtureID);
+                delete area; // Deletes also FixtureConsole
+
+                break;
+            }
+        }
+    }
+    else
+    {
+        QScrollArea* area = qobject_cast<QScrollArea*>(m_tab->widget(m_fixtureFirstTabIndex));
+        if (area == NULL)
+            return;
+
+        QGroupBox* grpBox = qobject_cast<QGroupBox*>(area->widget());
+        if (grpBox == NULL)
+            return;
+
+        QHBoxLayout* fixturesLayout = qobject_cast<QHBoxLayout*>(grpBox->layout());
+        if (fixturesLayout == NULL)
+            return;
+
+        for (int i = 0; i < fixturesLayout->count(); i++)
+        {
+            QLayoutItem* layoutItem = fixturesLayout->itemAt(i);
+            if (layoutItem == NULL)
+                continue;
+
+            FixtureConsole* console = qobject_cast<FixtureConsole*>(layoutItem->widget());
+
+            if (console != NULL && console->fixture() == fixtureID)
+            {
+                console->hide();
+                QLayoutItem* deleteLayoutItem = fixturesLayout->takeAt(i);
+                // Q_ASSERT(deleteLayoutItem == layoutItem);
+
+                m_consoleList.take(console->fixture());
+
+                delete console;
+                delete deleteLayoutItem;
+
+                break;
+            }
         }
     }
 }
@@ -1640,4 +1729,24 @@ void SceneEditor::slotGoToPreviousTab()
     else
         m_currentTab--;
     m_tab->setCurrentIndex(m_currentTab);
+}
+
+bool SceneEditor::tabMode() const
+{
+    if (m_scene == NULL)
+        return true;
+
+    QVariant tabMode = m_scene->uiStateValue(UI_STATE_TAB_MODE);
+    if (tabMode.isNull() || tabMode.toInt() == UI_STATE_TABBED_FIXTURES)
+        return true;
+    else
+        return false;
+}
+
+void SceneEditor::setTabMode(bool tabbed)
+{
+    if (m_scene == NULL)
+        return;
+
+    m_scene->setUiStateValue(UI_STATE_TAB_MODE, tabbed ? UI_STATE_TABBED_FIXTURES : UI_STATE_ALL_FIXTURES);
 }
