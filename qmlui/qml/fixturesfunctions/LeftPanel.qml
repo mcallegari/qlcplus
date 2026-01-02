@@ -103,6 +103,8 @@ SidePanel
                         loaderSource = "qrc:/FixtureGroupManager.qml"
                         fixtureManager.searchFilter = ""
                     }
+                    else
+                        fixtureManager.propertyEditEnabled = false
                     animatePanel(checked)
                 }
             }
