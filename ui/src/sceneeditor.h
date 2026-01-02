@@ -137,7 +137,7 @@ private:
      *********************************************************************/
 private:
     QTreeWidgetItem* fixtureItem(quint32 fxi_id);
-    QList <Fixture*> selectedFixtures() const;
+    QList <Fixture*> selectedFixtures(bool showAll = false) const;
 
     bool addFixtureItem(Fixture* fixture);
     void removeFixtureItem(quint32 fixtureID);

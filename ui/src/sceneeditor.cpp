@@ -916,7 +916,7 @@ void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
     // all fixtures view mode
     if (tabbed == false)
     {
-        QListIterator <Fixture*> it(selectedFixtures());
+        QListIterator <Fixture*> it(selectedFixtures(true));
         if (it.hasNext() == true)
         {
             QScrollArea* scrollArea = new QScrollArea(m_tab);
@@ -971,7 +971,7 @@ void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
     // tabbed fixtures view mode
     else
     {
-        QListIterator <Fixture*> it(selectedFixtures());
+        QListIterator <Fixture*> it(selectedFixtures(true));
         while (it.hasNext() == true)
         {
             Fixture* fixture = it.next();
@@ -1186,9 +1186,10 @@ QTreeWidgetItem* SceneEditor::fixtureItem(quint32 fxi_id)
     return NULL;
 }
 
-QList <Fixture*> SceneEditor::selectedFixtures() const
+QList <Fixture*> SceneEditor::selectedFixtures(bool showAll) const
 {
-    QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
+    QListIterator <QTreeWidgetItem*> it(showAll ? m_tree->findItems(QStringLiteral("*"), Qt::MatchWrap | Qt::MatchWildcard | Qt::MatchRecursive) : m_tree->selectedItems());
+
     QList <Fixture*> list;
 
     while (it.hasNext() == true)
