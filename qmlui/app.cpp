@@ -20,6 +20,7 @@
 #include <QQuickItemGrabResult>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QCoreApplication>
 #include <QtCore/qbuffer.h>
 #include <QFontDatabase>
 #include <QOpenGLContext>
@@ -419,7 +420,7 @@ void App::initDoc()
 
     /* Load plugins */
 #if defined Q_OS_ANDROID
-    QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
+    QString pluginsPath = QCoreApplication::applicationDirPath();
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
 #else
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
@@ -1050,4 +1051,3 @@ void App::closeFixtureEditor()
                               Q_ARG(QVariant, "FIXANDFUNC"),
                               Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
 }
-

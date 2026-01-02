@@ -84,18 +84,26 @@ set(SRC_FILES
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
 )
 
+# This is most of the Android deployment code
 if(ANDROID)
     qt_add_executable(${module_name} ${SRC_FILES} ${QM_FILES})
     set_target_properties(${module_name} PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR "${ANDROID_PACKAGE_STAGING_DIR}"
         QT_ANDROID_APP_ICON "@drawable/ic_launcher"
         QT_ANDROID_PACKAGE_NAME "org.qlcplus"
-        OUTPUT_NAME "qlcplus"
+        OUTPUT_NAME "QLC+"
     )
 
     # Copy overlay resources into build tree
     file(MAKE_DIRECTORY "${ANDROID_PACKAGE_STAGING_DIR}")
     file(COPY "${PROJECT_SOURCE_DIR}/platforms/android/" DESTINATION "${ANDROID_PACKAGE_STAGING_DIR}")
+
+    qt_policy(SET QTP0002 NEW)
+    set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:artnet>")
+    set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:e131>")
+    set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:loopback>")
+    set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:osc>")
+    set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:os2l>")
 else()
     add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES})
 endif()
