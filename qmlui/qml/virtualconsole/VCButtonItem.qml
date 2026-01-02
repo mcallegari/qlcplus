@@ -190,8 +190,13 @@ VCWidgetItem
 
             if (buttonObj.actionType === VCButton.Flash)
                 buttonObj.requestStateChange(false)
-            else if (buttonObj.actionType === VCButton.Toggle)
+            else if (buttonObj.actionType === VCButton.Toggle || buttonObj.actionType === VCButton.Blackout)
                 buttonObj.requestStateChange(btnState === VCButton.Active ? false : true)
+            else
+            {
+                buttonObj.requestStateChange(true)
+                blink.start()
+            }
         }
     }
 
