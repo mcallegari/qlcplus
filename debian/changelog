@@ -4,9 +4,13 @@ qlcplus (4.14.4) stable; urgency=low
   * engine: fix crash when loading fixture definitions without modes
   * DMX monitor: apply gel color immediately (thanks to jpue)
   * Show Manager: fix crash with an infinite duration RGBMatrix
+  * Script Editor: improve systemcommand parsing (thanks to jpue)
   * Virtual Console/Clock: countdown mode can now run a list of Functions
   * Virtual Console/Solo Frame: add an option to exclude functions monitored by buttons to be stopped
   * Virtual Console/Slider: fix level tab channel list sorting (thanks to jpue)
+  * webaccess: improve CSS consistency across browsers (thanks to jpue)
+  * webaccess: fix synchronization of animation widget RGB colors (thanks to jpue)
+  * webaccess: add getWidgetFunction API (thanks to mccartyp)
   * Fixture Editor: in mode editor, don't allow a channel to act on itself (thanks to Edgar Aichinger)
   * New fixture: beamZ COB 50 (thanks to Yestalgia)
   * New fixture: OXO ColorZoom 180 (thanks to David Garyga)
@@ -15,7 +19,7 @@ qlcplus (4.14.4) stable; urgency=low
   * New fixtures: MagicFX Eco2Jet, Psyco2Jet, Stage Flame, SmokeJet, StadiumShot III, StadiumBlower, StadiumBlaster, SwirlFan II (thanks to Liam Clark)
   * New fixture: Martin ERA 150 Wash (thanks to Liam Clark)
   * New fixtures: Eurolite LED Silent PAR 6, beamZ BT430 PAR (thanks to Pascal Fleury)
-  * New fixtures: lightmaXX LED Gun, Cameo Octafly XS (thanks to Arnaud)
+  * New fixtures: lightmaXX LED Gun, Cameo Octafly XS, Ghost Spoty (thanks to Arnaud)
   * New fixture: ColorKey Scorpius (thanks to David Himes)
   * New fixture: Varytec LED Derby ST (thanks to Valentin Simson)
   * New fixtures: ETC ColorSource Fresnel V, LDDE NanoPix Cyc, LDDE Spectra MasterD 1000 (thanks to Edgar Aichinger)
@@ -23,7 +27,11 @@ qlcplus (4.14.4) stable; urgency=low
   * New fixture: UKing ZQ01137 18x RGB+UV PAR (thanks to Adrienne Teicher)
   * New fixture: Eliminator Lighting MEGA HEX L PAR (thanks to Jan Willem)
   * New fixture: Stairville LED Vintage Bowl 50 RGBA (thanks to Jean-Daniel Garcia)
-  * New fixture: beamZ Blaze 1200 (thanks to Fede79)
+  * New fixtures: beamZ Blaze 1200, Robe Robin T1 Profile, Equinox Microbar Multi System (thanks to Fede79)
+  * New fixture: JB Systems LED Diamond II (thanks to Wim Van Laer)
+  * New fixture: Chauvet Intimidator Beam 140SR V2 (thanks to Jason)
+  * New fixture: Shehds 120W 4in1 RGBW LED Wash Moving Head (thanks to Michel Sliepenbeek)
+  * New fixture: Stairville Retro Flat Par 18x12W RGB WW (thanks to Niels Ott)
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 4 Jan 2026 18:19:20 +0200
 

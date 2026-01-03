@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Wim Van Laer</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>LED Diamond II</Model>
+ <Type>Flower</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Full on / Strobe off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFastToSlow">Strobe speed (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Red + orange" Preset="IntensityRed"/>
+ <Channel Name="Green + white" Preset="IntensityGreen"/>
+ <Channel Name="Blue + purple" Preset="IntensityBlue"/>
+ <Channel Name="Motor">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Position</Capability>
+  <Capability Min="128" Max="255">Rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Automatic">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Manual mode (Ch1 to Ch 5 active)</Capability>
+  <Capability Min="10" Max="197">Automatic modes (fast to slow)</Capability>
+  <Capability Min="198" Max="219">Sound controlled strobe mode</Capability>
+  <Capability Min="220" Max="255">Sound controlled color mode</Capability>
+ </Channel>
+ <Channel Name="Automatic (single channel)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="29">Blackout</Capability>
+  <Capability Min="30" Max="59">Mode A5 1: Alternating colors at speed 1</Capability>
+  <Capability Min="60" Max="89">Mode A5 4: Alternating colors at speed 4</Capability>
+  <Capability Min="90" Max="119">Mode A5 9: Alternating colors at speed 9</Capability>
+  <Capability Min="120" Max="149">Mode A7 1: Alterating colors at speed 1</Capability>
+  <Capability Min="150" Max="179">Mode A7 4: Alterating colors at speed 4</Capability>
+  <Capability Min="180" Max="209">Mode A7 9: Alterating colors at speed 9</Capability>
+  <Capability Min="210" Max="239">Mode SO1: sound controlled color mode</Capability>
+  <Capability Min="240" Max="249">Mode SO2: sound controlled strobe mode</Capability>
+  <Capability Min="250" Max="255">Random changing sound controlled show (A1 to A7)</Capability>
+ </Channel>
+ <Mode Name="6 Channel (manual + automatic)">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Red + orange</Channel>
+  <Channel Number="2">Green + white</Channel>
+  <Channel Number="3">Blue + purple</Channel>
+  <Channel Number="4">Motor</Channel>
+  <Channel Number="5">Automatic</Channel>
+ </Mode>
+ <Mode Name="1 Channel (automatic)">
+  <Channel Number="0">Automatic (single channel)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.42" Width="190" Height="175" Depth="190"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

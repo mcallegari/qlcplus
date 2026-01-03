@@ -3,36 +3,200 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.0.0 Beta 2</Version>
-  <Author>Florian Faber</Author>
+  <Version>5.1.0 GIT</Version>
+  <Author>Florian Faber, Jakob Frank</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
- <Model>Root PAR 6</Model>
+ <Model>ROOT PAR 6</Model>
  <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Color off</Capability>
+  <Capability Min="6" Max="13">Red</Capability>
+  <Capability Min="14" Max="21">Amber</Capability>
+  <Capability Min="22" Max="29">Yellow warm</Capability>
+  <Capability Min="30" Max="37">Yellow</Capability>
+  <Capability Min="38" Max="45">Green</Capability>
+  <Capability Min="46" Max="53">Turquoise</Capability>
+  <Capability Min="54" Max="61">Cyan</Capability>
+  <Capability Min="62" Max="69">Blue</Capability>
+  <Capability Min="70" Max="77">Lavender</Capability>
+  <Capability Min="78" Max="85">Mauve</Capability>
+  <Capability Min="86" Max="93">Magenta</Capability>
+  <Capability Min="94" Max="101">Pink</Capability>
+  <Capability Min="102" Max="109">Warm White</Capability>
+  <Capability Min="110" Max="117">White</Capability>
+  <Capability Min="118" Max="125">Cold White</Capability>
+  <Capability Min="126" Max="127">Color Jumping stop</Capability>
+  <Capability Min="128" Max="164">Color Jumping speed slow -&gt; fast / Color 1 -&gt; 12</Capability>
+  <Capability Min="165" Max="201">Color Fading speed slow -&gt; fast / Color 1 -&gt; 12</Capability>
+  <Capability Min="202" Max="207">User Color_1</Capability>
+  <Capability Min="208" Max="213">User Color_2</Capability>
+  <Capability Min="214" Max="219">User Color_3</Capability>
+  <Capability Min="220" Max="225">User Color_4</Capability>
+  <Capability Min="226" Max="255">UV</Capability>
+ </Channel>
+ <Channel Name="DMX Delay">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">No Delay</Capability>
+  <Capability Min="6" Max="255">0,1s -&gt; 2,0s</Capability>
+ </Channel>
+ <Channel Name="Strobe functions">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Strobe closed</Capability>
+  <Capability Min="11" Max="22" Preset="RampUpSlowToFast">Ramp up/down, slow -&gt; fast</Capability>
+  <Capability Min="23" Max="33">Ramp up/down random, slow-&gt;fast</Capability>
+  <Capability Min="34" Max="45" Preset="RampUpSlowToFast">Ramp up, slow -&gt; fast</Capability>
+  <Capability Min="46" Max="56">Ramp up random, slow -&gt; fast</Capability>
+  <Capability Min="57" Max="68" Preset="RampDownSlowToFast">Ramp down, slow -&gt; fast</Capability>
+  <Capability Min="69" Max="79">Ramp down random, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="102">Random Strobe effect, slow -&gt; fast</Capability>
+  <Capability Min="103" Max="127">Strobe Break effect, 5s.....1s (short burst with break)</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Sound (triggers Strobe, Color Jumping &amp; Fading)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Sound Control off</Capability>
+  <Capability Min="6" Max="255">Sound Control on, mic sensitivity low -&gt; high</Capability>
+ </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="UV" Preset="IntensityUV"/>
- <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
- <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
- <Mode Name="4 Channel">
-  <Channel Number="0">Red</Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+ </Channel>
+ <Channel Name="Chase of Ch 4 and Ch 5">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No Chase, Color Preset 1 is on</Capability>
+  <Capability Min="6" Max="26">Jump 10,0s -&gt; 4,0s</Capability>
+  <Capability Min="27" Max="127">Jump 4,0s -&gt; 0,1s</Capability>
+  <Capability Min="128" Max="148">Fade 10,0s -&gt; 4,0s</Capability>
+  <Capability Min="149" Max="255">Fade 4,0s -&gt; 0,1s</Capability>
+ </Channel>
+ <Channel Name="Color Presets 1 &amp; Color Jumping &amp; Color Fading &amp; User Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Color off</Capability>
+  <Capability Min="6" Max="13">Red</Capability>
+  <Capability Min="14" Max="21">Amber</Capability>
+  <Capability Min="22" Max="29">Yellow warm</Capability>
+  <Capability Min="30" Max="37">Yellow</Capability>
+  <Capability Min="38" Max="45">Green</Capability>
+  <Capability Min="46" Max="53">Turquoise</Capability>
+  <Capability Min="54" Max="61">Cyan</Capability>
+  <Capability Min="62" Max="69">Blue</Capability>
+  <Capability Min="70" Max="77">Lavender</Capability>
+  <Capability Min="78" Max="85">Mauve</Capability>
+  <Capability Min="86" Max="93">Magenta</Capability>
+  <Capability Min="94" Max="101">Pink</Capability>
+  <Capability Min="102" Max="109">Warm White</Capability>
+  <Capability Min="110" Max="117">White</Capability>
+  <Capability Min="118" Max="125">Cold White</Capability>
+  <Capability Min="126" Max="201">no function</Capability>
+  <Capability Min="202" Max="207">User Color_1</Capability>
+  <Capability Min="208" Max="213">User Color_2</Capability>
+  <Capability Min="214" Max="219">User Color_3</Capability>
+  <Capability Min="220" Max="225">User Color_4</Capability>
+  <Capability Min="226" Max="255">UV</Capability>
+ </Channel>
+ <Channel Name="Color Presets 2 &amp; Color Jumping &amp; Color Fading &amp; User Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Color off</Capability>
+  <Capability Min="6" Max="13">Red</Capability>
+  <Capability Min="14" Max="21">Amber</Capability>
+  <Capability Min="22" Max="29">Yellow warm</Capability>
+  <Capability Min="30" Max="37">Yellow</Capability>
+  <Capability Min="38" Max="45">Green</Capability>
+  <Capability Min="46" Max="53">Turquoise</Capability>
+  <Capability Min="54" Max="61">Cyan</Capability>
+  <Capability Min="62" Max="69">Blue</Capability>
+  <Capability Min="70" Max="77">Lavender</Capability>
+  <Capability Min="78" Max="85">Mauve</Capability>
+  <Capability Min="86" Max="93">Magenta</Capability>
+  <Capability Min="94" Max="101">Pink</Capability>
+  <Capability Min="102" Max="109">Warm White</Capability>
+  <Capability Min="110" Max="117">White</Capability>
+  <Capability Min="118" Max="125">Cold White</Capability>
+  <Capability Min="126" Max="201">no function</Capability>
+  <Capability Min="202" Max="207">User Color_1</Capability>
+  <Capability Min="208" Max="213">User Color_2</Capability>
+  <Capability Min="214" Max="219">User Color_3</Capability>
+  <Capability Min="220" Max="225">User Color_4</Capability>
+  <Capability Min="226" Max="255">UV</Capability>
+ </Channel>
+ <Channel Name="Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors (override RGBWA+UV)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Color off</Capability>
+  <Capability Min="6" Max="13">Red</Capability>
+  <Capability Min="14" Max="21">Amber</Capability>
+  <Capability Min="22" Max="29">Yellow warm</Capability>
+  <Capability Min="30" Max="37">Yellow</Capability>
+  <Capability Min="38" Max="45">Green</Capability>
+  <Capability Min="46" Max="53">Turquoise</Capability>
+  <Capability Min="54" Max="61">Cyan</Capability>
+  <Capability Min="62" Max="69">Blue</Capability>
+  <Capability Min="70" Max="77">Lavender</Capability>
+  <Capability Min="78" Max="85">Mauve</Capability>
+  <Capability Min="86" Max="93">Magenta</Capability>
+  <Capability Min="94" Max="101">Pink</Capability>
+  <Capability Min="102" Max="109">Warm White</Capability>
+  <Capability Min="110" Max="117">White</Capability>
+  <Capability Min="118" Max="125">Cold White</Capability>
+  <Capability Min="126" Max="127">Color Jumping stop</Capability>
+  <Capability Min="128" Max="164">Color Jumping speed slow -&gt; fast / Color 1 -&gt; 12</Capability>
+  <Capability Min="165" Max="201">Color Fading speed slow -&gt; fast / Color 1 -&gt; 12</Capability>
+  <Capability Min="202" Max="207">User Color_1</Capability>
+  <Capability Min="208" Max="213">User Color_2</Capability>
+  <Capability Min="214" Max="219">User Color_3</Capability>
+  <Capability Min="220" Max="225">User Color_4</Capability>
+  <Capability Min="226" Max="255">no function</Capability>
+ </Channel>
+ <Mode Name="3-Channel">
+  <Channel Number="0" ActsOn="2">Master Dimmer</Channel>
+  <Channel Number="1">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+  <Channel Number="2">DMX Delay</Channel>
+ </Mode>
+ <Mode Name="5-Channel 1">
+  <Channel Number="0" ActsOn="4">Master Dimmer</Channel>
+  <Channel Number="1">Strobe functions</Channel>
+  <Channel Number="2">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+  <Channel Number="3">Sound (triggers Strobe, Color Jumping &amp; Fading)</Channel>
+  <Channel Number="4">DMX Delay</Channel>
+ </Mode>
+ <Mode Name="5-Channel 2 (compatibility for ROOT PAR 4)">
+  <Channel Number="0" ActsOn="4">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
+  <Channel Number="4">DMX Delay</Channel>
  </Mode>
- <Mode Name="6 Channel">
-  <Channel Number="0">Red</Channel>
+ <Mode Name="6-Channel">
+  <Channel Number="0" ActsOn="5">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Chase of Ch 4 and Ch 5</Channel>
+  <Channel Number="3">Color Presets 1 &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+  <Channel Number="4">Color Presets 2 &amp; Color Jumping &amp; Color Fading &amp; User Colors</Channel>
+  <Channel Number="5">DMX Delay</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0" ActsOn="6">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
   <Channel Number="4">Amber</Channel>
   <Channel Number="5">UV</Channel>
+  <Channel Number="6">DMX Delay</Channel>
  </Mode>
- <Mode Name="8 Channel">
-  <Channel Number="0">Dimmer</Channel>
+ <Mode Name="9-Channel">
+  <Channel Number="0" ActsOn="8">Master Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Red</Channel>
   <Channel Number="3">Green</Channel>
@@ -40,11 +204,26 @@
   <Channel Number="5">White</Channel>
   <Channel Number="6">Amber</Channel>
   <Channel Number="7">UV</Channel>
+  <Channel Number="8">DMX Delay</Channel>
+ </Mode>
+ <Mode Name="12-Channel">
+  <Channel Number="0" ActsOn="11">Master Dimmer</Channel>
+  <Channel Number="1">Master dimmer fine</Channel>
+  <Channel Number="2">Strobe functions</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Amber</Channel>
+  <Channel Number="8">UV</Channel>
+  <Channel Number="9">Color Presets &amp; Color Jumping &amp; Color Fading &amp; User Colors (override RGBWA+UV)</Channel>
+  <Channel Number="10">Sound (triggers Strobe, Color Jumping &amp; Fading)</Channel>
+  <Channel Number="11">DMX Delay</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="LED" Lumens="1700" ColourTemperature="0"/>
+  <Bulb Type="LED" Lumens="1800" ColourTemperature="0"/>
   <Dimensions Weight="1.2" Width="195" Height="133" Depth="195"/>
-  <Lens Name="Other" DegreesMin="19" DegreesMax="36"/>
+  <Lens Name="Other" DegreesMin="36" DegreesMax="36"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Technical PowerConsumption="58" DmxConnector="3-pin"/>
  </Physical>
