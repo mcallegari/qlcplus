@@ -39,7 +39,7 @@
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="4">Spot</Capability>
-  <Capability Res="Others/gobo00001.svg" Min="5" Max="9" Preset="ColorMacro" Res1="#a020f0">Gobo 1 (Purple w/ Dots)</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="5" Max="9">Gobo 1 (Purple w/ Dots)</Capability>
   <Capability Res="Others/gobo00034.png" Min="10" Max="14">Gobo 2 (Ice)</Capability>
   <Capability Res="Others/gobo00038.svg" Min="15" Max="19">Gobo 3 (Swirl)</Capability>
   <Capability Res="Others/gobo00039.svg" Min="20" Max="24">Gobo 4 (Viral)</Capability>
