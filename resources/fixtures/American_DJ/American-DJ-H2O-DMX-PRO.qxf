@@ -20,18 +20,18 @@
  </Channel>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
-  <Capability Min="11" Max="21" Color="#ffffff" Color2="#ffaa00">White &amp; Orange</Capability>
-  <Capability Min="22" Max="32" Color="#ffaa00">Orange</Capability>
-  <Capability Min="33" Max="43" Color="#ffaa00" Color2="#00ff00">Orange &amp; Green</Capability>
-  <Capability Min="44" Max="54" Color="#00ff00">Green</Capability>
-  <Capability Min="55" Max="65" Color="#00ff00" Color2="#0000ff">Green &amp; Blue</Capability>
-  <Capability Min="66" Max="76" Color="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="87" Color="#0000ff" Color2="#ffff00">Blue &amp; Yellow</Capability>
-  <Capability Min="88" Max="98" Color="#ffff00">Yellow</Capability>
-  <Capability Min="99" Max="109" Color="#ffff00" Color2="#aa55ff">Yellow &amp; Purple</Capability>
-  <Capability Min="110" Max="120" Color="#aa55ff">Purple</Capability>
-  <Capability Min="121" Max="127" Color="#aa55ff" Color2="#ffffff">Purple &amp; White</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="11" Max="21" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaa00">White &amp; Orange</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="33" Max="43" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#00ff00">Orange &amp; Green</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green &amp; Blue</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue &amp; Yellow</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="99" Max="109" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#aa55ff">Yellow &amp; Purple</Capability>
+  <Capability Min="110" Max="120" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="121" Max="127" Preset="ColorDoubleMacro" Res1="#aa55ff" Res2="#ffffff">Purple &amp; White</Capability>
   <Capability Res="Others/rainbow.png" Min="128" Max="186">Clockwise Colour Fast-Slow</Capability>
   <Capability Min="187" Max="196">Stop</Capability>
   <Capability Res="Others/rainbow.png" Min="197" Max="255">Counter-Clockwise Slow-Fast</Capability>

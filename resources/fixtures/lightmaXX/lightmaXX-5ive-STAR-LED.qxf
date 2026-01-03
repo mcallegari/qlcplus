@@ -12,21 +12,21 @@
  <Channel Name="Color and Sound">
   <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#00ff00">Green</Capability>
-  <Capability Min="24" Max="31" Color="#0000ff">Blue</Capability>
-  <Capability Min="32" Max="39" Color="#ffffff">White</Capability>
-  <Capability Min="40" Max="47" Color="#ffaa00">Amber</Capability>
-  <Capability Min="48" Max="55" Color="#ff0000" Color2="#00ff00">Red Green</Capability>
-  <Capability Min="56" Max="63" Color="#0000ff" Color2="#00ff00">Blue Green</Capability>
-  <Capability Min="64" Max="71" Color="#0000ff" Color2="#ffffff">Blue White</Capability>
-  <Capability Min="72" Max="79" Color="#ffffff" Color2="#ffaa00">White Amber</Capability>
-  <Capability Min="80" Max="87" Color="#ff0000" Color2="#ffaa00">Red Amber</Capability>
-  <Capability Min="88" Max="95" Color="#00ff00" Color2="#ffaa00">Green Amber</Capability>
-  <Capability Min="96" Max="103" Color="#0000ff" Color2="#ffaa00">Blue Amber</Capability>
-  <Capability Min="104" Max="111" Color="#0000ff" Color2="#ff0000">Blue Red</Capability>
-  <Capability Min="112" Max="119" Color="#ffffff" Color2="#ff0000">White Red</Capability>
-  <Capability Min="120" Max="127" Color="#ffffff" Color2="#00ff00">White Green</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="48" Max="55" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red Green</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue Green</Capability>
+  <Capability Min="64" Max="71" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue White</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaa00">White Amber</Capability>
+  <Capability Min="80" Max="87" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red Amber</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green Amber</Capability>
+  <Capability Min="96" Max="103" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffaa00">Blue Amber</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue Red</Capability>
+  <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White Red</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">White Green</Capability>
   <Capability Min="128" Max="135">Red Green Blue</Capability>
   <Capability Min="136" Max="143">Green Blue White</Capability>
   <Capability Min="144" Max="151">Blue White Amber</Capability>

@@ -11,38 +11,38 @@
  <Type>Color Changer</Type>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="6" Color="#ff0000">Red</Capability>
-  <Capability Min="7" Max="13" Color="#ff6400">Red/Yellow</Capability>
-  <Capability Min="14" Max="20" Color="#ff557f">Magenta</Capability>
-  <Capability Min="21" Max="27" Color="#ffa200">Orange</Capability>
-  <Capability Min="28" Max="34" Color="#ffb700">Yellow/Red</Capability>
-  <Capability Min="35" Max="41" Color="#ffff00">Yellow</Capability>
-  <Capability Min="42" Max="48" Color="#a9dc00">Yellow/Green</Capability>
-  <Capability Min="49" Max="55" Color="#aeff00">Yellow/Green</Capability>
-  <Capability Min="56" Max="62" Color="#6fff01">Green/Yellow</Capability>
-  <Capability Min="63" Max="69" Color="#ff6400">Green/Red</Capability>
-  <Capability Min="70" Max="76" Color="#00ff00">Green</Capability>
-  <Capability Min="77" Max="83" Color="#00ff32">Green/Blue</Capability>
-  <Capability Min="84" Max="90" Color="#00ff64">Green/Blue</Capability>
-  <Capability Min="91" Max="97" Color="#00ff7d">Green/Blue</Capability>
-  <Capability Min="98" Max="104" Color="#00ffc8">Cyan</Capability>
-  <Capability Min="105" Max="111" Color="#00ffff">Full Cyan</Capability>
-  <Capability Min="112" Max="118" Color="#007dff">Blue/Green</Capability>
-  <Capability Min="119" Max="125" Color="#007dff">Blue/Green</Capability>
-  <Capability Min="126" Max="132" Color="#007dff">Blue/Green</Capability>
-  <Capability Min="133" Max="139" Color="#007dff">Blue/Green</Capability>
-  <Capability Min="140" Max="146" Color="#0000ff">Blue</Capability>
-  <Capability Min="147" Max="153" Color="#6400ff">Blue/Red</Capability>
-  <Capability Min="154" Max="160" Color="#c800ff">Magenta</Capability>
-  <Capability Min="161" Max="167" Color="#af00ff">Magenta</Capability>
-  <Capability Min="168" Max="174" Color="#c800ff">Magenta</Capability>
-  <Capability Min="175" Max="181" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="182" Max="188" Color="#ff00c8">Magenta</Capability>
-  <Capability Min="189" Max="195" Color="#ff007d">Magenta</Capability>
-  <Capability Min="196" Max="202" Color="#ff0064">Red/Blue</Capability>
-  <Capability Min="203" Max="209" Color="#ff0032">Red/Blue</Capability>
-  <Capability Min="210" Max="216" Color="#ff0000">Red</Capability>
-  <Capability Min="217" Max="223" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="7" Max="13" Preset="ColorMacro" Res1="#ff6400">Red/Yellow</Capability>
+  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff557f">Magenta</Capability>
+  <Capability Min="21" Max="27" Preset="ColorMacro" Res1="#ffa200">Orange</Capability>
+  <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#ffb700">Yellow/Red</Capability>
+  <Capability Min="35" Max="41" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#a9dc00">Yellow/Green</Capability>
+  <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#aeff00">Yellow/Green</Capability>
+  <Capability Min="56" Max="62" Preset="ColorMacro" Res1="#6fff01">Green/Yellow</Capability>
+  <Capability Min="63" Max="69" Preset="ColorMacro" Res1="#ff6400">Green/Red</Capability>
+  <Capability Min="70" Max="76" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="77" Max="83" Preset="ColorMacro" Res1="#00ff32">Green/Blue</Capability>
+  <Capability Min="84" Max="90" Preset="ColorMacro" Res1="#00ff64">Green/Blue</Capability>
+  <Capability Min="91" Max="97" Preset="ColorMacro" Res1="#00ff7d">Green/Blue</Capability>
+  <Capability Min="98" Max="104" Preset="ColorMacro" Res1="#00ffc8">Cyan</Capability>
+  <Capability Min="105" Max="111" Preset="ColorMacro" Res1="#00ffff">Full Cyan</Capability>
+  <Capability Min="112" Max="118" Preset="ColorMacro" Res1="#007dff">Blue/Green</Capability>
+  <Capability Min="119" Max="125" Preset="ColorMacro" Res1="#007dff">Blue/Green</Capability>
+  <Capability Min="126" Max="132" Preset="ColorMacro" Res1="#007dff">Blue/Green</Capability>
+  <Capability Min="133" Max="139" Preset="ColorMacro" Res1="#007dff">Blue/Green</Capability>
+  <Capability Min="140" Max="146" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="147" Max="153" Preset="ColorMacro" Res1="#6400ff">Blue/Red</Capability>
+  <Capability Min="154" Max="160" Preset="ColorMacro" Res1="#c800ff">Magenta</Capability>
+  <Capability Min="161" Max="167" Preset="ColorMacro" Res1="#af00ff">Magenta</Capability>
+  <Capability Min="168" Max="174" Preset="ColorMacro" Res1="#c800ff">Magenta</Capability>
+  <Capability Min="175" Max="181" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="182" Max="188" Preset="ColorMacro" Res1="#ff00c8">Magenta</Capability>
+  <Capability Min="189" Max="195" Preset="ColorMacro" Res1="#ff007d">Magenta</Capability>
+  <Capability Min="196" Max="202" Preset="ColorMacro" Res1="#ff0064">Red/Blue</Capability>
+  <Capability Min="203" Max="209" Preset="ColorMacro" Res1="#ff0032">Red/Blue</Capability>
+  <Capability Min="210" Max="216" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="217" Max="223" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="224" Max="239">Color Fade</Capability>
   <Capability Min="240" Max="255">Color Chase</Capability>
  </Channel>

@@ -16,15 +16,15 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4" Color="#ffffff">White</Capability>
-  <Capability Min="5" Max="9" Color="#ffff00">Yellow</Capability>
-  <Capability Min="10" Max="14" Color="#ffaaff">Pink</Capability>
-  <Capability Min="15" Max="19" Color="#00ff00">Green</Capability>
-  <Capability Min="20" Max="24" Color="#ff00bb">Rose</Capability>
-  <Capability Min="25" Max="29" Color="#55aaff">Light Blue</Capability>
-  <Capability Min="30" Max="34" Color="#55ff00">Yellow Green</Capability>
-  <Capability Min="35" Max="39" Color="#ff5500">Orange Red</Capability>
-  <Capability Min="40" Max="44" Color="#0000ff">Navy Blue</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff00bb">Rose</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#55aaff">Light Blue</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#55ff00">Yellow Green</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ff5500">Orange Red</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#000080">Navy Blue</Capability>
   <Capability Res="Others/rainbow.png" Min="45" Max="127">Color Continue</Capability>
   <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow Counter-Clockwise</Capability>
   <Capability Res="Others/rainbow.png" Min="192" Max="255">Rainbow Clockwise Rotation</Capability>

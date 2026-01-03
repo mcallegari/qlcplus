@@ -41,16 +41,16 @@
  </Channel>
  <Channel Name="Effects">
   <Group Byte="0">Effect</Group>
-  <Capability Color2="#ffff00" Min="0" Max="20" Color="#ff0000">Red fade to Yellow</Capability>
-  <Capability Color2="#00ff00" Min="21" Max="40" Color="#ffff00">Yellow fade to Green</Capability>
-  <Capability Color2="#00ffff" Min="41" Max="60" Color="#80ff00">Green fade to Aqua</Capability>
-  <Capability Color2="#0000ff" Min="61" Max="80" Color="#00ffff">Aqua fade to Blue</Capability>
-  <Capability Color2="#ff00ff" Min="81" Max="100" Color="#0000ff">Blue fade to Magenta</Capability>
-  <Capability Color2="#ff0000" Min="101" Max="120" Color="#ff00ff">Magenta fade to Red</Capability>
-  <Capability Color2="#ffffff" Min="121" Max="140" Color="#ff0000">Red fade to White</Capability>
-  <Capability Color2="#0000ff" Min="141" Max="160" Color="#ffffff">White fade to Blue</Capability>
-  <Capability Min="161" Max="170" Color="#ffffff">White effect</Capability>
-  <Capability Min="171" Max="200" Color="#000000">Blackout</Capability>
+  <Capability Min="0" Max="20" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red fade to Yellow</Capability>
+  <Capability Min="21" Max="40" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow fade to Green</Capability>
+  <Capability Min="41" Max="60" Preset="ColorDoubleMacro" Res1="#80ff00" Res2="#00ffff">Green fade to Aqua</Capability>
+  <Capability Min="61" Max="80" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Aqua fade to Blue</Capability>
+  <Capability Min="81" Max="100" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Blue fade to Magenta</Capability>
+  <Capability Min="101" Max="120" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Magenta fade to Red</Capability>
+  <Capability Min="121" Max="140" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red fade to White</Capability>
+  <Capability Min="141" Max="160" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">White fade to Blue</Capability>
+  <Capability Min="161" Max="170" Preset="ColorMacro" Res1="#ffffff">White effect</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Min="201" Max="205">CTO - 3800K</Capability>
   <Capability Min="206" Max="210">CTO - 4200K</Capability>
   <Capability Min="211" Max="215">CTO - 4500K</Capability>

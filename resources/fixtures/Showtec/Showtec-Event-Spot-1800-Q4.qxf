@@ -22,15 +22,15 @@
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
-  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
-  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
-  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
-  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
-  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
-  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
-  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
-  <Capability Min="171" Max="200" Color="#ffffff">Red 100% / Green 100% / Blue 100% / White 100% / Amber 100%</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">Red 100% / Green 100% / Blue 100% / White 100% / Amber 100%</Capability>
   <Capability Min="201" Max="205">White 1: 3200K</Capability>
   <Capability Min="206" Max="210">White 2: 3400K</Capability>
   <Capability Min="211" Max="215">White 3: 4200K</Capability>

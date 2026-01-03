@@ -47,7 +47,7 @@
   <Capability Res="ClayPaky/gobo00091.svg" Min="192" Max="203">Tie</Capability>
   <Capability Res="ClayPaky/gobo00066.svg" Min="204" Max="215">Nova</Capability>
   <Capability Res="ClayPaky/gobo00023.svg" Min="216" Max="227">Triple Beam</Capability>
-  <Capability Color="#000000" Min="228" Max="239">Blackout</Capability>
+  <Capability Min="228" Max="239" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Res="Others/rainbow.png" Min="240" Max="255">Random</Capability>
  </Channel>
  <Channel Name="Mirror Drum Swivel">

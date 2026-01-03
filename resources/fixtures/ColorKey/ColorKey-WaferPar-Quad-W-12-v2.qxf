@@ -21,19 +21,19 @@
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="39">All Colors</Capability>
-  <Capability Min="40" Max="49" Color="#ff0000">Red</Capability>
-  <Capability Min="50" Max="59" Color="#00ff00">Green</Capability>
-  <Capability Min="60" Max="69" Color="#0000ff">Blue</Capability>
-  <Capability Min="70" Max="79" Color="#ffff00">Yellow</Capability>
-  <Capability Min="80" Max="89" Color="#00ffff">Cyan</Capability>
-  <Capability Min="90" Max="99" Color="#ff00ff">Purple</Capability>
-  <Capability Min="100" Max="109" Color="#ffffff">White</Capability>
-  <Capability Min="110" Max="119" Color="#ff0000" Color2="#00ff00">Red + Green</Capability>
-  <Capability Min="120" Max="129" Color="#ff0000" Color2="#0000ff">Red + Blue</Capability>
-  <Capability Min="130" Max="139" Color="#ff0000" Color2="#ffffff">Red + White</Capability>
-  <Capability Min="140" Max="149" Color="#00ff00" Color2="#0000ff">Green + Blue</Capability>
-  <Capability Min="150" Max="159" Color="#00ff00" Color2="#ffffff">Green + White</Capability>
-  <Capability Min="160" Max="169" Color="#0000ff" Color2="#ffffff">Blue + White</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="160" Max="169" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
   <Capability Min="170" Max="179">Red + Green + White</Capability>
   <Capability Min="180" Max="189">Red + Blue + White</Capability>
   <Capability Min="190" Max="199">Green + Blue + White</Capability>

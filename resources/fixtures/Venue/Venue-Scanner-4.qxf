@@ -15,7 +15,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4">Lamp on</Capability>
   <Capability Res="ClayPaky/gobo00061.svg" Min="5" Max="16">Shutter</Capability>
-  <Capability Res="SGM/gobo00061.svg" Min="17" Max="31">Open/ White</Capability>
+  <Capability Res="Others/open.svg" Min="17" Max="31">Open/White</Capability>
   <Capability Res="SGM/gobo00066.svg" Min="32" Max="47">Arrow</Capability>
   <Capability Res="SGM/gobo00022.png" Min="48" Max="63">Flower</Capability>
   <Capability Res="SGM-Color/gobo00403.png" Min="64" Max="79">Star Field</Capability>
@@ -33,30 +33,30 @@
  </Channel>
  <Channel Name="color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="1" Color="#ffffff">Open/White</Capability>
-  <Capability Color2="#aa557f" Min="2" Max="11" Color="#ffffff">MIX Purple</Capability>
-  <Capability Color2="#ffaa00" Min="12" Max="25" Color="#aa00ff">MIX Orange</Capability>
-  <Capability Color2="#5500ff" Min="26" Max="38" Color="#ffaa00">MIX Blue</Capability>
-  <Capability Color2="#ff0000" Min="39" Max="51" Color="#0000ff">MIX Red</Capability>
-  <Capability Color2="#00aa00" Min="52" Max="64" Color="#ff0000">MIX Green</Capability>
-  <Capability Color2="#ff55ff" Min="65" Max="77" Color="#00aa00">MIX Violet</Capability>
-  <Capability Color2="#ff4d07" Min="78" Max="91" Color="#ff00ff">MIX Light Red</Capability>
-  <Capability Color2="#00ff00" Min="92" Max="103" Color="#ff4d07">MIX Light Green</Capability>
-  <Capability Color2="#ffff00" Min="104" Max="117" Color="#55ff00">MIX Yellow</Capability>
-  <Capability Color2="#55aaff" Min="118" Max="129" Color="#ffff00">MIX Aqua</Capability>
-  <Capability Color2="#ffffff" Min="130" Max="143" Color="#55aaff">MIX White</Capability>
-  <Capability Min="144" Max="151" Color="#000000">No function</Capability>
-  <Capability Min="152" Max="159" Color="#55aaff">Aqua</Capability>
-  <Capability Min="160" Max="167" Color="#ffff00">Yellow</Capability>
-  <Capability Min="168" Max="175" Color="#55ff00">Light Green</Capability>
-  <Capability Min="176" Max="183" Color="#ff4d07">Light Red</Capability>
-  <Capability Min="184" Max="191" Color="#ff00ff">Violet</Capability>
-  <Capability Min="192" Max="199" Color="#00aa00">Green</Capability>
-  <Capability Min="200" Max="207" Color="#ff0000">Red</Capability>
-  <Capability Min="208" Max="215" Color="#5500ff">Blue</Capability>
-  <Capability Min="216" Max="223" Color="#ffaaff">Pink</Capability>
-  <Capability Min="224" Max="232" Color="#fccdff">Light Purple</Capability>
-  <Capability Min="233" Max="239" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="1" Preset="ColorMacro" Res1="#ffffff">Open/White</Capability>
+  <Capability Min="2" Max="11" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#aa557f">MIX Purple</Capability>
+  <Capability Min="12" Max="25" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#ffaa00">MIX Orange</Capability>
+  <Capability Min="26" Max="38" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#5500ff">MIX Blue</Capability>
+  <Capability Min="39" Max="51" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">MIX Red</Capability>
+  <Capability Min="52" Max="64" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aa00">MIX Green</Capability>
+  <Capability Min="65" Max="77" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ff55ff">MIX Violet</Capability>
+  <Capability Min="78" Max="91" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff4d07">MIX Light Red</Capability>
+  <Capability Min="92" Max="103" Preset="ColorDoubleMacro" Res1="#ff4d07" Res2="#00ff00">MIX Light Green</Capability>
+  <Capability Min="104" Max="117" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#ffff00">MIX Yellow</Capability>
+  <Capability Min="118" Max="129" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#55aaff">MIX Aqua</Capability>
+  <Capability Min="130" Max="143" Preset="ColorDoubleMacro" Res1="#55aaff" Res2="#ffffff">MIX White</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#55aaff">Aqua</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#55ff00">Light Green</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ff4d07">Light Red</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#5500ff">Blue</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="224" Max="232" Preset="ColorMacro" Res1="#fccdff">Light Purple</Capability>
+  <Capability Min="233" Max="239" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="240" Max="255">Scroll Speed</Capability>
  </Channel>
  <Mode Name="4 channel">

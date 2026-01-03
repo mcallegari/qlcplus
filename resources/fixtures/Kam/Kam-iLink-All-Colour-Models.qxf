@@ -11,7 +11,7 @@
  <Type>Laser</Type>
  <Channel Name="Mode - Single Colour">
   <Group Byte="0">Effect</Group>
-  <Capability Color="#000000" Max="63" Min="0">Laser black out</Capability>
+  <Capability Max="63" Min="0">Laser black out</Capability>
   <Capability Max="127" Min="64">Auto show</Capability>
   <Capability Max="191" Min="128">Sound activated show (music)</Capability>
   <Capability Max="255" Min="192">DMX mode (other channels activated)</Capability>
@@ -91,9 +91,9 @@
  <Channel Name="Mode - red, blue, purple (RBP)">
   <Group Byte="0">Effect</Group>
   <Capability Max="29" Min="0">Automatic show with original preprogrammed colour</Capability>
-  <Capability Color="#ff0000" Max="59" Min="30">Auto show with red (colour 1)</Capability>
-  <Capability Color="#0000ff" Max="89" Min="60">Auto show with blue (colour 2)</Capability>
-  <Capability Color="#ff00ff" Max="119" Min="90">Auto show with purple (colour 3)</Capability>
+  <Capability Max="59" Min="30">Auto show with red (colour 1)</Capability>
+  <Capability Max="89" Min="60">Auto show with blue (colour 2)</Capability>
+  <Capability Max="119" Min="90">Auto show with purple (colour 3)</Capability>
   <Capability Max="149" Min="120">Sound activated show with original preprogrammed colour</Capability>
   <Capability Max="179" Min="150">Sound activated show with red (colour 1)</Capability>
   <Capability Max="209" Min="180">Sound activated show with blue (colour 2)</Capability>
@@ -102,14 +102,14 @@
  </Channel>
  <Channel Name="Colour - red, blue, purple (RBP)">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Max="24" Min="0">Blackout</Capability>
+  <Capability Max="24" Min="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Max="49" Min="25">Original preprogrammed colour</Capability>
-  <Capability Color="#ff0000" Max="74" Min="50">Red (colour 1)</Capability>
-  <Capability Color="#0000ff" Max="99" Min="75">Blue (colour 2)</Capability>
-  <Capability Color="#ff00ff" Max="124" Min="100">Purple (colour 3)</Capability>
-  <Capability Color="#ff0000" Max="149" Color2="#0000ff" Min="125">Alternate red (colour 1) and blue (colour 2)</Capability>
-  <Capability Color="#0000ff" Max="174" Color2="#ff00ff" Min="150">Alternate blue (colour 2) and purple (colour 3)</Capability>
-  <Capability Color="#ff0000" Max="199" Color2="#ff00ff" Min="175">Alternate red (colour 1) and purple (colour 3)</Capability>
+  <Capability Max="74" Min="50" Preset="ColorMacro" Res1="#ff0000">Red (colour 1)</Capability>
+  <Capability Max="99" Min="75" Preset="ColorMacro" Res1="#0000ff">Blue (colour 2)</Capability>
+  <Capability Max="124" Min="100" Preset="ColorMacro" Res1="#ff00ff">Purple (colour 3)</Capability>
+  <Capability Max="149" Min="125" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Alternate red (colour 1) and blue (colour 2)</Capability>
+  <Capability Max="174" Min="150" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Alternate blue (colour 2) and purple (colour 3)</Capability>
+  <Capability Max="199" Min="175" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">Alternate red (colour 1) and purple (colour 3)</Capability>
   <Capability Max="224" Min="200">Alternate red (colour 1), blue (colour 2) and purple (colour 3)</Capability>
   <Capability Max="255" Min="225">Colour rolling</Capability>
  </Channel>
@@ -121,50 +121,50 @@
  <Channel Name="Mode - red, green, yellow (RGY)">
   <Group Byte="0">Effect</Group>
   <Capability Max="29" Min="0">Automatic show with original preprogrammed colour</Capability>
-  <Capability Color="#ff0000" Max="59" Min="30">Auto show with red (colour 1)</Capability>
-  <Capability Color="#00ff00" Max="89" Min="60">Auto show with green (colour 2)</Capability>
-  <Capability Color="#ffff00" Max="119" Min="90">Auto show with yellow (colour 3)</Capability>
+  <Capability Max="59" Min="30" Preset="ColorMacro" Res1="#ff0000">Auto show with red (colour 1)</Capability>
+  <Capability Max="89" Min="60" Preset="ColorMacro" Res1="#00ff00">Auto show with green (colour 2)</Capability>
+  <Capability Max="119" Min="90" Preset="ColorMacro" Res1="#ffff00">Auto show with yellow (colour 3)</Capability>
   <Capability Max="149" Min="120">Sound activated show with original preprogrammed colour</Capability>
-  <Capability Max="179" Min="150">Sound activated show with red (colour 1)</Capability>
-  <Capability Max="209" Min="180">Sound activated show with green (colour 2)</Capability>
-  <Capability Max="239" Min="210">Sound activated show with yellow (colour 3)</Capability>
+  <Capability Max="179" Min="150" Preset="ColorMacro" Res1="#ff0000">Sound activated show with red (colour 1)</Capability>
+  <Capability Max="209" Min="180" Preset="ColorMacro" Res1="#00ff00">Sound activated show with green (colour 2)</Capability>
+  <Capability Max="239" Min="210" Preset="ColorMacro" Res1="#ffff00">Sound activated show with yellow (colour 3)</Capability>
   <Capability Max="255" Min="240">DMX mode</Capability>
  </Channel>
  <Channel Name="Colour - red, green, yellow (RGY)">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Max="24" Min="0">Blackout</Capability>
+  <Capability Max="24" Min="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Max="49" Min="25">Original preprogrammed colour</Capability>
-  <Capability Color="#ff0000" Max="74" Min="50">Red (colour 1)</Capability>
-  <Capability Color="#00ff00" Max="99" Min="75">Green (colour 2)</Capability>
-  <Capability Color="#ffff00" Max="124" Min="100">Yellow (colour 3)</Capability>
-  <Capability Color="#ff0000" Max="149" Color2="#00ff00" Min="125">Alternate red (colour 1) and green (colour 2)</Capability>
-  <Capability Color="#00ff00" Max="174" Color2="#ffff00" Min="150">Alternate green (colour 2) and yellow (colour 3)</Capability>
-  <Capability Color="#ff0000" Max="199" Color2="#ffff00" Min="175">Alternate red (colour 1) and yellow (colour 3)</Capability>
+  <Capability Max="74" Min="50" Preset="ColorMacro" Res1="#ff0000">Red (colour 1)</Capability>
+  <Capability Max="99" Min="75" Preset="ColorMacro" Res1="#00ff00">Green (colour 2)</Capability>
+  <Capability Max="124" Min="100" Preset="ColorMacro" Res1="#ffff00">Yellow (colour 3)</Capability>
+  <Capability Max="149" Min="125" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Alternate red (colour 1) and green (colour 2)</Capability>
+  <Capability Max="174" Min="150" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Alternate green (colour 2) and yellow (colour 3)</Capability>
+  <Capability Max="199" Min="175" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Alternate red (colour 1) and yellow (colour 3)</Capability>
   <Capability Max="224" Min="200">Alternate red (colour 1), green (colour 2) and yellow (colour 3)</Capability>
   <Capability Max="255" Min="225">Colour rolling</Capability>
  </Channel>
  <Channel Name="Mode - green, blue, cyan (GBC)">
   <Group Byte="0">Effect</Group>
   <Capability Max="29" Min="0">Automatic show with original preprogrammed colour</Capability>
-  <Capability Color="#00ff00" Max="59" Min="30">Auto show with green (colour 1)</Capability>
-  <Capability Color="#0000ff" Max="89" Min="60">Auto show with blue (colour 2)</Capability>
-  <Capability Color="#00ffff" Max="119" Min="90">Auto show with cyan (colour 3)</Capability>
+  <Capability Max="59" Min="30" Preset="ColorMacro" Res1="#00ff00">Auto show with green (colour 1)</Capability>
+  <Capability Max="89" Min="60" Preset="ColorMacro" Res1="#0000ff">Auto show with blue (colour 2)</Capability>
+  <Capability Max="119" Min="90" Preset="ColorMacro" Res1="#00ffff">Auto show with cyan (colour 3)</Capability>
   <Capability Max="149" Min="120">Sound activated show with original preprogrammed colour</Capability>
-  <Capability Max="179" Min="150">Sound activated show with green (colour 1)</Capability>
-  <Capability Max="209" Min="180">Sound activated show with blue (colour 2)</Capability>
-  <Capability Max="239" Min="210">Sound activated show with cyan (colour 3)</Capability>
+  <Capability Max="179" Min="150" Preset="ColorMacro" Res1="#00ff00">Sound activated show with green (colour 1)</Capability>
+  <Capability Max="209" Min="180" Preset="ColorMacro" Res1="#0000ff">Sound activated show with blue (colour 2)</Capability>
+  <Capability Max="239" Min="210" Preset="ColorMacro" Res1="#00ffff">Sound activated show with cyan (colour 3)</Capability>
   <Capability Max="255" Min="240">DMX mode</Capability>
  </Channel>
  <Channel Name="Colour - green, blue, cyan (GBC)">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Max="24" Min="0">Blackout</Capability>
+  <Capability Max="24" Min="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Max="49" Min="25">Original preprogrammed colour</Capability>
-  <Capability Color="#00ff00" Max="74" Min="50">Green (colour 1)</Capability>
-  <Capability Color="#0000ff" Max="99" Min="75">Blue (colour 2)</Capability>
-  <Capability Color="#00ffff" Max="124" Min="100">Cyan (colour 3)</Capability>
-  <Capability Color="#00ff00" Max="149" Color2="#0000ff" Min="125">Alternate green (colour 1) and blue (colour 2)</Capability>
-  <Capability Color="#0000ff" Max="174" Color2="#00ffff" Min="150">Alternate blue (colour 2) and cyan (colour 3)</Capability>
-  <Capability Color="#00ff00" Max="199" Color2="#00ffff" Min="175">Alternate green (colour 1) and cyan (colour 3)</Capability>
+  <Capability Max="74" Min="50" Preset="ColorMacro" Res1="#00ff00">Green (colour 1)</Capability>
+  <Capability Max="99" Min="75" Preset="ColorMacro" Res1="#0000ff">Blue (colour 2)</Capability>
+  <Capability Max="124" Min="100" Preset="ColorMacro" Res1="#00ffff">Cyan (colour 3)</Capability>
+  <Capability Max="149" Min="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Alternate green (colour 1) and blue (colour 2)</Capability>
+  <Capability Max="174" Min="150" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ffff">Alternate blue (colour 2) and cyan (colour 3)</Capability>
+  <Capability Max="199" Min="175" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Alternate green (colour 1) and cyan (colour 3)</Capability>
   <Capability Max="224" Min="200">Alternate green (colour 1), blue (colour 2) and cyan (colour 3)</Capability>
   <Capability Max="255" Min="225">Colour rolling</Capability>
  </Channel>

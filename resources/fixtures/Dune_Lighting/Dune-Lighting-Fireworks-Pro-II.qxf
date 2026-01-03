@@ -49,13 +49,13 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="36" Color="#000000">Laser Black Out</Capability>
-  <Capability Min="37" Max="72" Color="#ff0000">Red</Capability>
-  <Capability Min="73" Max="108" Color="#00ff00">Green</Capability>
-  <Capability Min="109" Max="144" Color="#ff0000" Color2="#00ff00">Alternately Strobe Red and Green</Capability>
-  <Capability Min="145" Max="180" Color="#ff0000" Color2="#00ff00">Red on, Strobe Green</Capability>
-  <Capability Min="181" Max="216" Color="#ff0000" Color2="#00ff00">Green On, Strobe Red</Capability>
-  <Capability Min="217" Max="255" Color="#ff0000" Color2="#00ff00">Strobe Red and Green</Capability>
+  <Capability Min="0" Max="36" Preset="ColorMacro" Res1="#000000">Laser Black Out</Capability>
+  <Capability Min="37" Max="72" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="73" Max="108" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="109" Max="144" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Alternately Strobe Red and Green</Capability>
+  <Capability Min="145" Max="180" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red on, Strobe Green</Capability>
+  <Capability Min="181" Max="216" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Green On, Strobe Red</Capability>
+  <Capability Min="217" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Strobe Red and Green</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Effect</Group>

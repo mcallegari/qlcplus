@@ -30,22 +30,22 @@
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="21" Color="#fff6fc">White</Capability>
-  <Capability Min="22" Max="35" Color="#ff0000">Red</Capability>
-  <Capability Min="36" Max="49" Color="#00ff00">Green</Capability>
-  <Capability Min="50" Max="63" Color="#0000ff">Blue</Capability>
-  <Capability Min="64" Max="77" Color="#00ffff">Cyan</Capability>
-  <Capability Min="78" Max="91" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="92" Max="105" Color="#ffff00">Yellow</Capability>
-  <Capability Min="106" Max="119" Color="#ff8000">Orange</Capability>
-  <Capability Min="120" Max="133" Color="#ff006e">Pink</Capability>
-  <Capability Min="134" Max="147" Color="#dfd4ff">Bright Purple</Capability>
-  <Capability Min="148" Max="161" Color="#a800ff">Purple</Capability>
-  <Capability Min="162" Max="175" Color="#4ee5f7">Cyano Brown</Capability>
-  <Capability Min="176" Max="189" Color="#ffcf00">Gold</Capability>
-  <Capability Min="190" Max="203" Color="#ebebff">Cold White</Capability>
-  <Capability Min="204" Max="217" Color="#ffebeb">Warm White</Capability>
-  <Capability Min="218" Max="231" Color="#db00ff">Grape</Capability>
+  <Capability Min="8" Max="21" Preset="ColorMacro" Res1="#fff6fc">White</Capability>
+  <Capability Min="22" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="49" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="50" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="77" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="78" Max="91" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="92" Max="105" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="106" Max="119" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="120" Max="133" Preset="ColorMacro" Res1="#ff006e">Pink</Capability>
+  <Capability Min="134" Max="147" Preset="ColorMacro" Res1="#dfd4ff">Bright Purple</Capability>
+  <Capability Min="148" Max="161" Preset="ColorMacro" Res1="#a800ff">Purple</Capability>
+  <Capability Min="162" Max="175" Preset="ColorMacro" Res1="#4ee5f7">Cyano Brown</Capability>
+  <Capability Min="176" Max="189" Preset="ColorMacro" Res1="#ffcf00">Gold</Capability>
+  <Capability Min="190" Max="203" Preset="ColorMacro" Res1="#ebebff">Cold White</Capability>
+  <Capability Min="204" Max="217" Preset="ColorMacro" Res1="#ffebeb">Warm White</Capability>
+  <Capability Min="218" Max="231" Preset="ColorMacro" Res1="#db00ff">Grape</Capability>
   <Capability Min="232" Max="242">Colour-Change Switch</Capability>
   <Capability Min="243" Max="255">Colour-Change Fade</Capability>
  </Channel>

@@ -19,18 +19,18 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
-  <Capability Min="11" Max="21" Color="#aa0000">Cherry Red</Capability>
-  <Capability Min="22" Max="32" Color="#ffff00">Yellow</Capability>
-  <Capability Min="33" Max="43" Color="#00007f">Dark Blue</Capability>
-  <Capability Min="44" Max="54" Color="#55ff7f">Light Green</Capability>
-  <Capability Min="55" Max="65" Color="#ffaaff">Pink</Capability>
-  <Capability Min="66" Max="76" Color="#55007f">Purple Blue</Capability>
-  <Capability Min="77" Max="87" Color="#ff0000">Red</Capability>
-  <Capability Min="88" Max="98" Color="#ffff7f">Pale Yellow</Capability>
-  <Capability Min="99" Max="109" Color="#aaaaff">Light Blue</Capability>
-  <Capability Min="110" Max="120" Color="#ffaa00">Orange</Capability>
-  <Capability Min="121" Max="127" Color="#005500">Dark Green</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="11" Max="21" Preset="ColorMacro" Res1="#aa0000">Cherry Red</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#55ff7f">Light Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#55007f">Purple Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffff7f">Pale Yellow</Capability>
+  <Capability Min="99" Max="109" Preset="ColorMacro" Res1="#aaaaff">Light Blue</Capability>
+  <Capability Min="110" Max="120" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#005500">Dark Green</Capability>
   <Capability Min="128" Max="191" Res="Others/rainbow.png">Forward Rainbow Speed</Capability>
   <Capability Min="192" Max="255" Res="Others/rainbow.png">Backward Rainbow Speed</Capability>
  </Channel>

@@ -15,7 +15,7 @@
  <Channel Name="Strobe Control" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Color Temperature">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffbb78" Max="255" Color2="#e4eaff">Color temperature</Capability>
+  <Capability Min="0" Max="255" Preset="ColorDoubleMacro" Res1="#ffbb78" Res2="#e4eaff">Color temperature</Capability>
  </Channel>
  <Mode Name="1 Channel (P)">
   <Channel Number="0">Master Dimmer</Channel>

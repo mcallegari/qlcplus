@@ -28,32 +28,32 @@
  </Channel>
  <Channel Name="Color 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
-  <Capability Min="14" Max="27" Color="#75c5f0">Steel Blue</Capability>
-  <Capability Min="28" Max="41" Color="#ff6600">Orange</Capability>
-  <Capability Min="42" Max="55" Color="#85c226">Green Blue</Capability>
-  <Capability Min="56" Max="69" Color="#281770">Bright Blue</Capability>
-  <Capability Min="70" Max="83" Color="#974578">Bright Pink</Capability>
-  <Capability Min="84" Max="97" Color="#ff0000">Red</Capability>
-  <Capability Min="98" Max="111" Color="#bab3d7">Deep Blue</Capability>
-  <Capability Min="112" Max="125" Color="#ffff00">Yellow</Capability>
-  <Capability Min="126" Max="139" Color="#f09ca1">Rose</Capability>
-  <Capability Min="140" Max="153" Color="#009140">Light Green</Capability>
-  <Capability Min="154" Max="167" Color="#007dc2">Turquoise</Capability>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#75c5f0">Steel Blue</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#ff6600">Orange</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#85c226">Green Blue</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#281770">Bright Blue</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#974578">Bright Pink</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#bab3d7">Deep Blue</Capability>
+  <Capability Min="112" Max="125" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="126" Max="139" Preset="ColorMacro" Res1="#f09ca1">Rose</Capability>
+  <Capability Min="140" Max="153" Preset="ColorMacro" Res1="#009140">Light Green</Capability>
+  <Capability Min="154" Max="167" Preset="ColorMacro" Res1="#007dc2">Turquoise</Capability>
   <Capability Min="168" Max="255" Res="Others/rainbow.png">Color rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Color 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
-  <Capability Min="14" Max="27" Color="#75c5f0">Steel Blue</Capability>
-  <Capability Min="28" Max="41" Color="#f89ca1">Rose Pink</Capability>
-  <Capability Min="42" Max="55" Color="#ffff00">Yellow</Capability>
-  <Capability Min="56" Max="69" Color="#b5dec7" Color2="#fffa9c">Pale Blue</Capability>
-  <Capability Min="70" Max="83" Color="#fffa9c">C.T Orange</Capability>
-  <Capability Min="84" Max="97">Pale Blue / C. T Orange</Capability>
-  <Capability Min="98" Max="111" Color="#75c5f0" Color2="#ffaa00">Steel Blue / Orange</Capability>
-  <Capability Min="112" Max="125" Color="#00ff00" Color2="#ffff00">Green / Yellow</Capability>
-  <Capability Min="126" Max="139" Color="#bab3d7" Color2="#85c226">Rose Pink / Moss Green</Capability>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#75c5f0">Steel Blue</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#f89ca1">Rose Pink</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="56" Max="69" Preset="ColorDoubleMacro" Res1="#b5dec7" Res2="#fffa9c">Pale Blue</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#fffa9c">C.T Orange</Capability>
+  <Capability Min="84" Max="97" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffa500">Pale Blue / C. T Orange</Capability>
+  <Capability Min="98" Max="111" Preset="ColorDoubleMacro" Res1="#75c5f0" Res2="#ffaa00">Steel Blue / Orange</Capability>
+  <Capability Min="112" Max="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green / Yellow</Capability>
+  <Capability Min="126" Max="139" Preset="ColorDoubleMacro" Res1="#bab3d7" Res2="#85c226">Rose Pink / Moss Green</Capability>
   <Capability Min="140" Max="153">Rose Pink / Yellow / Steel Blue / Green</Capability>
   <Capability Min="154" Max="167">Yellow / Moss Green / Orange / Steel Blue</Capability>
   <Capability Min="168" Max="255">Color rotation from slow to fast</Capability>

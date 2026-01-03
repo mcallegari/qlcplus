@@ -14,22 +14,22 @@
  <Channel Name="Colour Func" Preset="ColorMacro"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="9" Color="#ffffff">Open</Capability>
-  <Capability Min="10" Max="21" Color="#55ffff">Turquoise</Capability>
-  <Capability Min="22" Max="33" Color="#ff0000">Red</Capability>
-  <Capability Min="34" Max="45" Color="#00ffff">Cyan</Capability>
-  <Capability Min="46" Max="57" Color="#aaff7f">Light Green</Capability>
-  <Capability Min="58" Max="69" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="70" Max="81" Color="#aaaaff">Light Blue</Capability>
-  <Capability Min="82" Max="93" Color="#ffff00">Yellow</Capability>
-  <Capability Min="94" Max="105" Color="#00ff00">Green</Capability>
-  <Capability Min="106" Max="117" Color="#ffaaff">Pink</Capability>
-  <Capability Min="118" Max="129" Color="#0000ff">Blue</Capability>
-  <Capability Min="130" Max="141" Color="#ffaa00">Orange</Capability>
-  <Capability Min="142" Max="153" Color="#aa00ff">UV</Capability>
-  <Capability Min="154" Max="165" Color="#ff0000" Color2="#0000ff">Red/Blue</Capability>
-  <Capability Min="166" Max="177" Color="#ffff00" Color2="#00ff00">Yellow/Green</Capability>
-  <Capability Min="178" Max="189" Color="#0000ff" Color2="#ff007f">Blue/Purple</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="10" Max="21" Preset="ColorMacro" Res1="#55ffff">Turquoise</Capability>
+  <Capability Min="22" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="45" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="46" Max="57" Preset="ColorMacro" Res1="#aaff7f">Light Green</Capability>
+  <Capability Min="58" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="81" Preset="ColorMacro" Res1="#aaaaff">Light Blue</Capability>
+  <Capability Min="82" Max="93" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="94" Max="105" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="106" Max="117" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="118" Max="129" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="130" Max="141" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="142" Max="153" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="154" Max="165" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="166" Max="177" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/Green</Capability>
+  <Capability Min="178" Max="189" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff007f">Blue/Purple</Capability>
   <Capability Min="190" Max="215" Res="Others/rainbow.png">Scroll CW</Capability>
   <Capability Min="216" Max="217">No Scroll</Capability>
   <Capability Min="218" Max="243" Res="Others/rainbow.png">Scroll CCW</Capability>

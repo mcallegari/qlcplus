@@ -26,27 +26,27 @@
  <Channel Name="CTC">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">No CTC (raw)</Capability>
-  <Capability Min="5" Max="5" Color="#ff8912">≈2000°K</Capability>
+  <Capability Min="5" Max="5" Preset="ColorMacro" Res1="#ff8912">≈2000°K</Capability>
   <Capability Min="6" Max="14">No function</Capability>
-  <Capability Min="15" Max="15" Color="#ff932c">≈2200°K</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff932c">≈2200°K</Capability>
   <Capability Min="16" Max="39">No function</Capability>
-  <Capability Min="40" Max="40" Color="#ffa957">≈2700°K</Capability>
+  <Capability Min="40" Max="40" Preset="ColorMacro" Res1="#ffa957">≈2700°K</Capability>
   <Capability Min="41" Max="53">No function</Capability>
-  <Capability Min="54" Max="54" Color="#ffb46b">≈3000°K</Capability>
+  <Capability Min="54" Max="54" Preset="ColorMacro" Res1="#ffb46b">≈3000°K</Capability>
   <Capability Min="55" Max="64">No function</Capability>
-  <Capability Min="65" Max="65" Color="#ffbb78">≈3200°K</Capability>
+  <Capability Min="65" Max="65" Preset="ColorMacro" Res1="#ffbb78">≈3200°K</Capability>
   <Capability Min="66" Max="104">No function</Capability>
-  <Capability Min="105" Max="105" Color="#ffd1a3">≈4000°K</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#ffd1a3">≈4000°K</Capability>
   <Capability Min="106" Max="114">No function</Capability>
-  <Capability Min="115" Max="115" Color="#ffd5ad">≈4200°K</Capability>
+  <Capability Min="115" Max="115" Preset="ColorMacro" Res1="#ffd5ad">≈4200°K</Capability>
   <Capability Min="116" Max="176">No function</Capability>
-  <Capability Min="177" Max="177" Color="#ffece0">≈5500°K</Capability>
+  <Capability Min="177" Max="177" Preset="ColorMacro" Res1="#ffece0">≈5500°K</Capability>
   <Capability Min="178" Max="215">No function</Capability>
-  <Capability Min="216" Max="216" Color="#fff6f8">≈6300°K</Capability>
+  <Capability Min="216" Max="216" Preset="ColorMacro" Res1="#fff6f8">≈6300°K</Capability>
   <Capability Min="217" Max="237">No function</Capability>
-  <Capability Min="238" Max="238" Color="#e3e9ff">≈8000°K</Capability>
+  <Capability Min="238" Max="238" Preset="ColorMacro" Res1="#e3e9ff">≈8000°K</Capability>
   <Capability Min="239" Max="254">No function</Capability>
-  <Capability Min="255" Max="255" Color="#ccdbff">≈10000°K</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ccdbff">≈10000°K</Capability>
  </Channel>
  <Channel Name="Pan (Coarse)" Preset="PositionPan"/>
  <Channel Name="Tilt (Coarse)" Preset="PositionTilt"/>

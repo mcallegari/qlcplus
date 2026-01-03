@@ -13,10 +13,10 @@
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="7">Off</Capability>
-  <Capability Min="8" Max="190" Color="#ffffff">Master Dimmer</Capability>
+  <Capability Min="8" Max="190">Master Dimmer</Capability>
   <Capability Min="191" Max="200">Sound Active</Capability>
-  <Capability Min="201" Max="247" Color="#ffffff">Strobing: Slow-Fast</Capability>
-  <Capability Min="248" Max="255" Color="#ffffff">Full On</Capability>
+  <Capability Min="201" Max="247">Strobing: Slow-Fast</Capability>
+  <Capability Min="248" Max="255">Full On</Capability>
  </Channel>
  <Channel Name="Moon Flower Dimmer / Strobe">
   <Group Byte="0">Intensity</Group>
@@ -28,17 +28,17 @@
  </Channel>
  <Channel Name="Moon Flower Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="18" Color="#ff0000">Red</Capability>
-  <Capability Color2="#008000" Min="19" Max="37" Color="#ff0000">Red &amp; Green</Capability>
-  <Capability Min="38" Max="56" Color="#008040">Green</Capability>
-  <Capability Color2="#0000ff" Min="57" Max="75" Color="#008040">Green &amp; Blue</Capability>
-  <Capability Min="76" Max="94" Color="#0000ff">Blue</Capability>
-  <Capability Color2="#0000ff" Min="95" Max="113" Color="#ff0000">Red &amp; Blue</Capability>
-  <Capability Min="114" Max="127" Color="#ffffff">Red, Green &amp; Blue</Capability>
-  <Capability Color2="#008040" Min="128" Max="159" Color="#ff0000">Red - Green</Capability>
-  <Capability Color2="#0000ff" Min="160" Max="191" Color="#008040">Green - Blue</Capability>
-  <Capability Color2="#0000ff" Min="192" Max="223" Color="#ff0000">Red - Blue</Capability>
-  <Capability Min="224" Max="255" Color="#ffffff">Red - Green - Blue</Capability>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="19" Max="37" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#008000">Red &amp; Green</Capability>
+  <Capability Min="38" Max="56" Preset="ColorMacro" Res1="#008040">Green</Capability>
+  <Capability Min="57" Max="75" Preset="ColorDoubleMacro" Res1="#008040" Res2="#0000ff">Green &amp; Blue</Capability>
+  <Capability Min="76" Max="94" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="95" Max="113" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red &amp; Blue</Capability>
+  <Capability Min="114" Max="127" Preset="ColorMacro" Res1="#ffffff">Red, Green &amp; Blue</Capability>
+  <Capability Min="128" Max="159" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#008040">Red - Green</Capability>
+  <Capability Min="160" Max="191" Preset="ColorDoubleMacro" Res1="#008040" Res2="#0000ff">Green - Blue</Capability>
+  <Capability Min="192" Max="223" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red - Blue</Capability>
+  <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#ffffff">Red - Green - Blue</Capability>
  </Channel>
  <Channel Name="Moon Flower Rotation">
   <Group Byte="0">Speed</Group>
@@ -51,12 +51,12 @@
  <Channel Name="Red Laser">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="127">Laser Off</Capability>
-  <Capability Min="128" Max="255" Color="#ff000b">Laser On</Capability>
+  <Capability Min="128" Max="255">Laser On</Capability>
  </Channel>
  <Channel Name="Green Laser">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="127">Laser Off</Capability>
-  <Capability Min="128" Max="255" Color="#00ff00">Laser On</Capability>
+  <Capability Min="128" Max="255">Laser On</Capability>
  </Channel>
  <Channel Name="Laser Rotation">
   <Group Byte="0">Speed</Group>
