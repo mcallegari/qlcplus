@@ -15,7 +15,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4">Lamp on</Capability>
   <Capability Res="ClayPaky/gobo00061.svg" Min="5" Max="16">Shutter</Capability>
-  <Capability Res="SGM/gobo00061.svg" Min="17" Max="31" Preset="ColorMacro" Res1="#ffffff">Open/ White</Capability>
+  <Capability Res="Others/open.svg" Min="17" Max="31">Open/White</Capability>
   <Capability Res="SGM/gobo00066.svg" Min="32" Max="47">Arrow</Capability>
   <Capability Res="SGM/gobo00022.png" Min="48" Max="63">Flower</Capability>
   <Capability Res="SGM-Color/gobo00403.png" Min="64" Max="79">Star Field</Capability>
