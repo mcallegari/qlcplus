@@ -543,6 +543,7 @@
     <F n="Chauvet-Mini-Kinta-IRC" m="Mini Kinta IRC"/>
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
+    <F n="Chauvet-onAir-Panel-1-IP" m="onAir Panel 1 IP"/>
     <F n="Chauvet-Ovation-E-910FC" m="Ovation E-910FC"/>
     <F n="Chauvet-Ovation-F-415FC" m="Ovation F-415FC"/>
     <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
@@ -641,6 +642,7 @@
     <F n="Clay-Paky-Sharpy" m="Sharpy"/>
     <F n="Clay-Paky-Show-Batten-100" m="Show Batten 100"/>
     <F n="Clay-Paky-Stage-Color-300-AE" m="Stage Color 300 AE"/>
+    <F n="Clay-Paky-Stage-Zoom-1200" m="Stage Zoom 1200"/>
     <F n="Clay-Paky-Stormy-CC" m="Stormy CC"/>
     <F n="Clay-Paky-Stormy" m="Stormy"/>
     <F n="Clay-Paky-SuperSharpy" m="SuperSharpy"/>
@@ -1308,6 +1310,7 @@
     <F n="Martin-EFX-800" m="EFX-800"/>
     <F n="Martin-Ego-X6" m="Ego X6"/>
     <F n="Martin-ELP-CL-Profile" m="ELP-CL Profile"/>
+    <F n="Martin-ELP-PAR" m="ELP PAR"/>
     <F n="Martin-ERA-150-Wash" m="ERA 150 Wash"/>
     <F n="Martin-ERA-300-Profile" m="ERA 300 Profile"/>
     <F n="Martin-ERA-400-Performance" m="ERA 400 Performance"/>
@@ -1367,6 +1370,9 @@
     <F n="Martin-smartMAC" m="smartMAC"/>
     <F n="Martin-Thrill-Mini-Profile" m="Thrill Mini Profile"/>
     <F n="Martin-Viper-AirFX" m="Mac Viper AirFX"/>
+  </M>
+  <M n="MDG">
+    <F n="MDG-ATMe" m="ATMe"/>
   </M>
   <M n="MEGA-Lite">
     <F n="MegaLite-M-Sphere" m="M-Sphere"/>
