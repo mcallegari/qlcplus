@@ -11,7 +11,7 @@
  <Type>Laser</Type>
  <Channel Name="Mode - Single Colour">
   <Group Byte="0">Effect</Group>
-  <Capability Max="63" Min="0" Preset="ColorMacro" Res1="#000000">Laser black out</Capability>
+  <Capability Max="63" Min="0">Laser black out</Capability>
   <Capability Max="127" Min="64">Auto show</Capability>
   <Capability Max="191" Min="128">Sound activated show (music)</Capability>
   <Capability Max="255" Min="192">DMX mode (other channels activated)</Capability>
@@ -91,13 +91,13 @@
  <Channel Name="Mode - red, blue, purple (RBP)">
   <Group Byte="0">Effect</Group>
   <Capability Max="29" Min="0">Automatic show with original preprogrammed colour</Capability>
-  <Capability Max="59" Min="30" Preset="ColorMacro" Res1="#ff0000">Auto show with red (colour 1)</Capability>
-  <Capability Max="89" Min="60" Preset="ColorMacro" Res1="#0000ff">Auto show with blue (colour 2)</Capability>
-  <Capability Max="119" Min="90" Preset="ColorMacro" Res1="#ff00ff">Auto show with purple (colour 3)</Capability>
+  <Capability Max="59" Min="30">Auto show with red (colour 1)</Capability>
+  <Capability Max="89" Min="60">Auto show with blue (colour 2)</Capability>
+  <Capability Max="119" Min="90">Auto show with purple (colour 3)</Capability>
   <Capability Max="149" Min="120">Sound activated show with original preprogrammed colour</Capability>
-  <Capability Max="179" Min="150" Preset="ColorMacro" Res1="#ff0000">Sound activated show with red (colour 1)</Capability>
-  <Capability Max="209" Min="180" Preset="ColorMacro" Res1="#0000ff">Sound activated show with blue (colour 2)</Capability>
-  <Capability Max="239" Min="210" Preset="ColorMacro" Res1="#a020f0">Sound activated show with purple (colour 3)</Capability>
+  <Capability Max="179" Min="150">Sound activated show with red (colour 1)</Capability>
+  <Capability Max="209" Min="180">Sound activated show with blue (colour 2)</Capability>
+  <Capability Max="239" Min="210">Sound activated show with purple (colour 3)</Capability>
   <Capability Max="255" Min="240">DMX mode</Capability>
  </Channel>
  <Channel Name="Colour - red, blue, purple (RBP)">
