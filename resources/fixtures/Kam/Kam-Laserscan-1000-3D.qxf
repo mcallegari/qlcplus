@@ -11,7 +11,7 @@
  <Type>Laser</Type>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#000000">Laser off</Capability>
+  <Capability Min="0" Max="18">Laser off</Capability>
   <Capability Min="19" Max="36">AUT - auto show with mixed 5 effect</Capability>
   <Capability Min="37" Max="54">A3D - laser 3D effect auto show</Capability>
   <Capability Min="55" Max="72">AUB - scanned beam effect auto show</Capability>
