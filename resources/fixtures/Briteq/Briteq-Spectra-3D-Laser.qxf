@@ -16,7 +16,7 @@
  </Channel>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="18" Color="#000000">Laser off</Capability>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#000000">Laser off</Capability>
   <Capability Min="19" Max="36">AUT - auto show with mixed 5 effect</Capability>
   <Capability Min="37" Max="54">A3D - laser 3D effect auto show</Capability>
   <Capability Min="55" Max="72">AUB - scanned beam effect auto show</Capability>
@@ -33,7 +33,7 @@
  </Channel>
  <Channel Name="Mode 19">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="18" Color="#000000">Laser off</Capability>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#000000">Laser off</Capability>
   <Capability Min="19" Max="36">AUT - auto show with mixed 5 effect</Capability>
   <Capability Min="37" Max="54">A3D - laser 3D effect auto show</Capability>
   <Capability Min="55" Max="72">AUB - scanned beam effect auto show</Capability>
@@ -63,13 +63,13 @@
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">Original</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#00ff00">Green</Capability>
-  <Capability Min="24" Max="31" Color="#ffff00">Yellow</Capability>
-  <Capability Min="32" Max="39" Color="#0000ff">Blue</Capability>
-  <Capability Min="40" Max="47" Color="#ff00ff">Purple</Capability>
-  <Capability Min="48" Max="55" Color="#00ffff">Light blue</Capability>
-  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="64" Max="111">Colour rolling</Capability>
   <Capability Min="112" Max="159">Colour jumping</Capability>
   <Capability Min="160" Max="207">Colour moving</Capability>

@@ -14,38 +14,38 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Macro Colors (By LED Levels)">
   <Group Byte="0">Colour</Group>
-  <Capability Max="7" Min="0" Color="#000000">Off</Capability>
-  <Capability Max="15" Min="8" Color="#ff3300">Red: 100% Green: 20% Blue:</Capability>
-  <Capability Max="23" Min="16" Color="#ff6600">Red: 100% Green: 40% Blue:</Capability>
-  <Capability Max="31" Min="24" Color="#ff9900">Red: 100% Green: 60% Blue:</Capability>
-  <Capability Max="39" Min="32" Color="#ffcc00">Red: 100% Green: 80% Blue:</Capability>
-  <Capability Max="47" Min="40" Color="#ffff00">Red: 100% Green: 100% Blue:</Capability>
-  <Capability Max="55" Min="48" Color="#00ff00">Red: Green: 100% Blue:</Capability>
-  <Capability Max="63" Min="56" Color="#00ff33">Red: Green: 100% Blue: 20%</Capability>
-  <Capability Max="71" Min="64" Color="#00ff66">Red: Green: 100% Blue: 40%</Capability>
-  <Capability Max="79" Min="72" Color="#00ff99">Red: Green: 100% Blue: 60%</Capability>
-  <Capability Max="87" Min="80" Color="#00ffcc">Red: Green: 100% Blue: 80%</Capability>
-  <Capability Max="95" Min="88" Color="#00ffff">Red: Green: 100% Blue: 100%</Capability>
-  <Capability Max="103" Min="96" Color="#0000ff">Red: Green: Blue: 100%</Capability>
-  <Capability Max="111" Min="104" Color="#3300ff">Red: 20% Green: Blue: 100%</Capability>
-  <Capability Max="119" Min="112" Color="#6600ff">Red: 40% Green: Blue: 100%</Capability>
-  <Capability Max="127" Min="120" Color="#9900ff">Red: 60% Green: Blue: 100%</Capability>
-  <Capability Max="135" Min="128" Color="#cc00ff">Red: 80% Green: Blue: 100%</Capability>
-  <Capability Max="143" Min="136" Color="#ff00ff">Red: 100% Green: Blue: 100%</Capability>
-  <Capability Max="151" Min="144" Color="#ff40ff">Red: 100% Green: 25% Blue: 100%</Capability>
-  <Capability Max="159" Min="152" Color="#ff80ff">Red: 100% Green: 50% Blue: 100%</Capability>
-  <Capability Max="167" Min="160" Color="#ffbfff">Red: 100% Green: 75% Blue: 100%</Capability>
-  <Capability Max="175" Min="168" Color="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
-  <Capability Max="183" Min="176" Color="#ffff40">Red: 100% Green: 100% Blue: 25%</Capability>
-  <Capability Max="191" Min="184" Color="#ffff80">Red: 100% Green: 100% Blue: 50%</Capability>
-  <Capability Max="199" Min="192" Color="#ffffbf">Red: 100% Green: 100% Blue: 75%</Capability>
-  <Capability Max="207" Min="200" Color="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
-  <Capability Max="215" Min="208" Color="#33ffff">Red: 20% Green: 100% Blue: 100%</Capability>
-  <Capability Max="223" Min="216" Color="#66ffff">Red: 40% Green: 100% Blue: 100%</Capability>
-  <Capability Max="231" Min="224" Color="#99ffff">Red: 60% Green: 100% Blue: 100%</Capability>
-  <Capability Max="239" Min="232" Color="#ccffff">Red: 80% Green: 100% Blue: 100%</Capability>
-  <Capability Max="247" Min="240" Color="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
-  <Capability Max="255" Min="248" Color="#808080">Red: 50% Green: 50% Blue: 50%</Capability>
+  <Capability Max="7" Min="0" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Max="15" Min="8" Preset="ColorMacro" Res1="#ff3300">Red: 100% Green: 20% Blue:</Capability>
+  <Capability Max="23" Min="16" Preset="ColorMacro" Res1="#ff6600">Red: 100% Green: 40% Blue:</Capability>
+  <Capability Max="31" Min="24" Preset="ColorMacro" Res1="#ff9900">Red: 100% Green: 60% Blue:</Capability>
+  <Capability Max="39" Min="32" Preset="ColorMacro" Res1="#ffcc00">Red: 100% Green: 80% Blue:</Capability>
+  <Capability Max="47" Min="40" Preset="ColorMacro" Res1="#ffff00">Red: 100% Green: 100% Blue:</Capability>
+  <Capability Max="55" Min="48" Preset="ColorMacro" Res1="#00ff00">Red: Green: 100% Blue:</Capability>
+  <Capability Max="63" Min="56" Preset="ColorMacro" Res1="#00ff33">Red: Green: 100% Blue: 20%</Capability>
+  <Capability Max="71" Min="64" Preset="ColorMacro" Res1="#00ff66">Red: Green: 100% Blue: 40%</Capability>
+  <Capability Max="79" Min="72" Preset="ColorMacro" Res1="#00ff99">Red: Green: 100% Blue: 60%</Capability>
+  <Capability Max="87" Min="80" Preset="ColorMacro" Res1="#00ffcc">Red: Green: 100% Blue: 80%</Capability>
+  <Capability Max="95" Min="88" Preset="ColorMacro" Res1="#00ffff">Red: Green: 100% Blue: 100%</Capability>
+  <Capability Max="103" Min="96" Preset="ColorMacro" Res1="#0000ff">Red: Green: Blue: 100%</Capability>
+  <Capability Max="111" Min="104" Preset="ColorMacro" Res1="#3300ff">Red: 20% Green: Blue: 100%</Capability>
+  <Capability Max="119" Min="112" Preset="ColorMacro" Res1="#6600ff">Red: 40% Green: Blue: 100%</Capability>
+  <Capability Max="127" Min="120" Preset="ColorMacro" Res1="#9900ff">Red: 60% Green: Blue: 100%</Capability>
+  <Capability Max="135" Min="128" Preset="ColorMacro" Res1="#cc00ff">Red: 80% Green: Blue: 100%</Capability>
+  <Capability Max="143" Min="136" Preset="ColorMacro" Res1="#ff00ff">Red: 100% Green: Blue: 100%</Capability>
+  <Capability Max="151" Min="144" Preset="ColorMacro" Res1="#ff40ff">Red: 100% Green: 25% Blue: 100%</Capability>
+  <Capability Max="159" Min="152" Preset="ColorMacro" Res1="#ff80ff">Red: 100% Green: 50% Blue: 100%</Capability>
+  <Capability Max="167" Min="160" Preset="ColorMacro" Res1="#ffbfff">Red: 100% Green: 75% Blue: 100%</Capability>
+  <Capability Max="175" Min="168" Preset="ColorMacro" Res1="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
+  <Capability Max="183" Min="176" Preset="ColorMacro" Res1="#ffff40">Red: 100% Green: 100% Blue: 25%</Capability>
+  <Capability Max="191" Min="184" Preset="ColorMacro" Res1="#ffff80">Red: 100% Green: 100% Blue: 50%</Capability>
+  <Capability Max="199" Min="192" Preset="ColorMacro" Res1="#ffffbf">Red: 100% Green: 100% Blue: 75%</Capability>
+  <Capability Max="207" Min="200" Preset="ColorMacro" Res1="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
+  <Capability Max="215" Min="208" Preset="ColorMacro" Res1="#33ffff">Red: 20% Green: 100% Blue: 100%</Capability>
+  <Capability Max="223" Min="216" Preset="ColorMacro" Res1="#66ffff">Red: 40% Green: 100% Blue: 100%</Capability>
+  <Capability Max="231" Min="224" Preset="ColorMacro" Res1="#99ffff">Red: 60% Green: 100% Blue: 100%</Capability>
+  <Capability Max="239" Min="232" Preset="ColorMacro" Res1="#ccffff">Red: 80% Green: 100% Blue: 100%</Capability>
+  <Capability Max="247" Min="240" Preset="ColorMacro" Res1="#ffffff">Red: 100% Green: 100% Blue: 100%</Capability>
+  <Capability Max="255" Min="248" Preset="ColorMacro" Res1="#808080">Red: 50% Green: 50% Blue: 50%</Capability>
  </Channel>
  <Channel Name="Strobe or Speed">
   <Group Byte="0">Speed</Group>

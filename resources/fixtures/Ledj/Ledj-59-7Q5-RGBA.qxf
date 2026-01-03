@@ -16,7 +16,7 @@
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Min="5" Max="80" Res="Others/rainbow.png">Colour macro</Capability>
   <Capability Min="81" Max="150" Res="Others/rainbow.png">Colour change</Capability>
   <Capability Min="151" Max="255" Res="Others/rainbow.png">Colour fade</Capability>

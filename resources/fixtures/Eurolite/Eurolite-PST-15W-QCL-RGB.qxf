@@ -27,8 +27,8 @@
  <Channel Name="Color Effect">
   <Group Byte="0">Effect</Group>
   <Capability Max="31" Min="0">No function</Capability>
-  <Capability Max="63" Min="32" Color="#ffffff" Color2="#e603ff">Transition 0 -&gt; 100 %</Capability>
-  <Capability Max="95" Min="64" Color="#ff06f1" Color2="#ffffff">Transition 100 -&gt; 0%</Capability>
+  <Capability Max="63" Min="32" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#e603ff">Transition 0 -&gt; 100 %</Capability>
+  <Capability Max="95" Min="64" Preset="ColorDoubleMacro" Res1="#ff06f1" Res2="#ffffff">Transition 100 -&gt; 0%</Capability>
   <Capability Max="127" Min="96">Transition 100 -&gt; 0 -&gt; 100%</Capability>
   <Capability Max="159" Min="128">Transition</Capability>
   <Capability Res="SGM-Color/gobo00542.png" Max="223" Min="160">Colour change</Capability>

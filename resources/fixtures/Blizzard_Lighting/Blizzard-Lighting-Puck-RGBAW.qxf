@@ -21,37 +21,37 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4" Color="#ff0000">Red</Capability>
-  <Capability Min="5" Max="8" Color="#00ff00">Green</Capability>
-  <Capability Min="9" Max="12" Color="#0000ff">Blue</Capability>
-  <Capability Min="13" Max="16" Color="#ff8000">Amber</Capability>
-  <Capability Min="17" Max="20" Color="#ffffff">White</Capability>
-  <Capability Min="21" Max="24" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="25" Max="28" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
-  <Capability Min="29" Max="31" Color="#ff0000" Color2="#ff8000">Red+Amber</Capability>
-  <Capability Min="32" Max="35" Color="#ff0000" Color2="#ffffff">Red+White</Capability>
-  <Capability Min="36" Max="39" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
-  <Capability Min="40" Max="43" Color="#00ff00" Color2="#ff8000">Green+Amber</Capability>
-  <Capability Min="44" Max="47" Color="#00ff00" Color2="#ffffff">Green+White</Capability>
-  <Capability Min="48" Max="51" Color="#0000ff" Color2="#ff8000">Blue+Amber</Capability>
-  <Capability Min="52" Max="55" Color="#0000ff" Color2="#ffffff">Blue+White</Capability>
-  <Capability Min="56" Max="59" Color="#ff8000" Color2="#ffffff">Amber+White</Capability>
-  <Capability Min="60" Max="62" Color="#c0c0ff" Color2="#ffa858">Blue+Amber+White</Capability>
-  <Capability Min="63" Max="66" Color="#c0ffc0" Color2="#ffa858">Green+Amber+White</Capability>
-  <Capability Min="67" Max="70" Color="#c0ffc0" Color2="#c0c0ff">Green+Blue+White</Capability>
-  <Capability Min="71" Max="74" Color="#00c000" Color2="#0000c0">Green+Blue+Amber</Capability>
-  <Capability Min="75" Max="78" Color="#ffc0c0" Color2="#ffa858">Red+Amber+White</Capability>
-  <Capability Min="79" Max="82" Color="#ffc0c0" Color2="#c0c0ff">Red+Blue+White</Capability>
-  <Capability Min="83" Max="86" Color="#c00000" Color2="#0000c0">Red+Blue+Amber</Capability>
-  <Capability Min="87" Max="90" Color="#ffc0c0" Color2="#c0ffc0">Red+Green+White</Capability>
-  <Capability Min="91" Max="93" Color="#c00000" Color2="#008000">Red+Green+Amber</Capability>
-  <Capability Min="94" Max="97" Color="#004000" Color2="#800000">Red+Green+Blue</Capability>
-  <Capability Min="98" Max="101" Color="#ffdca8">Red+Green+Blue+Amber</Capability>
-  <Capability Min="102" Max="105" Color="#ffffff">Red+Green+Blue+White</Capability>
-  <Capability Min="106" Max="109" Color="#ffff00">Red+Green+Amber+White</Capability>
-  <Capability Min="110" Max="113" Color="#800080">Red+Blue+Amber+White</Capability>
-  <Capability Min="114" Max="117" Color="#ffffc0">Green+Blue+Amber+White</Capability>
-  <Capability Min="118" Max="120" Color="#ffffff">Red+Green+Blue+Amber+White</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="5" Max="8" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="9" Max="12" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="13" Max="16" Preset="ColorMacro" Res1="#ff8000">Amber</Capability>
+  <Capability Min="17" Max="20" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="21" Max="24" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="25" Max="28" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="29" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff8000">Red+Amber</Capability>
+  <Capability Min="32" Max="35" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="36" Max="39" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="40" Max="43" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff8000">Green+Amber</Capability>
+  <Capability Min="44" Max="47" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="48" Max="51" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff8000">Blue+Amber</Capability>
+  <Capability Min="52" Max="55" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
+  <Capability Min="56" Max="59" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ffffff">Amber+White</Capability>
+  <Capability Min="60" Max="62" Preset="ColorDoubleMacro" Res1="#c0c0ff" Res2="#ffa858">Blue+Amber+White</Capability>
+  <Capability Min="63" Max="66" Preset="ColorDoubleMacro" Res1="#c0ffc0" Res2="#ffa858">Green+Amber+White</Capability>
+  <Capability Min="67" Max="70" Preset="ColorDoubleMacro" Res1="#c0ffc0" Res2="#c0c0ff">Green+Blue+White</Capability>
+  <Capability Min="71" Max="74" Preset="ColorDoubleMacro" Res1="#00c000" Res2="#0000c0">Green+Blue+Amber</Capability>
+  <Capability Min="75" Max="78" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#ffa858">Red+Amber+White</Capability>
+  <Capability Min="79" Max="82" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#c0c0ff">Red+Blue+White</Capability>
+  <Capability Min="83" Max="86" Preset="ColorDoubleMacro" Res1="#c00000" Res2="#0000c0">Red+Blue+Amber</Capability>
+  <Capability Min="87" Max="90" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#c0ffc0">Red+Green+White</Capability>
+  <Capability Min="91" Max="93" Preset="ColorDoubleMacro" Res1="#c00000" Res2="#008000">Red+Green+Amber</Capability>
+  <Capability Min="94" Max="97" Preset="ColorDoubleMacro" Res1="#004000" Res2="#800000">Red+Green+Blue</Capability>
+  <Capability Min="98" Max="101" Preset="ColorMacro" Res1="#ffdca8">Red+Green+Blue+Amber</Capability>
+  <Capability Min="102" Max="105" Preset="ColorMacro" Res1="#ffffff">Red+Green+Blue+White</Capability>
+  <Capability Min="106" Max="109" Preset="ColorMacro" Res1="#ffff00">Red+Green+Amber+White</Capability>
+  <Capability Min="110" Max="113" Preset="ColorMacro" Res1="#800080">Red+Blue+Amber+White</Capability>
+  <Capability Min="114" Max="117" Preset="ColorMacro" Res1="#ffffc0">Green+Blue+Amber+White</Capability>
+  <Capability Min="118" Max="120" Preset="ColorMacro" Res1="#ffffff">Red+Green+Blue+Amber+White</Capability>
   <Capability Min="121" Max="255">Chase Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>

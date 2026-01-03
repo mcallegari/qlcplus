@@ -31,14 +31,14 @@
  <Channel Name="Constant Colour / Progress Speed">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="27">Dark, when channel 5 = 1...24</Capability>
-  <Capability Min="28" Max="55" Color="#ff0000">Red, when channel 5 = 1...24</Capability>
-  <Capability Min="56" Max="83" Color="#ffaa00">Orange, when channel 5 = 1...24</Capability>
-  <Capability Min="84" Max="111" Color="#ffff00">Yellow, when channel 5 = 1...24</Capability>
-  <Capability Min="112" Max="139" Color="#00ff00">Light green, when channel 5 = 1...24</Capability>
-  <Capability Min="140" Max="167" Color="#00ffff">Light blue, when channel 5 = 1...24</Capability>
-  <Capability Min="168" Max="195" Color="#0000ff">Blue, when channel 5 = 1...24</Capability>
-  <Capability Min="196" Max="223" Color="#ff00ff">Purple, when channel 5 = 1...24</Capability>
-  <Capability Min="224" Max="251" Color="#ffaaff">Pink, when channel 5 = 1...24</Capability>
+  <Capability Min="28" Max="55" Preset="ColorMacro" Res1="#ff0000">Red, when channel 5 = 1...24</Capability>
+  <Capability Min="56" Max="83" Preset="ColorMacro" Res1="#ffaa00">Orange, when channel 5 = 1...24</Capability>
+  <Capability Min="84" Max="111" Preset="ColorMacro" Res1="#ffff00">Yellow, when channel 5 = 1...24</Capability>
+  <Capability Min="112" Max="139" Preset="ColorMacro" Res1="#00ff00">Light green, when channel 5 = 1...24</Capability>
+  <Capability Min="140" Max="167" Preset="ColorMacro" Res1="#00ffff">Light blue, when channel 5 = 1...24</Capability>
+  <Capability Min="168" Max="195" Preset="ColorMacro" Res1="#0000ff">Blue, when channel 5 = 1...24</Capability>
+  <Capability Min="196" Max="223" Preset="ColorMacro" Res1="#ff00ff">Purple, when channel 5 = 1...24</Capability>
+  <Capability Min="224" Max="251" Preset="ColorMacro" Res1="#ffaaff">Pink, when channel 5 = 1...24</Capability>
   <Capability Min="252" Max="255">Red + green + blue, when channel 5 = 1...24</Capability>
  </Channel>
  <Mode Name="3-channel">

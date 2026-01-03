@@ -11,9 +11,9 @@
  <Type>Flower</Type>
  <Channel Name="Auto Run/Sound Active">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Min="10" Max="39" Res="Others/rainbow.png">Six colors LED auto run</Capability>
-  <Capability Min="40" Max="69" Color="#ffffff">White LEDs auto run</Capability>
+  <Capability Min="40" Max="69" Preset="ColorMacro" Res1="#ffffff">White LEDs auto run</Capability>
   <Capability Min="70" Max="99">Laser auto run</Capability>
   <Capability Min="100" Max="129" Res="Others/rainbow.png">Auto run mixing</Capability>
   <Capability Min="130" Max="159" Res="Others/rainbow.png">Six colors &amp; strobing</Capability>
@@ -23,7 +23,7 @@
  </Channel>
  <Channel Name="Flower">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Min="10" Max="198">Color macros</Capability>
   <Capability Min="199" Max="225">Color chase 1</Capability>
   <Capability Min="226" Max="255">Color chase 2</Capability>
@@ -40,25 +40,25 @@
  </Channel>
  <Channel Name="White LEDs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
-  <Capability Min="10" Max="135" Color="#ffffff">White output position</Capability>
-  <Capability Min="136" Max="255" Color="#ffffff">White output chase</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="135" Preset="ColorMacro" Res1="#ffffff">White output position</Capability>
+  <Capability Min="136" Max="255" Preset="ColorMacro" Res1="#ffffff">White output chase</Capability>
  </Channel>
  <Channel Name="White LED Strobe">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127" Color="#ffffff">Chase slow - fast (no strobe)</Capability>
-  <Capability Min="128" Max="255" Color="#ffffff">Chase slow - fast (strobing)</Capability>
+  <Capability Min="0" Max="127" Preset="ColorMacro" Res1="#ffffff">Chase slow - fast (no strobe)</Capability>
+  <Capability Min="128" Max="255" Preset="ColorMacro" Res1="#ffffff">Chase slow - fast (strobing)</Capability>
  </Channel>
  <Channel Name="Lasers">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
-  <Capability Min="10" Max="49" Color="#ff0000">Red laser</Capability>
-  <Capability Min="50" Max="89" Color="#00ff00">Green laser</Capability>
-  <Capability Min="90" Max="129" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers</Capability>
-  <Capability Min="130" Max="169" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers flicker</Capability>
-  <Capability Min="170" Max="209" Color="#00ff00" Color2="#ff0000">Green &amp; red lasers flicker</Capability>
-  <Capability Min="210" Max="249" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers flicker sync</Capability>
-  <Capability Min="250" Max="255" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers alternate flicker</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="49" Preset="ColorMacro" Res1="#ff0000">Red laser</Capability>
+  <Capability Min="50" Max="89" Preset="ColorMacro" Res1="#00ff00">Green laser</Capability>
+  <Capability Min="90" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers</Capability>
+  <Capability Min="130" Max="169" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers flicker</Capability>
+  <Capability Min="170" Max="209" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green &amp; red lasers flicker</Capability>
+  <Capability Min="210" Max="249" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers flicker sync</Capability>
+  <Capability Min="250" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers alternate flicker</Capability>
  </Channel>
  <Channel Name="Laser Strobe Control">
   <Group Byte="0">Effect</Group>

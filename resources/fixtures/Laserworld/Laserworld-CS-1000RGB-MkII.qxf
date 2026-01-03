@@ -72,14 +72,14 @@
  <Channel Name="Color Seletion">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="24">Pattern color</Capability>
-  <Capability Min="25" Max="49" Color="#ffffff">White</Capability>
-  <Capability Min="50" Max="74" Color="#ff0000">Red</Capability>
-  <Capability Min="75" Max="99" Color="#00ff00">Green</Capability>
-  <Capability Min="100" Max="124" Color="#ffff00">Yellow</Capability>
-  <Capability Min="125" Max="149" Color="#00ffff">Cyan</Capability>
-  <Capability Min="150" Max="174" Color="#0000ff">Blue</Capability>
-  <Capability Min="175" Max="199" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="200" Max="255" Color="#ffffff">RGB fade</Capability>
+  <Capability Min="25" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="75" Max="99" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="100" Max="124" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="150" Max="174" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="175" Max="199" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="200" Max="255" Preset="ColorMacro" Res1="#ffffff">RGB fade</Capability>
  </Channel>
  <Mode Name="11 channel">
   <Channel Number="0">Mode</Channel>

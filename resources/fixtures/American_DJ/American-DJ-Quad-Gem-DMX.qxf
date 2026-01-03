@@ -103,19 +103,19 @@
  <Channel Name="Pattern Lens 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
-  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
-  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
-  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
-  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
-  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
-  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
-  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
-  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
-  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
-  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff0400">Red Small</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#fefefe">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff0400">Red Big + Red Small</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0228ff" Res2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -132,19 +132,19 @@
  <Channel Name="Pattern Lens 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
-  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
-  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
-  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
-  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
-  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
-  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
-  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
-  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
-  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
-  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff0400">Red Small</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#fefefe">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff0400">Red Big + Red Small</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0228ff" Res2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -161,19 +161,19 @@
  <Channel Name="Pattern Lens 3">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
-  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
-  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
-  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
-  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
-  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
-  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
-  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
-  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
-  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
-  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff0400">Red Small</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#fefefe">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff0400">Red Big + Red Small</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0228ff" Res2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -190,19 +190,19 @@
  <Channel Name="Pattern Lens 4">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
-  <Capability Min="10" Max="19" Color="#ff0400">Red Big</Capability>
-  <Capability Min="20" Max="29" Color="#25ff00">Green</Capability>
-  <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
-  <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
-  <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
-  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
-  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
-  <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
-  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
-  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
-  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0400">Red Big</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#25ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0228ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#fefefe">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff0400">Red Small</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0400" Res2="#fefefe">Red Big + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff0400">Red Big + Red Small</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#25ff00" Res2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0228ff" Res2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>

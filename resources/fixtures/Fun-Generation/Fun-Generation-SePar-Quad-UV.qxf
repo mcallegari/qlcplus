@@ -18,21 +18,21 @@
  <Channel Name="Color / Program">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="9" Color="#ff0000">Red</Capability>
-  <Capability Min="10" Max="14" Color="#ffff00">Yellow</Capability>
-  <Capability Min="15" Max="19" Color="#ffbf00">Fawn</Capability>
-  <Capability Min="20" Max="24" Color="#00ff00">Green</Capability>
-  <Capability Min="25" Max="29" Color="#00ffff">Cyan</Capability>
-  <Capability Min="30" Max="34" Color="#0000ff">Blue</Capability>
-  <Capability Min="35" Max="39" Color="#800080">Purple</Capability>
-  <Capability Min="40" Max="44" Color="#ff55ff">Pink</Capability>
-  <Capability Min="45" Max="49" Color="#ff7e00">Amber</Capability>
-  <Capability Min="50" Max="54" Color="#ff4a4a">Light red</Capability>
-  <Capability Min="55" Max="59" Color="#49ff40">Light green</Capability>
-  <Capability Min="60" Max="64" Color="#4750ff">Light blue</Capability>
-  <Capability Min="65" Max="69" Color="#ffffff">Cold white</Capability>
-  <Capability Min="70" Max="74" Color="#fffae6">Warm white</Capability>
-  <Capability Min="75" Max="79" Color="#00007f">UV</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ffbf00">Fawn</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#ff55ff">Pink</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#ff7e00">Amber</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#ff4a4a">Light red</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#49ff40">Light green</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#4750ff">Light blue</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#ffffff">Cold white</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#fffae6">Warm white</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#00007f">UV</Capability>
   <Capability Min="80" Max="89">Automatic Show 2</Capability>
   <Capability Min="90" Max="99">Automatic Show 3</Capability>
   <Capability Min="100" Max="109">Automatic Show 4</Capability>

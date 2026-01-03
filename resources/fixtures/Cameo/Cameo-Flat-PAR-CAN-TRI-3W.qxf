@@ -19,27 +19,27 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
-  <Capability Min="5" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="26" Color="#00ff00">Green</Capability>
-  <Capability Min="27" Max="37" Color="#0000ff">Blue</Capability>
-  <Capability Min="38" Max="48" Color="#ffff00">Yellow</Capability>
-  <Capability Min="49" Max="59" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="60" Max="70" Color="#00ffff">Cyan</Capability>
-  <Capability Min="71" Max="80" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="26" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="27" Max="37" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="38" Max="48" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="49" Max="59" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="60" Max="70" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="71" Max="80" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="81" Max="150" Res="Others/rainbow.png">Colour change (rate)</Capability>
   <Capability Min="151" Max="220" Res="Others/rainbow.png">Colour blending (rate)</Capability>
   <Capability Min="221" Max="255">Music control (microphone sensitivity)</Capability>
  </Channel>
  <Channel Name="Colour macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="36" Color="#ff0000">Red</Capability>
-  <Capability Min="37" Max="73" Color="#00ff00">Green</Capability>
-  <Capability Min="74" Max="110" Color="#0000ff">Blue</Capability>
-  <Capability Min="111" Max="147" Color="#ffff00">Yellow</Capability>
-  <Capability Min="148" Max="184" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="185" Max="221" Color="#00ffff">Cyan</Capability>
-  <Capability Min="222" Max="255" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
  </Channel>
  <Mode Name="2-Channel Mode">
   <Channel Number="0">Master dimmer</Channel>

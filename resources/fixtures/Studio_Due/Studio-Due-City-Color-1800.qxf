@@ -23,12 +23,12 @@
  <Channel Name="Macro Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="25">Color Mixing</Capability>
-  <Capability Min="26" Max="51" Color="#3f95ff">Cyan</Capability>
-  <Capability Min="52" Max="77" Color="#ffdb22">Yellow</Capability>
-  <Capability Min="78" Max="103" Color="#ff0267">Magenta</Capability>
-  <Capability Min="104" Max="129" Color="#2724ff">Blue</Capability>
-  <Capability Min="130" Max="155" Color="#ff0000">Red</Capability>
-  <Capability Min="156" Max="181" Color="#0ea800">Green</Capability>
+  <Capability Min="26" Max="51" Preset="ColorMacro" Res1="#3f95ff">Cyan</Capability>
+  <Capability Min="52" Max="77" Preset="ColorMacro" Res1="#ffdb22">Yellow</Capability>
+  <Capability Min="78" Max="103" Preset="ColorMacro" Res1="#ff0267">Magenta</Capability>
+  <Capability Min="104" Max="129" Preset="ColorMacro" Res1="#2724ff">Blue</Capability>
+  <Capability Min="130" Max="155" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="156" Max="181" Preset="ColorMacro" Res1="#0ea800">Green</Capability>
   <Capability Min="182" Max="207">Color mix sequence (slow)</Capability>
   <Capability Min="208" Max="233">Color mix sequence (mid)</Capability>
   <Capability Min="234" Max="255">Color mix sequence (fast)</Capability>

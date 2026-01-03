@@ -27,37 +27,37 @@
  </Channel>
  <Channel Name="Color Selection">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7" Color="#000000">Blackout</Capability>
-  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
-  <Capability Min="16" Max="23" Color="#00ff00">Green</Capability>
-  <Capability Min="24" Max="31" Color="#0000ff">Blue</Capability>
-  <Capability Min="32" Max="39" Color="#ffffff">Cold white</Capability>
-  <Capability Min="40" Max="47" Color="#ff8000">Amber</Capability>
-  <Capability Min="48" Max="55" Color="#ffff00">Spring yellow</Capability>
-  <Capability Min="56" Max="63" Color="#00ffff">Cyan</Capability>
-  <Capability Min="64" Max="71" Color="#8080ff">Pale blue</Capability>
-  <Capability Min="72" Max="79" Color="#fffae4">Warm white tone 1</Capability>
-  <Capability Min="80" Max="87" Color="#ff8080">Pale red</Capability>
-  <Capability Min="88" Max="95" Color="#80ff80">Pale green</Capability>
-  <Capability Min="96" Max="103" Color="#3033ff">Medium blue</Capability>
-  <Capability Min="104" Max="111" Color="#aa55ff">Lilac tint</Capability>
-  <Capability Min="112" Max="119" Color="#ffc572">Salmon</Capability>
-  <Capability Min="120" Max="127" Color="#55ff7f">Medium green</Capability>
-  <Capability Min="128" Max="135" Color="#e2e7ff">White frost</Capability>
-  <Capability Min="136" Max="143" Color="#57fff1">Cyan tone 1</Capability>
-  <Capability Min="144" Max="151" Color="#b3b3ff">Light blue</Capability>
-  <Capability Min="152" Max="159" Color="#ff7bd1">Medium pink</Capability>
-  <Capability Min="160" Max="167" Color="#2b9a4a">Green tone 2</Capability>
-  <Capability Min="168" Max="175" Color="#ffff45">Medium yellow</Capability>
-  <Capability Min="176" Max="183" Color="#b5ffaf">Light green</Capability>
-  <Capability Min="184" Max="191" Color="#ff2e82">Pink</Capability>
-  <Capability Min="192" Max="199" Color="#ff78a7">Light pink</Capability>
-  <Capability Min="200" Max="207" Color="#7a7bad">Blue mist</Capability>
-  <Capability Min="208" Max="215" Color="#8b8b8b">Medium white</Capability>
-  <Capability Min="216" Max="223" Color="#90ffff">Light cyan</Capability>
-  <Capability Min="224" Max="231" Color="#39579d">Steel blue</Capability>
-  <Capability Min="232" Max="239" Color="#d1ff00">Green yellow</Capability>
-  <Capability Min="240" Max="255" Color="#fff4c6">Warm white tone 2</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffffff">Cold white</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff8000">Amber</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">Spring yellow</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#8080ff">Pale blue</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#fffae4">Warm white tone 1</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#ff8080">Pale red</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#80ff80">Pale green</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#3033ff">Medium blue</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#aa55ff">Lilac tint</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#ffc572">Salmon</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#55ff7f">Medium green</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#e2e7ff">White frost</Capability>
+  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#57fff1">Cyan tone 1</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#b3b3ff">Light blue</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#ff7bd1">Medium pink</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#2b9a4a">Green tone 2</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#ffff45">Medium yellow</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#b5ffaf">Light green</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#ff2e82">Pink</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#ff78a7">Light pink</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#7a7bad">Blue mist</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#8b8b8b">Medium white</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#90ffff">Light cyan</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#39579d">Steel blue</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#d1ff00">Green yellow</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#fff4c6">Warm white tone 2</Capability>
  </Channel>
  <Mode Name="8 Channel Mode">
   <Channel Number="0">Red</Channel>
