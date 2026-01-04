@@ -37,6 +37,7 @@
     <F n="American-DJ-12P-Hex" m="12P Hex Pearl"/>
     <F n="American-DJ-18P-Hex" m="18P Hex"/>
     <F n="American-DJ-5P-Hex" m="5P Hex"/>
+    <F n="American-DJ-5PX-Hex" m="5PX Hex"/>
     <F n="American-DJ-64B-LED-PRO" m="64B LED PRO"/>
     <F n="American-DJ-Accu-Fog-1000" m="Accu Fog 1000"/>
     <F n="American-DJ-Accu-Roller-250" m="Accu Roller 250"/>
@@ -400,6 +401,7 @@
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
     <F n="Cameo-Octafly-XS" m="Octafly XS"/>
+    <F n="Cameo-OPUS-S5" m="OPUS S5"/>
     <F n="Cameo-P2-FC" m="P2 FC"/>
     <F n="Cameo-P2-T" m="P2 T"/>
     <F n="Cameo-Pixbar-600-PRO" m="Pixbar 600 PRO"/>
@@ -1094,6 +1096,7 @@
     <F n="IMG-Stageline-PARL-40Set" m="PARL-40SET"/>
     <F n="IMG-Stageline-PARL-4Set" m="PARL-4SET"/>
     <F n="IMG-Stageline-PARL-73-RGB" m="Parl 73-RGB"/>
+    <F n="IMG-Stageline-TWIST-1LED" m="Twist 1LED"/>
     <F n="IMG-Stageline-Wash-40-LED" m="Wash-40 LED"/>
   </M>
   <M n="Involight">
@@ -1446,6 +1449,7 @@
     <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
     <F n="Pro-Lights-CromoWash100" m="CromoWash100"/>
     <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
+    <F n="Pro-Lights-EclExpo-Flood-150FC" m="EclExpo Flood 150FC"/>
     <F n="Pro-Lights-EVO90F" m="EVO90F"/>
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
     <F n="Pro-Lights-Fury-FY250S" m="Fury FY250S"/>
@@ -1962,6 +1966,7 @@
   <M n="Venue">
     <F n="Venue-LEDPAR64" m="LED PAR64"/>
     <F n="Venue-Scanner-4" m="Scanner 4"/>
+    <F n="Venue-Tetra-6" m="Tetra 6"/>
     <F n="Venue-Tetra-Bar" m="Tetra Bar"/>
     <F n="Venue-ThinPar-38" m="ThinPAR 38"/>
     <F n="Venue-THINPAR-64" m="ThinPar 64"/>
