@@ -379,7 +379,6 @@ GridLayout
                         height: 1
                         y: UISettings.listItemHeight - 1
                         color: UISettings.fgMedium
-
                     }
 
                     MouseArea

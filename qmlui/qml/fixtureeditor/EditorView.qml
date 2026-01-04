@@ -442,6 +442,16 @@ Rectangle
 
                                                 //property int itemType: App.ChannelDragItem
                                                 property QLCChannel cRef: itemRoot.cRef
+                                                property int chGroup: cRef ? cRef.group : 0
+                                                property int chColor: cRef ? cRef.colour : 0
+
+                                                onChGroupChanged: updateGroup()
+                                                onChColorChanged: updateGroup()
+
+                                                function updateGroup()
+                                                {
+                                                    cEntryItem.iSrc = cRef.getIconNameFromGroup(chGroup, true)
+                                                }
 
                                                 Rectangle
                                                 {
