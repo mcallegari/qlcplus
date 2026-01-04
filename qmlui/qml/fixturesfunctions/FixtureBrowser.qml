@@ -251,7 +251,7 @@ Rectangle
 
                     onMouseEvent: (type, iID, iType, qItem, mouseMods) =>
                     {
-                        if (type == App.Clicked)
+                        if (type === App.Clicked)
                         {
                             modelsList.currentIndex = index
                             fixtureBrowser.selectedModel = modelData
@@ -331,6 +331,7 @@ Rectangle
                                         fixtureBrowser.selectedManufacturer = qItem.manufacturer
                                         fixtureBrowser.selectedModel = qItem.textLabel
                                         fxPropsRect.visible = true
+                                        editButton.enabled = true
                                     }
                                 }
                             }

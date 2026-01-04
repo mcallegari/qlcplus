@@ -60,7 +60,7 @@ GridLayout
                 colorPreview.secondary = editor.getCapabilityValueAt(capIndex, 1)
             break
             case QLCCapability.Picture:
-                goboPicture.source = "file://" + editor.getCapabilityValueAt(capIndex, 0)
+                goboPicture.source = "file:///" + editor.getCapabilityValueAt(capIndex, 0)
             break
             case QLCCapability.SingleValue:
                 pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
