@@ -46,9 +46,9 @@ QLCInputSource::QLCInputSource(QThread *parent)
     m_lower.setType(QLCInputFeedback::LowerValue);
     m_lower.setValue(0);
     m_upper.setType(QLCInputFeedback::UpperValue);
-    m_upper.setValue(UCHAR_MAX);
+    m_upper.setValue(0);
     m_monitor.setType(QLCInputFeedback::MonitorValue);
-    m_monitor.setValue(UCHAR_MAX);
+    m_monitor.setValue(0);
 }
 
 QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *parent)
@@ -65,9 +65,9 @@ QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *paren
     m_lower.setType(QLCInputFeedback::LowerValue);
     m_lower.setValue(0);
     m_upper.setType(QLCInputFeedback::UpperValue);
-    m_upper.setValue(UCHAR_MAX);
+    m_upper.setValue(0);
     m_monitor.setType(QLCInputFeedback::MonitorValue);
-    m_monitor.setValue(UCHAR_MAX);
+    m_monitor.setValue(0);
 }
 
 QLCInputSource::~QLCInputSource()
