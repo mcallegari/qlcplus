@@ -353,6 +353,7 @@ Rectangle
                         checkable: true
                         autoExclusive: true
                         padding: 5
+                        rightPadding: height * 1.1
 
                         onClicked:
                         {
@@ -360,6 +361,17 @@ Rectangle
                             editor.editorView = modelData.cRef
                             editor.initialize()
                             checked = true
+                        }
+
+                        GenericButton
+                        {
+                            width: height
+                            height: parent.height * 0.9
+                            anchors.right: parent.right
+                            border.color: UISettings.bgMedium
+                            useFontawesome: true
+                            label: FontAwesome.fa_xmark
+                            onClicked: fixtureEditor.deleteEditor(modelData.id)
                         }
                     }
             } // Repeater
