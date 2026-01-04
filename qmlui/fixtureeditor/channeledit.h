@@ -57,6 +57,7 @@ public:
     /** Methods to add a new capability */
     Q_INVOKABLE QLCCapability *addNewCapability();
     Q_INVOKABLE QLCCapability *addCapability(int min, int max, QString name);
+    Q_INVOKABLE bool checkAvailability(int startAddress, int amount);
 
     /** Delete the capability at the given index */
     Q_INVOKABLE void removeCapabilityAtIndex(int index);

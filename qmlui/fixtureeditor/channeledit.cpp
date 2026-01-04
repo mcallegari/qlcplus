@@ -228,6 +228,7 @@ QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
     QLCCapability *cap = new QLCCapability(min, max);
     QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
     cap->setName(name);
+
     if (m_channel->addCapability(cap))
     {
         updateCapabilities();
@@ -239,6 +240,18 @@ QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
     }
 
     return cap;
+}
+
+bool ChannelEdit::checkAvailability(int startAddress, int amount)
+{
+    int endAddress = startAddress + amount - 1;
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (cap->max() >= startAddress && cap->min() <= endAddress)
+            return false;
+    }
+
+    return true;
 }
 
 void ChannelEdit::removeCapabilityAtIndex(int index)

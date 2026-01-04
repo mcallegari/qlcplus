@@ -36,6 +36,7 @@ CustomPopupDialog
     property bool capabilityWizard: false
     property var itemsList: []
     property bool isUpdating: false
+    property bool overlapping: false
 
     function updateItemsList(create)
     {
@@ -47,6 +48,9 @@ CustomPopupDialog
         itemsList = []
         var i = 0
         var j = 0
+
+        if (capabilityWizard)
+            overlapping = !chEdit.checkAvailability(startSpin.value, widthSpin.value * amountSpin.value)
 
         for (i = 0; i < amountSpin.value; i++)
         {
@@ -215,6 +219,13 @@ CustomPopupDialog
                 } // RowLayout
             }
 
+            RobotoText
+            {
+                visible: overlapping
+                label: qsTr("Overlapping range detected. Adjust the parameters or make space")
+                labelColor: "red"
+            }
+
             GroupBox
             {
                 title: qsTr("Label")
@@ -248,7 +259,6 @@ CustomPopupDialog
                     implicitHeight: UISettings.bigItemHeight * 2
                     clip: true
                     boundsBehavior: Flickable.StopAtBounds
-                    //model: itemsList
 
                     delegate:
                         RobotoText

@@ -408,7 +408,7 @@ GridLayout
                 y: UISettings.listItemHeight
                 width: capsList.width
                 height: UISettings.listItemHeight
-                visible: false || capsList.count == 0
+                visible: false || capsList.count === 0
 
                 property QLCCapability editCap: null
                 property int indexInList: 0
