@@ -3,21 +3,21 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.1</Version>
+  <Version>5.1.0 GIT</Version>
   <Author>Gigi Pierluigi Vecchio</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
- <Model>EclFresnel-2KTW</Model>
+ <Model>EclFresnel 2KTW</Model>
  <Type>Moving Head</Type>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Strobe" Default="255">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="30">Open</Capability>
-  <Capability Min="31" Max="100">Strobe slow to fast</Capability>
-  <Capability Min="101" Max="130">Open</Capability>
-  <Capability Min="131" Max="200">Random strobe slow to fast</Capability>
-  <Capability Min="201" Max="255">Open</Capability>
+  <Capability Min="0" Max="30" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="31" Max="100" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="101" Max="130" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="131" Max="200" Preset="StrobeRandomSlowToFast">Random strobe slow to fast</Capability>
+  <Capability Min="201" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="CCT">
   <Group Byte="0">Colour</Group>
@@ -58,7 +58,7 @@
   <Capability Min="239" Max="245">9600K - 9800K</Capability>
   <Capability Min="246" Max="255">9800K - 10000K</Capability>
  </Channel>
- <Channel Name="CCT-">
+ <Channel Name="CCT2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">2800K - 3000K</Capability>
   <Capability Min="8" Max="14">3000K - 3200K</Capability>
@@ -104,9 +104,9 @@
   <Capability Min="127" Max="127">No Function</Capability>
   <Capability Min="128" Max="255">0 to +25</Capability>
  </Channel>
- <Channel Name="Hue-">
+ <Channel Name="Hue2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">0 </Capability>
+  <Capability Min="0" Max="0">0</Capability>
   <Capability Min="1" Max="255">-25 to +25</Capability>
  </Channel>
  <Channel Name="Crossfade">
@@ -123,22 +123,22 @@
  <Channel Name="Royal blue fine" Preset="IntensityIndigoFine"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
- <Channel Name="Lime" Preset="IntensityYellow"/>
- <Channel Name="Lime fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
  <Channel Name="Color macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="2">No Function</Capability>
   <Capability Min="3" Max="5">Amber Shift on</Capability>
-  <Capability Min="6" Max="40">Red</Capability>
-  <Capability Min="41" Max="75">Red+Green</Capability>
-  <Capability Min="76" Max="109">Green</Capability>
-  <Capability Min="110" Max="145">Green+Blue</Capability>
-  <Capability Min="146" Max="180">Blue</Capability>
-  <Capability Min="181" Max="215">Blue+Red1</Capability>
-  <Capability Min="216" Max="254">Red1</Capability>
+  <Capability Min="6" Max="40" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="41" Max="75" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="76" Max="109" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="110" Max="145" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="146" Max="180" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="181" Max="215" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue+Red1</Capability>
+  <Capability Min="216" Max="254" Preset="ColorMacro" Res1="#ff0000">Red1</Capability>
   <Capability Min="255" Max="255">RGB</Capability>
  </Channel>
- <Channel Name="Cto on color">
+ <Channel Name="CTO on color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">0~100%</Capability>
  </Channel>
@@ -150,10 +150,10 @@
   <Capability Min="153" Max="203">Mode2 (middle speed)</Capability>
   <Capability Min="204" Max="255">Mode3 (slow speed)</Capability>
  </Channel>
- <Channel Name="Strobe-">
+ <Channel Name="Strobe2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
-  <Capability Min="11" Max="255">Strobe slow to fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
  </Channel>
  <Channel Name="Color picker">
   <Group Byte="0">Colour</Group>
@@ -223,28 +223,28 @@
   <Capability Min="248" Max="251">730</Capability>
   <Capability Min="252" Max="255">777</Capability>
  </Channel>
- <Mode Name="1ch">
+ <Mode Name="1 Channel">
   <Channel Number="0">Dimmer</Channel>
  </Mode>
- <Mode Name="2ch">
+ <Mode Name="2 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="5ch-1">
+ <Mode Name="5 Channel-1">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">CCT</Channel>
-  <Channel Number="2">Hue-</Channel>
+  <Channel Number="2">Hue2</Channel>
   <Channel Number="3">Color macro</Channel>
   <Channel Number="4">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="5ch-2">
+ <Mode Name="5 Channel-2">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">CCT</Channel>
   <Channel Number="3">Color macro</Channel>
   <Channel Number="4">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="7ch-1">
+ <Mode Name="7 Channel-1">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Orange</Channel>
   <Channel Number="2">Green</Channel>
@@ -253,7 +253,7 @@
   <Channel Number="5">Lime</Channel>
   <Channel Number="6">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="7ch-2">
+ <Mode Name="7 Channel-2">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Orange</Channel>
@@ -262,7 +262,7 @@
   <Channel Number="5">Blue</Channel>
   <Channel Number="6">Lime</Channel>
  </Mode>
- <Mode Name="8ch">
+ <Mode Name="8 Channel">
   <Channel Number="0">Color picker</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Red</Channel>
@@ -272,7 +272,7 @@
   <Channel Number="6">Blue</Channel>
   <Channel Number="7">Lime</Channel>
  </Mode>
- <Mode Name="9ch">
+ <Mode Name="9 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Orange</Channel>
@@ -280,13 +280,13 @@
   <Channel Number="4">Royal blue</Channel>
   <Channel Number="5">Blue</Channel>
   <Channel Number="6">Lime</Channel>
-  <Channel Number="7">Strobe-</Channel>
+  <Channel Number="7">Strobe2</Channel>
   <Channel Number="8">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="11ch">
+ <Mode Name="11 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
-  <Channel Number="2">CCT-</Channel>
+  <Channel Number="2">CCT2</Channel>
   <Channel Number="3">Hue</Channel>
   <Channel Number="4">Crossfade</Channel>
   <Channel Number="5">Red</Channel>
@@ -296,21 +296,21 @@
   <Channel Number="9">Blue</Channel>
   <Channel Number="10">Lime</Channel>
  </Mode>
- <Mode Name="12ch">
+ <Mode Name="12 Channel">
   <Channel Number="0">Dimmer</Channel>
-  <Channel Number="1">Strobe-</Channel>
+  <Channel Number="1">Strobe2</Channel>
   <Channel Number="2">Red</Channel>
   <Channel Number="3">Orange</Channel>
   <Channel Number="4">Green</Channel>
   <Channel Number="5">Royal blue</Channel>
   <Channel Number="6">Blue</Channel>
   <Channel Number="7">Lime</Channel>
-  <Channel Number="8">CCT-</Channel>
-  <Channel Number="9">Hue-</Channel>
+  <Channel Number="8">CCT2</Channel>
+  <Channel Number="9">Hue2</Channel>
   <Channel Number="10">Color macro</Channel>
   <Channel Number="11">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="13ch">
+ <Mode Name="13 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
   <Channel Number="2">Orange</Channel>
@@ -325,7 +325,7 @@
   <Channel Number="11">Lime fine</Channel>
   <Channel Number="12">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="16ch">
+ <Mode Name="16 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -340,10 +340,10 @@
   <Channel Number="11">Blue fine</Channel>
   <Channel Number="12">Lime</Channel>
   <Channel Number="13">Lime fine</Channel>
-  <Channel Number="14">Strobe-</Channel>
+  <Channel Number="14">Strobe2</Channel>
   <Channel Number="15">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="19ch">
+ <Mode Name="19 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -358,13 +358,13 @@
   <Channel Number="11">Blue fine</Channel>
   <Channel Number="12">Lime</Channel>
   <Channel Number="13">Lime fine</Channel>
-  <Channel Number="14">Strobe-</Channel>
-  <Channel Number="15">CCT-</Channel>
-  <Channel Number="16">Hue-</Channel>
+  <Channel Number="14">Strobe2</Channel>
+  <Channel Number="15">CCT2</Channel>
+  <Channel Number="16">Hue2</Channel>
   <Channel Number="17">Color macro</Channel>
   <Channel Number="18">Dimmer speed mode</Channel>
  </Mode>
- <Mode Name="21ch">
+ <Mode Name="21 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -384,7 +384,7 @@
   <Channel Number="16">Lime</Channel>
   <Channel Number="17">Lime fine</Channel>
   <Channel Number="18">Color macro</Channel>
-  <Channel Number="19">Cto on color</Channel>
+  <Channel Number="19">CTO on color</Channel>
   <Channel Number="20">Dimmer speed mode</Channel>
  </Mode>
  <Physical>

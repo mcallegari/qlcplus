@@ -253,6 +253,7 @@
     <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
     <F n="beamZ-BT430" m="BT430 PAR"/>
+    <F n="beamZ-BUV-463-LED-UV" m="BUV 463 LED UV"/>
     <F n="beamZ-COB-50" m="COB 50"/>
     <F n="beamZ-Cobra-720" m="Cobra 720"/>
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
@@ -479,9 +480,11 @@
     <F n="Chauvet-Double-Derby-X" m="Double Derby X"/>
     <F n="Chauvet-Eclipse-RGB" m="Eclipse RGB"/>
     <F n="Chauvet-EVE-P-160-RGBW" m="EVE P-160 RGBW"/>
+    <F n="Chauvet-EZLink-Par-Q6-BT" m="EZLink Par Q6 BT"/>
     <F n="Chauvet-EZPAR-64-RGBA" m="EZPar 64 RGBA"/>
     <F n="Chauvet-Followspot-120ST" m="Followspot 120ST"/>
     <F n="Chauvet-Freedom-H1" m="Freedom H1"/>
+    <F n="Chauvet-Freedom-Par-Hex-4" m="Freedom Par Hex 4"/>
     <F n="Chauvet-Freedom-Stick" m="Freedom Stick"/>
     <F n="Chauvet-FXpar9" m="FXpar 9"/>
     <F n="Chauvet-Geyser-P6" m="Geyser P6"/>
@@ -1449,13 +1452,18 @@
     <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
     <F n="Pro-Lights-CromoWash100" m="CromoWash100"/>
     <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
+    <F n="Pro-Lights-EclCyclorama-100" m="EclCyclorama 100"/>
     <F n="Pro-Lights-EclExpo-Flood-150FC" m="EclExpo Flood 150FC"/>
+    <F n="Pro-Lights-EclFresnel-2KTW" m="EclFresnel 2KTW"/>
+    <F n="Pro-Lights-EclPar-Ipmfc" m="EclPar IPMFC"/>
+    <F n="Pro-Lights-EclProfile-FS" m="EclProfile FS"/>
     <F n="Pro-Lights-EVO90F" m="EVO90F"/>
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
     <F n="Pro-Lights-Fury-FY250S" m="Fury FY250S"/>
     <F n="Pro-Lights-Fury-FY250W" m="Fury FY250W"/>
     <F n="Pro-Lights-Genesis" m="Genesis"/>
     <F n="Pro-Lights-GoboMix" m="GoboMix"/>
+    <F n="Pro-Lights-Jet-Wash19" m="Jet Wash19"/>
     <F n="Pro-Lights-LedPar-64363-RGB" m="LedPar 64363 RGB"/>
     <F n="Pro-Lights-LumiPar-18-Tri" m="LumiPar 18 Tri"/>
     <F n="Pro-Lights-LumiPar-7QPro" m="LumiPar 7QPro"/>
@@ -1469,6 +1477,7 @@
     <F n="Pro-Lights-Onyx" m="Onyx"/>
     <F n="Pro-Lights-Pixie-Spot" m="Pixie Spot"/>
     <F n="Pro-Lights-PIXIEWASH" m="PIXIEWASH"/>
+    <F n="Pro-Lights-Ra2000Profile" m="Ra 2000Profile"/>
     <F n="Pro-Lights-SmartBat" m="SmartBat"/>
     <F n="Pro-Lights-SmartBatHEX" m="SmartBatHEX"/>
     <F n="Pro-Lights-Strobo-1500DMX" m="Strobo 1500DMX"/>
@@ -1689,6 +1698,7 @@
     <F n="Showtec-Phantom-95-LED-Spot" m="Phantom 95 LED Spot"/>
     <F n="Showtec-Pixel-Bar-12-RGBW" m="LED Pixel Bar 12 RGBW"/>
     <F n="Showtec-Pixel-Bar-12" m="Pixel Bar 12"/>
+    <F n="Showtec-Pixel-Bar-8-COB" m="Pixel Bar 8 COB"/>
     <F n="Showtec-Power-Spot-9-Q6-Tour-V1" m="Power Spot 9 Q6 Tour V1"/>
     <F n="Showtec-Power-Spot-Q5" m="Power Spot 9 Q5"/>
     <F n="Showtec-QFX-Multi" m="QFX Multi"/>

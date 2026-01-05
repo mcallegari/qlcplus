@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.3</Version>
+  <Version>5.1.0 GIT</Version>
   <Author>Yestalgia</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -15,7 +15,7 @@
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="UV" Preset="IntensityUV"/>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>

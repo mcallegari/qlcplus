@@ -3,14 +3,14 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.4 GIT</Version>
+  <Version>5.1.0 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>EclProfile FS</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="CTC Preset">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="22">2000K</Capability>
@@ -31,9 +31,9 @@
  <Channel Name="Green fine" Preset="IntensityGreenFine"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
- <Channel Name="Lime" Preset="IntensityYellow"/>
- <Channel Name="Lime fine" Preset="IntensityYellowFine"/>
- <Channel Name="CTC Preset-">
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="CTC Preset2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="22">No function</Capability>
   <Capability Min="23" Max="57">2000K-&gt;2700K</Capability>
@@ -54,15 +54,15 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="1">Close</Capability>
-  <Capability Min="2" Max="62">Strobe from slow to fast</Capability>
-  <Capability Min="63" Max="64">Open</Capability>
-  <Capability Min="65" Max="125">Pulse in from slow to fast</Capability>
-  <Capability Min="126" Max="127">Open</Capability>
-  <Capability Min="128" Max="188">Pulse out from slow to fast</Capability>
-  <Capability Min="189" Max="190">Open</Capability>
-  <Capability Min="191" Max="251">Random from slow to fast</Capability>
-  <Capability Min="252" Max="255">Open</Capability>
+  <Capability Min="0" Max="1" Preset="ShutterClose">Close</Capability>
+  <Capability Min="2" Max="62" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="63" Max="64" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="65" Max="125" Preset="PulseSlowToFast">Pulse in from slow to fast</Capability>
+  <Capability Min="126" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="188" Preset="PulseSlowToFast">Pulse out from slow to fast</Capability>
+  <Capability Min="189" Max="190" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="191" Max="251" Preset="StrobeRandomSlowToFast">Random from slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="CTC Function">
   <Group Byte="0">Colour</Group>
@@ -76,7 +76,7 @@
  <Channel Name="Hue">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="127">-25</Capability>
-  <Capability Min="128" Max="128">0 </Capability>
+  <Capability Min="128" Max="128">0</Capability>
   <Capability Min="129" Max="255">+25</Capability>
  </Channel>
  <Channel Name="Crossfade from white to color">
@@ -87,20 +87,20 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="16">On Function</Capability>
   <Capability Min="17" Max="31" Preset="Alias">White presets Function
-   <Alias Mode="Theatre_20Ch" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func White preset)"/>
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func White preset)"/>
   </Capability>
   <Capability Min="32" Max="47" Preset="Alias">Forward Spin
-   <Alias Mode="Theatre_20Ch" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Forward Spin)"/>
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Forward Spin)"/>
   </Capability>
   <Capability Min="48" Max="63" Preset="Alias">Reverse Spin
-   <Alias Mode="Theatre_20Ch" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Reverse Spin)"/>
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Reverse Spin)"/>
   </Capability>
   <Capability Min="64" Max="79" Preset="Alias">Continuous
-   <Alias Mode="Theatre_20Ch" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Continuous &amp; Color Bounce)"/>
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Continuous &amp; Color Bounce)"/>
   </Capability>
   <Capability Min="80" Max="111" Preset="Alias">Color Bounce
-   <Alias Mode="Theatre_20Ch" Channel="Virtual color 1 (on func White preset)" With="No Virtual color"/>
-   <Alias Mode="Theatre_20Ch" Channel="No Virtual color" With="Virtual color 2 (only work on func Color Bounce)"/>
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="No Virtual color"/>
+   <Alias Mode="Theatre 20 Channel" Channel="No Virtual color" With="Virtual color 2 (only work on func Color Bounce)"/>
   </Capability>
   <Capability Min="112" Max="255">TBD</Capability>
  </Channel>
@@ -162,14 +162,14 @@
  <Mode Name="6500K">
   <Channel Number="0">Dimmer</Channel>
  </Mode>
- <Mode Name="1ch">
+ <Mode Name="1 Channel">
   <Channel Number="0">Dimmer</Channel>
  </Mode>
- <Mode Name="2ch">
+ <Mode Name="2 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
  </Mode>
- <Mode Name="3ch">
+ <Mode Name="3 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Dimmer Fade</Channel>
@@ -179,37 +179,37 @@
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
- <Mode Name="4ch-RGBL">
+ <Mode Name="4 Channel RGBL">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Lime</Channel>
  </Mode>
- <Mode Name="5ch">
+ <Mode Name="5 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">CTC Preset</Channel>
   <Channel Number="3">CTC Fine</Channel>
   <Channel Number="4">Dimmer Fade</Channel>
  </Mode>
- <Mode Name="5ch-RGBL">
+ <Mode Name="5 Channel RGBL">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">Lime</Channel>
  </Mode>
- <Mode Name="8ch">
+ <Mode Name="8 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">Lime</Channel>
-  <Channel Number="5">CTC Preset-</Channel>
+  <Channel Number="5">CTC Preset2</Channel>
   <Channel Number="6">Shutter Function</Channel>
   <Channel Number="7">Dimmer Fade</Channel>
  </Mode>
- <Mode Name="13ch">
+ <Mode Name="13 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -220,11 +220,11 @@
   <Channel Number="7">Blue fine</Channel>
   <Channel Number="8">Lime</Channel>
   <Channel Number="9">Lime fine</Channel>
-  <Channel Number="10">CTC Preset-</Channel>
+  <Channel Number="10">CTC Preset2</Channel>
   <Channel Number="11">Shutter Function</Channel>
   <Channel Number="12">Dimmer Fade</Channel>
  </Mode>
- <Mode Name="Theatre_20Ch">
+ <Mode Name="Theatre 20 Channel">
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine</Channel>

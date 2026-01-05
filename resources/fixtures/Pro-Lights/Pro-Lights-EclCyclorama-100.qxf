@@ -3,26 +3,26 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.4 GIT</Version>
+  <Version>5.1.0 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
- <Model>EclCyclorama-100</Model>
+ <Model>EclCyclorama 100</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Strobe" Default="255">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="30">No Function (shutter Close)</Capability>
-  <Capability Min="31" Max="100">Strobe effect slow to fast</Capability>
-  <Capability Min="101" Max="130">No Function (shutter open)</Capability>
-  <Capability Min="131" Max="200">Random strobe effect slow to fast</Capability>
-  <Capability Min="201" Max="255">No Function (shutter open)</Capability>
+  <Capability Min="0" Max="30" Preset="ShutterClose">No Function (shutter Close)</Capability>
+  <Capability Min="31" Max="100" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="101" Max="130" Preset="ShutterOpen">No Function (shutter open)</Capability>
+  <Capability Min="131" Max="200" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="201" Max="255" Preset="ShutterOpen">No Function (shutter open)</Capability>
  </Channel>
  <Channel Name="Hue" Default="127">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="126">25 to 0</Capability>
-  <Capability Min="127" Max="127">0 </Capability>
+  <Capability Min="127" Max="127">0</Capability>
   <Capability Min="128" Max="255">0 to +25</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
@@ -44,7 +44,7 @@
   <Capability Min="192" Max="223">5600K - 6000K</Capability>
   <Capability Min="224" Max="255">6000K - 6500K</Capability>
  </Channel>
- <Channel Name="CCT-">
+ <Channel Name="CCT2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="30">2800K - 3200K</Capability>
   <Capability Min="31" Max="60">3200K - 3500K</Capability>
@@ -56,19 +56,19 @@
   <Capability Min="211" Max="240">6000K - 6500K</Capability>
   <Capability Min="241" Max="255">Color Mix</Capability>
  </Channel>
- <Channel Name="Hue-">
+ <Channel Name="Hue2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0">0 </Capability>
-  <Capability Min="1" Max="255">da -25° a 25°</Capability>
+  <Capability Min="0" Max="0">0</Capability>
+  <Capability Min="1" Max="255">from -25° to 25°</Capability>
  </Channel>
  <Channel Name="Xfade from CCT to Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">0-100%</Capability>
  </Channel>
- <Channel Name="Strobe-">
+ <Channel Name="Strobe2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No Function</Capability>
-  <Capability Min="11" Max="255">Strobe Slow to Fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe Slow to Fast</Capability>
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
@@ -336,7 +336,7 @@
   <Capability Min="0" Max="255">16 bit fine control</Capability>
  </Channel>
  <Channel Name="XFade from CCT to Color Fine">
-  <Group Byte="1">Intensity</Group>
+  <Group Byte="1">Effect</Group>
   <Capability Min="0" Max="255">16 bit Crossfade control</Capability>
  </Channel>
  <Channel Name="Reserved">
@@ -384,47 +384,47 @@
   <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="255">16 bit control</Capability>
  </Channel>
- <Mode Name="1 Ch Theatre">
+ <Mode Name="1 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
  </Mode>
- <Mode Name="2 Ch Theatre">
+ <Mode Name="2 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="4 Ch Theatre">
+ <Mode Name="4 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">CCT</Channel>
-  <Channel Number="2">Hue-</Channel>
+  <Channel Number="2">Hue2</Channel>
   <Channel Number="3">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="5 Ch Theatre">
+ <Mode Name="5 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">CCT</Channel>
-  <Channel Number="2">Hue-</Channel>
-  <Channel Number="3">Strobe-</Channel>
+  <Channel Number="2">Hue2</Channel>
+  <Channel Number="3">Strobe2</Channel>
   <Channel Number="4">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="6 Ch Theatre">
+ <Mode Name="6 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">CCT</Channel>
-  <Channel Number="2">Hue-</Channel>
-  <Channel Number="3">Strobe-</Channel>
+  <Channel Number="2">Hue2</Channel>
+  <Channel Number="3">Strobe2</Channel>
   <Channel Number="4">Color Macro</Channel>
   <Channel Number="5">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="10 Ch Theatre">
+ <Mode Name="10 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
-  <Channel Number="5">CCT-</Channel>
-  <Channel Number="6">Hue-</Channel>
-  <Channel Number="7">Strobe-</Channel>
+  <Channel Number="5">CCT2</Channel>
+  <Channel Number="6">Hue2</Channel>
+  <Channel Number="7">Strobe2</Channel>
   <Channel Number="8">Color Macro</Channel>
   <Channel Number="9">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="15 Ch Theatre">
+ <Mode Name="15 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -435,13 +435,13 @@
   <Channel Number="7">Blue fine</Channel>
   <Channel Number="8">White</Channel>
   <Channel Number="9">White fine</Channel>
-  <Channel Number="10">CCT-</Channel>
-  <Channel Number="11">Hue-</Channel>
-  <Channel Number="12">Strobe-</Channel>
+  <Channel Number="10">CCT2</Channel>
+  <Channel Number="11">Hue2</Channel>
+  <Channel Number="12">Strobe2</Channel>
   <Channel Number="13">Color Macro</Channel>
   <Channel Number="14">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="17 Ch Theatre">
+ <Mode Name="17 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -460,7 +460,7 @@
   <Channel Number="15">CTO on Colors</Channel>
   <Channel Number="16">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="21 Ch Theatre">
+ <Mode Name="21 Channel Theatre">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -483,33 +483,33 @@
   <Channel Number="19">FX Fade</Channel>
   <Channel Number="20">Control Channel</Channel>
  </Mode>
- <Mode Name="4 Ch Tour">
+ <Mode Name="4 Channel Tour">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
- <Mode Name="6 Ch Tour">
+ <Mode Name="6 Channel Tour">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
-  <Channel Number="5">Strobe-</Channel>
+  <Channel Number="5">Strobe2</Channel>
  </Mode>
- <Mode Name="10 Ch Tour">
+ <Mode Name="10 Channel Tour">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
-  <Channel Number="5">Strobe-</Channel>
+  <Channel Number="5">Strobe2</Channel>
   <Channel Number="6">Color Temperature</Channel>
   <Channel Number="7">Auto Programs</Channel>
   <Channel Number="8">Auto Speed</Channel>
   <Channel Number="9">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="15 Ch Tour">
+ <Mode Name="15 Channel Tour">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -520,13 +520,13 @@
   <Channel Number="7">Blue fine</Channel>
   <Channel Number="8">White</Channel>
   <Channel Number="9">White fine</Channel>
-  <Channel Number="10">Strobe-</Channel>
+  <Channel Number="10">Strobe2</Channel>
   <Channel Number="11">Color Temperature</Channel>
   <Channel Number="12">Auto Programs</Channel>
   <Channel Number="13">Auto Speed</Channel>
   <Channel Number="14">Dimmer Speed Mode</Channel>
  </Mode>
- <Mode Name="12 Ch Film">
+ <Mode Name="12 Channel Film">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">CCT Film</Channel>
   <Channel Number="2">Hue Film</Channel>
@@ -540,7 +540,7 @@
   <Channel Number="10">Strobe Film</Channel>
   <Channel Number="11">Control Channel</Channel>
  </Mode>
- <Mode Name="20 Ch Film">
+ <Mode Name="20 Channel Film">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">CCT Film</Channel>

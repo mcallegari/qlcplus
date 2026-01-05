@@ -3,14 +3,14 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.4 GIT</Version>
+  <Version>5.1.0 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
- <Model>EclPar-Ipmfc</Model>
+ <Model>EclPar IPMFC</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="CCT">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">Linear from 2800K to 10000K</Capability>
@@ -43,15 +43,15 @@
  <Channel Name="White fine" Default="255" Preset="IntensityWhiteFine"/>
  <Channel Name="Strobe" Default="255">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="1">Open</Capability>
-  <Capability Min="2" Max="62">Strobe from Slow to Fast</Capability>
-  <Capability Min="63" Max="64">Open</Capability>
-  <Capability Min="65" Max="125">Pulse In from slow to fast</Capability>
-  <Capability Min="126" Max="127">Close</Capability>
-  <Capability Min="128" Max="188">Pulse Out from slow to fast</Capability>
-  <Capability Min="189" Max="190">Open</Capability>
-  <Capability Min="191" Max="251">Random from slow to fast</Capability>
-  <Capability Min="252" Max="255">Open</Capability>
+  <Capability Min="0" Max="1" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="2" Max="62" Preset="StrobeSlowToFast">Strobe from Slow to Fast</Capability>
+  <Capability Min="63" Max="64" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="65" Max="125" Preset="PulseSlowToFast">Pulse In from slow to fast</Capability>
+  <Capability Min="126" Max="127" Preset="ShutterClose">Close</Capability>
+  <Capability Min="128" Max="188" Preset="PulseSlowToFast">Pulse Out from slow to fast</Capability>
+  <Capability Min="189" Max="190" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="191" Max="251" Preset="StrobeRandomSlowToFast">Random from slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>

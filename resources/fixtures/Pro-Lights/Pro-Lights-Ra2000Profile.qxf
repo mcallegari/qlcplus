@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.1</Version>
+  <Version>5.1.0 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
- <Model>Ra2000Profile</Model>
+ <Model>Ra 2000Profile</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -16,16 +16,16 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10" Preset="ShutterClose">No Function (shutter open)</Capability>
-  <Capability Min="11" Max="82" Preset="ShutterOpen">Shutter Effect slow to fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function (shutter open)</Capability>
+  <Capability Min="11" Max="82" Preset="StrobeSlowToFast">Shutter Effect slow to fast</Capability>
   <Capability Min="83" Max="93" Preset="ShutterOpen">No Function (shutter open)</Capability>
   <Capability Min="94" Max="163" Preset="PulseSlowToFast">Pulse-effect in sequences</Capability>
   <Capability Min="164" Max="174" Preset="ShutterOpen">No Function (shutter open)</Capability>
-  <Capability Min="175" Max="244" Preset="StrobeFastToSlow">Random Strobe Effect: Slow to Fast</Capability>
+  <Capability Min="175" Max="244" Preset="StrobeRandomSlowToFast">Random Strobe Effect: Slow to Fast</Capability>
   <Capability Min="245" Max="255" Preset="ShutterOpen">No Function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Red Led Dimmer" Preset="IntensityRed"/>
  <Channel Name="Red Led Dimmer Fine" Preset="IntensityRedFine"/>
  <Channel Name="Dimmer Speed Mode">
@@ -40,25 +40,25 @@
  <Channel Name="Magenta" Preset="IntensityMagenta"/>
  <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CTO" Preset="ColorCTOMixer"/>
- <Channel Name="Function">
+ <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="4">Open</Capability>
-  <Capability Min="5" Max="9">Open + Color1</Capability>
-  <Capability Min="10" Max="13">Color1</Capability>
-  <Capability Min="14" Max="18">Color1+Color2</Capability>
-  <Capability Min="19" Max="22">Color2</Capability>
-  <Capability Min="23" Max="27">Color2+Color3</Capability>
-  <Capability Min="28" Max="31">Color3</Capability>
-  <Capability Min="32" Max="36">Color3+Color4</Capability>
-  <Capability Min="37" Max="40">Color4</Capability>
-  <Capability Min="41" Max="45">Color4+Color5</Capability>
-  <Capability Min="46" Max="49">Color5</Capability>
-  <Capability Min="50" Max="54">Color5+Color6</Capability>
-  <Capability Min="55" Max="58">Color6</Capability>
-  <Capability Min="59" Max="63">Color6+Open</Capability>
-  <Capability Min="64" Max="95">Stop to fast (forward spin)</Capability>
-  <Capability Min="96" Max="127">Fast to stop (Reverse spin)</Capability>
-  <Capability Min="128" Max="255">Positioning from 0-360 degrees (indexing)</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="5" Max="9" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#dd0000">Open + Color1</Capability>
+  <Capability Min="10" Max="13" Preset="ColorMacro" Res1="#dd0000">Color1</Capability>
+  <Capability Min="14" Max="18" Preset="ColorDoubleMacro" Res1="#dd0000" Res2="#003fff">Color1+Color2</Capability>
+  <Capability Min="19" Max="22" Preset="ColorMacro" Res1="#003fff">Color2</Capability>
+  <Capability Min="23" Max="27" Preset="ColorDoubleMacro" Res1="#003fff" Res2="#00b82e">Color2+Color3</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#00b82e">Color3</Capability>
+  <Capability Min="32" Max="36" Preset="ColorDoubleMacro" Res1="#00b82e" Res2="#e6e4ff">Color3+Color4</Capability>
+  <Capability Min="37" Max="40" Preset="ColorMacro" Res1="#e6e4ff">Color4</Capability>
+  <Capability Min="41" Max="45" Preset="ColorDoubleMacro" Res1="#e6e4ff" Res2="#ff7f00">Color4+Color5</Capability>
+  <Capability Min="46" Max="49" Preset="ColorMacro" Res1="#ff7f00">Color5</Capability>
+  <Capability Min="50" Max="54" Preset="ColorDoubleMacro" Res1="#ff7f00" Res2="#0000a0">Color5+Color6</Capability>
+  <Capability Min="55" Max="58" Preset="ColorMacro" Res1="#0000a0">Color6</Capability>
+  <Capability Min="59" Max="63" Preset="ColorDoubleMacro" Res1="#0000a0" Res2="#ffffff">Color6+Open</Capability>
+  <Capability Min="64" Max="95" Preset="RotationClockwiseSlowToFast">Stop to fast (forward spin)</Capability>
+  <Capability Min="96" Max="127" Preset="RotationCounterClockwiseFastToSlow">Fast to stop (Reverse spin)</Capability>
+  <Capability Min="128" Max="255" Preset="RotationIndexed">Positioning from 0-360 degrees (indexing)</Capability>
  </Channel>
  <Channel Name="Rotating Gobo wheel">
   <Group Byte="0">Gobo</Group>
@@ -82,10 +82,10 @@
  </Channel>
  <Channel Name="Rgobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="191">Positioning from 0-360 degrees (indexing)</Capability>
-  <Capability Min="192" Max="221">Slowest to fastest (forward spin)</Capability>
-  <Capability Min="222" Max="225">Stop</Capability>
-  <Capability Min="226" Max="255">Fastest to Slowest (reverse spin)</Capability>
+  <Capability Min="0" Max="191" Preset="RotationIndexed">Positioning from 0-360 degrees (indexing)</Capability>
+  <Capability Min="192" Max="221" Preset="RotationClockwiseSlowToFast">Slowest to fastest (forward spin)</Capability>
+  <Capability Min="222" Max="225" Preset="RotationStop">Stop</Capability>
+  <Capability Min="226" Max="255" Preset="RotationCounterClockwiseFastToSlow">Fastest to Slowest (reverse spin)</Capability>
  </Channel>
  <Channel Name="Rgobo Fine">
   <Group Byte="1">Gobo</Group>
@@ -93,10 +93,10 @@
  </Channel>
  <Channel Name="Prism Rot">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="5">Open</Capability>
-  <Capability Min="6" Max="191">Insertion and Positioning from 0-360 (Index)</Capability>
-  <Capability Min="192" Max="223">Slowest to Fastest (forward spin)</Capability>
-  <Capability Min="224" Max="255">Fastest to Slowest (reverse spin)</Capability>
+  <Capability Min="0" Max="5" Preset="PrismEffectOff">Open</Capability>
+  <Capability Min="6" Max="191" Preset="RotationIndexed">Insertion and Positioning from 0-360 (Index)</Capability>
+  <Capability Min="192" Max="223" Preset="RotationClockwiseSlowToFast">Slowest to Fastest (forward spin)</Capability>
+  <Capability Min="224" Max="255" Preset="RotationCounterClockwiseFastToSlow">Fastest to Slowest (reverse spin)</Capability>
  </Channel>
  <Channel Name="Prism Rot Fine">
   <Group Byte="1">Prism</Group>
@@ -271,7 +271,7 @@
   <Capability Min="104" Max="111">Amber shift on</Capability>
   <Capability Min="112" Max="255">TBD (no function)</Capability>
  </Channel>
- <Mode Name="38 Ch">
+ <Mode Name="38 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -285,7 +285,7 @@
   <Channel Number="10">Magenta</Channel>
   <Channel Number="11">Yellow</Channel>
   <Channel Number="12">CTO</Channel>
-  <Channel Number="13">Function</Channel>
+  <Channel Number="13">Color</Channel>
   <Channel Number="14">Rotating Gobo wheel</Channel>
   <Channel Number="15">Rgobo</Channel>
   <Channel Number="16">Prism Rot</Channel>
@@ -311,7 +311,7 @@
   <Channel Number="36">Shutter Macro Speed</Channel>
   <Channel Number="37">Control</Channel>
  </Mode>
- <Mode Name="39 Ch">
+ <Mode Name="39 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -325,7 +325,7 @@
   <Channel Number="10">Magenta</Channel>
   <Channel Number="11">Yellow</Channel>
   <Channel Number="12">CTO</Channel>
-  <Channel Number="13">Function</Channel>
+  <Channel Number="13">Color</Channel>
   <Channel Number="14">Rotating Gobo wheel</Channel>
   <Channel Number="15">Rgobo</Channel>
   <Channel Number="16">Prism Rot</Channel>
@@ -352,7 +352,7 @@
   <Channel Number="37">Shutter Macro Speed</Channel>
   <Channel Number="38">Control</Channel>
  </Mode>
- <Mode Name="40 Ch">
+ <Mode Name="40 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -366,7 +366,7 @@
   <Channel Number="10">Magenta</Channel>
   <Channel Number="11">Yellow</Channel>
   <Channel Number="12">CTO</Channel>
-  <Channel Number="13">Function</Channel>
+  <Channel Number="13">Color</Channel>
   <Channel Number="14">Rotating Gobo wheel</Channel>
   <Channel Number="15">Rgobo</Channel>
   <Channel Number="16">Rgobo Fine</Channel>
@@ -394,7 +394,7 @@
   <Channel Number="38">Shutter Macro Speed</Channel>
   <Channel Number="39">Control</Channel>
  </Mode>
- <Mode Name="41 Ch">
+ <Mode Name="41 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -408,7 +408,7 @@
   <Channel Number="10">Magenta</Channel>
   <Channel Number="11">Yellow</Channel>
   <Channel Number="12">CTO</Channel>
-  <Channel Number="13">Function</Channel>
+  <Channel Number="13">Color</Channel>
   <Channel Number="14">Rotating Gobo wheel</Channel>
   <Channel Number="15">Rgobo</Channel>
   <Channel Number="16">Rgobo Fine</Channel>
@@ -437,7 +437,7 @@
   <Channel Number="39">Shutter Macro Speed</Channel>
   <Channel Number="40">Control</Channel>
  </Mode>
- <Mode Name="44 Ch">
+ <Mode Name="44 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -453,7 +453,7 @@
   <Channel Number="12">Magenta</Channel>
   <Channel Number="13">Yellow</Channel>
   <Channel Number="14">CTO</Channel>
-  <Channel Number="15">Function</Channel>
+  <Channel Number="15">Color</Channel>
   <Channel Number="16">Rotating Gobo wheel</Channel>
   <Channel Number="17">Rgobo</Channel>
   <Channel Number="18">Rgobo Fine</Channel>
