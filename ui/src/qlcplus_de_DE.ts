@@ -572,7 +572,7 @@
     <message>
         <location filename="app.cpp" line="400"/>
         <source>You must switch back to Design mode to close the application.</source>
-        <translation>Du musst in den Designmodus wechseln um das Programm zu schließen.</translation>
+        <translation>Du musst in den Designmodus wechseln, um das Programm zu schließen.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="408"/>
@@ -1309,12 +1309,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="chasereditor.ui" line="33"/>
         <source>Chaser editor</source>
-        <translation>Chaser Editor</translation>
+        <translation>Chaser-Editor</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="142"/>
         <source>Chaser name</source>
-        <translation>Chaser Name</translation>
+        <translation>Chaser-Name</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="155"/>
@@ -2243,22 +2243,22 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="661"/>
         <source>&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;</source>
-        <translation>&lt;H1&gt;Keine Geräte&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Geräte hinzuzufügen.&lt;/P&gt;</translation>
+        <translation>&lt;H1&gt;Keine Geräte&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt;, um Geräte hinzuzufügen.&lt;/P&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="667"/>
         <source>&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;</source>
-        <translation>&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Gerät aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Geräte hinzuzufügen.&lt;/P&gt;</translation>
+        <translation>&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Gerät aus der Liste wählen oder auf &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; klicken, um Geräte hinzuzufügen.&lt;/P&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="720"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Gruppen ausgewählt&lt;/H1&gt;&lt;P&gt;Klick &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; zum Entfernen der ausgewählten Gruppe.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Mehrere Gruppen ausgewählt&lt;/H1&gt;&lt;P&gt;Auf &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; klicken, um die ausgewählte Gruppe zu entfernen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="728"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Kanalgruppe aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; um Kanalgruppe hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Keine Auswahl&lt;/H1&gt;&lt;P&gt;Kanalgruppe aus der Liste wählen oder Klick &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt;, um Kanalgruppe hinzuzufügen.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="753"/>
@@ -2617,7 +2617,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixtureselection.cpp" line="83"/>
         <source>Go to the Fixture Manager and add some fixtures first.</source>
-        <translation>Gehe zum Gerätemanager um Geräte hinzuzufügen.</translation>
+        <translation>Gehe zum Gerätemanager, um Geräte hinzuzufügen.</translation>
     </message>
 </context>
 <context>
@@ -2712,7 +2712,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionmanager.cpp" line="237"/>
         <source>New scrip&amp;t</source>
-        <translation>Neues Scrip&amp;t</translation>
+        <translation>Neues Skrip&amp;t</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="325"/>
@@ -2929,13 +2929,13 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="functionselection.ui" line="170"/>
         <source>Display RGB Matrices in the list</source>
         <oldsource>Display RGB Matrixes in the list</oldsource>
-        <translation>RGB Matrixen in der Liste anzeigen</translation>
+        <translation>RGB-Matrizen in der Liste anzeigen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="173"/>
         <source>RGB matrices</source>
         <oldsource>RGB matrixes</oldsource>
-        <translation>RGB Matrixen</translation>
+        <translation>RGB-Matrizen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="119"/>
@@ -3025,15 +3025,15 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Wilkommen beim QLC+ Assistenten!&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Willkommen beim QLC+-Assistenten!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diese geführte Einleitung hilft beim Start von QLC+ in ein paar Minuten.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sie besteht aus 3 einachen Schritten:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diese geführte Einleitung hilft, innerhalb von ein paar Minuten mit QLC+ zu starten.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sie besteht aus 3 einfachen Schritten:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1- Geräte hinzufügen&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- Auswahl der Möglichkeiten zur Funktionserstellung&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- Hinzufügen von Assistenten zur Virtuellen Konsole&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2- Auswahl der Eigenschaften zur Funktionserstellung&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3- Hinzufügen von Elementen zur Virtuellen Konsole&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Von Schritt zu Schritt die &amp;quot;Nächste&amp;quot; Taste verwenden&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Um von Schritt zu Schritt zu gelangen, den &amp;bdquo;Nächste&amp;ldquo;-Button verwenden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="198"/>
@@ -3052,7 +3052,7 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Hinzufügen der Geräte für die Erstellung von Funktionen und Assistenten &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Hinzufügen der Geräte, für die Funktionen und Assistenten erstellt werden sollen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="287"/>
@@ -3071,7 +3071,7 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den ausgewählten Funktionen können folgende Assistenten zur virtuellen Konsole hinzugefügt werden. Bitte die benötigten Assistenten auswählen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den ausgewählten Funktionen können folgende Assistenten zur virtuellen Konsole hinzugefügt werden. Bitte die benötigten Assistenten auswählen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="329"/>
@@ -3149,8 +3149,11 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Add the fixtures for which you want to create functions and widgets&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basierend auf den hinzugefügten Geräten kann ich die links gelisteten Funktionen erstellen. Benötigte auswählen, Anzeige erfolgt auf der rechten Seite!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -3412,7 +3415,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
-        <translation>Das Universum, welches gelöscht werden soll wird von einigen Geräten verwendet, soll es wirklich gelöscht werden?</translation>
+        <translation>Das Universum, welches gelöscht werden soll, wird von einigen Geräten verwendet. Soll es wirklich gelöscht werden?</translation>
     </message>
 </context>
 <context>
@@ -3463,7 +3466,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="144"/>
         <source>Enable/Disable USB hotplugging (requires restart)</source>
-        <translation>USB Hotplugging aktivieren/deaktivieren (Benötigt Neustart)</translation>
+        <translation>USB-Hotplugging aktivieren/deaktivieren (benötigt Neustart)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="168"/>
@@ -3536,7 +3539,7 @@ This can be caused either by a wrong system configuration or an unsupported inpu
 Please refer to the plugins documentation to troubleshoot this.</source>
         <translation>Ein Fehler trat beim Öffnen des Geräts auf.
 Dies kann entweder an einer fehlerhaften Systemkonfiguration oder einem nicht unterstützten Ein-/Ausgabemodus liegen.
-Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translation>
+Bitte in der Plugindokumentation nachlesen, um den Fehler zu beheben.</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="706"/>
@@ -3913,7 +3916,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="inputselectionwidget.ui" line="181"/>
         <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <translation>Wenn betätigt kann ein externer Schalter betätigt werden um diesen dem virtuellen Konsolenschalter zuzuweisen.</translation>
+        <translation>Wenn betätigt, kann ein externer Schalter betätigt werden, um diesen dem virtuellen Konsolenschalter zuzuweisen.</translation>
     </message>
     <message>
         <location filename="inputselectionwidget.ui" line="184"/>
@@ -5084,7 +5087,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.ui" line="33"/>
         <source>Script editor</source>
-        <translation>Script Editor</translation>
+        <translation>Skript-Editor</translation>
     </message>
     <message>
         <location filename="scripteditor.ui" line="172"/>
@@ -5227,27 +5230,27 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <translation>Argumente für das Programm angeben (Leer lassen falls nicht benötigt)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="426"/>
+        <location filename="scripteditor.cpp" line="427"/>
         <source>Enter the range for the randomization</source>
         <translation>Bereich für Zufallszahlen angeben</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="433"/>
+        <location filename="scripteditor.cpp" line="434"/>
         <source>Minimum value</source>
         <translation>Minimalwert</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="434"/>
+        <location filename="scripteditor.cpp" line="435"/>
         <source>Maximum value</source>
         <translation>Maximalwert</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="474"/>
+        <location filename="scripteditor.cpp" line="475"/>
         <source>No syntax errors found in the script</source>
         <translation>Keine Syntaxfehler im Skript gefunden</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="481"/>
+        <location filename="scripteditor.cpp" line="482"/>
         <source>Syntax error at line %1:
 %2
 
@@ -5258,12 +5261,12 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 </translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="484"/>
+        <location filename="scripteditor.cpp" line="485"/>
         <source>Script check results</source>
         <translation>Ergebnisse der Skriptprüfung</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="410"/>
+        <location filename="scripteditor.cpp" line="411"/>
         <source>Add Comment</source>
         <translation>Kommentar hinzufügen</translation>
     </message>
@@ -5288,7 +5291,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
         <source>&lt;Double click here to enter channel number manually&gt;</source>
-        <translation>&lt;Hier klicken um eine Kanalnummer manuell einzugeben&gt;</translation>
+        <translation>&lt;Hier klicken, um eine Kanalnummer manuell einzugeben&gt;</translation>
     </message>
 </context>
 <context>
@@ -5296,7 +5299,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="showmanager/showeditor.ui" line="33"/>
         <source>Show editor</source>
-        <translation>Show Editor</translation>
+        <translation>Show-Editor</translation>
     </message>
     <message>
         <location filename="showmanager/showeditor.ui" line="45"/>
@@ -5463,7 +5466,7 @@ Dauer: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="205"/>
         <source>Add a &amp;track or an existing function</source>
-        <translation>Eine Spur oder existierende Funktion hinzufügen</translation>
+        <translation>Eine Spur oder existierende Funk&amp;tion hinzufügen</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="258"/>
@@ -5870,17 +5873,17 @@ Dauer: %3
         <translation>Bilder (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="597"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="600"/>
         <source>Toggle Blackout</source>
         <translation>Schalte Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="599"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="602"/>
         <source>Stop ALL functions!</source>
         <translation>ALLE Funktionen stoppen!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="883"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="886"/>
         <source>Icon</source>
         <translation>Symbol</translation>
     </message>
@@ -5945,7 +5948,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="60"/>
         <source>Flash the assigned function with this button</source>
-        <translation>Die Zugewiesene Funktion mit dem Schalter aufleuchten</translation>
+        <translation>Die zugewiesene Funktion mit dem Schalter aufleuchten</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="63"/>
@@ -6090,13 +6093,13 @@ Dauer: %3
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="212"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1078"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1079"/>
         <source>Play/Pause Cue list</source>
         <translation>Cue-Liste abspielen/pausieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="221"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1079"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1080"/>
         <source>Stop Cue list</source>
         <translation>Cue-Liste stoppen</translation>
     </message>
@@ -6116,32 +6119,32 @@ Dauer: %3
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1072"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1073"/>
         <source>Play/Stop Cue list</source>
         <translation>Cue-Liste abspielen/stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1073"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1074"/>
         <source>Pause Cue list</source>
         <translation>Cue-Liste pausieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
@@ -6194,7 +6197,7 @@ Dauer: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="134"/>
         <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
-        <translation>Verhalten der &quot;Nächster/Voriger&quot;-Knöpfe wenn der Chaser nicht aktiv ist</translation>
+        <translation>Verhalten der &quot;Nächster/Voriger&quot;-Knöpfe, wenn der Chaser nicht aktiv ist</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="141"/>
@@ -6296,7 +6299,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="221"/>
         <source>Pause control</source>
-        <translation>Kontrollelement Pausieren</translation>
+        <translation>Kontrollelement pausieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="229"/>
@@ -6307,7 +6310,7 @@ Dauer: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1465"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1476"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -6426,97 +6429,97 @@ Dauer: %3
         <translation>Animation %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="954"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="956"/>
         <source>Color 2 Reset</source>
         <translation>Farbe 2 zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="966"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="968"/>
         <source>Color 3 Reset</source>
         <translation>Farbe 3 zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="978"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="980"/>
         <source>Color 4 Reset</source>
         <translation>Farbe 4 zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="990"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="992"/>
         <source>Color 5 Reset</source>
         <translation>Farbe 5 zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1029"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
         <source>Color 1 Red component</source>
         <translation>Farbe 1 Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
         <source>Color 1 Green component</source>
         <translation>Farbe 1 Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1035"/>
         <source>Color 1 Blue component</source>
         <translation>Farbe 1 Blauanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1045"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
         <source>Color 2 Red component</source>
         <translation>Farbe 2 Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
         <source>Color 2 Green component</source>
         <translation>Farbe 2 Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1051"/>
         <source>Color 2 Blue component</source>
         <translation>Farbe 2 Blauanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1061"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
         <source>Color 3 Red component</source>
         <translation>Farbe 3 Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
         <source>Color 3 Green component</source>
         <translation>Farbe 3 Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1067"/>
         <source>Color 3 Blue component</source>
         <translation>Farbe 3 Blauanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1077"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
         <source>Color 4 Red component</source>
         <translation>Farbe 4 Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
         <source>Color 4 Green component</source>
         <translation>Farbe 4 Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1083"/>
         <source>Color 4 Blue component</source>
         <translation>Farbe 4 Blauanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1093"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
         <source>Color 5 Red component</source>
         <translation>Farbe 5 Rotanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
         <source>Color 5 Green component</source>
         <translation>Farbe 5 Grünanteil</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1099"/>
         <source>Color 5 Blue component</source>
         <translation>Farbe 5 Blauanteil</translation>
     </message>
@@ -6673,7 +6676,7 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="264"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation>Wenn betätigt kann ein externer Regler/Schalter betätigt werden um diesen der Animationsschaltfläche zuzuweisen.</translation>
+        <translation>Wenn betätigt, kann ein externer Regler/Schalter betätigt werden, um diesen der Animationsschaltfläche zuzuweisen.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="267"/>
@@ -7094,7 +7097,7 @@ Dauer: %3
         <translation>Überschreiben zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="1061"/>
+        <location filename="virtualconsole/vcslider.cpp" line="1063"/>
         <source>Flash Function</source>
         <translation>Funktion flashen</translation>
     </message>
@@ -7297,7 +7300,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="397"/>
         <source>Click &amp;&amp; Go</source>
-        <translation>Klick &amp; Go</translation>
+        <translation>Klick &amp; Los</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="420"/>
@@ -7332,7 +7335,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="477"/>
         <source>Function that is attached to the slider</source>
-        <translation>Funktion die diesem Schieberegler zugewiesen ist</translation>
+        <translation>Funktion, die diesem Schieberegler zugewiesen ist</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="487"/>
@@ -7403,14 +7406,19 @@ Dauer: %3
 <context>
     <name>VCSoloFrameProperties</name>
     <message>
-        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="41"/>
         <source>Solo Frame properties</source>
         <translation>Einzelrahmen-Eigenschaften</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="44"/>
         <source>Mix sliders in playback mode</source>
         <translation>Schieberegler im Abspielmodus mischen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="48"/>
+        <source>Exclude Monitored Functions</source>
+        <translation>Beobachtete Funktionen ausschließen</translation>
     </message>
 </context>
 <context>
@@ -7731,7 +7739,7 @@ Dauer: %3
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="517"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="524"/>
         <source>This widget has no properties</source>
         <translation>Dieser Assistent hat keine Eigenschaften</translation>
     </message>
@@ -8009,7 +8017,7 @@ Please select one with such channels.</source>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="853"/>
         <source>Please select at least one fixture or head to create this type of preset!</source>
-        <translation>Bitte mindestens ein Gerät oder Kopf auswählen um diese Art Voreinstellung zu erzeugen!</translation>
+        <translation>Bitte mindestens ein Gerät oder Kopf auswählen, um diese Art Voreinstellung zu erzeugen!</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="860"/>

@@ -11,7 +11,7 @@
     <message>
         <location filename="win32/peperoni.cpp" line="138"/>
         <source>The shared library usbdmx.dll could not be found or is too old to be used with QLC.</source>
-        <translation>Die Bibliothek usbdmx.dll konnte nicht gefunden werden, oder ist zu alt um mit QLC verwendet zu werden.</translation>
+        <translation>Die Bibliothek usbdmx.dll konnte nicht gefunden werden, oder ist zu alt, um mit QLC verwendet zu werden.</translation>
     </message>
     <message>
         <location filename="unix/peperoni.cpp" line="210"/>

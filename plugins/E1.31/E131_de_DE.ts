@@ -6,7 +6,7 @@
     <message>
         <location filename="configuree131.ui" line="33"/>
         <source>Configure E1.31 Plugin</source>
-        <translation>E1.31 Plugin konfigurieren</translation>
+        <translation>E1.31-Plugin konfigurieren</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="43"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="configuree131.ui" line="71"/>
         <source>IP Address</source>
-        <translation>IP Adresse</translation>
+        <translation>IP-Adresse</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="76"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="configuree131.ui" line="81"/>
         <source>E1.31 Universe</source>
-        <translation>E1.31 Universum</translation>
+        <translation>E1.31-Universum</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="86"/>
@@ -51,7 +51,7 @@
     <message>
         <location filename="configuree131.ui" line="101"/>
         <source>Seconds to wait for an interface to be ready</source>
-        <translation>Sekunden um auf die Bereitschaft des Interfaces zu warten</translation>
+        <translation>Sekunden, um auf die Bereitschaft des Interfaces zu warten</translation>
     </message>
     <message>
         <location filename="configuree131.ui" line="61"/>
@@ -101,7 +101,7 @@ Bitte vor Bestätigung korrigieren.</translation>
     <message>
         <location filename="e131plugin.cpp" line="97"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
-        <translation>Dieses Plugin bietet DMX Ausgabe für Geräte mit dem E1.31 Kommunikationsprotokoll.</translation>
+        <translation>Dieses Plugin bietet DMX Ausgabe für Geräte mit dem E1.31-Kommunikationsprotokoll.</translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="144"/>
