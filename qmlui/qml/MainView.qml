@@ -415,12 +415,12 @@ Rectangle
                     {
                         if (currentContext === sdEntry.ctxName)
                         {
-                            simpleDesk.dumpDmxChannels(sceneName, getChannelsMask())
+                            simpleDesk.dumpDmxChannels(sceneName, getChannelsMask(), existingScene && func ? func.id : -1, nonZeroOnly)
                         }
                         else
                         {
                             contextManager.dumpDmxChannels(getChannelsMask(), sceneName, existingScene && func ? func.id : -1,
-                                        allChannels, nonZeroOnly);
+                                                           allChannels, nonZeroOnly);
                         }
                     }
                 }

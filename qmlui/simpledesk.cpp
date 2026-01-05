@@ -416,7 +416,7 @@ int SimpleDesk::dumpChannelMask() const
     return m_dumpChannelMask;
 }
 
-void SimpleDesk::dumpDmxChannels(QString name, quint32 mask)
+void SimpleDesk::dumpDmxChannels(QString name, quint32 mask, int sceneID, bool nonZeroOnly)
 {
     QList<quint32> fixtureList;
 
@@ -424,7 +424,8 @@ void SimpleDesk::dumpDmxChannels(QString name, quint32 mask)
         if (!fixtureList.contains(scv.fxi))
             fixtureList.append(scv.fxi);
 
-    m_functionManager->dumpOnNewScene(m_dumpValues, fixtureList, mask, name);
+    m_functionManager->dumpDmxValues(m_dumpValues, fixtureList, mask, name,
+                                     sceneID == -1 ? Function::invalidId() : sceneID, nonZeroOnly);
 }
 
 /************************************************************************

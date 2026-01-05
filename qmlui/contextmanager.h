@@ -322,6 +322,8 @@ public:
     /** Return the current DMX dump channel type mask */
     int dumpChannelMask() const;
 
+    /** Dump the cached DMX channel to a new or an existing Scene,
+     *  considering the options flagged in the DMX Dump popup */
     Q_INVOKABLE void dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID,
                                      bool allChannels, bool nonZeroOnly);
 

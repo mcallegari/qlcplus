@@ -145,7 +145,7 @@ public:
     /** Return the current DMX dump channel type mask */
     int dumpChannelMask() const;
 
-    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
+    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask, int sceneID, bool nonZeroOnly);
 
 signals:
     void dumpValuesCountChanged();
