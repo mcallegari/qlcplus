@@ -60,7 +60,6 @@ TextInput
         else
         {
             select(0, 0)
-
         }
     }
 

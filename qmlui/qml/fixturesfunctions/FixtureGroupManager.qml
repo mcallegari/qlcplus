@@ -609,6 +609,20 @@ Rectangle
                                 break;
                             }
                         }
+
+                        function onPathChanged(oldPath, newPath)
+                        {
+                            for (var i = 0; i < gfhcDragItem.itemsList.length; i++)
+                            {
+                                var item = gfhcDragItem.itemsList[i]
+
+                                if (item.itemType === App.FixtureGroupDragItem)
+                                {
+                                    fixtureManager.renameFixtureGroup(item.itemID, newPath)
+                                    return
+                                }
+                            }
+                        }
                     }
                 } // Loader
               } // Component

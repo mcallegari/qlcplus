@@ -105,7 +105,7 @@ Column
                 text: cRef ? cRef.name : textLabel
                 originalText: text
 
-                onTextConfirmed: nodeContainer.pathChanged(nodePath, text)
+                onTextConfirmed: (text) => nodeContainer.pathChanged(nodePath, text)
             }
         } // Row
 

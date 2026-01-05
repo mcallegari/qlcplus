@@ -146,7 +146,7 @@ Column
                 text: textLabel
                 originalText: text
 
-                onTextConfirmed:
+                onTextConfirmed: (text) =>
                 {
                     if (fixtureManager.renameFixture(itemID, text) === false)
                     {
