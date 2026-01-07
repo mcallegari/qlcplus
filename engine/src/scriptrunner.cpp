@@ -279,10 +279,6 @@ void ScriptRunner::run()
     }
 
     qDebug() << "[ScriptRunner] Code executed";
-
-    // this thread is done. Wait for the calling Script to stop
-    while (m_running)
-        msleep(50);
 }
 
 /************************************************************************
