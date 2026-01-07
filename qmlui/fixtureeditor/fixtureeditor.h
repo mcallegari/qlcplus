@@ -24,6 +24,7 @@
 
 class Doc;
 class EditorView;
+class QLCFixtureDef;
 
 class FixtureEditor : public QObject
 {
