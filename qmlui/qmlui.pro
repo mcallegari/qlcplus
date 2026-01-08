@@ -136,7 +136,7 @@ HEADERS += \
     virtualconsole/vclabel.h \
     virtualconsole/vcslider.h \
     virtualconsole/vcanimation.h \
-    virtualconsole/vcaudiotrigger.h \
+    virtualconsole/vcaudiotriggers.h \
     virtualconsole/vcxypad.h \
     virtualconsole/vcspeeddial.h \
     virtualconsole/vcclock.h \
@@ -152,7 +152,7 @@ SOURCES += \
     virtualconsole/vclabel.cpp \
     virtualconsole/vcslider.cpp \
     virtualconsole/vcanimation.cpp \
-    virtualconsole/vcaudiotrigger.cpp \
+    virtualconsole/vcaudiotriggers.cpp \
     virtualconsole/vcxypad.cpp \
     virtualconsole/vcspeeddial.cpp \
     virtualconsole/vcclock.cpp \
