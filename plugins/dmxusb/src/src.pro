@@ -112,6 +112,7 @@ HEADERS += dmxusb.h \
            dmxusbopenrx.h \
            stageprofi.h \
            vinceusbdmx512.h \
+           usbdmxlegacy.h \
            dmxinterface.h
 
 unix|macx: HEADERS += nanodmx.h euroliteusbdmxpro.h
@@ -127,6 +128,7 @@ SOURCES += dmxinterface.cpp \
            enttecdmxusbopen.cpp \
            dmxusbopenrx.cpp \
            stageprofi.cpp \
+           usbdmxlegacy.cpp \
            vinceusbdmx512.cpp
 
 INCLUDEPATH += ../../midi/src/common
