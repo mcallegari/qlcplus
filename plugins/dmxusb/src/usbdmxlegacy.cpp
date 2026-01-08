@@ -100,10 +100,12 @@ bool UsbdmxLegacy::writeUniverse(quint32 universe, quint32 output, const QByteAr
 
     bool result = true;
     // Update cache and send only diffs as SET VALUE commands, as per spec.
+    uchar *cache = reinterpret_cast<uchar*>(m_portsInfo[0].m_universeData.data());
+
     for (int i = 0; i < qMin(DMX_CHANNELS, data.size()); i++)
     {
         const uchar newVal = static_cast<uchar>(data.at(i));
-        uchar &oldVal = reinterpret_cast<uchar&>(m_portsInfo[0].m_universeData[i]);
+        uchar &oldVal = cache[i];
 
         if (newVal == oldVal)
             continue;
