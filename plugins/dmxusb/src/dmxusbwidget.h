@@ -21,7 +21,9 @@
 #ifndef DMXUSBWIDGET_H
 #define DMXUSBWIDGET_H
 
+#include <QByteArray>
 #include <QElapsedTimer>
+#include <QVector>
 
 #if defined(FTD2XX)
   #include "ftd2xx-interface.h"
