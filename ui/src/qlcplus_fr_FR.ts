@@ -5237,27 +5237,27 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <translation>Entrer les paramètres du programme (laisser vide si non requis)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="426"/>
+        <location filename="scripteditor.cpp" line="427"/>
         <source>Enter the range for the randomization</source>
         <translation>Entrer l&apos;intervalle du nombre aléatoire</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="433"/>
+        <location filename="scripteditor.cpp" line="434"/>
         <source>Minimum value</source>
         <translation>Valeur minimale</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="434"/>
+        <location filename="scripteditor.cpp" line="435"/>
         <source>Maximum value</source>
         <translation>valeur maximale</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="474"/>
+        <location filename="scripteditor.cpp" line="475"/>
         <source>No syntax errors found in the script</source>
         <translation>Aucune erreur de syntaxe trouvée dans le script</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="481"/>
+        <location filename="scripteditor.cpp" line="482"/>
         <source>Syntax error at line %1:
 %2
 
@@ -5268,12 +5268,12 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
 </translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="484"/>
+        <location filename="scripteditor.cpp" line="485"/>
         <source>Script check results</source>
         <translation>Résultats de la vérification du script</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="410"/>
+        <location filename="scripteditor.cpp" line="411"/>
         <source>Add Comment</source>
         <translation>Ajouter un commentaire</translation>
     </message>
@@ -5879,17 +5879,17 @@ Durée : %3
         <translation>Images (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="597"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="600"/>
         <source>Toggle Blackout</source>
         <translation>Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="599"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="602"/>
         <source>Stop ALL functions!</source>
         <translation>Arrêter TOUTES les fonctions&#xa0;!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="883"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="886"/>
         <source>Icon</source>
         <translation>Icône</translation>
     </message>
@@ -6099,13 +6099,13 @@ Durée : %3
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="212"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1078"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1079"/>
         <source>Play/Pause Cue list</source>
         <translation>Lecture/pause de la liste de cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="221"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1079"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1080"/>
         <source>Stop Cue list</source>
         <translation>Arrêt de la liste de cue</translation>
     </message>
@@ -6125,32 +6125,32 @@ Durée : %3
         <translation>Séquenceur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1072"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1073"/>
         <source>Play/Stop Cue list</source>
         <translation>Lecture/arrêt de la liste de cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1073"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1074"/>
         <source>Pause Cue list</source>
         <translation>Mettre la liste de cue en pause</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1510"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -6316,7 +6316,7 @@ Durée : %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1465"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1476"/>
         <source>Add</source>
         <translation>Ajouter</translation>
     </message>
@@ -6435,97 +6435,97 @@ Durée : %3
         <translation>Animation %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="954"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="956"/>
         <source>Color 2 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="966"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="968"/>
         <source>Color 3 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="978"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="980"/>
         <source>Color 4 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="990"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="992"/>
         <source>Color 5 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1029"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
         <source>Color 1 Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1031"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
         <source>Color 1 Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1033"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1035"/>
         <source>Color 1 Blue component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1045"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
         <source>Color 2 Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1047"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
         <source>Color 2 Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1049"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1051"/>
         <source>Color 2 Blue component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1061"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
         <source>Color 3 Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1063"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
         <source>Color 3 Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1065"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1067"/>
         <source>Color 3 Blue component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1077"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
         <source>Color 4 Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1079"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
         <source>Color 4 Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1081"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1083"/>
         <source>Color 4 Blue component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1093"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
         <source>Color 5 Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1095"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
         <source>Color 5 Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="1097"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="1099"/>
         <source>Color 5 Blue component</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7103,7 +7103,7 @@ Durée : %3
         <translation>Réinitialiser l&apos;écrasement des canaux</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="1061"/>
+        <location filename="virtualconsole/vcslider.cpp" line="1063"/>
         <source>Flash Function</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7411,14 +7411,19 @@ Durée : %3
 <context>
     <name>VCSoloFrameProperties</name>
     <message>
-        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="41"/>
         <source>Solo Frame properties</source>
         <translation>Propriétés de cadre solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="44"/>
         <source>Mix sliders in playback mode</source>
         <translation>Mixer les faders en mode lancement</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="48"/>
+        <source>Exclude Monitored Functions</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7739,7 +7744,7 @@ Durée : %3
         <translation>Inconnu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="517"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="524"/>
         <source>This widget has no properties</source>
         <translation>Ce widget n&apos;a pas de propriétés</translation>
     </message>
