@@ -32,8 +32,7 @@ void AssignHotKey_Test::initial()
     QKeySequence seq(Qt::Key_A | Qt::SHIFT);
     AssignHotKey ahk(NULL, seq);
     QCOMPARE(ahk.keySequence(), seq);
-    QCOMPARE(ahk.m_previewEdit->text(), seq.toString(QKeySequence::NativeText));
-    QCOMPARE(ahk.m_previewEdit->isReadOnly(), true);
+    QCOMPARE(ahk.m_previewLabel->text(), seq.toString(QKeySequence::NativeText));
 }
 
 void AssignHotKey_Test::keyPressEventAuto()

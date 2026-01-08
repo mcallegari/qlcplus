@@ -30,6 +30,7 @@
 #define SETTINGS_GEOMETRY "assignhotkey/geometry"
 #define SETTINGS_AUTOCLOSE "assignhotkey/autoclose"
 
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -59,11 +60,8 @@ AssignHotKey::AssignHotKey(QWidget* parent, const QKeySequence& keySequence)
     m_infoText->setFocusPolicy(Qt::NoFocus);
     m_buttonBox->setFocusPolicy(Qt::NoFocus);
 
-    m_previewEdit->setReadOnly(true);
-    m_previewEdit->setAlignment(Qt::AlignCenter);
-
     m_keySequence = QKeySequence(keySequence);
-    m_previewEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+    m_previewLabel->setText(m_keySequence.toString(QKeySequence::NativeText));
 
     QSettings settings;
     m_autoCloseCheckBox->setChecked(settings.value(SETTINGS_AUTOCLOSE).toBool());
@@ -89,13 +87,14 @@ void AssignHotKey::keyPressEvent(QKeyEvent* event)
 {
     int key = event->key();
     if (event->key() == Qt::Key_Control || event->key() == Qt::Key_Alt ||
-        event->key() == Qt::Key_Shift || event->key() == Qt::Key_Meta)
+        event->key() == Qt::Key_Shift || event->key() == Qt::Key_Meta ||
+        event->modifiers() == Qt::ControlModifier)
     {
         key = 0;
     }
 
     m_keySequence = QKeySequence(key | (event->modifiers() & ~Qt::ControlModifier));
-    m_previewEdit->setText(m_keySequence.toString(QKeySequence::NativeText));
+    m_previewLabel->setText(m_keySequence.toString(QKeySequence::NativeText));
 
     if (m_autoCloseCheckBox->isChecked() == true && key != 0)
         accept();
