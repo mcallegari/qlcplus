@@ -45,7 +45,7 @@ class ctkRangeSliderPrivate;
 /// TODO: support triggerAction(QAbstractSlider::SliderSingleStepSub) that
 /// moves both values at a time.
 /// \sa ctkDoubleRangeSlider, ctkDoubleSlider, ctkRangeWidget
-class ctkRangeSlider : public QSlider
+class ctkRangeSlider final : public QSlider
 {
     Q_OBJECT
     Q_PROPERTY(int minimumValue READ minimumValue WRITE setMinimumValue)

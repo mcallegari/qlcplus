@@ -29,7 +29,7 @@ class MasterTimer;
  * @{
  */
 
-class MasterTimerPrivate
+class MasterTimerPrivate final
 {
 public:
     MasterTimerPrivate(MasterTimer* masterTimer);

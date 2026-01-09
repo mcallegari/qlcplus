@@ -37,7 +37,7 @@ class QXmlStreamWriter;
 #define KXMLQLCVCSpeedDialPresetName     QStringLiteral("Name")
 #define KXMLQLCVCSpeedDialPresetValue    QStringLiteral("Value")
 
-class VCSpeedDialPreset
+class VCSpeedDialPreset final
 {
 public:
     explicit VCSpeedDialPreset(quint8 id);

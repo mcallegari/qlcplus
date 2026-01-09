@@ -27,7 +27,7 @@ struct libusb_device;
 struct libusb_device_handle;
 struct libusb_device_descriptor;
 
-class UDMXDevice : public QThread
+class UDMXDevice final : public QThread
 {
     Q_OBJECT
 

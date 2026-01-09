@@ -36,7 +36,7 @@
         <li>Call write() zero or more times for body data.</li>
         <li>Call end() when the resonse can be sent back</li>
     </ol> */
-class QHttpResponse : public QObject
+class QHttpResponse final : public QObject
 {
     Q_OBJECT
 

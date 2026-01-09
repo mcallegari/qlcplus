@@ -29,7 +29,7 @@ class Doc;
  * @{
  */
 
-class FunctionLiveEditDialog : public QDialog
+class FunctionLiveEditDialog final : public QDialog
 {
     Q_OBJECT
 public:

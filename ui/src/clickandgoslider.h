@@ -51,7 +51,7 @@ const QString CNG_DEFAULT_STYLE =
     "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
     "border: 1px solid #5288A7; margin: 0 9px; }";
 
-class ClickAndGoSlider : public QSlider
+class ClickAndGoSlider final : public QSlider
 {
     Q_OBJECT
 public:

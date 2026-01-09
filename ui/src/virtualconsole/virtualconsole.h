@@ -48,7 +48,7 @@ class QMenu;
  * @{
  */
 
-class VirtualConsole : public QWidget
+class VirtualConsole final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VirtualConsole)

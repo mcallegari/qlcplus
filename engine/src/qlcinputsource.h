@@ -30,7 +30,7 @@
  * @{
  */
 
-class QLCInputSource: public QThread
+class QLCInputSource final : public QThread
 {
     Q_OBJECT
 

@@ -28,7 +28,7 @@
  * @{
  */
 
-class Sequence : public Chaser
+class Sequence final : public Chaser
 {
     Q_OBJECT
     Q_DISABLE_COPY(Sequence)

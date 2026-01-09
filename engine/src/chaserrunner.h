@@ -54,7 +54,7 @@ typedef struct
     int m_pIntensityOverrideId;         //! An ID to control the step parent intensity
 } ChaserRunnerStep;
 
-class ChaserRunner : public QObject
+class ChaserRunner final : public QObject
 {
     Q_OBJECT
 

@@ -69,7 +69,7 @@ class QXmlStreamWriter;
  * fixture modes. Instead, a QLCFixtureMode defines the actual channel number
  * for each of its QLCChannels.
  */
-class QLCChannel : public QObject
+class QLCChannel final : public QObject
 {
     Q_OBJECT
 

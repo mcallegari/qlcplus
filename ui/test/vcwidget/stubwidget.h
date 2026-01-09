@@ -23,7 +23,7 @@
 
 #include "vcwidget.h"
 
-class StubWidget : public VCWidget
+class StubWidget final : public VCWidget
 {
     Q_OBJECT
 

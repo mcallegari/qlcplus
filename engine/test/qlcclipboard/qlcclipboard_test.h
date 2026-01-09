@@ -25,7 +25,7 @@
 class Doc;
 class Scene;
 
-class QLCClipboard_Test : public QObject
+class QLCClipboard_Test final : public QObject
 {
     Q_OBJECT
 

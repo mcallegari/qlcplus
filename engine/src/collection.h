@@ -39,7 +39,7 @@ typedef struct
     int m_intensityId;
 } ChildFunction;
 
-class Collection : public Function
+class Collection final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(Collection)

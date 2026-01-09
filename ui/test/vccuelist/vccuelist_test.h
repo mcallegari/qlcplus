@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class VCCueList_Test : public QObject
+class VCCueList_Test final : public QObject
 {
     Q_OBJECT
 

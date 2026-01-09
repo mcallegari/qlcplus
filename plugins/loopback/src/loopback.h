@@ -25,7 +25,7 @@
 #include "qlcioplugin.h"
 #include "qlcmacros.h"
 
-class QLC_DECLSPEC Loopback : public QLCIOPlugin
+class QLC_DECLSPEC Loopback final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

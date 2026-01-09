@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-class VCSpeedDialProperties : public QDialog, public Ui_VCSpeedDialProperties
+class VCSpeedDialProperties final : public QDialog, public Ui_VCSpeedDialProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSpeedDialProperties)

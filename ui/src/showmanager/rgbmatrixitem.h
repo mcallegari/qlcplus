@@ -37,7 +37,7 @@
  * RGBMatrix Item. Clickable and draggable object identifying a RGBMatrix object
  *
  */
-class RGBMatrixItem : public ShowItem
+class RGBMatrixItem final : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

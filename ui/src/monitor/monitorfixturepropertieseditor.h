@@ -32,7 +32,7 @@ class MonitorProperties;
  * @{
  */
 
-class MonitorFixturePropertiesEditor : public QWidget, public Ui_MonitorFixturePropertiesEditor
+class MonitorFixturePropertiesEditor final : public QWidget, public Ui_MonitorFixturePropertiesEditor
 {
     Q_OBJECT
 

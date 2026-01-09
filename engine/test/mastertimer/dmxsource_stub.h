@@ -23,7 +23,7 @@
 #include <QObject>
 #include "dmxsource.h"
 
-class DMXSource_Stub : public DMXSource
+class DMXSource_Stub final : public DMXSource
 {
 public:
     DMXSource_Stub();

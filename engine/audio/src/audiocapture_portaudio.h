@@ -26,7 +26,7 @@
  * @{
  */
 
-class AudioCapturePortAudio : public AudioCapture
+class AudioCapturePortAudio final : public AudioCapture
 {
     Q_OBJECT
 public:

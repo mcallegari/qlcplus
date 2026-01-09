@@ -37,7 +37,7 @@ class QLCChannel;
  * @{
  */
 
-class QLCFixtureEditor : public QWidget, public Ui_FixtureEditor
+class QLCFixtureEditor final : public QWidget, public Ui_FixtureEditor
 {
     Q_OBJECT
 

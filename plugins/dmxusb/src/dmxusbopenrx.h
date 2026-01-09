@@ -26,7 +26,7 @@
 
 #include "dmxusbwidget.h"
 
-class DMXUSBOpenRx : public QThread, public DMXUSBWidget
+class DMXUSBOpenRx final : public QThread, public DMXUSBWidget
 {
     Q_OBJECT
 

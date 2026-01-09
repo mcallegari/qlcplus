@@ -34,7 +34,7 @@ class InputPatch;
  * @{
  */
 
-class SelectInputChannel : public QDialog, public Ui_SelectInputChannel
+class SelectInputChannel final : public QDialog, public Ui_SelectInputChannel
 {
     Q_OBJECT
     Q_DISABLE_COPY(SelectInputChannel)

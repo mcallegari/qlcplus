@@ -32,7 +32,7 @@ class QXmlStreamReader;
  * @{
  */
 
-class Audio : public Function
+class Audio final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(Audio)

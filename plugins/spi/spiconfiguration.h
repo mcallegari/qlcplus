@@ -24,7 +24,7 @@
 
 class SPIPlugin;
 
-class SPIConfiguration : public QDialog, public Ui_SPIConfiguration
+class SPIConfiguration final : public QDialog, public Ui_SPIConfiguration
 {
     Q_OBJECT
 

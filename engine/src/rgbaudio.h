@@ -33,7 +33,7 @@
 
 class AudioCapture;
 
-class RGBAudio : public QObject, public RGBAlgorithm
+class RGBAudio final : public QObject, public RGBAlgorithm
 {
     Q_OBJECT
 

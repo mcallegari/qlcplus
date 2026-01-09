@@ -31,7 +31,7 @@ class Doc;
  * @{
  */
 
-class AudioEditor : public QWidget, public Ui_AudioEditor
+class AudioEditor final : public QWidget, public Ui_AudioEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(AudioEditor)

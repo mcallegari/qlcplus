@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class DmxDumpFactoryProperties_Test : public QObject
+class DmxDumpFactoryProperties_Test final : public QObject
 {
     Q_OBJECT
 

@@ -37,7 +37,7 @@
 #define KXMLQLCChannelModOriginalDMX    QStringLiteral("Original")
 #define KXMLQLCChannelModModifiedDMX    QStringLiteral("Modified")
 
-class ChannelModifier
+class ChannelModifier final
 {
 public:
     ChannelModifier();

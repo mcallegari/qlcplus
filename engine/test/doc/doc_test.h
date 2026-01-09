@@ -26,7 +26,7 @@
 #include <QXmlStreamWriter>
 
 class Doc;
-class Doc_Test : public QObject
+class Doc_Test final : public QObject
 {
     Q_OBJECT
 

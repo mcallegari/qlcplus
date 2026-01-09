@@ -32,7 +32,7 @@
 
 /** Displays debug messages in Windows and OS X (since they don't have console)
  */
-class DebugBox : public QDialog, public Ui_DebugBox
+class DebugBox final : public QDialog, public Ui_DebugBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(DebugBox)

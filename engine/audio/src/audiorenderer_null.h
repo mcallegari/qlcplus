@@ -27,7 +27,7 @@
  * @{
  */
 
-class AudioRendererNull : public AudioRenderer
+class AudioRendererNull final : public AudioRenderer
 {
     Q_OBJECT
 public:

@@ -38,7 +38,7 @@
  * @{
  */
 
-class AudioRendererWaveOut : public AudioRenderer
+class AudioRendererWaveOut final : public AudioRenderer
 {
     Q_OBJECT
 public:

@@ -43,7 +43,7 @@ class QXmlStreamWriter;
 #define KXMLQLCCueSpeedFadeOut  QStringLiteral("FadeOut")
 #define KXMLQLCCueSpeedDuration QStringLiteral("Duration")
 
-class Cue
+class Cue final
 {
 public:
     Cue(const QString& name = QString());

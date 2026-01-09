@@ -29,7 +29,7 @@ class QLCFixtureDef;
 class QLCFixtureMode;
 class Doc;
 
-class AddRGBPanel : public QDialog, public Ui_AddRGBPanel
+class AddRGBPanel final : public QDialog, public Ui_AddRGBPanel
 {
     Q_OBJECT
     Q_DISABLE_COPY(AddRGBPanel)

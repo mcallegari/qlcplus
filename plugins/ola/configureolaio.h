@@ -25,7 +25,7 @@
 
 class OlaIO;
 
-class ConfigureOlaIO : public QDialog, public Ui_ConfigureOlaIO
+class ConfigureOlaIO final : public QDialog, public Ui_ConfigureOlaIO
 {
     Q_OBJECT
 

@@ -34,7 +34,7 @@ class InputSelectionWidget;
  * @{
  */
 
-class VCMatrixProperties : public QDialog, public Ui_VCMatrixProperties
+class VCMatrixProperties final : public QDialog, public Ui_VCMatrixProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrixProperties)

@@ -24,7 +24,7 @@
 
 #include "dmxusbwidget.h"
 
-class NanoDMX : public QThread, public DMXUSBWidget
+class NanoDMX final : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization

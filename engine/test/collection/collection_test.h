@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class Collection_Test : public QObject
+class Collection_Test final : public QObject
 {
     Q_OBJECT
 

@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class QLCChannel_Test : public QObject
+class QLCChannel_Test final : public QObject
 {
     Q_OBJECT
 

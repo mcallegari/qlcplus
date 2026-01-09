@@ -47,7 +47,7 @@ class QHttpRequest;
 class QHttpResponse;
 class QHttpConnection;
 
-class WebAccess : public QObject
+class WebAccess final : public QObject
 {
     Q_OBJECT
 public:

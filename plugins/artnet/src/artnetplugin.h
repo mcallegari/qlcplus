@@ -44,7 +44,7 @@ typedef struct _aio
 #define ARTNET_OUTPUTUNI "outputUni"
 #define ARTNET_TRANSMITMODE "transmitMode"
 
-class ArtNetPlugin : public QLCIOPlugin
+class ArtNetPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

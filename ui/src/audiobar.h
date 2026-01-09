@@ -42,7 +42,7 @@ class QXmlStreamWriter;
 #define KXMLQLCAudioBarMaxThreshold QStringLiteral("MaxThreshold")
 #define KXMLQLCAudioBarDivisor      QStringLiteral("Divisor")
 
-class AudioBar
+class AudioBar final
 {
 public:
     /** Normal constructor */

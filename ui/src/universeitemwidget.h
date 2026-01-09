@@ -27,7 +27,7 @@
  * @{
  */
 
-class UniverseItemWidget : public QItemDelegate
+class UniverseItemWidget final : public QItemDelegate
 {
     Q_OBJECT
 

@@ -22,7 +22,7 @@
 
 #include "qlcioplugin.h"
 
-class DummyPlugin : public QLCIOPlugin
+class DummyPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

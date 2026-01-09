@@ -25,7 +25,7 @@
 
 class Doc;
 
-class AddFixture_Test : public QObject
+class AddFixture_Test final : public QObject
 {
     Q_OBJECT
 

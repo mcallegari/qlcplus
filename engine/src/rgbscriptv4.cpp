@@ -41,7 +41,7 @@
 
 JSThread* RGBScript::s_jsThread = NULL;
 
-class JSThread: public QThread
+class JSThread final : public QThread
 {
 public:
     QJSEngine *engine;

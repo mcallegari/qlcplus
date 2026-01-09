@@ -23,7 +23,7 @@
 #include <QObject>
 #include "wing.h"
 
-class WingStub : public Wing
+class WingStub final : public Wing
 {
     Q_OBJECT
 public:
@@ -34,7 +34,7 @@ public:
     void parseData(const QByteArray& ba) override;
 };
 
-class Wing_Test : public QObject
+class Wing_Test final : public QObject
 {
     Q_OBJECT
 

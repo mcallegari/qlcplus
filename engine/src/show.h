@@ -34,7 +34,7 @@ class ShowRunner;
  * @{
  */
 
-class Show : public Function
+class Show final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(Show)

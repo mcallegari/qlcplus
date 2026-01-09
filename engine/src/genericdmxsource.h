@@ -40,7 +40,7 @@ class GenericFader;
  * UniverseArray on each writeDMX() call (called by MasterTimer); HTP values continuously
  * and LTP values only once (after which they will be removed from m_values).
  */
-class GenericDMXSource : public DMXSource
+class GenericDMXSource final : public DMXSource
 {
 public:
     GenericDMXSource(Doc* doc);

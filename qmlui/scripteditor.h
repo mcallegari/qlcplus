@@ -24,7 +24,7 @@
 
 class Script;
 
-class ScriptEditor : public FunctionEditor
+class ScriptEditor final : public FunctionEditor
 {
     Q_OBJECT
 

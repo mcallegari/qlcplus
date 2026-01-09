@@ -24,7 +24,7 @@
 
 class UARTWidget;
 
-class UARTPlugin : public QLCIOPlugin
+class UARTPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

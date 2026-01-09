@@ -32,7 +32,7 @@
  * ProgramWing
  ****************************************************************************/
 
-class QLC_DECLSPEC ProgramWing : public Wing
+class QLC_DECLSPEC ProgramWing final : public Wing
 {
     Q_OBJECT
 

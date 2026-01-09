@@ -35,7 +35,7 @@ class QDir;
 
 #define KXMLQLCRGBScript QStringLiteral("Script")
 
-class RGBScript : public RGBAlgorithm
+class RGBScript final : public RGBAlgorithm
 {
     /************************************************************************
      * Initialization

@@ -26,7 +26,7 @@
  * @{
  */
 
-class AudioTriggerWidget : public QWidget
+class AudioTriggerWidget final : public QWidget
 {
     Q_OBJECT
 public:

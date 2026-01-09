@@ -27,7 +27,7 @@ struct libusb_device_descriptor;
 struct libusb_device_handle;
 struct libusb_device;
 
-class UnixPeperoniDevice : public OutputDevice
+class UnixPeperoniDevice final : public OutputDevice
 {
     Q_OBJECT
 

@@ -40,7 +40,7 @@ class QWidget;
 #define KXMLQLCWidgetVisible    QStringLiteral("Visible")
 
 /** Simple class to store a widget's visibility, state and dimensions */
-class VCWidgetProperties
+class VCWidgetProperties final
 {
 public:
     VCWidgetProperties();

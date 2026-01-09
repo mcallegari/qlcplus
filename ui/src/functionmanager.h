@@ -39,7 +39,7 @@ class Doc;
  * @{
  */
 
-class FunctionManager : public QWidget
+class FunctionManager final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(FunctionManager)

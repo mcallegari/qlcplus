@@ -55,7 +55,7 @@ typedef struct _uinfo
     int type;
 } UniverseInfo;
 
-class E131Controller : public QObject
+class E131Controller final : public QObject
 {
     Q_OBJECT
 

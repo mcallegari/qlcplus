@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-class AddVCButtonMatrix : public QDialog, public Ui_AddVCButtonMatrix
+class AddVCButtonMatrix final : public QDialog, public Ui_AddVCButtonMatrix
 {
     Q_OBJECT
 

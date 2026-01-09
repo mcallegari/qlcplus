@@ -44,7 +44,7 @@ class Doc;
  * @{
  */
 
-class ShowManager : public QWidget
+class ShowManager final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(ShowManager)

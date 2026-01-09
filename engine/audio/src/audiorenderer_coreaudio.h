@@ -34,7 +34,7 @@
 #define AUDIO_BUFFER_SIZE   8192
 #define AUDIO_BUFFERS_NUM   4
 
-class AudioRendererCoreAudio : public AudioRenderer
+class AudioRendererCoreAudio final : public AudioRenderer
 {
     Q_OBJECT
 public:

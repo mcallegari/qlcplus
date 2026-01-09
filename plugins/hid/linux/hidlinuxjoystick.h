@@ -26,7 +26,7 @@
 
 #include "hidjsdevice.h"
 
-class HIDLinuxJoystick: public HIDJsDevice
+class HIDLinuxJoystick final : public HIDJsDevice
 {
     Q_OBJECT
 public:

@@ -81,7 +81,7 @@ struct FixtureHead
     QColor m_tiltColor;
 };
 
-class MonitorFixtureItem : public QObject, public QGraphicsItem
+class MonitorFixtureItem final : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

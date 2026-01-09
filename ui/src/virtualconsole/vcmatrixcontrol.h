@@ -42,7 +42,7 @@ class QXmlStreamWriter;
 #define KXMLQLCVCMatrixControlProperty      QStringLiteral("Property")
 #define KXMLQLCVCMatrixControlPropertyName  QStringLiteral("Name")
 
-class VCMatrixControl
+class VCMatrixControl final
 {
 
 public:

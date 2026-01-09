@@ -24,7 +24,7 @@
 #include <QVariant>
 
 class Doc;
-class FunctionSelection_Test : public QObject
+class FunctionSelection_Test final : public QObject
 {
     Q_OBJECT
 

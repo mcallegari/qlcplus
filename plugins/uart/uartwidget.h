@@ -25,7 +25,7 @@
 #include <QByteArray>
 #include <QThread>
 
-class UARTWidget : public QThread
+class UARTWidget final : public QThread
 {
     Q_OBJECT
 

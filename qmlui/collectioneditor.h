@@ -25,7 +25,7 @@
 class Collection;
 class ListModel;
 
-class CollectionEditor : public FunctionEditor
+class CollectionEditor final : public FunctionEditor
 {
     Q_OBJECT
 

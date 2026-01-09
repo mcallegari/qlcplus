@@ -80,7 +80,7 @@ typedef struct
     QLCChannel::ControlByte m_subType;
 } SceneChannel;
 
-class VCXYPad : public VCWidget, public DMXSource
+class VCXYPad final : public VCWidget, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCXYPad)

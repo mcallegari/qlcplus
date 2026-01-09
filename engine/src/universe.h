@@ -64,7 +64,7 @@ class Doc;
 
 /** Universe class contains input/output data for one DMX universe
  */
-class Universe: public QThread
+class Universe : public QThread
 {
     Q_OBJECT
     Q_DISABLE_COPY(Universe)

@@ -26,7 +26,7 @@
 class OutputDevice;
 class InputDevice;
 
-class IOEnumerator : public QObject
+class IOEnumerator final : public QObject
 {
     Q_OBJECT
 

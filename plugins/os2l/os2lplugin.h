@@ -29,7 +29,7 @@
 
 class QTcpServer;
 
-class OS2LPlugin : public QLCIOPlugin
+class OS2LPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

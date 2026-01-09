@@ -24,7 +24,7 @@
 
 class DummyPlugin;
 
-class DummyConfiguration : public QDialog, public Ui_DummyConfiguration
+class DummyConfiguration final : public QDialog, public Ui_DummyConfiguration
 {
     Q_OBJECT
 

@@ -31,7 +31,7 @@
 
 class ConfigureOlaIO;
 
-class OlaIO : public QLCIOPlugin
+class OlaIO final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

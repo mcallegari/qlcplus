@@ -72,7 +72,7 @@ class Fixture;
  * An EFX (effects) function that is used to create
  * more complex automation especially for moving lights
  */
-class EFX : public Function
+class EFX final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(EFX)

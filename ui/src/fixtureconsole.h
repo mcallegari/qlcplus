@@ -38,7 +38,7 @@ class Doc;
 
 #define KXMLQLCFixtureConsole QStringLiteral("Console")
 
-class FixtureConsole : public QGroupBox
+class FixtureConsole final : public QGroupBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureConsole)

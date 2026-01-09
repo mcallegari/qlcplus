@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-class MonitorFixture : public QFrame
+class MonitorFixture final : public QFrame
 {
     Q_OBJECT
 

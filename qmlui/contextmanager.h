@@ -38,7 +38,7 @@ class MonitorProperties;
 class PreviewContext;
 class SimpleDesk;
 
-class ContextManager : public QObject
+class ContextManager final : public QObject
 {
     Q_OBJECT
 

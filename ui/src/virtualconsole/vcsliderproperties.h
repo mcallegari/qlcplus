@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-class VCSliderProperties : public QDialog, public Ui_VCSliderProperties
+class VCSliderProperties final : public QDialog, public Ui_VCSliderProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSliderProperties)

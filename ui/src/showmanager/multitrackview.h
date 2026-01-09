@@ -40,7 +40,7 @@
  * @{
  */
 
-class MultiTrackView : public QGraphicsView
+class MultiTrackView final : public QGraphicsView
 {
     Q_OBJECT
 

@@ -41,7 +41,7 @@ class Doc;
 
 #define SETTINGS_FILTER "functionselection/filter"
 
-class FunctionSelection : public QDialog, public Ui_FunctionSelection
+class FunctionSelection final : public QDialog, public Ui_FunctionSelection
 {
     Q_OBJECT
     Q_DISABLE_COPY(FunctionSelection)

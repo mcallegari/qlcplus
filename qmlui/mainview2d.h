@@ -30,7 +30,7 @@ class Fixture;
 class QLCFixtureMode;
 class MonitorProperties;
 
-class MainView2D : public PreviewContext
+class MainView2D final : public PreviewContext
 {
     Q_OBJECT
 

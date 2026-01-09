@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-class Script : public Function
+class Script final : public Function
 {
     Q_OBJECT
 

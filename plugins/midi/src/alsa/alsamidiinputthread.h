@@ -33,7 +33,7 @@ typedef snd_seq_addr snd_seq_addr_t;
 
 class AlsaMidiInputDevice;
 
-class AlsaMidiInputThread : public QThread
+class AlsaMidiInputThread final : public QThread
 {
     Q_OBJECT
 

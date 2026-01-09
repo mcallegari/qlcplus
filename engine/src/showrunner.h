@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-class ShowRunner : public QObject
+class ShowRunner final : public QObject
 {
     Q_OBJECT
 

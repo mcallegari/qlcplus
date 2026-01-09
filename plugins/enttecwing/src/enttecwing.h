@@ -33,7 +33,7 @@ class QUdpSocket;
  * EWingInput
  *****************************************************************************/
 
-class EnttecWing : public QLCIOPlugin
+class EnttecWing final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

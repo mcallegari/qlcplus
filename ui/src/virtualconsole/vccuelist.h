@@ -69,7 +69,7 @@ class Doc;
  * @see VCWidget
  * @see VirtualConsole
  */
-class VCCueList : public VCWidget
+class VCCueList final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCCueList)

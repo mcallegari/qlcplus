@@ -35,7 +35,7 @@ class MonitorFixture;
  * MonitorLayoutItem
  ****************************************************************************/
 
-class MonitorLayoutItem : public QWidgetItem
+class MonitorLayoutItem final : public QWidgetItem
 {
 public:
     MonitorLayoutItem(MonitorFixture* mof);
@@ -48,7 +48,7 @@ public:
  * MonitorLayout
  ****************************************************************************/
 
-class MonitorLayout : public QLayout
+class MonitorLayout final : public QLayout
 {
     /********************************************************************
      * Initialization

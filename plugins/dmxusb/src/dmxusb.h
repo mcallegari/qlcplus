@@ -25,7 +25,7 @@
 
 class DMXUSBWidget;
 
-class DMXUSB : public QLCIOPlugin
+class DMXUSB final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

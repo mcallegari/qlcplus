@@ -37,7 +37,7 @@ class QMenu;
 #define KQXFFilter  QStringLiteral("QLC fixtures (*.qxf)")
 #define KD4Filter   QStringLiteral("Avolites fixtures (*.d4)")
 
-class App : public QMainWindow
+class App final : public QMainWindow
 {
     Q_OBJECT
 

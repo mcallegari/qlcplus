@@ -41,7 +41,7 @@
  *
  */
 
-class TrackItem : public QObject, public QGraphicsItem
+class TrackItem final : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

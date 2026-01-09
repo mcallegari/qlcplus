@@ -48,7 +48,7 @@ class Doc;
 #define KXMLQLCCueStackSpeedFadeOut  QStringLiteral("FadeOut")
 #define KXMLQLCCueStackSpeedDuration QStringLiteral("Duration")
 
-class CueStack : public QObject, public DMXSource
+class CueStack final : public QObject, public DMXSource
 {
     Q_OBJECT
 

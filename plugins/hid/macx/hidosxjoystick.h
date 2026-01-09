@@ -33,7 +33,7 @@ typedef struct
     int value;
 } HIDInfo;
 
-class HIDOSXJoystick: public HIDJsDevice
+class HIDOSXJoystick final : public HIDJsDevice
 {
     Q_OBJECT
 public:

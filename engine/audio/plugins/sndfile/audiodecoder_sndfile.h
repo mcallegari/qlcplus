@@ -40,7 +40,7 @@ extern "C"
  * @{
  */
 
-class AudioDecoderSndFile : public AudioDecoder
+class AudioDecoderSndFile final : public AudioDecoder
 {
     Q_OBJECT
     Q_INTERFACES(AudioDecoder)

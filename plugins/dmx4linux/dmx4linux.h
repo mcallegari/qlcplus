@@ -25,7 +25,7 @@
 
 #include "qlcioplugin.h"
 
-class DMX4Linux : public QLCIOPlugin
+class DMX4Linux final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)

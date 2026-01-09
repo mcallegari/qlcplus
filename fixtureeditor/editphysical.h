@@ -25,7 +25,7 @@
 #include "ui_editphysical.h"
 #include "qlcphysical.h"
 
-class EditPhysical : public QWidget, public Ui_EditPhysical
+class EditPhysical final : public QWidget, public Ui_EditPhysical
 {
     Q_OBJECT
 

@@ -24,7 +24,7 @@
 
 class OSCPlugin;
 
-class ConfigureOSC : public QDialog, public Ui_ConfigureOSC
+class ConfigureOSC final : public QDialog, public Ui_ConfigureOSC
 {
     Q_OBJECT
 

@@ -32,7 +32,7 @@ class QSpinBox;
  * @{
  */
 
-class GroupsConsole : public QWidget
+class GroupsConsole final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(GroupsConsole)

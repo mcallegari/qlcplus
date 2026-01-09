@@ -44,7 +44,7 @@ typedef struct
     qulonglong endUID;
 } DiscoveryInfo;
 
-class RDMWorker : public QThread
+class RDMWorker final : public QThread
 {
     Q_OBJECT
 
@@ -121,7 +121,7 @@ private:
     QString m_fixtureInfo;
 };
 
-class RDMManager : public QWidget, public Ui_RDMManager
+class RDMManager final : public QWidget, public Ui_RDMManager
 {
     Q_OBJECT
 

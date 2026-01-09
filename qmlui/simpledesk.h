@@ -32,7 +32,7 @@ class KeyPadParser;
 class FadeChannel;
 class ListModel;
 
-class SimpleDesk : public PreviewContext, public DMXSource
+class SimpleDesk final : public PreviewContext, public DMXSource
 {
     Q_OBJECT
 

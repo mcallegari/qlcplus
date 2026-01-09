@@ -25,7 +25,7 @@
 
 #include "dmxinterface.h"
 
-class QtSerialInterface : public DMXInterface
+class QtSerialInterface final : public DMXInterface
 {
 public:
     QtSerialInterface(const QString& serial, const QString& name, const QString& vendor,

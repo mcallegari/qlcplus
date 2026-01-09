@@ -62,7 +62,7 @@ class QLabel;
 #define KXMLQLCVCSpeedDialInfinite      QStringLiteral("Infinite")
 #define KXMLQLCVCSpeedDialInfiniteKey   QStringLiteral("InfiniteKey")
 
-class VCSpeedDial : public VCWidget
+class VCSpeedDial final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSpeedDial)

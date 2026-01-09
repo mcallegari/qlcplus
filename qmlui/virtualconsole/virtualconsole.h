@@ -39,7 +39,7 @@ class Doc;
 
 #define KXMLQLCVirtualConsole QStringLiteral("VirtualConsole")
 
-class VirtualConsole : public PreviewContext
+class VirtualConsole final : public PreviewContext
 {
     Q_OBJECT
 

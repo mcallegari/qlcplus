@@ -42,7 +42,7 @@ typedef struct
     uint m_fadeTime;
 } FixtureValue;
 
-class ScriptRunner : public QThread
+class ScriptRunner final : public QThread
 {
     Q_OBJECT
 

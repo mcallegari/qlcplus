@@ -55,7 +55,7 @@ class RGBMatrix;
 
 #define KXMLQLCVCMatrixVisibilityMask QStringLiteral("Visibility")
 
-class VCMatrix : public VCWidget
+class VCMatrix final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrix)

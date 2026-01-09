@@ -29,7 +29,7 @@ class CueStack;
  * @{
  */
 
-class CueStackModel : public QAbstractItemModel
+class CueStackModel final : public QAbstractItemModel
 {
     Q_OBJECT
 

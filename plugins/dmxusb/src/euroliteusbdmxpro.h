@@ -29,7 +29,7 @@
 #define EUROLITE_USB_DMX_PRO_START_OF_MSG  char(0x7E)
 #define EUROLITE_USB_DMX_PRO_END_OF_MSG    char(0xE7)
 
-class EuroliteUSBDMXPro : public QThread, public DMXUSBWidget
+class EuroliteUSBDMXPro final : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization

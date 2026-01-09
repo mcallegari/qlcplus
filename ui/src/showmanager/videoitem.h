@@ -37,7 +37,7 @@
  * Video Item. Clickable and draggable object identifying a Video object
  *
  */
-class VideoItem : public ShowItem
+class VideoItem final : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)

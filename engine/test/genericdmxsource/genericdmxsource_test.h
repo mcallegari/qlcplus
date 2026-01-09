@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class GenericDMXSource_Test : public QObject
+class GenericDMXSource_Test final : public QObject
 {
     Q_OBJECT
 

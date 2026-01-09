@@ -28,7 +28,7 @@
  * @{
  */
 
-class AudioCaptureQt5 : public AudioCapture
+class AudioCaptureQt5 final : public AudioCapture
 {
     Q_OBJECT
 public:

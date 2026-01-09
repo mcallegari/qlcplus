@@ -24,7 +24,7 @@
 
 class OS2LPlugin;
 
-class OS2LConfiguration : public QDialog, public Ui_OS2LConfiguration
+class OS2LConfiguration final : public QDialog, public Ui_OS2LConfiguration
 {
     Q_OBJECT
 

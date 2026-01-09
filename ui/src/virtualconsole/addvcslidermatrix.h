@@ -27,7 +27,7 @@
  * @{
  */
 
-class AddVCSliderMatrix : public QDialog, public Ui_AddVCSliderMatrix
+class AddVCSliderMatrix final : public QDialog, public Ui_AddVCSliderMatrix
 {
     Q_OBJECT
 

@@ -41,7 +41,7 @@ class AudioBar;
 
 #define KXMLQLCVCAudioTriggers QStringLiteral("AudioTriggers")
 
-class VCAudioTriggers : public VCWidget, public DMXSource
+class VCAudioTriggers final : public VCWidget, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCAudioTriggers)

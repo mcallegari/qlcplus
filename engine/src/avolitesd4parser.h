@@ -38,7 +38,7 @@ class QLCFixtureMode;
 
 #define KExtAvolitesFixture QStringLiteral(".d4") // Avolites Diamond 4 format
 
-class AvolitesD4Parser
+class AvolitesD4Parser final
 {
 public:
     /** Create a new Avolites D4 Parser object */

@@ -56,7 +56,7 @@ typedef struct
     QMap<quint32, PreviewItem> m_subItems;  ///< Map of the heads/linked fixtures
 } FixturePreviewItem;
 
-class MonitorProperties : public QObject
+class MonitorProperties final : public QObject
 {
     Q_OBJECT
 

@@ -28,7 +28,7 @@
  * @{
  */
 
-class CreateFixtureGroup : public QDialog, public Ui_CreateFixtureGroup
+class CreateFixtureGroup final : public QDialog, public Ui_CreateFixtureGroup
 {
     Q_OBJECT
     Q_DISABLE_COPY(CreateFixtureGroup)

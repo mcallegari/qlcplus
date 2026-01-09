@@ -47,7 +47,7 @@ class VCFrame;
 #define SETTINGS_AUDIOTRIGGERS_SIZE "virtualconsole/audiotriggerssize"
 #define SETTINGS_RGBMATRIX_SIZE     "virtualconsole/rgbmatrixsize"
 
-class VCPropertiesEditor : public QDialog, public Ui_VCPropertiesEditor
+class VCPropertiesEditor final : public QDialog, public Ui_VCPropertiesEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCPropertiesEditor)

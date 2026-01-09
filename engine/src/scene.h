@@ -52,7 +52,7 @@ class QXmlStreamReader;
  * fading occurs. Otherwise values are always faded from what they currently
  * are, to the target values defined in the scene (with SceneValue instances).
  */
-class Scene : public Function, public DMXSource
+class Scene final : public Function, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(Scene)

@@ -28,7 +28,7 @@
  * @{
  */
 
-class ClickAndGoWidget : public QWidget
+class ClickAndGoWidget final : public QWidget
 {
     Q_OBJECT
 public:

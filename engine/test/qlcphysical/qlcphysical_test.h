@@ -23,7 +23,7 @@
 #include <QObject>
 #include "qlcphysical.h"
 
-class QLCPhysical_Test : public QObject
+class QLCPhysical_Test final : public QObject
 {
     Q_OBJECT
 

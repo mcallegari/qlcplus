@@ -37,7 +37,7 @@ class Doc;
 
 #define KXMLQLCVCClock QStringLiteral("Clock")
 
-class VCClockSchedule
+class VCClockSchedule final
 {
 public:
     VCClockSchedule() { }
@@ -59,7 +59,7 @@ private:
     QDateTime m_time;
 };
 
-class VCClock : public VCWidget
+class VCClock final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCClock)

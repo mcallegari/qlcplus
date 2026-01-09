@@ -29,7 +29,7 @@
  * @{
  */
 
-class AudioRendererPortAudio : public AudioRenderer
+class AudioRendererPortAudio final : public AudioRenderer
 {
     Q_OBJECT
 public:

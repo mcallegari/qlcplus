@@ -32,7 +32,7 @@
  * PlaybackWing
  ****************************************************************************/
 
-class QLC_DECLSPEC PlaybackWing : public Wing
+class QLC_DECLSPEC PlaybackWing final : public Wing
 {
     Q_OBJECT
 

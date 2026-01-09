@@ -32,7 +32,7 @@
 
 #define KXMLQLCRGBText QStringLiteral("Text")
 
-class RGBText : public RGBAlgorithm
+class RGBText final : public RGBAlgorithm
 {
 public:
     RGBText(Doc * doc);

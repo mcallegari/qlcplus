@@ -39,7 +39,7 @@ extern "C"
  * @{
  */
 
-class AudioRendererAlsa : public AudioRenderer
+class AudioRendererAlsa final : public AudioRenderer
 {
     Q_OBJECT
 public:

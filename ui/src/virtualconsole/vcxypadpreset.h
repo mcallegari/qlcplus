@@ -44,7 +44,7 @@ class QXmlStreamWriter;
 #define KXMLQLCVCXYPadPresetFixtureID   QStringLiteral("ID")
 #define KXMLQLCVCXYPadPresetFixtureHead QStringLiteral("Head")
 
-class VCXYPadPreset
+class VCXYPadPreset final
 {
 public:
     explicit VCXYPadPreset(quint8 id);

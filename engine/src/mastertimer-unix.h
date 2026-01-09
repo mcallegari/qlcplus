@@ -34,7 +34,7 @@ class MasterTimer;
  * @{
  */
 
-class MasterTimerPrivate : public QThread
+class MasterTimerPrivate final : public QThread
 {
 public:
     MasterTimerPrivate(MasterTimer* masterTimer);

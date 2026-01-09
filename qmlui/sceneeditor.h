@@ -28,7 +28,7 @@ class Scene;
 class ListModel;
 class GenericDMXSource;
 
-class SceneEditor : public FunctionEditor
+class SceneEditor final : public FunctionEditor
 {
     Q_OBJECT
 

@@ -37,7 +37,7 @@
  * Audio Item. Clickable and draggable object identifying an Audio object
  *
  */
-class AudioItem : public ShowItem
+class AudioItem final : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -91,7 +91,7 @@ public:
     QPixmap *m_preview;
 };
 
-class PreviewThread : public QThread
+class PreviewThread final : public QThread
 {
 public:
     void setAudioItem(AudioItem *item);
