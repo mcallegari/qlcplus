@@ -33,15 +33,16 @@ EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObj
     : QObject(parent)
     , m_view(view)
     , m_id(id)
-    , m_fixtureDef(fixtureDef)
     , m_channelEdit(nullptr)
     , m_modeEdit(nullptr)
     , m_isModified(false)
 {
+    m_fixtureDef = new QLCFixtureDef(fixtureDef);
+
     m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
     connect(m_globalPhy, SIGNAL(changed()), this, SLOT(setModified()));
 
-    m_fileName = m_fixtureDef->definitionSourceFile();
+    m_fileName = fixtureDef->definitionSourceFile();
     qDebug() << "Editing fixture on file:" << m_fileName;
 
     m_channelList = new ListModel(this);

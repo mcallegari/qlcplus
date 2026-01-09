@@ -365,6 +365,7 @@ Rectangle
 
                         GenericButton
                         {
+                            visible: editorsRepeater.count > 1
                             width: height
                             height: parent.height * 0.9
                             anchors.right: parent.right

@@ -118,7 +118,7 @@ signals:
 
 private:
     void updateSearchTree();
-    QLCFixtureDef *fixtureDefinition();
+    QLCFixtureDef *fixtureDefinition() const;
 
 private:
     Doc *m_doc;

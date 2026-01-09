@@ -391,7 +391,7 @@ void FixtureBrowser::updateSearchTree()
     emit searchListChanged();
 }
 
-QLCFixtureDef *FixtureBrowser::fixtureDefinition()
+QLCFixtureDef *FixtureBrowser::fixtureDefinition() const
 {
     return m_doc->fixtureDefCache()->fixtureDef(m_selectedManufacturer, m_selectedModel);
 }
