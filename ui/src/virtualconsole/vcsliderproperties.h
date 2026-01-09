@@ -176,7 +176,7 @@ protected:
 
 protected slots:
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 
 protected:
     /** The slider, whose properties are being edited */

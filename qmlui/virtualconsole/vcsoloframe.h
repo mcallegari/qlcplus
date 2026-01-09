@@ -41,17 +41,17 @@ public:
     ~VCSoloFrame();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*****************************************************************************
      * Properties
@@ -77,13 +77,13 @@ protected:
      * Widget Function
      *********************************************************************/
 protected slots:
-    void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity = 1.0);
+    void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity = 1.0) override;
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 protected:
-    QString xmlTagName() const;
+    QString xmlTagName() const override;
 };
 
 

@@ -48,7 +48,7 @@ public:
     ~VideoEditor();
 
     /** @reimp */
-    void setFunctionID(quint32 ID);
+    void setFunctionID(quint32 ID) override;
 
     /** Get/Set the source file name for this Video function */
     QString sourceFileName() const;

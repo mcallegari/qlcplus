@@ -82,7 +82,7 @@ protected:
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 protected:
     bool m_running;

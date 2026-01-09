@@ -51,7 +51,7 @@ protected:
     void loadSettings();
 
 protected slots:
-    void accept();
+    void accept() override;
     void slotUnpatchedClicked();
 
 private:

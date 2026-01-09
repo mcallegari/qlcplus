@@ -70,7 +70,7 @@ protected slots:
     void slotVerticalChanged();
     void slotButtonSizeChanged();
     void slotNormalFrameToggled(bool toggled);
-    void accept();
+    void accept() override;
 
 private:
     void addFunction(quint32 fid);

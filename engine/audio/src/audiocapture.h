@@ -121,7 +121,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    void run();
+    void run() override;
 
 protected:
     void stop();

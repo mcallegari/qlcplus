@@ -39,9 +39,9 @@ public:
                         AlsaMidiInputThread* thread, QObject* parent);
     virtual ~AlsaMidiInputDevice();
 
-    bool open();
-    void close();
-    bool isOpen() const;
+    bool open() override;
+    void close() override;
+    bool isOpen() const override;
 
     const snd_seq_addr_t* address() const;
 

@@ -57,7 +57,7 @@ public:
     DetachedContext(QWidget *parent) : QMainWindow(parent) {}
 
 protected slots:
-    void closeEvent(QCloseEvent *ev)
+    void closeEvent(QCloseEvent *ev) override
     {
         emit closing();
         // avoid the real context to be destroyed !
@@ -86,7 +86,7 @@ public:
 
 private:
     void init();
-    void closeEvent(QCloseEvent*);
+    void closeEvent(QCloseEvent*) override;
     void setActiveWindow(const QString& name);
 
 #if defined(WIN32) || defined(Q_OS_WIN)

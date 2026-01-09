@@ -40,7 +40,7 @@ public:
     ~MonitorBackgroundSelection();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 protected:
     void updateCustomTree();

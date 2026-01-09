@@ -75,7 +75,7 @@ public:
      * QLC+ Mode
      *********************************************************************/
 public slots:
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*********************************************************************
      * Type
@@ -162,16 +162,16 @@ private:
     QKeySequence m_resetKeySequence;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
     /*************************************************************************
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
 private:
     quint32 m_playLatestValue;
@@ -181,28 +181,28 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
-    bool copyFrom(const VCWidget *widget);
+    VCWidget* createCopy(VCWidget* parent) override;
+    bool copyFrom(const VCWidget *widget) override;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
-    void editProperties();
+    void editProperties() override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 
     /*********************************************************************
      * Painting
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent* e);
+    void paintEvent(QPaintEvent* e) override;
+    void mousePressEvent(QMouseEvent* e) override;
 };
 
 /** @} */

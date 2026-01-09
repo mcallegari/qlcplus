@@ -68,7 +68,7 @@ public:
     QList<SceneValue> channels();
 
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua) override;
 
 private:
     Doc *m_doc;

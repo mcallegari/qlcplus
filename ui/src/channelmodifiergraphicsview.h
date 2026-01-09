@@ -40,9 +40,9 @@ private:
     QRectF m_boundingBox;
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
 signals:
     void itemDropped(HandlerGraphicsItem *);
@@ -106,9 +106,9 @@ protected:
     void updateView();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
-    void mouseReleaseEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e) override;
 
 protected slots:
     void slotItemSelected(HandlerGraphicsItem *item);

@@ -43,7 +43,7 @@ public:
     void stop();
 
 private:
-    void run();
+    void run() override;
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     int compareTime(mach_timespec_t *time1, mach_timespec_t *time2);
 #else

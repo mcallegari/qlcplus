@@ -37,15 +37,15 @@ public:
 
     void setRoleNames(QStringList names);
 
-    int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    int rowCount(const QModelIndex & parent = QModelIndex()) const override;
 
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const override;
 
     QVariant data(const QModelIndex & index, QString role) const;
 
     QVariant itemAt(int index) const;
 
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     bool setDataWithRole(const QModelIndex &index, QString roleName, const QVariant &value);
 
@@ -55,7 +55,7 @@ public:
 
 protected:
     QStringList m_roles;
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
     QVariantList m_data;
 };
 

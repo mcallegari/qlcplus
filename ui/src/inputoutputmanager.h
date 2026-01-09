@@ -97,7 +97,7 @@ private slots:
 
 protected:
     /** @reimp */
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent* ev) override;
 
 private:
     Doc *m_doc;

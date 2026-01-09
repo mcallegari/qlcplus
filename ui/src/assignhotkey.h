@@ -55,7 +55,7 @@ private:
 
 protected:
     /** @reimp */
-    void keyPressEvent(QKeyEvent* event);
+    void keyPressEvent(QKeyEvent* event) override;
 };
 
 /** @} */

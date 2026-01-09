@@ -106,10 +106,10 @@ protected:
     void updateGrid();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e) override;
 
 protected slots:
     /** Slot called when a MonitorFixtureItem is dropped after a drag */

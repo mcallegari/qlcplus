@@ -92,34 +92,34 @@ public:
     ~VCSpeedDial();
 
     /** @reimp */
-    virtual void enableWidgetUI(bool enable);
+    virtual void enableWidgetUI(bool enable) override;
 
     /*************************************************************************
      * Clipboard
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*********************************************************************
      * Background/Foreground color
      *********************************************************************/
 public:
     /** @reimp */
-    void setFont(const QFont& font);
+    void setFont(const QFont& font) override;
 
     /** @reimp */
-    void setBackgroundColor(const QColor& color);
+    void setBackgroundColor(const QColor& color) override;
 
     /** @reimp */
-    void setForegroundColor(const QColor& color);
+    void setForegroundColor(const QColor& color) override;
 
     /** @reimp */
-    QColor foregroundColor() const;
+    QColor foregroundColor() const override;
 
 private:
     QColor m_foregroundColor;
@@ -128,21 +128,21 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /*************************************************************************
      * QLC Mode
      *************************************************************************/
 public slots:
     /** @reimp */
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*************************************************************************
      * Properties
      *************************************************************************/
 public:
     /** @reimp */
-    void editProperties();
+    void editProperties() override;
 
      /************************************************************************
      * Speed Type
@@ -219,11 +219,11 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
     /** @reimp */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
     /*********************************************************************
      * Tap & presets key sequence handler
@@ -241,7 +241,7 @@ public:
     QKeySequence applyKeySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
 protected:
     QKeySequence m_tapKeySequence;
@@ -302,15 +302,15 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     bool loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<VCSpeedDialPreset> preset);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 
     /** @reimp */
-    void postLoad();
+    void postLoad() override;
 };
 // Deprecated: used for loading old workspace files
 Q_DECLARE_OPERATORS_FOR_FLAGS(VCSpeedDial::SpeedTypes)

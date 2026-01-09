@@ -36,10 +36,10 @@ public:
     virtual ~ConfigureArtNet();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     void fillNodesTree();

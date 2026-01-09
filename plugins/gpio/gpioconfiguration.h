@@ -36,7 +36,7 @@ public:
     virtual ~GPIOConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 protected slots:
     void slotChipChanged(int index);
@@ -45,7 +45,7 @@ protected:
     void fillTree();
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     GPIOPlugin* m_plugin;

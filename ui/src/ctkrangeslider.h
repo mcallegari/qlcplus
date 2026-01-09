@@ -184,19 +184,19 @@ protected:
 
     // Description:
     // Standard Qt UI events
-    virtual void mousePressEvent(QMouseEvent *ev);
-    virtual void mouseMoveEvent(QMouseEvent *ev);
-    virtual void mouseReleaseEvent(QMouseEvent *ev);
+    virtual void mousePressEvent(QMouseEvent *ev) override;
+    virtual void mouseMoveEvent(QMouseEvent *ev) override;
+    virtual void mouseReleaseEvent(QMouseEvent *ev) override;
 
     // Description:
     // Rendering is done here.
-    virtual void paintEvent(QPaintEvent *ev);
+    virtual void paintEvent(QPaintEvent *ev) override;
     virtual void initMinimumSliderStyleOption(QStyleOptionSlider *option) const;
     virtual void initMaximumSliderStyleOption(QStyleOptionSlider *option) const;
 
     // Description:
     // Reimplemented for the tooltips
-    virtual bool event(QEvent *event);
+    virtual bool event(QEvent *event) override;
 
 protected:
     QScopedPointer<ctkRangeSliderPrivate> d_ptr;

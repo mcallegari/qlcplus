@@ -46,7 +46,7 @@ class JSThread: public QThread
 public:
     QJSEngine *engine;
     QSemaphore ready;
-    void run()
+    void run() override
     {
         engine = new QJSEngine();
         ready.release(1);

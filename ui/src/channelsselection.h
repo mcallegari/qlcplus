@@ -90,7 +90,7 @@ protected slots:
     void slotModifierButtonClicked();
 
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 };
 
 /** @} */

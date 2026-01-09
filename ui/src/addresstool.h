@@ -77,9 +77,9 @@ private:
     QMap<quint8, DIPSwitchSlider*> m_sliders;
 
 protected:
-    void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent *e);
-    void resizeEvent(QResizeEvent *e);
+    void paintEvent(QPaintEvent* e) override;
+    void mousePressEvent(QMouseEvent *e) override;
+    void resizeEvent(QResizeEvent *e) override;
 };
 
 class AddressTool : public QDialog

@@ -102,7 +102,7 @@ protected:
 
 protected slots:
     /** @reimp */
-    void accept();
+    void accept() override;
 };
 
 /** @} */

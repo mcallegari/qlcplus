@@ -64,7 +64,7 @@ private:
 
 protected:
     /** Acts as QApplication's event filter for QFileOpen events */
-    bool eventFilter(QObject* object, QEvent* event);
+    bool eventFilter(QObject* object, QEvent* event) override;
 };
 
 #endif

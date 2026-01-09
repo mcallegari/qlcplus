@@ -56,7 +56,7 @@ public:
     VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
 
     /** Return the number of pixels in 1mm */
-    qreal pixelDensity() const;
+    qreal pixelDensity() const override;
 
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
@@ -323,7 +323,7 @@ public:
     Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
 
     /** @reimp */
-    void handleKeyEvent(QKeyEvent *e, bool pressed);
+    void handleKeyEvent(QKeyEvent *e, bool pressed) override;
 
 protected:
     QKeySequence m_autoDetectionKey;

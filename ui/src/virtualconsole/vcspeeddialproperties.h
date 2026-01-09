@@ -47,7 +47,7 @@ public:
 
 public slots:
     /** @reimp */
-    void accept();
+    void accept() override;
 
 private:
     VCSpeedDial* m_dial;

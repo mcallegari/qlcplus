@@ -55,7 +55,7 @@ protected slots:
 
     void slotFadeOutTextEdited();
 
-    void accept();
+    void accept() override;
 
 protected:
     VCButton* m_button;

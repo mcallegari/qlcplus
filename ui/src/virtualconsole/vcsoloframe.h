@@ -54,11 +54,11 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    virtual VCWidget* createCopy(VCWidget* parent);
+    virtual VCWidget* createCopy(VCWidget* parent) override;
 
 protected:
     /** Copy the contents for this widget from another widget */
-    virtual bool copyFrom(const VCWidget* widget);
+    virtual bool copyFrom(const VCWidget* widget) override;
 
     /*************************************************************************
     * Solo behaviour
@@ -75,10 +75,10 @@ protected:
     bool thisIsNearestSoloFrameParent(QWidget* widget);
 
     /** @reimp */
-    virtual void setLiveEdit(bool liveEdit);
+    virtual void setLiveEdit(bool liveEdit) override;
 
 protected slots:
-    virtual void slotModeChanged(Doc::Mode mode);
+    virtual void slotModeChanged(Doc::Mode mode) override;
 
     /** Slot called when a Function attached to a widget has
      *  been requested to start.
@@ -99,7 +99,7 @@ public:
 
 protected:
     /** @reimp */
-    virtual void editProperties();
+    virtual void editProperties() override;
 
 protected:
     bool m_soloframeMixing;
@@ -109,13 +109,13 @@ protected:
      * Load & Save
      *************************************************************************/
 protected:
-    virtual QString xmlTagName() const;
+    virtual QString xmlTagName() const override;
 
     /*************************************************************************
      * Event handlers
      *************************************************************************/
 protected:
-    virtual void paintEvent(QPaintEvent* e);
+    virtual void paintEvent(QPaintEvent* e) override;
 
 };
 

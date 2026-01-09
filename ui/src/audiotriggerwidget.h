@@ -47,8 +47,8 @@ public slots:
     void displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power);
 
 protected:
-    void resizeEvent (QResizeEvent *e);
-    void paintEvent(QPaintEvent* e);
+    void resizeEvent (QResizeEvent *e) override;
+    void paintEvent(QPaintEvent* e) override;
 
 private:
     double *m_spectrumBands;

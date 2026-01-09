@@ -68,10 +68,10 @@ signals:
 
 protected:
     /** @reimp */
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent* ev) override;
 
     /** @reimp */
-    void hideEvent(QHideEvent* ev);
+    void hideEvent(QHideEvent* ev) override;
 
 protected:
     static ShowManager *s_instance;

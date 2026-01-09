@@ -150,8 +150,8 @@ private:
     bool m_snapToGrid;
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent *e);
-    void wheelEvent(QWheelEvent *event);
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    void wheelEvent(QWheelEvent *event) override;
 
 protected slots:
     void slotHeaderClicked(QGraphicsSceneMouseEvent *event);

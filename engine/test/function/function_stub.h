@@ -32,17 +32,17 @@ public:
     Function_Stub(Doc* doc);
     ~Function_Stub();
 
-    Function* createCopy(Doc* parent, bool addToDoc = true);
+    Function* createCopy(Doc* parent, bool addToDoc = true) override;
 
-    bool saveXML(QXmlStreamWriter *doc);
-    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) override;
+    bool loadXML(QXmlStreamReader &root) override;
 
-    void preRun(MasterTimer* timer);
-    void write(MasterTimer* timer, QList<Universe*> universes);
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void preRun(MasterTimer* timer) override;
+    void write(MasterTimer* timer, QList<Universe*> universes) override;
+    void postRun(MasterTimer* timer, QList<Universe*> universes) override;
 
 public slots:
-    void slotFixtureRemoved(quint32 id);
+    void slotFixtureRemoved(quint32 id) override;
 
 public:
     int m_preRunCalls;

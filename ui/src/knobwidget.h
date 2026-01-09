@@ -44,9 +44,9 @@ protected:
     void prepareCursor();
     void prepareBody();
 
-    void resizeEvent(QResizeEvent *e);
-    void paintEvent(QPaintEvent* e);
-    void wheelEvent(QWheelEvent *e);
+    void resizeEvent(QResizeEvent *e) override;
+    void paintEvent(QPaintEvent* e) override;
+    void wheelEvent(QWheelEvent *e) override;
 
 private:
     QPixmap rotatePix(QPixmap *p_pix, float p_deg);

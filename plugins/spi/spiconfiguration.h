@@ -36,12 +36,12 @@ public:
     virtual ~SPIConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
     quint32 frequency();
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     SPIPlugin* m_plugin;

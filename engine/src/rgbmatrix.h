@@ -105,17 +105,17 @@ public:
     ~RGBMatrix();
 
     /** @reimp */
-    QIcon getIcon() const;
+    QIcon getIcon() const override;
 
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
     /** @reimp */
-    void setTotalDuration(quint32 msec);
+    void setTotalDuration(quint32 msec) override;
 
     /** @reimp */
-    quint32 totalDuration();
+    quint32 totalDuration() override;
 
     /** Set the matrix to control or not the dimmer channel */
     void setDimmerControl(bool dimmerControl);
@@ -132,10 +132,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** @reimp */
-    virtual bool copyFrom(const Function* function);
+    virtual bool copyFrom(const Function* function) override;
 
     /************************************************************************
      * Fixture Group
@@ -146,7 +146,7 @@ public:
     void setFixtureGroup(quint32 id);
 
     /** @reimp */
-    QList<quint32> components();
+    QList<quint32> components() override;
 
 private:
     quint32 m_fixtureGroupID;
@@ -224,26 +224,26 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void tap();
+    void tap() override;
 
     /** @reimp */
-    void preRun(MasterTimer *timer);
+    void preRun(MasterTimer *timer) override;
 
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe*> universes) override;
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe*> universes) override;
 
 private:
     /** Check what should be done when elapsed() >= duration() */
@@ -277,14 +277,14 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    int adjustAttribute(qreal fraction, int attributeId);
+    int adjustAttribute(qreal fraction, int attributeId) override;
 
     /*************************************************************************
      * Blend mode
      *************************************************************************/
 public:
     /** @reimp */
-    void setBlendMode(Universe::BlendMode mode);
+    void setBlendMode(Universe::BlendMode mode) override;
 
     /*************************************************************************
      * Control Mode

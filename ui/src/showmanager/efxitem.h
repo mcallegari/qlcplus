@@ -46,26 +46,26 @@ public:
     EFXItem(EFX *efx, ShowFunction *func);
 
     /** @reimp */
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     /** @reimp */
-    void setTimeScale(int val);
+    void setTimeScale(int val) override;
 
     /** @reimp */
-    void setDuration(quint32 msec, bool stretch);
+    void setDuration(quint32 msec, bool stretch) override;
 
     /** @reimp */
-    quint32 getDuration();
+    quint32 getDuration() override;
 
     /** @reimp */
-    QString functionName();
+    QString functionName() override;
 
     /** Return a pointer to a EFX Function associated to this item */
     EFX *getEFX();
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
 
 protected slots:
     void slotEFXChanged(quint32);

@@ -44,7 +44,7 @@ public:
     void setMonitoringVisibility(bool visible);
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 protected slots:
     void slotLowerColorButtonClicked();

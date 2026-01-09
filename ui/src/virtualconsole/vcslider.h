@@ -101,44 +101,44 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void setID(quint32 id);
+    void setID(quint32 id) override;
 
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) override;
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget *widget);
+    bool copyFrom(const VCWidget *widget) override;
 
     /*********************************************************************
      * GUI
      *********************************************************************/
 public:
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /** @reimp */
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
 protected:
     /** @reimp */
-    void hideEvent(QHideEvent *ev);
+    void hideEvent(QHideEvent *ev) override;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
     /** Edit this widget's properties */
-    void editProperties();
+    void editProperties() override;
 
     /*********************************************************************
      * QLC+ Mode
      *********************************************************************/
 public slots:
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*********************************************************************
      * Slider Mode
@@ -392,7 +392,7 @@ public:
     void setPlaybackValue(uchar value);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
 
     /** Get/Set the status of the flash button enablement */
     bool playbackFlashEnable() const;
@@ -437,7 +437,7 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes) override;
 
 protected:
     /** writeDMX for Level mode */
@@ -492,7 +492,7 @@ public:
 
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
-    void updateFeedback();
+    void updateFeedback() override;
 
     void updateOverrideFeedback(bool on);
 
@@ -584,9 +584,9 @@ private slots:
 
 protected slots:
     /** @reimp */
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
     /** @reimp */
-    void slotKeyReleased(const QKeySequence& keySequence);
+    void slotKeyReleased(const QKeySequence& keySequence) override;
 
 protected:
     QToolButton *m_resetButton;
@@ -604,8 +604,8 @@ public:
     void setPlaybackFlashKeySequence(const QKeySequence& keySequence);
 
 protected:
-    void mousePressEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
 
 protected:
     class FlashButton : public QToolButton
@@ -614,8 +614,8 @@ protected:
         FlashButton(QWidget *parent)
             : QToolButton(parent) {}
     protected:
-        void mousePressEvent(QMouseEvent *e);
-        void mouseReleaseEvent(QMouseEvent *e);
+        void mousePressEvent(QMouseEvent *e) override;
+        void mouseReleaseEvent(QMouseEvent *e) override;
     };
     FlashButton *m_flashButton;
 
@@ -627,7 +627,7 @@ private:
      *********************************************************************/
 protected slots:
     /** Called when an external input device produces input data */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
 protected:
     int m_lastInputValue;
@@ -637,17 +637,17 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
     bool loadXMLLevel(QXmlStreamReader &level_root);
     bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 /** @} */

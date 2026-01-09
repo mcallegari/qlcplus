@@ -40,7 +40,7 @@ public:
     AudioEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Set the ID of the Audio being edited */
-    void setFunctionID(quint32 ID);
+    void setFunctionID(quint32 ID) override;
 
     /** Get/Set the source file name for this Audio function */
     QString sourceFileName() const;

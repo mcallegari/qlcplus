@@ -78,7 +78,7 @@ private:
     QLCFixtureDef* loadD4(const QString& path, QString& errorMsg) const;
 
 protected:
-    void closeEvent(QCloseEvent*);
+    void closeEvent(QCloseEvent*) override;
 
     /*********************************************************************
      * Copy channel

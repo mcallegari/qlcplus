@@ -33,20 +33,20 @@ public:
     HIDLinuxJoystick(HIDPlugin* parent, quint32 line, struct hid_device_info *info);
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    bool openInput();
+    bool openInput() override;
 
     /** @reimp */
-    bool readEvent();
+    bool readEvent() override;
 
 protected:
     bool openDevice();
 
 private:
     /** @reimp */
-    void run();
+    void run() override;
 };
 
 #endif // HIDLINUXJOYSTICK_H

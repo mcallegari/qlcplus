@@ -42,7 +42,7 @@ public:
     ~VCXYPadFixtureEditor();
 
 protected slots:
-    void accept();
+    void accept() override;
 
     void slotXMinChanged(int value);
     void slotXMaxChanged(int value);

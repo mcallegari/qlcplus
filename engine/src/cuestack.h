@@ -232,7 +232,7 @@ public:
     void setFlashing(bool enable);
     bool isFlashing() const;
 
-    void writeDMX(MasterTimer* timer, QList<Universe *> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe *> ua) override;
 
 private:
     bool m_flashing;

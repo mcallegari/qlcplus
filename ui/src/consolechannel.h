@@ -60,7 +60,7 @@ private:
     void init();
 
 protected:
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent* ev) override;
 
 private:
     QString m_styleSheet;
@@ -154,7 +154,7 @@ private slots:
     void slotClickAndGoLevelAndPresetChanged(uchar level, QImage img);
 
 private:
-    void contextMenuEvent(QContextMenuEvent*);
+    void contextMenuEvent(QContextMenuEvent*) override;
     void initMenu();
     void initCapabilityMenu(const QLCChannel* ch);
     void setIntensityButton(const QLCChannel* ch);

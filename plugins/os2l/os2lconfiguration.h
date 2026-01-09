@@ -36,10 +36,10 @@ public:
     virtual ~OS2LConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     OS2LPlugin* m_plugin;

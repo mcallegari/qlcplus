@@ -121,7 +121,7 @@ public:
 
 private:
     /** @reimp */
-    void run();
+    void run() override;
 
 protected:
     /** The input source mode: absolute or relative */

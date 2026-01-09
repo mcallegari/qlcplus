@@ -253,7 +253,7 @@ public:
     void forwardActionToNetwork(int code, TardisAction &action);
 
     /** @reimp */
-    void run(); // thread run function
+    void run() override; // thread run function
 
 protected:
     QString actionToString(int action);

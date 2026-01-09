@@ -57,7 +57,7 @@ public:
     void setSource(QString filename);
 
 protected:
-    void paint(QPainter *painter);
+    void paint(QPainter *painter) override;
 
 private:
     QSvgRenderer *m_renderer;
@@ -121,10 +121,10 @@ public:
     ~MainView3D();
 
     /** @reimp */
-    void enableContext(bool enable);
+    void enableContext(bool enable) override;
 
     /** @reimp */
-    void setUniverseFilter(quint32 universeFilter);
+    void setUniverseFilter(quint32 universeFilter) override;
 
     /** Cleanup all the items in the scene */
     void resetItems();
@@ -152,7 +152,7 @@ protected:
 
 public slots:
     /** @reimp */
-    void slotRefreshView();
+    void slotRefreshView() override;
 
 signals:
     void cameraPositionChanged();

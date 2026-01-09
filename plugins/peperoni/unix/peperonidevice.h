@@ -119,7 +119,7 @@ protected:
 
 private:
     /** @reimp */
-    void run();
+    void run() override;
 
 signals:
     /**

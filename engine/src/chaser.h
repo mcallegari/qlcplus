@@ -63,7 +63,7 @@ public:
     virtual ~Chaser();
 
     /** @reimp */
-    virtual QIcon getIcon() const;
+    virtual QIcon getIcon() const override;
 
 private:
     quint32 m_legacyHoldBus;
@@ -73,10 +73,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function* function) override;
 
     /*********************************************************************
      * Chaser contents
@@ -139,10 +139,10 @@ public:
     QList <ChaserStep> steps() const;
 
     /** @reimpl */
-    void setTotalDuration(quint32 msec);
+    void setTotalDuration(quint32 msec) override;
 
     /** @reimpl */
-    quint32 totalDuration();
+    quint32 totalDuration() override;
 
 public slots:
     /**
@@ -201,13 +201,13 @@ protected:
 
 public:
     /** @reimpl */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc) override;
 
     /** @reimpl */
-    virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    virtual void postLoad();
+    virtual void postLoad() override;
 
     /*********************************************************************
      * Start/Next/Previous
@@ -223,7 +223,7 @@ public:
     };
 
     /** @reimpl */
-    void tap();
+    void tap() override;
 
     /** Set an action to be performed on steps.
      *  Depending on the action type, it might be applied immediately
@@ -247,10 +247,10 @@ private:
 
 public:
     /** @reimp */
-    virtual bool contains(quint32 functionId);
+    virtual bool contains(quint32 functionId) override;
 
     /** @reimp */
-    QList<quint32> components();
+    QList<quint32> components() override;
 
     /*********************************************************************
      * Running
@@ -268,16 +268,16 @@ private:
 
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer* timer) override;
 
     /** @reimp */
-    void setPause(bool enable);
+    void setPause(bool enable) override;
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe *> universes);
+    void write(MasterTimer* timer, QList<Universe *> universes) override;
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe *> universes);
+    void postRun(MasterTimer* timer, QList<Universe *> universes) override;
 
 signals:
     /** Tells that the current step number has changed. */
@@ -296,7 +296,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    int adjustAttribute(qreal fraction, int attributeId);
+    int adjustAttribute(qreal fraction, int attributeId) override;
 
     /** Adjust the intensities of chaser steps. */
     void adjustStepIntensity(qreal fraction, int stepIndex = -1,

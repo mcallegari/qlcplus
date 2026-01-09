@@ -39,35 +39,35 @@ public:
     ~AudioRendererQt5();
 
     /** @reimpl */
-    bool initialize(quint32, int, AudioFormat format);
+    bool initialize(quint32, int, AudioFormat format) override;
 
     /** @reimpl */
-    qint64 latency();
+    qint64 latency() override;
 
     static QList<AudioDeviceInfo> getDevicesInfo();
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char *data, qint64 maxSize);
+    qint64 writeAudio(unsigned char *data, qint64 maxSize) override;
 
     /** @reimpl */
-    void drain();
+    void drain() override;
 
     /** @reimpl */
-    void reset();
+    void reset() override;
 
     /** @reimpl */
-    void suspend();
+    void suspend() override;
 
     /** @reimpl */
-    void resume();
+    void resume() override;
 
     /*********************************************************************
      * Thread functions
      *********************************************************************/
 public:
     /** @reimpl */
-    void run();
+    void run() override;
 
 private:
     QAudioOutput *m_audioOutput;

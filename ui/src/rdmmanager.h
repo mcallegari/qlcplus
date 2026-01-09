@@ -77,7 +77,7 @@ public:
     void handlePID(quint32 uni, quint32 line, QString UID, QString pid, QVariantList args, bool write);
 
 private:
-    void run();
+    void run() override;
 
     /** Stop this thread */
     void stop();

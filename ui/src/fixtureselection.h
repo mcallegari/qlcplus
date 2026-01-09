@@ -46,7 +46,7 @@ public:
 
 public slots:
     /** @reimp */
-    int exec();
+    int exec() override;
 
 private:
     Doc* m_doc;
@@ -106,7 +106,7 @@ private slots:
     void slotSelectionChanged();
 
     /** OK button click */
-    void accept();
+    void accept() override;
 };
 
 /** @} */

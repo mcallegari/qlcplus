@@ -48,7 +48,7 @@ public:
 
 protected:
     void init();
-    void closeEvent(QCloseEvent* e);
+    void closeEvent(QCloseEvent* e) override;
 
     /*********************************************************************
      * Saving

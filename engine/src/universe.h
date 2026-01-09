@@ -366,7 +366,7 @@ protected:
     void processFaders();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 signals:
     void universeWritten(quint32 universeID, const QByteArray& universeData);

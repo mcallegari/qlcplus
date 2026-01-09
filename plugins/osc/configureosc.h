@@ -36,11 +36,11 @@ public:
     virtual ~ConfigureOSC();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
     void slotOSCPathChanged(QString path);
-    int exec();
+    int exec() override;
 
 private:
     void fillMappingTree();

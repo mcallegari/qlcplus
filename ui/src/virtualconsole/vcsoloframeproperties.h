@@ -49,7 +49,7 @@ protected:
     QCheckBox *m_excludeMonitoredCheckBox;
 
 public slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */
