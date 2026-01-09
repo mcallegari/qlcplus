@@ -171,6 +171,7 @@ bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
 
 bool QLCFixtureDefCache::reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef)
 {
+    // check upon bundled definitions
     QListIterator <QLCFixtureDef*> it(m_defs);
     while (it.hasNext() == true)
     {
@@ -178,12 +179,14 @@ bool QLCFixtureDefCache::reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef)
         if (def->manufacturer() == fixtureDef->manufacturer() &&
             def->model() == fixtureDef->model())
         {
+            // set as user and perform a deep copy
             def->setIsUser(true);
-            def = fixtureDef;
+            *def = *fixtureDef;
             return true;
         }
     }
 
+    // add a new user fixture
     addFixtureDef(fixtureDef);
 
     return true;
