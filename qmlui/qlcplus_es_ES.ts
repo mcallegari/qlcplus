@@ -1281,13 +1281,14 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureBrowser.qml" line="39"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureBrowser.qml" line="40"/>
         <source>Address overlapping detected.
 Please set another DMX address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha detectado una superposición de la dirección
+Establece otra dirección DMX.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureBrowser.qml" line="96"/>
@@ -2461,7 +2462,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="236"/>
         <source>X Centered</source>
-        <translation type="unfinished"></translation>
+        <translation>X Centrado</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="237"/>
@@ -2476,7 +2477,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="239"/>
         <source>Y Centered</source>
-        <translation type="unfinished"></translation>
+        <translation>Y Centrado</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="240"/>
@@ -2491,7 +2492,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="242"/>
         <source>Z Centered</source>
-        <translation type="unfinished"></translation>
+        <translation>Z Centrado</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="267"/>
@@ -2679,7 +2680,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="79"/>
         <source>About the Qt framework...</source>
-        <translation>Acerca del marco de las Qt</translation>
+        <translation>Acerca del marco de las Qt...</translation>
     </message>
 </context>
 <context>
@@ -2840,7 +2841,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="225"/>
         <source>Overlapping range detected. Adjust the parameters or make space</source>
-        <translation type="unfinished"></translation>
+        <translation>Se ha detectado un intervalo de superposición. Ajusta los parámetros o haz espacio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelWizard.qml" line="231"/>
@@ -3130,12 +3131,12 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupFolderBrowser.qml" line="213"/>
         <source>File name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del fichero:</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupFolderBrowser.qml" line="241"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipos de Ficheros:</translation>
     </message>
 </context>
 <context>
@@ -3994,12 +3995,12 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="245"/>
         <source>Enter a unique name</source>
-        <translation type="unfinished"></translation>
+        <translation>Entre un nombre único</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="247"/>
         <source>New folder</source>
-        <translation type="unfinished">Nueva Carpeta</translation>
+        <translation>Nueva Carpeta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="267"/>
@@ -4299,7 +4300,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="298"/>
         <source>Fixed zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom Fijo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="316"/>
@@ -5064,17 +5065,17 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="virtualconsole/vcaudiotriggers.cpp" line="65"/>
         <source>Enable Capture</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita la Captura</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggers.cpp" line="66"/>
         <source>Volume Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de Volumen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggers.cpp" line="85"/>
         <source>Audio Trigger %1</source>
-        <translation type="unfinished">Disparador de audio %1</translation>
+        <translation>Disparador de audio %1</translation>
     </message>
 </context>
 <context>
@@ -5082,7 +5083,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersItem.qml" line="101"/>
         <source>Enable/Disable the audio capture</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa/Desactiva la captura de audio</translation>
     </message>
 </context>
 <context>
@@ -5090,72 +5091,72 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="59"/>
         <source>Activation threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de activación</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="74"/>
         <source>Deactivation threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de Desactivación</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="97"/>
         <source>Spectrum Bars</source>
-        <translation type="unfinished"></translation>
+        <translation>Barras de Espectro</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="111"/>
         <source>Number of bars</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de Barras</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="149"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="158"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="168"/>
         <source>Information</source>
-        <translation type="unfinished">Información</translation>
+        <translation>Información</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="191"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="192"/>
         <source>DMX</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="193"/>
         <source>Function</source>
-        <translation type="unfinished">Función</translation>
+        <translation>Función</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="194"/>
         <source>Widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Widget</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="255"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="256"/>
         <source>Thresholds:</source>
-        <translation type="unfinished"></translation>
+        <translation>Límites:</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="302"/>
         <source>Drop a Function here</source>
-        <translation type="unfinished"></translation>
+        <translation>Coloque una función aquí</translation>
     </message>
 </context>
 <context>
@@ -5588,12 +5589,12 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="90"/>
         <source>Solo Frame Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones de Marco Solo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="105"/>
         <source>Exclude monitored functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Excluir Funciones supervisadas</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="120"/>
@@ -6386,32 +6387,32 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="85"/>
         <source>Pan / Horizontal axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Eje Pan/Horizontal</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="86"/>
         <source>Pan fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan Fino</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="87"/>
         <source>Tilt / Vertical axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Eje Tllt/Vertical</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="88"/>
         <source>Tilt fine</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt Fino</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="89"/>
         <source>Width</source>
-        <translation type="unfinished">Ancho</translation>
+        <translation>Ancho</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="90"/>
         <source>Height</source>
-        <translation type="unfinished">Alto</translation>
+        <translation>Alto</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="118"/>
@@ -6428,67 +6429,67 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="50"/>
         <source>Display Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propiedades de Visualización</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="65"/>
         <source>Inverted Y-Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Eje Y Invertido</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="80"/>
         <source>Range Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de visualización del intervalo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="106"/>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Grados</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="122"/>
         <source>Percentage</source>
-        <translation type="unfinished">Porcentaje</translation>
+        <translation>Porcentaje</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="138"/>
         <source>DMX</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="147"/>
         <source>Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Fixtures</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="176"/>
         <source>Add a fixture/head</source>
-        <translation type="unfinished">Añadir un fixture/cabeza</translation>
+        <translation>Añadir un fixture/cabeza</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="204"/>
         <source>Remove the selected fixture head(s)</source>
-        <translation type="unfinished">Eliminar las cabezas de fixture seleccionadas</translation>
+        <translation>Eliminar las cabezas de fixture seleccionadas</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="215"/>
         <source>Fixture</source>
-        <translation type="unfinished">Fixture</translation>
+        <translation>Fixture</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="231"/>
         <source>X-Axis Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo del eje X</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="246"/>
         <source>Y-Axis Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo del eje Y</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="365"/>
         <source>Add a new fixture</source>
-        <translation type="unfinished">Añadir un nuevo fixture</translation>
+        <translation>Añadir un nuevo fixture</translation>
     </message>
 </context>
 <context>

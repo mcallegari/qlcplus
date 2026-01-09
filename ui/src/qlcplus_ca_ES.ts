@@ -7485,7 +7485,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="48"/>
         <source>Exclude Monitored Functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Exclou les Funcions Supervisades</translation>
     </message>
 </context>
 <context>
