@@ -60,7 +60,7 @@ typedef struct
  *
  * OlaOut --pipe-> OlaOutThread --pipe-> OlaServer
  */
-class OlaOutThread final : public QThread
+class OlaOutThread : public QThread
 {
 public:
     OlaOutThread();
