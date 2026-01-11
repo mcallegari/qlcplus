@@ -3,5 +3,6 @@ workflow:
     - trigger_services:
         project: home:mcallegari79
         package: qlcplus-qt5-git
+        package: qlcplus-qt6-git
   filters:
     event: push
