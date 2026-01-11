@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class PositionTool_Test : public QObject
+class PositionTool_Test final : public QObject
 {
     Q_OBJECT
 

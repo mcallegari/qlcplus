@@ -24,7 +24,7 @@
 #include <QObject>
 
 class ProgramWing;
-class ProgramWing_Test : public QObject
+class ProgramWing_Test final : public QObject
 {
     Q_OBJECT
 

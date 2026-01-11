@@ -30,7 +30,7 @@ class Doc;
  * @{
  */
 
-class RGBScriptsCache
+class RGBScriptsCache final
 {
 public:
     explicit RGBScriptsCache(Doc* doc);

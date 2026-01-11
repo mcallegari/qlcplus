@@ -49,19 +49,19 @@ public:
     virtual ~VCAudioTriggers();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) override;
 
     /** Get/Set the capture enable status of this widget */
     bool captureEnabled() const;
@@ -85,7 +85,7 @@ signals:
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
 private:
     FunctionParent functionParent() const;
@@ -202,18 +202,18 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 public slots:
     /** @reimp */
-    void slotInputValueChanged(quint8 id, uchar value);
+    void slotInputValueChanged(quint8 id, uchar value) override;
 
     /*********************************************************************
      * DMXSource
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes) override;
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
@@ -226,8 +226,8 @@ public:
     bool loadBarXML(QXmlStreamReader &root);
     bool saveBarXML(QXmlStreamWriter *doc, int index);
 
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 #endif

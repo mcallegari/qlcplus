@@ -31,7 +31,7 @@ class Doc;
  * @{
  */
 
-class MonitorBackgroundSelection : public QDialog, public Ui_MonitorBackgroundSelection
+class MonitorBackgroundSelection final : public QDialog, public Ui_MonitorBackgroundSelection
 {
     Q_OBJECT
 
@@ -40,7 +40,7 @@ public:
     ~MonitorBackgroundSelection();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 protected:
     void updateCustomTree();

@@ -51,23 +51,23 @@ public:
     virtual ~VCXYPad();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
 private:
     FunctionParent functionParent() const;
@@ -209,7 +209,7 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes) override;
 
 private:
     void updateChannel(FadeChannel *fc, uchar value);
@@ -226,11 +226,11 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 public slots:
     /** @reimp */
-    void slotInputValueChanged(quint8 id, uchar value);
+    void slotInputValueChanged(quint8 id, uchar value) override;
 
     /*********************************************************************
      * Load & Save
@@ -239,12 +239,12 @@ public:
     bool loadXMLFixture(QXmlStreamReader &root);
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     bool saveXMLFixture(QXmlStreamWriter *doc, XYPadFixture &fxItem);
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 #endif

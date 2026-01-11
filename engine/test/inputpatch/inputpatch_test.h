@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class InputPatch_Test : public QObject
+class InputPatch_Test final : public QObject
 {
     Q_OBJECT
 

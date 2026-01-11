@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class MonitorFixtureItem_Test : public QObject
+class MonitorFixtureItem_Test final : public QObject
 {
     Q_OBJECT
 

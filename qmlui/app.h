@@ -50,7 +50,7 @@ class Tardis;
 
 #define KXMLQLCWorkspace QStringLiteral("Workspace")
 
-class App : public QQuickView
+class App final : public QQuickView
 {
     Q_OBJECT
     Q_DISABLE_COPY(App)

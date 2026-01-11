@@ -44,7 +44,7 @@ class Doc;
 
 #define KXMLQLCSimpleDeskEngine QStringLiteral("Engine")
 
-class SimpleDeskEngine : public QObject, public DMXSource
+class SimpleDeskEngine final : public QObject, public DMXSource
 {
     Q_OBJECT
 
@@ -144,7 +144,7 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua) override;
 
 private:
     FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,

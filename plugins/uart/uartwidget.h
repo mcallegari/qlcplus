@@ -25,7 +25,7 @@
 #include <QByteArray>
 #include <QThread>
 
-class UARTWidget : public QThread
+class UARTWidget final : public QThread
 {
     Q_OBJECT
 
@@ -82,7 +82,7 @@ protected:
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 protected:
     bool m_running;

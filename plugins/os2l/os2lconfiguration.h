@@ -24,7 +24,7 @@
 
 class OS2LPlugin;
 
-class OS2LConfiguration : public QDialog, public Ui_OS2LConfiguration
+class OS2LConfiguration final : public QDialog, public Ui_OS2LConfiguration
 {
     Q_OBJECT
 
@@ -36,10 +36,10 @@ public:
     virtual ~OS2LConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     OS2LPlugin* m_plugin;

@@ -27,7 +27,7 @@
 #include <fftw3.h>
 #endif
 
-class BeatTracker
+class BeatTracker final
 {
 public:
     // Constructor: initial format

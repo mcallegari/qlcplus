@@ -24,7 +24,7 @@
 
 class DummyPlugin;
 
-class DummyConfiguration : public QDialog, public Ui_DummyConfiguration
+class DummyConfiguration final : public QDialog, public Ui_DummyConfiguration
 {
     Q_OBJECT
 
@@ -36,7 +36,7 @@ public:
     virtual ~DummyConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
     int exec();

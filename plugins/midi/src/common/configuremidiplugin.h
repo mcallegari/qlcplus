@@ -28,7 +28,7 @@
 class MidiPlugin;
 class QWidget;
 
-class ConfigureMidiPlugin : public QDialog, public Ui_ConfigureMidiPlugin
+class ConfigureMidiPlugin final : public QDialog, public Ui_ConfigureMidiPlugin
 {
     Q_OBJECT
 

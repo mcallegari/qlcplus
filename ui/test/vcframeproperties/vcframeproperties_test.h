@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class VCFrameProperties_Test : public QObject
+class VCFrameProperties_Test final : public QObject
 {
     Q_OBJECT
 

@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class VCXYPad_Test : public QObject
+class VCXYPad_Test final : public QObject
 {
     Q_OBJECT
 

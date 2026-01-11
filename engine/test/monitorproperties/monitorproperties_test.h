@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class MonitorProperties_Test : public QObject
+class MonitorProperties_Test final : public QObject
 {
     Q_OBJECT
 

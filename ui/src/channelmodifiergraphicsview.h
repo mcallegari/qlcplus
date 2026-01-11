@@ -24,7 +24,7 @@
 #include <QGraphicsEllipseItem>
 #include <QObject>
 
-class HandlerGraphicsItem : public QObject, public QGraphicsEllipseItem
+class HandlerGraphicsItem final : public QObject, public QGraphicsEllipseItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -40,9 +40,9 @@ private:
     QRectF m_boundingBox;
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
 signals:
     void itemDropped(HandlerGraphicsItem *);
@@ -58,7 +58,7 @@ typedef struct
     QPair <uchar, uchar> m_dmxMap;
 } HandlerItem;
 
-class ChannelModifierGraphicsView : public QGraphicsView
+class ChannelModifierGraphicsView final : public QGraphicsView
 {
     Q_OBJECT
 public:
@@ -106,9 +106,9 @@ protected:
     void updateView();
 
     /** Event caught when the GraphicsView is resized */
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
-    void mouseReleaseEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e) override;
 
 protected slots:
     void slotItemSelected(HandlerGraphicsItem *item);

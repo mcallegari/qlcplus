@@ -45,7 +45,7 @@ class QMenu;
 #define KXMLQLCFixtureManager             QStringLiteral("FixtureManager")
 #define KXMLQLCFixtureManagerSplitterSize QStringLiteral("SplitterSize")
 
-class FixtureManager : public QWidget
+class FixtureManager final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureManager)

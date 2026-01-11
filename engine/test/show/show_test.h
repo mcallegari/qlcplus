@@ -24,7 +24,7 @@
 
 class Doc;
 
-class Show_Test : public QObject
+class Show_Test final : public QObject
 {
     Q_OBJECT
 

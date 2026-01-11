@@ -34,7 +34,7 @@ class QXmlStreamReader;
 #define KXMLMidiTemplateInitMessage QStringLiteral("InitMessage")
 
 
-class MidiTemplate
+class MidiTemplate final
 {
     /********************************************************************
      * Initialization

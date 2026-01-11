@@ -37,38 +37,38 @@ class IOPluginStub : public QLCIOPlugin
      *********************************************************************/
 public:
     /** @reimp */
-    virtual ~IOPluginStub();
+    virtual ~IOPluginStub() override;
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() override;
 
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output, quint32 universe);
+    bool openOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    void closeOutput(quint32 output, quint32 universe);
+    void closeOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    QStringList outputs();
+    QStringList outputs() override;
 
     /** @reimp */
-    QString outputInfo(quint32 output);
+    QString outputInfo(quint32 output) override;
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 public:
     /** List of outputs that have been opened */
@@ -82,16 +82,16 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input, quint32 universe);
+    bool openInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    void closeInput(quint32 input, quint32 universe);
+    void closeInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    QStringList inputs();
+    QStringList inputs() override;
 
     /** @reimp */
-    QString inputInfo(quint32 input);
+    QString inputInfo(quint32 input) override;
 
     /** Tell the plugin to emit valueChanged signal */
     void emitValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value)
@@ -108,10 +108,10 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() override;
 
 public:
     int m_configureCalled;

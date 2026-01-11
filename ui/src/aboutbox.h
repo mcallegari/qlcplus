@@ -29,7 +29,7 @@ class QTimer;
  * @{
  */
 
-class AboutBox : public QDialog, public Ui_AboutBox
+class AboutBox final : public QDialog, public Ui_AboutBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(AboutBox)

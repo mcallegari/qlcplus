@@ -40,7 +40,7 @@ class QString;
 #define MIDI_MODE "mode"
 #define MIDI_INITMESSAGE "initmessage"
 
-class MidiPlugin : public QLCIOPlugin
+class MidiPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -53,19 +53,19 @@ class MidiPlugin : public QLCIOPlugin
      *************************************************************************/
 public:
     /** @reimp */
-    ~MidiPlugin();
+    ~MidiPlugin() override;
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() override;
 
 private:
     MidiEnumerator* m_enumerator;
@@ -75,19 +75,19 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output, quint32 universe);
+    bool openOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    void closeOutput(quint32 output, quint32 universe);
+    void closeOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    QStringList outputs();
+    QStringList outputs() override;
 
     /** @reimp */
-    QString outputInfo(quint32 output);
+    QString outputInfo(quint32 output) override;
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 private:
     /** Get an output device by its output index */
@@ -98,19 +98,19 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input, quint32 universe);
+    bool openInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    void closeInput(quint32 input, quint32 universe);
+    void closeInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    QStringList inputs();
+    QStringList inputs() override;
 
     /** @reimp */
-    QString inputInfo(quint32 input);
+    QString inputInfo(quint32 input) override;
 
     /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QVariant &params);
+    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QVariant &params) override;
 
     void sendSysEx(quint32 output, const QByteArray &data);
 
@@ -127,13 +127,13 @@ private slots:
      *************************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() override;
 
     /** @reimp */
-    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;
 
     /*************************************************************************
      * Midi templates

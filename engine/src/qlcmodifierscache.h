@@ -29,7 +29,7 @@ class ChannelModifier;
  * @{
  */
 
-class QLCModifiersCache
+class QLCModifiersCache final
 {
 public:
     QLCModifiersCache();

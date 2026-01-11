@@ -60,7 +60,7 @@ Q_DECLARE_METATYPE(StringDoublePair)
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
-class Tardis : public QThread
+class Tardis final : public QThread
 {
     Q_OBJECT
 
@@ -253,7 +253,7 @@ public:
     void forwardActionToNetwork(int code, TardisAction &action);
 
     /** @reimp */
-    void run(); // thread run function
+    void run() override; // thread run function
 
 protected:
     QString actionToString(int action);

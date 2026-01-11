@@ -44,7 +44,7 @@ typedef struct
     qulonglong endUID;
 } DiscoveryInfo;
 
-class RDMWorker : public QThread
+class RDMWorker final : public QThread
 {
     Q_OBJECT
 
@@ -77,7 +77,7 @@ public:
     void handlePID(quint32 uni, quint32 line, QString UID, QString pid, QVariantList args, bool write);
 
 private:
-    void run();
+    void run() override;
 
     /** Stop this thread */
     void stop();
@@ -121,7 +121,7 @@ private:
     QString m_fixtureInfo;
 };
 
-class RDMManager : public QWidget, public Ui_RDMManager
+class RDMManager final : public QWidget, public Ui_RDMManager
 {
     Q_OBJECT
 

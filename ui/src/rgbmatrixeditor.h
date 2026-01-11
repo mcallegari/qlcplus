@@ -37,7 +37,7 @@ class QTimer;
  * @{
  */
 
-class RGBMatrixEditor : public QWidget, public Ui_RGBMatrixEditor
+class RGBMatrixEditor final : public QWidget, public Ui_RGBMatrixEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(RGBMatrixEditor)

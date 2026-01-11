@@ -32,7 +32,7 @@ class Doc;
 /*********************************************************************
  * Worker that actually decodes the audio and builds the QImage
  *********************************************************************/
-class WaveformWorker : public QObject
+class WaveformWorker final : public QObject
 {
     Q_OBJECT
 public:
@@ -61,7 +61,7 @@ private:
  * - Worker (in its own thread) emits waveformReady()
  * - Provider caches the image and emits waveformUpdated()
  *********************************************************************/
-class WaveformImageProvider : public QQuickImageProvider
+class WaveformImageProvider final : public QQuickImageProvider
 {
     Q_OBJECT
 public:

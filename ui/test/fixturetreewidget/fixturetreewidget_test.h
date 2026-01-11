@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class FixtureTreeWidget_Test : public QObject
+class FixtureTreeWidget_Test final : public QObject
 {
     Q_OBJECT
 

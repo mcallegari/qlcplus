@@ -34,7 +34,7 @@ class Doc;
 
 #define KXMLQLCChannelsGroup QStringLiteral("ChannelsGroup")
 
-class ChannelsGroup : public QObject
+class ChannelsGroup final : public QObject
 {
     Q_OBJECT
 

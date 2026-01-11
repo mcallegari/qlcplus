@@ -31,7 +31,7 @@
 class Doc;
 class QLCInputChannel;
 
-class InputProfileEditor : public QObject
+class InputProfileEditor final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputProfileEditor)

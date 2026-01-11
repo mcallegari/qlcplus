@@ -28,7 +28,7 @@
  * @{
  */
 
-class ClickAndGoWidget : public QWidget
+class ClickAndGoWidget final : public QWidget
 {
     Q_OBJECT
 public:
@@ -163,16 +163,16 @@ protected:
 
 protected:
     /** @reimp */
-    QSize sizeHint() const;
+    QSize sizeHint() const override;
 
     /** @reimp */
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;
 
     /** @reimp */
-    void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event) override;
 
     /** @reimp */
-    void paintEvent(QPaintEvent *event);
+   void paintEvent(QPaintEvent *event) override;
 
 signals:
     void levelChanged(uchar level);

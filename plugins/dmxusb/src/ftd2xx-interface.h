@@ -25,7 +25,7 @@
 typedef void *PVOID;
 typedef PVOID	FT_HANDLE;
 
-class FTD2XXInterface : public DMXInterface
+class FTD2XXInterface final : public DMXInterface
 {
 public:
     FTD2XXInterface(const QString& serial, const QString& name, const QString& vendor,
@@ -41,55 +41,55 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    DMXInterface::Type type();
+    DMXInterface::Type type() override;
 
     /** @reimpl */
-    QString typeString();
+    QString typeString() override;
 
     /** @reimpl */
-    bool open();
+    bool open() override;
 
     /** @reimpl */
-    bool openByPID(const int FTDIPID);
+    bool openByPID(const int FTDIPID) override;
 
     /** @reimpl */
-    bool close();
+    bool close() override;
 
     /** @reimpl */
-    bool isOpen() const;
+    bool isOpen() const override;
 
     /** @reimpl */
-    bool reset();
+    bool reset() override;
 
     /** @reimpl */
-    bool setLineProperties();
+    bool setLineProperties() override;
 
     /** @reimpl */
-    bool setBaudRate();
+    bool setBaudRate() override;
 
     /** @reimpl */
-    bool setFlowControl();
+    bool setFlowControl() override;
 
     /** @reimpl */
-    bool setLowLatency(bool lowLatency);
+    bool setLowLatency(bool lowLatency) override;
 
     /** @reimpl */
-    bool clearRts();
+    bool clearRts() override;
 
     /** @reimpl */
-    bool purgeBuffers();
+    bool purgeBuffers() override;
 
     /** @reimpl */
-    bool setBreak(bool on);
+    bool setBreak(bool on) override;
 
     /** @reimpl */
-    bool write(const QByteArray& data);
+    bool write(const QByteArray& data) override;
 
     /** @reimpl */
-    QByteArray read(int size);
+    QByteArray read(int size) override;
 
     /** @reimpl */
-    uchar readByte(bool* ok = NULL);
+    uchar readByte(bool* ok = NULL) override;
 
 private:
     FT_HANDLE m_handle;

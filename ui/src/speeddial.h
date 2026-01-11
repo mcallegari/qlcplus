@@ -44,7 +44,7 @@ class QDial;
  * This is a normal QSpinBox that is able to tell, thru a signal, when it
  * gains the input focus (i.e. when it is clicked or tab-focused).
  */
-class FocusSpinBox : public QSpinBox
+class FocusSpinBox final : public QSpinBox
 {
     Q_OBJECT
 
@@ -55,14 +55,14 @@ signals:
     void focusGained();
 
 protected:
-    void focusInEvent(QFocusEvent* event);
+    void focusInEvent(QFocusEvent* event) override;
 };
 
 /****************************************************************************
  * SpeedDial
  ****************************************************************************/
 
-class SpeedDial : public QGroupBox
+class SpeedDial final : public QGroupBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(SpeedDial)

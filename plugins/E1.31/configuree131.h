@@ -24,7 +24,7 @@
 
 class E131Plugin;
 
-class ConfigureE131 : public QDialog, public Ui_ConfigureE131
+class ConfigureE131 final : public QDialog, public Ui_ConfigureE131
 {
     Q_OBJECT
 
@@ -36,10 +36,10 @@ public:
     virtual ~ConfigureE131();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     void fillMappingTree();

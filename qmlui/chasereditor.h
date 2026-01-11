@@ -27,7 +27,7 @@ class Chaser;
 class ListModel;
 class ChaserStep;
 
-class ChaserEditor : public FunctionEditor
+class ChaserEditor final : public FunctionEditor
 {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ public:
     ChaserEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Set the ID of the Chaser being edited */
-    void setFunctionID(quint32 ID);
+    void setFunctionID(quint32 ID) override;
 
     /** Returns if the Chaser being edited is a Sequence */
     bool isSequence() const;
@@ -103,7 +103,7 @@ public:
     Q_INVOKABLE bool shuffleSteps(QVariantList indicesList);
 
     /** @reimp */
-    void deleteItems(QVariantList list);
+    void deleteItems(QVariantList list) override;
 
     void setSequenceStepValue(SceneValue& scv);
     void removeFixtures(QVariantList list);
@@ -113,7 +113,7 @@ public:
     void setPlaybackIndex(int playbackIndex);
 
     /** @reimp */
-    void setPreviewEnabled(bool enable);
+    void setPreviewEnabled(bool enable) override;
 
     Q_INVOKABLE void gotoPreviousStep();
     Q_INVOKABLE void gotoNextStep();
@@ -154,8 +154,8 @@ private:
      *********************************************************************/
 public:
     /** Get/Set the steps tempo type of the Chaser being edited */
-    int tempoType() const;
-    void setTempoType(int tempoType);
+    int tempoType() const override;
+    void setTempoType(int tempoType) override;
 
     /** Get/Set the steps fade in mode of the Chaser being edited */
     int stepsFadeIn() const;

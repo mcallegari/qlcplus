@@ -55,7 +55,7 @@ class RGBMatrix;
 
 #define KXMLQLCVCMatrixVisibilityMask QStringLiteral("Visibility")
 
-class VCMatrix : public VCWidget
+class VCMatrix final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrix)
@@ -86,7 +86,7 @@ public:
     ~VCMatrix();
 
     /** @reimp */
-    void setID(quint32 id);
+    void setID(quint32 id) override;
 
 private:
     ClickAndGoSlider *m_slider;
@@ -109,22 +109,21 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) override;
 
 protected:
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*********************************************************************
      * GUI
      *********************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /** @reimp */
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
-    /** @reimp */
     int sliderValue();
     QString animationValue();
     QColor mtxColor(int id);
@@ -158,14 +157,14 @@ public slots:
      *********************************************************************/
 public:
     /** Edit this widget's properties */
-    void editProperties();
+    void editProperties() override;
 
     /*************************************************************************
      * VCWidget-inherited
      *************************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /*********************************************************************
      * Function attachment
@@ -188,7 +187,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
 
 private slots:
     /** Update slider when function stops. */
@@ -260,28 +259,28 @@ protected:
      * QLC+ Mode
      *********************************************************************/
 public slots:
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*********************************************************************
      * External input / key binding
      *********************************************************************/
 public:
     /** @reimp */
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
     /** Called when an external input device produces input data */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 
 };
 

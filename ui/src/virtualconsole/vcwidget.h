@@ -624,14 +624,14 @@ protected:
      * Event handlers
      *********************************************************************/
 protected:
-    virtual void paintEvent(QPaintEvent* e);
+    virtual void paintEvent(QPaintEvent* e) override;
 
-    virtual void mousePressEvent(QMouseEvent* e);
+    virtual void mousePressEvent(QMouseEvent* e) override;
     virtual void handleWidgetSelection(QMouseEvent* e);
 
-    virtual void mouseReleaseEvent(QMouseEvent* e);
-    virtual void mouseDoubleClickEvent(QMouseEvent* e);
-    virtual void mouseMoveEvent(QMouseEvent* e);
+    virtual void mouseReleaseEvent(QMouseEvent* e) override;
+    virtual void mouseDoubleClickEvent(QMouseEvent* e) override;
+    virtual void mouseMoveEvent(QMouseEvent* e) override;
 };
 
 /** @} */

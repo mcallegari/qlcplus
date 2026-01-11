@@ -48,7 +48,7 @@ enum AudioFormat
 /*! @brief The AudioParameters class keeps information about audio settings.
  *  @author Ilya Kotov <forkotov02@hotmail.ru>
  */
-class AudioParameters
+class AudioParameters final
 {
 public:
     /*!

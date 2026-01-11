@@ -25,7 +25,7 @@
 class HIDDevice;
 class HIDPlugin;
 
-class ConfigureHID : public QDialog, public Ui_ConfigureHID
+class ConfigureHID final : public QDialog, public Ui_ConfigureHID
 {
     Q_OBJECT
 

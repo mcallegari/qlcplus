@@ -30,7 +30,7 @@ class ChannelEdit;
 class ListModel;
 class ModeEdit;
 
-class EditorView : public QObject
+class EditorView final : public QObject
 {
     Q_OBJECT
 

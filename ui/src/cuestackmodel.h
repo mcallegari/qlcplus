@@ -29,7 +29,7 @@ class CueStack;
  * @{
  */
 
-class CueStackModel : public QAbstractItemModel
+class CueStackModel final : public QAbstractItemModel
 {
     Q_OBJECT
 
@@ -66,21 +66,21 @@ public:
         ColumnCount     = 5
     };
 
-    int columnCount(const QModelIndex& index) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    int columnCount(const QModelIndex& index) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
-    QModelIndex parent(const QModelIndex& index) const;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex& index) const override;
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
-    QStringList mimeTypes() const;
-    Qt::DropActions supportedDropActions() const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+    QStringList mimeTypes() const override;
+    Qt::DropActions supportedDropActions() const override;
+    Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent);
-    QMimeData* mimeData(const QModelIndexList& indexes) const;
-    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+    bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column, const QModelIndex& parent) override;
+    QMimeData* mimeData(const QModelIndexList& indexes) const override;
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
 private:
     /** Convert $ms milliseconds to a nicer seconds.milliseconds figure */

@@ -27,7 +27,7 @@ class QLCFixtureDef;
 class TreeModel;
 class Doc;
 
-class FixtureBrowser : public QObject
+class FixtureBrowser final : public QObject
 {
     Q_OBJECT
 

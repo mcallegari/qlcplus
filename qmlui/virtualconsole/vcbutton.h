@@ -47,23 +47,23 @@ public:
     virtual ~VCButton();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*********************************************************************
      * Function attachment
@@ -86,10 +86,10 @@ public:
     quint32 functionID() const;
 
     /** @reimp */
-    void adjustFunctionIntensity(Function *f, qreal value);
+    void adjustFunctionIntensity(Function *f, qreal value) override;
 
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /**
      *  The actual method used to request a change of state of this
@@ -98,7 +98,7 @@ public:
     Q_INVOKABLE void requestStateChange(bool pressed);
 
     /** @reimp */
-    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored);
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored) override;
 
 signals:
     void functionIDChanged(quint32 id);
@@ -224,11 +224,11 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 public slots:
     /** @reimp */
-    void slotInputValueChanged(quint8 id, uchar value);
+    void slotInputValueChanged(quint8 id, uchar value) override;
 
     /*********************************************************************
      * Load & Save
@@ -236,10 +236,10 @@ public slots:
 
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 #endif

@@ -37,7 +37,7 @@ class TreeModelItem;
 class FixtureGroup;
 class MonitorProperties;
 
-class FixtureManager : public QObject
+class FixtureManager final : public QObject
 {
     Q_OBJECT
 

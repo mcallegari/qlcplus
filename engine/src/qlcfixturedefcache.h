@@ -52,7 +52,7 @@ class QLCFixtureDef;
  * since they are made only during addFixtureDef() based on the definitions'
  * manufacturer() & model() data.
  */
-class QLCFixtureDefCache
+class QLCFixtureDefCache final
 {
 public:
     /**

@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class GenericFader_Test : public QObject
+class GenericFader_Test final : public QObject
 {
     Q_OBJECT
 

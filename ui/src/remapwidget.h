@@ -29,7 +29,7 @@ struct RemapInfo;
  * @{
  */
 
-class RemapWidget : public QWidget
+class RemapWidget final : public QWidget
 {
     Q_OBJECT
 public:
@@ -42,8 +42,8 @@ public:
     void setRemapList(QList<RemapInfo>list);
 
 protected:
-    void resizeEvent(QResizeEvent *e);
-    void paintEvent(QPaintEvent* e);
+    void resizeEvent(QResizeEvent *e) override;
+    void paintEvent(QPaintEvent* e) override;
 
 private:
     QTreeWidget *m_sourceTree;

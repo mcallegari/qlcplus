@@ -25,7 +25,7 @@
 class QLCFixtureDef;
 class QLCChannel;
 
-class QLCFixtureMode_Test : public QObject
+class QLCFixtureMode_Test final : public QObject
 {
     Q_OBJECT
 

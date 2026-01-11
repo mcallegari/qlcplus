@@ -24,7 +24,7 @@
  * The device is FTDI-based and maintains its own DMX timing once TX is ON.
  * We only push per-channel updates and set the "last TX channel" bound.
  */
-class UsbdmxLegacy : public QThread, public DMXUSBWidget
+class UsbdmxLegacy final : public QThread, public DMXUSBWidget
 {
     Q_OBJECT
 

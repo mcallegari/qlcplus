@@ -75,23 +75,23 @@ public:
     virtual void initializeProperties();
 
     /** @reimp */
-    virtual QString defaultCaption();
+    virtual QString defaultCaption() override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    virtual void render(QQuickView *view, QQuickItem *parent);
+    virtual void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
@@ -163,7 +163,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void setDisabled(bool disable);
+    void setDisabled(bool disable) override;
 
     /*********************************************************************
      * Header
@@ -298,11 +298,11 @@ protected slots:
      *********************************************************************/
 public:
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 public slots:
     /** @reimp */
-    void slotInputValueChanged(quint8 id, uchar value);
+    void slotInputValueChanged(quint8 id, uchar value) override;
 
     /*********************************************************************
      * Load & Save
@@ -310,8 +310,8 @@ public slots:
 
 public:
     bool loadWidgetXML(QXmlStreamReader &root, bool render = false);
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 
 protected:
     /** Can be overridden by subclasses */

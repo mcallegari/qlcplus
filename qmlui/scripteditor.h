@@ -24,7 +24,7 @@
 
 class Script;
 
-class ScriptEditor : public FunctionEditor
+class ScriptEditor final : public FunctionEditor
 {
     Q_OBJECT
 
@@ -34,7 +34,7 @@ public:
     ScriptEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Set the ID of the Audio being edited */
-    void setFunctionID(quint32 ID);
+    void setFunctionID(quint32 ID) override;
 
     /** Get/Set the content of the Script currently being edited */
     QString scriptContent() const;

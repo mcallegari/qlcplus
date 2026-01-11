@@ -29,7 +29,7 @@
 
 class HotPlugMonitor;
 
-class HPMPrivate : public QThread
+class HPMPrivate final : public QThread
 {
     Q_OBJECT
 
@@ -47,7 +47,7 @@ private:
     void extractVidPid(io_service_t usbDevice, UInt16* vid, UInt16* pid);
     void deviceAdded(io_iterator_t iterator);
     void deviceRemoved(io_iterator_t iterator);
-    void run();
+    void run() override;
 
 private:
     bool m_run;
