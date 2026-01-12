@@ -35,7 +35,8 @@ SidePanel
     {
         var i
         // reset the currently loaded item first
-        loaderSource = ""
+        if (fType !== QLCFunction.ShowType && mainView.currentContext !== "SHOWMGR")
+            loaderSource = ""
 
         console.log("Requested to create function type " + fType)
 
@@ -280,8 +281,22 @@ SidePanel
                     title: qsTr("Delete items")
                     onAccepted:
                     {
+                        var funcIdList = functionManager.selectedFunctionsID()
+
+                        // check if we're deleting the curennt show
+                        var showFuncId = showManager.currentShowID
+
+                        for (var i = 0; i < funcIdList.length; i++)
+                        {
+                            if (funcIdList[i] === showFuncId)
+                            {
+                                showManager.resetContents()
+                                break
+                            }
+                        }
+
                         functionManager.deleteSelectedFolders()
-                        functionManager.deleteFunctions(functionManager.selectedFunctionsID())
+                        functionManager.deleteFunctions(funcIdList)
                     }
                 }
             }

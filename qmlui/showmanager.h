@@ -87,7 +87,7 @@ public:
     void setShowName(QString showName);
 
     /** Reset the Show Manager contents to an initial state */
-    void resetContents();
+    Q_INVOKABLE void resetContents();
 
     /** Clear all the current items in the ShowManager view */
     Q_INVOKABLE void resetView();
@@ -196,9 +196,6 @@ signals:
     void selectedTrackIndexChanged(int index);
 
 private:
-    /** A list of references to the selected Show Tracks */
-    QList <Track*> m_tracksList;
-
     /** The index of the currently selected track */
     int m_selectedTrackIndex;
 

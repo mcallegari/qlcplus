@@ -256,11 +256,10 @@ void ShowManager::setCurrentTime(int currentTime)
 
 QVariant ShowManager::tracks()
 {
-    m_tracksList.clear();
     if (m_currentShow)
-        m_tracksList = m_currentShow->tracks();
+        return QVariant::fromValue(m_currentShow->tracks());
 
-    return QVariant::fromValue(m_tracksList);
+    return QVariant();
 }
 
 int ShowManager::selectedTrackIndex() const
@@ -570,9 +569,13 @@ void ShowManager::resetContents()
 {
     resetView();
     m_currentTime = 0;
-    m_selectedTrackIndex = -1;
     emit currentTimeChanged(m_currentTime);
+
+    m_selectedTrackIndex = -1;
     m_currentShow = nullptr;
+
+    emit tracksChanged();
+    emit isEditingChanged();
 }
 
 void ShowManager::resetView()
