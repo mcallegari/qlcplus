@@ -512,12 +512,11 @@ GridLayout
                 id: capPresetCombo
                 Layout.fillWidth: true
                 model: editor ? editor.capabilityPresetList : null
-                onValueChanged:
-                    function (value)
-                    {
-                        editor.setCapabilityPresetAtIndex(editItem.indexInList, value)
-                        updatePresetBox(editItem.indexInList)
-                    }
+                onActivated: (index) =>
+                {
+                    editor.setCapabilityPresetAtIndex(editItem.indexInList, currValue)
+                    updatePresetBox(editItem.indexInList)
+                }
             }
 
             GroupBox

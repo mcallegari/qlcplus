@@ -284,6 +284,7 @@ void ChannelEdit::setCapabilityPresetAtIndex(int index, int preset)
 
     QLCCapability *cap = caps.at(index);
     cap->setPreset(QLCCapability::Preset(preset));
+    emit channelChanged();
 }
 
 int ChannelEdit::getCapabilityPresetType(int index)
@@ -324,6 +325,7 @@ void ChannelEdit::setCapabilityValueAt(int index, int vIndex, QVariant value)
         return;
 
     caps.at(index)->setResource(vIndex, value);
+    emit channelChanged();
 }
 
 void ChannelEdit::checkCapabilities()
