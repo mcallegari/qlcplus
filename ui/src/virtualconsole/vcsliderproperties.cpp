@@ -285,6 +285,13 @@ void VCSliderProperties::slotModeSubmasterClicked()
     setSubmasterPageVisibility(true);
 }
 
+void VCSliderProperties::slotTabChanged()
+{
+    m_inputSelWidget->stopAutoDetection();
+    m_ovrResetSelWidget->stopAutoDetection();
+    m_flashInputWidget->stopAutoDetection();
+}
+
 void VCSliderProperties::setLevelPageVisibility(bool visible)
 {
     m_levelValueRangeGroup->setVisible(visible);

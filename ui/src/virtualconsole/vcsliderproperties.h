@@ -55,6 +55,7 @@ protected slots:
     void slotModeLevelClicked();
     void slotModePlaybackClicked();
     void slotModeSubmasterClicked();
+    void slotTabChanged();
 
 protected:
     void setLevelPageVisibility(bool visible);
