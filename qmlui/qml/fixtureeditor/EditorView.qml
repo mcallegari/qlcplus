@@ -30,7 +30,7 @@ Rectangle
 {
     id: editorRoot
 
-    property int editorId
+    property int editorId: -1
     property EditorRef editorView: null
 
     color: "transparent"
@@ -45,6 +45,11 @@ Rectangle
             editorView.remapFilename(fixtureEditor.userFolder)
             messagePopup.open()
         }
+
+        sideEditor.active = false
+        sideEditor.itemName = ""
+        sideEditor.source = ""
+        sideEditor.active = true
     }
 
     function save(path)
