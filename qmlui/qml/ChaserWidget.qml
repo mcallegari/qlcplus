@@ -107,6 +107,11 @@ Column
         ceSelector.selectItem(stepIndex, cStepsList.model, multiSelect)
     }
 
+    function resetStepSelection()
+    {
+        ceSelector.resetSelection(cStepsList.model)
+    }
+
     ModelSelector
     {
         id: ceSelector

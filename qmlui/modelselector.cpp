@@ -86,6 +86,7 @@ void ModelSelector::resetSelection(ListModel *model)
     m_selectedIndices.clear();
     m_itemsCount = 0;
     m_previousIndex = -1;
+    emit itemsCountChanged(m_itemsCount);
 }
 
 QVariantList ModelSelector::itemsList()

@@ -46,7 +46,11 @@ Rectangle
         id: deleteItemsPopup
         title: qsTr("Delete steps")
         message: qsTr("Are you sure you want to remove the selected steps?")
-        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+        onAccepted:
+        {
+            functionManager.deleteEditorItems(chWidget.selector.itemsList())
+            chWidget.resetStepSelection()
+        }
     }
 
     SplitView
