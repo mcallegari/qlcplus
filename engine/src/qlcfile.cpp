@@ -210,7 +210,7 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
     QDir dir;
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    // If the current user is root, return the system fixture dir.
+    // If the current user is root, return the fallBackPath.
     // Otherwise return a path under user's home dir.
     if (geteuid() == 0 && QLCFile::hasWindowManager())
         dir = QDir(fallBackPath);

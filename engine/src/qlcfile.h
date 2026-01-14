@@ -132,10 +132,12 @@ public:
     static QDir systemDirectory(QString path, QString extension = QString());
 
     /**
-     * @brief systemDirectory returns a system dependant QDir based
-     *        on a QLC+ hardcoded path and a list of QLC+ hardcoded extensions
+     * @brief userDirectory returns a user dependant QDir based on a QLC+
+     *        hardcoded path and a list of QLC+ hardcoded extensions.
+     *        The fallback path is used if the user is root on *nix systems.
      * @param path
-     * @param extension
+     * @param fallBackPath
+     * @param extensions
      * @return
      */
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
