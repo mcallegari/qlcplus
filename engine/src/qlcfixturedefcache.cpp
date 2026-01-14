@@ -378,9 +378,16 @@ void QLCFixtureDefCache::clear()
         delete m_defs.takeFirst();
 }
 
+static QString FixtureDir()
+{
+    QString fixture_dir(getenv("QLC_FIXTURES_PATH"));
+    if (fixture_dir.isEmpty()) fixture_dir = QString(FIXTUREDIR);
+    return fixture_dir;
+}
+
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
 {
-    return QLCFile::systemDirectory(QString(FIXTUREDIR), QString(KExtFixture));
+    return QLCFile::systemDirectory(FixtureDir(), QString(KExtFixture));
 }
 
 QDir QLCFixtureDefCache::userDefinitionDirectory()
@@ -389,7 +396,7 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
     filters << QString("*%1").arg(KExtFixture);
     filters << QString("*%1").arg(KExtAvolitesFixture);
 
-    return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
+    return QLCFile::userDirectory(QString(USERFIXTUREDIR), FixtureDir(), filters);
 }
 
 bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
