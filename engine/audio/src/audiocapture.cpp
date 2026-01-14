@@ -306,10 +306,9 @@ void AudioCapture::run()
             {
                 QMutexLocker locker(&m_mutex);
                 processData();
-#ifdef FULL_BEATTRACKING
+
                 if (m_beatTracker->processAudio(m_audioBuffer, m_captureSize))
                     emit beatDetected();
-#endif
             }
             else
             {
