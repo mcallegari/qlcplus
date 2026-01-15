@@ -881,8 +881,8 @@ void ShowManager::pasteFromClipboard()
             lowerTime = item.m_showFunc->startTime();
     }
 
-    // now clone and add Functions and ShowFunctions on the proper tracks
-    // and keeping the delta time of the original items
+    // now add the ShowFunctions on the proper tracks
+    // while keeping the delta time of the original items
     for (SelectedShowItem item : m_clipboard)
     {
         Track *track = m_currentShow->tracks().at(item.m_trackIndex);
@@ -894,34 +894,19 @@ void ShowManager::pasteFromClipboard()
         if (func == nullptr)
             continue;
 
-        Function *copyFunc = func->createCopy(m_doc);
-        if (copyFunc == nullptr)
-            continue;
-
-        copyFunc->setName(QString("%1 %2").arg(copyFunc->name()).arg(tr("(Copy)")));
-
-        if (copyFunc->type() == Function::SequenceType)
+        if (func->type() == Function::SequenceType)
         {
-            Sequence *sequence = qobject_cast<Sequence*>(copyFunc);
+            Sequence *sequence = qobject_cast<Sequence*>(func);
             Scene *scene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
             if (scene == nullptr)
                 continue;
 
-            Scene *copyScene = static_cast<Scene*>(scene->createCopy(m_doc, true));
-            if (copyScene == nullptr)
-                continue;
-
-            copyScene->setName(QString("%1 %2").arg(copyScene->name()).arg(tr("(Copy)")));
-
-            m_doc->addFunction(copyScene);
-            sequence->setBoundSceneID(copyScene->id());
+            sequence->setBoundSceneID(scene->id());
         }
-
-        m_doc->addFunction(copyFunc);
 
         addItems(contextItem(), item.m_trackIndex,
                  m_currentTime + item.m_showFunc->startTime() - lowerTime,
-                 QVariantList() << copyFunc->id());
+                 QVariantList() << func->id());
     }
 }
 
