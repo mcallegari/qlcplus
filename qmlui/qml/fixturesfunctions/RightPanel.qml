@@ -35,7 +35,7 @@ SidePanel
     {
         var i
         // reset the currently loaded item first
-        if (fType !== QLCFunction.ShowType && mainView.currentContext !== "SHOWMGR")
+        if (fType !== QLCFunction.ShowType || mainView.currentContext !== "SHOWMGR")
             loaderSource = ""
 
         console.log("Requested to create function type " + fType)
