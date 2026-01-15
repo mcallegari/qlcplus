@@ -271,15 +271,23 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
         it.next();
         quint32 itemID = it.key();
 
-        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
 
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture *fixture = m_doc->fixture(fixtureID);
         if (fixture == nullptr)
             return;
 
         SceneItem *meshRef = m_entitiesMap.value(itemID, nullptr);
 
         if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
+            continue;
+
+        int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        int headIdx = FixtureUtils::itemHeadIndex(itemID);
+        quint32 flags = m_monProps->fixtureFlags(fixtureID, headIdx, linkedIndex);
+
+        // skip hidden items
+        if (flags & MonitorProperties::HiddenFlag)
             continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == (quint32)universeFilter)
