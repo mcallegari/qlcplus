@@ -401,8 +401,10 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             break;
             case Color:
             {
-                QColor startColor = value().value<QColor>();
+
+                QColor startColor = rgbValue();
                 QColor col = startColor;
+                QColor wauv = wauvValue();
 
                 if (fType != Flat)
                 {
@@ -430,6 +432,19 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                         list << SceneValue(id, cmyCh.at(0), uchar(col.cyan()));
                         list << SceneValue(id, cmyCh.at(1), uchar(col.magenta()));
                         list << SceneValue(id, cmyCh.at(2), uchar(col.yellow()));
+                    }
+
+                    if (wauv.isValid())
+                    {
+                        quint32 channel = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, i);
+                        if (channel != QLCChannel::invalid())
+                            list << SceneValue(id, channel, uchar(wauv.red()));
+                        channel = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, i);
+                        if (channel != QLCChannel::invalid())
+                            list << SceneValue(id, channel, uchar(wauv.green()));
+                        channel = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, i);
+                        if (channel != QLCChannel::invalid())
+                            list << SceneValue(id, channel, uchar(wauv.blue()));
                     }
                 }
             }
