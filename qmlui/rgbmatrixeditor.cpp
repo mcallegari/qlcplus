@@ -22,10 +22,13 @@
 
 #include "rgbmatrixeditor.h"
 
+#include "qlcfixturehead.h"
 #include "rgbmatrix.h"
 #include "rgbimage.h"
+#include "sequence.h"
 #include "rgbtext.h"
 #include "tardis.h"
+#include "scene.h"
 #include "doc.h"
 
 RGBMatrixEditor::RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -603,6 +606,222 @@ void RGBMatrixEditor::setControlMode(int mode)
 
     emit controlModeChanged();
     emit algoColorsChanged();
+}
+
+/************************************************************************
+ * Save to Sequence
+ ************************************************************************/
+
+void RGBMatrixEditor::saveToSequence()
+{
+    if (m_matrix == NULL || m_matrix->fixtureGroup() == FixtureGroup::invalidId())
+        return;
+
+    FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
+    if (grp != NULL && m_matrix->algorithm() != NULL)
+    {
+        bool testRunning = m_matrix->isRunning();
+        if (testRunning)
+            m_matrix->stopAndWait();
+
+        m_previewTimer->stop();
+
+        Scene *grpScene = new Scene(m_doc);
+        grpScene->setName(grp->name());
+        grpScene->setVisible(false);
+
+        QList<GroupHead> headList = grp->headList();
+        foreach (GroupHead head, headList)
+        {
+            Fixture *fxi = m_doc->fixture(head.fxi);
+            if (fxi == NULL)
+                continue;
+
+            if (controlMode() == RGBMatrix::ControlModeRgb)
+            {
+                QVector <quint32> rgb = fxi->rgbChannels(head.head);
+
+                // in case of CMY, dump those channels
+                if (rgb.count() == 0)
+                    rgb = fxi->cmyChannels(head.head);
+
+                if (rgb.count() == 3)
+                {
+                    grpScene->setValue(head.fxi, rgb.at(0), 0);
+                    grpScene->setValue(head.fxi, rgb.at(1), 0);
+                    grpScene->setValue(head.fxi, rgb.at(2), 0);
+                }
+            }
+            else if (controlMode() == RGBMatrix::ControlModeDimmer)
+            {
+                quint32 channel = fxi->masterIntensityChannel();
+
+                if (channel == QLCChannel::invalid())
+                    channel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
+
+                if (channel != QLCChannel::invalid())
+                    grpScene->setValue(head.fxi, channel, 0);
+            }
+            else
+            {
+                quint32 channel = QLCChannel::invalid();
+                if (controlMode() == RGBMatrix::ControlModeWhite)
+                    channel = fxi->channelNumber(QLCChannel::White, QLCChannel::MSB, head.head);
+                else if (controlMode() == RGBMatrix::ControlModeAmber)
+                    channel = fxi->channelNumber(QLCChannel::Amber, QLCChannel::MSB, head.head);
+                else if (controlMode() == RGBMatrix::ControlModeUV)
+                    channel = fxi->channelNumber(QLCChannel::UV, QLCChannel::MSB, head.head);
+                else if (controlMode() == RGBMatrix::ControlModeShutter)
+                {
+                    QLCFixtureHead fHead = fxi->head(head.head);
+                    QVector <quint32> shutters = fHead.shutterChannels();
+                    if (shutters.count())
+                        channel = shutters.first();
+                }
+
+                if (channel != QLCChannel::invalid())
+                    grpScene->setValue(head.fxi, channel, 0);
+            }
+        }
+        m_doc->addFunction(grpScene);
+
+        int totalSteps = m_matrix->stepsCount();
+        int increment = 1;
+        int currentStep = 0;
+        m_previewStepHandler->setStepColor(m_matrix->getColor(0));
+
+        if (m_matrix->direction() == Function::Backward)
+        {
+            currentStep = totalSteps - 1;
+            increment = -1;
+            if (m_matrix->getColor(1).isValid())
+                m_previewStepHandler->setStepColor(m_matrix->getColor(1));
+        }
+        m_previewStepHandler->calculateColorDelta(m_matrix->getColor(0), m_matrix->getColor(1),
+                                              m_matrix->algorithm());
+
+        if (m_matrix->runOrder() == RGBMatrix::PingPong)
+            totalSteps = (totalSteps * 2) - 1;
+
+        Sequence *sequence = new Sequence(m_doc);
+        sequence->setName(QString("%1 %2").arg(m_matrix->name()).arg(tr("Sequence")));
+        sequence->setBoundSceneID(grpScene->id());
+        sequence->setDurationMode(Chaser::PerStep);
+        sequence->setDuration(m_matrix->duration());
+
+        if (m_matrix->fadeInSpeed() != 0)
+        {
+            sequence->setFadeInMode(Chaser::PerStep);
+            sequence->setFadeInSpeed(m_matrix->fadeInSpeed());
+        }
+        if (m_matrix->fadeOutSpeed() != 0)
+        {
+            sequence->setFadeOutMode(Chaser::PerStep);
+            sequence->setFadeOutSpeed(m_matrix->fadeOutSpeed());
+        }
+
+        for (int i = 0; i < totalSteps; i++)
+        {
+            m_matrix->previewMap(currentStep, m_previewStepHandler);
+            ChaserStep step;
+            step.fid = grpScene->id();
+            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed();
+            step.duration = m_matrix->duration();
+            step.fadeIn = m_matrix->fadeInSpeed();
+            step.fadeOut = m_matrix->fadeOutSpeed();
+
+            for (int y = 0; y < m_previewStepHandler->m_map.size(); y++)
+            {
+                for (int x = 0; x < m_previewStepHandler->m_map[y].size(); x++)
+                {
+                    uint col = m_previewStepHandler->m_map[y][x];
+                    GroupHead head = grp->head(QLCPoint(x, y));
+
+                    Fixture *fxi = m_doc->fixture(head.fxi);
+                    if (fxi == NULL)
+                        continue;
+
+                    if (controlMode() == RGBMatrix::ControlModeRgb)
+                    {
+                        QVector <quint32> rgb = fxi->rgbChannels(head.head);
+                        QVector <quint32> cmy = fxi->cmyChannels(head.head);
+
+                        if (rgb.count() == 3)
+                        {
+                            step.values.append(SceneValue(head.fxi, rgb.at(0), qRed(col)));
+                            step.values.append(SceneValue(head.fxi, rgb.at(1), qGreen(col)));
+                            step.values.append(SceneValue(head.fxi, rgb.at(2), qBlue(col)));
+                        }
+
+                        if (cmy.count() == 3)
+                        {
+                            QColor cmyCol(col);
+
+                            step.values.append(SceneValue(head.fxi, cmy.at(0), cmyCol.cyan()));
+                            step.values.append(SceneValue(head.fxi, cmy.at(1), cmyCol.magenta()));
+                            step.values.append(SceneValue(head.fxi, cmy.at(2), cmyCol.yellow()));
+                        }
+                    }
+                    else if (controlMode() == RGBMatrix::ControlModeDimmer)
+                    {
+                        quint32 channel = fxi->masterIntensityChannel();
+
+                        if (channel == QLCChannel::invalid())
+                            channel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
+
+                        if (channel != QLCChannel::invalid())
+                            step.values.append(SceneValue(head.fxi, channel, RGBMatrix::rgbToGrey(col)));
+                    }
+                    else
+                    {
+                        quint32 channel = QLCChannel::invalid();
+                        if (controlMode() == RGBMatrix::ControlModeWhite)
+                            channel = fxi->channelNumber(QLCChannel::White, QLCChannel::MSB, head.head);
+                        else if (controlMode() == RGBMatrix::ControlModeAmber)
+                            channel = fxi->channelNumber(QLCChannel::Amber, QLCChannel::MSB, head.head);
+                        else if (controlMode() == RGBMatrix::ControlModeUV)
+                            channel = fxi->channelNumber(QLCChannel::UV, QLCChannel::MSB, head.head);
+                        else if (controlMode() == RGBMatrix::ControlModeShutter)
+                        {
+                            QLCFixtureHead fHead = fxi->head(head.head);
+                            QVector <quint32> shutters = fHead.shutterChannels();
+                            if (shutters.count())
+                                channel = shutters.first();
+                        }
+
+                        if (channel != QLCChannel::invalid())
+                            step.values.append(SceneValue(head.fxi, channel, RGBMatrix::rgbToGrey(col)));
+                    }
+                }
+            }
+            // !! Important !! matrix's heads can be displaced randomly but in a sequence
+            // we absolutely need ordered values. So do it now !
+            std::sort(step.values.begin(), step.values.end());
+
+            sequence->addStep(step);
+            currentStep += increment;
+            if (currentStep == totalSteps)
+            {
+                if (m_matrix->runOrder() == RGBMatrix::PingPong)
+                {
+                    currentStep = totalSteps - 2;
+                    increment = -1;
+                }
+                else
+                {
+                    currentStep = 0;
+                }
+            }
+            m_previewStepHandler->updateStepColor(currentStep, m_matrix->getColor(0), m_matrix->stepsCount());
+        }
+
+        m_doc->addFunction(sequence);
+
+        if (testRunning == true)
+            m_matrix->start(m_doc->masterTimer(), FunctionParent::master());
+
+        m_previewTimer->start(MasterTimer::tick());
+    }
 }
 
 /************************************************************************

@@ -63,6 +63,8 @@ public:
     int fixtureGroup() const;
     void setFixtureGroup(int fixtureGroup);
 
+    Q_INVOKABLE void saveToSequence();
+
 signals:
     void fixtureGroupChanged(int fixtureGroup);
 
