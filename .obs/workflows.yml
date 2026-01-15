@@ -4,8 +4,5 @@ workflow:
         project: home:mcallegari79
         package: qlcplus-qt5-git
         package: qlcplus-qt6-git
-        project: home:edogawa
-        package: qlcplus-qt6-git
-        package: qlcplus5-git
   filters:
     event: push
