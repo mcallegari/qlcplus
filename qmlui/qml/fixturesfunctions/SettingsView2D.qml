@@ -121,7 +121,7 @@ Rectangle
                         from: 1
                         to: 50
                         suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
-                        value: envSize.x
+                        value: envSize.x * View2D.gridUnits === MonitorProperties.Meters ? 1 : 3.28084
                         onValueModified:
                         {
                             if (settingsRoot.visible && contextManager)
@@ -138,7 +138,7 @@ Rectangle
                         from: 1
                         to: 50
                         suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
-                        value: envSize.y
+                        value: envSize.y * View2D.gridUnits === MonitorProperties.Meters ? 1 : 3.28084
                         onValueModified:
                         {
                             if (settingsRoot.visible && contextManager)
@@ -155,7 +155,7 @@ Rectangle
                         from: 1
                         to: 100
                         suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
-                        value: envSize.z
+                        value: envSize.z * View2D.gridUnits === MonitorProperties.Meters ? 1 : 3.28084
                         onValueModified:
                         {
                             if (settingsRoot.visible && contextManager)
