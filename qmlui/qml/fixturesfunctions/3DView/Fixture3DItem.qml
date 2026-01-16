@@ -240,6 +240,16 @@ Entity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
 
+    function cleanupScattering()
+    {
+        if (shadingCone)
+            shadingCone.destroy()
+        if (scatteringCone)
+            scatteringCone.destroy()
+        if (outDepthCone)
+            outDepthCone.destroy()
+    }
+
     ShutterAnimator { id: sAnimator }
 
     QQ2.NumberAnimation on panRotation
@@ -349,5 +359,4 @@ Entity
 
     components: [ eSceneLoader, transform ]
 }
-
 

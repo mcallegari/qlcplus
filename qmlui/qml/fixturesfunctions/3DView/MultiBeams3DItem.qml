@@ -145,6 +145,16 @@ Entity
         }
     }
 
+    function cleanupScattering()
+    {
+        for (var i = 0; i < headsList.length; i++)
+        {
+            var headItem = headsList[i]
+            if (headItem && headItem.cleanupScattering)
+                headItem.cleanupScattering()
+        }
+    }
+
     function getHead(headIndex)
     {
         return headsList[headIndex]

@@ -170,11 +170,20 @@ void MainView3D::resetItems()
     {
         it.next();
         SceneItem *e = it.value();
-        delete e->m_goboTexture;
-        delete e->m_selectionBox;
-        // delete e->m_rootItem; // TODO: with this -> segfault
         if (e->m_rootItem)
-            e->m_rootItem->setProperty("enabled", false); // workaround for the above
+            QMetaObject::invokeMethod(e->m_rootItem, "cleanupScattering");
+        if (e->m_goboTexture)
+            e->m_goboTexture->deleteLater();
+        if (e->m_selectionBox)
+        {
+            e->m_selectionBox->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+            e->m_selectionBox->deleteLater();
+        }
+        if (e->m_rootItem)
+        {
+            e->m_rootItem->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+            e->m_rootItem->deleteLater();
+        }
         delete e;
     }
 
@@ -188,7 +197,11 @@ void MainView3D::resetItems()
     {
         it2.next();
         SceneItem *e = it2.value();
-        delete e->m_rootItem;
+        if (e->m_rootItem)
+        {
+            e->m_rootItem->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+            e->m_rootItem->deleteLater();
+        }
     }
     m_genericMap.clear();
     m_genericItemsList->clear();
@@ -1542,15 +1555,29 @@ void MainView3D::removeFixtureItem(quint32 itemID)
     if (isEnabled() == false || m_entitiesMap.contains(itemID) == false)
         return;
 
+    QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
+
     SceneItem *mesh = m_entitiesMap.take(itemID);
 
-    delete mesh->m_goboTexture;
-    delete mesh->m_selectionBox;
-    delete mesh->m_rootTransform;
-//    delete mesh->m_rootItem; // this will cause a segfault
-    mesh->m_rootItem->setProperty("enabled", false); // workaround for the above
+    if (mesh->m_rootItem)
+        QMetaObject::invokeMethod(mesh->m_rootItem, "cleanupScattering");
+
+    if (mesh->m_goboTexture)
+        mesh->m_goboTexture->deleteLater();
+    if (mesh->m_selectionBox)
+    {
+        mesh->m_selectionBox->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+        mesh->m_selectionBox->deleteLater();
+    }
+    if (mesh->m_rootItem)
+    {
+        mesh->m_rootItem->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+        mesh->m_rootItem->deleteLater();
+    }
 
     delete mesh;
+
+    QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 }
 
 /*********************************************************************
@@ -1760,8 +1787,16 @@ void MainView3D::removeSelectedGenericItems()
         SceneItem *meshRef = m_genericMap.take(id);
         if (meshRef)
         {
-            delete meshRef->m_rootItem;
-            delete meshRef->m_selectionBox;
+            if (meshRef->m_rootItem)
+            {
+                meshRef->m_rootItem->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+                meshRef->m_rootItem->deleteLater();
+            }
+            if (meshRef->m_selectionBox)
+            {
+                meshRef->m_selectionBox->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+                meshRef->m_selectionBox->deleteLater();
+            }
         }
         m_monProps->removeItem(id);
     }
