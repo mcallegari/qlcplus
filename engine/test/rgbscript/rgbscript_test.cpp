@@ -92,7 +92,7 @@ void RGBScript_Test::scripts()
     QVERIFY(dir.entryList().size() > 0);
 
     // Prepare check that file is registered for delivery
-    QString proFilePath = dir.filePath("rgbscripts.pro");
+    QString proFilePath = dir.filePath("CMakeLists.txt");
     QFile proFile(proFilePath);
     QVERIFY(proFile.open(QIODevice::ReadWrite));
     QTextStream pro (&proFile);
@@ -103,12 +103,11 @@ void RGBScript_Test::scripts()
         QFile absFile(dir.absoluteFilePath(file));
         QVERIFY(script->load(absFile.fileName()));
 
-        qDebug() << "Searching 'scripts.files += " + file + "' in rgbscripts.pro";
+        qDebug() << "Searching '" + file + "' in CMakeLists.txt";
 
-        // Check that the script is listed in the pro file.
-        // scripts.files += noise.js
+        // Check that the script is listed in the cmake file.
         if (file != "empty.js") {
-            QString searchString = "scripts.files += " + file;
+            QString searchString = "    " + file;
             QString line;
             bool foundInProFile = false;
             do {
