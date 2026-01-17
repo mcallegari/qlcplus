@@ -88,6 +88,7 @@ App::App()
     , m_fileName(QString())
     , m_importManager(nullptr)
     , m_fixtureEditor(nullptr)
+    , m_forceQuit(false)
 {
     QSettings settings;
 
@@ -102,6 +103,7 @@ App::App()
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
     connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
     connect(this, &App::sceneGraphInitialized, this, &App::slotSceneGraphInitialized);
+    qApp->installEventFilter(this);
 }
 
 App::~App()
@@ -286,9 +288,9 @@ void App::aboutQt()
     qApp->aboutQt();
 }
 
-void App::exit()
+void App::exit(bool force)
 {
-    //destroy();
+    m_forceQuit = force;
     QApplication::quit();
 }
 
@@ -327,7 +329,7 @@ bool App::event(QEvent *event)
 {
     if (event->type() == QEvent::Close)
     {
-        if (m_doc->isModified())
+        if (m_doc->isModified() && m_forceQuit == false)
         {
             QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
             event->ignore();
@@ -335,6 +337,21 @@ bool App::event(QEvent *event)
         }
     }
     return QQuickView::event(event);
+}
+
+bool App::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::Quit)
+    {
+        if (m_doc && m_doc->isModified() && rootObject() && m_forceQuit == false)
+        {
+            QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
+            event->ignore();
+            return true;
+        }
+    }
+
+    return QQuickView::eventFilter(obj, event);
 }
 
 void App::slotSceneGraphInitialized()

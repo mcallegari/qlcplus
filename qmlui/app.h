@@ -175,9 +175,12 @@ public:
 
     bool is3DSupported() const;
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
+
     Q_INVOKABLE void aboutQt();
 
-    Q_INVOKABLE void exit();
+    Q_INVOKABLE void exit(bool force = false);
 
 public slots:
     void setAccessMask(int mask);
@@ -199,6 +202,7 @@ signals:
     void accessMaskChanged(int mask);
 
 private:
+    bool m_forceQuit = false;
     /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
 

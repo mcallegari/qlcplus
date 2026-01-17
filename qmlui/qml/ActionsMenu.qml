@@ -195,7 +195,7 @@ Popup
                 else if (action == "#NEW")
                     qlcplus.newWorkspace()
                 else if (action == "#EXIT")
-                    qlcplus.exit()
+                    qlcplus.exit(true)
                 else
                     qlcplus.loadWorkspace(action)
             }
@@ -650,5 +650,4 @@ Popup
         }
     }
 }
-
 
