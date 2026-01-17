@@ -29,12 +29,12 @@
 #define DMX_MAB 16
 #define DMX_BREAK 110
 
-UARTWidget::UARTWidget(QSerialPortInfo &info, QObject *parent)
+UARTWidget::UARTWidget(const QSerialPortInfo &info, QObject *parent)
     : QThread(parent)
     , m_running(false)
     , m_granularity(Unknown)
+    , m_serialInfo(info)
 {
-    m_serialInfo = info;
 }
 
 UARTWidget::~UARTWidget()

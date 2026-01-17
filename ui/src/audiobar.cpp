@@ -28,21 +28,21 @@
 #include "vccuelist.h"
 #include "virtualconsole.h"
 
-AudioBar::AudioBar(int t, uchar v, quint32 parentId)
+AudioBar::AudioBar(int type, uchar value, quint32 parentId)
+    : m_type(type)
+    , m_parentId(parentId)
+    , m_value(value)
+    , m_tapped(false)
+    , m_dmxChannels(QList<SceneValue>())
+    , m_absDmxChannels(QList<int>())
+    , m_function(NULL)
+    , m_widgetID(VCWidget::invalidId())
+    , m_minThreshold(51) // 20%
+    , m_maxThreshold(204) // 80%
+    , m_divisor(1)
+    , m_skippedBeats(0)
+    , m_widget(NULL)
 {
-    m_parentId = parentId;
-    m_type = t;
-    m_value = v;
-    m_tapped = false;
-    m_dmxChannels.clear();
-    m_absDmxChannels.clear();
-    m_function = NULL;
-    m_widget = NULL;
-    m_widgetID = VCWidget::invalidId();
-    m_minThreshold = 51; // 20%
-    m_maxThreshold = 204; // 80%
-    m_divisor = 1;
-    m_skippedBeats = 0;
 }
 
 AudioBar *AudioBar::createCopy()
