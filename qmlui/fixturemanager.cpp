@@ -36,6 +36,7 @@
 #include "treemodel.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "qlcmodifierscache.h"
 #include "fixture.h"
 #include "tardis.h"
 #include "doc.h"
@@ -2419,6 +2420,15 @@ void FixtureManager::selectChannelModifier(QString name)
     emit channelModifierValuesChanged();
 }
 
+bool FixtureManager::isSystemChannelModifier(QString name) const
+{
+    ChannelModifier *modifier = m_doc->modifiersCache()->modifier(name);
+    if (modifier == nullptr)
+        return false;
+
+    return modifier->type() == ChannelModifier::SystemTemplate;
+}
+
 void FixtureManager::setChannelModifier(quint32 itemID, quint32 channelIndex)
 {
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
@@ -2430,7 +2440,9 @@ void FixtureManager::setChannelModifier(quint32 itemID, quint32 channelIndex)
 
     // update UI tree
     setItemRoleData(itemID, channelIndex, "modifier", m_selectedChannelModifier == nullptr ?
-                    "None" : m_selectedChannelModifier->name());
+                    "" : m_selectedChannelModifier->name());
+
+    m_doc->setModified(); // TODO: tardis
 }
 
 void FixtureManager::showModifierEditor(quint32 itemID, quint32 channelIndex)
@@ -2472,4 +2484,49 @@ QVariantList FixtureManager::channelModifierValues() const
     return values;
 }
 
+bool FixtureManager::saveChannelModifier(QString name, QVariantList values)
+{
+    QString trimmedName = name.simplified();
+    if (trimmedName.isEmpty())
+        return false;
 
+    ChannelModifier *modifier = m_doc->modifiersCache()->modifier(trimmedName);
+    if (modifier != nullptr && modifier->type() == ChannelModifier::SystemTemplate)
+        return false;
+
+    QList< QPair<uchar, uchar> > map;
+    for (int i = 0; i + 1 < values.count(); i += 2)
+    {
+        uchar orig = qBound(0, values.at(i).toInt(), 255);
+        uchar mod = qBound(0, values.at(i + 1).toInt(), 255);
+        map.append(QPair<uchar, uchar>(orig, mod));
+    }
+
+    QString filename = QString("%1/%2%3")
+            .arg(QLCModifiersCache::userTemplateDirectory().absolutePath())
+            .arg(trimmedName)
+            .arg(KExtModifierTemplate);
+
+    ChannelModifier *newModifier = new ChannelModifier();
+    newModifier->setName(trimmedName);
+    newModifier->setModifierMap(map);
+    newModifier->saveXML(filename);
+
+    if (modifier == nullptr)
+    {
+        if (m_doc->modifiersCache()->addModifier(newModifier) == false)
+        {
+            delete newModifier;
+            return false;
+        }
+    }
+    else
+    {
+        modifier->setModifierMap(map);
+        delete newModifier;
+    }
+
+    emit channelModifiersListChanged();
+    emit channelModifierValuesChanged();
+    return true;
+}

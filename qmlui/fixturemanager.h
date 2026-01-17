@@ -525,8 +525,15 @@ public:
     /** Select the current channel modifier to display */
     Q_INVOKABLE void selectChannelModifier(QString name);
 
+    /** Return true if the template with the given name is a system modifier. */
+    Q_INVOKABLE bool isSystemChannelModifier(QString name) const;
+
     /** Assign the currently selected channel modifier to the given fixture's channel */
     Q_INVOKABLE void setChannelModifier(quint32 itemID, quint32 channelIndex);
+
+    /** Save a channel modifier template with the provided name and values.
+     *  Returns true on success, false on error. */
+    Q_INVOKABLE bool saveChannelModifier(QString name, QVariantList values);
 
     /** Return a list of values to render the currently selected channel
      *  modifier in the UI. Values are stored as original,modified */
