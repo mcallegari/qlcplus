@@ -37,17 +37,16 @@ QLCPhysical::QLCPhysical()
     , m_width(0)
     , m_height(0)
     , m_depth(0)
+    , m_lensName("Other")
     , m_lensDegreesMin(0)
     , m_lensDegreesMax(0)
+    , m_focusType("Fixed")
     , m_focusPanMax(0)
     , m_focusTiltMax(0)
     , m_layout(QSize(1, 1))
     , m_powerConsumption(0)
-
+    , m_dmxConnector("5-pin")
 {
-    m_lensName = "Other";
-    m_focusType = "Fixed";
-    m_dmxConnector = "5-pin";
 }
 
 QLCPhysical::~QLCPhysical()

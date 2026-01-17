@@ -39,8 +39,8 @@
 WebAccessAuth::WebAccessAuth(const QString& realm)
     : m_passwords()
     , m_realm(realm)
+    , m_passwordsFile(QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(DEFAULT_PASSWORD_FILE))
 {
-    m_passwordsFile = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(DEFAULT_PASSWORD_FILE);
 }
 
 bool WebAccessAuth::loadPasswordsFile(const QString& filePath)

@@ -20,11 +20,11 @@
 #include "dmxdumpfactoryproperties.h"
 
 DmxDumpFactoryProperties::DmxDumpFactoryProperties(int universes)
-    : m_dumpAllChannels(true)
+    : m_channelsMask(QByteArray(universes * 512, 0))
+    , m_dumpAllChannels(true)
     , m_dumpNonZeroValues(false)
-    , m_selectedTarget(Chaser)
+    , m_selectedTarget(TargetType::Chaser)
 {
-    m_channelsMask = QByteArray(universes * 512, 0);
 }
 
 bool DmxDumpFactoryProperties::dumpChannelsMode()
@@ -87,4 +87,3 @@ DmxDumpFactoryProperties::TargetType DmxDumpFactoryProperties::selectedTarget()
 {
     return m_selectedTarget;
 }
-

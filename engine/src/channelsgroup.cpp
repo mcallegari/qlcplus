@@ -37,11 +37,11 @@
 
 ChannelsGroup::ChannelsGroup(Doc* doc)
     : QObject(doc)
+    , m_doc(doc)
     , m_id(ChannelsGroup::invalidId())
     , m_masterValue(0)
 {
     setName(tr("New Group"));
-    m_doc = doc;
 
     init();
 }

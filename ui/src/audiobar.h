@@ -46,7 +46,7 @@ class AudioBar final
 {
 public:
     /** Normal constructor */
-    AudioBar(int t = 0, uchar v = 0, quint32 parentId = quint32(-1));
+    AudioBar(int type = 0, uchar value = 0, quint32 parentId = quint32(-1));
 
     /** Destructor */
     ~AudioBar() { }

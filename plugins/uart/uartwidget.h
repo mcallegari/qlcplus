@@ -40,7 +40,7 @@ public:
      * @param info the serial port descriptor
      * @param parent The owner of this object
      */
-    UARTWidget(QSerialPortInfo &info, QObject* parent = 0);
+    UARTWidget(const QSerialPortInfo &info, QObject* parent = 0);
 
     /** Destructor */
     virtual ~UARTWidget();

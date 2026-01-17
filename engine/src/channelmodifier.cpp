@@ -24,10 +24,10 @@
 #include "qlcfile.h"
 
 ChannelModifier::ChannelModifier()
+    : m_name(QString())
+    , m_type(Type::UserTemplate)
 {
     m_values.fill(0, 256);
-    m_name = QString();
-    m_type = UserTemplate;
 }
 
 void ChannelModifier::setName(QString name)
