@@ -54,7 +54,7 @@ fi
 cd ..
 
 # Extract VERSION from engine/src/qlcconfig.h
-VERSION=$(grep -E '^#define APPVERSION' engine/src/qlcconfig.h | sed -E 's/^#define APPVERSION[[:space:]]+"([^"]+)".*/\1/')
+VERSION=$(grep -E '^#define APPVERSION' engine/src/qlcconfig.h | sed -E 's/^#define APPVERSION[[:space:]]+"([^"]+)".*/\1/' | tr ' ' '-')
 
 echo "Fix non-Qt dependencies..."
 platforms/macos/fix_dylib_deps.sh $APP_DIR/Contents/Frameworks/libsndfile.1.dylib
