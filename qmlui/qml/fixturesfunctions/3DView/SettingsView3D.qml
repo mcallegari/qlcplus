@@ -150,7 +150,7 @@ Rectangle
                             Layout.fillWidth: true
                             from: 1
                             to: 50
-                            suffix: "m"
+                            suffix: View2D && View2D.gridUnits === MonitorProperties.Feet ? "ft" : "m"
                             value: envSize.x
                             onValueModified:
                             {
@@ -167,7 +167,7 @@ Rectangle
                             Layout.fillWidth: true
                             from: 1
                             to: 50
-                            suffix: "m"
+                            suffix: View2D && View2D.gridUnits === MonitorProperties.Feet ? "ft" : "m"
                             value: envSize.y
                             onValueModified:
                             {
@@ -184,7 +184,7 @@ Rectangle
                             Layout.fillWidth: true
                             from: 1
                             to: 100
-                            suffix: "m"
+                            suffix: View2D && View2D.gridUnits === MonitorProperties.Feet ? "ft" : "m"
                             value: envSize.z
                             onValueModified:
                             {

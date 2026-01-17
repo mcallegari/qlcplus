@@ -24,11 +24,17 @@ import Qt3D.Render
 import Qt3D.Input
 import Qt3D.Extras
 
+import org.qlcplus.classes 1.0
+
 Entity
 {
     id: stage
 
     property vector3d size: contextManager ? contextManager.environmentSize : Qt.vector3d(5, 3, 5)
+    property real unitScale: View2D && View2D.gridUnits === MonitorProperties.Feet ? 0.3048 : 1.0
+    property vector3d sizeMeters: Qt.vector3d(size.x * unitScale,
+                                              size.y * unitScale,
+                                              size.z * unitScale)
 
     property Layer sceneLayer
     property Effect effect
@@ -49,12 +55,18 @@ Entity
             ]
         }
 
-    onSizeChanged:
+    Component.onCompleted: rebuildTrusses()
+    onSizeMetersChanged: rebuildTrusses()
+
+    function rebuildTrusses()
     {
-        if (size.x > 1 || size.y > 1 || size.z > 1)
+        if (sizeMeters.x <= 0 || sizeMeters.y <= 0 || sizeMeters.z <= 0)
+            return
+
+        if (sizeMeters.x > 1 || sizeMeters.y > 1 || sizeMeters.z > 1)
             truss2mMesh.source = View3D.meshDirectory + "stage/truss_square_2m.obj"
 
-        if (size.x % 2 || size.y % 2 || size.z % 2)
+        if (sizeMeters.x % 2 || sizeMeters.y % 2 || sizeMeters.z % 2)
             truss1mMesh.source = View3D.meshDirectory + "stage/truss_square_1m.obj"
 
         // clean up any previously created truss entities
@@ -66,20 +78,20 @@ Entity
         var i, len, vecPos
         for (i = 0; i < 4; i++)
         {
-            len = size.y
+            len = sizeMeters.y
             vecPos = columnsArray[i]
 
             while (len > 0)
             {
                 if (len >= 2)
                 {
-                    vecPos.y = size.y - len + 1
+                    vecPos.y = sizeMeters.y - len + 1
                     createMesh(truss2mMesh, vecPos, Qt.vector3d(90, 0, 0))
                     len -= 2
                 }
                 else
                 {
-                    vecPos.y = size.y - len + 0.5
+                    vecPos.y = sizeMeters.y - len + 0.5
                     createMesh(truss1mMesh, vecPos, Qt.vector3d(90, 0, 0))
                     len -= 1
                 }
@@ -91,20 +103,20 @@ Entity
         // create upper side trusses
         for (i = 0; i < 2; i++)
         {
-            len = size.z
+            len = sizeMeters.z
             vecPos = columnsArray[i]
 
             while (len > 0)
             {
                 if (len >= 2)
                 {
-                    vecPos.z = (size.z / 2) - len + 1
+                    vecPos.z = (sizeMeters.z / 2) - len + 1
                     createMesh(truss2mMesh, vecPos, Qt.vector3d(0, 0, 0))
                     len -= 2
                 }
                 else
                 {
-                    vecPos.z = (size.z / 2) - len + 0.5
+                    vecPos.z = (sizeMeters.z / 2) - len + 0.5
                     createMesh(truss1mMesh, vecPos, Qt.vector3d(0, 0, 0))
                     len -= 1
                 }
@@ -116,20 +128,20 @@ Entity
         // create upper front/rear trusses
         for (i = 0; i < 2; i++)
         {
-            len = size.x
+            len = sizeMeters.x
             vecPos = columnsArray[i * 2]
 
             while (len > 0)
             {
                 if (len >= 2)
                 {
-                    vecPos.x = (size.x / 2) - len + 1
+                    vecPos.x = (sizeMeters.x / 2) - len + 1
                     createMesh(truss2mMesh, vecPos, Qt.vector3d(0, 90, 0))
                     len -= 2
                 }
                 else
                 {
-                    vecPos.x = (size.x / 2) - len + 0.5
+                    vecPos.x = (sizeMeters.x / 2) - len + 0.5
                     createMesh(truss1mMesh, vecPos, Qt.vector3d(0, 90, 0))
                     len -= 1
                 }
@@ -139,10 +151,10 @@ Entity
 
     function defaultColumnPositions()
     {
-        var array = [ Qt.vector3d(-size.x / 2 - trussHalfSize, size.y + trussHalfSize, size.z / 2 + trussHalfSize),  // front left
-                      Qt.vector3d(size.x / 2 + trussHalfSize, size.y + trussHalfSize, size.z / 2 + trussHalfSize),   // front right
-                      Qt.vector3d(-size.x / 2 - trussHalfSize, size.y + trussHalfSize, -size.z / 2 - trussHalfSize), // rear left
-                      Qt.vector3d(size.x / 2 + trussHalfSize, size.y + trussHalfSize, -size.z / 2 - trussHalfSize) ] // rear right
+        var array = [ Qt.vector3d(-sizeMeters.x / 2 - trussHalfSize, sizeMeters.y + trussHalfSize, sizeMeters.z / 2 + trussHalfSize),  // front left
+                      Qt.vector3d(sizeMeters.x / 2 + trussHalfSize, sizeMeters.y + trussHalfSize, sizeMeters.z / 2 + trussHalfSize),   // front right
+                      Qt.vector3d(-sizeMeters.x / 2 - trussHalfSize, sizeMeters.y + trussHalfSize, -sizeMeters.z / 2 - trussHalfSize), // rear left
+                      Qt.vector3d(sizeMeters.x / 2 + trussHalfSize, sizeMeters.y + trussHalfSize, -sizeMeters.z / 2 - trussHalfSize) ] // rear right
         return array
     }
 
@@ -193,8 +205,8 @@ Entity
         CuboidMesh
         {
             id: groundMesh
-            xExtent: size.x
-            zExtent: size.z
+            xExtent: sizeMeters.x
+            zExtent: sizeMeters.z
             yExtent: 0.2
         }
 
@@ -219,9 +231,9 @@ Entity
     Entity
     {
         id: flCorner
-        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2 - trussHalfSize,
-                                                                           size.y + trussHalfSize,
-                                                                           size.z / 2 + trussHalfSize) }
+        property Transform transform: Transform { translation: Qt.vector3d(-sizeMeters.x / 2 - trussHalfSize,
+                                                                           sizeMeters.y + trussHalfSize,
+                                                                           sizeMeters.z / 2 + trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
@@ -233,9 +245,9 @@ Entity
     // front right corner
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2 + trussHalfSize,
-                                                                           size.y + trussHalfSize,
-                                                                           size.z / 2 + trussHalfSize) }
+        property Transform transform: Transform { translation: Qt.vector3d(sizeMeters.x / 2 + trussHalfSize,
+                                                                           sizeMeters.y + trussHalfSize,
+                                                                           sizeMeters.z / 2 + trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
@@ -247,9 +259,9 @@ Entity
     // rear left corner
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2 - trussHalfSize,
-                                                                           size.y + trussHalfSize,
-                                                                           -size.z / 2 - trussHalfSize) }
+        property Transform transform: Transform { translation: Qt.vector3d(-sizeMeters.x / 2 - trussHalfSize,
+                                                                           sizeMeters.y + trussHalfSize,
+                                                                           -sizeMeters.z / 2 - trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
@@ -261,9 +273,9 @@ Entity
     // rear right corner
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2 + trussHalfSize,
-                                                                           size.y + trussHalfSize,
-                                                                           -size.z / 2 - trussHalfSize) }
+        property Transform transform: Transform { translation: Qt.vector3d(sizeMeters.x / 2 + trussHalfSize,
+                                                                           sizeMeters.y + trussHalfSize,
+                                                                           -sizeMeters.z / 2 - trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,

@@ -1451,9 +1451,12 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
 
     //qDebug() << "Update 3D fixture position" << pos;
 
-    float x = (pos.x() / 1000.0) - (m_monProps->gridSize().x() / 2) + (mesh->m_volume.m_extents.x() / 2);
+    float unitScale = m_monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    QVector3D gridMeters = m_monProps->gridSize() * unitScale;
+
+    float x = (pos.x() / 1000.0) - (gridMeters.x() / 2) + (mesh->m_volume.m_extents.x() / 2);
     float y = (pos.y() / 1000.0) + (mesh->m_volume.m_extents.y() / 2);
-    float z = (pos.z() / 1000.0) - (m_monProps->gridSize().z() / 2) + (mesh->m_volume.m_extents.z() / 2);
+    float z = (pos.z() / 1000.0) - (gridMeters.z() / 2) + (mesh->m_volume.m_extents.z() / 2);
 
     /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
@@ -1870,9 +1873,12 @@ void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)
     if (item == nullptr || item->m_rootTransform == nullptr)
         return;
 
-    float x = (pos.x() / 1000.0) - (m_monProps->gridSize().x() / 2) + (item->m_volume.m_extents.x() / 2);
+    float unitScale = m_monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    QVector3D gridMeters = m_monProps->gridSize() * unitScale;
+
+    float x = (pos.x() / 1000.0) - (gridMeters.x() / 2) + (item->m_volume.m_extents.x() / 2);
     float y = (pos.y() / 1000.0) + (item->m_volume.m_extents.y() / 2);
-    float z = (pos.z() / 1000.0) - (m_monProps->gridSize().z() / 2) + (item->m_volume.m_extents.z() / 2);
+    float z = (pos.z() / 1000.0) - (gridMeters.z() / 2) + (item->m_volume.m_extents.z() / 2);
     item->m_rootTransform->setTranslation(QVector3D(x, y, z));
 }
 
