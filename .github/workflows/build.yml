@@ -183,7 +183,8 @@ jobs:
       - name: Set APPVERSION
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
         run: |
-          echo "APPVERSION=$(grep -E '^#define APPVERSION' engine/src/qlcconfig.h | sed -E 's/^#define APPVERSION[[:space:]]+\"([^\"]+)\".*/\\1/' | tr ' ' '-')" >> $GITHUB_ENV
+          APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
+          echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
 
       - name: Adapt qlcplus for AppImage (v4)
         if: ${{ matrix.task == 'build-v4' }}
@@ -407,7 +408,8 @@ jobs:
       - name: Set APPVERSION
         shell: msys2 {0}
         run: |
-          echo "APPVERSION=$(grep -E '^#define APPVERSION' engine/src/qlcconfig.h | sed -E 's/^#define APPVERSION[[:space:]]+\"([^\"]+)\".*/\\1/' | tr ' ' '-')" >> $GITHUB_ENV
+          APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
+          echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
 
       - name: Run windeployqt for v4
         shell: msys2 {0}
@@ -537,7 +539,8 @@ jobs:
       - name: Set APPVERSION
         shell: bash
         run: |-
-          echo "APPVERSION=$(grep -E '^#define APPVERSION' engine/src/qlcconfig.h | sed -E 's/^#define APPVERSION[[:space:]]+\"([^\"]+)\".*/\\1/' | tr ' ' '-')" >> $GITHUB_ENV
+          APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
+          echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
 
       - name: Fix v4 dylib dependencies
         shell: bash
