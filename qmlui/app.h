@@ -202,7 +202,9 @@ signals:
     void accessMaskChanged(int mask);
 
 private:
+    /** Flag to quit the application forcefully */
     bool m_forceQuit = false;
+
     /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
 

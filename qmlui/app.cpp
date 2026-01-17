@@ -72,6 +72,7 @@
 
 App::App()
     : QQuickView()
+    , m_forceQuit(false)
     , m_translator(nullptr)
     , m_fixtureBrowser(nullptr)
     , m_fixtureManager(nullptr)
@@ -88,7 +89,6 @@ App::App()
     , m_fileName(QString())
     , m_importManager(nullptr)
     , m_fixtureEditor(nullptr)
-    , m_forceQuit(false)
 {
     QSettings settings;
 
