@@ -60,7 +60,7 @@ class AudioCapture : public QThread
     Q_OBJECT
 public:
     /*!
-     * Object contsructor.
+     * Object constructor.
      * @param parent Parent object.
      */
     AudioCapture(QObject* parent = 0);
@@ -79,7 +79,6 @@ public:
      * Cancel a previous request of bars
      */
     void unregisterBandsNumber(int number);
-    //int bandsNumber();
 
     static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
 
