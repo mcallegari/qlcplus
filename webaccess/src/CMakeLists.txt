@@ -46,7 +46,12 @@ else()
     )
 endif()
 
-add_library(${module_name} SHARED ${WEBACCESS_SOURCES})
+set(webaccess_lib_type SHARED)
+if(WIN32 AND qmlui)
+    set(webaccess_lib_type STATIC)
+endif()
+
+add_library(${module_name} ${webaccess_lib_type} ${WEBACCESS_SOURCES})
 
 target_include_directories(${module_name} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -116,6 +121,7 @@ endif()
 
 
 install(TARGETS ${module_name}
+    ARCHIVE DESTINATION ${INSTALLROOT}/${LIBSDIR}
     LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
     RUNTIME DESTINATION ${INSTALLROOT}/${LIBSDIR}
 )

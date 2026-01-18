@@ -59,12 +59,12 @@ signals:
     void storeAutostartProject(QString fileName);
 
 protected slots:
-    void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp);
-    void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
-    void slotHandleWebSocketClose(QHttpConnection *conn);
+    void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp) override;
+    void slotHandleWebSocketRequest(QHttpConnection *conn, QString data) override;
+    void slotHandleWebSocketClose(QHttpConnection *conn) override;
 
-    void slotFunctionStarted(quint32 fid);
-    void slotFunctionStopped(quint32 fid);
+    void slotFunctionStarted(quint32 fid) override;
+    void slotFunctionStopped(quint32 fid) override;
 
     void slotDocLoaded();
     void slotSelectedPageChanged(int page);
