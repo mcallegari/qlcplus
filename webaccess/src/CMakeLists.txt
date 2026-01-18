@@ -47,7 +47,7 @@ else()
 endif()
 
 set(webaccess_lib_type SHARED)
-if(WIN32 AND qmlui)
+if((WIN32 OR APPLE) AND qmlui)
     set(webaccess_lib_type STATIC)
 endif()
 
