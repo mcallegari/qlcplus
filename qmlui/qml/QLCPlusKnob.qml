@@ -27,10 +27,11 @@ import "."
 Dial
 {
     id: control
-    implicitHeight: height
-    implicitWidth: width
-    height: 50
-    width: height
+    implicitHeight: 50
+    implicitWidth: 50
+    height: implicitHeight
+    width: implicitWidth
+    clip: true
 
     from: 0
     to: 255
@@ -38,14 +39,17 @@ Dial
     wheelEnabled: true
 
     property bool drawOuterLevel: true
+    property real knobSize: Math.min(width, height)
 
     onPositionChanged: kCanvas.requestPaint()
     onHeightChanged: kCanvas.requestPaint()
+    onWidthChanged: kCanvas.requestPaint()
 
     background: Canvas {
         id: kCanvas
-        width: control.width
-        height: control.height
+        width: control.knobSize
+        height: control.knobSize
+        anchors.centerIn: parent
         antialiasing: true
         contextType: "2d"
 
@@ -96,7 +100,7 @@ Dial
         id: handleItem
         x: background.x + background.width / 2 - handle.width / 2
         y: background.y + background.height / 2 - handle.height / 2
-        width: control.width / 7
+        width: control.knobSize / 7
         height: width
         color: control.pressed ? "#17a81a" : "#21be2b"
         border.width: 1
