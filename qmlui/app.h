@@ -236,6 +236,12 @@ public:
     /** Return a reference to the Doc instance */
     Doc *doc();
 
+    /** Return the QML Virtual Console instance */
+    VirtualConsole *virtualConsole() const;
+
+    /** Return the QML Simple Desk instance */
+    SimpleDesk *simpleDesk() const;
+
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
 
@@ -348,6 +354,7 @@ signals:
 
 public slots:
     void slotLoadDocFromMemory(QByteArray &xmlData);
+    void slotSaveAutostart(QString fileName);
 
 private:
     QString m_fileName;

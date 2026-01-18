@@ -18,26 +18,18 @@
 */
 
 #include <QDebug>
-#include <QProcess>
-#include <QSettings>
 #include <QMap>
 #include <qmath.h>
 
-#include "webaccess.h"
-
-#include "webaccessauth.h"
 #include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
+#include "commonjscss.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "rgbalgorithm.h"
-#include "commonjscss.h"
 #include "vcsoloframe.h"
-#include "outputpatch.h"
-#include "inputpatch.h"
 #include "simpledesk.h"
-#include "qlcconfig.h"
 #include "webaccess.h"
 #include "vccuelist.h"
 #include "vcbutton.h"
@@ -49,89 +41,32 @@
 #include "vcframepageshortcut.h"
 #include "vcclock.h"
 #include "vcxypad.h"
-#include "qlcfile.h"
 #include "chaser.h"
 #include "doc.h"
 #include "grandmaster.h"
-
-#include "audiocapture.h"
-#include "audiorenderer.h"
-
-#include "qhttpserver.h"
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 #include "qhttpconnection.h"
+#include "qlcconfig.h"
 
-#define DEFAULT_PORT_NUMBER    9999
-#define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
                      int portNumber, bool enableAuth, QString passwdFile, QObject *parent) :
-    QObject(parent)
-  , m_doc(doc)
-  , m_vc(vcInstance)
-  , m_sd(sdInstance)
-  , m_auth(NULL)
-  , m_pendingProjectLoaded(false)
+    WebAccessBase(doc, vcInstance, sdInstance, portNumber, enableAuth, passwdFile, parent)
 {
-    Q_ASSERT(m_doc != NULL);
-    Q_ASSERT(m_vc != NULL);
-
-    if (enableAuth)
-    {
-        m_auth = new WebAccessAuth(QString("QLC+ web access"));
-        m_auth->loadPasswordsFile(passwdFile);
-    }
-
-    m_httpServer = new QHttpServer(this);
-    connect(m_httpServer, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
-            this, SLOT(slotHandleHTTPRequest(QHttpRequest*, QHttpResponse*)));
-    connect(m_httpServer, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
-            this, SLOT(slotHandleWebSocketRequest(QHttpConnection*,QString)));
-    connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
-            this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
-
-    m_httpServer->listen(QHostAddress::Any, portNumber ? portNumber : DEFAULT_PORT_NUMBER);
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    m_netConfig = new WebAccessNetwork();
-#endif
-
-    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)),
-            this, SLOT(slotFunctionStarted(quint32)));
-    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)),
-            this, SLOT(slotFunctionStopped(quint32)));
-
     connect(m_vc, SIGNAL(loaded()),
             this, SLOT(slotVCLoaded()));
 }
 
 WebAccess::~WebAccess()
 {
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    delete m_netConfig;
-#endif
-    foreach (QHttpConnection *conn, m_webSocketsList)
-        delete conn;
-
-    if (m_auth)
-        delete m_auth;
 }
 
 void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 {
     WebAccessUser user;
-
-    if (m_auth)
-    {
-        user = m_auth->authenticateRequest(req, resp);
-
-        if (user.level < LOGGED_IN_LEVEL)
-        {
-            m_auth->sendUnauthorizedResponse(resp);
-            return;
-        }
-    }
+    if (!authenticateRequest(req, resp, user))
+        return;
 
     QString reqUrl = req->url().toString();
     QString content;
@@ -140,44 +75,17 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
     if (reqUrl == "/qlcplusWS")
     {
-        QHttpConnection *conn = resp->enableWebSocket();
-        if (conn != NULL)
-        {
-            // Allocate user for WS on heap so it doesn't go out of scope
-            conn->userData = new WebAccessUser(user);
-            m_webSocketsList.append(conn);
-        }
-
-        return;
+        if (acceptWebSocket(resp, user))
+            return;
     }
     else if (reqUrl == "/loadProject")
     {
-        if (m_auth && user.level < SUPER_ADMIN_LEVEL)
-        {
-            m_auth->sendUnauthorizedResponse(resp);
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return;
-        }
-        QByteArray projectXML = req->body();
+        QByteArray projectXML = extractProjectXml(req);
 
-        projectXML.remove(0, projectXML.indexOf("\n\r\n") + 3);
-        projectXML.truncate(projectXML.lastIndexOf("\n\r\n"));
-
-        //qDebug() << "Project XML:\n\n" << QString(projectXML) << "\n\n";
         qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
-
-        QByteArray postReply =
-                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                "<script>\n" PROJECT_LOADED_JS
-                "</script></head><body style=\"background-color: #45484d;\">"
-                "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
-                "text-align: center; font:bold 24px/1.2em sans-serif;\">"
-                + tr("Loading project...") +
-                "</div></body></html>").toUtf8();
-
-        resp->setHeader("Content-Type", "text/html");
-        resp->setHeader("Content-Length", QString::number(postReply.size()));
-        resp->writeHead(200);
-        resp->end(postReply);
+        sendProjectLoadingResponse(resp);
 
         m_pendingProjectLoaded = false;
 
@@ -187,11 +95,8 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/loadFixture")
     {
-        if (m_auth && user.level < SUPER_ADMIN_LEVEL)
-        {
-            m_auth->sendUnauthorizedResponse(resp);
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return;
-        }
         QByteArray fixtureXML = req->body();
         int fnamePos = fixtureXML.indexOf("filename=") + 10;
         QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
@@ -220,51 +125,27 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/config")
     {
-        if (m_auth && user.level < SUPER_ADMIN_LEVEL)
-        {
-            m_auth->sendUnauthorizedResponse(resp);
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return;
-        }
         content = WebAccessConfiguration::getHTML(m_doc, m_auth);
     }
     else if (reqUrl == "/simpleDesk")
     {
-        if (m_auth && user.level < SIMPLE_DESK_AND_VC_LEVEL)
-        {
-            m_auth->sendUnauthorizedResponse(resp);
+        if (!requireAuthLevel(resp, user, SIMPLE_DESK_AND_VC_LEVEL))
             return;
-        }
         content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
     }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if (reqUrl == "/system")
     {
-        if (m_auth && user.level < SUPER_ADMIN_LEVEL)
-        {
-            m_auth->sendUnauthorizedResponse(resp);
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return;
-        }
         content = m_netConfig->getHTML();
     }
 #endif
     else if (reqUrl.endsWith(".png"))
     {
-        // is this an internal resource?
-        QString localFilePath = QString(":%1").arg(reqUrl);
-        QFile resFile(localFilePath);
-        if (!resFile.exists())
-        {
-            // is this an absolute path?
-            localFilePath = reqUrl;
-            resFile.setFileName(localFilePath);
-            if (!resFile.exists())
-            {
-                // is this a webaccess file?
-                localFilePath = QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                    .arg(QDir::separator()).arg(reqUrl.mid(1));
-            }
-        }
-        if (sendFile(resp, localFilePath, "image/png"))
+        if (servePng(resp, reqUrl))
             return;
     }
     else if (reqUrl.endsWith(".jpg") || reqUrl.endsWith(".jpeg"))
@@ -284,38 +165,27 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl.endsWith(".ico"))
     {
-        QString clUri = reqUrl.mid(1);
-        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "image/x-icon"))
+        if (serveWebFile(resp, reqUrl, "image/x-icon"))
             return;
     }
     else if (reqUrl.endsWith(".css"))
     {
-        QString clUri = reqUrl.mid(1);
-        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/css"))
+        if (serveWebFile(resp, reqUrl, "text/css"))
             return;
     }
     else if (reqUrl.endsWith(".js"))
     {
-        QString clUri = reqUrl.mid(1);
-        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/javascript"))
+        if (serveWebFile(resp, reqUrl, "text/javascript"))
             return;
     }
     else if (reqUrl.endsWith(".html"))
     {
-        QString clUri = reqUrl.mid(1);
-        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                     .arg(QDir::separator()).arg(clUri), "text/html"))
+        if (serveWebFile(resp, reqUrl, "text/html"))
             return;
     }
     else if (reqUrl != "/")
     {
-        resp->writeHead(404);
-        resp->setHeader("Content-Type", "text/plain");
-        resp->setHeader("Content-Length", "14");
-        resp->end(QByteArray("404 Not found"));
+        sendNotFound(resp);
         return;
     }
     else
@@ -356,200 +226,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         return;
     }
-    else if (cmdList[0] == "QLC+IO")
-    {
-        if (m_auth && user && user->level < SUPER_ADMIN_LEVEL)
-            return;
-
-        if (cmdList.count() < 3)
-            return;
-
-        int universe = cmdList[2].toInt();
-
-        if (cmdList[1] == "INPUT")
-        {
-            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", cmdList[4].toUInt());
-            m_doc->inputOutputMap()->saveDefaults();
-        }
-        else if (cmdList[1] == "OUTPUT")
-        {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), false);
-            m_doc->inputOutputMap()->saveDefaults();
-        }
-        else if (cmdList[1] == "FB")
-        {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), true);
-            m_doc->inputOutputMap()->saveDefaults();
-        }
-        else if (cmdList[1] == "PROFILE")
-        {
-            InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
-            if (inPatch != NULL)
-            {
-                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", inPatch->input(), cmdList[3]);
-                m_doc->inputOutputMap()->saveDefaults();
-            }
-        }
-        else if (cmdList[1] == "PASSTHROUGH")
-        {
-            quint32 uniIdx = cmdList[2].toUInt();
-            if (cmdList[3] == "true")
-                m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, true);
-            else
-                m_doc->inputOutputMap()->setUniversePassthrough(uniIdx, false);
-            m_doc->inputOutputMap()->saveDefaults();
-        }
-        else if (cmdList[1] == "AUDIOIN")
-        {
-            QSettings settings;
-            if (cmdList[2] == "__qlcplusdefault__")
-                settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
-            else
-            {
-                settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, cmdList[2]);
-                m_doc->destroyAudioCapture();
-            }
-        }
-        else if (cmdList[1] == "AUDIOOUT")
-        {
-            QSettings settings;
-            if (cmdList[2] == "__qlcplusdefault__")
-                settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
-            else
-                settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, cmdList[2]);
-        }
-        else
-            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
-
+    if (handleCommonWebSocketCommand(conn, user, cmdList, "[webaccess]", false))
         return;
-    }
-    else if (cmdList[0] == "QLC+AUTH" && m_auth)
-    {
-        if (user && user->level < SUPER_ADMIN_LEVEL)
-            return;
-
-        if (cmdList.at(1) == "ADD_USER")
-        {
-            QString username = cmdList.at(2);
-            QString password = cmdList.at(3);
-            int level = cmdList.at(4).toInt();
-            if (username.isEmpty() || password.isEmpty())
-            {
-                QString wsMessage = QString("ALERT|" + tr("Username and password are required fields."));
-                conn->webSocketWrite(wsMessage);
-                return;
-            }
-            if (level <= 0)
-            {
-                QString wsMessage = QString("ALERT|" + tr("User level has to be a positive integer."));
-                conn->webSocketWrite(wsMessage);
-                return;
-            }
-
-            m_auth->addUser(username, password, (WebAccessUserLevel)level);
-        }
-        else if (cmdList.at(1) == "DEL_USER")
-        {
-            QString username = cmdList.at(2);
-            if (! username.isEmpty())
-                m_auth->deleteUser(username);
-        }
-        else if (cmdList.at(1) == "SET_USER_LEVEL")
-        {
-            QString username = cmdList.at(2);
-            int level = cmdList.at(3).toInt();
-            if (username.isEmpty())
-            {
-                QString wsMessage = QString("ALERT|" + tr("Username is required."));
-                conn->webSocketWrite(wsMessage);
-                return;
-            }
-            if (level <= 0)
-            {
-                QString wsMessage = QString("ALERT|" + tr("User level has to be a positive integer."));
-                conn->webSocketWrite(wsMessage);
-                return;
-            }
-
-            m_auth->setUserLevel(username, (WebAccessUserLevel)level);
-        }
-        else
-            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
-
-        if (!m_auth->savePasswordsFile())
-        {
-            QString wsMessage = QString("ALERT|" + tr("Error while saving passwords file."));
-            conn->webSocketWrite(wsMessage);
-            return;
-        }
-    }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    else if (cmdList[0] == "QLC+SYS")
-    {
-        if (m_auth && user && user->level < SUPER_ADMIN_LEVEL)
-            return;
-
-        if (cmdList.at(1) == "NETWORK")
-        {
-            QString wsMessage;
-            if (m_netConfig->updateNetworkSettings(cmdList))
-                wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-            else
-                wsMessage = QString("ALERT|" + tr("An error occurred while updating the network configuration."));
-
-            conn->webSocketWrite(wsMessage);
-            return;
-        }
-        else if (cmdList.at(1) == "HOTSPOT")
-        {
-            QString wsMessage;
-            if (cmdList.count() < 5)
-                return;
-
-            bool enable = cmdList.at(2).toInt();
-
-            if (enable)
-            {
-                if (m_netConfig->createWiFiHotspot(cmdList.at(3), cmdList.at(4)))
-                    wsMessage = QString("ALERT|" + tr("Wi-Fi hotspot successfully activated."));
-                else
-                    wsMessage = QString("ALERT|" + tr("An error occurred while creating a Wi-Fi hotspot."));
-            }
-            else
-            {
-                m_netConfig->deleteWiFiHotspot();
-                wsMessage = QString("ALERT|" + tr("Wi-Fi hotspot successfully deactivated."));
-            }
-
-            conn->webSocketWrite(wsMessage);
-            return;
-        }
-        else if (cmdList.at(1) == "AUTOSTART")
-        {
-            if (cmdList.count() < 3)
-                return;
-
-            QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
-            if (cmdList.at(2) == "none")
-                QFile::remove(asName);
-            else
-                emit storeAutostartProject(asName);
-            QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
-            conn->webSocketWrite(wsMessage);
-            return;
-        }
-        else if (cmdList.at(1) == "REBOOT")
-        {
-            QProcess *rebootProcess = new QProcess();
-            rebootProcess->start("sudo", QStringList() << "shutdown" << "-r" << "now");
-        }
-        else if (cmdList.at(1) == "HALT")
-        {
-            QProcess *haltProcess = new QProcess();
-            haltProcess->start("sudo", QStringList() << "shutdown" << "-h" << "now");
-        }
-    }
-#endif
     else if (cmdList[0] == "QLC+API")
     {
         if (m_auth && user && user->level < VC_ONLY_LEVEL)
@@ -1037,43 +715,9 @@ void WebAccess::slotFunctionStopped(quint32 fid)
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
-bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
+void WebAccess::handleAutostartProject(const QString &path)
 {
-    QFile resFile(filename);
-#if defined(WIN32) || defined(Q_OS_WIN)
-    // If coming from a Windows hack, restore a path like
-    // /c//tmp/pic.jpg back to C:\tmp\pic.jpg
-    if (!resFile.exists())
-    {
-        filename.remove(0, 1);
-        filename.replace("//", ":\\");
-        filename.replace('/', '\\');
-        resFile.setFileName(filename);
-    }
-#endif
-    if (resFile.open(QIODevice::ReadOnly))
-    {
-        QByteArray resContent = resFile.readAll();
-        //qDebug() << "Resource file length:" << resContent.length();
-        resFile.close();
-
-        response->setHeader("Content-Type", contentType);
-        response->setHeader("Content-Length", QString::number(resContent.size()));
-        response->writeHead(200);
-        response->end(resContent);
-
-        return true;
-    }
-    else
-        qDebug() << "Failed to open file:" << filename;
-
-    return false;
-}
-
-void WebAccess::sendWebSocketMessage(const QString &message)
-{
-    foreach (QHttpConnection *conn, m_webSocketsList)
-        conn->webSocketWrite(message);
+    emit storeAutostartProject(path);
 }
 
 QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)

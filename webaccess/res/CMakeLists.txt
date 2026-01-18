@@ -9,6 +9,9 @@ set(WEBFILES
     simpledesk.js
     virtualconsole.css
     virtualconsole.js
+    webaccess-qml.css
+    webaccess-qml.js
+    webaccess-qml.html
     configuration.js
     websocket.js
     favicon.ico

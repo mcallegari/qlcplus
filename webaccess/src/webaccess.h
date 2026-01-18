@@ -20,13 +20,7 @@
 #ifndef WEBACCESS_H
 #define WEBACCESS_H
 
-#include <QObject>
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-class WebAccessNetwork;
-#endif
-
-class WebAccessAuth;
+#include "webaccessbase.h"
 
 class VCAudioTriggers;
 class VirtualConsole;
@@ -42,12 +36,11 @@ class VCClock;
 class VCMatrix;
 class Doc;
 
-class QHttpServer;
 class QHttpRequest;
 class QHttpResponse;
 class QHttpConnection;
 
-class WebAccess final : public QObject
+class WebAccess final : public WebAccessBase
 {
     Q_OBJECT
 public:
@@ -56,10 +49,6 @@ public:
                        QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
-
-private:
-    bool sendFile(QHttpResponse *response, QString filename, QString contentType);
-    void sendWebSocketMessage(const QString &message);
 
     QString getWidgetBackgroundImage(VCWidget *widget);
     QString getWidgetHTML(VCWidget *widget);
@@ -116,19 +105,7 @@ protected:
     QString m_JScode;
     QString m_CSScode;
 
-protected:
-    Doc *m_doc;
-    VirtualConsole *m_vc;
-    SimpleDesk *m_sd;
-    WebAccessAuth *m_auth;
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    WebAccessNetwork *m_netConfig;
-#endif
-
-    QHttpServer *m_httpServer;
-    QList<QHttpConnection *> m_webSocketsList;
-
-    bool m_pendingProjectLoaded;
+    void handleAutostartProject(const QString &path) override;
 
 signals:
     void toggleDocMode();

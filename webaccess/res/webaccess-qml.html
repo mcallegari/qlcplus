@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QLC+ Web VC (QML)</title>
+  <link rel="stylesheet" href="webaccess-qml.css">
+</head>
+<body>
+  <div id="app">
+    <form id="loadForm" action="/loadProject" method="POST" enctype="multipart/form-data">
+      <input id="loadTrigger" type="file" name="qlcprj">
+      <input id="submitTrigger" type="submit">
+    </form>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-title">QLC+ Web VC</div>
+        <div class="brand-sub" id="appMeta">QML</div>
+      </div>
+      <div class="actions">
+        <button class="nav-btn" id="loadProjectBtn" type="button">Load project</button>
+        <a class="nav-btn" href="/simpleDesk">Simple Desk</a>
+        <a class="nav-btn" href="/config">Configuration</a>
+      </div>
+      <div class="status" id="wsStatus">Disconnected</div>
+    </header>
+
+    <nav class="pages" id="pagesBar"></nav>
+
+    <main class="vc-stage" id="vcRoot"></main>
+  </div>
+  <script src="webaccess-qml.js"></script>
+</body>
+</html>
