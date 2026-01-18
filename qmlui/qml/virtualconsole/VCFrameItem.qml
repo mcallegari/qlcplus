@@ -147,10 +147,10 @@ VCWidgetItem
                     textRole: ""
                     model: frameObj ? frameObj.pageLabels : null
                     currentIndex: frameObj ? frameObj.currentPage : 0
-                    onCurrentIndexChanged:
+                    onActivated: (index) =>
                     {
                         if (frameObj)
-                            frameObj.currentPage = currentIndex
+                            frameObj.currentPage = index
                         // binding got  broken, so restore it
                         currentIndex = Qt.binding(function() { return frameObj.currentPage })
                     }
