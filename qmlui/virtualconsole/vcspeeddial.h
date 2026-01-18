@@ -53,6 +53,7 @@ class VCSpeedDial : public VCWidget
     Q_PROPERTY(SpeedMultiplier currentFactor READ currentFactor WRITE setCurrentFactor NOTIFY currentFactorChanged FINAL)
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
+    Q_PROPERTY(QVariantList presetsList READ presetsList NOTIFY presetsListChanged)
 
     /*********************************************************************
      * Initialization
@@ -72,6 +73,8 @@ public:
 
     /** @reimp */
     QString propertiesResource() const override;
+    QString presetsResource() const override;
+    bool supportsPresets() const override;
 
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent) override;
@@ -221,9 +224,35 @@ public:
 
 signals:
     void functionsListChanged();
+    void presetsListChanged();
 
 private:
     QMap<quint32, VCSpeedDialFunction> m_functions;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    /** Return a list suitable for the QML UI */
+    QVariantList presetsList();
+
+    /** Add a preset and return its assigned ID */
+    Q_INVOKABLE int addPreset(QString name, int value);
+    Q_INVOKABLE void removePreset(quint8 presetId);
+    Q_INVOKABLE void setPresetName(quint8 presetId, QString name);
+    Q_INVOKABLE void setPresetValue(quint8 presetId, int value);
+
+protected:
+    QList<class VCSpeedDialPreset*> presets() const;
+    void clearPresets();
+    class VCSpeedDialPreset *findPreset(quint8 presetId) const;
+
+private:
+    void addPresetInternal(class VCSpeedDialPreset *preset);
+
+private:
+    quint8 m_lastAssignedPresetId;
+    QList<class VCSpeedDialPreset*> m_presets;
 
     /*********************************************************************
      * External input

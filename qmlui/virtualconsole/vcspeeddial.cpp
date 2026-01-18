@@ -21,24 +21,28 @@
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
 
+#include <algorithm>
+
 #include "doc.h"
 #include "qlcmacros.h"
 #include "vcspeeddial.h"
+#include "vcspeeddialpreset.h"
 
-#define INPUT_DIAL_ID       0
-#define INPUT_TAP_ID        1
-#define INPUT_MULT_ID       2
-#define INPUT_DIV_ID        3
-#define INPUT_RESET_ID      4
-#define INPUT_APPLY_ID      5
-#define INPUT_1_16X_ID      6
-#define INPUT_1_8X_ID       7
-#define INPUT_1_4X_ID       8
-#define INPUT_1_2X_ID       9
-#define INPUT_2X_ID         10
-#define INPUT_4X_ID         11
-#define INPUT_8X_ID         12
-#define INPUT_16X_ID        13
+#define INPUT_DIAL_ID           0
+#define INPUT_TAP_ID            1
+#define INPUT_MULT_ID           2
+#define INPUT_DIV_ID            3
+#define INPUT_RESET_ID          4
+#define INPUT_APPLY_ID          5
+#define INPUT_1_16X_ID          6
+#define INPUT_1_8X_ID           7
+#define INPUT_1_4X_ID           8
+#define INPUT_1_2X_ID           9
+#define INPUT_2X_ID             10
+#define INPUT_4X_ID             11
+#define INPUT_8X_ID             12
+#define INPUT_16X_ID            13
+#define INPUT_PRESETS_BASE_ID   30
 
 VCSpeedDial::VCSpeedDial(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
@@ -48,6 +52,7 @@ VCSpeedDial::VCSpeedDial(Doc *doc, QObject *parent)
     , m_currentTime(0)
     , m_resetOnDialChange(false)
     , m_currentFactor(One)
+    , m_lastAssignedPresetId(15)
 {
     setType(VCWidget::SpeedWidget);
 
@@ -73,6 +78,8 @@ VCSpeedDial::~VCSpeedDial()
 {
     if (m_item)
         delete m_item;
+
+    clearPresets();
 }
 
 QString VCSpeedDial::defaultCaption()
@@ -110,6 +117,16 @@ QString VCSpeedDial::propertiesResource() const
     return QString("qrc:/VCSpeedDialProperties.qml");
 }
 
+QString VCSpeedDial::presetsResource() const
+{
+    return QString("qrc:/VCSpeedDialPresets.qml");
+}
+
+bool VCSpeedDial::supportsPresets() const
+{
+    return true;
+}
+
 VCWidget *VCSpeedDial::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != nullptr);
@@ -137,6 +154,12 @@ bool VCSpeedDial::copyFrom(const VCWidget *widget)
     setTimeMaximumValue(speedDial->timeMaximumValue());
 
     setFunctions(speedDial->functions());
+
+    clearPresets();
+    for (VCSpeedDialPreset *preset : speedDial->presets())
+        addPresetInternal(new VCSpeedDialPreset(*preset));
+    m_lastAssignedPresetId = speedDial->m_lastAssignedPresetId;
+    emit presetsListChanged();
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -341,6 +364,126 @@ QVariant VCSpeedDial::functionsList()
     return QVariant::fromValue(fList);
 }
 
+/*********************************************************************
+ * Presets
+ *********************************************************************/
+
+QVariantList VCSpeedDial::presetsList()
+{
+    QVariantList list;
+    for (VCSpeedDialPreset *preset : presets())
+    {
+        QVariantMap entry;
+        entry.insert("id", preset->m_id);
+        entry.insert("name", preset->m_name);
+        entry.insert("value", preset->m_value);
+        list.append(entry);
+    }
+    return list;
+}
+
+int VCSpeedDial::addPreset(QString name, int value)
+{
+    quint8 newId = ++m_lastAssignedPresetId;
+    VCSpeedDialPreset *preset = new VCSpeedDialPreset(newId);
+    preset->m_name = name;
+    preset->m_value = value;
+    addPresetInternal(preset);
+    emit presetsListChanged();
+    return newId;
+}
+
+void VCSpeedDial::removePreset(quint8 presetId)
+{
+    for (int i = 0; i < m_presets.count(); ++i)
+    {
+        if (m_presets.at(i)->m_id == presetId)
+        {
+            if (presetId <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+                unregisterExternalControl(INPUT_PRESETS_BASE_ID + presetId);
+            delete m_presets.takeAt(i);
+            emit presetsListChanged();
+            return;
+        }
+    }
+}
+
+void VCSpeedDial::setPresetName(quint8 presetId, QString name)
+{
+    VCSpeedDialPreset *preset = findPreset(presetId);
+    if (preset == nullptr)
+        return;
+
+    if (preset->m_name == name)
+        return;
+
+    preset->m_name = name;
+    if (presetId <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+    {
+        unregisterExternalControl(INPUT_PRESETS_BASE_ID + presetId);
+        registerExternalControl(INPUT_PRESETS_BASE_ID + presetId,
+                                tr("Preset: %1").arg(preset->m_name), true);
+    }
+    emit presetsListChanged();
+}
+
+void VCSpeedDial::setPresetValue(quint8 presetId, int value)
+{
+    VCSpeedDialPreset *preset = findPreset(presetId);
+    if (preset == nullptr)
+        return;
+
+    if (preset->m_value == value)
+        return;
+
+    preset->m_value = value;
+    emit presetsListChanged();
+}
+
+QList<VCSpeedDialPreset*> VCSpeedDial::presets() const
+{
+    QList<VCSpeedDialPreset*> list = m_presets;
+    std::sort(list.begin(), list.end(), VCSpeedDialPreset::compare);
+    return list;
+}
+
+void VCSpeedDial::clearPresets()
+{
+    for (VCSpeedDialPreset *preset : m_presets)
+    {
+        if (preset->m_id <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+            unregisterExternalControl(INPUT_PRESETS_BASE_ID + preset->m_id);
+    }
+    qDeleteAll(m_presets);
+    m_presets.clear();
+}
+
+VCSpeedDialPreset *VCSpeedDial::findPreset(quint8 presetId) const
+{
+    for (VCSpeedDialPreset *preset : m_presets)
+    {
+        if (preset->m_id == presetId)
+            return preset;
+    }
+    return nullptr;
+}
+
+void VCSpeedDial::addPresetInternal(VCSpeedDialPreset *preset)
+{
+    if (preset == nullptr)
+        return;
+
+    m_presets.append(preset);
+    if (preset->m_id > m_lastAssignedPresetId)
+        m_lastAssignedPresetId = preset->m_id;
+
+    if (preset->m_id <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+    {
+        registerExternalControl(INPUT_PRESETS_BASE_ID + preset->m_id,
+                                tr("Preset: %1").arg(preset->m_name), true);
+    }
+}
+
 void VCSpeedDial::setFunctionSpeed(quint32 fid, int speedType, SpeedMultiplier amount)
 {
     VCSpeedDialFunction func = m_functions[fid];
@@ -398,6 +541,15 @@ void VCSpeedDial::slotInputValueChanged(quint8 id, uchar value)
     // filter unwanted values
     if (id != INPUT_DIAL_ID && value != UCHAR_MAX)
         return;
+
+    if (id >= INPUT_PRESETS_BASE_ID)
+    {
+        quint8 presetId = id - INPUT_PRESETS_BASE_ID;
+        VCSpeedDialPreset *preset = findPreset(presetId);
+        if (preset != nullptr)
+            setCurrentTime(preset->m_value);
+        return;
+    }
 
     switch (id)
     {
@@ -458,6 +610,9 @@ void VCSpeedDial::slotInputValueChanged(quint8 id, uchar value)
 
 bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 {
+    clearPresets();
+    m_lastAssignedPresetId = 15;
+
     if (root.name() != KXMLQLCVCSpeedDial)
     {
         qWarning() << Q_FUNC_INFO << "Speed dial node not found";
@@ -531,6 +686,14 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 
             addFunction(func);
         }
+        else if (root.name() == KXMLQLCVCSpeedDialPreset)
+        {
+            VCSpeedDialPreset *preset = new VCSpeedDialPreset(0xff);
+            if (preset->loadXML(root))
+                addPresetInternal(preset);
+            else
+                delete preset;
+        }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {
             loadXMLInputSource(root, VCWIDGET_AUTODETECT_INPUT_ID);
@@ -542,6 +705,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         }
     }
 
+    emit presetsListChanged();
     return true;
 }
 
@@ -596,6 +760,9 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
 
     for (quint8 iId = INPUT_TAP_ID; iId <= INPUT_16X_ID; iId++)
         saveXMLInputControl(doc, iId);
+
+    for (VCSpeedDialPreset *preset : presets())
+        preset->saveXML(doc);
 
     /* Write the <end> tag */
     doc->writeEndElement();

@@ -33,6 +33,8 @@ Rectangle
 
     property VCWidget wObj: virtualConsole.selectedWidget
     property int selectedWidgetsCount: virtualConsole.selectedWidgetsCount
+    property bool presetsTabVisible: wObj && selectedWidgetsCount < 2 && wObj.supportsPresets
+    property int tabsCount: presetsTabVisible ? 3 : 2
 
     //Component.onCompleted: wObj = Qt.binding(function() { return virtualConsole.selectedWidget })
     Component.onDestruction: virtualConsole.resetWidgetSelection()
@@ -46,6 +48,8 @@ Rectangle
             rightSidePanel.width -= sideLoader.width
         sideLoader.source = ""
         sideLoader.visible = false
+        if (!presetsTabVisible && presetsView.checked)
+            settingsView.checked = true
     }
 
     onSelectedWidgetsCountChanged:
@@ -54,6 +58,8 @@ Rectangle
             wPropsLoader.source = ""
         else
             wPropsLoader.source = wObj ? wObj.propertiesResource : ""
+        if (!presetsTabVisible && presetsView.checked)
+            settingsView.checked = true
     }
 
     ColorTool
@@ -174,7 +180,7 @@ Rectangle
                     MenuBarEntry
                     {
                         id: settingsView
-                        width: parent.width / 2
+                        width: parent.width / tabsCount
                         entryText: qsTr("Settings")
                         checked: true
                         autoExclusive: true
@@ -185,9 +191,22 @@ Rectangle
 
                     MenuBarEntry
                     {
-                        id: controlsView
-                        width: parent.width / 2
+                        id: presetsView
+                        visible: presetsTabVisible
+                        width: parent.width / tabsCount
                         anchors.left: settingsView.right
+                        entryText: qsTr("Presets")
+                        autoExclusive: true
+                        checkedColor: UISettings.toolbarSelectionSub
+                        bgGradient: cBarGradient
+                        mFontSize: UISettings.textSizeDefault
+                    }
+
+                    MenuBarEntry
+                    {
+                        id: controlsView
+                        width: parent.width / tabsCount
+                        anchors.left: presetsTabVisible ? presetsView.right : settingsView.right
                         entryText: qsTr("External controls")
                         autoExclusive: true
                         checkedColor: UISettings.toolbarSelectionSub
@@ -452,6 +471,20 @@ Rectangle
                     //source: wObj && virtualConsole.selectedWidgetsCount < 2 ? wObj.propertiesResource : ""
 
                     onLoaded: item.widgetRef = wObj
+                }
+
+                Loader
+                {
+                    id: presetsLoader
+                    width: parent.width
+                    visible: presetsView.checked ? true : false
+                    source: (wObj && presetsTabVisible) ? wObj.presetsResource : ""
+
+                    onLoaded:
+                    {
+                        if (item.hasOwnProperty('widgetRef'))
+                            item.widgetRef = wObj
+                    }
                 }
 
                 SectionBox

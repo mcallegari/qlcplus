@@ -92,6 +92,8 @@ class VCWidget : public QObject
     Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor NOTIFY foregroundColorChanged)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
     Q_PROPERTY(int page READ page WRITE setPage NOTIFY pageChanged)
+    Q_PROPERTY(bool supportsPresets READ supportsPresets CONSTANT)
+    Q_PROPERTY(QString presetsResource READ presetsResource CONSTANT)
 
     Q_PROPERTY(int externalControlsCount READ externalControlsCount CONSTANT)
     Q_PROPERTY(QVariant externalControlsList READ externalControlsList CONSTANT)
@@ -117,6 +119,12 @@ public:
     /** Create a copy of this widget into the given parent and return it
       * Pure virtual method: subclasses must reimplement this */
     virtual VCWidget *createCopy(VCWidget *parent);
+
+    /** Return true if this widget supports presets */
+    virtual bool supportsPresets() const;
+
+    /** Return a QML resource for preset properties */
+    virtual QString presetsResource() const;
 
 protected:
     /** Copy the contents for this widget from the given widget */

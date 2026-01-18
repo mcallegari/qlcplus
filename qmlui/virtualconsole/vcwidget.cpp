@@ -52,6 +52,16 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     m_font = QFont("Roboto Condensed");
 }
 
+bool VCWidget::supportsPresets() const
+{
+    return false;
+}
+
+QString VCWidget::presetsResource() const
+{
+    return QString();
+}
+
 VCWidget::~VCWidget()
 {
 }
@@ -1523,6 +1533,5 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool
 
     return true;
 }
-
 
 

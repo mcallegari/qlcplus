@@ -323,6 +323,7 @@ Rectangle
                 rowSpacing: 4
 
                 // row 1
+                /*
                 CustomCheckBox
                 {
                     implicitWidth: UISettings.iconSizeMedium
@@ -346,6 +347,7 @@ Rectangle
                     Layout.fillWidth: true
                     label: qsTr("+/- Buttons")
                 }
+                */
 
                 CustomCheckBox
                 {
@@ -445,30 +447,6 @@ Rectangle
                     label: qsTr("Apply")
                 }
 
-                CustomCheckBox
-                {
-                    implicitWidth: UISettings.iconSizeMedium
-                    implicitHeight: implicitWidth
-                    checked: widgetRef ? widgetRef.visibilityMask & VCSpeedDial.Beats : false
-                    onClicked:
-                    {
-                        if (!widgetRef)
-                            return
-
-                        if (checked)
-                            widgetRef.visibilityMask |= VCSpeedDial.Beats
-                        else
-                            widgetRef.visibilityMask &= ~VCSpeedDial.Beats
-                    }
-                }
-
-                RobotoText
-                {
-                    height: UISettings.listItemHeight
-                    Layout.fillWidth: true
-                    label: qsTr("Beats")
-                }
-
                 // row 4
                 CustomCheckBox
                 {
@@ -565,6 +543,30 @@ Rectangle
                     height: UISettings.listItemHeight
                     Layout.fillWidth: true
                     label: qsTr("Milliseconds")
+                }
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.visibilityMask & VCSpeedDial.Beats : false
+                    onClicked:
+                    {
+                        if (!widgetRef)
+                            return
+
+                        if (checked)
+                            widgetRef.visibilityMask |= VCSpeedDial.Beats
+                        else
+                            widgetRef.visibilityMask &= ~VCSpeedDial.Beats
+                    }
+                }
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Beats")
                 }
               } // GridLayout
         } // SectionBox
