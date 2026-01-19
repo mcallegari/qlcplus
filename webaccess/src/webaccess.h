@@ -105,6 +105,8 @@ protected:
     QString m_JScode;
     QString m_CSScode;
 
+    void handleProjectLoad(const QByteArray &projectXml) override;
+    bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) override;
     void handleAutostartProject(const QString &path) override;
 
 signals:

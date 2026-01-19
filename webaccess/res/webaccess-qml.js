@@ -429,20 +429,125 @@ function renderXYPad(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-xypad");
 
+  const grid = document.createElement("div");
+  grid.className = "xypad-grid";
+
+  const makeSpacer = () => {
+    const spacer = document.createElement("div");
+    spacer.className = "xypad-spacer";
+    return spacer;
+  };
+
+  const rangeTop = document.createElement("div");
+  rangeTop.className = "xypad-range xypad-range-top";
+  const rangeTopMin = document.createElement("input");
+  rangeTopMin.type = "range";
+  rangeTopMin.className = "range-horizontal range-min";
+  rangeTopMin.min = 0;
+  rangeTopMin.max = 255;
+  const rangeTopMax = document.createElement("input");
+  rangeTopMax.type = "range";
+  rangeTopMax.className = "range-horizontal range-max";
+  rangeTopMax.min = 0;
+  rangeTopMax.max = 255;
+  rangeTop.append(rangeTopMin, rangeTopMax);
+
+  const rangeLeft = document.createElement("div");
+  rangeLeft.className = "xypad-range xypad-range-left";
+  const rangeLeftMin = document.createElement("input");
+  rangeLeftMin.type = "range";
+  rangeLeftMin.className = "range-vertical range-min";
+  rangeLeftMin.min = 0;
+  rangeLeftMin.max = 255;
+  const rangeLeftMax = document.createElement("input");
+  rangeLeftMax.type = "range";
+  rangeLeftMax.className = "range-vertical range-max";
+  rangeLeftMax.min = 0;
+  rangeLeftMax.max = 255;
+  rangeLeft.append(rangeLeftMin, rangeLeftMax);
+
   const area = document.createElement("div");
   area.className = "xypad-area";
+  const rangeWindow = document.createElement("div");
+  rangeWindow.className = "xypad-range-window";
   const handle = document.createElement("div");
   handle.className = "xypad-handle";
-  area.appendChild(handle);
-  root.appendChild(area);
+  area.append(rangeWindow, handle);
 
+  const sliderRight = document.createElement("div");
+  sliderRight.className = "xypad-slider xypad-slider-right";
+  const ySlider = document.createElement("input");
+  ySlider.type = "range";
+  ySlider.className = "range-vertical";
+  ySlider.min = 0;
+  ySlider.max = 255;
+  ySlider.step = 1;
+  sliderRight.appendChild(ySlider);
+
+  const sliderBottom = document.createElement("div");
+  sliderBottom.className = "xypad-slider xypad-slider-bottom";
+  const xSlider = document.createElement("input");
+  xSlider.type = "range";
+  xSlider.className = "range-horizontal";
+  xSlider.min = 0;
+  xSlider.max = 255;
+  xSlider.step = 1;
+  sliderBottom.appendChild(xSlider);
+
+  const clamp = (val, min, max) => Math.min(Math.max(val, min), max);
+  const getRanges = () => {
+    const h = widget.horizontalRange || { min: 0, max: 255 };
+    const v = widget.verticalRange || { min: 0, max: 255 };
+    const hMin = clamp(parseFloat(h.min ?? 0), 0, 255);
+    const hMax = clamp(parseFloat(h.max ?? 255), 0, 255);
+    const vMin = clamp(parseFloat(v.min ?? 0), 0, 255);
+    const vMax = clamp(parseFloat(v.max ?? 255), 0, 255);
+    return {
+      hMin: Math.min(hMin, hMax),
+      hMax: Math.max(hMin, hMax),
+      vMin: Math.min(vMin, vMax),
+      vMax: Math.max(vMin, vMax),
+    };
+  };
+
+  const updateRangeWindow = () => {
+    const { hMin, hMax, vMin, vMax } = getRanges();
+    const width = area.clientWidth || 1;
+    const height = area.clientHeight || 1;
+    const left = (hMin / 255) * width;
+    const top = (vMin / 255) * height;
+    const right = (hMax / 255) * width;
+    const bottom = (vMax / 255) * height;
+    rangeWindow.style.left = `${left}px`;
+    rangeWindow.style.top = `${top}px`;
+    rangeWindow.style.width = `${Math.max(0, right - left)}px`;
+    rangeWindow.style.height = `${Math.max(0, bottom - top)}px`;
+    const visible = hMin > 0 || hMax < 255 || vMin > 0 || vMax < 255;
+    rangeWindow.style.display = visible ? "block" : "none";
+    rangeTop.style.setProperty("--range-min", `${(hMin / 255) * 100}%`);
+    rangeTop.style.setProperty("--range-max", `${(hMax / 255) * 100}%`);
+    const vMinPct = (vMin / 255) * 100;
+    const vMaxPct = (vMax / 255) * 100;
+    rangeLeft.style.setProperty("--range-min", `${100 - vMaxPct}%`);
+    rangeLeft.style.setProperty("--range-max", `${100 - vMinPct}%`);
+  };
+
+  let currentPos = { x: 0, y: 0 };
   function setHandle(x, y) {
+    const { hMin, hMax, vMin, vMax } = getRanges();
+    const clampedX = clamp(x, hMin, hMax);
+    const clampedY = clamp(y, vMin, vMax);
     const width = area.clientWidth;
     const height = area.clientHeight;
-    const px = (x / 255) * width;
-    const py = (1 - y / 255) * height;
+    const px = (clampedX / 255) * width;
+    const py = (clampedY / 255) * height;
     handle.style.left = `${px}px`;
     handle.style.top = `${py}px`;
+    xSlider.value = clampedX;
+    ySlider.value = 255 - clampedY;
+    sliderBottom.style.setProperty("--slider-fill", `${(clampedX / 255) * 100}%`);
+    sliderRight.style.setProperty("--slider-fill", `${(ySlider.value / 255) * 100}%`);
+    currentPos = { x: clampedX, y: clampedY };
   }
 
   let dragging = false;
@@ -450,8 +555,9 @@ function renderXYPad(widget) {
     const rect = area.getBoundingClientRect();
     const relX = Math.min(Math.max(ev.clientX - rect.left, 0), rect.width);
     const relY = Math.min(Math.max(ev.clientY - rect.top, 0), rect.height);
-    const x = (relX / rect.width) * 255;
-    const y = (1 - relY / rect.height) * 255;
+    const { hMin, hMax, vMin, vMax } = getRanges();
+    const x = clamp((relX / rect.width) * 255, hMin, hMax);
+    const y = clamp((relY / rect.height) * 255, vMin, vMax);
     setHandle(x, y);
     sendWidgetCommand(widget.id, "XYPAD", x.toFixed(2), y.toFixed(2));
   };
@@ -472,10 +578,195 @@ function renderXYPad(widget) {
     dragging = false;
   });
 
-  const pos = widget.position || { x: 0, y: 0 };
-  requestAnimationFrame(() => setHandle(pos.x, pos.y));
+  xSlider.addEventListener("input", () => {
+    const x = parseFloat(xSlider.value);
+    const { vMin, vMax } = getRanges();
+    const y = clamp(255 - parseFloat(ySlider.value), vMin, vMax);
+    setHandle(x, y);
+    sendWidgetCommand(widget.id, "XYPAD", x.toFixed(2), y.toFixed(2));
+  });
 
-  state.widgets[widget.id] = { type: "xypad", el: root, handle, data: widget, setHandle };
+  ySlider.addEventListener("input", () => {
+    const { hMin, hMax } = getRanges();
+    const x = clamp(parseFloat(xSlider.value), hMin, hMax);
+    const y = clamp(255 - parseFloat(ySlider.value), 0, 255);
+    setHandle(x, y);
+    sendWidgetCommand(widget.id, "XYPAD", x.toFixed(2), y.toFixed(2));
+  });
+
+  const syncRangeInputs = () => {
+    const { hMin, hMax, vMin, vMax } = getRanges();
+    rangeTopMin.value = hMin;
+    rangeTopMax.value = hMax;
+    rangeLeftMin.value = vMin;
+    rangeLeftMax.value = vMax;
+  };
+
+  const sendRangeUpdate = (axis) => {
+    const { hMin, hMax, vMin, vMax } = getRanges();
+    if (axis === "h") {
+      widget.horizontalRange = { min: hMin, max: hMax };
+      sendWidgetCommand(widget.id, "XYPAD_RANGE_H", hMin.toFixed(2), hMax.toFixed(2));
+    } else {
+      widget.verticalRange = { min: vMin, max: vMax };
+      sendWidgetCommand(widget.id, "XYPAD_RANGE_V", vMin.toFixed(2), vMax.toFixed(2));
+    }
+    updateRangeWindow();
+    setHandle(parseFloat(xSlider.value), 255 - parseFloat(ySlider.value));
+  };
+
+  const updateRangeValue = (axis, which, value) => {
+    const ranges = getRanges();
+    if (axis === "h") {
+      if (which === "min") ranges.hMin = clamp(value, 0, ranges.hMax);
+      else ranges.hMax = clamp(value, ranges.hMin, 255);
+      widget.horizontalRange = { min: ranges.hMin, max: ranges.hMax };
+    } else {
+      if (which === "min") ranges.vMin = clamp(value, 0, ranges.vMax);
+      else ranges.vMax = clamp(value, ranges.vMin, 255);
+      widget.verticalRange = { min: ranges.vMin, max: ranges.vMax };
+    }
+  };
+
+  const pickRangeTarget = (axis, value) => {
+    const { hMin, hMax, vMin, vMax } = getRanges();
+    if (axis === "h") {
+      return Math.abs(value - hMin) <= Math.abs(value - hMax) ? "min" : "max";
+    }
+    return Math.abs(value - vMin) <= Math.abs(value - vMax) ? "min" : "max";
+  };
+
+  const setActiveRangeHandle = (axis, which) => {
+    if (axis === "h") {
+      rangeTopMin.classList.toggle("is-active", which === "min");
+      rangeTopMax.classList.toggle("is-active", which === "max");
+    } else {
+      rangeLeftMin.classList.toggle("is-active", which === "min");
+      rangeLeftMax.classList.toggle("is-active", which === "max");
+    }
+  };
+
+  const rangeValueFromPointer = (axis, ev, container) => {
+    const rect = container.getBoundingClientRect();
+    if (axis === "h") {
+      const rel = clamp(ev.clientX - rect.left, 0, rect.width);
+      return (rel / rect.width) * 255;
+    }
+    const rel = clamp(ev.clientY - rect.top, 0, rect.height);
+    return (rel / rect.height) * 255;
+  };
+
+  const handleRangePointer = (axis, ev, container) => {
+    const value = rangeValueFromPointer(axis, ev, container);
+    const which = pickRangeTarget(axis, value);
+    setActiveRangeHandle(axis, which);
+    updateRangeValue(axis, which, value);
+    syncRangeInputs();
+    sendRangeUpdate(axis);
+  };
+
+  const rangeDrag = { active: false, axis: null, which: null, container: null };
+  const startRangeDrag = (axis, ev, container) => {
+    rangeDrag.active = true;
+    rangeDrag.axis = axis;
+    rangeDrag.container = container;
+    const value = rangeValueFromPointer(axis, ev, container);
+    rangeDrag.which = pickRangeTarget(axis, value);
+    setActiveRangeHandle(axis, rangeDrag.which);
+    updateRangeValue(axis, rangeDrag.which, value);
+    syncRangeInputs();
+    sendRangeUpdate(axis);
+    container.setPointerCapture(ev.pointerId);
+  };
+  const moveRangeDrag = (ev) => {
+    if (!rangeDrag.active || !rangeDrag.container) return;
+    const value = rangeValueFromPointer(rangeDrag.axis, ev, rangeDrag.container);
+    updateRangeValue(rangeDrag.axis, rangeDrag.which, value);
+    syncRangeInputs();
+    sendRangeUpdate(rangeDrag.axis);
+  };
+  const endRangeDrag = (ev) => {
+    if (!rangeDrag.active || !rangeDrag.container) return;
+    rangeDrag.container.releasePointerCapture(ev.pointerId);
+    rangeDrag.active = false;
+  };
+
+  rangeTop.addEventListener("pointerdown", (ev) => {
+    startRangeDrag("h", ev, rangeTop);
+  });
+  rangeTop.addEventListener("pointermove", moveRangeDrag);
+  rangeTop.addEventListener("pointerup", endRangeDrag);
+  rangeTop.addEventListener("pointercancel", endRangeDrag);
+
+  rangeLeft.addEventListener("pointerdown", (ev) => {
+    startRangeDrag("v", ev, rangeLeft);
+  });
+  rangeLeft.addEventListener("pointermove", moveRangeDrag);
+  rangeLeft.addEventListener("pointerup", endRangeDrag);
+  rangeLeft.addEventListener("pointercancel", endRangeDrag);
+
+  rangeTopMin.addEventListener("input", () => {
+    setActiveRangeHandle("h", "min");
+    updateRangeValue("h", "min", parseFloat(rangeTopMin.value));
+    syncRangeInputs();
+    sendRangeUpdate("h");
+  });
+  rangeTopMax.addEventListener("input", () => {
+    setActiveRangeHandle("h", "max");
+    updateRangeValue("h", "max", parseFloat(rangeTopMax.value));
+    syncRangeInputs();
+    sendRangeUpdate("h");
+  });
+  rangeLeftMin.addEventListener("input", () => {
+    setActiveRangeHandle("v", "min");
+    updateRangeValue("v", "min", parseFloat(rangeLeftMin.value));
+    syncRangeInputs();
+    sendRangeUpdate("v");
+  });
+  rangeLeftMax.addEventListener("input", () => {
+    setActiveRangeHandle("v", "max");
+    updateRangeValue("v", "max", parseFloat(rangeLeftMax.value));
+    syncRangeInputs();
+    sendRangeUpdate("v");
+  });
+
+  const pos = widget.position || { x: 0, y: 0 };
+  requestAnimationFrame(() => {
+    syncRangeInputs();
+    setActiveRangeHandle("h", "min");
+    setActiveRangeHandle("v", "min");
+    updateRangeWindow();
+    setHandle(pos.x, pos.y);
+  });
+
+  const resizeObserver = new ResizeObserver(() => {
+    updateRangeWindow();
+    setHandle(currentPos.x, currentPos.y);
+  });
+  resizeObserver.observe(area);
+
+  grid.append(
+    makeSpacer(),
+    rangeTop,
+    makeSpacer(),
+    rangeLeft,
+    area,
+    sliderRight,
+    makeSpacer(),
+    sliderBottom,
+    makeSpacer()
+  );
+
+  root.appendChild(grid);
+  state.widgets[widget.id] = {
+    type: "xypad",
+    el: root,
+    handle,
+    data: widget,
+    setHandle,
+    updateRangeWindow,
+    rangeInputs: { rangeTopMin, rangeTopMax, rangeLeftMin, rangeLeftMax },
+  };
   return root;
 }
 
@@ -483,16 +774,39 @@ function renderAudioTriggers(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-audio");
 
+  const audioState = {
+    enabled: !!widget.enabled,
+    volume: widget.volume ?? 100,
+  };
+
+  const header = document.createElement("div");
+  header.className = "audio-header";
+
   const title = document.createElement("div");
+  title.className = "audio-title";
   title.textContent = widget.caption || "Audio";
+  applyFont(title, widget.font);
 
   const button = document.createElement("button");
-  button.className = "nav-btn";
-  button.textContent = widget.enabled ? "Disable" : "Enable";
+  button.className = "frame-btn frame-enable audio-enable";
+  button.innerHTML = `<span class="fa-icon">${FA.check}</span>`;
+  const updateEnableUI = (enabled) => {
+    button.title = enabled ? "Disable" : "Enable";
+    button.classList.toggle("is-disabled", !enabled);
+  };
+  updateEnableUI(audioState.enabled);
   button.addEventListener("click", () => {
-    const next = widget.enabled ? 0 : 255;
+    const nextEnabled = !audioState.enabled;
+    audioState.enabled = nextEnabled;
+    updateEnableUI(nextEnabled);
+    const next = nextEnabled ? 255 : 0;
     sendWidgetValue(widget.id, next);
   });
+
+  header.append(title, button);
+
+  const body = document.createElement("div");
+  body.className = "audio-body";
 
   const bars = document.createElement("div");
   bars.className = "audio-bars";
@@ -500,12 +814,50 @@ function renderAudioTriggers(widget) {
   for (let i = 0; i < count; i++) {
     const bar = document.createElement("div");
     bar.className = "audio-bar";
-    bar.style.height = `${20 + (i % 3) * 20}%`;
+    bar.style.height = `${30 + (i % 3) * 20}%`;
     bars.appendChild(bar);
   }
 
-  root.append(title, button, bars);
-  state.widgets[widget.id] = { type: "audio", el: root, button, data: widget };
+  const faderWrap = document.createElement("div");
+  faderWrap.className = "audio-fader";
+  const fader = document.createElement("input");
+  fader.type = "range";
+  fader.className = "range-vertical";
+  fader.min = 0;
+  fader.max = 100;
+  fader.step = 1;
+  fader.value = audioState.volume;
+  fader.style.setProperty("--slider-fill-color", "#38b0ff");
+  fader.style.setProperty("--slider-empty-color", "#888888");
+  fader.style.setProperty("--slider-fill", `${(fader.value / 100) * 100}%`);
+  fader.style.setProperty(
+    "--slider-thumb-gradient",
+    "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
+  );
+  const iconSize = state.pixelDensity * 10;
+  const thumbWidth = iconSize * 0.75;
+  fader.style.setProperty("--slider-thumb-width", `${iconSize}px`);
+  fader.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+  fader.addEventListener("input", () => {
+    const value = parseInt(fader.value, 10);
+    fader.style.setProperty("--slider-fill", `${(value / 100) * 100}%`);
+    audioState.volume = value;
+    sendWidgetCommand(widget.id, "AUDIO_VOLUME", value);
+  });
+  faderWrap.appendChild(fader);
+
+  body.append(bars, faderWrap);
+
+  root.append(header, body);
+  state.widgets[widget.id] = {
+    type: "audio",
+    el: root,
+    button,
+    fader,
+    data: widget,
+    state: audioState,
+    updateEnableUI,
+  };
   return root;
 }
 
@@ -514,12 +866,12 @@ function renderMatrix(widget) {
   root.classList.add("vc-matrix");
 
   const grid = document.createElement("div");
-  grid.className = "matrix-grid";
+  grid.className = "animation-grid";
   const matrixState = { fader: null, combo: null, colors: {} };
 
   if (widget.visibilityMask & MATRIX_VIS.Fader) {
     const faderWrap = document.createElement("div");
-    faderWrap.className = "matrix-fader";
+    faderWrap.className = "animation-fader";
     const fader = document.createElement("input");
     fader.type = "range";
     fader.className = "range-vertical";
@@ -555,7 +907,7 @@ function renderMatrix(widget) {
 
   if (widget.visibilityMask & MATRIX_VIS.Label) {
     const caption = document.createElement("div");
-    caption.className = "matrix-label";
+    caption.className = "animation-label";
     caption.textContent = widget.caption || "Animation";
     applyFont(caption, widget.font);
     if (widget.fgColor) caption.style.color = widget.fgColor;
@@ -563,7 +915,7 @@ function renderMatrix(widget) {
   }
 
   const colorsRow = document.createElement("div");
-  colorsRow.className = "matrix-colors";
+  colorsRow.className = "animation-colors";
   const colors = [
     { key: "color1", bit: MATRIX_VIS.Color1, cmd: "MATRIX_COLOR_1" },
     { key: "color2", bit: MATRIX_VIS.Color2, cmd: "MATRIX_COLOR_2" },
@@ -576,7 +928,7 @@ function renderMatrix(widget) {
     if (widget.visibilityMask & c.bit) {
       const input = document.createElement("input");
       input.type = "color";
-      input.className = "matrix-color";
+      input.className = "animation-color";
       input.value = widget[c.key] || "#ffffff";
       input.addEventListener("input", () => {
         sendWidgetCommand(widget.id, c.cmd, input.value);
@@ -589,7 +941,7 @@ function renderMatrix(widget) {
 
   if (widget.visibilityMask & MATRIX_VIS.PresetCombo) {
     const combo = document.createElement("select");
-    combo.className = "matrix-combo";
+    combo.className = "animation-combo";
     (widget.algorithms || []).forEach((name, idx) => {
       const opt = document.createElement("option");
       opt.value = idx;
@@ -730,7 +1082,7 @@ function renderSpeed(widget) {
     };
 
     const updateDialAngle = (value) => {
-      const angle = 130 + (value / 1000) * 280;
+      const angle = (value / 1000) * 360;
       dialIndicator.style.setProperty("--dial-angle", `${angle}deg`);
     };
 
@@ -748,12 +1100,9 @@ function renderSpeed(widget) {
       const dx = ev.clientX - cx;
       const dy = ev.clientY - cy;
       let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+      angle += 90;
       if (angle < 0) angle += 360;
-      const start = 130;
-      const end = 410;
-      if (angle < start) angle += 360;
-      const clamped = Math.min(Math.max(angle, start), end);
-      return Math.round(((clamped - start) / 280) * 1000);
+      return Math.round((angle / 360) * 1000);
     };
 
     const applyDialChange = (newValue) => {
@@ -1426,7 +1775,7 @@ function applyFramePage(id, pageIndex) {
       const trackHeight = track.clientHeight || 40;
       input.style.setProperty("--slider-length", `${trackHeight}px`);
     });
-    const faders = widget.content.querySelectorAll(".matrix-fader input[type=\"range\"]");
+    const faders = widget.content.querySelectorAll(".animation-fader input[type=\"range\"]");
     faders.forEach((fader) => {
       const wrap = fader.parentElement;
       if (!wrap) return;
@@ -1526,8 +1875,20 @@ function updateSlider(id, value, displayValue) {
 function updateAudioState(id, enabled) {
   const widget = state.widgets[id];
   if (!widget) return;
-  widget.data.enabled = enabled === "1" || enabled === "true";
-  widget.button.textContent = widget.data.enabled ? "Disable" : "Enable";
+  if (!["0", "1", "true", "false"].includes(enabled)) return;
+  const nextEnabled = enabled === "1" || enabled === "true";
+  widget.state.enabled = nextEnabled;
+  widget.updateEnableUI(nextEnabled);
+}
+
+function updateAudioVolume(id, value) {
+  const widget = state.widgets[id];
+  if (!widget?.fader) return;
+  const volume = parseInt(value, 10);
+  if (Number.isNaN(volume)) return;
+  widget.state.volume = volume;
+  widget.fader.value = volume;
+  widget.fader.style.setProperty("--slider-fill", `${(volume / 100) * 100}%`);
 }
 
 function updateCueSideLabels(widget) {
@@ -1744,6 +2105,9 @@ function handleSocketMessage(ev) {
       break;
     case "AUDIOTRIGGERS":
       updateAudioState(id, msg[2]);
+      break;
+    case "AUDIO_VOLUME":
+      updateAudioVolume(id, msg[2]);
       break;
     case "CUE":
       updateCueState(id, state.widgets[id]?.data.playbackStatus ?? 0, parseInt(msg[2], 10));

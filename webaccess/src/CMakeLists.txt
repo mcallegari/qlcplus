@@ -46,9 +46,10 @@ else()
     )
 endif()
 
-set(webaccess_lib_type SHARED)
-if((WIN32 OR APPLE) AND qmlui)
+if(qmlui)
     set(webaccess_lib_type STATIC)
+else()
+    set(webaccess_lib_type SHARED)
 endif()
 
 add_library(${module_name} ${webaccess_lib_type} ${WEBACCESS_SOURCES})

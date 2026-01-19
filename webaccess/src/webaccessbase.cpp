@@ -26,6 +26,8 @@
 
 #include "webaccessbase.h"
 
+#include "webaccessconfiguration.h"
+#include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
 #include "commonjscss.h"
 #include "qlcconfig.h"
@@ -231,6 +233,18 @@ void WebAccessBase::sendNotFound(QHttpResponse *resp) const
     resp->end(QByteArray("404 Not found"));
 }
 
+void WebAccessBase::sendHtmlResponse(QHttpResponse *resp, const QString &content) const
+{
+    if (resp == nullptr)
+        return;
+
+    QByteArray contentArray = content.toUtf8();
+    resp->setHeader("Content-Type", "text/html");
+    resp->setHeader("Content-Length", QString::number(contentArray.size()));
+    resp->writeHead(200);
+    resp->end(contentArray);
+}
+
 bool WebAccessBase::requireAuthLevel(QHttpResponse *resp, const WebAccessUser &user, WebAccessUserLevel level) const
 {
     if (m_auth && user.level < level)
@@ -239,6 +253,132 @@ bool WebAccessBase::requireAuthLevel(QHttpResponse *resp, const WebAccessUser &u
         return false;
     }
     return true;
+}
+
+WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpRequest *req, QHttpResponse *resp,
+                                                                          const WebAccessUser &user,
+                                                                          const QString &reqUrl,
+                                                                          QString &content)
+{
+    if (reqUrl == "/qlcplusWS")
+    {
+        if (acceptWebSocket(resp, user))
+            return CommonRequestResult::Handled;
+        return CommonRequestResult::ContentReady;
+    }
+    else if (reqUrl == "/loadProject")
+    {
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
+            return CommonRequestResult::Handled;
+        QByteArray projectXML = extractProjectXml(req);
+
+        qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
+        sendProjectLoadingResponse(resp);
+
+        m_pendingProjectLoaded = false;
+
+        handleProjectLoad(projectXML);
+
+        return CommonRequestResult::Handled;
+    }
+    else if (reqUrl == "/loadFixture")
+    {
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
+            return CommonRequestResult::Handled;
+        QByteArray fixtureXML = req->body();
+        int fnamePos = fixtureXML.indexOf("filename=") + 10;
+        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
+
+        fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
+        fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
+
+        if (!storeFixtureDefinition(fxName, fixtureXML))
+            return CommonRequestResult::Handled;
+
+        QByteArray postReply =
+                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+                        "<script>\n"
+                        " alert(\"" + tr("Fixture stored and loaded") + "\");"
+                        " window.location = \"/config\"\n"
+                        "</script></head></html>").toUtf8();
+
+        resp->setHeader("Content-Type", "text/html");
+        resp->setHeader("Content-Length", QString::number(postReply.size()));
+        resp->writeHead(200);
+        resp->end(postReply);
+
+        return CommonRequestResult::Handled;
+    }
+    else if (reqUrl == "/config")
+    {
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
+            return CommonRequestResult::Handled;
+        content = WebAccessConfiguration::getHTML(m_doc, m_auth);
+        return CommonRequestResult::ContentReady;
+    }
+    else if (reqUrl == "/simpleDesk")
+    {
+        if (!requireAuthLevel(resp, user, SIMPLE_DESK_AND_VC_LEVEL))
+            return CommonRequestResult::Handled;
+        content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
+        return CommonRequestResult::ContentReady;
+    }
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    else if (reqUrl == "/system")
+    {
+        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
+            return CommonRequestResult::Handled;
+        content = m_netConfig->getHTML();
+        return CommonRequestResult::ContentReady;
+    }
+#endif
+    else if (reqUrl.endsWith(".png"))
+    {
+        if (servePng(resp, reqUrl))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".jpg") || reqUrl.endsWith(".jpeg"))
+    {
+        if (sendFile(resp, reqUrl, "image/jpg"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".bmp"))
+    {
+        if (sendFile(resp, reqUrl, "image/bmp"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".svg"))
+    {
+        if (sendFile(resp, reqUrl, "image/svg+xml"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".ico"))
+    {
+        if (serveWebFile(resp, reqUrl, "image/x-icon"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".css"))
+    {
+        if (serveWebFile(resp, reqUrl, "text/css"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".js"))
+    {
+        if (serveWebFile(resp, reqUrl, "text/javascript"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl.endsWith(".html"))
+    {
+        if (serveWebFile(resp, reqUrl, "text/html"))
+            return CommonRequestResult::Handled;
+    }
+    else if (reqUrl != "/")
+    {
+        sendNotFound(resp);
+        return CommonRequestResult::Handled;
+    }
+
+    return CommonRequestResult::NotHandled;
 }
 
 bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAccessUser *user,

@@ -47,6 +47,13 @@ public:
     virtual ~WebAccessBase();
 
 protected:
+    enum class CommonRequestResult
+    {
+        NotHandled,
+        Handled,
+        ContentReady
+    };
+
     explicit WebAccessBase(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
                            int portNumber, bool enableAuth, const QString &passwdFile,
                            QObject *parent = nullptr);
@@ -61,11 +68,17 @@ protected:
     QByteArray extractProjectXml(const QHttpRequest *req) const;
     void sendProjectLoadingResponse(QHttpResponse *resp) const;
     void sendNotFound(QHttpResponse *resp) const;
+    void sendHtmlResponse(QHttpResponse *resp, const QString &content) const;
     bool requireAuthLevel(QHttpResponse *resp, const WebAccessUser &user, WebAccessUserLevel level) const;
     bool handleCommonWebSocketCommand(QHttpConnection *conn, WebAccessUser *user,
                                       const QStringList &cmdList, const QString &logTag,
                                       bool logWarning);
+    CommonRequestResult handleCommonHTTPRequest(QHttpRequest *req, QHttpResponse *resp,
+                                                const WebAccessUser &user, const QString &reqUrl,
+                                                QString &content);
     virtual void handleAutostartProject(const QString &path);
+    virtual void handleProjectLoad(const QByteArray &projectXml) = 0;
+    virtual bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) = 0;
 
 protected slots:
     virtual void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp) = 0;

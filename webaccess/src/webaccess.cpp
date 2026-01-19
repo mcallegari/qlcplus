@@ -21,7 +21,6 @@
 #include <QMap>
 #include <qmath.h>
 
-#include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
 #include "commonjscss.h"
@@ -73,134 +72,31 @@ void WebAccess::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
     qDebug() << Q_FUNC_INFO << req->methodString() << req->url();
 
-    if (reqUrl == "/qlcplusWS")
+    CommonRequestResult commonResult = handleCommonHTTPRequest(req, resp, user, reqUrl, content);
+    if (commonResult == CommonRequestResult::Handled)
+        return;
+    if (commonResult == CommonRequestResult::ContentReady)
     {
-        if (acceptWebSocket(resp, user))
-            return;
-    }
-    else if (reqUrl == "/loadProject")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        QByteArray projectXML = extractProjectXml(req);
-
-        qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
-        sendProjectLoadingResponse(resp);
-
-        m_pendingProjectLoaded = false;
-
-        emit loadProject(QString(projectXML).toUtf8());
-
+        sendHtmlResponse(resp, content);
         return;
     }
-    else if (reqUrl == "/loadFixture")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        QByteArray fixtureXML = req->body();
-        int fnamePos = fixtureXML.indexOf("filename=") + 10;
-        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
 
-        fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
-        fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
+    content = getVCHTML();
+    sendHtmlResponse(resp, content);
+}
 
-        qDebug() << "Fixture name:" << fxName;
-        qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
+void WebAccess::handleProjectLoad(const QByteArray &projectXml)
+{
+    emit loadProject(QString(projectXml).toUtf8());
+}
 
-        m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString(fixtureXML).toUtf8());
+bool WebAccess::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
+{
+    qDebug() << "Fixture name:" << fxName;
+    qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
 
-        QByteArray postReply =
-                      QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                      "<script>\n"
-                      " alert(\"" + tr("Fixture stored and loaded") + "\");"
-                      " window.location = \"/config\"\n"
-                      "</script></head></html>").toUtf8();
-
-        resp->setHeader("Content-Type", "text/html");
-        resp->setHeader("Content-Length", QString::number(postReply.size()));
-        resp->writeHead(200);
-        resp->end(postReply);
-
-        return;
-    }
-    else if (reqUrl == "/config")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        content = WebAccessConfiguration::getHTML(m_doc, m_auth);
-    }
-    else if (reqUrl == "/simpleDesk")
-    {
-        if (!requireAuthLevel(resp, user, SIMPLE_DESK_AND_VC_LEVEL))
-            return;
-        content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
-    }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    else if (reqUrl == "/system")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        content = m_netConfig->getHTML();
-    }
-#endif
-    else if (reqUrl.endsWith(".png"))
-    {
-        if (servePng(resp, reqUrl))
-            return;
-    }
-    else if (reqUrl.endsWith(".jpg") || reqUrl.endsWith(".jpeg"))
-    {
-        if (sendFile(resp, reqUrl, "image/jpg"))
-            return;
-    }
-    else if (reqUrl.endsWith(".bmp"))
-    {
-        if (sendFile(resp, reqUrl, "image/bmp"))
-            return;
-    }
-    else if (reqUrl.endsWith(".svg"))
-    {
-        if (sendFile(resp, reqUrl, "image/svg+xml"))
-            return;
-    }
-    else if (reqUrl.endsWith(".ico"))
-    {
-        if (serveWebFile(resp, reqUrl, "image/x-icon"))
-            return;
-    }
-    else if (reqUrl.endsWith(".css"))
-    {
-        if (serveWebFile(resp, reqUrl, "text/css"))
-            return;
-    }
-    else if (reqUrl.endsWith(".js"))
-    {
-        if (serveWebFile(resp, reqUrl, "text/javascript"))
-            return;
-    }
-    else if (reqUrl.endsWith(".html"))
-    {
-        if (serveWebFile(resp, reqUrl, "text/html"))
-            return;
-    }
-    else if (reqUrl != "/")
-    {
-        sendNotFound(resp);
-        return;
-    }
-    else
-        content = getVCHTML();
-
-    // Prepare the message we're going to send
-    QByteArray contentArray = content.toUtf8();
-
-    // Send HTTP reply to the client
-    resp->setHeader("Content-Type", "text/html");
-    resp->setHeader("Content-Length", QString::number(contentArray.size()));
-    resp->writeHead(200);
-    resp->end(contentArray);
-
-    return;
+    m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString(fixtureXML).toUtf8());
+    return true;
 }
 
 void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)

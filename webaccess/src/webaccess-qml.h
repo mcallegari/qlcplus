@@ -76,6 +76,7 @@ protected slots:
     void slotSliderDisableStateChanged(bool disable);
     void slotSliderOverrideChanged();
     void slotAudioTriggersToggled();
+    void slotAudioTriggersVolumeChanged();
     void slotWidgetDisableStateChanged(bool disable);
     void slotCueIndexChanged(int idx);
     void slotCuePlaybackStateChanged();
@@ -96,6 +97,8 @@ protected:
     QString webFilePath(const QString &relativePath) const override;
     void sendMatrixState(VCAnimation *animation);
     void handleAutostartProject(const QString &path) override;
+    void handleProjectLoad(const QByteArray &projectXml) override;
+    bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) override;
 
     QByteArray getVCJson();
     QJsonObject baseWidgetToJson(VCWidget *widget);

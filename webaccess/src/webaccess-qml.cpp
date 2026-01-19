@@ -28,7 +28,6 @@
 
 #include "webaccess-qml.h"
 #include "webaccessauth.h"
-#include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
 #include "commonjscss.h"
@@ -173,65 +172,7 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
     qDebug() << Q_FUNC_INFO << req->methodString() << req->url();
 
-    if (reqUrl == "/qlcplusWS")
-    {
-        if (acceptWebSocket(resp, user))
-            return;
-    }
-    else if (reqUrl == "/loadProject")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        QByteArray projectXML = extractProjectXml(req);
-
-        qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
-        sendProjectLoadingResponse(resp);
-
-        m_pendingProjectLoaded = false;
-
-        emit loadProject(projectXML);
-
-        return;
-    }
-    else if (reqUrl == "/loadFixture")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        QByteArray fixtureXML = req->body();
-        int fnamePos = fixtureXML.indexOf("filename=") + 10;
-        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
-
-        fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
-        fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
-
-        QString fxPath = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(fxName);
-        QFile fxFile(fxPath);
-        if (fxFile.open(QIODevice::WriteOnly | QIODevice::Text))
-        {
-            fxFile.write(fixtureXML);
-            fxFile.close();
-        }
-        else
-        {
-            qWarning() << Q_FUNC_INFO << "Unable to save file" << fxPath;
-            return;
-        }
-
-        QByteArray postReply =
-                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                      "<script>\n"
-                      " alert(\"" + tr("Fixture stored and loaded") + "\");"
-                      " window.location = \"/config\"\n"
-                      "</script></head></html>").toUtf8();
-
-        resp->setHeader("Content-Type", "text/html");
-        resp->setHeader("Content-Length", QString::number(postReply.size()));
-        resp->writeHead(200);
-        resp->end(postReply);
-
-        return;
-    }
-    else if (reqUrl == "/vc.json")
+    if (reqUrl == "/vc.json")
     {
         if (!requireAuthLevel(resp, user, VC_ONLY_LEVEL))
             return;
@@ -248,83 +189,39 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
         if (sendFile(resp, qrcPath, mimeTypeForPath(qrcPath)))
             return;
     }
-    else if (reqUrl == "/config")
+    CommonRequestResult commonResult = handleCommonHTTPRequest(req, resp, user, reqUrl, content);
+    if (commonResult == CommonRequestResult::Handled)
+        return;
+    if (commonResult == CommonRequestResult::ContentReady)
     {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        content = WebAccessConfiguration::getHTML(m_doc, m_auth);
-    }
-    else if (reqUrl == "/simpleDesk")
-    {
-        if (!requireAuthLevel(resp, user, SIMPLE_DESK_AND_VC_LEVEL))
-            return;
-        content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
-    }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    else if (reqUrl == "/system")
-    {
-        if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
-            return;
-        content = m_netConfig->getHTML();
-    }
-#endif
-    else if (reqUrl.endsWith(".png"))
-    {
-        if (servePng(resp, reqUrl))
-            return;
-    }
-    else if (reqUrl.endsWith(".jpg"))
-    {
-        if (sendFile(resp, reqUrl, "image/jpg"))
-            return;
-    }
-    else if (reqUrl.endsWith(".bmp"))
-    {
-        if (sendFile(resp, reqUrl, "image/bmp"))
-            return;
-    }
-    else if (reqUrl.endsWith(".svg"))
-    {
-        if (sendFile(resp, reqUrl, "image/svg+xml"))
-            return;
-    }
-    else if (reqUrl.endsWith(".ico"))
-    {
-        if (serveWebFile(resp, reqUrl, "image/x-icon"))
-            return;
-    }
-    else if (reqUrl.endsWith(".css"))
-    {
-        if (serveWebFile(resp, reqUrl, "text/css"))
-            return;
-    }
-    else if (reqUrl.endsWith(".js"))
-    {
-        if (serveWebFile(resp, reqUrl, "text/javascript"))
-            return;
-    }
-    else if (reqUrl.endsWith(".html"))
-    {
-        if (serveWebFile(resp, reqUrl, "text/html"))
-            return;
-    }
-    else if (reqUrl != "/")
-    {
-        sendNotFound(resp);
+        sendHtmlResponse(resp, content);
         return;
     }
-    else
+
+    if (serveWebFile(resp, "/webaccess-qml.html", "text/html"))
+        return;
+    content = QString(HTML_HEADER) + "</head><body>Missing webaccess-qml.html</body></html>";
+    sendHtmlResponse(resp, content);
+}
+
+void WebAccessQml::handleProjectLoad(const QByteArray &projectXml)
+{
+    emit loadProject(projectXml);
+}
+
+bool WebAccessQml::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
+{
+    QString fxPath = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(fxName);
+    QFile fxFile(fxPath);
+    if (fxFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        if (serveWebFile(resp, "/webaccess-qml.html", "text/html"))
-            return;
-        content = QString(HTML_HEADER) + "</head><body>Missing webaccess-qml.html</body></html>";
+        fxFile.write(fixtureXML);
+        fxFile.close();
+        return true;
     }
 
-    QByteArray contentArray = content.toUtf8();
-    resp->setHeader("Content-Type", "text/html");
-    resp->setHeader("Content-Length", QString::number(contentArray.size()));
-    resp->writeHead(200);
-    resp->end(contentArray);
+    qWarning() << Q_FUNC_INFO << "Unable to save file" << fxPath;
+    return false;
 }
 
 void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
@@ -666,7 +563,24 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
         {
             VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
             if (triggers != nullptr)
-                triggers->setCaptureEnabled(value > 0);
+            {
+                if (cmdList.count() > 2 && cmdList[1] == "AUDIO_VOLUME")
+                {
+                    int volume = cmdList[2].toInt();
+                    if (volume < 0)
+                        volume = 0;
+                    else if (volume > 100)
+                        volume = 100;
+                    triggers->setVolumeLevel(uchar(volume));
+                }
+                else
+                {
+                    bool ok = false;
+                    int enabledValue = cmdList.count() > 1 ? cmdList[1].toInt(&ok) : 0;
+                    if (ok)
+                        triggers->setCaptureEnabled(enabledValue > 0);
+                }
+            }
         }
         break;
         case VCWidget::CueListWidget:
@@ -753,15 +667,33 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
         break;
         case VCWidget::XYPadWidget:
         {
-            if (cmdList.count() < 4)
+            VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+            if (xypad == nullptr || cmdList.count() < 2)
                 return;
 
-            VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
-            if (xypad != nullptr && cmdList[1] == "XYPAD")
+            if (cmdList[1] == "XYPAD")
             {
+                if (cmdList.count() < 4)
+                    return;
                 qreal x = cmdList[2].toDouble();
                 qreal y = cmdList[3].toDouble();
                 xypad->setCurrentPosition(QPointF(x, y));
+            }
+            else if (cmdList[1] == "XYPAD_RANGE_H")
+            {
+                if (cmdList.count() < 4)
+                    return;
+                qreal minVal = cmdList[2].toDouble();
+                qreal maxVal = cmdList[3].toDouble();
+                xypad->setHorizontalRange(QPointF(minVal, maxVal));
+            }
+            else if (cmdList[1] == "XYPAD_RANGE_V")
+            {
+                if (cmdList.count() < 4)
+                    return;
+                qreal minVal = cmdList[2].toDouble();
+                qreal maxVal = cmdList[3].toDouble();
+                xypad->setVerticalRange(QPointF(minVal, maxVal));
             }
         }
         break;
@@ -1162,6 +1094,8 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
             VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
             connect(triggers, SIGNAL(captureEnabledChanged()),
                     this, SLOT(slotAudioTriggersToggled()));
+            connect(triggers, SIGNAL(volumeLevelChanged()),
+                    this, SLOT(slotAudioTriggersVolumeChanged()));
             connect(triggers, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotWidgetDisableStateChanged(bool)));
         }
@@ -1316,6 +1250,16 @@ void WebAccessQml::slotAudioTriggersToggled()
         return;
 
     QString wsMessage = QString("%1|AUDIOTRIGGERS|%2").arg(triggers->id()).arg(triggers->captureEnabled());
+    sendWebSocketMessage(wsMessage);
+}
+
+void WebAccessQml::slotAudioTriggersVolumeChanged()
+{
+    VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers *>(sender());
+    if (triggers == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|AUDIO_VOLUME|%2").arg(triggers->id()).arg(triggers->volumeLevel());
     sendWebSocketMessage(wsMessage);
 }
 
