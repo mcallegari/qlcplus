@@ -87,6 +87,26 @@ static QString colorToString(const QColor &color)
     return color.name();
 }
 
+static QJsonObject loadUiStyleJson()
+{
+    QDir userConfDir = QLCFile::userDirectory(QString(USERQLCPLUSDIR),
+                                              QString(USERQLCPLUSDIR),
+                                              QStringList());
+    const QString stylePath = userConfDir.absolutePath()
+            + QDir::separator()
+            + QStringLiteral("qlcplusUiStyle.json");
+    QFile jsonFile(stylePath);
+    if (jsonFile.exists() == false || jsonFile.open(QIODevice::ReadOnly) == false)
+        return QJsonObject();
+
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonFile.readAll(), &parseError);
+    if (parseError.error != QJsonParseError::NoError || jsonDoc.isObject() == false)
+        return QJsonObject();
+
+    return jsonDoc.object();
+}
+
 static QString sliderDisplayValue(VCSlider *slider)
 {
     if (slider == nullptr)
@@ -1036,6 +1056,9 @@ QByteArray WebAccessQml::getVCJson()
     root["app"] = appObj;
     root["pixelDensity"] = m_vc->pixelDensity();
     root["selectedPage"] = m_vc->selectedPage();
+    QJsonObject uiStyle = loadUiStyleJson();
+    if (uiStyle.isEmpty() == false)
+        root["uiStyle"] = uiStyle;
 
     QJsonArray pages;
     for (int i = 0; i < m_vc->pagesCount(); i++)

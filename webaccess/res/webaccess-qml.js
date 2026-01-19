@@ -70,6 +70,7 @@ const state = {
 const vcRoot = document.getElementById("vcRoot");
 const pagesBar = document.getElementById("pagesBar");
 const wsStatus = document.getElementById("wsStatus");
+const brandTitle = document.querySelector(".brand-title");
 const appMeta = document.getElementById("appMeta");
 
 function updateWebPixelDensity() {
@@ -88,6 +89,45 @@ function updateWebPixelDensity() {
   root.style.setProperty("--list-item-height", `${(state.pixelDensity * 7).toFixed(2)}px`);
   root.style.setProperty("--medium-item-height", `${(state.pixelDensity * 15).toFixed(2)}px`);
   root.style.setProperty("--big-item-height", `${(state.pixelDensity * 25).toFixed(2)}px`);
+}
+
+function applyUiStyle(uiStyle) {
+  if (!uiStyle?.colors) return;
+  const root = document.documentElement;
+  const colors = uiStyle.colors;
+  const map = {
+    bgStronger: "--bg-stronger",
+    bgStrong: "--bg-strong",
+    bgMedium: "--bg-medium",
+    bgControl: "--bg-control",
+    bgLight: "--bg-light",
+    bgLighter: "--bg-lighter",
+    fgMain: "--fg-main",
+    fgMedium: "--fg-medium",
+    fgLight: "--fg-light",
+    sectionHeader: "--section-header",
+    sectionHeaderDiv: "--section-header-div",
+    highlight: "--highlight",
+    highlightPressed: "--highlight-pressed",
+    hover: "--hover",
+    selection: "--selection",
+    activeDropArea: "--active-drop",
+    borderColorDark: "--border-color-dark",
+    toolbarStartMain: "--toolbar-start",
+    toolbarStartSub: "--toolbar-start-sub",
+    toolbarEnd: "--toolbar-end",
+    toolbarHoverStart: "--toolbar-hover-start",
+    toolbarHoverEnd: "--toolbar-hover-end",
+    toolbarSelectionMain: "--toolbar-selection-main",
+    toolbarSelectionSub: "--toolbar-selection-sub",
+  };
+
+  Object.entries(map).forEach(([key, cssVar]) => {
+    const value = colors[key];
+    if (typeof value === "string" && value.length) {
+      root.style.setProperty(cssVar, value);
+    }
+  });
 }
 
 function setStatus(connected) {
@@ -1845,7 +1885,11 @@ function setSelectedPage(index) {
 
 function renderVC(vcData) {
   if (!vcData) return;
-  appMeta.textContent = `${vcData.app?.name || "QLC+"} ${vcData.app?.version || ""}`;
+  applyUiStyle(vcData.uiStyle);
+  const appName = vcData.app?.name || "QLC+";
+  const appVersion = vcData.app?.version || "";
+  if (brandTitle) brandTitle.textContent = appName;
+  appMeta.textContent = appVersion;
   renderPages(vcData);
 }
 
