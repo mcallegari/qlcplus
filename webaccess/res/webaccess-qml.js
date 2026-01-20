@@ -69,6 +69,8 @@ const state = {
 
 const vcRoot = document.getElementById("vcRoot");
 const pagesBar = document.getElementById("pagesBar");
+const pagesWrap = document.getElementById("pagesWrap");
+const pagesSelect = document.getElementById("pagesSelect");
 const wsStatus = document.getElementById("wsStatus");
 const brandTitle = document.querySelector(".brand-title");
 const appMeta = document.getElementById("appMeta");
@@ -131,8 +133,19 @@ function applyUiStyle(uiStyle) {
 }
 
 function setStatus(connected) {
-  wsStatus.textContent = connected ? "Connected" : "Disconnected";
+  wsStatus.textContent = "";
   wsStatus.classList.toggle("connected", connected);
+  wsStatus.classList.toggle("disconnected", !connected);
+  wsStatus.setAttribute("aria-label", connected ? "Connected" : "Disconnected");
+  wsStatus.title = connected ? "Connected" : "Disconnected";
+}
+
+function updatePagesCompact() {
+  if (!pagesWrap || !pagesBar || !pagesSelect) return;
+  const wasCompact = pagesWrap.classList.contains("is-compact");
+  if (wasCompact) pagesWrap.classList.remove("is-compact");
+  const needsCompact = pagesBar.scrollWidth > pagesBar.clientWidth + 4;
+  pagesWrap.classList.toggle("is-compact", needsCompact);
 }
 
 function sendMessage(msg) {
@@ -391,50 +404,19 @@ function renderLabel(widget) {
 function renderSlider(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-slider");
-  if (widget.widgetStyle === "Knob") root.classList.add("knob");
+  const isKnob = widget.widgetStyle === "Knob";
+  if (isKnob) root.classList.add("knob");
 
   const valueLabel = document.createElement("div");
   valueLabel.className = "slider-value";
   valueLabel.textContent = sliderDisplayValue(widget, widget.value);
 
-  const input = document.createElement("input");
-  input.type = "range";
-  input.min = widget.rangeLow ?? 0;
-  input.max = widget.rangeHigh ?? 255;
-  input.step = 1;
-  input.value = widget.value ?? 0;
-  input.className = "range-vertical";
-  const length = Math.max(60, widget.geometry.h - 50);
-  input.style.setProperty("--slider-length", `${length}px`);
-  const fillColor = widget.sliderMode === "Submaster" ? "#77dd73" : "#38b0ff";
-  input.style.setProperty("--slider-fill-color", fillColor);
-  input.style.setProperty("--slider-empty-color", "#888888");
-  const min = parseInt(input.min, 10);
-  const max = parseInt(input.max, 10);
-  const val = parseInt(input.value, 10);
-  const fill = max > min ? ((val - min) / (max - min)) * 100 : 0;
-  input.style.setProperty("--slider-fill", `${fill}%`);
-  let thumbGradient = "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)";
-  if (widget.sliderMode === "Submaster") {
-    thumbGradient = "linear-gradient(0deg, #4c4c4c 0%, #2c2c2c 45%, #000000 50%, #111111 55%, #131313 100%)";
-  } else if (widget.sliderMode === "GrandMaster") {
-    thumbGradient = "linear-gradient(0deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
-  }
-  input.style.setProperty("--slider-thumb-gradient", thumbGradient);
-  const iconSize = state.pixelDensity * 10;
-  const sliderWidth = widget.geometry.w;
-  const thumbWidth = Math.min(sliderWidth, iconSize * 0.75);
-  const thumbHeight = Math.min(iconSize, sliderWidth);
-  input.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-  input.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+  const min = widget.rangeLow ?? 0;
+  const max = widget.rangeHigh ?? 255;
 
-  input.addEventListener("input", () => {
-    const val = parseInt(input.value, 10);
-    valueLabel.textContent = sliderDisplayValue(widget, val);
-    const fill = max > min ? ((val - min) / (max - min)) * 100 : 0;
-    input.style.setProperty("--slider-fill", `${fill}%`);
-    sendWidgetValue(widget.id, val);
-  });
+  let input = null;
+  let knobState = null;
+  const fillColor = widget.sliderMode === "Submaster" ? "#77dd73" : "#38b0ff";
 
   const caption = document.createElement("div");
   caption.className = "slider-caption";
@@ -453,14 +435,138 @@ function renderSlider(widget) {
 
   const trackWrap = document.createElement("div");
   trackWrap.className = "slider-track";
-  trackWrap.appendChild(input);
+
+  if (!isKnob) {
+    input = document.createElement("input");
+    input.type = "range";
+    input.min = min;
+    input.max = max;
+    input.step = 1;
+    input.value = widget.value ?? min;
+    input.className = "range-vertical";
+    const length = Math.max(60, widget.geometry.h - 50);
+    input.style.setProperty("--slider-length", `${length}px`);
+    input.style.setProperty("--slider-fill-color", fillColor);
+    input.style.setProperty("--slider-empty-color", "#888888");
+    const minVal = parseInt(input.min, 10);
+    const maxVal = parseInt(input.max, 10);
+    const val = parseInt(input.value, 10);
+    const fill = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
+    input.style.setProperty("--slider-fill", `${fill}%`);
+    let thumbGradient = "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)";
+    if (widget.sliderMode === "Submaster") {
+      thumbGradient = "linear-gradient(0deg, #4c4c4c 0%, #2c2c2c 45%, #000000 50%, #111111 55%, #131313 100%)";
+    } else if (widget.sliderMode === "GrandMaster") {
+      thumbGradient = "linear-gradient(0deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
+    }
+    input.style.setProperty("--slider-thumb-gradient", thumbGradient);
+    const iconSize = state.pixelDensity * 10;
+    const sliderWidth = widget.geometry.w;
+    const thumbWidth = Math.min(sliderWidth, iconSize * 0.75);
+    const thumbHeight = Math.min(iconSize, sliderWidth);
+    input.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
+    input.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+
+    input.addEventListener("input", () => {
+      const val = parseInt(input.value, 10);
+      valueLabel.textContent = sliderDisplayValue(widget, val);
+      const fill = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
+      input.style.setProperty("--slider-fill", `${fill}%`);
+      sendWidgetValue(widget.id, val);
+    });
+
+    trackWrap.appendChild(input);
+  } else {
+    trackWrap.classList.add("slider-knob-track");
+    const dialKnob = document.createElement("div");
+    dialKnob.className = "speed-dial-knob slider-knob";
+    const dialIndicator = document.createElement("div");
+    dialIndicator.className = "speed-dial-indicator";
+    dialIndicator.style.setProperty("--dial-color", "#21be2b");
+    dialKnob.appendChild(dialIndicator);
+    trackWrap.appendChild(dialKnob);
+
+    const clampValue = (value) => Math.min(max, Math.max(min, value));
+    const updateKnobAngle = (value) => {
+      const ratio = max > min ? (value - min) / (max - min) : 0;
+      const angle = ratio * 360;
+      dialIndicator.style.setProperty("--dial-angle", `${angle}deg`);
+    };
+    const setKnobValue = (value, send) => {
+      const next = clampValue(Math.round(value));
+      knobState.value = next;
+      valueLabel.textContent = sliderDisplayValue(widget, next);
+      updateKnobAngle(next);
+      if (send) sendWidgetValue(widget.id, next);
+    };
+
+    knobState = {
+      el: dialKnob,
+      indicator: dialIndicator,
+      value: clampValue(widget.value ?? min),
+      lastDialValue: 0,
+      dragging: false,
+    };
+
+    const dialValueFromPointer = (ev) => {
+      const rect = dialKnob.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = ev.clientX - cx;
+      const dy = ev.clientY - cy;
+      let angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+      angle += 90;
+      if (angle < 0) angle += 360;
+      return Math.round((angle / 360) * 1000);
+    };
+
+    const applyKnobDelta = (newDialValue) => {
+      let delta = newDialValue - knobState.lastDialValue;
+      if (delta > 500) delta -= 1000;
+      else if (delta < -500) delta += 1000;
+      knobState.lastDialValue = newDialValue;
+      const range = max - min;
+      const next = knobState.value + (delta / 1000) * range;
+      setKnobValue(next, true);
+    };
+
+    dialKnob.addEventListener("pointerdown", (ev) => {
+      if (ev.button !== 0) return;
+      knobState.dragging = true;
+      dialKnob.setPointerCapture(ev.pointerId);
+      knobState.lastDialValue = dialValueFromPointer(ev);
+    });
+    dialKnob.addEventListener("pointermove", (ev) => {
+      if (!knobState.dragging) return;
+      applyKnobDelta(dialValueFromPointer(ev));
+    });
+    dialKnob.addEventListener("pointerup", (ev) => {
+      knobState.dragging = false;
+      dialKnob.releasePointerCapture(ev.pointerId);
+    });
+    dialKnob.addEventListener("pointercancel", () => {
+      knobState.dragging = false;
+    });
+    dialKnob.addEventListener("wheel", (ev) => {
+      ev.preventDefault();
+      const dir = ev.deltaY < 0 ? 1 : -1;
+      setKnobValue(knobState.value + dir, true);
+    });
+
+    setKnobValue(knobState.value, false);
+  }
 
   root.append(valueLabel, trackWrap, caption);
   if (resetBtn) root.appendChild(resetBtn);
-  state.widgets[widget.id] = { type: "slider", el: root, input, valueLabel, resetBtn, data: widget };
+  state.widgets[widget.id] = { type: "slider", el: root, input, valueLabel, resetBtn, data: widget, knobState };
   requestAnimationFrame(() => {
     const trackHeight = trackWrap.clientHeight || 40;
-    input.style.setProperty("--slider-length", `${trackHeight}px`);
+    if (input) input.style.setProperty("--slider-length", `${trackHeight}px`);
+    if (knobState) {
+      const trackWidth = trackWrap.clientWidth || trackHeight;
+      const knobSize = Math.max(40, Math.min(trackWidth, trackHeight));
+      trackWrap.style.setProperty("--knob-size", `${knobSize}px`);
+    }
   });
   return root;
 }
@@ -1810,6 +1916,15 @@ function applyFramePage(id, pageIndex) {
     const sliders = widget.content.querySelectorAll(".vc-slider");
     sliders.forEach((slider) => {
       const track = slider.querySelector(".slider-track");
+      const isKnob = slider.classList.contains("knob");
+      if (isKnob) {
+        if (!track) return;
+        const trackHeight = track.clientHeight || 40;
+        const trackWidth = track.clientWidth || trackHeight;
+        const knobSize = Math.max(40, Math.min(trackWidth, trackHeight));
+        track.style.setProperty("--knob-size", `${knobSize}px`);
+        return;
+      }
       const input = slider.querySelector('input[type="range"]');
       if (!track || !input) return;
       const trackHeight = track.clientHeight || 40;
@@ -1827,6 +1942,7 @@ function applyFramePage(id, pageIndex) {
 
 function renderPages(vcData) {
   pagesBar.innerHTML = "";
+  if (pagesSelect) pagesSelect.innerHTML = "";
   vcRoot.innerHTML = "";
   state.widgets = {};
 
@@ -1842,6 +1958,12 @@ function renderPages(vcData) {
       sendMessage(`VC_PAGE|${idx}`);
     });
     pagesBar.appendChild(tab);
+    if (pagesSelect) {
+      const option = document.createElement("option");
+      option.value = String(idx);
+      option.textContent = page.caption || `Page ${idx + 1}`;
+      pagesSelect.appendChild(option);
+    }
 
     const pageEl = document.createElement("div");
     pageEl.className = "vc-page";
@@ -1869,18 +1991,21 @@ function renderPages(vcData) {
   });
 
   setSelectedPage(state.selectedPage);
+  requestAnimationFrame(updatePagesCompact);
 }
 
 function setSelectedPage(index) {
   state.selectedPage = index;
   const tabs = pagesBar.querySelectorAll(".page-tab");
   tabs.forEach((tab, idx) => tab.classList.toggle("active", idx === index));
+  if (pagesSelect) pagesSelect.value = String(index);
 
   const pages = vcRoot.querySelectorAll(".vc-page");
   pages.forEach((pageEl) => {
     const idx = parseInt(pageEl.dataset.pageIndex, 10);
     pageEl.style.display = idx === index ? "" : "none";
   });
+  updatePagesCompact();
 }
 
 function renderVC(vcData) {
@@ -1907,13 +2032,22 @@ function updateButtonState(id, stateValue) {
 function updateSlider(id, value, displayValue) {
   const widget = state.widgets[id];
   if (!widget) return;
-  widget.input.value = value;
-  widget.valueLabel.textContent = displayValue || sliderDisplayValue(widget.data, parseInt(value, 10));
-  const min = parseInt(widget.input.min, 10);
-  const max = parseInt(widget.input.max, 10);
   const val = parseInt(value, 10);
-  const fill = max > min ? ((val - min) / (max - min)) * 100 : 0;
-  widget.input.style.setProperty("--slider-fill", `${fill}%`);
+  widget.valueLabel.textContent = displayValue || sliderDisplayValue(widget.data, val);
+  if (widget.input) {
+    widget.input.value = value;
+    const min = parseInt(widget.input.min, 10);
+    const max = parseInt(widget.input.max, 10);
+    const fill = max > min ? ((val - min) / (max - min)) * 100 : 0;
+    widget.input.style.setProperty("--slider-fill", `${fill}%`);
+  } else if (widget.knobState) {
+    const min = widget.data.rangeLow ?? 0;
+    const max = widget.data.rangeHigh ?? 255;
+    const ratio = max > min ? (val - min) / (max - min) : 0;
+    const angle = ratio * 360;
+    widget.knobState.value = val;
+    widget.knobState.indicator.style.setProperty("--dial-angle", `${angle}deg`);
+  }
 }
 
 function updateAudioState(id, enabled) {
@@ -2238,12 +2372,23 @@ function connect() {
 
 window.addEventListener("load", () => {
   updateWebPixelDensity();
-  window.addEventListener("resize", () => updateWebPixelDensity());
+  window.addEventListener("resize", () => {
+    updateWebPixelDensity();
+    updatePagesCompact();
+  });
   document.getElementById("loadProjectBtn").addEventListener("click", () => {
     document.getElementById("loadTrigger").click();
   });
   document.getElementById("loadTrigger").addEventListener("change", () => {
     document.getElementById("submitTrigger").click();
   });
+  if (pagesSelect) {
+    pagesSelect.addEventListener("change", () => {
+      const idx = parseInt(pagesSelect.value, 10);
+      if (Number.isNaN(idx)) return;
+      setSelectedPage(idx);
+      sendMessage(`VC_PAGE|${idx}`);
+    });
+  }
   connect();
 });
