@@ -155,6 +155,7 @@ void PreviewContext::setDetached(bool detached)
         m_view->rootContext()->setContextProperty("fixtureGroupEditor", m_mainView->rootContext()->contextProperty("fixtureGroupEditor"));
         m_view->rootContext()->setContextProperty("functionManager", m_mainView->rootContext()->contextProperty("functionManager"));
         m_view->rootContext()->setContextProperty("contextManager", m_mainView->rootContext()->contextProperty("contextManager"));
+        m_view->rootContext()->setContextProperty("paletteManager", m_mainView->rootContext()->contextProperty("paletteManager"));
         m_view->rootContext()->setContextProperty("virtualConsole", m_mainView->rootContext()->contextProperty("virtualConsole"));
         m_view->rootContext()->setContextProperty("showManager", m_mainView->rootContext()->contextProperty("showManager"));
         m_view->rootContext()->setContextProperty("simpleDesk", m_mainView->rootContext()->contextProperty("simpleDesk"));
