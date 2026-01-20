@@ -1,6 +1,5 @@
 #!/bin/bash
-#VERSION=$(head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/')
-VERSION=$(grep -m 1 APPVERSION variables.pri | cut -d '=' -f 2 | sed -e 's/^[[:space:]]*//' | tr ' ' _ | tr -d '\r\n')
+
 APP_DIR=/c/qlcplus
 ROOT_DIR=$PWD
 
