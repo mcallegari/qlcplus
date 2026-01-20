@@ -7,6 +7,8 @@ set(WEBFILES
     networkconfig.js
     simpledesk.css
     simpledesk.js
+    simpledesk-qml.css
+    simpledesk-qml.js
     virtualconsole.css
     virtualconsole.js
     webaccess-qml.css

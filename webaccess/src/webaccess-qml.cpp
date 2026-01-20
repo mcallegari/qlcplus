@@ -162,6 +162,80 @@ static void logWidgetTree(VCWidget *widget, int depth)
         logWidgetTree(child, depth + 1);
 }
 
+static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
+{
+    if (doc == nullptr || sd == nullptr)
+        return QString();
+
+    int uni = sd->getCurrentUniverseIndex() + 1;
+    int page = sd->getCurrentPage();
+
+    QString JScode = "<script src=\"simpledesk-qml.js\"></script>\n";
+    JScode += "<script>\n";
+    JScode += "var currentUniverse = " + QString::number(uni) + ";\n";
+    JScode += "var currentPage = " + QString::number(page) + ";\n";
+    JScode += "var channelsPerPage = " + QString::number(sd->getSlidersNumber()) + ";\n";
+    JScode += "</script>\n";
+
+    QString CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"webaccess-qml.css\">\n";
+    CSScode += "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"simpledesk-qml.css\">\n";
+
+    QString bodyHTML = "<div id=\"app\">\n"
+                       "<header class=\"topbar\">\n"
+                       "<div class=\"brand\">\n"
+                       "<div class=\"brand-title\">" + QObject::tr("Simple Desk") + "</div>\n"
+                       "<div class=\"brand-sub\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>\n"
+                       "</div>\n"
+                       "<div class=\"sd-topbar-center\">\n"
+                       "<div class=\"sd-section\">\n"
+                       "<div class=\"sd-label\">" + QObject::tr("Universe") + "</div>\n"
+                       "<select class=\"sd-select\" id=\"universeSelect\">\n";
+
+    QStringList uniList = doc->inputOutputMap()->universeNames();
+    for (int i = 0; i < uniList.count(); i++)
+    {
+        QString selected = (i + 1 == uni) ? " selected" : "";
+        bodyHTML += "<option value=\"" + QString::number(i) + "\"" + selected + ">"
+                + uniList.at(i) + "</option>\n";
+    }
+
+    bodyHTML += "</select>\n"
+                "</div>\n"
+                "<button class=\"nav-btn\" id=\"resetUniverseBtn\" type=\"button\">"
+                + QObject::tr("Reset universe") + "</button>\n"
+                "<div class=\"sd-section\">\n"
+                "<div class=\"sd-label\">" + QObject::tr("Faders") + "</div>\n"
+                "<select class=\"sd-select\" id=\"fadersSelect\">\n"
+                "<option value=\"8\">8</option>\n"
+                "<option value=\"16\">16</option>\n"
+                "<option value=\"24\">24</option>\n"
+                "<option value=\"32\">32</option>\n"
+                "<option value=\"48\">48</option>\n"
+                "<option value=\"64\">64</option>\n"
+                "</select>\n"
+                "</div>\n"
+                "<div class=\"sd-section\">\n"
+                "<div class=\"sd-label\">" + QObject::tr("Page") + "</div>\n"
+                "<button class=\"nav-btn\" id=\"pagePrev\" type=\"button\">&#x2039;</button>\n"
+                "<div class=\"sd-page-display\" id=\"pageDisplay\">" + QString::number(page) + "</div>\n"
+                "<button class=\"nav-btn\" id=\"pageNext\" type=\"button\">&#x203a;</button>\n"
+                "</div>\n"
+                "</div>\n"
+                "<div class=\"topbar-right\">\n"
+                "<div class=\"actions\">\n"
+                "<a class=\"nav-btn\" href=\"/\">" + QObject::tr("Back") + "</a>\n"
+                "<a class=\"nav-btn\" href=\"/keypad.html\">DMX Keypad</a>\n"
+                "</div>\n"
+                "</div>\n"
+                "</header>\n"
+                "<main class=\"sd-stage\">\n"
+                "<div class=\"sd-sliders\" id=\"slidersContainer\"></div>\n"
+                "</main>\n"
+                "</div>\n";
+
+    return QString(HTML_HEADER) + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+}
+
 WebAccessQml::WebAccessQml(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
                            int portNumber, bool enableAuth, QString passwdFile, QObject *parent)
     : WebAccessBase(doc, vcInstance, sdInstance, portNumber, enableAuth, passwdFile, parent)
@@ -208,6 +282,14 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
         QString qrcPath = ":/" + reqUrl.mid(5);
         if (sendFile(resp, qrcPath, mimeTypeForPath(qrcPath)))
             return;
+    }
+    else if (reqUrl == "/simpleDesk")
+    {
+        if (!requireAuthLevel(resp, user, SIMPLE_DESK_AND_VC_LEVEL))
+            return;
+        content = getSimpleDeskQmlHtml(m_doc, m_sd);
+        sendHtmlResponse(resp, content);
+        return;
     }
     CommonRequestResult commonResult = handleCommonHTTPRequest(req, resp, user, reqUrl, content);
     if (commonResult == CommonRequestResult::Handled)
