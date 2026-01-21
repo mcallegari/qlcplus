@@ -109,6 +109,7 @@ public:
     int getCurrentUniverseIndex();
     int getCurrentPage();
     uchar getAbsoluteChannelValue(uint address);
+    bool isChannelOverridden(uint address);
     void setAbsoluteChannelValue(uint address, uchar value);
     void resetChannel(quint32 address);
     void resetUniverse();

@@ -34,6 +34,7 @@
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
+#include <QFileInfo>
 #include <unistd.h>
 
 #include "app.h"
@@ -398,6 +399,16 @@ Doc *App::doc()
     return m_doc;
 }
 
+VirtualConsole *App::virtualConsole() const
+{
+    return m_virtualConsole;
+}
+
+SimpleDesk *App::simpleDesk() const
+{
+    return m_simpleDesk;
+}
+
 bool App::docLoaded()
 {
     return m_docLoaded;
@@ -748,6 +759,14 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
         loadXML(doc, true, true);
     else
         qDebug() << "XML doesn't have a Workspace tag";
+}
+
+void App::slotSaveAutostart(QString fileName)
+{
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
+    QFile::FileError error = saveXML(fileName);
+    if (error != QFile::NoError)
+        qWarning() << Q_FUNC_INFO << "Unable to save autostart project" << fileName << error;
 }
 
 bool App::saveWorkspace(const QString &fileName)

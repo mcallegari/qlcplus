@@ -107,6 +107,15 @@ public:
     /** Reset the value of the specified channel */
     Q_INVOKABLE void resetChannel(uint channel);
 
+    /** Web access helpers (absolute address based) */
+    int getSlidersNumber() const;
+    int getCurrentUniverseIndex() const;
+    int getCurrentPage() const;
+    uchar getAbsoluteChannelValue(uint address) const;
+    bool isChannelOverridden(uint address);
+    void setAbsoluteChannelValue(uint address, uchar value);
+    void resetAbsoluteChannel(uint address);
+
 protected slots:
     /** Invoked by the QLC+ engine to inform the UI that the
      *  Universe at $idx has changed */

@@ -37,6 +37,7 @@
 #define UserRoleChannelOverride (Qt::UserRole + 5)
 
 #define MAX_KEYPAD_HISTORY      10
+#define WEB_SD_CHANNELS_PER_PAGE 32
 
 SimpleDesk::SimpleDesk(QQuickView *view, Doc *doc,
                        FunctionManager *funcMgr, QObject *parent)
@@ -301,6 +302,92 @@ void SimpleDesk::resetChannel(uint channel)
 
     Tardis::instance()->enqueueAction(Tardis::SimpleDeskResetChannel, 0, currentVal, currentVal);
 
+    setChanged(true);
+}
+
+int SimpleDesk::getSlidersNumber() const
+{
+    return WEB_SD_CHANNELS_PER_PAGE;
+}
+
+int SimpleDesk::getCurrentUniverseIndex() const
+{
+    return int(m_universeFilter);
+}
+
+int SimpleDesk::getCurrentPage() const
+{
+    return 1;
+}
+
+uchar SimpleDesk::getAbsoluteChannelValue(uint address) const
+{
+    QMutexLocker locker(&m_mutex);
+    if (m_values.contains(address))
+        return m_values.value(address);
+
+    locker.unlock();
+
+    if (address >= (m_doc->inputOutputMap()->universesCount() * 512))
+        return 0;
+
+    QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+    int uni = address >> 9;
+    uint channel = address & 0x01FF;
+    if (uni >= ua.count())
+    {
+        m_doc->inputOutputMap()->releaseUniverses(false);
+        return 0;
+    }
+    uchar value = ua.at(uni)->preGMValue(channel);
+    m_doc->inputOutputMap()->releaseUniverses(false);
+    return value;
+}
+
+bool SimpleDesk::isChannelOverridden(uint address)
+{
+    QMutexLocker locker(&m_mutex);
+    return m_values.contains(address);
+}
+
+void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
+{
+    if (address >= (m_doc->inputOutputMap()->universesCount() * 512))
+        return;
+
+    QMutexLocker locker(&m_mutex);
+    m_values[address] = value;
+
+    int uni = address >> 9;
+    uint channel = address & 0x01FF;
+    if (uni == int(m_universeFilter))
+    {
+        QModelIndex mIndex = m_channelList->index(int(channel), 0, QModelIndex());
+        m_channelList->setData(mIndex, value, UserRoleChannelValue);
+        m_channelList->setData(mIndex, true, UserRoleChannelOverride);
+    }
+
+    setChanged(true);
+}
+
+void SimpleDesk::resetAbsoluteChannel(uint address)
+{
+    QMutexLocker locker(&m_mutex);
+    if (m_values.contains(address) == false)
+        return;
+
+    m_values.remove(address);
+
+    int uni = address >> 9;
+    uint channel = address & 0x01FF;
+    if (uni == int(m_universeFilter))
+    {
+        QModelIndex mIndex = m_channelList->index(int(channel), 0, QModelIndex());
+        m_channelList->setData(mIndex, 0, UserRoleChannelValue);
+        m_channelList->setData(mIndex, false, UserRoleChannelOverride);
+    }
+
+    m_commandQueue.append(QPair<int,quint32>(ResetChannel, address));
     setChanged(true);
 }
 
@@ -599,4 +686,3 @@ void SimpleDesk::writeDMX(MasterTimer *timer, QList<Universe *> ua)
         setChanged(false);
     }
 }
-

@@ -94,7 +94,9 @@ function drawPage(data) {
  var cObj = document.getElementById("slidersContainer");
  var code = "";
  var cVars = data.split("|");
- for (i = 2; i < cVars.length; i+=3) {
+ var payloadSize = cVars.length - 2;
+ var stride = payloadSize % 4 === 0 ? 4 : 3;
+ for (i = 2; i < cVars.length; i+=stride) {
      var chNum = parseInt(cVars[i]);
      code += "<div class='sdSlider' style='width: 36px; height: 372px; background-color: #aaa; margin-left:2px;'>";
      code += getSliderTopCode(cVars[i + 2]);

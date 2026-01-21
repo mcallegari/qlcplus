@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QLC+ Web Interface</title>
+  <link rel="stylesheet" href="webaccess-v5.css">
+</head>
+<body>
+  <div id="app">
+    <form id="loadForm" action="/loadProject" method="POST" enctype="multipart/form-data">
+      <input id="loadTrigger" type="file" name="qlcprj">
+      <input id="submitTrigger" type="submit">
+    </form>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-title">QLC+ Web Interface</div>
+        <div class="brand-sub" id="appMeta"></div>
+      </div>
+      <div class="pages-wrap" id="pagesWrap">
+        <nav class="pages" id="pagesBar"></nav>
+        <select class="pages-select" id="pagesSelect" aria-label="Pages"></select>
+      </div>
+      <div class="topbar-right">
+        <div class="actions">
+          <button class="nav-btn" id="loadProjectBtn" type="button">Load project</button>
+          <a class="nav-btn" href="/simpleDesk">Simple Desk</a>
+          <a class="nav-btn" href="/config">Configuration</a>
+        </div>
+        <div class="status disconnected" id="wsStatus" aria-label="Disconnected" title="Disconnected"></div>
+      </div>
+    </header>
+
+    <main class="vc-stage" id="vcRoot"></main>
+  </div>
+  <script src="webaccess-v5.js"></script>
+</body>
+</html>

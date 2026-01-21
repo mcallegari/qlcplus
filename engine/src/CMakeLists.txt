@@ -148,6 +148,7 @@ endif()
 
 if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_compile_definitions(${module_name} PUBLIC HAS_FFTW3)
+    target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
     target_link_directories(${module_name} PUBLIC ${FFTW3_LIBRARY_DIRS})
     target_link_libraries(${module_name} PUBLIC ${FFTW3_LIBRARIES})
 endif()

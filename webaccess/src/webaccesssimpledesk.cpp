@@ -121,7 +121,8 @@ QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
             }
         }
 
-        message.append(QString("%1|%2|%3|").arg(i + 1).arg(value).arg(type));
+        int isOverride = sd->isChannelOverridden(universeAddr + i) ? 1 : 0;
+        message.append(QString("%1|%2|%3|%4|").arg(i + 1).arg(value).arg(type).arg(isOverride));
     }
     // remove trailing separator
     message.truncate(message.length() - 1);

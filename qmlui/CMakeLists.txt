@@ -124,6 +124,11 @@ target_include_directories(${module_name} PRIVATE
 )
 target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
 
+target_compile_definitions(${module_name} PRIVATE
+    NO_SSL
+    USE_WEBSOCKET
+)
+
 target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::3DCore
     Qt${QT_MAJOR_VERSION}::3DInput
@@ -135,12 +140,15 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
     Qt${QT_MAJOR_VERSION}::MultimediaWidgets
+    Qt${QT_MAJOR_VERSION}::Network
     Qt${QT_MAJOR_VERSION}::PrintSupport
     Qt${QT_MAJOR_VERSION}::Qml
     Qt${QT_MAJOR_VERSION}::Quick
     Qt${QT_MAJOR_VERSION}::Svg
     Qt${QT_MAJOR_VERSION}::Widgets
+    Qt${QT_MAJOR_VERSION}::WebSockets
     qlcplusengine
+    qlcpluswebaccess
 )
 
 if(ANDROID)
