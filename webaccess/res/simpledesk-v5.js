@@ -1,5 +1,20 @@
 /*
-  QLC+ Simple Desk (QML look)
+  Q Light Controller Plus
+  simpledesk-v5.js
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 var websocket;
@@ -70,7 +85,7 @@ function requestPage() {
   sendMessage("QLC+API|getChannelsValues|" + currentUniverse + "|" + address + "|" + channelsPerPage);
 }
 
-function applyChannelValue(chNum, value) {
+function applyChannelValue(chNum, value, isOverriding) {
   var input = document.getElementById(String(chNum));
   if (!input) return;
   input.value = value;
@@ -78,7 +93,19 @@ function applyChannelValue(chNum, value) {
   var labelObj = document.getElementById("sdslv" + chNum);
   if (labelObj) labelObj.textContent = value;
   var slider = input.closest(".sd-slider");
-  if (slider) slider.classList.toggle("is-active", value > 0);
+  if (slider) slider.classList.toggle("is-active", !!isOverriding);
+}
+
+function applyChannelType(chNum, type) {
+  var input = document.getElementById(String(chNum));
+  if (!input) return;
+  var slider = input.closest(".sd-slider");
+  if (!slider) return;
+  var topNode = slider.querySelector(".sd-top, .sd-top-icon, .sd-top-color");
+  if (!topNode) return;
+  var prevType = topNode.getAttribute("data-type");
+  if (prevType === type) return;
+  topNode.outerHTML = getTopMarkup(type);
 }
 
 function connect() {
@@ -113,7 +140,9 @@ function connect() {
 function drawPage(data) {
   var cVars = data.split("|");
   var html = "";
-  var total = (cVars.length - 2) / 3;
+  var payloadSize = cVars.length - 2;
+  var stride = payloadSize % 4 === 0 ? 4 : 3;
+  var total = stride > 0 ? payloadSize / stride : 0;
   var firstChannel = total > 0 ? parseInt(cVars[2], 10) : null;
   var hasLayout =
     slidersContainer.childElementCount === total &&
@@ -121,20 +150,22 @@ function drawPage(data) {
     firstChannel !== null &&
     lastStartChannel === firstChannel &&
     lastChannelCount === total;
-  for (var i = 2; i < cVars.length; i += 3) {
+  for (var i = 2; i < cVars.length; i += stride) {
     var chNum = parseInt(cVars[i], 10);
     var value = parseInt(cVars[i + 1], 10);
     var type = cVars[i + 2] || "";
+    var isOverriding = stride === 4 ? (cVars[i + 3] === "1" || cVars[i + 3] === "true") : false;
     if (!hasLayout) {
-      html += "<div class='vc-slider sd-slider' data-ch='" + chNum + "'>";
-      html += getTopMarkup(type);
+      html += "<div class='vc-slider sd-slider" + (isOverriding ? " is-active" : "") + "' data-ch='" + chNum + "'>";
+      html += getTopMarkup(type).replace(/>$/, " data-type=\"" + type + "\">");
       html += "<div id='sdslv" + chNum + "' class='slider-value'>" + value + "</div>";
       html += "<div class='slider-track'><input type='range' class='range-vertical sd-range' id='" + chNum + "' min='0' max='255' step='1' value='" + value + "'></div>";
       html += "<div id='sdsln" + chNum + "' class='slider-caption'>" + chNum + "</div>";
       html += "<button class='slider-reset-btn sd-reset-btn' data-ch='" + chNum + "' type='button'>x</button>";
       html += "</div>";
     } else {
-      applyChannelValue(chNum, value);
+      applyChannelValue(chNum, value, isOverriding);
+      applyChannelType(chNum, type);
     }
   }
   if (!hasLayout) {
@@ -171,18 +202,18 @@ function drawPage(data) {
 
 function getTopMarkup(type) {
   if (!type) {
-    return "<div class='sd-top sd-top-empty'></div>";
+    return "<div class='sd-top sd-top-empty' data-type=''></div>";
   }
   var aType = type.split(".");
   if (aType.length > 1) {
     var color = aType[1];
     if (color === "#000000") {
-      return "<div class='sd-top sd-top-icon'><img src='/qrc/intensity.svg' alt=''></div>";
+      return "<div class='sd-top sd-top-icon' data-type='" + type + "'><img src='/qrc/intensity.svg' alt=''></div>";
     }
-    return "<div class='sd-top sd-top-color' style='background:" + color + ";'></div>";
+    return "<div class='sd-top sd-top-color' data-type='" + type + "' style='background:" + color + ";'></div>";
   }
   var icon = GROUP_ICONS[parseInt(type, 10)] || "other";
-  return "<div class='sd-top sd-top-icon'><img src='/qrc/" + icon + ".svg' alt=''></div>";
+  return "<div class='sd-top sd-top-icon' data-type='" + type + "'><img src='/qrc/" + icon + ".svg' alt=''></div>";
 }
 
 function nextPage() {

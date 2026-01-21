@@ -344,6 +344,12 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address) const
     return value;
 }
 
+bool SimpleDesk::isChannelOverridden(uint address)
+{
+    QMutexLocker locker(&m_mutex);
+    return m_values.contains(address);
+}
+
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
     if (address >= (m_doc->inputOutputMap()->universesCount() * 512))

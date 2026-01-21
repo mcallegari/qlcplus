@@ -136,6 +136,38 @@ static QString mimeTypeForPath(const QString &path)
     return "application/octet-stream";
 }
 
+static bool isWidgetVisibleForWeb(VCWidget *widget, VirtualConsole *vc)
+{
+    if (widget == nullptr || vc == nullptr)
+        return false;
+    if (widget->isVisible() == false)
+        return false;
+
+    QObject *obj = widget;
+    const VCPage *pageParent = nullptr;
+    while (obj != nullptr)
+    {
+        VCWidget *childWidget = qobject_cast<VCWidget *>(obj);
+        VCFrame *frameParent = qobject_cast<VCFrame *>(obj->parent());
+        if (childWidget != nullptr && frameParent != nullptr && frameParent->multiPageMode())
+        {
+            if (childWidget->page() != frameParent->currentPage())
+                return false;
+        }
+
+        const VCPage *page = qobject_cast<const VCPage *>(obj);
+        if (page != nullptr)
+            pageParent = page;
+
+        obj = obj->parent();
+    }
+
+    if (pageParent != nullptr)
+        return pageParent == vc->page(vc->selectedPage());
+
+    return true;
+}
+
 static void logWidgetTree(VCWidget *widget, int depth)
 {
     if (widget == nullptr)
@@ -170,15 +202,15 @@ static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
     int uni = sd->getCurrentUniverseIndex() + 1;
     int page = sd->getCurrentPage();
 
-    QString JScode = "<script src=\"simpledesk-qml.js\"></script>\n";
+    QString JScode = "<script src=\"simpledesk-v5.js\"></script>\n";
     JScode += "<script>\n";
     JScode += "var currentUniverse = " + QString::number(uni) + ";\n";
     JScode += "var currentPage = " + QString::number(page) + ";\n";
     JScode += "var channelsPerPage = " + QString::number(sd->getSlidersNumber()) + ";\n";
     JScode += "</script>\n";
 
-    QString CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"webaccess-qml.css\">\n";
-    CSScode += "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"simpledesk-qml.css\">\n";
+    QString CSScode = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"webaccess-v5.css\">\n";
+    CSScode += "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"simpledesk-v5.css\">\n";
 
     QString bodyHTML = "<div id=\"app\">\n"
                        "<header class=\"topbar\">\n"
@@ -300,9 +332,9 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
         return;
     }
 
-    if (serveWebFile(resp, "/webaccess-qml.html", "text/html"))
+    if (serveWebFile(resp, "/webaccess-v5.html", "text/html"))
         return;
-    content = QString(HTML_HEADER) + "</head><body>Missing webaccess-qml.html</body></html>";
+    content = QString(HTML_HEADER) + "</head><body>Missing webaccess-v5.html</body></html>";
     sendHtmlResponse(resp, content);
 }
 
@@ -349,7 +381,7 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
             m_vc->setSelectedPage(cmdList[1].toInt());
         return;
     }
-    if (handleCommonWebSocketCommand(conn, user, cmdList, "[webaccess-qml]", true))
+    if (handleCommonWebSocketCommand(conn, user, cmdList, "[webaccess-v5]", true))
         return;
     else if (cmdList[0] == "QLC+API")
     {
@@ -1512,6 +1544,8 @@ void WebAccessQml::slotClockTimeChanged(int time)
 {
     VCClock *clock = qobject_cast<VCClock *>(sender());
     if (clock == nullptr)
+        return;
+    if (isWidgetVisibleForWeb(clock, m_vc) == false)
         return;
 
     QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
