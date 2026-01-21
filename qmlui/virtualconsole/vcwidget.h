@@ -53,6 +53,7 @@
 #define KXMLQLCWindowStateY         QStringLiteral("Y")
 #define KXMLQLCWindowStateWidth     QStringLiteral("Width")
 #define KXMLQLCWindowStateHeight    QStringLiteral("Height")
+#define KXMLQLCWindowStateZ         QStringLiteral("Z")
 
 #define KXMLQLCVCWidgetKey                  QStringLiteral("Key")
 #define KXMLQLCVCWidgetInput                QStringLiteral("Input")
@@ -83,6 +84,7 @@ class VCWidget : public QObject
     Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+    Q_PROPERTY(int zIndex READ zIndex WRITE setZIndex NOTIFY zIndexChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
     Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY isVisibleChanged)
@@ -221,6 +223,19 @@ signals:
 protected:
     QRectF m_geometry;
     qreal m_scaleFactor;
+
+    /*********************************************************************
+     * Z-Index
+     *********************************************************************/
+public:
+    int zIndex() const;
+    void setZIndex(int zIndex);
+
+signals:
+    void zIndexChanged(int zIndex);
+
+protected:
+    int m_zIndex;
 
     /*********************************************************************
      * Allow resize

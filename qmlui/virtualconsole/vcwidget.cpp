@@ -34,6 +34,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_type(UnknownWidget)
     , m_geometry(QRect(0,0,0,0))
     , m_scaleFactor(1.0)
+    , m_zIndex(0)
     , m_allowResize(true)
     , m_isDisabled(false)
     , m_isVisible(true)
@@ -123,6 +124,7 @@ bool VCWidget::copyFrom(const VCWidget* widget)
 
     setGeometry(widget->geometry());
     setCaption(widget->caption());
+    setZIndex(widget->zIndex());
 
     m_allowResize = widget->m_allowResize;
 
@@ -277,6 +279,22 @@ void VCWidget::setGeometry(QRectF rect)
     m_geometry = scaled;
 
     emit geometryChanged();
+}
+
+int VCWidget::zIndex() const
+{
+    return m_zIndex;
+}
+
+void VCWidget::setZIndex(int zIndex)
+{
+    if (m_zIndex == zIndex)
+        return;
+
+    enqueueTardisAction(Tardis::VCWidgetZIndex, QVariant(m_zIndex), QVariant(zIndex));
+
+    m_zIndex = zIndex;
+    emit zIndexChanged(zIndex);
 }
 
 qreal VCWidget::scaleFactor() const
@@ -1209,6 +1227,8 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
         *y = attrs.value(KXMLQLCWindowStateY).toInt();
         *w = attrs.value(KXMLQLCWindowStateWidth).toInt();
         *h = attrs.value(KXMLQLCWindowStateHeight).toInt();
+        if (attrs.hasAttribute(KXMLQLCWindowStateZ))
+            setZIndex(attrs.value(KXMLQLCWindowStateZ).toInt());
 
         if (attrs.value(KXMLQLCWindowStateVisible).toString() == KXMLQLCTrue)
             *visible = true;
@@ -1423,6 +1443,8 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCWindowStateY, QString::number((int)r.y()));
     doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number((int)r.width()));
     doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number((int)r.height()));
+    if (zIndex() != 0)
+        doc->writeAttribute(KXMLQLCWindowStateZ, QString::number(zIndex()));
 
     doc->writeEndElement();
 
@@ -1533,5 +1555,4 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool
 
     return true;
 }
-
 

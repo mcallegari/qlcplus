@@ -32,6 +32,7 @@ Rectangle
     color: wObj ? wObj.backgroundColor : "darkgray"
     border.width: 2
     border.color: UISettings.bgLight
+    z: wObj ? wObj.zIndex : 0
     visible: wObj ? wObj.isVisible : true
 
     property VCWidget wObj: null

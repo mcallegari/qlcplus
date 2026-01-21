@@ -189,6 +189,7 @@ public:
         VCWidgetForegroundColor,
         VCWidgetFont,
         VCWidgetPage,
+        VCWidgetZIndex,
 
         VCButtonSetActionType,
         VCButtonSetFunctionID,

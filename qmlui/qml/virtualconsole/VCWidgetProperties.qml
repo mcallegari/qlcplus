@@ -410,6 +410,26 @@ Rectangle
                         // row 6
                         RobotoText
                         {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Z-Index")
+                            visible: selectedWidgetsCount < 2
+                        }
+
+                        CustomSpinBox
+                        {
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            from: -1000
+                            to: 1000
+                            value: wObj ? wObj.zIndex : 0
+                            visible: selectedWidgetsCount < 2
+
+                            onValueChanged: if (wObj) wObj.zIndex = value
+                        }
+
+                        // row 7
+                        RobotoText
+                        {
                             visible: selectedWidgetsCount > 1 ? true : false
                             label: qsTr("Alignment")
                         }

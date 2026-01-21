@@ -1276,6 +1276,12 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
         }
         break;
+        case VCWidgetZIndex:
+        {
+            auto member = std::mem_fn(&VCWidget::setZIndex);
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toInt());
+        }
+        break;
 
         case VCButtonSetActionType:
         {
@@ -1374,5 +1380,4 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     return action.m_action;
 }
-
 
