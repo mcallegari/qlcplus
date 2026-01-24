@@ -129,43 +129,76 @@ target_compile_definitions(${module_name} PRIVATE
     USE_WEBSOCKET
 )
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT DEFINED ENV{QTDIR} AND QT_VERSION_MAJOR EQUAL 6)
-    function(_qt6_strip_bad_qt_inc tgt)
-        if(TARGET "${tgt}")
-            set(_props INTERFACE_INCLUDE_DIRECTORIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES)
-            get_target_property(_configs "${tgt}" IMPORTED_CONFIGURATIONS)
-            if(_configs AND NOT _configs STREQUAL "IMPORTED_CONFIGURATIONS-NOTFOUND")
-                foreach(cfg IN LISTS _configs)
-                    list(APPEND _props "INTERFACE_INCLUDE_DIRECTORIES_${cfg}" "INTERFACE_SYSTEM_INCLUDE_DIRECTORIES_${cfg}")
+# Workaround a nasty Debian/Ubuntu Qt3d packaging issue where
+# a non existent path would break the cmake initialization 
+set(_qt6_3d_modules 3DCore 3DInput 3DQuick 3DQuickExtras 3DRender 3DExtras)
+set(_qt6_3d_link "")
+foreach(_m IN LISTS _qt6_3d_modules)
+    list(APPEND _qt6_3d_link "Qt${QT_MAJOR_VERSION}::${_m}")
+endforeach()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND QT_MAJOR_VERSION EQUAL 6 AND (NOT DEFINED ENV{QTDIR} OR "$ENV{QTDIR}" STREQUAL ""))
+    set(_qt6_base "")
+    get_target_property(_qt6_core_incs Qt6::Core INTERFACE_INCLUDE_DIRECTORIES)
+    if(_qt6_core_incs AND NOT _qt6_core_incs MATCHES "-NOTFOUND$")
+        foreach(inc IN LISTS _qt6_core_incs)
+            if(inc MATCHES "/qt6$")
+                set(_qt6_base "${inc}")
+                break()
+            elseif(inc MATCHES "/qt6/QtCore$")
+                get_filename_component(_qt6_base "${inc}" DIRECTORY)
+                break()
+            endif()
+        endforeach()
+    endif()
+    if(_qt6_base)
+        target_include_directories(${module_name} PRIVATE
+            ${_qt6_base}
+        )
+        foreach(_m IN LISTS _qt6_3d_modules)
+            target_include_directories(${module_name} PRIVATE
+                ${_qt6_base}/Qt${_m}
+            )
+        endforeach()
+        function(_qt6_get_imported_location tgt outvar)
+            set(_loc "")
+            if(CMAKE_BUILD_TYPE)
+                string(TOUPPER "${CMAKE_BUILD_TYPE}" _cfg)
+                get_target_property(_loc "${tgt}" "IMPORTED_LOCATION_${_cfg}")
+            endif()
+            if(NOT _loc OR _loc MATCHES "-NOTFOUND$")
+                get_target_property(_loc "${tgt}" "IMPORTED_LOCATION")
+            endif()
+            if(NOT _loc OR _loc MATCHES "-NOTFOUND$")
+                foreach(_cfg IN ITEMS RELEASE RELWITHDEBINFO MINSIZEREL DEBUG)
+                    get_target_property(_loc "${tgt}" "IMPORTED_LOCATION_${_cfg}")
+                    if(_loc AND NOT _loc MATCHES "-NOTFOUND$")
+                        break()
+                    endif()
                 endforeach()
             endif()
-            foreach(prop IN LISTS _props)
-                get_target_property(incs "${tgt}" "${prop}")
-                if(incs AND NOT incs STREQUAL "incs-NOTFOUND")
-                    set(newIncs "${incs}")
-                    list(FILTER newIncs EXCLUDE REGEX "/Qt[A-Za-z0-9]+/[0-9]+\\.[0-9]+\\.[0-9]+")
-                    set_property(TARGET "${tgt}" PROPERTY "${prop}" "${newIncs}")
+            if(_loc AND NOT _loc MATCHES "-NOTFOUND$")
+                set(${outvar} "${_loc}" PARENT_SCOPE)
+            else()
+                set(${outvar} "" PARENT_SCOPE)
+            endif()
+        endfunction()
+        set(_qt6_3d_link "")
+        foreach(_m IN LISTS _qt6_3d_modules)
+            set(_tgt "Qt6::${_m}")
+            if(TARGET "${_tgt}")
+                _qt6_get_imported_location("${_tgt}" _loc)
+                if(_loc)
+                    list(APPEND _qt6_3d_link "${_loc}")
+                else()
+                    list(APPEND _qt6_3d_link "${_tgt}")
                 endif()
-            endforeach()
-        endif()
-    endfunction()
-
-    get_target_property(_deps Qt6::3DQuick INTERFACE_LINK_LIBRARIES)
-    foreach(d IN LISTS _deps)
-        if(d MATCHES "^Qt6::")
-            _qt6_strip_bad_qt_inc("${d}")
-        endif()
-    endforeach()
-    _qt6_strip_bad_qt_inc(Qt6::3DQuick)
+            endif()
+        endforeach()
+    endif()
 endif()
 
 target_link_libraries(${module_name} PRIVATE
-    Qt${QT_MAJOR_VERSION}::3DCore
-    Qt${QT_MAJOR_VERSION}::3DInput
-    Qt${QT_MAJOR_VERSION}::3DQuick
-    Qt${QT_MAJOR_VERSION}::3DQuickExtras
-    Qt${QT_MAJOR_VERSION}::3DRender
-    Qt${QT_MAJOR_VERSION}::3DExtras
+    ${_qt6_3d_link}
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Multimedia
