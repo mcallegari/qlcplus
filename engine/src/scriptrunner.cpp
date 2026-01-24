@@ -449,7 +449,7 @@ bool ScriptRunner::systemCommand(QString command)
         QString token = tokens.at(i);
         if (token.startsWith("'") && token.endsWith("'"))
         {
-            programArgs << token.removeFirst().removeLast();
+            programArgs << token.mid(1, token.length() - 2);
         }
         else if (token.startsWith("'"))
         {
@@ -581,4 +581,3 @@ int ScriptRunner::random(int minTime, int maxTime)
 
     return QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
 }
-
