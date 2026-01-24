@@ -48,29 +48,6 @@ if(qmlui)
         find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Concurrent OpenGL)
     endif()
 
-    # Workaround a nasty Debian/Ubuntu Qt3d packaging issue where
-    # a non existent path would break the cmake initialization 
-    if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT DEFINED ENV{QTDIR})
-    function(_qt6_strip_bad_qt3dcore_inc tgt)
-        if(TARGET "${tgt}")
-        get_target_property(incs "${tgt}" INTERFACE_INCLUDE_DIRECTORIES)
-        if(incs AND NOT incs STREQUAL "INTERFACE_INCLUDE_DIRECTORIES-NOTFOUND")
-            set(newIncs "${incs}")
-            list(FILTER newIncs EXCLUDE REGEX "/Qt3DCore/[0-9]+\\.[0-9]+\\.[0-9]+")
-            set_property(TARGET "${tgt}" PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${newIncs}")
-        endif()
-        endif()
-    endfunction()
-
-    get_target_property(_deps Qt6::3DQuick INTERFACE_LINK_LIBRARIES)
-    foreach(d IN LISTS _deps)
-        if(d MATCHES "^Qt6::")
-        _qt6_strip_bad_qt3dcore_inc("${d}")
-        endif()
-    endforeach()
-    _qt6_strip_bad_qt3dcore_inc(Qt6::3DQuick)
-    endif()
-
 endif()
 
 message("Found Qt version ${QT_VERSION_MAJOR}: ${QT_DIR}")

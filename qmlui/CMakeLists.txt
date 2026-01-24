@@ -129,6 +129,36 @@ target_compile_definitions(${module_name} PRIVATE
     USE_WEBSOCKET
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT DEFINED ENV{QTDIR} AND QT_VERSION_MAJOR EQUAL 6)
+    function(_qt6_strip_bad_qt_inc tgt)
+        if(TARGET "${tgt}")
+            set(_props INTERFACE_INCLUDE_DIRECTORIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES)
+            get_target_property(_configs "${tgt}" IMPORTED_CONFIGURATIONS)
+            if(_configs AND NOT _configs STREQUAL "IMPORTED_CONFIGURATIONS-NOTFOUND")
+                foreach(cfg IN LISTS _configs)
+                    list(APPEND _props "INTERFACE_INCLUDE_DIRECTORIES_${cfg}" "INTERFACE_SYSTEM_INCLUDE_DIRECTORIES_${cfg}")
+                endforeach()
+            endif()
+            foreach(prop IN LISTS _props)
+                get_target_property(incs "${tgt}" "${prop}")
+                if(incs AND NOT incs STREQUAL "incs-NOTFOUND")
+                    set(newIncs "${incs}")
+                    list(FILTER newIncs EXCLUDE REGEX "/Qt[A-Za-z0-9]+/[0-9]+\\.[0-9]+\\.[0-9]+")
+                    set_property(TARGET "${tgt}" PROPERTY "${prop}" "${newIncs}")
+                endif()
+            endforeach()
+        endif()
+    endfunction()
+
+    get_target_property(_deps Qt6::3DQuick INTERFACE_LINK_LIBRARIES)
+    foreach(d IN LISTS _deps)
+        if(d MATCHES "^Qt6::")
+            _qt6_strip_bad_qt_inc("${d}")
+        endif()
+    endforeach()
+    _qt6_strip_bad_qt_inc(Qt6::3DQuick)
+endif()
+
 target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::3DCore
     Qt${QT_MAJOR_VERSION}::3DInput
