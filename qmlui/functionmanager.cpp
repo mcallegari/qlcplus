@@ -37,7 +37,7 @@
 #include "rgbmatrix.h"
 #include "function.h"
 #include "sequence.h"
-#include "script.h"
+#include "scriptwrapper.h"
 #include "chaser.h"
 #include "scene.h"
 #include "audio.h"
@@ -1502,5 +1502,3 @@ void FunctionManager::slotFunctionAdded(quint32 fid)
     Function *func = m_doc->function(fid);
     addFunctionTreeItem(func);
 }
-
-
