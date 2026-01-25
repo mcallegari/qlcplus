@@ -30,6 +30,7 @@
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
 #include "fixtureutils.h"
+#include "showmanager.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
@@ -51,6 +52,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_currentSubContext("2D")
     , m_multipleSelection(false)
     , m_positionPicking(false)
+    , m_lastClickedType(App::NoDragItem)
     , m_universeFilter(Universe::invalid())
     , m_editingEnabled(false)
     , m_selectedDimmersCount(0)
@@ -92,9 +94,11 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
+    connect(m_fixtureManager, &FixtureManager::itemClicked, this, &ContextManager::setLastClickedType);
 
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)), this, SLOT(slotUniverseWritten(quint32,QByteArray)));
     connect(m_functionManager, &FunctionManager::isEditingChanged, this, &ContextManager::slotFunctionEditingChanged);
+    connect(m_functionManager, &FunctionManager::itemClicked, this, &ContextManager::setLastClickedType);
 }
 
 ContextManager::~ContextManager()
@@ -152,6 +156,11 @@ void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
         m_3DView->updateFixtureSelection(m_selectedFixtures);
 
     emit currentContextChanged();
+}
+
+PreviewContext *ContextManager::contextByName(QString ctxName)
+{
+    return m_contextsMap.value(ctxName, nullptr);
 }
 
 void ContextManager::detachContext(QString name)
@@ -295,6 +304,8 @@ void ContextManager::setMultipleSelection(bool multipleSelection)
     emit multipleSelectionChanged();
 }
 
+
+
 bool ContextManager::positionPicking() const
 {
     return m_positionPicking;
@@ -432,6 +443,16 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     setPositionPicking(false);
 }
 
+int ContextManager::lastClickedType() const
+{
+    return m_lastClickedType;
+}
+
+void ContextManager::setLastClickedType(const int &newLastClickedType)
+{
+    m_lastClickedType = newLastClickedType;
+}
+
 void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
@@ -492,6 +513,55 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             default:
             break;
         }
+    }
+
+    // 'Delete' key has its own handling
+    if (e->key() == Qt::Key_Delete)
+    {
+        switch (m_lastClickedType)
+        {
+            case App::FixtureDragItem:
+                m_fixtureManager->deleteFixtures(selectedItemIDVariantList());
+            break;
+            case App::FixtureGroupDragItem:
+                //m_fixtureManager->deleteFixtureGroups(); // TODO
+            break;
+            case App::FunctionDragItem:
+                m_functionManager->deleteFunctions(m_functionManager->selectedFunctionsID());
+            break;
+            case App::FolderDragItem:
+                m_functionManager->deleteSelectedFolders();
+            break;
+            case App::ShowDragItem:
+            {
+                PreviewContext *ctx = contextByName("SHOWMGR");
+                if (ctx != nullptr)
+                {
+                    ShowManager *showMgr = qobject_cast<ShowManager *>(ctx);
+                    if (showMgr != nullptr)
+                        showMgr->deleteShowItems(showMgr->selectedItemRefs());
+                }
+            }
+            break;
+            case App::TrackDragItem:
+            {
+                PreviewContext *ctx = contextByName("SHOWMGR");
+                if (ctx != nullptr)
+                {
+                    ShowManager *showMgr = qobject_cast<ShowManager *>(ctx);
+                    if (showMgr != nullptr)
+                        showMgr->deleteSelectedTrack();
+                }
+            }
+            break;
+            case App::PaletteDragItem:
+            break;
+            case App::WidgetDragItem:
+            break;
+        }
+
+        // Don't let it go through
+        return;
     }
 
     for (PreviewContext *context : m_contextsMap.values()) // C++11
@@ -563,6 +633,7 @@ void ContextManager::setItemSelection(quint32 itemID, bool enable, int keyModifi
     {
         setFixtureSelection(itemID, -1, enable);
     }
+    setLastClickedType(App::FixtureDragItem);
 }
 
 void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool enable)
@@ -603,6 +674,7 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
                 return;
 
             m_selectedFixtures.append(itemID);
+            setLastClickedType(App::FixtureDragItem);
 
             if (type == QLCFixtureDef::Dimmer)
             {
@@ -763,6 +835,15 @@ QVariantList ContextManager::selectedFixtureIDVariantList()
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         list.append(fxID);
     }
+
+    return list;
+}
+
+QVariantList ContextManager::selectedItemIDVariantList()
+{
+    QVariantList list;
+    for (quint32 &itemID : m_selectedFixtures)
+        list.append(itemID);
 
     return list;
 }

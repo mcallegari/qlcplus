@@ -80,6 +80,7 @@ public:
 
 signals:
     void startupFunctionIDChanged();
+    void itemClicked(int itemType);
 
     /*********************************************************************
      * Functions

@@ -74,6 +74,7 @@
 App::App()
     : QQuickView()
     , m_forceQuit(false)
+    , m_accessMask(defaultMask())
     , m_translator(nullptr)
     , m_fixtureBrowser(nullptr)
     , m_fixtureManager(nullptr)
@@ -98,8 +99,6 @@ App::App()
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
     if (dir.isValid())
         m_workingPath = dir.toString();
-
-    setAccessMask(defaultMask());
 
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
     connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
@@ -166,6 +165,8 @@ void App::startup()
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
     m_showManager = new ShowManager(this, m_doc);
+    connect(m_showManager, &ShowManager::itemClicked, m_contextManager, &ContextManager::setLastClickedType);
+
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
@@ -280,7 +281,6 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-    // TODO: Qt6
     return true;
 }
 
@@ -1087,3 +1087,4 @@ void App::closeFixtureEditor()
                               Q_ARG(QVariant, "FIXANDFUNC"),
                               Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
 }
+

@@ -96,6 +96,8 @@ signals:
 
     void itemIDChanged(quint32 itemID);
 
+    void itemClicked(int itemType);
+
 public slots:
     /** Slot called whenever a new workspace has been loaded */
     void slotDocLoaded();

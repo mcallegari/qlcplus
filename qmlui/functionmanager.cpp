@@ -553,6 +553,7 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
         m_selectedIDList.append(QVariant(fID));
 
     emit selectedFunctionCountChanged(m_selectedIDList.count());
+    emit itemClicked(App::FunctionDragItem);
 }
 
 QString FunctionManager::getEditorResource(int funcID)
@@ -967,6 +968,7 @@ void FunctionManager::selectFolder(QString path, bool multiSelection)
 
     m_selectedFolderList.append(path);
     emit selectedFolderCountChanged(m_selectedFolderList.count());
+    emit itemClicked(App::FolderDragItem);
 }
 
 int FunctionManager::selectedFolderCount() const

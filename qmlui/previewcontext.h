@@ -106,6 +106,7 @@ protected slots:
 
 signals:
     void universeFilterChanged(quint32 universeFilter);
+    void itemClicked(int itemType);
     void detachedChanged();
     void keyPressed(QKeyEvent *e);
     void keyReleased(QKeyEvent *e);

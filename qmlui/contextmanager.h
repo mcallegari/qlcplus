@@ -70,6 +70,10 @@ public:
      *  on the screen, so to decide if changes should be applied to it */
     Q_INVOKABLE void enableContext(QString name, bool enable, QQuickItem *item);
 
+    /** Get a reference of a registered PreviewContext by name.
+     *  Returns nullptr if not found */
+    PreviewContext *contextByName(QString ctxName);
+
     /** Detach/Reattach a context from/to the application main window */
     Q_INVOKABLE void detachContext(QString name);
     Q_INVOKABLE void reattachContext(QString name);
@@ -101,6 +105,12 @@ public:
     void setPositionPicking(bool enable);
 
     Q_INVOKABLE void setPositionPickPoint(QVector3D point);
+
+    /** Get/Set the last item clicked type */
+    int lastClickedType() const;
+
+public slots:
+    void setLastClickedType(const int &newLastClickedType);
 
 signals:
     void currentContextChanged();
@@ -151,6 +161,10 @@ private:
     /** Flag that indicates if a position picking is active */
     bool m_positionPicking;
 
+    /** Keep track of the last item type that was
+     *  clicked, to handle the Del keypress */
+    int m_lastClickedType;
+
     /*********************************************************************
      * Universe filtering
      *********************************************************************/
@@ -192,8 +206,11 @@ public:
     /** Returns a list of the selected fixture addresses */
     Q_INVOKABLE QVariantList selectedFixtureAddress();
 
-    /** Returns a list of the selected Fixture IDs as QVariant */
+    /** Returns a list of the selected Fixture IDs as QVariantList */
     Q_INVOKABLE QVariantList selectedFixtureIDVariantList();
+
+    /** Returns a list of the selected item IDs as QVariantList */
+    QVariantList selectedItemIDVariantList();
 
     /** Returns the number of currently selected fixtures */
     int selectedFixturesCount();

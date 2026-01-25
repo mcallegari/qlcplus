@@ -93,8 +93,9 @@ public:
     };
     Q_ENUM(FileDialogOpModes)
 
-    enum DragItemTypes
+    enum DragItemType
     {
+        NoDragItem,
         GenericDragItem,
         FolderDragItem,
         FunctionDragItem,
@@ -104,9 +105,11 @@ public:
         ChannelDragItem,
         PaletteDragItem,
         HeadDragItem,
+        ShowDragItem,
+        TrackDragItem,
         WidgetDragItem
     };
-    Q_ENUM(DragItemTypes)
+    Q_ENUM(DragItemType)
 
     enum ChannelType
     {
@@ -171,6 +174,7 @@ public:
 
     /** Get/Set the UI access mask */
     int defaultMask() const;
+    void setAccessMask(int mask);
     int accessMask() const;
 
     bool is3DSupported() const;
@@ -181,9 +185,6 @@ protected:
     Q_INVOKABLE void aboutQt();
 
     Q_INVOKABLE void exit(bool force = false);
-
-public slots:
-    void setAccessMask(int mask);
 
 protected:
     void keyPressEvent(QKeyEvent * e) override;
