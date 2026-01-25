@@ -36,14 +36,13 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_gridEnabled(false)
     , m_timeScale(5.0)
     , m_currentTime(0)
-    , m_selectedTrackIndex(-1)
+    , m_selectedTrackId(-1)
     , m_itemsColor(Qt::gray)
 {
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
     qmlRegisterUncreatableType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction", "Can't create a ShowFunction");
-
 
     /* Create and register a Waveform image provider */
     m_waveformProvider = new WaveformImageProvider(doc);
@@ -262,18 +261,19 @@ QVariant ShowManager::tracks()
     return QVariant();
 }
 
-int ShowManager::selectedTrackIndex() const
+int ShowManager::selectedTrackId() const
 {
-    return m_selectedTrackIndex;
+    return m_selectedTrackId;
 }
 
-void ShowManager::setSelectedTrackIndex(int index)
+void ShowManager::setSelectedTrackId(int id)
 {
-    if (m_selectedTrackIndex == index)
+    if (m_selectedTrackId == id)
         return;
 
-    m_selectedTrackIndex = index;
-    emit selectedTrackIndexChanged(index);
+    m_selectedTrackId = id;
+    emit selectedTrackIdChanged(id);
+    emit itemClicked(App::TrackDragItem);
 }
 
 void ShowManager::setTrackSolo(int index, bool solo)
@@ -301,6 +301,33 @@ void ShowManager::moveTrack(int index, int direction)
 
     m_currentShow->moveTrack(tracks.at(index), direction);
     m_doc->setModified();
+
+    emit tracksChanged();
+}
+
+void ShowManager::deleteSelectedTrack()
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    Track *track = m_currentShow->track(selectedTrackId());
+    if (track == nullptr)
+        return;
+
+    qDebug() << "Deleting track" << track->id();
+
+    QList <ShowFunction *> sfList = track->showFunctions();
+    for (ShowFunction *sf : sfList)
+    {
+        QQuickItem *item = m_itemsMap.take(sf->id());
+        delete item;
+    }
+
+    m_currentShow->removeTrack(selectedTrackId());
+    m_doc->setModified();
+
+    QQuickItem *itemsArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
+    renderView(itemsArea);
 
     emit tracksChanged();
 }
@@ -571,7 +598,7 @@ void ShowManager::resetContents()
     m_currentTime = 0;
     emit currentTimeChanged(m_currentTime);
 
-    m_selectedTrackIndex = -1;
+    m_selectedTrackId = -1;
     m_currentShow = nullptr;
 
     emit tracksChanged();
@@ -706,6 +733,7 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
         }
     }
     emit selectedItemsCountChanged(m_selectedItems.count());
+    emit itemClicked(App::ShowDragItem);
 }
 
 void ShowManager::resetItemsSelection()

@@ -60,7 +60,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
 
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
-    Q_PROPERTY(int selectedTrackIndex READ selectedTrackIndex WRITE setSelectedTrackIndex NOTIFY selectedTrackIndexChanged)
+    Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
 public:
@@ -182,22 +182,25 @@ public:
     /** Return a list of Track objects suitable for QML */
     QVariant tracks();
 
-    /** Get/Set the selected track index */
-    int selectedTrackIndex() const;
-    void setSelectedTrackIndex(int index);
+    /** Get/Set the selected track id */
+    int selectedTrackId() const;
+    void setSelectedTrackId(int id);
 
     Q_INVOKABLE void setTrackSolo(int index, bool solo);
 
     /** Move the track with the provided index in the provided direction */
     Q_INVOKABLE void moveTrack(int index, int direction);
 
+    /** Delete the currently selected Show Track */
+    Q_INVOKABLE void deleteSelectedTrack();
+
 signals:
     void tracksChanged();
-    void selectedTrackIndexChanged(int index);
+    void selectedTrackIdChanged(int id);
 
 private:
     /** The index of the currently selected track */
-    int m_selectedTrackIndex;
+    int m_selectedTrackId;
 
     /*********************************************************************
       * Show Items
