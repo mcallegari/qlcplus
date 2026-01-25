@@ -397,7 +397,6 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
         if (apiCmd == "isProjectLoaded")
         {
             wsAPIMessage.append(m_pendingProjectLoaded ? "true" : "false");
-            m_pendingProjectLoaded = false;
         }
         else if (apiCmd == "getFunctionsNumber")
         {

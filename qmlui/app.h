@@ -246,6 +246,9 @@ public:
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
 
+    /** Set the status of the doc loading state */
+    void setDocLoaded(bool loaded);
+
     /** Return the Doc instance modified flag */
     bool docModified() const;
 

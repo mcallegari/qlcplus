@@ -414,6 +414,15 @@ bool App::docLoaded()
     return m_docLoaded;
 }
 
+void App::setDocLoaded(bool loaded)
+{
+    if (m_docLoaded == loaded)
+        return;
+
+    m_docLoaded = loaded;
+    emit docLoadedChanged();
+}
+
 bool App::docModified() const
 {
     return m_doc->isModified();
@@ -682,8 +691,7 @@ bool App::loadWorkspace(const QString &fileName)
 
     /* Clear existing document data */
     clearDocument();
-    m_docLoaded = false;
-    emit docLoadedChanged();
+    setDocLoaded(false);
 
     QString localFilename =  fileName;
     if (localFilename.startsWith("file:"))
@@ -693,9 +701,8 @@ bool App::loadWorkspace(const QString &fileName)
     {
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         setFileName(localFilename);
-        m_docLoaded = true;
         updateRecentFilesList(localFilename);
-        emit docLoadedChanged();
+        setDocLoaded(true);
         m_doc->resetModified();
         m_videoProvider = new VideoProvider(this, m_doc);
         m_contextManager->resetContexts();
@@ -730,6 +737,7 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 
     /* Clear existing document data */
     clearDocument();
+    setDocLoaded(false);
 
     QBuffer databuf;
     databuf.setData(xmlData);
@@ -756,7 +764,11 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
     }
 
     if (doc.dtdName() == KXMLQLCWorkspace)
+    {
         loadXML(doc, true, true);
+        setDocLoaded(true);
+        m_doc->resetModified();
+    }
     else
         qDebug() << "XML doesn't have a Workspace tag";
 }
@@ -1087,4 +1099,3 @@ void App::closeFixtureEditor()
                               Q_ARG(QVariant, "FIXANDFUNC"),
                               Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
 }
-

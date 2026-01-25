@@ -81,6 +81,7 @@ const state = {
   pages: [],
   selectedPage: 0,
   projectPoll: null,
+  projectLoaded: false,
   pixelDensity: 1,
 };
 
@@ -2255,7 +2256,13 @@ function updateSliderOverride(id, isOverriding) {
 function handleSocketMessage(ev) {
   const msg = ev.data.split("|");
   if (msg[0] === "QLC+API") {
-    if (msg[1] === "isProjectLoaded" && msg[2] === "true") fetchVC();
+    if (msg[1] === "isProjectLoaded" && msg[2] === "true") {
+      if (!state.projectLoaded) {
+        state.projectLoaded = true;
+        fetchVC();
+      }
+      if (state.projectPoll) clearInterval(state.projectPoll);
+    }
     return;
   }
 
@@ -2378,6 +2385,7 @@ function connect() {
   state.socket.onopen = () => {
     setStatus(true);
     fetchVC();
+    state.projectLoaded = false;
     startProjectPolling();
   };
 
