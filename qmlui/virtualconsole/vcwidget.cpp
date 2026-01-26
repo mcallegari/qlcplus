@@ -962,7 +962,7 @@ QVariantList VCWidget::inputSourcesList()
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
         if (ip != nullptr && ip->profile() != nullptr)
         {
-            QLCInputChannel *ich = ip->profile()->channel(source->channel());
+            QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0xFFFF);
             if (ich != nullptr && ich->type() == QLCInputChannel::Button)
                 supportCustomFeedback = true;
         }
