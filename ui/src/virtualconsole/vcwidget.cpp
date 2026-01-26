@@ -692,12 +692,20 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint8 id) const
 
 void VCWidget::remapInputSources(int pgNum)
 {
-    QHash <quint8, QSharedPointer<QLCInputSource> >::iterator it = m_inputs.begin();
-    for (; it != m_inputs.end(); it++)
+    QList<quint8> ids;
+    QList<QSharedPointer<QLCInputSource> > sources;
+    QHash <quint8, QSharedPointer<QLCInputSource> >::const_iterator it = m_inputs.constBegin();
+    for (; it != m_inputs.constEnd(); ++it)
     {
-        const QSharedPointer<QLCInputSource>& src(it.value());
+        ids.append(it.key());
+        sources.append(it.value());
+    }
+
+    for (int i = 0; i < ids.count(); ++i)
+    {
+        const QSharedPointer<QLCInputSource>& src(sources.at(i));
         src->setPage(pgNum);
-        setInputSource(src, it.key());
+        setInputSource(src, ids.at(i));
     }
 }
 
