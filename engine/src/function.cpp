@@ -98,7 +98,6 @@ Function::Function(QObject *parent)
     , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
-
 }
 
 Function::Function(Doc* doc, Type t)

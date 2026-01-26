@@ -24,7 +24,6 @@ QLCClipboard::QLCClipboard(Doc *doc)
     : m_doc(doc)
     , m_copyFunction(NULL)
 {
-
 }
 
 void QLCClipboard::resetContents()

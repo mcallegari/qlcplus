@@ -61,8 +61,8 @@ EFXFixture::EFXFixture(const EFX* parent)
 {
     Q_ASSERT(parent != NULL);
 
-    if (m_rgbGradient.isNull ())
-        m_rgbGradient = Gradient::getRGBGradient (256, 256);
+    if (m_rgbGradient.isNull())
+        m_rgbGradient = Gradient::getRGBGradient(256, 256);
 }
 
 void EFXFixture::copyFrom(const EFXFixture* ef)

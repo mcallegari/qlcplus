@@ -47,6 +47,7 @@
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     : QThread(parent)
     , m_id(id)
+    , m_name(QString("Universe %1").arg(id + 1))
     , m_grandMaster(gm)
     , m_passthrough(false)
     , m_monitor(false)
@@ -69,8 +70,6 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_passthroughValues()
 {
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
-
-    m_name = QString("Universe %1").arg(id + 1);
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
             this, SLOT(slotGMValueChanged()));

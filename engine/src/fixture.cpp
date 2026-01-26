@@ -40,16 +40,15 @@
  * Initialization
  *****************************************************************************/
 
-Fixture::Fixture(QObject* parent) : QObject(parent)
+Fixture::Fixture(QObject* parent)
+    : QObject(parent)
+    , m_id(Fixture::invalidId())
+    , m_address(0)
+    , m_crossUniverse(false)
+    , m_channels(0)
+    , m_fixtureDef(NULL)
+    , m_fixtureMode(NULL)
 {
-    m_id = Fixture::invalidId();
-
-    m_address = 0;
-    m_channels = 0;
-    m_crossUniverse = false;
-
-    m_fixtureDef = NULL;
-    m_fixtureMode = NULL;
 }
 
 Fixture::~Fixture()

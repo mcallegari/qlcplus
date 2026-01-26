@@ -75,7 +75,8 @@
 #define GRID_DEFAULT_DEPTH  5
 
 MonitorProperties::MonitorProperties()
-    : m_displayMode(DMX)
+    : m_font(QFont("Arial", 12))
+    , m_displayMode(DMX)
     , m_channelStyle(DMXChannels)
     , m_valueStyle(DMXValues)
     , m_gridSize(QVector3D(GRID_DEFAULT_WIDTH, GRID_DEFAULT_HEIGHT, GRID_DEFAULT_DEPTH))
@@ -84,7 +85,6 @@ MonitorProperties::MonitorProperties()
     , m_stageType(StageSimple)
     , m_showLabels(false)
 {
-    m_font = QFont("Arial", 12);
 }
 
 void MonitorProperties::reset()
