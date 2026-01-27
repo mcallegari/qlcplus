@@ -227,12 +227,12 @@ int SpeedDial::value() const
     return m_value;
 }
 
-void SpeedDial::tap()
+void SpeedDial::tap() const
 {
     m_tap->click();
 }
 
-void SpeedDial::toggleInfinite()
+void SpeedDial::toggleInfinite() const
 {
     m_infiniteCheck->toggle();
 }
@@ -254,7 +254,7 @@ void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
     }
 }
 
-bool SpeedDial::isTapTick()
+bool SpeedDial::isTapTick() const
 {
     return m_tapTick;
 }
@@ -356,7 +356,7 @@ int SpeedDial::spinValues() const
     return CLAMP(value, 0, INT_MAX);
 }
 
-int SpeedDial::dialDiff(int value, int previous, int step)
+int SpeedDial::dialDiff(int value, int previous, int step) const
 {
     int diff = value - previous;
     if (diff > THRESHOLD)

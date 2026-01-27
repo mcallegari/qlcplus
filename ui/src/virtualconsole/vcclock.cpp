@@ -377,7 +377,7 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCClock::createCopy(VCWidget* parent)
+VCWidget* VCClock::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -636,7 +636,7 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc) const
 {
     /* Schedule tag */
     doc->writeStartElement(KXMLQLCVCClockSchedule);

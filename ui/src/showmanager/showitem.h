@@ -69,7 +69,7 @@ protected:
      * @return a QList of QAction pointers
      */
 
-    QList<QAction *> getDefaultActions();
+    QList<QAction *> getDefaultActions() const;
 
 public:
 
@@ -85,7 +85,7 @@ public:
      *
      * @return the item time scale value
      */
-    virtual int getTimeScale();
+    virtual int getTimeScale() const;
 
     /**
      * @brief setStartTime virtual method to set the item start time.
@@ -101,7 +101,7 @@ public:
      *
      * @return the item start time in milliseconds
      */
-    virtual quint32 getStartTime();
+    virtual quint32 getStartTime() const;
 
     /**
      * @brief setDuration virtual method to set the item's total duration
@@ -115,7 +115,7 @@ public:
      * @brief getDuration virtual method that returns the item total duration
      * @return the item duration in milliseconds
      */
-    virtual quint32 getDuration();
+    virtual quint32 getDuration() const;
 
     /**
      * @brief setWidth set the item width for rendering
@@ -129,14 +129,14 @@ public:
      *
      * @return the item's width in pixels
      */
-    virtual int getWidth();
+    virtual int getWidth() const;
 
     /**
      * @brief getDraggingPos returns the item position during a dragging event
      *
      * @return the dragging position as float point
      */
-    virtual QPointF getDraggingPos();
+    virtual QPointF getDraggingPos() const;
 
     /**
      * @brief setTrackIndex set the multitrack track index of the item
@@ -150,7 +150,7 @@ public:
      *
      * @return the track index
      */
-    virtual int getTrackIndex();
+    virtual int getTrackIndex() const;
 
     /**
      * @brief setColor set the item background color
@@ -164,7 +164,7 @@ public:
      *
      * @return the current background RGB color
      */
-    virtual QColor getColor();
+    virtual QColor getColor() const;
 
     /**
      * @brief setLocked set the item lock state. When locked the item
@@ -179,7 +179,7 @@ public:
      *
      * @return boolean lock state
      */
-    virtual bool isLocked();
+    virtual bool isLocked() const;
 
     /**
      * @brief setFunctionID set the QLC+ Function ID associated to this item
@@ -193,7 +193,7 @@ public:
      *
      * @return the Function ID
      */
-    virtual quint32 functionID();
+    virtual quint32 functionID() const;
 
     /**
      * @brief showFunction return the item's associate ShowFunction
@@ -207,7 +207,7 @@ public:
      *
      * @return the Function name as a string
      */
-    virtual QString functionName();
+    virtual QString functionName() const;
 
     /**
      * @brief boundingRect overridden method that returns the item bounding rectangle.

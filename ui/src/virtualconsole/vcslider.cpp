@@ -237,7 +237,7 @@ void VCSlider::setID(quint32 id)
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCSlider::createCopy(VCWidget* parent)
+VCWidget* VCSlider::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 

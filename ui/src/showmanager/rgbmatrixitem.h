@@ -55,13 +55,13 @@ public:
     void setDuration(quint32 msec, bool stretch) override;
 
     /** @reimp */
-    quint32 getDuration() override;
+    quint32 getDuration() const override;
 
     /** @reimp */
-    QString functionName() override;
+    QString functionName() const override;
 
     /** Return a pointer to a RGBMatrix Function associated to this item */
-    RGBMatrix *getRGBMatrix();
+    RGBMatrix *getRGBMatrix() const;
 
 protected:
     /** @reimp */

@@ -51,7 +51,7 @@ VCLabel::~VCLabel()
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCLabel::createCopy(VCWidget* parent)
+VCWidget* VCLabel::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 

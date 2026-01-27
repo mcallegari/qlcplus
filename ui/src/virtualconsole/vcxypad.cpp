@@ -221,7 +221,7 @@ void VCXYPad::enableWidgetUI(bool enable)
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCXYPad::createCopy(VCWidget* parent)
+VCWidget* VCXYPad::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -232,7 +232,7 @@ VCWidget* VCXYPad::createCopy(VCWidget* parent)
         xypad = NULL;
     }
 
-    for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
+    for (QHash<QWidget*, VCXYPadPreset*>::const_iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
     {
         VCXYPadPreset *preset = it.value();

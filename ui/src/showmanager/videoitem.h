@@ -54,10 +54,10 @@ public:
     void setDuration(quint32 msec, bool stretch) override;
 
     /** @reimp */
-    QString functionName() override;
+    QString functionName() const override;
 
     /** Return a pointer to a Video Function associated to this item */
-    Video *getVideo();
+    Video *getVideo() const;
 
 protected:
     /** @reimp */

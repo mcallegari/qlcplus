@@ -407,7 +407,7 @@ void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, u
  * Clipboard
  *********************************************************************/
 
-VCWidget *VCAudioTriggers::createCopy(VCWidget *parent)
+VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != NULL);
 

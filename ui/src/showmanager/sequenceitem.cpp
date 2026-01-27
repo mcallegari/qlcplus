@@ -153,7 +153,7 @@ void SequenceItem::setDuration(quint32 msec, bool stretch)
     m_chaser->setTotalDuration(msec);
 }
 
-QString SequenceItem::functionName()
+QString SequenceItem::functionName() const
 {
     if (m_chaser)
         return m_chaser->name();
@@ -166,7 +166,7 @@ void SequenceItem::setSelectedStep(int idx)
     update();
 }
 
-Chaser *SequenceItem::getChaser()
+Chaser *SequenceItem::getChaser() const
 {
     return m_chaser;
 }

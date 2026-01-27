@@ -75,7 +75,7 @@ VCSoloFrame::~VCSoloFrame()
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
+VCWidget* VCSoloFrame::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 

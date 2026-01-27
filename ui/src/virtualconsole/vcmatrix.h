@@ -109,7 +109,7 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     bool copyFrom(const VCWidget* widget) override;
@@ -124,9 +124,9 @@ public:
     /** @reimp */
     void enableWidgetUI(bool enable) override;
 
-    int sliderValue();
-    QString animationValue();
-    QColor mtxColor(int id);
+    int sliderValue() const;
+    QString animationValue() const;
+    QColor mtxColor(int id) const;
 
 signals:
     void sliderValueChanged(int value);

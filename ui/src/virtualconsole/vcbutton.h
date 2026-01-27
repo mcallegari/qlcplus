@@ -91,7 +91,7 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget to the given parent */
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
@@ -369,7 +369,7 @@ protected:
     *********************************************************************/
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
-    QMenu* customMenu(QMenu* parentMenu) override;
+    QMenu* customMenu(QMenu* parentMenu) const override;
 
     /*********************************************************************
      * Intensity

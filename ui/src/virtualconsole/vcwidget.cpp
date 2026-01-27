@@ -129,7 +129,7 @@ void VCWidget::setType(int type)
     m_type = type;
 }
 
-int VCWidget::type()
+int VCWidget::type() const
 {
     return m_type;
 }
@@ -200,7 +200,7 @@ void VCWidget::enableWidgetUI(bool enable)
     Q_UNUSED(enable)
 }
 
-bool VCWidget::isDisabled()
+bool VCWidget::isDisabled() const
 {
     return m_disableState;
 }
@@ -214,7 +214,7 @@ void VCWidget::setPage(int pNum)
     m_page = pNum;
 }
 
-int VCWidget::page()
+int VCWidget::page() const
 {
     return m_page;
 }
@@ -560,7 +560,7 @@ qreal VCWidget::intensity() const
  * External input
  *****************************************************************************/
 
-bool VCWidget::acceptsInput()
+bool VCWidget::acceptsInput() const
 {
     if (mode() == Doc::Design || isEnabled() == false || isDisabled())
         return false;
@@ -1011,7 +1011,7 @@ QString VCWidget::extraParamToString(QVariant param)
     return QString();
 }
 
-bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1029,7 +1029,7 @@ bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1075,7 +1075,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLInput(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc) const
 {
     return saveXMLInput(doc, inputSource());
 }
@@ -1128,7 +1128,7 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
     return saveXMLInput(doc, src.data());
 }
 
-bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1247,7 +1247,7 @@ void VCWidget::invokeMenu(const QPoint& point)
  * Custom menu
  *****************************************************************************/
 
-QMenu* VCWidget::customMenu(QMenu* parentMenu)
+QMenu* VCWidget::customMenu(QMenu* parentMenu) const
 {
     Q_UNUSED(parentMenu);
     return NULL;

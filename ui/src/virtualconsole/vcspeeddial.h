@@ -99,7 +99,7 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     /** @reimp */

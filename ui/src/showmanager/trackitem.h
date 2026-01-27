@@ -53,10 +53,10 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     /** Return pointer to the Track class associated to this item */
-    Track *getTrack();
+    Track *getTrack() const;
 
     /** Return the track number */
-    int getTrackNumber();
+    int getTrackNumber() const;
 
     /** Set the track name */
     void setName(QString name);
@@ -65,13 +65,13 @@ public:
     void setActive(bool flag);
 
     /** Return if this track is active or not */
-    bool isActive();
+    bool isActive() const;
 
     /** Set mute and solo flags on/off */
     void setFlags(bool solo, bool mute);
 
     /** Return the mute state of the item */
-    bool isMute();
+    bool isMute() const;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

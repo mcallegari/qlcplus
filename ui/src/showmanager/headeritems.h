@@ -52,14 +52,14 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void setTimeScale(int val);
-    int getTimeScale();
+    int getTimeScale() const;
 
     void setTimeDivisionType(Show::TimeDivision type);
-    Show::TimeDivision getTimeDivisionType();
+    Show::TimeDivision getTimeDivisionType() const;
     void setBPMValue(int value);
 
-    int getHalfSecondWidth();
-    float getTimeDivisionStep();
+    int getHalfSecondWidth() const;
+    float getTimeDivisionStep() const;
 
     void setWidth(int);
     void setHeight(int);
@@ -103,7 +103,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     void setTime(quint32 t);
-    quint32 getTime();
+    quint32 getTime() const;
 private:
     int m_height;
     quint32 m_time;
