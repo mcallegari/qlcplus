@@ -93,6 +93,22 @@ VCWidgetItem
         lastTap = currTime
     }
 
+    function updateTime()
+    {
+        var newTime = 0
+        if (hoursSpin.visible)
+            newTime += hoursSpin.value * 3600000
+        if (minutesSpin.visible)
+            newTime += minutesSpin.value * 60000
+        if (secondsSpin.visible)
+            newTime += secondsSpin.value * 1000
+        if (msSpin.visible)
+            newTime += msSpin.value
+
+        tapTimer.stop()
+        speedObj.currentTime = newTime
+    }
+
     Timer
     {
         id: tapTimer
@@ -160,6 +176,7 @@ VCWidgetItem
                         diff = stepSize;
 
                     lastValue = value
+                    tapTimer.stop()
                     speedObj.currentTime += diff
                 }
             }
@@ -321,6 +338,7 @@ VCWidgetItem
                 from: 0
                 to: 999
                 suffix: "h"
+                onValueModified: updateTime()
             }
             CustomSpinBox
             {
@@ -330,6 +348,7 @@ VCWidgetItem
                 from: 0
                 to: 59
                 suffix: "m"
+                onValueModified: updateTime()
             }
             CustomSpinBox
             {
@@ -339,6 +358,7 @@ VCWidgetItem
                 from: 0
                 to: 59
                 suffix: "s"
+                onValueModified: updateTime()
             }
             CustomSpinBox
             {
@@ -348,6 +368,7 @@ VCWidgetItem
                 from: 0
                 to: 999
                 suffix: "ms"
+                onValueModified: updateTime()
             }
         }
 
