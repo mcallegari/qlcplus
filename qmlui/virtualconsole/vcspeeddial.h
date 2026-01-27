@@ -63,7 +63,7 @@ public:
     virtual ~VCSpeedDial();
 
     /** @reimp */
-    QString defaultCaption() override;
+    QString defaultCaption() const override;
 
     /** @reimp */
     void setupLookAndFeel(qreal pixelDensity, int page) override;
@@ -77,7 +77,7 @@ public:
     bool supportsPresets() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
     enum Visibility
     {
@@ -272,7 +272,7 @@ public slots:
 
 public:
     bool loadXML(QXmlStreamReader &root) override;
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

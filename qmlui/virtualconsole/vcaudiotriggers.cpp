@@ -80,7 +80,7 @@ VCAudioTriggers::~VCAudioTriggers()
         delete m_item;
 }
 
-QString VCAudioTriggers::defaultCaption()
+QString VCAudioTriggers::defaultCaption() const
 {
     return tr("Audio Trigger %1").arg(id() + 1);
 }
@@ -118,7 +118,7 @@ QString VCAudioTriggers::propertiesResource() const
     return QString("qrc:/VCAudioTriggersProperties.qml");
 }
 
-VCWidget *VCAudioTriggers::createCopy(VCWidget *parent)
+VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -796,7 +796,7 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCAudioTriggers::saveBarXML(QXmlStreamWriter *doc, int index)
+bool VCAudioTriggers::saveBarXML(QXmlStreamWriter *doc, int index) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -900,7 +900,7 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
+bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -922,7 +922,7 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
 
     /* Save only configured triggers */
     int barIndex = 0;
-    for (AudioBar &bar : m_spectrumBars)
+    for (const AudioBar &bar : m_spectrumBars)
     {
         if (bar.m_type != None)
             saveBarXML(doc, barIndex);

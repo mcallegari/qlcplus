@@ -82,7 +82,7 @@ VCSpeedDial::~VCSpeedDial()
     clearPresets();
 }
 
-QString VCSpeedDial::defaultCaption()
+QString VCSpeedDial::defaultCaption() const
 {
     return tr("Speed %1").arg(id() + 1);
 }
@@ -127,7 +127,7 @@ bool VCSpeedDial::supportsPresets() const
     return true;
 }
 
-VCWidget *VCSpeedDial::createCopy(VCWidget *parent)
+VCWidget *VCSpeedDial::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -709,7 +709,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
+bool VCSpeedDial::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -741,7 +741,7 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
     saveXMLInputControl(doc, INPUT_DIAL_ID);
     doc->writeEndElement();
 
-    for (VCSpeedDialFunction &func : m_functions)
+    for (const VCSpeedDialFunction &func : m_functions)
     {
         /* Function tag */
         doc->writeStartElement(KXMLQLCVCSpeedDialFunction);

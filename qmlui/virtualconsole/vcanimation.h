@@ -58,7 +58,7 @@ public:
     virtual ~VCAnimation();
 
     /** @reimp */
-    QString defaultCaption() override;
+    QString defaultCaption() const override;
 
     /** @reimp */
     void setupLookAndFeel(qreal pixelDensity, int page) override;
@@ -70,7 +70,7 @@ public:
     QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
     enum Visibility
     {
@@ -97,7 +97,7 @@ private:
      * UI elements visibility
      *********************************************************************/
 public:
-    quint32 defaultVisibilityMask();
+    quint32 defaultVisibilityMask() const;
 
     /** Get/Set the widget's elements visibility bitmask */
     quint32 visibilityMask() const;
@@ -193,7 +193,7 @@ public slots:
 
 public:
     bool loadXML(QXmlStreamReader &root) override;
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

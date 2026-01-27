@@ -47,7 +47,7 @@ public:
     virtual ~VCButton();
 
     /** @reimp */
-    QString defaultCaption() override;
+    QString defaultCaption() const override;
 
     /** @reimp */
     void setupLookAndFeel(qreal pixelDensity, int page) override;
@@ -59,7 +59,7 @@ public:
     QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** @reimp */
@@ -239,7 +239,7 @@ public:
     bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

@@ -49,7 +49,7 @@ public:
     virtual ~VCAudioTriggers();
 
     /** @reimp */
-    QString defaultCaption() override;
+    QString defaultCaption() const override;
 
     /** @reimp */
     void setupLookAndFeel(qreal pixelDensity, int page) override;
@@ -61,7 +61,7 @@ public:
     QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
     /** Get/Set the capture enable status of this widget */
     bool captureEnabled() const;
@@ -224,10 +224,10 @@ private:
      *********************************************************************/
 public:
     bool loadBarXML(QXmlStreamReader &root);
-    bool saveBarXML(QXmlStreamWriter *doc, int index);
+    bool saveBarXML(QXmlStreamWriter *doc, int index) const;
 
     bool loadXML(QXmlStreamReader &root) override;
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

@@ -31,7 +31,7 @@ VCSoloFrame::~VCSoloFrame()
 {
 }
 
-QString VCSoloFrame::defaultCaption()
+QString VCSoloFrame::defaultCaption() const
 {
     return tr("Solo Frame %1").arg(id() + 1);
 }
@@ -65,7 +65,7 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
     }
 }
 
-VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
+VCWidget *VCSoloFrame::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 

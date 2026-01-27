@@ -77,7 +77,7 @@ void VCFrame::initializeProperties()
     m_validatedPIN = false;
 }
 
-QString VCFrame::defaultCaption()
+QString VCFrame::defaultCaption() const
 {
     return tr("Frame %1").arg(id() + 1);
 }
@@ -127,7 +127,7 @@ QString VCFrame::propertiesResource() const
     return QString("qrc:/VCFrameProperties.qml");
 }
 
-VCWidget *VCFrame::createCopy(VCWidget *parent)
+VCWidget *VCFrame::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -194,7 +194,7 @@ bool VCFrame::hasChildren()
     return !m_pagesMap.isEmpty();
 }
 
-QList<VCWidget *> VCFrame::children(bool recursive)
+QList<VCWidget *> VCFrame::children(bool recursive) const
 {
     QList<VCWidget *> widgetsList;
 
@@ -1348,7 +1348,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCFrame::saveXML(QXmlStreamWriter *doc)
+bool VCFrame::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1375,7 +1375,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     /* Solo frame mixing and monitored functions exclusion */
     if (this->type() == SoloFrameWidget)
     {
-        VCSoloFrame *solo = reinterpret_cast<VCSoloFrame*>(this);
+        const VCSoloFrame *solo = reinterpret_cast<const VCSoloFrame*>(this);
         if (solo->soloframeMixing())
             doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCTrue);
 
@@ -1430,7 +1430,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Save children */
-    foreach (VCWidget *child, children(false))
+    foreach (const VCWidget *child, children(false))
         child->saveXML(doc);
 
     /* End the <Frame> tag */

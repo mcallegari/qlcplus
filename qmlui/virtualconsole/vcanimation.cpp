@@ -50,7 +50,7 @@ VCAnimation::~VCAnimation()
         delete m_item;
 }
 
-QString VCAnimation::defaultCaption()
+QString VCAnimation::defaultCaption() const
 {
     return tr("Animation %1").arg(id() + 1);
 }
@@ -85,7 +85,7 @@ QString VCAnimation::propertiesResource() const
     return QString("qrc:/VCAnimationProperties.qml");
 }
 
-VCWidget *VCAnimation::createCopy(VCWidget *parent)
+VCWidget *VCAnimation::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -125,7 +125,7 @@ FunctionParent VCAnimation::functionParent() const
  * UI elements visibility
  *********************************************************************/
 
-quint32 VCAnimation::defaultVisibilityMask()
+quint32 VCAnimation::defaultVisibilityMask() const
 {
     return Fader | Label | Color1 | Color2 | PresetCombo;
 }
@@ -441,7 +441,7 @@ bool VCAnimation::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCAnimation::saveXML(QXmlStreamWriter *doc)
+bool VCAnimation::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 

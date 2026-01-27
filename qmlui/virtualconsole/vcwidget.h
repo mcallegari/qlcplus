@@ -120,7 +120,7 @@ public:
 
     /** Create a copy of this widget into the given parent and return it
       * Pure virtual method: subclasses must reimplement this */
-    virtual VCWidget *createCopy(VCWidget *parent);
+    virtual VCWidget *createCopy(VCWidget *parent) const;
 
     /** Return true if this widget supports presets */
     virtual bool supportsPresets() const;
@@ -190,7 +190,7 @@ public:
     void setType(int type);
 
     /** Get the widget's type */
-    int type();
+    int type() const;
 
     /** Convert a widget's type to a string */
     static QString typeToString(int type);
@@ -262,7 +262,7 @@ protected:
      */
 public:
     /** Get the widget's disable state */
-    bool isDisabled();
+    bool isDisabled() const;
 
     /** Set the widget's disable state flag */
     virtual void setDisabled(bool disable);
@@ -291,7 +291,7 @@ protected:
      *********************************************************************/
 public:
     /** Virtual method to retrieve the widget default name which is "Widget ID" */
-    virtual QString defaultCaption();
+    virtual QString defaultCaption() const;
 
     /** Get this widget's caption text */
     QString caption() const;
@@ -401,7 +401,7 @@ protected:
      *********************************************************************/
 public:
     void setPage(int pNum);
-    int page();
+    int page() const;
 
 signals:
     void pageChanged(int page);
@@ -414,7 +414,7 @@ protected:
      *********************************************************************/
 public:
     /** Return true if the widget's parent is a Solo Frame */
-    bool hasSoloParent();
+    bool hasSoloParent() const;
 
     /** This is a virtual method for VCWidgets attached to a Function.
      *  At the moment only Buttons, Sliders (in playback mode), Cue Lists
@@ -612,7 +612,7 @@ protected:
      *********************************************************************/
 public:
     virtual bool loadXML(QXmlStreamReader &root);
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc) const;
 
 protected:
     bool loadXMLCommon(QXmlStreamReader &root);
@@ -651,13 +651,13 @@ protected:
     bool loadXMLSources(QXmlStreamReader &root, const quint8& id);
 
     /** Write the widget common properties */
-    bool saveXMLCommon(QXmlStreamWriter *doc);
+    bool saveXMLCommon(QXmlStreamWriter *doc) const;
 
     /** Write the widget appearance, if customized */
-    bool saveXMLAppearance(QXmlStreamWriter *doc);
+    bool saveXMLAppearance(QXmlStreamWriter *doc) const;
 
     /** Write this widget's geometry and visibility to an XML document */
-    bool saveXMLWindowState(QXmlStreamWriter *doc);
+    bool saveXMLWindowState(QXmlStreamWriter *doc) const;
 
     /** Save all the input sources and key combination with the given
      *  $controlId in a tag with the given $tagName
@@ -670,7 +670,7 @@ protected:
      *  <Input ID="1" Universe="0" Channel="68"/>
      *  <Key>G</Key>
      */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString());
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified = true, QString tagName = QString()) const;
 };
 
 #endif

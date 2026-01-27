@@ -113,7 +113,7 @@ VCXYPad::~VCXYPad()
         delete m_item;
 }
 
-QString VCXYPad::defaultCaption()
+QString VCXYPad::defaultCaption() const
 {
     return tr("XY Pad %1").arg(id() + 1);
 }
@@ -151,7 +151,7 @@ QString VCXYPad::propertiesResource() const
     return QString("qrc:/VCXYPadProperties.qml");
 }
 
-VCWidget *VCXYPad::createCopy(VCWidget *parent)
+VCWidget *VCXYPad::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -852,7 +852,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCXYPad::saveXMLFixture(QXmlStreamWriter *doc, XYPadFixture &fxItem)
+bool VCXYPad::saveXMLFixture(QXmlStreamWriter *doc, const XYPadFixture &fxItem) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -889,7 +889,7 @@ bool VCXYPad::saveXMLFixture(QXmlStreamWriter *doc, XYPadFixture &fxItem)
     return true;
 }
 
-bool VCXYPad::saveXML(QXmlStreamWriter *doc)
+bool VCXYPad::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -907,7 +907,7 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     saveXMLAppearance(doc);
 
     /* Fixtures */
-    for (XYPadFixture &fixture : m_fixtures)
+    for (const XYPadFixture &fixture : m_fixtures)
         saveXMLFixture(doc, fixture);
 
     /* Custom range window */

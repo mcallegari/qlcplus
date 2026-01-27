@@ -75,7 +75,7 @@ public:
     Show *currentShow() const;
 
     /** Flag to indicate if a Show is currently being edited */
-    bool isEditing();
+    bool isEditing() const;
 
     /** Set the ID of the Show Function to edit */
     void setCurrentShowID(int currentShowID);
@@ -143,9 +143,9 @@ private:
       ********************************************************************/
 public:
     /** Get/Set the Show time division */
-    Show::TimeDivision timeDivision();
+    Show::TimeDivision timeDivision() const;
     void setTimeDivision(Show::TimeDivision division);
-    int beatsDivision();
+    int beatsDivision() const;
 
     /** Get/Set the current time scale of the Show Manager timeline */
     float timeScale() const;
@@ -180,7 +180,7 @@ private:
       ********************************************************************/
 public:
     /** Return a list of Track objects suitable for QML */
-    QVariant tracks();
+    QVariant tracks() const;
 
     /** Get/Set the selected track id */
     int selectedTrackId() const;
@@ -268,11 +268,11 @@ public:
     /** Deselect all the selected items at once */
     Q_INVOKABLE void resetItemsSelection();
 
-    Q_INVOKABLE QVariantList selectedItemRefs();
-    Q_INVOKABLE QStringList selectedItemNames();
+    Q_INVOKABLE QVariantList selectedItemRefs() const;
+    Q_INVOKABLE QStringList selectedItemNames() const;
 
     /** Returns true if at least one of the selected items is locked */
-    Q_INVOKABLE bool selectedItemsLocked();
+    Q_INVOKABLE bool selectedItemsLocked() const;
 
     /** Lock/Unlock all the currently selected items */
     Q_INVOKABLE void setSelectedItemsLock(bool lock);
@@ -294,7 +294,7 @@ private:
      *  start time and duration. Returns true if overlapping is
      *  detected, otherwise false */
     bool checkOverlapping(Track *track, ShowFunction *sourceFunc,
-                          quint32 startTime, quint32 duration);
+                          quint32 startTime, quint32 duration) const;
 
 signals:
     void itemsColorChanged(QColor itemsColor);

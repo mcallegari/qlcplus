@@ -41,13 +41,13 @@ public:
     ~VCSoloFrame();
 
     /** @reimp */
-    QString defaultCaption() override;
+    QString defaultCaption() const override;
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** @reimp */
