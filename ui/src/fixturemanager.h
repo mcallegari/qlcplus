@@ -155,8 +155,22 @@ private:
     /** Get a CSS style sheet & HTML header for fixture info */
     QString fixtureInfoStyleSheetHeader();
 
+    /**
+     * Get the fixture instance's status info for Fixture Manager
+     *
+     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
+     */
+    QString fixtureInfo(const Fixture *fixture) const;
+
     /** Get a CSS style sheet & HTML header for channels group info */
     QString channelsGroupInfoStyleSheetHeader();
+
+    /**
+     * Get the channels group instance's status info for Fixture Manager
+     *
+     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
+     */
+    QString channelsGroupInfo(const ChannelsGroup *channelsGroup) const;
 
 private:
     QSplitter* m_splitter;

@@ -139,7 +139,7 @@ void QLCFixtureDef::setType(const FixtureType type)
     m_type = type;
 }
 
-QLCFixtureDef::FixtureType QLCFixtureDef::type()
+QLCFixtureDef::FixtureType QLCFixtureDef::type() const
 {
     return m_type;
 }
@@ -189,7 +189,7 @@ void QLCFixtureDef::setAuthor(const QString& author)
     m_author = author;
 }
 
-QString QLCFixtureDef::author()
+QString QLCFixtureDef::author() const
 {
     return m_author;
 }

@@ -53,7 +53,7 @@ private slots:
     void loadWrongID();
     void loader();
     void save();
-    void status();
+    //void status();
 
 private:
     Doc* m_doc;
