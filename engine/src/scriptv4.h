@@ -128,7 +128,7 @@ public:
     bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /************************************************************************
      * Running

@@ -128,7 +128,7 @@ void AudioCaptureWaveIn::uninitialize()
     deviceHandle = NULL;
 }
 
-qint64 AudioCaptureWaveIn::latency()
+qint64 AudioCaptureWaveIn::latency() const
 {
     return 0; // TODO
 }

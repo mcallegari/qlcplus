@@ -106,7 +106,7 @@ void AudioCaptureQt5::uninitialize()
     m_audioInput = NULL;
 }
 
-qint64 AudioCaptureQt5::latency()
+qint64 AudioCaptureQt5::latency() const
 {
     return 0; // TODO
 }

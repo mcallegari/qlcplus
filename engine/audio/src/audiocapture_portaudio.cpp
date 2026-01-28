@@ -118,7 +118,7 @@ void AudioCapturePortAudio::uninitialize()
         qDebug() << "PortAudio error: " << Pa_GetErrorText(err);
 }
 
-qint64 AudioCapturePortAudio::latency()
+qint64 AudioCapturePortAudio::latency() const
 {
     return 0; // TODO
 }

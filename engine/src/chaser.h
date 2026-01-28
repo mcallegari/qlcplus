@@ -201,7 +201,7 @@ protected:
 
 public:
     /** @reimpl */
-    virtual bool saveXML(QXmlStreamWriter *doc) override;
+    virtual bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** @reimpl */
     virtual bool loadXML(QXmlStreamReader &root) override;
@@ -247,10 +247,10 @@ private:
 
 public:
     /** @reimp */
-    virtual bool contains(quint32 functionId) override;
+    virtual bool contains(quint32 functionId) const override;
 
     /** @reimp */
-    QList<quint32> components() override;
+    QList<quint32> components() const override;
 
     /*********************************************************************
      * Running

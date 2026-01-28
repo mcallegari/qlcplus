@@ -762,7 +762,7 @@ EFXFixture *EFX::fixture(quint32 id, int headIndex)
     return NULL;
 }
 
-QList<quint32> EFX::components()
+QList<quint32> EFX::components() const
 {
     QList<quint32> ids;
 
@@ -831,7 +831,7 @@ EFX::PropagationMode EFX::stringToPropagationMode(QString str)
  * Load & Save
  *****************************************************************************/
 
-bool EFX::saveXML(QXmlStreamWriter *doc)
+bool EFX::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

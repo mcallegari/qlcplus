@@ -872,7 +872,7 @@ void Function::slotFixtureRemoved(quint32 fid)
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool Function::saveXML(QXmlStreamWriter *doc)
+bool Function::saveXML(QXmlStreamWriter *doc) const
 {
     Q_UNUSED(doc)
     return false;
@@ -972,13 +972,13 @@ void Function::postLoad()
     /* NOP */
 }
 
-bool Function::contains(quint32 functionId)
+bool Function::contains(quint32 functionId) const
 {
     Q_UNUSED(functionId);
     return false;
 }
 
-QList<quint32> Function::components()
+QList<quint32> Function::components() const
 {
     return QList<quint32>();
 }

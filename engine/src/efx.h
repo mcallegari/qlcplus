@@ -506,7 +506,7 @@ public:
     EFXFixture *fixture(quint32 id, int headIndex);
 
     /** @reimp */
-    QList<quint32> components() override;
+    QList<quint32> components() const override;
 
 public slots:
     /** Slot that captures Doc::fixtureRemoved signals */
@@ -548,7 +548,7 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
     bool loadXML(QXmlStreamReader &root) override;
     void postLoad() override;
 

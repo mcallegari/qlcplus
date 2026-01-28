@@ -194,7 +194,7 @@ private:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** Load function's contents from an XML document */
     bool loadXML(QXmlStreamReader &root) override;

@@ -34,7 +34,7 @@ public:
 
     Function* createCopy(Doc* parent, bool addToDoc = true) override;
 
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
     bool loadXML(QXmlStreamReader &root) override;
 
     void preRun(MasterTimer* timer) override;

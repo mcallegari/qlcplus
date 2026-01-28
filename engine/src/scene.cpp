@@ -203,11 +203,11 @@ QList <SceneValue> Scene::values() const
     return m_values.keys();
 }
 
-QList<quint32> Scene::components()
+QList<quint32> Scene::components() const
 {
     QList<quint32> ids;
 
-    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    QMap <SceneValue, uchar>::const_iterator it = m_values.begin();
     for (; it != m_values.end(); it++)
     {
         const SceneValue& scv = it.key();
@@ -421,7 +421,7 @@ QList<quint32> Scene::palettes() const
  * Load & Save
  *****************************************************************************/
 
-bool Scene::saveXML(QXmlStreamWriter *doc)
+bool Scene::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

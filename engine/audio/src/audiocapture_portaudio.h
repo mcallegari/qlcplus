@@ -34,7 +34,7 @@ public:
     ~AudioCapturePortAudio();
 
     /** @reimpl */
-    qint64 latency() override;
+    qint64 latency() const override;
 
 protected:
     /** @reimpl */

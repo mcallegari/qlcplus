@@ -71,7 +71,7 @@ public:
      */
     quint32 boundSceneID() const;
 
-    QList<quint32> components() override;
+    QList<quint32> components() const override;
 
 protected:
     /** The Scene ID associated to this Sequence */
@@ -88,7 +88,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** @reimpl */
     bool loadXML(QXmlStreamReader &root) override;

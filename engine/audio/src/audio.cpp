@@ -246,7 +246,7 @@ void Audio::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Audio::saveXML(QXmlStreamWriter *doc)
+bool Audio::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

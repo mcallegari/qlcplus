@@ -134,7 +134,7 @@ public:
     QList <SceneValue> values() const;
 
     /** @reimp */
-    QList<quint32> components() override;
+    QList<quint32> components() const override;
 
     /**
      * Try to retrieve a RGB/CMY color if the Scene has RGB/CMY channels set.
@@ -229,7 +229,7 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** @reimp */
     bool loadXML(QXmlStreamReader &root) override;

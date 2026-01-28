@@ -62,7 +62,7 @@ public:
 
     /** Set/Get the final color of the next step to be reproduced */
     void setStepColor(QColor color);
-    QColor stepColor();
+    QColor stepColor() const;
 
     /** Update the color of the next step to be reproduced, considering the step index,
      *  the start color and the steps count */
@@ -146,7 +146,7 @@ public:
     void setFixtureGroup(quint32 id);
 
     /** @reimp */
-    QList<quint32> components() override;
+    QList<quint32> components() const override;
 
 private:
     quint32 m_fixtureGroupID;
@@ -170,7 +170,7 @@ public:
 #endif
 
     /** Get the number of steps of the current algorithm */
-    int stepsCount();
+    int stepsCount() const;
 
     /** Get the preview of the current algorithm at the given step */
     void previewMap(int step, RGBMatrixStep *handler);
@@ -227,7 +227,7 @@ public:
     bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /************************************************************************
      * Running

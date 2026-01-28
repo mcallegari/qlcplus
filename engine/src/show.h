@@ -163,7 +163,7 @@ protected:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** Load function's contents from an XML document */
     bool loadXML(QXmlStreamReader &root) override;
@@ -173,10 +173,10 @@ public:
 
 public:
     /** @reimp */
-    bool contains(quint32 functionId) override;
+    bool contains(quint32 functionId) const override;
 
     /** @reimp */
-    QList<quint32> components() override;
+    QList<quint32> components() const override;
 
     /*********************************************************************
      * Running

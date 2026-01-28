@@ -359,7 +359,7 @@ ShowFunction *Show::showFunction(quint32 id)
  * Load & Save
  *****************************************************************************/
 
-bool Show::saveXML(QXmlStreamWriter *doc)
+bool Show::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -432,7 +432,7 @@ void Show::postLoad()
     }
 }
 
-bool Show::contains(quint32 functionId)
+bool Show::contains(quint32 functionId) const
 {
     Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
@@ -449,7 +449,7 @@ bool Show::contains(quint32 functionId)
     return false;
 }
 
-QList<quint32> Show::components()
+QList<quint32> Show::components() const
 {
     QList<quint32> ids;
 

@@ -166,9 +166,9 @@ public:
     bool postLoad(Doc *doc);
 
 public:
-    bool contains(Doc *doc, quint32 functionId);
+    bool contains(Doc *doc, quint32 functionId) const;
 
-    QList<quint32> components();
+    QList<quint32> components() const;
 
 };
 

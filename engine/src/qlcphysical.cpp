@@ -348,7 +348,7 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool QLCPhysical::saveXML(QXmlStreamWriter *doc)
+bool QLCPhysical::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
