@@ -116,7 +116,7 @@ void ShowHeaderItem::setTimeScale(int val)
     update();
 }
 
-int ShowHeaderItem::getTimeScale()
+int ShowHeaderItem::getTimeScale() const
 {
     return m_timeScale;
 }
@@ -144,7 +144,7 @@ void ShowHeaderItem::setTimeDivisionType(Show::TimeDivision type)
     update();
 }
 
-Show::TimeDivision ShowHeaderItem::getTimeDivisionType()
+Show::TimeDivision ShowHeaderItem::getTimeDivisionType() const
 {
     return m_type;
 }
@@ -158,12 +158,12 @@ void ShowHeaderItem::setBPMValue(int value)
     update();
 }
 
-int ShowHeaderItem::getHalfSecondWidth()
+int ShowHeaderItem::getHalfSecondWidth() const
 {
     return HALF_SECOND_WIDTH;
 }
 
-float ShowHeaderItem::getTimeDivisionStep()
+float ShowHeaderItem::getTimeDivisionStep() const
 {
     if (m_type > Show::Time && m_timeStep <= 5)
         return m_timeStep * m_timeHit;
@@ -205,7 +205,7 @@ void ShowCursorItem::setTime(quint32 t)
     m_time = t;
 }
 
-quint32 ShowCursorItem::getTime()
+quint32 ShowCursorItem::getTime() const
 {
     return m_time;
 }

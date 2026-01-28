@@ -79,7 +79,7 @@ Show *ShowManager::currentShow() const
     return m_currentShow;
 }
 
-bool ShowManager::isEditing()
+bool ShowManager::isEditing() const
 {
     return m_currentShow == nullptr ? false : true;
 }
@@ -162,7 +162,7 @@ void ShowManager::setGridEnabled(bool gridEnabled)
  * Time
  ********************************************************************/
 
-Show::TimeDivision ShowManager::timeDivision()
+Show::TimeDivision ShowManager::timeDivision() const
 {
     if (m_currentShow == nullptr)
         return Show::Time;
@@ -195,7 +195,7 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
         emit beatsDivisionChanged(m_currentShow->beatsDivision());
 }
 
-int ShowManager::beatsDivision()
+int ShowManager::beatsDivision() const
 {
     if (m_currentShow == nullptr)
         return 0;
@@ -253,7 +253,7 @@ void ShowManager::setCurrentTime(int currentTime)
  * Tracks
  ********************************************************************/
 
-QVariant ShowManager::tracks()
+QVariant ShowManager::tracks() const
 {
     if (m_currentShow)
         return QVariant::fromValue(m_currentShow->tracks());
@@ -746,7 +746,7 @@ void ShowManager::resetItemsSelection()
     m_selectedItems.clear();
 }
 
-QVariantList ShowManager::selectedItemRefs()
+QVariantList ShowManager::selectedItemRefs() const
 {
     QVariantList list;
     /*
@@ -758,7 +758,7 @@ QVariantList ShowManager::selectedItemRefs()
     return list;
 }
 
-QStringList ShowManager::selectedItemNames()
+QStringList ShowManager::selectedItemNames() const
 {
     QStringList names;
     foreach (SelectedShowItem si, m_selectedItems)
@@ -771,7 +771,7 @@ QStringList ShowManager::selectedItemNames()
     return names;
 }
 
-bool ShowManager::selectedItemsLocked()
+bool ShowManager::selectedItemsLocked() const
 {
     foreach (SelectedShowItem si, m_selectedItems)
     {
@@ -797,7 +797,7 @@ void ShowManager::slotTimeChanged(quint32 msec_time)
 }
 
 bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
-                                   quint32 startTime, quint32 duration)
+                                   quint32 startTime, quint32 duration) const
 {
     if (track == nullptr)
         return false;

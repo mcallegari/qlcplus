@@ -92,12 +92,12 @@ QList< QPair<uchar, uchar> > ChannelModifier::modifierMap() const
     return m_map;
 }
 
-uchar ChannelModifier::getValue(uchar dmxValue)
+uchar ChannelModifier::getValue(uchar dmxValue) const
 {
     return m_values.at(dmxValue);
 }
 
-QFile::FileError ChannelModifier::saveXML(const QString &fileName)
+QFile::FileError ChannelModifier::saveXML(const QString &fileName) const
 {
     QFile::FileError error;
 

@@ -72,7 +72,7 @@ VCButton::~VCButton()
         delete m_item;
 }
 
-QString VCButton::defaultCaption()
+QString VCButton::defaultCaption() const
 {
     return tr("Button %1").arg(id() + 1);
 }
@@ -108,7 +108,7 @@ QString VCButton::propertiesResource() const
     return QString("qrc:/VCButtonProperties.qml");
 }
 
-VCWidget *VCButton::createCopy(VCWidget *parent)
+VCWidget *VCButton::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -655,7 +655,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCButton::saveXML(QXmlStreamWriter *doc)
+bool VCButton::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 

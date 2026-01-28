@@ -75,7 +75,7 @@ VCCueList::~VCCueList()
         delete m_item;
 }
 
-QString VCCueList::defaultCaption()
+QString VCCueList::defaultCaption() const
 {
     return tr("Cue List %1").arg(id() + 1);
 }
@@ -110,7 +110,7 @@ QString VCCueList::propertiesResource() const
     return QString("qrc:/VCCueListProperties.qml");
 }
 
-VCWidget *VCCueList::createCopy(VCWidget *parent)
+VCWidget *VCCueList::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -216,7 +216,7 @@ void VCCueList::setSideFaderMode(VCCueList::FaderMode mode)
         setSideFaderLevel(100);
 }
 
-VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
+VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr) const
 {
     if (modeStr == "Crossfade")
         return Crossfade;
@@ -226,7 +226,7 @@ VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
     return None;
 }
 
-QString VCCueList::faderModeToString(VCCueList::FaderMode mode)
+QString VCCueList::faderModeToString(VCCueList::FaderMode mode) const
 {
     if (mode == Crossfade)
         return "Crossfade";
@@ -1062,7 +1062,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCCueList::saveXML(QXmlStreamWriter *doc)
+bool VCCueList::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 

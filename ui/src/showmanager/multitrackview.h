@@ -92,14 +92,14 @@ public:
     void activateTrack(Track *track);
 
     /** get the selected Show item. If none, returns NULL */
-    ShowItem *getSelectedItem();
+    ShowItem *getSelectedItem() const;
 
 private:
     /** Retrieve the index of the given Track.
      *  If trk is NULL, this function returns the currently
      *  selected track.
      */
-    int getTrackIndex(Track *trk);
+    int getTrackIndex(Track *trk) const;
 
     void setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum);
 
@@ -111,7 +111,7 @@ public:
      *  in various forms (4/4, 3/4) */
     void setHeaderType(Show::TimeDivision type);
 
-    Show::TimeDivision getHeaderType();
+    Show::TimeDivision getHeaderType() const;
 
     /** When BPM is selected, this function can set a precise
      *  value of time division */
@@ -130,13 +130,13 @@ public:
     void rewindCursor();
 
     /** Get time in milliseconds of the current cursor position */
-    quint32 getTimeFromCursor();
+    quint32 getTimeFromCursor() const;
 
     /** Return position in pixel of a given time (in msec) */
-    quint32 getPositionFromTime(quint32 time);
+    quint32 getPositionFromTime(quint32 time) const;
 
     /** Return the time (in msec) from a given X position */
-    quint32 getTimeFromPosition(qreal pos);
+    quint32 getTimeFromPosition(qreal pos) const;
 
 private:
     QGraphicsScene *m_scene;

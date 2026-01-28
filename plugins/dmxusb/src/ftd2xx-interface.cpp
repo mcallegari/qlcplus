@@ -124,12 +124,12 @@ FTD2XXInterface::~FTD2XXInterface()
         close();
 }
 
-DMXInterface::Type FTD2XXInterface::type()
+DMXInterface::Type FTD2XXInterface::type() const
 {
     return DMXInterface::FTD2xx;
 }
 
-QString FTD2XXInterface::typeString()
+QString FTD2XXInterface::typeString() const
 {
     return "FTD2xx";
 }

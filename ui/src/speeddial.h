@@ -96,13 +96,13 @@ public:
     int value() const;
 
     /** Produce a tap programmatically */
-    void tap();
+    void tap() const;
 
-    void toggleInfinite();
+    void toggleInfinite() const;
 
     void stopTimers(bool stopTime = true, bool stopTapTimer = true);
 
-    bool isTapTick();
+    bool isTapTick() const;
 
 signals:
     void valueChanged(int ms);
@@ -118,7 +118,7 @@ private:
     int spinValues() const;
 
     /** Calculate the value to add/subtract when a dial has been moved */
-    int dialDiff(int value, int previous, int step);
+    int dialDiff(int value, int previous, int step) const;
 
 private slots:
     void slotPlusMinus();

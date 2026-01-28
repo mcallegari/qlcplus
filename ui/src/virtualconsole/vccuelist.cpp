@@ -293,7 +293,7 @@ void VCCueList::enableWidgetUI(bool enable)
  * Clipboard
  *****************************************************************************/
 
-VCWidget *VCCueList::createCopy(VCWidget *parent)
+VCWidget *VCCueList::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -382,7 +382,7 @@ quint32 VCCueList::chaserID() const
     return m_chaserID;
 }
 
-Chaser *VCCueList::chaser()
+Chaser *VCCueList::chaser() const
 {
     if (m_chaserID == Function::invalidId())
         return NULL;
@@ -466,7 +466,7 @@ void VCCueList::updateStepList()
     m_listIsUpdating = false;
 }
 
-int VCCueList::getCurrentIndex()
+int VCCueList::getCurrentIndex() const
 {
     int index = m_tree->indexOfTopLevelItem(m_tree->currentItem());
     if (index == -1)
@@ -474,7 +474,7 @@ int VCCueList::getCurrentIndex()
     return index;
 }
 
-int VCCueList::getNextIndex()
+int VCCueList::getNextIndex() const
 {
     Chaser *ch = chaser();
     if (ch == NULL)
@@ -486,7 +486,7 @@ int VCCueList::getNextIndex()
         return getPrevTreeIndex();
 }
 
-int VCCueList::getPrevIndex()
+int VCCueList::getPrevIndex() const
 {
     Chaser *ch = chaser();
     if (ch == NULL)
@@ -498,7 +498,7 @@ int VCCueList::getPrevIndex()
         return getNextTreeIndex();
 }
 
-int VCCueList::getFirstIndex()
+int VCCueList::getFirstIndex() const
 {
     Chaser *ch = chaser();
     if (ch == NULL)
@@ -510,7 +510,7 @@ int VCCueList::getFirstIndex()
         return getLastTreeIndex();
 }
 
-int VCCueList::getLastIndex()
+int VCCueList::getLastIndex() const
 {
     Chaser *ch = chaser();
     if (ch == NULL)
@@ -522,7 +522,7 @@ int VCCueList::getLastIndex()
         return getFirstTreeIndex();
 }
 
-int VCCueList::getNextTreeIndex()
+int VCCueList::getNextTreeIndex() const
 {
     int count = m_tree->topLevelItemCount();
     if (count > 0)
@@ -530,7 +530,7 @@ int VCCueList::getNextTreeIndex()
     return 0;
 }
 
-int VCCueList::getPrevTreeIndex()
+int VCCueList::getPrevTreeIndex() const
 {
     int currentIndex = getCurrentIndex();
     if (currentIndex <= 0)
@@ -538,12 +538,12 @@ int VCCueList::getPrevTreeIndex()
     return currentIndex - 1;
 }
 
-int VCCueList::getFirstTreeIndex()
+int VCCueList::getFirstTreeIndex() const
 {
     return 0;
 }
 
-int VCCueList::getLastTreeIndex()
+int VCCueList::getLastTreeIndex() const
 {
     return m_tree->topLevelItemCount() - 1;
 }
@@ -997,12 +997,12 @@ void VCCueList::slotProgressTimeout()
     }
 }
 
-QString VCCueList::progressText()
+QString VCCueList::progressText() const
 {
     return m_progress->text();
 }
 
-double VCCueList::progressPercent()
+double VCCueList::progressPercent() const
 {
     return ((double)m_progress->value() * 100) / (double)m_progress->width();
 }
@@ -1037,7 +1037,7 @@ void VCCueList::stopChaser()
     resetIntensityOverrideAttribute();
 }
 
-int VCCueList::getFadeMode()
+int VCCueList::getFadeMode() const
 {
     if (sideFaderMode() != Crossfade)
         return Chaser::FromFunction;
@@ -1113,7 +1113,7 @@ void VCCueList::setSideFaderMode(VCCueList::FaderMode mode)
     m_sideFader->setValue(mode == Steps ? 255 : 100);
 }
 
-VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
+VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr) const
 {
     if (modeStr == "Crossfade")
         return Crossfade;
@@ -1123,7 +1123,7 @@ VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
     return None;
 }
 
-QString VCCueList::faderModeToString(VCCueList::FaderMode mode)
+QString VCCueList::faderModeToString(VCCueList::FaderMode mode) const
 {
     if (mode == Crossfade)
         return "Crossfade";
@@ -1174,32 +1174,32 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     emit sideFaderButtonToggled();
 }
 
-QString VCCueList::topPercentageValue()
+QString VCCueList::topPercentageValue() const
 {
     return m_topPercentageLabel->text();
 }
 
-QString VCCueList::bottomPercentageValue()
+QString VCCueList::bottomPercentageValue() const
 {
     return m_bottomPercentageLabel->text();
 }
 
-QString VCCueList::topStepValue()
+QString VCCueList::topStepValue() const
 {
     return m_topStepLabel->text();
 }
 
-QString VCCueList::bottomStepValue()
+QString VCCueList::bottomStepValue() const
 {
     return m_bottomStepLabel->text();
 }
 
-int VCCueList::sideFaderValue()
+int VCCueList::sideFaderValue() const
 {
     return m_sideFader->value();
 }
 
-bool VCCueList::primaryTop()
+bool VCCueList::primaryTop() const
 {
     return m_primaryTop;
 }
@@ -1210,12 +1210,12 @@ void VCCueList::slotSideFaderButtonChecked(bool enable)
     emit sideFaderButtonChecked();
 }
 
-bool VCCueList::isSideFaderVisible()
+bool VCCueList::isSideFaderVisible() const
 {
     return m_sideFader->isVisible();
 }
 
-bool VCCueList::sideFaderButtonIsChecked()
+bool VCCueList::sideFaderButtonIsChecked() const
 {
     return m_crossfadeButton->isChecked();
 }

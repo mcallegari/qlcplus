@@ -47,14 +47,14 @@ public:
      * Return a list of strings containing the cached modifiers
      * template names.
      */
-    QList<QString> templateNames();
+    QList<QString> templateNames() const;
 
     /**
      * Get a modifier instance by name
      * @param name The modifier name
      * @return a pointer to the requested modifier or NULL if not found
      */
-    ChannelModifier* modifier(QString name);
+    ChannelModifier* modifier(QString name) const;
 
     /**
      * Get the default system channels modifiers directory that contains

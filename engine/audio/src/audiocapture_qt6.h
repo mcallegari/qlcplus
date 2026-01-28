@@ -37,7 +37,7 @@ public:
     ~AudioCaptureQt6();
 
     /** @reimpl */
-    qint64 latency() override;
+    qint64 latency() const override;
 
     /** @reimpl */
     void setVolume(qreal volume) override;

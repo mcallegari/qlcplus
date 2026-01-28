@@ -166,7 +166,7 @@ void Collection::slotFunctionRemoved(quint32 fid)
  * Load & Save
  *****************************************************************************/
 
-bool Collection::saveXML(QXmlStreamWriter *doc)
+bool Collection::saveXML(QXmlStreamWriter *doc) const
 {
     int i = 0;
 
@@ -247,7 +247,7 @@ void Collection::postLoad()
     }
 }
 
-bool Collection::contains(quint32 functionId)
+bool Collection::contains(quint32 functionId) const
 {
     Doc* doc = qobject_cast <Doc*> (parent());
     Q_ASSERT(doc != NULL);
@@ -268,7 +268,7 @@ bool Collection::contains(quint32 functionId)
     return false;
 }
 
-QList<quint32> Collection::components()
+QList<quint32> Collection::components() const
 {
     return m_functions;
 }

@@ -45,7 +45,7 @@ void DMXUSB::init()
     rescanWidgets();
 }
 
-QString DMXUSB::name()
+QString DMXUSB::name() const
 {
     return QString("DMX USB");
 }
@@ -137,7 +137,7 @@ QStringList DMXUSB::outputs()
     return list;
 }
 
-QString DMXUSB::pluginInfo()
+QString DMXUSB::pluginInfo() const
 {
     QString str;
 
@@ -305,7 +305,7 @@ void DMXUSB::configure()
     emit configurationChanged();
 }
 
-bool DMXUSB::canConfigure()
+bool DMXUSB::canConfigure() const
 {
     return true;
 }

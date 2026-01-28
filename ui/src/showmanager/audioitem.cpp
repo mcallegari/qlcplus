@@ -125,14 +125,14 @@ void AudioItem::setDuration(quint32 msec, bool stretch)
     // nothing to do
 }
 
-QString AudioItem::functionName()
+QString AudioItem::functionName() const
 {
     if (m_audio)
         return m_audio->name();
     return QString();
 }
 
-Audio *AudioItem::getAudio()
+Audio *AudioItem::getAudio() const
 {
     return m_audio;
 }
@@ -210,7 +210,7 @@ void PreviewThread::setAudioItem(AudioItem *item)
     m_item = item;
 }
 
-qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize)
+qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize) const
 {
     qint32 value = 0;
     if (sampleSize == 1)

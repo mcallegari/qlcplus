@@ -52,7 +52,7 @@ public:
 
     /** Load & Save */
     bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     quint32 m_id;
@@ -120,10 +120,10 @@ public:
     void setCountdown(int h, int m, int s);
     void playPauseTimer();
     void resetTimer();
-    long currentTime() { return m_currentTime; }
-    int getHours() { return m_hh; }
-    int getMinutes() { return m_mm; }
-    int getSeconds() { return m_ss; }
+    long currentTime() const { return m_currentTime; }
+    int getHours() const { return m_hh; }
+    int getMinutes() const { return m_mm; }
+    int getSeconds() const { return m_ss; }
 
 signals:
     void timeChanged(quint32 time);
@@ -181,7 +181,7 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
     bool copyFrom(const VCWidget *widget) override;
 
     /*********************************************************************

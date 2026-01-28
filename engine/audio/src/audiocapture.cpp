@@ -94,7 +94,7 @@ AudioCapture::~AudioCapture()
 #endif
 }
 
-int AudioCapture::defaultBarsNumber()
+int AudioCapture::defaultBarsNumber() const
 {
     return FREQ_SUBBANDS_DEFAULT_NUMBER;
 }

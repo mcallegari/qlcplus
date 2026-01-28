@@ -97,7 +97,7 @@ bool AudioRendererQt5::initialize(quint32 freq, int chan, AudioFormat format)
     return true;
 }
 
-qint64 AudioRendererQt5::latency()
+qint64 AudioRendererQt5::latency() const
 {
     return 0;
 }

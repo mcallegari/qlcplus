@@ -99,7 +99,7 @@ bool AudioRendererCoreAudio::initialize(quint32 freq, int chan, AudioFormat form
     return true;
 }
 
-qint64 AudioRendererCoreAudio::latency()
+qint64 AudioRendererCoreAudio::latency() const
 {
     return 0;
 }

@@ -46,13 +46,13 @@ public:
     void init() override;
 
     /** @reimp */
-    QString name() override;
+    QString name() const override;
 
     /** @reimp */
     int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo() override;
+    QString pluginInfo() const override;
 
     /*********************************************************************
      * Outputs
@@ -78,7 +78,7 @@ private:
     void rescanDevices();
 
     /** Get a UDMXDevice entry by its usbdev struct */
-    UDMXDevice* device(libusb_device *usbdev);
+    UDMXDevice* device(libusb_device *usbdev) const;
 
 private:
     struct libusb_context* m_ctx;
@@ -94,7 +94,7 @@ public:
     void configure() override;
 
     /** @reimp */
-    bool canConfigure() override;
+    bool canConfigure() const override;
 };
 
 #endif

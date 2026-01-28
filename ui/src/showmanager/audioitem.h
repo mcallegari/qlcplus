@@ -55,10 +55,10 @@ public:
     void setDuration(quint32 msec, bool stretch) override;
 
     /** @reimp */
-    QString functionName() override;
+    QString functionName() const override;
 
     /** Return a pointer to a Audio Function associated to this item */
-    Audio *getAudio();
+    Audio *getAudio() const;
 
 protected:
     /** @reimp */
@@ -98,7 +98,7 @@ public:
 
 private:
     /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, quint32 idx, int sampleSize);
+    qint32 getSample(unsigned char *data, quint32 idx, int sampleSize) const;
     void run() override;
 
     AudioItem *m_item;

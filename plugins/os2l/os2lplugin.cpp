@@ -42,7 +42,7 @@ void OS2LPlugin::init()
     m_tcpServer = NULL;
 }
 
-QString OS2LPlugin::name()
+QString OS2LPlugin::name() const
 {
     return QString("OS2L");
 }
@@ -52,7 +52,7 @@ int OS2LPlugin::capabilities() const
     return QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Beats;
 }
 
-QString OS2LPlugin::pluginInfo()
+QString OS2LPlugin::pluginInfo() const
 {
     /** Return a description of the purpose of this plugin
      *  in HTML format */
@@ -265,7 +265,7 @@ void OS2LPlugin::configure()
     conf.exec();
 }
 
-bool OS2LPlugin::canConfigure()
+bool OS2LPlugin::canConfigure() const
 {
     return true;
 }

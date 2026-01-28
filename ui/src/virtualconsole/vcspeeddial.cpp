@@ -212,7 +212,7 @@ void VCSpeedDial::enableWidgetUI(bool enable)
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCSpeedDial::createCopy(VCWidget* parent)
+VCWidget* VCSpeedDial::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 

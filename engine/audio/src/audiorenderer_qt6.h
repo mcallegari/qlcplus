@@ -44,7 +44,7 @@ public:
     bool initialize(quint32, int, AudioFormat format) override;
 
     /** @reimpl */
-    qint64 latency() override;
+    qint64 latency() const override;
 
     static QList<AudioDeviceInfo> getDevicesInfo();
 

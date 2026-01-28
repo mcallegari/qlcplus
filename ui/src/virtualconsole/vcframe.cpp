@@ -101,7 +101,7 @@ VCFrame::~VCFrame()
 {
 }
 
-bool VCFrame::isBottomFrame()
+bool VCFrame::isBottomFrame() const
 {
     return (parentWidget() != NULL && qobject_cast<VCFrame*>(parentWidget()) == NULL);
 }
@@ -486,12 +486,12 @@ void VCFrame::setTotalPagesNumber(int num)
     m_totalPagesNumber = num;
 }
 
-int VCFrame::totalPagesNumber()
+int VCFrame::totalPagesNumber() const
 {
     return m_totalPagesNumber;
 }
 
-int VCFrame::currentPage()
+int VCFrame::currentPage() const
 {
     if (m_multiPageMode == false)
         return 0;
@@ -826,7 +826,7 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCFrame::createCopy(VCWidget* parent)
+VCWidget* VCFrame::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -1462,7 +1462,7 @@ QString VCFrame::xmlTagName() const
  * Custom menu
  *****************************************************************************/
 
-QMenu* VCFrame::customMenu(QMenu* parentMenu)
+QMenu* VCFrame::customMenu(QMenu* parentMenu) const
 {
     QMenu* menu = NULL;
     VirtualConsole* vc = VirtualConsole::instance();

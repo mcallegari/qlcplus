@@ -121,7 +121,7 @@ public:
      *
      * This is a pure virtual method that must be implemented by all plugins.
      */
-    virtual QString name() = 0;
+    virtual QString name() const = 0;
 
     /** Plugin's I/O capabilities */
     enum Capability {
@@ -145,7 +145,7 @@ public:
      *
      * This is a pure virtual method that must be implemented by all plugins.
      */
-    virtual QString pluginInfo() = 0;
+    virtual QString pluginInfo() const = 0;
 
     /** Invalid input/output number */
     static quint32 invalidLine() { return UINT_MAX; }
@@ -307,7 +307,7 @@ public:
      *
      * @return true if the plugin can be configured, otherwise false.
      */
-    virtual bool canConfigure();
+    virtual bool canConfigure() const;
 
     /**
      * Set an arbitrary parameter useful for the plugin. This is similar
@@ -341,7 +341,7 @@ public:
      * @param type the type of $line. Can be input or output
      * @return
      */
-    virtual QMap<QString, QVariant> getParameters(quint32 universe, quint32 line, Capability type);
+    virtual QMap<QString, QVariant> getParameters(quint32 universe, quint32 line, Capability type) const;
 
 signals:
     /**

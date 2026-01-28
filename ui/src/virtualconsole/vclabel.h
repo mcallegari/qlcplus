@@ -51,7 +51,7 @@ public:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
     /*********************************************************************
      * Properties

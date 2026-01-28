@@ -71,7 +71,7 @@ public:
     /** Virtual method to retrieve the original USB
      *  bus location of the device.
      *  Used only in Linux to perform a sysfs lookup */
-    virtual quint8 busLocation();
+    virtual quint8 busLocation() const;
 
 private:
     QString m_serial;
@@ -112,7 +112,7 @@ public:
      */
     static bool validInterface(quint16 vendor, quint16 product);
 
-    bool checkInfo(QString &serial, QString &name, QString &vendor);
+    bool checkInfo(QString &serial, QString &name, QString &vendor) const;
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
@@ -134,9 +134,9 @@ public:
      * DMX/Serial Interface Methods
      ************************************************************************/
 public:
-    virtual DMXInterface::Type type() = 0;
+    virtual DMXInterface::Type type() const = 0;
 
-    virtual QString typeString() = 0;
+    virtual QString typeString() const = 0;
 
     /** Open the widget */
     virtual bool open() = 0;

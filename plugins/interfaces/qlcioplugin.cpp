@@ -103,7 +103,7 @@ void QLCIOPlugin::configure()
 {
 }
 
-bool QLCIOPlugin::canConfigure()
+bool QLCIOPlugin::canConfigure() const
 {
     return false;
 }
@@ -141,7 +141,7 @@ void QLCIOPlugin::unSetParameter(quint32 universe, quint32 line, QLCIOPlugin::Ca
     }
 }
 
-QMap<QString, QVariant> QLCIOPlugin::getParameters(quint32 universe, quint32 line, QLCIOPlugin::Capability type)
+QMap<QString, QVariant> QLCIOPlugin::getParameters(quint32 universe, quint32 line, QLCIOPlugin::Capability type) const
 {
     if (m_universesMap.contains(universe) == false)
         return QMap<QString, QVariant>();

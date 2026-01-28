@@ -54,7 +54,7 @@ public:
      *************************************************************************/
 public:
     /** @reimp */
-    virtual VCWidget* createCopy(VCWidget* parent) override;
+    virtual VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */

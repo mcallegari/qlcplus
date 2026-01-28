@@ -325,7 +325,7 @@ bool Track::postLoad(Doc* doc)
     return modified;
 }
 
-bool Track::contains(Doc* doc, quint32 functionId)
+bool Track::contains(Doc* doc, quint32 functionId) const
 {
     if (m_sceneID == functionId)
         return true;
@@ -349,7 +349,7 @@ bool Track::contains(Doc* doc, quint32 functionId)
     return false;
 }
 
-QList<quint32> Track::components()
+QList<quint32> Track::components() const
 {
     QList<quint32> ids;
 

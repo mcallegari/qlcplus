@@ -81,7 +81,7 @@ public:
     void init(bool bottomFrame = false);
 
     /* Check if this is the virtual console's draw area */
-    bool isBottomFrame();
+    bool isBottomFrame() const;
 
     /*********************************************************************
      * GUI
@@ -162,9 +162,9 @@ public:
     void updatePageCombo();
 
     void setTotalPagesNumber(int num);
-    int totalPagesNumber();
+    int totalPagesNumber() const;
 
-    virtual int currentPage();
+    virtual int currentPage() const;
 
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
@@ -263,7 +263,7 @@ protected slots:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
@@ -305,7 +305,7 @@ protected:
 public:
     /** Get a custom menu specific to this widget. Ownership is transferred
         to the caller, which must delete the returned menu pointer. */
-    virtual QMenu* customMenu(QMenu* parentMenu) override;
+    virtual QMenu* customMenu(QMenu* parentMenu) const override;
 
     /*********************************************************************
      * Event handlers

@@ -75,7 +75,7 @@ public:
     virtual void initializeProperties();
 
     /** @reimp */
-    virtual QString defaultCaption() override;
+    virtual QString defaultCaption() const override;
 
     /** @reimp */
     void setupLookAndFeel(qreal pixelDensity, int page) override;
@@ -87,7 +87,7 @@ public:
     QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** @reimp */
@@ -106,7 +106,7 @@ public:
 
     /** Returns a list of the children widgets with the specified
      *  $recursive method */
-    QList<VCWidget *>children(bool recursive = false);
+    QList<VCWidget *>children(bool recursive = false) const;
 
     /** Add a new widget of type $wType at position $pos to this frame.
      *  $parent is used only to render the new widget */
@@ -311,7 +311,7 @@ public slots:
 public:
     bool loadWidgetXML(QXmlStreamReader &root, bool render = false);
     bool loadXML(QXmlStreamReader &root) override;
-    bool saveXML(QXmlStreamWriter *doc) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
 protected:
     /** Can be overridden by subclasses */

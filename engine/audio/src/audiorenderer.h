@@ -67,7 +67,7 @@ public:
     /*!
      * Returns output interface latency in milliseconds.
      */
-    virtual qint64 latency() = 0;
+    virtual qint64 latency() const = 0;
 
     /*!
      * Writes all remaining plugin's internal data to audio output device.

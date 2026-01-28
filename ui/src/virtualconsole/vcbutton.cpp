@@ -138,7 +138,7 @@ void VCButton::setID(quint32 id)
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCButton::createCopy(VCWidget* parent)
+VCWidget* VCButton::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -880,7 +880,7 @@ bool VCButton::isChildOfSoloFrame() const
  * Custom menu
  *****************************************************************************/
 
-QMenu* VCButton::customMenu(QMenu* parentMenu)
+QMenu* VCButton::customMenu(QMenu* parentMenu) const
 {
     QMenu* menu = new QMenu(parentMenu);
     menu->setTitle(tr("Icon"));

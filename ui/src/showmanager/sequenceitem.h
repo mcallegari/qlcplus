@@ -55,12 +55,12 @@ public:
     void setDuration(quint32 msec, bool stretch) override;
 
     /** @reimp */
-    QString functionName() override;
+    QString functionName() const override;
 
     void setSelectedStep(int idx);
 
     /** Return a pointer to a Chaser Function associated to this item */
-    Chaser *getChaser();
+    Chaser *getChaser() const;
 
 protected:
     /** @reimp */

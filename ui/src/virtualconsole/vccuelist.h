@@ -101,7 +101,7 @@ public:
      *************************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
@@ -118,39 +118,39 @@ public:
     quint32 chaserID() const;
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser *chaser();
+    Chaser *chaser() const;
 
 public:
     /** Get the currently selected item index, otherwise 0 */
-    int getCurrentIndex();
+    int getCurrentIndex() const;
     /** Get the progress text of the selected item */
-    QString progressText();
-    double progressPercent();
+    QString progressText() const;
+    double progressPercent() const;
 
 private:
     /** Get the index of the next item, based on the chaser direction */
-    int getNextIndex();
+    int getNextIndex() const;
 
     /** Get the index of the previous item, based on the chaser direction */
-    int getPrevIndex();
+    int getPrevIndex() const;
 
     /** Get the index of the first item, based on the chaser direction */
-    int getFirstIndex();
+    int getFirstIndex() const;
 
     /** Get the index of the last item, based on the chaser direction */
-    int getLastIndex();
+    int getLastIndex() const;
 
     /** Get the index of the item above the selected item */
-    int getNextTreeIndex();
+    int getNextTreeIndex() const;
 
     /** Get the index of the item below the selected item */
-    int getPrevTreeIndex();
+    int getPrevTreeIndex() const;
 
     /** Get the index of the item on top of the tree */
-    int getFirstTreeIndex();
+    int getFirstTreeIndex() const;
 
     /** Get the index of the item at the bottom of the tree */
-    int getLastTreeIndex();
+    int getLastTreeIndex() const;
 
 private:
     /** Get the intensity of the current primary slider */
@@ -227,7 +227,7 @@ private:
     /** Stop associated */
     void stopChaser();
 
-    int getFadeMode();
+    int getFadeMode() const;
 
 public:
     enum NextPrevBehavior
@@ -285,16 +285,16 @@ public:
     FaderMode sideFaderMode() const;
     void setSideFaderMode(FaderMode mode);
 
-    FaderMode stringToFaderMode(QString modeStr);
-    QString faderModeToString(FaderMode mode);
-    bool isSideFaderVisible();
-    bool sideFaderButtonIsChecked();
-    QString topPercentageValue();
-    QString bottomPercentageValue();
-    QString topStepValue();
-    QString bottomStepValue();
-    int sideFaderValue();
-    bool primaryTop();
+    FaderMode stringToFaderMode(QString modeStr) const;
+    QString faderModeToString(FaderMode mode) const;
+    bool isSideFaderVisible() const;
+    bool sideFaderButtonIsChecked() const;
+    QString topPercentageValue() const;
+    QString bottomPercentageValue() const;
+    QString topStepValue() const;
+    QString bottomStepValue() const;
+    int sideFaderValue() const;
+    bool primaryTop() const;
 
 signals:
     void sideFaderButtonToggled();

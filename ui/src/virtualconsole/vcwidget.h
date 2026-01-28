@@ -141,7 +141,7 @@ public:
     void setType(int type);
 
     /** Get the widget's type */
-    int type();
+    int type() const;
 
     static QString typeToString(int type);
     static QIcon typeToIcon(int type);
@@ -169,7 +169,7 @@ public:
 
     virtual void enableWidgetUI(bool enable);
 
-    bool isDisabled();
+    bool isDisabled() const;
 
 signals:
     void disableStateChanged(bool disable);
@@ -182,7 +182,7 @@ protected:
      *********************************************************************/
 public:
     void setPage(int pNum);
-    int page();
+    int page() const;
 
 protected:
     int m_page;
@@ -192,7 +192,7 @@ protected:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent and return it */
-    virtual VCWidget* createCopy(VCWidget* parent) = 0;
+    virtual VCWidget* createCopy(VCWidget* parent) const = 0;
 
 protected:
     /** Copy the contents for this widget from the given widget */
@@ -392,7 +392,7 @@ public:
     /**
      * Helper method to check if the widget is in a state to accept external inputs
      */
-    bool acceptsInput();
+    bool acceptsInput() const;
 
     /**
      * Check the input source with the given id against
@@ -536,10 +536,10 @@ protected:
     bool loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
 
     static QString extraParamToString(QVariant param);
-    bool saveXMLCommon(QXmlStreamWriter *doc);
-    bool saveXMLAppearance(QXmlStreamWriter *doc);
+    bool saveXMLCommon(QXmlStreamWriter *doc) const;
+    bool saveXMLAppearance(QXmlStreamWriter *doc) const;
     /** Save the defualt input source to $root */
-    bool saveXMLInput(QXmlStreamWriter *doc);
+    bool saveXMLInput(QXmlStreamWriter *doc) const;
 
     /**
      * Write this widget's geometry and visibility to an XML document.
@@ -548,7 +548,7 @@ protected:
      *
      * @return true if successful, otherwise false
      */
-    bool saveXMLWindowState(QXmlStreamWriter *doc);
+    bool saveXMLWindowState(QXmlStreamWriter *doc) const;
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
@@ -601,7 +601,7 @@ protected:
 public:
     /** Get a custom menu specific to this widget. Ownership is transferred
         to the caller, which must delete the returned menu pointer. */
-    virtual QMenu* customMenu(QMenu* parentMenu);
+    virtual QMenu* customMenu(QMenu* parentMenu) const;
 
     /*********************************************************************
      * Widget move & resize

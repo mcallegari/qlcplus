@@ -43,10 +43,10 @@ public:
      ************************************************************************/
 public:
     /** @reimpl */
-    DMXInterface::Type type() override;
+    DMXInterface::Type type() const override;
 
     /** @reimpl */
-    QString typeString() override;
+    QString typeString() const override;
 
     /** @reimpl */
     bool open() override;

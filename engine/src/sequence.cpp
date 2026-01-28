@@ -89,7 +89,7 @@ quint32 Sequence::boundSceneID() const
     return m_boundSceneID;
 }
 
-QList<quint32> Sequence::components()
+QList<quint32> Sequence::components() const
 {
     QList<quint32> ids;
     if (m_boundSceneID != Function::invalidId())
@@ -101,7 +101,7 @@ QList<quint32> Sequence::components()
  * Save & Load
  *****************************************************************************/
 
-bool Sequence::saveXML(QXmlStreamWriter *doc)
+bool Sequence::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

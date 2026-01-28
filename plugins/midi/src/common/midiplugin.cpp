@@ -59,7 +59,7 @@ MidiPlugin::~MidiPlugin()
     delete m_enumerator;
 }
 
-QString MidiPlugin::name()
+QString MidiPlugin::name() const
 {
     return QString("MIDI");
 }
@@ -123,7 +123,7 @@ QStringList MidiPlugin::outputs()
     return list;
 }
 
-QString MidiPlugin::pluginInfo()
+QString MidiPlugin::pluginInfo() const
 {
     QString str;
 
@@ -413,7 +413,7 @@ void MidiPlugin::configure()
     }
 }
 
-bool MidiPlugin::canConfigure()
+bool MidiPlugin::canConfigure() const
 {
     qDebug() << Q_FUNC_INFO;
     return true;
@@ -451,13 +451,13 @@ void MidiPlugin::setParameter(quint32 universe, quint32 line, Capability type,
  * Midi templates
  *****************************************************************************/
 
-QDir MidiPlugin::userMidiTemplateDirectory()
+QDir MidiPlugin::userMidiTemplateDirectory() const
 {
     return QLCFile::userDirectory(QString(USERMIDITEMPLATEDIR), QString(MIDITEMPLATEDIR),
                                   QStringList() << QString("*%1").arg(KExtMidiTemplate));
 }
 
-QDir MidiPlugin::systemMidiTemplateDirectory()
+QDir MidiPlugin::systemMidiTemplateDirectory() const
 {
     return QLCFile::systemDirectory(QString(MIDITEMPLATEDIR), QString(KExtMidiTemplate));
 }
@@ -478,7 +478,7 @@ bool MidiPlugin::addMidiTemplate(MidiTemplate* templ)
     }
 }
 
-MidiTemplate* MidiPlugin::midiTemplate(QString name)
+MidiTemplate* MidiPlugin::midiTemplate(QString name) const
 {
     QListIterator <MidiTemplate*> it(m_midiTemplates);
     while (it.hasNext() == true)
@@ -522,7 +522,7 @@ void MidiPlugin::loadMidiTemplates(const QDir& dir)
     }
 }
 
-QList <MidiTemplate*> MidiPlugin::midiTemplates()
+QList <MidiTemplate*> MidiPlugin::midiTemplates() const
 {
     return m_midiTemplates;
 }

@@ -75,7 +75,7 @@ void HIDDMXDevice::init()
  * File operations
  *****************************************************************************/
 
-bool HIDDMXDevice::isMergerModeEnabled()
+bool HIDDMXDevice::isMergerModeEnabled() const
 {
     return (m_mode & DMX_MODE_MERGER);
 }
@@ -126,7 +126,7 @@ bool HIDDMXDevice::readEvent()
  * Device info
  *****************************************************************************/
 
-QString HIDDMXDevice::infoText()
+QString HIDDMXDevice::infoText() const
 {
     QString info;
 

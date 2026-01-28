@@ -121,7 +121,7 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
     /** @reimp */
     bool copyFrom(const VCWidget* widget) override;

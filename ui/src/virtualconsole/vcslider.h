@@ -108,7 +108,7 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget *createCopy(VCWidget *parent) override;
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */

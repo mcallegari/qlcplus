@@ -246,12 +246,12 @@ quint32 QLCFixtureMode::masterIntensityChannel() const
     return m_masterIntensityChannel;
 }
 
-quint32 QLCFixtureMode::primaryChannel(quint32 chIndex)
+quint32 QLCFixtureMode::primaryChannel(quint32 chIndex) const
 {
     return m_secondaryMap.value(chIndex, QLCChannel::invalid());
 }
 
-quint32 QLCFixtureMode::channelActsOn(quint32 chIndex)
+quint32 QLCFixtureMode::channelActsOn(quint32 chIndex) const
 {
     return m_actsOnMap.value(chIndex, QLCChannel::invalid());
 }
@@ -357,7 +357,7 @@ void QLCFixtureMode::resetPhysical()
     m_useGlobalPhysical = true;
 }
 
-bool QLCFixtureMode::useGlobalPhysical()
+bool QLCFixtureMode::useGlobalPhysical() const
 {
     return m_useGlobalPhysical;
 }
@@ -442,7 +442,7 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
+bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc) const
 {
     int i = 0;
 

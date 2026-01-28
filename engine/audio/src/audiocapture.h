@@ -67,7 +67,7 @@ public:
 
     ~AudioCapture();
 
-    int defaultBarsNumber();
+    int defaultBarsNumber() const;
 
     /**
      * Request the given number of frequency bands to the
@@ -113,7 +113,7 @@ protected:
     /*!
      * Returns input interface latency in milliseconds.
      */
-    virtual qint64 latency() = 0;
+    virtual qint64 latency() const = 0;
 
     /*********************************************************************
      * Thread functions

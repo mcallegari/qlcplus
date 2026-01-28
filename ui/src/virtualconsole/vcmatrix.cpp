@@ -232,7 +232,7 @@ void VCMatrix::setID(quint32 id)
  * Clipboard
  *********************************************************************/
 
-VCWidget *VCMatrix::createCopy(VCWidget *parent)
+VCWidget *VCMatrix::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -335,7 +335,7 @@ void VCMatrix::slotSliderMoved(int value)
     emit sliderValueChanged(value);
 }
 
-int VCMatrix::sliderValue()
+int VCMatrix::sliderValue() const
 {
     return m_slider->value();
 }
@@ -405,7 +405,7 @@ void VCMatrix::slotSetColor5(QColor color)
     }
 }
 
-QColor VCMatrix::mtxColor(int id)
+QColor VCMatrix::mtxColor(int id) const
 {
     RGBMatrix *matrix = qobject_cast<RGBMatrix*>(m_doc->function(m_matrixID));
     if (matrix == NULL)
@@ -521,7 +521,7 @@ void VCMatrix::slotAnimationChanged(int index)
     emit animationValueChanged(pValue);
 }
 
-QString VCMatrix::animationValue()
+QString VCMatrix::animationValue() const
 {
     return m_presetCombo->currentText();
 }

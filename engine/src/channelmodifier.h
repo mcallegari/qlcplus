@@ -59,14 +59,14 @@ public:
 
     QList< QPair<uchar, uchar> > modifierMap() const;
 
-    uchar getValue(uchar dmxValue);
+    uchar getValue(uchar dmxValue) const;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     /** Save the modifier into an XML file */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName) const;
 
     /** Load this modifier's content from the given file */
     QFile::FileError loadXML(const QString& fileName, Type type);

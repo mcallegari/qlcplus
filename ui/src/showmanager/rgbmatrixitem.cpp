@@ -105,19 +105,19 @@ void RGBMatrixItem::setDuration(quint32 msec, bool stretch)
     }
 }
 
-quint32 RGBMatrixItem::getDuration()
+quint32 RGBMatrixItem::getDuration() const
 {
     return m_function->duration() ? m_function->duration() : m_matrix->totalDuration();
 }
 
-QString RGBMatrixItem::functionName()
+QString RGBMatrixItem::functionName() const
 {
     if (m_matrix)
         return m_matrix->name();
     return QString();
 }
 
-RGBMatrix *RGBMatrixItem::getRGBMatrix()
+RGBMatrix *RGBMatrixItem::getRGBMatrix() const
 {
     return m_matrix;
 }

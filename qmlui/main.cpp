@@ -28,10 +28,6 @@
 #include "qlcfile.h"
 #include "qlcconfig.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-#define endl Qt::endl
-#endif
-
 QFile logFile;
 
 /**
@@ -41,13 +37,13 @@ void printVersion()
 {
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
-    cout << endl;
-    cout << APPNAME << " " << "version " << APPVERSION << endl;
+    cout << Qt::endl;
+    cout << APPNAME << " " << "version " << APPVERSION << Qt::endl;
     cout << "This program is licensed under the terms of the ";
-    cout << "Apache 2.0 license." << endl;
-    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
-    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << endl;
-    cout << endl;
+    cout << "Apache 2.0 license." << Qt::endl;
+    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << Qt::endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << Qt::endl;
+    cout << Qt::endl;
 }
 
 int main(int argc, char *argv[])

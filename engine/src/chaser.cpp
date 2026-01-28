@@ -332,7 +332,7 @@ Chaser::SpeedMode Chaser::stringToSpeedMode(const QString& str)
  * Save & Load
  *****************************************************************************/
 
-bool Chaser::saveXML(QXmlStreamWriter *doc)
+bool Chaser::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -580,7 +580,7 @@ ChaserRunnerStep Chaser::currentRunningStep() const
     return ret;
 }
 
-bool Chaser::contains(quint32 functionId)
+bool Chaser::contains(quint32 functionId) const
 {
     Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
@@ -601,7 +601,7 @@ bool Chaser::contains(quint32 functionId)
     return false;
 }
 
-QList<quint32> Chaser::components()
+QList<quint32> Chaser::components() const
 {
     QList<quint32> ids;
 

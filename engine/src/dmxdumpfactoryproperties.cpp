@@ -27,7 +27,7 @@ DmxDumpFactoryProperties::DmxDumpFactoryProperties(int universes)
 {
 }
 
-bool DmxDumpFactoryProperties::dumpChannelsMode()
+bool DmxDumpFactoryProperties::dumpChannelsMode() const
 {
     return m_dumpAllChannels;
 }
@@ -37,7 +37,7 @@ void DmxDumpFactoryProperties::setDumpChannelsMode(bool mode)
     m_dumpAllChannels = mode;
 }
 
-bool DmxDumpFactoryProperties::nonZeroValuesMode()
+bool DmxDumpFactoryProperties::nonZeroValuesMode() const
 {
     return m_dumpNonZeroValues;
 }
@@ -47,7 +47,7 @@ void DmxDumpFactoryProperties::setNonZeroValuesMode(bool mode)
     m_dumpNonZeroValues = mode;
 }
 
-QByteArray DmxDumpFactoryProperties::channelsMask()
+QByteArray DmxDumpFactoryProperties::channelsMask() const
 {
     return m_channelsMask;
 }
@@ -73,7 +73,7 @@ void DmxDumpFactoryProperties::removeChaserID(quint32 id)
     m_selectedChaserIDs.removeAll(id);
 }
 
-bool DmxDumpFactoryProperties::isChaserSelected(quint32 id)
+bool DmxDumpFactoryProperties::isChaserSelected(quint32 id) const
 {
     return m_selectedChaserIDs.contains(id);
 }
@@ -83,7 +83,7 @@ void DmxDumpFactoryProperties::setSelectedTarget(DmxDumpFactoryProperties::Targe
     m_selectedTarget = type;
 }
 
-DmxDumpFactoryProperties::TargetType DmxDumpFactoryProperties::selectedTarget()
+DmxDumpFactoryProperties::TargetType DmxDumpFactoryProperties::selectedTarget() const
 {
     return m_selectedTarget;
 }

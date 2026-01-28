@@ -46,7 +46,7 @@ EnttecWing::~EnttecWing()
         delete m_devices.takeFirst();
 }
 
-QString EnttecWing::name()
+QString EnttecWing::name() const
 {
     return QString("ENTTEC Wing");
 }
@@ -113,7 +113,7 @@ QStringList EnttecWing::inputs()
     return list;
 }
 
-QString EnttecWing::pluginInfo()
+QString EnttecWing::pluginInfo() const
 {
     QString str;
 
@@ -188,7 +188,7 @@ void EnttecWing::configure()
     emit configurationChanged();
 }
 
-bool EnttecWing::canConfigure()
+bool EnttecWing::canConfigure() const
 {
     return true;
 }
@@ -225,7 +225,7 @@ Wing* EnttecWing::createWing(QObject* parent, const QHostAddress& address,
     return wing;
 }
 
-Wing* EnttecWing::device(const QHostAddress& address, Wing::Type type)
+Wing* EnttecWing::device(const QHostAddress& address, Wing::Type type) const
 {
     QListIterator <Wing*> it(m_devices);
     while (it.hasNext() == true)
@@ -238,7 +238,7 @@ Wing* EnttecWing::device(const QHostAddress& address, Wing::Type type)
     return NULL;
 }
 
-Wing* EnttecWing::device(quint32 index)
+Wing* EnttecWing::device(quint32 index) const
 {
     if (index < quint32(m_devices.count()))
         return m_devices.at(index);

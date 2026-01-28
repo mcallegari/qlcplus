@@ -50,13 +50,13 @@ public:
     virtual ~EnttecWing();
 
     /** @reimp */
-    QString name() override;
+    QString name() const override;
 
     /** @reimp */
     int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo() override;
+    QString pluginInfo() const override;
 
     /** Attempt to bind the socket to listen to EWing::UDPPort */
     bool reBindSocket();
@@ -95,7 +95,7 @@ public:
     void configure() override;
 
     /** @reimp */
-    bool canConfigure() override;
+    bool canConfigure() const override;
 
 signals:
     void configurationChanged();
@@ -119,10 +119,10 @@ protected:
                             const QByteArray& data);
 
     /** Find a specific device by its host address and type */
-    Wing* device(const QHostAddress& address, Wing::Type type);
+    Wing* device(const QHostAddress& address, Wing::Type type) const;
 
     /** Find a device by its index (input line) */
-    Wing* device(quint32 index);
+    Wing* device(quint32 index) const;
 
     /** Add a newly-created device to the plugin's list of devices */
     void addDevice(Wing* device);

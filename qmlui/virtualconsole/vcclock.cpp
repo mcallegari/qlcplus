@@ -72,7 +72,7 @@ VCClock::~VCClock()
         delete m_item;
 }
 
-QString VCClock::defaultCaption()
+QString VCClock::defaultCaption() const
 {
     return tr("Clock %1").arg(id() + 1);
 }
@@ -110,7 +110,7 @@ QString VCClock::propertiesResource() const
     return QString("qrc:/VCClockProperties.qml");
 }
 
-VCWidget *VCClock::createCopy(VCWidget *parent)
+VCWidget *VCClock::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -178,7 +178,7 @@ VCClock::ClockType VCClock::clockType() const
     return m_clocktype;
 }
 
-QString VCClock::typeToString(VCClock::ClockType type)
+QString VCClock::typeToString(VCClock::ClockType type) const
 {
     if (type == Stopwatch)
         return "Stopwatch";
@@ -188,7 +188,7 @@ QString VCClock::typeToString(VCClock::ClockType type)
         return "Clock";
 }
 
-VCClock::ClockType VCClock::stringToType(QString str)
+VCClock::ClockType VCClock::stringToType(QString str) const
 {
     if (str == "Stopwatch")
         return Stopwatch;
@@ -478,7 +478,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClock::saveXML(QXmlStreamWriter *doc)
+bool VCClock::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -524,7 +524,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
  * VCClockSchedule Class methods
  *********************************************************************/
 
-bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
+bool VCClockSchedule::operator<(const VCClockSchedule &sch) const
 {
     if (sch.startTime() < startTime())
         return false;
@@ -581,7 +581,7 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc) const
 {
     /* Schedule tag */
     doc->writeStartElement(KXMLQLCVCClockSchedule);

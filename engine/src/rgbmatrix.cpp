@@ -202,7 +202,7 @@ void RGBMatrix::setFixtureGroup(quint32 id)
     m_stepsCount = algorithmStepsCount();
 }
 
-QList<quint32> RGBMatrix::components()
+QList<quint32> RGBMatrix::components() const
 {
     if (m_group != NULL)
         return m_group->fixtureList();
@@ -269,7 +269,7 @@ QRecursiveMutex& RGBMatrix::algorithmMutex()
 #endif
 
 
-int RGBMatrix::stepsCount()
+int RGBMatrix::stepsCount() const
 {
     return m_stepsCount;
 }
@@ -502,7 +502,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
+bool RGBMatrix::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1075,7 +1075,7 @@ void RGBMatrixStep::setStepColor(QColor color)
     m_stepColor = color;
 }
 
-QColor RGBMatrixStep::stepColor()
+QColor RGBMatrixStep::stepColor() const
 {
     return m_stepColor;
 }

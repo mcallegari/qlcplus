@@ -211,11 +211,11 @@ public:
 
     /** Return the index of the primary channel $chIndex relates to.
      *  Return invalid if not present */
-    quint32 primaryChannel(quint32 chIndex);
+    quint32 primaryChannel(quint32 chIndex) const;
 
     /** Return the channel index on which the given $chIndex acts on.
      *  Return invalid if not present */
-    quint32 channelActsOn(quint32 chIndex);
+    quint32 channelActsOn(quint32 chIndex) const;
     void setChannelActsOn(quint32 chIndex, quint32 actsOnIndex);
 
 protected:
@@ -305,7 +305,7 @@ public:
 
     /** Returns if this mode is using the global physical information
      *  or if it is overriding it */
-    bool useGlobalPhysical();
+    bool useGlobalPhysical() const;
 
 protected:
     bool m_useGlobalPhysical;
@@ -319,7 +319,7 @@ public:
     bool loadXML(QXmlStreamReader &doc);
 
     /** Save a mode to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

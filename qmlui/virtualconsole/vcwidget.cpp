@@ -97,7 +97,7 @@ void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
     tardis->enqueueAction(code, id(), oldVal, newVal);
 }
 
-VCWidget *VCWidget::createCopy(VCWidget *parent)
+VCWidget *VCWidget::createCopy(VCWidget *parent) const
 {
     Q_UNUSED(parent)
     return nullptr;
@@ -189,7 +189,7 @@ void VCWidget::setType(int type)
     m_type = type;
 }
 
-int VCWidget::type()
+int VCWidget::type() const
 {
     return m_type;
 }
@@ -334,7 +334,7 @@ void VCWidget::setAllowResize(bool allowResize)
  * Disable state
  *********************************************************************/
 
-bool VCWidget::isDisabled()
+bool VCWidget::isDisabled() const
 {
     return m_isDisabled;
 }
@@ -371,7 +371,7 @@ bool VCWidget::isVisible() const
  * Caption
  *****************************************************************************/
 
-QString VCWidget::defaultCaption()
+QString VCWidget::defaultCaption() const
 {
     return QString();
 }
@@ -536,7 +536,7 @@ void VCWidget::setPage(int pNum)
     emit pageChanged(pNum);
 }
 
-int VCWidget::page()
+int VCWidget::page() const
 {
     return m_page;
 }
@@ -545,7 +545,7 @@ int VCWidget::page()
  * Widget Function
  *********************************************************************/
 
-bool VCWidget::hasSoloParent()
+bool VCWidget::hasSoloParent() const
 {
     VCWidget *wParent = qobject_cast<VCWidget*>(parent());
 
@@ -1126,7 +1126,7 @@ bool VCWidget::loadXML(QXmlStreamReader &root)
     return false;
 }
 
-bool VCWidget::saveXML(QXmlStreamWriter *doc)
+bool VCWidget::saveXML(QXmlStreamWriter *doc) const
 {
     Q_UNUSED(doc)
     return false;
@@ -1351,7 +1351,7 @@ bool VCWidget::loadXMLSources(QXmlStreamReader &root, const quint8 &id)
     return true;
 }
 
-bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1369,7 +1369,7 @@ bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1424,7 +1424,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1451,7 +1451,7 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
     return true;
 }
 
-bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified, QString tagName)
+bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, bool unified, QString tagName) const
 {
     Q_ASSERT(doc != nullptr);
 

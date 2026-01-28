@@ -31,7 +31,7 @@ public:
     StubWidget(QWidget* parent, Doc* doc);
     ~StubWidget();
 
-    VCWidget* createCopy(VCWidget* parent) override;
+    VCWidget* createCopy(VCWidget* parent) const override;
 
     /** @reimp */
     void updateFeedback() override { }

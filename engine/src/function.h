@@ -600,7 +600,7 @@ public:
      *
      * @param doc The XML document to save to
      */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc) const;
 
     /**
      * Read this function's contents from an XML document
@@ -631,13 +631,13 @@ public:
      * Check if a Function ID is included/controlled by this Function.
      * Subclasses should reimplement this.
      */
-    virtual bool contains(quint32 functionId);
+    virtual bool contains(quint32 functionId) const;
 
     /**
      * Return a list of components such as Functions/Fixtures with unique IDs.
      * Subclasses should reimplement this.
      */
-    virtual QList<quint32> components();
+    virtual QList<quint32> components() const;
 
     /*********************************************************************
      * Flash

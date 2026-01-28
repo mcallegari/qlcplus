@@ -91,7 +91,7 @@ bool AudioRendererQt6::initialize(quint32 freq, int chan, AudioFormat format)
     return true;
 }
 
-qint64 AudioRendererQt6::latency()
+qint64 AudioRendererQt6::latency() const
 {
     return 0;
 }

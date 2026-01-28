@@ -48,7 +48,7 @@ void UARTPlugin::init()
     }
 }
 
-QString UARTPlugin::name()
+QString UARTPlugin::name() const
 {
     return QString("UART");
 }
@@ -94,7 +94,7 @@ QStringList UARTPlugin::outputs()
     return list;
 }
 
-QString UARTPlugin::pluginInfo()
+QString UARTPlugin::pluginInfo() const
 {
     /** Return a description of the purpose of this plugin
      *  in HTML format */

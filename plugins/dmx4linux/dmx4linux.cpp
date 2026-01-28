@@ -39,7 +39,7 @@ void DMX4Linux::init()
     m_file.setFileName("/dev/dmx");
 }
 
-QString DMX4Linux::name()
+QString DMX4Linux::name() const
 {
     return QString("DMX4Linux");
 }
@@ -87,7 +87,7 @@ QStringList DMX4Linux::outputs()
     return list;
 }
 
-QString DMX4Linux::pluginInfo()
+QString DMX4Linux::pluginInfo() const
 {
     QString str;
 

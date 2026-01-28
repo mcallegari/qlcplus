@@ -121,7 +121,7 @@ VCSlider::~VCSlider()
         delete m_item;
 }
 
-QString VCSlider::defaultCaption()
+QString VCSlider::defaultCaption() const
 {
     if (widgetStyle() == WSlider)
         return tr("Slider %1").arg(id() + 1);
@@ -160,7 +160,7 @@ QString VCSlider::propertiesResource() const
     return QString("qrc:/VCSliderProperties.qml");
 }
 
-VCWidget* VCSlider::createCopy(VCWidget* parent)
+VCWidget* VCSlider::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -288,7 +288,7 @@ void VCSlider::setSliderMode(SliderMode mode)
  * Widget style
  *********************************************************************/
 
-QString VCSlider::widgetStyleToString(VCSlider::SliderWidgetStyle style)
+QString VCSlider::widgetStyleToString(VCSlider::SliderWidgetStyle style) const
 {
     if (style == VCSlider::WSlider)
         return QString("Slider");
@@ -298,7 +298,7 @@ QString VCSlider::widgetStyleToString(VCSlider::SliderWidgetStyle style)
     return QString();
 }
 
-VCSlider::SliderWidgetStyle VCSlider::stringToWidgetStyle(QString style)
+VCSlider::SliderWidgetStyle VCSlider::stringToWidgetStyle(QString style) const
 {
     if (style == "Slider")
         return VCSlider::WSlider;
@@ -1616,7 +1616,7 @@ bool VCSlider::loadXMLLegacyPlayback(QXmlStreamReader &pb_root)
     return true;
 }
 
-bool VCSlider::saveXML(QXmlStreamWriter *doc)
+bool VCSlider::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1679,7 +1679,7 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
         doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
 
     /* Level channels */
-    for (SceneValue &scv : m_levelChannels)
+    for (const SceneValue &scv : m_levelChannels)
     {
         doc->writeStartElement(KXMLQLCVCSliderChannel);
         doc->writeAttribute(KXMLQLCVCSliderChannelFixture, QString::number(scv.fxi));

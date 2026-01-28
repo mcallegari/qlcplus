@@ -50,7 +50,7 @@ protected:
     virtual void init() = 0;
 
     /** @reimp */
-    bool hasInput() override { return true; }
+    bool hasInput() const override { return true; }
 
 protected:
     struct hid_device_info *m_dev_info;
@@ -78,7 +78,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    QString infoText() override;
+    QString infoText() const override;
 
     /*********************************************************************
      * Input data
