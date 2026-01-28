@@ -43,7 +43,7 @@ void Peperoni::init()
     rescanDevices();
 }
 
-QString Peperoni::name()
+QString Peperoni::name() const
 {
     return QString("Peperoni");
 }
@@ -86,7 +86,7 @@ QStringList Peperoni::outputs()
     return list;
 }
 
-QString Peperoni::pluginInfo()
+QString Peperoni::pluginInfo() const
 {
     QString str;
 
@@ -213,7 +213,7 @@ void Peperoni::configure()
         rescanDevices();
 }
 
-bool Peperoni::canConfigure()
+bool Peperoni::canConfigure() const
 {
     return true;
 }
@@ -284,7 +284,7 @@ void Peperoni::rescanDevices()
         emit configurationChanged();
 }
 
-bool Peperoni::device(struct libusb_device* usbdev)
+bool Peperoni::device(struct libusb_device* usbdev) const
 {
     foreach (PeperoniDevice* dev, m_devices)
     {

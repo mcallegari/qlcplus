@@ -60,13 +60,13 @@ public:
     void init() override;
 
     /** @reimp */
-    QString name() override;
+    QString name() const override;
 
     /** @reimp */
     int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo() override;
+    QString pluginInfo() const override;
 
 private:
     void setAbsoluteAddress(quint32 uniID, SPIUniverse *uni);
@@ -114,7 +114,7 @@ public:
     void configure() override;
 
     /** @reimp */
-    bool canConfigure() override;
+    bool canConfigure() const override;
 
     /** @reimp */
     void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;

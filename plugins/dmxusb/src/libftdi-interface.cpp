@@ -53,17 +53,17 @@ void LibFTDIInterface::setBusLocation(quint8 location)
     m_busLocation = location;
 }
 
-quint8 LibFTDIInterface::busLocation()
+quint8 LibFTDIInterface::busLocation() const
 {
     return m_busLocation;
 }
 
-DMXInterface::Type LibFTDIInterface::type()
+DMXInterface::Type LibFTDIInterface::type() const
 {
     return DMXInterface::libFTDI;
 }
 
-QString LibFTDIInterface::typeString()
+QString LibFTDIInterface::typeString() const
 {
     return "libFTDI";
 }

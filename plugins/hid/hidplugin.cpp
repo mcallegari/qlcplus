@@ -52,7 +52,7 @@ HIDPlugin::~HIDPlugin()
         delete m_devices.takeFirst();
 }
 
-QString HIDPlugin::name()
+QString HIDPlugin::name() const
 {
     return QString("HID");
 }
@@ -110,7 +110,7 @@ QStringList HIDPlugin::inputs()
     return list;
 }
 
-QString HIDPlugin::pluginInfo()
+QString HIDPlugin::pluginInfo() const
 {
     QString str;
 
@@ -232,7 +232,7 @@ void HIDPlugin::configure()
     conf.exec();
 }
 
-bool HIDPlugin::canConfigure()
+bool HIDPlugin::canConfigure() const
 {
     return true;
 }
@@ -315,7 +315,7 @@ void HIDPlugin::rescanDevices()
         emit configurationChanged();
 }
 
-HIDDevice* HIDPlugin::device(const QString& path)
+HIDDevice* HIDPlugin::device(const QString& path) const
 {
     QListIterator <HIDDevice*> it(m_devices);
 
@@ -329,7 +329,7 @@ HIDDevice* HIDPlugin::device(const QString& path)
     return NULL;
 }
 
-HIDDevice* HIDPlugin::device(quint32 index)
+HIDDevice* HIDPlugin::device(quint32 index) const
 {
     if (index < quint32(m_devices.count()))
         return m_devices.at(index);
@@ -337,7 +337,7 @@ HIDDevice* HIDPlugin::device(quint32 index)
         return NULL;
 }
 
-HIDDevice* HIDPlugin::deviceOutput(quint32 index)
+HIDDevice* HIDPlugin::deviceOutput(quint32 index) const
 {
     QListIterator <HIDDevice*> it(m_devices);
     quint32 pos = 0;

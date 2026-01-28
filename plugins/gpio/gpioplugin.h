@@ -55,13 +55,13 @@ public:
     void init() override;
 
     /** @reimp */
-    QString name() override;
+    QString name() const override;
 
     /** @reimp */
     int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo() override;
+    QString pluginInfo() const override;
 
     std::string chipName() const;
     void setChipName(QString name);
@@ -87,8 +87,8 @@ public:
         InputDirection  = 1 << 2
     };
 
-    QString lineDirectionToString(LineDirection usage);
-    LineDirection stringToLineDirection(QString usage);
+    QString lineDirectionToString(LineDirection usage) const;
+    LineDirection stringToLineDirection(QString usage) const;
 
 private:
     void setLineStatus(int lineNumber, bool enable);
@@ -141,7 +141,7 @@ public:
     void configure() override;
 
     /** @reimp */
-    bool canConfigure() override;
+    bool canConfigure() const override;
 
     /** @reimp */
     void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;

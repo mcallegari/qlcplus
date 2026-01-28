@@ -59,13 +59,13 @@ protected:
     void init();
 
     /** @reimp */
-    bool hasInput() override { return true; }
+    bool hasInput() const override { return true; }
 
     /** @reimp */
-    bool hasOutput() override { return true; }
+    bool hasOutput() const override { return true; }
 
     /** @reimp */
-    bool hasMergerMode() override { return true; /*DE, FX5, and Nodle have a merger mode*/ }
+    bool hasMergerMode() const override { return true; /*DE, FX5, and Nodle have a merger mode*/ }
 
     /*********************************************************************
      * File operations
@@ -73,7 +73,7 @@ protected:
 public:
 
     /** @reimp */
-    bool isMergerModeEnabled() override;
+    bool isMergerModeEnabled() const override;
 
     /** @reimp */
     void enableMergerMode(bool mergerModeEnabled) override;
@@ -98,7 +98,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    QString infoText() override;
+    QString infoText() const override;
 
     /*********************************************************************
      * Input data

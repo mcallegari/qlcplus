@@ -59,13 +59,13 @@ public:
     void init() override;
 
     /** @reimp */
-    QString name() override;
+    QString name() const override;
 
     /** @reimp */
     int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo() override;
+    QString pluginInfo() const override;
 
 private:
     MidiEnumerator* m_enumerator;
@@ -130,7 +130,7 @@ public:
     void configure() override;
 
     /** @reimp */
-    bool canConfigure() override;
+    bool canConfigure() const override;
 
     /** @reimp */
     void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;
@@ -139,17 +139,17 @@ public:
      * Midi templates
      *************************************************************************/
 public:
-    QDir userMidiTemplateDirectory();
+    QDir userMidiTemplateDirectory() const;
 
-    QDir systemMidiTemplateDirectory();
+    QDir systemMidiTemplateDirectory() const;
 
     bool addMidiTemplate(MidiTemplate* templ);
 
-    MidiTemplate* midiTemplate(QString name);
+    MidiTemplate* midiTemplate(QString name) const;
 
     void loadMidiTemplates(const QDir& dir);
 
-    QList <MidiTemplate*> midiTemplates();
+    QList <MidiTemplate*> midiTemplates() const;
 
 private:
     /** List that contains all available midi templates */

@@ -50,14 +50,14 @@ public:
      *
      * @return true if the device offers a merger mode, false otherwise
      */
-    virtual bool hasMergerMode();
+    virtual bool hasMergerMode() const;
 
     /**
      * Check if device's built-in merger mode is enabled.
      *
      * @return true if the device's merger mode is enabled, false otherwise
      */
-    virtual bool isMergerModeEnabled();
+    virtual bool isMergerModeEnabled() const;
 
     /**
      * Enable or disable the built-in merger mode.
@@ -115,8 +115,8 @@ public:
         return m_line;
     }
 
-    virtual bool hasInput() { return false; }
-    virtual bool hasOutput() { return false; }
+    virtual bool hasInput() const { return false; }
+    virtual bool hasOutput() const { return false; }
 
 protected:
     quint32 m_line;
@@ -129,12 +129,12 @@ public:
     /**
      * Get HID device information string to be used in plugin manager
      */
-    virtual QString infoText();
+    virtual QString infoText() const;
 
     /**
      * Get the device's name
      */
-    virtual QString name();
+    virtual QString name() const;
 
 protected:
     QString m_name;

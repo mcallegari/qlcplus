@@ -52,13 +52,13 @@ public:
     virtual ~HIDPlugin() override;
 
     /** @reimp */
-    QString name() override;
+    QString name() const override;
 
     /** @reimp */
     int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo() override;
+    QString pluginInfo() const override;
 
     /*********************************************************************
      * Inputs
@@ -103,7 +103,7 @@ public:
     void configure() override;
 
     /** @reimp */
-    bool canConfigure() override;
+    bool canConfigure() const override;
 
 signals:
     void configurationChanged();
@@ -115,9 +115,9 @@ public:
     void rescanDevices();
 
 protected:
-    HIDDevice* device(const QString& path);
-    HIDDevice* device(quint32 index);
-    HIDDevice* deviceOutput(quint32 index);
+    HIDDevice* device(const QString& path) const;
+    HIDDevice* device(quint32 index) const;
+    HIDDevice* deviceOutput(quint32 index) const;
 
     void addDevice(HIDDevice* device);
     void removeDevice(HIDDevice* device);

@@ -52,7 +52,7 @@ void SPIPlugin::init()
     m_outThread = NULL;
 }
 
-QString SPIPlugin::name()
+QString SPIPlugin::name() const
 {
     return QString("SPI");
 }
@@ -123,7 +123,7 @@ QStringList SPIPlugin::outputs()
     return list;
 }
 
-QString SPIPlugin::pluginInfo()
+QString SPIPlugin::pluginInfo() const
 {
     QString str;
 
@@ -231,7 +231,7 @@ void SPIPlugin::configure()
     }
 }
 
-bool SPIPlugin::canConfigure()
+bool SPIPlugin::canConfigure() const
 {
     return true;
 }
