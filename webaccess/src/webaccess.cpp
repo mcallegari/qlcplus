@@ -186,8 +186,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             else
                 wsAPIMessage.append(Function::typeToString(Function::Undefined));
         }
-        else if (apiCmd == "setFunctionStatus") 
-	{
+        else if (apiCmd == "setFunctionStatus")
+        {
             if (cmdList.count() < 4)
                 return;
 
@@ -729,10 +729,10 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
 
         str += "<div style=\"position: absolute; display: flex; align-items: center; justify-content: center; flex-direction: row; width: 100%;\">";
         str += "<a class=\"vcframeButton\" href=\"javascript:frameToggleCollapse(" +
-               QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
+               QString::number(frame->id()) + ");\"><img src=\"expand.png\" title=\"" + tr("Expand/Collapse") + "\" width=\"27\"></a>\n";
 
         str += "<div class=\"vcframeHeader\" id=\"vcframeHeader" + QString::number(frame->id()) + "\" style=\"color:" +
-               frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px \">";
+               frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px;\">";
         str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" + caption + "</div>\n";
         str += "</div>\n";
 
@@ -741,9 +741,9 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
-                   "style=\" background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75")) + "; \" " +
+                   "style=\"background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75")) + ";\" " +
                    "href=\"javascript:frameDisableStateChange(" + QString::number(frame->id()) + ");\">" +
-                   "<img src=\"check.png\" width=\"27\"></a>\n";
+                   "<img src=\"check.png\" title=\"" + tr("Enable/Disable frame") + "\" width=\"27\"></a>\n";
 
             m_JScode += "frameDisableState[" + QString::number(frame->id()) + "] = " + QString::number(frame->isDisabled() ? 1 : 0) + ";\n";
             connect(frame, SIGNAL(disableStateChanged(bool)), this, SLOT(slotFrameDisableStateChanged(bool)));
@@ -757,15 +757,15 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
             str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\" style=\"display:flex; align-items:center; justify-content:center; flex-direction:row; margin-right: 2px;\">\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrPrev" + QString::number(frame->id()) + "\" href=\"javascript:framePreviousPage(" +
-                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
-                   "<img src=\"back.png\" width=\"27\"></a>";
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
+                   "<img src=\"back.png\" title=\"" + tr("Back") + "\" width=\"27\"></a>";
 
-            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100)+"px; \" >" +
+            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100)+"px;\">" +
                    "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
-                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
-                   "<img src=\"forward.png\" width=\"27\"></a>\n";
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
+                   "<img src=\"forward.png\" title=\"" + tr("Forward") + "\" width=\"27\"></a>\n";
 
             str += "</div>\n";
 
@@ -838,10 +838,10 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
 
         str += "<div style=\"position: absolute; display: flex; align-items: center; justify-content: center; flex-direction: row; width: 100%;\">";
         str += "<a class=\"vcframeButton\" href=\"javascript:frameToggleCollapse(" +
-               QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
+               QString::number(frame->id()) + ");\"><img src=\"expand.png\" title=\"" + tr("Expand/Collapse") + "\" width=\"27\"></a>\n";
 
         str += "<div class=\"vcsoloframeHeader\" id=\"vcframeHeader" + QString::number(frame->id()) + "\" style=\"color:" +
-               frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px \">";
+               frame->foregroundColor().name() + "; width: "+ QString::number(hw) +"px;\">";
         str += "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Caption\">" + caption + "</div>\n";
         str += "</div>\n";
 
@@ -850,9 +850,9 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
-                   "style=\" background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75")) + "; \" " +
+                   "style=\" background-color: " + QString((frame->isDisabled() ? "#E0DFDF" : "#D7DE75")) + ";\" " +
                    "href=\"javascript:frameDisableStateChange(" + QString::number(frame->id()) + ");\">" +
-                   "<img src=\"check.png\" width=\"27\"></a>\n";
+                   "<img src=\"check.png\" title=\"" + tr("Enable/Disable Solo frame") + "\" width=\"27\"></a>\n";
 
             m_JScode += "frameDisableState[" + QString::number(frame->id()) + "] = " + QString::number(frame->isDisabled() ? 1 : 0) + ";\n";
             connect(frame, SIGNAL(disableStateChanged(bool)), this, SLOT(slotFrameDisableStateChanged(bool)));
@@ -866,15 +866,15 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
             str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\" style=\"display:flex; align-items:center; justify-content:center; flex-direction:row; margin-right: 2px;\">\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrPrev" + QString::number(frame->id()) + "\" href=\"javascript:framePreviousPage(" +
-                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
-                   "<img src=\"back.png\" width=\"27\"></a>";
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
+                   "<img src=\"back.png\" title=\"" + tr("Back") + "\" width=\"27\"></a>";
 
-            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100) + "px; \" >" +
+            str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100) + "px;\">" +
                    "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
-                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + "\">" +
-                   "<img src=\"forward.png\" width=\"27\"></a>\n";
+                   QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
+                   "<img src=\"forward.png\" title=\"" + tr("Forward") + "\" width=\"27\"></a>\n";
 
 
             str += "</div>\n";
@@ -925,14 +925,14 @@ QString WebAccess::getButtonHTML(const VCButton *btn) const
 {
     QString onCSS = "";
     if (btn->state() == VCButton::Active)
-        onCSS = "border: 3px solid #00E600;";
+        onCSS = " border: 3px solid #00E600;";
     else if (btn->state() == VCButton::Monitoring)
-        onCSS = "border: 3px solid #FFAA00;";
+        onCSS = " border: 3px solid #FFAA00;";
 
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
-    str +=  "<a class=\"vcbutton" + QString(btn->isDisabled() ? " vcbutton-disabled" : "") + "\" "
+    str +=  "<a class=\"vcbutton" + QString(btn->isDisabled() ? " vcbutton-disabled" : "") + "\""
             " id=\"" + QString::number(btn->id()) + "\" href=\"javascript:void(0);\" ";
     if (!btn->isDisabled()) {
         str += "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
@@ -943,7 +943,7 @@ QString WebAccess::getButtonHTML(const VCButton *btn) const
             "height: " + QString::number(btn->height()) + "px; "
             "color: " + btn->foregroundColor().name() + "; " +
             getWidgetBackgroundImage(btn) +
-            "background-color: " + btn->backgroundColor().name() + "; " + onCSS + "\">" +
+            "background-color: " + btn->backgroundColor().name() + ";" + onCSS + "\">" +
             btn->caption() + "</a>\n</div>\n";
 
     connect(btn, SIGNAL(stateChanged(int)),
@@ -987,7 +987,7 @@ QString WebAccess::getSliderHTML(const VCSlider *slider)
             "background-color: " + slider->backgroundColor().name() + ";" +
             getWidgetBackgroundImage(slider) + "\">\n";
 
-    str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between; \">";
+    str += "<div style=\"height: 100%; display: flex; flex-direction: column; justify-content: space-between;\">";
 
     str += "<div id=\"slv" + slID + "\" class=\"vcslLabel" + QString(slider->isDisabled() ? " vcslLabel-disabled" : "") + "\">" + slider->topLabelText() + "</div>\n";
 
@@ -1267,7 +1267,7 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
     // fader mode
     if (cue->sideFaderMode() != VCCueList::FaderMode::None)
     {
-        str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+        str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-between;\">";
         str += "<div id=\"fadePanel"+QString::number(cue->id())+"\" "
                "style=\"display: " + (cue->isSideFaderVisible() ? "block" : "none") + "; width: 45px; height: " +
                QString::number(cue->height() - 2) + "px;\">";
@@ -1277,7 +1277,7 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
             str += "<div id=\"cueCTP"+QString::number(cue->id())+"\" class=\"vcslLabel" + QString(cue->isDisabled() ? " vcslLabel-disabled" : "") + "\" style=\"top:0px;\">" +
                    cue->topPercentageValue() + "</div>\n";
             str += "<div id=\"cueCTS"+QString::number(cue->id())+"\" class=\"vcslLabel\" "
-                   "style=\"top:25px; border: solid 1px #aaa; background-color: "+ topStepBgColor +" \">" +
+                   "style=\"top:25px; border: solid 1px #aaa; background-color: "+ topStepBgColor +";\">" +
                    cue->topStepValue() + "</div>\n";
 
             str += "<input type=\"range\" class=\"vVertical" + QString(cue->isDisabled() ? " vVertical-disabled" : "") + "\" id=\"cueC"+QString::number(cue->id())+"\" "
@@ -1305,7 +1305,7 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
                    QString::number(cue->height() - 50) + "px; margin-left: 22px;\" ";
             str += "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(cue->sideFaderValue()) + "\" " + QString(cue->isDisabled() ? "disabled" : "") + " >\n";
 
-            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa; \">" +
+            str += "<div id=\"cueCBS"+QString::number(cue->id())+"\" class=\"vcslLabel\" style=\"bottom:25px; border: solid 1px #aaa;\">" +
                    cue->bottomStepValue() + "</div>\n";
             str += "</div>";
         }
@@ -1413,10 +1413,10 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
                 str += "<td ondblclick=\"changeCueNoteToEditMode(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">" +
                          "<span id=\"cueNoteSpan" + stepID + "\" style=\"display: block;\">" + step->note + "</span>" +
                          "<input type=\"text\" id=\"cueNoteInput" + stepID + "\" value=\"" + step->note + "\" style=\"display: none; width: 60px;\" " +
-                         "onfocusout=\"changeCueNoteToTextMode(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\" />"
+                         "onfocusout=\"changeCueNoteToTextMode(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">"
                        "</td>\n";
             }
-            str += "</td>\n";
+            str += "</tr>\n";
         }
     }
     str += "</table>\n";
@@ -1425,7 +1425,7 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
     // progress bar
     str += "<div class=\"vccuelistProgress\">";
     str += "<div class=\"vccuelistProgressBar\" id=\"vccuelistPB" + QString::number(cue->id()) + "\" style=\"width: " +
-           QString::number(cue->progressPercent()) + "%; \"></div>";
+           QString::number(cue->progressPercent()) + "%;\"></div>";
     str += "<div class=\"vccuelistProgressVal\" id=\"vccuelistPV" + QString::number(cue->id())+"\">" +
            QString(cue->progressText()) + "</div>";
     str += "</div>";
@@ -1433,12 +1433,12 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
     // play, stop, next, and preview buttons
     if (cue->sideFaderMode() != VCCueList::FaderMode::None)
     {
-        str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+        str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between;\">";
         str += "<a class=\"vccuelistFadeButton"+QString(cue->isDisabled() ? " vccuelistFadeButton-disabled" : "") + "\" id=\"fade" + QString::number(cue->id()) + "\" ";
         str += "href=\"javascript:wsShowCrossfadePanel(" + QString::number(cue->id()) + ");\">\n";
-        str += "<img src=\"slider.png\" width=\"27\"></a>\n";
+        str += "<img src=\"slider.png\" title=\"" + tr("Slider") + "\" width=\"27\"></a>\n";
     }
-    str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between; \">";
+    str += "<div style=\"width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: space-between;\">";
 
     if (chaser != NULL && chaser->isRunning())
     {
@@ -1470,19 +1470,19 @@ QString WebAccess::getCueListHTML(const VCCueList *cue)
 
     str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + QString(playbackButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"play" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
-    str += "<img src=\""+playbackButtonImage+"\" width=\"27\"></a>\n";
+    str += "<img src=\""+playbackButtonImage+"\" title=\"" + tr("Play Cue list") + "\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + QString(stopButtonPaused ? " vccuelistButtonPaused" : "")+"\" id=\"stop" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
-    str += "<img src=\""+stopButtonImage+"\" width=\"27\"></a>\n";
+    str += "<img src=\""+stopButtonImage+"\" title=\"" + tr("Stop Cue list") + "\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + "\" id=\"prev" + QString::number(cue->id()) + "\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
-    str += "<img src=\"back.png\" width=\"27\"></a>\n";
+    str += "<img src=\"back.png\" title=\"" + tr("Go to the previous step in the list") + "\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton" + QString(cue->isDisabled() ? " vccuelistButton-disabled" : "") + "\" id=\"next" + QString::number(cue->id()) + "\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'NEXT');\" style=\"margin-right: 0px!important;\">\n";
-    str += "<img src=\"forward.png\" width=\"27\"></a>\n";
+    str += "<img src=\"forward.png\" title=\"" + tr("Go to the next step in the list") + "\" width=\"27\"></a>\n";
 
     if (cue->sideFaderMode() != VCCueList::FaderMode::None) {
         str += "</div>\n";
@@ -1643,9 +1643,9 @@ QString WebAccess::getMatrixHTML(const VCMatrix *matrix)
                   "px; height: " + QString::number(matrix->height()) + "px; "
                   "background-color: " + matrix->backgroundColor().name() + ";\">\n";
 
-    str += "<div style=\"display: flex; flex-direction: row; align-items: center; width: 100%; height: 100%; \">";
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; width: 100%; height: 100%;\">";
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowSlider) {
-        str +=  "<div style=\"height: 100%; width: 50px; \">";
+        str +=  "<div style=\"height: 100%; width: 50px;\">";
         str +=  "<input type=\"range\" class=\"vVertical\" "
                 "id=\"msl" + QString::number(matrix->id()) + "\" "
                 "oninput=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixSliderValueChange(" + QString::number(matrix->id()) + ");\" "
@@ -1654,41 +1654,36 @@ QString WebAccess::getMatrixHTML(const VCMatrix *matrix)
                 "min=\"0\" max=\"255\" step=\"1\" value=\"" + QString::number(matrix->sliderValue()) + "\">\n";
         str +=  "</div>";
     }
-    str +=  "<div style=\"display: flex; flex-direction: column; align-items: center; justify-content: space-around; height: 100%; width: 100%; margin: 8px; \">";
+    str +=  "<div style=\"display: flex; flex-direction: column; align-items: center; justify-content: space-around; height: 100%; width: 100%; margin: 8px;\">";
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowLabel) {
-        str += "<div style=\"text-align: center; width: 100%; margin-top: 4px; margin-bottom: 4px; \">"+matrix->caption()+"</div>";
+        str += "<div style=\"text-align: center; width: 100%; margin-top: 4px; margin-bottom: 4px;\">"+matrix->caption()+"</div>";
     }
-    str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin-top: 4px; margin-bottom: 4px; \">";
+    str += "<div style=\"display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin-top: 4px; margin-bottom: 4px;\">";
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor1Button) {
         str += "<input type=\"color\" id=\"mc1i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(0).name())+"\" "
-               "oninput=\"matrixColorChanged(1, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(1, " + QString::number(matrix->id()) + ");\" "
-               " />";
+               "oninput=\"matrixColorChanged(1, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(1, " + QString::number(matrix->id()) + ");\">";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor2Button) {
         str += "<input type=\"color\" id=\"mc2i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(1).name())+"\" "
-               "oninput=\"matrixColorChanged(2, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(2, " + QString::number(matrix->id()) + ");\" "
-               " />";
+               "oninput=\"matrixColorChanged(2, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(2, " + QString::number(matrix->id()) + ");\">";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor3Button) {
         str += "<input type=\"color\" id=\"mc3i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(2).name())+"\" "
-               "oninput=\"matrixColorChanged(3, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(3, " + QString::number(matrix->id()) + ");\" "
-               " />";
+               "oninput=\"matrixColorChanged(3, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(3, " + QString::number(matrix->id()) + ");\">";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor4Button) {
         str += "<input type=\"color\" id=\"mc4i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(3).name())+"\" "
-               "oninput=\"matrixColorChanged(4, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(4, " + QString::number(matrix->id()) + ");\" "
-               " />";
+               "oninput=\"matrixColorChanged(4, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(4, " + QString::number(matrix->id()) + ");\">";
     }
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowColor5Button) {
         str += "<input type=\"color\" id=\"mc5i"+QString::number(matrix->id())+"\" class=\"vMatrix\" value=\""+(matrix->mtxColor(4).name())+"\" "
-               "oninput=\"matrixColorChanged(5, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(5, " + QString::number(matrix->id()) + ");\" "
-               " />";
+               "oninput=\"matrixColorChanged(5, " + QString::number(matrix->id()) + ");\" ontouchmove=\"matrixColorChanged(5, " + QString::number(matrix->id()) + ");\">";
     }
     str += "</div>";
     if (matrix->visibilityMask() & VCMatrix::Visibility::ShowPresetCombo) {
         QStringList list = RGBAlgorithm::algorithms(m_doc);
 
-        str += "<div style=\"width: 100%; margin-top: 4px; margin-bottom: 4px; \"><select class=\"matrixSelect\" id=\"mcb" + QString::number(matrix->id()) + "\" onchange=\"matrixComboChanged("+QString::number(matrix->id())+");\">";
+        str += "<div style=\"width: 100%; margin-top: 4px; margin-bottom: 4px;\"><select class=\"matrixSelect\" id=\"mcb" + QString::number(matrix->id()) + "\" onchange=\"matrixComboChanged("+QString::number(matrix->id())+");\">";
         for (int i = 0; i < list.length(); i++) {
             str += "<option value=\""+list[i]+"\" "+(list[i] == matrix->animationValue() ? "selected" : "")+" >"+list[i]+"</option>";
         }
@@ -1697,48 +1692,48 @@ QString WebAccess::getMatrixHTML(const VCMatrix *matrix)
     QList<VCMatrixControl *> customControls = matrix->customControls();
     if (customControls.length() > 0) {
         m_JScode += "matrixID = "+QString::number(matrix->id())+"; \n";
-        str += "<div style=\"display: flex; flex-direction: row; flex-wrap: wrap; align-content: flex-start; width: 100%; height: 100%; margin-top: 4px; margin-bottom: 4px; \">";
+        str += "<div style=\"display: flex; flex-direction: row; flex-wrap: wrap; align-content: flex-start; width: 100%; height: 100%; margin-top: 4px; margin-bottom: 4px;\">";
         for (int i = 0; i < customControls.length(); i++) {
             VCMatrixControl *control = customControls[i];
             if (control->m_type == VCMatrixControl::Color1) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
-                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">1</div>";
             } else if (control->m_type == VCMatrixControl::Color2) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
-                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">2</div>";
             } else if (control->m_type == VCMatrixControl::Color2Reset) {
                 QString btnLabel = tr("Color 2 Reset");
                 str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
-                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Color3) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
-                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">3</div>";
             } else if (control->m_type == VCMatrixControl::Color3Reset) {
                 QString btnLabel = tr("Color 3 Reset");
                 str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
-                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Color4) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
-                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">4</div>";
             } else if (control->m_type == VCMatrixControl::Color4Reset) {
                 QString btnLabel = tr("Color 4 Reset");
                 str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
-                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Color5) {
                 str += "<div class=\"pushButton\" style=\"width: 32px; height: 32px; "
-                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: "+(control->m_color.name())+"; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">5</div>";
             } else if (control->m_type == VCMatrixControl::Color5Reset) {
                 QString btnLabel = tr("Color 5 Reset");
                 str += "<div class=\"pushButton\" style=\"width: 66px; justify-content: flex-start!important; height: 32px; "
-                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: #bbbbbb; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Animation || control->m_type == VCMatrixControl::Text) {
                 QString btnLabel = control->m_resource;
@@ -1756,7 +1751,7 @@ QString WebAccess::getMatrixHTML(const VCMatrix *matrix)
                         btnLabel += ")";
                 }
                 str += "<div class=\"pushButton\" style=\"max-width: 66px; justify-content: flex-start!important; height: 32px; "
-                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px; \" "
+                       "background-color: #BBBBBB; margin-right: 4px; margin-bottom: 4px;\" "
                        "onclick=\"wcMatrixPushButtonClicked("+(QString::number(control->m_id))+")\">"+btnLabel+"</div>";
             } else if (control->m_type == VCMatrixControl::Color1Knob
                     || control->m_type == VCMatrixControl::Color2Knob
@@ -1767,8 +1762,8 @@ QString WebAccess::getMatrixHTML(const VCMatrix *matrix)
                 QString slID = QString::number(control->m_id);
                 QColor color = control->m_type == VCMatrixControl::Color1Knob ? control->m_color : control->m_color.darker(250);
 
-                str += "<div class=\"mpieWrapper\" data=\"" + slID + "\" style=\"margin-right: 4px; margin-bottom: 4px; \">";
-                str += "<div class=\"mpie\" id=\"mpie" + slID + "\" style=\"--degValue:0; \">";
+                str += "<div class=\"mpieWrapper\" data=\"" + slID + "\" style=\"margin-right: 4px; margin-bottom: 4px;\">";
+                str += "<div class=\"mpie\" id=\"mpie" + slID + "\" style=\"--degValue:0;\">";
                 str += "<div class=\"mknobWrapper\" id=\"mknobWrapper" + slID + "\">";
                 str += "<div class=\"mknob\" id=\"mknob" + slID + "\" style=\"background-color: "+(color.name())+";\">";
                 str += "<div class=\"mspot\" id=\"mspot" + slID + "\"></div>";
@@ -1944,7 +1939,7 @@ QString WebAccess::getGrandMasterSliderHTML() const
 
     str +=  "<input type=\"range\" class=\"vVertical\" id=\"vcGMSlider\" "
                 "oninput=\"grandMasterValueChange();\" ontouchmove=\"grandMasterValueChange();\" "
-                "style=\"width: calc(100vh - 120px); margin-top: " + mt + ";"
+                "style=\"width: calc(100vh - 120px); margin-top: " + mt + "; "
                 "margin-left: 20px; "
                 "--rotate: "+QString::number(rotate)+"\" "
                 "min=\""+QString::number(min)+"\" max=\""+QString::number(max)+"\" "
@@ -1960,8 +1955,8 @@ QString WebAccess::getGrandMasterSliderHTML() const
 
 QString WebAccess::getVCHTML()
 {
-    m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
-    m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
+    m_CSScode = "<link href=\"common.css\" rel=\"stylesheet\" media=\"screen\">\n";
+    m_CSScode += "<link href=\"virtualconsole.css\" rel=\"stylesheet\" media=\"screen\">\n";
     m_JScode = "<script src=\"virtualconsole.js\"></script>\n"
                "<script src=\"websocket.js\"></script>\n"
                "<script>\n";
@@ -1970,9 +1965,9 @@ QString WebAccess::getVCHTML()
     QSize mfSize = mainFrame->size();
     QString widgetsHTML =
             "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-				"<input id=\"loadTrigger\" type=\"file\" accept=\".qxw\" "
-				"onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
-				"<input id=\"submitTrigger\" type=\"submit\"/>\n"
+                "<input id=\"loadTrigger\" type=\"file\" accept=\".qxw\" "
+                "onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\">\n"
+                "<input id=\"submitTrigger\" type=\"submit\">\n"
             "</form>\n"
 
             "<div class=\"controlBar\">\n"
@@ -2000,7 +1995,7 @@ QString WebAccess::getVCHTML()
     widgetsHTML += "</div>\n";
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n" + m_JScode + "\n</body></html>";
+    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n" + m_JScode + "</body>\n</html>";
     return str;
 }
 
