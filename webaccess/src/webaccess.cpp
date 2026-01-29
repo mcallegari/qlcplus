@@ -1970,7 +1970,7 @@ QString WebAccess::getVCHTML()
     QSize mfSize = mainFrame->size();
     QString widgetsHTML =
             "<form action=\"/loadProject\" method=\"POST\" enctype=\"multipart/form-data\">\n"
-				"<input id=\"loadTrigger\" type=\"file\" "
+				"<input id=\"loadTrigger\" type=\"file\" accept=\".qxw\" "
 				"onchange=\"document.getElementById('submitTrigger').click();\" name=\"qlcprj\" />\n"
 				"<input id=\"submitTrigger\" type=\"submit\"/>\n"
             "</form>\n"
