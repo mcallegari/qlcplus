@@ -980,7 +980,7 @@ void Fixture_Test::save()
     QVERIFY(channels == true);
 }
 
-void Fixture_Test::status()
+/*void Fixture_Test::status()
 {
     // This test is mostly just a stability check since checking lots of
     // detailed HTML formatting is not that useful.
@@ -1014,6 +1014,6 @@ void Fixture_Test::status()
 
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
     info = fxi.status();
-}
+}*/
 
 QTEST_APPLESS_MAIN(Fixture_Test)

@@ -133,7 +133,7 @@ public:
     void setType(const FixtureType type);
 
     /** Get the fixture's type */
-    FixtureType type();
+    FixtureType type() const;
 
     /** Convert a fixture type to string */
     static QString typeToString(FixtureType type);
@@ -145,7 +145,7 @@ public:
     void setAuthor(const QString& author);
 
     /** Get the definition's author */
-    QString author();
+    QString author() const;
 
     /** Check if the full definition has been loaded */
     void checkLoaded(QString mapPath);

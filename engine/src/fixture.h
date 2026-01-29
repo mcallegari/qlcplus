@@ -512,17 +512,6 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QXmlStreamWriter *doc) const;
-
-    /*********************************************************************
-     * Status
-     *********************************************************************/
-public:
-    /**
-     * Get the fixture instance's status info for Fixture Manager
-     *
-     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
-     */
-    QString status() const;
 };
 
 /** @} */
