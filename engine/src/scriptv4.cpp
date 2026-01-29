@@ -366,6 +366,8 @@ void Script::slotRunnerFinished()
 {
     delete m_runner;
     m_runner = NULL;
+
+    stop(FunctionParent::master());
 }
 
 quint32 Script::getValueFromString(QString str, bool *ok)
