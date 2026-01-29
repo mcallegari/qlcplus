@@ -151,21 +151,19 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         }
         if (found == false)
         {
-
 #ifdef LIBFTDI1
-
-            uint8_t nbrInterface = 1;
+            uint8_t interfacesNumber = 1;
 
             // Detect number of output
             if (libusb_get_active_config_descriptor(dev, &config_descriptor) == 0)
             {
-                nbrInterface = config_descriptor->bNumInterfaces;
-                qDebug() << Q_FUNC_INFO << "Nbr Interface: " << QString::number(nbrInterface, 8);
+                interfacesNumber = config_descriptor->bNumInterfaces;
+                qDebug() << Q_FUNC_INFO << "Interfaces number: " << QString::number(interfacesNumber, 8);
                 libusb_free_config_descriptor(config_descriptor);
             }
 
             // Add each output
-            for (int o = 0; o < nbrInterface; o++)
+            for (int o = 0; o < interfacesNumber; o++)
             {
                 // Instanciate LibFTDIInterface with id as output number
                 LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor, dev_descriptor.idProduct, o);
@@ -174,13 +172,11 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
                 // Append to the global list
                 interfacesList << iface;
             }
-
 #else
-                LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
-                                                               dev_descriptor.idProduct, -1);
-                iface->setBusLocation(dev->bus->location);
-                interfacesList << iface;
-
+            LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
+                                                           dev_descriptor.idProduct, -1);
+            iface->setBusLocation(dev->bus->location);
+            interfacesList << iface;
 #endif
         }
 
@@ -439,15 +435,10 @@ enum ftdi_interface LibFTDIInterface::get_ftdi_interface()
 {
     switch (id())
     {
-    case 0:
-        return INTERFACE_A;
-    case 1:
-        return INTERFACE_B;
-    case 2:
-        return INTERFACE_C;
-    case 3:
-        return INTERFACE_D;
-    default:
-        return INTERFACE_ANY; // fallback
+        case 0:  return INTERFACE_A;
+        case 1:  return INTERFACE_B;
+        case 2:  return INTERFACE_C;
+        case 3:  return INTERFACE_D;
+        default: return INTERFACE_ANY; // fallback
     }
 }

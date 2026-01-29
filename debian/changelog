@@ -8,6 +8,7 @@ qlcplus (4.14.4) stable; urgency=low
   * Virtual Console/Clock: countdown mode can now run a list of Functions
   * Virtual Console/Solo Frame: add an option to exclude functions monitored by buttons to be stopped
   * Virtual Console/Slider: fix level tab channel list sorting (thanks to jpue)
+  * Plugins/DMX USB: add support for FTDI FT4232H (thanks to Thomas Pfeiffer)
   * webaccess: improve CSS consistency across browsers (thanks to jpue)
   * webaccess: fix synchronization of animation widget RGB colors (thanks to jpue)
   * webaccess: add getWidgetFunction API (thanks to mccartyp)
