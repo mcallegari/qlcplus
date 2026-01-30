@@ -152,11 +152,12 @@
       }
 
 
-      function resetUniverse()
+      function resetUniverse(universeNum)
       {
+        document.getElementById('commInput').value = '';
         if (isConnected === true)
         {
-          websocket.send("QLC+API|sdResetUniverse");
+          websocket.send("QLC+API|sdResetUniverse|" + universeNum);
         }
         else
         {
@@ -374,7 +375,7 @@
     <br><br>
     <table style="margin: 20px;">
       <tr>
-        <td style="width: 165px"><div class="button button-reset" title="Reset All Channels" onclick="resetUniverse();">Reset All</div></td>
+        <td style="width: 165px"><div class="button button-reset" title="Reset All Channels" onclick="resetUniverse(getElementById('commInput').value);">Reset All</div></td>
         <td style="width: 165px"><div class="button button-reset" title="Reset Selected Channel" onclick="resetCh(getElementById('commInput').value);">Reset Channel</div></td>
       </tr>
     </table>
