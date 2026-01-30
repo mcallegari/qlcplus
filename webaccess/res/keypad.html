@@ -138,6 +138,14 @@
         }
       }
 
+      function commandKeyDown(event)
+      {
+        if (event.key === 'Enter')
+        {
+          chans_vals(document.getElementById('commInput').value);
+        }
+      }
+
 
       function reqChannelsRange(univ, chan, range)
       {
@@ -338,7 +346,7 @@
     <a class="button button-blue" href="/simpleDesk"><span>Back</span></a>
     <div class="swInfo">Q Light Controller Plus</div></div>
     <div style="margin: 20px 12px 0 20px; font: bold 27px/1.2em 'Trebuchet MS', Arial, Helvetica; color: #fff;">
-    Command: <input style="height: 22px; vertical-align: middle;" id="commInput" type="text" value="">
+    Command: <input style="height: 22px; vertical-align: middle;" id="commInput" type="text" value="" onkeydown="commandKeyDown(event);">
     </div>
     <table style="margin: 20px;">
       <tr>
