@@ -76,16 +76,16 @@ function getGroupIconName(grp) {
 function getSliderTopCode(type) {
    if (type === "")
    {
-      return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>";
+      return "<div style='width: 34px; height: 34px; margin: 2px 0 0 1px; background: transparent;'></div>";
    }
    var aType = type.split(".");
    if (aType.length === 1) {
-      return "<img src=" + getGroupIconName(parseInt(type)) + " style='margin-left:2px;'>";
+      return "<img src=" + getGroupIconName(parseInt(type)) + " style='margin-left: 2px;'>";
    } else {
       if (aType[1] === "#000000") {
          return "<img src=" + getGroupIconName(0) + ">";
       } else {
-         return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:" + aType[1] + ";'></div>";
+         return "<div style='width: 34px; height: 34px; margin: 2px 0 0 1px; background: " + aType[1] + ";'></div>";
       }
    }
 }
@@ -98,15 +98,15 @@ function drawPage(data) {
  var stride = payloadSize % 4 === 0 ? 4 : 3;
  for (i = 2; i < cVars.length; i+=stride) {
      var chNum = parseInt(cVars[i]);
-     code += "<div class='sdSlider' style='width: 36px; height: 372px; background-color: #aaa; margin-left:2px;'>";
+     code += "<div class='sdSlider' style='width: 36px; height: 372px; background-color: #aaa; margin-left: 2px;'>";
      code += getSliderTopCode(cVars[i + 2]);
-     code += "<div id='sdslv" + chNum + "' class='sdslLabel' style='top:2px;'>" + cVars[i + 1]  + "</div>";
+     code += "<div id='sdslv" + chNum + "' class='sdslLabel' style='top: 2px;'>" + cVars[i + 1]  + "</div>";
      code += "<input type='range' class='vVertical' id='" + chNum + "' ";
      code += "oninput='sdSlVchange(" + chNum + ");' ontouchmove='sdSlVchange(" + chNum + ");' ";
      code += "style='width: 250px; margin-top: 250px; margin-left: 18px;' ";
      code += "min='0' max='255' step='1' value='" + cVars[i + 1] + "' >";
      code += "<div id='sdsln" + chNum + "' class='sdslLabel' ";
-     code += "style='bottom:30px;'>" + chNum + "</div>";
+     code += "style='bottom: 30px;'>" + chNum + "</div>";
      code += "<a class='sdButton' style='margin-left: 1px; width: 30px; height: 30px;' href='javascript:resetChannel(" + chNum + ");'>";
      code += "<img src='fileclose.png' title='Reset channel' width='28'></a>";
      code += "</div>";
