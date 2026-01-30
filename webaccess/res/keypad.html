@@ -366,9 +366,10 @@
         <td><div class="button button-keypad" title="Sets the minimum value (0) to the selected DMX channels or group of channels" onclick="composeCommand('A00');">ZERO</div></td>
       </tr>
       <tr>
-        <td colspan="3">
+        <td colspan="2">
           <div class="button button-enter" title="Send command" onclick="chans_vals(getElementById('commInput').value);">ENTER</div>
         </td>
+        <td><div class="button button-keypad" style="background: gray;" title="Clears the command input field" onclick="getElementById('commInput').value = '';">CLR</div></td>
         <td><div class="button button-keypad" title="Sets a channels gap within a range" onclick="composeCommand('B');">BY</div></td>
       </tr>
     </table>
