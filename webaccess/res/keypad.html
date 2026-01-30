@@ -70,18 +70,19 @@
       var isConnected = false;
 
       // Keypad variables
-      var by='B';
-      var at='A';
-      var th='T';
-      var pl='+';
-      var mi='-';
-      var chanl=[];
-      var vall=[];
-      var chanlvall=[];
+      var by = 'B';
+      var at = 'A';
+      var th = 'T';
+      var pl = '+';
+      var mi = '-';
+      var chanl = [];
+      var vall = [];
+      var chanlvall = [];
       var channels, c, v, first, last, step, range;
       var reqchan;
       var addval;
-      var values=[];
+      var values = [];
+
       function connect()
       {
         var url = 'ws://' + window.location.host + '/qlcplusWS';
@@ -105,13 +106,13 @@
 
         websocket.onmessage = function(ev) {
           //alert(ev.data);
-          var msg=ev.data;
+          var msg = ev.data;
           var msgParams = ev.data.split('|');
           if (msgParams[0] === "QLC+API")
           {
             if (msgParams[1] === "getChannelsValues")
             {
-              values=[];
+              values = [];
               for (i = 2; i < msgParams.length; i+=3)
               {
                   //console.log(msgParams[i+1]);
@@ -211,37 +212,37 @@
         // Returns three values first, last and step values
         // first, last and step should be channels number or values.
         //addval=0;
-        if (c.split(pl).length>1)
+        if (c.split(pl).length > 1)
         {
-          addval=c.split(pl)[1];
+          addval = c.split(pl)[1];
         }
-        if (c.split(mi).length>1)
+        if (c.split(mi).length > 1)
         {
-          addval=c.split(mi)[1];
+          addval = c.split(mi)[1];
         }
 
-        if (c.split(by).length>1)
+        if (c.split(by).length > 1)
         {
-          step=c.split(by)[1];
-          range=c.split(by)[0];
-          first=range.split(th)[0];
-          last=range.split(th)[1];
+          step = c.split(by)[1];
+          range = c.split(by)[0];
+          first = range.split(th)[0];
+          last = range.split(th)[1];
         }
         else
         {
           if (c.split(th).length>1)
           {
-            step=1;
-            range=c.split(by)[0];
-            first=range.split(th)[0];
-            last=range.split(th)[1];
+            step = 1;
+            range = c.split(by)[0];
+            first = range.split(th)[0];
+            last = range.split(th)[1];
           }
           else
           {
-            step=1;
-            range=c.split(th);
-            first=range[0];
-            last=range[0];
+            step = 1;
+            range = c.split(th);
+            first = range[0];
+            last = range[0];
           }
         }
         return [parseInt(first,10), parseInt(last,10), parseInt(step,10)];
@@ -259,13 +260,13 @@
         chanlvall = [];
         chanl = [];
         vall = [];
-        if (c.split(at).length>1)
+        if (c.split(at).length > 1)
         {
-          a=c.split(at);
+          a = c.split(at);
           // Call to chval function to assing first, last and step number channels
-          chans=chval(a[0]);
+          chans = chval(a[0]);
           // Call to chval function to assing first, last and step value of channels
-          vals=chval(a[1]);
+          vals = chval(a[1]);
           //console.log('canals values', chans, vals);
           // Set a list of channels for a single channel, a range of channels with a given step
           for (var i = chans[0]; i <= chans[1]; i += chans[2])
@@ -294,37 +295,37 @@
           document.getElementById('commInput').value = '';
           // Iterate on array chanvall and set dmx values for every channel number
           //oldvals=zip(values);
-          for (i = 0, len = chanlvall.length; i  < len; i++)
+          for (i = 0, len = chanlvall.length; i < len; i++)
           {
             c = chanlvall[i][0];
             v = chanlvall[i][1];
             // console.log(c, v);
             // console.log(parseInt(values[c-1]) + parseInt(v * 2.55));
-              if (a.toString().split(pl).length>1)
+              if (a.toString().split(pl).length > 1)
               {
                 if ((parseInt(values[c-1]) + parseInt(v * 2.55)) >= 255)
                 {
-                  v=255
+                  v = 255;
                 }
                 else
                 {
                   v = parseInt(values[c-1]) + parseInt(v * 2.55);
                 }
               }
-              if (a.toString().split(mi).length>1)
+              if (a.toString().split(mi).length > 1)
               {
                 if ((parseInt(values[c-1]) + parseInt(v * 2.55)) <= 0)
                 {
-                  v=0
+                  v = 0;
                 }
                 else
                 {
                   v = parseInt(values[c-1]) + parseInt(v * 2.55);
                 }
               }
-            setChannel(c,v);
+            setChannel(c, v);
           }
-          values=[];
+          values = [];
           reqChannelsRange(1, 1, 512);
         }
       }
