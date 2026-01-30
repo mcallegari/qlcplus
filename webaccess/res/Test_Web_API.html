@@ -253,10 +253,12 @@ function connectToWebSocket(host) {
       }
       else if (msgParams[1] === "getChannelsValues")
       {
-        var tableCode = "<table class='apiTable'><tr><th>Index</th><th>Value</th><th>Type</th></tr>";
-        for (i = 2; i < msgParams.length; i+=3)
+        var stride = (((msgParams.length-2) % 4) === 0) ? 4 : 3;
+        var tableCode = "<table class='apiTable'><tr><th>Index</th><th>Value</th><th>Type</th>" + ((stride === 4) ? "<th>Override</th>" : "") + "</tr>";
+        for (i = 2; i < msgParams.length; i+=stride)
         {
-            tableCode = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td><td>" + msgParams[i + 2] + "</td></tr>";
+            tableCode  = tableCode + "<tr><td>" + msgParams[i] + "</td><td>" + msgParams[i + 1] + "</td>";
+            tableCode += "<td>" + msgParams[i + 2] + "</td>" + ((stride === 4) ? ("<td>" + msgParams[i + 3] + "</td>") : "") + "</tr>";
         }
         tableCode += "</table>";
         document.getElementById('requestChannelsRangeBox').innerHTML = tableCode;
@@ -544,7 +546,7 @@ Load a project:
   <td colspan="2">
    This API sets the value of a single channel of the QLC+ Simple Desk. The parameters to send are:<br>
    <b>Absolute DMX address</b>: this is the address of the DMX channel you want to set. It is absolute in the sense
-   that the universe information is implicit in the address itself. So for example addresses on the first
+   that the universe information is implicit in the address itself. So for example, addresses on the first
    universe will range from 1 to 512, while addresses on the second universe will range from 513 to 1024,
    and so on.<br>
    <b>Value</b>: the value of the DMX channel to set in a range from 0 to 255.
