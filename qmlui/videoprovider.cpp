@@ -66,6 +66,9 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == nullptr || func->type() != Function::VideoType)
         return;
 
+    if (m_videoMap.contains(id))
+        return;
+
     Video *video = qobject_cast<Video *>(func);
     m_videoMap[id] = new VideoContent(video, this);
 
@@ -155,6 +158,10 @@ void VideoContent::playContent()
     if (m_video->fullscreen())
         m_viewContext = m_provider->fullscreenContext();
 
+    QList<QScreen *> screens = QGuiApplication::screens();
+    if (m_video->screen() < screens.count())
+        vScreen = screens.at(m_video->screen());
+
     if (m_video->isPicture())
     {
         m_geometry.setSize(m_video->resolution());
@@ -168,11 +175,6 @@ void VideoContent::playContent()
 
     if (m_viewContext == nullptr)
     {
-        QList<QScreen *> screens = QGuiApplication::screens();
-
-        if (m_video->screen() < screens.count())
-            vScreen = screens.at(m_video->screen());
-
         m_viewContext = new QQuickView(QUrl("qrc:/VideoContext.qml"));
         m_viewContext->rootContext()->setContextProperty("videoContent", this);
 
@@ -193,6 +195,10 @@ void VideoContent::playContent()
 
         connect(m_viewContext, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
     }
+    else
+    {
+        m_viewContext->rootContext()->setContextProperty("videoContent", this);
+    }
 
     if (m_video->isPicture())
     {
@@ -207,9 +213,11 @@ void VideoContent::playContent()
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
 
-    if (vScreen && m_video->fullscreen())
+    if (m_video->fullscreen())
     {
         m_provider->setFullscreenContext(m_viewContext);
+        if (vScreen)
+            m_viewContext->setScreen(vScreen);
         m_viewContext->showFullScreen();
     }
     else
