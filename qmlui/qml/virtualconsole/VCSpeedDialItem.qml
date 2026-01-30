@@ -152,8 +152,8 @@ VCWidgetItem
         {
             property int lastValue: 0
 
-            Layout.columnSpan: tapButton.visible ? 4 : 6
-            Layout.rowSpan: 2
+            Layout.columnSpan: tapButton.visible ? 4 : itemsLayout.columns
+            Layout.rowSpan: tapButton.visible ? 2 : 1
             Layout.fillWidth: true
             Layout.fillHeight: true
             visible: vMask & VCSpeedDial.Dial
@@ -392,7 +392,7 @@ VCWidgetItem
             Layout.fillWidth: true
             Layout.fillHeight: true
             textHAlign: Text.AlignHCenter
-            label: speedLabels[speedObj.currentFactor] + "x\n" + TimeUtils.timeToQlcString(speedObj.currentTime, QLCFunction.Time)
+            label: speedObj ? speedLabels[speedObj.currentFactor] + "x\n" + TimeUtils.timeToQlcString(speedObj.currentTime, QLCFunction.Time) : ""
             visible: vMask & VCSpeedDial.Multipliers
         }
 
