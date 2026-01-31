@@ -47,7 +47,6 @@
 #include "app.h"
 
 #include "tardis.h"
-#include "treemodelitem.h"
 #include "doc.h"
 
 FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)

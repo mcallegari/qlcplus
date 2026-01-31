@@ -268,6 +268,7 @@ Rectangle
           height: fmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
           z: 4
           boundsBehavior: Flickable.StopAtBounds
+          cacheBuffer: contentHeight
           Layout.fillHeight: true
 
           Component.onCompleted: contentY = functionManager.viewPosition
