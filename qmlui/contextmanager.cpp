@@ -1654,7 +1654,7 @@ void ContextManager::highlightFixtureSelection()
     setChannelValueByType((int)QLCChannel::Red, UCHAR_MAX);
     setChannelValueByType((int)QLCChannel::Green, UCHAR_MAX);
     setChannelValueByType((int)QLCChannel::Blue, UCHAR_MAX);
-    setChannelValueByType((int)QLCChannel::White, UCHAR_MAX);
+    //setChannelValueByType((int)QLCChannel::White, UCHAR_MAX);
 
     setChannelValueByType((int)QLCChannel::Intensity, UCHAR_MAX);
 
