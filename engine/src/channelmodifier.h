@@ -51,9 +51,9 @@ public:
 
     QString name() const;
 
-    void setType(Type type);
+    void setType(ChannelModifier::Type type);
 
-    Type type() const;
+    ChannelModifier::Type type() const;
 
     void setModifierMap(QList< QPair<uchar, uchar> > map);
 

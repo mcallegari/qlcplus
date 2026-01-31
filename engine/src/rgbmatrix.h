@@ -302,17 +302,17 @@ public:
     };
 
     /** Get/Set the control mode associated to this RGBMatrix */
-    ControlMode controlMode() const;
-    void setControlMode(ControlMode mode);
+    RGBMatrix::ControlMode controlMode() const;
+    void setControlMode(RGBMatrix::ControlMode mode);
 
     /** Return a control mode from a string */
-    static ControlMode stringToControlMode(QString mode);
+    static RGBMatrix::ControlMode stringToControlMode(QString mode);
 
     /** Return a string from a control mode, to be saved into a XML */
-    static QString controlModeToString(ControlMode mode);
+    static QString controlModeToString(RGBMatrix::ControlMode mode);
 
 private:
-    ControlMode m_controlMode;
+    RGBMatrix::ControlMode m_controlMode;
 };
 
 /** @} */

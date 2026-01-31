@@ -133,7 +133,7 @@ Rectangle
                         model: widgetRef ? widgetRef.barsInfo : null
 
                         property Item currentChecked: null
-                        property int currentType: VCAudioTriggers.None
+                        property int currentType: VCAudioTriggers.BarType.None
 
                         header:
                             RowLayout
@@ -174,8 +174,8 @@ Rectangle
                             Row
                             {
                                 width: barsList.width
-                                height: modelData.type === VCAudioTriggers.FunctionBar ||
-                                        modelData.type === VCAudioTriggers.VCWidgetBar ? gridItemsHeight * 2 : gridItemsHeight
+                                height: modelData.type === VCAudioTriggers.BarType.FunctionBar ||
+                                        modelData.type === VCAudioTriggers.BarType.VCWidgetBar ? gridItemsHeight * 2 : gridItemsHeight
                                 spacing: 10
 
                                 RobotoText
@@ -207,14 +207,14 @@ Rectangle
                                 }
                                 Rectangle
                                 {
-                                    visible: modelData.type === VCAudioTriggers.None
+                                    visible: modelData.type === VCAudioTriggers.BarType.None
                                     width: height
                                     height: gridItemsHeight
                                     color: "transparent"
                                 }
                                 IconButton
                                 {
-                                    visible: modelData.type !== VCAudioTriggers.None
+                                    visible: modelData.type !== VCAudioTriggers.BarType.None
                                     width: height
                                     height: gridItemsHeight
                                     faSource: FontAwesome.fa_pen_to_square
@@ -228,9 +228,9 @@ Rectangle
                                                 rightSidePanel.width += UISettings.sidePanelWidth
                                             sideLoader.visible = true
                                             sideLoader.modelProvider = widgetRef
-                                            if (modelData.type === VCAudioTriggers.DMXBar)
+                                            if (modelData.type === VCAudioTriggers.BarType.DMXBar)
                                                 sideLoader.source = "qrc:/FixtureGroupManager.qml"
-                                            else if (modelData.type === VCAudioTriggers.FunctionBar)
+                                            else if (modelData.type === VCAudioTriggers.BarType.FunctionBar)
                                                 sideLoader.source = "qrc:/FunctionManager.qml"
                                             else if (modelData.type === VCAudioTriggers.VCWidgetBar)
                                                 sideLoader.source = "qrc:/VCWidgetsList.qml"
@@ -242,27 +242,27 @@ Rectangle
                                             rightSidePanel.width -= sideLoader.width
                                             sideLoader.source = ""
                                             sideLoader.visible = false
-                                            barsList.currentType = VCAudioTriggers.None
+                                            barsList.currentType = VCAudioTriggers.BarType.None
                                         }
                                     }
                                 }
 
                                 RobotoText
                                 {
-                                    visible: modelData.type !== VCAudioTriggers.None
+                                    visible: modelData.type !== VCAudioTriggers.BarType.None
                                     width: UISettings.bigItemHeight * 2
                                     height: gridItemsHeight
                                     clip: false
                                     color: thresholdsMa.containsMouse ? UISettings.bgLight : "transparent"
-                                    label: modelData.type === VCAudioTriggers.DMXBar ?
+                                    label: modelData.type === VCAudioTriggers.BarType.DMXBar ?
                                                modelData.intVal + " " + qsTr("Channels") :
                                                qsTr("Thresholds:") + " " + modelData.minThreshold + "% - " + modelData.maxThreshold + "%"
 
                                     MouseArea
                                     {
                                         id: thresholdsMa
-                                        enabled: modelData.type === VCAudioTriggers.FunctionBar ||
-                                                 modelData.type === VCAudioTriggers.VCWidgetBar
+                                        enabled: modelData.type === VCAudioTriggers.BarType.FunctionBar ||
+                                                 modelData.type === VCAudioTriggers.BarType.VCWidgetBar
                                         width: parent.width
                                         height: gridItemsHeight
                                         hoverEnabled: true
@@ -277,7 +277,7 @@ Rectangle
 
                                     IconTextEntry
                                     {
-                                        visible: modelData.type === VCAudioTriggers.FunctionBar
+                                        visible: modelData.type === VCAudioTriggers.BarType.FunctionBar
                                         y: gridItemsHeight
                                         height: gridItemsHeight
                                         width: parent.width
@@ -302,7 +302,7 @@ Rectangle
                         Rectangle
                         {
                             id: addFunctionBox
-                            visible: barsList.currentType === VCAudioTriggers.FunctionBar
+                            visible: barsList.currentType === VCAudioTriggers.BarType.FunctionBar
                             anchors.fill: barsList
                             color: addFunctionDrop.containsDrag ? UISettings.activeDropArea : UISettings.bgMedium
                             opacity: 0.9

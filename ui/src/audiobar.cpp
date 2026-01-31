@@ -74,7 +74,7 @@ void AudioBar::setName(QString nme)
 void AudioBar::setType(int type)
 {
     m_type = type;
-    if (m_type == None)
+    if (m_type == BarType::None)
     {
         m_value = 0;
         m_tapped = false;
@@ -248,7 +248,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
 
         switch(m_type)
         {
-            case AudioBar::FunctionBar:
+            case AudioBar::BarType::FunctionBar:
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
@@ -259,7 +259,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                 }
             }
             break;
-            case AudioBar::VCWidgetBar:
+            case AudioBar::BarType::VCWidgetBar:
             {
                 if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
                 {
@@ -268,7 +268,7 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
                 }
             }
             break;
-            case AudioBar::DMXBar:
+            case AudioBar::BarType::DMXBar:
             {
                 QXmlStreamReader::TokenType tType = root.readNext();
 
@@ -320,7 +320,7 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
     doc->writeAttribute(KXMLQLCAudioBarDivisor, QString::number(m_divisor));
     doc->writeAttribute(KXMLQLCAudioBarIndex, QString::number(index));
 
-    if (m_type == AudioBar::DMXBar && m_dmxChannels.count() > 0)
+    if (m_type == AudioBar::BarType::DMXBar && m_dmxChannels.count() > 0)
     {
         QString chans;
         foreach (SceneValue scv, m_dmxChannels)
@@ -334,11 +334,11 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
             doc->writeTextElement(KXMLQLCAudioBarDMXChannels, chans);
         }
     }
-    else if (m_type == AudioBar::FunctionBar && m_function != NULL)
+    else if (m_type == AudioBar::BarType::FunctionBar && m_function != NULL)
     {
         doc->writeAttribute(KXMLQLCAudioBarFunction, QString::number(m_function->id()));
     }
-    else if (m_type == AudioBar::VCWidgetBar && m_widgetID != VCWidget::invalidId())
+    else if (m_type == AudioBar::BarType::VCWidgetBar && m_widgetID != VCWidget::invalidId())
     {
         doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(m_widgetID));
     }
