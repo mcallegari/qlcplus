@@ -62,7 +62,7 @@ public:
 
     /** Return the color of the head with $headIndex of $fixture.
      *  This considers: RGB / CMY / WAUVLI channels, dimmers and gel color */
-    static QColor headColor(Fixture *fixture, bool hasDimmer, int headIndex = 0);
+    static QColor headColor(Fixture *fixture, int headIndex = 0);
 
     static QColor applyColorFilter(QColor source, QColor filter);
 

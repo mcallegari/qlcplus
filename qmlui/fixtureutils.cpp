@@ -315,12 +315,12 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
     return QColor(mr * 255.0, mg * 255.0, mb * 255.0);
 }
 
-QColor FixtureUtils::headColor(Fixture *fixture, bool hasDimmer, int headIndex)
+QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
 {
     if (fixture == nullptr)
         return QColor();
 
-    QColor finalColor = hasDimmer ? Qt::black : Qt::white;
+    QColor finalColor = Qt::black;
     bool colorFound = false;
 
     QVector <quint32> rgbCh = fixture->rgbChannels(headIndex);
