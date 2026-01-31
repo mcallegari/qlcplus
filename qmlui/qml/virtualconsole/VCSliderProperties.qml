@@ -416,6 +416,35 @@ Rectangle
 
         SectionBox
         {
+            sectionLabel: qsTr("External input")
+
+            sectionContents:
+              GridLayout
+              {
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 4
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.catchValues : false
+                    onClicked: if (widgetRef) widgetRef.catchValues = checked
+                }
+
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Catch up with the external controller input value")
+                }
+              }
+        } // end of SectionBox External input
+
+        SectionBox
+        {
             visible: widgetRef ? widgetRef.sliderMode === VCSlider.GrandMaster : false
             sectionLabel: qsTr("Grand Master mode")
 
