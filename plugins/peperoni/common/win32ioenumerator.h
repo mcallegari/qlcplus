@@ -36,16 +36,16 @@ public:
     Win32IOEnumerator(QObject* parent = 0);
     ~Win32IOEnumerator();
 
-    void rescan();
+    void rescan() override;
 
     QVariant extractUID(HANDLE handle);
     QString extractName(HANDLE handle);
 
-    QList <OutputDevice*> outputDevices() const;
-    QList <InputDevice*> inputDevices() const;
+    QList <OutputDevice*> outputDevices() const override;
+    QList <InputDevice*> inputDevices() const override;
 
-    OutputDevice* outputDevice(const QVariant& uid) const;
-    InputDevice* inputDevice(const QVariant& uid) const;
+    OutputDevice* outputDevice(const QVariant& uid) const override;
+    InputDevice* inputDevice(const QVariant& uid) const override;
 
 signals:
     void configurationChanged();
