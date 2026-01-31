@@ -277,28 +277,11 @@ Entity
 
     property Texture2D goboTexture: Texture2D { }
 
-    ObjectPicker
-    {
-        id: eObjectPicker
-        //hoverEnabled: true
-        dragEnabled: true
-
-        property var lastPos
-
-        onClicked: (pick) =>
-        {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
-        }
-    }
-
     components: [
         baseMesh,
         headEntity,
         transform,
         material,
-        sceneLayer,
-        eObjectPicker
+        sceneLayer
     ]
 }

@@ -68,6 +68,10 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
+    function cleanupScattering()
+    {
+    }
+
     ShutterAnimator { id: sAnimator }
 
     /* Main transform of the whole fixture item */
@@ -167,27 +171,10 @@ Entity
             }
     }
 
-    ObjectPicker
-    {
-        id: eObjectPicker
-        //hoverEnabled: true
-        dragEnabled: true
-
-        property var lastPos
-
-        onClicked: (pick) =>
-        {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
-        }
-    }
-
     components: [
         baseMesh,
         transform,
         material,
-        sceneLayer,
-        eObjectPicker
+        sceneLayer
     ]
 }
