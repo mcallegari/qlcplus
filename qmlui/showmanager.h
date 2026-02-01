@@ -62,6 +62,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
+    Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
 
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -262,8 +263,12 @@ public:
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;
 
+    /** Get/Set multi selection mode for Show items */
+    bool multipleSelection() const;
+    void setMultipleSelection(bool multipleSelection);
+
     /** Add an item to the selection tracking list */
-    Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected);
+    Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected, int keyModifiers);
 
     /** Deselect all the selected items at once */
     Q_INVOKABLE void resetItemsSelection();
@@ -299,6 +304,7 @@ private:
 signals:
     void itemsColorChanged(QColor itemsColor);
     void selectedItemsCountChanged(int count);
+    void multipleSelectionChanged();
 
 private:
     /** The background color for Show Items */
@@ -309,6 +315,9 @@ private:
 
     /** Holds the currently selected Show items */
     QList<SelectedShowItem> m_selectedItems;
+
+    /** Flag to enable multi selection in Show items */
+    bool m_multipleSelection;
 
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;

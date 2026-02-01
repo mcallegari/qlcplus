@@ -362,8 +362,14 @@ Item
 
         onClicked:
         {
-            itemRoot.isSelected = !itemRoot.isSelected
-            showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected)
+            var mods = mouse.modifiers
+            var multi = ((mods & Qt.ControlModifier) || (mods & Qt.ShiftModifier))
+                    || (showManager && showManager.multipleSelection)
+            if (multi)
+                itemRoot.isSelected = !itemRoot.isSelected
+            else
+                itemRoot.isSelected = true
+            showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected, mods)
         }
 
         onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
