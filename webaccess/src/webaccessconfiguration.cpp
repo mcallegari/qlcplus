@@ -41,7 +41,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
 
     QStringList IOplugins = ioMap->inputPluginNames();
     foreach (QString out, ioMap->outputPluginNames())
-        if (IOplugins.contains(out) == false)
+        if (!IOplugins.contains(out))
             IOplugins.append(out);
 
     QStringList inputLines, outputLines, feedbackLines;
@@ -68,7 +68,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
     profiles.prepend("None");
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>Universe</th><th>Input</th><th>Output</th><th>Feedback</th><th>Profile</th></tr>\n";
+    html += "<tr><th>" + tr("Universe") + "</th><th>" + tr("Input") + "</th><th>" + tr("Output") + "</th><th>" + tr("Feedback") + "</th><th>" + tr("Profile") + "</th></tr>\n";
 
     for (quint32 i = 0; i < ioMap->universesCount(); i++)
     {
@@ -130,7 +130,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
         }
         html += "</select></td>\n";
         html += "<td><label><input type=\"checkbox\" ";
-        if (uniPass == true)
+        if (uniPass)
             html +="checked=\"checked\"";
         html += " onchange=\"ioChanged('PASSTHROUGH', " + QString::number(i) + ", this.checked);\">";
         html += tr("Passthrough") + "</label></td>\n";
@@ -148,25 +148,25 @@ QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
     QList<AudioDeviceInfo> devList = doc->audioPluginCache()->audioDevicesList();
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>Input</th><th>Output</th></tr>\n";
+    html += "<tr><th>" + tr("Input") + "</th><th>" + tr("Output") + "</th></tr>\n";
     html += "<tr align=center>";
 
     QString audioInSelect = "<td><select onchange=\"ioChanged('AUDIOIN', this.value);\">\n"
-                            "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+                            "<option value=\"__qlcplusdefault__\">" + tr("Default device") + "</option>\n";
     QString audioOutSelect = "<td><select onchange=\"ioChanged('AUDIOOUT', this.value);\">\n"
-                             "<option value=\"__qlcplusdefault__\">Default device</option>\n";
+                             "<option value=\"__qlcplusdefault__\">" + tr("Default device") + "</option>\n";
 
     QString inputName, outputName;
     QSettings settings;
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
-    if (var.isValid() == true)
+    if (var.isValid())
         inputName = var.toString();
 
     var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
-    if (var.isValid() == true)
+    if (var.isValid())
         outputName = var.toString();
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
             audioInSelect += "<option value=\"" + info.privateName + "\" " +
@@ -189,20 +189,19 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
     QString html = "";
     QDir userFx = QLCFixtureDefCache::userDefinitionDirectory();
 
-    if (userFx.exists() == false || userFx.isReadable() == false)
+    if (!userFx.exists() || !userFx.isReadable())
         return "";
 
     html += "<table class=\"hovertable\" style=\"width: 100%;\">\n";
-    html += "<tr><th>File name</th></tr>\n";
+    html += "<tr><th>" + tr("File name") + "</th></tr>\n";
 
     /* Attempt to read all specified files from the given directory */
     QStringListIterator it(userFx.entryList());
-    while (it.hasNext() == true)
+    while (it.hasNext())
     {
         QString path(it.next());
 
-        if (path.toLower().endsWith(".qxf") == true ||
-            path.toLower().endsWith(".d4"))
+        if (path.toLower().endsWith(".qxf") || path.toLower().endsWith(".d4"))
                 html += "<tr><td>" + path + "</td></tr>\n";
     }
     html += "</table>\n";
@@ -238,25 +237,25 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
 
             html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\"";
             if (level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
-                html += "selected";
+                html += " selected";
             html += ">" + tr("Only Virtual Console") + "</option>";
 
             html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\"";
             if (level >= SIMPLE_DESK_AND_VC_LEVEL && level < SUPER_ADMIN_LEVEL)
-                html += "selected";
+                html += " selected";
             html += ">" + tr("Virtual Console and Simple Desk") + "</option>";
 
             html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\"";
             if (level >= SUPER_ADMIN_LEVEL)
-                html += "selected";
+                html += " selected";
             html += ">" + tr("Everything") + "</option>";
 
             html += "</select>";
         html += "</td>";
         html += "<td>";
-            html += "<button role=\"button\" onclick=\"authChangeUser('" + username + "')\">"
+            html += "<button onclick=\"authChangeUser('" + username + "')\">"
                  + tr("Change") + "</button>";
-            html += "<button role=\"button\" onclick=\"authDeleteUser('" + username + "')\">"
+            html += "<button onclick=\"authDeleteUser('" + username + "')\">"
                  + tr("Delete user") + "</button>";
         html += "</td>";
         html += "</tr>";
@@ -279,7 +278,7 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     html += "</td>";
     html += "<td>";
         // Script will dynamically add rows with users so it needs to know translations
-        html += "<button role=\"button\" onclick=\"authAddUser("
+        html += "<button onclick=\"authAddUser("
                 "'" + tr("Change") + "','" + tr("Delete user") + "'"
                 ",'" + tr("Username and password are required fields.") + "'"
                 ",'" + tr("New password...") + "'"
@@ -298,16 +297,15 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
 
 QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
 {
-    QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
-    m_JScode += "<script type=\"text/javascript\" src=\"configuration.js\"></script>\n";
+    QString m_JScode = "<script src=\"websocket.js\"></script>\n";
+    m_JScode += "<script src=\"configuration.js\"></script>\n";
 
     QString m_CSScode =
                  "<style type=\"text/css\" media=\"screen\">\n"
-                 "html { height: 100%; background-color: #111; }\n"
+                 "html { height: 100%; background-color: #222; }\n"
                  "body {\n"
                  " margin: 0px;\n"
-                 " background-image: linear-gradient(to bottom, #45484d 0%, #111 100%);\n"
-                 " background-image: -webkit-linear-gradient(top, #45484d 0%, #111 100%);\n"
+                 " background: #222;\n"
                  "}\n\n"
                  "form {\n"
                  "position: absolute;\n"
@@ -318,7 +316,7 @@ QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
                  "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
 
     QString extraButtons = "";
-    if (QLCFile::hasWindowManager() == false)
+    if (!QLCFile::hasWindowManager())
     {
         extraButtons = "<a class=\"button button-blue\" href=\"/system\"><span>" + tr("System") + "</span></a>\n";
     }

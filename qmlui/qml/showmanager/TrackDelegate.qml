@@ -17,13 +17,14 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
 {
+    id: trackRoot
     width: 100
     height: UISettings.mediumItemHeight
     clip: true
@@ -31,8 +32,9 @@ Rectangle
     color: isSelected ? UISettings.highlight : "#313F4A"
 
     property Track trackRef: null
-    property int trackIndex
     property bool isSelected: false
+
+    signal trackSelected()
 
     CustomTextInput
     {
@@ -43,7 +45,12 @@ Rectangle
         wrapMode: TextInput.Wrap
         allowDoubleClick: true
 
-        onTextConfirmed: if(trackRef) trackRef.name = text
+        onTextConfirmed:
+            function(text)
+            {
+                if (trackRef)
+                    trackRef.name = text
+            }
     }
 
     Rectangle
@@ -67,7 +74,7 @@ Rectangle
         imgSource: ""
         checkable: true
         tooltip: qsTr("Solo this track")
-        onToggled: showManager.setTrackSolo(trackIndex, checked)
+        onToggled: showManager.setTrackSolo(trackRef.id, checked)
 
         RobotoText
         {
@@ -94,7 +101,7 @@ Rectangle
         imgSource: ""
         checkable: true
         tooltip: qsTr("Mute this track")
-        onToggled: if(trackRef) trackRef.mute = checked
+        onToggled: if (trackRef) trackRef.mute = checked
 
         RobotoText
         {
@@ -111,9 +118,10 @@ Rectangle
     {
         anchors.fill: parent
         propagateComposedEvents: true
-        onClicked:
+        onClicked: (mouse) =>
         {
-            showManager.selectedTrackIndex = trackIndex
+            showManager.selectedTrackId = trackRef.id
+            trackRoot.trackSelected()
             mouse.accepted = false
         }
     }

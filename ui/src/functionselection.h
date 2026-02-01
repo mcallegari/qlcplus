@@ -41,7 +41,7 @@ class Doc;
 
 #define SETTINGS_FILTER "functionselection/filter"
 
-class FunctionSelection : public QDialog, public Ui_FunctionSelection
+class FunctionSelection final : public QDialog, public Ui_FunctionSelection
 {
     Q_OBJECT
     Q_DISABLE_COPY(FunctionSelection)
@@ -60,7 +60,7 @@ public:
     ~FunctionSelection();
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     Doc* m_doc;
@@ -141,9 +141,7 @@ protected slots:
     void slotRGBMatrixChecked(bool state);
     void slotShowChecked(bool state);
     void slotAudioChecked(bool state);
-#if QT_VERSION >= 0x050000
     void slotVideoChecked(bool state);
-#endif
 
 private:
     int m_filter;

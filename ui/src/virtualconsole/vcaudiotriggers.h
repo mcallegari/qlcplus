@@ -39,9 +39,9 @@ class AudioBar;
  * @{
  */
 
-#define KXMLQLCVCAudioTriggers QString("AudioTriggers")
+#define KXMLQLCVCAudioTriggers QStringLiteral("AudioTriggers")
 
-class VCAudioTriggers : public VCWidget, public DMXSource
+class VCAudioTriggers final : public VCWidget, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCAudioTriggers)
@@ -57,10 +57,10 @@ public:
     VCAudioTriggers(QWidget* parent, Doc* doc);
     virtual ~VCAudioTriggers();
 
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
 
     /*********************************************************************
      * GUI
@@ -81,9 +81,8 @@ signals:
 
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
-#if QT_VERSION >= 0x050000
     void slotVolumeChanged(int volume);
-#endif
+    void slotUpdateVolumeSlider(int volume);
 
 protected:
     QHBoxLayout *m_hbox;
@@ -101,7 +100,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes) override;
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
@@ -115,7 +114,7 @@ public:
     QKeySequence keySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
 protected:
     QKeySequence m_keySequence;
@@ -124,43 +123,43 @@ protected:
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback() { }
+    void updateFeedback() override;
 
 protected slots:
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*************************************************************************
      * VCWidget-inherited
      *************************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /** @reimp */
-    void setForegroundColor(const QColor& color);
+    void setForegroundColor(const QColor& color) override;
 
     /** @reimp */
-    QColor foregroundColor() const;
+    QColor foregroundColor() const override;
 
     /** @reimp */
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /** @reimp */
-    void editProperties();
+    void editProperties() override;
 
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /*************************************************************************
      * Configuration
@@ -190,7 +189,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -198,7 +197,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 /** @} */

@@ -42,10 +42,10 @@ class QMenu;
  * @{
  */
 
-#define KXMLQLCFixtureManager "FixtureManager"
-#define KXMLQLCFixtureManagerSplitterSize "SplitterSize"
+#define KXMLQLCFixtureManager             QStringLiteral("FixtureManager")
+#define KXMLQLCFixtureManagerSplitterSize QStringLiteral("SplitterSize")
 
-class FixtureManager : public QWidget
+class FixtureManager final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureManager)
@@ -155,8 +155,22 @@ private:
     /** Get a CSS style sheet & HTML header for fixture info */
     QString fixtureInfoStyleSheetHeader();
 
+    /**
+     * Get the fixture instance's status info for Fixture Manager
+     *
+     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
+     */
+    QString fixtureInfo(const Fixture *fixture) const;
+
     /** Get a CSS style sheet & HTML header for channels group info */
     QString channelsGroupInfoStyleSheetHeader();
+
+    /**
+     * Get the channels group instance's status info for Fixture Manager
+     *
+     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
+     */
+    QString channelsGroupInfo(const ChannelsGroup *channelsGroup) const;
 
 private:
     QSplitter* m_splitter;

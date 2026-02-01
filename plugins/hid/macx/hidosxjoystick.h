@@ -33,7 +33,7 @@ typedef struct
     int value;
 } HIDInfo;
 
-class HIDOSXJoystick: public HIDJsDevice
+class HIDOSXJoystick final : public HIDJsDevice
 {
     Q_OBJECT
 public:
@@ -42,10 +42,10 @@ public:
     static bool isJoystick(unsigned short usage);
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    bool readEvent();
+    bool readEvent() override;
 
 private:
     IOHIDManagerRef m_HIDManager;

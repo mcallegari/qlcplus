@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QDesktopServices>
 #include <QMdiSubWindow>
 #include <QApplication>
 #include <QCloseEvent>
@@ -45,7 +46,6 @@
 
 #include "app.h"
 #include "aboutbox.h"
-#include "docbrowser.h"
 #include "fixtureeditor.h"
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
@@ -71,7 +71,7 @@ App::App(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(mdiArea);
 
     QCoreApplication::setOrganizationName("qlcplus");
-    QCoreApplication::setOrganizationDomain("sf.net");
+    QCoreApplication::setOrganizationDomain("qlcplus.org");
     QCoreApplication::setApplicationName(FXEDNAME);
 
     initActions();
@@ -106,7 +106,7 @@ App::~App()
 
 QString App::longName()
 {
-    return QString("%1 - %2").arg(APPNAME).arg(FXEDNAME);
+    return QString("%1 - %2").arg(APPNAME, FXEDNAME);
 }
 
 QString App::version()
@@ -120,9 +120,9 @@ void App::loadFixtureDefinition(const QString& path)
 
     /* Attempt to create a fixture definition from the selected file */
     QString error(tr("Unrecognized file extension: %1").arg(path));
-    if (path.toLower().endsWith(KExtFixture) == true)
+    if (path.endsWith(KExtFixture, Qt::CaseInsensitive) == true)
         fixtureDef = loadQXF(path, error);
-    else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
+    else if (path.endsWith(KExtAvolitesFixture, Qt::CaseInsensitive) == true)
         fixtureDef = loadD4(path, error);
     else
         fixtureDef = NULL;
@@ -137,6 +137,10 @@ void App::loadFixtureDefinition(const QString& path)
         sub->setWidget(editor);
         sub->setAttribute(Qt::WA_DeleteOnClose);
         qobject_cast<QMdiArea*> (centralWidget())->addSubWindow(sub);
+
+        // check if sub-window is outside main area
+        if (sub->x() >= this->width() || sub->y() >= this->height())
+            sub->setGeometry(0, 0, sub->width(), sub->height());
 
         editor->show();
         sub->show();
@@ -239,38 +243,38 @@ void App::initActions()
     /* File actions */
     m_fileNewAction = new QAction(QIcon(":/filenew.png"),
                                   tr("&New"), this);
-    m_fileNewAction->setShortcut(QKeySequence(tr("CTRL+N", "File|New")));
+    m_fileNewAction->setShortcut(QKeySequence("CTRL+N"));
     connect(m_fileNewAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileNew()));
 
     m_fileOpenAction = new QAction(QIcon(":/fileopen.png"),
                                    tr("&Open"), this);
-    m_fileOpenAction->setShortcut(QKeySequence(tr("CTRL+O", "File|Open")));
+    m_fileOpenAction->setShortcut(QKeySequence("CTRL+O"));
     connect(m_fileOpenAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileOpen()));
 
     m_fileSaveAction = new QAction(QIcon(":/filesave.png"),
                                    tr("&Save"), this);
-    m_fileSaveAction->setShortcut(QKeySequence(tr("CTRL+S", "File|Save")));
+    m_fileSaveAction->setShortcut(QKeySequence("CTRL+S"));
     connect(m_fileSaveAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileSave()));
 
     m_fileSaveAsAction = new QAction(QIcon(":/filesaveas.png"),
                                      tr("Save &As..."), this);
-    m_fileSaveAsAction->setShortcut(QKeySequence(tr("CTRL+SHIFT+S", "File|Save As...")));
+    m_fileSaveAsAction->setShortcut(QKeySequence("CTRL+SHIFT+S"));
     connect(m_fileSaveAsAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileSaveAs()));
 
     m_fileQuitAction = new QAction(QIcon(":/exit.png"),
                                    tr("&Quit"), this);
-    m_fileQuitAction->setShortcut(QKeySequence(tr("CTRL+Q", "File|Quit")));
+    m_fileQuitAction->setShortcut(QKeySequence("CTRL+Q"));
     connect(m_fileQuitAction, SIGNAL(triggered(bool)),
             this, SLOT(slotFileQuit()));
 
     /* Help actions */
     m_helpIndexAction = new QAction(QIcon(":/help.png"),
                                     tr("Index"), this);
-    m_helpIndexAction->setShortcut(QKeySequence(tr("SHIFT+F1", "Help|Index")));
+    m_helpIndexAction->setShortcut(QKeySequence("SHIFT+F1"));
     connect(m_helpIndexAction, SIGNAL(triggered(bool)),
             this, SLOT(slotHelpIndex()));
 
@@ -367,9 +371,7 @@ void App::slotFileOpen()
 
     QVariant var = settings.value(SETTINGS_OPENDIALOGSTATE);
     if (var.isValid() == true)
-    {
         dialog.restoreState(var.toByteArray());
-    }
 
     dialog.setDirectory(m_workingDirectory);
 
@@ -430,7 +432,7 @@ void App::slotFileQuit()
 
 void App::slotHelpIndex()
 {
-    DocBrowser::createAndShow(this);
+    QDesktopServices::openUrl(QUrl("https://docs.qlcplus.org/v4/fixture-definition-editor"));
 }
 
 void App::slotHelpAbout()

@@ -23,7 +23,7 @@
 
 #include <QThread>
 
-#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
 #include <mach/clock.h>
 #include <mach/mach.h>
 #endif
@@ -34,7 +34,7 @@ class MasterTimer;
  * @{
  */
 
-class MasterTimerPrivate : public QThread
+class MasterTimerPrivate final : public QThread
 {
 public:
     MasterTimerPrivate(MasterTimer* masterTimer);
@@ -43,8 +43,8 @@ public:
     void stop();
 
 private:
-    void run();
-#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+    void run() override;
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     int compareTime(mach_timespec_t *time1, mach_timespec_t *time2);
 #else
     int compareTime(struct timespec *time1, struct timespec *time2);
@@ -52,7 +52,7 @@ private:
 
 private:
     bool m_run;
-#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     clock_serv_t cclock;
 #endif
 };

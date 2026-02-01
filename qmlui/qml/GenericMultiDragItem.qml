@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FunctionDragItem.qml
+  GenericMultiDragItem.qml
 
   Copyright (c) Massimo Callegari
 
@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."

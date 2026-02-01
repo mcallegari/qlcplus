@@ -2,10 +2,10 @@
 #
 # To measure unit test coverage, perform these steps:
 # 0. export CCACHE_DISABLE=1        # (only if you use compiler cache)
-# 1. qmake
-# 2. make distclean
-# 3. qmake CONFIG+=coverage
-# 4. ./coverage.sh
+# 1. rm -rf build && mkdir build    # Remove original build directory and recreate it. You can skip this step if you want to preserve the build directory.
+# 2. cd ./build && cmake -DCMAKE_PREFIX_PATH="/home/<user>/Qt/5.15.2/gcc_64/lib/cmake|/usr/lib/x86_64-linux-gnu/cmake/Qt5" [-Dqmlui=ON] -Dcoverage=ON ..
+# 3. make -j8
+# 4. make lcov
 #
 # Human-readable HTML results are written under coverage/html.
 #
@@ -26,21 +26,23 @@ fi
 # Test directories to find coverage measurements from
 #############################################################################
 
+DEST_DIR="build" # Do NOT change to "./build" or "build/"
+
 COUNT=0
-test[$COUNT]="engine/src"
+test[$COUNT]="$DEST_DIR/engine/src"
 COUNT=$((COUNT+1))
 if [ "$TARGET" == "ui" ]; then
-    test[$COUNT]="ui/src"
+    test[$COUNT]="$DEST_DIR/ui/src"
 COUNT=$((COUNT+1))
 fi
-test[$COUNT]="plugins/artnet/test"
+test[$COUNT]="$DEST_DIR/plugins/artnet/test"
 COUNT=$((COUNT+1))
-test[$COUNT]="plugins/enttecwing/src"
+test[$COUNT]="$DEST_DIR/plugins/enttecwing/src"
 COUNT=$((COUNT+1))
-#test[$COUNT]="plugins/midiinput/common/src"
+#test[$COUNT]="$DEST_DIR/plugins/midiinput/common/src"
 #COUNT=$((COUNT+1))
 if [ ${ARCH} != "Darwin" ]; then
-    test[$COUNT]="plugins/velleman/src"
+    test[$COUNT]="$DEST_DIR/plugins/velleman/src"
     COUNT=$((COUNT+1))
 fi
 
@@ -123,10 +125,11 @@ lcov ${mergeargs} -o coverage/coverage.info
 
 # Remove stuff that isn't part of QLC sources
 lcov -r coverage/coverage.info *.h -o coverage/coverage.info # Q_OBJECT etc.
-lcov -r coverage/coverage.info moc_* -o coverage/coverage.info
+lcov -r coverage/coverage.info *moc_* -o coverage/coverage.info
 lcov -r coverage/coverage.info *usr* -o coverage/coverage.info
 lcov -r coverage/coverage.info *_test* -o coverage/coverage.info
-lcov -r coverage/coverage.info ui_* -o coverage/coverage.info
+lcov -r coverage/coverage.info */ui_* -o coverage/coverage.info
+lcov -r coverage/coverage.info */$DEST_DIR/* -o coverage/coverage.info
 lcov -r coverage/coverage.info *Library* -o coverage/coverage.info # OSX
 
 # Generate HTML report

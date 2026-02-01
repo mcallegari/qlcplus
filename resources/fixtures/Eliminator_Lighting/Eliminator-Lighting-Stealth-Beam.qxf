@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Paul Schuh</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Stealth Beam</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Nothing</Capability>
+  <Capability Min="8" Max="17" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="18" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="28" Max="37" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="38" Max="47" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="48" Max="57" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/Green</Capability>
+  <Capability Min="58" Max="67" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="68" Max="77" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue/White</Capability>
+  <Capability Min="78" Max="87" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="88" Max="97">Red/Green/Blue</Capability>
+  <Capability Min="98" Max="107">Green/Blue/White</Capability>
+  <Capability Min="108" Max="117">Red/Blue/White</Capability>
+  <Capability Min="118" Max="127">Red/Green/White</Capability>
+  <Capability Min="128" Max="137">Red/Green/Blue/White</Capability>
+  <Capability Min="138" Max="188">Macro Color Change</Capability>
+  <Capability Min="189" Max="239">Macro Color Line</Capability>
+  <Capability Min="240" Max="255">Sound Active Change</Capability>
+ </Channel>
+ <Channel Name="Color change/Fade Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Nothing</Capability>
+  <Capability Min="8" Max="32">Program 1</Capability>
+  <Capability Min="33" Max="58">Program 2</Capability>
+  <Capability Min="59" Max="84">Program 3</Capability>
+  <Capability Min="85" Max="110">Program 4</Capability>
+  <Capability Min="111" Max="136">Program 5</Capability>
+  <Capability Min="137" Max="162">Program 6</Capability>
+  <Capability Min="163" Max="188">Program 7</Capability>
+  <Capability Min="189" Max="214">Program 8</Capability>
+  <Capability Min="215" Max="240">Program 9</Capability>
+  <Capability Min="241" Max="255">Sond active</Capability>
+ </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter/Strobe" Default="255">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="5" Max="250" Preset="StrobeSlowToFast">Strobing Slow-Fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
+ </Channel>
+ <Channel Name="Pan Movement">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Nothing</Capability>
+  <Capability Min="8" Max="127">Pan moves clockwise (slow to fast)</Capability>
+  <Capability Min="128" Max="255">Pan moves counter-clockwise (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Tilt Movement">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Nothing</Capability>
+  <Capability Min="8" Max="127">Tilt moves clockwise (slow to fast)</Capability>
+  <Capability Min="128" Max="255">Tilt moves counter-clockwise (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="50">Nothing</Capability>
+  <Capability Min="51" Max="100">Speed mode to high (10s)</Capability>
+  <Capability Min="101" Max="150">Nothing</Capability>
+  <Capability Min="151" Max="200">Speed mode to low (10s)</Capability>
+  <Capability Min="201" Max="250">Nothing</Capability>
+  <Capability Min="251" Max="255">Reset (will take 10s to reset)</Capability>
+ </Channel>
+ <Channel Name="Pan Movement Speed" Preset="SpeedPanFastSlow"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Effect</Channel>
+  <Channel Number="3">Color change/Fade Speed</Channel>
+  <Channel Number="4">Pan/Tilt Programs</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Color Effect</Channel>
+  <Channel Number="9">Master Dimmer</Channel>
+  <Channel Number="10">Shutter/Strobe</Channel>
+  <Channel Number="11">Pan Movement</Channel>
+  <Channel Number="12">Pan Movement Speed</Channel>
+  <Channel Number="13">Tilt Movement</Channel>
+  <Channel Number="14">Color change/Fade Speed</Channel>
+  <Channel Number="15">Pan/Tilt Programs</Channel>
+  <Channel Number="16">Pan/Tilt Program Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="786" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="158" Height="239" Depth="285"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

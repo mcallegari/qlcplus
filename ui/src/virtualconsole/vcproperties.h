@@ -35,28 +35,28 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVirtualConsole           QString("VirtualConsole")
+#define KXMLQLCVirtualConsole           QStringLiteral("VirtualConsole")
 
-#define KXMLQLCVCProperties             QString("Properties")
-#define KXMLQLCVCPropertiesSize         QString("Size")
-#define KXMLQLCVCPropertiesSizeWidth    QString("Width")
-#define KXMLQLCVCPropertiesSizeHeight   QString("Height")
+#define KXMLQLCVCProperties             QStringLiteral("Properties")
+#define KXMLQLCVCPropertiesSize         QStringLiteral("Size")
+#define KXMLQLCVCPropertiesSizeWidth    QStringLiteral("Width")
+#define KXMLQLCVCPropertiesSizeHeight   QStringLiteral("Height")
 
-#define KXMLQLCVCPropertiesGrandMaster              QString("GrandMaster")
-#define KXMLQLCVCPropertiesGrandMasterVisible       QString("Visible")
-#define KXMLQLCVCPropertiesGrandMasterChannelMode   QString("ChannelMode")
-#define KXMLQLCVCPropertiesGrandMasterValueMode     QString("ValueMode")
-#define KXMLQLCVCPropertiesGrandMasterSliderMode    QString("SliderMode")
+#define KXMLQLCVCPropertiesGrandMaster              QStringLiteral("GrandMaster")
+#define KXMLQLCVCPropertiesGrandMasterVisible       QStringLiteral("Visible")
+#define KXMLQLCVCPropertiesGrandMasterChannelMode   QStringLiteral("ChannelMode")
+#define KXMLQLCVCPropertiesGrandMasterValueMode     QStringLiteral("ValueMode")
+#define KXMLQLCVCPropertiesGrandMasterSliderMode    QStringLiteral("SliderMode")
 
-#define KXMLQLCVCPropertiesInput         QString("Input")
-#define KXMLQLCVCPropertiesInputUniverse QString("Universe")
-#define KXMLQLCVCPropertiesInputChannel  QString("Channel")
+#define KXMLQLCVCPropertiesInput         QStringLiteral("Input")
+#define KXMLQLCVCPropertiesInputUniverse QStringLiteral("Universe")
+#define KXMLQLCVCPropertiesInputChannel  QStringLiteral("Channel")
 
 /*****************************************************************************
  * Properties
  *****************************************************************************/
 
-class VCProperties
+class VCProperties final
 {
 public:
     VCProperties();
@@ -82,6 +82,9 @@ private:
      * Grand Master
      *************************************************************************/
 public:
+    void setGrandMasterVisible(bool visible);
+    bool grandMasterVisible() const;
+
     void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
     GrandMaster::ChannelMode grandMasterChannelMode() const;
 
@@ -89,13 +92,14 @@ public:
     GrandMaster::ValueMode grandMasterValueMode() const;
 
     void setGrandMasterSliderMode(GrandMaster::SliderMode mode);
-    GrandMaster::SliderMode grandMasterSlideMode() const;
+    GrandMaster::SliderMode grandMasterSliderMode() const;
 
     void setGrandMasterInputSource(quint32 universe, quint32 channel);
     quint32 grandMasterInputUniverse() const;
     quint32 grandMasterInputChannel() const;
 
 private:
+    bool m_gmVisible;
     GrandMaster::ChannelMode m_gmChannelMode;
     GrandMaster::ValueMode m_gmValueMode;
     GrandMaster::SliderMode m_gmSliderMode;

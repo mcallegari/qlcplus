@@ -17,8 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -42,7 +44,7 @@ Rectangle
     property int chIndex
     property int itemFlags
     property bool canFade: true
-    property int precedence
+    property alias precedence: precedenceCombo.currValue
     property string modifier
     property Item dragItem
 
@@ -82,8 +84,8 @@ Rectangle
             {
                 anchors.fill: parent
 
-                onPressed: chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
-                onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
+                onPressed: (mouse) => chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
+                onClicked: (mouse) => chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
                 onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
             }
         }
@@ -142,21 +144,17 @@ Rectangle
         // precedence combo
         CustomComboBox
         {
+            id: precedenceCombo
             visible: showFlags
             implicitWidth: UISettings.chPropsPrecedenceWidth
             height: parent.height - 2
-
-            ListModel
-            {
-                id: precModel
-                ListElement { mLabel: qsTr("Auto (HTP)"); mValue: FixtureManager.AutoHTP }
-                ListElement { mLabel: qsTr("Auto (LTP)"); mValue: FixtureManager.AutoLTP }
-                ListElement { mLabel: qsTr("Forced HTP"); mValue: FixtureManager.ForcedHTP }
-                ListElement { mLabel: qsTr("Forced LTP"); mValue: FixtureManager.ForcedLTP }
-            }
-            model: precModel
-            currentIndex: chDelegate.precedence
-            onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
+            model: [
+                { mLabel: qsTr("Auto (HTP)"), mValue: FixtureManager.AutoHTP },
+                { mLabel: qsTr("Auto (LTP)"), mValue: FixtureManager.AutoLTP },
+                { mLabel: qsTr("Forced HTP"), mValue: FixtureManager.ForcedHTP },
+                { mLabel: qsTr("Forced LTP"), mValue: FixtureManager.ForcedLTP }
+            ]
+            onActivated: (index) => fixtureManager.setItemRoleData(itemID, chIndex, "precedence", currValue)
         }
 
         // divider
@@ -168,12 +166,44 @@ Rectangle
         }
 
         // modifier
-        Rectangle
+        Button
         {
+            id: cmBtn
             visible: showFlags
-            width: UISettings.chPropsModifierWidth
-            height: parent.height
-            color: "transparent"
+            implicitWidth: UISettings.chPropsModifierWidth
+            implicitHeight: parent.height
+            padding: 0
+            text: modifier === "" ? "..." : modifier
+            hoverEnabled: true
+
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.visible: hovered
+            ToolTip.text: text
+
+            onClicked: fixtureManager.showModifierEditor(itemID, chIndex)
+
+            contentItem:
+                Text
+                {
+                    text: cmBtn.text
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+
+            background:
+                Rectangle
+                {
+                    implicitWidth: cmBtn.implicitWidth
+                    height: parent.height
+                    border.width: 2
+                    border.color: UISettings.bgStrong
+                    color: cmBtn.hovered ? (cmBtn.down ? UISettings.highlightPressed : UISettings.highlight) : UISettings.bgControl
+                }
         }
     }
 

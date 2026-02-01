@@ -29,7 +29,7 @@
 
 class QTcpServer;
 
-class OS2LPlugin : public QLCIOPlugin
+class OS2LPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -43,35 +43,32 @@ public:
     virtual ~OS2LPlugin();
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() const override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() const override;
 
     /*************************************************************************
      * Inputs
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input, quint32 universe);
+    bool openInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    void closeInput(quint32 input, quint32 universe);
+    void closeInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    QStringList inputs();
+    QStringList inputs() override;
 
     /** @reimp */
-    QString inputInfo(quint32 input);
-
-    /** @reimp */
-    void sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString& key);
+    QString inputInfo(quint32 input) override;
 
     quint32 universe() const;
 
@@ -105,18 +102,20 @@ protected:
       */
     QHash<QString, quint16> m_hashMap;
 
+    QByteArray m_packetLeftOver;
+
     /*********************************************************************
      * Configuration
      *********************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() const override;
 
     /** @reimp */
-    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;
 };
 
 #endif

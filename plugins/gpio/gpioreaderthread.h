@@ -25,23 +25,21 @@
 
 #include "gpioplugin.h"
 
-class ReadThread : public QThread
+class ReadThread final : public QThread
 {
     Q_OBJECT
 
 public:
     ReadThread(GPIOPlugin *plugin, QObject *parent = 0);
+
     /** Destructor */
     virtual ~ReadThread();
 
     void stop();
-
     void pause(bool paused);
 
-    void updateReadPINs();
-
 protected:
-    void run();
+    void run() override;
 
 signals:
     void valueChanged(quint32 channel, uchar value);
@@ -51,7 +49,6 @@ private:
     bool m_running;
     bool m_paused;
     QMutex m_mutex;
-    QList<GPIOPinInfo *> m_readList;
 };
 
 #endif

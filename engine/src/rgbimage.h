@@ -33,9 +33,9 @@
  * @{
  */
 
-#define KXMLQLCRGBImage "Image"
+#define KXMLQLCRGBImage QStringLiteral("Image")
 
-class RGBImage : public RGBAlgorithm
+class RGBImage final : public RGBAlgorithm
 {
 public:
     RGBImage(Doc * doc);
@@ -43,7 +43,7 @@ public:
     ~RGBImage();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm* clone() const override;
 
     /************************************************************************
      * Image file
@@ -59,10 +59,13 @@ public:
     void setImageData(int width, int height, const QByteArray& pixelData);
 
     bool animatedSource() const;
+    void rewindAnimation();
 
 private:
-
     void reloadImage();
+
+protected slots:
+    void frameChanged(int num);
 
 private:
     QString m_filename;
@@ -100,31 +103,37 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize& size) override;
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMapSetColors(const QVector<uint> &colors) override;
 
     /** @reimp */
-    QString name() const;
+    QVector<uint> rgbMapGetColors() override;
 
     /** @reimp */
-    QString author() const;
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) override;
 
     /** @reimp */
-    int apiVersion() const;
+    QString name() const override;
 
     /** @reimp */
-    RGBAlgorithm::Type type() const;
+    QString author() const override;
 
     /** @reimp */
-    int acceptColors() const;
+    int apiVersion() const override;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    RGBAlgorithm::Type type() const override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    int acceptColors() const override;
+
+    /** @reimp */
+    bool loadXML(QXmlStreamReader &root) override;
+
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 /** @} */

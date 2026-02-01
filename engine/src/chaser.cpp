@@ -25,24 +25,19 @@
 #include <QColor>
 #include <QFile>
 
-#include "qlcfixturedef.h"
-#include "qlcfile.h"
-
 #include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "function.h"
-#include "fixture.h"
 #include "chaser.h"
-#include "scene.h"
 #include "doc.h"
 #include "bus.h"
 
-#define KXMLQLCChaserSpeedModeCommon "Common"
-#define KXMLQLCChaserSpeedModePerStep "PerStep"
-#define KXMLQLCChaserSpeedModeDefault "Default"
+#define KXMLQLCChaserSpeedModeCommon  QStringLiteral("Common")
+#define KXMLQLCChaserSpeedModePerStep QStringLiteral("PerStep")
+#define KXMLQLCChaserSpeedModeDefault QStringLiteral("Default")
 
-#define KXMLQLCChaserLegacySequence QString("Sequence")
+#define KXMLQLCChaserLegacySequence QStringLiteral("Sequence")
 
 /*****************************************************************************
  * Initialization
@@ -137,6 +132,7 @@ bool Chaser::addStep(const ChaserStep& step, int index)
         }
 
         emit changed(this->id());
+        emit stepsListChanged(this->id());
         return true;
     }
     else
@@ -155,6 +151,7 @@ bool Chaser::removeStep(int index)
         }
 
         emit changed(this->id());
+        emit stepsListChanged(this->id());
         return true;
     }
     else
@@ -237,7 +234,7 @@ void Chaser::setTotalDuration(quint32 msec)
         {
             uint origDuration = m_steps[i].duration;
             m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
-            if(m_steps[i].hold)
+            if (m_steps[i].hold)
                 m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
             m_steps[i].fadeIn = m_steps[i].duration - m_steps[i].hold;
             if (m_steps[i].fadeOut)
@@ -335,7 +332,7 @@ Chaser::SpeedMode Chaser::stringToSpeedMode(const QString& str)
  * Save & Load
  *****************************************************************************/
 
-bool Chaser::saveXML(QXmlStreamWriter *doc)
+bool Chaser::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -344,6 +341,9 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
 
     /* Common attributes */
     saveXMLCommon(doc);
+
+    /* Save Tempo type */
+    saveXMLTempoType(doc);
 
     /* Speed */
     saveXMLSpeed(doc);
@@ -423,6 +423,10 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         {
             loadXMLRunOrder(root);
         }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
+        }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {
             loadXMLSpeedModes(root);
@@ -444,7 +448,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCChaserLegacySequence)
         {
             doc()->appendToErrorLog(QString("<b>Unsupported sequences found</b>. Please convert your project "
-                                            "at <a href=http://www.qlcplus.org/sequence_migration.php>http://www.qlcplus.org/sequence_migration.php</a>"));
+                                            "at <a href=https://www.qlcplus.org/sequence_migration.php>https://www.qlcplus.org/sequence_migration.php</a>"));
             root.skipCurrentElement();
         }
         else
@@ -576,12 +580,12 @@ ChaserRunnerStep Chaser::currentRunningStep() const
     return ret;
 }
 
-bool Chaser::contains(quint32 functionId)
+bool Chaser::contains(quint32 functionId) const
 {
     Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
 
-    foreach(ChaserStep step, m_steps)
+    foreach (ChaserStep step, m_steps)
     {
         Function *function = doc->function(step.fid);
         // contains() can be called during init, function may be NULL
@@ -597,11 +601,11 @@ bool Chaser::contains(quint32 functionId)
     return false;
 }
 
-QList<quint32> Chaser::components()
+QList<quint32> Chaser::components() const
 {
     QList<quint32> ids;
 
-    foreach(ChaserStep step, m_steps)
+    foreach (ChaserStep step, m_steps)
         ids.append(step.fid);
 
     return ids;

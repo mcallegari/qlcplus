@@ -32,6 +32,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Process incoming audio</string>
 
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Access the local network for DMX-related protocols</string>
+
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

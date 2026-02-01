@@ -48,7 +48,7 @@ class QMenu;
  * @{
  */
 
-class VirtualConsole : public QWidget
+class VirtualConsole final : public QWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VirtualConsole)
@@ -173,6 +173,7 @@ protected:
     QAction* m_addAnimationAction;
 
     QAction* m_toolsSettingsAction;
+    QAction* m_functionWizardAction;
 
     QAction* m_editCutAction;
     QAction* m_editCopyAction;
@@ -248,6 +249,7 @@ public slots:
      * Tools menu callbacks
      *********************************************************************/
 public slots:
+    void slotWizard();
     void slotToolsSettings();
 
     /*********************************************************************
@@ -345,11 +347,11 @@ protected:
      *********************************************************************/
 
 protected:
-    /** Handler for keyboard key presse events */
-    void keyPressEvent(QKeyEvent* event);
+    /** Handler for keyboard key press events */
+    void keyPressEvent(QKeyEvent* event) override;
 
     /** Handler for keyboard key release events */
-    void keyReleaseEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event) override;
 
 signals:
     /** Signal telling that the keySequence was pressed down */

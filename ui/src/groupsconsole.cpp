@@ -28,8 +28,6 @@
 #include "consolechannel.h"
 #include "clickandgoslider.h"
 #include "groupsconsole.h"
-#include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 /*****************************************************************************
@@ -60,7 +58,7 @@ QList<ConsoleChannel *> GroupsConsole::groups()
 void GroupsConsole::init()
 {
     int idx = 0;
-    foreach(quint32 id, m_ids)
+    foreach (quint32 id, m_ids)
     {
         ChannelsGroup *grp = m_doc->channelsGroup(id);
         if (grp != NULL && grp->getChannels().count() > 0)

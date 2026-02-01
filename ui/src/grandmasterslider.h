@@ -32,7 +32,7 @@ class QLabel;
  * @{
  */
 
-class GrandMasterSlider : public QFrame
+class GrandMasterSlider final : public QFrame
 {
     Q_OBJECT
     Q_DISABLE_COPY(GrandMasterSlider)

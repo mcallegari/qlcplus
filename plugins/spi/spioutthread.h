@@ -22,7 +22,7 @@
 
 #include <QThread>
 
-class SPIOutThread : public QThread
+class SPIOutThread final : public QThread
 {
 public:
     SPIOutThread();
@@ -31,7 +31,7 @@ public:
     void stopThread();
     void setSpeed(int speed);
 
-    void run();
+    void run() override;
 
     void writeData(const QByteArray& data);
 

@@ -12,12 +12,12 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="21" Color="#ffffff">White</Capability>
-  <Capability Min="22" Max="42" Color="#55007f">Purple</Capability>
-  <Capability Min="43" Max="63" Color="#ffff00">Yellow</Capability>
-  <Capability Min="64" Max="84" Color="#0000ff">Blue</Capability>
-  <Capability Min="85" Max="105" Color="#00ff00">Green</Capability>
-  <Capability Min="106" Max="127" Color="#ff7f00">Orange</Capability>
+  <Capability Min="0" Max="21" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="22" Max="42" Preset="ColorMacro" Res1="#55007f">Purple</Capability>
+  <Capability Min="43" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="64" Max="84" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="105" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="106" Max="127" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
   <Capability Min="128" Max="188" Res="Others/rainbow.png">Left rotation (fast to slow)</Capability>
   <Capability Min="189" Max="194" Res="Others/rainbow.png">Stop</Capability>
   <Capability Min="195" Max="255" Res="Others/rainbow.png">Right rotation (slow to fast)</Capability>

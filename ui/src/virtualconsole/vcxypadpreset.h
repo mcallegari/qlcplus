@@ -32,19 +32,19 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCXYPadPreset         QString("Preset")
-#define KXMLQLCVCXYPadPresetID       QString("ID")
-#define KXMLQLCVCXYPadPresetType     QString("Type")
-#define KXMLQLCVCXYPadPresetName     QString("Name")
+#define KXMLQLCVCXYPadPreset         QStringLiteral("Preset")
+#define KXMLQLCVCXYPadPresetID       QStringLiteral("ID")
+#define KXMLQLCVCXYPadPresetType     QStringLiteral("Type")
+#define KXMLQLCVCXYPadPresetName     QStringLiteral("Name")
 
-#define KXMLQLCVCXYPadPresetFuncID      QString("FuncID")
-#define KXMLQLCVCXYPadPresetXPos        QString("X")
-#define KXMLQLCVCXYPadPresetYPos        QString("Y")
-#define KXMLQLCVCXYPadPresetFixture     QString("Fixture")
-#define KXMLQLCVCXYPadPresetFixtureID   QString("ID")
-#define KXMLQLCVCXYPadPresetFixtureHead QString("Head")
+#define KXMLQLCVCXYPadPresetFuncID      QStringLiteral("FuncID")
+#define KXMLQLCVCXYPadPresetXPos        QStringLiteral("X")
+#define KXMLQLCVCXYPadPresetYPos        QStringLiteral("Y")
+#define KXMLQLCVCXYPadPresetFixture     QStringLiteral("Fixture")
+#define KXMLQLCVCXYPadPresetFixtureID   QStringLiteral("ID")
+#define KXMLQLCVCXYPadPresetFixtureHead QStringLiteral("Head")
 
-class VCXYPadPreset
+class VCXYPadPreset final
 {
 public:
     explicit VCXYPadPreset(quint8 id);
@@ -77,7 +77,6 @@ public:
     bool operator<(VCXYPadPreset const& right) const;
     static bool compare(VCXYPadPreset const* left, VCXYPadPreset const* right);
 
-protected:
     static QString typeToString(PresetType type);
     static PresetType stringToType(QString str);
 

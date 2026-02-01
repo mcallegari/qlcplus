@@ -12,6 +12,9 @@
     background: #373737;
     color: #f9f8f0;
     font-family: Arial;
+    min-height: calc(100vh - 16px); /* Subtract padding to prevent vertical scrollbar */
+    padding: 8px;
+    margin: 0;
   }
   h2 {
     background: #aaa;
@@ -21,8 +24,14 @@
   .box {
     padding: 10px;
     display: inline-block;
-    vertical-align:top;
+    vertical-align: top;
     min-width: 200px;
+  }
+  :nth-child(1 of .box) {
+    padding-left: 0;
+  }
+  :nth-last-child(1 of .box) {
+    padding-right: 0;
   }
   input[type=button] {
     background-color: #7497b6;
@@ -37,10 +46,37 @@
   input[type=button]:hover {
     background-color: #8db8dd;
   }
+  table:not(#map), table input[type=text], table input[type=number], table input[type=color], table select {
+    width: 100%;
+    min-width: 75px;
+    box-sizing: border-box;
+  }
+  #dropContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    color: #000;
+    background: none;
+    font-size: 2em;
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+  }
+  #dropContainer.dragging {
+    display: flex;
+    background-color: rgba(255,255,255,0.7);
+  }
 </style>
 <script type="text/javascript" src="devtool/devtool.js"></script>
 </head>
-<body onLoad="devtool.loadAlgoFile()">
+<body onLoad="devtool.onLoad()">
+
+<div id="dropContainer">
+   &#8609;&#xFE0E; Drop your RGB script here to load it &#8609;&#xFE0E;
+</div>
 
 <h1>Q Light Controller Plus - RGB Script Development Tool</h1>
 
@@ -48,7 +84,11 @@
 <h2>Instructions</h2>
 <p>
 To use this tool, you must first set the filename of the script you intend to test/debug
-(including the .js extension) in the 'filename' field. Then hit 'Reload' to load it.
+(including the .js extension) in the 'filename' field. Then hit 'enter' to load it.
+Alternatively, you can use the 'browse' button to select the file from your local file system.
+A third option is to drag and drop the file directly into this page.
+</p>
+<p>
 To make your algorithm object accessible to this tool, you must create a global variable
 within your algorithm file called <b>testAlgo</b>, which then actually contains your algorithm
 object i.e. the object that provides rgbMap() and rgbMapStepCount() functions. Now you're ready to load
@@ -73,51 +113,56 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </div>
 
 <div class="box">
-<h2>Algorithm Specification</h2>
+<h2>Load script</h2>
 <form>
 <table id="definitions">
  <tr>
-  <td>filename</td>
-  <td><input type="text" size="12" id="filename" value="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
+  <td><label for="filename">Enter a filename</label></td>
+  <td><input type="text" size="12" id="filename" placeholder="Enter filename here." onChange="devtool.onFilenameUpdated(this.value)"/></td>
  </tr>
  <tr>
-  <td>apiVersion</td>
-  <td><input type="text" readonly="readonly" class="readonly" size="3" id="apiversion"/></td>
- </tr>
- <tr>
-  <td>name</td>
-  <td><input type="text" readonly="readonly" class="readonly" id="name"/></td>
- </tr>
- <tr>
-  <td>author</td>
-  <td><input type="text" readonly="readonly" class="readonly" id="author"/></td>
- </tr>
- <tr>
-  <td>acceptColors</td>
-  <td><input type="text" readonly="readonly" class="readonly" id="acceptColors"/></td>
- </tr>
- <tr>
-  <td colspan="2">
-   <input type="button" value="Reload" onClick="location.reload()"/>
-  </td>
+  <td><label for="filebrowse">Or browse</label></td>
+  <td><input type="file" size="12" id="filebrowse" onChange="devtool.onFileBrowsed(event)"/></td>
  </tr>
 </table>
 </form>
 
-<h2>Grid Size</h2>
+<h2>Algorithm specification</h2>
+<form>
+<table id="definitions">
+ <tr>
+  <td><label for="apiversion">apiVersion</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" size="3" id="apiversion"/></td>
+ </tr>
+ <tr>
+  <td><label for="name">name</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" id="name"/></td>
+ </tr>
+ <tr>
+  <td><label for="author">author</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" id="author"/></td>
+ </tr>
+ <tr>
+  <td><label for="acceptColors">acceptColors</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" id="acceptColors"/></td>
+ </tr>
+</table>
+</form>
+
+<h2>Grid size</h2>
 <form>
 <table>
  <tr>
-  <td>Width</td>
-  <td><input type="number" min="1" id="gridwidth" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><label for="gridwidth">Width</label></td>
+  <td><input type="number" min="1" id="gridwidth" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
-  <td>Height</td>
-  <td><input type="number" min="1" id="gridheight" value="15" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><label for="gridheight">Height</label></td>
+  <td><input type="number" min="1" id="gridheight" value="15" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
  <tr>
-  <td>Size</td>
-  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" style="width: 8em;" required onChange="devtool.onGridSizeUpdated()"/></td>
+  <td><label for="gridsize">Size</label></td>
+  <td><input type="number" min="1" max="20" id="gridsize" value="20" size="4" required onChange="devtool.onGridSizeUpdated()"/></td>
  </tr>
 </table>
 </form>
@@ -127,62 +172,48 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 <div class="box">
 <form id="pixelColorChooser">
 <h2>Pixel colors</h2>
-<table>
- <tr>
-  <td>Primary color (rrggbb)</td>
-  <td><input type="text" id="primaryColor" value="FF0000" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()" required /></td>
- </tr>
- <tr id="secondaryColorChooser">
-  <td>Secondary color (rrggbb, leave empty to disable)</td>
-  <td><INPUT TYPE="text" id="secondaryColor" value="" pattern="[0-9A-Fa-f]{6}" size="6" onChange="devtool.onColorChange()"/></td>
- </tr>
+<table id="colorChooserTable">
 </table>
 </form>
 
-<h2>Algorithm Properties</h2>
+<h2>Algorithm properties</h2>
 <form>
 <table id="properties">
 </table>
 </form>
 
-<h2>Algorithm Functions</h2>
+<h2>Algorithm functions</h2>
 <form>
 <table>
  <tr>
-  <td>rgbMapStepCount(width, height)</td>
-  <td><input TYPE="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
+  <td><label for="stepCount">rgbMapStepCount(width, height)</label></td>
+  <td><input type="text" readonly="readonly" class="readonly" size="3" id="stepCount"/></td>
  </tr>
-</table>
-</form>
-
-<form>
-<table>
  <tr>
-  <td>rgbMap(width, height, rgb, <b>step</b>)
+  <td><label for="currentStep">rgbMap(width, height, rgb, <b>step</b>)</label></td>
+  <td>
    <input type="number" min="0" id="currentStep" onChange="devtool.writeCurrentStep()"/>
   </td>
  </tr>
  <tr>
-  <td>
-   <span>
-    <input type="button" value="Previous" onClick="devtool.previousStep()"/>
-    <input type="button" value="Next" onClick="devtool.nextStep()"/>
-   </span>
-   <span>
-    <input type="button" value="Start test" onClick="devtool.startTest(1)"/>
-    <input type="button" value="Stop test" onClick="devtool.stopTest()"/>
-    <input type="button" value="Start reversed" onClick="devtool.startTest(-1)"/>
-   </span>
+  <td colspan="2">
+    <input type="button" value="&#x23EA;&#xFE0E; Previous" onClick="devtool.previousStep()"/>
+    <input type="button" value="&#x23E9;&#xFE0E; Next" onClick="devtool.nextStep()"/>
+    <input type="button" value="&#x23F5;&#xFE0E; Start" onClick="devtool.startTest(1)"/>
+    <input type="button" value="&#x23F9;&#xFE0E; Stop" onClick="devtool.stopTest()"/>
+    <input type="button" value="&#x23F4;&#xFE0E; Start reversed" onClick="devtool.startTest(-1)"/>
   </td>
  </tr>
  <tr>
+  <td><label for="alternate">Alternate</label></td>
   <td>
-   Alternate: <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
+   <input type="checkbox" id="alternate" onChange="devtool.onAlternateChanged()"/>
   </td>
  </tr>
  <tr>
+  <td><label for="speed">Speed (ms)</label></td>
   <td>
-   Speed (ms): <input type="number" min="1" id="speed" value="500" size="4" style="width: 8em;" onChange="devtool.onSpeedChanged()"/>
+   <input type="number" min="1" id="speed" value="500" size="4" onChange="devtool.onSpeedChanged()"/>
   </td>
  </tr>
 </table>
@@ -197,7 +228,7 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </div>
 
 <hr/>
-This file is licensed under the Apache 2.0 license. Copyright &copy; Heikki Junnila, Massimo Callegari, APIv2 integration: Hans-Jürgen Tappe.
+This file is licensed under the Apache 2.0 license. Copyright &copy; Heikki Junnila, Massimo Callegari, APIv2 & APIv3 integration: Hans-Jürgen Tappe.
 
 </body>
 </html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.1 GIT</Version>
+  <Author>Liam Clark</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>RevueLED 120 COB True White</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Color Temp. follows Dimmer Control</Capability>
+  <Capability Min="6" Max="255">2800K -&gt; 7800K</Capability>
+ </Channel>
+ <Channel Name="Intensity Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Intensity Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe ON</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="30">Strobe 1Hz -&gt; 30Hz</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel 1">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Color Temperature</Channel>
+ </Mode>
+ <Mode Name="2 Channel 2">
+  <Channel Number="0">Intensity Warm White</Channel>
+  <Channel Number="1">Intensity Cold White</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color Temperature</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Intensity Warm White</Channel>
+  <Channel Number="3">Intensity Cold White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="7000" ColourTemperature="2800"/>
+  <Dimensions Weight="5.5" Width="440" Height="250" Depth="160"/>
+  <Lens Name="Other" DegreesMin="50" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

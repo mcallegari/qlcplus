@@ -53,7 +53,7 @@ void main()
     vec3 finalColor = vec3(0.0);
     vec3 l = normalize(vec3(1.05, 1.3, 0.9));
     vec3 n =  normalize(SAMPLE_TEX2D(normalTex, fsUv).xyz);
-    float flag =  normalize(SAMPLE_TEX2D(normalTex, fsUv).w);
+    float flag = SAMPLE_TEX2D(normalTex, fsUv).w;
     
     float isGuiElement = abs(albedo.w - 2.0) < 0.0001 ? 1.0 : 0.0;
     finalColor += isGuiElement * albedo.rgb;

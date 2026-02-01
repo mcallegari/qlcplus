@@ -21,10 +21,12 @@
 #ifndef DMXINTERFACE_H
 #define DMXINTERFACE_H
 
-#include <QtCore>
+#include <QThread>
+#include <QString>
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 #define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
+#define READ_CHUNK_SIZE 512
 
 class DMXInterface
 {
@@ -48,8 +50,6 @@ public:
     /** Destructor */
     virtual ~DMXInterface();
 
-    virtual QString readLabel(uchar label, int *ESTA_code) = 0;
-
     /** Get the widget's USB serial number */
     QString serial() const;
 
@@ -71,7 +71,7 @@ public:
     /** Virtual method to retrieve the original USB
      *  bus location of the device.
      *  Used only in Linux to perform a sysfs lookup */
-    virtual quint8 busLocation();
+    virtual quint8 busLocation() const;
 
 private:
     QString m_serial;
@@ -85,15 +85,18 @@ private:
      * Widget enumeration
      ************************************************************************/
 public:
-    static const int FTDIVID = 0x0403;      //! FTDI Vendor ID
-    static const int ATMELVID = 0x03EB;     //! Atmel Vendor ID
-    static const int MICROCHIPVID = 0x04D8; //! Microchip Vendor ID
-    static const int FTDIPID = 0x6001;      //! FTDI Product ID
-    static const int FTDI2PID = 0x6010;     //! FTDI COM485-PLUS2 Product ID
-    static const int DMX4ALLPID = 0xC850;   //! DMX4ALL FTDI Product ID
-    static const int NANODMXPID = 0x2018;   //! DMX4ALL Nano DMX Product ID
-    static const int EUROLITEPID = 0xFA63;  //! Eurolite USB DMX Product ID
-    static const int ELECTROTASPID = 0x0000;//! ElectroTAS USB DMX Product ID
+    static const int FTDIVID = 0x0403;       //! FTDI Vendor ID
+    static const int ATMELVID = 0x03EB;      //! Atmel Vendor ID
+    static const int MICROCHIPVID = 0x04D8;  //! Microchip Vendor ID
+    static const int NXPVID = 0x1FC9;        //! NXP Vendor ID
+    static const int FTDIPID = 0x6001;       //! FTDI Product ID
+    static const int FTDI2PID = 0x6010;      //! FTDI COM485-PLUS2 Product ID
+    static const int FTDI4PID = 0x6011;      //! FTDI FT4232H Product ID
+    static const int DMX4ALLPID = 0xC850;    //! DMX4ALL FTDI Product ID
+    static const int NANODMXPID = 0x2018;    //! DMX4ALL Nano DMX Product ID
+    static const int EUROLITEPID = 0xFA63;   //! Eurolite USB DMX Product ID
+    static const int ELECTROTASPID = 0x0000; //! ElectroTAS USB DMX Product ID
+    static const int DMXKINGMAXPID = 0x0094; //! DMXKing ultraDMX MAX Product ID
 
     /** Driver types */
     enum Type
@@ -110,7 +113,7 @@ public:
      */
     static bool validInterface(quint16 vendor, quint16 product);
 
-    bool checkInfo(QString &serial, QString &name, QString &vendor);
+    bool checkInfo(QString &serial, QString &name, QString &vendor) const;
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
@@ -132,9 +135,9 @@ public:
      * DMX/Serial Interface Methods
      ************************************************************************/
 public:
-    virtual DMXInterface::Type type() = 0;
+    virtual DMXInterface::Type type() const = 0;
 
-    virtual QString typeString() = 0;
+    virtual QString typeString() const = 0;
 
     /** Open the widget */
     virtual bool open() = 0;
@@ -163,7 +166,7 @@ public:
     /**
      * Set the widget in "low latency mode". Some DMX controllers send DMX
      * frames at a much higher rate than the specified value. USB widget may
-     * have difficulties to read independant frames in this case and need
+     * have difficulties to read independent frames in this case and need
      * some configuration.
      *
      * @param lowLatency true for low latency, false otherwise
@@ -184,7 +187,7 @@ public:
     virtual bool write(const QByteArray& data) = 0;
 
     /** Read data from a previously-opened line. Optionally provide own data buffer. */
-    virtual QByteArray read(int size, uchar* buffer = NULL) = 0;
+    virtual QByteArray read(int size) = 0;
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
     virtual uchar readByte(bool* ok = NULL) = 0;

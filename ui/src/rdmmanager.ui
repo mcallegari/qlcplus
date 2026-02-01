@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>396</width>
+    <width>402</width>
     <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -172,7 +172,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="m_pidEdit">
           <property name="toolTip">
-           <string extracomment="Enter a PID eiter in hex or decimal format"/>
+           <string extracomment="Enter a PID either in hex or decimal format"/>
           </property>
          </widget>
         </item>

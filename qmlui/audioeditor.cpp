@@ -144,7 +144,7 @@ int AudioEditor::cardLineIndex() const
     int i = 1;
     QString device = m_audio->audioDevice();
 
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -174,7 +174,7 @@ void AudioEditor::setCardLineIndex(int cardLineIndex)
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     int i = 1;
 
-    foreach(AudioDeviceInfo info, devList)
+    foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {

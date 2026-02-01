@@ -32,6 +32,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_name(name)
     , m_title(name)
     , m_page(0)
+    , m_pixelDensity(0)
     , m_enabled(false)
     , m_detached(false)
     , m_universeFilter(0)
@@ -139,6 +140,7 @@ void PreviewContext::setDetached(bool detached)
         /** Create a new Quick View, as a true separate window */
         ContextQuickView *cqView = new ContextQuickView();
         m_view = cqView;
+        m_pixelDensity = m_mainView->rootContext()->contextProperty("screenPixelDensity").toReal();
         connect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
         connect(cqView, &ContextQuickView::keyReleased, this, &PreviewContext::keyReleased);
         connect(cqView, &ContextQuickView::screenChanged, cqView, &ContextQuickView::slotScreenChanged);
@@ -146,13 +148,14 @@ void PreviewContext::setDetached(bool detached)
         /** Copy all the global properties of the main context into the detached one.
          *  This is a bit ugly, but I guess it is a downside of the QML programming */
         m_view->rootContext()->setContextProperty("qlcplus", m_mainView->rootContext()->contextProperty("qlcplus"));
-        m_view->rootContext()->setContextProperty("screenPixelDensity", m_mainView->rootContext()->contextProperty("screenPixelDensity"));
+        m_view->rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
         m_view->rootContext()->setContextProperty("ioManager", m_mainView->rootContext()->contextProperty("ioManager"));
         m_view->rootContext()->setContextProperty("fixtureBrowser", m_mainView->rootContext()->contextProperty("fixtureBrowser"));
         m_view->rootContext()->setContextProperty("fixtureManager", m_mainView->rootContext()->contextProperty("fixtureManager"));
         m_view->rootContext()->setContextProperty("fixtureGroupEditor", m_mainView->rootContext()->contextProperty("fixtureGroupEditor"));
         m_view->rootContext()->setContextProperty("functionManager", m_mainView->rootContext()->contextProperty("functionManager"));
         m_view->rootContext()->setContextProperty("contextManager", m_mainView->rootContext()->contextProperty("contextManager"));
+        m_view->rootContext()->setContextProperty("paletteManager", m_mainView->rootContext()->contextProperty("paletteManager"));
         m_view->rootContext()->setContextProperty("virtualConsole", m_mainView->rootContext()->contextProperty("virtualConsole"));
         m_view->rootContext()->setContextProperty("showManager", m_mainView->rootContext()->contextProperty("showManager"));
         m_view->rootContext()->setContextProperty("simpleDesk", m_mainView->rootContext()->contextProperty("simpleDesk"));
@@ -186,6 +189,13 @@ void PreviewContext::setDetached(bool detached)
     }
 
     m_detached = detached;
+
+    emit detachedChanged();
+}
+
+qreal PreviewContext::pixelDensity() const
+{
+    return m_pixelDensity;
 }
 
 void PreviewContext::handleKeyEvent(QKeyEvent *e, bool pressed)

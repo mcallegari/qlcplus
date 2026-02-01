@@ -22,6 +22,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "utils.h"
 #include "os2lplugin.h"
 #include "os2lconfiguration.h"
 
@@ -41,17 +42,17 @@ void OS2LPlugin::init()
     m_tcpServer = NULL;
 }
 
-QString OS2LPlugin::name()
+QString OS2LPlugin::name() const
 {
     return QString("OS2L");
 }
 
 int OS2LPlugin::capabilities() const
 {
-    return QLCIOPlugin::Input | QLCIOPlugin::Feedback;
+    return QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Beats;
 }
 
-QString OS2LPlugin::pluginInfo()
+QString OS2LPlugin::pluginInfo() const
 {
     /** Return a description of the purpose of this plugin
      *  in HTML format */
@@ -127,23 +128,6 @@ QString OS2LPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void OS2LPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &key)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(output)
-    Q_UNUSED(channel)
-    Q_UNUSED(value)
-    Q_UNUSED(key)
-
-    /**
-     * If the device support this feature, this is the method to send data back for
-     * visual feedback.
-     * To implement such method, the plugin must have an input line corresponding
-     * to the specified output line.
-     * Basically feedback data must return to the same line where it came from
-     */
-}
-
 quint32 OS2LPlugin::universe() const
 {
     return m_inputUniverse;
@@ -186,12 +170,7 @@ quint16 OS2LPlugin::getHash(QString channel)
     else
     {
         /** No existing hash found. Add a new key to the table */
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        hash = qChecksum(channel.toUtf8().data(), channel.length());
-#else
-        QByteArrayView bav(channel.toUtf8().data(), channel.length());
-        hash = qChecksum(bav);
-#endif
+        hash = Utils::getChecksum(channel.toUtf8());
         m_hashMap[channel] = hash;
     }
 
@@ -224,39 +203,55 @@ void OS2LPlugin::slotProcessTCPPackets()
     if (socket == NULL)
         return;
 
-    QHostAddress senderAddress = socket->peerAddress();
-    QByteArray message = socket->readAll();
-    QJsonDocument json = QJsonDocument::fromJson(message);
+    QHostAddress senderAddress = QHostAddress(socket->peerAddress().toIPv4Address());
 
-    qDebug() << "[TCP] Received" << message.length() << "bytes from" << senderAddress.toString();
-    QJsonObject jsonObj = json.object();
-    QJsonValue jEvent = jsonObj.value("evt");
-    if (jEvent.isUndefined())
-        return;
+    while (1)
+    {
+        m_packetLeftOver.append(socket->readAll());
 
-    QString event = jEvent.toString();
+        int endIndex = m_packetLeftOver.indexOf("}");
+        if (endIndex == -1)
+        {
+            if (socket->bytesAvailable())
+                continue;
+            else
+                break;
+        }
 
-    if (event == "btn")
-    {
-        QJsonValue jName = jsonObj.value("name");
-        QJsonValue jState = jsonObj.value("state");
-        qDebug() << "Got button event with name" << jName.toString() << "and state" << jState.toString();
-        uchar value = jState.toString() == "off" ? 0 : 255;
-        emit valueChanged(m_inputUniverse, 0, getHash(jName.toString()), value, jName.toString());
-    }
-    else if (event == "cmd")
-    {
-        QJsonValue jId = jsonObj.value("id");
-        QJsonValue jParam = jsonObj.value("param");
-        qDebug() << "Got CMD message" << jId.toInt() << "with param" << jParam.toDouble();
-        quint32 channel = quint32(jId.toInt());
-        QString cmd = QString("cmd%1").arg(channel);
-        emit valueChanged(m_inputUniverse, 0, quint32(jId.toInt()), uchar(jParam.toDouble()), cmd);
-    }
-    else if (event == "beat")
-    {
-       qDebug() << "Got beat message" << message;
-       emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+        QByteArray message = m_packetLeftOver.left(endIndex + 1);
+        m_packetLeftOver.remove(0, endIndex + 1);
+        QJsonDocument json = QJsonDocument::fromJson(message);
+
+        qDebug() << "[TCP] Received" << message.length() << "bytes from" << senderAddress.toString();
+        QJsonObject jsonObj = json.object();
+        QJsonValue jEvent = jsonObj.value("evt");
+        if (jEvent.isUndefined())
+            return;
+
+        QString event = jEvent.toString();
+
+        if (event == "btn")
+        {
+            QJsonValue jName = jsonObj.value("name");
+            QJsonValue jState = jsonObj.value("state");
+            qDebug() << "Got button event with name" << jName.toString() << "and state" << jState.toString();
+            uchar value = jState.toString() == "off" ? 0 : 255;
+            emit valueChanged(m_inputUniverse, 0, getHash(jName.toString()), value, jName.toString());
+        }
+        else if (event == "cmd")
+        {
+            QJsonValue jId = jsonObj.value("id");
+            QJsonValue jParam = jsonObj.value("param");
+            qDebug() << "Got CMD message" << jId.toInt() << "with param" << jParam.toDouble();
+            quint32 channel = quint32(jId.toInt());
+            QString cmd = QString("cmd%1").arg(channel);
+            emit valueChanged(m_inputUniverse, 0, quint32(jId.toInt()), uchar(jParam.toDouble()), cmd);
+        }
+        else if (event == "beat")
+        {
+           qDebug() << "Got beat message" << message;
+           emit valueChanged(m_inputUniverse, 0, 8341, 255, "beat");
+        }
     }
 }
 
@@ -270,7 +265,7 @@ void OS2LPlugin::configure()
     conf.exec();
 }
 
-bool OS2LPlugin::canConfigure()
+bool OS2LPlugin::canConfigure() const
 {
     return true;
 }

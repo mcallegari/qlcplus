@@ -34,7 +34,7 @@ class Doc;
  * @{
  */
 
-class VCCueListProperties : public QDialog, public Ui_VCCueListProperties
+class VCCueListProperties final : public QDialog, public Ui_VCCueListProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCCueListProperties)
@@ -47,7 +47,7 @@ public:
     ~VCCueListProperties();
 
 public slots:
-    void accept();
+    void accept() override;
     void slotTabChanged();
 
 protected:

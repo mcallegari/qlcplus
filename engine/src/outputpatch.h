@@ -31,10 +31,10 @@ class QLCIOPlugin;
 
 #define KOutputNone QObject::tr("None")
 
-#define KXMLQLCOutputPatch "Patch"
-#define KXMLQLCOutputPatchUniverse "Universe"
-#define KXMLQLCOutputPatchPlugin "Plugin"
-#define KXMLQLCOutputPatchOutput "Output"
+#define KXMLQLCOutputPatch          QStringLiteral("Patch")
+#define KXMLQLCOutputPatchUniverse  QStringLiteral("Universe")
+#define KXMLQLCOutputPatchPlugin    QStringLiteral("Plugin")
+#define KXMLQLCOutputPatchOutput    QStringLiteral("Output")
 
 class OutputPatch : public QObject
 {
@@ -118,7 +118,7 @@ public:
 
     /** Write the contents of a 512 channel value buffer to the plugin.
       * Called periodically by OutputMap. No need to call manually. */
-    void dump(quint32 universe, const QByteArray &data);
+    void dump(quint32 universe, const QByteArray &data, bool dataChanged);
 
 signals:
     void pausedChanged(bool paused);

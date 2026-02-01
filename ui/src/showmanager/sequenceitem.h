@@ -37,7 +37,7 @@
  * Sequence Item. Clickable and draggable object identifying a chaser in sequence mode
  *
  */
-class SequenceItem : public ShowItem
+class SequenceItem final : public ShowItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
@@ -46,25 +46,25 @@ public:
     SequenceItem(Chaser *seq, ShowFunction *func);
 
     /** @reimp */
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
     /** @reimp */
-    void setTimeScale(int val);
+    void setTimeScale(int val) override;
 
     /** @reimp */
-    void setDuration(quint32 msec, bool stretch);
+    void setDuration(quint32 msec, bool stretch) override;
 
     /** @reimp */
-    QString functionName();
+    QString functionName() const override;
 
     void setSelectedStep(int idx);
 
     /** Return a pointer to a Chaser Function associated to this item */
-    Chaser *getChaser();
+    Chaser *getChaser() const;
 
 protected:
     /** @reimp */
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *) override;
 
 protected slots:
     void slotSequenceChanged(quint32);

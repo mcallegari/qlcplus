@@ -28,11 +28,11 @@
 #include "qlcmacros.h"
 #include "doc.h"
 
-#define KXMLQLCRGBImageFilename       QString("Filename")
-#define KXMLQLCRGBImageAnimationStyle QString("Animation")
-#define KXMLQLCRGBImageOffset         QString("Offset")
-#define KXMLQLCRGBImageOffsetX        QString("X")
-#define KXMLQLCRGBImageOffsetY        QString("Y")
+#define KXMLQLCRGBImageFilename       QStringLiteral("Filename")
+#define KXMLQLCRGBImageAnimationStyle QStringLiteral("Animation")
+#define KXMLQLCRGBImageOffset         QStringLiteral("Offset")
+#define KXMLQLCRGBImageOffsetX        QStringLiteral("X")
+#define KXMLQLCRGBImageOffsetY        QStringLiteral("Y")
 
 RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)
@@ -45,7 +45,7 @@ RGBImage::RGBImage(Doc * doc)
 }
 
 RGBImage::RGBImage(const RGBImage& i)
-    : RGBAlgorithm( i.doc())
+    : RGBAlgorithm(i.doc())
     , m_filename(i.filename())
     , m_animatedSource(i.animatedSource())
     , m_animationStyle(i.animationStyle())
@@ -106,6 +106,12 @@ void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
 bool RGBImage::animatedSource() const
 {
     return m_animatedSource;
+}
+
+void RGBImage::rewindAnimation()
+{
+    if (m_animatedSource)
+        m_animatedPlayer.jumpToFrame(0);
 }
 
 void RGBImage::reloadImage()
@@ -233,6 +239,16 @@ int RGBImage::rgbMapStepCount(const QSize& size)
             qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
             return MAX(1, m_image.width() / size.width());
     }
+}
+
+void RGBImage::rgbMapSetColors(const QVector<uint> &colors)
+{
+    Q_UNUSED(colors);
+}
+
+QVector<uint> RGBImage::rgbMapGetColors()
+{
+    return QVector<uint>();
 }
 
 void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)

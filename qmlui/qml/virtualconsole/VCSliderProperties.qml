@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -235,7 +235,7 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        faSource: FontAwesome.fa_remove
+                        faSource: FontAwesome.fa_xmark
                         faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.controlledFunction = -1
@@ -257,6 +257,21 @@ Rectangle
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
                     onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex
                 }
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.adjustFlashEnabled : false
+                    onClicked: if (widgetRef) widgetRef.adjustFlashEnabled = checked
+                }
+
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Show flash button")
+                }
               } // GridLayout
         } // SectionBox Function control
 
@@ -268,89 +283,89 @@ Rectangle
             sectionContents:
               GridLayout
               {
-                  width: parent.width
-                  columns: 2
-                  columnSpacing: 5
-                  rowSpacing: 4
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 4
 
-                  // row 1
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Channels")
-                  }
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      Layout.fillWidth: true
-                      label: ""
+                // row 1
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    label: qsTr("Channels")
+                }
+                RowLayout
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
 
-                      IconButton
-                      {
-                          z: 2
-                          anchors.right: parent.right
-                          height: gridItemsHeight
-                          width: height
-                          faSource: FontAwesome.fa_bars
-                          faColor: "white"
-                          checkable: true
-                          tooltip: qsTr("Add/Remove channels")
-                          onCheckedChanged:
-                          {
-                              if (checked)
-                              {
-                                  if (!sideLoader.visible)
-                                      rightSidePanel.width += UISettings.sidePanelWidth
-                                  sideLoader.visible = true
-                                  sideLoader.modelProvider = widgetRef
-                                  sideLoader.source = "qrc:/FixtureGroupManager.qml"
-                              }
-                              else
-                              {
-                                  rightSidePanel.width -= sideLoader.width
-                                  sideLoader.source = ""
-                                  sideLoader.visible = false
-                              }
-                          }
-                      }
-                  }
+                    RobotoText
+                    {
+                        height: gridItemsHeight
+                        Layout.fillWidth: true
+                        labelColor: UISettings.selection
+                        label: (widgetRef.channelsCount === 0 ? qsTr("None") : widgetRef.channelsCount) + " " + qsTr("selected")
+                    }
+                    IconButton
+                    {
+                        height: UISettings.iconSizeMedium
+                        width: height
+                        faSource: FontAwesome.fa_bars
+                        faColor: "white"
+                        checkable: true
+                        tooltip: qsTr("Add/Remove channels")
+                        onCheckedChanged:
+                        {
+                            if (checked)
+                            {
+                                if (!sideLoader.visible)
+                                    rightSidePanel.width += UISettings.sidePanelWidth
+                                sideLoader.visible = true
+                                sideLoader.modelProvider = widgetRef
+                                sideLoader.source = "qrc:/FixtureGroupManager.qml"
+                            }
+                            else
+                            {
+                                rightSidePanel.width -= sideLoader.width
+                                sideLoader.source = ""
+                                sideLoader.visible = false
+                            }
+                        }
+                    }
+                }
 
-                  // row 2
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Click & Go button")
-                  }
+                // row 2
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    label: qsTr("Click & Go button")
+                }
 
-                  CustomComboBox
-                  {
-                      ListModel
-                      {
-                          id: cngModel
-                          ListElement { mLabel: qsTr("None"); mValue: VCSlider.CnGNone }
-                          ListElement { mLabel: qsTr("RGB/CMY"); mValue: VCSlider.CnGColors }
-                          ListElement { mLabel: qsTr("Gobo/Effect/Macro"); mValue: VCSlider.CnGPreset }
-                      }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    model: [
+                        { mLabel: qsTr("None"), mValue: VCSlider.CnGNone },
+                        { mLabel: qsTr("RGB/CMY"), mValue: VCSlider.CnGColors },
+                        { mLabel: qsTr("Gobo/Effect/Macro"), mValue: VCSlider.CnGPreset }
+                    ]
+                    currentIndex: widgetRef ? widgetRef.clickAndGoType : 0
+                    onCurrentIndexChanged: if (widgetRef) widgetRef.clickAndGoType = currentIndex
+                }
 
-                      Layout.fillWidth: true
-                      model: cngModel
-                      currentIndex: widgetRef ? widgetRef.clickAndGoType : 0
-                      onCurrentIndexChanged: if (widgetRef) widgetRef.clickAndGoType = currentIndex
-                  }
-
-                  // row 3
-                  CustomCheckBox
-                  {
-                      implicitWidth: UISettings.iconSizeMedium
-                      implicitHeight: implicitWidth
-                      checked: widgetRef ? widgetRef.monitorEnabled : true
-                      onClicked: if (widgetRef) widgetRef.monitorEnabled = checked
-                  }
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Monitor channel levels")
-                  }
+                // row 3
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.monitorEnabled : true
+                    onClicked: if (widgetRef) widgetRef.monitorEnabled = checked
+                }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    label: qsTr("Monitor channel levels")
+                }
               }
         } // SectionBox Level mode
 
@@ -362,42 +377,71 @@ Rectangle
             sectionContents:
               GridLayout
               {
-                  width: parent.width
-                  columns: 2
-                  columnSpacing: 5
-                  rowSpacing: 4
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 4
 
-                  // row 1
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Upper limit")
-                  }
-                  CustomSpinBox
-                  {
-                      Layout.fillWidth: true
-                      from: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMinValue : 0
-                      to: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMaxValue : 255
-                      value: widgetRef ? widgetRef.rangeHighLimit : 0
-                      onValueModified: if (widgetRef) widgetRef.rangeHighLimit = value
-                  }
+                // row 1
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    label: qsTr("Upper limit")
+                }
+                CustomSpinBox
+                {
+                    Layout.fillWidth: true
+                    from: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMinValue : 0
+                    to: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMaxValue : 255
+                    value: widgetRef ? widgetRef.rangeHighLimit : 0
+                    onValueModified: if (widgetRef) widgetRef.rangeHighLimit = value
+                }
 
-                  // row 2
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Lower limit")
-                  }
-                  CustomSpinBox
-                  {
-                      Layout.fillWidth: true
-                      from: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMinValue : 0
-                      to: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMaxValue : 255
-                      value: widgetRef ? widgetRef.rangeLowLimit : 0
-                      onValueModified: if (widgetRef) widgetRef.rangeLowLimit = value
-                  }
+                // row 2
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    label: qsTr("Lower limit")
+                }
+                CustomSpinBox
+                {
+                    Layout.fillWidth: true
+                    from: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMinValue : 0
+                    to: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMaxValue : 255
+                    value: widgetRef ? widgetRef.rangeLowLimit : 0
+                    onValueModified: if (widgetRef) widgetRef.rangeLowLimit = value
+                }
               }
         } // SectionBox Values range
+
+        SectionBox
+        {
+            sectionLabel: qsTr("External input")
+
+            sectionContents:
+              GridLayout
+              {
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 4
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.catchValues : false
+                    onClicked: if (widgetRef) widgetRef.catchValues = checked
+                }
+
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Catch up with the external controller input value")
+                }
+              }
+        } // end of SectionBox External input
 
         SectionBox
         {
@@ -407,81 +451,81 @@ Rectangle
             sectionContents:
               GridLayout
               {
-                  width: parent.width
-                  columns: 4
-                  columnSpacing: 5
-                  rowSpacing: 4
+                width: parent.width
+                columns: 4
+                columnSpacing: 5
+                rowSpacing: 4
 
-                  ButtonGroup { id: gmValueModeGroup }
-                  ButtonGroup { id: gmChannelModeGroup }
+                ButtonGroup { id: gmValueModeGroup }
+                ButtonGroup { id: gmChannelModeGroup }
 
-                  // row 1
-                  CustomCheckBox
-                  {
-                      implicitWidth: UISettings.iconSizeMedium
-                      implicitHeight: implicitWidth
-                      ButtonGroup.group: gmValueModeGroup
-                      checked: widgetRef ? widgetRef.grandMasterValueMode === GrandMaster.Reduce : true
-                      onClicked: if (checked && widgetRef) widgetRef.grandMasterValueMode = GrandMaster.Reduce
-                  }
+                // row 1
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: gmValueModeGroup
+                    checked: widgetRef ? widgetRef.grandMasterValueMode === GrandMaster.Reduce : true
+                    onClicked: if (checked && widgetRef) widgetRef.grandMasterValueMode = GrandMaster.Reduce
+                }
 
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      Layout.fillWidth: true
-                      label: qsTr("Reduce values")
-                  }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Reduce values")
+                }
 
-                  // row 2
-                  CustomCheckBox
-                  {
-                      implicitWidth: UISettings.iconSizeMedium
-                      implicitHeight: implicitWidth
-                      ButtonGroup.group: gmValueModeGroup
-                      checked: widgetRef ? widgetRef.grandMasterValueMode === GrandMaster.Limit : true
-                      onClicked: if (checked && widgetRef) widgetRef.grandMasterValueMode = GrandMaster.Limit
-                  }
+                // row 2
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: gmValueModeGroup
+                    checked: widgetRef ? widgetRef.grandMasterValueMode === GrandMaster.Limit : true
+                    onClicked: if (checked && widgetRef) widgetRef.grandMasterValueMode = GrandMaster.Limit
+                }
 
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      Layout.fillWidth: true
-                      label: qsTr("Limit values")
-                  }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Limit values")
+                }
 
-                  // row 3
-                  CustomCheckBox
-                  {
-                      implicitWidth: UISettings.iconSizeMedium
-                      implicitHeight: implicitWidth
-                      ButtonGroup.group: gmChannelModeGroup
-                      checked: widgetRef ? widgetRef.grandMasterChannelMode === GrandMaster.Intensity : true
-                      onClicked: if (checked && widgetRef) widgetRef.grandMasterChannelMode = GrandMaster.Intensity
-                  }
+                // row 3
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: gmChannelModeGroup
+                    checked: widgetRef ? widgetRef.grandMasterChannelMode === GrandMaster.Intensity : true
+                    onClicked: if (checked && widgetRef) widgetRef.grandMasterChannelMode = GrandMaster.Intensity
+                }
 
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      Layout.fillWidth: true
-                      label: qsTr("Intensity channels")
-                  }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Intensity channels")
+                }
 
-                  // row 4
-                  CustomCheckBox
-                  {
-                      implicitWidth: UISettings.iconSizeMedium
-                      implicitHeight: implicitWidth
-                      ButtonGroup.group: gmChannelModeGroup
-                      checked: widgetRef ? widgetRef.grandMasterChannelMode === GrandMaster.AllChannels : true
-                      onClicked: if (checked && widgetRef) widgetRef.grandMasterChannelMode = GrandMaster.AllChannels
-                  }
+                // row 4
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: gmChannelModeGroup
+                    checked: widgetRef ? widgetRef.grandMasterChannelMode === GrandMaster.AllChannels : true
+                    onClicked: if (checked && widgetRef) widgetRef.grandMasterChannelMode = GrandMaster.AllChannels
+                }
 
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      Layout.fillWidth: true
-                      label: qsTr("All channels")
-                  }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("All channels")
+                }
               }
         } // SectionBox Grand Master mode
 

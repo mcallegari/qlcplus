@@ -36,8 +36,6 @@
 
 #include "rgbscript.h"
 #include "rgbscriptscache.h"
-#include "qlcconfig.h"
-#include "qlcfile.h"
 
 QScriptEngine* RGBScript::s_engine = NULL;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
@@ -62,10 +60,11 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_contents(s.m_contents)
     , m_apiVersion(0)
 {
-    evaluate();
-    foreach(RGBScriptProperty cap, s.m_properties)
+    if (!m_fileName.isEmpty())
     {
-        setProperty(cap.m_name, s.property(cap.m_name));
+        evaluate();
+        foreach (RGBScriptProperty cap, s.m_properties)
+            setProperty(cap.m_name, s.property(cap.m_name));
     }
 }
 
@@ -81,7 +80,7 @@ RGBScript &RGBScript::operator=(const RGBScript &s)
         m_contents = s.m_contents;
         m_apiVersion = s.m_apiVersion;
         evaluate();
-        foreach(RGBScriptProperty cap, s.m_properties)
+        foreach (RGBScriptProperty cap, s.m_properties)
         {
             setProperty(cap.m_name, s.property(cap.m_name));
         }
@@ -108,7 +107,7 @@ RGBAlgorithm* RGBScript::clone() const
  * Load & Evaluation
  ****************************************************************************/
 
-bool RGBScript::load(const QDir& dir, const QString& fileName)
+bool RGBScript::load(const QString& fileName)
 {
     // Create the script engine when it's first needed
     initEngine();
@@ -119,13 +118,14 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     m_script = QScriptValue();
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
+    m_rgbMapSetColors = QScriptValue();
     m_apiVersion = 0;
 
     m_fileName = fileName;
-    QFile file(dir.absoluteFilePath(m_fileName));
+    QFile file(m_fileName);
     if (file.open(QIODevice::ReadOnly) == false)
     {
-        qWarning() << "Unable to load RGB script" << m_fileName << "from" << dir.absolutePath();
+        qWarning() << "Unable to load RGB script" << m_fileName;
         return false;
     }
 
@@ -156,6 +156,7 @@ bool RGBScript::evaluate()
 
     m_rgbMap = QScriptValue();
     m_rgbMapStepCount = QScriptValue();
+    m_rgbMapSetColors = QScriptValue();
     m_apiVersion = 0;
 
     m_script = s_engine->evaluate(m_contents, m_fileName);
@@ -186,7 +187,21 @@ bool RGBScript::evaluate()
         m_apiVersion = m_script.property("apiVersion").toInteger();
         if (m_apiVersion > 0)
         {
-            if (m_apiVersion == 2)
+            if (m_apiVersion >= 3)
+            {
+                m_rgbMapSetColors = m_script.property("rgbMapSetColors");
+                if (m_rgbMapSetColors.isFunction() == false)
+                {
+                    qWarning() << m_fileName << "is missing the rgbMapSetColors() function!";
+                    return false;
+                }
+
+                // retrieve the non-mandatory get color function
+                m_rgbMapGetColors = m_script.property("rgbMapGetColors");
+                if (m_rgbMapGetColors.isFunction() == false)
+                    qWarning() << m_fileName << "is missing the rgbMapGetColors() function!";
+            }
+            if (m_apiVersion >= 2)
                 return loadProperties();
             return true;
         }
@@ -213,6 +228,18 @@ void RGBScript::initEngine()
     Q_ASSERT(s_engine != NULL);
 }
 
+void RGBScript::displayError(QScriptValue e, const QString& fileName)
+{
+    if (e.isError()) 
+    {
+        QString msg("%1: Exception at line %2. Error: %3");
+        qWarning() << msg.arg(fileName)
+                         .arg(e.property("lineNumber").toInt32())
+                         .arg(e.toString());
+        qDebug() << "Stack: " << e.property("stack").toString();
+    }
+}
+
 /****************************************************************************
  * Script API
  ****************************************************************************/
@@ -227,8 +254,61 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     QScriptValueList args;
     args << size.width() << size.height();
     QScriptValue value = m_rgbMapStepCount.call(QScriptValue(), args);
-    int ret = value.isNumber() ? value.toInteger() : -1;
-    return ret;
+    if (value.isError())
+    {
+        displayError(value, m_fileName);
+        return -1;
+    }
+    else
+    {
+        int ret = value.isNumber() ? value.toInteger() : -1;
+        return ret;
+    }
+}
+
+void RGBScript::rgbMapSetColors(const QVector<uint> &colors)
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    if (m_apiVersion <= 2)
+        return;
+
+    if (m_rgbMapSetColors.isValid() == false)
+        return;
+
+    int accColors = acceptColors();
+    int rawColorCount = colors.count();
+    QScriptValue jsRawColors = s_engine->newArray(accColors);
+    for (int i = 0; i < rawColorCount && i < accColors; i++)
+        jsRawColors.setProperty(i, QScriptValue(colors.at(i)));
+
+    QScriptValueList args;
+    args << jsRawColors;
+
+    QScriptValue value = m_rgbMapSetColors.call(QScriptValue(), args);
+    if (value.isError())
+        displayError(value, m_fileName);
+}
+
+QVector<uint> RGBScript::rgbMapGetColors()
+{
+    QMutexLocker engineLocker(s_engineMutex);
+    QVector<uint> colArray;
+
+    if (m_apiVersion <= 2)
+        return colArray;
+
+    if (m_rgbMapGetColors.isValid() == false)
+        return colArray;
+
+    QScriptValue colors = m_rgbMapGetColors.call();
+    if (colors.isValid() && colors.isArray())
+    {
+        QVariantList arr = colors.toVariant().toList();
+        foreach (QVariant color, arr)
+            colArray.append(color.toUInt());
+    }
+
+    return colArray;
 }
 
 void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
@@ -240,8 +320,13 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 
     QScriptValueList args;
     args << size.width() << size.height() << rgb << step;
+
     QScriptValue yarray = m_rgbMap.call(QScriptValue(), args);
-    if (yarray.isArray() == true)
+
+    if (yarray.isError())
+        displayError(yarray, m_fileName);
+
+    if (yarray.isArray())
     {
         int ylen = yarray.property("length").toInteger();
         map.resize(ylen);
@@ -342,15 +427,21 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
     QMutexLocker engineLocker(s_engineMutex);
 
     QHash<QString, QString> properties;
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         QScriptValue readMethod = m_script.property(cap.m_readMethod);
         if (readMethod.isFunction())
         {
             QScriptValueList args;
             QScriptValue value = readMethod.call(QScriptValue(), args);
-            if (value.isValid())
+            if (value.isError())
+            {
+                displayError(value, m_fileName);
+            }
+            else if (value.isValid())
+            {
                 properties.insert(cap.m_name, value.toString());
+            }
         }
     }
     return properties;
@@ -360,7 +451,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         if (cap.m_name == propertyName)
         {
@@ -372,8 +463,16 @@ bool RGBScript::setProperty(QString propertyName, QString value)
             }
             QScriptValueList args;
             args << value;
-            writeMethod.call(QScriptValue(), args);
-            return true;
+            QScriptValue written = writeMethod.call(QScriptValue(), args);
+            if (written.isError())
+            {
+                displayError(written, m_fileName);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
     return false;
@@ -383,7 +482,7 @@ QString RGBScript::property(QString propertyName) const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
-    foreach(RGBScriptProperty cap, m_properties)
+    foreach (RGBScriptProperty cap, m_properties)
     {
         if (cap.m_name == propertyName)
         {
@@ -395,10 +494,19 @@ QString RGBScript::property(QString propertyName) const
             }
             QScriptValueList args;
             QScriptValue value = readMethod.call(QScriptValue(), args);
-            if (value.isValid())
-                return value.toString();
-            else
+            if (value.isError())
+            {
+                displayError(value, m_fileName);
                 return QString();
+            }
+            else if (value.isValid())
+            {
+                return value.toString();
+            }
+            else
+            {
+                return QString();
+            }
         }
     }
     return QString();
@@ -429,7 +537,7 @@ bool RGBScript::loadProperties()
         RGBScriptProperty newCap;
 
         QStringList propsList = cap.split("|");
-        foreach(QString prop, propsList)
+        foreach (QString prop, propsList)
         {
             QStringList keyValue = prop.split(":");
             if (keyValue.length() < 2)
@@ -446,7 +554,7 @@ bool RGBScript::loadProperties()
             else if (key == "type")
             {
                 if (value == "list") newCap.m_type = RGBScriptProperty::List;
-                else if (value == "integer") newCap.m_type = RGBScriptProperty::Integer;
+                else if (value == "float") newCap.m_type = RGBScriptProperty::Float;
                 else if (value == "range") newCap.m_type = RGBScriptProperty::Range;
                 else if (value == "string") newCap.m_type = RGBScriptProperty::String;
             }

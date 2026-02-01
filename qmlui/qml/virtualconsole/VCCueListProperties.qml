@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -70,7 +70,7 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        faSource: FontAwesome.fa_remove
+                        faSource: FontAwesome.fa_xmark
                         faColor: UISettings.bgControl
                         tooltip: qsTr("Detach the current chaser")
                         onClicked: widgetRef.chaserID = -1
@@ -102,16 +102,12 @@ Rectangle
 
                   CustomComboBox
                   {
-                      ListModel
-                      {
-                          id: layoutModel
-                          ListElement { mLabel: qsTr("Play/Pause + Stop"); mValue: VCCueList.PlayPauseStop }
-                          ListElement { mLabel: qsTr("Play/Stop + Pause"); mValue: VCCueList.PlayStopPause }
-                      }
-
                       Layout.fillWidth: true
                       height: UISettings.listItemHeight
-                      model: layoutModel
+                      model: [
+                        { mLabel: qsTr("Play/Pause + Stop"), mValue: VCCueList.PlayPauseStop },
+                        { mLabel: qsTr("Play/Stop + Pause"), mValue: VCCueList.PlayStopPause }
+                      ]
                       currentIndex: widgetRef ? widgetRef.playbackLayout : VCCueList.PlayPauseStop
                       onCurrentIndexChanged: if (widgetRef) widgetRef.playbackLayout = currentIndex
                   }
@@ -127,18 +123,14 @@ Rectangle
 
                   CustomComboBox
                   {
-                      ListModel
-                      {
-                          id: nextPrevModel
-                          ListElement { mLabel: qsTr("Run from first/last cue"); mValue: VCCueList.DefaultRunFirst }
-                          ListElement { mLabel: qsTr("Run from next/previous cue"); mValue: VCCueList.RunNext }
-                          ListElement { mLabel: qsTr("Select next/previous cue"); mValue: VCCueList.Select }
-                          ListElement { mLabel: qsTr("Do nothing"); mValue: VCCueList.Nothing }
-                      }
-
                       Layout.fillWidth: true
                       height: UISettings.listItemHeight
-                      model: nextPrevModel
+                      model: [
+                        { mLabel: qsTr("Run from first/last cue"), mValue: VCCueList.DefaultRunFirst },
+                        { mLabel: qsTr("Run from next/previous cue"), mValue: VCCueList.RunNext },
+                        { mLabel: qsTr("Select next/previous cue"), mValue: VCCueList.Select },
+                        { mLabel: qsTr("Do nothing"), mValue: VCCueList.Nothing }
+                      ]
                       currentIndex: widgetRef ? widgetRef.nextPrevBehavior : VCCueList.DefaultRunFirst
                       onCurrentIndexChanged: if (widgetRef) widgetRef.nextPrevBehavior = currentIndex
                   }

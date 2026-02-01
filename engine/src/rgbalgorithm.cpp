@@ -39,15 +39,27 @@
 
 RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
-    , m_startColor(QColor())
-    , m_endColor(QColor())
 {
 }
 
-void RGBAlgorithm::setColors(QColor start, QColor end)
+void RGBAlgorithm::setColors(QVector<QColor> colors)
 {
-    m_startColor = start;
-    m_endColor = end;
+    int nCols = acceptColors();
+    m_colors.clear();
+
+    for (int i = 0; i < nCols; i++)
+    {
+        if (i < colors.count())
+            m_colors.append(colors.at(i));
+    }
+}
+
+QColor RGBAlgorithm::getColor(uint i) const
+{
+    if (i >= (uint)m_colors.count())
+        return QColor();
+
+    return m_colors[i];
 }
 
 /****************************************************************************
@@ -84,7 +96,7 @@ RGBAlgorithm* RGBAlgorithm::algorithm(Doc * doc, const QString& name)
     else if (name == plain.name())
         return plain.clone();
     else
-        return doc->rgbScriptsCache()->script(name).clone();
+        return doc->rgbScriptsCache()->script(name);
 }
 
 /****************************************************************************
@@ -122,9 +134,11 @@ RGBAlgorithm* RGBAlgorithm::loader(Doc * doc, QXmlStreamReader &root)
     }
     else if (type == KXMLQLCRGBScript)
     {
-        RGBScript const& scr = doc->rgbScriptsCache()->script(root.readElementText());
-        if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
-            algo = scr.clone();
+        RGBScript* scr = doc->rgbScriptsCache()->script(root.readElementText());
+        if (scr->apiVersion() > 0 && scr->name().isEmpty() == false)
+            algo = scr;
+        else
+            delete scr;
     }
     else if (type == KXMLQLCRGBPlain)
     {

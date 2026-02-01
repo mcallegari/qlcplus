@@ -15,7 +15,7 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="7ch Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Min="5" Max="80">Colour Sound to Light</Capability>
   <Capability Min="81" Max="150">Colour Jump</Capability>
   <Capability Min="151" Max="255">Colour Fade</Capability>

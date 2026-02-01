@@ -21,6 +21,7 @@
 #define ADDRGBPANEL_H
 
 #include <QDialog>
+
 #include "ui_addrgbpanel.h"
 #include "fixture.h"
 
@@ -28,7 +29,7 @@ class QLCFixtureDef;
 class QLCFixtureMode;
 class Doc;
 
-class AddRGBPanel : public QDialog, public Ui_AddRGBPanel
+class AddRGBPanel final : public QDialog, public Ui_AddRGBPanel
 {
     Q_OBJECT
     Q_DISABLE_COPY(AddRGBPanel)
@@ -68,6 +69,8 @@ public:
     Type type();
     Direction direction();
     Fixture::Components components();
+    bool is16Bit();
+    bool crossUniverse();
 
 private:
     /** Check if an address is available for contiguous channels.
@@ -77,6 +80,7 @@ private:
 
 protected slots:
     void slotUniverseChanged();
+    void slotComponentsChanged();
     void slotAddressChanged();
     void slotSizeChanged(int val);
 

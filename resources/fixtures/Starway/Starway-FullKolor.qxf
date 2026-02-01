@@ -27,11 +27,11 @@
   <Capability Min="151" Max="170">Red 100% / Green Up / Blue Up</Capability>
   <Capability Min="171" Max="190">Red Down / Green Down / Blue 100%</Capability>
   <Capability Min="191" Max="200">Red 100% / Green  100% / Blue  100% / White  100%</Capability>
-  <Capability Min="201" Max="205" Color="#ffff7f">White 1 : 3200K</Capability>
+  <Capability Min="201" Max="205" Preset="ColorMacro" Res1="#ffff7f">White 1 : 3200K</Capability>
   <Capability Min="206" Max="210">White 2 : 3400K</Capability>
-  <Capability Min="211" Max="215" Color="#c9fffc">White 3 : 4200K</Capability>
+  <Capability Min="211" Max="215" Preset="ColorMacro" Res1="#c9fffc">White 3 : 4200K</Capability>
   <Capability Min="216" Max="220">White 4 : 4900K</Capability>
-  <Capability Min="221" Max="225" Color="#ffcaff">White 5 : 5600K</Capability>
+  <Capability Min="221" Max="225" Preset="ColorMacro" Res1="#ffcaff">White 5 : 5600K</Capability>
   <Capability Min="226" Max="230">White 6 : 5900K</Capability>
   <Capability Min="231" Max="235">White 7 : 6500K</Capability>
   <Capability Min="236" Max="240">White 8 : 7200K</Capability>

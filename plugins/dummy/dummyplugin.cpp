@@ -38,7 +38,7 @@ void DummyPlugin::init()
     /** Initialize the plugin variables here */
 }
 
-QString DummyPlugin::name()
+QString DummyPlugin::name() const
 {
     return QString("Dummy");
 }
@@ -89,7 +89,7 @@ QStringList DummyPlugin::outputs()
     return list;
 }
 
-QString DummyPlugin::pluginInfo()
+QString DummyPlugin::pluginInfo() const
 {
     /** Return a description of the purpose of this plugin
      *  in HTML format */
@@ -126,11 +126,12 @@ QString DummyPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 
     /** Check for output index validity and, in case, return.
      *
@@ -138,7 +139,7 @@ void DummyPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArr
      * data transmission. It is called at the rate of the QLC+ MasterTimer clock
      * and it should never block for more than 20ms.
      * If this plugin cannot predict the duration of a universe transmission,
-     * it is then safer to exchange data with a thread, running indipendently
+     * it is then safer to exchange data with a thread, running independently
      * and not risking to hang QLC+
      */
 }
@@ -199,13 +200,13 @@ QString DummyPlugin::inputInfo(quint32 input)
     return str;
 }
 
-void DummyPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &key)
+void DummyPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QVariant &params)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(channel)
     Q_UNUSED(value)
-    Q_UNUSED(key)
+    Q_UNUSED(params)
 
     /**
      * If the device support this feature, this is the method to send data back for
@@ -229,7 +230,7 @@ void DummyPlugin::configure()
     }
 }
 
-bool DummyPlugin::canConfigure()
+bool DummyPlugin::canConfigure() const
 {
     return true;
 }

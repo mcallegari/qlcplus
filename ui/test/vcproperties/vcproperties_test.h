@@ -24,7 +24,7 @@
 #include <QObject>
 
 class Doc;
-class VCProperties_Test : public QObject
+class VCProperties_Test final : public QObject
 {
     Q_OBJECT
 

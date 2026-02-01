@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -39,6 +39,7 @@ Rectangle
     property bool showPalette: false
 
     signal valueChanged(int value)
+    signal close()
 
     GridLayout
     {
@@ -59,6 +60,11 @@ Rectangle
             {
                 currentValue = Math.round((valueAt(position) * 255.0) / maxDegrees)
                 boxRoot.valueChanged(currentValue)
+            }
+            onPressedChanged:
+            {
+                if (!pressed && closeOnSelect)
+                    boxRoot.close()
             }
         }
 

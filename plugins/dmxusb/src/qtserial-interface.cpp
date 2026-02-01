@@ -24,7 +24,6 @@
 #include <QMap>
 
 #include "qtserial-interface.h"
-#include "enttecdmxusbpro.h"
 
 QT_USE_NAMESPACE
 
@@ -42,64 +41,12 @@ QtSerialInterface::~QtSerialInterface()
         close();
 }
 
-QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
-{
-    QSerialPort serial;
-    serial.setPort(m_info);
-
-    if (serial.open(QIODevice::ReadWrite) == false)
-        return QString();
-    serial.setReadBufferSize(1024);
-
-    serial.setDataBits(QSerialPort::Data8);
-    serial.setStopBits(QSerialPort::TwoStop);
-    serial.setParity(QSerialPort::NoParity);
-    serial.setFlowControl(QSerialPort::NoFlowControl);
-    serial.setBaudRate(250000);
-
-    QByteArray request;
-    request.append(ENTTEC_PRO_START_OF_MSG);
-    request.append(label);
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-    request.append(ENTTEC_PRO_END_OF_MSG);
-
-    if (serial.write(request) < 0)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-        return QString();
-    }
-    serial.waitForBytesWritten(20);
-
-    char *buffer = (char*) malloc(sizeof(char) * 40);
-    Q_ASSERT(buffer != NULL);
-
-    QByteArray array;
-    // wait 100ms maximum for the device to respond
-    serial.waitForReadyRead(100);
-    int read = serial.read(buffer, 40);
-    //qDebug() << Q_FUNC_INFO << "Data read: " << read;
-    array = QByteArray::fromRawData((char*) buffer, read);
-
-    if (array[0] != ENTTEC_PRO_START_OF_MSG)
-        qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-    *ESTA_code = (array[5] << 8) | array[4];
-    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
-    array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
-
-    //for (int i = 0; i < array.size(); i++)
-    //    qDebug() << "-Data: " << array[i];
-    serial.close();
-
-    return QString(array);
-}
-
-DMXInterface::Type QtSerialInterface::type()
+DMXInterface::Type QtSerialInterface::type() const
 {
     return DMXInterface::QtSerial;
 }
 
-QString QtSerialInterface::typeString()
+QString QtSerialInterface::typeString() const
 {
     return "QtSerialPort";
 }
@@ -111,17 +58,21 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
 
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
     {
-        QString serial(info.serialNumber());
-        QString name(info.description());
-        QString vendor(info.manufacturer());
-
-        qDebug() << "[QtSerialInterface] Serial: " << serial << "name:" << name << "vendor:" << vendor;
-
         // Skip non wanted devices
         if (validInterface(info.vendorIdentifier(), info.productIdentifier()) == false)
             continue;
 
-#if defined(Q_OS_OSX)
+        if (info.vendorIdentifier() == DMXInterface::FTDIVID)
+            continue;
+
+        QString serial(info.serialNumber());
+        QString name(info.description());
+        QString vendor(info.manufacturer());
+
+        qDebug() << "[QtSerialInterface] Serial: " << serial << "name:" << name << "vendor:" << vendor
+                 << "VID:" << info.vendorIdentifier() << "PID:" << info.productIdentifier();
+
+#if defined(Q_OS_MACOS)
         /* Qt 5.6+ reports the same device as "cu" and "tty". Only the first will be considered */
         if (info.portName().startsWith("tty"))
             continue;
@@ -176,8 +127,8 @@ bool QtSerialInterface::open()
             return false;
         }
 
-        m_handle->setReadBufferSize(1024);
-        qDebug() << "Read buffer size:" << m_handle->readBufferSize() << m_handle->errorString();
+        //m_handle->setReadBufferSize(1024);
+        //qDebug() << "Read buffer size:" << m_handle->readBufferSize() << m_handle->errorString();
 
         return true;
     }
@@ -369,23 +320,20 @@ bool QtSerialInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray QtSerialInterface::read(int size, uchar* userBuffer)
+QByteArray QtSerialInterface::read(int size)
 {
     //qDebug() << Q_FUNC_INFO;
-
-    Q_UNUSED(userBuffer)
 
     if (m_handle == NULL)
         return QByteArray();
 
     if (m_handle->waitForReadyRead(10) == true)
-    {
         return m_handle->read(size);
-    }
+
     return QByteArray();
 }
 
-uchar QtSerialInterface::readByte(bool* ok)
+uchar QtSerialInterface::readByte(bool *ok)
 {
     if (ok) *ok = false;
 
@@ -393,7 +341,6 @@ uchar QtSerialInterface::readByte(bool* ok)
         return 0;
 
     //qDebug() << Q_FUNC_INFO;
-
     if (m_handle->waitForReadyRead(10) == true)
     {
         QByteArray array = m_handle->read(1);
@@ -405,4 +352,5 @@ uchar QtSerialInterface::readByte(bool* ok)
     }
 
     return 0;
+
 }

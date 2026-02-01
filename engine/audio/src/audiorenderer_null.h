@@ -27,7 +27,7 @@
  * @{
  */
 
-class AudioRendererNull : public AudioRenderer
+class AudioRendererNull final : public AudioRenderer
 {
     Q_OBJECT
 public:
@@ -39,7 +39,7 @@ public:
     bool initialize(quint32, int, AudioFormat) { return true; }
 
     /** @reimpl */
-    qint64 latency() { return 0; } // not bad for a null device huh ? ;)
+    qint64 latency() const { return 0; } // not bad for a null device huh ? ;)
 
 protected:
     /** @reimpl */

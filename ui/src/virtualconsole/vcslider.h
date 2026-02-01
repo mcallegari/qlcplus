@@ -21,6 +21,7 @@
 #ifndef VCSLIDER_H
 #define VCSLIDER_H
 
+#include <QToolButton>
 #include <QMutex>
 #include <QList>
 
@@ -32,7 +33,6 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
-class QToolButton;
 class QHBoxLayout;
 class QLabel;
 
@@ -42,36 +42,37 @@ class VCSliderProperties;
  * @{
  */
 
-#define KXMLQLCVCSlider             QString("Slider")
-#define KXMLQLCVCSliderMode         QString("SliderMode")
-#define KXMLQLCVCSliderWidgetStyle  QString("WidgetStyle")
+#define KXMLQLCVCSlider             QStringLiteral("Slider")
+#define KXMLQLCVCSliderMode         QStringLiteral("SliderMode")
+#define KXMLQLCVCSliderWidgetStyle  QStringLiteral("WidgetStyle")
 
-#define KXMLQLCVCSliderValueDisplayStyle            QString("ValueDisplayStyle")
-#define KXMLQLCVCSliderValueDisplayStyleExact       QString("Exact")
-#define KXMLQLCVCSliderValueDisplayStylePercentage  QString("Percentage")
-#define KXMLQLCVCSliderCatchValues                  QString("CatchValues")
+#define KXMLQLCVCSliderValueDisplayStyle            QStringLiteral("ValueDisplayStyle")
+#define KXMLQLCVCSliderValueDisplayStyleExact       QStringLiteral("Exact")
+#define KXMLQLCVCSliderValueDisplayStylePercentage  QStringLiteral("Percentage")
+#define KXMLQLCVCSliderCatchValues                  QStringLiteral("CatchValues")
 
-#define KXMLQLCVCSliderClickAndGoType QString("ClickAndGoType")
+#define KXMLQLCVCSliderClickAndGoType QStringLiteral("ClickAndGoType")
 
-#define KXMLQLCVCSliderInvertedAppearance QString("InvertedAppearance")
+#define KXMLQLCVCSliderInvertedAppearance QStringLiteral("InvertedAppearance")
 
-#define KXMLQLCVCSliderBusLowLimit  QString("LowLimit")
-#define KXMLQLCVCSliderBusHighLimit QString("HighLimit")
+#define KXMLQLCVCSliderBusLowLimit  QStringLiteral("LowLimit")
+#define KXMLQLCVCSliderBusHighLimit QStringLiteral("HighLimit")
 
-#define KXMLQLCVCSliderLevel            QString("Level")
-#define KXMLQLCVCSliderLevelLowLimit    QString("LowLimit")
-#define KXMLQLCVCSliderLevelHighLimit   QString("HighLimit")
-#define KXMLQLCVCSliderLevelValue       QString("Value")
-#define KXMLQLCVCSliderLevelMonitor     QString("Monitor")
-#define KXMLQLCVCSliderOverrideReset    QString("Reset")
+#define KXMLQLCVCSliderLevel            QStringLiteral("Level")
+#define KXMLQLCVCSliderLevelLowLimit    QStringLiteral("LowLimit")
+#define KXMLQLCVCSliderLevelHighLimit   QStringLiteral("HighLimit")
+#define KXMLQLCVCSliderLevelValue       QStringLiteral("Value")
+#define KXMLQLCVCSliderLevelMonitor     QStringLiteral("Monitor")
+#define KXMLQLCVCSliderOverrideReset    QStringLiteral("Reset")
 
-#define KXMLQLCVCSliderChannel          QString("Channel")
-#define KXMLQLCVCSliderChannelFixture   QString("Fixture")
+#define KXMLQLCVCSliderChannel          QStringLiteral("Channel")
+#define KXMLQLCVCSliderChannelFixture   QStringLiteral("Fixture")
 
-#define KXMLQLCVCSliderPlayback         QString("Playback")
-#define KXMLQLCVCSliderPlaybackFunction QString("Function")
+#define KXMLQLCVCSliderPlayback         QStringLiteral("Playback")
+#define KXMLQLCVCSliderPlaybackFunction QStringLiteral("Function")
+#define KXMLQLCVCSliderPlaybackFlash    QStringLiteral("Flash")
 
-class VCSlider : public VCWidget, public DMXSource
+class VCSlider final : public VCWidget, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSlider)
@@ -81,6 +82,7 @@ class VCSlider : public VCWidget, public DMXSource
 public:
     static const quint8 sliderInputSourceId;
     static const quint8 overrideResetInputSourceId;
+    static const quint8 flashButtonInputSourceId;
 
     static const QSize defaultSize;
 
@@ -99,44 +101,44 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void setID(quint32 id);
+    void setID(quint32 id) override;
 
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget *widget);
+    bool copyFrom(const VCWidget *widget) override;
 
     /*********************************************************************
      * GUI
      *********************************************************************/
 public:
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /** @reimp */
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
 protected:
     /** @reimp */
-    void hideEvent(QHideEvent *ev);
+    void hideEvent(QHideEvent *ev) override;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
     /** Edit this widget's properties */
-    void editProperties();
+    void editProperties() override;
 
     /*********************************************************************
      * QLC+ Mode
      *********************************************************************/
 public slots:
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*********************************************************************
      * Slider Mode
@@ -390,7 +392,14 @@ public:
     void setPlaybackValue(uchar value);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
+
+    /** Get/Set the status of the flash button enablement */
+    bool playbackFlashEnable() const;
+    void setPlaybackFlashEnable(bool enable);
+
+protected:
+    void flashPlayback(bool on);
 
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
@@ -403,6 +412,10 @@ protected:
     uchar m_playbackValue;
     int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
+
+    bool m_playbackFlashEnable;
+    bool m_playbackIsFlashing;
+    uchar m_playbackFlashPreviousValue;
 
 private:
     FunctionParent functionParent() const;
@@ -424,7 +437,7 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes) override;
 
 protected:
     /** writeDMX for Level mode */
@@ -479,7 +492,9 @@ public:
 
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
-    void updateFeedback();
+    void updateFeedback() override;
+
+    void updateOverrideFeedback(bool on);
 
 signals:
     void requestSliderUpdate(int value);
@@ -568,7 +583,10 @@ private slots:
     void slotResetButtonClicked();
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    /** @reimp */
+    void slotKeyPressed(const QKeySequence& keySequence) override;
+    /** @reimp */
+    void slotKeyReleased(const QKeySequence& keySequence) override;
 
 protected:
     QToolButton *m_resetButton;
@@ -578,11 +596,38 @@ private:
     QKeySequence m_overrideResetKeySequence;
 
     /*********************************************************************
+     * Flash button
+     *********************************************************************/
+public:
+    /** Get/set the keyboard key combination to flash the playback */
+    QKeySequence playbackFlashKeySequence() const;
+    void setPlaybackFlashKeySequence(const QKeySequence& keySequence);
+
+protected:
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
+
+protected:
+    class FlashButton : public QToolButton
+    {
+    public:
+        FlashButton(QWidget *parent)
+            : QToolButton(parent) {}
+    protected:
+        void mousePressEvent(QMouseEvent *e) override;
+        void mouseReleaseEvent(QMouseEvent *e) override;
+    };
+    FlashButton *m_flashButton;
+
+private:
+    QKeySequence m_playbackFlashKeySequence;
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 protected slots:
     /** Called when an external input device produces input data */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
 protected:
     int m_lastInputValue;
@@ -592,17 +637,17 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
     bool loadXMLLevel(QXmlStreamReader &level_root);
     bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 /** @} */

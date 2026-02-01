@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -44,7 +44,7 @@ Rectangle
         visible: patch ? (patch.profileName === "None" ? false : true) : false
 
         border.width: 2
-        border.color: "#222"
+        border.color: UISettings.borderColorDark
         color: "#269ABA"
         radius: 10
 
@@ -54,7 +54,7 @@ Rectangle
             x: parent.width - width - 10
             height: UISettings.bigItemHeight * 0.25
             width: height
-            faSource: FontAwesome.fa_times
+            faSource: FontAwesome.fa_xmark
             faColor: "white"
             tooltip: qsTr("Remove this input profile")
             onClicked: ipRoot.removeProfile()
@@ -96,14 +96,14 @@ Rectangle
             height: width
             radius: height / 2
             border.width: 2
-            border.color: "#333"
-            color: "#666"
+            border.color: UISettings.bgMedium
+            color: UISettings.bgLight
 
             ColorAnimation on color
             {
                 id: cAnim
                 from: "#00FF00"
-                to: "#666"
+                to: UISettings.bgLight
                 duration: 500
                 running: false
             }

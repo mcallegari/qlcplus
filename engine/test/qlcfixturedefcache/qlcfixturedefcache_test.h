@@ -23,7 +23,7 @@
 #include <QObject>
 #include "qlcfixturedefcache.h"
 
-class QLCFixtureDefCache_Test : public QObject
+class QLCFixtureDefCache_Test final : public QObject
 {
     Q_OBJECT
 
@@ -33,9 +33,11 @@ private slots:
 
     void duplicates();
     void add();
+    void reload();
     void fixtureDef();
 	void load();
     void defDirectories();
+    void storeDef();
 
 private:
     QLCFixtureDefCache cache;

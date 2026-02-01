@@ -11,17 +11,17 @@
  <Type>Flower</Type>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="12" Color="#000000">None</Capability>
-  <Capability Min="13" Max="25" Color="#ff0000">Red</Capability>
-  <Capability Min="26" Max="38" Color="#00aa00">Green</Capability>
-  <Capability Min="39" Max="51" Color="#0000ff">Blue</Capability>
-  <Capability Min="52" Max="64" Color="#ffffff">White</Capability>
-  <Capability Color2="#00aa00" Min="65" Max="77" Color="#ff0000">Red + Green</Capability>
-  <Capability Color2="#00007f" Min="78" Max="90" Color="#ff0000">Red + Blue</Capability>
-  <Capability Color2="#ffffff" Min="91" Max="103" Color="#ff0000">Red + White</Capability>
-  <Capability Color2="#00007f" Min="104" Max="116" Color="#00aa00">Green + Blue</Capability>
-  <Capability Color2="#ffffff" Min="117" Max="129" Color="#00aa00">Green + White</Capability>
-  <Capability Color2="#ffffff" Min="130" Max="142" Color="#00007f">Blue + White</Capability>
+  <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#000000">None</Capability>
+  <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="64" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="65" Max="77" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aa00">Red + Green</Capability>
+  <Capability Min="78" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00007f">Red + Blue</Capability>
+  <Capability Min="91" Max="103" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="104" Max="116" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#00007f">Green + Blue</Capability>
+  <Capability Min="117" Max="129" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="130" Max="142" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ffffff">Blue + White</Capability>
   <Capability Res="Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
   <Capability Res="Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
   <Capability Res="Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>
@@ -31,17 +31,17 @@
  </Channel>
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="12" Color="#000000">None</Capability>
-  <Capability Min="13" Max="25" Color="#ff0000">Red</Capability>
-  <Capability Min="26" Max="38" Color="#00aa00">Green</Capability>
-  <Capability Min="39" Max="51" Color="#0000ff">Blue</Capability>
-  <Capability Min="52" Max="64" Color="#ffffff">White</Capability>
-  <Capability Color2="#00aa00" Min="65" Max="77" Color="#ff0000">Red + Green</Capability>
-  <Capability Color2="#00007f" Min="78" Max="90" Color="#ff0000">Red + Blue</Capability>
-  <Capability Color2="#ffffff" Min="91" Max="103" Color="#ff0000">Red + White</Capability>
-  <Capability Color2="#00007f" Min="104" Max="116" Color="#00aa00">Green + Blue</Capability>
-  <Capability Color2="#ffffff" Min="117" Max="129" Color="#00aa00">Green + White</Capability>
-  <Capability Color2="#ffffff" Min="130" Max="142" Color="#00007f">Blue + White</Capability>
+  <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#000000">None</Capability>
+  <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="64" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="65" Max="77" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aa00">Red + Green</Capability>
+  <Capability Min="78" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00007f">Red + Blue</Capability>
+  <Capability Min="91" Max="103" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="104" Max="116" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#00007f">Green + Blue</Capability>
+  <Capability Min="117" Max="129" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="130" Max="142" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#ffffff">Blue + White</Capability>
   <Capability Res="Others/rainbow.png" Min="143" Max="155">Green + Blue + White</Capability>
   <Capability Res="Others/rainbow.png" Min="156" Max="168">Red + Blue + White</Capability>
   <Capability Res="Others/rainbow.png" Min="169" Max="181">Red + Green + White</Capability>

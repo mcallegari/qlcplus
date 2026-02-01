@@ -111,7 +111,9 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
         return false;
 
     path = QString(data.mid(0, commaPos));
-    qDebug() << " [OSC] path extracted:" << path;
+    // remove possible trailing zeroes used for padding
+    path.remove(QChar(0x00));
+    //qDebug() << "[OSC] path extracted:" << path;
 
     int currPos = commaPos + 1;
     while (tagsEnded == false)
@@ -133,7 +135,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
     int left = (typeArray.count() + 1) % 4;
     currPos += 3 - left;
 
-    qDebug () << "[OSC] Tags found:" << typeArray.count() << "currpos at" << currPos;
+    //qDebug () << "[OSC] Tags found:" << typeArray.count() << "currpos at" << currPos;
 
     foreach (TagType tag, typeArray)
     {

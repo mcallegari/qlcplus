@@ -28,17 +28,17 @@
 
 typedef struct
 {
-    int m_number;
+    int m_line;
     bool m_enabled;
-    int m_usage;
-    QFile *m_file;
+    int m_direction;
     uchar m_value;
     uchar m_count;
-} GPIOPinInfo;
+    QString m_name;
+} GPIOLineInfo;
 
 class ReadThread;
 
-class GPIOPlugin : public QLCIOPlugin
+class GPIOPlugin final : public QLCIOPlugin
 {
     Q_OBJECT
     Q_INTERFACES(QLCIOPlugin)
@@ -52,77 +52,83 @@ public:
     virtual ~GPIOPlugin();
 
     /** @reimp */
-    void init();
+    void init() override;
 
     /** @reimp */
-    QString name();
+    QString name() const override;
 
     /** @reimp */
-    int capabilities() const;
+    int capabilities() const override;
 
     /** @reimp */
-    QString pluginInfo();
+    QString pluginInfo() const override;
 
-    QList<GPIOPinInfo *> gpioList() const;
+    std::string chipName() const;
+    void setChipName(QString name);
+
+    void updateLinesList();
+
+    QList<GPIOLineInfo *> gpioList() const;
 
 protected:
-    QList<GPIOPinInfo *> m_gpioList;
+    std::string m_chipName;
+    QList<GPIOLineInfo *> m_gpioList;
     ReadThread *m_readerThread;
     quint32 m_inputUniverse, m_outputUniverse;
 
     /*********************************************************************
-     * GPIO PIN methods
+     * GPIO line methods
      *********************************************************************/
 public:
-    enum PinUsage
+    enum LineDirection
     {
-        NoUsage     = 1 << 0,
-        OutputUsage = 1 << 1,
-        InputUsage  = 1 << 2
+        NoDirection     = 1 << 0,
+        OutputDirection = 1 << 1,
+        InputDirection  = 1 << 2
     };
 
-    QString pinUsageToString(PinUsage usage);
-    PinUsage stringToPinUsage(QString usage);
+    QString lineDirectionToString(LineDirection usage) const;
+    LineDirection stringToLineDirection(QString usage) const;
 
 private:
-    void setPinStatus(int gpioNumber, bool enable);
-    void setPinUsage(int gpioNumber, PinUsage usage);
-    void setPinValue(int gpioNumber, uchar value);
+    void setLineStatus(int lineNumber, bool enable);
+    void setLineDirection(int lineNumber, LineDirection direction);
+    void setLineValue(int lineNumber, uchar value);
 
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output, quint32 universe);
+    bool openOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    void closeOutput(quint32 output, quint32 universe);
+    void closeOutput(quint32 output, quint32 universe) override;
 
     /** @reimp */
-    QStringList outputs();
+    QStringList outputs() override;
 
     /** @reimp */
-    QString outputInfo(quint32 output);
+    QString outputInfo(quint32 output) override;
 
     /** @reimp */
-    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
     /*************************************************************************
      * Inputs
      *************************************************************************/
 public:
     /** @reimp */
-    bool openInput(quint32 input, quint32 universe);
+    bool openInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    void closeInput(quint32 input, quint32 universe);
+    void closeInput(quint32 input, quint32 universe) override;
 
     /** @reimp */
-    QStringList inputs();
+    QStringList inputs() override;
 
     /** @reimp */
-    QString inputInfo(quint32 input);
+    QString inputInfo(quint32 input) override;
 
 protected slots:
     void slotValueChanged(quint32 channel, uchar value);
@@ -132,13 +138,13 @@ protected slots:
      *********************************************************************/
 public:
     /** @reimp */
-    void configure();
+    void configure() override;
 
     /** @reimp */
-    bool canConfigure();
+    bool canConfigure() const override;
 
     /** @reimp */
-    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
+    void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value) override;
 };
 
 #endif

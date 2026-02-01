@@ -18,6 +18,7 @@
 */
 
 #include <QGuiApplication>
+#include <QMediaMetaData>
 #include <QScreen>
 
 #include "videoeditor.h"
@@ -28,49 +29,52 @@
 VideoEditor::VideoEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_video(nullptr)
+    , m_mediaPlayer(nullptr)
 {
     m_view->rootContext()->setContextProperty("videoEditor", this);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    m_mediaPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
-#else
-    m_mediaPlayer = new QMediaPlayer(this);
-#endif
-
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-            this, SLOT(slotMetaDataChanged(QString,QVariant)));
-    connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)),
-                this, SLOT(slotDurationChanged(qint64)));
 }
 
 VideoEditor::~VideoEditor()
 {
-    delete m_mediaPlayer;
+    if (m_mediaPlayer)
+        delete m_mediaPlayer;
+}
+
+void VideoEditor::detectMedia()
+{
+    if (m_video == nullptr)
+        return;
+
+    infoMap.clear();
+
+    if (m_video->isPicture())
+    {
+        infoMap.insert("Resolution", m_video->resolution());
+        infoMap.insert("Duration", Function::speedToString(m_video->duration()));
+    }
+    else
+    {
+        QString sourceURL = m_video->sourceUrl();
+        m_mediaPlayer = new QMediaPlayer(this);
+
+        connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+                this, SLOT(slotMetaDataChanged()));
+        connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)),
+                this, SLOT(slotDurationChanged(qint64)));
+
+        if (sourceURL.contains("://"))
+            m_mediaPlayer->setSource(QUrl(sourceURL));
+        else
+            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
+    }
 }
 
 void VideoEditor::setFunctionID(quint32 ID)
 {
     m_video = qobject_cast<Video *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
-    if (m_video != nullptr)
-    {
-        /*connect(m_video, SIGNAL(totalTimeChanged(qint64)),
-                this, SLOT(slotDurationChanged(qint64)));
-        connect(m_video, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SLOT(slotMetaDataChanged(QString,QVariant)));*/
 
-        QString sourceURL = m_video->sourceUrl();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        if (sourceURL.contains("://"))
-            m_mediaPlayer->setMedia(QUrl(sourceURL));
-        else
-            m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
-#else
-        if (sourceURL.contains("://"))
-            m_mediaPlayer->setSource(QUrl(sourceURL));
-        else
-            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
-#endif
-    }
+    detectMedia();
 }
 
 QString VideoEditor::sourceFileName() const
@@ -92,34 +96,9 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
     Tardis::instance()->enqueueAction(Tardis::VideoSetSource, m_video->id(), m_video->sourceUrl(), sourceFileName);
     m_video->setSourceUrl(sourceFileName);
 
-    if (m_video->isPicture())
-    {
-        QPixmap img(sourceFileName);
-        if (!img.isNull())
-        {
-            m_video->setResolution(img.size());
-            m_video->setTotalDuration(1000);
-            slotMetaDataChanged("Resolution", QVariant(img.size()));
-            slotMetaDataChanged("Duration", 1000);
-        }
-    }
-    else
-    {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        if (sourceFileName.contains("://"))
-            m_mediaPlayer->setMedia(QUrl(sourceFileName));
-        else
-            m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceFileName));
-#else
-        if (sourceFileName.contains("://"))
-            m_mediaPlayer->setSource(QUrl(sourceFileName));
-        else
-            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceFileName));
-#endif
-    }
+    detectMedia();
 
     emit sourceFileNameChanged(sourceFileName);
-    emit mediaInfoChanged();
     emit functionNameChanged(m_video->name());
     emit loopedChanged();
 }
@@ -141,15 +120,45 @@ QVariant VideoEditor::mediaInfo() const
 
 void VideoEditor::slotDurationChanged(qint64 duration)
 {
-    infoMap.insert("Duration",Function::speedToString(duration));
+    infoMap.insert("Duration", Function::speedToString(duration));
     m_video->setTotalDuration(duration);
     emit mediaInfoChanged();
 }
 
-void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
+void VideoEditor::slotMetaDataChanged()
 {
-    qDebug() << "Got meta data:" << key;
-    infoMap.insert(key, data);
+    if (m_video == NULL)
+        return;
+
+    QMediaMetaData md = m_mediaPlayer->metaData();
+    foreach (QMediaMetaData::Key k, md.keys())
+    {
+        QString mdKeyName = md.metaDataKeyToString(k);
+        QVariant mdValue = md.stringValue(k);
+        qDebug() << "[Metadata]" << mdKeyName << ":" << mdValue;
+
+        switch (k)
+        {
+            case QMediaMetaData::Resolution:
+                m_video->setResolution(md.value(k).toSize());
+                mdValue = md.value(k).toSize();
+            break;
+            case QMediaMetaData::VideoCodec:
+                m_video->setVideoCodec(md.stringValue(k));
+                mdKeyName = "VideoCodec";
+            break;
+            case QMediaMetaData::AudioCodec:
+                m_video->setAudioCodec(md.stringValue(k));
+                mdKeyName = "AudioCodec";
+            break;
+            case QMediaMetaData::Duration:
+                continue;
+            break;
+            default:
+            break;
+        }
+        infoMap.insert(mdKeyName, mdValue);
+    }
     emit mediaInfoChanged();
 }
 

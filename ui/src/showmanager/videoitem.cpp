@@ -24,7 +24,6 @@
 
 #include "videoitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
 
 VideoItem::VideoItem(Video *vid, ShowFunction *func)
     : ShowItem(func)
@@ -125,14 +124,14 @@ void VideoItem::setDuration(quint32 msec, bool stretch)
     updateTooltip();
 }
 
-QString VideoItem::functionName()
+QString VideoItem::functionName() const
 {
     if (m_video)
         return m_video->name();
     return QString();
 }
 
-Video *VideoItem::getVideo()
+Video *VideoItem::getVideo() const
 {
     return m_video;
 }
@@ -192,7 +191,7 @@ void VideoItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         }
     }
     menu.addAction(m_fullscreenAction);
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

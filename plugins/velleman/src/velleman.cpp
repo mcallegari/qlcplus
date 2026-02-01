@@ -61,7 +61,7 @@ void Velleman::init()
     m_currentlyOpen = false;
 }
 
-QString Velleman::name()
+QString Velleman::name() const
 {
     return QString("Velleman");
 }
@@ -112,7 +112,7 @@ QStringList Velleman::outputs()
     return list;
 }
 
-QString Velleman::pluginInfo()
+QString Velleman::pluginInfo() const
 {
     QString str;
 
@@ -146,9 +146,10 @@ QString Velleman::outputInfo(quint32 output)
     return str;
 }
 
-void Velleman::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Velleman::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0 || m_currentlyOpen == false || data.isEmpty())
         return;

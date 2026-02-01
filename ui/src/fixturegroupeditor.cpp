@@ -27,9 +27,7 @@
 #include "fixturegroupeditor.h"
 #include "fixtureselection.h"
 #include "fixturegroup.h"
-#include "qlcmacros.h"
 #include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "fixturegroupeditor/geometry"
@@ -60,8 +58,12 @@ FixtureGroupEditor::FixtureGroupEditor(FixtureGroup* grp, Doc* doc, QWidget* par
 
     connect(m_rightButton, SIGNAL(clicked()),
             this, SLOT(slotRightClicked()));
+    connect(m_leftButton, SIGNAL(clicked()),
+            this, SLOT(slotLeftClicked()));
     connect(m_downButton, SIGNAL(clicked()),
             this, SLOT(slotDownClicked()));
+    connect(m_upButton, SIGNAL(clicked()),
+            this, SLOT(slotUpClicked())),
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveFixtureClicked()));
 
@@ -164,10 +166,21 @@ void FixtureGroupEditor::slotRightClicked()
     addFixtureHeads(Qt::RightArrow);
 }
 
+void FixtureGroupEditor::slotLeftClicked()
+{
+    addFixtureHeads(Qt::LeftArrow);
+}
+
 void FixtureGroupEditor::slotDownClicked()
 {
     addFixtureHeads(Qt::DownArrow);
 }
+
+void FixtureGroupEditor::slotUpClicked()
+{
+    addFixtureHeads(Qt::UpArrow);
+}
+
 
 void FixtureGroupEditor::slotRemoveFixtureClicked()
 {
@@ -269,8 +282,12 @@ void FixtureGroupEditor::addFixtureHeads(Qt::ArrowType direction)
             m_grp->assignHead(QLCPoint(col, row), gh);
             if (direction == Qt::RightArrow)
                 col++;
-            else
+            else if (direction == Qt::DownArrow)
                 row++;
+            else if (direction == Qt::LeftArrow)
+                col--;
+            else if (direction == Qt::UpArrow)
+                row--;
         }
 
         updateTable();

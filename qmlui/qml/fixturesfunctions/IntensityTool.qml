@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.0
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -29,17 +29,34 @@ Rectangle
     id: intRoot
     width: UISettings.bigItemHeight * (paletteBox.checked ? 2 : 1.5)
     height: (UISettings.bigItemHeight * 3) + paletteBox.height
-    color: UISettings.bgMedium
-    //border.color: UISettings.bgLight
-    //border.width: 2
+    color: UISettings.bgStrong
 
     property bool dmxValues: true
     property bool closeOnSelect: false
+    property var dragTarget: null
     property alias showPalette: paletteBox.visible
+
     property alias currentValue: spinBox.value
+    property real previousValue: 0
+    property bool relativeValue: false
 
     signal valueChanged(int value)
     signal close()
+
+    function setValue(value)
+    {
+        previousValue = 0
+        if (value === -1)
+        {
+            relativeValue = true
+            currentValue = 0
+        }
+        else
+        {
+            relativeValue = false
+            currentValue = dmxValues ? Math.round(value) : Math.round(value / 2.55)
+        }
+    }
 
     onCurrentValueChanged:
     {
@@ -51,13 +68,20 @@ Rectangle
         }
         else
         {
-            intRoot.valueChanged(dmxValues ? currentValue : currentValue * 2.55)
-            if (closeOnSelect)
-                intRoot.visible = false
+            var val = relativeValue ? currentValue - previousValue : currentValue
+            if (intRoot.visible)
+                intRoot.valueChanged(dmxValues ? val : val * 2.55)
+            //if (closeOnSelect)
+            //    intRoot.close()
         }
+        previousValue = currentValue
     }
 
-    onVisibleChanged: if(!visible) paletteBox.checked = false
+    onVisibleChanged:
+    {
+        if (!visible)
+            paletteBox.checked = false
+    }
 
     function loadPalette(pId)
     {
@@ -111,7 +135,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                drag.target: intRoot
+                drag.target: intRoot.dragTarget ? intRoot.dragTarget : intRoot
             }
 
             GenericButton
@@ -121,7 +145,7 @@ Rectangle
                 anchors.right: parent.right
                 border.color: UISettings.bgMedium
                 useFontawesome: true
-                label: FontAwesome.fa_times
+                label: FontAwesome.fa_xmark
                 onClicked: intRoot.close()
             }
         }
@@ -155,21 +179,20 @@ Rectangle
             {
                 id: rectMask
                 color: "transparent"
-                width: Math.round((parent.height * currentValue) / (dmxValues ? 256.0 : 100.0))
-                y: parent.height
-                height: parent.width
-                transformOrigin: Item.TopLeft
-                rotation: -90
+                anchors.bottom: parent.bottom
+                width: parent.width
+                height: {
+                    var range = relativeValue ? 512 : (dmxValues ? 256.0 : 100.0)
+                    var multValue = relativeValue ? currentValue + 255 : currentValue
+                    return Math.round((parent.height * multValue) / range)
+                }
                 clip: true
 
                 Image
                 {
-                    id: intForegroundImg
-                    y: -height
+                    anchors.bottom: parent.bottom
                     width: intBackgroundImg.width
                     height: intBackgroundImg.height
-                    transformOrigin: Item.BottomLeft
-                    rotation: 90
                     source: "qrc:/dimmer-fill.svg"
                     sourceSize: Qt.size(width, height)
                 }
@@ -177,10 +200,9 @@ Rectangle
 
             Slider
             {
-                id: slider
                 anchors.fill: parent
                 orientation: Qt.Vertical
-                from: 0
+                from: relativeValue ? (dmxValues ? -255 : -100) : 0
                 to: dmxValues ? 255 : 100
                 stepSize: 1.0
                 background: Rectangle { color: "transparent" }
@@ -204,11 +226,11 @@ Rectangle
                 id: spinBox
                 Layout.fillWidth: true
                 height: UISettings.listItemHeight
-                from: 0
+                from: relativeValue ? (dmxValues ? -255 : -100) : 0
                 suffix: dmxValues ? "" : "%"
                 to: dmxValues ? 255 : 100
 
-                onValueChanged: currentValue = value
+                onValueModified: currentValue = value
             }
 
             DMXPercentageButton

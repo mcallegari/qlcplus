@@ -24,6 +24,8 @@
 #include <QString>
 #include <QTimer>
 #include <QDebug>
+#include <QSettings>
+#include <QCheckBox>
 
 #include "configurehid.h"
 #include "hiddevice.h"
@@ -31,6 +33,10 @@
 
 #define KColumnNumber  0
 #define KColumnName    1
+#define KColumnMerger 2
+#define PROP_DEV        "dev"
+
+#define SETTINGS_GEOMETRY "configurehid/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -44,6 +50,11 @@ ConfigureHID::ConfigureHID(QWidget* parent, HIDPlugin* plugin)
 
     /* Setup UI controls */
     setupUi(this);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_refreshButton, SIGNAL(clicked()),
             this, SLOT(slotRefreshClicked()));
@@ -59,6 +70,8 @@ ConfigureHID::ConfigureHID(QWidget* parent, HIDPlugin* plugin)
 
 ConfigureHID::~ConfigureHID()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /*****************************************************************************
@@ -90,6 +103,13 @@ void ConfigureHID::refreshList()
         item->setText(KColumnNumber, s.setNum(i + 1));
         item->setText(KColumnName, dev->name());
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+
+        if (dev->hasMergerMode())
+        {
+            QWidget* widget = createMergerModeWidget(dev->isMergerModeEnabled());
+            widget->setProperty(PROP_DEV, (qulonglong) dev);
+            m_list->setItemWidget(item, KColumnMerger, widget);
+        }
     }
     m_list->header()->resizeSections(QHeaderView::ResizeToContents);
 }
@@ -113,4 +133,34 @@ void ConfigureHID::slotDeviceRemoved(HIDDevice* device)
             break;
         }
     }
+}
+
+QWidget* ConfigureHID::createMergerModeWidget(bool mergerModeEnabled)
+{
+    QCheckBox* checkbox = new QCheckBox;
+
+    if (mergerModeEnabled)
+        checkbox->setCheckState(Qt::Checked);
+    else
+        checkbox->setCheckState(Qt::Unchecked);
+
+    connect(checkbox, SIGNAL(stateChanged(int)), this, SLOT(slotMergerModeChanged(int)));
+
+    return checkbox;
+}
+
+void ConfigureHID::slotMergerModeChanged(int state)
+{
+    QCheckBox* checkbox = qobject_cast<QCheckBox*> (QObject::sender());
+    Q_ASSERT(checkbox != NULL);
+
+    QVariant var = checkbox->property(PROP_DEV);
+    Q_ASSERT(var.isValid() == true);
+
+    HIDDevice* dev = (HIDDevice*) var.toULongLong();
+    Q_ASSERT(dev != NULL);
+
+    bool mergerModeEnabled = (state == Qt::Checked);
+    
+    dev->enableMergerMode(mergerModeEnabled);
 }

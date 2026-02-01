@@ -25,7 +25,6 @@
 
 #include "audioitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
 #include "audiodecoder.h"
 #include "audioplugincache.h"
 
@@ -126,14 +125,14 @@ void AudioItem::setDuration(quint32 msec, bool stretch)
     // nothing to do
 }
 
-QString AudioItem::functionName()
+QString AudioItem::functionName() const
 {
     if (m_audio)
         return m_audio->name();
     return QString();
 }
 
-Audio *AudioItem::getAudio()
+Audio *AudioItem::getAudio() const
 {
     return m_audio;
 }
@@ -200,7 +199,7 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
         menu.addSeparator();
     }
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());
@@ -211,7 +210,7 @@ void PreviewThread::setAudioItem(AudioItem *item)
     m_item = item;
 }
 
-qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize)
+qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize) const
 {
     qint32 value = 0;
     if (sampleSize == 1)
@@ -288,7 +287,7 @@ void PreviewThread::run()
                 dataRead = ad->read((char *)audioData + audioDataOffset, onePixelReadLen * 2);
                 if (dataRead > 0)
                 {
-                    if((quint32)dataRead + audioDataOffset >= onePixelReadLen)
+                    if ((quint32)dataRead + audioDataOffset >= onePixelReadLen)
                     {
                         tmpExceedData = (dataRead + audioDataOffset) - onePixelReadLen;
                         dataRead = onePixelReadLen;

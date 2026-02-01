@@ -30,7 +30,7 @@ class ChannelEdit;
 class ListModel;
 class ModeEdit;
 
-class EditorView : public QObject
+class EditorView final : public QObject
 {
     Q_OBJECT
 
@@ -53,10 +53,18 @@ public:
     EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
 
+    /** Get the unique ID of this editor */
     int id() const;
+
+    /** Get the fixture definition reference being edited */
+    QLCFixtureDef *fixtureDefinition();
 
     /** Get if the definition is user or system */
     bool isUser() const;
+
+    /** When editing a system definition this method is called
+     *  to turn it into a user definition */
+    Q_INVOKABLE void remapFilename(QString userFolder);
 
     /** Get/Set the fixture type */
     int productType() const;
@@ -84,6 +92,7 @@ signals:
     void manufacturerChanged(QString manufacturer);
     void modelChanged(QString model);
     void authorChanged(QString author);
+    void definitionSaved(QLCFixtureDef *def);
 
 private:
     /** Reference to the QML view root */
@@ -119,8 +128,11 @@ public:
     /** Delete the given $channel from the definition */
     Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
 
+    Q_INVOKABLE bool deleteChannels(QVariantList channels);
+
 private:
     void updateChannelList();
+    void dismissChannelEditor();
 
 private:
     /** Reference to a channel list usable in QML */
@@ -143,8 +155,11 @@ public:
      *  If name is empty, a new mode is added */
     Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
 
+    Q_INVOKABLE bool deleteMode(QString name);
+
 private:
     void updateModeList();
+    void dismissModeEditor();
 
 protected slots:
     void modeNameChanged();
@@ -163,14 +178,17 @@ signals:
      * Load & Save
      *********************************************************************/
 public:
-    Q_INVOKABLE bool save();
-    Q_INVOKABLE bool saveAs(QString path);
+    Q_INVOKABLE QString save();
+    Q_INVOKABLE QString saveAs(QString path);
 
     QString fileName();
     void setFilenameFromModel();
 
     /** Get the definition modification flag */
     bool isModified() const;
+
+private:
+    QString checkFixture();
 
 protected slots:
     void setModified(bool modified = true);

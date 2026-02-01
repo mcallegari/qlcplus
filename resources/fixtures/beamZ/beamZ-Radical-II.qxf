@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Matt Muller</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>Radical II</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="59">Laser motor clockwise rotation（From slow to fast）</Capability>
+  <Capability Min="60" Max="69">Stop</Capability>
+  <Capability Min="70" Max="119">Laser motor counter clockwise rotation（From slow to fast）</Capability>
+  <Capability Min="120" Max="129">Stop</Capability>
+  <Capability Min="130" Max="255">back and forward movement with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Motor rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Motor location</Capability>
+  <Capability Min="128" Max="255">back and forward movement with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Colours macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Fuction</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="110" Max="119">Blue + Green + White</Capability>
+  <Capability Min="120" Max="129">Red + Blue + White</Capability>
+  <Capability Min="130" Max="139">Red + Green + White</Capability>
+  <Capability Min="140" Max="149">Red + Green + Blue</Capability>
+  <Capability Min="150" Max="159">All LED on</Capability>
+  <Capability Min="160" Max="169">Rainbow Group effect 1</Capability>
+  <Capability Min="170" Max="179">Rainbow Group effect 2</Capability>
+  <Capability Min="180" Max="189">Rainbow Group effect 3</Capability>
+  <Capability Min="190" Max="199">Rainbow Group effect 4</Capability>
+  <Capability Min="200" Max="209">Rainbow Group effect 5</Capability>
+  <Capability Min="210" Max="219">Rainbow Group effect with strobe 1</Capability>
+  <Capability Min="220" Max="229">Rainbow Group effect with strobe 2</Capability>
+  <Capability Min="230" Max="239">Rainbow Group effect with strobe 3</Capability>
+  <Capability Min="240" Max="249">Rainbow Group effect with strobe 4</Capability>
+  <Capability Min="250" Max="255">Rainbow Group effect with strobe 5</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="119">Auto DMX ( From slow to fast )</Capability>
+  <Capability Min="120" Max="255">Sound DMX ( From slow to fast )</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Laser</Channel>
+  <Channel Number="1">Motor rotation</Channel>
+  <Channel Number="2">Colours macro</Channel>
+  <Channel Number="3">Auto/Sound</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.18" Width="260" Height="235" Depth="180"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="180"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

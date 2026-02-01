@@ -91,7 +91,7 @@ private:
 /*
  * Use this to run as a standalone client.
  */
-class OlaStandaloneClient : public OlaOutThread
+class OlaStandaloneClient final : public OlaOutThread
 {
 public:
     OlaStandaloneClient():
@@ -108,7 +108,7 @@ private:
 /*
  * Use this to run with an embedded server.
  */
-class OlaEmbeddedServer : public OlaOutThread
+class OlaEmbeddedServer final : public OlaOutThread
 {
 public:
     OlaEmbeddedServer():

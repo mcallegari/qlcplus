@@ -24,7 +24,7 @@
 
 class Doc;
 
-class RGBAlgorithm_Test : public QObject
+class RGBAlgorithm_Test final : public QObject
 {
     Q_OBJECT
 

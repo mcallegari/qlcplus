@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.14
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import "."
 
@@ -30,8 +30,9 @@ Flickable
     boundsBehavior: Flickable.StopAtBounds
     contentHeight: uniGrid.height + topbar.height + UISettings.bigItemHeight
 
+    property alias contextItem: uniGrid
     property string contextName: "UNIGRID"
-    property int uniStartAddr: viewUniverseCombo.currentIndex * 512
+    property int uniStartAddr: contextManager.universeFilter * 512
     property var fixtureClipboard: null
 
     function hasSettings()
@@ -44,7 +45,7 @@ Flickable
         id: errorPopup
         standardButtons: Dialog.Ok
         title: qsTr("Error")
-        message: qsTr("Unable to perform the operation.\nThere is either not enough space or the target universe in invalid")
+        message: qsTr("Unable to perform the operation.\nThere is either not enough space or the target universe is invalid")
         onAccepted: close()
     }
 
@@ -60,7 +61,7 @@ Flickable
             id: uniText
             height: UISettings.textSizeDefault * 2
             labelColor: UISettings.fgLight
-            label: viewUniverseCombo.currentText
+            label: ioManager.universeName(contextManager.universeFilter)
             fontSize: UISettings.textSizeDefault * 1.5
             fontBold: true
         }
@@ -76,7 +77,8 @@ Flickable
         IconButton
         {
             id: cutBtn
-            imgSource: "qrc:/edit-cut.svg"
+            faSource: FontAwesome.fa_scissors
+            faColor: "lightpink"
             tooltip: qsTr("Cut the selected items into clipboard")
             onClicked: fixtureClipboard = contextManager.selectedFixtureIDVariantList()
         }
@@ -85,7 +87,8 @@ Flickable
         {
             id: pasteBtn
             enabled: fixtureClipboard && fixtureClipboard.length
-            imgSource: "qrc:/edit-paste.svg"
+            faSource: FontAwesome.fa_paste
+            faColor: "lightgreen"
             tooltip: qsTr("Paste items in the clipboard at the first available position")
             onClicked:
             {
@@ -101,12 +104,15 @@ Flickable
         x: UISettings.iconSizeMedium
         anchors.top: topbar.bottom
         width: parent.width - (UISettings.iconSizeMedium * 3)
-        height: cellSize * gridSize.height
+        height: 32 * gridSize.height
 
         showIndices: 512
         gridSize: Qt.size(24, 22)
         gridLabels: fixtureManager.fixtureNamesMap
         gridData: fixtureManager.fixturesMap
+
+        Component.onCompleted: contextManager.enableContext("UNIGRID", true, uniGrid)
+        Component.onDestruction: if (contextManager) contextManager.enableContext("UNIGRID", false, uniGrid)
 
         property int prevFixtureID: -1
 
@@ -121,7 +127,7 @@ Flickable
             return fixtureManager.getTooltip(uniAddress)
         }
 
-        onPressed:
+        onPressed: (xPos, yPos, mods) =>
         {
             universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
@@ -135,6 +141,7 @@ Flickable
             if (multiSelection === 0)
                 contextManager.resetFixtureSelection()
 
+            console.log("prevFixtureID: " + prevFixtureID + "currentItemID: " + currentItemID)
             if (prevFixtureID != currentItemID && multiSelection === 0)
                 contextManager.setFixtureIDSelection(prevFixtureID, false)
 
@@ -147,7 +154,7 @@ Flickable
             prevFixtureID = currentItemID
         }
 
-        onReleased:
+        onReleased: (xPos, yPos, offset, mods) =>
         {
             universeGridView.interactive = true
 
@@ -158,7 +165,7 @@ Flickable
             fixtureManager.moveFixture(currentItemID, selectionData[0] + offset)
         }
 
-        onDragEntered:
+        onDragEntered: (xPos, yPos, dragEvent) =>
         {
             var channels = dragEvent.source.channels
             console.log("Drag entered. Channels: " + channels)
@@ -175,7 +182,7 @@ Flickable
             setSelectionData(tmp)
         }
 
-        onDragPositionChanged:
+        onDragPositionChanged: (xPos, yPos, offset, dragEvent) =>
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             dragEvent.source.address = uniAddress
@@ -188,7 +195,7 @@ Flickable
                 validSelection = false
         }
 
-        onPositionChanged:
+        onPositionChanged: (xPos, yPos, offset, mods) =>
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             var freeAddr = fixtureBrowser.availableChannel(currentItemID, uniAddress)

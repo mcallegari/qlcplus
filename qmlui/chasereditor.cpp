@@ -40,12 +40,12 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 void ChaserEditor::setFunctionID(quint32 ID)
 {
     if (m_chaser)
-        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
+        disconnect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_chaser != nullptr)
-        connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepIndexChanged);
+        connect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepIndexChanged(int)));
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
@@ -194,11 +194,11 @@ bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
         }
 
         qDebug() << "Moving step from" << index << "to" << insIdx;
+        Tardis::instance()->enqueueAction(Tardis::ChaserMoveStep, m_chaser->id(), index, insIdx);
         m_chaser->moveStep(index, insIdx);
 
         if (index > insIdx)
             insIdx++;
-        // TODO: tardis
     }
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
@@ -212,6 +212,71 @@ bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
                 Q_ARG(QVariant, insertIndex + i),
                 Q_ARG(QVariant, i == 0 ? false : true));
     }
+
+    return true;
+}
+
+bool ChaserEditor::duplicateSteps(QVariantList indicesList)
+{
+    if (m_chaser == nullptr || indicesList.count() == 0)
+        return false;
+
+    for (QVariant &vIndex : indicesList)
+    {
+        int stepIndex = vIndex.toInt();
+        ChaserStep *sourceStep = m_chaser->stepAt(stepIndex);
+        ChaserStep step(*sourceStep);
+        m_chaser->addStep(step);
+
+        Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), m_chaser->stepsCount() - 1));
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+
+    return true;
+}
+
+bool ChaserEditor::shuffleSteps(QVariantList indicesList)
+{
+    if (m_chaser == nullptr || indicesList.count() == 1)
+        return false;
+
+    if (indicesList.isEmpty())
+    {
+        for (int i = 0; i < m_chaser->stepsCount(); i++)
+            indicesList.append(i);
+    }
+
+    // convert indices to a sorted integer array
+    std::vector<int> indicesToShuffle;
+    for (QVariant &vIdx : indicesList)
+        indicesToShuffle.push_back(vIdx.toInt());
+    std::sort(indicesToShuffle.begin(), indicesToShuffle.end());
+
+    // shuffle the selected steps using the Fisher-Yates algorithm
+    // see https://bost.ocks.org/mike/shuffle/ for information on the algorithm
+    int unshuffledCount = indicesList.count();
+
+    while (unshuffledCount > 0)
+    {
+        // pick a random unshuffled selected and swap it with
+        // the last unshuffled one -> now it is a shuffled step
+        int toShuffle = rand() % unshuffledCount;
+        unshuffledCount--;
+        int indexToShuffle = indicesToShuffle[toShuffle];
+        int lastUnshuffledIndex = indicesToShuffle[unshuffledCount];
+
+        if (indexToShuffle != lastUnshuffledIndex)
+        {
+            m_chaser->moveStep(indexToShuffle, lastUnshuffledIndex);
+            m_chaser->moveStep(lastUnshuffledIndex - 1, indexToShuffle);
+        }
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
 
     return true;
 }
@@ -269,6 +334,26 @@ void ChaserEditor::setPreviewEnabled(bool enable)
     }
 
     FunctionEditor::setPreviewEnabled(enable);
+}
+
+void ChaserEditor::gotoPreviousStep()
+{
+    ChaserAction action;
+    action.m_action = ChaserPreviousStep;
+    action.m_masterIntensity = 1.0;
+    action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
+    m_chaser->setAction(action);
+}
+
+void ChaserEditor::gotoNextStep()
+{
+    ChaserAction action;
+    action.m_action = ChaserNextStep;
+    action.m_masterIntensity = 1.0;
+    action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
+    m_chaser->setAction(action);
 }
 
 void ChaserEditor::deleteItems(QVariantList list)

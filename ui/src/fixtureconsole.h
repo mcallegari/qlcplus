@@ -36,9 +36,9 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCFixtureConsole "Console"
+#define KXMLQLCFixtureConsole QStringLiteral("Console")
 
-class FixtureConsole : public QGroupBox
+class FixtureConsole final : public QGroupBox
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureConsole)
@@ -63,7 +63,7 @@ signals:
     void resetRequest(quint32 fxID, quint32 channel);
 
 protected:
-    void showEvent(QShowEvent* ev);
+    void showEvent(QShowEvent* ev) override;
 
 private:
     Doc* m_doc;

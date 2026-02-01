@@ -37,7 +37,7 @@ class TreeModelItem;
 class FixtureGroup;
 class MonitorProperties;
 
-class FixtureManager : public QObject
+class FixtureManager final : public QObject
 {
     Q_OBJECT
 
@@ -54,10 +54,14 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
     Q_PROPERTY(QVariantList shutterChannels READ shutterChannels NOTIFY shutterChannelsChanged)
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
+    Q_PROPERTY(quint32 capabilityMask READ capabilityMask NOTIFY capabilityMaskChanged)
 
     Q_PROPERTY(QStringList colorFiltersFileList READ colorFiltersFileList NOTIFY colorFiltersFileListChanged)
     Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
+
+    Q_PROPERTY(QStringList channelModifiersList READ channelModifiersList NOTIFY channelModifiersListChanged)
+    Q_PROPERTY(QVariantList channelModifierValues READ channelModifierValues NOTIFY channelModifierValuesChanged)
 
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
@@ -91,6 +95,8 @@ signals:
     void searchFilterChanged();
 
     void itemIDChanged(quint32 itemID);
+
+    void itemClicked(int itemType);
 
 public slots:
     /** Slot called whenever a new workspace has been loaded */
@@ -168,7 +174,7 @@ public:
     Q_INVOKABLE bool deleteFixtureInGroup(quint32 groupID, quint32 itemID, QString path);
 
     /** Rename the Fixture with the provided $itemID to $newName */
-    Q_INVOKABLE void renameFixture(quint32 itemID, QString newName);
+    Q_INVOKABLE bool renameFixture(quint32 itemID, QString newName);
 
     /** Returns the number of fixtures currently loaded in the project */
     int fixturesCount();
@@ -181,6 +187,8 @@ public:
     void setPropertyEditEnabled(bool enable);
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
+
+    void setItemRoleData(int itemID, QVariant value, int role);
 
     static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
                                int &matchMask, QString searchFilter = QString(), int showFlags = ShowGroups | ShowLinked | ShowHeads,
@@ -265,12 +273,12 @@ private:
      * Fixture groups
      *********************************************************************/
 public:
-    /** Add a list of fixture IDs to a new fixture group */
-    void addFixturesToNewGroup(QList<quint32>fxList);
+    /** Add a list of fixture item IDs to a new fixture group */
+    void addItemsToNewGroup(QList<quint32> itemIds);
 
     Q_INVOKABLE void updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx);
 
-    Q_INVOKABLE void renameFixtureGroup(quint32 groupID, QString newName);
+    Q_INVOKABLE bool renameFixtureGroup(quint32 groupID, QString newName);
 
     /** Delete some existing Fixture Groups with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
@@ -319,12 +327,14 @@ public:
 public:
     /** Returns a list of fixture names for representation in a GridEditor QML component */
     QVariantList fixtureNamesMap();
+    void setFixtureNamesMap(QVariantList fixtureNamesMap);
 
     /** Get a string to be displayed as tooltip for a fixture at $address */
     Q_INVOKABLE QString getTooltip(quint32 address);
 
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
+    void setFixturesMap(QVariantList fixturesMap);
 
     Q_INVOKABLE int pasteFromClipboard(QVariantList fixtureIDs);
 
@@ -390,9 +400,6 @@ public:
 
     /** Wrapper methods to emit a signal to listeners interested in changes of
      *  channel values per capability */
-    Q_INVOKABLE void setIntensityValue(quint8 value);
-    Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
-                                   quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
 
     /**
@@ -435,16 +442,15 @@ public:
     /** Returns a preset channel usable by the QML PresetTool */
     Q_INVOKABLE QVariantList presetChannel(quint32 fixtureID, int chIndex);
 
+    /** Return the current capability type mask */
+    quint32 capabilityMask() const;
+
     /** Returns the currently available colors as a bitmask */
     int colorsMask() const;
 
 signals:
     /** Notify the listeners that $value of $channelIndex of $fixtureID has changed */
     void channelValueChanged(quint32 fixtureID, quint32 channelIndex, quint8 value);
-
-    /** Notify the listeners that channels of the specified $type should
-     *  be set to the provided $value */
-    void channelTypeValueChanged(int type, quint8 value);
 
     /** Notify the listeners that a color has been picked in the ColorTool.
      *  It emits all the possible components: RGB, White, Amber and UV */
@@ -471,6 +477,9 @@ signals:
     /** Notify the listeners that the available colors changed */
     void colorsMaskChanged(int colorsMask);
 
+    /** Notify the listeners that the available capabilities changed */
+    void capabilityMaskChanged();
+
 private:
     /** Generic method that returns the names of the cached channels for
      *  the required $group */
@@ -490,14 +499,54 @@ private:
     int m_maxPanDegrees;
     int m_maxTiltDegrees;
 
+    /** Variables to hold the beam properties discovered
+     *  when enabling the beam capability for the selected Fixtures */
     double m_minBeamDegrees;
     double m_maxBeamDegrees;
     bool m_invertedZoom;
 
     /** Bitmask holding the colors supported by the currently selected fixtures */
     int m_colorsMask;
+
+    /** Bitmask holding the capability supported by the currently selected fixtures */
+    quint32 m_capabilityMask;
+
     /** A map of the currently available colors and their counters */
     QMap<int, int> m_colorCounters;
+
+    /*********************************************************************
+     * Channel modifiers
+     *********************************************************************/
+public:
+    /** Return a list of the available channel modifiers */
+    QStringList channelModifiersList() const;
+
+    /** Request the UI to open the channel modifier editor */
+    Q_INVOKABLE void showModifierEditor(quint32 itemID, quint32 channelIndex);
+
+    /** Select the current channel modifier to display */
+    Q_INVOKABLE void selectChannelModifier(QString name);
+
+    /** Return true if the template with the given name is a system modifier. */
+    Q_INVOKABLE bool isSystemChannelModifier(QString name) const;
+
+    /** Assign the currently selected channel modifier to the given fixture's channel */
+    Q_INVOKABLE void setChannelModifier(quint32 itemID, quint32 channelIndex);
+
+    /** Save a channel modifier template with the provided name and values.
+     *  Returns true on success, false on error. */
+    Q_INVOKABLE bool saveChannelModifier(QString name, QVariantList values);
+
+    /** Return a list of values to render the currently selected channel
+     *  modifier in the UI. Values are stored as original,modified */
+    QVariantList channelModifierValues() const;
+
+signals:
+    void channelModifiersListChanged();
+    void channelModifierValuesChanged();
+
+private:
+    ChannelModifier *m_selectedChannelModifier;
 };
 
 #endif // FIXTUREMANAGER_H

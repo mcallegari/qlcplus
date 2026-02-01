@@ -32,12 +32,14 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCTrack QString("Track")
+#define KXMLQLCTrack        QStringLiteral("Track")
+#define KXMLQLCTrackID      QStringLiteral("ID")
 
 class Track : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(bool mute READ isMute WRITE setMute NOTIFY muteChanged)
 
@@ -46,7 +48,7 @@ class Track : public QObject
      ************************************************************************/
 public:
     /** Create a new Track and associate it to a Scene  */
-    Track(quint32 sceneID = Scene::invalidId());
+    Track(quint32 sceneID = Function::invalidId(), QObject *parent = 0);
 
     /** destroy this Track */
     ~Track();
@@ -68,12 +70,12 @@ public:
     /** Get an invalid track id */
     static quint32 invalidId();
 
+    /** Get/Set the Show ID this Track belongs to */
+    quint32 showId();
+    void setShowId(quint32 id);
+
 private:
     quint32 m_id;
-
-public:
-    void setShowId(quint32 id);
-private:
     quint32 m_showId;
 
     /************************************************************************
@@ -131,11 +133,11 @@ private:
      *********************************************************************/
 public:
     /**
-     * Add a ShowFunction with the given ID to the track.
+     * Add a ShowFunction with the given Function ID to the track.
      * If the function doesn't exist, it creates it.
      * In any case it returns the ShowFunction pointer
      */
-    ShowFunction *createShowFunction(quint32 id);
+    ShowFunction *createShowFunction(quint32 functionID);
 
     /** remove a function ID association from this track */
     bool removeShowFunction(ShowFunction *function, bool performDelete = true);
@@ -143,6 +145,10 @@ public:
     /** add a ShowFunction element to this track */
     bool addShowFunction(ShowFunction *func);
 
+    /** Get a reference to a ShowFunction with the provided ID */
+    ShowFunction *showFunction(quint32 id);
+
+    /** Returns the list of ShowFunctions added to this Track */
     QList <ShowFunction *> showFunctions() const;
 
 private:
@@ -160,9 +166,9 @@ public:
     bool postLoad(Doc *doc);
 
 public:
-    bool contains(Doc *doc, quint32 functionId);
+    bool contains(Doc *doc, quint32 functionId) const;
 
-    QList<quint32> components();
+    QList<quint32> components() const;
 
 };
 

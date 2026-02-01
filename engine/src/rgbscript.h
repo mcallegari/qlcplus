@@ -33,9 +33,9 @@ class QDir;
  * @{
  */
 
-#define KXMLQLCRGBScript "Script"
+#define KXMLQLCRGBScript QStringLiteral("Script")
 
-class RGBScript : public RGBAlgorithm
+class RGBScript final : public RGBAlgorithm
 {
     /************************************************************************
      * Initialization
@@ -51,14 +51,14 @@ public:
     bool operator==(const RGBScript& s) const;
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm* clone() const override;
 
     /************************************************************************
      * Load & Evaluation
      ************************************************************************/
 public:
     /** Load script contents from $file located in $dir */
-    bool load(const QDir& dir, const QString& fileName);
+    bool load(const QString& fileName);
 
     /** Get the filename for this script */
     QString fileName() const;
@@ -80,42 +80,53 @@ private:
     /** Init engine, engine mutex, and scripts map */
     static void initEngine();
 
+    /** Handle an error after evaluate() or call() of a script */
+    static void displayError(QScriptValue e, const QString& fileName);
+
     /************************************************************************
      * RGBAlgorithm API
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize& size) override;
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMapSetColors(const QVector<uint> &colors) override;
 
     /** @reimp */
-    QString name() const;
+    QVector<uint> rgbMapGetColors() override;
 
     /** @reimp */
-    QString author() const;
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) override;
 
     /** @reimp */
-    int apiVersion() const;
+    QString name() const override;
 
     /** @reimp */
-    RGBAlgorithm::Type type() const;
+    QString author() const override;
 
     /** @reimp */
-    int acceptColors() const;
+    int apiVersion() const override;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    RGBAlgorithm::Type type() const override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    int acceptColors() const override;
+
+    /** @reimp */
+    bool loadXML(QXmlStreamReader &root) override;
+
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
 private:
     int m_apiVersion;               //! The API version that the script uses
     QScriptValue m_script;          //! The script itself
     QScriptValue m_rgbMap;          //! rgbMap() function
     QScriptValue m_rgbMapStepCount; //! rgbMapStepCount() function
+    QScriptValue m_rgbMapSetColors; //! rgbMapSetColors() function
+    QScriptValue m_rgbMapGetColors; //! rgbMapSetColors() function
 
     /************************************************************************
      * Properties

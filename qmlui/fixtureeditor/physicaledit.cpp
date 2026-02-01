@@ -32,6 +32,11 @@ PhysicalEdit::~PhysicalEdit()
 
 }
 
+QLCPhysical PhysicalEdit::physical()
+{
+    return m_phy;
+}
+
 QString PhysicalEdit::bulbType() const
 {
     return m_phy.bulbType();

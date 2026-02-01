@@ -34,7 +34,7 @@ class InputSelectionWidget;
  * @{
  */
 
-class VCMatrixProperties : public QDialog, public Ui_VCMatrixProperties
+class VCMatrixProperties final : public QDialog, public Ui_VCMatrixProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrixProperties)
@@ -84,11 +84,10 @@ private:
 
 protected slots:
     void slotTreeSelectionChanged();
-    void slotAddStartColorClicked();
-    void slotAddStartColorKnobsClicked();
-    void slotAddEndColorClicked();
-    void slotAddEndColorKnobsClicked();
-    void slotAddEndColorResetClicked();
+    void slotColorComboActivated();
+    void slotAddColorClicked();
+    void slotAddColorKnobsClicked();
+    void slotAddColorResetClicked();
     void slotAddAnimationClicked();
     void slotAddTextClicked();
     void slotRemoveClicked();
@@ -103,7 +102,7 @@ protected:
 
 protected slots:
     /** @reimp */
-    void accept();
+    void accept() override;
 };
 
 /** @} */

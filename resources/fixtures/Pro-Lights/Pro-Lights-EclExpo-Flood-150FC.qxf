@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>saimyx</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>EclExpo Flood 150FC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="CCT">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3">CCT from 2800 to 2900</Capability>
+  <Capability Min="4" Max="6">CCT from 2900 to 3000</Capability>
+  <Capability Min="7" Max="10">CCT from 3000 to 3100</Capability>
+  <Capability Min="11" Max="13">CCT from 3100 to 3200</Capability>
+  <Capability Min="14" Max="17">CCT from 3200 to 3300</Capability>
+  <Capability Min="18" Max="20">CCT from 3300 to 3400</Capability>
+  <Capability Min="21" Max="24">CCT from 3400 to 3500</Capability>
+  <Capability Min="25" Max="27">CCT from 3500 to 3600</Capability>
+  <Capability Min="28" Max="32">CCT from 3600 to 3700</Capability>
+  <Capability Min="33" Max="34">CCT from 3700 to 3800</Capability>
+  <Capability Min="35" Max="38">CCT from 3800 to 3900</Capability>
+  <Capability Min="39" Max="42">CCT from 3900 to 4000</Capability>
+  <Capability Min="43" Max="45">CCT from 4000 to 4100</Capability>
+  <Capability Min="46" Max="49">CCT from 4100 to 4200</Capability>
+  <Capability Min="50" Max="52">CCT from 4200 to 4300</Capability>
+  <Capability Min="53" Max="57">CCT from 4300 to 4400</Capability>
+  <Capability Min="58" Max="59">CCT from 4400 to 4500</Capability>
+  <Capability Min="60" Max="63">CCT from 4500 to 4600</Capability>
+  <Capability Min="64" Max="67">CCT from 4600 to 4700</Capability>
+  <Capability Min="68" Max="70">CCT from 4700 to 4800</Capability>
+  <Capability Min="71" Max="73">CCT from 4800 to 4900</Capability>
+  <Capability Min="74" Max="77">CCT from 4900 to 5000</Capability>
+  <Capability Min="78" Max="80">CCT from 5000 to 5100</Capability>
+  <Capability Min="81" Max="84">CCT from 5100 to 5200</Capability>
+  <Capability Min="85" Max="88">CCT from 5200 to 5300</Capability>
+  <Capability Min="89" Max="91">CCT from 5300 to 5400</Capability>
+  <Capability Min="92" Max="95">CCT from 5400 to 5500</Capability>
+  <Capability Min="96" Max="98">CCT from 5500 to 5600</Capability>
+  <Capability Min="99" Max="102">CCT from 5600 to 5700</Capability>
+  <Capability Min="103" Max="105">CCT from 5700 to 5800</Capability>
+  <Capability Min="106" Max="109">CCT from 5800 to 5900</Capability>
+  <Capability Min="110" Max="112">CCT from 5900 to 6000</Capability>
+  <Capability Min="113" Max="116">CCT from 6000 to 6100</Capability>
+  <Capability Min="117" Max="119">CCT from 6100 to 6200</Capability>
+  <Capability Min="120" Max="123">CCT from 6200 to 6300</Capability>
+  <Capability Min="124" Max="127">CCT from 6300 to 6400</Capability>
+  <Capability Min="128" Max="130">CCT from 6400 to 6500</Capability>
+  <Capability Min="131" Max="134">CCT from 6500 to 6600</Capability>
+  <Capability Min="135" Max="137">CCT from 6600 to 6700</Capability>
+  <Capability Min="138" Max="141">CCT from 6700 to 6800</Capability>
+  <Capability Min="142" Max="144">CCT from 6800 to 6900</Capability>
+  <Capability Min="145" Max="148">CCT from 6900 to 7000</Capability>
+  <Capability Min="149" Max="151">CCT from 7000 to 7100</Capability>
+  <Capability Min="152" Max="155">CCT from 7100 to 7200</Capability>
+  <Capability Min="156" Max="158">CCT from 7200 to 7300</Capability>
+  <Capability Min="159" Max="162">CCT from 7300 to 7400</Capability>
+  <Capability Min="163" Max="165">CCT from 7400 to 7500</Capability>
+  <Capability Min="166" Max="169">CCT from 7500 to 7600</Capability>
+  <Capability Min="170" Max="173">CCT from 7600 to 7700</Capability>
+  <Capability Min="174" Max="176">CCT from 7700 to 7800</Capability>
+  <Capability Min="177" Max="180">CCT from 7800 to 7900</Capability>
+  <Capability Min="181" Max="183">CCT from 7900 to 8000</Capability>
+  <Capability Min="184" Max="187">CCT from 8000 to 8100</Capability>
+  <Capability Min="188" Max="190">CCT from 8100 to 8200</Capability>
+  <Capability Min="191" Max="194">CCT from 8200 to 8300</Capability>
+  <Capability Min="195" Max="197">CCT from 8300 to 8400</Capability>
+  <Capability Min="198" Max="201">CCT from 8400 to 8500</Capability>
+  <Capability Min="202" Max="204">CCT from 8500 to 8600</Capability>
+  <Capability Min="205" Max="208">CCT from 8600 to 8700</Capability>
+  <Capability Min="209" Max="212">CCT from 8700 to 8800</Capability>
+  <Capability Min="213" Max="215">CCT from 8800 to 8900</Capability>
+  <Capability Min="216" Max="219">CCT from 8900 to 9000</Capability>
+  <Capability Min="220" Max="222">CCT from 9000 to 9100</Capability>
+  <Capability Min="223" Max="226">CCT from 9100 to 9200</Capability>
+  <Capability Min="227" Max="229">CCT from 9200 to 9300</Capability>
+  <Capability Min="230" Max="233">CCT from 9300 to 9400</Capability>
+  <Capability Min="234" Max="236">CCT from 9400 to 9500</Capability>
+  <Capability Min="237" Max="240">CCT from 9500 to 9600</Capability>
+  <Capability Min="241" Max="243">CCT from 9600 to 9700</Capability>
+  <Capability Min="244" Max="247">CCT from 9700 to 9800</Capability>
+  <Capability Min="248" Max="250">CCT from 9800 to 9900</Capability>
+  <Capability Min="251" Max="255">CCT from 9900 to 10000</Capability>
+ </Channel>
+ <Channel Name="CCT fine">
+  <Group Byte="1">Colour</Group>
+  <Capability Min="0" Max="255">CCT fine</Capability>
+ </Channel>
+ <Channel Name="Tint correction" Default="128">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">-25% to 0</Capability>
+  <Capability Min="128" Max="128">Neutral</Capability>
+  <Capability Min="129" Max="255">0 to 25%</Capability>
+ </Channel>
+ <Channel Name="Crossfade between CCT and Color" Default="255">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Crossfade from CCT to Color</Capability>
+ </Channel>
+ <Channel Name="Red" Default="255" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Default="255" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Default="255" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Default="255" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Default="255" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Default="255" Preset="IntensityBlueFine"/>
+ <Channel Name="White" Default="255" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Default="255" Preset="IntensityWhiteFine"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="1">No function</Capability>
+  <Capability Min="2" Max="3">Red</Capability>
+  <Capability Min="4" Max="5">Green</Capability>
+  <Capability Min="6" Max="7">Blue</Capability>
+  <Capability Min="8" Max="9">Cyan</Capability>
+  <Capability Min="10" Max="11">Magenta</Capability>
+  <Capability Min="12" Max="13">Yellow</Capability>
+  <Capability Min="14" Max="15">Dirty White</Capability>
+  <Capability Min="16" Max="17">Alice blue</Capability>
+  <Capability Min="18" Max="19">Congo Blue</Capability>
+  <Capability Min="20" Max="21">Dark Steel blue</Capability>
+  <Capability Min="22" Max="23">Deep Lavender</Capability>
+  <Capability Min="24" Max="25">Lilac Ting</Capability>
+  <Capability Min="26" Max="27">Daylight Blue</Capability>
+  <Capability Min="28" Max="29">Flame Red</Capability>
+  <Capability Min="30" Max="31">Bastard amber</Capability>
+  <Capability Min="32" Max="33">Deep Orange</Capability>
+  <Capability Min="34" Max="35">Pale Gold</Capability>
+  <Capability Min="36" Max="37">Apricot</Capability>
+  <Capability Min="38" Max="39">Bright Blue</Capability>
+  <Capability Min="40" Max="41">Primary Green</Capability>
+  <Capability Min="42" Max="43">Special Lavender</Capability>
+  <Capability Min="44" Max="45">Pale Lavender</Capability>
+  <Capability Min="46" Max="47">Deep Golden Amber</Capability>
+  <Capability Min="48" Max="49">Medium Blue</Capability>
+  <Capability Min="50" Max="51">Bright Pink</Capability>
+  <Capability Min="52" Max="53">Mauve</Capability>
+  <Capability Min="54" Max="55">Dark Green</Capability>
+  <Capability Min="56" Max="57">Lee Green</Capability>
+  <Capability Min="58" Max="59">Dark blue</Capability>
+  <Capability Min="60" Max="61">Light blue</Capability>
+  <Capability Min="62" Max="63">Steel Blue</Capability>
+  <Capability Min="64" Max="65">Medium Blue-Green</Capability>
+  <Capability Min="66" Max="67">Peacock Blue</Capability>
+  <Capability Min="68" Max="69">Magenta</Capability>
+  <Capability Min="70" Max="71">Dark Pink</Capability>
+  <Capability Min="72" Max="73">Middle Rose</Capability>
+  <Capability Min="74" Max="75">Light Salmon</Capability>
+  <Capability Min="76" Max="77">English Rose</Capability>
+  <Capability Min="78" Max="79">Light Rose</Capability>
+  <Capability Min="80" Max="81">Orange</Capability>
+  <Capability Min="82" Max="83">Deep amber</Capability>
+  <Capability Min="84" Max="85">Straw</Capability>
+  <Capability Min="86" Max="87">Light Amber</Capability>
+  <Capability Min="88" Max="89">Spring Yellow</Capability>
+  <Capability Min="90" Max="91">Dark Yellow Green</Capability>
+  <Capability Min="92" Max="93">Just Blue</Capability>
+  <Capability Min="94" Max="95">Sky blue</Capability>
+  <Capability Min="96" Max="97">Lavender</Capability>
+  <Capability Min="98" Max="99">Light Lavender</Capability>
+  <Capability Min="100" Max="101">Pink Carnation</Capability>
+  <Capability Min="102" Max="103">Medium Pink</Capability>
+  <Capability Min="104" Max="105">Light Pink</Capability>
+  <Capability Min="106" Max="107">Sunset Red</Capability>
+  <Capability Min="108" Max="109">Dark Amber</Capability>
+  <Capability Min="110" Max="111">Gold Amber</Capability>
+  <Capability Min="112" Max="113">Medium Amber</Capability>
+  <Capability Min="114" Max="115">Fire</Capability>
+  <Capability Min="116" Max="117">Surprise Peach</Capability>
+  <Capability Min="118" Max="119">Straw Tint</Capability>
+  <Capability Min="120" Max="121">Medium Yellow</Capability>
+  <Capability Min="122" Max="123">Lee Minus Green</Capability>
+  <Capability Min="124" Max="125">Pale Gold</Capability>
+  <Capability Min="126" Max="127">Orange</Capability>
+  <Capability Min="128" Max="129">Deep Straw</Capability>
+  <Capability Min="130" Max="131">Rose Purple</Capability>
+  <Capability Min="132" Max="133">Deep Purple</Capability>
+  <Capability Min="134" Max="135">Soft Green</Capability>
+  <Capability Min="136" Max="209">Reserved for future use</Capability>
+  <Capability Min="210" Max="211">2700K</Capability>
+  <Capability Min="212" Max="213">2800K</Capability>
+  <Capability Min="214" Max="215">3000K</Capability>
+  <Capability Min="216" Max="217">3200K</Capability>
+  <Capability Min="218" Max="219">3400K</Capability>
+  <Capability Min="220" Max="221">3600K</Capability>
+  <Capability Min="222" Max="223">3800K</Capability>
+  <Capability Min="224" Max="225">4000K</Capability>
+  <Capability Min="226" Max="227">4200K</Capability>
+  <Capability Min="228" Max="229">4400K</Capability>
+  <Capability Min="230" Max="231">4600K</Capability>
+  <Capability Min="232" Max="233">4800K</Capability>
+  <Capability Min="234" Max="235">5000K</Capability>
+  <Capability Min="236" Max="237">5200K</Capability>
+  <Capability Min="238" Max="239">5400K</Capability>
+  <Capability Min="240" Max="241">5600K</Capability>
+  <Capability Min="242" Max="243">6000K</Capability>
+  <Capability Min="244" Max="245">6500K</Capability>
+  <Capability Min="246" Max="247">7000K</Capability>
+  <Capability Min="248" Max="249">8000K</Capability>
+  <Capability Min="250" Max="251">9000K</Capability>
+  <Capability Min="252" Max="253">10000K</Capability>
+  <Capability Min="254" Max="255">Full ON</Capability>
+ </Channel>
+ <Channel Name="CTO on colors" Preset="ColorCTOMixer"/>
+ <Channel Name="Strobe" Default="255">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="1" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="2" Max="62" Preset="StrobeSlowToFast">Strobe slow to Fast</Capability>
+  <Capability Min="63" Max="64" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="65" Max="125" Preset="PulseSlowToFast">Pulse In from slow to fast</Capability>
+  <Capability Min="126" Max="127" Preset="ShutterClose">Close</Capability>
+  <Capability Min="128" Max="188" Preset="PulseSlowToFast">Pulse Out from slow to fast</Capability>
+  <Capability Min="189" Max="190" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="191" Max="251" Preset="StrobeRandomSlowToFast">Random from slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="1">No function</Capability>
+  <Capability Min="2" Max="3">Display ON</Capability>
+  <Capability Min="4" Max="5">Display 10s</Capability>
+  <Capability Min="6" Max="7">Display 20s</Capability>
+  <Capability Min="8" Max="9">Display 30s</Capability>
+  <Capability Min="10" Max="11">Flip display ON</Capability>
+  <Capability Min="12" Max="13">Flip display OFF</Capability>
+  <Capability Min="14" Max="15">Key lock ON</Capability>
+  <Capability Min="16" Max="17">Key lock OFF</Capability>
+  <Capability Min="18" Max="19">Dimmer curve linear</Capability>
+  <Capability Min="20" Max="21">Dimmer curve s-curve</Capability>
+  <Capability Min="22" Max="23">Dimmer curve square law</Capability>
+  <Capability Min="24" Max="25">Dimmer curve inverse square law</Capability>
+  <Capability Min="26" Max="27">Dimmer speed auto</Capability>
+  <Capability Min="28" Max="29">Dimmer speed fast</Capability>
+  <Capability Min="30" Max="31">Dimmer speed medium</Capability>
+  <Capability Min="32" Max="33">Dimmer speed slow</Capability>
+  <Capability Min="34" Max="35">Spektra calibration ON</Capability>
+  <Capability Min="36" Max="37">Spektra calibration pure colors</Capability>
+  <Capability Min="38" Max="39">Spektra calibration OFF</Capability>
+  <Capability Min="40" Max="41">LED mode high quality</Capability>
+  <Capability Min="42" Max="43">LED mode high brightness</Capability>
+  <Capability Min="44" Max="45">LED frequency 600Hz</Capability>
+  <Capability Min="46" Max="47">LED frequency 1200Hz</Capability>
+  <Capability Min="48" Max="49">LED frequency 2000Hz</Capability>
+  <Capability Min="50" Max="51">LED frequency 4000Hz</Capability>
+  <Capability Min="52" Max="53">LED frequency 6000Hz</Capability>
+  <Capability Min="54" Max="55">LED frequency 25KHz</Capability>
+  <Capability Min="56" Max="57">LED frequency 36KHz</Capability>
+  <Capability Min="58" Max="59">LED frequency 40KHz</Capability>
+  <Capability Min="60" Max="61">DMX fault hold</Capability>
+  <Capability Min="62" Max="63">DMX fault blackout</Capability>
+  <Capability Min="64" Max="65">DMX fault stand alone</Capability>
+  <Capability Min="66" Max="67">DMx fault emergency</Capability>
+  <Capability Min="68" Max="69">FAN mode auto</Capability>
+  <Capability Min="70" Max="71">FAN mode high</Capability>
+  <Capability Min="72" Max="73">FAN mode silent</Capability>
+  <Capability Min="74" Max="75">FAN mode OFF</Capability>
+  <Capability Min="76" Max="77">Tungsten emulation ON</Capability>
+  <Capability Min="78" Max="79">Tungsten emulation OFF</Capability>
+  <Capability Min="80" Max="81">Output control constant</Capability>
+  <Capability Min="82" Max="83">Output control dynamic</Capability>
+  <Capability Min="84" Max="85">Stand alone master DMX</Capability>
+  <Capability Min="86" Max="87">Stand alone master no DMX</Capability>
+  <Capability Min="88" Max="89">Stand alone slave</Capability>
+  <Capability Min="90" Max="91">Stand lone effects</Capability>
+  <Capability Min="92" Max="93">Stand alone fixed colors</Capability>
+  <Capability Min="94" Max="95">Stand alone CCT</Capability>
+  <Capability Min="96" Max="97">Stand alone white presets</Capability>
+  <Capability Min="98" Max="99">Stand alone color macros</Capability>
+  <Capability Min="100" Max="101">Stand alone manual colors</Capability>
+  <Capability Min="102" Max="249">Reserved</Capability>
+  <Capability Min="250" Max="251">Reset all channel controled</Capability>
+  <Capability Min="252" Max="255">Reserved</Capability>
+ </Channel>
+ <Mode Name="Uno">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Duo">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="Basic">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="Basic 16bits">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White fine</Channel>
+ </Mode>
+ <Mode Name="Standard">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Color macro</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Control</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">CCT</Channel>
+  <Channel Number="3">Tint correction</Channel>
+  <Channel Number="4">Crossfade between CCT and Color</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Color macro</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Control</Channel>
+ </Mode>
+ <Mode Name="Advanced">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">CCT</Channel>
+  <Channel Number="3">CCT fine</Channel>
+  <Channel Number="4">Tint correction</Channel>
+  <Channel Number="5">Crossfade between CCT and Color</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Red fine</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Green fine</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">Blue fine</Channel>
+  <Channel Number="12">White</Channel>
+  <Channel Number="13">White fine</Channel>
+  <Channel Number="14">Color macro</Channel>
+  <Channel Number="15">CTO on colors</Channel>
+  <Channel Number="16">Strobe</Channel>
+  <Channel Number="17">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="283" Height="192" Depth="176"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="175" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

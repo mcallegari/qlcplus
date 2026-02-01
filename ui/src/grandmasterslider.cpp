@@ -37,9 +37,11 @@ GrandMasterSlider::GrandMasterSlider(QWidget* parent, InputOutputMap *ioMap)
 {
     Q_ASSERT(ioMap != NULL);
 
-    //setFrameStyle(QFrame::Panel | QFrame::Sunken);
-    setStyleSheet("QFrame { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
-                  "border: 1px solid gray; border-radius: 4px; }");
+    QString sStyle = AppUtil::getStyleSheet("GRANDMASTER");
+    if (sStyle.isEmpty())
+        sStyle = "QFrame { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D6D2D0, stop: 1 #AFACAB); "
+                 "border: 1px solid gray; border-radius: 4px; }";
+    setStyleSheet(sStyle);
     setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
 
     setMinimumSize(QSize(40, 100));
@@ -128,7 +130,7 @@ void GrandMasterSlider::slotValueChanged(int value)
 
     // Avoid double calls triggered by slotGrandMasterValueChanged
     int curval = m_ioMap->grandMasterValue();
-    if(value != curval)
+    if (value != curval)
     {
         // Write new grand master value to universes
         m_ioMap->setGrandMasterValue(value);
@@ -186,6 +188,8 @@ void GrandMasterSlider::slotGrandMasterValueChanged(uchar value)
     m_slider->blockSignals(true);
     m_slider->setValue(value);
     m_slider->blockSignals(false);
+
+    updateDisplayValue();
 }
 
 void GrandMasterSlider::slotGrandMasterValueModeChanged(GrandMaster::ValueMode mode)

@@ -27,7 +27,7 @@ class Chaser;
 class ListModel;
 class ChaserStep;
 
-class ChaserEditor : public FunctionEditor
+class ChaserEditor final : public FunctionEditor
 {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ public:
     ChaserEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     /** Set the ID of the Chaser being edited */
-    void setFunctionID(quint32 ID);
+    void setFunctionID(quint32 ID) override;
 
     /** Returns if the Chaser being edited is a Sequence */
     bool isSequence() const;
@@ -86,19 +86,37 @@ public:
      */
     Q_INVOKABLE bool moveSteps(QVariantList indicesList, int insertIndex = -1);
 
+    /** Duplicate the selected steps at the end of the existing steps
+     *
+     *  @param indicesList A list of step indices to move
+     *
+     *  @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool duplicateSteps(QVariantList indicesList);
+
+    /** Shuffle the selected steps order (or all if none is selected)
+     *
+     *  @param indicesList A list of step indices to move
+     *
+     *  @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool shuffleSteps(QVariantList indicesList);
+
+    /** @reimp */
+    void deleteItems(QVariantList list) override;
+
     void setSequenceStepValue(SceneValue& scv);
+    void removeFixtures(QVariantList list);
 
     /** Get/Set the Chaser playback start index */
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
     /** @reimp */
-    void setPreviewEnabled(bool enable);
+    void setPreviewEnabled(bool enable) override;
 
-    /** @reimp */
-    void deleteItems(QVariantList list);
-
-    void removeFixtures(QVariantList list);
+    Q_INVOKABLE void gotoPreviousStep();
+    Q_INVOKABLE void gotoNextStep();
 
 protected:
     /** Set the steps $param to $value.
@@ -121,11 +139,13 @@ signals:
 private:
     /** Reference of the Chaser currently being edited */
     Chaser *m_chaser;
+
     /** Reference to a ListModel representing the steps list for the QML UI,
      *  organized as follows:
      *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
      */
     ListModel *m_stepsList;
+
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
 
@@ -134,8 +154,8 @@ private:
      *********************************************************************/
 public:
     /** Get/Set the steps tempo type of the Chaser being edited */
-    int tempoType() const;
-    void setTempoType(int tempoType);
+    int tempoType() const override;
+    void setTempoType(int tempoType) override;
 
     /** Get/Set the steps fade in mode of the Chaser being edited */
     int stepsFadeIn() const;

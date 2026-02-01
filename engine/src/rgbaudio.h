@@ -29,11 +29,11 @@
  * @{
  */
 
-#define KXMLQLCRGBAudio "Audio"
+#define KXMLQLCRGBAudio QStringLiteral("Audio")
 
 class AudioCapture;
 
-class RGBAudio : public QObject, public RGBAlgorithm
+class RGBAudio final : public QObject, public RGBAlgorithm
 {
     Q_OBJECT
 
@@ -43,7 +43,7 @@ public:
     ~RGBAudio();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm* clone() const override;
 
 private:
     void setAudioCapture(AudioCapture* cap);
@@ -68,41 +68,47 @@ protected:
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize& size) override;
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMapSetColors(const QVector<uint> &colors) override;
 
     /** @reimp */
-    virtual void postRun();
+    QVector<uint> rgbMapGetColors() override;
 
     /** @reimp */
-    QString name() const;
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) override;
 
     /** @reimp */
-    QString author() const;
+    virtual void postRun() override;
 
     /** @reimp */
-    int apiVersion() const;
+    QString name() const override;
 
     /** @reimp */
-    void setColors(QColor start, QColor end);
+    QString author() const override;
 
     /** @reimp */
-    RGBAlgorithm::Type type() const;
+    int apiVersion() const override;
 
     /** @reimp */
-    int acceptColors() const;
+    void setColors(QVector<QColor> colors) override;
+
+    /** @reimp */
+    RGBAlgorithm::Type type() const override;
+
+    /** @reimp */
+    int acceptColors() const override;
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 /** @} */

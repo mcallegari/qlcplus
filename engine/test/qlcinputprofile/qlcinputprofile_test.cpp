@@ -224,28 +224,28 @@ void QLCInputProfile_Test::copy()
     ich4->setName("Channel 4");
     ip.insertChannel(9000, ich4);
 
-    QLCInputProfile copy = ip;
-    QVERIFY(copy.manufacturer() == "Behringer");
-    QVERIFY(copy.model() == "BCF2000");
+    QLCInputProfile *copy = ip.createCopy();
+    QVERIFY(copy->manufacturer() == "Behringer");
+    QVERIFY(copy->model() == "BCF2000");
 
-    QVERIFY(copy.channels().size() == 4);
+    QVERIFY(copy->channels().size() == 4);
 
     /* Verify that it's a deep copy */
-    QVERIFY(copy.channel(0) != ich1);
-    QVERIFY(copy.channel(0) != NULL);
-    QVERIFY(copy.channel(0)->name() == "Channel 1");
+    QVERIFY(copy->channel(0) != ich1);
+    QVERIFY(copy->channel(0) != NULL);
+    QVERIFY(copy->channel(0)->name() == "Channel 1");
 
-    QVERIFY(copy.channel(5) != ich2);
-    QVERIFY(copy.channel(5) != NULL);
-    QVERIFY(copy.channel(5)->name() == "Channel 2");
+    QVERIFY(copy->channel(5) != ich2);
+    QVERIFY(copy->channel(5) != NULL);
+    QVERIFY(copy->channel(5)->name() == "Channel 2");
 
-    QVERIFY(copy.channel(2) != ich3);
-    QVERIFY(copy.channel(2) != NULL);
-    QVERIFY(copy.channel(2)->name() == "Channel 3");
+    QVERIFY(copy->channel(2) != ich3);
+    QVERIFY(copy->channel(2) != NULL);
+    QVERIFY(copy->channel(2)->name() == "Channel 3");
 
-    QVERIFY(copy.channel(9000) != ich4);
-    QVERIFY(copy.channel(9000) != NULL);
-    QVERIFY(copy.channel(9000)->name() == "Channel 4");
+    QVERIFY(copy->channel(9000) != ich4);
+    QVERIFY(copy->channel(9000) != NULL);
+    QVERIFY(copy->channel(9000)->name() == "Channel 4");
 }
 
 void QLCInputProfile_Test::assign()

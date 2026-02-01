@@ -20,13 +20,7 @@
 #ifndef WEBACCESS_H
 #define WEBACCESS_H
 
-#include <QObject>
-
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-class WebAccessNetwork;
-#endif
-
-class WebAccessAuth;
+#include "webaccessbase.h"
 
 class VCAudioTriggers;
 class VirtualConsole;
@@ -39,14 +33,14 @@ class VCSlider;
 class VCLabel;
 class VCFrame;
 class VCClock;
+class VCMatrix;
 class Doc;
 
-class QHttpServer;
 class QHttpRequest;
 class QHttpResponse;
 class QHttpConnection;
 
-class WebAccess : public QObject
+class WebAccess final : public WebAccessBase
 {
     Q_OBJECT
 public:
@@ -55,10 +49,6 @@ public:
                        QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
-
-private:
-    bool sendFile(QHttpResponse *response, QString filename, QString contentType);
-    void sendWebSocketMessage(QByteArray message);
 
     QString getWidgetBackgroundImage(VCWidget *widget);
     QString getWidgetHTML(VCWidget *widget);
@@ -70,6 +60,8 @@ private:
     QString getAudioTriggersHTML(VCAudioTriggers *triggers);
     QString getCueListHTML(VCCueList *cue);
     QString getClockHTML(VCClock *clock);
+    QString getMatrixHTML(VCMatrix *matrix);
+    QString getGrandMasterSliderHTML();
 
     QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
@@ -77,35 +69,45 @@ private:
     QString getSimpleDeskHTML();
 
 protected slots:
-    void slotHandleRequest(QHttpRequest *req, QHttpResponse *resp);
-    void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
-    void slotHandleWebSocketClose(QHttpConnection *conn);
+    void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp) override;
+    void slotHandleWebSocketRequest(QHttpConnection *conn, QString data) override;
+    void slotHandleWebSocketClose(QHttpConnection *conn) override;
+
+    void slotFunctionStarted(quint32 fid) override;
+    void slotFunctionStopped(quint32 fid) override;
 
     void slotVCLoaded();
     void slotButtonStateChanged(int state);
+    void slotButtonDisableStateChanged(bool disable);
+    void slotLabelDisableStateChanged(bool disable);
     void slotSliderValueChanged(QString val);
+    void slotSliderDisableStateChanged(bool disable);
     void slotAudioTriggersToggled(bool toggle);
     void slotCueIndexChanged(int idx);
+    void slotCueStepNoteChanged(int idx, QString note);
+    void slotCueProgressStateChanged();
+    void slotCueShowSideFaderPanel();
+    void slotCueSideFaderValueChanged();
+    void slotCuePlaybackStateChanged();
+    void slotCueDisableStateChanged(bool disable);
     void slotClockTimeChanged(quint32 time);
+    void slotClockDisableStateChanged(bool disable);
     void slotFramePageChanged(int pageNum);
+    void slotFrameDisableStateChanged(bool disable);
+    void slotMatrixSliderValueChanged(int value);
+    void slotMatrixColorChanged(int);
+    void slotMatrixAnimationValueChanged(QString name);
+    void slotMatrixControlKnobValueChanged(int controlID, int value);
+
+    void slotGrandMasterValueChanged(uchar value);
 
 protected:
     QString m_JScode;
     QString m_CSScode;
 
-protected:
-    Doc *m_doc;
-    VirtualConsole *m_vc;
-    SimpleDesk *m_sd;
-    WebAccessAuth *m_auth;
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    WebAccessNetwork *m_netConfig;
-#endif
-
-    QHttpServer *m_httpServer;
-    QList<QHttpConnection *> m_webSocketsList;
-
-    bool m_pendingProjectLoaded;
+    void handleProjectLoad(const QByteArray &projectXml) override;
+    bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) override;
+    void handleAutostartProject(const QString &path) override;
 
 signals:
     void toggleDocMode();

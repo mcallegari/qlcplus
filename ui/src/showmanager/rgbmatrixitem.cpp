@@ -25,8 +25,6 @@
 
 #include "rgbmatrixitem.h"
 #include "trackitem.h"
-#include "headeritems.h"
-#include "audiodecoder.h"
 
 RGBMatrixItem::RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func)
     : ShowItem(func)
@@ -63,24 +61,23 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    float timeScale = 50 / float(m_timeScale);
+    float xpos = 0;
+    float timeUnit = 50.0 / float(getTimeScale());
 
     ShowItem::paint(painter, option, widget);
 
-    quint32 matrixDuration = getDuration();
+    int loopCount = 0;
+    if (getDuration() == Function::infiniteSpeed())
+        loopCount = 10000 / m_matrix->duration();
+    else if (getDuration() > 0)
+        loopCount = qFloor(getDuration() / m_matrix->duration());
 
-    if (matrixDuration)
+    for (int i = 0; i < loopCount; i++)
     {
-        float xpos = 0;
-        int loopCount = m_function->duration() ? qFloor(m_function->duration() / m_matrix->totalDuration()) : 0;
-
-        for (int i = 0; i < loopCount; i++)
-        {
-            xpos += ((timeScale * float(m_matrix->totalDuration())) / 1000);
-            // draw loop vertical delimiter
-            painter->setPen(QPen(Qt::white, 1));
-            painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);
-        }
+        xpos += ((timeUnit * float(m_matrix->totalDuration())) / 1000);
+        // draw loop vertical delimiter
+        painter->setPen(QPen(Qt::white, 1));
+        painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);
     }
 
     ShowItem::postPaint(painter);
@@ -108,19 +105,19 @@ void RGBMatrixItem::setDuration(quint32 msec, bool stretch)
     }
 }
 
-quint32 RGBMatrixItem::getDuration()
+quint32 RGBMatrixItem::getDuration() const
 {
     return m_function->duration() ? m_function->duration() : m_matrix->totalDuration();
 }
 
-QString RGBMatrixItem::functionName()
+QString RGBMatrixItem::functionName() const
 {
     if (m_matrix)
         return m_matrix->name();
     return QString();
 }
 
-RGBMatrix *RGBMatrixItem::getRGBMatrix()
+RGBMatrix *RGBMatrixItem::getRGBMatrix() const
 {
     return m_matrix;
 }
@@ -139,7 +136,7 @@ void RGBMatrixItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menuFont.setPixelSize(14);
     menu.setFont(menuFont);
 
-    foreach(QAction *action, getDefaultActions())
+    foreach (QAction *action, getDefaultActions())
         menu.addAction(action);
 
     menu.exec(QCursor::pos());

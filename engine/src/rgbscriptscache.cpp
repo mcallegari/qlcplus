@@ -32,32 +32,26 @@
 RGBScriptsCache::RGBScriptsCache(Doc* doc)
     : m_doc(doc)
 {
-    m_dummyScript = new RGBScript(doc);
 }
 
 QStringList RGBScriptsCache::names() const
 {
-    QStringList names;
-
-    QListIterator <RGBScript*> it(m_scriptsMap.values());
-    while (it.hasNext() == true)
-        names << it.next()->name();
-
-    return names;
+    return m_scriptsMap.keys();
 }
 
-RGBScript const& RGBScriptsCache::script(QString name) const
+RGBScript* RGBScriptsCache::script(QString name) const
 {
-    QListIterator <RGBScript*> it(m_scriptsMap.values());
-    while (it.hasNext() == true)
+    RGBScript *mScript = new RGBScript(m_doc);
+    QString filename = m_scriptsMap.value(name);
+    if (filename.isEmpty())
     {
-        RGBScript* script(it.next());
-        if (script->name() == name)
-            return *script;
+        return mScript;
     }
-
-    Q_ASSERT(m_dummyScript != NULL);
-    return *m_dummyScript;
+    else
+    {
+        mScript->load(filename);
+        return mScript;
+    }
 }
 
 bool RGBScriptsCache::load(const QDir& dir)
@@ -69,24 +63,35 @@ bool RGBScriptsCache::load(const QDir& dir)
 
     foreach (QString file, dir.entryList())
     {
-        if (!file.toLower().endsWith(".js"))
+        if (!file.endsWith(".js", Qt::CaseInsensitive))
         {
             qDebug() << "    " << file << " skipped (special file or does not end on *.js)";
             continue;
         }
-        if (!m_scriptsMap.contains(file))
+        QFile absFile(dir.absoluteFilePath(file));
+        QString absFilename = absFile.fileName();
+
+        if (m_scriptsMap.value(absFilename).isEmpty())
         {
-            RGBScript* script = new RGBScript(m_doc);
-            if (script->load(dir, file))
+            if (!absFile.open(QIODevice::ReadOnly | QIODevice::Text))
+                return false;
+
+            QTextStream in(&absFile);
+            QString line = in.readLine();
+            while (!line.isNull())
             {
-                qDebug() << "    " << file << " loaded";
-                m_scriptsMap.insert(file, script);
+                QStringList tokens = line.split("=");
+                if (tokens.length() == 2 && tokens[0].simplified() == "algo.name")
+                {
+                    QString algoName = tokens[1].simplified().remove('"');
+                    algoName.remove(';');
+                    m_scriptsMap.insert(algoName, absFilename);
+                    qDebug() << "    " << algoName << "script loaded";
+                    break;
+                }
+                line = in.readLine();
             }
-            else
-            {
-                qDebug() << "    " << file << " loading failed";
-                delete script;
-            }
+            absFile.close();
         }
         else
         {

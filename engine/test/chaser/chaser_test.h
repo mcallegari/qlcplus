@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class Chaser_Test : public QObject
+class Chaser_Test final : public QObject
 {
     Q_OBJECT
 
@@ -51,7 +51,8 @@ private slots:
 
     void tap();
     void preRun();
-    void write();
+    void writeHTP();
+    void writeLTP();
     void postRun();
     void adjustIntensity();
 

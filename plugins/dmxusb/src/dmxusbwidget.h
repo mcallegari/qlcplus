@@ -21,7 +21,9 @@
 #ifndef DMXUSBWIDGET_H
 #define DMXUSBWIDGET_H
 
+#include <QByteArray>
 #include <QElapsedTimer>
+#include <QVector>
 
 #if defined(FTD2XX)
   #include "ftd2xx-interface.h"
@@ -33,22 +35,12 @@
   #include "qtserial-interface.h"
 #endif
 
+#define DMX_CHANNELS                512
 #define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
-
-typedef struct
-{
-    /** The device line type (DMX, MIDI, etc) */
-    int m_lineType;
-    /** Line open true/false flag */
-    bool m_isOpen;
-    /** Data for input/output */
-    QByteArray m_universeData;
-    /** Data for comparison with m_universeData */
-    QByteArray m_compareData;
-} DMXUSBLineInfo;
 
 /**
  * This is the base interface class for all the USB DMX widgets.
+ * It represents a DMX USB widget, with all its specific input/output lines
  */
 class DMXUSBWidget
 {
@@ -59,7 +51,7 @@ public:
      * @param interface The widget's DMXInterface instance
      * @param outputLine the specific output line this widget is going to control
      */
-    DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency);
+    DMXUSBWidget(DMXInterface *iface, quint32 outputLine, int frequency);
 
     virtual ~DMXUSBWidget();
 
@@ -73,21 +65,41 @@ public:
         UltraPro,   //! DMXKing Ultra Pro widget using 2 TX and 1RX ports
         DMX4ALL,    //! DMX4ALL widget (only TX)
         VinceTX,    //! Vince USB-DMX512 widget using the TX side of the dongle
-        Eurolite    //! Eurolite USB DMX512 Pro widget
+        Eurolite,   //! Eurolite USB DMX512 Pro widget
+        USBDMXLegacy //! usbdmx.com legacy interface
     };
 
-    enum LineType
+    /** The possible features of a line */
+    enum LineFlags
     {
-        Unknown,
-        DMX,
-        MIDI
+        None   = 0,
+        DMX    = 1 << 0,
+        MIDI   = 1 << 1,
+        Input  = 1 << 2,
+        Output = 1 << 3,
+        ArtNet_sACN_Forward = 1 << 4
+    };
+
+    struct DMXUSBLineInfo
+    {
+        /** The device line flags (DMX, MIDI, etc) */
+        int m_portFlags;
+
+        /** When open, this is the port directon */
+        int m_openDirection;
+
+        /** Data for input/output */
+        QByteArray m_universeData;
+
+        /** Data for comparison with m_universeData */
+        QByteArray m_compareData;
     };
 
     /** Get the type of the widget */
     virtual Type type() const = 0;
 
     /** Get the DMXInterface instance */
-    DMXInterface *interface() const;
+    DMXInterface *iface() const;
 
     /** Get the DMXInterface driver in use as a string */
     QString interfaceTypeString() const;
@@ -98,6 +110,17 @@ public:
 
 private:
     DMXInterface *m_interface;
+	
+#if defined(WIN32) || defined(Q_OS_WIN)
+    /** Resolution (in ms) that Windows system timer will be set to */
+    static uint s_windowsTimerResolution;
+    
+    /** Request a minimum resolution (in ms) for Windows system timer */
+    bool setWindowsTimerResolution(uint resolution);
+    
+    /** Clear a previously set minimum Windows system timer resolution */
+    bool clearWindowsTimerResolution(uint resolution);
+#endif
 
     /********************************************************************
      * Open & close
@@ -125,20 +148,32 @@ public:
     virtual bool isOpen();
 
     /********************************************************************
+     * Widget Ports
+     ********************************************************************/
+public:
+    virtual void setPortsMapping(QList<int> ports);
+
+    virtual int portFlagsCount(LineFlags flags);
+
+    virtual int openPortsCount();
+
+    virtual quint32 lineToPortIndex(quint32 line, int type);
+
+protected:
+    /** The QLC+ output line number where this widget outputs start */
+    quint32 m_outputBaseLine;
+
+    /** The QLC+ input line number where this widget inputs start */
+    quint32 m_inputBaseLine;
+
+    QVector<DMXUSBLineInfo> m_portsInfo;
+
+    /********************************************************************
      * Outputs
      ********************************************************************/
 public:
-    /**
-     * Set the number of output lines this widget supports
-     * @param num the output lines number
-     */
-    virtual void setOutputsNumber(int num);
-
     /** Return the number of output lines supported by this widget */
     virtual int outputsNumber();
-
-    /** Return the number of open output lines */
-    virtual int openOutputLines();
 
     /** Return a list of the output line names */
     virtual QStringList outputNames();
@@ -148,43 +183,21 @@ public:
     virtual void setOutputFrequency(int frequency);
 
 protected:
-    /** The QLC+ output line number where this widget outputs start */
-    quint32 m_outputBaseLine;
-
     /** The output frequency in Hertz */
     int m_frequency;
 
     /** The DMX frame time duration in microseconds */
     int m_frameTimeUs;
 
-    /** Array of output lines supported by the device. This is resized on setOutputsNumber */
-    QVector<DMXUSBLineInfo> m_outputLines;
-
     /********************************************************************
      * Inputs
      ********************************************************************/
 public:
-    /**
-     * Set the number of input lines this widget supports
-     * @param num the input lines number
-     */
-    virtual void setInputsNumber(int num);
-
     /** Return the number of input lines supported by this widget */
     virtual int inputsNumber();
 
     /** Return a list of the input line names */
     virtual QStringList inputNames();
-
-    /** Return the number of open intput lines */
-    virtual int openInputLines();
-
-protected:
-    /** The QLC+ input line number where this widget inputs start */
-    quint32 m_inputBaseLine;
-
-    /** Array of input lines supported by the device. This is resized on setInputsNumber */
-    QVector<DMXUSBLineInfo> m_inputLines;
 
     /********************************************************************
      * Serial & name
@@ -251,7 +264,7 @@ public:
      * @param universe The DMX universe to send
      * @return true if the values were sent successfully, otherwise false
      */
-    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 };
 
 #endif

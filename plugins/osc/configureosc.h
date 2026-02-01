@@ -24,7 +24,7 @@
 
 class OSCPlugin;
 
-class ConfigureOSC : public QDialog, public Ui_ConfigureOSC
+class ConfigureOSC final : public QDialog, public Ui_ConfigureOSC
 {
     Q_OBJECT
 
@@ -36,11 +36,11 @@ public:
     virtual ~ConfigureOSC();
 
     /** @reimp */
-    void accept();
+    void accept() override;
 
 public slots:
     void slotOSCPathChanged(QString path);
-    int exec();
+    int exec() override;
 
 private:
     void fillMappingTree();

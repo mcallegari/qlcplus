@@ -24,7 +24,7 @@
 
 class Doc;
 
-class Fixture_Test : public QObject
+class Fixture_Test final : public QObject
 {
     Q_OBJECT
 
@@ -39,6 +39,7 @@ private slots:
     void type();
     void dimmer();
     void rgbPanel();
+    void rgbPanel16bit();
     void fixtureDef();
     void channels();
     void degrees();
@@ -52,7 +53,7 @@ private slots:
     void loadWrongID();
     void loader();
     void save();
-    void status();
+    //void status();
 
 private:
     Doc* m_doc;

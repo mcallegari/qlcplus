@@ -42,11 +42,11 @@ class QLCChannel;
  * @{
  */
 
-#define KXMLQLCFixtureMode              QString("Mode")
-#define KXMLQLCFixtureModeName          QString("Name")
-#define KXMLQLCFixtureModeChannel       QString("Channel")
-#define KXMLQLCFixtureModeChannelNumber QString("Number")
-#define KXMLQLCFixtureModeChannelActsOn QString("ActsOn")
+#define KXMLQLCFixtureMode              QStringLiteral("Mode")
+#define KXMLQLCFixtureModeName          QStringLiteral("Name")
+#define KXMLQLCFixtureModeChannel       QStringLiteral("Channel")
+#define KXMLQLCFixtureModeChannelNumber QStringLiteral("Number")
+#define KXMLQLCFixtureModeChannelActsOn QStringLiteral("ActsOn")
 
 /**
  * QLCFixtureMode is essentially a collection of QLCChannels, arranged in such
@@ -68,7 +68,7 @@ class QLCChannel;
  * itself. QLCFixtureModes do not delete their channels because they might be
  * shared between multiple modes.
  */
-class QLCFixtureMode
+class QLCFixtureMode final
 {
 public:
     /**
@@ -206,31 +206,30 @@ public:
      */
     quint32 channelNumber(QLCChannel::Group group, QLCChannel::ControlByte cByte = QLCChannel::MSB) const;
 
+    /** Return the auto-detected channel index of the Fixture master dimmer for this mode */
     quint32 masterIntensityChannel() const;
 
-    /*!
-     * \brief The ChannelActsOnData struct
-     *
-     * Contains channel pointer and acts on channel index.
-     *
-     */
+    /** Return the index of the primary channel $chIndex relates to.
+     *  Return invalid if not present */
+    quint32 primaryChannel(quint32 chIndex) const;
 
-    struct ChannelActsOnData
-    {
-        QLCChannel *channel;
-        int actsOnIndex;
-
-        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
-    };
-
-    void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);
+    /** Return the channel index on which the given $chIndex acts on.
+     *  Return invalid if not present */
+    quint32 channelActsOn(quint32 chIndex) const;
+    void setChannelActsOn(quint32 chIndex, quint32 actsOnIndex);
 
 protected:
     /** List of channels (pointers are not owned) */
     QVector<QLCChannel*> m_channels;
 
-    /** List of acts on channels */
-    QHash<QLCChannel *, QLCChannel *> m_actsOnChannelsList;
+    /** Map of channel indices that act on other channels.
+     * These are stored as: <index, acts on index> */
+    QMap<quint32, quint32> m_actsOnMap;
+
+    /** Map of channel indices that relate to some other primary channel.
+     *  For example Pan Fine vs Pan, Red Fine vs Red, etc
+     *  These are stored as: <secondary index, primary index> */
+    QMap<quint32, quint32> m_secondaryMap;
 
     quint32 m_masterIntensityChannel;
 
@@ -306,7 +305,7 @@ public:
 
     /** Returns if this mode is using the global physical information
      *  or if it is overriding it */
-    bool useGlobalPhysical();
+    bool useGlobalPhysical() const;
 
 protected:
     bool m_useGlobalPhysical;
@@ -320,8 +319,7 @@ public:
     bool loadXML(QXmlStreamReader &doc);
 
     /** Save a mode to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
-    QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

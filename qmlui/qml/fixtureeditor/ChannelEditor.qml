@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.14
-import QtQuick.Layouts 1.14
-import QtQuick.Controls 2.14
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."
@@ -59,7 +60,7 @@ GridLayout
                 colorPreview.secondary = editor.getCapabilityValueAt(capIndex, 1)
             break
             case QLCCapability.Picture:
-                goboPicture.source = "file://" + editor.getCapabilityValueAt(capIndex, 0)
+                goboPicture.source = "file:///" + editor.getCapabilityValueAt(capIndex, 0)
             break
             case QLCCapability.SingleValue:
                 pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
@@ -81,12 +82,12 @@ GridLayout
         id: openDialog
         visible: false
         title: qsTr("Open a picture file")
-        folder: "file://" + qlcplus.goboSystemPath()
+        currentFolder: "file://" + qlcplus.goboSystemPath()
         nameFilters: [ qsTr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp *.svg)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
-            var str = fileUrl.toString().slice(7)
+            var str = selectedFile.toString().slice(7)
             editor.setCapabilityValueAt(editItem.indexInList, 0, str)
             updatePresetBox(editItem.indexInList)
         }
@@ -99,7 +100,7 @@ GridLayout
         id: nameEdit
         Layout.fillWidth: true
         text: channel ? channel.name : ""
-        onTextChanged: if (channel) channel.name = text
+        onTextEdited: if (channel) channel.name = text
     }
 
     // row 2
@@ -120,7 +121,9 @@ GridLayout
         enabled: channel ? (channel.preset ? false : true) : false
         model: editor ? editor.channelTypeList : null
         currValue: editor ? editor.group : 0
-        onValueChanged: if (editor) editor.group = value
+        onValueChanged: (value) => {
+            if (editor) editor.group = value
+        }
     }
 
     // row 4
@@ -179,7 +182,8 @@ GridLayout
         IconButton
         {
             id: removeCapButton
-            imgSource: "qrc:/remove.svg"
+            faSource: FontAwesome.fa_minus
+            faColor: "crimson"
             tooltip: qsTr("Delete the selected capabilities")
             onClicked: {
                 editItem.visible = false
@@ -190,7 +194,8 @@ GridLayout
         IconButton
         {
             id: chWizButton
-            imgSource: "qrc:/wizard.svg"
+            faSource: FontAwesome.fa_wand_magic_sparkles
+            faColor: "cyan"
             tooltip: qsTr("Capability wizard")
             onClicked: wizardPopup.open()
 
@@ -362,7 +367,7 @@ GridLayout
                             height: UISettings.listItemHeight
                             width: height
                             border.width: 0
-                            faSource: FontAwesome.fa_warning
+                            faSource: FontAwesome.fa_triangle_exclamation
                             faColor: "yellow"
                             tooltip: visible ? capsList.warningDescription(cap.warning) : ""
                         }
@@ -374,13 +379,12 @@ GridLayout
                         height: 1
                         y: UISettings.listItemHeight - 1
                         color: UISettings.fgMedium
-
                     }
 
                     MouseArea
                     {
                         anchors.fill: parent
-                        onClicked:
+                        onClicked: (mouse) =>
                         {
                             var compIdx = 0
                             var item = delegateRow.childAt(mouse.x, mouse.y)
@@ -404,7 +408,7 @@ GridLayout
                 y: UISettings.listItemHeight
                 width: capsList.width
                 height: UISettings.listItemHeight
-                visible: false || capsList.count == 0
+                visible: false || capsList.count === 0
 
                 property QLCCapability editCap: null
                 property int indexInList: 0
@@ -474,7 +478,7 @@ GridLayout
                         height: UISettings.listItemHeight
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_warning
+                        faSource: FontAwesome.fa_triangle_exclamation
                         faColor: "yellow"
                         tooltip: editItem.editCap ? capsList.warningDescription(editItem.editCap.warning) : ""
                     }
@@ -508,9 +512,9 @@ GridLayout
                 id: capPresetCombo
                 Layout.fillWidth: true
                 model: editor ? editor.capabilityPresetList : null
-                onValueChanged:
+                onActivated: (index) =>
                 {
-                    editor.setCapabilityPresetAtIndex(editItem.indexInList, value)
+                    editor.setCapabilityPresetAtIndex(editItem.indexInList, currValue)
                     updatePresetBox(editItem.indexInList)
                 }
             }
@@ -549,10 +553,12 @@ GridLayout
                             closeOnSelect: true
                             showPalette: false
 
-                            onColorChanged: {
-                                editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
-                                updatePresetBox(editItem.indexInList)
-                            }
+                            onToolColorChanged:
+                                function(r, g, b, w, a, uv)
+                                {
+                                    editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
+                                    updatePresetBox(editItem.indexInList)
+                                }
                         }
                     }
 
@@ -611,10 +617,12 @@ GridLayout
                             closeOnSelect: true
                             showPalette: false
 
-                            onColorChanged: {
-                                editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
-                                updatePresetBox(editItem.indexInList)
-                            }
+                            onToolColorChanged:
+                                function(r, g, b, w, a, uv)
+                                {
+                                    editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
+                                    updatePresetBox(editItem.indexInList)
+                                }
                         }
                     }
                 }

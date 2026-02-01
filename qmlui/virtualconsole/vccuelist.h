@@ -24,18 +24,18 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCCueList                    QString("CueList")
-#define KXMLQLCVCCueListChaser              QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout      QString("PlaybackLayout")
-#define KXMLQLCVCCueListNextPrevBehavior    QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade           QString("Crossfade")
-#define KXMLQLCVCCueListNext                QString("Next")
-#define KXMLQLCVCCueListPrevious            QString("Previous")
-#define KXMLQLCVCCueListPlayback            QString("Playback")
-#define KXMLQLCVCCueListStop                QString("Stop")
-#define KXMLQLCVCCueListSlidersMode         QString("SlidersMode")
-#define KXMLQLCVCCueListCrossfadeLeft       QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight      QString("CrossRight")
+#define KXMLQLCVCCueList                    QStringLiteral("CueList")
+#define KXMLQLCVCCueListChaser              QStringLiteral("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout      QStringLiteral("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior    QStringLiteral("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade           QStringLiteral("Crossfade")
+#define KXMLQLCVCCueListNext                QStringLiteral("Next")
+#define KXMLQLCVCCueListPrevious            QStringLiteral("Previous")
+#define KXMLQLCVCCueListPlayback            QStringLiteral("Playback")
+#define KXMLQLCVCCueListStop                QStringLiteral("Stop")
+#define KXMLQLCVCCueListSlidersMode         QStringLiteral("SlidersMode")
+#define KXMLQLCVCCueListCrossfadeLeft       QStringLiteral("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight      QStringLiteral("CrossRight")
 
 class ListModel;
 
@@ -65,26 +65,26 @@ public:
     virtual ~VCCueList();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() const override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) const override;
 
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*********************************************************************
      * UI settings
@@ -139,8 +139,8 @@ public:
     void setSideFaderMode(FaderMode mode);
 
     /** Convert side fader mode <-> string */
-    FaderMode stringToFaderMode(QString modeStr);
-    QString faderModeToString(FaderMode mode);
+    FaderMode stringToFaderMode(QString modeStr) const;
+    QString faderModeToString(FaderMode mode) const;
 
     /** Get/Set the side fader level */
     int sideFaderLevel() const;
@@ -184,10 +184,14 @@ public:
 
     Q_INVOKABLE void setStepNote(int index, QString text);
 
+    /** @reimp */
+    void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored) override;
+
 private slots:
     void slotFunctionRemoved(quint32 fid);
     void slotFunctionNameChanged(quint32 fid);
     void slotStepChanged(int index);
+    void slotStepsListChanged(quint32 fid);
 
 private:
     FunctionParent functionParent() const;
@@ -283,19 +287,23 @@ private:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback() override;
+
 public slots:
     /** @reimp */
-    void slotInputValueChanged(quint8 id, uchar value);
+    void slotInputValueChanged(quint8 id, uchar value) override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

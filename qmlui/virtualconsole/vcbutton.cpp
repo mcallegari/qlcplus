@@ -20,16 +20,41 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#include "chaseraction.h"
 #include "qlcmacros.h"
 #include "vcbutton.h"
+#include "chaser.h"
 #include "tardis.h"
 #include "doc.h"
+
+/** ************** XML Tags and Attributes ************** */
+
+#define KXMLQLCVCButtonFunction     QStringLiteral("Function")
+#define KXMLQLCVCButtonFunctionID   QStringLiteral("ID")
+
+#define KXMLQLCVCButtonAction           QStringLiteral("Action")
+#define KXMLQLCVCButtonActionFlash      QStringLiteral("Flash")
+#define KXMLQLCVCButtonActionToggle     QStringLiteral("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QStringLiteral("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QStringLiteral("StopAll")
+
+#define KXMLQLCVCButtonFlashOverride    QStringLiteral("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QStringLiteral("ForceLTP")
+
+#define KXMLQLCVCButtonStopAllFadeTime  QStringLiteral("FadeOut")
+
+#define KXMLQLCVCButtonIntensity        QStringLiteral("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QStringLiteral("Adjust")
+
+/** **************** External Control IDs ***************** */
 
 #define INPUT_PRESSURE_ID   0
 
 VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_functionID(Function::invalidId())
+    , m_flashOverrides(false)
+    , m_flashForceLTP(false)
     , m_state(Inactive)
     , m_actionType(Toggle)
     , m_stopAllFadeOutTime(0)
@@ -47,7 +72,7 @@ VCButton::~VCButton()
         delete m_item;
 }
 
-QString VCButton::defaultCaption()
+QString VCButton::defaultCaption() const
 {
     return tr("Button %1").arg(id() + 1);
 }
@@ -83,7 +108,7 @@ QString VCButton::propertiesResource() const
     return QString("qrc:/VCButtonProperties.qml");
 }
 
-VCWidget *VCButton::createCopy(VCWidget *parent)
+VCWidget *VCButton::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -111,6 +136,9 @@ bool VCButton::copyFrom(const VCWidget* widget)
     setStopAllFadeOutTime(button->stopAllFadeOutTime());
     setActionType(button->actionType());
     setState(button->state());
+
+    setFlashForceLTP(button->flashForceLTP());
+    setFlashOverride(button->flashOverrides());
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -163,7 +191,7 @@ void VCButton::setFunctionID(quint32 fid)
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
-        if(running)
+        if (running)
         {
             function->start(m_doc->masterTimer(), functionParent());
             setState(Active);
@@ -208,33 +236,32 @@ void VCButton::adjustIntensity(qreal val)
     }
 }
 
-void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
+void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored)
 {
     Q_UNUSED(widget)
     Q_UNUSED(fIntensity)
 
     qDebug() << "notifyFunctionStarting" << widget->caption() << fid << fIntensity;
 
-    if (m_functionID == Function::invalidId() || actionType() != VCButton::Toggle)
+    if (fid == m_functionID || m_functionID == Function::invalidId())
         return;
 
-    Function *f = m_doc->function(m_functionID);
-    if (f == nullptr)
-        return;
-
-    if (m_functionID != fid)
+    if (excludeMonitored)
     {
-        if (f->isRunning())
+        // stop the controlled Function only if actively started
+        // by this Button or if monitoring the startup Function
+        if (state() != Active && m_functionID != m_doc->startupFunction())
+            return;
+    }
+
+    if (actionType() == VCButton::Toggle)
+    {
+        Function *f = m_doc->function(m_functionID);
+        if (f != NULL)
         {
             f->stop(functionParent());
             resetIntensityOverrideAttribute();
         }
-    }
-    else
-    {
-        adjustFunctionIntensity(f, intensity());
-        f->start(m_doc->masterTimer(), functionParent());
-        setState(Active);
     }
 }
 
@@ -281,6 +308,38 @@ FunctionParent VCButton::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
+/*****************************************************************************
+ * Flash Properties
+ *****************************************************************************/
+
+bool VCButton::flashOverrides() const
+{
+    return m_flashOverrides;
+}
+
+void VCButton::setFlashOverride(bool shouldOverride)
+{
+    if (m_flashOverrides == shouldOverride)
+        return;
+
+    m_flashOverrides = shouldOverride;
+    emit flashOverrideChanged(shouldOverride);
+}
+
+bool VCButton::flashForceLTP() const
+{
+    return m_flashForceLTP;
+}
+
+void VCButton::setFlashForceLTP(bool forceLTP)
+{
+    if (m_flashForceLTP == forceLTP)
+        return;
+
+    m_flashForceLTP = forceLTP;
+    emit flashForceLTPChanged(forceLTP);
+}
+
 /*********************************************************************
  * Button state
  *********************************************************************/
@@ -299,13 +358,7 @@ void VCButton::setState(ButtonState state)
 
     emit stateChanged(m_state);
 
-    if (m_state == Monitoring)
-        return;
-
-    if (m_state == Inactive)
-        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
-    else
-        sendFeedback(255, INPUT_PRESSURE_ID, VCWidget::UpperValue);
+    updateFeedback();
 }
 
 void VCButton::requestStateChange(bool pressed)
@@ -317,24 +370,41 @@ void VCButton::requestStateChange(bool pressed)
         case Toggle:
         {
             Function *f = m_doc->function(m_functionID);
-            if (f == nullptr)
+            if (f == NULL)
                 return;
 
-            if (state() != Active && pressed == true)
+            // if the button is in a SoloFrame and the function is running but was
+            // started by a different function (a chaser or collection), turn other
+            // functions off and start this one.
+            if (state() == Active && !(hasSoloParent() && f->startedAsChild()))
             {
-                if (hasSoloParent())
-                    emit functionStarting(this, m_functionID);
-                else
-                    notifyFunctionStarting(this, m_functionID, 1.0);
+                f->stop(functionParent());
+                resetIntensityOverrideAttribute();
+                setState(Inactive);
             }
-            else if (state() == Active && pressed == false)
+            else
             {
-                if (f->isRunning())
+                adjustFunctionIntensity(f, intensity());
+
+                // starting a Chaser is a special case, since it is necessary
+                // to use Chaser Actions to properly start the first
+                // Chaser step with the right intensity
+                if (f->type() == Function::ChaserType || f->type() == Function::SequenceType)
                 {
-                    f->stop(functionParent());
-                    resetIntensityOverrideAttribute();
-                    setState(Inactive);
+                    ChaserAction action;
+                    action.m_action = ChaserSetStepIndex;
+                    action.m_stepIndex = 0;
+                    action.m_masterIntensity = intensity();
+                    action.m_stepIntensity = 1.0;
+                    action.m_fadeMode = Chaser::FromFunction;
+
+                    Chaser *chaser = qobject_cast<Chaser*>(f);
+                    chaser->setAction(action);
                 }
+
+                f->start(m_doc->masterTimer(), functionParent());
+                setState(Active);
+                emit functionStarting(this, m_functionID);
             }
         }
         break;
@@ -345,7 +415,7 @@ void VCButton::requestStateChange(bool pressed)
             {
                 if (state() == Inactive && pressed == true)
                 {
-                    f->flash(m_doc->masterTimer());
+                    f->flash(m_doc->masterTimer(), flashOverrides(), flashForceLTP());
                     setState(Active);
                 }
                 else if (state() == Active && pressed == false)
@@ -478,6 +548,16 @@ void VCButton::setStartupIntensity(qreal fraction)
  * External input
  *********************************************************************/
 
+void VCButton::updateFeedback()
+{
+    if (m_state == Inactive)
+        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
+    else if (m_state == Monitoring)
+        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::MonitorValue);
+    else
+        sendFeedback(UCHAR_MAX, INPUT_PRESSURE_ID, VCWidget::UpperValue);
+}
+
 void VCButton::slotInputValueChanged(quint8 id, uchar value)
 {
     if (id != INPUT_PRESSURE_ID)
@@ -539,6 +619,12 @@ bool VCButton::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toInt());
 
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashOverride))
+                    setFlashOverride(attrs.value(KXMLQLCVCButtonFlashOverride).toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVCButtonFlashForceLTP))
+                    setFlashForceLTP(attrs.value(KXMLQLCVCButtonFlashForceLTP).toInt());
+
             setActionType(stringToAction(root.readElementText()));
         }
         else if (root.name() == KXMLQLCVCButtonIntensity)
@@ -569,7 +655,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCButton::saveXML(QXmlStreamWriter *doc)
+bool VCButton::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -593,13 +679,20 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCVCButtonAction);
 
     if (actionType() == StopAll && stopAllFadeOutTime() != 0)
+    {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeOutTime()));
+    }
+    else if (actionType() == Flash)
+    {
+        doc->writeAttribute(KXMLQLCVCButtonFlashOverride, QString::number(flashOverrides()));
+        doc->writeAttribute(KXMLQLCVCButtonFlashForceLTP, QString::number(flashForceLTP()));
+    }
 
     doc->writeCharacters(actionToString(actionType()));
     doc->writeEndElement();
 
     /* External control */
-    saveXMLInputControl(doc, INPUT_PRESSURE_ID);
+    saveXMLInputControl(doc, INPUT_PRESSURE_ID, false);
 
     /* Intensity adjustment */
     if (startupIntensityEnabled())

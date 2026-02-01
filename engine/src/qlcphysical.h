@@ -31,34 +31,34 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCPhysical QString("Physical")
+#define KXMLQLCPhysical QStringLiteral("Physical")
 
-#define KXMLQLCPhysicalBulb         QString("Bulb")
-#define KXMLQLCPhysicalBulbType     QString("Type")
-#define KXMLQLCPhysicalBulbLumens   QString("Lumens")
-#define KXMLQLCPhysicalBulbColourTemperature QString("ColourTemperature")
+#define KXMLQLCPhysicalBulb         QStringLiteral("Bulb")
+#define KXMLQLCPhysicalBulbType     QStringLiteral("Type")
+#define KXMLQLCPhysicalBulbLumens   QStringLiteral("Lumens")
+#define KXMLQLCPhysicalBulbColourTemperature QStringLiteral("ColourTemperature")
 
-#define KXMLQLCPhysicalLens             QString("Lens")
-#define KXMLQLCPhysicalLensName         QString("Name")
-#define KXMLQLCPhysicalLensDegreesMin   QString("DegreesMin")
-#define KXMLQLCPhysicalLensDegreesMax   QString("DegreesMax")
+#define KXMLQLCPhysicalLens             QStringLiteral("Lens")
+#define KXMLQLCPhysicalLensName         QStringLiteral("Name")
+#define KXMLQLCPhysicalLensDegreesMin   QStringLiteral("DegreesMin")
+#define KXMLQLCPhysicalLensDegreesMax   QStringLiteral("DegreesMax")
 
-#define KXMLQLCPhysicalDimensions       QString("Dimensions")
-#define KXMLQLCPhysicalDimensionsWeight QString("Weight")
-#define KXMLQLCPhysicalDimensionsWidth  QString("Width")
-#define KXMLQLCPhysicalDimensionsHeight QString("Height")
-#define KXMLQLCPhysicalDimensionsDepth  QString("Depth")
+#define KXMLQLCPhysicalDimensions       QStringLiteral("Dimensions")
+#define KXMLQLCPhysicalDimensionsWeight QStringLiteral("Weight")
+#define KXMLQLCPhysicalDimensionsWidth  QStringLiteral("Width")
+#define KXMLQLCPhysicalDimensionsHeight QStringLiteral("Height")
+#define KXMLQLCPhysicalDimensionsDepth  QStringLiteral("Depth")
 
-#define KXMLQLCPhysicalLayout QString("Layout")
+#define KXMLQLCPhysicalLayout QStringLiteral("Layout")
 
-#define KXMLQLCPhysicalFocus        QString("Focus")
-#define KXMLQLCPhysicalFocusType    QString("Type")
-#define KXMLQLCPhysicalFocusPanMax  QString("PanMax")
-#define KXMLQLCPhysicalFocusTiltMax QString("TiltMax")
+#define KXMLQLCPhysicalFocus        QStringLiteral("Focus")
+#define KXMLQLCPhysicalFocusType    QStringLiteral("Type")
+#define KXMLQLCPhysicalFocusPanMax  QStringLiteral("PanMax")
+#define KXMLQLCPhysicalFocusTiltMax QStringLiteral("TiltMax")
 
-#define KXMLQLCPhysicalTechnical                    QString("Technical")
-#define KXMLQLCPhysicalTechnicalPowerConsumption    QString("PowerConsumption")
-#define KXMLQLCPhysicalTechnicalDmxConnector        QString("DmxConnector")
+#define KXMLQLCPhysicalTechnical                    QStringLiteral("Technical")
+#define KXMLQLCPhysicalTechnicalPowerConsumption    QStringLiteral("PowerConsumption")
+#define KXMLQLCPhysicalTechnicalDmxConnector        QStringLiteral("DmxConnector")
 
 
 /**
@@ -66,7 +66,7 @@ class QXmlStreamWriter;
  * mode). These properties include weight, dimensions, light source, lens,
  * movement capabilities and beam width.
  */
-class QLCPhysical
+class QLCPhysical final
 {
     /************************************************************************
      * Initialization
@@ -163,7 +163,7 @@ public:
     bool loadXML(QXmlStreamReader &doc);
 
     /** Save physical values to the given XML tag in the given document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

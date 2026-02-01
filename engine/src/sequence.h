@@ -28,7 +28,7 @@
  * @{
  */
 
-class Sequence : public Chaser
+class Sequence final : public Chaser
 {
     Q_OBJECT
     Q_DISABLE_COPY(Sequence)
@@ -41,17 +41,17 @@ public:
     virtual ~Sequence();
 
     /** @reimp */
-    QIcon getIcon() const;
+    QIcon getIcon() const override;
 
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function* function) override;
 
     /*********************************************************************
      * Bound Scene
@@ -71,7 +71,7 @@ public:
      */
     quint32 boundSceneID() const;
 
-    QList<quint32> components();
+    QList<quint32> components() const override;
 
 protected:
     /** The Scene ID associated to this Sequence */
@@ -88,13 +88,13 @@ protected:
      *********************************************************************/
 public:
     /** @reimpl */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** @reimpl */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    void postLoad();
+    void postLoad() override;
 };
 
 /** @} */

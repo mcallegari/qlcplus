@@ -25,7 +25,7 @@
 #include <QMutex>
 #include <QList>
 #include <QIcon>
-#include <QHash>
+#include <QMap>
 
 #include "qlcchannel.h"
 #include "qlcfixturedef.h"
@@ -44,22 +44,23 @@ class Doc;
  * @{
  */
 
-#define KXMLFixture             QString("Fixture")
-#define KXMLFixtureName         QString("Name")
-#define KXMLFixtureUniverse     QString("Universe")
-#define KXMLFixtureAddress      QString("Address")
-#define KXMLFixtureID           QString("ID")
-#define KXMLFixtureGeneric      QString("Generic")
-#define KXMLFixtureRGBPanel     QString("RGBPanel")
-#define KXMLFixtureChannels     QString("Channels")
-#define KXMLFixtureDimmer       QString("Dimmer")
-#define KXMLFixtureExcludeFade  QString("ExcludeFade")
-#define KXMLFixtureForcedHTP    QString("ForcedHTP")
-#define KXMLFixtureForcedLTP    QString("ForcedLTP")
+#define KXMLFixture                 QStringLiteral("Fixture")
+#define KXMLFixtureName             QStringLiteral("Name")
+#define KXMLFixtureUniverse         QStringLiteral("Universe")
+#define KXMLFixtureCrossUniverse    QStringLiteral("CrossUniverse")
+#define KXMLFixtureAddress          QStringLiteral("Address")
+#define KXMLFixtureID               QStringLiteral("ID")
+#define KXMLFixtureGeneric          QStringLiteral("Generic")
+#define KXMLFixtureRGBPanel         QStringLiteral("RGBPanel")
+#define KXMLFixtureChannels         QStringLiteral("Channels")
+#define KXMLFixtureDimmer           QStringLiteral("Dimmer")
+#define KXMLFixtureExcludeFade      QStringLiteral("ExcludeFade")
+#define KXMLFixtureForcedHTP        QStringLiteral("ForcedHTP")
+#define KXMLFixtureForcedLTP        QStringLiteral("ForcedLTP")
 
-#define KXMLFixtureChannelModifier  QString("Modifier")
-#define KXMLFixtureChannelIndex     QString("Channel")
-#define KXMLFixtureModifierName     QString("Name")
+#define KXMLFixtureChannelModifier  QStringLiteral("Modifier")
+#define KXMLFixtureChannelIndex     QStringLiteral("Channel")
+#define KXMLFixtureModifierName     QStringLiteral("Name")
 
 typedef struct
 {
@@ -67,7 +68,7 @@ typedef struct
     QLCCapability *m_currCap; /** The current capability in use */
 } ChannelAlias;
 
-class Fixture : public QObject
+class Fixture final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(Fixture)
@@ -180,6 +181,19 @@ public:
      */
     quint32 universe() const;
 
+    /** Set if this Fixture crosses a DMX universe
+     *
+     *  @param cross-universe enable flag
+     */
+    void setCrossUniverse(bool enable);
+
+    /**
+     * Get the fixture cross universe flag
+     *
+     * @return true if this Fixture crosses a universe
+     */
+    bool crossUniverse() const;
+
     /*********************************************************************
      * Address
      *********************************************************************/
@@ -277,10 +291,10 @@ public:
 
     /** Return a list of DMX values based on the given position degrees
      *  and the provided type (Pan or Tilt) */
-    QList<SceneValue> positionToValues(int type, int degrees) const;
+    QList<SceneValue> positionToValues(int type, float degrees, bool isRelative = false);
 
     /** Return a list of DMX values based on the given zoom degrees */
-    QList<SceneValue> zoomToValues(float degrees) const;
+    QList<SceneValue> zoomToValues(float degrees, bool isRelative);
 
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);
@@ -321,6 +335,9 @@ protected:
     /** DMX address & universe */
     quint32 m_address;
 
+    /** Flag that indicates if this fixture crosses a DMX Universe */
+    bool m_crossUniverse;
+
     /** Number of channels (ONLY for dimmer fixtures!) */
     quint32 m_channels;
 
@@ -336,7 +353,7 @@ protected:
     /** Hash holding the pair <channel index, modifier pointer>
      *  This is basically the place to store them to be saved/loaded
      *  on the project XML file */
-    QHash<quint32, ChannelModifier*> m_channelModifiers;
+    QMap<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
      * Channel info
@@ -362,6 +379,7 @@ signals:
 protected:
     /** Runtime array to store DMX values and check for changes */
     QByteArray m_values;
+
     /** Runtime array to check for alias changes */
     QVector<ChannelAlias> m_aliasInfo;
     QMutex m_channelsInfoMutex;
@@ -450,16 +468,19 @@ public:
         RGBW,
         RBG
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Components)
-#endif
+
+protected:
+    QString componentsToString(Components comp, bool is16bit);
+    Components stringToComponents(QString str, bool &is16bit);
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */
-    QLCFixtureDef *genericRGBPanelDef(int columns, Components components);
+    QLCFixtureDef *genericRGBPanelDef(int columns, Components components, bool is16bit);
 
     /** Creates and returns a fixture mode for a generic RGB panel row */
-    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, quint32 width, quint32 height);
+    QLCFixtureMode *genericRGBPanelMode(QLCFixtureDef *def, Components components, bool is16bit,
+                                        quint32 width, quint32 height);
 
     /*********************************************************************
      * Load & Save
@@ -491,17 +512,6 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QXmlStreamWriter *doc) const;
-
-    /*********************************************************************
-     * Status
-     *********************************************************************/
-public:
-    /**
-     * Get the fixture instance's status info for Fixture Manager
-     *
-     * @return A sort-of HTML-RTF-gibberish for Fixture Manager
-     */
-    QString status() const;
 };
 
 /** @} */

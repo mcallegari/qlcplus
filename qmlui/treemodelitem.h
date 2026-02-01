@@ -25,7 +25,7 @@
 
 class TreeModel;
 
-class TreeModelItem: public QObject
+class TreeModelItem final : public QObject
 {
     Q_OBJECT
 

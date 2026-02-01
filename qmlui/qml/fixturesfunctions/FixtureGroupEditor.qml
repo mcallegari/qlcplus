@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -61,7 +61,7 @@ Rectangle
                 font.bold: true
                 selectByMouse: true
                 text: fixtureGroupEditor.groupName
-                onTextChanged: fixtureGroupEditor.groupName = text
+                onTextEdited: fixtureGroupEditor.groupName = text
             }
 
             Rectangle { color: "transparent"; Layout.fillWidth: true; }
@@ -97,14 +97,15 @@ Rectangle
             IconButton
             {
                 id: posButton
-                imgSource: "qrc:/position.svg"
+                faSource: FontAwesome.fa_left_right
                 tooltip: qsTr("Transform the selected items")
                 onClicked: transformMenu.open()
             }
 
             IconButton
             {
-                imgSource: "qrc:/remove.svg"
+                enabled: groupGrid.selectionData === null || groupGrid.selectionData.length === 0 ? false : true
+                faSource: FontAwesome.fa_eraser
                 tooltip: qsTr("Remove the selected items")
                 onClicked:
                 {
@@ -118,8 +119,8 @@ Rectangle
 
             IconButton
             {
-                faSource: FontAwesome.fa_remove
-                faColor: UISettings.bgControl
+                faSource: FontAwesome.fa_trash_can
+                faColor: "darkred"
                 tooltip: qsTr("Reset the entire group")
                 onClicked: fixtureGroupEditor.resetGroup()
             }
@@ -241,7 +242,7 @@ Rectangle
                 }
             }
 
-            onPressed:
+            onPressed: (xPos, yPos, mods) =>
             {
                 var empty = []
                 focus = true
@@ -257,7 +258,7 @@ Rectangle
                     var absIdx = (yPos * gridSize.width) + xPos
                     if (selectionData && selectionData.indexOf(absIdx) >= 0)
                         return
-                    if (contextManager.multipleSelection === false && mods == 0)
+                    if (contextManager.multipleSelection === false && mods === 0)
                     {
                         setSelectionData(empty)
                         fixtureGroupEditor.resetSelection()
@@ -266,7 +267,7 @@ Rectangle
                 }
             }
 
-            onReleased:
+            onReleased: (xPos, yPos, offset, mods) =>
             {
                 gridFlickable.interactive = true
 
@@ -280,12 +281,12 @@ Rectangle
                 }
             }
 
-            onPositionChanged:
+            onPositionChanged: (xPos, yPos, offset, mods) =>
             {
                 validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
             }
 
-            onDragEntered:
+            onDragEntered: (xPos, yPos, dragEvent) =>
             {
                 console.log("Drag entered at " + xPos + ", " + yPos)
                 var tmp
@@ -309,12 +310,12 @@ Rectangle
                 setSelectionData(tmp)
             }
 
-            onDragPositionChanged:
+            onDragPositionChanged: (xPos, yPos, offset, dragEvent) =>
             {
                 validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
             }
 
-            onDragDropped:
+            onDragDropped: (xPos, yPos, dragEvent) =>
             {
                 console.log("Drag dropped at " + xPos + ", " + yPos)
                 for (var i = 0; i < dragEvent.source.itemsList.length; i++)

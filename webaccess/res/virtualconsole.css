@@ -1,4 +1,6 @@
-body { margin: 0px; }
+body {
+ margin: 0px;
+}
 
 form {
  position: absolute;
@@ -6,18 +8,29 @@ form {
  visibility: hidden;
 }
 
+input:focus-visible {
+ outline: none;
+}
+
 .vcbutton-wrapper {
  position: absolute;
 }
 
 .vcbutton {
- display: table-cell;
- border: 3px solid #A0A0A0;
+ display: flex;
+ overflow: hidden;
+ align-items: center;
+ justify-content: center;
+ box-sizing: border-box;
+ border: 3px solid #a0a0a0;
  border-radius: 4px;
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
  text-align: center;
- vertical-align: middle;
+}
+
+.vcbutton-disabled {
+ color: #a0a0a0!important;
 }
 
 .vccuelist {
@@ -29,34 +42,76 @@ form {
 .vccuelistButton {
  display: inline-block;
  vertical-align: top;
- background: linear-gradient(to bottom, #F6F6F6 0%, #DFDDDC 100%);
- background: -ms-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
- background: -moz-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
- background: -o-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F6F6F6), color-stop(1, #DFDDDC));
- background: -webkit-linear-gradient(top, #F6F6F6 0%, #DFDDDC 100%);
+ background: linear-gradient(to bottom, #f6f6f6 0%, #dfdddc 100%);
  border-radius: 3px;
  border: 1px solid #808080;
  margin: 2px 2px 0 0;
  padding: 1px;
  height: 27px;
- width: 22%;
+ width: 25%;
  text-align: center;
 }
 
-.vccuelistButton:active { background: #868585; }
+.vccuelistButton-disabled {
+ background: #888;
+ opacity: 0.5;
+}
+
+.vccuelistButtonPaused {
+ background: #5b81ff!important;
+}
+
+.vccuelistButton:active {
+ background: #868585;
+}
+
+.vccuelistFadeButton {
+ border-radius: 3px;
+ border: 1px solid #808080;
+ margin: 2px 2px 0 0;
+ padding: 1px;
+ height: 27px;
+ width: 27px;
+}
+
+.vccuelistFadeButton-disabled {
+ background: #888;
+ opacity: 0.5;
+}
+
+.vccuelistProgress {
+ margin-top: 2px;
+ width: 100%;
+ background-color: #c3c3c3;
+ border: 1px solid grey;
+ height: 20px;
+}
+
+.vccuelistProgressBar {
+ width: 0%;
+ height: 20px;
+ background-color: #0f9bec;
+}
+
+.vccuelistProgressVal {
+ width: 100%;
+ text-align: center;
+ height: 27px;
+ line-height: 20px;
+ margin-top: -20px;
+}
 
 table.hovertable {
- font-family: verdana,arial,sans-serif;
- font-size:11px;
- color:#333333;
+ font-family: verdana, arial, sans-serif;
+ font-size: 11px;
+ color: #333333;
  border-width: 1px;
  border-color: #999999;
  border-collapse: collapse;
 }
 
 table.hovertable th {
- background-color:#DCD9D6;
+ background-color: #dcd9d6;
  border-width: 1px;
  padding: 3px;
  border-style: solid;
@@ -65,7 +120,15 @@ table.hovertable th {
 }
 
 table.hovertable tr {
- background-color:#ffffff;
+ background-color: #ffffff;
+}
+
+table.cell-disabled tr {
+ background-color: #eee;
+}
+
+table.hovertable tr:hover {
+ background-color: #ccd9ff;
 }
 
 table.hovertable td {
@@ -84,28 +147,27 @@ table.hovertable td {
 
 .vcframeHeader {
  background: linear-gradient(to bottom, #666666 0%, #000000 100%);
- background: -ms-linear-gradient(top, #666666 0%, #000000 100%);
- background: -moz-linear-gradient(top, #666666 0%, #000000 100%);
- background: -o-linear-gradient(top, #666666 0%, #000000 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
- background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 0 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
 
 .vcFrameText {
- display: table-cell;
- height: 32px;
- vertical-align: middle;
- font:normal 18px/1.0em sans-serif;
+ height: 30px;
+ font: normal 14px/1.0em sans-serif;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: clip;
+ display: flex;
+ align-items: center;
+ flex-direction: row;
 }
 
 .vcframeButton {
  display: inline-block;
  vertical-align: top;
- background: #E0DFDF;
+ background: #e0dfdf;
  border-radius: 3px;
  border: 1px solid #000;
  margin: 2px 0 0 2px;
@@ -114,13 +176,15 @@ table.hovertable td {
  width: 28px;
 }
 
-.vcframeButton:active { background: #868585; }
+.vcframeButton:active {
+ background: #868585;
+}
 
 .vcframePageLabel {
  display: inline-block;
  background: #000000;
  border-radius: 3px;
- margin: 2px 0 0 0;
+ margin: 2px 0 0 2px;
  height: 32px;
  width: 100px;
  text-align: center;
@@ -138,27 +202,28 @@ table.hovertable td {
 }
 
 .vcsoloframeHeader {
- background: linear-gradient(to bottom, #BC0A0A 0%, #370303 100%);
- background: -ms-linear-gradient(top, #BC0A0A 0%, #370303 100%);
- background: -moz-linear-gradient(top, #BC0A0A 0%, #370303 100%);
- background: -o-linear-gradient(top, #BC0A0A 0%, #370303 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
- background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
+ background: linear-gradient(to bottom, #bc0a0a 0%, #370303 100%);
  border-radius: 3px;
- margin: 2px 2px 0 36px;
+ margin: 2px 2px 0 2px;
  padding: 0 0 0 3px;
  height: 32px;
 }
 
-.vclabel-wrapper { position: absolute; }
+.vclabel-wrapper {
+ position: absolute;
+}
 
 .vclabel {
  display: table-cell;
- border: 1px solid #A0A0A0;
+ border: 1px solid #a0a0a0;
  border-radius: 3px;
  font-family: arial, verdana, sans-serif;
  text-align:center;
  vertical-align: middle;
+}
+
+.vclabel-disabled {
+ color: #a0a0a0!important;
 }
 
 .vcclock, .vcclockcount {
@@ -174,33 +239,60 @@ table.hovertable td {
 }
 
 .vcslLabel {
- height:20px;
- text-align:center;
- font:normal 16px sans-serif;
+ height: 20px;
+ text-align: center;
+ font: normal 16px sans-serif;
+}
+
+.vcslLabel-disabled {
+ color: #a0a0a0!important;
+}
+
+input[type="range"] {
+ appearance: none;
 }
 
 input[type="range"].vVertical {
- -webkit-appearance: none;
+ --rotate: 270;
  height: 4px;
- border: 1px solid #8E8A86;
+ border: 1px solid #8e8a86;
  background-color: #888888;
- -webkit-transform:rotate(270deg);
- -webkit-transform-origin: 0% 50%;
- -moz-transform:rotate(270deg);
- -o-transform:rotate(270deg);
- -ms-transform:rotate(270deg);
- -ms-transform-origin:0% 50%;
- transform:rotate(270deg);
- transform-origin:0% 50%;
+ transform: rotate(calc(var(--rotate) * 1deg));
+ transform-origin: 0% 50%;
 }
 
+input[type="range"].vVertical-disabled {
+ background-color: #ccc!important;
+}
+
+/* Chrome, Edge, Opera */
 input[type="range"]::-webkit-slider-thumb {
- -webkit-appearance: none;
+ appearance: none;
  background-color: #999999;
  border-radius: 4px;
  border: 1px solid #5c5c5c;
  width: 20px;
  height: 36px;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+ appearance: none;
+ background-color: #ccc;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+ appearance: none;
+ background-color: #999999;
+ border-radius: 4px;
+ border: 1px solid #5c5c5c;
+ width: 20px;
+ height: 36px;
+}
+
+input[type="range"]:disabled::-moz-range-thumb {
+ appearance: none;
+ background-color: #ccc;
 }
 
 .vcaudiotriggers {
@@ -210,24 +302,21 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .vcaudioHeader {
- background: linear-gradient(to bottom, #345D27 0%, #0E1A0A 100%);
- background: -ms-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
- background: -moz-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
- background: -o-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
- background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #345D27), color-stop(1, #0E1A0A));
- background: -webkit-linear-gradient(top, #345D27 0%, #0E1A0A 100%);
+ background: linear-gradient(to bottom, #345d27 0%, #0e1a0a 100%);
  border-radius: 3px;
  height: 32px;
  margin: 2px;
  padding: 0 0 0 3px;
- font:normal 20px/1.2em sans-serif;
+ font: normal 20px/1.2em sans-serif;
 }
 
-.vcatbutton-wrapper { position: absolute; }
+.vcatbutton-wrapper {
+ position: absolute;
+}
 
 .vcatbutton {
  display: table-cell;
- border: 3px solid #A0A0A0;
+ border: 3px solid #a0a0a0;
  border-radius: 4px;
  font-family: arial, verdana, sans-serif;
  text-decoration: none;
@@ -239,6 +328,208 @@ input[type="range"]::-webkit-slider-thumb {
  position: absolute;
  border: 1px solid #777777;
  border-radius: 3px;
- font-family: arial, verdana, sans-serif;
- font-size: 18px/1.0em;
+ font: 18px/1.0em arial, verdana, sans-serif;
+}
+
+.vcmatrix {
+ position: absolute;
+ border: 1px solid #777777;
+ font: 18px/1.0em arial, verdana, sans-serif;
+}
+
+input[type="color"].vMatrix {
+ padding: 0px;
+ width: 48px;
+ height: 48px;
+}
+
+.matrixSelect {
+ padding: 2px;
+ width: 100%;
+ background-color: #eee;
+}
+
+.matrixSelect option {
+ background-color: #fff;
+}
+
+.pushButton {
+ height: 32px;
+ border: 2px solid #6a6a6a;
+ border-radius: 5px;
+ cursor: pointer;
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+ align-items: center;
+ text-wrap: nowrap;
+ overflow: hidden;
+ font-size: 12px;
+}
+.pushButton:disabled {
+ border: 2px solid #bbbbbb;
+ color: #8f8f8f
+}
+
+.pushButton:active {
+ border: 2px solid #0000ff;
+}
+
+@property --degValue {
+ syntax: '<number>';
+ inherits: true;
+ initial-value: 0;
+}
+
+@keyframes p {
+ from{--degValue: 0}
+}
+
+.pieWrapper, .mpieWrapper {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.pie {
+ --degValue: 20;
+ --pieWidth: 150px;
+ --color1: lime;
+ --color2: #555;
+
+ width: var(--pieWidth);
+ height: var(--pieWidth);
+ aspect-ratio: 1;
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.pie::before {
+ content: "";
+ position: absolute;
+ border-radius: 50%;
+ inset: 0;
+ transform: rotate(190deg);
+ background: conic-gradient(var(--color1) calc(var(--degValue) * 1deg), var(--color2) calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
+}
+
+.knobWrapper {
+ --knobWrapperWidth: 145px;
+
+ width: var(--knobWrapperWidth);
+ height: var(--knobWrapperWidth);
+ background-color: #aaa;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.knob {
+ --knobWidth: 110px;
+
+ width: var(--knobWidth);
+ height: var(--knobWidth);
+ background: #bbb;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+}
+
+.spot {
+ --spotWidth: 15px;
+
+ width: var(--spotWidth);
+ height: var(--spotWidth);
+ background-color: #ccc;
+ border-radius: 50%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ cursor: pointer;
+ border: solid 1px;
+}
+
+.mpie {
+ --degValue: 0;
+
+ width: 36px;
+ height: 36px;
+ aspect-ratio: 1;
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.mpie::before {
+ content: "";
+ position: absolute;
+ border-radius: 50%;
+ inset: 0;
+ transform: rotate(190deg);
+ background: conic-gradient(lime calc(var(--degValue) * 1deg), #555 calc(var(--degValue) * 1deg) 340deg, #0000 340deg);
+}
+
+.mknobWrapper {
+ width: 32px;
+ height: 32px;
+ background-color: #aaa;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.mknob {
+ width: 28px;
+ height: 28px;
+ background: #bbb;
+ border-radius: 50%;
+ position: relative;
+ cursor: pointer;
+}
+
+.mspot {
+ width: 6px;
+ height: 6px;
+ background-color: #ccc;
+ border-radius: 50%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ cursor: pointer;
+ border: solid 1px;
+}
+
+#vc {
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ height: calc(100vh - 40px); /* Minus controlBar height */
+}
+
+#vcScrollContainer {
+ overflow: auto;
+}
+
+#vcGM {
+ height: calc(100vh - 40px);
+ width: 40px;
+ background-color: #ccc;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+}
+
+#vcGM .vcslLabel {
+ height: auto;
 }

@@ -24,7 +24,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include <QLabel>
-#include <QHash>
+#include <QMap>
 
 #include "vcwidget.h"
 #include "vcmatrixcontrol.h"
@@ -40,19 +40,22 @@ class RGBMatrix;
  * @{
  */
 
-#define KXMLQLCVCMatrix             QString("Matrix")
+#define KXMLQLCVCMatrix             QStringLiteral("Matrix")
 
-#define KXMLQLCVCMatrixFunction     QString("Function")
-#define KXMLQLCVCMatrixFunctionID   QString("ID")
+#define KXMLQLCVCMatrixFunction     QStringLiteral("Function")
+#define KXMLQLCVCMatrixFunctionID   QStringLiteral("ID")
 
-#define KXMLQLCVCMatrixInstantApply QString("InstantApply")
+#define KXMLQLCVCMatrixInstantApply QStringLiteral("InstantApply")
 
-#define KXMLQLCVCMatrixStartColor   QString("StartColor")
-#define KXMLQLCVCMatrixEndColor     QString("EndColor")
+#define KXMLQLCVCMatrixColor1       QStringLiteral("Color 1")
+#define KXMLQLCVCMatrixColor2       QStringLiteral("Color 2")
+#define KXMLQLCVCMatrixColor3       QStringLiteral("Color 3")
+#define KXMLQLCVCMatrixColor4       QStringLiteral("Color 4")
+#define KXMLQLCVCMatrixColor5       QStringLiteral("Color 5")
 
-#define KXMLQLCVCMatrixVisibilityMask QString("Visibility")
+#define KXMLQLCVCMatrixVisibilityMask QStringLiteral("Visibility")
 
-class VCMatrix : public VCWidget
+class VCMatrix final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCMatrix)
@@ -63,9 +66,12 @@ public:
         None                 = 0,
         ShowSlider           = 1 << 0,
         ShowLabel            = 1 << 1,
-        ShowStartColorButton = 1 << 2,
-        ShowEndColorButton   = 1 << 3,
-        ShowPresetCombo      = 1 << 4,
+        ShowPresetCombo      = 1 << 2,
+        ShowColor1Button     = 1 << 3,
+        ShowColor2Button     = 1 << 4,
+        ShowColor3Button     = 1 << 5,
+        ShowColor4Button     = 1 << 6,
+        ShowColor5Button     = 1 << 7
     };
 
 public:
@@ -80,16 +86,22 @@ public:
     ~VCMatrix();
 
     /** @reimp */
-    void setID(quint32 id);
+    void setID(quint32 id) override;
 
 private:
     ClickAndGoSlider *m_slider;
     bool m_sliderExternalMovement;
     QLabel *m_label;
-    QToolButton *m_startColorButton;
-    ClickAndGoWidget *m_scCnGWidget;
-    QToolButton *m_endColorButton;
-    ClickAndGoWidget *m_ecCnGWidget;
+    QToolButton *m_mtxColor1Button;
+    ClickAndGoWidget *m_mtxColor1CnGWidget;
+    QToolButton *m_mtxColor2Button;
+    ClickAndGoWidget *m_mtxColor2CnGWidget;
+    QToolButton *m_mtxColor3Button;
+    ClickAndGoWidget *m_mtxColor3CnGWidget;
+    QToolButton *m_mtxColor4Button;
+    ClickAndGoWidget *m_mtxColor4CnGWidget;
+    QToolButton *m_mtxColor5Button;
+    ClickAndGoWidget *m_mtxColor5CnGWidget;
     QComboBox *m_presetCombo;
     FlowLayout *m_controlsLayout;
 
@@ -97,40 +109,62 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*********************************************************************
      * GUI
      *********************************************************************/
 public:
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /** @reimp */
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
-private slots:
+    int sliderValue() const;
+    QString animationValue() const;
+    QColor mtxColor(int id) const;
+
+signals:
+    void sliderValueChanged(int value);
+    void mtxColorChanged(int index);
+    void animationValueChanged(QString name);
+    void matrixControlKnobValueChanged(int controlID, int value);
+
+public slots:
+    void slotSetSliderValue(int value);
     void slotSliderMoved(int value);
-    void slotStartColorChanged(QRgb color);
-    void slotEndColorChanged(QRgb color);
-    void slotAnimationChanged(QString name);
+    void slotSetColor1(QColor color);
+    void slotColor1Changed(QRgb color);
+    void slotSetColor2(QColor color);
+    void slotColor2Changed(QRgb color);
+    void slotSetColor3(QColor color);
+    void slotColor3Changed(QRgb color);
+    void slotSetColor4(QColor color);
+    void slotColor4Changed(QRgb color);
+    void slotSetColor5(QColor color);
+    void slotColor5Changed(QRgb color);
+    void slotSetAnimationValue(QString name);
+    void slotAnimationChanged(int index);
+    void slotMatrixControlKnobValueChanged(int controlID, int value);
+    void slotMatrixControlPushButtonClicked(int controlID);
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
     /** Edit this widget's properties */
-    void editProperties();
+    void editProperties() override;
 
     /*************************************************************************
      * VCWidget-inherited
      *************************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /*********************************************************************
      * Function attachment
@@ -153,7 +187,7 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
 
 private slots:
     /** Update slider when function stops. */
@@ -210,6 +244,8 @@ public:
     void addCustomControl(VCMatrixControl const& control);
     void resetCustomControls();
     QList<VCMatrixControl *> customControls() const;
+    QMap<quint32,QString> customControlsMap() const;
+    QWidget *getWidget(VCMatrixControl* control) const;
 
 protected slots:
     void slotCustomControlClicked();
@@ -217,33 +253,34 @@ protected slots:
 
 protected:
     QHash<QWidget *, VCMatrixControl *> m_controls;
+    QHash<VCMatrixControl *, QWidget *> m_widgets;
 
     /*********************************************************************
      * QLC+ Mode
      *********************************************************************/
 public slots:
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*********************************************************************
      * External input / key binding
      *********************************************************************/
 public:
     /** @reimp */
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
     /** @reimp */
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
     /** Called when an external input device produces input data */
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 
 };
 

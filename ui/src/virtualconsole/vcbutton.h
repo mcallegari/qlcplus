@@ -41,26 +41,29 @@ class QEvent;
  * @{
  */
 
-#define KXMLQLCVCButton     QString("Button")
-#define KXMLQLCVCButtonIcon QString("Icon")
+#define KXMLQLCVCButton     QStringLiteral("Button")
+#define KXMLQLCVCButtonIcon QStringLiteral("Icon")
 
-#define KXMLQLCVCButtonFunction     QString("Function")
-#define KXMLQLCVCButtonFunctionID   QString("ID")
+#define KXMLQLCVCButtonFunction     QStringLiteral("Function")
+#define KXMLQLCVCButtonFunctionID   QStringLiteral("ID")
 
-#define KXMLQLCVCButtonAction           QString("Action")
-#define KXMLQLCVCButtonActionFlash      QString("Flash")
-#define KXMLQLCVCButtonActionToggle     QString("Toggle")
-#define KXMLQLCVCButtonActionBlackout   QString("Blackout")
-#define KXMLQLCVCButtonActionStopAll    QString("StopAll")
+#define KXMLQLCVCButtonAction           QStringLiteral("Action")
+#define KXMLQLCVCButtonActionFlash      QStringLiteral("Flash")
+#define KXMLQLCVCButtonActionToggle     QStringLiteral("Toggle")
+#define KXMLQLCVCButtonActionBlackout   QStringLiteral("Blackout")
+#define KXMLQLCVCButtonActionStopAll    QStringLiteral("StopAll")
 
-#define KXMLQLCVCButtonStopAllFadeTime  QString("FadeOut")
+#define KXMLQLCVCButtonFlashOverride    QStringLiteral("Override")
+#define KXMLQLCVCButtonFlashForceLTP    QStringLiteral("ForceLTP")
 
-#define KXMLQLCVCButtonKey QString("Key")
+#define KXMLQLCVCButtonStopAllFadeTime  QStringLiteral("FadeOut")
 
-#define KXMLQLCVCButtonIntensity        QString("Intensity")
-#define KXMLQLCVCButtonIntensityAdjust  QString("Adjust")
+#define KXMLQLCVCButtonKey QStringLiteral("Key")
 
-class VCButton : public VCWidget
+#define KXMLQLCVCButtonIntensity        QStringLiteral("Intensity")
+#define KXMLQLCVCButtonIntensityAdjust  QStringLiteral("Adjust")
+
+class VCButton final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCButton)
@@ -81,32 +84,32 @@ public:
      *********************************************************************/
 public:
     /** @reimpl */
-    void setID(quint32 id);
+    void setID(quint32 id) override;
 
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
     /** Create a copy of this widget to the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget* createCopy(VCWidget* parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
     /** Edit this widget's properties */
-    void editProperties();
+    void editProperties() override;
 
     /*********************************************************************
      * Background image
      *********************************************************************/
 public:
     /** Set the button's background image */
-    void setBackgroundImage(const QString& path);
+    void setBackgroundImage(const QString& path) override;
 
 protected:
     QPixmap m_bgPixmap;
@@ -116,26 +119,26 @@ protected:
      *********************************************************************/
 public:
     /** Set the button's background color */
-    void setBackgroundColor(const QColor& color);
+    void setBackgroundColor(const QColor& color) override;
 
     /** Get the button's background color */
-    QColor backgroundColor() const;
+    QColor backgroundColor() const override;
 
     /** Reset the button's background color to whatever the platform uses */
-    void resetBackgroundColor();
+    void resetBackgroundColor() override;
 
     /*********************************************************************
      * Foreground color
      *********************************************************************/
 public:
     /** Set the button's foreground color */
-    void setForegroundColor(const QColor& color);
+    void setForegroundColor(const QColor& color) override;
 
     /** Get the button's foreground color */
-    QColor foregroundColor() const;
+    QColor foregroundColor() const override;
 
     /** Reset the button's foreground color to whatever the platform uses */
-    virtual void resetForegroundColor();
+    virtual void resetForegroundColor() override;
 
     /*********************************************************************
      * Button icon
@@ -187,10 +190,10 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    void adjustFunctionIntensity(Function *f, qreal value);
+    void adjustFunctionIntensity(Function *f, qreal value) override;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
 
 protected slots:
     /** Invalidates the button's function if the function is destroyed */
@@ -231,8 +234,8 @@ public:
     QKeySequence keySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
-    void slotKeyReleased(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
+    void slotKeyReleased(const QKeySequence& keySequence) override;
 
 protected:
     QKeySequence m_keySequence;
@@ -241,10 +244,10 @@ protected:
      * External input
      *********************************************************************/
 public:
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
     /*********************************************************************
      * Button action
@@ -307,6 +310,24 @@ protected:
 protected slots:
     void slotAttributeChanged(int value);
 
+    /*****************************************************************************
+    * Flash Properties
+    *****************************************************************************/
+public:
+    /** Gets if flashing overrides newer values */
+    bool flashOverrides() const;
+    /** Sets if flashing should override values */
+    void setFlashOverride(bool shouldOverride);
+    /** Gets if flash channels should behave like LTP channels */
+    bool flashForceLTP() const;
+    /** Sets if the flash channels should behave like LTP channels */
+    void setFlashForceLTP(bool forceLTP);
+
+private:
+    bool m_flashOverrides;
+    bool m_flashForceLTP;
+
+
     /*********************************************************************
      * Button press / release handlers
      *********************************************************************/
@@ -348,14 +369,14 @@ protected:
     *********************************************************************/
 public:
     /** Get a custom menu specific to this widget. Must be deleted. */
-    QMenu* customMenu(QMenu* parentMenu);
+    QMenu* customMenu(QMenu* parentMenu) const override;
 
     /*********************************************************************
      * Intensity
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /*********************************************************************
      * Load & Save
@@ -368,7 +389,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -376,16 +397,16 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 
     /*********************************************************************
      * Event Handlers
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
+    void paintEvent(QPaintEvent* e) override;
 
-    void mousePressEvent(QMouseEvent* e);
-    void mouseReleaseEvent(QMouseEvent* e);
+    void mousePressEvent(QMouseEvent* e) override;
+    void mouseReleaseEvent(QMouseEvent* e) override;
 };
 
 /** @} */

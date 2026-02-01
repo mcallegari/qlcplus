@@ -27,9 +27,7 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "qlccapability.h"
 #include "qlcchannel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 
@@ -64,9 +62,9 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 {
     if (this != &fixture)
     {
-        QListIterator <QLCChannel*> chit(fixture.m_channels);
-        QListIterator <QLCFixtureMode*> modeit(fixture.m_modes);
-
+        m_fileAbsolutePath = fixture.m_fileAbsolutePath;
+        m_isUser = fixture.m_isUser;
+        m_isLoaded = fixture.m_isLoaded;
         m_manufacturer = fixture.m_manufacturer;
         m_model = fixture.m_model;
         m_type = fixture.m_type;
@@ -77,6 +75,7 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
             delete m_channels.takeFirst();
 
         /* Copy channels from the other fixture */
+        QListIterator <QLCChannel*> chit(fixture.m_channels);
         while (chit.hasNext() == true)
             m_channels.append(chit.next()->createCopy());
 
@@ -85,8 +84,11 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
             delete m_modes.takeFirst();
 
         /* Copy modes from the other fixture */
+        QListIterator <QLCFixtureMode*> modeit(fixture.m_modes);
         while (modeit.hasNext() == true)
             m_modes.append(new QLCFixtureMode(this, modeit.next()));
+
+        m_physical = fixture.physical();
     }
 
     return *this;
@@ -137,7 +139,7 @@ void QLCFixtureDef::setType(const FixtureType type)
     m_type = type;
 }
 
-QLCFixtureDef::FixtureType QLCFixtureDef::type()
+QLCFixtureDef::FixtureType QLCFixtureDef::type() const
 {
     return m_type;
 }
@@ -187,7 +189,7 @@ void QLCFixtureDef::setAuthor(const QString& author)
     m_author = author;
 }
 
-QString QLCFixtureDef::author()
+QString QLCFixtureDef::author() const
 {
     return m_author;
 }
@@ -206,18 +208,24 @@ void QLCFixtureDef::checkLoaded(QString mapPath)
     }
     if (m_fileAbsolutePath.isEmpty())
     {
-        qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
+        qWarning() << Q_FUNC_INFO << "Empty file path provided! This is a trouble.";
         return;
     }
 
-    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_fileAbsolutePath);
-    qDebug() << "Loading fixture definition now... " << absPath;
-    bool error = loadXML(absPath);
+    // check if path is relative (from map) or absolute (user def)
+    QDir defPath(m_fileAbsolutePath);
+    if (defPath.isRelative())
+        m_fileAbsolutePath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_fileAbsolutePath);
+
+    qDebug() << "Loading fixture definition now... " << m_fileAbsolutePath;
+    bool error = loadXML(m_fileAbsolutePath);
     if (error == false)
-    {
         m_isLoaded = true;
-        m_fileAbsolutePath = QString();
-    }
+}
+
+void QLCFixtureDef::setLoaded(bool loaded)
+{
+    m_isLoaded = loaded;
 }
 
 bool QLCFixtureDef::isUser() const
@@ -554,6 +562,10 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
 
     if (retval == true)
         m_isLoaded = true;
+
+    if (m_modes.isEmpty())
+        return false;
+
     return retval;
 }
 

@@ -95,7 +95,7 @@ namespace QLCArgs
     QRect closeButtonRect = QRect();
 
     /** Debug output level */
-    QtMsgType debugLevel = QtSystemMsg;
+    QtMsgType debugLevel = QtCriticalMsg;
 
     /** Log to file flag */
     bool logToFile = false;
@@ -217,7 +217,11 @@ bool parseArgs()
             QLCArgs::logToFile = true;
             QString logFilename = QDir::homePath() + QDir::separator() + "QLC+.log";
             QLCArgs::logFile.setFileName(logFilename);
-            QLCArgs::logFile.open(QIODevice::Append);
+            if (!QLCArgs::logFile.open(QIODevice::Append))
+            {
+                qWarning() << "Could not open log file!";
+                return false;
+            }
         }
         else if (arg == "-f" || arg == "--fullscreen")
         {
@@ -274,9 +278,9 @@ bool parseArgs()
             QLCArgs::enableWebAccess = true;
             QLCArgs::enableWebAuth = true;
         }
-        else if(arg == "-a" || arg == "--web-auth-file")
+        else if (arg == "-a" || arg == "--web-auth-file")
         {
-            if(it.hasNext())
+            if (it.hasNext())
                 QLCArgs::webAccessPasswordFile = it.next();
         }
         else if (arg == "-v" || arg == "--version")

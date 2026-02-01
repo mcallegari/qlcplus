@@ -32,9 +32,7 @@
 #include "trackitem.h"
 #include "audioitem.h"
 #include "efxitem.h"
-#if QT_VERSION >= 0x050000
 #include "videoitem.h"
-#endif
 #include "chaser.h"
 #include "track.h"
 
@@ -42,7 +40,7 @@
  * @{
  */
 
-class MultiTrackView : public QGraphicsView
+class MultiTrackView final : public QGraphicsView
 {
     Q_OBJECT
 
@@ -94,14 +92,14 @@ public:
     void activateTrack(Track *track);
 
     /** get the selected Show item. If none, returns NULL */
-    ShowItem *getSelectedItem();
+    ShowItem *getSelectedItem() const;
 
 private:
     /** Retrieve the index of the given Track.
      *  If trk is NULL, this function returns the currently
      *  selected track.
      */
-    int getTrackIndex(Track *trk);
+    int getTrackIndex(Track *trk) const;
 
     void setItemCommonProperties(ShowItem *item, ShowFunction *func, int trackNum);
 
@@ -111,9 +109,9 @@ private:
 public:
     /** Set the type of header. Can be Time (seconds) or BPM,
      *  in various forms (4/4, 3/4) */
-    void setHeaderType(ShowHeaderItem::TimeDivision type);
+    void setHeaderType(Show::TimeDivision type);
 
-    ShowHeaderItem::TimeDivision getHeaderType();
+    Show::TimeDivision getHeaderType() const;
 
     /** When BPM is selected, this function can set a precise
      *  value of time division */
@@ -132,13 +130,13 @@ public:
     void rewindCursor();
 
     /** Get time in milliseconds of the current cursor position */
-    quint32 getTimeFromCursor();
+    quint32 getTimeFromCursor() const;
 
     /** Return position in pixel of a given time (in msec) */
-    quint32 getPositionFromTime(quint32 time);
+    quint32 getPositionFromTime(quint32 time) const;
 
     /** Return the time (in msec) from a given X position */
-    quint32 getTimeFromPosition(qreal pos);
+    quint32 getTimeFromPosition(qreal pos) const;
 
 private:
     QGraphicsScene *m_scene;
@@ -152,7 +150,8 @@ private:
     bool m_snapToGrid;
 
 public slots:
-    void mouseReleaseEvent(QMouseEvent * e);
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    void wheelEvent(QWheelEvent *event) override;
 
 protected slots:
     void slotHeaderClicked(QGraphicsSceneMouseEvent *event);

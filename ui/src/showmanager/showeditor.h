@@ -29,7 +29,7 @@ class Doc;
  * @{
  */
 
-class ShowEditor : public QWidget, public Ui_ShowEditor
+class ShowEditor final : public QWidget, public Ui_ShowEditor
 {
     Q_OBJECT
     Q_DISABLE_COPY(ShowEditor)

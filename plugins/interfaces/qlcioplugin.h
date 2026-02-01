@@ -121,7 +121,7 @@ public:
      *
      * This is a pure virtual method that must be implemented by all plugins.
      */
-    virtual QString name() = 0;
+    virtual QString name() const = 0;
 
     /** Plugin's I/O capabilities */
     enum Capability {
@@ -129,7 +129,8 @@ public:
         Input       = 1 << 1,
         Feedback    = 1 << 2,
         Infinite    = 1 << 3,
-        RDM         = 1 << 4
+        RDM         = 1 << 4,
+        Beats       = 1 << 5
     };
 
     /**
@@ -144,7 +145,7 @@ public:
      *
      * This is a pure virtual method that must be implemented by all plugins.
      */
-    virtual QString pluginInfo() = 0;
+    virtual QString pluginInfo() const = 0;
 
     /** Invalid input/output number */
     static quint32 invalidLine() { return UINT_MAX; }
@@ -202,7 +203,7 @@ public:
      * @param output The output universe to write to
      * @param universe The universe data to write
      */
-    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    virtual void writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged);
 
     /*************************************************************************
      * Inputs
@@ -263,7 +264,7 @@ public:
      * @param key a string to identify a channel by name (ATM used only by OSC)
      */
     virtual void sendFeedBack(quint32 universe, quint32 inputLine,
-                              quint32 channel, uchar value, const QString& key = 0);
+                              quint32 channel, uchar value, const QVariant &params);
 
 signals:
     /**
@@ -306,7 +307,7 @@ public:
      *
      * @return true if the plugin can be configured, otherwise false.
      */
-    virtual bool canConfigure();
+    virtual bool canConfigure() const;
 
     /**
      * Set an arbitrary parameter useful for the plugin. This is similar
@@ -340,7 +341,7 @@ public:
      * @param type the type of $line. Can be input or output
      * @return
      */
-    virtual QMap<QString, QVariant> getParameters(quint32 universe, quint32 line, Capability type);
+    virtual QMap<QString, QVariant> getParameters(quint32 universe, quint32 line, Capability type) const;
 
 signals:
     /**
@@ -365,7 +366,7 @@ protected:
 
     /**
      * Remove a line from the universe map. If a universe has no lines at all
-     * it is removed completely from the map (thus loosing the custom parameters
+     * it is removed completely from the map (thus losing the custom parameters
      * as well)
      *
      * @param universe The QLC+ universe index of the patched $line

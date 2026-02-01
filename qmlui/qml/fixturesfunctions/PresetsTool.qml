@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import org.qlcplus.classes 1.0
+import QtQuick
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -27,7 +27,7 @@ Rectangle
     id: toolRoot
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 3
-    color: UISettings.bgMedium
+    color: UISettings.bgStrong
     border.color: UISettings.bgLight
     border.width: 2
     clip: true
@@ -38,18 +38,17 @@ Rectangle
     property int selectedChannel: -1
     property bool showPalette: false
     property int currentValue: 0 // as DMX value
+    property int rangeLowLimit: 0
+    property int rangeHighLimit: 255
 
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
     signal valueChanged(int value)
 
     function updatePresets(presetModel)
     {
-        if (visible === true)
-        {
-            selectedFixture = -1
-            prList.model = null // force reload
-            prList.model = presetModel
-        }
+        selectedFixture = -1
+        prList.model = null // force reload
+        prList.model = presetModel
     }
 
     MouseArea
@@ -152,11 +151,13 @@ Rectangle
                 {
                     capability: modelData
                     capIndex: index + 1
-                    onValueChanged:
+                    visible: (capability.min <= toolRoot.rangeHighLimit || capability.max <= toolRoot.rangeLowLimit)
+                    onValueChanged: function(value)
                     {
-                        toolRoot.currentValue = value
-                        toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
-                        toolRoot.valueChanged(value)
+                        var val = Math.min(Math.max(value, rangeLowLimit), rangeHighLimit)
+                        toolRoot.currentValue = val
+                        toolRoot.presetSelected(capability, selectedFixture, selectedChannel, val)
+                        toolRoot.valueChanged(val)
                         if (closeOnSelect)
                             toolRoot.visible = false
                     }

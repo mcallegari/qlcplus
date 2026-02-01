@@ -67,7 +67,7 @@ public:
     /*!
      * Returns output interface latency in milliseconds.
      */
-    virtual qint64 latency() = 0;
+    virtual qint64 latency() const = 0;
 
     /*!
      * Writes all remaining plugin's internal data to audio output device.
@@ -93,15 +93,20 @@ public:
 
     void adjustIntensity(qreal fraction);
 
+    /* Get/Set the looping flag */
+    bool isLooped();
     void setLooped(bool looped);
 
+    bool isEos();
+
+private:
+    bool m_looped;
 
     /*********************************************************************
      * Fade sequences
      *********************************************************************/
 public:
     void setFadeIn(uint fadeTime);
-
     void setFadeOut(uint fadeTime);
 
 private:
@@ -112,13 +117,14 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    virtual void run(); //thread run function
+    virtual void run() override; //thread run function
 
     void stop();
+    void setUserStop(bool stop);
 
 protected:
     /** State machine variables */
-    bool m_userStop, m_pause;
+    bool m_userStop, m_pause, m_isEos;
 
 private:
     /** Local copy of the audio function intensity */
@@ -133,9 +139,6 @@ protected:
      */
     virtual qint64 writeAudio(unsigned char *data, qint64 maxSize) = 0;
 
-signals:
-    void endOfStreamReached();
-
 private:
     /** Reference to the decoder to be used as data source */
     AudioDecoder *m_adec;
@@ -145,7 +148,6 @@ private:
     unsigned char audioData[8 * 1024];
     qint64 audioDataRead;
     qint64 pendingAudioBytes;
-    bool m_looped;
 };
 
 /** @} */

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Christoph Müllner, Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>P2 FC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Colour Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6">Warm white</Capability>
+  <Capability Min="7" Max="46">Warm white -&gt; 2700K</Capability>
+  <Capability Min="47" Max="47">Bulb white (2700K)</Capability>
+  <Capability Min="48" Max="87">2700K -&gt; 3200K</Capability>
+  <Capability Min="88" Max="88">Halogen white (3200K)</Capability>
+  <Capability Min="89" Max="128">3200K -&gt; 4000K</Capability>
+  <Capability Min="129" Max="129">Neutral white (4000K)</Capability>
+  <Capability Min="130" Max="169">4000K -&gt; 5600K</Capability>
+  <Capability Min="170" Max="170">Studio white (5600K)</Capability>
+  <Capability Min="171" Max="210">5600K -&gt; 6500K</Capability>
+  <Capability Min="211" Max="211">Daylight white (6500K)</Capability>
+  <Capability Min="212" Max="251">6500K -&gt; cold daylight</Capability>
+  <Capability Min="252" Max="255">Cold daylight</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Tint">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="127">Magenta -&gt; neutral</Capability>
+  <Capability Min="128" Max="128">Neutral</Capability>
+  <Capability Min="129" Max="255">Neutral -&gt; green</Capability>
+ </Channel>
+ <Channel Name="Strobe Functions">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Strobe closed</Capability>
+  <Capability Min="11" Max="22" Preset="RampUpSlowToFast">Ramp up/down slow to fast</Capability>
+  <Capability Min="23" Max="33">Ramp up/down random, slow to fast</Capability>
+  <Capability Min="34" Max="45">Ramp up, slow to fast</Capability>
+  <Capability Min="46" Max="56">Ramp up random, slow to fast</Capability>
+  <Capability Min="57" Max="68">Ramp down, slow to fast</Capability>
+  <Capability Min="69" Max="79">Ramp down random, slow to fast</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random strobe effect, slow to fast</Capability>
+  <Capability Min="103" Max="127">Strobe break effect, 5s...1s (short burst with break)</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow to fast &lt; 1Hz - 20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Colour Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="9" Preset="ColorMacro" Res1="#dc005a">46 Dark Magenta</Capability>
+  <Capability Min="10" Max="13" Preset="ColorMacro" Res1="#e1003c">29 Plasa Red</Capability>
+  <Capability Min="14" Max="17" Preset="ColorMacro" Res1="#e6003c">26 Bright Red</Capability>
+  <Capability Min="18" Max="21" Preset="ColorMacro" Res1="#e16273">127 Smokey Pink</Capability>
+  <Capability Min="22" Max="25" Preset="ColorMacro" Res1="#ffa0b9">36 Medium Pink</Capability>
+  <Capability Min="26" Max="29" Preset="ColorMacro" Res1="#ff4600">19 Fire</Capability>
+  <Capability Min="30" Max="33" Preset="ColorMacro" Res1="#ff5f00">135 Deep Golden Amber</Capability>
+  <Capability Min="34" Max="37" Preset="ColorMacro" Res1="#ff7600">778 Millennium Gold</Capability>
+  <Capability Min="38" Max="41" Preset="ColorMacro" Res1="#ff8c32">21 Gold Amber</Capability>
+  <Capability Min="42" Max="45" Preset="ColorMacro" Res1="#ff92a3">157 Pink</Capability>
+  <Capability Min="46" Max="49" Preset="ColorMacro" Res1="#ffb4c8">110 Middle Rose</Capability>
+  <Capability Min="50" Max="53" Preset="ColorMacro" Res1="#ffb2af">109 Light Salmon</Capability>
+  <Capability Min="54" Max="57" Preset="ColorMacro" Res1="#ffc8d2">35 Light Pink</Capability>
+  <Capability Min="58" Max="61" Preset="ColorMacro" Res1="#faa873">134 Golden Amber</Capability>
+  <Capability Min="62" Max="65" Preset="ColorMacro" Res1="#e68c64">17 Surprise Peach</Capability>
+  <Capability Min="66" Max="69" Preset="ColorMacro" Res1="#6e3c00">746 Brown</Capability>
+  <Capability Min="70" Max="73" Preset="ColorMacro" Res1="#ffa000">105 Orange</Capability>
+  <Capability Min="74" Max="77" Preset="ColorMacro" Res1="#ffbe55">20 Medium Amber</Capability>
+  <Capability Min="78" Max="81" Preset="ColorMacro" Res1="#ffc600">768 Egg Yolk Yellow</Capability>
+  <Capability Min="82" Max="85" Preset="ColorMacro" Res1="#ffcd00">15 Deep Straw</Capability>
+  <Capability Min="86" Max="89" Preset="ColorMacro" Res1="#ffe600">767 Oklahoma Yellow</Capability>
+  <Capability Min="90" Max="93" Preset="ColorMacro" Res1="#fff500">101 Yellow</Capability>
+  <Capability Min="94" Max="97" Preset="ColorMacro" Res1="#f5ff00">100 Spring Yellow</Capability>
+  <Capability Min="98" Max="101" Preset="ColorMacro" Res1="#dcff64">88 Lime Green</Capability>
+  <Capability Min="102" Max="105" Preset="ColorMacro" Res1="#b4ff64">121 LEE Green</Capability>
+  <Capability Min="106" Max="109" Preset="ColorMacro" Res1="#aaff00">738 Jas Green</Capability>
+  <Capability Min="110" Max="113" Preset="ColorMacro" Res1="#5adc5a">89 Moss Green</Capability>
+  <Capability Min="114" Max="117" Preset="ColorMacro" Res1="#4bc300">139 Primary Green</Capability>
+  <Capability Min="118" Max="121" Preset="ColorMacro" Res1="#00dc78">124 Dark Green</Capability>
+  <Capability Min="122" Max="125" Preset="ColorMacro" Res1="#00e1aa">323 Jade</Capability>
+  <Capability Min="126" Max="129" Preset="ColorMacro" Res1="#00f0d7">354 Special Steel Blue</Capability>
+  <Capability Min="130" Max="133" Preset="ColorMacro" Res1="#00c8b9">116 Medium Blue-Green</Capability>
+  <Capability Min="134" Max="137" Preset="ColorMacro" Res1="#00d7e3">183 Moonlight Blue</Capability>
+  <Capability Min="138" Max="141" Preset="ColorMacro" Res1="#00a0dc">132 Medium Blue</Capability>
+  <Capability Min="142" Max="145" Preset="ColorMacro" Res1="#0078c8">119 Dark Blue</Capability>
+  <Capability Min="146" Max="149" Preset="ColorMacro" Res1="#0064d2">716 Mikkel Blue</Capability>
+  <Capability Min="150" Max="153" Preset="ColorMacro" Res1="#0000b4">71 Tokyo Blue</Capability>
+  <Capability Min="154" Max="157" Preset="ColorMacro" Res1="#5000aa">181 Congo Blue</Capability>
+  <Capability Min="158" Max="161" Preset="ColorMacro" Res1="#3c00b4">799 Special KH Lavender</Capability>
+  <Capability Min="162" Max="165" Preset="ColorMacro" Res1="#6400b4">707 Ultimate Violet</Capability>
+  <Capability Min="166" Max="169" Preset="ColorMacro" Res1="#8c00d2">343 Special Medium Lavender</Capability>
+  <Capability Min="170" Max="173" Preset="ColorMacro" Res1="#a000be">798 Chrysalis Pink</Capability>
+  <Capability Min="174" Max="177" Preset="ColorMacro" Res1="#e6d2f0">701 Provence</Capability>
+  <Capability Min="178" Max="181" Preset="ColorMacro" Res1="#af0096">797 Deep Purple</Capability>
+  <Capability Min="182" Max="185" Preset="ColorMacro" Res1="#e66eaf">48 Rose Purple</Capability>
+  <Capability Min="186" Max="189" Preset="ColorMacro" Res1="#cd6ed7">345 Fuchsia Pink</Capability>
+  <Capability Min="190" Max="193" Preset="ColorMacro" Res1="#fa46c8">795 Magical Magenta</Capability>
+  <Capability Min="194" Max="197" Preset="ColorMacro" Res1="#ff50b4">128 Bright Pink</Capability>
+  <Capability Min="198" Max="201" Preset="ColorMacro" Res1="#ff78dc">2 Rose Pink</Capability>
+  <Capability Min="202" Max="207">User Colour_1</Capability>
+  <Capability Min="208" Max="213">User Colour_2</Capability>
+  <Capability Min="214" Max="219">User Colour_3</Capability>
+  <Capability Min="220" Max="225">User Colour_4</Capability>
+  <Capability Min="226" Max="231">User Colour_5</Capability>
+  <Capability Min="232" Max="237">User Colour_6</Capability>
+  <Capability Min="238" Max="243">User Colour_7</Capability>
+  <Capability Min="244" Max="249">User Colour_8</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Device Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="24">No function</Capability>
+  <Capability Min="25" Max="25">Record User Colour 1 (hold 3s)</Capability>
+  <Capability Min="26" Max="26">Record User Colour 2 (hold 3s)</Capability>
+  <Capability Min="27" Max="27">Record User Colour 3 (hold 3s)</Capability>
+  <Capability Min="28" Max="28">Record User Colour 4 (hold 3s)</Capability>
+  <Capability Min="29" Max="29">Record User Colour 5 (hold 3s)</Capability>
+  <Capability Min="30" Max="30">Record User Colour 6 (hold 3s)</Capability>
+  <Capability Min="31" Max="31">Record User Colour 7 (hold 3s)</Capability>
+  <Capability Min="32" Max="32">Record User Colour 8 (hold 3s)</Capability>
+  <Capability Min="33" Max="73">No function</Capability>
+  <Capability Min="74" Max="75">Dimmer Response LED (hold 3s)</Capability>
+  <Capability Min="76" Max="77">Dimmer Response Halogen (hold 3s)</Capability>
+  <Capability Min="78" Max="81">No function</Capability>
+  <Capability Min="82" Max="83">DTW (Redshift) on (hold 1,5s)</Capability>
+  <Capability Min="84" Max="85">DTW (Redshift) off (hold 1,5s)</Capability>
+  <Capability Min="86" Max="97">No function</Capability>
+  <Capability Min="98" Max="99">Auto Fan (hold 3s)</Capability>
+  <Capability Min="100" Max="101">Fan Off (hold 3s)</Capability>
+  <Capability Min="102" Max="103">Constant Low Fan (hold 3s)</Capability>
+  <Capability Min="104" Max="105">Constant Mid Fan (hold 3s)</Capability>
+  <Capability Min="106" Max="107">Constant High Fan (hold 3s)</Capability>
+  <Capability Min="108" Max="119">No function</Capability>
+  <Capability Min="120" Max="121">LED Frequency 600Hz (hold 3s)</Capability>
+  <Capability Min="122" Max="123">LED Frequency 1200Hz (hold 3s)</Capability>
+  <Capability Min="124" Max="125">LED Frequency 2000Hz (hold 3s)</Capability>
+  <Capability Min="126" Max="127">LED Frequency 4000Hz (hold 3s)</Capability>
+  <Capability Min="128" Max="128">LED Frequency 6000Hz (hold 3s)</Capability>
+  <Capability Min="129" Max="129">LED Frequency 18.9kHz (hold 3s)</Capability>
+  <Capability Min="130" Max="131">LED Frequency 25kHz (hold 3s)</Capability>
+  <Capability Min="132" Max="133">RAW (hold 3s)</Capability>
+  <Capability Min="134" Max="135">Calibrated (hold 3s)</Capability>
+  <Capability Min="136" Max="137">User Calibrated (hold 3s)</Capability>
+  <Capability Min="138" Max="139">Smart Calibration (hold 3s)</Capability>
+  <Capability Min="140" Max="141">Display on (hold 3s)</Capability>
+  <Capability Min="142" Max="143">Display off (hold 3s)</Capability>
+  <Capability Min="144" Max="163">No function</Capability>
+  <Capability Min="164" Max="165">Dimmer Curve Linear (hold 3s)</Capability>
+  <Capability Min="166" Max="167">Dimmer Curve Exponential (hold 3s)</Capability>
+  <Capability Min="168" Max="169">Dimmer Curve Logarithmic (hold 3s)</Capability>
+  <Capability Min="170" Max="171">Dimmer Curve S-Curve (hold 3s)</Capability>
+  <Capability Min="172" Max="239">No function</Capability>
+  <Capability Min="240" Max="241">Default set (except DMX-Address, DMX-Mode) (hold 3s)</Capability>
+  <Capability Min="242" Max="243">Default set (except DMX-Address, DMX-Mode and User
+Colour/Loops) (hold 3s)</Capability>
+  <Capability Min="244" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colour Preset Crossfade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">0s</Capability>
+  <Capability Min="6" Max="105">0,1s - 10s (0,1s Steps)</Capability>
+  <Capability Min="106" Max="214">11s - 119s (1s Steps)</Capability>
+  <Capability Min="215" Max="244">2m - 4m50s (10s Steps)</Capability>
+  <Capability Min="245" Max="255">5m - 15m (1m Steps)</Capability>
+ </Channel>
+ <Mode Name="2 Channel CCT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour Temperature</Channel>
+ </Mode>
+ <Mode Name="3 Channel RGB (calibrated)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="5 Channel RGBAL">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Lime</Channel>
+ </Mode>
+ <Mode Name="10 Channel RGBAL 16-bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">Amber fine</Channel>
+  <Channel Number="8">Lime</Channel>
+  <Channel Number="9">Lime fine</Channel>
+ </Mode>
+ <Mode Name="4 Channel CCT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Colour Temperature</Channel>
+  <Channel Number="3">Tint</Channel>
+ </Mode>
+ <Mode Name="6 Channel HSI CCT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Hue</Channel>
+  <Channel Number="3">Saturation</Channel>
+  <Channel Number="4">Colour Temperature</Channel>
+  <Channel Number="5">Tint</Channel>
+ </Mode>
+ <Mode Name="7 Channel RGB CCT (calibrated)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Colour Temperature</Channel>
+  <Channel Number="6">Tint</Channel>
+ </Mode>
+ <Mode Name="1 Channel Dim">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel Dim 16bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="11 Channel Direct CCT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Functions</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">Lime</Channel>
+  <Channel Number="8">Colour Temperature</Channel>
+  <Channel Number="9">Tint</Channel>
+  <Channel Number="10">Device Settings</Channel>
+ </Mode>
+ <Mode Name="10 Channel HSI CCT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Functions</Channel>
+  <Channel Number="3">Hue</Channel>
+  <Channel Number="4">Saturation</Channel>
+  <Channel Number="5">Colour Temperature</Channel>
+  <Channel Number="6">Tint</Channel>
+  <Channel Number="7">Colour Presets</Channel>
+  <Channel Number="8">Colour Preset Crossfade</Channel>
+  <Channel Number="9">Device Settings</Channel>
+ </Mode>
+ <Mode Name="18 Channel Full Access">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Functions</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue fine</Channel>
+  <Channel Number="9">Amber</Channel>
+  <Channel Number="10">Amber fine</Channel>
+  <Channel Number="11">Lime</Channel>
+  <Channel Number="12">Lime fine</Channel>
+  <Channel Number="13">Colour Temperature</Channel>
+  <Channel Number="14">Tint</Channel>
+  <Channel Number="15">Colour Presets</Channel>
+  <Channel Number="16">Colour Preset Crossfade</Channel>
+  <Channel Number="17">Device Settings</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="17000" ColourTemperature="0"/>
+  <Dimensions Weight="10.5" Width="245" Height="202" Depth="462"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="230" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

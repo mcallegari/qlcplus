@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -80,6 +80,37 @@ Rectangle
                     implicitHeight: implicitWidth
                     checked: widgetRef ? widgetRef.showEnable : false
                     onCheckedChanged: if (widgetRef) widgetRef.showEnable = checked
+                }
+              }
+        }
+
+        SectionBox
+        {
+            visible: widgetRef && widgetRef.type === VCWidget.SoloFrameWidget ? true : false
+            sectionLabel: qsTr("Solo Frame Options")
+
+            sectionContents:
+              GridLayout
+              {
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 3
+
+                // row 1
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Exclude monitored functions")
+                }
+
+                CustomCheckBox
+                {
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    checked: widgetRef ? widgetRef.excludeMonitoredFunctions : false
+                    onCheckedChanged: if (widgetRef) widgetRef.excludeMonitoredFunctions = checked
                 }
               }
         }
@@ -204,7 +235,7 @@ Rectangle
                     id: shortcutEdit
                     Layout.fillWidth: true
                     text: shortcutList.currentText
-                    onTextChanged:
+                    onTextEdited:
                     {
                         var idx = shortcutList.currentIndex
                         if (widgetRef)

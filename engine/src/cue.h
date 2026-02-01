@@ -22,7 +22,7 @@
 #define CUE_H
 
 #include <QString>
-#include <QHash>
+#include <QMap>
 
 #include "scenevalue.h"
 
@@ -33,21 +33,21 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCCue              QString("Cue")
-#define KXMLQLCCueName          QString("Name")
-#define KXMLQLCCueValue         QString("Value")
-#define KXMLQLCCueValueChannel  QString("Channel")
+#define KXMLQLCCue              QStringLiteral("Cue")
+#define KXMLQLCCueName          QStringLiteral("Name")
+#define KXMLQLCCueValue         QStringLiteral("Value")
+#define KXMLQLCCueValueChannel  QStringLiteral("Channel")
 
-#define KXMLQLCCueSpeed         QString("Speed")
-#define KXMLQLCCueSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCCueSpeedFadeOut  QString("FadeOut")
-#define KXMLQLCCueSpeedDuration QString("Duration")
+#define KXMLQLCCueSpeed         QStringLiteral("Speed")
+#define KXMLQLCCueSpeedFadeIn   QStringLiteral("FadeIn")
+#define KXMLQLCCueSpeedFadeOut  QStringLiteral("FadeOut")
+#define KXMLQLCCueSpeedDuration QStringLiteral("Duration")
 
-class Cue
+class Cue final
 {
 public:
     Cue(const QString& name = QString());
-    Cue(const QHash <uint,uchar> values);
+    Cue(const QMap <uint,uchar> values);
     Cue(const Cue& cue);
     ~Cue();
 
@@ -71,10 +71,10 @@ public:
     void unsetValue(uint channel);
     uchar value(uint channel) const;
 
-    QHash <uint,uchar> values() const;
+    QMap <uint,uchar> values() const;
 
 private:
-    QHash <uint,uchar> m_values;
+    QMap <uint,uchar> m_values;
 
     /************************************************************************
      * Speed

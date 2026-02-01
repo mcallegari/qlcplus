@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -36,20 +36,20 @@ Item
     property int startTime: sfRef ? sfRef.startTime : -1
     property int duration: sfRef ? sfRef.duration : -1
     property int trackIndex: -1
+    property int timeDivision: showManager.timeDivision
     property real timeScale: showManager.timeScale
     property real tickSize: showManager.tickSize
+    property int beatsDivision: showManager.beatsDivision
     property bool isSelected: false
+    property bool isDragging: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
     property string toolTipText: ""
 
-    onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
-    onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale, tickSize)
-    onTimeScaleChanged:
-    {
-        x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
-        width = TimeUtils.timeToSize(duration, timeScale, tickSize)
-    }
+    onStartTimeChanged: updateGeometry()
+    onDurationChanged: updateGeometry()
+    onTimeScaleChanged: updateGeometry()
+    onTimeDivisionChanged: updateGeometry()
 
     onGlobalColorChanged:
     {
@@ -57,15 +57,48 @@ Item
             sfRef.color = globalColor
     }
 
-    onFuncRefChanged: updateTooltipText()
-    //onXChanged: updateTooltipText()
-    //onWidthChanged: updateTooltipText()
+    onFuncRefChanged:
+    {
+        updateGeometry()
+        updateTooltipText()
+    }
+
+    function updateGeometry()
+    {
+        if (isDragging || funcRef == null)
+            return
+
+        if (timeDivision === Show.Time)
+        {
+            x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
+            width = TimeUtils.timeToSize(duration, timeScale, tickSize)
+        }
+        else
+        {
+            x = TimeUtils.beatsToSize(startTime, tickSize, beatsDivision)
+            width = TimeUtils.beatsToSize(duration, tickSize, beatsDivision)
+        }
+    }
 
     function updateTooltipText()
     {
         var tooltip = funcRef ? funcRef.name + "\n" : ""
-        tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-        tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+        var pos = 0
+        var dur = 0
+
+        if (timeDivision === Show.Time)
+        {
+            pos = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+            dur = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+        }
+        else
+        {
+            pos = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / beatsDivision), beatsDivision)
+            dur = TimeUtils.beatsToString(itemRoot.width / (tickSize / beatsDivision), beatsDivision)
+        }
+
+        tooltip += qsTr("Position: ") + pos
+        tooltip += "\n" + qsTr("Duration: ") + dur
         toolTipText = tooltip
     }
 
@@ -80,6 +113,37 @@ Item
         source: "qrc:/lock.svg"
         sourceSize: Qt.size(width, height)
         visible: sfRef ? (sfRef.locked ? true : false) : false
+    }
+
+    /* Waveform for audio items */
+    Image
+    {
+        id: waveformImage
+        z: 3
+        anchors.fill: parent
+        visible: funcRef && funcRef.type === QLCFunction.AudioType
+        cache: false
+        fillMode: Image.Stretch
+
+        source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
+
+        function reload()
+        {
+            const old = source;
+            source = "";
+            source = old;
+        }
+
+        Connections
+        {
+            target: waveformProvider
+
+            function onWaveformUpdated(fid)
+            {
+                if (funcRef && fid === funcRef.id)
+                    waveformImage.reload()
+            }
+        }
     }
 
     Canvas
@@ -117,14 +181,17 @@ Item
                 if (i + 1 >= previewData.length)
                     break
 
-                switch(previewData[i])
+                switch (previewData[i])
                 {
                     case ShowManager.RepeatingDuration:
                         var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
                             lastTime += previewData[1]
-                            xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                            if (timeDivision === Show.Time)
+                                xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                            else
+                                xPos = TimeUtils.beatsToSize(lastTime, tickSize, beatsDivision)
                             context.moveTo(xPos, 0)
                             context.lineTo(xPos, itemRoot.height)
                         }
@@ -133,19 +200,30 @@ Item
                         xPos = 0
                     break
                     case ShowManager.FadeIn:
-                        var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        var fiEnd
+                        if (timeDivision === Show.Time)
+                            fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        else
+                            fiEnd = TimeUtils.beatsToSize(lastTime + previewData[i + 1], tickSize, beatsDivision)
                         context.moveTo(xPos, itemRoot.height)
                         context.lineTo(fiEnd, 0)
                     break
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
-                        xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                        if (timeDivision === Show.Time)
+                            xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
+                        else
+                            xPos = TimeUtils.beatsToSize(lastTime, tickSize, beatsDivision)
                         context.moveTo(xPos, 0)
                         context.lineTo(xPos, itemRoot.height)
                         stepsCount++
                     break
                     case ShowManager.FadeOut:
-                        var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        var foEnd
+                        if (timeDivision === Show.Time)
+                            foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
+                        else
+                            foEnd = TimeUtils.beatsToSize(lastTime + previewData[i + 1], tickSize, beatsDivision)
                         context.moveTo(stepsCount ? xPos : itemRoot.width - foEnd, 0)
                         context.lineTo(stepsCount ? foEnd : itemRoot.width, itemRoot.height)
                     break
@@ -225,12 +303,19 @@ Item
             itemRoot.z++
             infoTextBox.height = itemRoot.height / 4
             infoTextBox.textHAlign = Text.AlignLeft
+            isDragging = true
         }
         onPositionChanged:
         {
             if (drag.target !== null)
             {
-                infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+                var txt
+                if (timeDivision === Show.Time)
+                    txt = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+                else
+                    txt = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / beatsDivision), beatsDivision)
+
+                infoText = qsTr("Position: ") + txt
             }
         }
         onReleased:
@@ -244,9 +329,13 @@ Item
                 drag.target = null
                 infoText = ""
 
-                var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
-                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
+                var newTime
+                if (timeDivision === Show.Time)
+                    newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
+                else
+                    newTime = TimeUtils.posToBeat(itemRoot.x + showItemBody.x, tickSize, beatsDivision)
 
+                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 // dragging to 0 might not be accurate...
                 if (newTime < 0)
                     newTime = 0
@@ -267,12 +356,19 @@ Item
             itemRoot.z--
             showManager.enableFlicking(true)
             updateTooltipText()
+            isDragging = false
+            updateGeometry()
         }
 
-        onClicked:
+        onClicked: (mouse) =>
         {
-            itemRoot.isSelected = !itemRoot.isSelected
-            showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected)
+            var multi = ((mouse.modifiers & Qt.ControlModifier) || (mouse.modifiers & Qt.ShiftModifier))
+                    || (showManager && showManager.multipleSelection)
+            if (multi)
+                itemRoot.isSelected = !itemRoot.isSelected
+            else
+                itemRoot.isSelected = true
+            showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected, mouse.modifiers)
         }
 
         onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
@@ -308,23 +404,24 @@ Item
             drag.axis: Drag.XAxis
             drag.maximumX: horRightHandler.x
 
-            onPositionChanged:
+            onPressed: isDragging = true
+
+            onPositionChanged: (mouse) =>
             {
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var hdlPos = mapToItem(itemRoot.parent, horLeftHandler.x, horLeftHandler.y)
                     itemRoot.width = itemRoot.width + (itemRoot.x - hdlPos.x + mouse.x)
                     itemRoot.x = hdlPos.x - mouse.x
                     infoTextBox.height = itemRoot.height / 2
                     infoTextBox.textHAlign = Text.AlignLeft
-                    infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-                    infoText += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+                    updateTooltipText()
                     horLeftHandler.x = 0
                 }
             }
             onReleased:
             {
-                if (drag.active == false)
+                if (drag.active === false)
                     return
 
                 if (sfRef)
@@ -343,8 +440,24 @@ Item
                         itemRoot.width += (currX - itemRoot.x)
                     }
 
-                    sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
-                    sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    var newDuration, newStartTime
+
+                    if (timeDivision === Show.Time)
+                    {
+                        newStartTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
+                        newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    }
+                    else
+                    {
+                        newStartTime = TimeUtils.posToBeat(itemRoot.x, tickSize, beatsDivision)
+                        newDuration = TimeUtils.posToBeat(itemRoot.width, tickSize, beatsDivision)
+                    }
+
+                    if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
+                        showManager.setShowItemDuration(sfRef, newDuration)
+                    else
+                        updateGeometry()
+
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration
 
@@ -352,6 +465,8 @@ Item
                 }
                 infoText = ""
                 horLeftHandler.x = 0
+                isDragging = false
+                updateGeometry()
             }
         }
     }
@@ -379,23 +494,25 @@ Item
             drag.axis: Drag.XAxis
             drag.minimumX: horLeftHandler.x + width
 
-            onPositionChanged:
+            onPressed: isDragging = true
+
+            onPositionChanged: (mouse) =>
             {
                 //var mp = mapToItem(itemRoot, mouseX, mouseY)
                 //console.log("Mouse position: " + mp.x)
-                if (drag.active == true)
+                if (drag.active === true)
                 {
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
                     //console.log("Mapped position: " + obj.x)
                     itemRoot.width = obj.x + (horRightHdlMa.width - mouse.x)
                     infoTextBox.height = itemRoot.height / 4
                     infoTextBox.textHAlign = Text.AlignRight
-                    infoText = qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
+                    updateTooltipText()
                 }
             }
             onReleased:
             {
-                if (drag.active == false)
+                if (drag.active === false)
                     return
 
                 if (sfRef)
@@ -407,13 +524,24 @@ Item
                         itemRoot.width = snappedEndPos - itemRoot.x
                     }
 
-                    sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    var newDuration
+
+                    if (timeDivision === Show.Time)
+                        newDuration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    else
+                        newDuration = (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
+
+                    if (showManager.setShowItemDuration(sfRef, newDuration) === false)
+                        updateGeometry()
+
                     if (funcRef && showManager.stretchFunctions === true)
                         funcRef.totalDuration = sfRef.duration
 
                     prCanvas.requestPaint()
                 }
                 infoText = ""
+                isDragging = false
+                updateGeometry()
             }
         }
     }

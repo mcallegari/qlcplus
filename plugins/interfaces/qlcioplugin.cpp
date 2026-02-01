@@ -49,11 +49,12 @@ QString QLCIOPlugin::outputInfo(quint32 output)
     return QString();
 }
 
-void QLCIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void QLCIOPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
     Q_UNUSED(output)
     Q_UNUSED(data)
+    Q_UNUSED(dataChanged)
 }
 
 /*************************************************************************
@@ -85,13 +86,13 @@ QString QLCIOPlugin::inputInfo(quint32 input)
 }
 
 void QLCIOPlugin::sendFeedBack(quint32 universe, quint32 inputLine,
-                               quint32 channel, uchar value, const QString &key)
+                               quint32 channel, uchar value, const QVariant &params)
 {
     Q_UNUSED(universe)
     Q_UNUSED(inputLine)
     Q_UNUSED(channel)
     Q_UNUSED(value)
-    Q_UNUSED(key)
+    Q_UNUSED(params)
 }
 
 /*************************************************************************
@@ -102,7 +103,7 @@ void QLCIOPlugin::configure()
 {
 }
 
-bool QLCIOPlugin::canConfigure()
+bool QLCIOPlugin::canConfigure() const
 {
     return false;
 }
@@ -140,7 +141,7 @@ void QLCIOPlugin::unSetParameter(quint32 universe, quint32 line, QLCIOPlugin::Ca
     }
 }
 
-QMap<QString, QVariant> QLCIOPlugin::getParameters(quint32 universe, quint32 line, QLCIOPlugin::Capability type)
+QMap<QString, QVariant> QLCIOPlugin::getParameters(quint32 universe, quint32 line, QLCIOPlugin::Capability type) const
 {
     if (m_universesMap.contains(universe) == false)
         return QMap<QString, QVariant>();
@@ -171,7 +172,7 @@ void QLCIOPlugin::addToMap(quint32 universe, quint32 line,
     {
         desc.inputLine = line;
     }
-    else if(type == Output)
+    else if (type == Output)
     {
         desc.outputLine = line;
     }
@@ -190,7 +191,7 @@ void QLCIOPlugin::removeFromMap(quint32 universe, quint32 line, QLCIOPlugin::Cap
         m_universesMap[universe].inputParameters.clear();
         return;
     }
-    else if(type == Output && m_universesMap[universe].outputLine == line)
+    else if (type == Output && m_universesMap[universe].outputLine == line)
     {
         m_universesMap[universe].outputLine = UINT_MAX;
         m_universesMap[universe].outputParameters.clear();

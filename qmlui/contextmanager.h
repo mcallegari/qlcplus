@@ -38,14 +38,16 @@ class MonitorProperties;
 class PreviewContext;
 class SimpleDesk;
 
-class ContextManager : public QObject
+class ContextManager final : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(QString currentContext READ currentContext NOTIFY currentContextChanged)
+    Q_PROPERTY(QString currentSubContext READ currentSubContext WRITE setCurrentSubContext NOTIFY currentSubContextChanged)
     Q_PROPERTY(QVector3D environmentSize READ environmentSize WRITE setEnvironmentSize NOTIFY environmentSizeChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(int selectedFixturesCount READ selectedFixturesCount NOTIFY selectedFixturesChanged)
+    Q_PROPERTY(int selectedDimmersCount READ selectedDimmersCount NOTIFY selectedDimmersCountChanged)
     Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
     Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
     Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
@@ -68,6 +70,10 @@ public:
      *  on the screen, so to decide if changes should be applied to it */
     Q_INVOKABLE void enableContext(QString name, bool enable, QQuickItem *item);
 
+    /** Get a reference of a registered PreviewContext by name.
+     *  Returns nullptr if not found */
+    PreviewContext *contextByName(QString ctxName);
+
     /** Detach/Reattach a context from/to the application main window */
     Q_INVOKABLE void detachContext(QString name);
     Q_INVOKABLE void reattachContext(QString name);
@@ -78,6 +84,13 @@ public:
 
     /** Return the currently active context */
     QString currentContext() const;
+
+    /** Get/Set the FixturesAndFunctions sub-context */
+    QString currentSubContext() const;
+    void setCurrentSubContext(QString ctx);
+
+    MainView2D *get2DView();
+    MainView3D *get3DView();
 
     /** Get/Set the environment width/height/depth size */
     QVector3D environmentSize() const;
@@ -93,8 +106,15 @@ public:
 
     Q_INVOKABLE void setPositionPickPoint(QVector3D point);
 
+    /** Get/Set the last item clicked type */
+    int lastClickedType() const;
+
+public slots:
+    void setLastClickedType(const int &newLastClickedType);
+
 signals:
     void currentContextChanged();
+    void currentSubContextChanged();
     void environmentSizeChanged();
     void positionPickingChanged();
     void multipleSelectionChanged();
@@ -133,10 +153,17 @@ private:
 
     QMap <QString, PreviewContext *> m_contextsMap;
 
+    /** Holds the currently selected sub-context of FixturesAndFunctions */
+    QString m_currentSubContext;
+
     /** Flag that indicates if multiple item selection is active */
     bool m_multipleSelection;
     /** Flag that indicates if a position picking is active */
     bool m_positionPicking;
+
+    /** Keep track of the last item type that was
+     *  clicked, to handle the Del keypress */
+    int m_lastClickedType;
 
     /*********************************************************************
      * Universe filtering
@@ -179,11 +206,17 @@ public:
     /** Returns a list of the selected fixture addresses */
     Q_INVOKABLE QVariantList selectedFixtureAddress();
 
-    /** Returns a list of the selected Fixture IDs as QVariant */
+    /** Returns a list of the selected Fixture IDs as QVariantList */
     Q_INVOKABLE QVariantList selectedFixtureIDVariantList();
+
+    /** Returns a list of the selected item IDs as QVariantList */
+    QVariantList selectedItemIDVariantList();
 
     /** Returns the number of currently selected fixtures */
     int selectedFixturesCount();
+
+    /** Returns the number of generic dimmers currently selected */
+    int selectedDimmersCount();
 
     /** Returns if the fixture with $fxID is currently selected */
     Q_INVOKABLE bool isFixtureSelected(quint32 itemID);
@@ -201,6 +234,9 @@ public:
     /** Set the gelatine color for the selected fixtures */
     Q_INVOKABLE void setFixturesGelColor(QColor color);
 
+    /** Set a fixed zoom value for the selected fixtures */
+    Q_INVOKABLE void setFixedZoom(int degrees);
+
     /** Align the currently selected Fixtures with the provided $alignment */
     Q_INVOKABLE void setFixturesAlignment(int alignment);
 
@@ -212,20 +248,38 @@ public:
 
     Q_INVOKABLE void updateFixturesCapabilities();
 
+    /** Get the DMX/degrees value of the current fixture selection
+     *  for the requested channel type.
+     *  Returns -1 in case of mixed values */
+    Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
+
+    /** Get the RGB color of the current fixture selection */
+    Q_INVOKABLE void getCurrentColors(QQuickItem *item);
+
     Q_INVOKABLE void createFixtureGroup();
 
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
+    void setFixtureRotation(quint32 itemID, QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
 
+    Q_INVOKABLE void setChannelValueByType(int type, int value, bool isRelative = false, quint32 channel = UINT_MAX);
+
+    Q_INVOKABLE void setColorValue(QColor col, QColor wauv);
+
     /** Set a Pan/Tilt position in degrees */
-    Q_INVOKABLE void setPositionValue(int type, int degrees);
+    Q_INVOKABLE void setPositionValue(int type, float degrees, bool isRelative);
+
+    /** Set Pan/Tilt values at half position */
+    Q_INVOKABLE void setPositionCenter();
 
     /** Set a zoom channel in degrees */
-    Q_INVOKABLE void setBeamDegrees(float degrees);
+    Q_INVOKABLE void setBeamDegrees(float degrees, bool isRelative);
+
+    Q_INVOKABLE void highlightFixtureSelection();
 
     void setChannelValues(QList<SceneValue> values);
 
@@ -235,9 +289,6 @@ protected slots:
     void slotFixtureFlagsChanged(quint32 itemID, quint32 flags);
 
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
-    void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
-    void slotColorChanged(QColor col, QColor wauv);
-
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
     void slotSimpleDeskValueChanged(quint32 fxID, quint32 channel, quint8 value);
@@ -254,6 +305,7 @@ protected slots:
 
 signals:
     void selectedFixturesChanged();
+    void selectedDimmersCountChanged();
     void fixturesPositionChanged();
     void fixturesRotationChanged();
 
@@ -263,6 +315,9 @@ private:
 
     /** A flag indicating if a Function is currently being edited */
     bool m_editingEnabled;
+
+    /** The number of generic dimmers currently selected */
+    int m_selectedDimmersCount;
 
     /** A multihash containing the selected fixtures' capabilities by channel type */
     /** The hash is: int (channel type) , SceneValue (Fixture ID and channel) */
@@ -284,14 +339,13 @@ public:
     /** Return the current DMX dump channel type mask */
     int dumpChannelMask() const;
 
-    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
-
-    Q_INVOKABLE void dumpDmxChannels(quint32 sceneID, quint32 mask);
+    /** Dump the cached DMX channel to a new or an existing Scene,
+     *  considering the options flagged in the DMX Dump popup */
+    Q_INVOKABLE void dumpDmxChannels(quint32 channelMask, QString sceneName, int sceneID,
+                                     bool allChannels, bool nonZeroOnly);
 
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
-
-    GenericDMXSource *dmxSource() const;
 
     /** Return a list only of the fixture IDs from the selected preview items */
     QList<quint32> selectedFixtureIDList() const;

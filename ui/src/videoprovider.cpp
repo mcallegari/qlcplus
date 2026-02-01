@@ -17,17 +17,19 @@
   limitations under the License.
 */
 
-#include "videoprovider.h"
-#include "qlcfile.h"
-#include "doc.h"
-
+#include <QVersionNumber>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
  #include <QMediaMetaData>
+ #include <QAudioOutput>
 #endif
 #include <QApplication>
 #include <QMediaPlayer>
 #include <QVideoWidget>
 #include <QScreen>
+
+#include "videoprovider.h"
+#include "qlcfile.h"
+#include "doc.h"
 
 VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)
@@ -51,7 +53,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == NULL)
         return;
 
-    if(func->type() == Function::VideoType)
+    if (func->type() == Function::VideoType)
     {
         VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
         m_videoMap[id] = vWidget;
@@ -83,6 +85,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
     m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
 #else
     m_videoPlayer = new QMediaPlayer(this);
+    m_audioOutput = new QAudioOutput(this);
+    m_videoPlayer->setAudioOutput(m_audioOutput);
 #endif
     m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
 
@@ -113,8 +117,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
             this, SLOT(slotSetPause(bool)));
     connect(m_video, SIGNAL(requestStop()),
             this, SLOT(slotStopVideo()));
-    connect(m_video, SIGNAL(requestBrightnessAdjust(int)),
-            this, SLOT(slotBrightnessAdjust(int)));
+    connect(m_video, SIGNAL(requestBrightnessVolumeAdjust(qreal)),
+            this, SLOT(slotBrightnessVolumeAdjust(qreal)));
 
     QString sourceURL = m_video->sourceUrl();
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -216,7 +220,7 @@ void VideoWidget::slotMetaDataChanged()
         return;
 
     QMediaMetaData md = m_videoPlayer->metaData();
-    foreach(QMediaMetaData::Key k, md.keys())
+    foreach (QMediaMetaData::Key k, md.keys())
     {
         qDebug() << "[Metadata]" << md.metaDataKeyToString(k) << ":" << md.stringValue(k);
         switch (k)
@@ -306,13 +310,19 @@ void VideoWidget::slotStopVideo()
     m_video->stop(functionParent());
 }
 
-void VideoWidget::slotBrightnessAdjust(int value)
+void VideoWidget::slotBrightnessVolumeAdjust(qreal value)
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (m_videoWidget != NULL)
-        m_videoWidget->setBrightness(value);
+    int brightness = -100 + (int)(qreal(100.0) * value);
+    int volume = 100 * (int)QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    if (m_videoWidget)
+        m_videoWidget->setBrightness(brightness);
+    if (m_videoPlayer)
+        m_videoPlayer->setVolume(volume);
 #else
-    Q_UNUSED(value)
+    qreal linearVolume = QAudio::convertVolume(value, QAudio::LogarithmicVolumeScale, QAudio::LinearVolumeScale);
+    if (m_audioOutput)
+        m_audioOutput->setVolume(linearVolume);
 #endif
 }
 

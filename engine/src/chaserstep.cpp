@@ -26,17 +26,17 @@
 #include "function.h"
 #include "doc.h"
 
-#define KXMLQLCSequenceSceneValues "Values"
-#define KXMLQLCStepNote "Note"
+#define KXMLQLCSequenceSceneValues  QStringLiteral("Values")
+#define KXMLQLCStepNote             QStringLiteral("Note")
 
 ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     : fid(aFid)
     , fadeIn(aFadeIn)
     , hold(aHold)
     , fadeOut(aFadeOut)
+    , duration(fadeIn + hold)
     , note(QString())
 {
-    duration = fadeIn + hold;
 }
 
 ChaserStep::ChaserStep(const ChaserStep& cs)
@@ -284,7 +284,7 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
         quint32 fixtureID = Fixture::invalidId();
-        foreach(SceneValue scv, values)
+        foreach (SceneValue scv, values)
         {
             // step values are saved as a string with the following syntax:
             // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc

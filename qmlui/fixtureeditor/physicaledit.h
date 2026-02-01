@@ -24,7 +24,7 @@
 
 #include "qlcphysical.h"
 
-class PhysicalEdit : public QObject
+class PhysicalEdit final : public QObject
 {
     Q_OBJECT
 
@@ -52,6 +52,8 @@ class PhysicalEdit : public QObject
 public:
     PhysicalEdit(QLCPhysical phy, QObject *parent = nullptr);
     ~PhysicalEdit();
+
+    QLCPhysical physical();
 
 public:
     QString bulbType() const;

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls.Basic
 import "."
 
 CustomSpinBox
@@ -50,4 +50,10 @@ CustomSpinBox
     }
 
     onValueModified: realValue = value / Math.pow(10, decimals)
+
+    function setValue(newValue)
+    {
+        value = newValue
+        realValue = newValue / Math.pow(10, decimals)
+    }
 }

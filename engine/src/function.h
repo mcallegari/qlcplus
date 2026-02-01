@@ -45,32 +45,33 @@ class FunctionUiState;
  * @{
  */
 
-#define KXMLQLCFunction QString("Function")
-#define KXMLQLCFunctionName QString("Name")
-#define KXMLQLCFunctionID QString("ID")
-#define KXMLQLCFunctionType QString("Type")
-#define KXMLQLCFunctionData QString("Data")
-#define KXMLQLCFunctionPath QString("Path")
-#define KXMLQLCFunctionHidden QString("Hidden")
-#define KXMLQLCFunctionBlendMode QString("BlendMode")
+#define KXMLQLCFunction          QStringLiteral("Function")
+#define KXMLQLCFunctionName      QStringLiteral("Name")
+#define KXMLQLCFunctionID        QStringLiteral("ID")
+#define KXMLQLCFunctionType      QStringLiteral("Type")
+#define KXMLQLCFunctionData      QStringLiteral("Data")
+#define KXMLQLCFunctionPath      QStringLiteral("Path")
+#define KXMLQLCFunctionHidden    QStringLiteral("Hidden")
+#define KXMLQLCFunctionBlendMode QStringLiteral("BlendMode")
 
-#define KXMLQLCFunctionValue QString("Value")
-#define KXMLQLCFunctionValueType QString("Type")
-#define KXMLQLCFunctionChannel QString("Channel")
+#define KXMLQLCFunctionValue     QStringLiteral("Value")
+#define KXMLQLCFunctionValueType QStringLiteral("Type")
+#define KXMLQLCFunctionChannel   QStringLiteral("Channel")
 
-#define KXMLQLCFunctionStep QString("Step")
-#define KXMLQLCFunctionNumber QString("Number")
+#define KXMLQLCFunctionStep      QStringLiteral("Step")
+#define KXMLQLCFunctionNumber    QStringLiteral("Number")
 
-#define KXMLQLCFunctionDirection QString("Direction")
-#define KXMLQLCFunctionRunOrder QString("RunOrder")
+#define KXMLQLCFunctionDirection QStringLiteral("Direction")
+#define KXMLQLCFunctionRunOrder  QStringLiteral("RunOrder")
+#define KXMLQLCFunctionTempoType QStringLiteral("Tempo")
 
-#define KXMLQLCFunctionEnabled QString("Enabled")
+#define KXMLQLCFunctionEnabled   QStringLiteral("Enabled")
 
-#define KXMLQLCFunctionSpeed         QString("Speed")
-#define KXMLQLCFunctionSpeedFadeIn   QString("FadeIn")
-#define KXMLQLCFunctionSpeedHold     QString("Hold")
-#define KXMLQLCFunctionSpeedFadeOut  QString("FadeOut")
-#define KXMLQLCFunctionSpeedDuration QString("Duration")
+#define KXMLQLCFunctionSpeed         QStringLiteral("Speed")
+#define KXMLQLCFunctionSpeedFadeIn   QStringLiteral("FadeIn")
+#define KXMLQLCFunctionSpeedHold     QStringLiteral("Hold")
+#define KXMLQLCFunctionSpeedFadeOut  QStringLiteral("FadeOut")
+#define KXMLQLCFunctionSpeedDuration QStringLiteral("Duration")
 
 typedef struct
 {
@@ -99,6 +100,7 @@ class Function : public QObject
     Q_PROPERTY(Type type READ type CONSTANT)
     Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
     Q_PROPERTY(RunOrder runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
+    Q_PROPERTY(TempoType tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged FINAL)
 
 public:
     /**
@@ -116,14 +118,10 @@ public:
         RGBMatrixType  = 1 << 5,
         ShowType       = 1 << 6,
         SequenceType   = 1 << 7,
-        AudioType      = 1 << 8
-#if QT_VERSION >= 0x050000
-        , VideoType    = 1 << 9
-#endif
+        AudioType      = 1 << 8,
+        VideoType      = 1 << 9
     };
-#if QT_VERSION >= 0x050500
     Q_ENUM(Type)
-#endif
 
     /**
      * Common attributes
@@ -135,9 +133,7 @@ public:
 
 public:
     enum PropType { Name = 0, FadeIn, Hold, FadeOut, Duration, Notes };
-#if QT_VERSION >= 0x050500
     Q_ENUM(PropType)
-#endif
 
     /*********************************************************************
      * Initialization
@@ -404,8 +400,18 @@ private:
      * Tempo type
      *********************************************************************/
 public:
-    enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+    enum TempoType
+    {
+        Original = -1,
+        Time = 0,
+        Beats = 1
+    };
+    enum FractionsType
+    {
+        NoFractions = 0,
+        ByTwoFractions,
+        AllFractions
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(TempoType)
     Q_ENUM(FractionsType)
@@ -451,6 +457,16 @@ public:
 
     /** Set the override speed type (done by a Chaser) */
     void setOverrideTempoType(TempoType type);
+
+protected:
+    /** Save function's tempo type in $doc */
+    bool saveXMLTempoType(QXmlStreamWriter *doc) const;
+
+    /** Load function's tempo type from $root */
+    bool loadXMLTempoType(QXmlStreamReader &root);
+
+signals:
+    void tempoTypeChanged();
 
 protected slots:
     /**
@@ -584,7 +600,7 @@ public:
      *
      * @param doc The XML document to save to
      */
-    virtual bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc) const;
 
     /**
      * Read this function's contents from an XML document
@@ -615,20 +631,20 @@ public:
      * Check if a Function ID is included/controlled by this Function.
      * Subclasses should reimplement this.
      */
-    virtual bool contains(quint32 functionId);
+    virtual bool contains(quint32 functionId) const;
 
     /**
      * Return a list of components such as Functions/Fixtures with unique IDs.
      * Subclasses should reimplement this.
      */
-    virtual QList<quint32> components();
+    virtual QList<quint32> components() const;
 
     /*********************************************************************
      * Flash
      *********************************************************************/
 public:
     /** Flash the function */
-    virtual void flash(MasterTimer* timer);
+    virtual void flash(MasterTimer* timer, bool shouldOverride, bool forceLTP);
 
     /** UnFlash the function */
     virtual void unFlash(MasterTimer* timer);
@@ -807,7 +823,7 @@ public:
      * actually stopped. To prevent deadlocks the function only waits for 2s.
      *
      * @return true if the function was stopped. false if the function did not
-     *              stop withing two seconds
+     *              stop within two seconds
      */
     bool stopAndWait();
 

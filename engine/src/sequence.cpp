@@ -23,7 +23,7 @@
 
 #include "sequence.h"
 
-#define KXMLQLCSequenceBoundScene "BoundScene"
+#define KXMLQLCSequenceBoundScene QStringLiteral("BoundScene")
 
 Sequence::Sequence(Doc* doc)
     : Chaser(doc)
@@ -89,7 +89,7 @@ quint32 Sequence::boundSceneID() const
     return m_boundSceneID;
 }
 
-QList<quint32> Sequence::components()
+QList<quint32> Sequence::components() const
 {
     QList<quint32> ids;
     if (m_boundSceneID != Function::invalidId())
@@ -101,7 +101,7 @@ QList<quint32> Sequence::components()
  * Save & Load
  *****************************************************************************/
 
-bool Sequence::saveXML(QXmlStreamWriter *doc)
+bool Sequence::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -112,6 +112,9 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
     saveXMLCommon(doc);
 
     doc->writeAttribute(KXMLQLCSequenceBoundScene, QString::number(boundSceneID()));
+
+    /* Tempo type */
+    saveXMLTempoType(doc);
 
     /* Speed */
     saveXMLSpeed(doc);
@@ -187,6 +190,10 @@ bool Sequence::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionRunOrder)
         {
             loadXMLRunOrder(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTempoType)
+        {
+            loadXMLTempoType(root);
         }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {

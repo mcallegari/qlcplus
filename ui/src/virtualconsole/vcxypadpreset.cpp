@@ -103,7 +103,9 @@ VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &vcpp)
         {
             m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcpp.m_inputSource->universe(),
                                                    vcpp.m_inputSource->channel()));
-            m_inputSource->setRange(vcpp.m_inputSource->lowerValue(), vcpp.m_inputSource->upperValue());
+
+            m_inputSource->setFeedbackValue(QLCInputFeedback::LowerValue, vcpp.m_inputSource->feedbackValue(QLCInputFeedback::LowerValue));
+            m_inputSource->setFeedbackValue(QLCInputFeedback::UpperValue, vcpp.m_inputSource->feedbackValue(QLCInputFeedback::UpperValue));
         }
     }
     return *this;

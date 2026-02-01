@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class RGBText_Test : public QObject
+class RGBText_Test final : public QObject
 {
     Q_OBJECT
 
@@ -42,6 +42,7 @@ private slots:
     void staticLetters();
     void horizontalScroll();
     void verticalScroll();
+    void unused();
 
 private:
    Doc * m_doc;

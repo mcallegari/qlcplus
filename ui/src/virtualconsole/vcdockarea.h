@@ -33,7 +33,7 @@ class QHideEvent;
  * @{
  */
 
-class VCDockArea : public QFrame
+class VCDockArea final : public QFrame
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCDockArea)
@@ -45,6 +45,7 @@ public:
     VCDockArea(QWidget* parent, InputOutputMap* ioMap);
     ~VCDockArea();
 
+    void setGrandMasterVisible(bool visible);
     void setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode);
 
 private:

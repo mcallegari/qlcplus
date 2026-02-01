@@ -26,12 +26,12 @@
 #include "video.h"
 #include "doc.h"
 
-#define KXMLQLCVideoSource      QString("Source")
-#define KXMLQLCVideoScreen      QString("Screen")
-#define KXMLQLCVideoFullscreen  QString("Fullscreen")
-#define KXMLQLCVideoGeometry    QString("Geometry")
-#define KXMLQLCVideoRotation    QString("Rotation")
-#define KXMLQLCVideoZIndex      QString("ZIndex")
+#define KXMLQLCVideoSource      QStringLiteral("Source")
+#define KXMLQLCVideoScreen      QStringLiteral("Screen")
+#define KXMLQLCVideoFullscreen  QStringLiteral("Fullscreen")
+#define KXMLQLCVideoGeometry    QStringLiteral("Geometry")
+#define KXMLQLCVideoRotation    QStringLiteral("Rotation")
+#define KXMLQLCVideoZIndex      QStringLiteral("ZIndex")
 
 const QStringList Video::m_defaultVideoCaps =
         QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
@@ -132,7 +132,7 @@ QStringList Video::getVideoCapabilities()
     {
         qDebug() << "Supported video types:" << mimeTypes;
 
-        foreach(QString mime, mimeTypes)
+        foreach (QString mime, mimeTypes)
         {
             if (mime.startsWith("video/"))
             {
@@ -333,8 +333,7 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
-            emit requestBrightnessAdjust(b);
+            emit requestBrightnessVolumeAdjust(getAttributeValue(Intensity));
             emit intensityChanged();
         }
         break;
@@ -354,7 +353,7 @@ void Video::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Video::saveXML(QXmlStreamWriter *doc)
+bool Video::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

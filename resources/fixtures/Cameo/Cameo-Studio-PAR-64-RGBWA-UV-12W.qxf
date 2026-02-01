@@ -27,21 +27,21 @@
  </Channel>
  <Channel Name="Color macros 2ch">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="16" Color="#ff0000">Red</Capability>
-  <Capability Min="17" Max="33" Color="#00ff00">Green</Capability>
-  <Capability Min="34" Max="50" Color="#0000ff">Blue</Capability>
-  <Capability Min="51" Max="67" Color="#ffffff">White</Capability>
-  <Capability Min="68" Max="84" Color="#ffaa00">Amber</Capability>
-  <Capability Min="85" Max="101" Color="#aa007f">UV</Capability>
-  <Capability Min="102" Max="118" Color="#ffff00">Yellow</Capability>
-  <Capability Min="119" Max="135" Color="#00ffff">Cyan</Capability>
-  <Capability Min="136" Max="152" Color="#aaaaff">Lavender</Capability>
-  <Capability Min="153" Max="169" Color="#aaff7f">Light green</Capability>
-  <Capability Min="170" Max="186" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="187" Max="203" Color="#aaffff">Torquoise</Capability>
-  <Capability Min="204" Max="220" Color="#ff6e07">Orange</Capability>
-  <Capability Min="221" Max="237" Color="#f0f0ff">Cold white</Capability>
-  <Capability Min="238" Max="255" Color="#ffeee5">Warm white</Capability>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#aa007f">UV</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#aaaaff">Lavender</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#aaff7f">Light green</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#aaffff">Torquoise</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#ff6e07">Orange</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#f0f0ff">Cold white</Capability>
+  <Capability Min="238" Max="255" Preset="ColorMacro" Res1="#ffeee5">Warm white</Capability>
  </Channel>
  <Mode Name="9 channel">
   <Channel Number="0">Dimmer</Channel>

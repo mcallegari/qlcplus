@@ -39,7 +39,7 @@ void DMX4Linux::init()
     m_file.setFileName("/dev/dmx");
 }
 
-QString DMX4Linux::name()
+QString DMX4Linux::name() const
 {
     return QString("DMX4Linux");
 }
@@ -87,7 +87,7 @@ QStringList DMX4Linux::outputs()
     return list;
 }
 
-QString DMX4Linux::pluginInfo()
+QString DMX4Linux::pluginInfo() const
 {
     QString str;
 
@@ -121,9 +121,10 @@ QString DMX4Linux::outputInfo(quint32 output)
     return str;
 }
 
-void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void DMX4Linux::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != 0 || m_file.isOpen() == false)
         return;

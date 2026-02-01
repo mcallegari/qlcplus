@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
+import Qt3D.Core
+import Qt3D.Render
 
 RenderTarget
 {
@@ -88,8 +88,8 @@ RenderTarget
         height: 1024
         format: Texture.D32F
         generateMipMaps: false
-        magnificationFilter: Texture.Linear
-        minificationFilter: Texture.Linear
+        magnificationFilter: Texture.Nearest
+        minificationFilter: Texture.Nearest
         wrapMode
         {
             x: WrapMode.ClampToEdge

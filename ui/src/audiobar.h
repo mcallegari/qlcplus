@@ -32,21 +32,21 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCAudioBarIndex        QString("Index")
-#define KXMLQLCAudioBarName         QString("Name")
-#define KXMLQLCAudioBarType         QString("Type")
-#define KXMLQLCAudioBarDMXChannels  QString("DMXChannels")
-#define KXMLQLCAudioBarFunction     QString("FunctionID")
-#define KXMLQLCAudioBarWidget       QString("WidgetID")
-#define KXMLQLCAudioBarMinThreshold QString("MinThreshold")
-#define KXMLQLCAudioBarMaxThreshold QString("MaxThreshold")
-#define KXMLQLCAudioBarDivisor      QString("Divisor")
+#define KXMLQLCAudioBarIndex        QStringLiteral("Index")
+#define KXMLQLCAudioBarName         QStringLiteral("Name")
+#define KXMLQLCAudioBarType         QStringLiteral("Type")
+#define KXMLQLCAudioBarDMXChannels  QStringLiteral("DMXChannels")
+#define KXMLQLCAudioBarFunction     QStringLiteral("FunctionID")
+#define KXMLQLCAudioBarWidget       QStringLiteral("WidgetID")
+#define KXMLQLCAudioBarMinThreshold QStringLiteral("MinThreshold")
+#define KXMLQLCAudioBarMaxThreshold QStringLiteral("MaxThreshold")
+#define KXMLQLCAudioBarDivisor      QStringLiteral("Divisor")
 
-class AudioBar
+class AudioBar final
 {
 public:
     /** Normal constructor */
-    AudioBar(int t = 0, uchar v = 0, quint32 parentId = quint32(-1));
+    AudioBar(int type = 0, uchar value = 0, quint32 parentId = quint32(-1));
 
     /** Destructor */
     ~AudioBar() { }

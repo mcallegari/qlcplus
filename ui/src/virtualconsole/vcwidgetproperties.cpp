@@ -25,23 +25,23 @@
 #include "vcwidgetproperties.h"
 
 VCWidgetProperties::VCWidgetProperties()
+    : m_state(Qt::WindowNoState)
+    , m_visible(false)
+    , m_x(100)
+    , m_y(100)
+    , m_width(0)
+    , m_height(0)
 {
-    m_state = Qt::WindowNoState;
-    m_visible = false;
-    m_x = 100;
-    m_y = 100;
-    m_width = 0;
-    m_height = 0;
 }
 
 VCWidgetProperties::VCWidgetProperties(const VCWidgetProperties& properties)
+    : m_state(properties.m_state)
+    , m_visible(properties.m_visible)
+    , m_x(properties.m_x)
+    , m_y(properties.m_y)
+    , m_width(properties.m_width)
+    , m_height(properties.m_height)
 {
-    m_state = properties.m_state;
-    m_visible = properties.m_visible;
-    m_x = properties.m_x;
-    m_y = properties.m_y;
-    m_width = properties.m_width;
-    m_height = properties.m_height;
 }
 
 VCWidgetProperties::~VCWidgetProperties()

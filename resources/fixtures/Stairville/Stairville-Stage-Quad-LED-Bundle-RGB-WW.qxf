@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Nils Hitschke</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Stage Quad LED Bundle RGB WW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Operation Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Automatic show Pr.01</Capability>
+  <Capability Min="11" Max="21">Automatic show Pr.02</Capability>
+  <Capability Min="22" Max="32">Automatic show Pr.03</Capability>
+  <Capability Min="33" Max="43">Automatic show Pr.04</Capability>
+  <Capability Min="44" Max="54">Automatic show Pr.05</Capability>
+  <Capability Min="55" Max="65">Automatic show Pr.06</Capability>
+  <Capability Min="66" Max="76">Automatic show Pr.07</Capability>
+  <Capability Min="77" Max="87">Automatic show Pr.08</Capability>
+  <Capability Min="88" Max="98">Automatic show Pr.09</Capability>
+  <Capability Min="99" Max="109">Automatic show Pr.10</Capability>
+  <Capability Min="110" Max="120">Automatic show Pr.11</Capability>
+  <Capability Min="121" Max="131">Automatic show Pr.12</Capability>
+  <Capability Min="132" Max="142">Automatic show Pr.13</Capability>
+  <Capability Min="143" Max="153">Automatic show Pr.14</Capability>
+  <Capability Min="154" Max="164">Automatic show Pr.15</Capability>
+  <Capability Min="165" Max="175">Automatic show Pr.16</Capability>
+  <Capability Min="176" Max="186">Automatic show Pr.17</Capability>
+  <Capability Min="187" Max="197">Automatic show Pr.18</Capability>
+  <Capability Min="198" Max="208">Automatic show Pr.19</Capability>
+  <Capability Min="209" Max="219">Automatic show Pr.20</Capability>
+  <Capability Min="220" Max="230">Automatic show Pr.21</Capability>
+  <Capability Min="231" Max="241">Automatic show Pr.22</Capability>
+  <Capability Min="242" Max="255">Sound controlled show</Capability>
+ </Channel>
+ <Channel Name="Function depending on setting of channel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">Off</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#00ffff">Basic colour cyan</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#ffaaff">Basic colour pink</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ff00ff">Basic colour magenta</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffaa00">Basic colour orange</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#defffa">Basic colour cold white</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#d0576f">Basic colour pompadour</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#aaff7f">Basic colour light green</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#00aaff">Basic colour light blue</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#ffff00">Basic colour yellow</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#fffce2">Basic colour warm white</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#ff0000">Basic colour red</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#00ff00">Basic colour green</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#0000ff">Basic colour blue</Capability>
+  <Capability Min="238" Max="254" Preset="ColorMacro" Res1="#ff5500">Basic colour amber</Capability>
+  <Capability Min="255" Max="255">maximum brightness</Capability>
+ </Channel>
+ <Channel Name="Red intensity" Preset="IntensityRed"/>
+ <Channel Name="Green intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity" Preset="IntensityBlue"/>
+ <Channel Name="White intensity" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Operation Mode 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="10">Automatic show Pr.01</Capability>
+  <Capability Min="11" Max="21">Automatic show Pr.02</Capability>
+  <Capability Min="22" Max="32">Automatic show Pr.03</Capability>
+  <Capability Min="33" Max="43">Automatic show Pr.04</Capability>
+  <Capability Min="44" Max="54">Automatic show Pr.05</Capability>
+  <Capability Min="55" Max="65">Automatic show Pr.06</Capability>
+  <Capability Min="66" Max="76">Automatic show Pr.07</Capability>
+  <Capability Min="77" Max="87">Automatic show Pr.08</Capability>
+  <Capability Min="88" Max="98">Automatic show Pr.09</Capability>
+  <Capability Min="99" Max="109">Automatic show Pr.10</Capability>
+  <Capability Min="110" Max="120">Automatic show Pr.11</Capability>
+  <Capability Min="121" Max="131">Automatic show Pr.12</Capability>
+  <Capability Min="132" Max="142">Automatic show Pr.13</Capability>
+  <Capability Min="143" Max="153">Automatic show Pr.14</Capability>
+  <Capability Min="154" Max="164">Automatic show Pr.15</Capability>
+  <Capability Min="165" Max="175">Automatic show Pr.16</Capability>
+  <Capability Min="176" Max="186">Automatic show Pr.17</Capability>
+  <Capability Min="187" Max="197">Automatic show Pr.18</Capability>
+  <Capability Min="198" Max="208">Automatic show Pr.19</Capability>
+  <Capability Min="209" Max="219">Automatic show Pr.20</Capability>
+  <Capability Min="220" Max="230">Automatic show Pr.21</Capability>
+  <Capability Min="231" Max="241">Automatic show Pr.22</Capability>
+  <Capability Min="242" Max="255">Sound controlled show</Capability>
+ </Channel>
+ <Channel Name="Function depending on setting of channel 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">Off</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#00ffff">Basic colour cyan</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#ffaaff">Basic colour pink</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ff00ff">Basic colour magenta</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffaa00">Basic colour orange</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#defffa">Basic colour cold white</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#d0576f">Basic colour pompadour</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#aaff7f">Basic colour light green</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#00aaff">Basic colour light blue</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#ffff00">Basic colour yellow</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#fffce2">Basic colour warm white</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#ff0000">Basic colour red</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#00ff00">Basic colour green</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#0000ff">Basic colour blue</Capability>
+  <Capability Min="238" Max="254" Preset="ColorMacro" Res1="#ff5500">Basic colour amber</Capability>
+  <Capability Min="255" Max="255">maximum brightness</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red intensity Spots 1 + 2" Preset="IntensityRed"/>
+ <Channel Name="Green intensity Spots 1 + 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity Spots 1 + 2" Preset="IntensityBlue"/>
+ <Channel Name="White intensity Spots 1 + 2" Preset="IntensityWhite"/>
+ <Channel Name="Red intensity Spots 3 + 4" Preset="IntensityRed"/>
+ <Channel Name="Green intensity Spots 3 + 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity Spots 3 + 4" Preset="IntensityBlue"/>
+ <Channel Name="White intensity Spots 3 + 4" Preset="IntensityWhite"/>
+ <Channel Name="Red intensity Spot 2" Preset="IntensityRed"/>
+ <Channel Name="Green intensity Spot 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity Spot 2" Preset="IntensityBlue"/>
+ <Channel Name="White intensity Spot 2" Preset="IntensityWhite"/>
+ <Channel Name="Red intensity Spot 3" Preset="IntensityRed"/>
+ <Channel Name="Green intensity Spot 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity Spot 3" Preset="IntensityBlue"/>
+ <Channel Name="White intensity Spot 3" Preset="IntensityWhite"/>
+ <Channel Name="Red intensity Spot 4" Preset="IntensityRed"/>
+ <Channel Name="Green intensity Spot 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity Spot 4" Preset="IntensityBlue"/>
+ <Channel Name="White intensity Spot 4" Preset="IntensityWhite"/>
+ <Channel Name="Red intensity Spot 1" Preset="IntensityRed"/>
+ <Channel Name="Green intensity Spot 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity Spot 1" Preset="IntensityBlue"/>
+ <Channel Name="White intensity Spot 1" Preset="IntensityWhite"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Operation Mode</Channel>
+  <Channel Number="1">Function depending on setting of channel 1</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red intensity</Channel>
+  <Channel Number="1">Green intensity</Channel>
+  <Channel Number="2">Blue intensity</Channel>
+  <Channel Number="3">White intensity</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red intensity</Channel>
+  <Channel Number="1">Green intensity</Channel>
+  <Channel Number="2">Blue intensity</Channel>
+  <Channel Number="3">White intensity</Channel>
+  <Channel Number="4">Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red intensity</Channel>
+  <Channel Number="2">Green intensity</Channel>
+  <Channel Number="3">Blue intensity</Channel>
+  <Channel Number="4">White intensity</Channel>
+  <Channel Number="5">Operation Mode 2</Channel>
+  <Channel Number="6">Function depending on setting of channel 6</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red intensity Spots 1 + 2</Channel>
+  <Channel Number="2">Green intensity Spots 1 + 2</Channel>
+  <Channel Number="3">Blue intensity Spots 1 + 2</Channel>
+  <Channel Number="4">White intensity Spots 1 + 2</Channel>
+  <Channel Number="5">Red intensity Spots 3 + 4</Channel>
+  <Channel Number="6">Green intensity Spots 3 + 4</Channel>
+  <Channel Number="7">Blue intensity Spots 3 + 4</Channel>
+  <Channel Number="8">White intensity Spots 3 + 4</Channel>
+  <Channel Number="9">Strobe</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red intensity Spot 1</Channel>
+  <Channel Number="2">Green intensity Spot 1</Channel>
+  <Channel Number="3">Blue intensity Spot 1</Channel>
+  <Channel Number="4">White intensity Spot 1</Channel>
+  <Channel Number="5">Red intensity Spot 2</Channel>
+  <Channel Number="6">Green intensity Spot 2</Channel>
+  <Channel Number="7">Blue intensity Spot 2</Channel>
+  <Channel Number="8">White intensity Spot 2</Channel>
+  <Channel Number="9">Red intensity Spot 3</Channel>
+  <Channel Number="10">Green intensity Spot 3</Channel>
+  <Channel Number="11">Blue intensity Spot 3</Channel>
+  <Channel Number="12">White intensity Spot 3</Channel>
+  <Channel Number="13">Red intensity Spot 4</Channel>
+  <Channel Number="14">Green intensity Spot 4</Channel>
+  <Channel Number="15">Blue intensity Spot 4</Channel>
+  <Channel Number="16">White intensity Spot 4</Channel>
+  <Channel Number="17">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12.5" Width="1200" Height="330" Depth="70"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

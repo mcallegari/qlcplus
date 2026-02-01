@@ -21,12 +21,12 @@
 #ifndef RGBMATRIX_H
 #define RGBMATRIX_H
 
+#include <QElapsedTimer>
 #include <QVector>
 #include <QColor>
 #include <QList>
 #include <QSize>
 #include <QPair>
-#include <QHash>
 #include <QMap>
 #include <QMutex>
 
@@ -37,7 +37,6 @@
 #endif
 #include "function.h"
 
-class QElapsedTimer;
 class FixtureGroup;
 class GenericFader;
 class FadeChannel;
@@ -47,7 +46,7 @@ class QDir;
  * @{
  */
 
-class RGBMatrixStep
+class RGBMatrixStep final
 {
 public:
     RGBMatrixStep();
@@ -59,11 +58,11 @@ public:
     int currentStepIndex() const;
 
     /** Calculate the RGB components delta between $startColor and $endColor */
-    void calculateColorDelta(QColor startColor, QColor endColor);
+    void calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm);
 
     /** Set/Get the final color of the next step to be reproduced */
     void setStepColor(QColor color);
-    QColor stepColor();
+    QColor stepColor() const;
 
     /** Update the color of the next step to be reproduced, considering the step index,
      *  the start color and the steps count */
@@ -71,7 +70,7 @@ public:
 
     /** Initialize the playback direction and set the initial step index and
       * color based on $startColor and $endColor */
-    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount);
+    void initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm);
 
     /** Check the steps progression based on $order and the internal m_direction.
      *  This method returns true if the RGBMatrix can continue to run, otherwise
@@ -93,7 +92,7 @@ private:
     int m_crDelta, m_cgDelta, m_cbDelta;
 };
 
-class RGBMatrix : public Function
+class RGBMatrix final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(RGBMatrix)
@@ -106,17 +105,17 @@ public:
     ~RGBMatrix();
 
     /** @reimp */
-    QIcon getIcon() const;
+    QIcon getIcon() const override;
 
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
     /** @reimp */
-    void setTotalDuration(quint32 msec);
+    void setTotalDuration(quint32 msec) override;
 
     /** @reimp */
-    quint32 totalDuration();
+    quint32 totalDuration() override;
 
     /** Set the matrix to control or not the dimmer channel */
     void setDimmerControl(bool dimmerControl);
@@ -133,10 +132,10 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** @reimp */
-    virtual bool copyFrom(const Function* function);
+    virtual bool copyFrom(const Function* function) override;
 
     /************************************************************************
      * Fixture Group
@@ -147,7 +146,7 @@ public:
     void setFixtureGroup(quint32 id);
 
     /** @reimp */
-    QList<quint32> components();
+    QList<quint32> components() const override;
 
 private:
     quint32 m_fixtureGroupID;
@@ -171,12 +170,17 @@ public:
 #endif
 
     /** Get the number of steps of the current algorithm */
-    int stepsCount();
+    int stepsCount() const;
 
     /** Get the preview of the current algorithm at the given step */
     void previewMap(int step, RGBMatrixStep *handler);
 
 private:
+    int algorithmStepsCount();
+
+private:
+    bool m_requestEngineCreation;
+    RGBAlgorithm *m_runAlgorithm;
     RGBAlgorithm *m_algorithm;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QMutex m_algorithmMutex;
@@ -188,17 +192,17 @@ private:
      * Color
      ************************************************************************/
 public:
-    void setStartColor(const QColor& c);
-    QColor startColor() const;
-
-    void setEndColor(const QColor& c);
-    QColor endColor() const;
+    void setColor(int i, QColor c);
+    QColor getColor(int i) const;
+    QVector <QColor> getColors() const;
 
     void updateColorDelta();
 
+    /** Set the colors of the current algorithm */
+    void setMapColors(RGBAlgorithm *algorithm);
+
 private:
-    QColor m_startColor;
-    QColor m_endColor;
+    QVector<QColor> m_rgbColors;
     RGBMatrixStep *m_stepHandler;
 
     /************************************************************************
@@ -213,39 +217,42 @@ public:
 
 private:
     /** A map of the custom properties for this matrix */
-    QHash<QString, QString>m_properties;
+    QMap<QString, QString>m_properties;
 
     /************************************************************************
      * Load & Save
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void tap();
+    void tap() override;
 
     /** @reimp */
-    void preRun(MasterTimer *timer);
+    void preRun(MasterTimer *timer) override;
 
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe*> universes) override;
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe*> universes) override;
 
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    /** Check if the engine needs to be re-created */
+    void checkEngineCreation();
+
+    FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
     void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
@@ -257,7 +264,7 @@ public:
 
 private:
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer *m_roundTime;
+    QElapsedTimer m_roundTime;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;
@@ -270,14 +277,14 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    int adjustAttribute(qreal fraction, int attributeId);
+    int adjustAttribute(qreal fraction, int attributeId) override;
 
     /*************************************************************************
      * Blend mode
      *************************************************************************/
 public:
     /** @reimp */
-    void setBlendMode(Universe::BlendMode mode);
+    void setBlendMode(Universe::BlendMode mode) override;
 
     /*************************************************************************
      * Control Mode

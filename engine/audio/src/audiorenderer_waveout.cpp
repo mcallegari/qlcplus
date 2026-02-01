@@ -150,7 +150,7 @@ bool AudioRendererWaveOut::initialize(quint32 freq, int chan, AudioFormat format
 }
 
 
-qint64 AudioRendererWaveOut::latency()
+qint64 AudioRendererWaveOut::latency() const
 {
     return 0;
 }

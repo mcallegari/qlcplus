@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
+import QtQuick
 import "."
 
 TextInput
@@ -60,11 +60,10 @@ TextInput
         else
         {
             select(0, 0)
-
         }
     }
 
-    Keys.onPressed:
+    Keys.onPressed: (event) =>
     {
         switch(event.key)
         {

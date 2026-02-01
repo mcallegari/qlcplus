@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -42,7 +42,7 @@ Rectangle
     RowLayout
     {
         anchors.fill: parent
-        spacing: 4
+        spacing: 5
 
         Image
         {
@@ -58,7 +58,7 @@ Rectangle
             id: faIcon
             visible: faSource ? true : false
             color: faColor
-            font.family: "FontAwesome"
+            font.family: UISettings.fontAwesomeFontName
             font.pixelSize: iconSize
             text: faSource
         }

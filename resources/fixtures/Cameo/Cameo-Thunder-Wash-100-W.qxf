@@ -46,7 +46,7 @@
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255" Color="#ffffff">Strobe Programs (alternating segments)</Capability>
+  <Capability Min="11" Max="255">Strobe Programs (alternating segments)</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>

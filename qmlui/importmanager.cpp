@@ -26,6 +26,7 @@
 
 #include "qlcfixturedefcache.h"
 #include "monitorproperties.h"
+#include "rgbscriptscache.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "fixtureutils.h"
@@ -35,7 +36,7 @@
 #include "sequence.h"
 #include "qlcfile.h"
 #include "chaser.h"
-#include "script.h"
+#include "scriptwrapper.h"
 #include "scene.h"
 #include "efx.h"
 #include "doc.h"
@@ -63,8 +64,8 @@ ImportManager::ImportManager(QQuickView *view, Doc *doc, QObject *parent)
     //m_importDoc->modifiersCache()->load(QLCModifiersCache::userTemplateDirectory());
 
     /* Load RGB scripts */
-    //m_importDoc->rgbScriptsCache()->load(RGBScriptsCache::systemScriptsDirectory());
-    //m_importDoc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
+    m_importDoc->rgbScriptsCache()->load(RGBScriptsCache::systemScriptsDirectory());
+    m_importDoc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     m_view->rootContext()->setContextProperty("importManager", this);
 }
@@ -128,6 +129,15 @@ bool ImportManager::loadWorkspace(const QString &fileName)
     }
 
     QLCFile::releaseXMLReader(doc);
+
+    // if not present, set initial monitor properties
+    MonitorProperties *monProps = m_importDoc->monitorProperties();
+
+    for (Fixture *fixture : m_importDoc->fixtures())
+    {
+        if (monProps->containsFixture(fixture->id()) == false)
+            monProps->setFixtureFlags(fixture->id(), 0, 0, 0);
+    }
 
     return retval;
 }
@@ -753,7 +763,7 @@ void ImportManager::updateFunctionsTree()
 {
     m_functionTree->clear();
 
-    for(Function *func : m_importDoc->functions()) // C++11
+    for (Function *func : m_importDoc->functions()) // C++11
     {
         if (func == nullptr || func->isVisible() == false)
             return;

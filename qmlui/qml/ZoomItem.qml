@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import "."
 
@@ -49,12 +49,11 @@ Rectangle
 
         Text
         {
-            x: 4
-            y: 2
+            anchors.centerIn: parent
             color: fontColor
-            font.family: "FontAwesome"
-            font.pixelSize: parent.height - 6
-            text: FontAwesome.fa_search_minus
+            font.family: UISettings.fontAwesomeFontName
+            font.pixelSize: parent.height * 0.75
+            text: FontAwesome.fa_magnifying_glass_minus
         }
         MouseArea
         {
@@ -86,12 +85,11 @@ Rectangle
 
         Text
         {
-            x: parent.width - width - 4
-            y: 2
+            anchors.centerIn: parent
             color: fontColor
-            font.family: "FontAwesome"
-            font.pixelSize: parent.height - 6
-            text: FontAwesome.fa_search_plus
+            font.family: UISettings.fontAwesomeFontName
+            font.pixelSize: parent.height * 0.75
+            text: FontAwesome.fa_magnifying_glass_plus
         }
         MouseArea
         {

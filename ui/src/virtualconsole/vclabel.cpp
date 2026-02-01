@@ -30,10 +30,6 @@
 #include <QStyle>
 #include <QSize>
 
-#include "qlcfile.h"
-
-#include "virtualconsole.h"
-#include "mastertimer.h"
 #include "vclabel.h"
 #include "doc.h"
 
@@ -55,7 +51,7 @@ VCLabel::~VCLabel()
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCLabel::createCopy(VCWidget* parent)
+VCWidget* VCLabel::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 

@@ -21,12 +21,8 @@
 #include <QString>
 #include <QDebug>
 
-#include "qlcfile.h"
-
 #include "grandmasterslider.h"
 #include "inputoutputmap.h"
-#include "virtualconsole.h"
-#include "vcproperties.h"
 #include "vcdockarea.h"
 
 VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
@@ -44,6 +40,15 @@ VCDockArea::VCDockArea(QWidget* parent, InputOutputMap *ioMap)
 
 VCDockArea::~VCDockArea()
 {
+}
+
+void VCDockArea::setGrandMasterVisible(bool visible)
+{
+    Q_ASSERT(m_gm != NULL);
+    if (visible)
+        m_gm->show();
+    else
+        m_gm->hide();
 }
 
 void VCDockArea::setGrandMasterInvertedAppearance(GrandMaster::SliderMode mode)

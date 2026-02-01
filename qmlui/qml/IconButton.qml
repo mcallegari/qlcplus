@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls.Basic
 
 import "."
 
@@ -76,7 +76,7 @@ Button
         background:
             Rectangle
             {
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 border.width: 1
                 border.color: UISettings.bgLight
             }
@@ -109,8 +109,8 @@ Button
                 visible: faSource ? true : false
                 anchors.centerIn: parent
                 color: faColor
-                font.family: "FontAwesome"
-                font.pixelSize: control.height - imgMargins - 2
+                font.family: UISettings.fontAwesomeFontName
+                font.pixelSize: control.height * 0.70
                 text: faSource
             }
         }
@@ -136,7 +136,7 @@ Button
                 },
                 State
                 {
-                    when: ctrlMouseArea.pressed
+                    when: control.pressed
                     PropertyChanges
                     {
                         target: contentBody
@@ -153,23 +153,6 @@ Button
                     }
                 }
             ]
-
-            MouseArea
-            {
-                id: ctrlMouseArea
-                anchors.fill: parent
-                onClicked:
-                {
-                    if (checkable)
-                    {
-                        control.toggle()
-                        control.toggled()
-                    }
-                    else
-                        control.clicked()
-                }
-            }
         }
-
 }
 

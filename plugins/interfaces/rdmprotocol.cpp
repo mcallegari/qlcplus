@@ -109,19 +109,22 @@ bool RDMProtocol::packetizeCommand(ushort command, QVariantList params, bool sta
             quint16 pid = params.at(1).toUInt();
             buffer.append(shortToByteArray(pid));
 
-            if (params.length() > 2)
+            if (params.length() > 3)
             {
-                switch(pid)
+                uchar size = params.at(2).toUInt();
+                buffer.append(size); // add PDL
+                switch (size)
                 {
-                    case PID_DMX_PERSONALITY_DESCRIPTION:
-                    default:
-                        buffer.append(char(1)); // append PDL
-                        buffer.append(char(params.at(2).toUInt()));
+                case 1:
+                    buffer.append(uchar(params.at(3).toUInt()));
                     break;
-                    case PID_PARAMETER_DESCRIPTION:
-                    case PID_SLOT_DESCRIPTION:
-                        buffer.append(char(2)); // append PDL
-                        buffer.append(shortToByteArray(params.at(2).toUInt()));
+                case 2:
+                    buffer.append(shortToByteArray(params.at(3).toUInt()));
+                    break;
+                case 4:
+                    buffer.append(longToByteArray(params.at(3).toUInt()));
+                    break;
+                default:
                     break;
                 }
             }
@@ -346,13 +349,17 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
         case PID_SUPPORTED_PARAMETERS:
         {
             QVector<quint16> pidList;
+#ifdef DEBUG_RDM
             QDebug out = qDebug();
             out.nospace().noquote() << "Supported PIDs list: ";
+#endif
             for (int n = 0; n < PDL; n += 2)
             {
                 quint16 pid = byteArrayToShort(buffer, i + n);
                 pidList.append(pid);
+#ifdef DEBUG_RDM
                 out << "0x" << QString::number(pid, 16) << ", ";
+#endif
             }
             values.insert("PID_LIST", QVariant::fromValue(pidList));
         }
@@ -364,8 +371,8 @@ bool RDMProtocol::parsePacket(const QByteArray &buffer, QVariantMap &values)
             values.insert("TYPE", categoryToString(byteArrayToShort(buffer, i + 4)));
             values.insert("Software version", byteArrayToLong(buffer, i + 6));
             values.insert("DMX_CHANNELS", byteArrayToShort(buffer, i + 10));
-            values.insert("Current personality", quint8(buffer.at(i + 12)));
-            values.insert("Number of personalities", quint8(buffer.at(i + 13)));
+            values.insert("PERSONALITY_INDEX", quint8(buffer.at(i + 12)));
+            values.insert("PERSONALITY_COUNT", quint8(buffer.at(i + 13)));
             values.insert("DMX_START_ADDRESS", byteArrayToShort(buffer, i + 14));
             values.insert("Sub-device count", byteArrayToShort(buffer, i + 16));
             values.insert("Number of sensors", quint8(buffer.at(i + 20)));

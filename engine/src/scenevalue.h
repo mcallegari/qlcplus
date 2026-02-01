@@ -32,9 +32,9 @@ class QXmlStreamReader;
  * @{
  */
 
-#define KXMLQLCSceneValue        QString("Value")
-#define KXMLQLCSceneValueFixture QString("Fixture")
-#define KXMLQLCSceneValueChannel QString("Channel")
+#define KXMLQLCSceneValue        QStringLiteral("Value")
+#define KXMLQLCSceneValueFixture QStringLiteral("Fixture")
+#define KXMLQLCSceneValueChannel QStringLiteral("Channel")
 
 /**
  * SceneValue is a helper class used to store individual channel TARGET values
@@ -54,7 +54,7 @@ class QXmlStreamReader;
  * SceneValue represents value 127 for absolute DMX channel 105. If the address
  * of the fixture is changed, the SceneValue doesn't need to be touched at all.
  */
-class SceneValue
+class SceneValue final
 {
 public:
     /** Normal constructor */
@@ -70,7 +70,6 @@ public:
      *  No class derives from this one and we need to keep the memory footprint
      *  as low as possible.
      *
-     *  TODO C++11: mark this as final
      */
     ~SceneValue();
 

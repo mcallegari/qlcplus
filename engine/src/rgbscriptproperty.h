@@ -22,19 +22,19 @@
 
 #include <QStringList>
 
-class RGBScriptProperty
+class RGBScriptProperty final
 {
 public:
     RGBScriptProperty()
+        : m_name(QString())
+        , m_displayName(QString())
+        , m_type(ValueType::None)
+        , m_listValues(QStringList())
+        , m_rangeMinValue(0)
+        , m_rangeMaxValue(0)
+        , m_readMethod(QString())
+        , m_writeMethod(QString())
     {
-        m_name = QString();
-        m_displayName = QString();
-        m_type = None;
-        m_listValues = QStringList();
-        m_rangeMinValue = 0;
-        m_rangeMaxValue = 0;
-        m_readMethod = QString();
-        m_writeMethod = QString();
     }
 
     ~RGBScriptProperty() { /* NOP */ }
@@ -44,7 +44,7 @@ public:
         None,
         List,
         Range,
-        Integer,
+        Float,
         String
     };
 

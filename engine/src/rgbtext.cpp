@@ -26,12 +26,12 @@
 
 #include "rgbtext.h"
 
-#define KXMLQLCRGBTextContent        QString("Content")
-#define KXMLQLCRGBTextFont           QString("Font")
-#define KXMLQLCRGBTextAnimationStyle QString("Animation")
-#define KXMLQLCRGBTextOffset         QString("Offset")
-#define KXMLQLCRGBTextOffsetX        QString("X")
-#define KXMLQLCRGBTextOffsetY        QString("Y")
+#define KXMLQLCRGBTextContent        QStringLiteral("Content")
+#define KXMLQLCRGBTextFont           QStringLiteral("Font")
+#define KXMLQLCRGBTextAnimationStyle QStringLiteral("Animation")
+#define KXMLQLCRGBTextOffset         QStringLiteral("Offset")
+#define KXMLQLCRGBTextOffsetX        QStringLiteral("X")
+#define KXMLQLCRGBTextOffsetY        QStringLiteral("Y")
 
 RGBText::RGBText(Doc * doc)
     : RGBAlgorithm(doc)
@@ -264,6 +264,16 @@ int RGBText::rgbMapStepCount(const QSize& size)
         return m_text.length();
     else
         return scrollingTextStepCount();
+}
+
+void RGBText::rgbMapSetColors(const QVector<uint> &colors)
+{
+    Q_UNUSED(colors);
+}
+
+QVector<uint> RGBText::rgbMapGetColors()
+{
+    return QVector<uint>();
 }
 
 void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)

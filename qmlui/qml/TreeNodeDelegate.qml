@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -50,6 +50,7 @@ Column
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
     signal itemsDropped(string path)
+
 
     function getItemAtPos(x, y)
     {
@@ -103,8 +104,9 @@ Column
                 id: nodeLabel
                 width: nodeBgRect.width - x - 1
                 text: cRef ? cRef.name : textLabel
+                originalText: text
 
-                onTextConfirmed: nodeContainer.pathChanged(nodePath, text)
+                onTextConfirmed: (text) => nodeContainer.pathChanged(nodePath, text)
             }
         } // Row
 
@@ -125,15 +127,16 @@ Column
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
+            onPressed: (mouse) => nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, nodeContainer.itemType,
                                                 nodeContainer, mouse.modifiers)
-            onClicked:
+            onClicked: (mouse) =>
             {
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, nodeContainer.itemType,
                                          nodeContainer, mouse.modifiers)
             }
-            onDoubleClicked: isExpanded = !isExpanded
+            onDoubleClicked: (mouse) => nodeContainer.mouseEvent(App.DoubleClicked, cRef ? cRef.id : -1,
+                                                                 nodeContainer.itemType, nodeContainer, mouse.modifiers)
         }
 
         DropArea
@@ -142,7 +145,7 @@ Column
             anchors.fill: parent
             keys: [ nodeContainer.dropKeys ]
 
-            onDropped:
+            onDropped: (drop) =>
             {
                 console.log("Item dropped here. x: " + drop.x + " y: " + drop.y + ", items: " + drop.source.itemsList.length)
                 nodeContainer.itemsDropped(nodePath)
@@ -181,7 +184,7 @@ Column
                         if (model.classRef !== undefined && item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
-                        if (item.hasOwnProperty('itemID') && model.classRef !== undefined)
+                        if (model.classRef !== undefined && item.hasOwnProperty('itemID'))
                             item.itemID = id
 
                         if (item.hasOwnProperty('inGroup'))
@@ -200,7 +203,7 @@ Column
                         if (hasChildren)
                         {
                             item.nodePath = Qt.binding(function() { return nodePath + '`' + path })
-                            item.isExpanded = isExpanded
+                            item.isExpanded = Qt.binding(function() { return isExpanded })
                             item.nodeChildren = childrenModel
                             if (item.hasOwnProperty('dropKeys'))
                                 item.dropKeys = nodeContainer.dropKeys
@@ -215,7 +218,6 @@ Column
                         target: item
                         function onMouseEvent(type, iID, iType, qItem, mouseMods)
                         {
-                            console.log("Got generic tree node mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
@@ -237,6 +239,10 @@ Column
                                         // invalidate the modifiers to force a single selection
                                         mouseMods = -1
                                     }
+                                break;
+                                case App.DoubleClicked:
+                                    if (qItem === item && model.hasChildren)
+                                        model.isExpanded = !model.isExpanded
                                 break;
                             }
 

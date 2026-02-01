@@ -68,16 +68,24 @@ void MainView2D::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 itemID = it.key();
         QQuickItem *fxItem = it.value();
-        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
 
-        Fixture *fixture = m_doc->fixture(fxID);
+        Fixture *fixture = m_doc->fixture(fixtureID);
         if (fixture == nullptr)
             return;
+
+        int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        int headIdx = FixtureUtils::itemHeadIndex(itemID);
+        quint32 flags = m_monProps->fixtureFlags(fixtureID, headIdx, linkedIndex);
+
+        // skip hidden items
+        if (flags & MonitorProperties::HiddenFlag)
+            continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == universeFilter)
             fxItem->setProperty("visible", "true");
@@ -89,7 +97,7 @@ void MainView2D::setUniverseFilter(quint32 universeFilter)
 void MainView2D::resetItems()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         delete it.value();
@@ -101,6 +109,8 @@ bool MainView2D::initialize2DProperties()
 {
     emit pointOfViewChanged(m_monProps->pointOfView());
     setGridSize(m_monProps->gridSize());
+    if (!m_monProps->commonBackgroundImage().isEmpty())
+        emit backgroundImageChanged();
 
     m_gridItem = qobject_cast<QQuickItem*>(contextItem()->findChild<QObject *>("twoDContents"));
 
@@ -294,7 +304,7 @@ int MainView2D::itemIDAtPos(QPointF pos)
         qreal itemHeight = fxItem->property("height").toReal();
         QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
 
-        qDebug() << "Point:" << pos << "itemRect:" << itemRect;
+        //qDebug() << "Point:" << pos << "itemRect:" << itemRect;
 
         if (itemRect.contains(pos))
             return i.key();
@@ -390,16 +400,18 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 
     quint32 masterDimmerChannel = fixture->masterIntensityChannel();
-    qreal masterDimmerValue = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
+    qreal masterDimmerValue = masterDimmerChannel != QLCChannel::invalid() ?
+                              qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0 : 1.0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
         quint32 headDimmerChannel = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
         if (headDimmerChannel == QLCChannel::invalid())
-            headDimmerChannel = fixture->masterIntensityChannel();
+            headDimmerChannel = masterDimmerChannel;
 
-        //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+        //qDebug() << "Head" << headIdx << "dimmer channel:" << headDimmerChannel;
         qreal intensityValue = 1.0;
+
         if (headDimmerChannel != QLCChannel::invalid())
             intensityValue = (qreal)fixture->channelValueAt(headDimmerChannel) / 255;
 
@@ -557,7 +569,11 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
 
     if (enable)
     {
-        QQuickItem *dragArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("contentsDragArea"));
+        QQuickItem *rootObj = m_view->rootObject();
+        if (rootObj == nullptr)
+            return;
+
+        QQuickItem *dragArea = qobject_cast<QQuickItem*>(rootObj->findChild<QObject *>("contentsDragArea"));
         if (dragArea)
             fxItem->setParentItem(dragArea);
     }
@@ -570,13 +586,13 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
 void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
-    while(it.hasNext())
+    while (it.hasNext())
     {
         it.next();
         quint32 fxID = it.key();
         bool enable = false;
 
-        if(fixtures.contains(fxID))
+        if (fixtures.contains(fxID))
             enable = true;
 
         selectFixture(it.value(), enable);
@@ -604,6 +620,8 @@ void MainView2D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
             fxItem->setProperty("rotation", degrees.z());
         break;
         case MonitorProperties::LeftSideView:
+            fxItem->setProperty("rotation", -degrees.x());
+        break;
         case MonitorProperties::RightSideView:
             fxItem->setProperty("rotation", degrees.x());
         break;
@@ -758,6 +776,25 @@ void MainView2D::setPointOfView(int pointOfView)
 
     setGridSize(m_monProps->gridSize());
     slotRefreshView();
+}
+
+QString MainView2D::backgroundImage()
+{
+    return m_monProps->commonBackgroundImage();
+}
+
+void MainView2D::setBackgroundImage(QString path)
+{
+    if (path.startsWith("file:"))
+        path = QUrl(path).toLocalFile();
+    QString currentImage = m_monProps->commonBackgroundImage();
+
+    if (path == currentImage)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentBackgroundImage, 0, currentImage, path);
+    m_monProps->setCommonBackgroundImage(path);
+    emit backgroundImageChanged();
 }
 
 

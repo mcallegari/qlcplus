@@ -51,7 +51,7 @@ void Loopback::init()
 {
 }
 
-QString Loopback::name()
+QString Loopback::name() const
 {
     return QString("Loopback");
 }
@@ -118,7 +118,7 @@ QStringList Loopback::inputs()
     return list;
 }
 
-QString Loopback::pluginInfo()
+QString Loopback::pluginInfo() const
 {
     QString str;
 
@@ -130,7 +130,7 @@ QString Loopback::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides DMX loopback. Data written to each output is forwarded to the respective input." );
+    str += tr("This plugin provides DMX loopback. Data written to each output is forwarded to the respective input.");
     str += QString("</P>");
 
     return str;
@@ -180,9 +180,10 @@ QString Loopback::inputInfo(quint32 input)
     return str;
 }
 
-void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (!m_outputMap.contains(output))
         return;
@@ -205,7 +206,7 @@ void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray 
     }
 }
 
-void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &)
+void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QVariant &)
 {
     if (!m_inputMap.contains(input))
         return;

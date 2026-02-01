@@ -24,10 +24,10 @@
 #include "colorfilters.h"
 #include "qlcfile.h"
 
-#define KXMLColorFiltersName  QString("Name")
-#define KXMLColorFiltersColor QString("Color")
-#define KXMLColorFiltersRGB   QString("RGB")
-#define KXMLColorFiltersWAUV  QString("WAUV")
+#define KXMLColorFiltersName  QStringLiteral("Name")
+#define KXMLColorFiltersColor QStringLiteral("Color")
+#define KXMLColorFiltersRGB   QStringLiteral("RGB")
+#define KXMLColorFiltersWAUV  QStringLiteral("WAUV")
 
 ColorFilters::ColorFilters(QObject *parent)
     : QObject(parent)
@@ -150,9 +150,7 @@ QFileDevice::FileError ColorFilters::saveXML(const QString &fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    doc.setCodec("UTF-8");
-#endif
+
     QLCFile::writeXMLHeader(&doc, KXMLColorFilters);
 
     doc.writeTextElement(KXMLColorFiltersName, m_name);

@@ -37,7 +37,7 @@ class Doc;
  * @{
  */
 
-class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties, public DMXSource
+class VCXYPadProperties final : public QDialog, public Ui_VCXYPadProperties, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCXYPadProperties)
@@ -53,7 +53,9 @@ private:
     VCXYPad *m_xypad;
     Doc *m_doc;
     InputSelectionWidget *m_panInputWidget;
+    InputSelectionWidget *m_panFineInputWidget;
     InputSelectionWidget *m_tiltInputWidget;
+    InputSelectionWidget *m_tiltFineInputWidget;
     InputSelectionWidget *m_widthInputWidget;
     InputSelectionWidget *m_heightInputWidget;
 
@@ -68,6 +70,8 @@ private:
 
     void updateFixtureItem(QTreeWidgetItem* item, const VCXYPadFixture& fxi);
     void removeFixtureItem(GroupHead const & head);
+
+    void stopAutodetection(quint8 sourceId);
 
 private slots:
     void slotAddClicked();
@@ -85,15 +89,19 @@ private slots:
 private slots:
     void slotPanAutoDetectToggled(bool toggled);
     void slotPanInputValueChanged(quint32 uni, quint32 ch);
+    void slotPanFineAutoDetectToggled(bool toggled);
+    void slotPanFineInputValueChanged(quint32 uni, quint32 ch);
     void slotTiltAutoDetectToggled(bool toggled);
     void slotTiltInputValueChanged(quint32 uni, quint32 ch);
+    void slotTiltFineAutoDetectToggled(bool toggled);
+    void slotTiltFineInputValueChanged(quint32 uni, quint32 ch);
 
     /********************************************************************
      * Presets
      ********************************************************************/
 public:
     /** @reimp */
-    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes) override;
 
 private:
     void updatePresetsTree();
@@ -136,7 +144,7 @@ private:
      * OK/Cancel
      ********************************************************************/
 public slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */

@@ -47,24 +47,24 @@ class Doc;
 
 #define UNIVERSE_SIZE 512
 
-#define KXMLQLCUniverse             QString("Universe")
-#define KXMLQLCUniverseName         QString("Name")
-#define KXMLQLCUniverseID           QString("ID")
-#define KXMLQLCUniversePassthrough  QString("Passthrough")
+#define KXMLQLCUniverse             QStringLiteral("Universe")
+#define KXMLQLCUniverseName         QStringLiteral("Name")
+#define KXMLQLCUniverseID           QStringLiteral("ID")
+#define KXMLQLCUniversePassthrough  QStringLiteral("Passthrough")
 
-#define KXMLQLCUniverseInputPatch    QString("Input")
-#define KXMLQLCUniverseOutputPatch   QString("Output")
-#define KXMLQLCUniverseFeedbackPatch QString("Feedback")
+#define KXMLQLCUniverseInputPatch    QStringLiteral("Input")
+#define KXMLQLCUniverseOutputPatch   QStringLiteral("Output")
+#define KXMLQLCUniverseFeedbackPatch QStringLiteral("Feedback")
 
-#define KXMLQLCUniversePlugin           QString("Plugin")
-#define KXMLQLCUniverseLine             QString("Line")
-#define KXMLQLCUniverseLineUID          QString("UID")
-#define KXMLQLCUniverseProfileName      QString("Profile")
-#define KXMLQLCUniversePluginParameters QString("PluginParameters")
+#define KXMLQLCUniversePlugin           QStringLiteral("Plugin")
+#define KXMLQLCUniverseLine             QStringLiteral("Line")
+#define KXMLQLCUniverseLineUID          QStringLiteral("UID")
+#define KXMLQLCUniverseProfileName      QStringLiteral("Profile")
+#define KXMLQLCUniversePluginParameters QStringLiteral("PluginParameters")
 
 /** Universe class contains input/output data for one DMX universe
  */
-class Universe: public QThread
+class Universe : public QThread
 {
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
@@ -74,7 +74,7 @@ class Universe: public QThread
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
-    Q_PROPERTY(bool hasFeedbacks READ hasFeedbacks NOTIFY hasFeedbacksChanged)
+    Q_PROPERTY(bool hasFeedback READ hasFeedback NOTIFY hasFeedbackChanged)
 
 public:
     /** Construct a new Universe */
@@ -171,7 +171,6 @@ protected:
      */
     uchar applyGM(int channel, uchar value);
 
-    uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
     void updatePostGMValue(int channel);
 
@@ -210,7 +209,7 @@ public:
     bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
     /** Flag that indicates if this Universe has a patched feedback line */
-    bool hasFeedbacks() const;
+    bool hasFeedback() const;
 
     /**
      * Get the reference to the input plugin associated to this universe.
@@ -235,8 +234,9 @@ public:
 
     /**
      * This is the actual function that writes data to an output patch
+     * A flag indicates if data has changed since previous iteration
      */
-    void dumpOutput(const QByteArray& data);
+    void dumpOutput(const QByteArray& data, bool dataChanged);
 
     void flushInput();
 
@@ -258,14 +258,14 @@ signals:
     void outputPatchesCountChanged();
 
     /** Notify the listeners that a feedback line has been patched/unpatched */
-    void hasFeedbacksChanged();
+    void hasFeedbackChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */
     InputPatch *m_inputPatch;
 
     /** List of references to the output patches associated to this universe. */
-    QList<OutputPatch*>m_outputPatchList;
+    QList<OutputPatch*> m_outputPatchList;
 
     /** Reference to the feedback patch associated to this universe. */
     OutputPatch *m_fbPatch;
@@ -331,6 +331,7 @@ public:
     {
         Auto = 0,
         Override,
+        Flashing, /** Priority to override slider values and running chasers by flash scene */
         SimpleDesk
     };
 
@@ -354,6 +355,10 @@ public:
      *  to the requested pause state */
     void setFaderPause(quint32 functionID, bool enable);
 
+    /** Set a fade out time to every fader of this universe.
+     *  This is used from the fadeAndStopAll functionality */
+    void setFaderFadeOut(int fadeTime);
+
 public slots:
     void tick();
 
@@ -361,7 +366,7 @@ protected:
     void processFaders();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 signals:
     void universeWritten(quint32 universeID, const QByteArray& universeData);
@@ -374,7 +379,14 @@ protected:
 
     /** IMPORTANT: this is the list of faders that will compose
      *  the Universe values. The order is very important ! */
-    QList<QSharedPointer<GenericFader> > m_faders;
+    QList<QSharedPointer<GenericFader>> m_faders;
+
+    /** Mutex used to protect the access to the m_faders array */
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    QMutex m_fadersMutex;
+#else
+    QRecursiveMutex m_fadersMutex;
+#endif
 
     /************************************************************************
      * Values
@@ -435,9 +447,6 @@ public:
     /** Return a list with intensity channels and their values */
     QHash <int, uchar> intensityChannels();
 
-    /** Set all channel relative values to zero */
-    void zeroRelativeValues();
-
 protected:
     void applyPassthroughValues(int address, int range);
 
@@ -486,8 +495,6 @@ protected:
     /** Array of values from input line, when passtrhough is enabled */
     QScopedPointer<QByteArray> m_passthroughValues;
 
-    QVector<short> m_relativeValues;
-
     /* impl speedup */
     void updateIntensityChannelsRanges();
 
@@ -516,36 +523,50 @@ public:
      * Write a value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param forceLTP Force to skip the HTP check
      *
      * @return true if successful, otherwise false
      */
-    bool write(int channel, uchar value, bool forceLTP = false);
+    bool write(int address, uchar value, bool forceLTP = false);
+
+    /**
+     * Write a value representing one or multiple channels
+     *
+     * @param address The DMX start address to write to
+     * @param value the DMX value(s) to set
+     * @param channelCount number of channels that value represents
+     *
+     * @return always true
+     */
+    bool writeMultiple(int address, quint32 value, int channelCount);
 
     /**
      * Write a relative value to a DMX channel, taking Grand Master and HTP into
      * account, if applicable.
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount number of channels that value represents
      *
      * @return true if successful, otherwise false
      */
-    bool writeRelative(int channel, uchar value);
+    bool writeRelative(int address, quint32 value, int channelCount);
 
     /**
      * Write DMX values with the given blend mode.
      * If blend == NormalBlend the generic write method is called
      * and all the HTP/LTP checks are performed
      *
-     * @param channel The channel number to write to
+     * @param address The DMX start address to write to
      * @param value The value to write
+     * @param channelCount The number of channels that value represents
      * @param blend The blend mode to be used on $value
      *
      * @return true if successful, otherwise false
      */
-    bool writeBlended(int channel, uchar value, BlendMode blend = NormalBlend);
+    bool writeBlended(int address, quint32 value, int channelCount, BlendMode blend);
 
     /*********************************************************************
      * Load & Save

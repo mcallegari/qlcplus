@@ -29,7 +29,6 @@
 #endif
 
 #include "libftdi-interface.h"
-#include "enttecdmxusbpro.h"
 
 LibFTDIInterface::LibFTDIInterface(const QString& serial, const QString& name, const QString& vendor,
                                    quint16 VID, quint16 PID, quint32 id)
@@ -37,6 +36,9 @@ LibFTDIInterface::LibFTDIInterface(const QString& serial, const QString& name, c
 {
     bzero(&m_handle, sizeof(struct ftdi_context));
     ftdi_init(&m_handle);
+#ifdef LIBFTDI1_5
+    m_handle.module_detach_mode = AUTO_DETACH_REATACH_SIO_MODULE;
+#endif
 }
 
 LibFTDIInterface::~LibFTDIInterface()
@@ -46,84 +48,29 @@ LibFTDIInterface::~LibFTDIInterface()
     ftdi_deinit(&m_handle);
 }
 
-QString LibFTDIInterface::readLabel(uchar label, int *ESTA_code)
-{
-    if (ftdi_usb_open_desc(&m_handle, DMXInterface::FTDIVID, DMXInterface::FTDIPID,
-                           name().toLatin1().data(), serial().toLatin1().data()) < 0)
-
-        return QString();
-
-    if (ftdi_usb_reset(&m_handle) < 0)
-        return QString();
-
-    if (ftdi_set_baudrate(&m_handle, 250000) < 0)
-        return QString();
-
-    if (ftdi_set_line_property(&m_handle, BITS_8, STOP_BIT_2, NONE) < 0)
-        return QString();
-
-    if (ftdi_setflowctrl(&m_handle, SIO_DISABLE_FLOW_CTRL) < 0)
-        return QString();
-
-    QByteArray request;
-    request.append(ENTTEC_PRO_START_OF_MSG);
-    request.append(label);
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length LSB
-    request.append(ENTTEC_PRO_DMX_ZERO); // data length MSB
-    request.append(ENTTEC_PRO_END_OF_MSG);
-
-    if (ftdi_write_data(&m_handle, (uchar*) request.data(), request.size()) < 0)
-    {
-        qDebug() << Q_FUNC_INFO << "Cannot write data to device";
-        return QString();
-    }
-
-    uchar *buffer = (uchar*) malloc(sizeof(uchar) * 40);
-    Q_ASSERT(buffer != NULL);
-
-    QByteArray array;
-    usleep(300000); // give some time to the device to respond
-    int read = ftdi_read_data(&m_handle, buffer, 40);
-    //qDebug() << Q_FUNC_INFO << "Data read: " << read;
-    array = QByteArray::fromRawData((char*) buffer, read);
-
-    if (array[0] != ENTTEC_PRO_START_OF_MSG)
-        qDebug() << Q_FUNC_INFO << "Reply message wrong start code: " << QString::number(array[0], 16);
-    *ESTA_code = (array[5] << 8) | array[4];
-    array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
-    array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
-
-    //for (int i = 0; i < array.size(); i++)
-    //    qDebug() << "-Data: " << array[i];
-    ftdi_usb_close(&m_handle);
-
-    return QString(array);
-}
-
 void LibFTDIInterface::setBusLocation(quint8 location)
 {
     m_busLocation = location;
 }
 
-quint8 LibFTDIInterface::busLocation()
+quint8 LibFTDIInterface::busLocation() const
 {
     return m_busLocation;
 }
 
-DMXInterface::Type LibFTDIInterface::type()
+DMXInterface::Type LibFTDIInterface::type() const
 {
     return DMXInterface::libFTDI;
 }
 
-QString LibFTDIInterface::typeString()
+QString LibFTDIInterface::typeString() const
 {
     return "libFTDI";
 }
 
 QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discoveredList)
 {
-    QList <DMXInterface*> interfacesList;
-    int id = 0;
+    QList<DMXInterface *> interfacesList;
 
     struct ftdi_context ftdi;
 
@@ -133,6 +80,7 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
     libusb_device *dev;
     libusb_device **devs;
     struct libusb_device_descriptor dev_descriptor;
+    struct libusb_config_descriptor *config_descriptor;
     int i = 0;
 
     if (libusb_get_device_list(ftdi.usb_ctx, &devs) < 0)
@@ -164,14 +112,17 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
 
     for (bus = usb_get_busses(); bus; bus = bus->next)
     {
-      for (dev = bus->devices; dev; dev = dev->next)
-      {
-        dev_descriptor = dev->descriptor;
+        for (dev = bus->devices; dev; dev = dev->next)
+        {
+            dev_descriptor = dev->descriptor;
 #endif
         Q_ASSERT(dev != NULL);
 
         // Skip non wanted devices
         if (validInterface(dev_descriptor.idVendor, dev_descriptor.idProduct) == false)
+            continue;
+
+        if (dev_descriptor.idVendor != DMXInterface::FTDIVID)
             continue;
 
         char ser[256];
@@ -200,20 +151,39 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         }
         if (found == false)
         {
-            LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
-                                                           dev_descriptor.idProduct, id++);
 #ifdef LIBFTDI1
-            iface->setBusLocation(libusb_get_port_number(dev));
+            uint8_t interfacesNumber = 1;
+
+            // Detect number of output
+            if (libusb_get_active_config_descriptor(dev, &config_descriptor) == 0)
+            {
+                interfacesNumber = config_descriptor->bNumInterfaces;
+                qDebug() << Q_FUNC_INFO << "Interfaces number: " << QString::number(interfacesNumber, 8);
+                libusb_free_config_descriptor(config_descriptor);
+            }
+
+            // Add each output
+            for (int o = 0; o < interfacesNumber; o++)
+            {
+                // Instanciate LibFTDIInterface with id as output number
+                LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor, dev_descriptor.idProduct, o);
+                iface->setBusLocation(libusb_get_port_number(dev));
+
+                // Append to the global list
+                interfacesList << iface;
+            }
 #else
+            LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
+                                                           dev_descriptor.idProduct, -1);
             iface->setBusLocation(dev->bus->location);
-#endif
             interfacesList << iface;
+#endif
         }
 
 #ifndef LIBFTDI1
-      }
-#endif
     }
+#endif
+}
 
 #ifdef LIBFTDI1
     libusb_free_device_list(devs, 1);
@@ -233,6 +203,13 @@ bool LibFTDIInterface::open()
     const char *ser = NULL;
     if (serial().isEmpty() == false)
         ser = (const char *)sba.data();
+
+    // Choose output based on id
+    if (ftdi_set_interface(&m_handle, get_ftdi_interface()) < 0)
+    {
+        qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+        return false;
+    }
 
     if (ftdi_usb_open_desc(&m_handle, vendorID(), productID(),
                            name().toLatin1(), ser) < 0)
@@ -423,22 +400,18 @@ bool LibFTDIInterface::write(const QByteArray& data)
     }
 }
 
-QByteArray LibFTDIInterface::read(int size, uchar* userBuffer)
+QByteArray LibFTDIInterface::read(int size)
 {
     uchar* buffer = NULL;
 
-    if (userBuffer == NULL)
-        buffer = (uchar*) malloc(sizeof(uchar) * size);
-    else
-        buffer = userBuffer;
+    buffer = (uchar*) malloc(sizeof(uchar) * size);
     Q_ASSERT(buffer != NULL);
 
     QByteArray array;
     int read = ftdi_read_data(&m_handle, buffer, size);
     array = QByteArray((char*)buffer, read);
 
-    if (userBuffer == NULL)
-        free(buffer);
+    free(buffer);
 
     return array;
 }
@@ -456,4 +429,16 @@ uchar LibFTDIInterface::readByte(bool* ok)
     }
 
     return 0;
+}
+
+enum ftdi_interface LibFTDIInterface::get_ftdi_interface()
+{
+    switch (id())
+    {
+        case 0:  return INTERFACE_A;
+        case 1:  return INTERFACE_B;
+        case 2:  return INTERFACE_C;
+        case 3:  return INTERFACE_D;
+        default: return INTERFACE_ANY; // fallback
+    }
 }

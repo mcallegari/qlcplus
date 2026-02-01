@@ -32,7 +32,7 @@
  * ProgramWing
  ****************************************************************************/
 
-class QLC_DECLSPEC ProgramWing : public Wing
+class QLC_DECLSPEC ProgramWing final : public Wing
 {
     Q_OBJECT
 
@@ -57,14 +57,14 @@ public:
     ~ProgramWing();
 
     /** @reimp */
-    QString name() const;
+    QString name() const override;
 
     /********************************************************************
      * Input data
      ********************************************************************/
 public:
     /** @reimp */
-    void parseData(const QByteArray& data);
+    void parseData(const QByteArray& data) override;
 
 protected:
     QMap <int,int> m_channelMap;

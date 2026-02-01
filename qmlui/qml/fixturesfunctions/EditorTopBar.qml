@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -37,9 +37,9 @@ RowLayout
     {
         width: UISettings.iconSizeMedium
         height: width
-        rotation: 180
         bgColor: UISettings.bgMedium
-        imgSource: "qrc:/arrow-right.svg"
+        faColor: UISettings.fgLight
+        faSource: FontAwesome.fa_chevron_left
         tooltip: qsTr("Go back to the previous view")
         onClicked: backClicked()
     }

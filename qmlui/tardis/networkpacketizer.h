@@ -27,7 +27,7 @@
 
 class SimpleCrypt;
 
-class NetworkPacketizer
+class NetworkPacketizer final
 {
 
 public:
@@ -47,6 +47,7 @@ public:
         SceneValueType,
         UIntPairType,
         StringIntPairType,
+        StringDoublePairType,
         StringStringPairType
     };
 

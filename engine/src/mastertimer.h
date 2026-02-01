@@ -21,13 +21,13 @@
 #ifndef MASTERTIMER_H
 #define MASTERTIMER_H
 
+#include <QElapsedTimer>
 #include <QHash>
 #include <QObject>
 #include <QMutex>
 #include <QList>
 
 class MasterTimerPrivate;
-class QElapsedTimer;
 class GenericFader;
 class FadeChannel;
 class DMXSource;
@@ -113,6 +113,9 @@ signals:
 
     /** Emitted when a Function is started */
     void functionStarted(quint32 id);
+
+    /** Emitted when a Function has just been stopped */
+    void functionStopped(quint32 id);
 
 private:
     /** Execute one timer tick for each registered Function */
@@ -236,8 +239,8 @@ private:
     /** Flag to request a beat generation at the next MasterTimer tick */
     bool m_beatRequested;
     /** The reference of a platform dependent timer to measure precise elapsed time */
-    QElapsedTimer *m_beatTimer;
-    /** Time offset in milliseconds when the last beat occured */
+    QElapsedTimer m_beatTimer;
+    /** Time offset in milliseconds when the last beat occurred */
     int m_lastBeatOffset;
 };
 

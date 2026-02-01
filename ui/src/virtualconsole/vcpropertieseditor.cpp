@@ -23,17 +23,15 @@
 #include <QSpinBox>
 #include <QAction>
 
-#include "qlcinputprofile.h"
-#include "qlcinputchannel.h"
-#include "qlcioplugin.h"
-#include "qlcfile.h"
-
 #include "vcpropertieseditor.h"
 #include "selectinputchannel.h"
-#include "virtualconsole.h"
+#include "inputoutputmap.h"
+#include "qlcinputsource.h"
 #include "vcproperties.h"
 #include "inputpatch.h"
-#include "vcframe.h"
+#include "function.h"
+
+#define SETTINGS_GEOMETRY "vcpropertieseditor/geometry"
 
 /*****************************************************************************
  * Initialization
@@ -193,7 +191,13 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         m_matrixHspin->setValue(120);
     }
 
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
+
     /* Grand Master page */
+    m_gmVisible->setChecked(properties.grandMasterVisible());
+
     switch (properties.grandMasterChannelMode())
     {
     default:
@@ -216,7 +220,7 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
         break;
     }
 
-    switch (properties.grandMasterSlideMode())
+    switch (properties.grandMasterSliderMode())
     {
     default:
     case GrandMaster::Normal:
@@ -232,6 +236,8 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
 
 VCPropertiesEditor::~VCPropertiesEditor()
 {
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 VCProperties VCPropertiesEditor::properties() const
@@ -323,9 +329,16 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
     }
 }
 
+
+
 /*****************************************************************************
  * Grand Master page
  *****************************************************************************/
+
+void VCPropertiesEditor::slotGrandMasterVisibleToggled(bool checked)
+{
+    m_properties.setGrandMasterVisible(checked);
+}
 
 void VCPropertiesEditor::slotGrandMasterIntensityToggled(bool checked)
 {

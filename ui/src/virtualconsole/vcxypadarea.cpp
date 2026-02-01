@@ -265,7 +265,8 @@ void VCXYPadArea::setEFXPolygons(const QPolygonF &pattern, const QVector<QPolygo
 
 void VCXYPadArea::setEFXInterval(uint duration)
 {
-    m_previewArea->draw(duration / m_previewArea->polygonsCount());
+    if (m_previewArea != NULL)
+        m_previewArea->draw(duration / m_previewArea->polygonsCount());
 }
 
 /*****************************************************************************
@@ -323,7 +324,7 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
 
     if (m_previewArea == NULL)
     {
-        foreach(QVariant pos, m_fixturePositions)
+        foreach (QVariant pos, m_fixturePositions)
         {
             QPointF pt = pos.toPointF();
             pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
@@ -400,9 +401,9 @@ void VCXYPadArea::keyPressEvent(QKeyEvent *e)
     if (m_mode == Doc::Operate)
     {
         qreal step = 1;
-        if (e->modifiers().testFlag(Qt::ControlModifier))
+        if (e->modifiers() & Qt::ControlModifier)
             step *= 10;
-        if (e->modifiers().testFlag(Qt::ShiftModifier))
+        if (e->modifiers() & Qt::ShiftModifier)
             step /= 256;
 
         if (e->key() == Qt::Key_Left)

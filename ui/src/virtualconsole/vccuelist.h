@@ -47,21 +47,21 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCCueList                QString("CueList")
-#define KXMLQLCVCCueListFunction        QString("Function") // Legacy
-#define KXMLQLCVCCueListChaser          QString("Chaser")
-#define KXMLQLCVCCueListPlaybackLayout  QString("PlaybackLayout")
-#define KXMLQLCVCCueListNextPrevBehavior QString("NextPrevBehavior")
-#define KXMLQLCVCCueListCrossfade       QString("Crossfade")
-#define KXMLQLCVCCueListBlend           QString("Blend")
-#define KXMLQLCVCCueListLinked          QString("Linked")
-#define KXMLQLCVCCueListNext            QString("Next")
-#define KXMLQLCVCCueListPrevious        QString("Previous")
-#define KXMLQLCVCCueListPlayback        QString("Playback")
-#define KXMLQLCVCCueListStop            QString("Stop")
-#define KXMLQLCVCCueListCrossfadeLeft   QString("CrossLeft")
-#define KXMLQLCVCCueListCrossfadeRight  QString("CrossRight")
-#define KXMLQLCVCCueListSlidersMode     QString("SlidersMode")
+#define KXMLQLCVCCueList                 QStringLiteral("CueList")
+#define KXMLQLCVCCueListFunction         QStringLiteral("Function") // Legacy
+#define KXMLQLCVCCueListChaser           QStringLiteral("Chaser")
+#define KXMLQLCVCCueListPlaybackLayout   QStringLiteral("PlaybackLayout")
+#define KXMLQLCVCCueListNextPrevBehavior QStringLiteral("NextPrevBehavior")
+#define KXMLQLCVCCueListCrossfade        QStringLiteral("Crossfade")
+#define KXMLQLCVCCueListBlend            QStringLiteral("Blend")
+#define KXMLQLCVCCueListLinked           QStringLiteral("Linked")
+#define KXMLQLCVCCueListNext             QStringLiteral("Next")
+#define KXMLQLCVCCueListPrevious         QStringLiteral("Previous")
+#define KXMLQLCVCCueListPlayback         QStringLiteral("Playback")
+#define KXMLQLCVCCueListStop             QStringLiteral("Stop")
+#define KXMLQLCVCCueListCrossfadeLeft    QStringLiteral("CrossLeft")
+#define KXMLQLCVCCueListCrossfadeRight   QStringLiteral("CrossRight")
+#define KXMLQLCVCCueListSlidersMode      QStringLiteral("SlidersMode")
 
 /**
  * VCCueList provides a \ref VirtualConsole widget to control cue lists.
@@ -69,7 +69,7 @@ class Doc;
  * @see VCWidget
  * @see VirtualConsole
  */
-class VCCueList : public VCWidget
+class VCCueList final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCCueList)
@@ -94,18 +94,18 @@ public:
     ~VCCueList();
 
     /** @reimp */
-    void enableWidgetUI(bool enable);
+    void enableWidgetUI(bool enable) override;
 
     /*************************************************************************
      * Clipboard
      *************************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget *widget);
+    bool copyFrom(const VCWidget *widget) override;
 
     /*************************************************************************
      * Cue list
@@ -118,36 +118,39 @@ public:
     quint32 chaserID() const;
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser *chaser();
+    Chaser *chaser() const;
 
 public:
     /** Get the currently selected item index, otherwise 0 */
-    int getCurrentIndex();
+    int getCurrentIndex() const;
+    /** Get the progress text of the selected item */
+    QString progressText() const;
+    double progressPercent() const;
 
 private:
     /** Get the index of the next item, based on the chaser direction */
-    int getNextIndex();
+    int getNextIndex() const;
 
     /** Get the index of the previous item, based on the chaser direction */
-    int getPrevIndex();
+    int getPrevIndex() const;
 
     /** Get the index of the first item, based on the chaser direction */
-    int getFirstIndex();
+    int getFirstIndex() const;
 
     /** Get the index of the last item, based on the chaser direction */
-    int getLastIndex();
+    int getLastIndex() const;
 
     /** Get the index of the item above the selected item */
-    int getNextTreeIndex();
+    int getNextTreeIndex() const;
 
     /** Get the index of the item below the selected item */
-    int getPrevTreeIndex();
+    int getPrevTreeIndex() const;
 
     /** Get the index of the item on top of the tree */
-    int getFirstTreeIndex();
+    int getFirstTreeIndex() const;
 
     /** Get the index of the item at the bottom of the tree */
-    int getLastTreeIndex();
+    int getLastTreeIndex() const;
 
 private:
     /** Get the intensity of the current primary slider */
@@ -155,7 +158,7 @@ private:
 
 public:
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored) override;
 
 private:
     /** Update the list of steps */
@@ -177,6 +180,16 @@ public slots:
     /** Skip to the previous cue */
     void slotPreviousCue();
 
+    /** Called when m_runner skips to another step */
+    void slotCurrentStepChanged(int stepNumber);
+
+    /** Update cue step note */
+    void slotStepNoteChanged(int idx, QString note);
+
+signals:
+    /** progress percent value and text */
+    void progressStateChanged();
+
 private slots:
     /** Removes destroyed functions from the list */
     void slotFunctionRemoved(quint32 fid);
@@ -189,9 +202,6 @@ private slots:
 
     /** Update the step list at m_updateTimer timeout */
     void slotUpdateStepList();
-
-    /** Called when m_runner skips to another step */
-    void slotCurrentStepChanged(int stepNumber);
 
     /** Slot that is called whenever the current item changes (either by
         pressing the key binding or clicking an item with mouse) */
@@ -217,7 +227,7 @@ private:
     /** Stop associated */
     void stopChaser();
 
-    int getFadeMode();
+    int getFadeMode() const;
 
 public:
     enum NextPrevBehavior
@@ -239,6 +249,10 @@ public:
 
     void setPlaybackLayout(PlaybackLayout layout);
     PlaybackLayout playbackLayout() const;
+signals:
+    void playbackButtonClicked();
+    void stopButtonClicked();
+    void playbackStatusChanged();
 
 private:
     /** ID of the Chaser this Cue List will be controlling */
@@ -271,8 +285,25 @@ public:
     FaderMode sideFaderMode() const;
     void setSideFaderMode(FaderMode mode);
 
-    FaderMode stringToFaderMode(QString modeStr);
-    QString faderModeToString(FaderMode mode);
+    FaderMode stringToFaderMode(QString modeStr) const;
+    QString faderModeToString(FaderMode mode) const;
+    bool isSideFaderVisible() const;
+    bool sideFaderButtonIsChecked() const;
+    QString topPercentageValue() const;
+    QString bottomPercentageValue() const;
+    QString topStepValue() const;
+    QString bottomStepValue() const;
+    int sideFaderValue() const;
+    bool primaryTop() const;
+
+signals:
+    void sideFaderButtonToggled();
+    void sideFaderValueChanged();
+    void sideFaderButtonChecked();
+
+public slots:
+    void slotSideFaderButtonChecked(bool enable);
+    void slotSetSideFaderValue(int value);
 
 protected:
     void setFaderInfo(int index);
@@ -325,7 +356,7 @@ public:
     QKeySequence stopKeySequence() const;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
 private:
     QKeySequence m_nextKeySequence;
@@ -337,10 +368,10 @@ private:
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
 private:
     quint32 m_nextLatestValue;
@@ -353,19 +384,19 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    void adjustIntensity(qreal val);
+    void adjustIntensity(qreal val) override;
 
     /** @reimp */
-    void setCaption(const QString& text);
+    void setCaption(const QString& text) override;
 
     /** @reimp */
-    void setFont(const QFont& font);
+    void setFont(const QFont& font) override;
 
     /** @reimp */
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /** @reimp */
-    void editProperties();
+    void editProperties() override;
 
     /*********************************************************************
      * Web access
@@ -378,6 +409,8 @@ signals:
     /** Signal to webaccess */
     void stepChanged(int idx);
 
+    void stepNoteChanged(int idx, QString note);
+
 private:
     FunctionParent functionParent() const;
 
@@ -386,10 +419,10 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) override;
 };
 
 /** @} */

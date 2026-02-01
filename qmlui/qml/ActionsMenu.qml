@@ -17,11 +17,12 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
+import QtQuick.Layouts
 
+import org.qlcplus.classes 1.0
 import "."
 
 Popup
@@ -39,7 +40,7 @@ Popup
         if (qlcplus.fileName())
             qlcplus.saveWorkspace(qlcplus.fileName())
         else
-            saveDialog.open()
+            openDialog(App.SaveAsMode)
     }
 
     function saveBeforeExit()
@@ -54,82 +55,135 @@ Popup
         menuRoot.close()
     }
 
-    FileDialog
-    {
-        id: openDialog
-        visible: false
-        title: qsTr("Open a file")
-        folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
+    property string dialogTitle
+    property url dialogCurrentFolder: qlcplus.workingPath
+    property url dialogSelectedFile
+    property var dialogNameFilters: [ qsTr("QLC+ files") + " (*.qxw *.qxf)", qsTr("All files") + " (*)" ]
+    property int dialogFileMode: FileDialog.OpenFile
+    property int dialogOpMode: App.OpenMode
 
-        onAccepted:
+    function openDialog(opMode)
+    {
+        dialogOpMode = opMode
+        switch (dialogOpMode)
         {
-            if (fileUrl.toString().endsWith("qxf") || fileUrl.toString().endsWith("d4"))
-                qlcplus.loadFixture(fileUrl)
-            else
-                qlcplus.loadWorkspace(fileUrl)
-            qlcplus.workingPath = folder.toString()
+            case App.OpenMode:
+                dialogTitle = qsTr("Open a file")
+                dialogFileMode = FileDialog.OpenFile
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+                dialogTitle = qsTr("Save project as...")
+                dialogFileMode = FileDialog.SaveFile
+            break
+            case App.ImportMode:
+                dialogTitle = qsTr("Import from project")
+            break
         }
+
+        if (Qt.platform.os === "linux")
+            customDialog.open()
+        else
+            nativeDialog.open()
     }
 
-    FileDialog
+    function handleAccept()
     {
-        id: importDialog
-        visible: false
-        title: qsTr("Import from project")
-        folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        console.log("Selected file: " + dialogSelectedFile)
 
-        onAccepted:
+        switch (dialogOpMode)
         {
-            if (qlcplus.loadImportWorkspace(fileUrl) === true)
+            case App.OpenMode:
             {
-                importLoader.source = ""
-                importLoader.source = "qrc:/PopupImportProject.qml"
+                if (dialogSelectedFile.toString().endsWith("qxf") ||
+                    dialogSelectedFile.toString().endsWith("d4"))
+                    qlcplus.loadFixture(dialogSelectedFile)
+                else
+                    qlcplus.loadWorkspace(dialogSelectedFile)
+                qlcplus.workingPath = dialogCurrentFolder.toString()
             }
+            break
+            case App.SaveMode:
+            case App.SaveAsMode:
+            {
+                qlcplus.saveWorkspace(dialogSelectedFile)
+
+                if (saveFirstPopup.action == "#EXIT")
+                    qlcplus.exit()
+            }
+            break
+            case App.ImportMode:
+            {
+                if (qlcplus.loadImportWorkspace(dialogSelectedFile) === true)
+                {
+                    importLoader.source = ""
+                    importLoader.source = "qrc:/PopupImportProject.qml"
+                }
+            }
+            break
         }
     }
 
     FileDialog
     {
-        id: saveDialog
-        visible: false
-        title: qsTr("Save project as...")
-        selectExisting: false
-        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        id: nativeDialog
+        title: dialogTitle
+        fileMode: dialogFileMode
+        currentFolder: "file:///" + dialogCurrentFolder
+        nameFilters: dialogNameFilters
 
         onAccepted:
         {
-            console.log("You chose: " + fileUrl)
-            qlcplus.saveWorkspace(fileUrl)
+            dialogSelectedFile = selectedFile
+            dialogCurrentFolder = currentFolder
+            handleAccept()
+        }
+    }
 
-            if (saveFirstPopup.action == "#EXIT")
-                qlcplus.exit()
+    PopupFolderBrowser
+    {
+        id: customDialog
+        title: dialogTitle
+        currentFolder: dialogCurrentFolder
+        nameFilters: dialogNameFilters
+        standardButtons: Dialog.Cancel |
+            ((dialogOpMode === App.SaveMode | dialogOpMode === App.SaveAsMode) ? Dialog.Save : Dialog.Open)
+
+        onAccepted:
+        {
+            dialogSelectedFile = currentFolder + folderSeparator() + selectedFile
+            dialogCurrentFolder = currentFolder
+            handleAccept()
         }
     }
 
     CustomPopupDialog
     {
         id: saveFirstPopup
+        width: mainView.width / 2
+        height: mainView.height / 3
         title: qsTr("Your project has changes")
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""
 
-        onClicked:
+        onClicked: function(role)
         {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
                 {
+                    console.log("YES clicked 1")
                     qlcplus.saveWorkspace(qlcplus.fileName())
                     if (action == "#EXIT")
                         qlcplus.exit()
                 }
                 else
                 {
-                    saveDialog.open()
+                    console.log("YES clicked 2")
+                    //openDialog(App.SaveMode)
+                    handleSaveAction()
                     if (action == "#EXIT")
                         return
                 }
@@ -137,11 +191,11 @@ Popup
             else if (role === Dialog.No)
             {
                 if (action == "#OPEN")
-                    openDialog.open()
+                    openDialog(App.OpenMode)
                 else if (action == "#NEW")
                     qlcplus.newWorkspace()
                 else if (action == "#EXIT")
-                    qlcplus.exit()
+                    qlcplus.exit(true)
                 else
                     qlcplus.loadWorkspace(action)
             }
@@ -161,6 +215,7 @@ Popup
             border.width: 1
             border.color: UISettings.bgStronger
             color: UISettings.bgStrong
+            height: actionsMenuEntries.height
         }
 
     Column
@@ -200,7 +255,7 @@ Popup
                     saveFirstPopup.open()
                 }
                 else
-                    openDialog.open()
+                    openDialog(App.OpenMode)
 
                 menuRoot.close()
             }
@@ -267,7 +322,7 @@ Popup
 
             onClicked:
             {
-                saveDialog.open()
+                openDialog(App.SaveMode)
                 menuRoot.close()
             }
         }
@@ -281,7 +336,7 @@ Popup
 
             onClicked:
             {
-                importDialog.open()
+                openDialog(App.ImportMode)
                 menuRoot.close()
             }
 
@@ -293,7 +348,10 @@ Popup
                 Connections
                 {
                     target: importLoader.item
-                    onClose: importLoader.source = ""
+                    function onClose()
+                    {
+                        importLoader.source = ""
+                    }
                 }
             }
         }
@@ -307,6 +365,7 @@ Popup
             ContextMenuEntry
             {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/undo.svg"
                 entryText: qsTr("Undo")
                 onEntered: submenuItem = null
@@ -320,6 +379,7 @@ Popup
             ContextMenuEntry
             {
                 Layout.fillWidth: true
+                Layout.fillHeight: true
                 imgSource: "qrc:/redo.svg"
                 entryText: qsTr("Redo")
                 onEntered: submenuItem = null
@@ -334,6 +394,8 @@ Popup
         ContextMenuEntry
         {
             imgSource: "qrc:/network.svg"
+            //faSource: FontAwesome.fa_network_wired
+            //faColor: "darkseagreen"
             entryText: qsTr("Network")
             onEntered: submenuItem = networkMenu
 
@@ -420,8 +482,22 @@ Popup
 
         ContextMenuEntry
         {
+            id: uiConfig
+            imgSource: "qrc:/configure.svg"
+            entryText: qsTr("UI Settings")
+            onEntered: submenuItem = null
+            onClicked:
+            {
+                menuRoot.close()
+                mainView.loadResource("qrc:/UISettingsEditor.qml")
+            }
+        }
+
+        ContextMenuEntry
+        {
             id: fullScreen
-            imgSource: "qrc:/fullscreen.svg"
+            faSource: FontAwesome.fa_maximize
+            faColor: UISettings.fgLight
             entryText: qsTr("Toggle fullscreen")
             onEntered: submenuItem = null
             onClicked:
@@ -433,7 +509,8 @@ Popup
 
         ContextMenuEntry
         {
-            imgSource: "qrc:/global.svg"
+            faSource: FontAwesome.fa_earth_europe
+            faColor: "deepskyblue"
             entryText: qsTr("Language")
             onEntered: submenuItem = languageMenu
 
@@ -555,7 +632,8 @@ Popup
         ContextMenuEntry
         {
             id: info
-            imgSource: "qrc:/info.svg"
+            faSource: FontAwesome.fa_circle_info
+            faColor: "skyblue"
             entryText: qsTr("About")
             onEntered: submenuItem = null
             onClicked:
@@ -567,9 +645,9 @@ Popup
             PopupAbout
             {
                 id: infoPopup
+                width: mainView.width / 2
             }
         }
     }
 }
-
 

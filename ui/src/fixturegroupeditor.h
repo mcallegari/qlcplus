@@ -31,7 +31,7 @@ class Doc;
  * @{
  */
 
-class FixtureGroupEditor : public QWidget, public Ui_FixtureGroupEditor
+class FixtureGroupEditor final : public QWidget, public Ui_FixtureGroupEditor
 {
     Q_OBJECT
 
@@ -49,6 +49,8 @@ private slots:
     void slotYSpinValueChanged(int value);
 
     void slotRightClicked();
+    void slotLeftClicked(); 
+    void slotUpClicked();
     void slotDownClicked();
     void slotRemoveFixtureClicked();
 

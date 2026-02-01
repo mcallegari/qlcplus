@@ -18,14 +18,12 @@
 */
 
 #include "qlcclipboard.h"
-#include "chaser.h"
-#include "scene.h"
+#include "doc.h"
 
 QLCClipboard::QLCClipboard(Doc *doc)
     : m_doc(doc)
     , m_copyFunction(NULL)
 {
-
 }
 
 void QLCClipboard::resetContents()

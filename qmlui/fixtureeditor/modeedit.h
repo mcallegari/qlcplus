@@ -28,7 +28,7 @@ class QLCFixtureMode;
 class QLCChannel;
 class ListModel;
 
-class ModeEdit : public QObject
+class ModeEdit final : public QObject
 {
     Q_OBJECT
 
@@ -37,6 +37,7 @@ class ModeEdit : public QObject
     Q_PROPERTY(QVariant heads READ heads NOTIFY headsChanged)
     Q_PROPERTY(bool useGlobalPhysical READ useGlobalPhysical CONSTANT)
     Q_PROPERTY(PhysicalEdit *physical READ physical CONSTANT)
+    Q_PROPERTY(QStringList actsOnChannels READ actsOnChannels NOTIFY actsOnChannelsChanged)
 
 public:
     ModeEdit(QLCFixtureMode *mode, QObject *parent = nullptr);
@@ -73,11 +74,20 @@ public:
     /** Delete the given $channel from the mode being edited */
     Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
 
+    /** Return a simple list with the possible channels to act on */
+    QStringList actsOnChannels();
+
+    /** Return the channel where channel at $index acts on */
+    Q_INVOKABLE int actsOnChannel(int index);
+
+    Q_INVOKABLE void setActsOnChannel(int sourceIndex, int destIndex);
+
 private:
     void updateChannelList();
 
 signals:
     void channelsChanged();
+    void actsOnChannelsChanged();
 
 private:
     /** Reference to a channel list usable in QML */

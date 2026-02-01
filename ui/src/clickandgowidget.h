@@ -28,7 +28,7 @@
  * @{
  */
 
-class ClickAndGoWidget : public QWidget
+class ClickAndGoWidget final : public QWidget
 {
     Q_OBJECT
 public:
@@ -63,6 +63,12 @@ public:
      * Returns the widget type
      */
     int getType();
+
+    /** Set the low limits from the fader as a preset filter */
+    void setLevelLowLimit(int min);
+
+    /** Set the high limits from the fader as a preset filter */
+    void setLevelHighLimit(int max);
 
     /**
      * Returns the color at pos position.
@@ -123,8 +129,8 @@ private:
     public:
         QImage m_thumbnail;
         QString m_descr;
-        uchar m_min;
-        uchar m_max;
+        int m_resLowLimit;
+        int m_resHighLimit;
     };
 
 protected:
@@ -145,6 +151,10 @@ protected:
     QString m_title;
     QList<ClickAndGoWidget::PresetResource> m_resources;
 
+    /** Fader limits to also limit the presets */
+    int m_levelLowLimit;
+    int m_levelHighLimit;
+
     /** Used to group all the primary colors */
     bool m_linearColor;
 
@@ -153,16 +163,16 @@ protected:
 
 protected:
     /** @reimp */
-    QSize sizeHint() const;
+    QSize sizeHint() const override;
 
     /** @reimp */
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;
 
     /** @reimp */
-    void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event) override;
 
     /** @reimp */
-    void paintEvent(QPaintEvent *event);
+   void paintEvent(QPaintEvent *event) override;
 
 signals:
     void levelChanged(uchar level);

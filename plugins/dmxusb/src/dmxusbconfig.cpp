@@ -72,6 +72,8 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
+    else
+        setGeometry(QRect(100, 100, 700, 350));
 
     slotRefresh();
 }
@@ -149,6 +151,7 @@ QComboBox *DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
     combo->addItem(QString("DMX4ALL"), DMXUSBWidget::DMX4ALL);
     combo->addItem(QString("Vince TX"), DMXUSBWidget::VinceTX);
     combo->addItem(QString("Eurolite"), DMXUSBWidget::Eurolite);
+    combo->addItem(QString("usbdmx.com (legacy)"), DMXUSBWidget::USBDMXLegacy);
     int index = combo->findData(widget->type());
     combo->setCurrentIndex(index);
 

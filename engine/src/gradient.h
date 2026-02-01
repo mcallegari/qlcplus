@@ -26,7 +26,7 @@ class QImage;
 class QColor;
 class QPainter;
 
-class Gradient
+class Gradient final
 {
 public:
     /** Get a gradient of default size (252x256) */

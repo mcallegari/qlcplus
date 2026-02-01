@@ -35,9 +35,9 @@ class Doc;
  * @{
  */
 
-#define KXMLQLCVCClock QString("Clock")
+#define KXMLQLCVCClock QStringLiteral("Clock")
 
-class VCClockSchedule
+class VCClockSchedule final
 {
 public:
     VCClockSchedule() { }
@@ -52,14 +52,14 @@ public:
 
     /** Load & Save */
     bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     quint32 m_id;
     QDateTime m_time;
 };
 
-class VCClock : public VCWidget
+class VCClock final : public VCWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCClock)
@@ -68,14 +68,14 @@ class VCClock : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCClock(QWidget* parent, Doc* doc);
+    VCClock(QWidget *parent, Doc *doc);
     ~VCClock();
 
     /*********************************************************************
      * QLC+ Mode
      *********************************************************************/
 public slots:
-    void slotModeChanged(Doc::Mode mode);
+    void slotModeChanged(Doc::Mode mode) override;
 
     /*********************************************************************
      * Type
@@ -91,8 +91,8 @@ public:
     void setClockType(ClockType type);
     ClockType clockType() const;
 
-    QString typeToString(ClockType type);
-    ClockType stringToType(QString str);
+    QString typeToString(ClockType type) const;
+    ClockType stringToType(QString str) const;
 
 
     /*********************************************************************
@@ -102,7 +102,7 @@ public:
     void addSchedule(VCClockSchedule schedule);
     void removeSchedule(int index);
     void removeAllSchedule();
-    QList<VCClockSchedule> schedules();
+    QList<VCClockSchedule> schedules() const;
 
 private:
     ClockType m_clocktype;
@@ -120,10 +120,10 @@ public:
     void setCountdown(int h, int m, int s);
     void playPauseTimer();
     void resetTimer();
-    long currentTime() { return m_currentTime; }
-    int getHours() { return m_hh; }
-    int getMinutes() { return m_mm; }
-    int getSeconds() { return m_ss; }
+    long currentTime() const { return m_currentTime; }
+    int getHours() const { return m_hh; }
+    int getMinutes() const { return m_mm; }
+    int getSeconds() const { return m_ss; }
 
 signals:
     void timeChanged(quint32 time);
@@ -162,16 +162,16 @@ private:
     QKeySequence m_resetKeySequence;
 
 protected slots:
-    void slotKeyPressed(const QKeySequence& keySequence);
+    void slotKeyPressed(const QKeySequence& keySequence) override;
 
     /*************************************************************************
      * External Input
      *************************************************************************/
 public:
-    void updateFeedback();
+    void updateFeedback() override;
 
 protected slots:
-    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value) override;
 
 private:
     quint32 m_playLatestValue;
@@ -181,28 +181,28 @@ private:
      * Clipboard
      *********************************************************************/
 public:
-    VCWidget* createCopy(VCWidget* parent);
-    bool copyFrom(const VCWidget *widget);
+    VCWidget* createCopy(VCWidget* parent) const override;
+    bool copyFrom(const VCWidget *widget) override;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
-    void editProperties();
+    void editProperties() override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) override;
 
     /*********************************************************************
      * Painting
      *********************************************************************/
 protected:
-    void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent* e);
+    void paintEvent(QPaintEvent* e) override;
+    void mousePressEvent(QMouseEvent* e) override;
 };
 
 /** @} */

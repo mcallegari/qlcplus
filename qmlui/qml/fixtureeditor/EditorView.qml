@@ -17,9 +17,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Dialogs
+import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 import org.qlcplus.classes 1.0
 import "."
@@ -28,7 +30,7 @@ Rectangle
 {
     id: editorRoot
 
-    property int editorId
+    property int editorId: -1
     property EditorRef editorView: null
 
     color: "transparent"
@@ -40,8 +42,14 @@ Rectangle
             messagePopup.message = qsTr("You are trying to edit a bundled fixture definition.<br>" +
                                         "If you modify and save it, a new file will be stored in<br><i>" +
                                         fixtureEditor.userFolder + "</i><br>and will override the bundled file.")
+            editorView.remapFilename(fixtureEditor.userFolder)
             messagePopup.open()
         }
+
+        sideEditor.active = false
+        sideEditor.itemName = ""
+        sideEditor.source = ""
+        sideEditor.active = true
     }
 
     function save(path)
@@ -55,23 +63,77 @@ Rectangle
             return
         }
 
+        var errors = ""
+
         if (path)
-            editorView.saveAs(path)
+            errors = editorView.saveAs(path)
         else
-            editorView.save()
+            errors = editorView.save()
+
+        if (errors != "")
+        {
+            messagePopup.message = qsTr("The following errors have been detected:") + "<br><ul>" + errors + "</ul>"
+            messagePopup.open()
+        }
+    }
+
+    function updateChannelToolbarPosition()
+    {
+        var toolbar = channelSection.loadedItem.toolbar
+
+        if (!channelSection.visible || !toolbar)
+            return
+
+        // channelSection top in the Flickable's visible coordinates
+        var topInFlick = channelSection.mapToItem(editorFlickable, 0, 0).y
+        var bottomInFlick = topInFlick + channelSection.height
+
+        // We want the toolbar floating when:
+        //  - the top of the section is above the top of the viewport (topInFlick < 0)
+        //  - but some part of the section (below the toolbar) is still visible
+        var shouldFloat =
+                (topInFlick < 0) &&
+                (bottomInFlick > 0 + toolbar.height)
+
+        if (shouldFloat)
+        {
+            // detach and parent to the Flickable to pin it at y = 0
+            if (toolbar.parent !== editorFlickable)
+            {
+                toolbar.parent = editorFlickable
+                toolbar.x = channelSection.x      // align with section
+                toolbar.y = 0                     // stick to top
+                toolbar.z = 100                   // above list items
+            }
+        }
+        else
+        {
+            // put it back into the section contents at its natural place
+            if (toolbar.parent !== channelSection.loadedItem)
+            {
+                toolbar.parent = channelSection.loadedItem.tContainer
+                toolbar.x = 0
+                toolbar.y = 0
+                toolbar.z = 0
+            }
+        }
     }
 
     CustomPopupDialog
     {
         id: messagePopup
+        parent: fixtureEditorView
+        width: fixtureEditorView.width / 2
         standardButtons: Dialog.Ok
         title: qsTr("!! Warning !!")
         onAccepted: close()
     }
 
-    ModelSelector
+    PopupChannelWizard
     {
-        id: chanSelector
+        id: wizardPopup
+        parent: fixtureEditorView
+        editorView: editorRoot.editorView
     }
 
     SplitView
@@ -97,6 +159,9 @@ Rectangle
                 id: editorColumn
                 width: parent.width - (sbar.visible ? sbar.width : 0)
 
+                // *********************************************************************
+                //                                GENERAL
+                // *********************************************************************
                 SectionBox
                 {
                     id: generalSection
@@ -116,7 +181,8 @@ Rectangle
                                 id: manufacturerEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.manufacturer : ""
-                                onTextChanged: if (editorView) editorView.manufacturer = text
+                                onTextEdited: if (editorView) editorView.manufacturer = text
+                                KeyNavigation.tab: modelEdit
                             }
 
                             // row 1
@@ -155,7 +221,12 @@ Rectangle
                                     width: UISettings.bigItemHeight
                                     model: typeModel
                                     currValue: editorView ? editorView.productType : 0
-                                    onValueChanged: if (editorView) editorView.productType = value
+                                    onValueChanged:
+                                        function(value)
+                                        {
+                                            if (editorView)
+                                                editorView.productType = value
+                                        }
                                 }
                             }
 
@@ -166,20 +237,25 @@ Rectangle
                                 id: modelEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.model : ""
-                                onTextChanged: if (editorView) editorView.model = text
+                                onTextEdited: if (editorView) editorView.model = text
+                                KeyNavigation.tab: authorEdit
                             }
 
                             // row 4
                             RobotoText { label: qsTr("Author") }
                             CustomTextEdit
                             {
+                                id: authorEdit
                                 Layout.fillWidth: true
                                 text: editorView ? editorView.author : ""
-                                onTextChanged: if (editorView) editorView.author = text
+                                onTextEdited: if (editorView) editorView.author = text
                             }
                         }
                 } // SectionBox - General
 
+                // *********************************************************************
+                //                               PHYSICAL
+                // *********************************************************************
                 SectionBox
                 {
                     id: phySection
@@ -194,6 +270,9 @@ Rectangle
                         }
                 } // SectionBox - Physical
 
+                // *********************************************************************
+                //                                CHANNELS
+                // *********************************************************************
                 SectionBox
                 {
                     id: channelSection
@@ -206,71 +285,84 @@ Rectangle
                             width: channelSection.width
                             //height: chEditToolbar.height + channelList.height
 
-                            Rectangle
+                            property alias tContainer: toolbarContainer
+                            property alias toolbar: chEditToolbar
+
+                            Item
                             {
-                                id: chEditToolbar
+                                id: toolbarContainer
                                 width: channelSection.width
                                 height: UISettings.iconSizeDefault
-                                gradient: Gradient
+
+                                Rectangle
                                 {
-                                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
-                                    GradientStop { position: 1; color: UISettings.toolbarEnd }
-                                }
-
-                                RowLayout
-                                {
-                                    anchors.fill: parent
-
-                                    IconButton
+                                    id: chEditToolbar
+                                    width: channelSection.width
+                                    height: UISettings.iconSizeDefault
+                                    gradient: Gradient
                                     {
-                                        id: newChButton
-                                        imgSource: "qrc:/add.svg"
-                                        tooltip: qsTr("Add a new channel")
-                                        onClicked:
+                                        GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                                        GradientStop { position: 1; color: UISettings.toolbarEnd }
+                                    }
+
+                                    RowLayout
+                                    {
+                                        anchors.fill: parent
+
+                                        IconButton
                                         {
-                                            sideEditor.active = false
-                                            sideEditor.itemName = ""
-                                            sideEditor.source = "qrc:/ChannelEditor.qml"
-                                            sideEditor.active = true
+                                            id: newChButton
+                                            faSource: FontAwesome.fa_plus
+                                            faColor: "limegreen"
+                                            tooltip: qsTr("Add a new channel")
+                                            onClicked:
+                                            {
+                                                sideEditor.active = false
+                                                sideEditor.itemName = ""
+                                                sideEditor.source = "qrc:/ChannelEditor.qml"
+                                                sideEditor.active = true
+                                            }
+                                        }
+
+                                        IconButton
+                                        {
+                                            id: delChButton
+                                            faSource: FontAwesome.fa_minus
+                                            faColor: "crimson"
+                                            tooltip: qsTr("Remove the selected channel(s)")
+                                            enabled: chanSelector.itemsCount
+                                            onClicked:
+                                            {
+                                                // retrieve selected indices from model selector and
+                                                // channel references from the ListView items
+                                                var refsArray = []
+                                                var selItems = chanSelector.itemsList()
+
+                                                for (var i = 0; i < selItems.length; i++)
+                                                    refsArray.push(channelList.itemAtIndex(selItems[i]).cRef)
+
+                                                editorView.deleteChannels(refsArray)
+                                                cDragItem.itemsList = []
+                                            }
+                                        }
+
+                                        Rectangle
+                                        {
+                                            Layout.fillWidth: true
+                                            color: "transparent"
+                                        }
+
+                                        IconButton
+                                        {
+                                            id: chWizButton
+                                            faSource: FontAwesome.fa_wand_magic_sparkles
+                                            faColor: "cyan"
+                                            tooltip: qsTr("Channel wizard")
+                                            onClicked: wizardPopup.open()
                                         }
                                     }
-
-                                    IconButton
-                                    {
-                                        id: delChButton
-                                        imgSource: "qrc:/remove.svg"
-                                        tooltip: qsTr("Remove the selected channel(s)")
-                                        enabled: chanSelector.itemsCount
-                                        onClicked:
-                                        {
-                                            for (var i = 0; i < cDragItem.itemsList.length; i++)
-                                                editorView.deleteChannel(cDragItem.itemsList[i].cRef)
-
-                                            cDragItem.itemsList = []
-                                        }
-                                    }
-
-                                    Rectangle
-                                    {
-                                        Layout.fillWidth: true
-                                        color: "transparent"
-                                    }
-
-                                    IconButton
-                                    {
-                                        id: chWizButton
-                                        imgSource: "qrc:/wizard.svg"
-                                        tooltip: qsTr("Channel wizard")
-                                        onClicked: wizardPopup.open()
-
-                                        PopupChannelWizard
-                                        {
-                                            id: wizardPopup
-                                            editorView: editorRoot.editorView
-                                        }
-                                    }
-                                }
-                            } // Rectangle - toolbar
+                                } // Rectangle - toolbar
+                            } // Item - toolbar container
 
                             ListView
                             {
@@ -286,8 +378,12 @@ Rectangle
                                 delegate:
                                     Item
                                     {
+                                        id: itemRoot
                                         width: channelList.width
                                         height: UISettings.listItemHeight
+
+                                        property QLCChannel cRef: model.cRef
+                                        property alias chanDelegate: delegateRoot.channelDelegate
 
                                         MouseArea
                                         {
@@ -296,8 +392,8 @@ Rectangle
                                             height: parent.height
                                             propagateComposedEvents: true
 
-                                            property QLCChannel cRef: model.cRef
                                             property bool dragActive: drag.active
+                                            property Item channelDelegate: cDelegate
 
                                             drag.target: cDragItem
                                             drag.threshold: height / 2
@@ -309,25 +405,17 @@ Rectangle
                                                 cDragItem.x = posnInWindow.x - (cDragItem.width / 4)
                                                 cDragItem.y = posnInWindow.y - (cDragItem.height / 4)
                                                 cDragItem.z = 10
+                                            }
 
-                                                if (model.isSelected)
-                                                    return
-
+                                            onClicked: (mouse) =>
+                                            {
                                                 chanSelector.selectItem(index, channelList.model, mouse.modifiers)
-
-                                                if ((mouse.modifiers & Qt.ControlModifier) == 0)
-                                                    cDragItem.itemsList = []
-
-                                                // workaround array length notification
-                                                var arr = cDragItem.itemsList
-                                                arr.push(cDelegate)
-                                                cDragItem.itemsList = arr
                                             }
 
                                             onDoubleClicked:
                                             {
                                                 sideEditor.active = false
-                                                sideEditor.itemName = delegateRoot.cRef.name
+                                                sideEditor.itemName = itemRoot.cRef.name
                                                 sideEditor.source = "qrc:/ChannelEditor.qml"
                                                 sideEditor.active = true
                                             }
@@ -358,7 +446,17 @@ Rectangle
                                                 color: "transparent"
 
                                                 //property int itemType: App.ChannelDragItem
-                                                property QLCChannel cRef: delegateRoot.cRef
+                                                property QLCChannel cRef: itemRoot.cRef
+                                                property int chGroup: cRef ? cRef.group : 0
+                                                property int chColor: cRef ? cRef.colour : 0
+
+                                                onChGroupChanged: updateGroup()
+                                                onChColorChanged: updateGroup()
+
+                                                function updateGroup()
+                                                {
+                                                    cEntryItem.iSrc = cRef.getIconNameFromGroup(chGroup, true)
+                                                }
 
                                                 Rectangle
                                                 {
@@ -388,6 +486,22 @@ Rectangle
                                         }
                                     }
 
+                                ModelSelector
+                                {
+                                    id: chanSelector
+                                    onItemsCountChanged:
+                                    {
+                                        cDragItem.itemsList = []
+                                        var selItems = itemsList()
+
+                                        for (var i = 0; i < selItems.length; i++)
+                                        {
+                                            var item = channelList.itemAtIndex(selItems[i])
+                                            cDragItem.itemsList.push(item.chanDelegate)
+                                        }
+                                    }
+                                }
+
                                 GenericMultiDragItem
                                 {
                                     id: cDragItem
@@ -403,6 +517,9 @@ Rectangle
                         } // Column
                 } // SectionBox - Channels
 
+                // *********************************************************************
+                //                                MODES
+                // *********************************************************************
                 SectionBox
                 {
                     id: modeSection
@@ -433,7 +550,8 @@ Rectangle
                                     IconButton
                                     {
                                         id: newModeButton
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         tooltip: qsTr("Add a new mode")
                                         onClicked:
                                         {
@@ -447,9 +565,14 @@ Rectangle
                                     IconButton
                                     {
                                         id: delModeButton
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected mode(s)")
-                                        onClicked: { /* TODO */ }
+                                        onClicked:
+                                        {
+                                            var mItem = modeList.currentItem
+                                            editorView.deleteMode(mItem.modeName)
+                                        }
                                     }
 
                                     Rectangle
@@ -476,6 +599,8 @@ Rectangle
                                         width: modeList.width
                                         height: UISettings.listItemHeight
 
+                                        property alias modeName: modeTextEntry.tLabel
+
                                         MouseArea
                                         {
                                             width: modeList.width
@@ -499,6 +624,7 @@ Rectangle
 
                                             IconTextEntry
                                             {
+                                                id: modeTextEntry
                                                 width: modeList.width
                                                 height: UISettings.listItemHeight
                                                 tLabel: model.name
@@ -525,11 +651,16 @@ Rectangle
                     width: parent.width
                     sectionLabel: qsTr("Aliases")
 
-                    sectionContents: null
+                    sectionContents: null // TODO
                 } // SectionBox - Alias
 
             } // Column
-            ScrollBar.vertical: CustomScrollBar { id: sbar }
+            ScrollBar.vertical:
+                CustomScrollBar
+                {
+                    id: sbar
+                    onPositionChanged: editorRoot.updateChannelToolbarPosition()
+                }
         } // Flickable
 
         // right view: editors

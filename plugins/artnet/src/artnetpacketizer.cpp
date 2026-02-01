@@ -63,7 +63,7 @@ void ArtNetPacketizer::setupArtNetPoll(QByteArray& data)
     data.append('\0'); // Priority
 }
 
-void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr)
+void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr, quint32 universe, bool isInput)
 {
     int i = 0;
     data.clear();
@@ -79,36 +79,50 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
     data.append((char)0x19);     // Port MSB
     data.append((char)0x04);     // Version MSB
     data.append((char)0x20);     // Version LSB
-    data.append((char)0x00);     // Sub Switch MSB
-    data.append((char)0x00);     // Sub Switch LSB
+    data.append((char)((universe >> 8) & 0xFF)); // NetSwitch (universe bits 14-8)Add commentMore actions
+    data.append((char)((universe >> 4) & 0x0F)); // SubSwitch (universe bits 7-4)
     data.append((char)0xFF);     // OEM Value MSB
     data.append((char)0xFF);     // OEM Value LSB
     data.append((char)0x00);     // UBEA version
     data.append((char)0xF0);     // Status1 - Ready and booted
     data.append((char)0xFF);     // ESTA Manufacturer MSB
     data.append((char)0xFF);     // ESTA Manufacturer LSB
+
     data.append("QLC+");   // Short Name
     for (i = 0; i < 14; i++)
         data.append((char)0x00); // 14 bytes of stuffing
     data.append("Q Light Controller Plus - ArtNet interface"); // Long Name
     for (i = 0; i < 22; i++) // 64-42 bytes of stuffing. 42 is the length of the long name
         data.append((char)0x00);
+
     for (i = 0; i < 64; i++)
         data.append((char)0x00); // Node report
-    data.append((char)0x00);     // NumPort MSB
-    // FIXME: this should reflect the actual state of QLC+ output ports !
-    data.append((char)0x01);     // NumPort LSB
-    data.append((char)0x80);     // Port 1 type: can output DMX512 data
-    data.append((char)0x80);     // Port 2 type: can output DMX512 data
-    data.append((char)0x80);     // Port 3 type: can output DMX512 data
-    data.append((char)0x80);     // Port 4 type: can output DMX512 data
-    // FIXME: this should reflect the actual state of QLC+ output ports !
-    for (i = 0; i < 12; i++)
-        data.append((char)0x00); // Set GoodInput[4], GoodOutput[4] and SwIn[4] all to unknown state
-    data.append((char)0x00);     // SwOut0 - output 0
-    data.append((char)0x01);     // SwOut1 - output 1
-    data.append((char)0x02);     // SwOut2 - output 2
-    data.append((char)0x03);     // SwOut3 - output 3
+    data.append((char)0x00);     // NumPortsHi
+    data.append((char)0x01);     // NumPortsLo
+    data.append(isInput ? (char)0x40 : (char)0x80); // PortTypes[0]: can input or output DMX512 data
+    data.append((char)0x00);     // PortTypes[1]: nothing
+    data.append((char)0x00);     // PortTypes[2]: nothing
+    data.append((char)0x00);     // PortTypes[3]: nothing
+
+    data.append(isInput ? (char)0x80 : (char)0x00); // GoodInput[0] - input status port 1
+    data.append((char)0x00);     // GoodInput[1] - input status port 2
+    data.append((char)0x00);     // GoodInput[2] - input status port 3
+    data.append((char)0x00);     // GoodInput[3] - input status port 4
+
+    data.append(isInput ? (char)0x00 : (char)0x80); // GoodOutputA[0] - output status port 1
+    data.append((char)0x00);     // GoodOutputA[0] - output status port 2
+    data.append((char)0x00);     // GoodOutputA[0] - output status port 3
+    data.append((char)0x00);     // GoodOutputA[0] - output status port 4
+
+    data.append(isInput ? (char)universe : (char)0x00); // SwIn[0] - port 1
+    data.append((char)0x00);     // SwIn[1] - port 2
+    data.append((char)0x00);     // SwIn[2] - port 3
+    data.append((char)0x00);     // SwIn[3] - port 4
+
+    data.append(isInput ? (char)0x00 : (char)universe); // SwOut[0] - port 1
+    data.append((char)0x00);     // SwOut[1] - port 2
+    data.append((char)0x00);     // SwOut[2] - port 3
+    data.append((char)0x00);     // SwOut[3] - port 4
     for (i = 0; i < 7; i++)
         data.append((char)0x00);  // SwVideo, SwMacro, SwRemote and 4 spare bytes
     QStringList MAC = MACaddr.split(":");
@@ -208,7 +222,7 @@ bool ArtNetPacketizer::checkPacketAndCode(QByteArray const& data, quint16 &code)
     if (data.at(7) != 0x00)
         return false;
 
-    code = ((int)data.at(9) << 8) + data.at(8);
+    code = (quint16(data.at(9)) << 8) + quint16(data.at(8));
 
     return true;
 }
@@ -220,11 +234,22 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
 
     QByteArray shortName = data.mid(26, 18);
     QByteArray longName = data.mid(44, 64);
-    info.shortName = QString(shortName.data()).simplified();
-    info.longName = QString(longName.data()).simplified();
+    QByteArray nodeReport = data.mid(108, 64);
+        uchar inputStatus = uchar(data.at(178));
 
-    qDebug() << "getArtPollReplyInfo shortName: " << info.shortName;
-    qDebug() << "getArtPollReplyInfo longName: " << info.longName;
+    info.shortName = QString(shortName.replace(0, 0x20)).simplified();
+    info.longName = QString(longName.replace(0, 0x20)).simplified();
+    info.portsNumber = (uchar(data.at(172)) << 8) + uchar(data.at(173));
+    info.isInput = (inputStatus & 0x04) == 0 ? true : false;
+    info.isOutput = (inputStatus & 0x04) ? true : false;
+    info.universe = (ushort(data.at(18)) << 8) + (ushort(data.at(19)) << 4) + ushort(data.at(186));
+
+#if 0
+    qDebug() << "getArtPollReplyInfo shortName:" << info.shortName;
+    qDebug() << "getArtPollReplyInfo longName:" << info.longName;Add commentMore actions
+    qDebug() << "getArtPollReplyInfo nodeReport:" << QString(nodeReport).simplified();
+    qDebug() << "getArtPollReplyInfo universe:" << QString::number(info.universe);
+#endif
 
     return true;
 }

@@ -48,15 +48,16 @@ void TreeModel::clear()
     if (itemsCount == 0)
         return;
 
+    beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
     for (int i = 0; i < itemsCount; i++)
     {
         TreeModelItem *item = m_items.takeLast();
         if (item->hasChildren())
             item->children()->clear();
-        beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
+
         delete item;
-        endRemoveRows();
     }
+    endRemoveRows();
     m_items.clear();
     m_itemsPathMap.clear();
 }
@@ -103,13 +104,13 @@ void TreeModel::setSingleSelection(TreeModelItem *item)
 
 TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
-    //qDebug() << "Adding item" << label << path;
+    //qDebug() << "Adding item" << label << path << data;
 
     TreeModelItem *item = nullptr;
 
     // fewer roles are allowed, while exceeding are probably a mistake
     if (data.count() > m_roles.count())
-        qDebug() << "Item roles exceeds tree roles!" << data.count() << m_roles.count();
+        qDebug() << "Item roles exceed tree roles!" << data.count() << m_roles.count();
 
     if (m_checkable)
         flags |= Checkable;
@@ -136,7 +137,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         QStringList pathList = path.split(TreeModel::separator());
         if (m_itemsPathMap.contains(pathList.at(0)))
         {
-            item = m_itemsPathMap[pathList.at(0)];
+            item = m_itemsPathMap.value(pathList.at(0), nullptr);
         }
         else
         {
@@ -202,7 +203,10 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
             return nullptr;
     }
 
-    TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+    TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+    if (item == nullptr)
+        return nullptr;
+
     QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
     return item->children()->itemAtPath(subPath);
 }
@@ -236,7 +240,10 @@ bool TreeModel::removeItem(QString path)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+        if (item == nullptr)
+            return false;
+
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->removeItem(subPath);
     }
@@ -270,7 +277,10 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     }
     else
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+        if (item == nullptr)
+            return;
+
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
     }
@@ -300,18 +310,18 @@ void TreeModel::setPathData(QString path, QVariantList data)
         return;
 
     QStringList pathList = path.split(TreeModel::separator());
-    if (m_itemsPathMap.contains(pathList.at(0)))
+    TreeModelItem *item = m_itemsPathMap.value(pathList.at(0), nullptr);
+    if (item == nullptr)
+        return;
+
+    if (pathList.count() == 1)
     {
-        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
-        if (pathList.count() == 1)
-        {
-            item->setData(data);
-        }
-        else if (item->hasChildren())
-        {
-            QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
-            item->children()->setPathData(subPath, data);
-        }
+        item->setData(data);
+    }
+    else if (item->hasChildren())
+    {
+        QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+        item->children()->setPathData(subPath, data);
     }
 }
 

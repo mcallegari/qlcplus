@@ -34,7 +34,7 @@
  *  If the need arises, Universe::slotGMValueChanged() needs to be fixed (recompute
  *  all channels, for the case when mode is changed from AllChannels to Intensity)
  */
-class GrandMaster: public QObject
+class GrandMaster final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(GrandMaster)
@@ -95,6 +95,18 @@ public:
      * @return Current value mode
      */
     ValueMode valueMode() const;
+
+    /**
+     * Sets if the Grand Master should be visible on the virtual
+     * console and the web interface.
+     */
+    void setVisible(bool visible);
+
+    /**
+     * Returns if the Grand Master should be visible on the virtual
+     * console and the web interface.
+     */
+    bool visible();
 
     /**
      * Set the way how Grand Master should treat channels. @See enum

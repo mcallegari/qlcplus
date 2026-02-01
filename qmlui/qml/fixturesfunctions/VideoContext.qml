@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtMultimedia 5.8
+import QtQuick
+import QtMultimedia
 
 import org.qlcplus.classes 1.0
 import "."
@@ -59,6 +59,7 @@ Rectangle
         if (cIdx > -1)
         {
             mediaItems[cIdx].stopPlayback()
+            mediaItems[cIdx].destroy()
             mediaArray.splice(cIdx, 1)
             mediaItems.splice(cIdx, 1)
         }
@@ -92,7 +93,7 @@ Rectangle
             z: video.zIndex
 
             property VideoFunction video: null
-            property alias volume: player.volume
+            property alias volume: player.audioOutput.volume
             property vector3d rotation: video.rotation
             property rect geometry: video.customGeometry
 
@@ -147,28 +148,35 @@ Rectangle
             MediaPlayer
             {
                 id: player
-                //source: "sourceURL"
                 autoPlay: true
-
-                onStopped:
-                {
-                    if (video.runOrder === QLCFunction.Loop)
-                    {
-                        console.log("Video loop")
-                        player.play()
+                audioOutput:
+                    AudioOutput {
+                        volume: video.intensity
                     }
-                    else
+
+                videoOutput: pVideoOutput
+
+                onPlaybackStateChanged:
+                {
+                    if (playbackState == MediaPlayer.StoppedState)
                     {
-                        console.log("Video stopped")
-                        ctxRoot.removeContent(video.id)
+                        if (video.runOrder === QLCFunction.Loop)
+                        {
+                            console.log("Video loop")
+                            player.play()
+                        }
+                        else
+                        {
+                            console.log("Video stopped")
+                            ctxRoot.removeContent(video.id)
+                        }
                     }
                 }
             }
 
             VideoOutput
             {
-                id: videoOutput
-                source: player
+                id: pVideoOutput
                 anchors.fill: parent
             }
         }

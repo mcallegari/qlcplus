@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import "."
 
@@ -39,7 +39,7 @@ Rectangle
         ListElement { name: qsTr("Slider Matrix"); type: "slidermatrix"; icon: "sliders" }
         ListElement { name: qsTr("Knob"); type: "Knob"; icon: "knob" }
         ListElement { name: qsTr("Cue List"); type: "Cue list"; icon: "cuelist" }
-        ListElement { name: qsTr("Speed Dial"); type: "Speed dial"; icon: "speed" }
+        ListElement { name: qsTr("Speed"); type: "Speed"; icon: "speed" }
         ListElement { name: qsTr("XY Pad"); type: "XYPad"; icon: "xypad" }
         ListElement { name: qsTr("Animation"); type: "Animation"; icon: "animation" }
         ListElement { name: qsTr("Label"); type: "Label"; icon: "label" }
@@ -105,7 +105,7 @@ Rectangle
                             width: parent.width - 6
                             height: 1
                             y: parent.height - 1
-                            color: "#555"
+                            color: UISettings.bgLight
                             visible: widgetItem.reduced ? false : true
                         }
                     } // WidgetDragItem

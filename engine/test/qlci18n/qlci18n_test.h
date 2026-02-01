@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class QLCi18n_Test : public QObject
+class QLCi18n_Test final : public QObject
 {
     Q_OBJECT
 

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 
@@ -43,6 +43,7 @@ Rectangle
     property real xViewOffset: 0
 
     property int showID: showManager.currentShowID
+    property int selectedTrackIndex: -1
 
     onShowIDChanged: renderAndCenter()
     Component.onCompleted: renderAndCenter()
@@ -69,8 +70,8 @@ Rectangle
         z: 5
         gradient: Gradient
         {
-          GradientStop { position: 0; color: UISettings.toolbarStartSub }
-          GradientStop { position: 1; color: UISettings.toolbarEnd }
+            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+            GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
 
         RowLayout
@@ -88,8 +89,9 @@ Rectangle
                 width: showMgrContainer.width / 5
                 height: parent.height - 10
                 text: showManager.showName
+                enabled: showManager.isEditing
 
-                onTextChanged: showManager.showName = text
+                onTextEdited: showManager.showName = text
             }
 
             IconButton
@@ -100,8 +102,10 @@ Rectangle
                 height: width
                 imgSource: "qrc:/color.svg"
                 checkable: true
+                enabled: showManager.isEditing
                 tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
+
                 ColorTool
                 {
                     id: colTool
@@ -111,7 +115,11 @@ Rectangle
                     z: 15
                     visible: false
 
-                    onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                    onToolColorChanged:
+                        function(r, g, b, w, a, uv)
+                        {
+                            showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                        }
                     onClose: colPickButton.toggle()
                 }
             }
@@ -173,7 +181,8 @@ Rectangle
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/stretch.svg"
+                faSource: FontAwesome.fa_arrows_left_right_to_line
+                faColor: "lightyellow"
                 tooltip: qsTr("Stretch the original function")
                 checkable: true
                 checked: showManager.stretchFunctions
@@ -186,14 +195,16 @@ Rectangle
                 z: 2
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Remove the selected items")
                 counter: showManager.selectedItemsCount
                 onClicked:
                 {
                     var selNames = showManager.selectedItemNames()
                     //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
+                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n" +
+                                                    "(Note that the original functions will not be deleted)") + "\n" + selNames
                     deleteItemsPopup.open()
                 }
 
@@ -210,7 +221,8 @@ Rectangle
                 id: copyBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_copy
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Copy the selected items in the clipboard")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.copyToClipboard()
@@ -221,15 +233,27 @@ Rectangle
                 id: pasteBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/edit-paste.svg"
+                faSource: FontAwesome.fa_paste
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Paste items in the clipboard at cursor position")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.pasteFromClipboard()
             }
 
+            // filler
+            Rectangle
+            {
+                Layout.fillWidth: true
+            }
+
             RobotoText
             {
                 id: timeBox
+                radius: height / 5
+                border.color: UISettings.fgMedium
+                border.width: 1
+                leftMargin: UISettings.textSizeDefault
+                rightMargin: UISettings.textSizeDefault
                 property int currentTime: showManager.currentTime
 
                 label: "00:00:00.00"
@@ -245,9 +269,11 @@ Rectangle
                 id: playbackBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/play.svg"
+                faSource: FontAwesome.fa_play
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Play or resume")
                 checkable: true
+                enabled: showManager.isEditing
                 onToggled:
                 {
                     if (checked)
@@ -261,9 +287,11 @@ Rectangle
                 id: stopBtn
                 width: parent.height - 6
                 height: width
-                imgSource: "qrc:/stop.svg"
+                faSource: FontAwesome.fa_stop
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
+                enabled: showManager.isEditing
                 onClicked:
                 {
                     playbackBtn.checked = false
@@ -271,9 +299,28 @@ Rectangle
                 }
             }
 
+            // filler
             Rectangle
             {
                 Layout.fillWidth: true
+            }
+
+            RobotoText
+            {
+                label: qsTr("Markers")
+            }
+
+            CustomComboBox
+            {
+                model: [
+                    { mLabel: qsTr("Time"), mValue: Show.Time },
+                    { mLabel: qsTr("BPM 4/4"), mValue: Show.BPM_4_4 },
+                    { mLabel: qsTr("BPM 3/4"), mValue: Show.BPM_3_4 },
+                    { mLabel: qsTr("BPM 2/4"), mValue: Show.BPM_2_4 }
+                ]
+                enabled: showManager.isEditing
+                currValue: showManager.timeDivision
+                onValueChanged: showManager.timeDivision = currentValue
             }
 
             ZoomItem
@@ -309,6 +356,7 @@ Rectangle
         x: parent.width - width
         z: 5
         height: parent.height - (bottomPanel.visible ? bottomPanel.height : 0)
+        inShowManager: true
     }
 
     BottomPanel
@@ -335,30 +383,32 @@ Rectangle
 
             IconButton
             {
-                visible: showManager.selectedTrackIndex > 0 ? true : false
+                visible: selectedTrackIndex > 0 ? true : false
                 height: parent.height - 2
                 width: height
-                imgSource: "qrc:/up.svg"
+                faSource: FontAwesome.fa_angle_up
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Move the selected track up")
                 onClicked:
                 {
-                    showManager.moveTrack(showManager.selectedTrackIndex, -1)
-                    showManager.selectedTrackIndex--
+                    showManager.moveTrack(selectedTrackIndex, -1)
+                    selectedTrackIndex--
                     renderAndCenter()
                 }
             }
 
             IconButton
             {
-                visible: showManager.selectedTrackIndex < tracksBox.count - 1 ? true : false
+                visible: selectedTrackIndex < tracksBox.count - 1 ? true : false
                 height: parent.height - 2
                 width: height
-                imgSource: "qrc:/down.svg"
+                faSource: FontAwesome.fa_angle_down
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Move the selected track down")
                 onClicked:
                 {
-                    showManager.moveTrack(showManager.selectedTrackIndex, 1)
-                    showManager.selectedTrackIndex++
+                    showManager.moveTrack(selectedTrackIndex, 1)
+                    selectedTrackIndex++
                     renderAndCenter()
                 }
             }
@@ -409,9 +459,12 @@ Rectangle
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             duration: showManager.showDuration
 
-            onClicked:
+            onClicked: (mouseX, mouseY) =>
             {
-                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                if (timeDivision === Show.Time)
+                    showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
+                else
+                    showManager.currentTime = TimeUtils.posToBeatMs(mouseX, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
                 showManager.resetItemsSelection()
             }
         }
@@ -441,7 +494,7 @@ Rectangle
         {
             width: trackWidth
             height: parent.height
-            color: UISettings.bgMain
+            color: UISettings.bgMedium
             z: 2
 
             Column
@@ -460,8 +513,9 @@ Rectangle
                             width: tracksBox.width
                             height: trackHeight
                             trackRef: modelData
-                            trackIndex: index
-                            isSelected: showManager.selectedTrackIndex === index ? true : false
+                            isSelected: showMgrContainer.selectedTrackIndex === index ? true : false
+
+                            onTrackSelected: showMgrContainer.selectedTrackIndex = index
                         }
                 }
             }
@@ -501,7 +555,7 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                onClicked:
+                onClicked: (mouse) =>
                 {
                     showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()
@@ -552,8 +606,12 @@ Rectangle
                     if (drag.source.hasOwnProperty("fromFunctionManager"))
                     {
                         var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
-                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
-                        console.log("Drop on time: " + fTime)
+                        var fTime
+                        if (showManager.timeDivision === Show.Time)
+                            fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
+                        else
+                            fTime = TimeUtils.posToBeat(itemsArea.contentX + drag.x, tickSize, showManager.beatsDivision)
+                        console.log("Drop on time1: " + fTime)
                         showManager.addItems(itemsArea.contentItem, trackIdx, fTime, drag.source.itemsList)
                     }
 /*
@@ -621,8 +679,14 @@ Rectangle
                         /* Check if the dragging was started from a Function Manager */
                         if (drag.source.hasOwnProperty("fromFunctionManager"))
                         {
-                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
-                            console.log("Drop on time: " + fTime)
+                            var fTime
+
+                            if (showManager.timeDivision === Show.Time)
+                                fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
+                            else
+                                fTime = TimeUtils.posToBeat(xViewOffset + drag.x, tickSize, showManager.beatsDivision)
+
+                            console.log("Drop on time2: " + fTime)
                             showManager.addItems(itemsArea.contentItem, -1, fTime, drag.source.itemsList)
                         }
                     }
@@ -630,6 +694,22 @@ Rectangle
             }
         } // Flickable (horizontal)
     } // Flickable (vertical)
+
+    Rectangle
+    {
+        anchors.centerIn: parent
+        width: parent.width / 3
+        height: UISettings.bigItemHeight
+        visible: !showManager.isEditing
+        radius: height / 4
+        color: UISettings.bgLight
+
+        RobotoText
+        {
+            anchors.centerIn: parent
+            label: qsTr("Create/Edit a Show function or\ndrag a function on the timeline")
+        }
+    }
 
     CustomScrollBar
     {

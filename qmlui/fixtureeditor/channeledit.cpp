@@ -46,10 +46,6 @@ ChannelEdit::ChannelEdit(QLCChannel *channel, QObject *parent)
 
 ChannelEdit::~ChannelEdit()
 {
-    disconnect(m_channel, SIGNAL(presetChanged()), this, SIGNAL(channelChanged()));
-    disconnect(m_channel, SIGNAL(nameChanged()), this, SIGNAL(channelChanged()));
-    disconnect(m_channel, SIGNAL(defaultValueChanged()), this, SIGNAL(channelChanged()));
-    disconnect(m_channel, SIGNAL(controlByteChanged()), this, SIGNAL(channelChanged()));
 }
 
 QLCChannel *ChannelEdit::channel()
@@ -232,6 +228,7 @@ QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
     QLCCapability *cap = new QLCCapability(min, max);
     QQmlEngine::setObjectOwnership(cap, QQmlEngine::CppOwnership);
     cap->setName(name);
+
     if (m_channel->addCapability(cap))
     {
         updateCapabilities();
@@ -243,6 +240,18 @@ QLCCapability *ChannelEdit::addCapability(int min, int max, QString name)
     }
 
     return cap;
+}
+
+bool ChannelEdit::checkAvailability(int startAddress, int amount)
+{
+    int endAddress = startAddress + amount - 1;
+    for (QLCCapability *cap : m_channel->capabilities())
+    {
+        if (cap->max() >= startAddress && cap->min() <= endAddress)
+            return false;
+    }
+
+    return true;
 }
 
 void ChannelEdit::removeCapabilityAtIndex(int index)
@@ -275,6 +284,7 @@ void ChannelEdit::setCapabilityPresetAtIndex(int index, int preset)
 
     QLCCapability *cap = caps.at(index);
     cap->setPreset(QLCCapability::Preset(preset));
+    emit channelChanged();
 }
 
 int ChannelEdit::getCapabilityPresetType(int index)
@@ -315,6 +325,7 @@ void ChannelEdit::setCapabilityValueAt(int index, int vIndex, QVariant value)
         return;
 
     caps.at(index)->setResource(vIndex, value);
+    emit channelChanged();
 }
 
 void ChannelEdit::checkCapabilities()

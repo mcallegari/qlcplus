@@ -29,43 +29,43 @@
 #define EUROLITE_USB_DMX_PRO_START_OF_MSG  char(0x7E)
 #define EUROLITE_USB_DMX_PRO_END_OF_MSG    char(0xE7)
 
-class EuroliteUSBDMXPro : public QThread, public DMXUSBWidget
+class EuroliteUSBDMXPro final : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    EuroliteUSBDMXPro(DMXInterface *interface, quint32 outputLine);
+    EuroliteUSBDMXPro(DMXInterface *iface, quint32 outputLine);
     virtual ~EuroliteUSBDMXPro();
 
     /** @reimp */
-    DMXUSBWidget::Type type() const;
+    DMXUSBWidget::Type type() const override;
 
     /************************************************************************
      * Widget functions
      ************************************************************************/
 public:
     /** @reimp */
-    bool open(quint32 line = 0, bool input = false);
+    bool open(quint32 line = 0, bool input = false) override;
 
     /** @reimp */
-    bool close(quint32 line = 0, bool input = false);
+    bool close(quint32 line = 0, bool input = false) override;
 
     /** @reimp */
-    QString uniqueName(ushort line = 0, bool input = false) const;
+    QString uniqueName(ushort line = 0, bool input = false) const override;
 
     /** @reimp */
-    QString additionalInfo() const;
+    QString additionalInfo() const override;
 
     /** @reimp */
-    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
+    bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data, bool dataChanged) override;
 
 protected:
     /** Stop the writer thread */
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 private:
     QString getDeviceName();

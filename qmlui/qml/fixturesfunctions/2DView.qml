@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -46,7 +46,7 @@ Rectangle
         var currentScale = View2D.gridScale
         if (amount < 0)
         {
-            if (currentScale > 0.1)
+            if (currentScale > 0.2)
             {
                 if (currentScale <= 1)
                     View2D.gridScale -= 0.1
@@ -56,10 +56,13 @@ Rectangle
         }
         else
         {
-            if (currentScale < 1)
-                View2D.gridScale += 0.1
-            else
-                View2D.gridScale += amount
+            if (currentScale < 5)
+            {
+                if (currentScale < 1)
+                    View2D.gridScale += 0.1
+                else
+                    View2D.gridScale += amount
+            }
         }
 
         twoDView.calculateCellSize()
@@ -80,6 +83,7 @@ Rectangle
       * The stacking order of this view is very important and delicate
       * From bottom to top:
       * Flickable (z = 1): main scrollable area
+      *   Image (z = 0): Main background image
       *   Canvas (z = 0): The actual grid graphics view
       *     DropArea (z = 0): allow to drop items from fixture browser
       *     Rectangle (z = 1): multiple drag layer as big as the Canvas layer
@@ -142,6 +146,17 @@ Rectangle
                 twoDContents.requestPaint()
         }
 
+        Image
+        {
+            x: twoDContents.xOffset
+            y: twoDContents.yOffset
+            width: twoDView.contentWidth - (x * 2)
+            height: twoDView.contentHeight - (y * 2)
+            source: View2D.backgroundImage ? "file:///" + View2D.backgroundImage : ""
+            sourceSize: Qt.size(width, height)
+            fillMode: Image.PreserveAspectFit
+        }
+
         Canvas
         {
             id: twoDContents
@@ -175,7 +190,7 @@ Rectangle
                 var context = getContext("2d")
                 context.globalAlpha = 1.0
                 context.strokeStyle = "#5F5F5F"
-                context.fillStyle = "black"
+                context.fillStyle = "transparent"
                 context.lineWidth = 1
 
                 context.beginPath()
@@ -183,6 +198,7 @@ Rectangle
                 context.fillRect(0, 0, width, height)
                 context.rect(xOffset, yOffset, width - (xOffset * 2), height - (yOffset * 2))
 
+                // draw the view grid
                 for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
                     var xPos = (cellSize * vl) + xOffset
@@ -209,7 +225,7 @@ Rectangle
                 property int initialXPos
                 property int initialYPos
 
-                onPressed:
+                onPressed: (mouse) =>
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
                     var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
@@ -243,7 +259,7 @@ Rectangle
                     }
                 }
 
-                onPositionChanged:
+                onPositionChanged: (mouse) =>
                 {
                     if (selectionRect.visible == true)
                     {
@@ -281,7 +297,7 @@ Rectangle
                     }
                 }
 
-                onReleased:
+                onReleased: (mouse) =>
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
@@ -304,16 +320,13 @@ Rectangle
                     }
                 }
 
-                onWheel:
+                onWheel: (wheel)=>
                 {
                     //console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)
                         setZoom(0.5)
                     else
-                    {
-                        if (View2D.gridScale > 1.0)
-                            setZoom(-0.5)
-                    }
+                        setZoom(-0.5)
                 }
             }
 

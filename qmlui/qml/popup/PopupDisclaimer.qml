@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import "."
 
@@ -40,9 +40,9 @@ CustomPopupDialog
             Text
             {
                 color: "red"
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pointSize: 50
-                text: FontAwesome.fa_warning
+                text: FontAwesome.fa_triangle_exclamation
             }
 
             Text
@@ -62,6 +62,8 @@ CustomPopupDialog
                       "Reports of what is marked as 'Work in progress' or 'Missing'<br>" +
                       " will be ignored. You've been warned."
                 onLinkActivated: Qt.openUrlExternally(link)
+                Layout.fillWidth: true
+                wrapMode: Text.WordWrap
 
                 MouseArea
                 {
@@ -74,9 +76,9 @@ CustomPopupDialog
             Text
             {
                 color: "red"
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pointSize: 50
-                text: FontAwesome.fa_warning
+                text: FontAwesome.fa_triangle_exclamation
             }
         }
 }

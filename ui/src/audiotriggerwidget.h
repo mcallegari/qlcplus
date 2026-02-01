@@ -26,11 +26,12 @@
  * @{
  */
 
-class AudioTriggerWidget : public QWidget
+class AudioTriggerWidget final : public QWidget
 {
     Q_OBJECT
 public:
     explicit AudioTriggerWidget(QWidget *parent = 0);
+    ~AudioTriggerWidget();
 
     void setBarsNumber(int num);
     int barsNumber();
@@ -46,8 +47,8 @@ public slots:
     void displaySpectrum(double *spectrumData, double maxMagnitude, quint32 power);
 
 protected:
-    void resizeEvent (QResizeEvent *e);
-    void paintEvent(QPaintEvent* e);
+    void resizeEvent (QResizeEvent *e) override;
+    void paintEvent(QPaintEvent* e) override;
 
 private:
     double *m_spectrumBands;

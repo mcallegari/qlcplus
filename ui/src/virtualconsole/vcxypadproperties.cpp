@@ -26,7 +26,6 @@
 #include <QAction>
 
 #include "qlcfixturemode.h"
-#include "qlcinputchannel.h"
 #include "qlcchannel.h"
 #include "qlcmacros.h"
 
@@ -94,6 +93,19 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(m_panInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
             this, SLOT(slotPanInputValueChanged(quint32,quint32)));
 
+    m_panFineInputWidget = new InputSelectionWidget(m_doc, this);
+    m_panFineInputWidget->setTitle(tr("Pan Fine"));
+    m_panFineInputWidget->setKeyInputVisibility(false);
+    m_panFineInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::panFineInputSourceId));
+    m_panFineInputWidget->setWidgetPage(m_xypad->page());
+    m_panFineInputWidget->emitOddValues(true);
+    m_panFineInputWidget->show();
+    m_extFineInputLayout->addWidget(m_panFineInputWidget);
+    connect(m_panFineInputWidget, SIGNAL(autoDetectToggled(bool)),
+            this, SLOT(slotPanFineAutoDetectToggled(bool)));
+    connect(m_panFineInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
+            this, SLOT(slotPanFineInputValueChanged(quint32,quint32)));
+
     m_tiltInputWidget = new InputSelectionWidget(m_doc, this);
     m_tiltInputWidget->setTitle(tr("Tilt / Vertical Axis"));
     m_tiltInputWidget->setKeyInputVisibility(false);
@@ -106,6 +118,19 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
             this, SLOT(slotTiltAutoDetectToggled(bool)));
     connect(m_tiltInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
             this, SLOT(slotTiltInputValueChanged(quint32,quint32)));
+
+    m_tiltFineInputWidget = new InputSelectionWidget(m_doc, this);
+    m_tiltFineInputWidget->setTitle(tr("Tilt Fine"));
+    m_tiltFineInputWidget->setKeyInputVisibility(false);
+    m_tiltFineInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::tiltFineInputSourceId));
+    m_tiltFineInputWidget->setWidgetPage(m_xypad->page());
+    m_tiltFineInputWidget->emitOddValues(true);
+    m_tiltFineInputWidget->show();
+    m_extFineInputLayout->addWidget(m_tiltFineInputWidget);
+    connect(m_tiltFineInputWidget, SIGNAL(autoDetectToggled(bool)),
+            this, SLOT(slotTiltFineAutoDetectToggled(bool)));
+    connect(m_tiltFineInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
+            this, SLOT(slotTiltFineInputValueChanged(quint32,quint32)));
 
     m_widthInputWidget = new InputSelectionWidget(m_doc, this);
     m_widthInputWidget->setTitle(tr("Width"));
@@ -179,7 +204,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     connect(m_xyArea, SIGNAL(positionChanged(QPointF)),
             this, SLOT(slotXYPadPositionChanged(QPointF)));
 
-    foreach(const VCXYPadPreset *preset, m_xypad->presets())
+    foreach (const VCXYPadPreset *preset, m_xypad->presets())
     {
         m_presetList.append(new VCXYPadPreset(*preset));
         if (preset->m_id > m_lastAssignedID)
@@ -202,7 +227,7 @@ VCXYPadProperties::~VCXYPadProperties()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     m_doc->masterTimer()->unregisterDMXSource(this);
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
     {
         if (!fader.isNull())
             fader->requestDelete();
@@ -229,7 +254,7 @@ void VCXYPadProperties::fillFixturesTree()
 
 void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
 {
-    for(int i = 0; i < m_tree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_tree->topLevelItem(i);
         QVariant var(item->data(KColumnFixture, Qt::UserRole));
@@ -433,10 +458,26 @@ void VCXYPadProperties::slotDMXRadioChecked()
  * Input page
  ****************************************************************************/
 
+void VCXYPadProperties::stopAutodetection(quint8 sourceId)
+{
+    if (sourceId != VCXYPad::panInputSourceId)
+        m_panInputWidget->stopAutoDetection();
+    if (sourceId != VCXYPad::panFineInputSourceId)
+        m_panFineInputWidget->stopAutoDetection();
+    if (sourceId != VCXYPad::tiltInputSourceId)
+        m_tiltInputWidget->stopAutoDetection();
+    if (sourceId != VCXYPad::tiltFineInputSourceId)
+        m_tiltFineInputWidget->stopAutoDetection();
+    if (sourceId != VCXYPad::widthInputSourceId)
+        m_widthInputWidget->stopAutoDetection();
+    if (sourceId != VCXYPad::heightInputSourceId)
+        m_heightInputWidget->stopAutoDetection();
+}
+
 void VCXYPadProperties::slotPanAutoDetectToggled(bool toggled)
 {
-    if (toggled == true && m_tiltInputWidget->isAutoDetecting())
-        m_tiltInputWidget->stopAutoDetection();
+    if (toggled == true)
+        stopAutodetection(VCXYPad::panInputSourceId);
 }
 
 void VCXYPadProperties::slotPanInputValueChanged(quint32 uni, quint32 ch)
@@ -447,10 +488,24 @@ void VCXYPadProperties::slotPanInputValueChanged(quint32 uni, quint32 ch)
                     QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
 }
 
+void VCXYPadProperties::slotPanFineAutoDetectToggled(bool toggled)
+{
+    if (toggled == true)
+        stopAutodetection(VCXYPad::panFineInputSourceId);
+}
+
+void VCXYPadProperties::slotPanFineInputValueChanged(quint32 uni, quint32 ch)
+{
+    QSharedPointer<QLCInputSource> tmpSource = m_panFineInputWidget->inputSource();
+    if (tmpSource->universe() != uni || tmpSource->channel() != ch)
+        m_tiltFineInputWidget->setInputSource(
+            QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
+}
+
 void VCXYPadProperties::slotTiltAutoDetectToggled(bool toggled)
 {
-    if (toggled == true && m_panInputWidget->isAutoDetecting())
-        m_panInputWidget->stopAutoDetection();
+    if (toggled == true)
+        stopAutodetection(VCXYPad::tiltInputSourceId);
 }
 
 void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
@@ -459,6 +514,20 @@ void VCXYPadProperties::slotTiltInputValueChanged(quint32 uni, quint32 ch)
     if (tmpSource->universe() != uni || tmpSource->channel() != ch)
         m_panInputWidget->setInputSource(
                     QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
+}
+
+void VCXYPadProperties::slotTiltFineAutoDetectToggled(bool toggled)
+{
+    if (toggled == true)
+        stopAutodetection(VCXYPad::tiltFineInputSourceId);
+}
+
+void VCXYPadProperties::slotTiltFineInputValueChanged(quint32 uni, quint32 ch)
+{
+    QSharedPointer<QLCInputSource> tmpSource = m_tiltFineInputWidget->inputSource();
+    if (tmpSource->universe() != uni || tmpSource->channel() != ch)
+        m_panFineInputWidget->setInputSource(
+            QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
 }
 
 void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes)
@@ -574,7 +643,7 @@ VCXYPadPreset *VCXYPadProperties::getSelectedPreset()
     if (item != NULL)
     {
         quint8 presetID = item->data(0, Qt::UserRole).toUInt();
-        foreach(VCXYPadPreset* preset, m_presetList)
+        foreach (VCXYPadPreset* preset, m_presetList)
         {
             if (preset->m_id == presetID)
                 return preset;
@@ -587,7 +656,7 @@ VCXYPadPreset *VCXYPadProperties::getSelectedPreset()
 
 void VCXYPadProperties::removePreset(quint8 id)
 {
-    for(int i = 0; i < m_presetList.count(); i++)
+    for (int i = 0; i < m_presetList.count(); i++)
     {
         if (m_presetList.at(i)->m_id == id)
         {
@@ -599,11 +668,11 @@ void VCXYPadProperties::removePreset(quint8 id)
 
 quint8 VCXYPadProperties::moveUpPreset(quint8 id)
 {
-    for(int i = 0; i < m_presetList.count(); i++)
+    for (int i = 0; i < m_presetList.count(); i++)
     {
         if (m_presetList.at(i)->m_id == id)
         {
-            if(i > 0)
+            if (i > 0)
             {
                 //change order on hash preset structure.
                 //presets are saved in hash and sort on id is used to create the preset list.
@@ -629,11 +698,11 @@ quint8 VCXYPadProperties::moveUpPreset(quint8 id)
 
 quint8 VCXYPadProperties::moveDownPreset(quint8 id)
 {
-    for(int i = 0; i < m_presetList.count(); i++)
+    for (int i = 0; i < m_presetList.count(); i++)
     {
         if (m_presetList.at(i)->m_id == id)
         {
-            if(i < m_presetList.count() - 1)
+            if (i < m_presetList.count() - 1)
             {
                 //change order on hash preset structure.
                 //presets are saved in hash and sort on id is used to create the preset list.
@@ -715,7 +784,7 @@ void VCXYPadProperties::slotAddSceneClicked()
             return;
         Scene *scene = qobject_cast<Scene*>(f);
         bool panTiltFound = false;
-        foreach(SceneValue scv, scene->values())
+        foreach (SceneValue scv, scene->values())
         {
             Fixture *fixture = m_doc->fixture(scv.fxi);
             if (fixture == NULL)
@@ -761,7 +830,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         ++it;
     }
 
-    foreach(Fixture *fx, m_doc->fixtures())
+    foreach (Fixture *fx, m_doc->fixtures())
     {
         for (int i = 0; i < fx->heads(); i++)
         {
@@ -815,7 +884,7 @@ void VCXYPadProperties::slotMoveUpPresetClicked()
     quint8 newID = moveUpPreset(ctlID);
     updatePresetsTree();
 
-    //select item on new position. User can make multiple move up/down without need to select item everytime.
+    //select item on new position. User can make multiple move up/down without need to select item every time.
     selectItemOnPresetsTree(newID);
 }
 
@@ -828,7 +897,7 @@ void VCXYPadProperties::slotMoveDownPresetClicked()
     quint8 newID =moveDownPreset(ctlID);
     updatePresetsTree();
 
-    //select item on new position. User can make multiple move up/down without need to select item everytime.
+    //select item on new position. User can make multiple move up/down without need to select item every time.
     selectItemOnPresetsTree(newID);
 }
 
@@ -934,7 +1003,9 @@ void VCXYPadProperties::accept()
     m_xypad->clearFixtures();
     m_xypad->setCaption(m_nameEdit->text());
     m_xypad->setInputSource(m_panInputWidget->inputSource(), VCXYPad::panInputSourceId);
+    m_xypad->setInputSource(m_panFineInputWidget->inputSource(), VCXYPad::panFineInputSourceId);
     m_xypad->setInputSource(m_tiltInputWidget->inputSource(), VCXYPad::tiltInputSourceId);
+    m_xypad->setInputSource(m_tiltFineInputWidget->inputSource(), VCXYPad::tiltFineInputSourceId);
     m_xypad->setInputSource(m_widthInputWidget->inputSource(), VCXYPad::widthInputSourceId);
     m_xypad->setInputSource(m_heightInputWidget->inputSource(), VCXYPad::heightInputSourceId);
     if (m_YNormalRadio->isChecked())

@@ -30,7 +30,7 @@ class VCWidget;
  * @{
  */
 
-class VCWidgetSelection : public QDialog, public Ui_VCWidgetSelection
+class VCWidgetSelection final : public QDialog, public Ui_VCWidgetSelection
 {
     Q_OBJECT
 

@@ -22,11 +22,16 @@
 
 #include "vcframe.h"
 
-#define KXMLQLCVCSoloFrame QString("SoloFrame")
+#define KXMLQLCVCSoloFrame          QStringLiteral("SoloFrame")
+#define KXMLQLCVCSoloFrameMixing    QStringLiteral("Mixing")
+#define KXMLQLCVCSoloFrameExclude   QStringLiteral("ExcludeMonitored")
 
 class VCSoloFrame : public VCFrame
 {
     Q_OBJECT
+
+    Q_PROPERTY(bool soloframeMixing READ soloframeMixing WRITE setSoloframeMixing NOTIFY soloframeMixingChanged)
+    Q_PROPERTY(bool excludeMonitoredFunctions READ excludeMonitoredFunctions WRITE setExcludeMonitoredFunctions NOTIFY excludeMonitoredFunctionsChanged)
 
     /*********************************************************************
      * Initialization
@@ -36,29 +41,49 @@ public:
     ~VCSoloFrame();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() const override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
+
+    /*****************************************************************************
+     * Properties
+     *****************************************************************************/
+public:
+    bool soloframeMixing() const;
+    void setSoloframeMixing(bool soloframeMixing);
+
+    /** Get/Set a behaviour to prevent stopping Functions controlled
+     *  by VC Buttons even if they are monitored */
+    bool excludeMonitoredFunctions() const;
+    void setExcludeMonitoredFunctions(bool exclude);
+
+signals:
+    void soloframeMixingChanged();
+    void excludeMonitoredFunctionsChanged();
+
+protected:
+    bool m_soloframeMixing;
+    bool m_excludeMonitored;
 
     /*********************************************************************
      * Widget Function
      *********************************************************************/
 protected slots:
-    void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity = 1.0);
+    void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal intensity = 1.0) override;
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 protected:
-    QString xmlTagName() const;
+    QString xmlTagName() const override;
 };
 
 

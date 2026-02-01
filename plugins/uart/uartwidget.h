@@ -25,7 +25,7 @@
 #include <QByteArray>
 #include <QThread>
 
-class UARTWidget : public QThread
+class UARTWidget final : public QThread
 {
     Q_OBJECT
 
@@ -40,7 +40,7 @@ public:
      * @param info the serial port descriptor
      * @param parent The owner of this object
      */
-    UARTWidget(QSerialPortInfo &info, QObject* parent = 0);
+    UARTWidget(const QSerialPortInfo &info, QObject* parent = 0);
 
     /** Destructor */
     virtual ~UARTWidget();
@@ -82,7 +82,7 @@ protected:
     void stop();
 
     /** DMX writer thread worker method */
-    void run();
+    void run() override;
 
 protected:
     bool m_running;

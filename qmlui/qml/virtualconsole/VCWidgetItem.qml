@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,8 +30,9 @@ Rectangle
     width: wObj ? wObj.geometry.width : 100
     height: wObj ? wObj.geometry.height : 100
     color: wObj ? wObj.backgroundColor : "darkgray"
-    border.width: 1
-    border.color: "#111"
+    border.width: 2
+    border.color: UISettings.bgLight
+    z: wObj ? wObj.zIndex : 0
     visible: wObj ? wObj.isVisible : true
 
     property VCWidget wObj: null
@@ -96,7 +97,7 @@ Rectangle
     {
         id: bgImage
         anchors.fill: parent
-        source: wObj && wObj.backgroundImage !== "" ? "file://" + wObj.backgroundImage : ""
+        source: wObj && wObj.backgroundImage !== "" ? "file:///" + wObj.backgroundImage : ""
         sourceSize: Qt.size(width, height)
         fillMode: Image.PreserveAspectFit
     }
@@ -107,8 +108,8 @@ Rectangle
         id: resizeLayer
         anchors.fill: parent
         color: "transparent"
-        border.width: isSelected ? 2 : 1
-        border.color: isSelected ? "yellow" : "#111"
+        border.width: isSelected ? 3 : 2
+        border.color: isSelected ? "yellow" : UISettings.bgLight
         // this must be above the widget root but
         // underneath the widget children (if any)
         z: isSelected ? 99 : 1
@@ -119,10 +120,11 @@ Rectangle
         {
             id: dragMouseArea
             anchors.fill: parent
+            drag.threshold: 10
 
             property bool dragRemapped: false
 
-            onPressed:
+            onPressed: (mouse) =>
             {
                 if (virtualConsole.editMode)
                 {
@@ -132,13 +134,12 @@ Rectangle
                 }
 
                 drag.target = wRoot
-                drag.threshold = 10
                 dragRemapped = false
             }
 
-            onPositionChanged:
+            onPositionChanged: (mouse) =>
             {
-                if (drag.target !== null && dragRemapped == false)
+                if (drag.active && drag.target !== null && dragRemapped == false)
                 {
                     var remappedPos = wRoot.mapToItem(virtualConsole.currentPageItem(), 0, 0);
                     wObj.geometry = Qt.rect(remappedPos.x, remappedPos.y, wRoot.width, wRoot.height)
@@ -152,9 +153,9 @@ Rectangle
                 }
             }
 
-            onReleased:
+            onReleased: (mouse) =>
             {
-                if (drag.target !== null)
+                if (drag.active && drag.target !== null)
                 {
                     // A drag/drop sequence is always performed within a parent frame,
                     // so the new geometry will be calculated by virtualConsole.moveWidget,

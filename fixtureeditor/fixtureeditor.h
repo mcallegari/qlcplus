@@ -37,7 +37,7 @@ class QLCChannel;
  * @{
  */
 
-class QLCFixtureEditor : public QWidget, public Ui_FixtureEditor
+class QLCFixtureEditor final : public QWidget, public Ui_FixtureEditor
 {
     Q_OBJECT
 
@@ -48,7 +48,7 @@ public:
 
 protected:
     void init();
-    void closeEvent(QCloseEvent* e);
+    void closeEvent(QCloseEvent* e) override;
 
     /*********************************************************************
      * Saving
@@ -75,7 +75,7 @@ protected slots:
     void slotManufacturerTextEdited(const QString &text);
     void slotModelTextEdited(const QString &text);
     void slotAuthorTextEdited(const QString &text);
-    void slotTypeActivated(const QString &text);
+    void slotTypeActivated(int index);
 
 protected:
     bool checkManufacturerModel();
@@ -127,6 +127,7 @@ protected slots:
     void slotAddAliasClicked();
     void slotRemoveAliasClicked();
     void refreshAliasModes();
+    void updateAliasModeName(QString oldName, QString newName);
     void refreshAliasModeChannels();
 
 protected:

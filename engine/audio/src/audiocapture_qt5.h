@@ -28,34 +28,34 @@
  * @{
  */
 
-class AudioCaptureQt6 : public AudioCapture
+class AudioCaptureQt5 final : public AudioCapture
 {
     Q_OBJECT
 public:
-    AudioCaptureQt6(QObject * parent = 0);
-    ~AudioCaptureQt6();
+    AudioCaptureQt5(QObject * parent = 0);
+    ~AudioCaptureQt5();
 
     /** @reimpl */
-    qint64 latency();
+    qint64 latency() const override;
 
     /** @reimpl */
-    void setVolume(qreal volume);
+    void setVolume(qreal volume) override;
 
 protected:
     /** @reimpl */
-    bool initialize();
+    bool initialize() override;
 
     /** @reimpl */
-    virtual void uninitialize();
+    virtual void uninitialize() override;
 
     /** @reimpl */
-    void suspend();
+    void suspend() override;
 
     /** @reimpl */
-    void resume();
+    void resume() override;
 
     /** @reimpl */
-    bool readAudio(int maxSize);
+    bool readAudio(int maxSize) override;
 
 private:
     QAudioInput *m_audioInput;

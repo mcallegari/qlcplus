@@ -1,8 +1,9 @@
 # These rules should work on newer udev architecture as well as the older one.
 # Basically they watch for all "usb" subsystem add/change events, that occur
-# for devices with VID==0403 and PID==6001 (meaning FTDI-based devices), and
+# for devices with specific VID/PID (e.g. FTDI, Atmel, NXP, etc), and
 # set their device nodes' permissions so that ALL users can read and write to
 # them. The devices nodes are found under /dev/bus/usb/xxx/yyy.
+# You might need to add your user to the 'dialout' group as well.
 
 # Generic FTDI Products
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"
@@ -13,3 +14,6 @@ SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="03eb", ATTRS{idProduc
 
 # EUROLITE Product
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="04d8", ATTRS{idProduct}=="fa63", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"
+
+# DMXKing MAX Products
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="1fc9", ATTRS{idProduct}=="0094", MODE="0666", ENV{ID_MM_DEVICE_IGNORE}="1"

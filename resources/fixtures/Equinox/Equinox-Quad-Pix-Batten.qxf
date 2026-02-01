@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Equinox</Manufacturer>
  <Model>Quad Pix Batten</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Red 01" Preset="IntensityRed"/>
  <Channel Name="Green 01" Preset="IntensityGreen"/>
  <Channel Name="Blue 01" Preset="IntensityBlue"/>

@@ -54,18 +54,27 @@ Q_DECLARE_METATYPE(UIntPair)
 typedef QPair<QString, int> StringIntPair;
 Q_DECLARE_METATYPE(StringIntPair)
 
+typedef QPair<QString, double> StringDoublePair;
+Q_DECLARE_METATYPE(StringDoublePair)
+
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
-class Tardis : public QThread
+class Tardis final : public QThread
 {
     Q_OBJECT
 
 public:
     enum ActionCodes
     {
-        /* Global settings */
+        /* Preview settings */
         EnvironmentSetSize = 0x0000,
+        EnvironmentBackgroundImage,
+        FixtureSetPosition,
+        FixtureSetRotation,
+        GenericItemSetPosition,
+        GenericItemSetRotation,
+        GenericItemSetScale,
 
         IOAddUniverse = 0x0090,
         IORemoveUniverse,
@@ -75,7 +84,6 @@ public:
         FixtureDelete,
         FixtureMove,
         FixtureSetName,
-        FixtureSetPosition,
         FixtureSetDumpValue,
 
         /* Fixture group editing actions */
@@ -96,9 +104,16 @@ public:
 
         SceneSetChannelValue,
         SceneUnsetChannelValue,
+        SceneAddFixture,
+        SceneRemoveFixture,
+        SceneAddFixtureGroup,
+        SceneRemoveFixtureGroup,
+        SceneAddPalette,
+        SceneRemovePalette,
 
         ChaserAddStep,
         ChaserRemoveStep,
+        ChaserMoveStep,
         ChaserSetStepFadeIn,
         ChaserSetStepHold,
         ChaserSetStepFadeOut,
@@ -106,6 +121,7 @@ public:
 
         EFXAddFixture,
         EFXRemoveFixture,
+        EFXFixturePropagation,
         EFXSetAlgorithmIndex,
         EFXSetRelative,
         EFXSetWidth,
@@ -124,9 +140,13 @@ public:
 
         RGBMatrixSetFixtureGroup,
         RGBMatrixSetAlgorithmIndex,
-        RGBMatrixSetStartColor,
-        RGBMatrixSetEndColor,
+        RGBMatrixSetColor1,
+        RGBMatrixSetColor2,
+        RGBMatrixSetColor3,
+        RGBMatrixSetColor4,
+        RGBMatrixSetColor5,
         RGBMatrixSetScriptIntValue,
+        RGBMatrixSetScriptDoubleValue,
         RGBMatrixSetScriptStringValue,
         RGBMatrixSetText,
         RGBMatrixSetTextFont,
@@ -143,6 +163,14 @@ public:
         VideoSetGeometry,
         VideoSetRotation,
         VideoSetLayer,
+
+        /* Show Manager actions */
+        ShowManagerAddTrack = 0xB000,
+        ShowManagerDeleteTrack,
+        ShowManagerAddFunction,
+        ShowManagerDeleteFunction,
+        ShowManagerItemSetStartTime,
+        ShowManagerItemSetDuration,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,
@@ -161,6 +189,7 @@ public:
         VCWidgetForegroundColor,
         VCWidgetFont,
         VCWidgetPage,
+        VCWidgetZIndex,
 
         VCButtonSetActionType,
         VCButtonSetFunctionID,
@@ -225,7 +254,7 @@ public:
     void forwardActionToNetwork(int code, TardisAction &action);
 
     /** @reimp */
-    void run(); // thread run function
+    void run() override; // thread run function
 
 protected:
     QString actionToString(int action);

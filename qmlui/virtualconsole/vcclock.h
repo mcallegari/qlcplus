@@ -22,7 +22,7 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCClock QString("Clock")
+#define KXMLQLCVCClock QStringLiteral("Clock")
 
 class QTimer;
 
@@ -58,7 +58,7 @@ public:
 
     /** Load & Save */
     bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 public:
     bool m_canPlay;
@@ -102,23 +102,23 @@ public:
     virtual ~VCClock();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() const override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    QString propertiesResource() const override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
 private:
     FunctionParent functionParent() const;
@@ -133,8 +133,8 @@ public:
     void setClockType(ClockType type);
     ClockType clockType() const;
 
-    QString typeToString(ClockType type);
-    ClockType stringToType(QString str);
+    QString typeToString(ClockType type) const;
+    ClockType stringToType(QString str) const;
 
 signals:
     void clockTypeChanged(ClockType type);
@@ -194,10 +194,9 @@ private:
     /*********************************************************************
      * Load & Save
      *********************************************************************/
-
 public:
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

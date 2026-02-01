@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -42,11 +42,14 @@ Rectangle
         RowLayout
         {
             width: parent.width
+            anchors.verticalCenter: parent.verticalCenter
             spacing: 5
 
             CustomCheckBox
             {
                 id: manufCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Manufacturer") }
@@ -54,6 +57,8 @@ Rectangle
             CustomCheckBox
             {
                 id: modelCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Model") }
@@ -61,6 +66,8 @@ Rectangle
             CustomCheckBox
             {
                 id: weightCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Weight") }
@@ -68,6 +75,8 @@ Rectangle
             CustomCheckBox
             {
                 id: powerCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("Consumption") }
@@ -75,17 +84,21 @@ Rectangle
             CustomCheckBox
             {
                 id: dipCheck
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
                 autoExclusive: false
             }
             RobotoText { label: qsTr("DIP switch") }
 
             // filler
-            Rectangle { color: "transparent"; Layout.fillWidth: true; height: UISettings.iconSizeDefault }
+            Rectangle { color: "transparent"; Layout.fillWidth: true; height: UISettings.iconSizeMedium }
 
             IconButton
             {
                 width: UISettings.bigItemHeight
-                imgSource: "qrc:/printer.svg"
+                height: UISettings.iconSizeDefault * 0.9
+                faSource: FontAwesome.fa_print
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Print the universe summary")
                 onClicked: qlcplus.printItem(flickView.contentItem)
             }
@@ -95,6 +108,7 @@ Rectangle
     Flickable
     {
         id: flickView
+        x: 5
         y: selBar.height
         width: gridBox.width
         height: parent.height - y
@@ -106,7 +120,7 @@ Rectangle
         property real totalWeight: 0.0
         property int totalPower: 0
 
-        GridLayout
+        Grid
         {
             id: gridBox
             columns: 5 + (manufCheck.checked ? 1 : 0) + (modelCheck.checked ? 1 : 0) +
@@ -114,9 +128,8 @@ Rectangle
             columnSpacing: 5
             rowSpacing: 0
 
-
             RobotoText { label: "ID"; labelColor: flickView.textColor }
-            Rectangle  { width: UISettings.iconSizeDefault }
+            Rectangle  { width: UISettings.iconSizeDefault; height: width }
             RobotoText { label: qsTr("Name"); labelColor: flickView.textColor }
             RobotoText { visible: manufCheck.checked; label: qsTr("Manufacturer"); labelColor: flickView.textColor }
             RobotoText { visible: modelCheck.checked; label: qsTr("Model"); labelColor: flickView.textColor }
@@ -131,6 +144,12 @@ Rectangle
             Repeater
             {
                 model: fixtureManager.universeInfo(fixtureManager.itemID)
+
+                onItemRemoved:
+                {
+                    flickView.totalWeight = 0
+                    flickView.totalPower = 0
+                }
 
                 delegate:
                     Item
@@ -166,7 +185,7 @@ Rectangle
                             label: modelData.power + "W"
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                             Component.onCompleted: flickView.totalPower += modelData.power
@@ -180,7 +199,7 @@ Rectangle
                             label: modelData.weight + "Kg"
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                             Component.onCompleted: flickView.totalWeight += modelData.weight
@@ -193,7 +212,7 @@ Rectangle
                             label: cRef ? cRef.channels : 0
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            width: UISettings.bigItemHeight
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
 
@@ -204,11 +223,13 @@ Rectangle
                         RobotoText
                         {
                             parent: gridBox
-                            label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels + 1) : ""
+                            label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
+                            leftMargin: 5
+                            width: UISettings.bigItemHeight
 
+                            Rectangle { anchors.left: parent.left; height: parent.height; width: 1; color: "black" }
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
 
@@ -220,7 +241,6 @@ Rectangle
                             label: modelData.fmodel
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -233,7 +253,6 @@ Rectangle
                             label: modelData.manuf
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -245,9 +264,6 @@ Rectangle
                             label: cRef ? cRef.name : ""
                             labelColor: flickView.textColor
                             rightMargin: 5
-                            Layout.fillWidth: true
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
 
                         // icon
@@ -266,7 +282,7 @@ Rectangle
                             parent: gridBox
                             label: cRef ? cRef.id : ""
                             labelColor: flickView.textColor
-                            Layout.fillWidth: true
+                            width: UISettings.iconSizeDefault
 
                             Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
                         }
@@ -315,7 +331,7 @@ Rectangle
             RobotoText
             {
                 height: UISettings.listItemHeight
-                label: " " + flickView.totalWeight + "Kg"
+                label: " " + flickView.totalWeight.toFixed(2) + "Kg"
                 labelColor: flickView.textColor
             }
 
@@ -333,7 +349,5 @@ Rectangle
                 labelColor: flickView.textColor
             }
         }
-
     } // Flickable
-
 }

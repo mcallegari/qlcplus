@@ -30,7 +30,7 @@ class Fixture;
 class QLCFixtureMode;
 class MonitorProperties;
 
-class MainView2D : public PreviewContext
+class MainView2D final : public PreviewContext
 {
     Q_OBJECT
 
@@ -40,16 +40,17 @@ class MainView2D : public PreviewContext
     Q_PROPERTY(qreal gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
     Q_PROPERTY(qreal cellPixels READ cellPixels WRITE setCellPixels NOTIFY cellPixelsChanged)
     Q_PROPERTY(int pointOfView READ pointOfView WRITE setPointOfView NOTIFY pointOfViewChanged)
+    Q_PROPERTY(QString backgroundImage READ backgroundImage WRITE setBackgroundImage NOTIFY backgroundImageChanged)
 
 public:
     explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView2D();
 
     /** @reimp */
-    void enableContext(bool enable);
+    void enableContext(bool enable) override;
 
     /** @reimp */
-    void setUniverseFilter(quint32 universeFilter);
+    void setUniverseFilter(quint32 universeFilter) override;
 
     void resetItems();
 
@@ -114,6 +115,10 @@ public:
     int pointOfView() const;
     void setPointOfView(int pointOfView);
 
+    /** Get/Set the main background image */
+    QString backgroundImage();
+    void setBackgroundImage(QString path);
+
 protected:
     /** First time 2D view variables initializations */
     bool initialize2DProperties();
@@ -128,10 +133,11 @@ signals:
     void gridScaleChanged(qreal gridScale);
     void cellPixelsChanged(qreal cellPixels);
     void pointOfViewChanged(int pointOfView);
+    void backgroundImageChanged();
 
 public slots:
     /** @reimp */
-    void slotRefreshView();
+    void slotRefreshView() override;
 
 private:
     /** References to the 2D grid item for positioning */

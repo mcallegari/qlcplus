@@ -30,7 +30,7 @@ class QCheckBox;
  * @{
  */
 
-class VCSoloFrameProperties : public VCFrameProperties
+class VCSoloFrameProperties final : public VCFrameProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSoloFrameProperties)
@@ -45,10 +45,11 @@ protected:
 protected:
     VCSoloFrame *m_soloframe;
 
-    QCheckBox* m_soloframeMixingCb;
+    QCheckBox *m_sliderMixingCheckBox;
+    QCheckBox *m_excludeMonitoredCheckBox;
 
 public slots:
-    void accept();
+    void accept() override;
 };
 
 /** @} */

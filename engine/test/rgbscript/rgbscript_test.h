@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class RGBScript_Test : public QObject
+class RGBScript_Test final : public QObject
 {
     Q_OBJECT
 
@@ -40,6 +40,7 @@ private slots:
     void evaluateNoRgbMapStepCountFunction();
     void evaluateInvalidApiVersion();
     void rgbMapStepCount();
+    void rgbMapColorArray();
     void rgbMap();
     void runScripts();
 

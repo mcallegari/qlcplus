@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-class Script : public Function
+class Script final : public Function
 {
     Q_OBJECT
 
@@ -43,6 +43,8 @@ class Script : public Function
      * Script keywords
      ************************************************************************/
 public:
+    static const QString stopOnExitLegacy;
+    static const QString stopOnExitCmd;
     static const QString startFunctionLegacy;
     static const QString startFunctionCmd;
     static const QString stopFunctionLegacy;
@@ -52,6 +54,10 @@ public:
 
     static const QString waitLegacy;
     static const QString waitCmd;
+    static const QString waitFunctionStartLegacy;
+    static const QString waitFunctionStartCmd;
+    static const QString waitFunctionStopLegacy;
+    static const QString waitFunctionStopCmd;
 
     static const QString setFixtureLegacy;
     static const QString setFixtureCmd;
@@ -70,20 +76,20 @@ public:
     virtual ~Script();
 
     /** @reimp */
-    QIcon getIcon() const;
+    QIcon getIcon() const override;
 
     /** @reimp */
-    quint32 totalDuration();
+    quint32 totalDuration() override;
 
     /************************************************************************
      * Copying
      ************************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** @reimp */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function* function) override;
 
     /************************************************************************
      * Script data
@@ -119,23 +125,23 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer *timer);
+    void preRun(MasterTimer *timer) override;
 
     /** @reimp */
-    void write(MasterTimer *timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe*> universes) override;
 
     /** @reimp */
-    void postRun(MasterTimer *timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe*> universes) override;
 
 protected slots:
     void slotRunnerFinished();

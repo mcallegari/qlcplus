@@ -23,13 +23,9 @@
 #include <QWidget>
 #include <QDebug>
 
-#include "qlcfile.h"
-
-#include "virtualconsole.h"
 #include "inputoutputmap.h"
 #include "vcproperties.h"
-#include "vcframe.h"
-#include "doc.h"
+#include "qlcchannel.h"
 
 /*****************************************************************************
  * Properties Initialization
@@ -37,7 +33,7 @@
 
 VCProperties::VCProperties()
     : m_size(QSize(1920, 1080))
-
+    , m_gmVisible(true)
     , m_gmChannelMode(GrandMaster::Intensity)
     , m_gmValueMode(GrandMaster::Reduce)
     , m_gmSliderMode(GrandMaster::Normal)
@@ -48,7 +44,7 @@ VCProperties::VCProperties()
 
 VCProperties::VCProperties(const VCProperties& properties)
     : m_size(properties.m_size)
-
+    , m_gmVisible(properties.m_gmVisible)
     , m_gmChannelMode(properties.m_gmChannelMode)
     , m_gmValueMode(properties.m_gmValueMode)
     , m_gmSliderMode(properties.m_gmSliderMode)
@@ -66,6 +62,7 @@ VCProperties &VCProperties::operator=(const VCProperties &props)
     if (this != &props)
     {
         m_size = props.m_size;
+        m_gmVisible = props.m_gmVisible;
         m_gmChannelMode = props.m_gmChannelMode;
         m_gmValueMode = props.m_gmValueMode;
         m_gmSliderMode = props.m_gmSliderMode;
@@ -94,6 +91,16 @@ QSize VCProperties::size() const
  * Grand Master
  *****************************************************************************/
 
+void VCProperties::setGrandMasterVisible(bool visible)
+{
+    m_gmVisible = visible;
+}
+
+bool VCProperties::grandMasterVisible() const
+{
+    return m_gmVisible;
+}
+
 void VCProperties::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
 {
     m_gmChannelMode = mode;
@@ -119,7 +126,7 @@ void VCProperties::setGrandMasterSliderMode(GrandMaster::SliderMode mode)
     m_gmSliderMode = mode;
 }
 
-GrandMaster::SliderMode VCProperties::grandMasterSlideMode() const
+GrandMaster::SliderMode VCProperties::grandMasterSliderMode() const
 {
     return m_gmSliderMode;
 }
@@ -177,6 +184,11 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
         {
             QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterVisible))
+            {
+            	setGrandMasterVisible(attrs.value(KXMLQLCVCPropertiesGrandMasterVisible).toString() == "1");
+            }
 
             str = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();
             setGrandMasterChannelMode(GrandMaster::stringToChannelMode(str));
@@ -236,6 +248,9 @@ bool VCProperties::saveXML(QXmlStreamWriter *doc) const
      * Grand Master slider *
      ***********************/
     doc->writeStartElement(KXMLQLCVCPropertiesGrandMaster);
+
+    /* Visible */
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterVisible, QString::number(grandMasterVisible()));
 
     /* Channel mode */
     doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterChannelMode,

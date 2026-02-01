@@ -21,7 +21,6 @@
 #define RGBSCRIPTV4_H
 
 #include <QHash>
-#include <QMutex>
 #include <QJSValue>
 
 #include "rgbalgorithm.h"
@@ -30,19 +29,21 @@
 class QJSEngine;
 class QDir;
 
+class JSThread;
+
 /** @addtogroup engine_functions Functions
  * @{
  */
 
-#define KXMLQLCRGBScript "Script"
+#define KXMLQLCRGBScript QStringLiteral("Script")
 
-class RGBScript : public RGBAlgorithm
+class RGBScript final : public RGBAlgorithm
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
+    RGBScript(Doc *doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
 
@@ -52,14 +53,14 @@ public:
     bool operator==(const RGBScript& s) const;
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm* clone() const override;
 
     /************************************************************************
      * Load & Evaluation
      ************************************************************************/
 public:
-    /** Load script contents from $file located in $dir */
-    bool load(const QDir& dir, const QString& fileName);
+    /** Load script contents from $file */
+    bool load(const QString& fileName);
 
     /** Get the filename for this script */
     QString fileName() const;
@@ -68,55 +69,61 @@ public:
     bool evaluate();
 
 private:
-    /** Init engine, engine mutex, and scripts map */
     static void initEngine();
+    static void cleanupEngine();
+
+    /** Handle an error after evaluate() or call() of a script */
+    static void displayError(QJSValue e, const QString& fileName);
 
 private:
-    static QJSEngine* s_engine;      //! The engine that runs all scripts
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    static QMutex* s_engineMutex;   //! Protection
-#else
-    static QRecursiveMutex* s_engineMutex;
-#endif
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
+    static JSThread *s_jsThread;
 
     /************************************************************************
      * RGBAlgorithm API
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize& size) override;
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMapSetColors(const QVector<uint> &colors) override;
 
     /** @reimp */
-    QString name() const;
+    QVector<uint> rgbMapGetColors() override;
 
     /** @reimp */
-    QString author() const;
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) override;
 
     /** @reimp */
-    int apiVersion() const;
+    QString name() const override;
 
     /** @reimp */
-    RGBAlgorithm::Type type() const;
+    QString author() const override;
 
     /** @reimp */
-    int acceptColors() const;
+    int apiVersion() const override;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    RGBAlgorithm::Type type() const override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    int acceptColors() const override;
+
+    /** @reimp */
+    bool loadXML(QXmlStreamReader &root) override;
+
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
 private:
     int m_apiVersion;           //! The API version that the script uses
     QJSValue m_script;          //! The script itself
     QJSValue m_rgbMap;          //! rgbMap() function
     QJSValue m_rgbMapStepCount; //! rgbMapStepCount() function
+    QJSValue m_rgbMapSetColors; //! rgbMapSetColors() function
+    QJSValue m_rgbMapGetColors; //! rgbMapSetColors() function
 
     /************************************************************************
      * Properties

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.0
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -78,8 +78,8 @@ Column
             y: 1
             width: visible ? parent.height - 2 : 0
             height: width
-            color: UISettings.bgLight
-            radius: height / 4
+            color: UISettings.bgControl
+            radius: height / 6
             border.width: 1
             border.color: UISettings.fgMedium
         }
@@ -116,13 +116,25 @@ Column
                 height: width
                 source: itemIcon
                 sourceSize: Qt.size(width, height)
+
+                // expand indicator
+                Text
+                {
+                    visible: nodeChildren !== undefined
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    color: UISettings.fgMain
+                    font.family: UISettings.fontAwesomeFontName
+                    font.pixelSize: parent.height / 3
+                    text: FontAwesome.fa_square_plus
+                }
             }
 
             Text
             {
                 visible: linkedIndex
                 color: UISettings.fgMain
-                font.family: "FontAwesome"
+                font.family: UISettings.fontAwesomeFontName
                 font.pixelSize: UISettings.listItemHeight - 6
                 text: FontAwesome.fa_link
             }
@@ -132,11 +144,20 @@ Column
                 id: nodeLabel
                 Layout.fillWidth: true
                 text: textLabel
+                originalText: text
 
-                onTextConfirmed:
+                onTextConfirmed: (text) =>
                 {
-                    nodeContainer.pathChanged(nodePath, text)
-                    fixtureManager.renameFixture(itemID, text)
+                    if (fixtureManager.renameFixture(itemID, text) === false)
+                    {
+                        fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                        fmGenericPopup.open()
+                        nodeLabel.text = textLabel
+                    }
+                    else
+                    {
+                        nodeContainer.pathChanged(nodePath, text)
+                    }
                 }
             }
 
@@ -241,7 +262,7 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_arrows_h
+                        faSource: FontAwesome.fa_arrows_left_right
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"
                         checkedColor: "transparent"
@@ -263,7 +284,7 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
-                        faSource: FontAwesome.fa_arrows_v
+                        faSource: FontAwesome.fa_arrows_up_down
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"
                         checkedColor: "transparent"
@@ -289,6 +310,15 @@ Column
             Rectangle { visible: showFlags; width: UISettings.chPropsModifierWidth; height: parent.height; color: "transparent" } // stub
         } // RowLayout
 
+        // separator line
+        Rectangle
+        {
+            width: parent.width
+            height: 1
+            y: parent.height - 1
+            color: UISettings.bgLight
+        }
+
         MouseArea
         {
             width: showFlags ? fxModes.x : parent.width
@@ -304,13 +334,16 @@ Column
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
-            onClicked:
+            onPressed: (mouse) =>
+            {
+                nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
+            }
+            onClicked: (mouse) =>
             {
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, itemID, -1, nodeContainer, mouse.modifiers)
             }
-            onDoubleClicked:
+            onDoubleClicked: (mouse) =>
             {
                 nodeContainer.mouseEvent(App.DoubleClicked, itemID, -1, nodeContainer, mouse.modifiers)
                 isExpanded = !isExpanded
@@ -417,7 +450,7 @@ Column
                             nodeContainer.pathChanged(oldPath, newPath)
                         }
                     }
-                }
-        }
-    }
+                } // Loader
+        } // Component
+    } // Repeater
 }

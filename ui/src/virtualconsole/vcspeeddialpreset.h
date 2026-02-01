@@ -32,12 +32,12 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCSpeedDialPreset         QString("Preset")
-#define KXMLQLCVCSpeedDialPresetID       QString("ID")
-#define KXMLQLCVCSpeedDialPresetName     QString("Name")
-#define KXMLQLCVCSpeedDialPresetValue    QString("Value")
+#define KXMLQLCVCSpeedDialPreset         QStringLiteral("Preset")
+#define KXMLQLCVCSpeedDialPresetID       QStringLiteral("ID")
+#define KXMLQLCVCSpeedDialPresetName     QStringLiteral("Name")
+#define KXMLQLCVCSpeedDialPresetValue    QStringLiteral("Value")
 
-class VCSpeedDialPreset
+class VCSpeedDialPreset final
 {
 public:
     explicit VCSpeedDialPreset(quint8 id);

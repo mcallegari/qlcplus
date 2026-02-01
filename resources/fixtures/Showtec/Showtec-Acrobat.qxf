@@ -76,14 +76,14 @@
  <Channel Name="Channel Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="15">Blackout during Pan / Tilt movment</Capability>
-  <Capability Min="16" Max="23">Disable Blackout during Pan / Tilt movment</Capability>
-  <Capability Min="24" Max="31">Blackout during Colourwheel movment</Capability>
-  <Capability Min="32" Max="39">Disable Blackout during Colourwheel movment</Capability>
-  <Capability Min="40" Max="47">Blackout during Static, Gobowheel movment</Capability>
-  <Capability Min="48" Max="55">Disable Blackout during Static, Gobowheel movment</Capability>
+  <Capability Min="8" Max="15">Blackout during Pan / Tilt movement</Capability>
+  <Capability Min="16" Max="23">Disable Blackout during Pan / Tilt movement</Capability>
+  <Capability Min="24" Max="31">Blackout during Colourwheel movement</Capability>
+  <Capability Min="32" Max="39">Disable Blackout during Colourwheel movement</Capability>
+  <Capability Min="40" Max="47">Blackout during Static, Gobowheel movement</Capability>
+  <Capability Min="48" Max="55">Disable Blackout during Static, Gobowheel movement</Capability>
   <Capability Min="56" Max="87">No function</Capability>
-  <Capability Min="88" Max="95">Disable Blackout during all movment actions</Capability>
+  <Capability Min="88" Max="95">Disable Blackout during all movement actions</Capability>
   <Capability Min="96" Max="103">Reset Pan / Tilt after 5 seconds</Capability>
   <Capability Min="104" Max="111">No function</Capability>
   <Capability Min="112" Max="119">Reset Colourwheel after 5 seconds</Capability>

@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class VCXYPadFixture_Test : public QObject
+class VCXYPadFixture_Test final : public QObject
 {
     Q_OBJECT
 

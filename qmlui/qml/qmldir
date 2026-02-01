@@ -9,7 +9,6 @@ ColorToolFull 0.1 ColorToolFull.qml
 ContextMenuEntry 0.1 ContextMenuEntry.qml
 CustomCheckBox 0.1 CustomCheckBox.qml
 CustomComboBox 0.1 CustomComboBox.qml
-CustomPopupDialog 0.1 CustomPopupDialog.qml
 CustomScrollBar 0.1 CustomScrollBar.qml
 CustomSlider 0.1 CustomSlider.qml
 CustomSpinBox 0.1 CustomSpinBox.qml
@@ -42,3 +41,7 @@ TimeEditTool 0.1 TimeEditTool.qml
 TreeNodeDelegate 0.1 TreeNodeDelegate.qml
 WindowLoader 0.1 WindowLoader.qml
 ZoomItem 0.1 ZoomItem.qml
+
+CustomPopupDialog 0.1 CustomPopupDialog.qml
+PopupPINSetup 0.1 PopupPINSetup.qml
+PopupPINRequest 0.1 PopupPINRequest.qml

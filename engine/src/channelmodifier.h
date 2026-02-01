@@ -29,15 +29,15 @@
  */
 
 // Channel modifier document type
-#define KXMLQLCChannelModifierDocument QString("ChannelModifier")
+#define KXMLQLCChannelModifierDocument QStringLiteral("ChannelModifier")
 
 // Channel modifier tags and attributes
-#define KXMLQLCChannelModName           QString("Name")
-#define KXMLQLCChannelModHandler        QString("Handler")
-#define KXMLQLCChannelModOriginalDMX    QString("Original")
-#define KXMLQLCChannelModModifiedDMX    QString("Modified")
+#define KXMLQLCChannelModName           QStringLiteral("Name")
+#define KXMLQLCChannelModHandler        QStringLiteral("Handler")
+#define KXMLQLCChannelModOriginalDMX    QStringLiteral("Original")
+#define KXMLQLCChannelModModifiedDMX    QStringLiteral("Modified")
 
-class ChannelModifier
+class ChannelModifier final
 {
 public:
     ChannelModifier();
@@ -59,14 +59,14 @@ public:
 
     QList< QPair<uchar, uchar> > modifierMap() const;
 
-    uchar getValue(uchar dmxValue);
+    uchar getValue(uchar dmxValue) const;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     /** Save the modifier into an XML file */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName) const;
 
     /** Load this modifier's content from the given file */
     QFile::FileError loadXML(const QString& fileName, Type type);

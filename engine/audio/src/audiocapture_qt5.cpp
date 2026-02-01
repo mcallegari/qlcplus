@@ -23,20 +23,20 @@
 
 #include "audiocapture_qt5.h"
 
-AudioCaptureQt6::AudioCaptureQt6(QObject * parent)
+AudioCaptureQt5::AudioCaptureQt5(QObject * parent)
     : AudioCapture(parent)
     , m_audioInput(NULL)
     , m_input(NULL)
 {
 }
 
-AudioCaptureQt6::~AudioCaptureQt6()
+AudioCaptureQt5::~AudioCaptureQt5()
 {
     stop();
     Q_ASSERT(m_audioInput == NULL);
 }
 
-bool AudioCaptureQt6::initialize()
+bool AudioCaptureQt5::initialize()
 {
     QSettings settings;
     QString devName = "";
@@ -97,7 +97,7 @@ bool AudioCaptureQt6::initialize()
     return true;
 }
 
-void AudioCaptureQt6::uninitialize()
+void AudioCaptureQt5::uninitialize()
 {
     Q_ASSERT(m_audioInput != NULL);
 
@@ -106,27 +106,32 @@ void AudioCaptureQt6::uninitialize()
     m_audioInput = NULL;
 }
 
-qint64 AudioCaptureQt6::latency()
+qint64 AudioCaptureQt5::latency() const
 {
     return 0; // TODO
 }
 
-void AudioCaptureQt6::setVolume(qreal volume)
+void AudioCaptureQt5::setVolume(qreal volume)
 {
+    if (volume == m_volume)
+        return;
+
     m_volume = volume;
     if (m_audioInput != NULL)
         m_audioInput->setVolume(volume);
+
+    emit volumeChanged(volume * 100.0);
 }
 
-void AudioCaptureQt6::suspend()
+void AudioCaptureQt5::suspend()
 {
 }
 
-void AudioCaptureQt6::resume()
+void AudioCaptureQt5::resume()
 {
 }
 
-bool AudioCaptureQt6::readAudio(int maxSize)
+bool AudioCaptureQt5::readAudio(int maxSize)
 {
     if (m_audioInput == NULL || m_input == NULL)
         return false;

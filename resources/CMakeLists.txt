@@ -1,0 +1,13 @@
+project(resources)
+
+add_subdirectory(fixtures)
+add_subdirectory(gobos)
+add_subdirectory(inputprofiles)
+add_subdirectory(miditemplates)
+add_subdirectory(modifierstemplates)
+add_subdirectory(rgbscripts)
+add_subdirectory(samples)
+if(qmlui)
+    add_subdirectory(colorfilters)
+    add_subdirectory(meshes)
+endif()

@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-class AddVCButtonMatrix : public QDialog, public Ui_AddVCButtonMatrix
+class AddVCButtonMatrix final : public QDialog, public Ui_AddVCButtonMatrix
 {
     Q_OBJECT
 
@@ -70,7 +70,7 @@ protected slots:
     void slotVerticalChanged();
     void slotButtonSizeChanged();
     void slotNormalFrameToggled(bool toggled);
-    void accept();
+    void accept() override;
 
 private:
     void addFunction(quint32 fid);

@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -34,7 +34,7 @@ Rectangle
     property int functionID: -1
     property var mediaInfo: audioEditor ? audioEditor.mediaInfo : null
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     TimeEditTool
     {
@@ -45,7 +45,7 @@ Rectangle
         x: rightSidePanel.x - width
         visible: false
 
-        onValueChanged:
+        onValueChanged: (val) =>
         {
             if (speedType == QLCFunction.FadeIn)
                 audioEditor.fadeInSpeed = val
@@ -63,8 +63,7 @@ Rectangle
         onBackClicked:
         {
             var prevID = audioEditor.previousID
-            functionManager.setEditorFunction(prevID, false, true)
-            requestView(prevID, functionManager.getEditorResource(prevID))
+            requestView(prevID, functionManager.getEditorResource(prevID), true)
         }
     }
 
@@ -75,8 +74,7 @@ Rectangle
 
         onAccepted:
         {
-            //console.log("You chose: " + openAudioDialog.fileUrl)
-            audioEditor.sourceFileName = openAudioDialog.fileUrl
+            audioEditor.sourceFileName = selectedFile
         }
     }
 
@@ -277,18 +275,30 @@ Rectangle
 
             RobotoText
             {
-                anchors.fill: parent
+                id: fiTimeLabel
+                x: 3
+                height: parent.height
                 label: TimeUtils.timeToQlcString(audioEditor.fadeInSpeed, QLCFunction.Time)
-
-                MouseArea
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onDoubleClicked:
                 {
-                    anchors.fill: parent
-                    onDoubleClicked:
-                    {
-                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                          fiLabel.label, parent.label, QLCFunction.FadeIn)
-                    }
+                    timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                      fiLabel.label, fiTimeLabel.label, QLCFunction.FadeIn)
                 }
+            }
+
+            IconButton
+            {
+                x: parent.width - width
+                width: height
+                height: UISettings.listItemHeight
+                faSource: FontAwesome.fa_clock
+                faColor: UISettings.fgMain
+                onClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                             fiLabel.label, fiTimeLabel.label, QLCFunction.FadeIn)
             }
         }
 
@@ -308,18 +318,29 @@ Rectangle
 
             RobotoText
             {
-                anchors.fill: parent
+                id: foTimeLabel
+                x: 3
+                height: parent.height
                 label: TimeUtils.timeToQlcString(audioEditor.fadeOutSpeed, QLCFunction.Time)
-
-                MouseArea
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onDoubleClicked:
                 {
-                    anchors.fill: parent
-                    onDoubleClicked:
-                    {
-                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                          foLabel.label, parent.label, QLCFunction.FadeOut)
-                    }
+                    timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                      foLabel.label, foTimeLabel.label, QLCFunction.FadeOut)
                 }
+            }
+            IconButton
+            {
+                x: parent.width - width
+                width: height
+                height: UISettings.listItemHeight
+                faSource: FontAwesome.fa_clock
+                faColor: UISettings.fgMain
+                onClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                             foLabel.label, foTimeLabel.label, QLCFunction.FadeOut)
             }
         }
     }

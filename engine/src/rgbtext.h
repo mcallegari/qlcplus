@@ -30,9 +30,9 @@
  * @{
  */
 
-#define KXMLQLCRGBText "Text"
+#define KXMLQLCRGBText QStringLiteral("Text")
 
-class RGBText : public RGBAlgorithm
+class RGBText final : public RGBAlgorithm
 {
 public:
     RGBText(Doc * doc);
@@ -40,7 +40,7 @@ public:
     ~RGBText();
 
     /** @reimp */
-    RGBAlgorithm* clone() const;
+    RGBAlgorithm* clone() const override;
 
     /************************************************************************
      * Text & Font
@@ -96,31 +96,37 @@ private:
      ************************************************************************/
 public:
     /** @reimp */
-    int rgbMapStepCount(const QSize& size);
+    int rgbMapStepCount(const QSize& size) override;
 
     /** @reimp */
-    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
+    void rgbMapSetColors(const QVector<uint> &colors) override;
 
     /** @reimp */
-    QString name() const;
+    QVector<uint> rgbMapGetColors() override;
 
     /** @reimp */
-    QString author() const;
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) override;
 
     /** @reimp */
-    int apiVersion() const;
+    QString name() const override;
 
     /** @reimp */
-    RGBAlgorithm::Type type() const;
+    QString author() const override;
 
     /** @reimp */
-    int acceptColors() const;
+    int apiVersion() const override;
 
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    RGBAlgorithm::Type type() const override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    int acceptColors() const override;
+
+    /** @reimp */
+    bool loadXML(QXmlStreamReader &root) override;
+
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 /** @} */

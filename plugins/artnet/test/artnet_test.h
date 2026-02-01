@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class ArtNet_Test : public QObject
+class ArtNet_Test final : public QObject
 {
     Q_OBJECT
 

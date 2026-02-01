@@ -18,11 +18,11 @@
   limitations under the License.
 */
 
-import QtQuick 2.7 as QQ2
+import QtQuick as QQ2
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
-import Qt3D.Extras 2.0
+import Qt3D.Core
+import Qt3D.Render
+import Qt3D.Extras
 
 import org.qlcplus.classes 1.0
 import "Math3DView.js" as Math3D
@@ -42,18 +42,18 @@ Entity
 
     property int meshType: MainView3D.NoMeshType
 
-    /* **************** Pan/Tilt properties **************** */
+    /* **************** Pan properties **************** */
     property real panMaxDegrees: 360
-    property real tiltMaxDegrees: 270
     property bool invertedPan: false
-    property bool invertedTilt: false
     property real panSpeed: 4000 // in milliseconds
-    property real tiltSpeed: 4000 // in milliseconds
-
     property real panRotation: 0
-    property real tiltRotation: 0
-
     property Transform panTransform
+
+    /* **************** Tilt properties **************** */
+    property real tiltMaxDegrees: 270
+    property bool invertedTilt: false
+    property real tiltSpeed: 4000 // in milliseconds
+    property real tiltRotation: 0
     property Transform tiltTransform
 
     /* **************** Focus properties **************** */
@@ -82,7 +82,7 @@ Entity
     readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
-    property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
+    property real coneTopRadius: transform ? (0.24023 / 2) * transform.scale3D.x * 0.7 : 0.0 // (diameter / 2) * scale * magic number
 
     property real headLength:
     {
@@ -91,6 +91,7 @@ Entity
             case MainView3D.NoMeshType: return 0;
             case MainView3D.ParMeshType: return 0.389005 * transform.scale3D.x
             case MainView3D.MovingHeadMeshType: return 0.63663 * transform.scale3D.x
+            case MainView3D.ScannerMeshType: return 0.1 * transform.scale3D.x
         }
         console.log("UNSUPPORTED MESH TYPE " + meshType)
         return 0.5 * transform.scale3D.x
@@ -109,10 +110,7 @@ Entity
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
     property matrix4x4 lightViewMatrix:
-        Math3D.getLightViewMatrix(lightMatrix,
-                                  invertedPan ? panMaxDegrees - panRotation : panRotation,
-                                  invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation,
-                                  lightPos)
+        Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
@@ -130,8 +128,13 @@ Entity
         console.log("Binding pan ----")
         fixtureEntity.panTransform = t
         fixtureEntity.panMaxDegrees = maxDegrees
+        if (meshType == MainView3D.ScannerMeshType)
+        {
+            panRotation = 180 - (panMaxDegrees / 2)
+            coneTopRadius = 0.01 * transform.scale3D.x
+        }
         t.rotationY = Qt.binding(function() {
-            return invertedPan ? panMaxDegrees - panRotation : panRotation
+            return panRotation
         })
     }
 
@@ -142,7 +145,7 @@ Entity
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() {
-            return invertedTilt ? tiltMaxDegrees - tiltRotation : tiltRotation
+            return tiltRotation
         })
     }
 
@@ -171,20 +174,28 @@ Entity
     {
         if (panMaxDegrees)
         {
+            var basePanPos = (meshType == MainView3D.ScannerMeshType) ? (180 - (panMaxDegrees / 2)) : 0
+            var panDeg = (panMaxDegrees / 0xFFFF) * pan
+            var panTgtDeg = invertedPan ? basePanPos + panMaxDegrees - panDeg : basePanPos + panDeg
             panAnim.stop()
             panAnim.from = panRotation
-            panAnim.to = (panMaxDegrees / 0xFFFF) * pan
+            panAnim.to = panTgtDeg
             panAnim.duration = Math.max((panSpeed / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
             panAnim.start()
         }
 
         if (tiltMaxDegrees)
         {
+            var baseTiltPos = (meshType == MainView3D.ScannerMeshType) ? (90 - (tiltMaxDegrees / 2)) : tiltMaxDegrees / 2
+            var tiltDeg = (tiltMaxDegrees / 0xFFFF) * tilt
+            var tiltTgtDeg
+            if (meshType == MainView3D.ScannerMeshType)
+                tiltTgtDeg = invertedTilt ? baseTiltPos + tiltMaxDegrees - tiltDeg : baseTiltPos + tiltDeg
+            else
+                tiltTgtDeg = invertedTilt ? -baseTiltPos + tiltDeg : baseTiltPos - tiltDeg
             tiltAnim.stop()
             tiltAnim.from = tiltRotation
-            var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
-            //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
-            tiltAnim.to = -degTo
+            tiltAnim.to = tiltTgtDeg
             tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
             tiltAnim.start()
         }
@@ -203,9 +214,12 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
-    function setZoom(value)
+    function setZoom(value, degrees)
     {
-        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255.0) * value) + focusMinDegrees) / 2.0) * (Math.PI / 180.0)
+        if (degrees)
+            cutoffAngle = (value / 2) * (Math.PI / 180.0)
+        else
+            cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255.0) * value) + focusMinDegrees) / 2.0) * (Math.PI / 180.0)
     }
 
     function setupScattering(sceneEntity)
@@ -226,20 +240,30 @@ Entity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
 
+    function cleanupScattering()
+    {
+        if (shadingCone)
+            shadingCone.destroy()
+        if (scatteringCone)
+            scatteringCone.destroy()
+        if (outDepthCone)
+            outDepthCone.destroy()
+    }
+
     ShutterAnimator { id: sAnimator }
 
     QQ2.NumberAnimation on panRotation
     {
         id: panAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     QQ2.NumberAnimation on tiltRotation
     {
         id: tiltAnim
         running: false
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
     }
 
     property Texture2D depthTex:
@@ -249,8 +273,8 @@ Entity
             height: 1024
             format: Texture.D32F
             generateMipMaps: false
-            magnificationFilter: Texture.Linear
-            minificationFilter: Texture.Linear
+            magnificationFilter: Texture.Nearest
+            minificationFilter: Texture.Nearest
             wrapMode
             {
                 x: WrapMode.ClampToEdge
@@ -292,7 +316,7 @@ Entity
         id: goboAnim
         running: false
         duration: 0
-        easing.type: Easing.Linear
+        easing.type: QQ2.Easing.Linear
         from: 0
         to: 360
         loops: QQ2.Animation.Infinite
@@ -323,7 +347,7 @@ Entity
     {
         id: eSceneLoader
 
-        onStatusChanged:
+        onStatusChanged: (status) =>
         {
             if (status === SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
@@ -333,38 +357,6 @@ Entity
     /* Main transform of the whole fixture item */
     property Transform transform: Transform { }
 
-    ObjectPicker
-    {
-        id: eObjectPicker
-        //hoverEnabled: true
-        dragEnabled: true
-
-        property var lastPos
-
-        onClicked:
-        {
-            console.log("3D item clicked")
-            isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
-        }
-        //onPressed: lastPos = pick.worldIntersection
-        //onReleased: console.log("Item release")
-        //onEntered: console.log("Item entered")
-        //onExited: console.log("Item exited")
-/*
-        onMoved:
-        {
-            //console.log("Pick pos: " + pick.worldIntersection)
-            //var x = pick.worldIntersection.x - lastPos
-            contextManager.setFixturePosition("3D", itemID,
-                                              pick.worldIntersection.x * 1000.0,
-                                              pick.worldIntersection.y * 1000.0,
-                                              pick.worldIntersection.z * 1000.0)
-        }
-*/
-    }
-
-    components: [ eSceneLoader, transform, eObjectPicker ]
+    components: [ eSceneLoader, transform ]
 }
-
 

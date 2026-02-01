@@ -33,7 +33,7 @@
   #include "hidlinuxjoystick.h"
 #elif defined(WIN32) || defined (Q_OS_WIN)
   #include "win32/hidwindowsjoystick.h"
-#elif defined (__APPLE__) || defined(Q_OS_MACX)
+#elif defined (__APPLE__) || defined(Q_OS_MACOS)
   #include "hidosxjoystick.h"
 #endif
 
@@ -52,7 +52,7 @@ HIDPlugin::~HIDPlugin()
         delete m_devices.takeFirst();
 }
 
-QString HIDPlugin::name()
+QString HIDPlugin::name() const
 {
     return QString("HID");
 }
@@ -110,7 +110,7 @@ QStringList HIDPlugin::inputs()
     return list;
 }
 
-QString HIDPlugin::pluginInfo()
+QString HIDPlugin::pluginInfo() const
 {
     QString str;
 
@@ -209,13 +209,14 @@ QString HIDPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
-    Q_UNUSED(universe);
+    Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output != QLCIOPlugin::invalidLine())
     {
-        HIDDevice* dev = deviceOutput(output);
+        HIDDevice *dev = deviceOutput(output);
         if (dev != NULL)
             dev->outputDMX(data);
     }
@@ -231,7 +232,7 @@ void HIDPlugin::configure()
     conf.exec();
 }
 
-bool HIDPlugin::canConfigure()
+bool HIDPlugin::canConfigure() const
 {
     return true;
 }
@@ -264,7 +265,7 @@ void HIDPlugin::rescanDevices()
             /** Device already exists, delete from remove list */
             destroyList.removeAll(dev);
         }
-        else if((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
+        else if ((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID) ||
                 (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_2
                 && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_2) ||
@@ -276,7 +277,8 @@ void HIDPlugin::rescanDevices()
             /* Device is a USB DMX Interface, add it */
             dev = new HIDDMXDevice(this, line++,
                                    QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                   QString::fromWCharArray(cur_dev->product_string),
+                                   QString::fromWCharArray(cur_dev->product_string) + " " +
+                                   "(" + QString::fromWCharArray(cur_dev->serial_number) + ")",
                                    QString(cur_dev->path));
             addDevice(dev);
         }
@@ -285,11 +287,11 @@ void HIDPlugin::rescanDevices()
         {
             dev = new HIDLinuxJoystick(this, line++, cur_dev);
 #elif defined(WIN32) || defined (Q_OS_WIN)
-        else if(HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
+        else if (HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
         {
             dev = new HIDWindowsJoystick(this, line++, cur_dev);
-#elif defined (__APPLE__) || defined(Q_OS_MACX)
-        else if(HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
+#elif defined (__APPLE__) || defined(Q_OS_MACOS)
+        else if (HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
         {
             dev = new HIDOSXJoystick(this, line++, cur_dev);
 #endif
@@ -313,7 +315,7 @@ void HIDPlugin::rescanDevices()
         emit configurationChanged();
 }
 
-HIDDevice* HIDPlugin::device(const QString& path)
+HIDDevice* HIDPlugin::device(const QString& path) const
 {
     QListIterator <HIDDevice*> it(m_devices);
 
@@ -327,7 +329,7 @@ HIDDevice* HIDPlugin::device(const QString& path)
     return NULL;
 }
 
-HIDDevice* HIDPlugin::device(quint32 index)
+HIDDevice* HIDPlugin::device(quint32 index) const
 {
     if (index < quint32(m_devices.count()))
         return m_devices.at(index);
@@ -335,7 +337,7 @@ HIDDevice* HIDPlugin::device(quint32 index)
         return NULL;
 }
 
-HIDDevice* HIDPlugin::deviceOutput(quint32 index)
+HIDDevice* HIDPlugin::deviceOutput(quint32 index) const
 {
     QListIterator <HIDDevice*> it(m_devices);
     quint32 pos = 0;

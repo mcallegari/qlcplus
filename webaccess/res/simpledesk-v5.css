@@ -1,0 +1,184 @@
+/*
+  Q Light Controller Plus
+  simpledesk-v5.css
+
+  Copyright (c) Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+:root {
+  --sd-fader-size: calc(var(--icon-size-default, 28px) * 1);
+  --sd-icon-size: calc(var(--sd-fader-size) * 0.8);
+  --sd-track-height: calc(var(--big-item-height, 96px) * 2);
+}
+
+.sd-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--toolbar-height);
+}
+
+.sd-topbar-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: var(--toolbar-height);
+}
+
+.sd-label {
+  color: var(--fg-medium);
+  font-size: calc(var(--text-size-default) * 0.9);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.sd-page-display {
+  min-width: 36px;
+  height: calc(var(--toolbar-height) - 4px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border: 1px solid var(--bg-stronger);
+  border-radius: 4px;
+  background: var(--bg-strong);
+  color: var(--fg-main);
+  font-weight: 600;
+}
+
+.sd-select {
+  height: calc(var(--toolbar-height) - 4px);
+  padding: 0 24px 0 8px;
+  border: 1px solid #5b5f66;
+  border-radius: 4px;
+  background-color: #3a3d42;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23f1f2f4' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>"),
+    linear-gradient(to bottom, #5f636b, #3a3d42);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right 8px center, center;
+  background-size: 10px 6px, auto;
+  color: #f1f2f4;
+  font-size: var(--text-size-default);
+  font-weight: 600;
+  font-family: var(--font-main);
+  appearance: none;
+}
+
+.sd-select option {
+  background: #2f3237;
+  color: #f1f2f4;
+}
+
+.sd-stage {
+  flex: 1;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  background: var(--bg-medium);
+}
+
+.sd-sliders {
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(var(--sd-fader-size), 1fr));
+  align-items: end;
+  justify-items: center;
+}
+
+.sd-slider {
+  width: 100%;
+  max-width: var(--sd-fader-size);
+  background: var(--bg-strong);
+  border: 1px solid var(--bg-stronger);
+}
+
+.sd-slider .slider-track {
+  height: var(--sd-track-height);
+}
+
+.sd-slider.is-active {
+  background: #d10909;
+  border-color: #7a2323;
+}
+
+.sd-slider .slider-reset-btn {
+  width: 100%;
+  height: var(--sd-fader-size);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--sd-fader-size) * 0.8);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sd-slider .sd-top {
+  width: 100%;
+  height: var(--sd-fader-size);
+  border-radius: 0;
+  background: var(--bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sd-slider .sd-top-icon img {
+  width: var(--sd-icon-size);
+  height: var(--sd-icon-size);
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35));
+}
+
+.sd-slider .sd-top-color {
+  border: 1px solid var(--bg-stronger);
+}
+
+.sd-slider .sd-top-empty {
+  background: transparent;
+  border: 1px dashed var(--bg-stronger);
+}
+
+.sd-slider .range-vertical {
+  width: 5px;
+}
+
+.sd-slider .range-vertical::-webkit-slider-thumb {
+  background: var(--slider-thumb-gradient,
+    linear-gradient(0deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+  margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
+}
+
+.sd-slider .range-vertical::-moz-range-thumb {
+  background: var(--slider-thumb-gradient,
+    linear-gradient(0deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+  margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
+}
+
+@media (max-width: 720px) {
+  .sd-topbar-center {
+    gap: 8px;
+  }
+}

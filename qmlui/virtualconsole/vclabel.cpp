@@ -34,7 +34,7 @@ VCLabel::~VCLabel()
         delete m_item;
 }
 
-QString VCLabel::defaultCaption()
+QString VCLabel::defaultCaption() const
 {
     return tr("Label %1").arg(id() + 1);
 }
@@ -64,7 +64,7 @@ void VCLabel::render(QQuickView *view, QQuickItem *parent)
     m_item->setProperty("labelObj", QVariant::fromValue(this));
 }
 
-VCWidget *VCLabel::createCopy(VCWidget *parent)
+VCWidget *VCLabel::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -116,7 +116,7 @@ bool VCLabel::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCLabel::saveXML(QXmlStreamWriter *doc)
+bool VCLabel::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 

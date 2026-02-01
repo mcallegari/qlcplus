@@ -35,8 +35,8 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define FIXTURES_MAP_NAME QString("FixturesMap.xml")
-#define KXMLQLCFixtureMap QString("FixturesMap")
+#define FIXTURES_MAP_NAME QStringLiteral("FixturesMap.xml")
+#define KXMLQLCFixtureMap QStringLiteral("FixturesMap")
 
 QLCFixtureDefCache::QLCFixtureDefCache()
 {
@@ -142,9 +142,52 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
 
     file.write(data.toUtf8());
     file.close();
+#ifdef Q_OS_UNIX
+    sync();
+#endif
 
     // reload user definitions
     load(userDefinitionDirectory());
+
+    return true;
+}
+
+bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
+{
+    int idx = m_defs.indexOf(fixtureDef);
+    if (idx == -1)
+        return false;
+
+    QLCFixtureDef *def = m_defs.takeAt(idx);
+    QString absPath = def->definitionSourceFile();
+    delete def;
+
+    QLCFixtureDef *origDef = new QLCFixtureDef();
+    origDef->loadXML(absPath);
+    m_defs << origDef;
+
+    return true;
+}
+
+bool QLCFixtureDefCache::reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef)
+{
+    // check upon bundled definitions
+    QListIterator <QLCFixtureDef*> it(m_defs);
+    while (it.hasNext() == true)
+    {
+        QLCFixtureDef *def = it.next();
+        if (def->manufacturer() == fixtureDef->manufacturer() &&
+            def->model() == fixtureDef->model())
+        {
+            // set as user and perform a deep copy
+            def->setIsUser(true);
+            *def = *fixtureDef;
+            return true;
+        }
+    }
+
+    // add a new user fixture
+    addFixtureDef(fixtureDef);
 
     return true;
 }
@@ -361,6 +404,8 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     if (error == QFile::NoError)
     {
         fxi->setIsUser(isUser);
+        fxi->setDefinitionSourceFile(path);
+        fxi->setLoaded(true);
 
         /* Delete the def if it's a duplicate. */
         if (addFixtureDef(fxi) == false)
@@ -392,6 +437,8 @@ bool QLCFixtureDefCache::loadD4(const QString& path)
 
     // a D4 personality is always a user-made fixture
     fxi->setIsUser(true);
+    fxi->setDefinitionSourceFile(path);
+    fxi->setLoaded(true);
 
     /* Delete the def if it's a duplicate. */
     if (addFixtureDef(fxi) == false)

@@ -22,26 +22,32 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCFrame              QString("Frame")
-#define KXMLQLCVCFrameAllowChildren QString("AllowChildren")  // LEGACY
-#define KXMLQLCVCFrameAllowResize   QString("AllowResize")
-#define KXMLQLCVCFrameShowHeader    QString("ShowHeader")
-#define KXMLQLCVCFrameIsCollapsed   QString("Collapsed")
-#define KXMLQLCVCFrameIsDisabled    QString("Disabled")
-#define KXMLQLCVCFrameEnableSource  QString("Enable")
-#define KXMLQLCVCFrameShowEnableButton QString("ShowEnableButton")
-#define KXMLQLCVCFramePIN           QString("PIN")
+#define KXMLQLCVCFrame              QStringLiteral("Frame")
+#define KXMLQLCVCFrameAllowChildren QStringLiteral("AllowChildren")  // LEGACY
+#define KXMLQLCVCFrameAllowResize   QStringLiteral("AllowResize")
+#define KXMLQLCVCFrameShowHeader    QStringLiteral("ShowHeader")
+#define KXMLQLCVCFrameIsCollapsed   QStringLiteral("Collapsed")
+#define KXMLQLCVCFrameIsDisabled    QStringLiteral("Disabled")
+#define KXMLQLCVCFrameEnableSource  QStringLiteral("Enable")
+#define KXMLQLCVCFrameShowEnableButton QStringLiteral("ShowEnableButton")
+#define KXMLQLCVCFramePIN           QStringLiteral("PIN")
 
-#define KXMLQLCVCFrameMultipage     QString("Multipage")
-#define KXMLQLCVCFramePagesNumber   QString("PagesNum")
-#define KXMLQLCVCFrameCurrentPage   QString("CurrentPage")
-#define KXMLQLCVCFrameKey           QString("Key")
-#define KXMLQLCVCFrameNext          QString("Next")
-#define KXMLQLCVCFramePrevious      QString("Previous")
-#define KXMLQLCVCFramePagesLoop     QString("PagesLoop")
-#define KXMLQLCVCFrameShortcut      QString("Shortcut")
-#define KXMLQLCVCFrameShortcutPage  QString("Page")
-#define KXMLQLCVCFrameShortcutName  QString("Name")
+#define KXMLQLCVCFrameMultipage     QStringLiteral("Multipage")
+#define KXMLQLCVCFramePagesNumber   QStringLiteral("PagesNum")
+#define KXMLQLCVCFrameCurrentPage   QStringLiteral("CurrentPage")
+#define KXMLQLCVCFrameKey           QStringLiteral("Key")
+#define KXMLQLCVCFrameNext          QStringLiteral("Next")
+#define KXMLQLCVCFramePrevious      QStringLiteral("Previous")
+#define KXMLQLCVCFramePagesLoop     QStringLiteral("PagesLoop")
+#define KXMLQLCVCFrameShortcut      QStringLiteral("Shortcut")
+#define KXMLQLCVCFrameShortcutPage  QStringLiteral("Page")
+#define KXMLQLCVCFrameShortcutName  QStringLiteral("Name")
+
+#define INPUT_NEXT_PAGE_ID      0
+#define INPUT_PREVIOUS_PAGE_ID  1
+#define INPUT_ENABLE_ID         2
+#define INPUT_COLLAPSE_ID       3
+#define INPUT_SHORTCUT_BASE_ID  20
 
 class VirtualConsole;
 
@@ -66,24 +72,26 @@ public:
     VCFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCFrame();
 
-    /** @reimp */
-    virtual QString defaultCaption();
+    virtual void initializeProperties();
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    virtual QString defaultCaption() const override;
 
     /** @reimp */
-    virtual void render(QQuickView *view, QQuickItem *parent);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    QString propertiesResource() const;
+    virtual void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    QString propertiesResource() const override;
+
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent) const override;
 
 protected:
     /** @reimp */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget* widget) override;
 
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
@@ -98,11 +106,11 @@ public:
 
     /** Returns a list of the children widgets with the specified
      *  $recursive method */
-    QList<VCWidget *>children(bool recursive = false);
+    QList<VCWidget *>children(bool recursive = false) const;
 
     /** Add a new widget of type $wType at position $pos to this frame.
      *  $parent is used only to render the new widget */
-    Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
+    Q_INVOKABLE VCWidget *addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
     /** Add an existing widget at position $pos to this frame.
      *  $parent is used only to render the new widget */
@@ -155,7 +163,7 @@ protected:
      *********************************************************************/
 public:
     /** @reimp */
-    void setDisabled(bool disable);
+    void setDisabled(bool disable) override;
 
     /*********************************************************************
      * Header
@@ -288,9 +296,13 @@ protected slots:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** @reimp */
+    void updateFeedback() override;
+
 public slots:
     /** @reimp */
-    void slotInputValueChanged(quint8 id, uchar value);
+    void slotInputValueChanged(quint8 id, uchar value) override;
 
     /*********************************************************************
      * Load & Save
@@ -298,8 +310,8 @@ public slots:
 
 public:
     bool loadWidgetXML(QXmlStreamReader &root, bool render = false);
-    bool loadXML(QXmlStreamReader &root);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root) override;
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
 protected:
     /** Can be overridden by subclasses */

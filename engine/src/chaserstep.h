@@ -36,7 +36,7 @@ class QXmlStreamReader;
  * speeds (in milliseconds). Thus, each step can optionally use step-specific
  * speeds if the user so wishes.
  */
-class ChaserStep
+class ChaserStep final
 {
     /************************************************************************
      * Initialization
@@ -77,7 +77,7 @@ public:
      ***********************************************************************/
 public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber.
-      * $doc is used to check fixture existance. If NULL the check is skipped */
+      * $doc is used to check fixture existence. If NULL the check is skipped */
     bool loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc);
 
     /** Save ChaserStep contents to $doc, with $stepNumber */

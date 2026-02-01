@@ -32,16 +32,11 @@
 #include <QDebug>
 #include <QPen>
 
-#include "qlcfixturemode.h"
-#include "qlcfixturedef.h"
-#include "qlcchannel.h"
-
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "efxpreviewarea.h"
 #include "efxeditor.h"
 #include "fixture.h"
-#include "apputil.h"
 #include "doc.h"
 
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
@@ -208,18 +203,20 @@ void EFXEditor::initMovementPage()
     m_algorithmCombo->addItems(EFX::algorithmList());
 
     QString algo(EFX::algorithmToString(m_efx->algorithm()));
+    int algoIndex = 0;
     /* Select the EFX's algorithm from the algorithm combo */
     for (int i = 0; i < m_algorithmCombo->count(); i++)
     {
         if (m_algorithmCombo->itemText(i) == algo)
         {
             m_algorithmCombo->setCurrentIndex(i);
+            algoIndex = i;
             break;
         }
     }
 
     /* Causes the EFX function to update the preview point array */
-    slotAlgorithmSelected(algo);
+    slotAlgorithmSelected(algoIndex);
 
     /* Get the algorithm parameters */
     m_widthSpin->setValue(m_efx->width());
@@ -274,8 +271,8 @@ void EFXEditor::initMovementPage()
     connect(m_backward, SIGNAL(clicked()),
             this, SLOT(slotBackwardClicked()));
 
-    connect(m_algorithmCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotAlgorithmSelected(const QString&)));
+    connect(m_algorithmCombo, SIGNAL(activated(int)),
+            this, SLOT(slotAlgorithmSelected(int)));
     connect(m_widthSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotWidthSpinChanged(int)));
     connect(m_heightSpin, SIGNAL(valueChanged(int)),
@@ -348,7 +345,7 @@ void EFXEditor::slotTabChanged(int tab)
     m_efx->setUiStateValue(UI_STATE_TAB_INDEX, tab);
 
     //When preview animation is opened restart animation but avoid restart if test is running.
-    if(tab == 1 && (m_testButton->isChecked () == false))
+    if (tab == 1 && (m_testButton->isChecked () == false))
         m_previewArea->restart ();
 }
 
@@ -620,13 +617,13 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
 
 void EFXEditor::slotFixtureModeChanged(int index)
 {
-    QComboBox* combo = qobject_cast<QComboBox*>(QObject::sender());
+    QComboBox *combo = qobject_cast<QComboBox*>(QObject::sender());
     Q_ASSERT(combo != NULL);
 
-    EFXFixture* ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture *ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
 
-    ef->setMode ( ef->stringToMode (combo->itemText(index)) );
+    ef->setMode(ef->stringToMode (combo->itemText(index)));
 
     // Restart the test after the latest mode change, delayed
     m_testTimer.start();
@@ -634,9 +631,9 @@ void EFXEditor::slotFixtureModeChanged(int index)
 
 void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
 {
-    QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
+    QSpinBox *spin = qobject_cast<QSpinBox*>(QObject::sender());
     Q_ASSERT(spin != NULL);
-    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
+    EFXFixture *ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 
@@ -833,21 +830,32 @@ void EFXEditor::slotParallelRadioToggled(bool state)
 {
     Q_ASSERT(m_efx != NULL);
     if (state == true)
+    {
         m_efx->setPropagationMode(EFX::Parallel);
+        redrawPreview();
+    }
 }
 
 void EFXEditor::slotSerialRadioToggled(bool state)
 {
     Q_ASSERT(m_efx != NULL);
     if (state == true)
+    {
+
         m_efx->setPropagationMode(EFX::Serial);
+        redrawPreview();
+    }
 }
 
 void EFXEditor::slotAsymmetricRadioToggled(bool state)
 {
     Q_ASSERT(m_efx != NULL);
     if (state == true)
+    {
+
         m_efx->setPropagationMode(EFX::Asymmetric);
+        redrawPreview();
+    }
 }
 
 void EFXEditor::slotFadeInChanged(int ms)
@@ -889,12 +897,11 @@ void EFXEditor::slotFixtureChanged()
  * Movement page
  *****************************************************************************/
 
-void EFXEditor::slotAlgorithmSelected(const QString &text)
+void EFXEditor::slotAlgorithmSelected(int algoIndex)
 {
     Q_ASSERT(m_efx != NULL);
 
-    EFX::Algorithm algo = EFX::stringToAlgorithm(text);
-    m_efx->setAlgorithm(algo);
+    m_efx->setAlgorithm(EFX::Algorithm(algoIndex));
 
     if (m_efx->isFrequencyEnabled())
     {

@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -27,21 +27,20 @@ import "."
 CustomPopupDialog
 {
     id: popupRoot
-    width: mainView.width / 2
+    width: mainView.width * 0.75
+    height: mainView.height * 0.75
     title: qsTr("Import from project")
     standardButtons: Dialog.Cancel | Dialog.Apply
+    onVisibleChanged: mainView.setDimScreen(visible)
 
-    onClicked:
+    onClicked: (role) =>
     {
         if (role === Dialog.Cancel)
-        {
             qlcplus.cancelImport()
-        }
         else if (role === Dialog.Apply)
-        {
             qlcplus.importFromWorkspace()
-            close()
-        }
+
+        close()
     }
 
     contentItem:
@@ -65,10 +64,10 @@ CustomPopupDialog
             // row 2
             Rectangle
             {
-                width: mainView.width / 3
+                Layout.fillWidth: true
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
                 border.color: UISettings.borderColorDark
@@ -81,9 +80,9 @@ CustomPopupDialog
                     height: parent.height - 6
                     anchors.verticalCenter: parent.verticalCenter
                     color: "gray"
-                    font.family: "FontAwesome"
+                    font.family: UISettings.fontAwesomeFontName
                     font.pixelSize: height - 6
-                    text: FontAwesome.fa_search
+                    text: FontAwesome.fa_magnifying_glass
                 }
 
                 TextInput
@@ -94,21 +93,21 @@ CustomPopupDialog
                     width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.fixtureSearchFilter
-                    font.family: "Roboto Condensed"
+                    font.family: UISettings.robotoFontName
                     font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
-                    onTextChanged: importManager.fixtureSearchFilter = text
+                    onTextEdited: importManager.fixtureSearchFilter = text
                 }
             }
 
             Rectangle
             {
-                width: mainView.width / 3
+                Layout.fillWidth: true
                 height: UISettings.iconSizeMedium
                 z: 5
-                color: UISettings.bgMain
+                color: UISettings.bgMedium
                 radius: 5
                 border.width: 2
                 border.color: UISettings.borderColorDark
@@ -121,9 +120,9 @@ CustomPopupDialog
                     height: parent.height - 6
                     anchors.verticalCenter: parent.verticalCenter
                     color: "gray"
-                    font.family: "FontAwesome"
+                    font.family: UISettings.fontAwesomeFontName
                     font.pixelSize: height - 6
-                    text: FontAwesome.fa_search
+                    text: FontAwesome.fa_magnifying_glass
                 }
 
                 TextInput
@@ -134,21 +133,21 @@ CustomPopupDialog
                     width: parent.width - x
                     color: UISettings.fgMain
                     text: importManager.functionSearchFilter
-                    font.family: "Roboto Condensed"
+                    font.family: UISettings.robotoFontName
                     font.pixelSize: height - 6
                     selectionColor: UISettings.highlightPressed
                     selectByMouse: true
 
-                    onTextChanged: importManager.functionSearchFilter = text
+                    onTextEdited: importManager.functionSearchFilter = text
                 }
             }
 
-            // row 3
+            // row 3 - Fixtures tree
             ListView
             {
                 id: groupListView
-                width: mainView.width / 3
-                height: mainView.height * 0.6
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 clip: true
                 z: 4
                 boundsBehavior: Flickable.StopAtBounds
@@ -185,7 +184,7 @@ CustomPopupDialog
                                 item.nodePath = path
                                 item.isExpanded = isExpanded
                                 item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
-                                item.childrenDelegate = "qrc:/FixtureDelegate.qml"
+                                item.childrenDelegate = "qrc:/FixtureNodeDelegate.qml"
                                 item.nodeChildren = childrenModel
                             }
                         }
@@ -218,11 +217,12 @@ CustomPopupDialog
                 ScrollBar.vertical: CustomScrollBar { id: gEditScrollBar }
             } // ListView
 
+            // Functions tree
             ListView
             {
                 id: functionsListView
-                width: mainView.width / 3
-                height: mainView.height * 0.6
+                Layout.fillWidth: true
+                Layout.fillHeight: true
                 z: 4
                 clip: true
                 boundsBehavior: Flickable.StopAtBounds

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Valentin Simson</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Derby ST</Model>
+ <Type>Effect</Type>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="50">Automatic Show</Capability>
+  <Capability Min="51" Max="90">Automatic Program</Capability>
+  <Capability Min="91" Max="130">Strobe Program</Capability>
+  <Capability Min="131" Max="170">Music-Controlled Automatic Show</Capability>
+  <Capability Min="171" Max="210">Music-Controlled Automatic Program</Capability>
+  <Capability Min="211" Max="255">Music-Controlled Strobe Program</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="36" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="65" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="66" Max="80" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="81" Max="95" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="96" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="111" Max="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="126" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="141" Max="155" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="156" Max="170">Red + Green + Blue</Capability>
+  <Capability Min="171" Max="185">Red + Green + White</Capability>
+  <Capability Min="186" Max="200">Green + Blue + White</Capability>
+  <Capability Min="201" Max="215">Red + Green + Blue + White</Capability>
+  <Capability Min="216" Max="230">Colour Changing Mode 1</Capability>
+  <Capability Min="231" Max="255">Colour Changing Mode 2</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Motor">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="1" Max="127">Fixed Position (Indexation)</Capability>
+  <Capability Min="128" Max="255">Rotation</Capability>
+ </Channel>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="19">Strobe Pattern 1 (Slow to Fast)</Capability>
+  <Capability Min="20" Max="29">Strobe Pattern 2 (Slow to Fast)</Capability>
+  <Capability Min="30" Max="39">Strobe Pattern 3 (Slow to Fast)</Capability>
+  <Capability Min="40" Max="49">Strobe Pattern 4 (Slow to Fast)</Capability>
+  <Capability Min="50" Max="59">Strobe Pattern 5 (Slow to Fast)</Capability>
+  <Capability Min="60" Max="69">Strobe Pattern 6 (Slow to Fast)</Capability>
+  <Capability Min="70" Max="79">Strobe Pattern 7 (Slow to Fast)</Capability>
+  <Capability Min="80" Max="89">Strobe Pattern 8 (Slow to Fast)</Capability>
+  <Capability Min="90" Max="99">Strobe Pattern 9 (Slow to Fast)</Capability>
+  <Capability Min="100" Max="109">Strobe Pattern 10 (Slow to Fast)</Capability>
+  <Capability Min="110" Max="119">Strobe Pattern 11 (Slow to Fast)</Capability>
+  <Capability Min="120" Max="129">Strobe Pattern 12 (Slow to Fast)</Capability>
+  <Capability Min="130" Max="139">Strobe Pattern 13 (Slow to Fast)</Capability>
+  <Capability Min="140" Max="149">Strobe Pattern 14 (Slow to Fast)</Capability>
+  <Capability Min="150" Max="159">Strobe Pattern 15 (Slow to Fast)</Capability>
+  <Capability Min="160" Max="169">Strobe Pattern 16 (Slow to Fast)</Capability>
+  <Capability Min="170" Max="179">Strobe Pattern 17 (Slow to Fast)</Capability>
+  <Capability Min="180" Max="255" Preset="ShutterOpen">Full Brightness, no Strobe Pattern</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Effect</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Color macro</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Motor</Channel>
+  <Channel Number="3">Strobe Effect</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1800" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="258" Height="190" Depth="182"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="28" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

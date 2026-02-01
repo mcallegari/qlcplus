@@ -35,13 +35,12 @@
 #include "vcsoloframe.h"
 #include "vcsoloframeproperties.h"
 #include "vcbutton.h"
-#include "function.h"
-#include "qlcfile.h"
 #include "doc.h"
 
 VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
     : VCFrame(parent, doc, canCollapse)
     , m_soloframeMixing(false)
+    , m_excludeMonitored(false)
 {
     /* Set the class name "VCSoloFrame" as the object name as well */
     setObjectName(VCSoloFrame::staticMetaObject.className());
@@ -49,7 +48,7 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
 
     m_frameStyle = KVCFrameStyleSunken;
 
-    if(canCollapse == true)
+    if (canCollapse == true)
     {
         QString txtColor = "white";
         if (m_hasCustomForegroundColor)
@@ -76,7 +75,7 @@ VCSoloFrame::~VCSoloFrame()
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
+VCWidget* VCSoloFrame::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -172,9 +171,9 @@ void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid, qreal intensity)
 
         while (it.hasNext() == true)
         {
-            VCWidget* widget = it.next();
+            VCWidget *widget = it.next();
             if (widget != NULL && widget != senderWidget)
-                widget->notifyFunctionStarting(fid, soloframeMixing() ? intensity : 1.0);
+                widget->notifyFunctionStarting(fid, soloframeMixing() ? intensity : 1.0, m_excludeMonitored);
         }
     }
 }
@@ -200,6 +199,16 @@ bool VCSoloFrame::soloframeMixing() const
 void VCSoloFrame::setSoloframeMixing(bool soloframeMixing)
 {
     m_soloframeMixing = soloframeMixing;
+}
+
+bool VCSoloFrame::excludeMonitoredFunctions() const
+{
+    return m_excludeMonitored;
+}
+
+void VCSoloFrame::setExcludeMonitoredFunctions(bool exclude)
+{
+    m_excludeMonitored = exclude;
 }
 
 /*****************************************************************************

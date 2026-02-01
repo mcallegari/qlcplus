@@ -17,14 +17,14 @@
   limitations under the License.
 */
 
-import QtQuick 2.8
+import QtQuick
 import "."
 
 Rectangle
 {
     id: viewRoot
     anchors.fill: parent
-    color: UISettings.bgMain
+    color: UISettings.bgMedium
 
     function hasSettings()
     {

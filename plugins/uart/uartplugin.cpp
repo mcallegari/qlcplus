@@ -48,7 +48,7 @@ void UARTPlugin::init()
     }
 }
 
-QString UARTPlugin::name()
+QString UARTPlugin::name() const
 {
     return QString("UART");
 }
@@ -94,7 +94,7 @@ QStringList UARTPlugin::outputs()
     return list;
 }
 
-QString UARTPlugin::pluginInfo()
+QString UARTPlugin::pluginInfo() const
 {
     /** Return a description of the purpose of this plugin
      *  in HTML format */
@@ -127,9 +127,10 @@ QString UARTPlugin::outputInfo(quint32 output)
     return str;
 }
 
-void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void UARTPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output < quint32(m_widgets.count()))
         m_widgets.at(output)->writeUniverse(data);
@@ -183,21 +184,4 @@ QString UARTPlugin::inputInfo(quint32 input)
     str += QString("</HTML>");
 
     return str;
-}
-
-void UARTPlugin::sendFeedBack(quint32 universe, quint32 output, quint32 channel, uchar value, const QString &key)
-{
-    Q_UNUSED(universe)
-    Q_UNUSED(output)
-    Q_UNUSED(channel)
-    Q_UNUSED(value)
-    Q_UNUSED(key)
-
-    /**
-     * If the device support this feature, this is the method to send data back for
-     * visual feedback.
-     * To implement such method, the plugin must have an input line corresponding
-     * to the specified output line.
-     * Basically feedback data must return to the same line where it came from
-     */
 }

@@ -40,7 +40,7 @@ class Doc;
 
 #define SETTINGS_EXPANDED "addfixture/expanded"
 
-class AddFixture : public QDialog, public Ui_AddFixture
+class AddFixture final : public QDialog, public Ui_AddFixture
 {
     Q_OBJECT
     Q_DISABLE_COPY(AddFixture)
@@ -164,7 +164,7 @@ protected:
      *********************************************************************/
 protected slots:
     /** Callback for mode selection changes */
-    void slotModeActivated(const QString& modeName);
+    void slotModeActivated(int modeIndex);
 
     /** Callback for universe combo activations */
     void slotUniverseActivated(int universe);

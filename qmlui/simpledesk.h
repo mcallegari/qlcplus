@@ -32,7 +32,7 @@ class KeyPadParser;
 class FadeChannel;
 class ListModel;
 
-class SimpleDesk : public PreviewContext, public DMXSource
+class SimpleDesk final : public PreviewContext, public DMXSource
 {
     Q_OBJECT
 
@@ -51,7 +51,7 @@ public:
     QVariant universesListModel() const;
 
     /** @reimp */
-    void setUniverseFilter(quint32 universeFilter);
+    void setUniverseFilter(quint32 universeFilter) override;
 
     /** Return the actual list of channels for
      *  the currently selected universe */
@@ -107,6 +107,15 @@ public:
     /** Reset the value of the specified channel */
     Q_INVOKABLE void resetChannel(uint channel);
 
+    /** Web access helpers (absolute address based) */
+    int getSlidersNumber() const;
+    int getCurrentUniverseIndex() const;
+    int getCurrentPage() const;
+    uchar getAbsoluteChannelValue(uint address) const;
+    bool isChannelOverridden(uint address);
+    void setAbsoluteChannelValue(uint address, uchar value);
+    void resetAbsoluteChannel(uint address);
+
 protected slots:
     /** Invoked by the QLC+ engine to inform the UI that the
      *  Universe at $idx has changed */
@@ -145,7 +154,7 @@ public:
     /** Return the current DMX dump channel type mask */
     int dumpChannelMask() const;
 
-    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
+    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask, int sceneID, bool nonZeroOnly);
 
 signals:
     void dumpValuesCountChanged();
@@ -163,7 +172,7 @@ private:
      * Keypad
      ************************************************************************/
 public:
-    Q_INVOKABLE void sendKeypadCommand(QString command);
+    Q_INVOKABLE bool sendKeypadCommand(QString command);
 
     /** Return a list of the last N commands
      *  entered on the keypad */
@@ -181,7 +190,7 @@ private:
      ************************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer* timer, QList<Universe*> ua) override;
 
 private:
     FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,

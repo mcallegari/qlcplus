@@ -27,21 +27,21 @@
 #include "fixture.h"
 #include "doc.h"
 
-#define KXMLQLCChannelsGroupID    "ID"
-#define KXMLQLCChannelsGroupName  "Name"
-#define KXMLQLCChannelsGroupValue "Value"
+#define KXMLQLCChannelsGroupID    QStringLiteral("ID")
+#define KXMLQLCChannelsGroupName  QStringLiteral("Name")
+#define KXMLQLCChannelsGroupValue QStringLiteral("Value")
 
-#define KXMLQLCChannelsGroupInputUniverse "InputUniverse"
-#define KXMLQLCChannelsGroupInputChannel  "InputChannel"
+#define KXMLQLCChannelsGroupInputUniverse QStringLiteral("InputUniverse")
+#define KXMLQLCChannelsGroupInputChannel  QStringLiteral("InputChannel")
 
 
 ChannelsGroup::ChannelsGroup(Doc* doc)
     : QObject(doc)
+    , m_doc(doc)
     , m_id(ChannelsGroup::invalidId())
     , m_masterValue(0)
 {
     setName(tr("New Group"));
-    m_doc = doc;
 
     init();
 }
@@ -147,53 +147,6 @@ QList <SceneValue> ChannelsGroup::getChannels() const
 }
 
 /*********************************************************************
- * Status
- *********************************************************************/
-QString ChannelsGroup::status(Doc *doc) const
-{
-    QString info;
-
-    QString title("<TR><TD CLASS='hilite' COLSPAN='3'><CENTER>%1</CENTER></TD></TR>");
-    info += "<TABLE COLS='3' WIDTH='100%'>";
-
-    // Fixture title
-    info += title.arg(name());
-
-    /********************************************************************
-     * Channels
-     ********************************************************************/
-
-    // Title row
-    info += QString("<TR><TD CLASS='subhi'>%1</TD>").arg(tr("Fixture"));
-    info += QString("<TD CLASS='subhi'>%1</TD>").arg(tr("Channel"));
-    info += QString("<TD CLASS='subhi'>%1</TD></TR>").arg(tr("Description"));
-
-    foreach (SceneValue value, m_channels)
-    {
-        Fixture *fixture = doc->fixture(value.fxi);
-        if (fixture == NULL)
-            return QString();
-        const QLCFixtureMode *mode = fixture->fixtureMode();
-        QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
-        if (mode != NULL)
-        {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(mode->channels().at(value.channel)->name());
-        }
-        else
-        {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(QString(tr("Channel %1")).arg(value.channel));
-        }
-    }
-
-    // HTML document & table closure
-    info += "</TABLE>";
-
-    return info;
-}
-
-/*********************************************************************
  * External input
  *********************************************************************/
 void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
@@ -263,7 +216,7 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
     Q_ASSERT(doc != NULL);
 
     QString str;
-    foreach(SceneValue value, this->getChannels())
+    foreach (SceneValue value, this->getChannels())
     {
         if (str.isEmpty() == false)
             str.append(",");

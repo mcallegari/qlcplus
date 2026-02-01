@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -94,7 +94,7 @@ CustomPopupDialog
 
                 Layout.fillWidth: true
                 text: hostname
-                onTextChanged: networkManager.hostName = text
+                onTextEdited: networkManager.hostName = text
             }
 
             // row 2
@@ -197,7 +197,7 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 enabled: manualServerCheck.checked
                 text: popupRoot.serverAddress
-                onTextChanged: popupRoot.serverAddress = text
+                onTextEdited: popupRoot.serverAddress = text
             }
 
             Row

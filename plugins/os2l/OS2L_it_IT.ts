@@ -32,7 +32,7 @@
 <context>
     <name>OS2LPlugin</name>
     <message>
-        <location filename="os2lplugin.cpp" line="68"/>
+        <location filename="os2lplugin.cpp" line="69"/>
         <source>This plugin provides support for one OS2L host.</source>
         <translation>Questa plugin fornisce supporto per la comunicazione con un  host OS2L.</translation>
     </message>

@@ -22,7 +22,6 @@
 #include <QDebug>
 
 #include "rgbplain.h"
-#include "audiocapture.h"
 #include "doc.h"
 
 RGBPlain::RGBPlain(Doc * doc)
@@ -56,9 +55,19 @@ int RGBPlain::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
+void RGBPlain::rgbMapSetColors(const QVector<uint> &colors)
+{
+    Q_UNUSED(colors);
+}
+
+QVector<uint> RGBPlain::rgbMapGetColors()
+{
+    return QVector<uint>();
+}
+
 void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
-    Q_UNUSED(step)
+    Q_UNUSED(step);
     map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
@@ -82,9 +91,9 @@ int RGBPlain::apiVersion() const
     return 1;
 }
 
-void RGBPlain::setColors(QColor start, QColor end)
+void RGBPlain::setColors(QVector<QColor> colors)
 {
-    RGBAlgorithm::setColors(start, end);
+    RGBAlgorithm::setColors(colors);
 }
 
 RGBAlgorithm::Type RGBPlain::type() const

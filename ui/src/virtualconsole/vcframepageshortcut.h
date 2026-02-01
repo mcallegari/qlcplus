@@ -33,11 +33,11 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCFramePageShortcut       QString("Shortcut")
-#define KXMLQLCVCFramePageShortcutPage   QString("Page")
-#define KXMLQLCVCFramePageShortcutName   QString("Name")
+#define KXMLQLCVCFramePageShortcut       QStringLiteral("Shortcut")
+#define KXMLQLCVCFramePageShortcutPage   QStringLiteral("Page")
+#define KXMLQLCVCFramePageShortcutName   QStringLiteral("Name")
 
-class VCFramePageShortcut
+class VCFramePageShortcut final
 {
 public:
     explicit VCFramePageShortcut(int pageIndex, quint8 inputID);

@@ -43,7 +43,7 @@ class Doc;
  * to automatically generate functions for their capabilities (color, gobo..)
  * for easy and quick initial setup.
  */
-class PaletteGenerator: public QObject
+class PaletteGenerator final : public QObject
 {
     Q_OBJECT
 
@@ -137,6 +137,9 @@ private:
      *
      */
     void createFunctions(PaletteType type, PaletteSubType subType);
+
+    QString getNamePrefix(QString name);
+    QString getNamePrefix(QString type, QString name);
 
 private:
     Doc* m_doc;

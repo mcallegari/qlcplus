@@ -24,7 +24,7 @@
 
 class GPIOPlugin;
 
-class GPIOConfiguration : public QDialog, public Ui_GPIOConfiguration
+class GPIOConfiguration final : public QDialog, public Ui_GPIOConfiguration
 {
     Q_OBJECT
 
@@ -36,13 +36,16 @@ public:
     virtual ~GPIOConfiguration();
 
     /** @reimp */
-    void accept();
+    void accept() override;
+
+protected slots:
+    void slotChipChanged(int index);
 
 protected:
     void fillTree();
 
 public slots:
-    int exec();
+    int exec() override;
 
 private:
     GPIOPlugin* m_plugin;

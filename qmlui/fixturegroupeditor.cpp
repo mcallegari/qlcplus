@@ -52,7 +52,7 @@ QVariant FixtureGroupEditor::groupsListModel()
 {
     QVariantList groupsList;
 
-    foreach(FixtureGroup *grp, m_doc->fixtureGroups())
+    foreach (FixtureGroup *grp, m_doc->fixtureGroups())
     {
         QVariantMap grpMap;
         grpMap.insert("mIcon", "qrc:/group.svg");
@@ -437,10 +437,18 @@ void FixtureGroupEditor::transformSelection(int transformation)
             trImage = matrix.transformed(transform);
         break;
         case HorizontalFlip:
+#if (QT_VERSION < QT_VERSION_CHECK(6, 9, 0))
             trImage = matrix.mirrored(true, false);
+#else
+            trImage = matrix.flipped(Qt::Horizontal);
+#endif
         break;
         case VerticalFlip:
+#if (QT_VERSION < QT_VERSION_CHECK(6, 9, 0))
             trImage = matrix.mirrored(false, true);
+#else
+            trImage = matrix.flipped(Qt::Vertical);
+#endif
         break;
     }
 

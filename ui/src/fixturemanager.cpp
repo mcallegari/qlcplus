@@ -64,8 +64,6 @@
 #define KColumnChannels 1
 #define KColumnAddress  2
 
-#define KXMLQLCFixturesList QString("FixtureList")
-
 FixtureManager* FixtureManager::s_instance = NULL;
 
 /*****************************************************************************
@@ -505,7 +503,7 @@ void FixtureManager::fixtureSelected(quint32 id)
 
     m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
                     .arg(fixtureInfoStyleSheetHeader())
-                    .arg(fxi->status()));
+                    .arg(fixtureInfo(fxi)));
 
     // Enable/disable actions
     slotModeChanged(m_doc->mode());
@@ -587,7 +585,7 @@ void FixtureManager::slotSelectionChanged()
             if (uniID.isValid() == true)
                 uniName = m_doc->inputOutputMap()->getUniverseNameByID(uniID.toUInt());
 
-            foreach(Fixture *fixture, m_doc->fixtures())
+            foreach (Fixture *fixture, m_doc->fixtures())
             {
                 if (fixture == NULL || fixture->universe() != uniID.toUInt() || fixture->fixtureMode() == NULL)
                     continue;
@@ -629,7 +627,7 @@ void FixtureManager::slotSelectionChanged()
                           "<P>Click <IMG SRC=\"" ":/edit_remove.png\">" \
                           " to remove the selected fixtures.</P>");
 
-                foreach(QTreeWidgetItem *item, m_fixtures_tree->selectedItems())
+                foreach (QTreeWidgetItem *item, m_fixtures_tree->selectedItems())
                 {
                     QVariant fxID = item->data(KColumnName, PROP_ID);
                     if (fxID.isValid() == false)
@@ -703,7 +701,7 @@ void FixtureManager::slotChannelsGroupSelectionChanged()
             if (chGroup != NULL)
                 m_info->setText(QString("%1<BODY>%2</BODY></HTML>")
                                 .arg(channelsGroupInfoStyleSheetHeader())
-                                .arg(chGroup->status(m_doc)));
+                                .arg(channelsGroupInfo(chGroup)));
         }
         m_removeAction->setEnabled(true);
         m_propertiesAction->setEnabled(true);
@@ -835,6 +833,165 @@ QString FixtureManager::fixtureInfoStyleSheetHeader()
     return info;
 }
 
+QString FixtureManager::fixtureInfo(const Fixture *fixture) const
+{
+    QString info;
+
+    QString title("<TR><TD CLASS='hilite' COLSPAN='3'>%1</TD></TR>");
+    QString subTitle("<TR><TD CLASS='subhi' COLSPAN='3'>%1</TD></TR>");
+    QString genInfo("<TR><TD CLASS='emphasis'>%1</TD><TD COLSPAN='2'>%2</TD></TR>");
+
+    /********************************************************************
+     * General info
+     ********************************************************************/
+
+    info += "<TABLE COLS='3' WIDTH='100%'>";
+
+    if (fixture == NULL)
+    {
+        info += "</TABLE>";
+        return info;
+    }
+
+    // Fixture title
+    info += title.arg(fixture->name());
+
+    const QLCFixtureDef* fixtureDef = fixture->fixtureDef();
+    const QLCFixtureMode* fixtureMode = fixture->fixtureMode();
+
+    if (fixtureDef != NULL && fixtureMode != NULL)
+    {
+        // Manufacturer
+        info += genInfo.arg(tr("Manufacturer")).arg(fixtureDef->manufacturer());
+        info += genInfo.arg(tr("Model")).arg(fixtureDef->model());
+        info += genInfo.arg(tr("Mode")).arg(fixtureMode->name());
+        info += genInfo.arg(tr("Type")).arg(fixtureDef->typeToString(fixtureDef->type()));
+    }
+
+    // Universe
+    info += genInfo.arg(tr("Universe")).arg(fixture->universe() + 1);
+
+    // Address
+    QString range = QString("%1 - %2").arg(fixture->address() + 1).arg(fixture->address() + fixture->channels());
+    info += genInfo.arg(tr("Address Range")).arg(range);
+
+    // Channels
+    info += genInfo.arg(tr("Channels")).arg(fixture->channels());
+
+    // Binary address
+    QString binaryStr = QString("%1").arg(fixture->address() + 1, 10, 2, QChar('0'));
+    QString dipTable("<TABLE COLS='33' cellspacing='0'><TR><TD COLSPAN='33'><IMG SRC=\"" ":/ds_top.png\"></TD></TR>");
+    dipTable += "<TR><TD><IMG SRC=\"" ":/ds_border.png\"></TD><TD><IMG SRC=\"" ":/ds_border.png\"></TD>";
+    for (int i = 9; i >= 0; i--)
+    {
+        if (binaryStr.at(i) == '0')
+            dipTable += "<TD COLSPAN='3'><IMG SRC=\"" ":/ds_off.png\"></TD>";
+        else
+            dipTable += "<TD COLSPAN='3'><IMG SRC=\"" ":/ds_on.png\"></TD>";
+    }
+    dipTable += "<TD><IMG SRC=\"" ":/ds_border.png\"></TD></TR>";
+    dipTable += "<TR><TD COLSPAN='33'><IMG SRC=\"" ":/ds_bottom.png\"></TD></TR>";
+    dipTable += "</TABLE>";
+
+    info += genInfo.arg(tr("Binary Address (DIP)"))
+            .arg(QString("%1").arg(dipTable));
+
+    /********************************************************************
+     * Channels
+     ********************************************************************/
+
+    // Title row
+    info += QString("<TR><TD CLASS='subhi'>%1</TD>").arg(tr("Channel"));
+    info += QString("<TD CLASS='subhi'>%1</TD>").arg(tr("DMX"));
+    info += QString("<TD CLASS='subhi'>%1</TD></TR>").arg(tr("Name"));
+
+    // Fill table with the fixture's channels
+    for (quint32 ch = 0; ch < fixture->channels(); ch++)
+    {
+        QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
+        info += chInfo.arg(ch + 1).arg(fixture->address() + ch + 1)
+                .arg(fixture->channel(ch)->name());
+    }
+
+    /********************************************************************
+     * Extended device information
+     ********************************************************************/
+
+    if (fixtureMode != NULL)
+    {
+        const QLCPhysical physical = fixtureMode->physical();
+        info += title.arg(tr("Physical"));
+
+        float mmInch = 0.0393700787;
+        float kgLbs = 2.20462262;
+        QString mm("%1mm (%2\")");
+        QString kg("%1kg (%2 lbs)");
+        QString W("%1W");
+        info += genInfo.arg(tr("Width")).arg(mm.arg(physical.width()))
+                                        .arg(physical.width() * mmInch, 0, 'g', 4);
+        info += genInfo.arg(tr("Height")).arg(mm.arg(physical.height()))
+                                         .arg(physical.height() * mmInch, 0, 'g', 4);
+        info += genInfo.arg(tr("Depth")).arg(mm.arg(physical.depth()))
+                                        .arg(physical.depth() * mmInch, 0, 'g', 4);
+        info += genInfo.arg(tr("Weight")).arg(kg.arg(physical.weight()))
+                                         .arg(physical.weight() * kgLbs, 0, 'g', 4);
+        info += genInfo.arg(tr("Power consumption")).arg(W.arg(physical.powerConsumption()));
+        info += genInfo.arg(tr("DMX Connector")).arg(physical.dmxConnector());
+
+        // Bulb
+        QString K("%1K");
+        QString lm("%1lm");
+        info += subTitle.arg(tr("Bulb"));
+        info += genInfo.arg(tr("Type")).arg(physical.bulbType());
+        info += genInfo.arg(tr("Luminous Flux")).arg(lm.arg(physical.bulbLumens()));
+        info += genInfo.arg(tr("Colour Temperature")).arg(K.arg(physical.bulbColourTemperature()));
+
+        // Lens
+        QString angle1("%1&deg;");
+        QString angle2("%1&deg; &ndash; %2&deg;");
+
+        info += subTitle.arg(tr("Lens"));
+        info += genInfo.arg(tr("Name")).arg(physical.lensName());
+
+        if (physical.lensDegreesMin() == physical.lensDegreesMax())
+        {
+            info += genInfo.arg(tr("Beam Angle"))
+                .arg(angle1.arg(physical.lensDegreesMin()));
+        }
+        else
+        {
+            info += genInfo.arg(tr("Beam Angle"))
+                .arg(angle2.arg(physical.lensDegreesMin())
+                .arg(physical.lensDegreesMax()));
+        }
+
+        // Focus
+        QString frange("%1&deg;");
+        info += subTitle.arg(tr("Head(s)"));
+        info += genInfo.arg(tr("Type")).arg(physical.focusType());
+        info += genInfo.arg(tr("Pan Range")).arg(frange.arg(physical.focusPanMax()));
+        info += genInfo.arg(tr("Tilt Range")).arg(frange.arg(physical.focusTiltMax()));
+        if (physical.layoutSize() != QSize(1, 1))
+        {
+            info += genInfo.arg(tr("Layout"))
+                           .arg(QString("%1 x %2").arg(physical.layoutSize().width()).arg(physical.layoutSize().height()));
+        }
+    }
+
+    // HTML document & table closure
+    info += "</TABLE>";
+
+    if (fixtureDef != NULL)
+    {
+        info += "<HR>";
+        info += "<DIV CLASS='author' ALIGN='right'>";
+        info += tr("Fixture definition author: ") + fixtureDef->author();
+        info += "</DIV>";
+    }
+
+    return info;
+}
+
 QString FixtureManager::channelsGroupInfoStyleSheetHeader()
 {
     QString info;
@@ -863,6 +1020,54 @@ QString FixtureManager::channelsGroupInfoStyleSheetHeader()
                     "   font-size: small;" \
                     "}");
     info += "</STYLE>";
+    return info;
+}
+
+QString FixtureManager::channelsGroupInfo(const ChannelsGroup *channelsGroup) const
+{
+    QString info;
+
+    info += "<TABLE COLS='3' WIDTH='100%'>";
+
+    if (channelsGroup != NULL)
+    {
+        // Fixture title
+        const QString title("<TR><TD CLASS='hilite' COLSPAN='3'><CENTER>%1</CENTER></TD></TR>");
+        info += title.arg(channelsGroup->name());
+
+        /********************************************************************
+         * Channels
+         ********************************************************************/
+
+        // Title row
+        info += QString("<TR><TD CLASS='subhi'>%1</TD>").arg(tr("Fixture"));
+        info += QString("<TD CLASS='subhi'>%1</TD>").arg(tr("Channel"));
+        info += QString("<TD CLASS='subhi'>%1</TD></TR>").arg(tr("Description"));
+
+        foreach (const SceneValue value, channelsGroup->getChannels())
+        {
+            const Fixture *fixture = m_doc->fixture(value.fxi);
+            if (fixture == NULL)
+                continue;
+
+            const QLCFixtureMode *mode = fixture->fixtureMode();
+            const QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
+            if (mode != NULL)
+            {
+                info += chInfo.arg(fixture->name()).arg(value.channel + 1)
+                    .arg(mode->channels().at(value.channel)->name());
+            }
+            else
+            {
+                info += chInfo.arg(fixture->name()).arg(value.channel + 1)
+                    .arg(QString(tr("Channel %1")).arg(value.channel));
+            }
+        }
+    }
+
+    // HTML document & table closure
+    info += "</TABLE>";
+
     return info;
 }
 
@@ -910,13 +1115,13 @@ void FixtureManager::initActions()
     m_newGroupAction = new QAction(tr("New Group..."), this);
 
     m_moveUpAction = new QAction(QIcon(":/up.png"),
-                                 tr("Move group up..."), this);
+                                 tr("Move channel group up..."), this);
     m_moveUpAction->setEnabled(false);
     connect(m_moveUpAction, SIGNAL(triggered(bool)),
             this, SLOT(slotMoveGroupUp()));
 
     m_moveDownAction = new QAction(QIcon(":/down.png"),
-                                 tr("Move group down..."), this);
+                                 tr("Move channel group down..."), this);
     m_moveDownAction->setEnabled(false);
     connect(m_moveDownAction, SIGNAL(triggered(bool)),
             this, SLOT(slotMoveGroupDown()));
@@ -1193,27 +1398,38 @@ void FixtureManager::slotAddRGBPanel()
             Q_ASSERT(fxi != NULL);
             fxi->setName(tr("%1 - Row %2").arg(rgb.name()).arg(i + 1));
             if (rowDef == NULL)
-                rowDef = fxi->genericRGBPanelDef(columns, components);
+                rowDef = fxi->genericRGBPanelDef(columns, components, rgb.is16Bit());
             if (rowMode == NULL)
-                rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
+                rowMode = fxi->genericRGBPanelMode(rowDef, components, rgb.is16Bit(), phyWidth, phyHeight);
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
             if (address + fxi->channels() > 512)
             {
-                uniIndex++;
-                if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+                if (!rgb.crossUniverse())
                 {
-                    m_doc->inputOutputMap()->addUniverse();
-                    m_doc->inputOutputMap()->startUniverses();
+                    uniIndex++;
+                    address = 0;
                 }
-                address = 0;
+            }
+            if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+            {
+                m_doc->inputOutputMap()->addUniverse();
+                m_doc->inputOutputMap()->startUniverses();
             }
 
             fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
+            if (address + fxi->channels() > 512)
+                fxi->setCrossUniverse(rgb.crossUniverse());
             fxi->setAddress(address);
+            m_doc->addFixture(fxi, Fixture::invalidId(), rgb.crossUniverse());
+
             address += fxi->channels();
-            m_doc->addFixture(fxi);
+            if (address >= 512 && rgb.crossUniverse())
+            {
+                address -= 512;
+                uniIndex++;
+            }
 
             if (rgb.type() == AddRGBPanel::ZigZag)
             {

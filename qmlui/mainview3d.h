@@ -33,7 +33,6 @@
 #include <Qt3DRender/QMaterial>
 #include <Qt3DRender/QSceneLoader>
 #include <Qt3DRender/QRenderTarget>
-#include <Qt3DRender/QGeometryRenderer>
 #include <Qt3DRender/QPaintedTextureImage>
 
 #include "previewcontext.h"
@@ -48,7 +47,7 @@ using namespace Qt3DCore;
 using namespace Qt3DRender;
 using namespace Qt3DLogic;
 
-class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
+class GoboTextureImage final : public Qt3DRender::QPaintedTextureImage
 {
 public:
     GoboTextureImage(int w, int h, QString filename);
@@ -58,7 +57,7 @@ public:
     void setSource(QString filename);
 
 protected:
-    void paint(QPainter *painter);
+    void paint(QPainter *painter) override;
 
 private:
     QSvgRenderer *m_renderer;
@@ -75,7 +74,7 @@ typedef struct
 {
     /** Reference to the fixture root item, for hierarchy walk and function calls */
     QEntity *m_rootItem;
-    /** Reference to the root item tranform component, to perform translations/rotations */
+    /** Reference to the root item transform component, to perform translations/rotations */
     Qt3DCore::QTransform *m_rootTransform;
     /** Reference to the arm entity used by moving heads */
     QEntity *m_armItem;
@@ -90,9 +89,13 @@ typedef struct
     GoboTextureImage *m_goboTexture;
 } SceneItem;
 
-class MainView3D : public PreviewContext
+class MainView3D final : public PreviewContext
 {
     Q_OBJECT
+
+    Q_PROPERTY(QVector3D cameraPosition READ cameraPosition WRITE setCameraPosition NOTIFY cameraPositionChanged FINAL)
+    Q_PROPERTY(QVector3D cameraUpVector READ cameraUpVector WRITE setCameraUpVector NOTIFY cameraUpVectorChanged FINAL)
+    Q_PROPERTY(QVector3D cameraViewCenter READ cameraViewCenter WRITE setCameraViewCenter NOTIFY cameraViewCenterChanged FINAL)
 
     Q_PROPERTY(RenderQuality renderQuality READ renderQuality WRITE setRenderQuality NOTIFY renderQualityChanged)
     Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
@@ -118,12 +121,28 @@ public:
     ~MainView3D();
 
     /** @reimp */
-    void enableContext(bool enable);
+    void enableContext(bool enable) override;
 
     /** @reimp */
-    void setUniverseFilter(quint32 universeFilter);
+    void setUniverseFilter(quint32 universeFilter) override;
 
+    /** Cleanup all the items in the scene */
     void resetItems();
+
+    /** Reset the camera position to initial values */
+    void resetCameraPosition();
+
+    /** Get set the scene camera position */
+    QVector3D cameraPosition() const;
+    void setCameraPosition(const QVector3D &newCameraPosition);
+
+    /** Get set the scene camera position */
+    QVector3D cameraUpVector() const;
+    void setCameraUpVector(const QVector3D &newCameraUpVector);
+
+    /** Get set the scene camera position */
+    QVector3D cameraViewCenter() const;
+    void setCameraViewCenter(const QVector3D &newCameraViewCenter);
 
 protected:
     /** Returns a string with the mesh location, suitable to be used by QML */
@@ -133,7 +152,12 @@ protected:
 
 public slots:
     /** @reimp */
-    void slotRefreshView();
+    void slotRefreshView() override;
+
+signals:
+    void cameraPositionChanged();
+    void cameraUpVectorChanged();
+    void cameraViewCenterChanged();
 
 private:
     /** Reference to the Doc Monitor properties */
@@ -146,6 +170,10 @@ private:
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
+
+    QVector3D m_cameraPosition;
+    QVector3D m_cameraUpVector;
+    QVector3D m_cameraViewCenter;
 
     /*********************************************************************
      * Frame counter
@@ -232,7 +260,7 @@ protected:
     void initialize3DProperties();
 
     /** Bounding box volume calculation methods */
-    void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
+    //void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
     void addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */
@@ -326,7 +354,7 @@ private:
     QList<int> m_genericSelectedItems;
 
     /** Map of the generic items in the scene */
-    QMap<int, SceneItem*> m_genericMap;
+    QMap<quint32, SceneItem*> m_genericMap;
 
     /*********************************************************************
      * Environment
@@ -347,6 +375,7 @@ public:
         ParMeshType,
         MovingHeadMeshType,
         ScannerMeshType,
+        StrobeMeshType,
         LEDBarMeshType,
         DefaultMeshType
     };
@@ -372,8 +401,16 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers);
+
 protected:
     void createStage();
+    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos);
+    bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
+                           const QVector3D &center, const QVector3D &extents, float &hitDistance);
+
+    quint32 itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
+                             QMap<quint32, SceneItem *> &map, bool generic);
 
 signals:
     void renderQualityChanged(RenderQuality renderQuality);

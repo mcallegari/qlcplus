@@ -18,6 +18,8 @@
   limitations under the License.
 */
 
+#include <QSettings>
+
 #include "dmxinterface.h"
 
 DMXInterface::DMXInterface(const QString& serial, const QString& name, const QString &vendor,
@@ -65,7 +67,7 @@ quint32 DMXInterface::id() const
     return m_id;
 }
 
-quint8 DMXInterface::busLocation()
+quint8 DMXInterface::busLocation() const
 {
     return 0;
 }
@@ -74,21 +76,24 @@ bool DMXInterface::validInterface(quint16 vendor, quint16 product)
 {
     if (vendor != DMXInterface::FTDIVID &&
         vendor != DMXInterface::ATMELVID &&
-        vendor != DMXInterface::MICROCHIPVID)
+        vendor != DMXInterface::MICROCHIPVID &&
+        vendor != DMXInterface::NXPVID)
             return false;
 
     if (product != DMXInterface::FTDIPID &&
         product != DMXInterface::FTDI2PID &&
+        product != DMXInterface::FTDI4PID &&
         product != DMXInterface::DMX4ALLPID &&
         product != DMXInterface::NANODMXPID &&
         product != DMXInterface::EUROLITEPID &&
-        product != DMXInterface::ELECTROTASPID)
+        product != DMXInterface::ELECTROTASPID &&
+        product != DMXInterface::DMXKINGMAXPID)
             return false;
 
     return true;
 }
 
-bool DMXInterface::checkInfo(QString &serial, QString &name, QString &vendor)
+bool DMXInterface::checkInfo(QString &serial, QString &name, QString &vendor) const
 {
     if (m_serial == serial && m_name == name && m_vendor == vendor)
         return true;

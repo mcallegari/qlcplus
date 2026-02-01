@@ -27,11 +27,9 @@
 #include <cmath>
 
 #include "monitorfixture.h"
-#include "outputpatch.h"
 #include "qlcmacros.h"
 #include "fixture.h"
 #include "doc.h"
-#include "qlccapability.h"
 
 MonitorFixture::MonitorFixture(QWidget* parent, Doc* doc)
     : QFrame(parent)

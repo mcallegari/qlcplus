@@ -23,7 +23,7 @@
 #include <QObject>
 
 class Doc;
-class EFX_Test : public QObject
+class EFX_Test final : public QObject
 {
     Q_OBJECT
 
@@ -55,6 +55,7 @@ private slots:
     void previewDiamond();
     void previewSquare();
     void previewSquareChoppy();
+    void previewSquareTrue();
     void previewLeaf();
     void previewLissajous();
 

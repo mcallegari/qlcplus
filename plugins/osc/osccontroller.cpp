@@ -17,11 +17,12 @@
   limitations under the License.
 */
 
-#include "osccontroller.h"
-
 #include <QMutexLocker>
 #include <QByteArray>
 #include <QDebug>
+
+#include "osccontroller.h"
+#include "utils.h"
 
 OSCController::OSCController(QString ipaddr, Type type, quint32 line, QObject *parent)
     : QObject(parent)
@@ -120,7 +121,7 @@ bool OSCController::setInputPort(quint32 universe, quint16 port)
 
 QSharedPointer<QUdpSocket> OSCController::getInputSocket(quint16 port)
 {
-    foreach(UniverseInfo const& info, m_universeMap)
+    foreach (UniverseInfo const& info, m_universeMap)
     {
         if (info.inputSocket && info.inputPort == port)
             return info.inputSocket;
@@ -199,7 +200,7 @@ UniverseInfo* OSCController::getUniverseInfo(quint32 universe)
 OSCController::Type OSCController::type() const
 {
     int type = Unknown;
-    foreach(UniverseInfo info, m_universeMap.values())
+    foreach (UniverseInfo info, m_universeMap)
     {
         type |= info.type;
     }
@@ -230,12 +231,7 @@ quint16 OSCController::getHash(QString path)
     else
     {
         /** No existing hash found. Add a new key to the table */
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        hash = qChecksum(path.toUtf8().data(), path.length());
-#else
-        QByteArrayView bav(path.toUtf8().data(), path.length());
-        hash = qChecksum(bav);
-#endif
+        hash = Utils::getChecksum(path.toUtf8());
         m_hashMap[path] = hash;
     }
 
@@ -371,7 +367,7 @@ void OSCController::handlePacket(QUdpSocket* socket, QByteArray const& datagram,
                 if (values.length() > 1)
                 {
                     info.multipartCache[path] = values;
-                    for(int i = 0; i < values.length(); i++)
+                    for (int i = 0; i < values.length(); i++)
                     {
                         QString modPath = QString("%1_%2").arg(path).arg(i);
                         emit valueChanged(universe, m_line, getHash(modPath), (uchar)values.at(i), modPath);

@@ -18,6 +18,7 @@
 */
 
 #include <QGuiApplication>
+#include <QMediaMetaData>
 #include <QQmlContext>
 #include <QScreen>
 
@@ -65,11 +66,14 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == nullptr || func->type() != Function::VideoType)
         return;
 
+    if (m_videoMap.contains(id))
+        return;
+
     Video *video = qobject_cast<Video *>(func);
     m_videoMap[id] = new VideoContent(video, this);
 
     connect(video, SIGNAL(requestPlayback()), this, SLOT(slotRequestPlayback()));
-    connect(video,SIGNAL(requestPause(bool)), this, SLOT(slotRequestPause(bool)));
+    connect(video, SIGNAL(requestPause(bool)), this, SLOT(slotRequestPause(bool)));
     connect(video, SIGNAL(requestStop()), this, SLOT(slotRequestStop()));
 }
 
@@ -154,6 +158,10 @@ void VideoContent::playContent()
     if (m_video->fullscreen())
         m_viewContext = m_provider->fullscreenContext();
 
+    QList<QScreen *> screens = QGuiApplication::screens();
+    if (m_video->screen() < screens.count())
+        vScreen = screens.at(m_video->screen());
+
     if (m_video->isPicture())
     {
         m_geometry.setSize(m_video->resolution());
@@ -167,11 +175,6 @@ void VideoContent::playContent()
 
     if (m_viewContext == nullptr)
     {
-        QList<QScreen *> screens = QGuiApplication::screens();
-
-        if (m_video->screen() < screens.count())
-            vScreen = screens.at(m_video->screen());
-
         m_viewContext = new QQuickView(QUrl("qrc:/VideoContext.qml"));
         m_viewContext->rootContext()->setContextProperty("videoContent", this);
 
@@ -192,6 +195,10 @@ void VideoContent::playContent()
 
         connect(m_viewContext, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
     }
+    else
+    {
+        m_viewContext->rootContext()->setContextProperty("videoContent", this);
+    }
 
     if (m_video->isPicture())
     {
@@ -206,9 +213,11 @@ void VideoContent::playContent()
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
 
-    if (vScreen && m_video->fullscreen())
+    if (m_video->fullscreen())
     {
         m_provider->setFullscreenContext(m_viewContext);
+        if (vScreen)
+            m_viewContext->setScreen(vScreen);
         m_viewContext->showFullScreen();
     }
     else
@@ -226,26 +235,32 @@ void VideoContent::stopContent()
 
 void VideoContent::slotDetectResolution()
 {
-    if (m_video->isPicture())
-        return;
-
-    m_mediaPlayer = new QMediaPlayer();
-
-    connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                this, SLOT(slotMetaDataChanged(QString,QVariant)));
-
     QString sourceURL = m_video->sourceUrl();
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (sourceURL.contains("://"))
-        m_mediaPlayer->setMedia(QUrl(sourceURL));
+
+    if (m_video->isPicture())
+    {
+        QPixmap img(sourceURL);
+        if (!img.isNull())
+        {
+            m_video->setResolution(img.size());
+            m_video->setDuration(3000);
+            m_video->setTotalDuration(3000);
+        }
+    }
     else
-        m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceURL));
-#else
-    if (sourceURL.contains("://"))
-        m_mediaPlayer->setSource(QUrl(sourceURL));
-    else
-        m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
-#endif
+    {
+        m_mediaPlayer = new QMediaPlayer();
+
+        connect(m_mediaPlayer, SIGNAL(durationChanged(qint64)),
+                this, SLOT(slotDurationChanged(qint64)));
+        connect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+                this, SLOT(slotMetaDataChanged()));
+
+        if (sourceURL.contains("://"))
+            m_mediaPlayer->setSource(QUrl(sourceURL));
+        else
+            m_mediaPlayer->setSource(QUrl::fromLocalFile(sourceURL));
+    }
 }
 
 QVariant VideoContent::getAttribute(quint32 id, const char *propName)
@@ -337,16 +352,25 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
     }
 }
 
-void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value)
+void VideoContent::slotDurationChanged(qint64 duration)
 {
-    if (key == "Resolution")
-    {
-        m_geometry.setSize(value.toSize());
+    m_video->setTotalDuration(duration);
+}
 
-        disconnect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
-                    this, SLOT(slotMetaDataChanged(QString,QVariant)));
-        m_mediaPlayer->deleteLater();
-        m_mediaPlayer = nullptr;
+void VideoContent::slotMetaDataChanged()
+{
+    QMediaMetaData md = m_mediaPlayer->metaData();
+    foreach (QMediaMetaData::Key k, md.keys())
+    {
+        if (k == QMediaMetaData::Resolution)
+        {
+            m_geometry.setSize(md.value(k).toSize());
+
+            disconnect(m_mediaPlayer, SIGNAL(metaDataChanged()),
+                       this, SLOT(slotMetaDataChanged()));
+            m_mediaPlayer->deleteLater();
+            m_mediaPlayer = nullptr;
+        }
     }
 }
 

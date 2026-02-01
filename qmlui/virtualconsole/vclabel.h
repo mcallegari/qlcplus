@@ -22,7 +22,7 @@
 
 #include "vcwidget.h"
 
-#define KXMLQLCVCLabel QString("Label")
+#define KXMLQLCVCLabel QStringLiteral("Label")
 
 class VCLabel : public VCWidget
 {
@@ -37,27 +37,26 @@ public:
     virtual ~VCLabel();
 
     /** @reimp */
-    QString defaultCaption();
+    QString defaultCaption() const override;
 
     /** @reimp */
-    void setupLookAndFeel(qreal pixelDensity, int page);
+    void setupLookAndFeel(qreal pixelDensity, int page) override;
 
     /** @reimp */
-    void render(QQuickView *view, QQuickItem *parent);
+    void render(QQuickView *view, QQuickItem *parent) override;
 
     /** @reimp */
-    VCWidget *createCopy(VCWidget *parent);
+    VCWidget *createCopy(VCWidget *parent) const override;
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
-
 public:
     /** @reimp */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const override;
 };
 
 #endif

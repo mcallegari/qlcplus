@@ -13,26 +13,26 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pattern/Chase">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
   <Capability Res="Others/rainbow.png" Min="10" Max="19">Pattern 01 (red, green, blue, white)</Capability>
-  <Capability Min="20" Max="29" Color="#ff0000">Pattern 02 (red)</Capability>
-  <Capability Min="30" Max="39" Color="#00ff00">Pattern 03 (green)</Capability>
-  <Capability Min="40" Max="49" Color="#0000ff">Pattern 04 (blue)</Capability>
-  <Capability Min="50" Max="59" Color="#ffffff">Pattern 05 (white)</Capability>
-  <Capability Color2="#0000ff" Min="60" Max="69" Color="#ff0000">Pattern 06 (red, blue)</Capability>
-  <Capability Color2="#0000ff" Min="70" Max="79" Color="#ff0000">Pattern 07 (red, blue)</Capability>
-  <Capability Color2="#ffffff" Min="80" Max="89" Color="#ff0000">Pattern 08 (red, white)</Capability>
-  <Capability Color2="#ffffff" Min="90" Max="99" Color="#ff0000">Pattern 09 (red, white)</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#ff0000">Pattern 02 (red)</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#00ff00">Pattern 03 (green)</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#0000ff">Pattern 04 (blue)</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffffff">Pattern 05 (white)</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Pattern 06 (red, blue)</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Pattern 07 (red, blue)</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Pattern 08 (red, white)</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Pattern 09 (red, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="100" Max="109">Pattern 10 (red, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="110" Max="119">Pattern 11 (red, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="120" Max="129">Pattern 12 (red, green, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="130" Max="139">Pattern 13 (red, green, blue, white)</Capability>
-  <Capability Color2="#00ff00" Min="140" Max="149" Color="#ff0000">Pattern 14 (red, green)</Capability>
-  <Capability Color2="#0000ff" Min="150" Max="159" Color="#00ff00">Pattern 15 (green, blue)</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Pattern 14 (red, green)</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Pattern 15 (green, blue)</Capability>
   <Capability Res="Others/rainbow.png" Min="160" Max="169">Chase 01 (red, green, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="170" Max="179">Chase 02 (red, green, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="180" Max="189">Chase 03 (red, blue, white)</Capability>
-  <Capability Color2="#00ff00" Min="190" Max="199" Color="#ff0000">Chase 04 (red, green)</Capability>
+  <Capability Min="190" Max="199" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Chase 04 (red, green)</Capability>
   <Capability Res="Others/rainbow.png" Min="200" Max="209">Chase 05 (red, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="210" Max="219">Chase 06 (red, green, blue, white)</Capability>
   <Capability Res="Others/rainbow.png" Min="220" Max="229">Chase 07 (red, green, blue, white)</Capability>

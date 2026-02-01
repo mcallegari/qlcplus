@@ -36,38 +36,38 @@ class QString;
  * @{
  */
 
-#define KXMLQLCplusNamespace "http://www.qlcplus.org/"
+#define KXMLQLCplusNamespace QStringLiteral("http://www.qlcplus.org/")
 
 // File extensions
-#define KExtFixture          ".qxf"  // 'Q'LC+ 'X'ml 'F'ixture
-#define KExtFixtureList      ".qxfl" // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
-#define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
-#define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
-#define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
-#define KExtColorFilters     ".qxcf" // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
+#define KExtFixture          QStringLiteral(".qxf")  // 'Q'LC+ 'X'ml 'F'ixture
+#define KExtFixtureList      QStringLiteral(".qxfl") // 'Q'LC+ 'X'ml 'F'ixture 'L'ist
+#define KExtWorkspace        QStringLiteral(".qxw")  // 'Q'LC+ 'X'ml 'W'orkspace
+#define KExtInputProfile     QStringLiteral(".qxi")  // 'Q'LC+ 'X'ml 'I'nput profile
+#define KExtModifierTemplate QStringLiteral(".qxmt") // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
+#define KExtColorFilters     QStringLiteral(".qxcf") // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#   define KExtPlugin    ".dll" // Dynamic-Link Library
+#   define KExtPlugin    QStringLiteral(".dll")   // Dynamic-Link Library
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
-#   define KExtPlugin  ".dylib" // DYnamic LIBrary
+#   define KExtPlugin    QStringLiteral(".dylib") // DYnamic LIBrary
 #else
-#   define KExtPlugin    ".so"  // Shared Object
+#   define KExtPlugin    QStringLiteral(".so")    // Shared Object
 #endif
 
 // Generic XML tags common for all documents
-#define KXMLQLCCreator          QString("Creator")
-#define KXMLQLCCreatorName      QString("Name")
-#define KXMLQLCCreatorVersion   QString("Version")
-#define KXMLQLCCreatorAuthor    QString("Author")
+#define KXMLQLCCreator          QStringLiteral("Creator")
+#define KXMLQLCCreatorName      QStringLiteral("Name")
+#define KXMLQLCCreatorVersion   QStringLiteral("Version")
+#define KXMLQLCCreatorAuthor    QStringLiteral("Author")
 
 // share fixture list tag
-#define KXMLQLCFixturesList QString("FixtureList")
+#define KXMLQLCFixturesList QStringLiteral("FixtureList")
 
 // True and false
-#define KXMLQLCTrue "True"
-#define KXMLQLCFalse "False"
+#define KXMLQLCTrue  QStringLiteral("True")
+#define KXMLQLCFalse QStringLiteral("False")
 
-class QLCFile
+class QLCFile final
 {
 public:
     /**
@@ -129,7 +129,7 @@ public:
      * @param extension
      * @return
      */
-    static QDir systemDirectory(QString path, QString extension = QString() );
+    static QDir systemDirectory(QString path, QString extension = QString());
 
     /**
      * @brief systemDirectory returns a system dependant QDir based

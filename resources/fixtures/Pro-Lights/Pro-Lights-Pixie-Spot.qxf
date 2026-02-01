@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Dmitry Kolesnikov</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Pixie Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Special Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset (Hold 3 Seconds)</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="23" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="52" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="53" Max="67" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="68" Max="82" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="83" Max="97" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="98" Max="112" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="113" Max="127">Full</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation (Fast to Slow)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop Run</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Gobo wheel presets</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="31">Gobo 3</Capability>
+  <Capability Min="32" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="55">Gobo 6</Capability>
+  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="64" Max="73">Gobo 1 Shaking</Capability>
+  <Capability Min="74" Max="82">Gobo 2 Shaking</Capability>
+  <Capability Min="83" Max="91">Gobo 3 Shaking</Capability>
+  <Capability Min="92" Max="100">Gobo 4 Shaking</Capability>
+  <Capability Min="101" Max="109">Gobo 5 Shaking</Capability>
+  <Capability Min="110" Max="118">Gobo 6 Shaking</Capability>
+  <Capability Min="119" Max="127">Gobo 7 Shaking</Capability>
+  <Capability Min="128" Max="189">Clockwise rotation (Fast to Slow)</Capability>
+  <Capability Min="190" Max="193">Stop Rotation</Capability>
+  <Capability Min="194" Max="255">Counterclockwise rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="128" Max="129" Preset="RotationClockwiseFastToSlow">Clockwise rotation (Fast to Slow)</Capability>
+  <Capability Min="130" Max="193" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Prism rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="10" Preset="PrismEffectOff">Prism Off</Capability>
+  <Capability Min="11" Max="127" Preset="PrismEffectOn" Res1="3">Prism On</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation (Fast to Slow)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No Function (Shutter open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect (Slow to Fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function (Shutter open)</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse-effect in sequence</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (Shutter open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Effect (Slow to Fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No Function (Shutter open)</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="30">R:100% / G:0~100% / B:0 / W:0</Capability>
+  <Capability Min="31" Max="50">R:100%~0 / G:100% / B:0 / W:0</Capability>
+  <Capability Min="51" Max="70">R:0 / G:100% / B:0~100% / W:0</Capability>
+  <Capability Min="71" Max="90">R:0 / G:100%~0 / B:100% / W:0</Capability>
+  <Capability Min="91" Max="110">R:0~100% / G:0 / B:100% / W:0</Capability>
+  <Capability Min="111" Max="130">R:100% / G:0 / B:100%~0 / W:0</Capability>
+  <Capability Min="131" Max="150">R:100% / G:0~100% / B:0~100% / W:0</Capability>
+  <Capability Min="151" Max="170">R:100%~0 / G:100%~0 / B:100% / W:0</Capability>
+  <Capability Min="171" Max="200">R:100% / G:100% / B:100% / W:100%</Capability>
+  <Capability Min="201" Max="205">Color 1</Capability>
+  <Capability Min="206" Max="210">Color 2</Capability>
+  <Capability Min="211" Max="215">Color 3</Capability>
+  <Capability Min="216" Max="220">Color 4</Capability>
+  <Capability Min="221" Max="225">Color 5</Capability>
+  <Capability Min="226" Max="230">Color 6</Capability>
+  <Capability Min="231" Max="235">Color 7</Capability>
+  <Capability Min="236" Max="240">Color 8</Capability>
+  <Capability Min="241" Max="245">Color 9</Capability>
+  <Capability Min="246" Max="250">Color 10</Capability>
+  <Capability Min="251" Max="255">Color 11</Capability>
+ </Channel>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="70">4 Colours Snap</Capability>
+  <Capability Min="71" Max="130">4 Colours Fade</Capability>
+  <Capability Min="131" Max="190">15 Colours Snap</Capability>
+  <Capability Min="191" Max="250">15 Colours Fade</Capability>
+  <Capability Min="251" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Speed (Slow to Fast) / Sound Sensitivity OFF</Capability>
+  <Capability Min="11" Max="255">Control the Sound Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Motor Show">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="58">Motor Show 1</Capability>
+  <Capability Min="59" Max="106">Motor Show 2</Capability>
+  <Capability Min="107" Max="154">Motor Show 3</Capability>
+  <Capability Min="155" Max="202">Motor Show 4</Capability>
+  <Capability Min="203" Max="250">Motor Show 5 (Motor Show 1 - 4)</Capability>
+  <Capability Min="251" Max="255">Motor Show 6</Capability>
+ </Channel>
+ <Channel Name="Motor Show Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed Mode">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode 1</Capability>
+  <Capability Min="153" Max="203">Dimmer speed mode 2</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode 3</Capability>
+ </Channel>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Special Function</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Gobo wheel</Channel>
+  <Channel Number="11" ActsOn="10">Gobo Rotation</Channel>
+  <Channel Number="12">Prism rotation</Channel>
+  <Channel Number="13">Strobe</Channel>
+  <Channel Number="14">Focus</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Special Function</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Color wheel</Channel>
+  <Channel Number="11">Gobo wheel</Channel>
+  <Channel Number="12" ActsOn="11">Gobo Rotation</Channel>
+  <Channel Number="13">Prism rotation</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Channel Number="15">Focus</Channel>
+  <Channel Number="16">Dimmer</Channel>
+  <Channel Number="17">Dimmer Speed Mode</Channel>
+ </Mode>
+ <Mode Name="23 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Special Function</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Color wheel</Channel>
+  <Channel Number="11">Gobo wheel</Channel>
+  <Channel Number="12" ActsOn="12">Gobo Rotation</Channel>
+  <Channel Number="13">Prism rotation</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Channel Number="15">Focus</Channel>
+  <Channel Number="16">Dimmer</Channel>
+  <Channel Number="17">Color macro</Channel>
+  <Channel Number="18">Auto Program</Channel>
+  <Channel Number="19">Auto Program Speed</Channel>
+  <Channel Number="20">Motor Show</Channel>
+  <Channel Number="21">Motor Show Speed</Channel>
+  <Channel Number="22">Dimmer Speed Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1069" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="253" Height="352" Depth="192"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="118" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

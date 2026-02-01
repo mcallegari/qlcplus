@@ -26,7 +26,7 @@
 
 #include "dmxinterface.h"
 
-class LibFTDIInterface : public DMXInterface
+class LibFTDIInterface final : public DMXInterface
 {
 public:
     LibFTDIInterface(const QString& serial, const QString& name, const QString& vendor,
@@ -37,72 +37,70 @@ public:
 
     static QList<DMXInterface *> interfaces(QList<DMXInterface *> discoveredList);
 
-    /** @reimpl */
-    QString readLabel(uchar label, int *ESTA_code);
-
     void setBusLocation(quint8 location);
 
     /** @reimpl */
-    quint8 busLocation();
+    quint8 busLocation() const override;
 
     /************************************************************************
      * DMX/Serial Interface Methods
      ************************************************************************/
 public:
     /** @reimpl */
-    DMXInterface::Type type();
+    DMXInterface::Type type() const override;
 
     /** @reimpl */
-    QString typeString();
+    QString typeString() const override;
 
     /** @reimpl */
-    bool open();
+    bool open() override;
 
     /** @reimpl */
-    bool openByPID(const int FTDIPID);
+    bool openByPID(const int FTDIPID) override;
 
     /** @reimpl */
-    bool close();
+    bool close() override;
 
     /** @reimpl */
-    bool isOpen() const;
+    bool isOpen() const override;
 
     /** @reimpl */
-    bool reset();
+    bool reset() override;
 
     /** @reimpl */
-    bool setLineProperties();
+    bool setLineProperties() override;
 
     /** @reimpl */
-    bool setBaudRate();
+    bool setBaudRate() override;
 
     /** @reimpl */
-    bool setFlowControl();
+    bool setFlowControl() override;
 
     /** @reimpl */
-    bool setLowLatency(bool lowLatency);
+    bool setLowLatency(bool lowLatency) override;
 
     /** @reimpl */
-    bool clearRts();
+    bool clearRts() override;
 
     /** @reimpl */
-    bool purgeBuffers();
+    bool purgeBuffers() override;
 
     /** @reimpl */
-    bool setBreak(bool on);
+    bool setBreak(bool on) override;
 
     /** @reimpl */
-    bool write(const QByteArray& data);
+    bool write(const QByteArray& data) override;
 
     /** @reimpl */
-    QByteArray read(int size, uchar* buffer = NULL);
+    QByteArray read(int size) override;
 
     /** @reimpl */
-    uchar readByte(bool* ok = NULL);
+    uchar readByte(bool* ok = NULL) override;
 
 private:
     struct ftdi_context m_handle;
     quint8 m_busLocation;
+    enum ftdi_interface get_ftdi_interface();
 };
 
 #endif

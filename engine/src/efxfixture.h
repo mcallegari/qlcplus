@@ -37,19 +37,19 @@ class QImage;
  * @{
  */
 
-#define KXMLQLCEFXFixture               QString("Fixture")
-#define KXMLQLCEFXFixtureID             QString("ID")
-#define KXMLQLCEFXFixtureHead           QString("Head")
-#define KXMLQLCEFXFixtureMode           QString("Mode")
-#define KXMLQLCEFXFixtureDirection      QString("Direction")
-#define KXMLQLCEFXFixtureStartOffset    QString("StartOffset")
-#define KXMLQLCEFXFixtureIntensity      QString("Intensity")
+#define KXMLQLCEFXFixture               QStringLiteral("Fixture")
+#define KXMLQLCEFXFixtureID             QStringLiteral("ID")
+#define KXMLQLCEFXFixtureHead           QStringLiteral("Head")
+#define KXMLQLCEFXFixtureMode           QStringLiteral("Mode")
+#define KXMLQLCEFXFixtureDirection      QStringLiteral("Direction")
+#define KXMLQLCEFXFixtureStartOffset    QStringLiteral("StartOffset")
+#define KXMLQLCEFXFixtureIntensity      QStringLiteral("Intensity")
 
-#define KXMLQLCEFXFixtureModePanTilt    QString("Position")
-#define KXMLQLCEFXFixtureModeDimmer     QString("Dimmer")
-#define KXMLQLCEFXFixtureModeRGB        QString("RGB")
+#define KXMLQLCEFXFixtureModePanTilt    QStringLiteral("Position")
+#define KXMLQLCEFXFixtureModeDimmer     QStringLiteral("Dimmer")
+#define KXMLQLCEFXFixtureModeRGB        QStringLiteral("RGB")
 
-class EFXFixture
+class EFXFixture final
 {
     friend class EFX;
 
@@ -157,9 +157,9 @@ private:
     /** Reset the fixture when the EFX is stopped */
     void reset();
 
-    /** Check, whether this EFXFixture is ready (no more events).
+    /** Check, whether this EFXFixture is done (no more events).
         This can happen basically only if SingleShot mode is enabled. */
-    bool isReady() const;
+    bool isDone() const;
 
     /** Get this fixture's time offset (in serial and asymmetric modes) */
     uint timeOffset() const;
@@ -171,9 +171,9 @@ private:
     /** This fixture's current run-time direction */
     Function::Direction m_runTimeDirection;
 
-    /** When running in single shot mode, the fixture is marked ready
+    /** When running in single shot mode, the fixture is marked done
         after it has completed a full cycle. */
-    bool m_ready;
+    bool m_done;
 
     /** Indicates, whether start() has been called for this fixture */
     bool m_started;
@@ -188,18 +188,25 @@ private:
      * Running
      *************************************************************************/
 private:
-    void start();
+    void start(QSharedPointer<GenericFader> fader);
     void stop();
 
     /** Calculate the next step data for this fixture */
     void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
 
-    void updateFaderValues(FadeChannel *fc, uchar value);
+    /** Set a 16bit value on a fader gotten from the engine */
+    void updateFaderValues(FadeChannel *fc, quint32 value);
 
     /** Write this EFXFixture's channel data to universe faders */
     void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);
     void setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer);
     void setPointRGB (QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y);
+
+private:
+    quint32 m_firstMsbChannel;
+    quint32 m_firstLsbChannel;
+    quint32 m_secondMsbChannel;
+    quint32 m_secondLsbChannel;
 
 private:
     static QImage m_rgbGradient;

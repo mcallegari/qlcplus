@@ -17,13 +17,11 @@
   limitations under the License.
 */
 
-#include "oscplugin.h"
-#include "configureosc.h"
-
 #include <QSettings>
 #include <QDebug>
 
-#define MAX_INIT_RETRY  10
+#include "oscplugin.h"
+#include "configureosc.h"
 
 bool addressCompare(const OSCIO &v1, const OSCIO &v2)
 {
@@ -36,7 +34,14 @@ OSCPlugin::~OSCPlugin()
 
 void OSCPlugin::init()
 {
-    foreach(QNetworkInterface iface, QNetworkInterface::allInterfaces())
+    QSettings settings;
+    QVariant value = settings.value(SETTINGS_IFACE_WAIT_TIME);
+    if (value.isValid() == true)
+        m_ifaceWaitTime = value.toInt();
+    else
+        m_ifaceWaitTime = 0;
+
+    foreach (QNetworkInterface iface, QNetworkInterface::allInterfaces())
     {
         foreach (QNetworkAddressEntry entry, iface.addressEntries())
         {
@@ -48,7 +53,7 @@ void OSCPlugin::init()
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
-                for(int j = 0; j < m_IOmapping.count(); j++)
+                for (int j = 0; j < m_IOmapping.count(); j++)
                 {
                     if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
                     {
@@ -66,7 +71,7 @@ void OSCPlugin::init()
     std::sort(m_IOmapping.begin(), m_IOmapping.end(), addressCompare);
 }
 
-QString OSCPlugin::name()
+QString OSCPlugin::name() const
 {
     return QString("OSC");
 }
@@ -76,7 +81,7 @@ int OSCPlugin::capabilities() const
     return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback | QLCIOPlugin::Infinite;
 }
 
-QString OSCPlugin::pluginInfo()
+QString OSCPlugin::pluginInfo() const
 {
     QString str;
 
@@ -94,16 +99,19 @@ QString OSCPlugin::pluginInfo()
     return str;
 }
 
-bool OSCPlugin::requestLine(quint32 line, int retries)
+bool OSCPlugin::requestLine(quint32 line)
 {
     int retryCount = 0;
 
     while (line >= (quint32)m_IOmapping.length())
     {
         qDebug() << "[OSC] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
-        Sleep(1000);
-        init();
-        if (retryCount++ == retries)
+        if (m_ifaceWaitTime)
+        {
+            Sleep(1000);
+            init();
+        }
+        if (retryCount++ >= m_ifaceWaitTime)
             return false;
     }
 
@@ -153,7 +161,7 @@ QString OSCPlugin::outputInfo(quint32 output)
 
 bool OSCPlugin::openOutput(quint32 output, quint32 universe)
 {
-    if (requestLine(output, MAX_INIT_RETRY) == false)
+    if (requestLine(output) == false)
         return false;
 
     qDebug() << "[OSC] Open output with address :" << m_IOmapping.at(output).IPAddress;
@@ -190,8 +198,10 @@ void OSCPlugin::closeOutput(quint32 output, quint32 universe)
     }
 }
 
-void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
+    Q_UNUSED(dataChanged)
+
     if (output >= (quint32)m_IOmapping.count())
         return;
 
@@ -217,7 +227,7 @@ QStringList OSCPlugin::inputs()
 
 bool OSCPlugin::openInput(quint32 input, quint32 universe)
 {
-    if (requestLine(input, MAX_INIT_RETRY) == false)
+    if (requestLine(input) == false)
         return false;
 
     qDebug() << "[OSC] Open input on address :" << m_IOmapping.at(input).IPAddress;
@@ -283,14 +293,14 @@ QString OSCPlugin::inputInfo(quint32 input)
 }
 
 void OSCPlugin::sendFeedBack(quint32 universe, quint32 input,
-                             quint32 channel, uchar value, const QString &key)
+                             quint32 channel, uchar value, const QVariant &params)
 {
     if (input >= (quint32)m_IOmapping.count())
         return;
 
     OSCController *controller = m_IOmapping[input].controller;
     if (controller != NULL)
-        controller->sendFeedback(universe, channel, value, key);
+        controller->sendFeedback(universe, channel, value, params.toString());
 }
 
 /*********************************************************************
@@ -302,7 +312,7 @@ void OSCPlugin::configure()
     conf.exec();
 }
 
-bool OSCPlugin::canConfigure()
+bool OSCPlugin::canConfigure() const
 {
     return true;
 }
@@ -343,7 +353,7 @@ void OSCPlugin::setParameter(quint32 universe, quint32 line, Capability type,
         QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
-QList<OSCIO> OSCPlugin::getIOMapping()
+QList<OSCIO> OSCPlugin::getIOMapping() const
 {
     return m_IOmapping;
 }

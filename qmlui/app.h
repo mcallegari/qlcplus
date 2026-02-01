@@ -29,6 +29,7 @@
 class MainView2D;
 class ShowManager;
 class SimpleDesk;
+class UiManager;
 class ActionManager;
 class FixtureBrowser;
 class FixtureManager;
@@ -45,9 +46,11 @@ class VideoProvider;
 class FixtureEditor;
 class Tardis;
 
-#define KXMLQLCWorkspace QString("Workspace")
+#define SETTINGS_LANGUAGE "ui/language"
 
-class App : public QQuickView
+#define KXMLQLCWorkspace QStringLiteral("Workspace")
+
+class App final : public QQuickView
 {
     Q_OBJECT
     Q_DISABLE_COPY(App)
@@ -81,8 +84,18 @@ public:
     };
     Q_ENUM(MouseEvents)
 
-    enum DragItemTypes
+    enum FileDialogOpModes
     {
+        OpenMode = 0,
+        SaveMode,
+        SaveAsMode,
+        ImportMode
+    };
+    Q_ENUM(FileDialogOpModes)
+
+    enum DragItemType
+    {
+        NoDragItem,
         GenericDragItem,
         FolderDragItem,
         FunctionDragItem,
@@ -92,9 +105,11 @@ public:
         ChannelDragItem,
         PaletteDragItem,
         HeadDragItem,
+        ShowDragItem,
+        TrackDragItem,
         WidgetDragItem
     };
-    Q_ENUM(DragItemTypes)
+    Q_ENUM(DragItemType)
 
     enum ChannelType
     {
@@ -154,21 +169,22 @@ public:
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);
 
-    void show();
-
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
 
     /** Get/Set the UI access mask */
     int defaultMask() const;
+    void setAccessMask(int mask);
     int accessMask() const;
 
     bool is3DSupported() const;
 
-    Q_INVOKABLE void exit();
+protected:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
-public slots:
-    void setAccessMask(int mask);
+    Q_INVOKABLE void aboutQt();
+
+    Q_INVOKABLE void exit(bool force = false);
 
 protected:
     void keyPressEvent(QKeyEvent * e) override;
@@ -181,11 +197,15 @@ protected slots:
     void slotClosing();
     void slotClientAccessRequest(QString name);
     void slotAccessMaskChanged(int mask);
+    void slotDocAutosave();
 
 signals:
     void accessMaskChanged(int mask);
 
 private:
+    /** Flag to quit the application forcefully */
+    bool m_forceQuit = false;
+
     /** The number of pixels in one millimeter */
     qreal m_pixelDensity;
 
@@ -207,6 +227,7 @@ private:
     ActionManager *m_actionManager;
     VideoProvider *m_videoProvider;
     NetworkManager *m_networkManager;
+    UiManager *m_uiManager;
     Tardis *m_tardis;
 
     /*********************************************************************
@@ -216,8 +237,17 @@ public:
     /** Return a reference to the Doc instance */
     Doc *doc();
 
+    /** Return the QML Virtual Console instance */
+    VirtualConsole *virtualConsole() const;
+
+    /** Return the QML Simple Desk instance */
+    SimpleDesk *simpleDesk() const;
+
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
+
+    /** Set the status of the doc loading state */
+    void setDocLoaded(bool loaded);
 
     /** Return the Doc instance modified flag */
     bool docModified() const;
@@ -265,8 +295,17 @@ public:
     Q_INVOKABLE QString fileName() const;
     void setFileName(const QString& fileName);
 
+    /**
+     * Get the autosave version of the name
+     * of the current workspace file
+     */
+    QString autoSaveFileName() const;
+
     /** Return the list of the recently opened files */
     QStringList recentFiles() const;
+
+    /** Open the file from last session */
+    void loadLastWorkspace();
 
     /** Get/Set the path currently used by QLC+ to access projects and resources */
     QString workingPath() const;
@@ -303,7 +342,7 @@ public:
      * @param fileName The name of the file to save to.
      * @return QFile::NoError if successful.
      */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName, bool autosave = false);
 
 private:
     /**
@@ -319,6 +358,7 @@ signals:
 
 public slots:
     void slotLoadDocFromMemory(QByteArray &xmlData);
+    void slotSaveAutostart(QString fileName);
 
 private:
     QString m_fileName;

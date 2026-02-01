@@ -19,6 +19,7 @@
 
 #include <QMessageBox>
 #include <QUrl>
+#include <QSettings>
 
 #include "channelmodifiergraphicsview.h"
 #include "channelmodifiereditor.h"
@@ -26,6 +27,8 @@
 #include "channelmodifier.h"
 #include "qlcfile.h"
 #include "doc.h"
+
+#define SETTINGS_GEOMETRY "channelmodifiereditor/geometry"
 
 ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget *parent)
     : QDialog(parent)
@@ -46,6 +49,11 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget
     m_origDMXSpin->setEnabled(false);
     m_modifiedDMXSpin->setEnabled(false);
     m_deleteHandlerButton->setEnabled(false);
+
+    QSettings settings;
+    QVariant geometrySettings = settings.value(SETTINGS_GEOMETRY);
+    if (geometrySettings.isValid() == true)
+        restoreGeometry(geometrySettings.toByteArray());
 
     connect(m_view, SIGNAL(itemClicked(uchar,uchar)),
             this, SLOT(slotHandlerClicked(uchar,uchar)));
@@ -77,7 +85,8 @@ ChannelModifierEditor::ChannelModifierEditor(Doc *doc, QString modifier, QWidget
 
 ChannelModifierEditor::~ChannelModifierEditor()
 {
-
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 ChannelModifier *ChannelModifierEditor::selectedModifier()
@@ -96,7 +105,7 @@ void ChannelModifierEditor::updateModifiersList(QString modifier)
     std::stable_sort(names.begin(), names.end(), alphabeticSort);
 
     m_templatesTree->clear();
-    foreach(QString name, names)
+    foreach (QString name, names)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_templatesTree);
         item->setText(0, name);

@@ -22,8 +22,10 @@
 
 #if defined(ANDROID)
 #include <QScopedPointer>
-#include <QSharedPointer>
 #endif
+#include <QByteArray>
+#include <QMap>
+#include <QSharedPointer>
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>
@@ -53,7 +55,7 @@ typedef struct _uinfo
     int type;
 } UniverseInfo;
 
-class E131Controller : public QObject
+class E131Controller final : public QObject
 {
     Q_OBJECT
 

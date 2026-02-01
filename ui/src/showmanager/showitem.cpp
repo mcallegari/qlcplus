@@ -70,7 +70,7 @@ void ShowItem::updateTooltip()
               .arg(tr("Click to move this item along the timeline")));
 }
 
-QList<QAction *> ShowItem::getDefaultActions()
+QList<QAction *> ShowItem::getDefaultActions() const
 {
     QList<QAction *> actions;
     actions.append(m_alignToCursor);
@@ -96,7 +96,7 @@ void ShowItem::setTimeScale(int val)
     m_timeScale = val;
 }
 
-int ShowItem::getTimeScale()
+int ShowItem::getTimeScale() const
 {
     return m_timeScale;
 }
@@ -110,7 +110,7 @@ void ShowItem::setStartTime(quint32 time)
     updateTooltip();
 }
 
-quint32 ShowItem::getStartTime()
+quint32 ShowItem::getStartTime() const
 {
     if (m_function)
         return m_function->startTime();
@@ -128,7 +128,7 @@ void ShowItem::setDuration(quint32 msec, bool stretch)
     updateTooltip();
 }
 
-quint32 ShowItem::getDuration()
+quint32 ShowItem::getDuration() const
 {
     if (m_function)
         return m_function->duration();
@@ -141,12 +141,12 @@ void ShowItem::setWidth(int w)
     updateTooltip();
 }
 
-int ShowItem::getWidth()
+int ShowItem::getWidth() const
 {
     return m_width;
 }
 
-QPointF ShowItem::getDraggingPos()
+QPointF ShowItem::getDraggingPos() const
 {
     return m_pos;
 }
@@ -156,7 +156,7 @@ void ShowItem::setTrackIndex(int idx)
     m_trackIdx = idx;
 }
 
-int ShowItem::getTrackIndex()
+int ShowItem::getTrackIndex() const
 {
     return m_trackIdx;
 }
@@ -169,7 +169,7 @@ void ShowItem::setColor(QColor col)
     update();
 }
 
-QColor ShowItem::getColor()
+QColor ShowItem::getColor() const
 {
     return m_color;
 }
@@ -183,7 +183,7 @@ void ShowItem::setLocked(bool locked)
     update();
 }
 
-bool ShowItem::isLocked()
+bool ShowItem::isLocked() const
 {
     return m_locked;
 }
@@ -194,7 +194,7 @@ void ShowItem::setFunctionID(quint32 id)
         m_function->setFunctionID(id);
 }
 
-quint32 ShowItem::functionID()
+quint32 ShowItem::functionID() const
 {
     if (m_function != NULL)
         return m_function->functionID();
@@ -207,7 +207,7 @@ ShowFunction *ShowItem::showFunction() const
     return m_function;
 }
 
-QString ShowItem::functionName()
+QString ShowItem::functionName() const
 {
     return QString();
 }
@@ -227,7 +227,7 @@ void ShowItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     m_pos = this->pos();
-    if(event->button() == Qt::LeftButton)
+    if (event->button() == Qt::LeftButton)
         m_pressed = true;
     this->setSelected(true);
 }

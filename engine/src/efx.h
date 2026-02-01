@@ -37,41 +37,42 @@ class Fixture;
  * @{
  */
 
-#define KXMLQLCEFXPropagationMode           QString("PropagationMode")
-#define KXMLQLCEFXPropagationModeParallel   QString("Parallel")
-#define KXMLQLCEFXPropagationModeSerial     QString("Serial")
-#define KXMLQLCEFXPropagationModeAsymmetric QString("Asymmetric")
-#define KXMLQLCEFXAlgorithm                 QString("Algorithm")
-#define KXMLQLCEFXWidth                     QString("Width")
-#define KXMLQLCEFXHeight                    QString("Height")
-#define KXMLQLCEFXRotation                  QString("Rotation")
-#define KXMLQLCEFXStartOffset               QString("StartOffset")
-#define KXMLQLCEFXIsRelative                QString("IsRelative")
-#define KXMLQLCEFXAxis                      QString("Axis")
-#define KXMLQLCEFXOffset                    QString("Offset")
-#define KXMLQLCEFXFrequency                 QString("Frequency")
-#define KXMLQLCEFXPhase                     QString("Phase")
-#define KXMLQLCEFXChannel                   QString("Channel")
-#define KXMLQLCEFXX                         QString("X")
-#define KXMLQLCEFXY                         QString("Y")
-#define KXMLQLCEFXStartScene                QString("StartScene")
-#define KXMLQLCEFXStopScene                 QString("StopScene")
+#define KXMLQLCEFXPropagationMode           QStringLiteral("PropagationMode")
+#define KXMLQLCEFXPropagationModeParallel   QStringLiteral("Parallel")
+#define KXMLQLCEFXPropagationModeSerial     QStringLiteral("Serial")
+#define KXMLQLCEFXPropagationModeAsymmetric QStringLiteral("Asymmetric")
+#define KXMLQLCEFXAlgorithm                 QStringLiteral("Algorithm")
+#define KXMLQLCEFXWidth                     QStringLiteral("Width")
+#define KXMLQLCEFXHeight                    QStringLiteral("Height")
+#define KXMLQLCEFXRotation                  QStringLiteral("Rotation")
+#define KXMLQLCEFXStartOffset               QStringLiteral("StartOffset")
+#define KXMLQLCEFXIsRelative                QStringLiteral("IsRelative")
+#define KXMLQLCEFXAxis                      QStringLiteral("Axis")
+#define KXMLQLCEFXOffset                    QStringLiteral("Offset")
+#define KXMLQLCEFXFrequency                 QStringLiteral("Frequency")
+#define KXMLQLCEFXPhase                     QStringLiteral("Phase")
+#define KXMLQLCEFXChannel                   QStringLiteral("Channel")
+#define KXMLQLCEFXX                         QStringLiteral("X")
+#define KXMLQLCEFXY                         QStringLiteral("Y")
+#define KXMLQLCEFXStartScene                QStringLiteral("StartScene")
+#define KXMLQLCEFXStopScene                 QStringLiteral("StopScene")
 
-#define KXMLQLCEFXCircleAlgorithmName       QString("Circle")
-#define KXMLQLCEFXEightAlgorithmName        QString("Eight")
-#define KXMLQLCEFXLineAlgorithmName         QString("Line")
-#define KXMLQLCEFXLine2AlgorithmName        QString("Line2")
-#define KXMLQLCEFXDiamondAlgorithmName      QString("Diamond")
-#define KXMLQLCEFXSquareAlgorithmName       QString("Square")
-#define KXMLQLCEFXSquareChoppyAlgorithmName QString("SquareChoppy")
-#define KXMLQLCEFXLeafAlgorithmName         QString("Leaf")
-#define KXMLQLCEFXLissajousAlgorithmName    QString("Lissajous")
+#define KXMLQLCEFXCircleAlgorithmName       QStringLiteral("Circle")
+#define KXMLQLCEFXEightAlgorithmName        QStringLiteral("Eight")
+#define KXMLQLCEFXLineAlgorithmName         QStringLiteral("Line")
+#define KXMLQLCEFXLine2AlgorithmName        QStringLiteral("Line2")
+#define KXMLQLCEFXDiamondAlgorithmName      QStringLiteral("Diamond")
+#define KXMLQLCEFXSquareAlgorithmName       QStringLiteral("Square")
+#define KXMLQLCEFXSquareChoppyAlgorithmName QStringLiteral("SquareChoppy")
+#define KXMLQLCEFXSquareTrueAlgorithmName   QStringLiteral("SquareTrue")
+#define KXMLQLCEFXLeafAlgorithmName         QStringLiteral("Leaf")
+#define KXMLQLCEFXLissajousAlgorithmName    QStringLiteral("Lissajous")
 
 /**
  * An EFX (effects) function that is used to create
  * more complex automation especially for moving lights
  */
-class EFX : public Function
+class EFX final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(EFX)
@@ -97,24 +98,24 @@ public:
     ~EFX();
 
     /** @reimp */
-    QIcon getIcon() const;
+    QIcon getIcon() const override;
 
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function* function) override;
 
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
     /** Set the duration in milliseconds */
-    virtual void setDuration(uint ms);
+    virtual void setDuration(uint ms) override;
 
     uint loopDuration() const;
 
@@ -134,6 +135,7 @@ public:
         Diamond,
         Square,
         SquareChoppy,
+		SquareTrue,
         Leaf,
         Lissajous
     };
@@ -181,7 +183,7 @@ public:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float *x, float *y) const;
 
 private:
 
@@ -504,11 +506,11 @@ public:
     EFXFixture *fixture(quint32 id, int headIndex);
 
     /** @reimp */
-    QList<quint32> components();
+    QList<quint32> components() const override;
 
 public slots:
     /** Slot that captures Doc::fixtureRemoved signals */
-    void slotFixtureRemoved(quint32 fxi_id);
+    void slotFixtureRemoved(quint32 fxi_id) override;
 
 private:
     QList <EFXFixture *> m_fixtures;
@@ -523,6 +525,9 @@ public:
         Serial,     /**< Pattern propagates to the next fixture after a delay */
         Asymmetric  /**< All fixtures move with an offset */
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PropagationMode)
+#endif
 
     /** Set the EFX's fixture propagation mode (see the enum above) */
     void setPropagationMode(PropagationMode mode);
@@ -543,9 +548,9 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter *doc);
-    bool loadXML(QXmlStreamReader &root);
-    void postLoad();
+    bool saveXML(QXmlStreamWriter *doc) const override;
+    bool loadXML(QXmlStreamReader &root) override;
+    void postLoad() override;
 
 private:
     /** Load an axis' contents from an XML document*/
@@ -563,13 +568,13 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer* timer) override;
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe *> universes);
+    void write(MasterTimer* timer, QList<Universe *> universes) override;
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes) override;
 
 private:
     QSharedPointer<GenericFader> getFader(QList<Universe *> universes, quint32 universeID);
@@ -579,14 +584,14 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    int adjustAttribute(qreal fraction, int attributeId = 0);
+    int adjustAttribute(qreal fraction, int attributeId = 0) override;
 
     /*************************************************************************
      * Blend mode
      *************************************************************************/
 public:
     /** @reimp */
-    void setBlendMode(Universe::BlendMode mode);
+    void setBlendMode(Universe::BlendMode mode) override;
 };
 
 /** @} */

@@ -18,7 +18,7 @@
   <Capability Min="32" Max="47" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Gobo 2</Capability>
   <Capability Min="48" Max="63" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Gobo 3</Capability>
   <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Others/gobo00005.svg">Gobo 4</Capability>
-  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Others/gobo00032.svg">Gobo 5</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Others/gobo00044.svg">Gobo 5</Capability>
   <Capability Min="96" Max="111" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Gobo 6</Capability>
   <Capability Min="112" Max="127" Preset="GoboMacro" Res1="SGM/gobo00027.svg">Gobo 7</Capability>
   <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Rotating slow-fast</Capability>

@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
+import QtQuick
+import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,6 +30,11 @@ Column
     /** This is a reference to a generic object exposing
       * an input sources list */
     property var objRef: null
+
+    PopupCustomFeedback
+    {
+        id: cfbPopup
+    }
 
     Rectangle
     {
@@ -98,7 +103,7 @@ Column
 
                 width: height * 2
                 height: parent.height
-                faSource: FontAwesome.fa_hand_o_up
+                faSource: FontAwesome.fa_hand_point_up
                 faColor: UISettings.fgMain
                 tooltip: qsTr("Manually select an input source")
 
@@ -134,11 +139,12 @@ Column
         delegate:
             Loader
             {
+                id: extSrcListLoader
                 width: sourcesListView.width
                 source: modelData.type === VCWidget.Controller ? "qrc:/ExternalControlDelegate.qml" : "qrc:/KeyboardSequenceDelegate.qml"
                 onLoaded:
                 {
-                    item.dObjRef = objRef
+                    item.widgetObjRef = objRef
                     item.inputModel = objRef.externalControlsList
                     item.controlID = modelData.id
 
@@ -152,12 +158,22 @@ Column
                         item.uniName = modelData.uniString
                         item.chName = modelData.chString
                         item.customFeedback = modelData.customFeedback
-                        item.lowerFb = modelData.lower
-                        item.upperFb = modelData.upper
                     }
                     else if (modelData.type === VCWidget.Keyboard)
                     {
                         item.sequence = modelData.keySequence
+                    }
+                }
+
+                Connections
+                {
+                    target: extSrcListLoader.item
+                    function onRequestCustomFeedbackPopup()
+                    {
+                        cfbPopup.widgetObjRef = item.widgetObjRef
+                        cfbPopup.universe = item.universe
+                        cfbPopup.channel = item.channel
+                        cfbPopup.open()
                     }
                 }
             }

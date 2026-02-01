@@ -28,16 +28,17 @@
 
 class Doc;
 
-class InputSelectionWidget : public QWidget, public Ui_InputSelectionWidget
+class InputSelectionWidget final : public QWidget, public Ui_InputSelectionWidget
 {
     Q_OBJECT
 
 public:
-    InputSelectionWidget(Doc* doc, QWidget *parent = 0);
+    InputSelectionWidget(Doc *doc, QWidget *parent = 0);
     ~InputSelectionWidget();
 
     void setKeyInputVisibility(bool visible);
     void setCustomFeedbackVisibility(bool visible);
+    void setMonitoringSupport(bool enable);
     void setTitle(QString title);
     void setWidgetPage(int page);
     bool isAutoDetecting();
@@ -58,9 +59,7 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotChooseInputClicked();
 
-    void slotCustomFeedbackToggled(bool checked);
-    void slotLowerSpinValueChanged(int value);
-    void slotUpperSpinValueChanged(int value);
+    void slotCustomFeedbackClicked();
 
 signals:
     void autoDetectToggled(bool checked);
@@ -71,11 +70,12 @@ protected:
     void updateInputSource();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     QKeySequence m_keySequence;
     QSharedPointer<QLCInputSource> m_inputSource;
     int m_widgetPage;
     bool m_emitOdd;
+    bool m_supportMonitoring;
     quint32 m_signalsReceived;
 };
 

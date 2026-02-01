@@ -27,7 +27,7 @@
  * @{
  */
 
-class UniverseItemWidget : public QItemDelegate
+class UniverseItemWidget final : public QItemDelegate
 {
     Q_OBJECT
 
@@ -41,8 +41,8 @@ public:
      *********************************************************************/
 
 protected:
-    void paint ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
-    //QSize sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const;
+    void paint (QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const override;
+    //QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const;
 
 };
 

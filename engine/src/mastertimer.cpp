@@ -20,7 +20,6 @@
 
 #include <QDebug>
 #include <QSettings>
-#include <QElapsedTimer>
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -32,10 +31,8 @@
 
 #include "inputoutputmap.h"
 #include "genericfader.h"
-#include "fadechannel.h"
 #include "mastertimer.h"
 #include "dmxsource.h"
-#include "qlcmacros.h"
 #include "function.h"
 #include "universe.h"
 #include "doc.h"
@@ -68,7 +65,6 @@ MasterTimer::MasterTimer(Doc* doc)
     , m_currentBPM(120)
     , m_beatTimeDuration(500)
     , m_beatRequested(false)
-    , m_beatTimer(new QElapsedTimer())
     , m_lastBeatOffset(0)
 {
     Q_ASSERT(doc != NULL);
@@ -89,8 +85,6 @@ MasterTimer::~MasterTimer()
 
     delete d_ptr;
     d_ptr = NULL;
-
-    delete m_beatTimer;
 }
 
 void MasterTimer::start()
@@ -119,7 +113,7 @@ void MasterTimer::timerTick()
     {
         case Internal:
         {
-            int elapsedTime = qRound((double)m_beatTimer->nsecsElapsed() / 1000000) + m_lastBeatOffset;
+            int elapsedTime = qRound((double)m_beatTimer.nsecsElapsed() / 1000000) + m_lastBeatOffset;
             //qDebug() << "Elapsed beat:" << elapsedTime;
             if (elapsedTime >= m_beatTimeDuration)
             {
@@ -130,7 +124,7 @@ void MasterTimer::timerTick()
                 // milliseconds, otherwise it will generate an unpleasant drift
                 //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
                 m_lastBeatOffset = elapsedTime - m_beatTimeDuration;
-                m_beatTimer->restart();
+                m_beatTimer.restart();
 
                 // inform the listening classes that a beat is happening
                 emit beat();
@@ -209,13 +203,8 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
         QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
         foreach (Universe *universe, universes)
-        {
-            foreach (QSharedPointer<GenericFader> fader, universe->faders())
-            {
-                if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
-                    fader->setFadeOut(true, uint(timeout));
-            }
-        }
+            universe->setFaderFadeOut(timeout);
+
         doc->inputOutputMap()->releaseUniverses();
     }
 
@@ -266,6 +255,8 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
                     removeList << i; // Don't remove the item from the list just yet.
                     functionListHasChanged = true;
                     stoppedAFunction = true;
+
+                    emit functionStopped(function->id());
                 }
             }
         }
@@ -368,7 +359,7 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     // alright, this causes a time drift of maximum 1ms per beat
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
-    m_beatTimer->restart();
+    m_beatTimer.restart();
 
     m_beatSourceType = type;
 }
@@ -385,7 +376,7 @@ void MasterTimer::requestBpmNumber(int bpm)
 
     m_currentBPM = bpm;
     m_beatTimeDuration = 60000 / m_currentBPM;
-    m_beatTimer->restart();
+    m_beatTimer.restart();
 
     emit bpmNumberChanged(bpm);
 }
@@ -402,7 +393,7 @@ int MasterTimer::beatTimeDuration() const
 
 int MasterTimer::timeToNextBeat() const
 {
-    return m_beatTimeDuration - m_beatTimer->elapsed();
+    return m_beatTimeDuration - m_beatTimer.elapsed();
 }
 
 int MasterTimer::nextBeatTimeOffset() const

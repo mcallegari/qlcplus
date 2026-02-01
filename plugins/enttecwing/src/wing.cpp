@@ -34,11 +34,11 @@ const int Wing::UDPPort = 3330;
 
 Wing::Wing(QObject* parent, const QHostAddress& address, const QByteArray& data)
     : QObject(parent)
+    , m_address(address)
+    , m_type(resolveType(data))
+    , m_firmware(resolveFirmware(data))
+    , m_page(WING_PAGE_MIN)
 {
-    m_address = address;
-    m_type = resolveType(data);
-    m_firmware = resolveFirmware(data);
-    m_page = WING_PAGE_MIN;
 }
 
 Wing::~Wing()

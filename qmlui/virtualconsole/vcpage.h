@@ -35,6 +35,8 @@ public:
     VCPage(QQuickView *view = nullptr, Doc* doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0, QObject *parent = nullptr);
     ~VCPage();
 
+    void resetProperties(int pageIndex);
+
     /** Return the Preview Context associated to this VC page */
     PreviewContext *previewContext() const;
 
@@ -49,7 +51,7 @@ private:
     qreal m_pageScale;
 
     /*********************************************************************
-     * External input
+     * External controllers input
      *********************************************************************/
 public:
     /** Map a single input source for a specific VC widget. */
@@ -65,26 +67,12 @@ public:
     /** Reset the input source map */
     void resetInputSourcesMap();
 
+    /** Retrieve all the input sources related to this page */
+    QList<quint32> pageInputSources();
+
     /** Method invoked by the Virtual Console when an input signal is received.
      *  This is in charge of delivering the event to the children widgets expecting it. */
-    void inputValueChanged(quint32 universe, quint32 channel, uchar value);
-
-    /** Map a single key sequence for a specific VC widget. */
-    void mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
-
-    /** Unmap a single key sequence for a specific VC widget. */
-    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
-
-    /** Update the key sequences map for a matching $sequence and $widget with the specified $id */
-    void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
-
-    /** Rebuild the entire key sequence map for all the child widgets
-     *  of thiss page. This is called on project XML loading */
-    void buildKeySequenceMap();
-
-    /** Method invoked by the Virtual Console when an key press/release signal is received.
-     *  This is in charge of delivering the event to the children widgets expecting it. */
-    void handleKeyEvent(QKeyEvent *e, bool pressed);
+    void inputValueChanged(quint32 inputSourceKey, uchar value);
 
 private:
     /** This variable represents the map of all the external controllers
@@ -99,6 +87,31 @@ private:
      */
     QMultiHash <quint32, QPair<QSharedPointer<QLCInputSource>, VCWidget *> > m_inputSourcesMap;
 
+    /*********************************************************************
+     * Keyboard input
+     *********************************************************************/
+public:
+    /** Map a single key sequence for a specific VC widget. */
+    void mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+
+    /** Unmap a single key sequence for a specific VC widget. */
+    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+
+    /** Update the key sequences map for a matching $sequence and $widget with the specified $id */
+    void updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+
+    /** Rebuild the entire key sequence map for all the child widgets
+     *  of thiss page. This is called on project XML loading */
+    void buildKeySequenceMap();
+
+    /** Retrieve all the key sequences related to this page */
+    QList<QKeySequence> pageKeySequences();
+
+    /** Method invoked by the Virtual Console when an key press/release signal is received.
+     *  This is in charge of delivering the event to the children widgets expecting it. */
+    void handleKeyEvent(QKeySequence &seq, bool pressed);
+
+private:
     /** This variable represents the map of all the key bindings for every
      *  child widget of this VC Page.
      *

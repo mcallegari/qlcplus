@@ -62,7 +62,7 @@ void Peperoni::init()
     }
 }
 
-QString Peperoni::name()
+QString Peperoni::name() const
 {
     return QString("Peperoni");
 }
@@ -109,7 +109,7 @@ QStringList Peperoni::outputs()
     return list;
 }
 
-QString Peperoni::pluginInfo()
+QString Peperoni::pluginInfo() const
 {
     QString str;
 
@@ -149,9 +149,10 @@ QString Peperoni::outputInfo(quint32 output)
     return str;
 }
 
-void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output < quint32(m_devices.size()))
         m_devices.at(output)->outputDMX(data);
@@ -223,7 +224,7 @@ void Peperoni::configure()
         rescanDevices();
 }
 
-bool Peperoni::canConfigure()
+bool Peperoni::canConfigure() const
 {
     return true;
 }

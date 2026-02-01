@@ -73,7 +73,7 @@ void OlaIO::init()
     setServerEmbedded(es);
 }
 
-QString OlaIO::name()
+QString OlaIO::name() const
 {
     return QString("OLA");
 }
@@ -148,7 +148,7 @@ QStringList OlaIO::outputs()
     return list;
 }
 
-QString OlaIO::pluginInfo()
+QString OlaIO::pluginInfo() const
 {
     QString str;
 
@@ -183,9 +183,10 @@ QString OlaIO::outputInfo(quint32 output)
     return str;
 }
 
-void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data)
+void OlaIO::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
 {
     Q_UNUSED(universe)
+    Q_UNUSED(dataChanged)
 
     if (output > UNIVERSE_COUNT || !m_thread)
         return;
@@ -216,7 +217,7 @@ void OlaIO::configure()
     emit configurationChanged();
 }
 
-bool OlaIO::canConfigure()
+bool OlaIO::canConfigure() const
 {
     return true;
 }

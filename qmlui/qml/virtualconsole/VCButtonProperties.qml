@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -90,8 +90,7 @@ Rectangle
                     {
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        faSource: FontAwesome.fa_remove
-                        faColor: UISettings.bgControl
+                        faSource: FontAwesome.fa_xmark
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.functionID = -1
                     }
@@ -270,6 +269,53 @@ Rectangle
                               }
                           }
                       }
+                  }
+              }
+
+        }
+
+        SectionBox
+        {
+            id: flashProperties
+            visible: widgetRef ? widgetRef.actionType === VCButton.Flash : false
+            sectionLabel: qsTr("Flash properties")
+
+            sectionContents:
+              RowLayout
+              {
+                  width: parent.width
+                  spacing: 10
+
+                  RobotoText
+                  {
+                      id: flashOverrideLabel
+                      height: UISettings.listItemHeight
+                      label: qsTr("Override priority")
+                  }
+
+                  CustomCheckBox
+                  {
+                      id: flashOverrideCheckBox
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef.flashOverrides
+                      onClicked: widgetRef.flashOverrides = checked
+                  }
+
+                  RobotoText
+                  {
+                      id: flashForceLTPLabel
+                      height: UISettings.listItemHeight
+                      label: qsTr("Force LTP")
+                  }
+
+                  CustomCheckBox
+                  {
+                      id: flashForceLTPCheckBox
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef.flashForceLTP
+                      onClicked: widgetRef.flashForceLTP = checked
                   }
               }
 

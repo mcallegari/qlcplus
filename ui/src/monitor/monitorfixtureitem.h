@@ -81,10 +81,12 @@ struct FixtureHead
     QColor m_tiltColor;
 };
 
-class MonitorFixtureItem : public QObject, public QGraphicsItem
+class MonitorFixtureItem final : public QObject, public QGraphicsItem
 {
     Q_OBJECT
     Q_INTERFACES(QGraphicsItem)
+
+    friend class MonitorFixturePropertiesEditor;
 
 public:
     MonitorFixtureItem(Doc *doc, quint32 fid);
@@ -98,19 +100,19 @@ public:
     void setRealPosition(QPointF pos) { m_realPos = pos; }
 
     /** Return the position of this fixture express in the monitor measure units */
-    QPointF realPosition() { return m_realPos; }
+    QPointF realPosition() const { return m_realPos; }
 
     /** Sets the dimension of this fixture */
     void setSize(QSize size);
 
     void setGelColor(QColor color) { m_gelColor = color; }
-    QColor getColor() { return m_gelColor; }
+    QColor getColor() const { return m_gelColor; }
 
     /** Return the fixture ID associated to this item */
-    quint32 fixtureID() { return m_fid; }
+    quint32 fixtureID() const { return m_fid; }
 
     /** Return the number of heads represented by this item */
-    int headsCount() { return m_heads.count(); }
+    int headsCount() const { return m_heads.count(); }
 
     /** Show/hide this fixture item label */
     void showLabel(bool visible);
@@ -122,12 +124,12 @@ protected slots:
     void slotStrobeTimer();
 
 protected:
-    QRectF boundingRect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *) override;
 
 private:
     void computeTiltPosition(FixtureHead *h, uchar value);

@@ -1,0 +1,15 @@
+[Unit]
+Description=Q Light Controller Plus
+Documentation=man:qlcplus(1)
+After=graphical.target
+DefaultDependencies=no
+
+[Service]
+Type=simple
+User=pi
+Restart=on-failure
+RestartSec=3
+ExecStart=/usr/sbin/qlcplus-start.sh
+
+[Install]
+WantedBy=multi-user.target

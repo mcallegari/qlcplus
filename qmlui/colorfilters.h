@@ -25,7 +25,7 @@
 #include <QColor>
 #include <QFile>
 
-#define KXMLColorFilters QString("ColorFilters")
+#define KXMLColorFilters QStringLiteral("ColorFilters")
 
 typedef struct
 {
@@ -34,7 +34,7 @@ typedef struct
     QColor m_wauv;  // White / Amber / UV values
 } ColorInfo;
 
-class ColorFilters : public QObject
+class ColorFilters final : public QObject
 {
     Q_OBJECT
 

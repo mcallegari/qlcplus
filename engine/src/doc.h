@@ -22,6 +22,7 @@
 #define DOC_H
 
 #include <QObject>
+#include <QTimer>
 #include <QList>
 #include <QFile>
 #include <QMap>
@@ -47,10 +48,10 @@ class MonitorProperties;
  * @{
  */
 
-#define KXMLQLCEngine QString("Engine")
-#define KXMLQLCStartupFunction QString("Autostart")
+#define KXMLQLCEngine QStringLiteral("Engine")
+#define KXMLQLCStartupFunction QStringLiteral("Autostart")
 
-class Doc : public QObject
+class Doc final : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(Doc)
@@ -81,7 +82,7 @@ public:
     void setWorkspacePath(QString path);
 
     /** Retrieve the current workspace absolute path */
-    QString getWorkspacePath() const;
+    QString workspacePath() const;
 
     /** If filePath is in the workspace directory or in one of its subdirectories,
      *  return path relative to the workspace directory.
@@ -100,7 +101,7 @@ public:
     QString denormalizeComponentPath(const QString& filePath) const;
 
 private:
-    QString m_wsPath;
+    QString m_workspacePath;
 
 signals:
     /** Emitted when clearContents() is called, before actually doing anything. */
@@ -147,7 +148,7 @@ public:
     MasterTimer *masterTimer() const;
 
     /** Get the audio input capture object */
-    QSharedPointer<AudioCapture> audioInputCapture();
+    QSharedPointer<AudioCapture> audioInputCapture() const;
 
     /** Destroy a previously created audio capture instance */
     void destroyAudioCapture();
@@ -160,7 +161,7 @@ private:
     AudioPluginCache *m_audioPluginCache;
     MasterTimer *m_masterTimer;
     InputOutputMap *m_ioMap;
-    QSharedPointer<AudioCapture> m_inputCapture;
+    mutable QSharedPointer<AudioCapture> m_inputCapture;
     MonitorProperties *m_monitorProps;
 
     /*********************************************************************
@@ -223,11 +224,13 @@ public:
 signals:
     /** Signal that this Doc has been modified (or unmodified) */
     void modified(bool state);
+    void needAutosave();
 
 protected:
     /** The current Doc load status */
     LoadStatus m_loadStatus;
     bool m_modified;
+    QTimer m_autosaveTimer;
 
     /*********************************************************************
      * Clipboard
@@ -256,7 +259,7 @@ public:
      * @return true if the fixture was successfully added to doc,
      *         otherwise false.
      */
-    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId());
+    bool addFixture(Fixture* fixture, quint32 id = Fixture::invalidId(), bool crossUniverse = false);
 
     /**
      * Delete the given fixture instance from Doc
@@ -268,7 +271,7 @@ public:
     /**
      * Replace the whole fixtures list with a new one.
      * This is done by remapping. Note that no signal is emitted to
-     * avoid loosing scenes and all the stuff connected to fixtures.
+     * avoid losing scenes and all the stuff connected to fixtures.
      * The caller must be aware on this and reassign all the QLC+ project
      * data previously created.
      *
@@ -295,6 +298,13 @@ public:
      * Get a list of fixtures ordered by ID
      */
     QList<Fixture*> const& fixtures() const;
+
+    /**
+     * Get the number of fixtures currently added to the project
+     *
+     * @return The number of fixtures
+     */
+    int fixturesCount() const;
 
     /**
      * Get the fixture that occupies the given DMX address. If multiple fixtures
@@ -530,7 +540,7 @@ public:
     quint32 nextFunctionID();
 
     /**
-     * Set the ID of a function to start everytime QLC+ goes
+     * Set the ID of a function to start every time QLC+ goes
      * in operate mode
      *
      * @param fid The ID of the function

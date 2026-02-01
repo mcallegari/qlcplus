@@ -118,8 +118,8 @@ void HPMPrivate::run()
     io_iterator_t rawAddedIter = 0;
     io_iterator_t rawRemovedIter = 0;
 
-    // Create an IOMasterPort for accessing IOKit
-    kern_return_t kr = IOMasterPort(MACH_PORT_NULL, &masterPort);
+    // Create an IOMainPort for accessing IOKit
+    kern_return_t kr = IOMainPort(MACH_PORT_NULL, &masterPort);
     if (kr || !masterPort)
     {
         qWarning() << Q_FUNC_INFO << "Unable to create a master I/O Kit port" << kr;

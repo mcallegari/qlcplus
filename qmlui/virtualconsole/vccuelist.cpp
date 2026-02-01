@@ -75,7 +75,7 @@ VCCueList::~VCCueList()
         delete m_item;
 }
 
-QString VCCueList::defaultCaption()
+QString VCCueList::defaultCaption() const
 {
     return tr("Cue List %1").arg(id() + 1);
 }
@@ -110,7 +110,7 @@ QString VCCueList::propertiesResource() const
     return QString("qrc:/VCCueListProperties.qml");
 }
 
-VCWidget *VCCueList::createCopy(VCWidget *parent)
+VCWidget *VCCueList::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -216,7 +216,7 @@ void VCCueList::setSideFaderMode(VCCueList::FaderMode mode)
         setSideFaderLevel(100);
 }
 
-VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
+VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr) const
 {
     if (modeStr == "Crossfade")
         return Crossfade;
@@ -226,7 +226,7 @@ VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
     return None;
 }
 
-QString VCCueList::faderModeToString(VCCueList::FaderMode mode)
+QString VCCueList::faderModeToString(VCCueList::FaderMode mode) const
 {
     if (mode == Crossfade)
         return "Crossfade";
@@ -259,21 +259,25 @@ void VCCueList::setSideFaderLevel(int level)
         int newStep = level; // by default we assume the Chaser has more than 256 steps
         if (ch->stepsCount() < 256)
         {
-            float stepSize = 255 / float(ch->stepsCount());
-            if(level >= 255 - stepSize)
+            float stepSize = 256 / float(ch->stepsCount()); //divide up the full 0..255 range
+            stepSize = qFloor((stepSize * 100000.0) + 0.5) / 100000.0; //round to 5 decimals to fix corner cases
+            if (level >= 256.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
                 newStep = qFloor(qreal(level) / qreal(stepSize));
+            //qDebug() << "value:" << value << " new step:" << newStep << " stepSize:" << stepSize;
         }
-        //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
+
+        if (newStep == ch->currentStepIndex())
+            return;
 
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = newStep;
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
         ch->setAction(action);
-
-        if (newStep == ch->currentStepIndex())
-            return;
     }
     else
     {
@@ -432,6 +436,18 @@ void VCCueList::setStepNote(int index, QString text)
     m_stepsList->setDataWithRole(mIdx, "note", text);
 }
 
+void VCCueList::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored)
+{
+    Q_UNUSED(widget)
+    Q_UNUSED(fIntensity)
+    Q_UNUSED(excludeMonitored)
+
+    if (fid == m_chaserID)
+        return;
+
+    stopChaser();
+}
+
 quint32 VCCueList::chaserID() const
 {
     return m_chaserID;
@@ -487,6 +503,8 @@ void VCCueList::setChaserID(quint32 fid)
                 this, SLOT(slotCurrentStepChanged(int)));
         connect(function, SIGNAL(stepChanged(int)),
                 this, SLOT(slotStepChanged(int)));
+        connect(function, SIGNAL(stepsListChanged(quint32)),
+                this, SLOT(slotStepsListChanged(quint32)));
 
         emit chaserIDChanged(fid);
     }
@@ -521,6 +539,15 @@ void VCCueList::slotStepChanged(int index)
 {
     ChaserStep *step = chaser()->stepAt(index);
     ChaserEditor::updateStepInListModel(m_doc, chaser(), m_stepsList, step, index);
+}
+
+void VCCueList::slotStepsListChanged(quint32 fid)
+{
+    if (fid == m_chaserID)
+    {
+        ChaserEditor::updateStepsList(m_doc, chaser(), m_stepsList);
+        emit stepsListChanged();
+    }
 }
 
 void VCCueList::slotFunctionNameChanged(quint32 fid)
@@ -646,6 +673,21 @@ void VCCueList::stopChaser()
     emit playbackStatusChanged();
 }
 
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCCueList::updateFeedback()
+{
+    sendFeedback(m_sideFaderLevel, INPUT_SIDE_FADER_ID, VCWidget::ExactValue);
+
+    Chaser *ch = chaser();
+    if (ch == NULL)
+        return;
+
+    sendFeedback(ch->isRunning() ? UCHAR_MAX : 0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
+}
+
 void VCCueList::slotInputValueChanged(quint8 id, uchar value)
 {
     switch(id)
@@ -654,7 +696,7 @@ void VCCueList::slotInputValueChanged(quint8 id, uchar value)
         case INPUT_PREVIOUS_STEP_ID:
         case INPUT_PLAY_PAUSE_ID:
         case INPUT_STOP_PAUSE_ID:
-            if (value != UCHAR_MAX)
+            if (value == 0)
                 return;
         break;
         default:
@@ -737,8 +779,7 @@ void VCCueList::stopClicked()
     }
     else
     {
-        //m_primaryIndex = 0;
-        //m_tree->setCurrentItem(m_tree->topLevelItem(getFirstIndex()));
+        setPlaybackIndex(-1);
     }
 }
 
@@ -863,7 +904,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
     if (fid == m_chaserID)
     {
         emit playbackStatusChanged();
-        setPlaybackIndex(-1);
+
         sendFeedback(0, INPUT_PLAY_PAUSE_ID, VCWidget::ExactValue);
 
         m_timer->stop();
@@ -1021,7 +1062,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCCueList::saveXML(QXmlStreamWriter *doc)
+bool VCCueList::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1052,11 +1093,11 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
 
     /* Input controls */
-    saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, KXMLQLCVCCueListNext);
-    saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, KXMLQLCVCCueListPrevious);
-    saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, KXMLQLCVCCueListPlayback);
-    saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, KXMLQLCVCCueListStop);
-    saveXMLInputControl(doc, INPUT_SIDE_FADER_ID, KXMLQLCVCCueListCrossfadeLeft);
+    saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, false, KXMLQLCVCCueListNext);
+    saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, false, KXMLQLCVCCueListPrevious);
+    saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, false, KXMLQLCVCCueListPlayback);
+    saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, false, KXMLQLCVCCueListStop);
+    saveXMLInputControl(doc, INPUT_SIDE_FADER_ID, false, KXMLQLCVCCueListCrossfadeLeft);
 
     /* End the <CueList> tag */
     doc->writeEndElement();

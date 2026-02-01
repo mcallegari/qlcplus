@@ -36,7 +36,7 @@ class Doc;
  * @{
  */
 
-class VCSliderProperties : public QDialog, public Ui_VCSliderProperties
+class VCSliderProperties final : public QDialog, public Ui_VCSliderProperties
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCSliderProperties)
@@ -55,6 +55,7 @@ protected slots:
     void slotModeLevelClicked();
     void slotModePlaybackClicked();
     void slotModeSubmasterClicked();
+    void slotTabChanged();
 
 protected:
     void setLevelPageVisibility(bool visible);
@@ -130,6 +131,7 @@ protected slots:
     /** Callback for tree item expanded/collapsed */
     void slotItemExpanded();
 
+    /** Callback for monitoring enable */
     void slotMonitorCheckClicked(bool checked);
 
 protected:
@@ -145,6 +147,9 @@ public slots:
     /** Callback for playback function detach clicks */
     void slotDetachPlaybackFunctionClicked();
 
+    /** Callback for flah button enable */
+    void slotFlashCheckClicked(bool checked);
+
 protected:
     /** Update the name of the playback function, based on m_playbackFunctionId */
     void updatePlaybackFunctionName();
@@ -152,6 +157,8 @@ protected:
 protected:
     /** The currently selected playback function */
     quint32 m_playbackFunctionId;
+
+    InputSelectionWidget *m_flashInputWidget;
 
     /*************************************************************************
      * Submaster page
@@ -170,7 +177,7 @@ protected:
 
 protected slots:
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 
 protected:
     /** The slider, whose properties are being edited */

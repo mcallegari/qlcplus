@@ -38,40 +38,44 @@ class QFile;
  * @{
  */
 
-#define KXMLQLCVCCaption    QString("Caption")
-#define KXMLQLCVCFrameStyle QString("FrameStyle")
+#define KXMLQLCVCCaption    QStringLiteral("Caption")
+#define KXMLQLCVCFrameStyle QStringLiteral("FrameStyle")
 
-#define KXMLQLCVCWidgetID           QString("ID")
-#define KXMLQLCVCWidgetPage         QString("Page")
-#define KXMLQLCVCWidgetAppearance   QString("Appearance")
+#define KXMLQLCVCWidgetID           QStringLiteral("ID")
+#define KXMLQLCVCWidgetPage         QStringLiteral("Page")
+#define KXMLQLCVCWidgetAppearance   QStringLiteral("Appearance")
 
-#define KXMLQLCVCWidgetForegroundColor  QString("ForegroundColor")
-#define KXMLQLCVCWidgetBackgroundColor  QString("BackgroundColor")
-#define KXMLQLCVCWidgetColorDefault     QString("Default")
+#define KXMLQLCVCWidgetForegroundColor  QStringLiteral("ForegroundColor")
+#define KXMLQLCVCWidgetBackgroundColor  QStringLiteral("BackgroundColor")
+#define KXMLQLCVCWidgetColorDefault     QStringLiteral("Default")
 
-#define KXMLQLCVCWidgetFont         QString("Font")
-#define KXMLQLCVCWidgetFontDefault  QString("Default")
+#define KXMLQLCVCWidgetFont         QStringLiteral("Font")
+#define KXMLQLCVCWidgetFontDefault  QStringLiteral("Default")
 
-#define KXMLQLCVCWidgetBackgroundImage      QString("BackgroundImage")
-#define KXMLQLCVCWidgetBackgroundImageNone  QString("None")
+#define KXMLQLCVCWidgetBackgroundImage      QStringLiteral("BackgroundImage")
+#define KXMLQLCVCWidgetBackgroundImageNone  QStringLiteral("None")
 
 #define KVCFrameStyleSunken (QFrame::Panel | QFrame::Sunken)
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
 #define KVCFrameStyleNone   (QFrame::NoFrame)
 
-#define KXMLQLCVCWidgetKey              QString("Key")
-#define KXMLQLCVCWidgetInput            QString("Input")
-#define KXMLQLCVCWidgetInputUniverse    QString("Universe")
-#define KXMLQLCVCWidgetInputChannel     QString("Channel")
-#define KXMLQLCVCWidgetInputLowerValue  QString("LowerValue")
-#define KXMLQLCVCWidgetInputUpperValue  QString("UpperValue")
+#define KXMLQLCVCWidgetKey                  QStringLiteral("Key")
+#define KXMLQLCVCWidgetInput                QStringLiteral("Input")
+#define KXMLQLCVCWidgetInputUniverse        QStringLiteral("Universe")
+#define KXMLQLCVCWidgetInputChannel         QStringLiteral("Channel")
+#define KXMLQLCVCWidgetInputLowerValue      QStringLiteral("LowerValue")
+#define KXMLQLCVCWidgetInputUpperValue      QStringLiteral("UpperValue")
+#define KXMLQLCVCWidgetInputMonitorValue    QStringLiteral("MonitorValue")
+#define KXMLQLCVCWidgetInputLowerParams     QStringLiteral("LowerParams")
+#define KXMLQLCVCWidgetInputUpperParams     QStringLiteral("UpperParams")
+#define KXMLQLCVCWidgetInputMonitorParams   QStringLiteral("MonitorParams")
 
-#define KXMLQLCWindowState          QString("WindowState")
-#define KXMLQLCWindowStateVisible   QString("Visible")
-#define KXMLQLCWindowStateX         QString("X")
-#define KXMLQLCWindowStateY         QString("Y")
-#define KXMLQLCWindowStateWidth     QString("Width")
-#define KXMLQLCWindowStateHeight    QString("Height")
+#define KXMLQLCWindowState          QStringLiteral("WindowState")
+#define KXMLQLCWindowStateVisible   QStringLiteral("Visible")
+#define KXMLQLCWindowStateX         QStringLiteral("X")
+#define KXMLQLCWindowStateY         QStringLiteral("Y")
+#define KXMLQLCWindowStateWidth     QStringLiteral("Width")
+#define KXMLQLCWindowStateHeight    QStringLiteral("Height")
 
 class VCWidget : public QWidget
 {
@@ -137,7 +141,7 @@ public:
     void setType(int type);
 
     /** Get the widget's type */
-    int type();
+    int type() const;
 
     static QString typeToString(int type);
     static QIcon typeToIcon(int type);
@@ -165,7 +169,10 @@ public:
 
     virtual void enableWidgetUI(bool enable);
 
-    bool isDisabled();
+    bool isDisabled() const;
+
+signals:
+    void disableStateChanged(bool disable);
 
 protected:
     bool m_disableState;
@@ -175,7 +182,7 @@ protected:
      *********************************************************************/
 public:
     void setPage(int pNum);
-    int page();
+    int page() const;
 
 protected:
     int m_page;
@@ -185,7 +192,7 @@ protected:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent and return it */
-    virtual VCWidget* createCopy(VCWidget* parent) = 0;
+    virtual VCWidget* createCopy(VCWidget* parent) const = 0;
 
 protected:
     /** Copy the contents for this widget from the given widget */
@@ -342,8 +349,7 @@ public:
      *  can benefit from this.
      *  Basically when placed in a Solo frame, with this method it is
      *  possible to stop the currently running Function */
-    virtual void notifyFunctionStarting(quint32 fid, qreal intensity)
-    { Q_UNUSED(fid); Q_UNUSED(intensity); }
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity, bool excludeMonitored);
 
     virtual void adjustFunctionIntensity(Function *f, qreal value);
 
@@ -386,7 +392,7 @@ public:
     /**
      * Helper method to check if the widget is in a state to accept external inputs
      */
-    bool acceptsInput();
+    bool acceptsInput() const;
 
     /**
      * Check the input source with the given id against
@@ -443,7 +449,7 @@ public:
      * @param value value from 0 to 255 to be sent
      * @param src the QLCInputSource reference to send the feedback to
      */
-    void sendFeedback(int value, QSharedPointer<QLCInputSource> src);
+    void sendFeedback(int value, QSharedPointer<QLCInputSource> src, QVariant extraParams = QVariant());
 
     /**
      * Send the feedback data again, e.g. after page flip
@@ -529,19 +535,20 @@ protected:
     /** Load input source from $root to $uni and $ch */
     bool loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
 
-    bool saveXMLCommon(QXmlStreamWriter *doc);
-    bool saveXMLAppearance(QXmlStreamWriter *doc);
+    static QString extraParamToString(QVariant param);
+    bool saveXMLCommon(QXmlStreamWriter *doc) const;
+    bool saveXMLAppearance(QXmlStreamWriter *doc) const;
     /** Save the defualt input source to $root */
-    bool saveXMLInput(QXmlStreamWriter *doc);
+    bool saveXMLInput(QXmlStreamWriter *doc) const;
 
     /**
      * Write this widget's geometry and visibility to an XML document.
      *
      * @param doc A QXmlStreamReader to save the tag to
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
-    bool saveXMLWindowState(QXmlStreamWriter *doc);
+    bool saveXMLWindowState(QXmlStreamWriter *doc) const;
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
@@ -553,11 +560,10 @@ protected:
      * @param h Loaded h position
      * @param visible Loaded visible status
      *
-     * @return true if succesful, otherwise false
+     * @return true if successful, otherwise false
      */
     bool loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                             int* w, int* h, bool* visible);
-
 
     /*********************************************************************
      * QLC+ Mode change
@@ -595,7 +601,7 @@ protected:
 public:
     /** Get a custom menu specific to this widget. Ownership is transferred
         to the caller, which must delete the returned menu pointer. */
-    virtual QMenu* customMenu(QMenu* parentMenu);
+    virtual QMenu* customMenu(QMenu* parentMenu) const;
 
     /*********************************************************************
      * Widget move & resize
@@ -618,14 +624,14 @@ protected:
      * Event handlers
      *********************************************************************/
 protected:
-    virtual void paintEvent(QPaintEvent* e);
+    virtual void paintEvent(QPaintEvent* e) override;
 
-    virtual void mousePressEvent(QMouseEvent* e);
+    virtual void mousePressEvent(QMouseEvent* e) override;
     virtual void handleWidgetSelection(QMouseEvent* e);
 
-    virtual void mouseReleaseEvent(QMouseEvent* e);
-    virtual void mouseDoubleClickEvent(QMouseEvent* e);
-    virtual void mouseMoveEvent(QMouseEvent* e);
+    virtual void mouseReleaseEvent(QMouseEvent* e) override;
+    virtual void mouseDoubleClickEvent(QMouseEvent* e) override;
+    virtual void mouseMoveEvent(QMouseEvent* e) override;
 };
 
 /** @} */

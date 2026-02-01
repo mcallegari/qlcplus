@@ -29,7 +29,7 @@
  * @{
  */
 
-class AudioRendererPortAudio : public AudioRenderer
+class AudioRendererPortAudio final : public AudioRenderer
 {
     Q_OBJECT
 public:
@@ -37,37 +37,37 @@ public:
     ~AudioRendererPortAudio();
 
     /** @reimpl */
-    bool initialize(quint32, int, AudioFormat format);
+    bool initialize(quint32, int, AudioFormat format) override;
 
     /** @reimpl */
-    qint64 latency();
+    qint64 latency() const override;
 
     static QList<AudioDeviceInfo> getDevicesInfo();
 
 protected:
     /** @reimpl */
-    qint64 writeAudio(unsigned char *data, qint64 maxSize);
+    qint64 writeAudio(unsigned char *data, qint64 maxSize) override;
 
     int getPendingDataSize();
 
     /** @reimpl */
-    void drain();
+    void drain() override;
 
     /** @reimpl */
-    void reset();
+    void reset() override;
 
     /** @reimpl */
-    void suspend();
+    void suspend() override;
 
     /** @reimpl */
-    void resume();
+    void resume() override;
 
 private:
-    static int dataCallback ( const void *inputBuffer, void *outputBuffer,
-                               unsigned long framesPerBuffer,
-                               const PaStreamCallbackTimeInfo* timeInfo,
-                               PaStreamCallbackFlags statusFlags,
-                               void *userData );
+    static int dataCallback (const void *inputBuffer, void *outputBuffer,
+                             unsigned long framesPerBuffer,
+                             const PaStreamCallbackTimeInfo* timeInfo,
+                             PaStreamCallbackFlags statusFlags,
+                             void *userData );
 
     PaStream *m_paStream;
     QMutex m_paMutex;

@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -38,6 +38,7 @@ Rectangle
     property bool showPalette: false
 
     signal valueChanged(int value)
+    signal close()
 
     Canvas
     {
@@ -92,7 +93,8 @@ Rectangle
         {
             anchors.fill: parent
 
-            onClicked: {
+            function calculateValue(mouse)
+            {
                 var val = 0
 
                 if (mouse.x < width * 0.1)
@@ -111,6 +113,20 @@ Rectangle
 
                 boxRoot.currentValue = val
                 boxRoot.valueChanged(val)
+            }
+
+            onPressed: (mouse) => calculateValue(mouse)
+            onPositionChanged: (mouse) =>
+            {
+                if (!pressed)
+                    return
+
+                calculateValue(mouse)
+            }
+            onReleased:
+            {
+                if (closeOnSelect)
+                    boxRoot.close()
             }
         }
     }

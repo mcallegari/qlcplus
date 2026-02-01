@@ -66,10 +66,14 @@ typedef struct
 {
     QString shortName;
     QString longName;
+    int portsNumber;
+    bool isInput;
+    bool isOutput;
+    ushort universe;
     // ... can be extended with more info to be added by fillArtPollReplyInfo
 } ArtNetNodeInfo;
 
-class ArtNetPacketizer
+class ArtNetPacketizer final
 {
     /*********************************************************************
      * Initialization
@@ -86,7 +90,8 @@ public:
     void setupArtNetPoll(QByteArray& data);
 
     /** Prepare an ArtNetPollReply packet */
-    void setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr, QString MACaddr);
+    void setupArtNetPollReply(QByteArray &data, QHostAddress ipAddr,
+                              QString MACaddr, quint32 universe, bool isInput);
 
     /** Prepare an ArtNetDmx packet */
     void setupArtNetDmx(QByteArray& data, const int& universe, const QByteArray &values);

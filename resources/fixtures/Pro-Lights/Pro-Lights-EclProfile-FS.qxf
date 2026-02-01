@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Tolmino Muccitelli</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>EclProfile FS</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="CTC Preset">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="22">2000K</Capability>
+  <Capability Min="23" Max="57">2000K-&gt;2700K</Capability>
+  <Capability Min="58" Max="90">2700K-&gt;3200K</Capability>
+  <Capability Min="91" Max="139">3200K-&gt;4200K</Capability>
+  <Capability Min="140" Max="185">4200K-&gt;5600K</Capability>
+  <Capability Min="186" Max="234">5600K-&gt;8000K</Capability>
+  <Capability Min="235" Max="255">8000K-&gt;10000K</Capability>
+ </Channel>
+ <Channel Name="CTC Fine">
+  <Group Byte="1">Colour</Group>
+  <Capability Min="0" Max="255">Ctc Fine</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="CTC Preset2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="22">No function</Capability>
+  <Capability Min="23" Max="57">2000K-&gt;2700K</Capability>
+  <Capability Min="58" Max="90">2700K-&gt;3200K</Capability>
+  <Capability Min="91" Max="139">3200K-&gt;4200K</Capability>
+  <Capability Min="140" Max="185">4200K-&gt;5600K</Capability>
+  <Capability Min="186" Max="234">5600K-&gt;8000K</Capability>
+  <Capability Min="235" Max="255">8000K-&gt;10000K</Capability>
+ </Channel>
+ <Channel Name="Shutter Function">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">Normal Shutter Functions</Capability>
+  <Capability Min="4" Max="255">Strobe effect slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fade">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-&gt;100%</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="1" Preset="ShutterClose">Close</Capability>
+  <Capability Min="2" Max="62" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="63" Max="64" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="65" Max="125" Preset="PulseSlowToFast">Pulse in from slow to fast</Capability>
+  <Capability Min="126" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="188" Preset="PulseSlowToFast">Pulse out from slow to fast</Capability>
+  <Capability Min="189" Max="190" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="191" Max="251" Preset="StrobeRandomSlowToFast">Random from slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="CTC Function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">CTC</Capability>
+  <Capability Min="128" Max="255">CTC + Amber Shift</Capability>
+ </Channel>
+ <Channel Name="CTC / CTC + Amber Shift">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Linear from 2000K to 10000K</Capability>
+ </Channel>
+ <Channel Name="Hue">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">-25</Capability>
+  <Capability Min="128" Max="128">0</Capability>
+  <Capability Min="129" Max="255">+25</Capability>
+ </Channel>
+ <Channel Name="Crossfade from white to color">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Linear from CTC to Color engine</Capability>
+ </Channel>
+ <Channel Name="Virtual color function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">On Function</Capability>
+  <Capability Min="17" Max="31" Preset="Alias">White presets Function
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func White preset)"/>
+  </Capability>
+  <Capability Min="32" Max="47" Preset="Alias">Forward Spin
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Forward Spin)"/>
+  </Capability>
+  <Capability Min="48" Max="63" Preset="Alias">Reverse Spin
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Reverse Spin)"/>
+  </Capability>
+  <Capability Min="64" Max="79" Preset="Alias">Continuous
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="Virtual color 1 (on func Continuous &amp; Color Bounce)"/>
+  </Capability>
+  <Capability Min="80" Max="111" Preset="Alias">Color Bounce
+   <Alias Mode="Theatre 20 Channel" Channel="Virtual color 1 (on func White preset)" With="No Virtual color"/>
+   <Alias Mode="Theatre 20 Channel" Channel="No Virtual color" With="Virtual color 2 (only work on func Color Bounce)"/>
+  </Capability>
+  <Capability Min="112" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Virtual color 1 (on func White preset)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="22">2000K</Capability>
+  <Capability Min="23" Max="57">2000K-&gt;2700K</Capability>
+  <Capability Min="58" Max="90">2700K-&gt;3200K</Capability>
+  <Capability Min="91" Max="139">3200K-&gt;4200K</Capability>
+  <Capability Min="140" Max="185">4200K-&gt;5600K</Capability>
+  <Capability Min="186" Max="234">5600K-&gt;8000K</Capability>
+  <Capability Min="235" Max="255">8000K-&gt;10000K</Capability>
+ </Channel>
+ <Channel Name="Virtual color 1 (on func Forward Spin)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Rainbow Effect (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Virtual color 1 (on func Reverse Spin)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Rainbow Effect (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Virtual color 1 (on func Continuous &amp; Color Bounce)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Black</Capability>
+  <Capability Min="1" Max="1">Red</Capability>
+  <Capability Min="2" Max="2">Green</Capability>
+  <Capability Min="3" Max="3">Blue</Capability>
+  <Capability Min="4" Max="4">Lime</Capability>
+  <Capability Min="5" Max="5">LED All</Capability>
+  <Capability Min="6" Max="66">Red-&gt;up,Green-&gt;down,Blue=full, Lime=full</Capability>
+  <Capability Min="67" Max="128">Red=full,Green-&gt;up,Blue-&gt;down, Lime=full</Capability>
+  <Capability Min="129" Max="191">Red=full,Green=full,Blue-&gt;up, Lime-&gt;down</Capability>
+  <Capability Min="192" Max="255">Red-&gt;down,Green=full,Blue=full, Lime-&gt;up</Capability>
+ </Channel>
+ <Channel Name="Virtual color 2 (only work on func Color Bounce)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Black</Capability>
+  <Capability Min="1" Max="1">Red</Capability>
+  <Capability Min="2" Max="2">Green</Capability>
+  <Capability Min="3" Max="3">Blue</Capability>
+  <Capability Min="4" Max="4">Lime</Capability>
+  <Capability Min="5" Max="5">LED All</Capability>
+  <Capability Min="6" Max="66">Red-&gt;up,Green-&gt;down,Blue=full, Lime=full</Capability>
+  <Capability Min="67" Max="128">Red=full,Green-&gt;up,Blue-&gt;down, Lime=full</Capability>
+  <Capability Min="129" Max="191">Red=full,Green=full,Blue-&gt;up, Lime-&gt;down</Capability>
+  <Capability Min="192" Max="255">Red-&gt;down,Green=full,Blue=full, Lime-&gt;up</Capability>
+ </Channel>
+ <Channel Name="CTO on colors" Preset="ColorCTOMixer"/>
+ <Channel Name="No Virtual color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Do Nothing</Capability>
+ </Channel>
+ <Mode Name="3200K">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="5400K">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="6500K">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Dimmer Fade</Channel>
+ </Mode>
+ <Mode Name="RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel RGBL">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">CTC Preset</Channel>
+  <Channel Number="3">CTC Fine</Channel>
+  <Channel Number="4">Dimmer Fade</Channel>
+ </Mode>
+ <Mode Name="5 Channel RGBL">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Lime</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Lime</Channel>
+  <Channel Number="5">CTC Preset2</Channel>
+  <Channel Number="6">Shutter Function</Channel>
+  <Channel Number="7">Dimmer Fade</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">Lime</Channel>
+  <Channel Number="9">Lime fine</Channel>
+  <Channel Number="10">CTC Preset2</Channel>
+  <Channel Number="11">Shutter Function</Channel>
+  <Channel Number="12">Dimmer Fade</Channel>
+ </Mode>
+ <Mode Name="Theatre 20 Channel">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Dimmer Fade</Channel>
+  <Channel Number="4">CTC Function</Channel>
+  <Channel Number="5">CTC / CTC + Amber Shift</Channel>
+  <Channel Number="6">Hue</Channel>
+  <Channel Number="7">Crossfade from white to color</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Red fine</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Green fine</Channel>
+  <Channel Number="12">Blue</Channel>
+  <Channel Number="13">Blue fine</Channel>
+  <Channel Number="14">Lime</Channel>
+  <Channel Number="15">Lime fine</Channel>
+  <Channel Number="16">Virtual color function</Channel>
+  <Channel Number="17" ActsOn="16">Virtual color 1 (on func White preset)</Channel>
+  <Channel Number="18" ActsOn="16">No Virtual color</Channel>
+  <Channel Number="19">CTO on colors</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6100" ColourTemperature="5600"/>
+  <Dimensions Weight="7.3" Width="265" Height="259" Depth="540"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="70"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="5-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

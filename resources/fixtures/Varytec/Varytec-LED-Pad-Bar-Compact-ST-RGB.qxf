@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Clément Delabroye</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Pad Bar Compact ST RGB</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Program select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="50">Automatic programmes</Capability>
+  <Capability Min="51" Max="90">Stroboscope programmes</Capability>
+  <Capability Min="91" Max="130">Shows</Capability>
+  <Capability Min="131" Max="170">Automatic programmes sound mode</Capability>
+  <Capability Min="171" Max="210">Stroboscope programmes sound mode</Capability>
+  <Capability Min="211" Max="255">Shows sound mode</Capability>
+ </Channel>
+ <Channel Name="Sub program select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sub program select</Capability>
+ </Channel>
+ <Channel Name="Program Speed (Slow to fast)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Program Speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer &amp; Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="191">Dimmer (0 % to 100 %)</Capability>
+  <Capability Min="192" Max="200" Preset="SlowToFast">Strobe effect sound mode, increasing speed</Capability>
+  <Capability Min="201" Max="249" Preset="SlowToFast">Strobe effect, increasing speed</Capability>
+  <Capability Min="250" Max="255">All LEDs on</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Spot 1 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 1 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 1 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 1 - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Spot 1 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Spot 2 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2 -Green fine" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2 -Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 2 -Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Spot 2 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Spot 3 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3 - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Spot 3 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Spot 4 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 4 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 4 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 4 - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Spot 4 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="LED 1 - Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="LED 2 - Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="LED 3 - Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="LED 4 - Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Strobe</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Program select</Channel>
+  <Channel Number="1">Sub program select</Channel>
+  <Channel Number="2">Program Speed (Slow to fast)</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer &amp; Strobe</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="24 Channel">
+  <Channel Number="0">Spot 1 - Red</Channel>
+  <Channel Number="1">Spot 1 - Green</Channel>
+  <Channel Number="2">Spot 1 - Blue</Channel>
+  <Channel Number="3">Spot 1 - Dimmer</Channel>
+  <Channel Number="4">Spot 1 - Strobe</Channel>
+  <Channel Number="5">Spot 2 - Red</Channel>
+  <Channel Number="6">Spot 2 -Green fine</Channel>
+  <Channel Number="7">Spot 2 -Blue</Channel>
+  <Channel Number="8">Spot 2 -Dimmer</Channel>
+  <Channel Number="9">Spot 2 - Strobe</Channel>
+  <Channel Number="10">Spot 3 - Red</Channel>
+  <Channel Number="11">Spot 3 - Green</Channel>
+  <Channel Number="12">Spot 3 - Blue</Channel>
+  <Channel Number="13">Spot 3 - Dimmer</Channel>
+  <Channel Number="14">Spot 3 - Strobe</Channel>
+  <Channel Number="15">Spot 4 - Red</Channel>
+  <Channel Number="16">Spot 4 - Green</Channel>
+  <Channel Number="17">Spot 4 - Blue</Channel>
+  <Channel Number="18">Spot 4 - Dimmer</Channel>
+  <Channel Number="19">Spot 4 - Strobe</Channel>
+  <Channel Number="20">LED 1 - Strobe</Channel>
+  <Channel Number="21">LED 2 - Strobe</Channel>
+  <Channel Number="22">LED 3 - Strobe</Channel>
+  <Channel Number="23">LED 4 - Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="1032" Height="235" Depth="71"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

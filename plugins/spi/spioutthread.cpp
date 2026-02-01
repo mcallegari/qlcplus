@@ -48,15 +48,15 @@ void SPIOutThread::runThread(int fd, int speed)
     int status = -1;
 
     status = ioctl (m_spifd, SPI_IOC_WR_MODE, &mode);
-    if(status < 0)
+    if (status < 0)
         qWarning() << "Could not set SPIMode (WR)...ioctl fail";
 
     status = ioctl (m_spifd, SPI_IOC_WR_BITS_PER_WORD, &m_bitsPerWord);
-    if(status < 0)
+    if (status < 0)
         qWarning() << "Could not set SPI bitsPerWord (WR)...ioctl fail";
 
     status = ioctl (m_spifd, SPI_IOC_WR_MAX_SPEED_HZ, &m_speed);
-    if(status < 0)
+    if (status < 0)
         qWarning() << "Could not set SPI speed (WR)...ioctl fail";
 
     m_isRunning = true;
@@ -129,7 +129,7 @@ void SPIOutThread::writeData(const QByteArray &data)
     m_pluginData = data;
     if (m_dataSize != data.size())
     {
-        // Data size has changed ! I need to estimate the
+        // Data size has changed! I need to estimate the
         // time that the SPI writes will take on the wire.
         // The estimation is very unprecise and it is based
         // on Simon Newton's measurements on a Raspberry Pi

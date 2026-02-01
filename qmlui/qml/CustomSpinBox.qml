@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 2.14
+import QtQuick
+import QtQuick.Controls.Basic
 import "."
 
 SpinBox
@@ -85,6 +85,7 @@ SpinBox
         selectedTextColor: "white"
         horizontalAlignment: Qt.AlignRight
         verticalAlignment: Qt.AlignVCenter
+        rightPadding: 5
 
         readOnly: !control.editable
         validator: control.validator

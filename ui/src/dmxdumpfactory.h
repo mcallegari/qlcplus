@@ -33,7 +33,7 @@ class Doc;
  * @{
  */
 
-class DmxDumpFactory : public QDialog, public Ui_DmxDumpFactory
+class DmxDumpFactory final : public QDialog, public Ui_DmxDumpFactory
 {
     Q_OBJECT
     Q_DISABLE_COPY(DmxDumpFactory)
@@ -63,7 +63,7 @@ protected slots:
     void slotDumpNonZeroChanged(bool active);
 
     /** Callback for OK button clicks */
-    void accept();
+    void accept() override;
 
 };
 

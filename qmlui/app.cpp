@@ -20,6 +20,7 @@
 #include <QQuickItemGrabResult>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QCoreApplication>
 #include <QtCore/qbuffer.h>
 #include <QFontDatabase>
 #include <QOpenGLContext>
@@ -33,13 +34,16 @@
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
+#include <QFileInfo>
+#include <unistd.h>
 
 #include "app.h"
-#include "mainview2d.h"
+#include "uimanager.h"
 #include "simpledesk.h"
 #include "showmanager.h"
 #include "fixtureeditor.h"
 #include "modelselector.h"
+#include "folderbrowser.h"
 #include "videoprovider.h"
 #include "importmanager.h"
 #include "contextmanager.h"
@@ -57,18 +61,20 @@
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
-#include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-#define SETTINGS_WORKINGPATH "workspace/workingpath"
-#define SETTINGS_RECENTFILE "workspace/recent"
-#define KXMLQLCWorkspaceWindow "CurrentWindow"
+#define SETTINGS_GEOMETRY      QStringLiteral("workspace/windowrect")
+#define SETTINGS_WORKINGPATH   QStringLiteral("workspace/workingpath")
+#define SETTINGS_RECENTFILE    QStringLiteral("workspace/recent")
+#define KXMLQLCWorkspaceWindow QStringLiteral("CurrentWindow")
 
 #define MAX_RECENT_FILES    10
 
 App::App()
     : QQuickView()
+    , m_forceQuit(false)
+    , m_accessMask(defaultMask())
     , m_translator(nullptr)
     , m_fixtureBrowser(nullptr)
     , m_fixtureManager(nullptr)
@@ -77,6 +83,8 @@ App::App()
     , m_showManager(nullptr)
     , m_simpleDesk(nullptr)
     , m_videoProvider(nullptr)
+    , m_networkManager(nullptr)
+    , m_uiManager(nullptr)
     , m_doc(nullptr)
     , m_docLoaded(false)
     , m_printItem(nullptr)
@@ -89,18 +97,28 @@ App::App()
     updateRecentFilesList();
 
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
-    if (dir.isValid() == true)
+    if (dir.isValid())
         m_workingPath = dir.toString();
-
-    setAccessMask(defaultMask());
 
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
     connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
     connect(this, &App::sceneGraphInitialized, this, &App::slotSceneGraphInitialized);
+    qApp->installEventFilter(this);
 }
 
 App::~App()
 {
+    QSettings settings;
+
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
+        settings.setValue(SETTINGS_GEOMETRY, geometry());
+    else
+        settings.setValue(SETTINGS_GEOMETRY, QVariant());
+
+    /* remove autosave file if present */
+    QFile asFile(autoSaveFileName());
+    if (asFile.exists())
+        asFile.remove();
 }
 
 QString App::appName() const
@@ -119,6 +137,7 @@ void App::startup()
     qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
     qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<FolderBrowser>("org.qlcplus.classes", 1, 0, "FolderBrowser");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
@@ -131,13 +150,10 @@ void App::startup()
 
     rootContext()->setContextProperty("qlcplus", this);
 
-    m_pixelDensity = qMax(screen()->physicalDotsPerInch() *  0.039370, (qreal)screen()->size().height() / 220.0);
-    qDebug() << "Pixel density:" << m_pixelDensity << "size:" << screen()->physicalSize();
-
-    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
-
     initDoc();
 
+    m_uiManager = new UiManager(this, m_doc);
+    rootContext()->setContextProperty("uiManager", m_uiManager);
     m_ioManager = new InputOutputManager(this, m_doc);
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
@@ -149,6 +165,8 @@ void App::startup()
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
     m_showManager = new ShowManager(this, m_doc);
+    connect(m_showManager, &ShowManager::itemClicked, m_contextManager, &ContextManager::setLastClickedType);
+
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
@@ -174,8 +192,33 @@ void App::startup()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    // and here we go !
+    QSettings settings;
+    QRect rect(0, 0, 800, 600);
+    QVariant var = settings.value(SETTINGS_GEOMETRY);
+    if (var.isValid())
+    {
+        //qDebug() << "Restoring window position" << var.toRect();
+        rect = var.toRect();
+        setGeometry(rect);
+        show();
+    }
+    else
+    {
+        QScreen *currScreen = screen();
+        rect.moveTopLeft(currScreen->geometry().topLeft());
+        setGeometry(rect);
+        showMaximized();
+    }
+
+    slotScreenChanged(screen());
+    m_uiManager->initialize();
+    m_showManager->initialize();
+
+    // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
+
+    // set geometry once again
+    setGeometry(rect);
 }
 
 void App::toggleFullscreen()
@@ -215,21 +258,15 @@ void App::setLanguage(QString locale)
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
 
+    QSettings settings;
+    settings.setValue(SETTINGS_LANGUAGE, locale);
+
     engine()->retranslate();
 }
 
 QString App::goboSystemPath() const
 {
     return QLCFile::systemDirectory(GOBODIR).absolutePath();
-}
-
-void App::show()
-{
-    QScreen *currScreen = screen();
-    QRect rect(0, 0, 800, 600);
-    rect.moveTopLeft(currScreen->geometry().topLeft());
-    setGeometry(rect);
-    showMaximized();
 }
 
 qreal App::pixelDensity() const
@@ -244,22 +281,17 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (openglContext() == nullptr)
-        return false;
-
-    int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
-    return glVersion < 33 ? false : true;
-#else
-    // TODO: Qt6
-
     return true;
-#endif
 }
 
-void App::exit()
+void App::aboutQt()
 {
-    //destroy();
+    qApp->aboutQt();
+}
+
+void App::exit(bool force)
+{
+    m_forceQuit = force;
     QApplication::quit();
 }
 
@@ -298,7 +330,7 @@ bool App::event(QEvent *event)
 {
     if (event->type() == QEvent::Close)
     {
-        if (m_doc->isModified())
+        if (m_doc->isModified() && m_forceQuit == false)
         {
             QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
             event->ignore();
@@ -308,22 +340,34 @@ bool App::event(QEvent *event)
     return QQuickView::event(event);
 }
 
+bool App::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::Quit)
+    {
+        if (m_doc && m_doc->isModified() && rootObject() && m_forceQuit == false)
+        {
+            QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
+            event->ignore();
+            return true;
+        }
+    }
+
+    return QQuickView::eventFilter(obj, event);
+}
+
 void App::slotSceneGraphInitialized()
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    if (openglContext() == nullptr)
-        return;
-
-    qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
-#else
     // TODO: Qt6
-#endif
 }
 
 void App::slotScreenChanged(QScreen *screen)
 {
-    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, (qreal)screen->size().height() / 220.0);
-    qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
+    bool isLandscape = (screen->orientation() == Qt::LandscapeOrientation ||
+                     screen->orientation() == Qt::InvertedLandscapeOrientation) ? true : false;
+    qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
+    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
+    qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
+             << ", physical size:" << screen->physicalSize();
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 
@@ -355,14 +399,38 @@ Doc *App::doc()
     return m_doc;
 }
 
+VirtualConsole *App::virtualConsole() const
+{
+    return m_virtualConsole;
+}
+
+SimpleDesk *App::simpleDesk() const
+{
+    return m_simpleDesk;
+}
+
 bool App::docLoaded()
 {
     return m_docLoaded;
 }
 
+void App::setDocLoaded(bool loaded)
+{
+    if (m_docLoaded == loaded)
+        return;
+
+    m_docLoaded = loaded;
+    emit docLoadedChanged();
+}
+
 bool App::docModified() const
 {
     return m_doc->isModified();
+}
+
+void App::slotDocAutosave()
+{
+    saveXML(autoSaveFileName(), true);
 }
 
 void App::initDoc()
@@ -371,6 +439,7 @@ void App::initDoc()
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
+    connect(m_doc, SIGNAL(needAutosave()), this, SLOT(slotDocAutosave()));
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()),
             this, SIGNAL(runningFunctionsCountChanged()));
 
@@ -388,7 +457,7 @@ void App::initDoc()
 
     /* Load plugins */
 #if defined Q_OS_ANDROID
-    QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
+    QString pluginsPath = QCoreApplication::applicationDirPath();
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
 #else
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
@@ -481,7 +550,7 @@ void App::slotItemReadyForPrinting()
 {
     QPrinter printer;
     QPrintDialog *dlg = new QPrintDialog(&printer);
-    if(dlg->exec() == QDialog::Accepted)
+    if (dlg->exec() == QDialog::Accepted)
     {
         QRectF pageRect = printer.pageLayout().paintRect();
         QSize imgSize = m_printerImage->image().size();
@@ -504,7 +573,7 @@ void App::slotItemReadyForPrinting()
         }
 
         // handle multi-page printing
-        while(totalHeight > 0)
+        while (totalHeight > 0)
         {
             painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
             yOffset += pageRect.height();
@@ -535,6 +604,21 @@ QString App::fileName() const
     return m_fileName;
 }
 
+QString App::autoSaveFileName() const
+{
+    QString fName = m_fileName;
+
+    if (fName.isEmpty())
+        fName = "NewProject.autosave.qxw";
+    else
+    {
+        fName.remove(".qxw");
+        fName.append(".autosave.qxw");
+    }
+
+    return fName;
+}
+
 void App::updateRecentFilesList(QString filename)
 {
     QSettings settings;
@@ -553,7 +637,7 @@ void App::updateRecentFilesList(QString filename)
         for (int i = 0; i < MAX_RECENT_FILES; i++)
         {
             QVariant recent = settings.value(QString("%1%2").arg(SETTINGS_RECENTFILE).arg(i));
-            if (recent.isValid() == true)
+            if (recent.isValid())
                 m_recentFiles.append(recent.toString());
         }
     }
@@ -562,6 +646,14 @@ void App::updateRecentFilesList(QString filename)
 QStringList App::recentFiles() const
 {
     return m_recentFiles;
+}
+
+void App::loadLastWorkspace()
+{
+    if (m_recentFiles.isEmpty())
+        return;
+
+    loadWorkspace(m_recentFiles.first());
 }
 
 QString App::workingPath() const
@@ -595,10 +687,11 @@ bool App::newWorkspace()
 
 bool App::loadWorkspace(const QString &fileName)
 {
+    m_contextManager->resetContexts();
+
     /* Clear existing document data */
     clearDocument();
-    m_docLoaded = false;
-    emit docLoadedChanged();
+    setDocLoaded(false);
 
     QString localFilename =  fileName;
     if (localFilename.startsWith("file:"))
@@ -608,12 +701,11 @@ bool App::loadWorkspace(const QString &fileName)
     {
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         setFileName(localFilename);
-        m_docLoaded = true;
         updateRecentFilesList(localFilename);
-        emit docLoadedChanged();
-        m_contextManager->resetContexts();
+        setDocLoaded(true);
         m_doc->resetModified();
         m_videoProvider = new VideoProvider(this, m_doc);
+        m_contextManager->resetContexts();
 
         // autostart Function if set
         if (m_doc->startupFunction() != Function::invalidId())
@@ -645,6 +737,7 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 
     /* Clear existing document data */
     clearDocument();
+    setDocLoaded(false);
 
     QBuffer databuf;
     databuf.setData(xmlData);
@@ -671,14 +764,28 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
     }
 
     if (doc.dtdName() == KXMLQLCWorkspace)
+    {
         loadXML(doc, true, true);
+        setDocLoaded(true);
+        m_doc->resetModified();
+    }
     else
         qDebug() << "XML doesn't have a Workspace tag";
+}
+
+void App::slotSaveAutostart(QString fileName)
+{
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
+    QFile::FileError error = saveXML(fileName);
+    if (error != QFile::NoError)
+        qWarning() << Q_FUNC_INFO << "Unable to save autostart project" << fileName << error;
 }
 
 bool App::saveWorkspace(const QString &fileName)
 {
     QString localFilename = fileName;
+    QString asfName = autoSaveFileName();
+
     if (localFilename.startsWith("file:"))
         localFilename = QUrl(fileName).toLocalFile();
 
@@ -692,6 +799,11 @@ bool App::saveWorkspace(const QString &fileName)
 
     if (saveXML(localFilename) == QFile::NoError)
     {
+        /* remove autosave file if present */
+        QFile asFile(asfName);
+        if (asFile.exists())
+            asFile.remove();
+
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         updateRecentFilesList(localFilename);
         return true;
@@ -819,7 +931,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     return true;
 }
 
-QFile::FileError App::saveXML(const QString& fileName)
+QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 {
     QString tempFileName(fileName);
     tempFileName += ".temp";
@@ -830,9 +942,7 @@ QFile::FileError App::saveXML(const QString& fileName)
     QXmlStreamWriter doc(&file);
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    doc.setCodec("UTF-8");
-#endif
+
     doc.writeStartDocument();
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
 
@@ -877,10 +987,13 @@ QFile::FileError App::saveXML(const QString& fileName)
         return file.error();
     }
 
-    /* Set the file name for the current Doc instance and
-       set it also in an unmodified state. */
-    setFileName(fileName);
-    m_doc->resetModified();
+    if (!autosave)
+    {
+        /* Set the file name for the current Doc instance and
+           set it also in an unmodified state. */
+        setFileName(fileName);
+        m_doc->resetModified();
+    }
 
     return QFile::NoError;
 }
@@ -986,4 +1099,3 @@ void App::closeFixtureEditor()
                               Q_ARG(QVariant, "FIXANDFUNC"),
                               Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
 }
-

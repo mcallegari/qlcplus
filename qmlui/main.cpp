@@ -17,31 +17,18 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QApplication>
 #include <QSurfaceFormat>
 #include <QCommandLineParser>
 #include <QQmlApplicationEngine>
 
 #include "app.h"
+#include "webaccess-qml.h"
 #include "qlcfile.h"
 #include "qlcconfig.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-#define endl Qt::endl
-#endif
-
-void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(context)
-    Q_UNUSED(type)
-
-    QByteArray localMsg = msg.toLocal8Bit();
-    //if (type >= QtSystemMsg)
-    {
-        fprintf(stderr, "%s\n", localMsg.constData());
-        fflush(stderr);
-    }
-}
+QFile logFile;
 
 /**
  * Prints the application version
@@ -50,21 +37,26 @@ void printVersion()
 {
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
-    cout << endl;
-    cout << APPNAME << " " << "version " << APPVERSION << endl;
+    cout << Qt::endl;
+    cout << APPNAME << " " << "version " << APPVERSION << Qt::endl;
     cout << "This program is licensed under the terms of the ";
-    cout << "Apache 2.0 license." << endl;
-    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
-    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << endl;
-    cout << endl;
+    cout << "Apache 2.0 license." << Qt::endl;
+    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << Qt::endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << Qt::endl;
+    cout << Qt::endl;
 }
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    // Since Qt6, the default rendering backend is Rhi. 
+    // QLC+ doesn't support it yet so OpenGL have to be forced.
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
+    qputenv("QT3D_RENDERER", "opengl");
+
     QApplication::setOrganizationName("qlcplus");
-    QApplication::setOrganizationDomain("org");
+    QApplication::setOrganizationDomain("qlcplus.org");
     QApplication::setApplicationName(APPNAME);
     QApplication::setApplicationVersion(QString(APPVERSION));
 
@@ -75,14 +67,19 @@ int main(int argc, char *argv[])
 
     parser.addHelpOption();
     parser.addVersionOption();
-    QCommandLineOption debugOption(QStringList() << "d" << "debug",
-                                      "Enable debug messages.");
-    parser.addOption(debugOption);
 
     QCommandLineOption openFileOption(QStringList() << "o" << "open",
                                       "Specify a file to open.",
                                       "filename", "");
     parser.addOption(openFileOption);
+
+    QCommandLineOption openLastOption(QStringList() << "9" << "openlast",
+                                      "Open the file from last session.");
+    parser.addOption(openLastOption);
+
+    QCommandLineOption fullscreenOption(QStringList() << "f" << "fullscreen",
+                                        "Start the application in fullscreen mode");
+    parser.addOption(fullscreenOption);
 
     QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
                                       "Enable kiosk mode (only Virtual Console)");
@@ -93,12 +90,48 @@ int main(int argc, char *argv[])
                                       "locale", "");
     parser.addOption(localeOption);
 
+    QCommandLineOption debugOption(QStringList() << "d" << "debug",
+                                   "Enable debug messages.");
+    parser.addOption(debugOption);
+
+    QCommandLineOption logOption(QStringList() << "g" << "log",
+                                   "Log debug messages to a file.");
+    parser.addOption(logOption);
+
     QCommandLineOption threedSupportOption(QStringList() << "3" << "no3d",
                                       "Disable the 3D preview.");
     parser.addOption(threedSupportOption);
 
+    QCommandLineOption webAccessOption(QStringList() << "w" << "web",
+                                      "Enable remote web access");
+    parser.addOption(webAccessOption);
+
+    QCommandLineOption webPortOption(QStringList() << "wp" << "web-port",
+                                      "Set the port to use for web access",
+                                      "port", "");
+    parser.addOption(webPortOption);
+
+    QCommandLineOption webAuthOption(QStringList() << "wa" << "web-auth",
+                                      "Enable remote web access with users authentication");
+    parser.addOption(webAuthOption);
+
+    QCommandLineOption webAuthFileOption(QStringList() << "a" << "web-auth-file",
+                                      "Specify a file where to store web access basic authentication credentials",
+                                      "file", "");
+    parser.addOption(webAuthFileOption);
+
     parser.process(app);
 
+    bool enableWebAccess = parser.isSet(webAccessOption)
+        || parser.isSet(webPortOption)
+        || parser.isSet(webAuthOption)
+        || parser.isSet(webAuthFileOption);
+    bool enableWebAuth = parser.isSet(webAuthOption);
+    int webAccessPort = parser.value(webPortOption).toInt();
+    QString webAccessPasswordFile = parser.value(webAuthFileOption);
+
+    // 3D enablement
+#if !defined Q_OS_ANDROID
     if (!parser.isSet(threedSupportOption))
     {
         QSurfaceFormat format;
@@ -107,21 +140,75 @@ int main(int argc, char *argv[])
         format.setProfile(QSurfaceFormat::CoreProfile);
         QSurfaceFormat::setDefaultFormat(format);
     }
+#endif
 
+    if (parser.isSet(logOption))
+    {
+        QString logFilename = QDir::homePath() + QDir::separator() + "QLC+.log";
+        logFile.setFileName(logFilename);
+        if (!logFile.open(QIODevice::Append))
+            qWarning("Warning: Unable to open log file.");
+    }
+
+    // logging option
     if (parser.isSet(debugOption))
-        qInstallMessageHandler(debugMessageHandler);
+        qInstallMessageHandler(
+            [](QtMsgType, const QMessageLogContext &, const QString &msg) {
+                QByteArray localMsg = msg.toLocal8Bit();
+                //if (type >= QtSystemMsg)
+                {
+                    if (logFile.isOpen())
+                    {
+                        logFile.write(localMsg);
+                        logFile.write((char *)"\n");
+                        logFile.flush();
+                    }
 
+                    fprintf(stderr, "%s\n", localMsg.constData());
+                    fflush(stderr);
+                }
+        });
+
+    // language settings
     QString locale = parser.value(localeOption);
 
     App qlcplusApp;
+    if (locale.isEmpty())
+    {
+        QSettings settings;
+        QVariant language = settings.value(SETTINGS_LANGUAGE);
+        if (language.isValid())
+            locale = language.toString();
+    }
     qlcplusApp.setLanguage(locale);
 
+    // kiosk mode
     if (parser.isSet(kioskOption))
         qlcplusApp.enableKioskMode();
 
     qlcplusApp.startup();
-    qlcplusApp.show();
 
+    if (enableWebAccess)
+    {
+        WebAccessQml *webAccess = new WebAccessQml(qlcplusApp.doc(),
+                                                   qlcplusApp.virtualConsole(),
+                                                   qlcplusApp.simpleDesk(),
+                                                   webAccessPort,
+                                                   enableWebAuth,
+                                                   webAccessPasswordFile,
+                                                   &qlcplusApp);
+
+        QObject::connect(webAccess, &WebAccessQml::loadProject, &qlcplusApp,
+                         [&qlcplusApp](const QByteArray &xmlData)
+        {
+            QByteArray xmlCopy = xmlData;
+            qlcplusApp.slotLoadDocFromMemory(xmlCopy);
+        });
+        QObject::connect(webAccess, &WebAccessQml::storeAutostartProject,
+                         &qlcplusApp, &App::slotSaveAutostart);
+    }
+
+    // open file
     QString filename = parser.value(openFileOption);
     if (filename.isEmpty() == false)
     {
@@ -130,6 +217,14 @@ int main(int argc, char *argv[])
         else
             qlcplusApp.loadWorkspace(filename);
     }
+
+    // open last file
+    if (parser.isSet(openLastOption))
+        qlcplusApp.loadLastWorkspace();
+
+    // fullscreen mode
+    if (parser.isSet(fullscreenOption))
+        qlcplusApp.toggleFullscreen();
 
     return app.exec();
 }

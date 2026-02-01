@@ -21,6 +21,7 @@
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "qlccapability.h"
 
 #include "channeledit.h"
 #include "editorview.h"
@@ -32,15 +33,16 @@ EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObj
     : QObject(parent)
     , m_view(view)
     , m_id(id)
-    , m_fixtureDef(fixtureDef)
     , m_channelEdit(nullptr)
     , m_modeEdit(nullptr)
     , m_isModified(false)
 {
+    m_fixtureDef = new QLCFixtureDef(fixtureDef);
+
     m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
     connect(m_globalPhy, SIGNAL(changed()), this, SLOT(setModified()));
 
-    m_fileName = m_fixtureDef->definitionSourceFile();
+    m_fileName = fixtureDef->definitionSourceFile();
     qDebug() << "Editing fixture on file:" << m_fileName;
 
     m_channelList = new ListModel(this);
@@ -63,11 +65,8 @@ EditorView::~EditorView()
     delete m_channelList;
     delete m_globalPhy;
 
-    if (m_channelEdit)
-        delete m_channelEdit;
-
-    if (m_modeEdit)
-        delete m_modeEdit;
+    dismissChannelEditor();
+    dismissModeEditor();
 }
 
 int EditorView::id() const
@@ -75,9 +74,26 @@ int EditorView::id() const
     return m_id;
 }
 
+QLCFixtureDef *EditorView::fixtureDefinition()
+{
+    return m_fixtureDef;
+}
+
 bool EditorView::isUser() const
 {
     return m_fixtureDef->isUser();
+}
+
+void EditorView::remapFilename(QString userFolder)
+{
+    if (!isUser())
+    {
+        const QString file = QFileInfo(m_fileName).fileName();
+        m_fileName = QDir(userFolder).filePath(file);
+        m_fixtureDef->setIsUser(true);
+        m_fixtureDef->setDefinitionSourceFile(m_fileName);
+        qDebug() << "Definition name remapped to" << m_fileName;
+    }
 }
 
 int EditorView::productType() const
@@ -164,6 +180,17 @@ void EditorView::updateChannelList()
     emit channelsChanged();
 }
 
+void EditorView::dismissChannelEditor()
+{
+    if (m_channelEdit == nullptr)
+        return;
+
+    disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
+    disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
+    delete m_channelEdit;
+    m_channelEdit = nullptr;
+}
+
 QVariant EditorView::channels() const
 {
     return QVariant::fromValue(m_channelList);
@@ -171,23 +198,22 @@ QVariant EditorView::channels() const
 
 ChannelEdit *EditorView::requestChannelEditor(QString name)
 {
-    if (m_channelEdit != nullptr)
-    {
-        disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
-        disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
-        delete m_channelEdit;
-    }
+    dismissModeEditor();
+    dismissChannelEditor();
 
     QLCChannel *ch = m_fixtureDef->channel(name);
     if (ch == nullptr)
     {
         ch = new QLCChannel();
-        QQmlEngine::setObjectOwnership(ch, QQmlEngine::CppOwnership);
         ch->setName(tr("New channel %1").arg(m_fixtureDef->channels().count() + 1));
         m_fixtureDef->addChannel(ch);
         updateChannelList();
+        setModified(true);
     }
+    QQmlEngine::setObjectOwnership(ch, QQmlEngine::CppOwnership);
+
     m_channelEdit = new ChannelEdit(ch);
+    QQmlEngine::setObjectOwnership(m_channelEdit, QQmlEngine::CppOwnership);
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
     return m_channelEdit;
@@ -267,9 +293,24 @@ bool EditorView::deleteChannel(QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);
-    updateChannelList();
     setModified(true);
     return res;
+}
+
+bool EditorView::deleteChannels(QVariantList channels)
+{
+    bool res;
+    for (int i = 0; i < channels.count(); i++)
+    {
+        QLCChannel *channel = channels.at(i).value<QLCChannel*>();
+        res = deleteChannel(channel);
+        if (res == false)
+            return false;
+    }
+    if (channels.count())
+        updateChannelList();
+
+    return true;
 }
 
 /************************************************************************
@@ -283,12 +324,8 @@ QVariant EditorView::modes() const
 
 ModeEdit *EditorView::requestModeEditor(QString name)
 {
-    if (m_modeEdit != nullptr)
-    {
-        disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
-        disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
-        delete m_modeEdit;
-    }
+    dismissChannelEditor();
+    dismissModeEditor();
 
     QLCFixtureMode *mode = m_fixtureDef->mode(name);
     if (mode == nullptr)
@@ -303,6 +340,23 @@ ModeEdit *EditorView::requestModeEditor(QString name)
     connect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
     connect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
     return m_modeEdit;
+}
+
+bool EditorView::deleteMode(QString name)
+{
+    qDebug() << "Remove mode" << name;
+    QLCFixtureMode *mode = m_fixtureDef->mode(name);
+    if (mode != nullptr)
+    {
+        bool ret = m_fixtureDef->removeMode(mode);
+        if (ret == true)
+        {
+            updateModeList();
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void EditorView::updateModeList()
@@ -321,6 +375,17 @@ void EditorView::updateModeList()
     emit modesChanged();
 }
 
+void EditorView::dismissModeEditor()
+{
+    if (m_modeEdit == nullptr)
+        return;
+
+    disconnect(m_modeEdit, SIGNAL(nameChanged()), this, SLOT(modeNameChanged()));
+    disconnect(m_modeEdit, SIGNAL(channelsChanged()), this, SLOT(setModified()));
+    delete m_modeEdit;
+    m_modeEdit = nullptr;
+}
+
 void EditorView::modeNameChanged()
 {
     setModified(true);
@@ -331,21 +396,74 @@ void EditorView::modeNameChanged()
  * Load & Save
  *********************************************************************/
 
-bool EditorView::save()
+QString EditorView::checkFixture()
 {
+    QString errors;
+
+    if (m_fixtureDef->channels().count() == 0)
+    {
+        errors.append(tr("<li>No channels provided</li>"));
+    }
+    else
+    {
+        for (QLCChannel *channel : m_fixtureDef->channels())
+        {
+            if (channel->capabilities().isEmpty())
+                errors.append(tr("<li>No capability provided in channel '%1'</li>").arg(channel->name()));
+
+            for (QLCCapability *cap : channel->capabilities())
+            {
+                if (cap->name().isEmpty())
+                    errors.append(tr("<li>Empty capability description provided in channel '%1'</li>").arg(channel->name()));
+            }
+        }
+
+        for (QLCFixtureMode *mode : m_fixtureDef->modes())
+        {
+            if (mode->name().isEmpty())
+                errors.append(tr("<li>Empty mode name provided</li>"));
+
+            if (mode->channels().count() == 0)
+                errors.append(tr("<li>Mode '%1' has no channels defined</li>").arg(mode->name()));
+
+            quint32 chIndex = 0;
+            for (QLCChannel *channel : mode->channels())
+            {
+
+                if (mode->channelActsOn(chIndex) == chIndex)
+                    errors.append(tr("<li>In mode '%1', channel '%2' cannot act on itself</li>").arg(mode->name(), channel->name()));
+                chIndex++;
+            }
+        }
+    }
+
+    if (m_fixtureDef->modes().count() == 0)
+        errors.append(tr("<li>No modes provided. Without modes, this fixture will not appear in the list!</li>"));
+
+    return errors;
+}
+
+QString EditorView::save()
+{
+    QString errors;
+
     if (m_fileName.isEmpty())
         setFilenameFromModel();
 
-    //m_fixtureDef->setPhysical(m_phyEdit->physical());
+    m_fixtureDef->setPhysical(m_globalPhy->physical());
+
+    errors.append(checkFixture());
+
     QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
     if (error != QFile::NoError)
-        return false;
+        return tr("Could not save file! (%1)").arg(QLCFile::errorString(error));
 
     setModified(false);
-    return true;
+    emit definitionSaved(m_fixtureDef);
+    return errors;
 }
 
-bool EditorView::saveAs(QString path)
+QString EditorView::saveAs(QString path)
 {
     QString localFilename = path;
     if (localFilename.startsWith("file:"))
@@ -357,8 +475,7 @@ bool EditorView::saveAs(QString path)
 
     m_fileName = localFilename;
 
-    save();
-    return true;
+    return save();
 }
 
 QString EditorView::fileName()

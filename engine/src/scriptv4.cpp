@@ -31,26 +31,32 @@
 #include "scriptv4.h"
 #include "doc.h"
 
-#define KXMLQLCScriptCommand QString("Command")
-#define KXMLQLCScriptVersion QString("Version")
+#define KXMLQLCScriptCommand QStringLiteral("Command")
+#define KXMLQLCScriptVersion QStringLiteral("Version")
 
-const QString Script::startFunctionLegacy = QString("startfunction");
-const QString Script::startFunctionCmd = QString("Engine.startFunction");
-const QString Script::stopFunctionLegacy = QString("stopfunction");
-const QString Script::stopFunctionCmd = QString("Engine.stopFunction");
-const QString Script::blackoutLegacy = QString("blackout");
-const QString Script::blackoutCmd = QString("Engine.setBlackout");
-const QString Script::waitLegacy = QString("wait");
-const QString Script::waitCmd = QString("Engine.waitTime");
-const QString Script::setFixtureLegacy = QString("setfixture");
-const QString Script::setFixtureCmd = QString("Engine.setFixture");
-const QString Script::systemLegacy = QString("systemcommand");
-const QString Script::systemCmd = QString("Engine.systemCommand");
+const QString Script::stopOnExitLegacy = QStringLiteral("stoponexit");
+const QString Script::stopOnExitCmd = QStringLiteral("Engine.stopOnExit");
+const QString Script::startFunctionLegacy = QStringLiteral("startfunction");
+const QString Script::startFunctionCmd = QStringLiteral("Engine.startFunction");
+const QString Script::stopFunctionLegacy = QStringLiteral("stopfunction");
+const QString Script::stopFunctionCmd = QStringLiteral("Engine.stopFunction");
+const QString Script::blackoutLegacy = QStringLiteral("blackout");
+const QString Script::blackoutCmd = QStringLiteral("Engine.setBlackout");
+const QString Script::waitLegacy = QStringLiteral("wait");
+const QString Script::waitCmd = QStringLiteral("Engine.waitTime");
+const QString Script::waitFunctionStartLegacy = QStringLiteral("waitfunctionstart");
+const QString Script::waitFunctionStartCmd = QStringLiteral("Engine.waitFunctionStart");
+const QString Script::waitFunctionStopLegacy = QStringLiteral("waitfunctionstop");
+const QString Script::waitFunctionStopCmd = QStringLiteral("Engine.waitFunctionStop");
+const QString Script::setFixtureLegacy = QStringLiteral("setfixture");
+const QString Script::setFixtureCmd = QStringLiteral("Engine.setFixture");
+const QString Script::systemLegacy = QStringLiteral("systemcommand");
+const QString Script::systemCmd = QStringLiteral("Engine.systemCommand");
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 
-const QString Script::blackoutOn = QString("on"); // LEGACY - NOT USED
-const QString Script::blackoutOff = QString("off"); // LEGACY - NOT USED
-const QString Script::waitKeyCmd = QString("waitkey"); // LEGACY - NOT USED
+const QString Script::blackoutOn = QStringLiteral("on"); // LEGACY - NOT USED
+const QString Script::blackoutOff = QStringLiteral("off"); // LEGACY - NOT USED
+const QString Script::waitKeyCmd = QStringLiteral("waitkey"); // LEGACY - NOT USED
 
 /****************************************************************************
  * Initialization
@@ -283,7 +289,7 @@ bool Script::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool Script::saveXML(QXmlStreamWriter *doc)
+bool Script::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -306,7 +312,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     saveXMLRunOrder(doc);
 
     /* Contents */
-    foreach(QString cmd, dataLines())
+    foreach (QString cmd, dataLines())
     {
         doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }
@@ -476,7 +482,7 @@ QString Script::convertLine(const QString& str, bool *ok)
             else
             {
                 // Value found
-                value = line.mid(left, right - left);
+                value = line.mid(left, right - left).replace("\"", "\\\"");
                 left = right + 1;
             }
         }
@@ -511,6 +517,22 @@ QString Script::convertLine(const QString& str, bool *ok)
             else if (command == waitLegacy)
             {
                 if (value.contains("s") || value.contains("m") || value.contains("h"))
+                {
+                    value.prepend("\"");
+                    value.append("\"");
+                }
+            }
+            else if (command == blackoutLegacy)
+            {
+                if (value == "on")
+                {
+                    value = "true";
+                }
+                else if (value == "off")
+                {
+                    value = "false";
+                }
+                else
                 {
                     value.prepend("\"");
                     value.append("\"");
@@ -551,10 +573,13 @@ QString Script::convertLine(const QString& str, bool *ok)
 
 QString Script::convertLegacyMethod(QString method)
 {
-    if (method == startFunctionLegacy) return startFunctionCmd;
+    if (method == stopOnExitLegacy) return stopOnExitCmd;
+    else if (method == startFunctionLegacy) return startFunctionCmd;
     else if (method == stopFunctionLegacy) return stopFunctionCmd;
     else if (method == blackoutLegacy) return blackoutCmd;
     else if (method == waitLegacy) return waitCmd;
+    else if (method == waitFunctionStartLegacy) return waitFunctionStartCmd;
+    else if (method == waitFunctionStopLegacy) return waitFunctionStopCmd;
     else if (method == setFixtureLegacy) return setFixtureCmd;
     else if (method == systemLegacy) return systemCmd;
     else return "";

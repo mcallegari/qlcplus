@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.13
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 
@@ -33,7 +33,7 @@ Rectangle
 
     property int functionID: -1
 
-    signal requestView(int ID, string qmlSrc)
+    signal requestView(int ID, string qmlSrc, bool back)
 
     ModelSelector
     {
@@ -51,7 +51,7 @@ Rectangle
         visible: false
         tempoType: efxEditor.tempoType
 
-        onValueChanged:
+        onValueChanged: (val) =>
         {
             if (speedType == QLCFunction.FadeIn)
                 efxEditor.fadeInSpeed = val
@@ -60,6 +60,18 @@ Rectangle
             else if (speedType == QLCFunction.FadeOut)
                 efxEditor.fadeOutSpeed = val
         }
+    }
+
+    PopupInputNumber
+    {
+        id: popupNumber
+        from: 0
+        to: 360
+        title: qsTr("EFX increasing offset")
+        label: qsTr("Offset in degrees")
+        suffix: "°"
+
+        onAccepted: efxEditor.setFixturesOffset(popupNumber.value)
     }
 
     SplitView
@@ -113,8 +125,7 @@ Rectangle
                     }
 
                     var prevID = efxEditor.previousID
-                    functionManager.setEditorFunction(prevID, false, true)
-                    requestView(prevID, functionManager.getEditorResource(prevID))
+                    requestView(prevID, functionManager.getEditorResource(prevID), true)
                 }
             }
 
@@ -182,13 +193,25 @@ Rectangle
 
                                     IconButton
                                     {
+                                        id: addOffsetButton
+                                        width: height
+                                        height: parent.height
+                                        faSource: FontAwesome.fa_arrow_down_wide_short
+                                        faColor: "white"
+                                        tooltip: qsTr("Add an increasing offset to all fixtures")
+                                        onClicked: popupNumber.open()
+                                    }
+
+                                    IconButton
+                                    {
                                         id: addFixture
                                         anchors.top: parent.top
                                         anchors.right: removeFixture.left
 
                                         width: height
                                         height: parent.height
-                                        imgSource: "qrc:/add.svg"
+                                        faSource: FontAwesome.fa_plus
+                                        faColor: "limegreen"
                                         checkable: true
                                         tooltip: qsTr("Add a fixture/head")
                                         onCheckedChanged:
@@ -216,7 +239,8 @@ Rectangle
                                         anchors.right: parent.right
                                         width: height
                                         height: parent.height
-                                        imgSource: "qrc:/remove.svg"
+                                        faSource: FontAwesome.fa_minus
+                                        faColor: "crimson"
                                         tooltip: qsTr("Remove the selected fixture head(s)")
                                         onClicked: efxEditor.removeHeads(eeSelector.itemsList())
                                     }
@@ -372,15 +396,11 @@ Rectangle
                                                 {
                                                     height: editorColumn.itemsHeight
                                                     width: modeCol.width
-
-                                                    ListModel
-                                                    {
-                                                        id: modeModel
-                                                        ListElement { mLabel: qsTr("Position"); }
-                                                        ListElement { mLabel: qsTr("Dimmer"); }
-                                                        ListElement { mLabel: qsTr("RGB"); }
-                                                    }
-                                                    model: modeModel
+                                                    model: [
+                                                        { mLabel: qsTr("Position") },
+                                                        { mLabel: qsTr("Dimmer") },
+                                                        { mLabel: qsTr("RGB") }
+                                                    ]
                                                     currentIndex: headMode
                                                     onCurrentIndexChanged: efxEditor.setFixtureMode(fxID, head, currentIndex)
 
@@ -435,7 +455,7 @@ Rectangle
                                 {
                                     id: newFixtureBox
                                     Layout.fillWidth: true
-                                    Layout.columnSpan: 4
+                                    Layout.columnSpan: 5
                                     height: UISettings.bigItemHeight * 0.6
                                     color: "transparent"
                                     radius: 10
@@ -733,9 +753,16 @@ Rectangle
                             GridLayout
                             {
                                 width: parent.width
-                                columns: 2
+                                columns: 3
                                 columnSpacing: 5
                                 rowSpacing: 4
+
+                                function showTimeTool(item, titleLabel, timeLabel, type)
+                                {
+                                    timeEditTool.allowFractions = QLCFunction.ByTwoFractions
+                                    timeEditTool.show(-1, item.mapToItem(mainView, 0, 0).y - timeEditTool.height,
+                                                      titleLabel, timeLabel, type)
+                                }
 
                                 // Row 1
                                 RobotoText
@@ -753,20 +780,25 @@ Rectangle
 
                                     RobotoText
                                     {
-                                        anchors.fill: parent
+                                        id: fiTimeLabel
+                                        x: 3
+                                        height: parent.height
                                         label: TimeUtils.timeToQlcString(efxEditor.fadeInSpeed, efxEditor.tempoType)
-
-                                        MouseArea
-                                        {
-                                            anchors.fill: parent
-                                            onDoubleClicked:
-                                            {
-                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
-                                                timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  fiLabel.label, parent.label, QLCFunction.FadeIn)
-                                            }
-                                        }
                                     }
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onDoubleClicked: showTimeTool(this, fiLabel.label, fiTimeLabel.label, QLCFunction.FadeIn)
+                                    }
+                                }
+
+                                IconButton
+                                {
+                                    width: height
+                                    height: UISettings.listItemHeight
+                                    faSource: FontAwesome.fa_clock
+                                    faColor: UISettings.fgMain
+                                    onClicked: showTimeTool(this, fiLabel.label, fiTimeLabel.label, QLCFunction.FadeIn)
                                 }
 
                                 // Row 2
@@ -785,20 +817,25 @@ Rectangle
 
                                     RobotoText
                                     {
-                                        anchors.fill: parent
+                                        id: hTimeLabel
+                                        x: 3
+                                        height: parent.height
                                         label: TimeUtils.timeToQlcString(efxEditor.holdSpeed, efxEditor.tempoType)
-
-                                        MouseArea
-                                        {
-                                            anchors.fill: parent
-                                            onDoubleClicked:
-                                            {
-                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
-                                                timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  hLabel.label, parent.label, QLCFunction.Hold)
-                                            }
-                                        }
                                     }
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onDoubleClicked: showTimeTool(this, hLabel.label, hTimeLabel.label, QLCFunction.Hold)
+                                    }
+                                }
+
+                                IconButton
+                                {
+                                    width: height
+                                    height: UISettings.listItemHeight
+                                    faSource: FontAwesome.fa_clock
+                                    faColor: UISettings.fgMain
+                                    onClicked: showTimeTool(this, hLabel.label, hTimeLabel.label, QLCFunction.Hold)
                                 }
 
                                 // Row 3
@@ -817,20 +854,25 @@ Rectangle
 
                                     RobotoText
                                     {
-                                        anchors.fill: parent
+                                        id: foTimeLabel
+                                        x: 3
+                                        height: parent.height
                                         label: TimeUtils.timeToQlcString(efxEditor.fadeOutSpeed, efxEditor.tempoType)
-
-                                        MouseArea
-                                        {
-                                            anchors.fill: parent
-                                            onDoubleClicked:
-                                            {
-                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
-                                                timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  foLabel.label, parent.label, QLCFunction.FadeOut)
-                                            }
-                                        }
                                     }
+                                    MouseArea
+                                    {
+                                        anchors.fill: parent
+                                        onDoubleClicked: showTimeTool(this, foLabel.label, foTimeLabel.label, QLCFunction.FadeOut)
+                                    }
+                                }
+
+                                IconButton
+                                {
+                                    width: height
+                                    height: UISettings.listItemHeight
+                                    faSource: FontAwesome.fa_clock
+                                    faColor: UISettings.fgMain
+                                    onClicked: showTimeTool(this, foLabel.label, foTimeLabel.label, QLCFunction.FadeOut)
                                 }
                             } // GridLayout
                     }
@@ -851,17 +893,14 @@ Rectangle
                                 // Row 1
                                 IconPopupButton
                                 {
-                                    ListModel
-                                    {
-                                        id: runOrderModel
-                                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
-                                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
-                                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
-                                    }
-                                    model: runOrderModel
+                                    model: [
+                                        { mLabel: qsTr("Loop"), faIcon: FontAwesome.fa_retweet, mValue: QLCFunction.Loop },
+                                        { mLabel: qsTr("Single Shot"), faIcon: FontAwesome.fa_right_long, mValue: QLCFunction.SingleShot },
+                                        { mLabel: qsTr("Ping Pong"), faIcon: FontAwesome.fa_right_left, mValue: QLCFunction.PingPong }
+                                    ]
 
                                     currValue: efxEditor.runOrder
-                                    onValueChanged: efxEditor.runOrder = value
+                                    onValueChanged: (value) => efxEditor.runOrder = value
                                 }
                                 RobotoText
                                 {
@@ -869,22 +908,38 @@ Rectangle
                                     Layout.fillWidth: true
                                 }
 
+                                // Row 2
                                 IconPopupButton
                                 {
-                                    ListModel
-                                    {
-                                        id: directionModel
-                                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
-                                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
-                                    }
-                                    model: directionModel
+                                    model: [
+                                        { mLabel: qsTr("Forward"), faIcon: FontAwesome.fa_angles_right, mValue: QLCFunction.Forward },
+                                        { mLabel: qsTr("Backward"), faIcon: FontAwesome.fa_angles_left, mValue: QLCFunction.Backward }
+                                    ]
 
                                     currValue: efxEditor.direction
-                                    onValueChanged: efxEditor.direction = value
+                                    onValueChanged: (value) => efxEditor.direction = value
                                 }
                                 RobotoText
                                 {
                                     label: qsTr("Direction")
+                                    Layout.fillWidth: true
+                                }
+
+                                // Row 3
+                                IconPopupButton
+                                {
+                                    model: [
+                                        { mLabel: qsTr("Parallel"), mTextIcon: "P", mValue: EFX.Parallel },
+                                        { mLabel: qsTr("Serial"), mTextIcon: "S", mValue: EFX.Serial },
+                                        { mLabel: qsTr("Asymmetric"), mTextIcon: "A", mValue: EFX.Asymmetric }
+                                    ]
+
+                                    currValue: efxEditor.propagation
+                                    onValueChanged: (value) => efxEditor.propagation = value
+                                }
+                                RobotoText
+                                {
+                                    label: qsTr("Fixture Order")
                                     Layout.fillWidth: true
                                 }
                             }

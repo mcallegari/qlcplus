@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.1
+import QtQuick
+import QtQuick.Controls
 
 import "."
 
@@ -44,7 +44,7 @@ SidePanel
         }
     }
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         item.universeIndex = universeIndex
         item.loadSources(true)
@@ -75,12 +75,12 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/audiocard.svg"
-                checkable: true
                 ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the audio input sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/AudioCardsList.qml"
                     animatePanel(checked)
                 }
@@ -94,12 +94,12 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
-                checkable: true
                 ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the universe input sources")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/PluginsList.qml"
                     animatePanel(checked)
                 }
@@ -113,13 +113,15 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: ""
-                checkable: true
                 ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the universe input profiles")
-                onToggled:
+                onClicked:
                 {
-                    if (checked == true)
+                    checked = !checked
+                    if (checked === true)
                         loaderSource = "qrc:/ProfilesList.qml"
+                    else
+                        ioManager.finishInputProfile()
                     animatePanel(checked)
                 }
 

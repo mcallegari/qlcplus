@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick
 
 import "."
 
@@ -81,7 +81,7 @@ Rectangle
         id: btnText
         anchors.fill: parent
         color: fgColor
-        font.family: useFontawesome ? "FontAwesome" : UISettings.robotoFontName
+        font.family: useFontawesome ? UISettings.fontAwesomeFontName : UISettings.robotoFontName
         font.pixelSize: fontSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -94,7 +94,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: btnRoot.clicked(mouse.button)
+        onClicked: (mouse) => btnRoot.clicked(mouse.button)
         onPressAndHold:
         {
             if (repetition == true)

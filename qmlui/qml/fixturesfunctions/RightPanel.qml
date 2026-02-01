@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Dialogs 1.1
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,12 +30,14 @@ SidePanel
     objectName: "funcRightPanel"
 
     property int selectedItemsCount: functionManager.selectedFunctionCount + functionManager.selectedFolderCount
+    property bool inShowManager: false
 
     function createFunctionAndEditor(fType)
     {
         var i
         // reset the currently loaded item first
-        loaderSource = ""
+        if (fType !== QLCFunction.ShowType || mainView.currentContext !== "SHOWMGR")
+            loaderSource = ""
 
         console.log("Requested to create function type " + fType)
 
@@ -86,7 +88,7 @@ SidePanel
             loaderSource = fEditor
             animatePanel(true)
             addFunction.checked = false
-            funcEditor.checked = true
+            funcManagerButton.checked = true
         }
     }
 
@@ -98,21 +100,30 @@ SidePanel
         // reset the currently loaded item first
         loaderSource = ""
         itemID = funcID
-        loaderSource = functionManager.getEditorResource(funcID)
-        animatePanel(true)
+
+        if (funcID === -1)
+        {
+            animatePanel(false)
+            funcManagerButton.checked = false
+        }
+        else
+        {
+            loaderSource = functionManager.getEditorResource(funcID)
+            animatePanel(true)
+        }
     }
 
-    onContentLoaded:
+    onContentLoaded: (item, ID) =>
     {
         if (item.hasOwnProperty("functionID"))
-            item.functionID = itemID
+            item.functionID = ID
     }
 
     FileDialog
     {
         id: openFileDialog
         visible: false
-        selectMultiple: true
+        fileMode: FileDialog.OpenFiles
 
         property int fType
 
@@ -120,8 +131,8 @@ SidePanel
         {
 
             var strArray = []
-            for (var i = 0; i < fileUrls.length; i++)
-                strArray.push("" + fileUrls[i])
+            for (var i = 0; i < selectedFiles.length; i++)
+                strArray.push("" + selectedFiles[i])
 
             console.log("File list: " + strArray)
 
@@ -139,7 +150,43 @@ SidePanel
 
             animatePanel(true)
             addFunction.checked = false
-            funcEditor.checked = true
+            funcManagerButton.checked = true
+        }
+    }
+
+    CustomPopupDialog
+    {
+        id: fmGenericPopup
+        visible: false
+        title: qsTr("Error")
+        message: ""
+        onAccepted: {}
+    }
+
+
+    PopupRenameItems
+    {
+        id: textInputPopup
+
+        property bool isFolder: false
+
+        onAccepted:
+        {
+            var success
+
+            if (isFolder)
+            {
+                success = functionManager.createFolder(editText)
+            }
+            else
+            {
+                success = functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)
+            }
+            if (success === false)
+            {
+                fmGenericPopup.message = qsTr("An item with the same name already exists.\nPlease provide a different name.")
+                fmGenericPopup.open()
+            }
         }
     }
 
@@ -159,7 +206,7 @@ SidePanel
 
             IconButton
             {
-                id: funcEditor
+                id: funcManagerButton
                 z: 2
                 width: iconSize
                 height: iconSize
@@ -180,22 +227,50 @@ SidePanel
             }
             IconButton
             {
+                id: timeToolButton
+                visible: inShowManager
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_stopwatch
+                faColor: "turquoise"
+                tooltip: qsTr("Timing Settings")
+                checkable: true
+                onToggled:
+                {
+                    if (checked)
+                        loaderSource = "qrc:/TimingUtils.qml"
+
+                    animatePanel(checked)
+                }
+            }
+
+            IconButton
+            {
                 id: addFunction
                 visible: qlcplus.accessMask & App.AC_FunctionEditing
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/add.svg"
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
                 tooltip: qsTr("Add a new function")
                 checkable: true
 
                 AddFunctionMenu
                 {
-                    id: addFunctionMenu
                     visible: addFunction.checked
                     x: -width
 
-                    onEntryClicked:
+                    function requestFolder()
+                    {
+                        textInputPopup.title = qsTr("Enter a unique name")
+                        textInputPopup.isFolder = true
+                        textInputPopup.editText = qsTr("New folder")
+                        textInputPopup.open()
+                    }
+
+                    onEntryClicked: function(fType)
                     {
                         close()
                         createFunctionAndEditor(fType)
@@ -209,7 +284,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/remove.svg"
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
                 tooltip: qsTr("Delete the selected functions")
                 counter: selectedItemsCount && !functionManager.isEditing
                 onClicked:
@@ -226,8 +302,22 @@ SidePanel
                     title: qsTr("Delete items")
                     onAccepted:
                     {
+                        var funcIdList = functionManager.selectedFunctionsID()
+
+                        // check if we're deleting the curennt show
+                        var showFuncId = showManager.currentShowID
+
+                        for (var i = 0; i < funcIdList.length; i++)
+                        {
+                            if (funcIdList[i] === showFuncId)
+                            {
+                                showManager.resetContents()
+                                break
+                            }
+                        }
+
                         functionManager.deleteSelectedFolders()
-                        functionManager.deleteFunctions(functionManager.selectedFunctionsID())
+                        functionManager.deleteFunctions(funcIdList)
                     }
                 }
             }
@@ -246,19 +336,11 @@ SidePanel
                     if (selNames.length === 0)
                         return
                     if (selNames.length > 1)
-                        renameFuncPopup.showNumbering = true
-                    renameFuncPopup.editText = selNames[0]
-                    renameFuncPopup.open()
-                }
-
-                PopupRenameItems
-                {
-                    id: renameFuncPopup
-                    title: qsTr("Rename items")
-                    onAccepted:
-                    {
-                        functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)
-                    }
+                        textInputPopup.showNumbering = true
+                    textInputPopup.title = qsTr("Rename items")
+                    textInputPopup.isFolder = false
+                    textInputPopup.editText = selNames[0]
+                    textInputPopup.open()
                 }
             }
             IconButton
@@ -267,7 +349,8 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/edit-copy.svg"
+                faSource: FontAwesome.fa_clone
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Clone the selected functions")
                 counter: functionManager.selectedFunctionCount && !functionManager.isEditing
                 onClicked: functionManager.cloneFunctions()
@@ -279,7 +362,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 faSource: FontAwesome.fa_sitemap
-                faColor: UISettings.fgMedium
+                faColor: UISettings.fgLight
                 tooltip: qsTr("Show function usage")
                 counter: functionManager.selectedFunctionCount
                 onClicked:
@@ -309,142 +392,11 @@ SidePanel
 
             IconButton
             {
-                id: sceneDump
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/dmxdump.svg"
-                tooltip: qsTr("Dump on a new Scene")
-                counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
-
-                onClicked:
-                {
-                    if (dmxDumpDialog.show)
-                    {
-                        dmxDumpDialog.sceneID = -1
-                        dmxDumpDialog.open()
-                        dmxDumpDialog.focusEditItem()
-                    }
-                    else
-                    {
-                        contextManager.dumpDmxChannels("")
-                        loaderSource = "qrc:/FunctionManager.qml"
-                        animatePanel(true)
-                        funcEditor.checked = true
-                    }
-                }
-
-                Rectangle
-                {
-                    x: -3
-                    y: -3
-                    width: sceneDump.width * 0.4
-                    height: width
-                    color: "red"
-                    border.width: 1
-                    border.color: UISettings.fgMain
-                    radius: 3
-                    clip: true
-
-                    RobotoText
-                    {
-                        anchors.centerIn: parent
-                        height: parent.height * 0.7
-                        label: contextManager ? contextManager.dumpValuesCount : ""
-                        fontSize: height
-                    }
-                }
-
-                MouseArea
-                {
-                    id: dumpDragArea
-                    anchors.fill: parent
-                    propagateComposedEvents: true
-                    drag.target: dumpDragItem
-                    drag.threshold: 10
-                    onClicked: mouse.accepted = false
-
-                    property bool dragActive: drag.active
-
-                    onDragActiveChanged:
-                    {
-                        console.log("Drag active changed: " + dragActive)
-                        if (dragActive == false)
-                        {
-                            dumpDragItem.Drag.drop()
-                            dumpDragItem.parent = sceneDump
-                            dumpDragItem.x = 0
-                            dumpDragItem.y = 0
-                        }
-                        else
-                        {
-                            dumpDragItem.parent = mainView
-                        }
-
-                        dumpDragItem.Drag.active = dragActive
-                    }
-                }
-
-                Item
-                {
-                    id: dumpDragItem
-                    z: 99
-                    visible: dumpDragArea.drag.active
-
-                    Drag.source: dumpDragItem
-                    Drag.keys: [ "dumpValues" ]
-
-                    function itemDropped(id, name)
-                    {
-                        console.log("Dump values dropped on " + id)
-                        dmxDumpDialog.sceneID = id
-                        dmxDumpDialog.sceneName = name
-                        dmxDumpDialog.open()
-                        dmxDumpDialog.focusEditItem()
-                    }
-
-                    Rectangle
-                    {
-                        width: UISettings.iconSizeMedium
-                        height: width
-                        radius: width / 4
-                        color: "red"
-
-                        RobotoText
-                        {
-                            anchors.centerIn: parent
-                            label: contextManager ? contextManager.dumpValuesCount : ""
-                        }
-                    }
-                }
-
-                PopupDMXDump
-                {
-                    id: dmxDumpDialog
-                    implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                    channelsMask: contextManager ? contextManager.dumpChannelMask : 0
-
-                    property int sceneID: -1
-
-                    onAccepted:
-                    {
-                        if (sceneID == -1)
-                            contextManager.dumpDmxChannels(sceneName, getChannelsMask())
-                        else
-                            contextManager.dumpDmxChannels(sceneID, getChannelsMask())
-                        loaderSource = "qrc:/FunctionManager.qml"
-                        animatePanel(true)
-                        funcEditor.checked = true
-                    }
-                }
-            }
-
-            IconButton
-            {
-                z: 2
-                width: iconSize
-                height: iconSize
-                imgSource: "qrc:/play.svg"
+                faSource: FontAwesome.fa_play
+                faColor: UISettings.fgMain
                 tooltip: qsTr("Function Preview")
                 checkable: true
                 checked: functionManager.previewEnabled
@@ -462,14 +414,29 @@ SidePanel
 
             IconButton
             {
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/multiple.svg"
+                tooltip: qsTr("Toggle multiple item selection")
+                visible: inShowManager
+                checkable: true
+                checked: showManager ? showManager.multipleSelection : false
+                onToggled:
+                {
+                    if (showManager)
+                        showManager.multipleSelection = checked
+                }
+            }
+
+            IconButton
+            {
                 z: 2
                 width: iconSize
                 height: iconSize
-                faSource: FontAwesome.fa_times
+                faSource: FontAwesome.fa_xmark
                 tooltip: qsTr("Reset dump channels") + " (CTRL+R)"
                 onClicked: contextManager.resetDumpValues()
             }
         }
     }
 }
-

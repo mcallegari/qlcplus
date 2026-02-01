@@ -26,18 +26,16 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcclock.h"
+#include "vcxypad.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "simplecrypt.h"
+#include "vcanimation.h"
+#include "vcspeeddial.h"
 #include "virtualconsole.h"
-
-#define INPUT_NEXT_PAGE_ID      0
-#define INPUT_PREVIOUS_PAGE_ID  1
-#define INPUT_ENABLE_ID         2
-#define INPUT_COLLAPSE_ID       3
-#define INPUT_SHORTCUT_BASE_ID  20
+#include "vcaudiotriggers.h"
 
 static const quint64 encKey = 0x5131632B5067334B; // this is "Q1c+Pg3K"
 
@@ -49,12 +47,12 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_isCollapsed(false)
     , m_multiPageMode(false)
     , m_currentPage(0)
-    , m_totalPagesNumber(1)
     , m_pagesLoop(false)
     , m_PIN(0)
     , m_validatedPIN(false)
 {
     setType(VCWidget::FrameWidget);
+    setTotalPagesNumber(1);
 
     registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
     registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
@@ -70,7 +68,16 @@ VCFrame::~VCFrame()
         delete m_item;
 }
 
-QString VCFrame::defaultCaption()
+void VCFrame::initializeProperties()
+{
+    resetBackgroundColor();
+    resetForegroundColor();
+    setPagesLoop(false);
+    m_PIN = 0;
+    m_validatedPIN = false;
+}
+
+QString VCFrame::defaultCaption() const
 {
     return tr("Frame %1").arg(id() + 1);
 }
@@ -104,8 +111,9 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         QString chName = QString("frameDropArea%1").arg(id());
         QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 
-        foreach(VCWidget *child, m_pagesMap.keys())
-            child->render(view, childrenArea);
+        QMap <VCWidget *, int>::iterator it = m_pagesMap.begin();
+        for (; it != m_pagesMap.end(); it++)
+            it.key()->render(view, childrenArea);
     }
 }
 
@@ -119,7 +127,7 @@ QString VCFrame::propertiesResource() const
     return QString("qrc:/VCFrameProperties.qml");
 }
 
-VCWidget *VCFrame::createCopy(VCWidget *parent)
+VCWidget *VCFrame::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
@@ -186,7 +194,7 @@ bool VCFrame::hasChildren()
     return !m_pagesMap.isEmpty();
 }
 
-QList<VCWidget *> VCFrame::children(bool recursive)
+QList<VCWidget *> VCFrame::children(bool recursive) const
 {
     QList<VCWidget *> widgetsList;
 
@@ -194,7 +202,7 @@ QList<VCWidget *> VCFrame::children(bool recursive)
         return m_pagesMap.keys();
     else
     {
-        foreach(VCWidget *widget, m_pagesMap.keys())
+        foreach (VCWidget *widget, m_pagesMap.keys())
         {
             widgetsList.append(widget);
             if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
@@ -208,7 +216,7 @@ QList<VCWidget *> VCFrame::children(bool recursive)
     return widgetsList;
 }
 
-void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
+VCWidget *VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 {
     VCWidget::WidgetType type = stringToType(wType);
 
@@ -232,6 +240,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame, currentPage());
             frame->render(m_vc->view(), parent);
+            return frame;
         }
         break;
         case SoloFrameWidget:
@@ -244,6 +253,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe, currentPage());
             soloframe->render(m_vc->view(), parent);
+            return soloframe;
         }
         break;
         case ButtonWidget:
@@ -256,6 +266,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button, currentPage());
             button->render(m_vc->view(), parent);
+            return button;
         }
         break;
         case LabelWidget:
@@ -268,6 +279,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label, currentPage());
             label->render(m_vc->view(), parent);
+            return label;
         }
         break;
         case SliderWidget:
@@ -287,6 +299,59 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 40));
             setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
+            return slider;
+        }
+        break;
+        case AnimationWidget:
+        {
+            VCAnimation *animation = new VCAnimation(m_doc, this);
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(animation);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, animation->id()));
+            animation->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 60, m_vc->pixelDensity() * 45));
+            setupWidget(animation, currentPage());
+            animation->render(m_vc->view(), parent);
+            return animation;
+        }
+        break;
+        case AudioTriggersWidget:
+        {
+            VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
+            QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(audioTrigger);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, audioTrigger->id()));
+            audioTrigger->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
+            setupWidget(audioTrigger, currentPage());
+            audioTrigger->render(m_vc->view(), parent);
+            return audioTrigger;
+        }
+        break;
+        case XYPadWidget:
+        {
+            VCXYPad *xyPad = new VCXYPad(m_doc, this);
+            QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(xyPad);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, xyPad->id()));
+            xyPad->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
+            setupWidget(xyPad, currentPage());
+            xyPad->render(m_vc->view(), parent);
+            return xyPad;
+        }
+        break;
+        case SpeedWidget:
+        {
+            VCSpeedDial *speed = new VCSpeedDial(m_doc, this);
+            QQmlEngine::setObjectOwnership(speed, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(speed);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, speed->id()));
+            speed->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            setupWidget(speed, currentPage());
+            speed->render(m_vc->view(), parent);
+            return speed;
         }
         break;
         case ClockWidget:
@@ -296,9 +361,10 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             m_vc->addWidgetToMap(clock);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, clock->id()));
-            clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 40, m_vc->pixelDensity() * 10));
             setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
+            return clock;
         }
         break;
         case CueListWidget:
@@ -311,11 +377,14 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
             setupWidget(cuelist, currentPage());
             cuelist->render(m_vc->view(), parent);
+            return cuelist;
         }
         break;
         default:
         break;
     }
+
+    return nullptr;
 }
 
 void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
@@ -376,7 +445,8 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
         for (int col = 0; col < matrixSize.width(); col++)
         {
-            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
+            VCWidget *widget = frame->addWidget(nullptr, matrixType == "buttonmatrix" ? "Button" : "Slider", QPoint(xPos, yPos));
+            widget->setGeometry(QRectF(xPos, yPos, widgetSize.width(), widgetSize.height()));
             xPos += widgetSize.width();
         }
         yPos += widgetSize.height();
@@ -508,7 +578,7 @@ void VCFrame::deleteChildren()
     {
         it.next();
         VCWidget *widget = it.key();
-        if(widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
+        if (widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
         {
             VCFrame *frame = qobject_cast<VCFrame*>(widget);
             frame->deleteChildren();
@@ -594,6 +664,8 @@ void VCFrame::setDisabled(bool disable)
         widget->setDisabled(disable);
 
     VCWidget::setDisabled(disable);
+
+    updateFeedback();
 }
 /*********************************************************************
  * Header
@@ -685,7 +757,7 @@ void VCFrame::setTotalPagesNumber(int num)
     {
         for (int i = m_totalPagesNumber; i < num; i++)
         {
-            QString name = tr("Page %1").arg(i);
+            QString name = tr("Page %1").arg(i + 1);
             m_pageLabels.insert(i, name);
             registerExternalControl(INPUT_SHORTCUT_BASE_ID + i, name, true);
         }
@@ -726,7 +798,6 @@ void VCFrame::setCurrentPage(int pageNum)
         {
             widget->setDisabled(false);
             widget->setVisible(true);
-            //widget->updateFeedback();
         }
         else
         {
@@ -734,6 +805,9 @@ void VCFrame::setCurrentPage(int pageNum)
             widget->setVisible(false);
         }
     }
+
+    updateFeedback();
+
     setDocModified();
     emit currentPageChanged(m_currentPage);
 }
@@ -884,6 +958,38 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
  * External input
  *********************************************************************/
 
+void VCFrame::updateFeedback()
+{
+    if (isDisabled())
+    {
+        // temporarily revert the disabled state otherwise
+        // this feedback will never go through
+        m_isDisabled = false;
+        sendFeedback(0, INPUT_ENABLE_ID, VCWidget::LowerValue);
+        m_isDisabled = true;
+    }
+    else
+    {
+        sendFeedback(UCHAR_MAX, INPUT_ENABLE_ID, VCWidget::UpperValue);
+    }
+
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this && child->page() == currentPage())
+            child->updateFeedback();
+    }
+
+    for (int &pIdx : m_pageLabels.keys())
+    {
+        if (pIdx == m_currentPage)
+            sendFeedback(UCHAR_MAX, INPUT_SHORTCUT_BASE_ID + pIdx, VCWidget::UpperValue);
+        else
+            sendFeedback(0, INPUT_SHORTCUT_BASE_ID + pIdx, VCWidget::LowerValue);
+    }
+}
+
 void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 {
     if (value != UCHAR_MAX)
@@ -998,6 +1104,66 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
                 slider->render(m_vc->view(), m_item);
         }
     }
+    else if (root.name() == KXMLQLCVCAnimation)
+    {
+        /* Create a new clock into its parent */
+        VCAnimation *animation = new VCAnimation(m_doc, this);
+        if (animation->loadXML(root) == false)
+            delete animation;
+        else
+        {
+            QQmlEngine::setObjectOwnership(animation, QQmlEngine::CppOwnership);
+            setupWidget(animation, animation->page());
+            m_vc->addWidgetToMap(animation);
+            if (render && m_item)
+                animation->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCAudioTriggers)
+    {
+        /* Create a new clock into its parent */
+        VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
+        if (audioTrigger->loadXML(root) == false)
+            delete audioTrigger;
+        else
+        {
+            QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
+            setupWidget(audioTrigger, audioTrigger->page());
+            m_vc->addWidgetToMap(audioTrigger);
+            if (render && m_item)
+                audioTrigger->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCSpeedDial)
+    {
+        /* Create a new speedDial into its parent */
+        VCSpeedDial *speedDial = new VCSpeedDial(m_doc, this);
+        if (speedDial->loadXML(root) == false)
+            delete speedDial;
+        else
+        {
+            QQmlEngine::setObjectOwnership(speedDial, QQmlEngine::CppOwnership);
+            setupWidget(speedDial, speedDial->page());
+            m_vc->addWidgetToMap(speedDial);
+            if (render && m_item)
+                speedDial->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCXYPad)
+    {
+        /* Create a new xyPad into its parent */
+        VCXYPad *xyPad = new VCXYPad(m_doc, this);
+        if (xyPad->loadXML(root) == false)
+            delete xyPad;
+        else
+        {
+            QQmlEngine::setObjectOwnership(xyPad, QQmlEngine::CppOwnership);
+            setupWidget(xyPad, xyPad->page());
+            m_vc->addWidgetToMap(xyPad);
+            if (render && m_item)
+                xyPad->render(m_vc->view(), m_item);
+        }
+    }
     else if (root.name() == KXMLQLCVCClock)
     {
         /* Create a new clock into its parent */
@@ -1085,6 +1251,20 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             else
                 setShowEnable(false);
         }
+        else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameMixing)
+        {
+            if (root.readElementText() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(true);
+            else
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(false);
+        }
+        else if (this->type() == SoloFrameWidget && root.name() == KXMLQLCVCSoloFrameExclude)
+        {
+            if (root.readElementText() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setExcludeMonitoredFunctions(true);
+            else
+                reinterpret_cast<VCSoloFrame*>(this)->setExcludeMonitoredFunctions(false);
+        }
         else if (root.name() == KXMLQLCVCFramePIN)
         {
             SimpleCrypt crypter(encKey);
@@ -1101,7 +1281,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 currentPage = attrs.value(KXMLQLCVCFrameCurrentPage).toInt();
 
-            if(attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
+            if (attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
                 setPagesLoop(true);
 
             root.skipCurrentElement();
@@ -1168,7 +1348,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCFrame::saveXML(QXmlStreamWriter *doc)
+bool VCFrame::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 
@@ -1192,16 +1372,17 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     /* ShowEnableButton */
     doc->writeTextElement(KXMLQLCVCFrameShowEnableButton, showEnable() ? KXMLQLCTrue : KXMLQLCFalse);
 
-#if 0 // TODO
-    /* Solo frame mixing */
+    /* Solo frame mixing and monitored functions exclusion */
     if (this->type() == SoloFrameWidget)
     {
-        if (reinterpret_cast<VCSoloFrame*>(this)->soloframeMixing())
+        const VCSoloFrame *solo = reinterpret_cast<const VCSoloFrame*>(this);
+        if (solo->soloframeMixing())
             doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCTrue);
-        else
-            doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCFalse);
+
+        if (solo->excludeMonitoredFunctions())
+            doc->writeTextElement(KXMLQLCVCSoloFrameExclude, KXMLQLCTrue);
     }
-#endif
+
     /* Collapsed */
     doc->writeTextElement(KXMLQLCVCFrameIsCollapsed, isCollapsed() ? KXMLQLCTrue : KXMLQLCFalse);
 
@@ -1217,7 +1398,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Enable control */
-    saveXMLInputControl(doc, INPUT_ENABLE_ID, KXMLQLCVCFrameEnableSource);
+    saveXMLInputControl(doc, INPUT_ENABLE_ID, false, KXMLQLCVCFrameEnableSource);
 
     /* Multipage mode */
     if (multiPageMode() == true)
@@ -1229,8 +1410,8 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             doc->writeAttribute(KXMLQLCVCFramePagesLoop, KXMLQLCTrue);
         doc->writeEndElement();
 
-        saveXMLInputControl(doc, INPUT_NEXT_PAGE_ID, KXMLQLCVCFrameNext);
-        saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, KXMLQLCVCFramePrevious);
+        saveXMLInputControl(doc, INPUT_NEXT_PAGE_ID, false, KXMLQLCVCFrameNext);
+        saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, false, KXMLQLCVCFramePrevious);
 
         /* Write shortcuts, if any */
         QMapIterator <int, QString> it(m_pageLabels);
@@ -1249,7 +1430,7 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Save children */
-    foreach(VCWidget *child, children(false))
+    foreach (const VCWidget *child, children(false))
         child->saveXML(doc);
 
     /* End the <Frame> tag */

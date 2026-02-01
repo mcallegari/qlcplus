@@ -23,26 +23,23 @@
 #include <QStyle>
 #include <QtGui>
 
-#include "qlcfile.h"
-
 #include "vcclockproperties.h"
-#include "virtualconsole.h"
 #include "vcclock.h"
 #include "doc.h"
 
 #define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
-#define KXMLQLCVCClockType      QString("Type")
-#define KXMLQLCVCClockHours     QString("Hours")
-#define KXMLQLCVCClockMinutes   QString("Minutes")
-#define KXMLQLCVCClockSeconds   QString("Seconds")
+#define KXMLQLCVCClockType      QStringLiteral("Type")
+#define KXMLQLCVCClockHours     QStringLiteral("Hours")
+#define KXMLQLCVCClockMinutes   QStringLiteral("Minutes")
+#define KXMLQLCVCClockSeconds   QStringLiteral("Seconds")
 
-#define KXMLQLCVCClockSchedule      QString("Schedule")
-#define KXMLQLCVCClockScheduleFunc  QString("Function")
-#define KXMLQLCVCClockScheduleTime  QString("Time")
+#define KXMLQLCVCClockSchedule      QStringLiteral("Schedule")
+#define KXMLQLCVCClockScheduleFunc  QStringLiteral("Function")
+#define KXMLQLCVCClockScheduleTime  QStringLiteral("Time")
 
-#define KXMLQLCVCClockPlay  QString("PlayPause")
-#define KXMLQLCVCClockReset QString("Reset")
+#define KXMLQLCVCClockPlay  QStringLiteral("PlayPause")
+#define KXMLQLCVCClockReset QStringLiteral("Reset")
 
 const quint8 VCClock::playInputSourceId = 0;
 const quint8 VCClock::resetInputSourceId = 1;
@@ -84,10 +81,14 @@ void VCClock::slotModeChanged(Doc::Mode mode)
 
     if (mode == Doc::Operate)
     {
+        m_scheduleIndex = -1;
+
         if (m_scheduleList.count() > 0)
         {
             QTime currTime = QDateTime::currentDateTime().time();
-            for(int i = 0; i < m_scheduleList.count(); i++)
+
+            // find the index of the next scheduled event to run
+            for (int i = 0; i < m_scheduleList.count(); i++)
             {
                 VCClockSchedule sch = m_scheduleList.at(i);
                 if (sch.time().time() >= currTime)
@@ -97,6 +98,10 @@ void VCClock::slotModeChanged(Doc::Mode mode)
                     break;
                 }
             }
+            // if no event is found after the current time, it means the next schedule 
+            // will happen the day after so it's the first in the list
+            if (m_scheduleIndex == -1)
+                m_scheduleIndex = 0;
         }
     }
     VCWidget::slotModeChanged(mode);
@@ -118,7 +123,7 @@ VCClock::ClockType VCClock::clockType() const
     return m_clocktype;
 }
 
-QString VCClock::typeToString(VCClock::ClockType type)
+QString VCClock::typeToString(VCClock::ClockType type) const
 {
     if (type == Stopwatch)
         return "Stopwatch";
@@ -128,7 +133,7 @@ QString VCClock::typeToString(VCClock::ClockType type)
         return "Clock";
 }
 
-VCClock::ClockType VCClock::stringToType(QString str)
+VCClock::ClockType VCClock::stringToType(QString str) const
 {
     if (str == "Stopwatch")
         return Stopwatch;
@@ -159,7 +164,7 @@ void VCClock::removeAllSchedule()
     m_scheduleList.clear();
 }
 
-QList<VCClockSchedule> VCClock::schedules()
+QList<VCClockSchedule> VCClock::schedules() const
 {
     return m_scheduleList;
 }
@@ -185,9 +190,28 @@ void VCClock::slotUpdateTime()
         if (m_isPaused == false)
         {
             if (m_clocktype == Stopwatch)
+            {
                 m_currentTime++;
+            }
             else if (m_clocktype == Countdown && m_currentTime > 0)
+            {
                 m_currentTime--;
+
+                if (m_currentTime == 0)
+                {
+                    for (int i = 0; i < m_scheduleList.count(); i++)
+                    {
+                        VCClockSchedule sch = m_scheduleList.at(i);
+                        quint32 fid = sch.function();
+                        Function *func = m_doc->function(fid);
+                        if (func != NULL)
+                        {
+                            func->start(m_doc->masterTimer(), functionParent());
+                            qDebug() << "VC Clock starting function:" << func->name();
+                        }
+                    }
+                }
+            }
 
             emit timeChanged(m_currentTime);
         }
@@ -353,7 +377,7 @@ void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCClock::createCopy(VCWidget* parent)
+VCWidget* VCClock::createCopy(VCWidget* parent) const
 {
     Q_ASSERT(parent != NULL);
 
@@ -498,7 +522,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    foreach(VCClockSchedule sch, schedules())
+    foreach (VCClockSchedule sch, schedules())
         sch.saveXML(doc);
 
     if (type != Clock)
@@ -612,7 +636,7 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc) const
 {
     /* Schedule tag */
     doc->writeStartElement(KXMLQLCVCClockSchedule);

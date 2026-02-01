@@ -34,7 +34,7 @@ class ShowRunner;
  * @{
  */
 
-class Show : public Function
+class Show final : public Function
 {
     Q_OBJECT
     Q_DISABLE_COPY(Show)
@@ -47,33 +47,51 @@ public:
     virtual ~Show();
 
     /** @reimp */
-    QIcon getIcon() const;
+    QIcon getIcon() const override;
 
     /** @reimp */
-    quint32 totalDuration();
+    quint32 totalDuration() override;
 
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
     /** @reimp */
-    Function* createCopy(Doc* doc, bool addToDoc = true);
+    Function* createCopy(Doc* doc, bool addToDoc = true) override;
 
     /** Copy the contents for this function from another function */
-    bool copyFrom(const Function* function);
+    bool copyFrom(const Function* function) override;
 
     /*********************************************************************
      * Time division
      *********************************************************************/
-    /** Set the show time division type (Time, BPM) */
-    void setTimeDivision(QString type, int BPM);
+public:
+    enum TimeDivision
+    {
+        Time = 0,
+        BPM_4_4,
+        BPM_3_4,
+        BPM_2_4,
+        Invalid
+    };
+    Q_ENUM(TimeDivision)
 
-    QString getTimeDivisionType();
-    int getTimeDivisionBPM();
+    /** Set the show time division type (Time, BPM) */
+    void setTimeDivision(Show::TimeDivision type, int BPM);
+
+    Show::TimeDivision timeDivisionType();
+    void setTimeDivisionType(Show::TimeDivision type);
+    int beatsDivision();
+
+    int timeDivisionBPM();
+    void setTimeDivisionBPM(int BPM);
+
+    static QString tempoToString(Show::TimeDivision type);
+    static Show::TimeDivision stringToTempo(QString tempo);
 
 private:
-    QString m_timeDivType;
-    int m_timeDivBPM;
+    TimeDivision m_timeDivisionType;
+    int m_timeDivisionBPM;
 
     /*********************************************************************
      * Tracks
@@ -98,10 +116,13 @@ public:
     bool removeTrack(quint32 id);
 
     /** Get a track by id */
-    Track* track(quint32 id) const;
+    Track *track(quint32 id) const;
 
-    /** Get pointer to a Track from a Scene ID */
-    Track* getTrackFromSceneID(quint32 id);
+    /** Get a reference to a Track from the provided Scene ID */
+    Track *getTrackFromSceneID(quint32 id);
+
+    /** Get a reference to a Track from the provided ShowFunction ID */
+    Track *getTrackFromShowFunctionID(quint32 id);
 
     /** Get the number of tracks in the Show */
     int getTracksCount();
@@ -124,40 +145,54 @@ protected:
     quint32 m_latestTrackId;
 
     /*********************************************************************
+     * Show Functions
+     *********************************************************************/
+public:
+    /** Get a unique ID for the creation of a new ShowFunction */
+    quint32 getLatestShowFunctionId();
+
+    /** Get a reference to a ShowFunction from the provided uinique ID */
+    ShowFunction *showFunction(quint32 id);
+
+protected:
+    /** Latest assigned unique ShowFunction ID */
+    quint32 m_latestShowFunctionID;
+
+    /*********************************************************************
      * Save & Load
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const override;
 
     /** Load function's contents from an XML document */
-    bool loadXML(QXmlStreamReader &root);
+    bool loadXML(QXmlStreamReader &root) override;
 
     /** @reimp */
-    void postLoad();
+    void postLoad() override;
 
 public:
     /** @reimp */
-    bool contains(quint32 functionId);
+    bool contains(quint32 functionId) const override;
 
     /** @reimp */
-    QList<quint32> components();
+    QList<quint32> components() const override;
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer* timer) override;
 
     /** @reimp */
-    void setPause(bool enable);
+    void setPause(bool enable) override;
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer* timer, QList<Universe*> universes) override;
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer* timer, QList<Universe*> universes) override;
 
 protected slots:
     /** Called whenever one of this function's child functions stops */
@@ -177,7 +212,7 @@ protected:
      *************************************************************************/
 public:
     /** @reimp */
-    int adjustAttribute(qreal fraction, int attributeId = 0);
+    int adjustAttribute(qreal fraction, int attributeId = 0) override;
 };
 
 /** @} */
