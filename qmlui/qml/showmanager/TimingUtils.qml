@@ -128,6 +128,12 @@ Rectangle
         if (!hasSelection)
             return
 
+        if (hasMultipleSelection)
+        {
+            applyRelativeValue(fieldId, value)
+            return
+        }
+
         for (var i = 0; i < selectedItems.length; i++)
         {
             var sf = selectedItems[i]
@@ -152,6 +158,43 @@ Rectangle
             else if (fieldId === fieldDuration)
             {
                 var newDur = value
+                var minDur = minDurationValue()
+                if (newDur < minDur)
+                    newDur = minDur
+                showManager.setShowItemDuration(sf, newDur)
+            }
+        }
+    }
+
+    function applyRelativeValue(fieldId, delta)
+    {
+        if (!hasSelection)
+            return
+
+        for (var i = 0; i < selectedItems.length; i++)
+        {
+            var sf = selectedItems[i]
+            if (!sf || sf.locked)
+                continue
+
+            if (fieldId === fieldStart)
+            {
+                var newStart = sf.startTime + delta
+                if (newStart < 0)
+                    newStart = 0
+                showManager.setShowItemStartTime(sf, newStart)
+            }
+            else if (fieldId === fieldEnd)
+            {
+                var newDuration = sf.duration + delta
+                var minDuration = minDurationValue()
+                if (newDuration < minDuration)
+                    newDuration = minDuration
+                showManager.setShowItemDuration(sf, newDuration)
+            }
+            else if (fieldId === fieldDuration)
+            {
+                var newDur = sf.duration + delta
                 var minDur = minDurationValue()
                 if (newDur < minDur)
                     newDur = minDur
@@ -237,6 +280,7 @@ Rectangle
                     width: panelContainer.width
                     height: timingsGrid.implicitHeight
                     property var activeTarget: panelContainer.activeTarget
+                    property int lastSpinValue: 0
                     property real targetX: 0
                     property real targetY: 0
                     property real targetWidth: 0
@@ -271,6 +315,9 @@ Rectangle
                         var value = activeFieldValue()
                         if (value < 0)
                             value = 0
+                        if (hasMultipleSelection)
+                            value = 0
+                        lastSpinValue = value
 
                         hoursSpin.value = Math.floor(value / 3600000)
                         value -= hoursSpin.value * 3600000
@@ -283,7 +330,18 @@ Rectangle
 
                     function applySpinValue(value)
                     {
-                        panelContainer.applyAbsoluteValue(activeField, value)
+                        if (hasMultipleSelection)
+                        {
+                            var delta = value - lastSpinValue
+                            if (!delta)
+                                return
+                            lastSpinValue = value
+                            panelContainer.applyRelativeValue(activeField, delta)
+                        }
+                        else
+                        {
+                            panelContainer.applyAbsoluteValue(activeField, value)
+                        }
                     }
 
                     onActiveTargetChanged: updateOverlay(activeTarget)
@@ -412,7 +470,7 @@ Rectangle
                                 id: hoursSpin
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: timingArea.targetHeight
-                                from: 0
+                                from: hasMultipleSelection ? -999 : 0
                                 to: 999
                                 suffix: "h"
                                 onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
@@ -423,7 +481,7 @@ Rectangle
                                 id: minutesSpin
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: timingArea.targetHeight
-                                from: 0
+                                from: hasMultipleSelection ? -59 : 0
                                 to: 59
                                 suffix: "m"
                                 onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
@@ -434,7 +492,7 @@ Rectangle
                                 id: secondsSpin
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: timingArea.targetHeight
-                                from: 0
+                                from: hasMultipleSelection ? -59 : 0
                                 to: 59
                                 suffix: "s"
                                 onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
@@ -445,7 +503,7 @@ Rectangle
                                 id: millisSpin
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: timingArea.targetHeight
-                                from: 0
+                                from: hasMultipleSelection ? -999 : 0
                                 to: 999
                                 suffix: "ms"
                                 onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())

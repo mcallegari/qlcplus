@@ -18,7 +18,6 @@
 */
 
 #include <QQmlContext>
-#include <Qt>
 
 #include "waveformimageprovider.h"
 #include "showmanager.h"
