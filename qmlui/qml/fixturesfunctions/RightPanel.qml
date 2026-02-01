@@ -30,6 +30,7 @@ SidePanel
     objectName: "funcRightPanel"
 
     property int selectedItemsCount: functionManager.selectedFunctionCount + functionManager.selectedFolderCount
+    property bool inShowManager: false
 
     function createFunctionAndEditor(fType)
     {
@@ -226,6 +227,26 @@ SidePanel
             }
             IconButton
             {
+                id: timeToolButton
+                visible: inShowManager
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_stopwatch
+                faColor: "turquoise"
+                tooltip: qsTr("Timing Settings")
+                checkable: true
+                onToggled:
+                {
+                    if (checked)
+                        loaderSource = "qrc:/TimingUtils.qml"
+
+                    animatePanel(checked)
+                }
+            }
+
+            IconButton
+            {
                 id: addFunction
                 visible: qlcplus.accessMask & App.AC_FunctionEditing
                 z: 2
@@ -393,6 +414,22 @@ SidePanel
 
             IconButton
             {
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/multiple.svg"
+                tooltip: qsTr("Toggle multiple item selection")
+                visible: inShowManager
+                checkable: true
+                checked: showManager ? showManager.multipleSelection : false
+                onToggled:
+                {
+                    if (showManager)
+                        showManager.multipleSelection = checked
+                }
+            }
+
+            IconButton
+            {
                 z: 2
                 width: iconSize
                 height: iconSize
@@ -403,4 +440,3 @@ SidePanel
         }
     }
 }
-

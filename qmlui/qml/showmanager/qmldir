@@ -15,13 +15,17 @@ DMXPercentageButton 0.1 ../DMXPercentageButton.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml
 FunctionDelegate 0.1 ../FunctionDelegate.qml
+GenericButton 0.1 ../GenericButton.qml
 IconButton 0.1 ../IconButton.qml
 IconPopupButton 0.1 ../IconPopupButton.qml
 IconTextEntry 0.1 ../IconTextEntry.qml
 MenuBarEntry 0.1 ../MenuBarEntry.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
 RobotoText 0.1 ../RobotoText.qml
+SectionBox 0.1 ../SectionBox.qml
 SidePanel 0.1 ../SidePanel.qml
+RightPanel 0.1 ../fixturesfunctions/RightPanel.qml
+BottomPanel 0.1 ../fixturesfunctions/BottomPanel.qml
 TimeEditTool 0.1 ../TimeEditTool.qml
 TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
 WindowLoader 0.1 ../WindowLoader.qml

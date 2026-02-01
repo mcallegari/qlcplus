@@ -356,6 +356,7 @@ Rectangle
         x: parent.width - width
         z: 5
         height: parent.height - (bottomPanel.visible ? bottomPanel.height : 0)
+        inShowManager: true
     }
 
     BottomPanel
