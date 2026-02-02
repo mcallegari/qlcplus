@@ -14,7 +14,7 @@
  <Channel Name="[3] Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="[4] Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Duration">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">0 -&gt; 650ms</Capability>
  </Channel>
  <Channel Name="Strobe Rate" Default="255">
@@ -24,7 +24,7 @@
   <Capability Min="251" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Strobe Mode">
-  <Group Byte="0">Maintenance</Group>
+  <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="4">Off</Capability>
   <Capability Min="5" Max="9">Single Flash</Capability>
   <Capability Min="10" Max="14">Spread (offset) FX</Capability>
@@ -147,6 +147,7 @@
  </Channel>
  <Channel Name="not used">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="CTC">
   <Group Byte="0">Colour</Group>
@@ -207,63 +208,83 @@
  <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
  <Channel Name="unavailable (Amber)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="unavailable (Lime)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="unavailable (Amber fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="unavailable (Lime fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[1] unavailable (Amber)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[1] unavailable (Amber fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[1] unavailable (Lime)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[1] unavailable (Lime fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[2] unavailable (Amber)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[2] unavailable (Amber fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[2] unavailable (Lime)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[2] unavailable (Lime fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[3] unavailable (Amber)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[3] unavailable (Amber fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[3] unavailable (Lime)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[3] unavailable (Lime fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[4] unavailable (Amber)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[4] unavailable (Amber fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[4] unavailable (Lime)">
   <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="[4] unavailable (Lime fine)">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
