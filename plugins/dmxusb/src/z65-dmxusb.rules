@@ -7,6 +7,8 @@
 
 # Generic FTDI Products
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE="0666"
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6011", MODE="0666"
 
 # DMX4ALL Products
 SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="c850", MODE="0666"
