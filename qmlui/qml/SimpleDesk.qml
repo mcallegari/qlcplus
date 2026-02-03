@@ -312,6 +312,7 @@ Rectangle
                     width: parent.width
                     boundsBehavior: Flickable.StopAtBounds
                     model: simpleDesk.fixtureList
+                    currentIndex: -1
 
                     delegate:
                         Rectangle
@@ -319,7 +320,7 @@ Rectangle
                             id: fixtureDelegate
                             width: fixtureList.width
                             height: UISettings.listItemHeight
-                            color: fxiMa.pressed ? UISettings.highlight : "transparent"
+                            color: fixtureList.currentIndex == index ? UISettings.highlight : "transparent"
 
                             property Fixture fixtureObj: modelData
 
@@ -336,7 +337,11 @@ Rectangle
                                     id: fxiMa
                                     anchors.fill: parent
 
-                                    onClicked: channelView.scrollToItem(fixtureObj.address)
+                                    onClicked:
+                                    {
+                                        fixtureList.currentIndex = index
+                                        channelView.scrollToItem(fixtureObj.address)
+                                    }
                                 }
                             }
 
