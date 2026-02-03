@@ -7,7 +7,7 @@
   <Author>Liam Clark</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
- <Model>Matrix Eye 2</Model>
+ <Model>Matrix Eye 4</Model>
  <Type>Color Changer</Type>
  <Channel Name="[1] Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="[2] Dimmer" Preset="IntensityDimmer"/>
