@@ -65,7 +65,7 @@
   <Capability Min="36" Max="37">no function</Capability>
   <Capability Min="38" Max="39">Display Orientation: Auto</Capability>
   <Capability Min="40" Max="41">Display Orientation: Normal</Capability>
-  <Capability Min="42" Max="43">Display Orientation: Fliped</Capability>
+  <Capability Min="42" Max="43">Display Orientation: Flipped</Capability>
   <Capability Min="44" Max="45">no function</Capability>
   <Capability Min="46" Max="47">No Signal: Blackout</Capability>
   <Capability Min="48" Max="49">No Signal: Hold</Capability>
