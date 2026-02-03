@@ -49,7 +49,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="153"/>
         <source>Patch this device to a universe to find out.</source>
-        <translation>Patche dieses Gerät in ein Universum um herauszufinden.</translation>
+        <translation>Patche dieses Gerät in ein Universum, um es herauszufinden.</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="154"/>
