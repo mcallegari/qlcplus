@@ -17,7 +17,7 @@
     <message>
         <location filename="configureosc.ui" line="60"/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation>SSchnittstelle (Interface)</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="65"/>
