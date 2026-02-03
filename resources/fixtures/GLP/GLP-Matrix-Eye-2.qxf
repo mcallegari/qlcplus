@@ -53,7 +53,7 @@
   <Capability Min="10" Max="11">no function</Capability>
   <Capability Min="12" Max="13">iQ.Service Connect ON</Capability>
   <Capability Min="14" Max="19">no function</Capability>
-  <Capability Min="20" Max="21">Dimmer: Soft (Square</Capability>
+  <Capability Min="20" Max="21">Dimmer: Soft (Square)</Capability>
   <Capability Min="22" Max="23">Dimmer: Linear</Capability>
   <Capability Min="24" Max="25">Dimmer: S-Curve</Capability>
   <Capability Min="26" Max="29">no function</Capability>
