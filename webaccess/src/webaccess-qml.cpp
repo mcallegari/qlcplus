@@ -167,7 +167,7 @@ static bool isWidgetVisibleForWeb(VCWidget *widget, VirtualConsole *vc)
 
     return true;
 }
-
+/*
 static void logWidgetTree(VCWidget *widget, int depth)
 {
     if (widget == nullptr)
@@ -193,7 +193,7 @@ static void logWidgetTree(VCWidget *widget, int depth)
     for (VCWidget *child : children)
         logWidgetTree(child, depth + 1);
 }
-
+*/
 static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
 {
     if (doc == nullptr || sd == nullptr)
