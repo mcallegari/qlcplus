@@ -172,7 +172,7 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="133"/>
         <source>System Timer Accuracy</source>
-        <translation>System-Takt-Präszision</translation>
+        <translation>System-Takt-Präzision</translation>
     </message>
 </context>
 <context>
