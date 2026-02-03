@@ -131,7 +131,7 @@
         <location filename="app.cpp" line="277"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
-        <translation>SHIFT+F1</translation>
+        <translation>F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>
