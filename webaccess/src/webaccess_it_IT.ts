@@ -15,40 +15,64 @@
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
         <translation>L&apos;accesso a questa risorsa richiede l&apos;opportuna autorizzazione e l&apos;autenticazione è fallita.</translation>
     </message>
+    <message>
+        <source>Simple Desk</source>
+        <translation>Banco Semplice</translation>
+    </message>
+    <message>
+        <source>Universe</source>
+        <translation>Universo</translation>
+    </message>
+    <message>
+        <source>Reset universe</source>
+        <translation>Reimposta universo</translation>
+    </message>
+    <message>
+        <source>Faders</source>
+        <translation>Fader</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Pagina</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Indietro</translation>
+    </message>
 </context>
 <context>
     <name>WebAccess</name>
     <message>
         <source>Loading project...</source>
-        <translation>Caricamento progetto...</translation>
+        <translation type="vanished">Caricamento progetto...</translation>
     </message>
     <message>
         <source>Fixture stored and loaded</source>
-        <translation>Fixture salvata e caricata</translation>
+        <translation type="vanished">Fixture salvata e caricata</translation>
     </message>
     <message>
         <source>Username and password are required fields.</source>
-        <translation>Nome utente e password sono parametri richiesti.</translation>
+        <translation type="vanished">Nome utente e password sono parametri richiesti.</translation>
     </message>
     <message>
         <source>User level has to be a positive integer.</source>
-        <translation>Il livello dell&apos;utente deve essere un intero positivo.</translation>
+        <translation type="vanished">Il livello dell&apos;utente deve essere un intero positivo.</translation>
     </message>
     <message>
         <source>Username is required.</source>
-        <translation>Il nome utente è richiesto.</translation>
+        <translation type="vanished">Il nome utente è richiesto.</translation>
     </message>
     <message>
         <source>Error while saving passwords file.</source>
-        <translation>Errore durante il salvataggio del file delle password.</translation>
+        <translation type="vanished">Errore durante il salvataggio del file delle password.</translation>
     </message>
     <message>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation>La configurazione di rete è stata modificata. Riavviare per applicare le modifiche.</translation>
+        <translation type="vanished">La configurazione di rete è stata modificata. Riavviare per applicare le modifiche.</translation>
     </message>
     <message>
         <source>Autostart configuration changed</source>
-        <translation>La configurazione di avvio è stata modificata</translation>
+        <translation type="vanished">La configurazione di avvio è stata modificata</translation>
     </message>
     <message>
         <source>Widget not supported (yet) for web access</source>
@@ -92,19 +116,19 @@
     </message>
     <message>
         <source>An error occurred while updating the network configuration.</source>
-        <translation>Si è verificato un errore durante l&apos;aggiornamento della configurazione di rete.</translation>
+        <translation type="vanished">Si è verificato un errore durante l&apos;aggiornamento della configurazione di rete.</translation>
     </message>
     <message>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation>Hotspot Wi-Fi attivato correttamente.</translation>
+        <translation type="vanished">Hotspot Wi-Fi attivato correttamente.</translation>
     </message>
     <message>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation>Si è verificato un errore durante la creazione del hotspot Wi-Fi.</translation>
+        <translation type="vanished">Si è verificato un errore durante la creazione del hotspot Wi-Fi.</translation>
     </message>
     <message>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation>Hotspot Wi-Fi disattivato correttamente.</translation>
+        <translation type="vanished">Hotspot Wi-Fi disattivato correttamente.</translation>
     </message>
     <message>
         <source>Color 2 Reset</source>
@@ -125,6 +149,57 @@
     <message>
         <source>Page: %1</source>
         <translation>Pagina %1</translation>
+    </message>
+</context>
+<context>
+    <name>WebAccessBase</name>
+    <message>
+        <source>Loading project...</source>
+        <translation>Caricamento progetto...</translation>
+    </message>
+    <message>
+        <source>Fixture stored and loaded</source>
+        <translation>Fixture salvata e caricata</translation>
+    </message>
+    <message>
+        <source>Username and password are required fields.</source>
+        <translation>Nome utente e password sono parametri richiesti.</translation>
+    </message>
+    <message>
+        <source>User level has to be a positive integer.</source>
+        <translation>Il livello dell&apos;utente deve essere un intero positivo.</translation>
+    </message>
+    <message>
+        <source>Username is required.</source>
+        <translation>Il nome utente è richiesto.</translation>
+    </message>
+    <message>
+        <source>Error while saving passwords file.</source>
+        <translation>Errore durante il salvataggio del file delle password.</translation>
+    </message>
+    <message>
+        <source>Network configuration changed. Reboot to apply the changes.</source>
+        <translation>La configurazione di rete è stata modificata. Riavviare per applicare le modifiche.</translation>
+    </message>
+    <message>
+        <source>An error occurred while updating the network configuration.</source>
+        <translation>Si è verificato un errore durante l&apos;aggiornamento della configurazione di rete.</translation>
+    </message>
+    <message>
+        <source>Wi-Fi hotspot successfully activated.</source>
+        <translation>Hotspot Wi-Fi attivato correttamente.</translation>
+    </message>
+    <message>
+        <source>An error occurred while creating a Wi-Fi hotspot.</source>
+        <translation>Si è verificato un errore durante la creazione del hotspot Wi-Fi.</translation>
+    </message>
+    <message>
+        <source>Wi-Fi hotspot successfully deactivated.</source>
+        <translation>Hotspot Wi-Fi disattivato correttamente.</translation>
+    </message>
+    <message>
+        <source>Autostart configuration changed</source>
+        <translation>La configurazione di avvio è stata modificata</translation>
     </message>
 </context>
 <context>

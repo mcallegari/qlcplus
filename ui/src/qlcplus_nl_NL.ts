@@ -2222,11 +2222,14 @@ The selected file has been moved or deleted.</source>
     <name>FixtureManager</name>
     <message>
         <location filename="fixturemanager.cpp" line="362"/>
+        <location filename="fixturemanager.cpp" line="906"/>
+        <location filename="fixturemanager.cpp" line="954"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="362"/>
+        <location filename="fixturemanager.cpp" line="879"/>
         <source>Channels</source>
         <translation>Kanalen</translation>
     </message>
@@ -2268,115 +2271,264 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixturemanager.cpp" line="759"/>
         <location filename="fixturemanager.cpp" line="764"/>
-        <location filename="fixturemanager.cpp" line="875"/>
+        <location filename="fixturemanager.cpp" line="1082"/>
         <source>Add fixture...</source>
         <translation>Voeg fixture toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="880"/>
+        <location filename="fixturemanager.cpp" line="865"/>
+        <source>Manufacturer</source>
+        <translation type="unfinished">Fabrikant</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="866"/>
+        <source>Model</source>
+        <translation type="unfinished">Model</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="867"/>
+        <source>Mode</source>
+        <translation type="unfinished">Mode</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="868"/>
+        <location filename="fixturemanager.cpp" line="945"/>
+        <location filename="fixturemanager.cpp" line="971"/>
+        <source>Type</source>
+        <translation type="unfinished">Type</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="872"/>
+        <source>Universe</source>
+        <translation type="unfinished">Universe</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="876"/>
+        <source>Address Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="896"/>
+        <source>Binary Address (DIP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="904"/>
+        <location filename="fixturemanager.cpp" line="1044"/>
+        <source>Channel</source>
+        <translation type="unfinished">Kanaal</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="905"/>
+        <source>DMX</source>
+        <translation type="unfinished">DMX</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="923"/>
+        <source>Physical</source>
+        <translation type="unfinished">Fysiek</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="930"/>
+        <source>Width</source>
+        <translation type="unfinished">Breedte</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="932"/>
+        <source>Height</source>
+        <translation type="unfinished">Hoogte</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="934"/>
+        <source>Depth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="936"/>
+        <source>Weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="938"/>
+        <source>Power consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="939"/>
+        <source>DMX Connector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="944"/>
+        <source>Bulb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="946"/>
+        <source>Luminous Flux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="947"/>
+        <source>Colour Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="953"/>
+        <source>Lens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="958"/>
+        <location filename="fixturemanager.cpp" line="963"/>
+        <source>Beam Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="970"/>
+        <source>Head(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="972"/>
+        <source>Pan Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="973"/>
+        <source>Tilt Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="976"/>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="988"/>
+        <source>Fixture definition author: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1043"/>
+        <source>Fixture</source>
+        <translation type="unfinished">Fixture</translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1045"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1063"/>
+        <source>Channel %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="1087"/>
         <source>Add RGB panel...</source>
         <translation>Voeg RGB Panel toe...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="885"/>
+        <location filename="fixturemanager.cpp" line="1092"/>
         <source>Delete items</source>
         <translation>Verwijder items</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="890"/>
+        <location filename="fixturemanager.cpp" line="1097"/>
         <source>Properties...</source>
         <translation>Eigenschappen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="895"/>
+        <location filename="fixturemanager.cpp" line="1102"/>
         <source>Channels Fade Configuration...</source>
         <translation>Kanalen Fade configuratie...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="901"/>
+        <location filename="fixturemanager.cpp" line="1108"/>
         <source>Add fixture to group...</source>
         <translation>Voeg fixture toe aan groep...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="904"/>
+        <location filename="fixturemanager.cpp" line="1111"/>
         <source>Remove fixture from group</source>
         <translation>Verwijder fixture van groep</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="908"/>
+        <location filename="fixturemanager.cpp" line="1115"/>
         <source>New Group...</source>
         <translation>Nieuwe groep...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="911"/>
+        <location filename="fixturemanager.cpp" line="1118"/>
         <source>Move channel group up...</source>
         <oldsource>Move group up...</oldsource>
         <translation type="unfinished">Groep naar boven verplaatsen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="917"/>
+        <location filename="fixturemanager.cpp" line="1124"/>
         <source>Move channel group down...</source>
         <oldsource>Move group down...</oldsource>
         <translation type="unfinished">Group naar beneden verplaatsen...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="923"/>
+        <location filename="fixturemanager.cpp" line="1130"/>
         <source>Import fixtures...</source>
         <translation>Importeer fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="928"/>
+        <location filename="fixturemanager.cpp" line="1135"/>
         <source>Export fixtures...</source>
         <translation>Exporteer fixtures...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="934"/>
+        <location filename="fixturemanager.cpp" line="1141"/>
         <source>Remap fixtures...</source>
         <translation>Fixtures herschikken...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="967"/>
+        <location filename="fixturemanager.cpp" line="1174"/>
         <source>Fixture manager</source>
         <translation>Fixture manager</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1043"/>
+        <location filename="fixturemanager.cpp" line="1250"/>
         <source>Generic Dimmer</source>
         <translation>Algemene dimmer</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1192"/>
+        <location filename="fixturemanager.cpp" line="1399"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Rij %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1277"/>
+        <location filename="fixturemanager.cpp" line="1484"/>
         <source>Delete Fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1278"/>
+        <location filename="fixturemanager.cpp" line="1485"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Wil je de geslecteerde items verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1333"/>
+        <location filename="fixturemanager.cpp" line="1540"/>
         <source>Delete Channels Group</source>
         <translation>Verwijder Kanalengroep</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1334"/>
+        <location filename="fixturemanager.cpp" line="1541"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Wil je de geselecteerde groepen verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1394"/>
+        <location filename="fixturemanager.cpp" line="1601"/>
         <source>Change fixture properties</source>
         <translation>Wijzig fixture eigenschappen</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1000"/>
-        <location filename="fixturemanager.cpp" line="1452"/>
+        <location filename="fixturemanager.cpp" line="1207"/>
+        <location filename="fixturemanager.cpp" line="1659"/>
         <source>Error</source>
         <translation>Fout</translation>
     </message>
@@ -2408,43 +2560,43 @@ The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1001"/>
-        <location filename="fixturemanager.cpp" line="1453"/>
+        <location filename="fixturemanager.cpp" line="1208"/>
+        <location filename="fixturemanager.cpp" line="1660"/>
         <source>Please enter a valid address</source>
         <translation>Vul een geldig adres in</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1529"/>
+        <location filename="fixturemanager.cpp" line="1736"/>
         <source>Ungroup fixtures?</source>
         <translation>Fixtures uit de groep halen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1530"/>
+        <location filename="fixturemanager.cpp" line="1737"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Wil je de geselecteerde fixtures uit de groep halen?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1645"/>
+        <location filename="fixturemanager.cpp" line="1852"/>
         <source>Import Fixtures List</source>
         <translation>Importeer lijst met fixtures</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1650"/>
+        <location filename="fixturemanager.cpp" line="1857"/>
         <source>Export Fixtures List As</source>
         <translation>Export lijst met fixtures als</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1656"/>
+        <location filename="fixturemanager.cpp" line="1863"/>
         <source>Fixtures List (*%1)</source>
         <translation>Fixtures lijst (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1658"/>
+        <location filename="fixturemanager.cpp" line="1865"/>
         <source>All Files (*.*)</source>
         <translation>Alle bestanden (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1660"/>
+        <location filename="fixturemanager.cpp" line="1867"/>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
     </message>
@@ -5685,47 +5837,47 @@ Duur: %3
         <translation>Neem cue op</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="627"/>
+        <location filename="simpledesk.cpp" line="632"/>
         <source>Channel groups</source>
         <translation>Kanaalgroepen</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1118"/>
+        <location filename="simpledesk.cpp" line="1123"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Cue Stack - Playback %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1306"/>
+        <location filename="simpledesk.cpp" line="1311"/>
         <source>No selection</source>
         <translation>Geen selectie</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1329"/>
+        <location filename="simpledesk.cpp" line="1334"/>
         <source>Cue name</source>
         <translation>Cue naam</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1336"/>
+        <location filename="simpledesk.cpp" line="1341"/>
         <source>Multiple Cues</source>
         <translation>Meerdere cues</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1433"/>
+        <location filename="simpledesk.cpp" line="1438"/>
         <source>Delete cue</source>
         <translation>Verwijder cue</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1487"/>
+        <location filename="simpledesk.cpp" line="1492"/>
         <source>Clone Cue Stack</source>
         <translation>Kloon cue stack</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1487"/>
+        <location filename="simpledesk.cpp" line="1492"/>
         <source>Clone To Playback#</source>
         <translation>Kloon naar Playback#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1553"/>
+        <location filename="simpledesk.cpp" line="1558"/>
         <source>Cue %1</source>
         <translation>Cue %1</translation>
     </message>
@@ -7402,17 +7554,17 @@ Duur: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="657"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="664"/>
         <source>Select channels by group</source>
         <translation>Selecteer kanalen per groep</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="658"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="665"/>
         <source>Select a channel group</source>
         <translation>Selecteer een kanaalgroep</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="725"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="732"/>
         <source>No function</source>
         <translation>Geen functie</translation>
     </message>

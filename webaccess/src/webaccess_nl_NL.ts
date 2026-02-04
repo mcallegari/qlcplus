@@ -18,145 +18,194 @@
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="218"/>
+        <source>Simple Desk</source>
+        <translation type="unfinished">Eenvoudig paneel</translation>
+    </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="223"/>
+        <source>Universe</source>
+        <translation type="unfinished">Universe</translation>
+    </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="237"/>
+        <source>Reset universe</source>
+        <translation type="unfinished">Reset universe</translation>
+    </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="239"/>
+        <source>Faders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="250"/>
+        <source>Page</source>
+        <translation type="unfinished">Pagina</translation>
+    </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="258"/>
+        <source>Back</source>
+        <translation type="unfinished">Terug</translation>
+    </message>
 </context>
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="174"/>
         <source>Loading project...</source>
-        <translation>Project laden...</translation>
+        <translation type="vanished">Project laden...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="210"/>
         <source>Fixture stored and loaded</source>
-        <translation>Fixture opgeslagen en geladen</translation>
+        <translation type="vanished">Fixture opgeslagen en geladen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="438"/>
-        <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="444"/>
-        <location filename="webaccess.cpp" line="469"/>
-        <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="463"/>
-        <source>Username is required.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="481"/>
-        <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="496"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation>Netwerkconfiguratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
+        <translation type="vanished">Netwerkconfiguratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="498"/>
-        <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="514"/>
-        <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="516"/>
-        <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="521"/>
-        <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="webaccess.cpp" line="537"/>
         <source>Autostart configuration changed</source>
-        <translation>Autostart configuratie gewijzigd</translation>
+        <translation type="vanished">Autostart configuratie gewijzigd</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1112"/>
+        <location filename="webaccess.cpp" line="652"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Widget wordt (nog) niet ondersteund in webmodus</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1185"/>
-        <location filename="webaccess.cpp" line="1294"/>
+        <location filename="webaccess.cpp" line="725"/>
+        <location filename="webaccess.cpp" line="834"/>
         <source>Page: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1576"/>
+        <location filename="webaccess.cpp" line="1116"/>
         <source>Enable</source>
         <translation>Inschakelen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1779"/>
+        <location filename="webaccess.cpp" line="1319"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1780"/>
+        <location filename="webaccess.cpp" line="1320"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1781"/>
+        <location filename="webaccess.cpp" line="1321"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1782"/>
+        <location filename="webaccess.cpp" line="1322"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1783"/>
+        <location filename="webaccess.cpp" line="1323"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2172"/>
+        <location filename="webaccess.cpp" line="1712"/>
         <source>Color 2 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2181"/>
+        <location filename="webaccess.cpp" line="1721"/>
         <source>Color 3 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2190"/>
+        <location filename="webaccess.cpp" line="1730"/>
         <source>Color 4 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2199"/>
+        <location filename="webaccess.cpp" line="1739"/>
         <source>Color 5 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2440"/>
+        <location filename="webaccess.cpp" line="1980"/>
         <source>Load project</source>
         <translation>Project laden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2442"/>
+        <location filename="webaccess.cpp" line="1982"/>
         <source>Simple Desk</source>
         <translation>Eenvoudig paneel</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="2444"/>
+        <location filename="webaccess.cpp" line="1984"/>
         <source>Configuration</source>
         <translation>Configuratie</translation>
+    </message>
+</context>
+<context>
+    <name>WebAccessBase</name>
+    <message>
+        <location filename="webaccessbase.cpp" line="216"/>
+        <source>Loading project...</source>
+        <translation type="unfinished">Project laden...</translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="301"/>
+        <source>Fixture stored and loaded</source>
+        <translation type="unfinished">Fixture opgeslagen en geladen</translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="482"/>
+        <source>Username and password are required fields.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="489"/>
+        <location filename="webaccessbase.cpp" line="516"/>
+        <source>User level has to be a positive integer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="509"/>
+        <source>Username is required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="531"/>
+        <source>Error while saving passwords file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="552"/>
+        <source>Network configuration changed. Reboot to apply the changes.</source>
+        <translation type="unfinished">Netwerkconfiguratie is gewijzigd. Herstart om de wijzigingen toe te passen.</translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="554"/>
+        <source>An error occurred while updating the network configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="571"/>
+        <source>Wi-Fi hotspot successfully activated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="573"/>
+        <source>An error occurred while creating a Wi-Fi hotspot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="578"/>
+        <source>Wi-Fi hotspot successfully deactivated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="595"/>
+        <source>Autostart configuration changed</source>
+        <translation type="unfinished">Autostart configuratie gewijzigd</translation>
     </message>
 </context>
 <context>
