@@ -2443,6 +2443,17 @@ void FixtureManager::setChannelModifier(quint32 itemID, quint32 channelIndex)
                     "" : m_selectedChannelModifier->name());
 
     m_doc->setModified(); // TODO: tardis
+
+    // immediately apply on universe
+    QList<Universe *> universes = m_doc->inputOutputMap()->claimUniverses();
+    if (fixture->universe() >= universes.count())
+        return;
+    Universe *universe = universes.at(fixture->universe());
+    if (universe == nullptr)
+        return;
+    quint32 fxAddress = fixture->address();
+    universe->setChannelModifier(fxAddress + channelIndex, m_selectedChannelModifier);
+    m_doc->inputOutputMap()->releaseUniverses(true);
 }
 
 void FixtureManager::showModifierEditor(quint32 itemID, quint32 channelIndex)
