@@ -59,7 +59,7 @@
     <message>
         <location filename="app.cpp" line="150"/>
         <source>Fixture loading failed</source>
-        <translation>Laden fehlgeschlagen</translation>
+        <translation>Laden der Gerätedefinition fehlgeschlagen</translation>
     </message>
     <message>
         <location filename="app.cpp" line="151"/>
@@ -616,7 +616,7 @@
     <message>
         <location filename="editphysical.ui" line="164"/>
         <source>Power Consumption</source>
-        <translation>Leistung</translation>
+        <translation>Leistungsaufnahme</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="174"/>

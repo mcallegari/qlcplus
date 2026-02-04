@@ -48,7 +48,7 @@
     <message>
         <location filename="wing.cpp" line="63"/>
         <source>Firmware version %1</source>
-        <translation>Firmware Version %1</translation>
+        <translation>Firmware-Version %1</translation>
     </message>
     <message>
         <location filename="wing.cpp" line="65"/>
