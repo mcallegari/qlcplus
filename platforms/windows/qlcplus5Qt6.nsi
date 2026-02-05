@@ -161,6 +161,9 @@ Section "Uninstall"
 
 	RMDir $INSTDIR
 
+	; Remove per-user QML cache
+	RMDir /r "$LOCALAPPDATA\qlcplus"
+
 	; Remove file associations (per-user)
 	DeleteRegKey HKCU "Software\Classes\.qxw"
 	DeleteRegKey HKCU "Software\Classes\QLightControllerPlus.Document"
