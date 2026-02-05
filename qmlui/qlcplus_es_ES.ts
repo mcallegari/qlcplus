@@ -2693,27 +2693,27 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="209"/>
         <source>The modifier name cannot be empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nombre del modificador no puede estar vacio.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="216"/>
         <source>Please choose a name other than &quot;None&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, elija un nombre diferente de &quot;None&quot;.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="224"/>
         <source>You are trying to overwrite a system template! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Está intentando sobreescribir una plantilla de sistema! Por favor, elija otro nombre y la plantilla se guardará en la carpeta de usuario de su modificador de canal.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="233"/>
         <source>Unable to save the modifier template.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo guardar la plantilla modificadora.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="250"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva Plantilla</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="275"/>
@@ -2738,7 +2738,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="326"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="446"/>
@@ -2758,12 +2758,12 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="547"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="554"/>
         <source>Rename modifier template</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambia el nombre de la plantilla modificadora</translation>
     </message>
 </context>
 <context>
@@ -3666,7 +3666,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="228"/>
         <source>Save this matrix to a sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda esta matriz en una secuencia</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="235"/>
@@ -3908,7 +3908,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="rgbmatrixeditor.cpp" line="707"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Secuencia</translation>
     </message>
 </context>
 <context>
@@ -4040,7 +4040,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="237"/>
         <source>Timing Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros de tiempo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="257"/>
@@ -4112,7 +4112,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="420"/>
         <source>Toggle multiple item selection</source>
-        <translation type="unfinished">Activar/Desactivar selección de elementos múltiples</translation>
+        <translation>Activar/Desactivar selección de elementos múltiples</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="437"/>
@@ -4736,47 +4736,47 @@ arrastrar una función en la línea de tiempo</translation>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="76"/>
         <source>--</source>
-        <translation type="unfinished"></translation>
+        <translation>--</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="78"/>
         <source>Multiple</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiple</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="232"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineación</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="242"/>
         <source>Align start to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Alinea el inicio en el cursor</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="250"/>
         <source>Align end to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Alinea el final al cursor</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="275"/>
         <source>Timings</source>
-        <translation type="unfinished"></translation>
+        <translation>Temporización</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="394"/>
         <source>Start time</source>
-        <translation type="unfinished">Hora de inicio</translation>
+        <translation>Tiempo de inicio</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="411"/>
         <source>End time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo Final</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="428"/>
         <source>Duration</source>
-        <translation type="unfinished">Duración</translation>
+        <translation>Duración</translation>
     </message>
 </context>
 <context>
@@ -6033,12 +6033,12 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="419"/>
         <source>External input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada Externa</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="441"/>
         <source>Catch up with the external controller input value</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar con el valor de entrada del controlador externo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="449"/>
@@ -6155,7 +6155,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
         <location filename="virtualconsole/vcspeeddial.cpp" line="425"/>
         <location filename="virtualconsole/vcspeeddial.cpp" line="483"/>
         <source>Preset: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefinido: %1</translation>
     </message>
 </context>
 <context>
@@ -6171,39 +6171,39 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="90"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefinidos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="118"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nobre del predefinido</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="138"/>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="155"/>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="164"/>
         <source>Preset time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo predefinido</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="192"/>
         <source>Add a preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Añade un predefinido</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="210"/>
         <source>Remove the selected preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina el predefinido seleccionado</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="248"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="257"/>
         <source>Time</source>
-        <translation type="unfinished">Tiempo</translation>
+        <translation>Tiempo</translation>
     </message>
 </context>
 <context>
@@ -6465,7 +6465,7 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="198"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefinidos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="210"/>
@@ -6520,7 +6520,7 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="414"/>
         <source>Z-Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Índice-Z</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="434"/>
