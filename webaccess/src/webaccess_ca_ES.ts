@@ -21,32 +21,32 @@
     <message>
         <location filename="webaccess-qml.cpp" line="218"/>
         <source>Simple Desk</source>
-        <translation type="unfinished">Taula Simple</translation>
+        <translation>Taula Simple</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="223"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="237"/>
         <source>Reset universe</source>
-        <translation type="unfinished">Reinicia univers</translation>
+        <translation>Reinicia univers</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="239"/>
         <source>Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Faders</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="250"/>
         <source>Page</source>
-        <translation type="unfinished">Pàgina</translation>
+        <translation>Pàgina</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="258"/>
         <source>Back</source>
-        <translation type="unfinished">Enrere</translation>
+        <translation>Enrere</translation>
     </message>
 </context>
 <context>
@@ -181,63 +181,63 @@
     <message>
         <location filename="webaccessbase.cpp" line="216"/>
         <source>Loading project...</source>
-        <translation type="unfinished">Carregant projecte...</translation>
+        <translation>Carregant projecte...</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="301"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished">Fixture desat i carregat</translation>
+        <translation>Fixture desat i carregat</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="482"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished">El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
+        <translation>El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="489"/>
         <location filename="webaccessbase.cpp" line="516"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished">El nivell d&apos;usuari ha de ser un enter positiu.</translation>
+        <translation>El nivell d&apos;usuari ha de ser un enter positiu.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="509"/>
         <source>Username is required.</source>
-        <translation type="unfinished">El nom d&apos;usuari es obligatori.</translation>
+        <translation>El nom d&apos;usuari es obligatori.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="531"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished">S&apos;ha produït un error en desar el fitxer de contrasenyes.</translation>
+        <translation>S&apos;ha produït un error en desar el fitxer de contrasenyes.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="552"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished">La configuració de xarxa ha canviar. Reiniciar per aplicar els canvis.</translation>
+        <translation>La configuració de xarxa ha canviar. Reiniciar per aplicar els canvis.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="554"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished">S&apos;ha produït un error en actualitzar la configuració de la xarxa.</translation>
+        <translation>S&apos;ha produït un error en actualitzar la configuració de la xarxa.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="571"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished">El punt d&apos;accés Wi-Fi s&apos;ha activat correctament.</translation>
+        <translation>El punt d&apos;accés Wi-Fi s&apos;ha activat correctament.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="573"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished">S&apos;ha produït un error en crear un punt d&apos;accés Wi-Fi.</translation>
+        <translation>S&apos;ha produït un error en crear un punt d&apos;accés Wi-Fi.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="578"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished">El punt d&apos;accés Wi-Fi s&apos;ha desactivat correctament.</translation>
+        <translation>El punt d&apos;accés Wi-Fi s&apos;ha desactivat correctament.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="595"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished">La configuració d&apos;inici automàtic ha canviat</translation>
+        <translation>La configuració d&apos;inici automàtic ha canviat</translation>
     </message>
 </context>
 <context>
