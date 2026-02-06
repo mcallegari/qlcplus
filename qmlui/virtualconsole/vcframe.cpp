@@ -827,7 +827,7 @@ bool VCFrame::pagesLoop() const
     return m_pagesLoop;
 }
 
-QStringList VCFrame::pageLabels()
+QStringList VCFrame::pageLabels() const
 {
     return m_pageLabels.values();
 }

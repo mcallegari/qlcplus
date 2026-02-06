@@ -128,7 +128,7 @@ bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString 
     return false;
 }
 
-void WebAccessBase::sendWebSocketMessage(const QString &message)
+void WebAccessBase::sendWebSocketMessage(const QString &message) const
 {
     foreach (QHttpConnection *conn, m_webSocketsList)
         conn->webSocketWrite(message);
@@ -160,7 +160,7 @@ bool WebAccessBase::serveWebFile(QHttpResponse *resp, const QString &reqUrl, con
     return sendFile(resp, webFilePath(reqUrl.mid(1)), contentType);
 }
 
-bool WebAccessBase::authenticateRequest(QHttpRequest *req, QHttpResponse *resp, WebAccessUser &user)
+bool WebAccessBase::authenticateRequest(const QHttpRequest *req, QHttpResponse *resp, WebAccessUser &user) const
 {
     if (!m_auth)
         return true;
@@ -255,7 +255,7 @@ bool WebAccessBase::requireAuthLevel(QHttpResponse *resp, const WebAccessUser &u
     return true;
 }
 
-WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpRequest *req, QHttpResponse *resp,
+WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const QHttpRequest *req, QHttpResponse *resp,
                                                                           const WebAccessUser &user,
                                                                           const QString &reqUrl,
                                                                           QString &content)
@@ -381,7 +381,7 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(QHttpR
     return CommonRequestResult::NotHandled;
 }
 
-bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, WebAccessUser *user,
+bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const WebAccessUser *user,
                                                  const QStringList &cmdList, const QString &logTag,
                                                  bool logWarning)
 {

@@ -175,7 +175,7 @@ public:
     Q_INVOKABLE void setChaserID(quint32 fid);
 
     /** Get the chaser function that is used as cue list steps */
-    Chaser *chaser();
+    Chaser *chaser() const;
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
@@ -234,7 +234,7 @@ public:
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
 
-    PlaybackStatus playbackStatus();
+    PlaybackStatus playbackStatus() const;
 
     Q_INVOKABLE void playClicked();
     Q_INVOKABLE void stopClicked();

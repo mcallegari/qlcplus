@@ -266,7 +266,7 @@ void VCSpeedDial::setResetOnDialChange(bool newResetOnDialChange)
  * Speed factor
  *********************************************************************/
 
-VCSpeedDial::SpeedMultiplier VCSpeedDial::currentFactor()
+VCSpeedDial::SpeedMultiplier VCSpeedDial::currentFactor() const
 {
     return m_currentFactor;
 }
@@ -368,10 +368,10 @@ QVariant VCSpeedDial::functionsList()
  * Presets
  *********************************************************************/
 
-QVariantList VCSpeedDial::presetsList()
+QVariantList VCSpeedDial::presetsList() const
 {
     QVariantList list;
-    for (VCSpeedDialPreset *preset : presets())
+    for (const VCSpeedDialPreset *preset : presets())
     {
         QVariantMap entry;
         entry.insert("id", preset->m_id);

@@ -50,23 +50,23 @@ public:
     /** Destructor */
     ~WebAccess();
 
-    QString getWidgetBackgroundImage(VCWidget *widget);
-    QString getWidgetHTML(VCWidget *widget);
-    QString getFrameHTML(VCFrame *frame);
-    QString getSoloFrameHTML(VCSoloFrame *frame);
-    QString getButtonHTML(VCButton *btn);
-    QString getSliderHTML(VCSlider *slider);
-    QString getLabelHTML(VCLabel *label);
-    QString getAudioTriggersHTML(VCAudioTriggers *triggers);
-    QString getCueListHTML(VCCueList *cue);
-    QString getClockHTML(VCClock *clock);
-    QString getMatrixHTML(VCMatrix *matrix);
-    QString getGrandMasterSliderHTML();
+    QString getWidgetBackgroundImage(const VCWidget *widget) const;
+    QString getWidgetHTML(const VCWidget *widget) const;
+    QString getFrameHTML(const VCFrame *frame);
+    QString getSoloFrameHTML(const VCSoloFrame *frame);
+    QString getButtonHTML(const VCButton *btn) const;
+    QString getSliderHTML(const VCSlider *slider);
+    QString getLabelHTML(const VCLabel *label) const;
+    QString getAudioTriggersHTML(const VCAudioTriggers *triggers) const;
+    QString getCueListHTML(const VCCueList *cue);
+    QString getClockHTML(const VCClock *clock) const;
+    QString getMatrixHTML(const VCMatrix *matrix);
+    QString getGrandMasterSliderHTML() const;
 
-    QString getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx);
+    QString getChildrenHTML(const VCWidget *frame, int pagesNum, int currentPageIdx);
     QString getVCHTML();
 
-    QString getSimpleDeskHTML();
+    QString getSimpleDeskHTML() const;
 
 protected slots:
     void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp) override;

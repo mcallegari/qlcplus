@@ -616,7 +616,7 @@ void WebAccess::handleAutostartProject(const QString &path)
     emit storeAutostartProject(path);
 }
 
-QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)
+QString WebAccess::getWidgetBackgroundImage(const VCWidget *widget) const
 {
     if (widget == NULL || widget->backgroundImage().isEmpty())
         return QString();
@@ -639,7 +639,7 @@ QString WebAccess::getWidgetBackgroundImage(VCWidget *widget)
     return str;
 }
 
-QString WebAccess::getWidgetHTML(VCWidget *widget)
+QString WebAccess::getWidgetHTML(const VCWidget *widget) const
 {
     QString str = "<div class=\"vcwidget\" style=\""
             "left: " + QString::number(widget->x()) + "px; "
@@ -674,7 +674,7 @@ void WebAccess::slotFrameDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getFrameHTML(VCFrame *frame)
+QString WebAccess::getFrameHTML(const VCFrame *frame)
 {
     QColor border(90, 90, 90);
     QSize origSize = frame->originalSize();
@@ -783,7 +783,7 @@ QString WebAccess::getFrameHTML(VCFrame *frame)
     return str;
 }
 
-QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
+QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
 {
     QColor border(255, 0, 0);
     QSize origSize = frame->originalSize();
@@ -921,7 +921,7 @@ void WebAccess::slotButtonDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getButtonHTML(VCButton *btn)
+QString WebAccess::getButtonHTML(const VCButton *btn) const
 {
     QString onCSS = "";
     if (btn->state() == VCButton::Active)
@@ -975,7 +975,7 @@ void WebAccess::slotSliderDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getSliderHTML(VCSlider *slider)
+QString WebAccess::getSliderHTML(const VCSlider *slider)
 {
     QString slID = QString::number(slider->id());
 
@@ -1062,7 +1062,7 @@ void WebAccess::slotLabelDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getLabelHTML(VCLabel *label)
+QString WebAccess::getLabelHTML(const VCLabel *label) const
 {
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(label->x()) + "px; "
@@ -1096,7 +1096,7 @@ void WebAccess::slotAudioTriggersToggled(bool toggle)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
+QString WebAccess::getAudioTriggersHTML(const VCAudioTriggers *triggers) const
 {
     QString str = "<div class=\"vcaudiotriggers\" style=\"left: " + QString::number(triggers->x()) +
           "px; top: " + QString::number(triggers->y()) + "px; width: " +
@@ -1234,7 +1234,7 @@ void WebAccess::slotCueDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getCueListHTML(VCCueList *cue)
+QString WebAccess::getCueListHTML(const VCCueList *cue)
 {
     QString str = "<div id=\"" + QString::number(cue->id()) + "\" "
             "class=\"vccuelist\" style=\"left: " + QString::number(cue->x()) +
@@ -1540,7 +1540,7 @@ void WebAccess::slotClockDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getClockHTML(VCClock *clock)
+QString WebAccess::getClockHTML(const VCClock *clock) const
 {
     QString str = "<div class=\"vclabel-wrapper\" style=\""
             "left: " + QString::number(clock->x()) + "px; "
@@ -1634,7 +1634,7 @@ void WebAccess::slotMatrixControlKnobValueChanged(int controlID, int value)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getMatrixHTML(VCMatrix *matrix)
+QString WebAccess::getMatrixHTML(const VCMatrix *matrix)
 {
     QString str = "<div id=\"" + QString::number(matrix->id()) + "\" "
                   "class=\"vcmatrix\" style=\"left: " + QString::number(matrix->x()) +
@@ -1798,14 +1798,14 @@ QString WebAccess::getMatrixHTML(VCMatrix *matrix)
     return str;
 }
 
-QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPageIdx)
+QString WebAccess::getChildrenHTML(const VCWidget *frame, int pagesNum, int currentPageIdx)
 {
     if (frame == NULL)
         return QString();
 
     QString unifiedHTML;
     QStringList pagesHTML;
-    VCFrame *lframe = qobject_cast<VCFrame *>(frame);
+    const VCFrame *lframe = qobject_cast<const VCFrame *>(frame);
     if (lframe == NULL)
         return "";
 
@@ -1914,7 +1914,7 @@ void WebAccess::slotGrandMasterValueChanged(uchar value)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccess::getGrandMasterSliderHTML()
+QString WebAccess::getGrandMasterSliderHTML() const
 {
     if (!m_vc->properties().grandMasterVisible())
         return "";
@@ -2004,7 +2004,7 @@ QString WebAccess::getVCHTML()
     return str;
 }
 
-QString WebAccess::getSimpleDeskHTML()
+QString WebAccess::getSimpleDeskHTML() const
 {
     QString str = HTML_HEADER;
     return str;

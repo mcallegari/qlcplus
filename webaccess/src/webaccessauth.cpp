@@ -227,7 +227,7 @@ QString WebAccessAuth::generateSalt() const
 
 QString WebAccessAuth::hashPassword(const QString& hashType, const QString& password, const QString& passwordSalt) const
 {
-    QString passwordWithSalt = password + passwordSalt;
+    const QString passwordWithSalt = password + passwordSalt;
     QCryptographicHash::Algorithm algorithm = QCryptographicHash::Sha1;
 
     if (hashType == "sha1")

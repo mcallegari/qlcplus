@@ -181,7 +181,7 @@ private:
      *********************************************************************/
 public:
     /** Get/Set the speed factor to be applied to controlled Functions */
-    SpeedMultiplier currentFactor();
+    SpeedMultiplier currentFactor() const;
     void setCurrentFactor(SpeedMultiplier factor);
 
     Q_INVOKABLE void increaseSpeedFactor();
@@ -234,7 +234,7 @@ private:
      *********************************************************************/
 public:
     /** Return a list suitable for the QML UI */
-    QVariantList presetsList();
+    QVariantList presetsList() const;
 
     /** Add a preset and return its assigned ID */
     Q_INVOKABLE int addPreset(QString name, int value);

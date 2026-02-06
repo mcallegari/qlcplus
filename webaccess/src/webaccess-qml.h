@@ -95,19 +95,19 @@ protected slots:
 
 protected:
     QString webFilePath(const QString &relativePath) const override;
-    void sendMatrixState(VCAnimation *animation);
+    void sendMatrixState(const VCAnimation *animation) const;
     void handleAutostartProject(const QString &path) override;
     void handleProjectLoad(const QByteArray &projectXml) override;
     bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) override;
 
     QByteArray getVCJson();
-    QJsonObject baseWidgetToJson(VCWidget *widget);
-    QJsonObject widgetToJson(VCWidget *widget);
-    QJsonObject frameToJson(VCFrame *frame);
-    void collectWidgets(VCFrame *frame, QList<VCWidget *> &list, bool recursive = true);
+    QJsonObject baseWidgetToJson(const VCWidget *widget);
+    QJsonObject widgetToJson(const VCWidget *widget);
+    QJsonObject frameToJson(const VCFrame *frame);
+    void collectWidgets(const VCFrame *frame, QList<VCWidget *> &list, bool recursive = true) const;
 
-    void setupWidgetConnections(VCWidget *widget);
-    QString widgetBackgroundImagePath(VCWidget *widget) const;
+    void setupWidgetConnections(const VCWidget *widget);
+    QString widgetBackgroundImagePath(const VCWidget *widget) const;
 
 protected:
     QSet<quint32> m_connectedWidgets;

@@ -112,7 +112,7 @@ public:
     int getCurrentUniverseIndex() const;
     int getCurrentPage() const;
     uchar getAbsoluteChannelValue(uint address) const;
-    bool isChannelOverridden(uint address);
+    bool isChannelOverridden(uint address) const;
     void setAbsoluteChannelValue(uint address, uchar value);
     void resetAbsoluteChannel(uint address);
 

@@ -31,8 +31,8 @@ class WebAccessSimpleDesk final : public QObject
 public:
     explicit WebAccessSimpleDesk(QObject *parent = 0);
 
-    static QString getHTML(Doc *doc, SimpleDesk *sd);
-    static QString getChannelsMessage(Doc *doc, SimpleDesk *sd,
+    static QString getHTML(const Doc *doc, const SimpleDesk *sd);
+    static QString getChannelsMessage(const Doc *doc, const SimpleDesk *sd,
                                       quint32 universe, int startAddr, int chNumber);
 
 signals:
