@@ -115,6 +115,9 @@ bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString 
         QByteArray resContent = resFile.readAll();
         resFile.close();
 
+        if (response == nullptr)
+            return false;
+
         response->setHeader("Content-Type", contentType);
         response->setHeader("Content-Length", QString::number(resContent.size()));
         response->writeHead(200);
@@ -260,6 +263,9 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
                                                                           const QString &reqUrl,
                                                                           QString &content)
 {
+    if (resp == nullptr)
+        return CommonRequestResult::NotHandled;
+
     if (reqUrl == "/qlcplusWS")
     {
         if (acceptWebSocket(resp, user))
@@ -270,6 +276,8 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
     {
         if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return CommonRequestResult::Handled;
+        if (req == nullptr)
+            return CommonRequestResult::NotHandled;
         QByteArray projectXML = extractProjectXml(req);
 
         qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
@@ -285,6 +293,8 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
     {
         if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return CommonRequestResult::Handled;
+        if (req == nullptr)
+            return CommonRequestResult::NotHandled;
         QByteArray fixtureXML = req->body();
         int fnamePos = fixtureXML.indexOf("filename=") + 10;
         QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
@@ -328,6 +338,8 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
     {
         if (!requireAuthLevel(resp, user, SUPER_ADMIN_LEVEL))
             return CommonRequestResult::Handled;
+        if (m_netConfig == nullptr)
+            return CommonRequestResult::NotHandled;
         content = m_netConfig->getHTML();
         return CommonRequestResult::ContentReady;
     }
@@ -545,7 +557,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
         if (cmdList.count() < 2)
             return true;
 
-        if (cmdList.at(1) == "NETWORK")
+        if (cmdList.at(1) == "NETWORK" && m_netConfig != nullptr)
         {
             QString wsMessage;
             if (m_netConfig->updateNetworkSettings(cmdList))
@@ -557,7 +569,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
                 conn->webSocketWrite(wsMessage);
             return true;
         }
-        else if (cmdList.at(1) == "HOTSPOT")
+        else if (cmdList.at(1) == "HOTSPOT" && m_netConfig != nullptr)
         {
             QString wsMessage;
             if (cmdList.count() < 5)

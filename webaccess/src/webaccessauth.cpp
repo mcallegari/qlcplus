@@ -126,6 +126,9 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
     if (!this->hasAtLeastOneAdmin())
         return WebAccessUser(NOT_PROVIDED_LEVEL);
 
+    if (req == nullptr || res == nullptr)
+        return WebAccessUser();
+
     QString header = QString("Basic realm=\"") + m_realm + QString("\"");
     res->setHeader("WWW-Authenticate", header);
 
@@ -187,6 +190,9 @@ QList<WebAccessUser> WebAccessAuth::getUsers() const
 
 void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 {
+    if (res == nullptr)
+        return;
+
     const static QByteArray text = QString(
         "<!DOCTYPE html>\n"
         "<html>\n"
