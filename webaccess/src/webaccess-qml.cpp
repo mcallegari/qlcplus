@@ -1243,6 +1243,8 @@ void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
                     this, SLOT(slotCueIndexChanged(int)));
             connect(cue, SIGNAL(playbackStatusChanged()),
                     this, SLOT(slotCuePlaybackStateChanged()));
+            connect(cue, SIGNAL(nextStepIndexChanged()),
+                    this, SLOT(slotCuePlaybackStateChanged()));
             connect(cue, SIGNAL(sideFaderLevelChanged()),
                     this, SLOT(slotCueSideFaderLevelChanged()));
             connect(cue, SIGNAL(disabledStateChanged(bool)),
