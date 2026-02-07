@@ -35,7 +35,7 @@ Rectangle
 
     onVisibleChanged:
     {
-        if (visible == true)
+        if (visible)
             generatorsList.model = ioManager.beatGeneratorsList()
     }
 
@@ -163,14 +163,14 @@ Rectangle
             onExecuteCommand: (cmd) =>
             {
                 var intCmd = parseInt(cmd)
-                if (intCmd === 0 || intCmd > 300)
+                if (intCmd === 0 || intCmd > 1000)
                     return
 
                 ioManager.bpmNumber = cmd
             }
             onEscapePressed: beatChooserBox.visible = false
 
-            onTapTimeChanged: (time) => ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
+            onTapTimeChanged: (time) => ioManager.bpmNumber = Math.min(parseInt(60000 / time), 1000)
         }
     }
 }
