@@ -439,7 +439,7 @@ body {
   width: var(--slider-thumb-width, 20px);
   height: var(--slider-thumb-height, 20px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(90deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(180deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
@@ -463,7 +463,7 @@ body {
   width: var(--slider-thumb-width, 20px);
   height: var(--slider-thumb-height, 20px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(90deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(180deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
@@ -497,7 +497,7 @@ body {
   width: var(--slider-thumb-width, 20px);
   height: var(--slider-thumb-height, 20px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(0deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(180deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
@@ -521,15 +521,19 @@ body {
   width: var(--slider-thumb-width, 20px);
   height: var(--slider-thumb-height, 20px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(0deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(180deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
 }
 
-.vc-frame,
+.vc-frame {
+  overflow: hidden;
+}
+
 .vc-soloframe {
   overflow: hidden;
+  outline: 2px solid #e00;
 }
 
 .vc-frame-header {
@@ -922,7 +926,7 @@ body {
   width: var(--slider-thumb-width, 16px);
   height: var(--slider-thumb-height, 20px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(0deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(180deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-left: calc((5px - var(--slider-thumb-width, 16px)) / 2);
@@ -946,7 +950,7 @@ body {
   width: var(--slider-thumb-width, 16px);
   height: var(--slider-thumb-height, 20px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(0deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(180deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-left: calc((5px - var(--slider-thumb-width, 16px)) / 2);
@@ -1267,7 +1271,7 @@ body {
   width: var(--slider-thumb-width, 18px);
   height: var(--slider-thumb-height, 18px);
   background: var(--slider-thumb-gradient,
-    linear-gradient(90deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
+    linear-gradient(270deg, #ccc 0%, #555 45%, #000 50%, #555 55%, #888 100%));
   border: 1px solid #5c5c5c;
   border-radius: 4px;
   margin-top: calc((var(--slider-thumb-height, 18px) - 5px) / -2);
@@ -1398,43 +1402,54 @@ body {
   width: 100%;
   cursor: pointer;
   font-family: var(--font-main);
-  font-size: calc(var(--text-size-default) * 0.9);
+  font-size: var(--text-size-default);
+  font-weight: 500;
+  border-radius: 2px;
+  transition: background 0.1s ease, border-color 0.1s ease;
 }
 
 .speed-btn:hover {
   background: var(--highlight);
+  border-color: var(--highlight);
 }
 
 .speed-btn:active {
   background: var(--highlight-pressed);
+  border-color: var(--highlight-pressed);
 }
 
 .speed-beat.is-active,
 .speed-preset.is-active {
-  background: #008000;
-  border-color: #005a00;
+  background: #21be2b;
+  border-color: #1a9522;
 }
 
 .speed-tap {
   border-color: var(--bg-strong);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: calc(var(--text-size-default) * 1.1);
 }
 
 .speed-tap.is-blink {
   border-color: #0f0;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
 }
 
 .speed-dial {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
   padding: 2px;
 }
 
 .speed-dial-knob {
-  width: 100%;
-  height: 100%;
   aspect-ratio: 1 / 1;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 50%;
   position: relative;
   background: linear-gradient(145deg, #a3a3a3 0%, #505050 100%);

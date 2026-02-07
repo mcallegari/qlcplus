@@ -471,11 +471,11 @@ function renderSlider(widget) {
     const val = parseInt(input.value, 10);
     const fill = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
     input.style.setProperty("--slider-fill", `${fill}%`);
-    let thumbGradient = "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)";
+    let thumbGradient = "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)";
     if (widget.sliderMode === "Submaster") {
-      thumbGradient = "linear-gradient(0deg, #4c4c4c 0%, #2c2c2c 45%, #000000 50%, #111111 55%, #131313 100%)";
+      thumbGradient = "linear-gradient(180deg, #4c4c4c 0%, #2c2c2c 45%, #000000 50%, #111111 55%, #131313 100%)";
     } else if (widget.sliderMode === "GrandMaster") {
-      thumbGradient = "linear-gradient(0deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
+      thumbGradient = "linear-gradient(180deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
     }
     input.style.setProperty("--slider-thumb-gradient", thumbGradient);
     const iconSize = state.pixelDensity * 10;
@@ -996,7 +996,7 @@ function renderAudioTriggers(widget) {
   fader.style.setProperty("--slider-fill", `${(fader.value / 100) * 100}%`);
   fader.style.setProperty(
     "--slider-thumb-gradient",
-    "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
+    "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
   );
   const iconSize = state.pixelDensity * 10;
   const thumbWidth = iconSize * 0.75;
@@ -1048,7 +1048,7 @@ function renderMatrix(widget) {
     fader.style.setProperty("--slider-fill", `${(fader.value / 255) * 100}%`);
     fader.style.setProperty(
       "--slider-thumb-gradient",
-      "linear-gradient(0deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
+      "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
     );
     const iconSize = state.pixelDensity * 10;
     const width = widget.geometry?.w ?? iconSize;
@@ -1180,9 +1180,45 @@ function renderSpeed(widget) {
     rowIndex += 1;
   }
 
+  // Calculate rows needed for dial/beats/tap area matching QML GridLayout flow
   dialRowStart = rowIndex;
-  rows.push("1fr", "1fr");
-  rowIndex += 2;
+  let controlsAreaRows = 0;
+
+  if (showDial && showTap && showBeats) {
+    // QML: Dial(4col,2row) + Beats on right + TAP(2col,2row) below + remaining Beats
+    // Rows: Dial+4beats(2 rows) + TAP+4beats(2 rows) = 4 rows
+    controlsAreaRows = 4;
+  } else if (showDial && showBeats && !showTap) {
+    // QML: Dial(4col,1row) + Beats(8 buttons in 2 rows below)
+    // Rows: 1 + 2 = 3 rows
+    controlsAreaRows = 3;
+  } else if (showDial && showTap && !showBeats) {
+    // QML: Dial(4col,2row) side-by-side with TAP(2col,2row)
+    // Rows: 2 rows
+    controlsAreaRows = 2;
+  } else if (showDial && !showBeats && !showTap) {
+    // QML: Just Dial(4col,1row)
+    // Rows: 1 row
+    controlsAreaRows = 1;
+  } else if (!showDial && showBeats && showTap) {
+    // No dial: Beats(4 buttons) side-by-side with TAP(2col,2row), then 4 more beats
+    // But TAP is 2 rows, beats need 2 rows total
+    // Rows: 2 rows (beats row 1 + TAP, beats row 2)
+    controlsAreaRows = 2;
+  } else if (!showDial && showBeats && !showTap) {
+    // No dial: Just beats (8 buttons in 2 rows)
+    // Rows: 2 rows
+    controlsAreaRows = 2;
+  } else if (!showDial && showTap && !showBeats) {
+    // No dial, no beats: Just TAP(2 rows)
+    // Rows: 2 rows
+    controlsAreaRows = 2;
+  }
+
+  for (let i = 0; i < controlsAreaRows; i++) {
+    rows.push("1fr");
+  }
+  rowIndex += controlsAreaRows;
 
   if (showTime) {
     rows.push("var(--list-item-height)");
@@ -1227,7 +1263,9 @@ function renderSpeed(widget) {
     const dialWrap = document.createElement("div");
     dialWrap.className = "speed-dial";
     dialWrap.style.gridColumn = `1 / span ${showTap ? 4 : columns}`;
-    dialWrap.style.gridRow = `${dialRowStart} / span 2`;
+    // Match native QML: dial spans 2 rows when TAP is visible, 1 row otherwise
+    const dialRowSpan = showTap ? 2 : 1;
+    dialWrap.style.gridRow = `${dialRowStart} / span ${dialRowSpan}`;
 
     const dialKnob = document.createElement("div");
     dialKnob.className = "speed-dial-knob";
@@ -1327,16 +1365,67 @@ function renderSpeed(widget) {
   };
 
   if (showBeats) {
-    const beatDefs = [
-      { label: "1/16", value: 2, row: dialRowStart, col: 1 },
-      { label: "1/8", value: 3, row: dialRowStart, col: 2 },
-      { label: "1/4", value: 4, row: dialRowStart, col: 3 },
-      { label: "1/2", value: 5, row: dialRowStart, col: 4 },
-      { label: "2", value: 7, row: dialRowStart + 1, col: 1 },
-      { label: "4", value: 8, row: dialRowStart + 1, col: 2 },
-      { label: "8", value: 9, row: dialRowStart + 1, col: 3 },
-      { label: "16", value: 10, row: dialRowStart + 1, col: 4 },
-    ];
+    let beatDefs;
+    if (showDial && showTap) {
+      // Dial visible, TAP visible (6 columns):
+      // Row N: Dial (1-4), 1/16 (5), 1/8 (6)
+      // Row N+1: Dial (1-4), 1/4 (5), 1/2 (6)
+      // Row N+2: TAP (1-2), 2 (3), 4 (4), 8 (5), 16 (6)
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart, col: 5 },
+        { label: "1/8", value: 3, row: dialRowStart, col: 6 },
+        { label: "1/4", value: 4, row: dialRowStart + 1, col: 5 },
+        { label: "1/2", value: 5, row: dialRowStart + 1, col: 6 },
+        { label: "2", value: 7, row: dialRowStart + 2, col: 3 },
+        { label: "4", value: 8, row: dialRowStart + 2, col: 4 },
+        { label: "8", value: 9, row: dialRowStart + 2, col: 5 },
+        { label: "16", value: 10, row: dialRowStart + 2, col: 6 },
+      ];
+    } else if (showDial && !showTap) {
+      // Dial visible, TAP NOT visible (4 columns):
+      // Row N: Dial (1-4)
+      // Row N+1: 1/16 (1), 1/8 (2), 1/4 (3), 1/2 (4)
+      // Row N+2: 2 (1), 4 (2), 8 (3), 16 (4)
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart + 1, col: 1 },
+        { label: "1/8", value: 3, row: dialRowStart + 1, col: 2 },
+        { label: "1/4", value: 4, row: dialRowStart + 1, col: 3 },
+        { label: "1/2", value: 5, row: dialRowStart + 1, col: 4 },
+        { label: "2", value: 7, row: dialRowStart + 2, col: 1 },
+        { label: "4", value: 8, row: dialRowStart + 2, col: 2 },
+        { label: "8", value: 9, row: dialRowStart + 2, col: 3 },
+        { label: "16", value: 10, row: dialRowStart + 2, col: 4 },
+      ];
+    } else if (!showDial && showTap) {
+      // No dial, TAP visible (6 columns):
+      // Beats flow naturally, TAP takes 2 columns
+      // Row N: 1/16 (1), 1/8 (2), 1/4 (3), 1/2 (4), TAP (5-6, rowspan 2)
+      // Row N+1: 2 (1), 4 (2), 8 (3), 16 (4), [TAP continues]
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart, col: 1 },
+        { label: "1/8", value: 3, row: dialRowStart, col: 2 },
+        { label: "1/4", value: 4, row: dialRowStart, col: 3 },
+        { label: "1/2", value: 5, row: dialRowStart, col: 4 },
+        { label: "2", value: 7, row: dialRowStart + 1, col: 1 },
+        { label: "4", value: 8, row: dialRowStart + 1, col: 2 },
+        { label: "8", value: 9, row: dialRowStart + 1, col: 3 },
+        { label: "16", value: 10, row: dialRowStart + 1, col: 4 },
+      ];
+    } else {
+      // No dial, no TAP (4 columns):
+      // Row N: 1/16 (1), 1/8 (2), 1/4 (3), 1/2 (4)
+      // Row N+1: 2 (1), 4 (2), 8 (3), 16 (4)
+      beatDefs = [
+        { label: "1/16", value: 2, row: dialRowStart, col: 1 },
+        { label: "1/8", value: 3, row: dialRowStart, col: 2 },
+        { label: "1/4", value: 4, row: dialRowStart, col: 3 },
+        { label: "1/2", value: 5, row: dialRowStart, col: 4 },
+        { label: "2", value: 7, row: dialRowStart + 1, col: 1 },
+        { label: "4", value: 8, row: dialRowStart + 1, col: 2 },
+        { label: "8", value: 9, row: dialRowStart + 1, col: 3 },
+        { label: "16", value: 10, row: dialRowStart + 1, col: 4 },
+      ];
+    }
 
     beatDefs.forEach((beat) => {
       const btn = makeSpeedButton(beat.label);
@@ -1355,8 +1444,23 @@ function renderSpeed(widget) {
   if (showTap) {
     const tapBtn = makeSpeedButton("TAP");
     tapBtn.classList.add("speed-tap");
-    tapBtn.style.gridColumn = `${columns - 1} / span 2`;
-    tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    if (showDial && showBeats) {
+      // Dial + Beats + TAP: TAP goes to rows 4-5, columns 1-2
+      tapBtn.style.gridColumn = `1 / span 2`;
+      tapBtn.style.gridRow = `${dialRowStart + 2} / span 2`;
+    } else if (showDial && !showBeats) {
+      // Dial + TAP (no beats): TAP goes to the right of the dial
+      tapBtn.style.gridColumn = `5 / span 2`;
+      tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    } else if (!showDial && showBeats) {
+      // No dial, Beats + TAP: TAP goes to the right
+      tapBtn.style.gridColumn = `5 / span 2`;
+      tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    } else {
+      // No dial, no beats, just TAP: spans all columns
+      tapBtn.style.gridColumn = `1 / span ${columns}`;
+      tapBtn.style.gridRow = `${dialRowStart} / span 2`;
+    }
     grid.appendChild(tapBtn);
 
     const tapState = {
