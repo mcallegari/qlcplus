@@ -2278,151 +2278,151 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="865"/>
         <source>Manufacturer</source>
-        <translation type="unfinished">Hersteller</translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="866"/>
         <source>Model</source>
-        <translation type="unfinished">Modell</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="867"/>
         <source>Mode</source>
-        <translation type="unfinished">Modus</translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="868"/>
         <location filename="fixturemanager.cpp" line="945"/>
         <location filename="fixturemanager.cpp" line="971"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="872"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="876"/>
         <source>Address Range</source>
-        <translation type="unfinished">Adressbereich</translation>
+        <translation>Adressbereich</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="896"/>
         <source>Binary Address (DIP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Binäre Adresse (DIP)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="904"/>
         <location filename="fixturemanager.cpp" line="1044"/>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="905"/>
         <source>DMX</source>
-        <translation type="unfinished">DMX</translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="923"/>
         <source>Physical</source>
-        <translation type="unfinished">Abmessungen</translation>
+        <translation>Abmessungen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="930"/>
         <source>Width</source>
-        <translation type="unfinished">Breite</translation>
+        <translation>Breite</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="932"/>
         <source>Height</source>
-        <translation type="unfinished">Höhe</translation>
+        <translation>Höhe</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="934"/>
         <source>Depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiefe</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="936"/>
         <source>Weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewicht</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="938"/>
         <source>Power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Leistungsaufnahme</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="939"/>
         <source>DMX Connector</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Anschluss</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="944"/>
         <source>Bulb</source>
-        <translation type="unfinished"></translation>
+        <translation>Leuchtmittel</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="946"/>
         <source>Luminous Flux</source>
-        <translation type="unfinished"></translation>
+        <translation>Lumen</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="947"/>
         <source>Colour Temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbtemperatur</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="953"/>
         <source>Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Linse</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="958"/>
         <location filename="fixturemanager.cpp" line="963"/>
         <source>Beam Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstrahlwinkel</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="970"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Head(s)</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="972"/>
         <source>Pan Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan-Bereich</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="973"/>
         <source>Tilt Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt-Bereich</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="976"/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Anordnung</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="988"/>
         <source>Fixture definition author: </source>
-        <translation type="unfinished"></translation>
+        <translation>Autor der Gerätedefinition: </translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1043"/>
         <source>Fixture</source>
-        <translation type="unfinished">Gerät</translation>
+        <translation>Gerät</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1045"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschreibung</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1063"/>
         <source>Channel %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal %1</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1087"/>
