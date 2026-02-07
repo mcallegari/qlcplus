@@ -148,6 +148,9 @@ void App::startup()
     if (QFontDatabase::addApplicationFont(":/RobotoMono-Regular.ttf") < 0)
         qWarning() << "Roboto mono cannot be loaded!";
 
+    if (QFontDatabase::addApplicationFont(":/FontAwesome7-Free-Solid-900.otf") < 0)
+        qWarning() << "FontAwesome cannot be loaded!";
+
     rootContext()->setContextProperty("qlcplus", this);
 
     initDoc();

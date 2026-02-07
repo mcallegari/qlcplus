@@ -138,7 +138,13 @@ Rectangle
     // Load the "FontAwesome" font for the monochrome icons
     FontLoader
     {
+        id: faFontLoader
         source: "qrc:/FontAwesome7-Free-Solid-900.otf"
+        onStatusChanged:
+        {
+            if (status === FontLoader.Ready)
+                UISettings.fontAwesomeFontName = faFontLoader.name
+        }
     }
 
     Rectangle
