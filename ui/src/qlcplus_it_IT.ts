@@ -4617,6 +4617,11 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
         <source>Page: %1</source>
         <translation>Pagina %1</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
+        <source>(Not Sent)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDMManager</name>

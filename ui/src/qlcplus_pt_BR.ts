@@ -4603,6 +4603,11 @@ Note que o assistente não diferencia entre uma roda e um fader pelo que terá d
         <source>Page: %1</source>
         <translation type="unfinished">Página: %1</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
+        <source>(Not Sent)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDMManager</name>
