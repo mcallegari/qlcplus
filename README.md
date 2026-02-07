@@ -24,6 +24,8 @@
     <img src="https://github.com/mcallegari/qlcplus/actions/workflows/build.yml/badge.svg" alt="Build status badge" /></a>
   <a href="https://coveralls.io/github/mcallegari/qlcplus?branch=master">
     <img src="https://coveralls.io/repos/github/mcallegari/qlcplus/badge.svg?branch=master" alt="Test coverage badge" /></a>
+  <a href="https://docs.google.com/spreadsheets/d/1J1BK0pYCsLVBfLpDZ-GqpNgUzbgTwmhf9zOjg4J_MWg/edit?gid=0#gid=0">
+    <img src="https://img.shields.io/badge/V5%20feature%20parity-91.4%25-green" alt="V5 Feature Parity" /></a>
 </p>
 
 ---
