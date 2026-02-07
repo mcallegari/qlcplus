@@ -185,6 +185,7 @@ jobs:
         run: |
           APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
           echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
+          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${GIT_REV}\"/" engine/src/qlcconfig.h
 
       - name: Adapt qlcplus for AppImage (v4)
         if: ${{ matrix.task == 'build-v4' }}
@@ -410,6 +411,7 @@ jobs:
         run: |
           APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
           echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
+          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${GIT_REV}\"/" engine/src/qlcconfig.h
 
       - name: Run windeployqt for v4
         shell: msys2 {0}
@@ -541,6 +543,7 @@ jobs:
         run: |-
           APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
           echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
+          sed -i '' "s/\(#define APPVERSION \".*\)\"/\1 ${GIT_REV}\"/" engine/src/qlcconfig.h
 
       - name: Fix v4 dylib dependencies
         shell: bash
