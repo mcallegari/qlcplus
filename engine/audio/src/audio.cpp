@@ -234,7 +234,8 @@ void Audio::slotEndOfStream()
         m_audio_out->deleteLater();
         m_audio_out = NULL;
     }
-    m_decoder->seek(0);
+    if (m_decoder != NULL)
+        m_decoder->seek(0);
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
