@@ -98,7 +98,12 @@ void VideoProvider::slotRequestPlayback()
 
 void VideoProvider::slotRequestPause(bool enable)
 {
-    Q_UNUSED(enable)
+    Video *video = qobject_cast<Video *>(sender());
+    if (video == nullptr)
+        return;
+
+    if (m_videoMap.contains(video->id()))
+        m_videoMap[video->id()]->pauseContent(enable);
 }
 
 void VideoProvider::slotRequestStop()
@@ -222,6 +227,16 @@ void VideoContent::playContent()
     }
     else
         m_viewContext->show();
+}
+
+void VideoContent::pauseContent(bool enable)
+{
+    if (m_viewContext == nullptr)
+        return;
+
+    QMetaObject::invokeMethod(m_viewContext->rootObject(), "pauseContent",
+                              Q_ARG(QVariant, m_video->id()),
+                              Q_ARG(QVariant, enable));
 }
 
 void VideoContent::stopContent()

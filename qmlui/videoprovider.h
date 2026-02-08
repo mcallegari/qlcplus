@@ -72,6 +72,7 @@ public:
     Q_INVOKABLE void destroyContext();
 
     void playContent();
+    void pauseContent(bool enable);
     void stopContent();
 
 protected:

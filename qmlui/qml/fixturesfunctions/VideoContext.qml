@@ -53,6 +53,18 @@ Rectangle
         mediaItems.push(item)
     }
 
+    function pauseContent(id, enable)
+    {
+        var cIdx = mediaArray.indexOf(id)
+        if (cIdx > -1)
+        {
+            if (enable)
+                mediaItems[cIdx].pausePlayback()
+            else
+                mediaItems[cIdx].resumePlayback()
+        }
+    }
+
     function removeContent(id)
     {
         var cIdx = mediaArray.indexOf(id)
@@ -100,6 +112,16 @@ Rectangle
             function stopPlayback()
             {
                 player.stop()
+            }
+
+            function pausePlayback()
+            {
+                player.pause()
+            }
+
+            function resumePlayback()
+            {
+                player.play()
             }
 
             onVideoChanged:
@@ -198,6 +220,8 @@ Rectangle
             property rect geometry: picture.customGeometry
 
             function stopPlayback() { }
+            function pausePlayback() { }
+            function resumePlayback() { }
 
             onPictureChanged:
             {
