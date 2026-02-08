@@ -124,6 +124,7 @@ Section
 	File /r ModifiersTemplates
 	File /r Plugins
 	File /r RGBScripts
+	File /r Web
 
 	WriteRegStr HKCU "SOFTWARE\qlcplus" "Install_Dir" "$INSTDIR"
 
@@ -158,6 +159,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\ModifiersTemplates
 	RMDir /r $INSTDIR\Plugins
 	RMDir /r $INSTDIR\RGBScripts
+	RMDir /r $INSTDIR\Web
 
 	RMDir $INSTDIR
 
