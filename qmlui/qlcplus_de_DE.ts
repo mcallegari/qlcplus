@@ -2176,67 +2176,67 @@ Ungespeicherte Änderungen gehen verloren.</translation>
         <translation>Geräte hinzufügen</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="109"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="95"/>
         <source>Fixture Groups</source>
         <translation>Gerätegruppen</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="132"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="118"/>
         <source>Palettes</source>
         <translation>Paletten</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="151"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="137"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="187"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="173"/>
         <source>Shutter</source>
         <translation>Shutter</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="217"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="203"/>
         <source>Position</source>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="245"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="231"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="277"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="263"/>
         <source>Color Wheel</source>
         <translation>Farbrad</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="307"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="293"/>
         <source>Gobos</source>
         <translation>Gobos</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="337"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="323"/>
         <source>Beam</source>
         <translation>Lichtstrahl</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="373"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="359"/>
         <source>Highlight</source>
         <translation>Hervorhebung</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="390"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="376"/>
         <source>Pick a 3D point</source>
         <translation>3D-Punkt auswählen</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="399"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="385"/>
         <source>Toggle multiple item selection</source>
         <translation>Mehrfachauswahl umschalten</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="410"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="396"/>
         <source>Select/Deselect all fixtures</source>
         <translation>Alle Geräte an-/abwählen</translation>
     </message>
@@ -2696,27 +2696,27 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="209"/>
         <source>The modifier name cannot be empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Name des Modifizierers darf nicht leer sein.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="216"/>
         <source>Please choose a name other than &quot;None&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte einen anderen Namen als &quot;Nichts&quot; wählen.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="224"/>
         <source>You are trying to overwrite a system template! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie versuchen, eine Systemvorlage zu überschreiben! Bitte wählen Sie einen anderen Namen, damit die Vorlage in Ihren Kanalmodifizierer-Benutzerordner gespeichert werden kann.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="233"/>
         <source>Unable to save the modifier template.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Modifizierer-Vorlage konnte nicht gespeichert werden.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="250"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Vorlage</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="275"/>
@@ -2741,7 +2741,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="326"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="446"/>
@@ -2761,12 +2761,12 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="547"/>
         <source>Error</source>
-        <translation type="unfinished">Fehler</translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="554"/>
         <source>Rename modifier template</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifizierer-Vorlage umbenennen</translation>
     </message>
 </context>
 <context>
@@ -3669,7 +3669,7 @@ Zugriffsrechte:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="228"/>
         <source>Save this matrix to a sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Matrix als Sequenz speichern</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="235"/>
@@ -3912,7 +3912,7 @@ Zugriffsrechte:</translation>
     <message>
         <location filename="rgbmatrixeditor.cpp" line="707"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Sequenz</translation>
     </message>
 </context>
 <context>
@@ -4045,7 +4045,7 @@ Zugriffsrechte:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="237"/>
         <source>Timing Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Timing-Einstellungen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="257"/>
@@ -4117,7 +4117,7 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="420"/>
         <source>Toggle multiple item selection</source>
-        <translation type="unfinished">Mehrfachauswahl umschalten</translation>
+        <translation>Mehrfachauswahl umschalten</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="437"/>
@@ -4741,47 +4741,47 @@ eine Funktion auf die Zeitleiste ziehen</translation>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="76"/>
         <source>--</source>
-        <translation type="unfinished"></translation>
+        <translation>--</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="78"/>
         <source>Multiple</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehrere</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="232"/>
         <source>Alignment</source>
-        <translation type="unfinished">Ausrichtung</translation>
+        <translation>Ausrichtung</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="242"/>
         <source>Align start to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Anfang an Cursor ausrichten</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="250"/>
         <source>Align end to cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Ende an Cursor ausrichten</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="275"/>
         <source>Timings</source>
-        <translation type="unfinished"></translation>
+        <translation>Timings</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="394"/>
         <source>Start time</source>
-        <translation type="unfinished">Startzeit</translation>
+        <translation>Startzeit</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="411"/>
         <source>End time</source>
-        <translation type="unfinished"></translation>
+        <translation>Endzeit</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="428"/>
         <source>Duration</source>
-        <translation type="unfinished">Dauer</translation>
+        <translation>Dauer</translation>
     </message>
 </context>
 <context>
@@ -6040,12 +6040,12 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="419"/>
         <source>External input</source>
-        <translation type="unfinished"></translation>
+        <translation>Externer Eingang</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="441"/>
         <source>Catch up with the external controller input value</source>
-        <translation type="unfinished"></translation>
+        <translation>Dem Wert des externen Controller-Eingangs folgen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="449"/>
@@ -6162,7 +6162,7 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
         <location filename="virtualconsole/vcspeeddial.cpp" line="425"/>
         <location filename="virtualconsole/vcspeeddial.cpp" line="483"/>
         <source>Preset: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung: %1</translation>
     </message>
 </context>
 <context>
@@ -6178,39 +6178,39 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="90"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="118"/>
         <source>Preset name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name der Voreinstellung</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="138"/>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="155"/>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="164"/>
         <source>Preset time</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer der Voreinstellung</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="192"/>
         <source>Add a preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="210"/>
         <source>Remove the selected preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Voreinstellung entfernen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="248"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialPresets.qml" line="257"/>
         <source>Time</source>
-        <translation type="unfinished">Zeit</translation>
+        <translation>Zeit</translation>
     </message>
 </context>
 <context>
@@ -6472,7 +6472,7 @@ fallen lassen um die Liste zu füllen</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="198"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="210"/>
@@ -6527,7 +6527,7 @@ fallen lassen um die Liste zu füllen</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="414"/>
         <source>Z-Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Z-Index</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="434"/>

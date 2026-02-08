@@ -21,32 +21,32 @@
     <message>
         <location filename="webaccess-qml.cpp" line="218"/>
         <source>Simple Desk</source>
-        <translation type="unfinished">Einfache Arbeitsfläche</translation>
+        <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="223"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="237"/>
         <source>Reset universe</source>
-        <translation type="unfinished">Universum zurücksetzen</translation>
+        <translation>Universum zurücksetzen</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="239"/>
         <source>Faders</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="250"/>
         <source>Page</source>
-        <translation type="unfinished">Seite</translation>
+        <translation>Seite</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="258"/>
         <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
+        <translation>Zurück</translation>
     </message>
 </context>
 <context>
@@ -181,63 +181,63 @@
     <message>
         <location filename="webaccessbase.cpp" line="216"/>
         <source>Loading project...</source>
-        <translation type="unfinished">Lade Projekt...</translation>
+        <translation>Lade Projekt...</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="301"/>
         <source>Fixture stored and loaded</source>
-        <translation type="unfinished">Gerät gespeichert und geladen</translation>
+        <translation>Gerät gespeichert und geladen</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="482"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished">Benutzername und Passwort sind benötigte Felder.</translation>
+        <translation>Benutzername und Passwort sind erforderlich.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="489"/>
         <location filename="webaccessbase.cpp" line="516"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished">Benutzerlevel muss eine positive Ganzzahl sein.</translation>
+        <translation>Benutzerlevel muss eine positive Ganzzahl sein.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="509"/>
         <source>Username is required.</source>
-        <translation type="unfinished">Benutzername wird benötigt.</translation>
+        <translation>Benutzername ist erforderlich.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="531"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished">Fehler beim Speichern der Passwortdatei.</translation>
+        <translation>Fehler beim Speichern der Passwortdatei.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="552"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
-        <translation type="unfinished">Die Netzwerkkonfiguration hat sich geändert. Neustarten, um die Änderungen anzuwenden.</translation>
+        <translation>Die Netzwerkkonfiguration hat sich geändert. Neustarten, um die Änderungen anzuwenden.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="554"/>
         <source>An error occurred while updating the network configuration.</source>
-        <translation type="unfinished">Beim Aktualisieren der Netzwerk-Konfiguration ist ein Fehler aufgetreten.</translation>
+        <translation>Beim Aktualisieren der Netzwerk-Konfiguration ist ein Fehler aufgetreten.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="571"/>
         <source>Wi-Fi hotspot successfully activated.</source>
-        <translation type="unfinished">Der Wi-Fi-Hotspot wurde erfolgreich aktiviert.</translation>
+        <translation>Der Wi-Fi-Hotspot wurde erfolgreich aktiviert.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="573"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
-        <translation type="unfinished">Beim Erstellen des Wi-Fi-Hotspots ist ein Fehler aufgetreten.</translation>
+        <translation>Beim Erstellen des Wi-Fi-Hotspots ist ein Fehler aufgetreten.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="578"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
-        <translation type="unfinished">Der Wi-Fi-Hotspot wurde erfolgreich deaktiviert.</translation>
+        <translation>Der Wi-Fi-Hotspot wurde erfolgreich deaktiviert.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="595"/>
         <source>Autostart configuration changed</source>
-        <translation type="unfinished">Autostart-Konfiguration geändert</translation>
+        <translation>Autostart-Konfiguration geändert</translation>
     </message>
 </context>
 <context>
