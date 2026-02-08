@@ -4604,6 +4604,11 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
         <source>Page: %1</source>
         <translation>Seite: %1</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
+        <source>(Not Sent)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDMManager</name>

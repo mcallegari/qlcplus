@@ -96,7 +96,7 @@ const QStringList &VCSpeedDialFunction::speedMultiplierNames()
     if (names == 0)
     {
         names = new QStringList;
-        *names << "(Not Sent)";
+        *names << QObject::tr("(Not Sent)");
         *names << "0";
         *names << "1/16";
         *names << "1/8";

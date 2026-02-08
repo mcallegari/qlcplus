@@ -4611,6 +4611,11 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <source>Page: %1</source>
         <translation>Page : %1</translation>
     </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
+        <source>(Not Sent)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDMManager</name>
