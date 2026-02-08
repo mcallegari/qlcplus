@@ -155,7 +155,9 @@ jobs:
           cmake -DCMAKE_PREFIX_PATH="/opt/Qt/$QT_VERSION/gcc_64/lib/cmake" -Dcoverage=ON -DINSTALL_ROOT=${INSTALL_ROOT} -B build
 
       - name: Build
-        run: cmake --build build --parallel `nproc`
+        run: |
+          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
+          cmake --build build --parallel `nproc`
 
       - name: Test
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -185,7 +187,6 @@ jobs:
         run: |
           APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
           echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
-          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
 
       - name: Adapt qlcplus for AppImage (v4)
         if: ${{ matrix.task == 'build-v4' }}
@@ -397,6 +398,7 @@ jobs:
       - name: Build for Windows
         shell: msys2 {0}
         run: |
+          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
           cd build
           ninja
 
@@ -411,7 +413,6 @@ jobs:
         run: |
           APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
           echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
-          sed -i "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
 
       - name: Run windeployqt for v4
         shell: msys2 {0}
@@ -529,6 +530,7 @@ jobs:
       - name: Build
         shell: bash
         run: |-
+          sed -i '' "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
           cd build
           make -j${{ env.NPROC }}
 
@@ -543,7 +545,6 @@ jobs:
         run: |-
           APPVERSION=$(awk -F\" '/^#define APPVERSION/ {gsub(/ /,"-",$2); print $2}' engine/src/qlcconfig.h)
           echo "APPVERSION=$APPVERSION" >> $GITHUB_ENV
-          sed -i '' "s/\(#define APPVERSION \".*\)\"/\1 ${{env.GIT_REV}}\"/" engine/src/qlcconfig.h
 
       - name: Fix v4 dylib dependencies
         shell: bash
