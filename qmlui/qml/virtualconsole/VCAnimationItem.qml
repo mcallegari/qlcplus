@@ -59,7 +59,7 @@ VCWidgetItem
         {
             Layout.fillWidth: true
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.Label : true
-            font: animationObj ? animationObj.font : ""
+            font: animationObj ? animationObj.font : Qt.font({ family: UISettings.robotoFontName })
             text: animationObj ? animationObj.caption : ""
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter

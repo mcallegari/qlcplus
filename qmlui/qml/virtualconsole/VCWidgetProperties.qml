@@ -341,7 +341,7 @@ Rectangle
                                 {
                                     id: fontDialog
                                     title: qsTr("Please choose a font")
-                                    selectedFont: wObj ? wObj.font : ""
+                                    selectedFont: wObj ? wObj.font : Qt.font({ family: UISettings.robotoFontName })
                                     visible: false
 
                                     onAccepted:

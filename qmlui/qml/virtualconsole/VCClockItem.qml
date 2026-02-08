@@ -97,7 +97,7 @@ VCWidgetItem
         {
             width: parent.width - enableChk.width
             height: clockRoot.height
-            font: clockObj ? clockObj.font : ""
+            font: clockObj ? clockObj.font : Qt.font({ family: UISettings.robotoFontName })
             text: timeString
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter

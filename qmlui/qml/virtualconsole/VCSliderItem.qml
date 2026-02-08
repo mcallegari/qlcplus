@@ -106,7 +106,7 @@ VCWidgetItem
         {
             Layout.alignment: Qt.AlignHCenter
             height: UISettings.listItemHeight
-            font: sliderObj ? sliderObj.font : ""
+            font: sliderObj ? sliderObj.font : Qt.font({ family: UISettings.robotoFontName })
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
                                sliderValue : Math.round((sliderValue * 100.0) / 255.0) + "%") : sliderValue
             color: sliderObj ? sliderObj.foregroundColor : "white"
@@ -156,7 +156,7 @@ VCWidgetItem
             //width: sliderRoot.width
             Layout.fillWidth: true
             height: UISettings.listItemHeight
-            font: sliderObj ? sliderObj.font : ""
+            font: sliderObj ? sliderObj.font : Qt.font({ family: UISettings.robotoFontName })
             text: sliderObj ? sliderObj.caption : ""
             color: sliderObj ? sliderObj.foregroundColor : "white"
             horizontalAlignment: Text.AlignHCenter

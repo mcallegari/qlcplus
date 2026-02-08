@@ -140,7 +140,7 @@ VCWidgetItem
             Layout.columnSpan: itemsLayout.columns
             Layout.fillWidth: true
             height: UISettings.listItemHeight
-            font: speedObj ? speedObj.font : ""
+            font: speedObj ? speedObj.font : Qt.font({ family: UISettings.robotoFontName })
             text: speedObj ? speedObj.caption : ""
             color: speedObj ? speedObj.foregroundColor : "white"
             horizontalAlignment: Text.AlignHCenter
