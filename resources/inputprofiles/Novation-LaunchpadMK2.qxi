@@ -3,8 +3,8 @@
 <InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
-  <Author>Tim Cullingworth</Author>
+  <Version>5.2.0</Version>
+  <Author>Tim Cullingworth + Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Novation</Manufacturer>
  <Model>Launchpad MK2</Model>
@@ -329,4 +329,139 @@
   <Name>Volume</Name>
   <Type>Button</Type>
  </Channel>
+ <ColorTable>
+  <Color Value="0" Label="Black" RGB="#000000"/>
+  <Color Value="2" Label="Low gray" RGB="#494949"/>
+  <Color Value="4" Label="Mid gray" RGB="#b6b6b6"/>
+  <Color Value="6" Label="White" RGB="#ffffff"/>
+  <Color Value="8" Label="Light red" RGB="#ff3333"/>
+  <Color Value="10" Label="Red" RGB="#ff0000"/>
+  <Color Value="12" Label="Dark red" RGB="#6e0000"/>
+  <Color Value="14" Label="Dark red2" RGB="#560000"/>
+  <Color Value="16" Label="Light orange" RGB="#ffc266"/>
+  <Color Value="18" Label="Orange" RGB="#ff9900"/>
+  <Color Value="20" Label="Dark orange" RGB="#9a5c00"/>
+  <Color Value="22" Label="Dark orange2" RGB="#563300"/>
+  <Color Value="24" Label="Light yellow" RGB="#ffff99"/>
+  <Color Value="26" Label="Yellow" RGB="#ffff00"/>
+  <Color Value="28" Label="Dark yellow" RGB="#9a9a00"/>
+  <Color Value="30" Label="Dark yellow2" RGB="#565600"/>
+  <Color Value="32" Label="Light lime" RGB="#80fd2a"/>
+  <Color Value="34" Label="Lime" RGB="#40fd00"/>
+  <Color Value="36" Label="Dark lime" RGB="#165800"/>
+  <Color Value="38" Label="Dark lime2" RGB="#155b00"/>
+  <Color Value="40" Label="Light lime2" RGB="#34fd2b"/>
+  <Color Value="42" Label="Lime2" RGB="#34fd2b"/>
+  <Color Value="44" Label="Dark lime3" RGB="#228b22"/>
+  <Color Value="46" Label="Dark lime4" RGB="#003400"/>
+  <Color Value="48" Label="Light green" RGB="#35f400"/>
+  <Color Value="50" Label="Green" RGB="#00ff00"/>
+  <Color Value="52" Label="Dark green" RGB="#006e00"/>
+  <Color Value="54" Label="Dark green2" RGB="#005600"/>
+  <Color Value="56" Label="Light green2" RGB="#99ff99"/>
+  <Color Value="58" Label="Green2" RGB="#00ff00"/>
+  <Color Value="60" Label="Dark green2" RGB="#009a00"/>
+  <Color Value="62" Label="Dark green2" RGB="#005600"/>
+  <Color Value="64" Label="Light aqua" RGB="#2ffcb0"/>
+  <Color Value="66" Label="Aqua" RGB="#00fc91"/>
+  <Color Value="68" Label="Dark aqua" RGB="#00c477"/>
+  <Color Value="70" Label="Dark aqua2" RGB="#005d4a"/>
+  <Color Value="72" Label="Light blue" RGB="#60bfff"/>
+  <Color Value="74" Label="Blue" RGB="#00a7ff"/>
+  <Color Value="76" Label="Dark blue" RGB="#003f84"/>
+  <Color Value="78" Label="Dark blue2" RGB="#002739"/>
+  <Color Value="80" Label="Light blue2" RGB="#4186ff"/>
+  <Color Value="82" Label="Blue2" RGB="#0050ff"/>
+  <Color Value="84" Label="Dark blue3" RGB="#0038b0"/>
+  <Color Value="86" Label="Dark blue4" RGB="#002983"/>
+  <Color Value="88" Label="Light blue3" RGB="#4647ff"/>
+  <Color Value="90" Label="Blue3" RGB="#0000ff"/>
+  <Color Value="92" Label="Dark blue5" RGB="#000064"/>
+  <Color Value="94" Label="Dark blue6" RGB="#00003c"/>
+  <Color Value="96" Label="Light blue4" RGB="#8347ff"/>
+  <Color Value="98" Label="Blue4" RGB="#5000ff"/>
+  <Color Value="100" Label="Dark blue7" RGB="#3600b3"/>
+  <Color Value="102" Label="Dark blue8" RGB="#280082"/>
+  <Color Value="104" Label="Light pink" RGB="#ff49ff"/>
+  <Color Value="106" Label="Pink" RGB="#ff00ff"/>
+  <Color Value="108" Label="Dark pink" RGB="#9e009e"/>
+  <Color Value="110" Label="Dark pink2" RGB="#760076"/>
+  <Color Value="112" Label="Light red2" RGB="#ff4d84"/>
+  <Color Value="114" Label="Red2" RGB="#ff0752"/>
+  <Color Value="116" Label="Dark red3" RGB="#aa0537"/>
+  <Color Value="118" Label="Dark red4" RGB="#7e032a"/>
+  <Color Value="120" Label="Light red3" RGB="#ff1900"/>
+  <Color Value="122" Label="Brown" RGB="#9b3500"/>
+  <Color Value="124" Label="Gold" RGB="#7a5100"/>
+  <Color Value="126" Label="Moss" RGB="#3e6400"/>
+  <Color Value="128" Label="Green3" RGB="#004600"/>
+  <Color Value="130" Label="Green4" RGB="#005432"/>
+  <Color Value="132" Label="Blue5" RGB="#00537e"/>
+  <Color Value="134" Label="Blue6" RGB="#0000ff"/>
+  <Color Value="136" Label="Blue7" RGB="#00444d"/>
+  <Color Value="138" Label="Blue8" RGB="#1b00d2"/>
+  <Color Value="140" Label="Mid white" RGB="#b6b6b6"/>
+  <Color Value="142" Label="Low white" RGB="#494949"/>
+  <Color Value="144" Label="Red3" RGB="#ff0a00"/>
+  <Color Value="146" Label="Lime3" RGB="#bafd00"/>
+  <Color Value="148" Label="Lime4" RGB="#aaed00"/>
+  <Color Value="150" Label="Green5" RGB="#56fd00"/>
+  <Color Value="152" Label="Green6" RGB="#008800"/>
+  <Color Value="154" Label="Green7" RGB="#00fc7a"/>
+  <Color Value="156" Label="Light blue5" RGB="#00a7ff"/>
+  <Color Value="158" Label="Blue9" RGB="#001bfe"/>
+  <Color Value="160" Label="Blue10" RGB="#3500ff"/>
+  <Color Value="162" Label="Purple" RGB="#7700ff"/>
+  <Color Value="164" Label="Mauve" RGB="#b4177e"/>
+  <Color Value="166" Label="Brown2" RGB="#412000"/>
+  <Color Value="168" Label="Orange2" RGB="#ff4a00"/>
+  <Color Value="170" Label="Green8" RGB="#83e100"/>
+  <Color Value="172" Label="Green9" RGB="#65fd00"/>
+  <Color Value="174" Label="Green10" RGB="#00fd00"/>
+  <Color Value="176" Label="Green11" RGB="#00fd00"/>
+  <Color Value="178" Label="Green12" RGB="#45fd61"/>
+  <Color Value="180" Label="Aqua2" RGB="#00fcca"/>
+  <Color Value="182" Label="Light blue6" RGB="#5086ff"/>
+  <Color Value="184" Label="Blue11" RGB="#274dc9"/>
+  <Color Value="186" Label="Blue12" RGB="#827aed"/>
+  <Color Value="188" Label="Purple2" RGB="#d30cff"/>
+  <Color Value="190" Label="Red4" RGB="#ff065a"/>
+  <Color Value="192" Label="Orange3" RGB="#ff7d00"/>
+  <Color Value="194" Label="Gold2" RGB="#b9b100"/>
+  <Color Value="196" Label="Green13" RGB="#8afd00"/>
+  <Color Value="198" Label="Brown3" RGB="#825d00"/>
+  <Color Value="200" Label="Dark brown" RGB="#392800"/>
+  <Color Value="202" Label="Dark green3" RGB="#0d4c05"/>
+  <Color Value="204" Label="Dark green4" RGB="#005037"/>
+  <Color Value="206" Label="Mid white2" RGB="#929292"/>
+  <Color Value="208" Label="Light blue7" RGB="#a4a1ff"/>
+  <Color Value="210" Label="Brown4" RGB="#6a3c17"/>
+  <Color Value="212" Label="Dark red5" RGB="#ac0400"/>
+  <Color Value="214" Label="Red5" RGB="#e15135"/>
+  <Color Value="216" Label="Red6" RGB="#dc6900"/>
+  <Color Value="218" Label="Yellow2" RGB="#ffe100"/>
+  <Color Value="220" Label="Lime5" RGB="#99e100"/>
+  <Color Value="222" Label="Green14" RGB="#5fb500"/>
+  <Color Value="224" Label="Mid white3" RGB="#dbdbdb"/>
+  <Color Value="226" Label="Yellow3" RGB="#dcfd54"/>
+  <Color Value="228" Label="Light aqua2" RGB="#76fcb8"/>
+  <Color Value="230" Label="Light blue8" RGB="#9697ff"/>
+  <Color Value="232" Label="Blue13" RGB="#8b61ff"/>
+  <Color Value="234" Label="Low white2" RGB="#6d6d6d"/>
+  <Color Value="236" Label="Mid white3" RGB="#b6b6b6"/>
+  <Color Value="238" Label="Light blue9" RGB="#defcfc"/>
+  <Color Value="240" Label="Red7" RGB="#a40400"/>
+  <Color Value="242" Label="Dark red6" RGB="#6e0000"/>
+  <Color Value="244" Label="Green15" RGB="#00d100"/>
+  <Color Value="246" Label="Dark green5" RGB="#004000"/>
+  <Color Value="248" Label="Dark yellow" RGB="#b9b100"/>
+  <Color Value="250" Label="Dark yellow2" RGB="#696000"/>
+  <Color Value="252" Label="Gold2" RGB="#ffad33"/>
+  <Color Value="254" Label="Orange3" RGB="#9a5c00"/>
+ </ColorTable>
+ <MidiChannelTable>
+  <Channel Value="0" Label="Steady On"/>
+  <Channel Value="1" Label="Flashing"/>
+  <Channel Value="2" Label="Pulsing"/>
+ </MidiChannelTable>
 </InputProfile>
