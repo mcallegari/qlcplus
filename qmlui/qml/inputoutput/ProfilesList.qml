@@ -124,13 +124,13 @@ Rectangle
                     height: topBar.height - 2
                     faSource: FontAwesome.fa_plus
                     faColor: "limegreen"
-                    tooltip: profEditor.isEditing ? qsTr("Add a new channel") : qsTr("Create a new input profile")
+                    tooltip: profEditor.isEditing ? profEditor.addTooltip : qsTr("Create a new input profile")
 
                     onClicked:
                     {
                         if (profEditor.isEditing)
                         {
-                            profEditor.addNewChannel()
+                            profEditor.addItem()
                         }
                         else
                         {
@@ -145,8 +145,8 @@ Rectangle
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/edit.svg"
-                    tooltip: profEditor.isEditing ? qsTr("Edit the selected channel") : qsTr("Edit the selected input profile")
-                    enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0
+                    tooltip: profEditor.isEditing ? profEditor.editTooltip : qsTr("Edit the selected input profile")
+                    enabled: profEditor.isEditing ? profEditor.canEditChannel : profListView.selectedIndex >= 0
 
                     onClicked:
                     {
@@ -170,14 +170,14 @@ Rectangle
                     height: topBar.height - 2
                     faSource: FontAwesome.fa_minus
                     faColor: "crimson"
-                    tooltip: profEditor.isEditing ? qsTr("Delete the selected channel") : qsTr("Delete the selected input profile(s)")
-                    enabled: profEditor.isEditing ? profEditor.selectedChannel() >= 0 : profListView.selectedIndex >= 0 && profListView.selectedIsUser
+                    tooltip: profEditor.isEditing ? profEditor.removeTooltip : qsTr("Delete the selected input profile(s)")
+                    enabled: profEditor.isEditing ? profEditor.canRemoveItem : profListView.selectedIndex >= 0 && profListView.selectedIsUser
 
                     onClicked:
                     {
                         if (profEditor.isEditing)
                         {
-                            profEditor.removeSelectedChannel()
+                            profEditor.removeItem()
                         }
                         else
                         {

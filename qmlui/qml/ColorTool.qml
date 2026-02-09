@@ -39,6 +39,7 @@ Rectangle
     property color currentRGB
     property color currentWAUV
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
+    property alias showCloseButton: closeButton.visible
     property alias showPalette: paletteBox.visible
 
     signal toolColorChanged(real r, real g, real b, real w, real a, real uv)
@@ -170,6 +171,7 @@ Rectangle
                 }
                 GenericButton
                 {
+                    id: closeButton
                     width: height
                     height: parent.height
                     border.color: UISettings.bgMedium

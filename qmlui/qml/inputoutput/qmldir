@@ -2,6 +2,7 @@ singleton UISettings 1.0 ../UISettings.qml
 singleton FontAwesome 1.0 ../FontAwesomeVariables.qml
 
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
+ColorTool 0.1 ../ColorTool.qml
 CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
 CustomPopupDialog 0.1 ../popup/CustomPopupDialog.qml
@@ -24,4 +25,3 @@ RobotoText 0.1 ../RobotoText.qml
 SidePanel 0.1 ../SidePanel.qml
 TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
 WindowLoader 0.1 ../WindowLoader.qml
-

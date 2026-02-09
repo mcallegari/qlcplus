@@ -150,6 +150,48 @@ QVariant InputProfileEditor::channels()
     return QVariant::fromValue(chList);
 }
 
+QVariant InputProfileEditor::colorTable()
+{
+    if (m_profile == nullptr)
+        return QVariant();
+
+    QVariantList colorList;
+
+    QMapIterator <uchar, QPair<QString, QColor>> it(m_profile->colorTable());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QVariantMap colorMap;
+        colorMap.insert("value", it.key());
+        colorMap.insert("label", it.value().first);
+        colorMap.insert("color", it.value().second.name());
+        colorList.append(colorMap);
+    }
+
+    return QVariant::fromValue(colorList);
+}
+
+QVariant InputProfileEditor::midiChannelTable()
+{
+    if (m_profile == nullptr)
+        return QVariant();
+
+    QVariantList midiList;
+
+    QMapIterator <uchar, QString> it(m_profile->midiChannelTable());
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QVariantMap midiMap;
+        midiMap.insert("value", it.key());
+        midiMap.insert("channel", int(it.key()) + 1);
+        midiMap.insert("label", it.value());
+        midiList.append(midiMap);
+    }
+
+    return QVariant::fromValue(midiList);
+}
+
 QVariantList InputProfileEditor::channelTypeModel()
 {
     QVariantList types;
@@ -219,6 +261,54 @@ bool InputProfileEditor::removeChannel(int channelNumber)
     return false;
 }
 
+void InputProfileEditor::addColor(int value, const QString &label, const QColor &color)
+{
+    if (m_profile == nullptr)
+        return;
+    if (value < 0 || value > 255)
+        return;
+
+    m_profile->addColor(static_cast<uchar>(value), label, color);
+    setModified();
+    emit colorTableChanged();
+}
+
+void InputProfileEditor::removeColor(int value)
+{
+    if (m_profile == nullptr)
+        return;
+    if (value < 0 || value > 255)
+        return;
+
+    m_profile->removeColor(static_cast<uchar>(value));
+    setModified();
+    emit colorTableChanged();
+}
+
+void InputProfileEditor::addMidiChannel(int channel, const QString &label)
+{
+    if (m_profile == nullptr)
+        return;
+    if (channel < 0 || channel > 15)
+        return;
+
+    m_profile->addMidiChannel(static_cast<uchar>(channel), label);
+    setModified();
+    emit midiChannelTableChanged();
+}
+
+void InputProfileEditor::removeMidiChannel(int channel)
+{
+    if (m_profile == nullptr)
+        return;
+    if (channel < 0 || channel > 15)
+        return;
+
+    m_profile->removeMidiChannel(static_cast<uchar>(channel));
+    setModified();
+    emit midiChannelTableChanged();
+}
+
 void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString &key)
 {
     Q_UNUSED(universe)
@@ -259,4 +349,3 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel
         }
     }
 }
-
