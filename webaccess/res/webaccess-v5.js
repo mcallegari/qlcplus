@@ -453,6 +453,7 @@ function renderSlider(widget) {
 
   const trackWrap = document.createElement("div");
   trackWrap.className = "slider-track";
+  if (widget.inverted && !isKnob) trackWrap.style.rotate = "180deg";
 
   if (!isKnob) {
     input = document.createElement("input");
@@ -2155,7 +2156,7 @@ function updateSlider(id, value, displayValue) {
   const widget = state.widgets[id];
   if (!widget) return;
   const val = parseInt(value, 10);
-  widget.valueLabel.textContent = displayValue || sliderDisplayValue(widget.data, val);
+  widget.valueLabel.textContent = sliderDisplayValue(widget.data, val);
   if (widget.input) {
     widget.input.value = value;
     const min = parseInt(widget.input.min, 10);

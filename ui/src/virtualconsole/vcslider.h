@@ -462,7 +462,7 @@ public:
     /**
      * Get the text in the top label
      */
-    QString topLabelText();
+    QString topLabelText() const;
 
 protected:
     QLabel *m_topLabel;

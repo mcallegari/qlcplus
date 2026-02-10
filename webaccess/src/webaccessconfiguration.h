@@ -32,11 +32,11 @@ class WebAccessConfiguration final : public QObject
 public:
     WebAccessConfiguration();
 
-    static QString getIOConfigHTML(Doc *doc);
-    static QString getAudioConfigHTML(Doc *doc);
+    static QString getIOConfigHTML(const Doc *doc);
+    static QString getAudioConfigHTML(const Doc *doc);
     static QString getUserFixturesConfigHTML();
-    static QString getPasswordsConfigHTML(WebAccessAuth *auth);
-    static QString getHTML(Doc *doc, WebAccessAuth *auth);
+    static QString getPasswordsConfigHTML(const WebAccessAuth *auth);
+    static QString getHTML(const Doc *doc, const WebAccessAuth *auth);
 };
 
 #endif // WEBACCESSCONFIGURATION_H

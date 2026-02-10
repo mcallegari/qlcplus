@@ -40,7 +40,7 @@ WebAccessNetwork::WebAccessNetwork(QObject *parent) :
 {
 }
 
-void WebAccessNetwork::resetInterface(InterfaceInfo *iface)
+void WebAccessNetwork::resetInterface(InterfaceInfo *iface) const
 {
     iface->devName = "";
     iface->connName = "";
@@ -97,7 +97,7 @@ void WebAccessNetwork::appendInterface(InterfaceInfo iface)
     m_interfaces.append(iface);
 }
 
-QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
+QString WebAccessNetwork::getInterfaceHTML(const InterfaceInfo *iface) const
 {
     QString dhcpChk = iface->isStatic ? QString() : QString("checked");
     QString staticChk = iface->isStatic ? QString("checked") : QString();
@@ -163,7 +163,7 @@ QString WebAccessNetwork::getInterfaceHTML(InterfaceInfo *iface)
     return html;
 }
 
-QStringList WebAccessNetwork::getNmcliOutput(QStringList args, bool verbose)
+QStringList WebAccessNetwork::getNmcliOutput(QStringList args, bool verbose) const
 {
     QStringList outputLines;
     QProcess process;
@@ -430,7 +430,7 @@ bool WebAccessNetwork::updateNetworkSettings(QStringList cmdList)
     return false;
 }
 
-bool WebAccessNetwork::createWiFiHotspot(QString SSID, QString password)
+bool WebAccessNetwork::createWiFiHotspot(QString SSID, QString password) const
 {
     // first off, delete the current connection profile
     getNmcliOutput(QStringList() << "con" << "del" << HOTSPOT_CON_NAME);
@@ -464,7 +464,7 @@ bool WebAccessNetwork::createWiFiHotspot(QString SSID, QString password)
     return true;
 }
 
-bool WebAccessNetwork::deleteWiFiHotspot()
+bool WebAccessNetwork::deleteWiFiHotspot() const
 {
     getNmcliOutput(QStringList() << "con" << "del" << HOTSPOT_CON_NAME);
     return true;

@@ -34,7 +34,7 @@ WebAccessConfiguration::WebAccessConfiguration()
 {
 }
 
-QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
+QString WebAccessConfiguration::getIOConfigHTML(const Doc *doc)
 {
     QString html = "";
     InputOutputMap *ioMap = doc->inputOutputMap();
@@ -142,7 +142,7 @@ QString WebAccessConfiguration::getIOConfigHTML(Doc *doc)
     return html;
 }
 
-QString WebAccessConfiguration::getAudioConfigHTML(Doc *doc)
+QString WebAccessConfiguration::getAudioConfigHTML(const Doc *doc)
 {
     QString html = "";
     QList<AudioDeviceInfo> devList = doc->audioPluginCache()->audioDevicesList();
@@ -211,7 +211,7 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
     return html;
 }
 
-QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
+QString WebAccessConfiguration::getPasswordsConfigHTML(const WebAccessAuth *auth)
 {
     QString html = "";
     html += "<table class=\"hovertable\" id=\"auth-passwords-table\" style=\"width: 100%;\">";
@@ -295,7 +295,7 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     return html;
 }
 
-QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
+QString WebAccessConfiguration::getHTML(const Doc *doc, const WebAccessAuth *auth)
 {
     QString m_JScode = "<script src=\"websocket.js\"></script>\n";
     m_JScode += "<script src=\"configuration.js\"></script>\n";

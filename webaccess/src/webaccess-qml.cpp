@@ -136,19 +136,19 @@ static QString mimeTypeForPath(const QString &path)
     return "application/octet-stream";
 }
 
-static bool isWidgetVisibleForWeb(VCWidget *widget, VirtualConsole *vc)
+static bool isWidgetVisibleForWeb(const VCWidget *widget, const VirtualConsole *vc)
 {
     if (widget == nullptr || vc == nullptr)
         return false;
     if (widget->isVisible() == false)
         return false;
 
-    QObject *obj = widget;
+    const QObject *obj = widget;
     const VCPage *pageParent = nullptr;
     while (obj != nullptr)
     {
-        VCWidget *childWidget = qobject_cast<VCWidget *>(obj);
-        VCFrame *frameParent = qobject_cast<VCFrame *>(obj->parent());
+        const VCWidget *childWidget = qobject_cast<const VCWidget *>(obj);
+        const VCFrame *frameParent = qobject_cast<const VCFrame *>(obj->parent());
         if (childWidget != nullptr && frameParent != nullptr && frameParent->multiPageMode())
         {
             if (childWidget->page() != frameParent->currentPage())
@@ -194,7 +194,7 @@ static void logWidgetTree(VCWidget *widget, int depth)
         logWidgetTree(child, depth + 1);
 }
 */
-static QString getSimpleDeskQmlHtml(Doc *doc, SimpleDesk *sd)
+static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
 {
     if (doc == nullptr || sd == nullptr)
         return QString();
@@ -914,7 +914,7 @@ QString WebAccessQml::webFilePath(const QString &relativePath) const
     return fullPath;
 }
 
-void WebAccessQml::sendMatrixState(VCAnimation *animation)
+void WebAccessQml::sendMatrixState(const VCAnimation *animation) const
 {
     if (animation == nullptr)
         return;
@@ -931,7 +931,7 @@ void WebAccessQml::sendMatrixState(VCAnimation *animation)
     sendWebSocketMessage(wsMessage);
 }
 
-QString WebAccessQml::widgetBackgroundImagePath(VCWidget *widget) const
+QString WebAccessQml::widgetBackgroundImagePath(const VCWidget *widget) const
 {
     if (widget == nullptr || widget->backgroundImage().isEmpty())
         return QString();
@@ -947,7 +947,7 @@ QString WebAccessQml::widgetBackgroundImagePath(VCWidget *widget) const
     return imgPath;
 }
 
-QJsonObject WebAccessQml::baseWidgetToJson(VCWidget *widget)
+QJsonObject WebAccessQml::baseWidgetToJson(const VCWidget *widget)
 {
     QJsonObject obj;
     if (widget == nullptr)
@@ -971,7 +971,7 @@ QJsonObject WebAccessQml::baseWidgetToJson(VCWidget *widget)
     return obj;
 }
 
-QJsonObject WebAccessQml::frameToJson(VCFrame *frame)
+QJsonObject WebAccessQml::frameToJson(const VCFrame *frame)
 {
     QJsonObject obj = baseWidgetToJson(frame);
     obj["showHeader"] = frame->showHeader();
@@ -988,14 +988,14 @@ QJsonObject WebAccessQml::frameToJson(VCFrame *frame)
 
     QJsonArray children;
     QList<VCWidget *> childList = frame->children(false);
-    for (VCWidget *child : childList)
+    for (const VCWidget *child : childList)
         children.append(widgetToJson(child));
     obj["children"] = children;
 
     return obj;
 }
 
-QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
+QJsonObject WebAccessQml::widgetToJson(const VCWidget *widget)
 {
     QJsonObject obj = baseWidgetToJson(widget);
     if (widget == nullptr)
@@ -1005,7 +1005,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
     {
         case VCWidget::ButtonWidget:
         {
-            VCButton *button = qobject_cast<VCButton*>(widget);
+            const VCButton *button = qobject_cast<const VCButton*>(widget);
             obj["state"] = button->state();
             obj["actionType"] = button->actionType();
             obj["functionId"] = int(button->functionID());
@@ -1013,7 +1013,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::SliderWidget:
         {
-            VCSlider *slider = qobject_cast<VCSlider*>(widget);
+            const VCSlider *slider = qobject_cast<const VCSlider*>(widget);
             obj["value"] = slider->value();
             obj["rangeLow"] = slider->rangeLowLimit();
             obj["rangeHigh"] = slider->rangeHighLimit();
@@ -1027,7 +1027,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::XYPadWidget:
         {
-            VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+            const VCXYPad *xypad = qobject_cast<const VCXYPad*>(widget);
             QPointF pos = xypad->currentPosition();
             QJsonObject posObj;
             posObj["x"] = pos.x();
@@ -1047,10 +1047,10 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::FrameWidget:
         case VCWidget::SoloFrameWidget:
-            return frameToJson(qobject_cast<VCFrame*>(widget));
+            return frameToJson(qobject_cast<const VCFrame*>(widget));
         case VCWidget::CueListWidget:
         {
-            VCCueList *cue = qobject_cast<VCCueList*>(widget);
+            const VCCueList *cue = qobject_cast<const VCCueList*>(widget);
             obj["chaserId"] = int(cue->chaserID());
             obj["nextPrevBehavior"] = int(cue->nextPrevBehavior());
             obj["playbackLayout"] = int(cue->playbackLayout());
@@ -1089,7 +1089,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::AudioTriggersWidget:
         {
-            VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
+            const VCAudioTriggers *triggers = qobject_cast<const VCAudioTriggers*>(widget);
             obj["enabled"] = triggers->captureEnabled();
             obj["volume"] = triggers->volumeLevel();
             obj["bars"] = triggers->barsNumber();
@@ -1097,7 +1097,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::ClockWidget:
         {
-            VCClock *clock = qobject_cast<VCClock*>(widget);
+            const VCClock *clock = qobject_cast<const VCClock*>(widget);
             obj["clockType"] = int(clock->clockType());
             obj["currentTime"] = clock->currentTime();
             obj["targetTime"] = clock->targetTime();
@@ -1105,7 +1105,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::AnimationWidget:
         {
-            VCAnimation *animation = qobject_cast<VCAnimation*>(widget);
+            const VCAnimation *animation = qobject_cast<const VCAnimation*>(widget);
             obj["visibilityMask"] = int(animation->visibilityMask());
             obj["functionId"] = int(animation->functionID());
             obj["faderLevel"] = animation->faderLevel();
@@ -1124,7 +1124,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
         break;
         case VCWidget::SpeedWidget:
         {
-            VCSpeedDial *dial = qobject_cast<VCSpeedDial*>(widget);
+            const VCSpeedDial *dial = qobject_cast<const VCSpeedDial*>(widget);
             obj["visibilityMask"] = int(dial->visibilityMask());
             obj["timeMin"] = int(dial->timeMinimumValue());
             obj["timeMax"] = int(dial->timeMaximumValue());
@@ -1141,7 +1141,7 @@ QJsonObject WebAccessQml::widgetToJson(VCWidget *widget)
     return obj;
 }
 
-void WebAccessQml::collectWidgets(VCFrame *frame, QList<VCWidget *> &list, bool recursive)
+void WebAccessQml::collectWidgets(const VCFrame *frame, QList<VCWidget *> &list, bool recursive) const
 {
     if (frame == nullptr)
         return;
@@ -1186,7 +1186,7 @@ QByteArray WebAccessQml::getVCJson()
     return QJsonDocument(root).toJson(QJsonDocument::Compact);
 }
 
-void WebAccessQml::setupWidgetConnections(VCWidget *widget)
+void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
 {
     if (widget == nullptr)
         return;
@@ -1200,7 +1200,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
     {
         case VCWidget::ButtonWidget:
         {
-            VCButton *button = qobject_cast<VCButton*>(widget);
+            const VCButton *button = qobject_cast<const VCButton*>(widget);
             connect(button, SIGNAL(stateChanged(int)),
                     this, SLOT(slotButtonStateChanged(int)));
             connect(button, SIGNAL(disabledStateChanged(bool)),
@@ -1209,14 +1209,14 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::LabelWidget:
         {
-            VCLabel *label = qobject_cast<VCLabel*>(widget);
+            const VCLabel *label = qobject_cast<const VCLabel*>(widget);
             connect(label, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotLabelDisableStateChanged(bool)));
         }
         break;
         case VCWidget::SliderWidget:
         {
-            VCSlider *slider = qobject_cast<VCSlider*>(widget);
+            const VCSlider *slider = qobject_cast<const VCSlider*>(widget);
             connect(slider, SIGNAL(valueChanged(int)),
                     this, SLOT(slotSliderValueChanged(int)));
             connect(slider, SIGNAL(disabledStateChanged(bool)),
@@ -1227,7 +1227,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::AudioTriggersWidget:
         {
-            VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
+            const VCAudioTriggers *triggers = qobject_cast<const VCAudioTriggers*>(widget);
             connect(triggers, SIGNAL(captureEnabledChanged()),
                     this, SLOT(slotAudioTriggersToggled()));
             connect(triggers, SIGNAL(volumeLevelChanged()),
@@ -1238,10 +1238,12 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::CueListWidget:
         {
-            VCCueList *cue = qobject_cast<VCCueList*>(widget);
+            const VCCueList *cue = qobject_cast<const VCCueList*>(widget);
             connect(cue, SIGNAL(playbackIndexChanged(int)),
                     this, SLOT(slotCueIndexChanged(int)));
             connect(cue, SIGNAL(playbackStatusChanged()),
+                    this, SLOT(slotCuePlaybackStateChanged()));
+            connect(cue, SIGNAL(nextStepIndexChanged()),
                     this, SLOT(slotCuePlaybackStateChanged()));
             connect(cue, SIGNAL(sideFaderLevelChanged()),
                     this, SLOT(slotCueSideFaderLevelChanged()));
@@ -1252,7 +1254,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         case VCWidget::FrameWidget:
         case VCWidget::SoloFrameWidget:
         {
-            VCFrame *frame = qobject_cast<VCFrame*>(widget);
+            const VCFrame *frame = qobject_cast<const VCFrame*>(widget);
             connect(frame, SIGNAL(currentPageChanged(int)),
                     this, SLOT(slotFramePageChanged(int)));
             connect(frame, SIGNAL(disabledStateChanged(bool)),
@@ -1265,7 +1267,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::AnimationWidget:
         {
-            VCAnimation *animation = qobject_cast<VCAnimation*>(widget);
+            const VCAnimation *animation = qobject_cast<const VCAnimation*>(widget);
             connect(animation, SIGNAL(faderLevelChanged()),
                     this, SLOT(slotMatrixFaderChanged()));
             connect(animation, SIGNAL(color1Changed()),
@@ -1286,7 +1288,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::XYPadWidget:
         {
-            VCXYPad *xypad = qobject_cast<VCXYPad*>(widget);
+            const VCXYPad *xypad = qobject_cast<const VCXYPad*>(widget);
             connect(xypad, SIGNAL(currentPositionChanged()),
                     this, SLOT(slotXYPadPositionChanged()));
             connect(xypad, SIGNAL(disabledStateChanged(bool)),
@@ -1295,7 +1297,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::SpeedWidget:
         {
-            VCSpeedDial *dial = qobject_cast<VCSpeedDial*>(widget);
+            const VCSpeedDial *dial = qobject_cast<const VCSpeedDial*>(widget);
             connect(dial, SIGNAL(currentTimeChanged()),
                     this, SLOT(slotSpeedDialTimeChanged()));
             connect(dial, SIGNAL(currentFactorChanged()),
@@ -1306,7 +1308,7 @@ void WebAccessQml::setupWidgetConnections(VCWidget *widget)
         break;
         case VCWidget::ClockWidget:
         {
-            VCClock *clock = qobject_cast<VCClock*>(widget);
+            const VCClock *clock = qobject_cast<const VCClock*>(widget);
             connect(clock, SIGNAL(currentTimeChanged(int)),
                     this, SLOT(slotClockTimeChanged(int)));
             connect(clock, SIGNAL(disabledStateChanged(bool)),

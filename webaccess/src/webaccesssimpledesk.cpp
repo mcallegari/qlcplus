@@ -31,7 +31,7 @@ WebAccessSimpleDesk::WebAccessSimpleDesk(QObject *parent) :
 {
 }
 
-QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
+QString WebAccessSimpleDesk::getHTML(const Doc *doc, const SimpleDesk *sd)
 {
     if ((doc == NULL) || (sd == NULL))
         return QString("");
@@ -89,7 +89,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
     return str;
 }
 
-QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
+QString WebAccessSimpleDesk::getChannelsMessage(const Doc *doc, const SimpleDesk *sd,
                                                 quint32 universe, int startAddr, int chNumber)
 {
     if ((doc == NULL) || (sd == NULL))

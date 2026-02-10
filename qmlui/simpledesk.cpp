@@ -344,7 +344,7 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address) const
     return value;
 }
 
-bool SimpleDesk::isChannelOverridden(uint address)
+bool SimpleDesk::isChannelOverridden(uint address) const
 {
     QMutexLocker locker(&m_mutex);
     return m_values.contains(address);

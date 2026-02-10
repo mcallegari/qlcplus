@@ -227,7 +227,7 @@ public:
     void setPagesLoop(bool pagesLoop);
     bool pagesLoop() const;
 
-    QStringList pageLabels();
+    QStringList pageLabels() const;
     Q_INVOKABLE void setShortcutName(int pageIndex, QString name);
 
     Q_INVOKABLE void gotoPreviousPage();

@@ -361,7 +361,7 @@ FunctionParent VCCueList::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
-Chaser *VCCueList::chaser()
+Chaser *VCCueList::chaser() const
 {
     if (m_chaserID == Function::invalidId())
         return nullptr;
@@ -629,7 +629,7 @@ void VCCueList::setPlaybackIndex(int playbackIndex)
     emit nextStepIndexChanged();
 }
 
-VCCueList::PlaybackStatus VCCueList::playbackStatus()
+VCCueList::PlaybackStatus VCCueList::playbackStatus() const
 {
     Chaser *ch = chaser();
 

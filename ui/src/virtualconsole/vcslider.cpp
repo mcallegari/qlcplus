@@ -1337,7 +1337,7 @@ void VCSlider::setTopLabelText(int value)
     emit valueChanged(text);
 }
 
-QString VCSlider::topLabelText()
+QString VCSlider::topLabelText() const
 {
     return m_topLabel->text();
 }

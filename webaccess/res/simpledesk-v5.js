@@ -294,7 +294,7 @@ window.addEventListener("load", function() {
     if (labelObj) labelObj.textContent = ev.target.value;
     updateRangeFill(ev.target);
     var slider = ev.target.closest(".sd-slider");
-    if (slider) slider.classList.toggle("is-active", parseInt(ev.target.value, 10) > 0);
+    if (slider && parseInt(ev.target.value, 10) > 0) slider.classList.add("is-active");
     var chNum = ((currentUniverse - 1) * 512) + parseInt(id, 10);
     sendMessage("CH|" + chNum + "|" + ev.target.value);
   });
