@@ -1,6 +1,7 @@
 singleton UISettings 1.0 ../UISettings.qml
 singleton FontAwesome 1.0 ../FontAwesomeVariables.qml
 
+ChaserWidget 0.1 ../ChaserWidget.qml
 ColorTool 0.1 ../ColorTool.qml
 ColorToolBasic 0.1 ../ColorToolBasic.qml
 ColorToolFull 0.1 ../ColorToolFull.qml

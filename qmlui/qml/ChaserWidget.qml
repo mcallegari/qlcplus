@@ -112,6 +112,11 @@ Column
         ceSelector.resetSelection(cStepsList.model)
     }
 
+    function scrollToItem(index)
+    {
+        cStepsList.positionViewAtIndex(index, ListView.Contain)
+    }
+
     ModelSelector
     {
         id: ceSelector
@@ -546,6 +551,21 @@ Column
                 } // MouseArea
             } // Item
 
+        footer: Item
+        {
+            width: cStepsList.width
+            height: UISettings.listItemHeight
+
+            // bottom line drag highlight for dropping after last step
+            Rectangle
+            {
+                visible: cStepsList.dragInsertIndex === cStepsList.count
+                width: parent.width
+                height: 2
+                color: UISettings.selection
+            }
+        }
+
         GenericMultiDragItem
         {
             id: csDragItem
@@ -594,9 +614,15 @@ Column
             onPositionChanged: (drag) =>
             {
                 var idx = cStepsList.indexAt(drag.x, drag.y + cStepsList.contentY)
-                var item = cStepsList.itemAt(drag.x, drag.y)
+
+                if (idx === -1)
+                {
+                    cStepsList.dragInsertIndex = cStepsList.count
+                    return
+                }
+
+                var item = cStepsList.itemAtIndex(idx)
                 var itemY = item.mapToItem(cStepsList, 0, 0).y
-                //console.log("Item index:" + idx)
 
                 if (drag.y < (itemY + item.height) / 2)
                     cStepsList.dragInsertIndex = idx
