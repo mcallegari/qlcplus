@@ -235,11 +235,11 @@ Rectangle
                     {
                         //console.log("Starting selection rectangle!")
                         // initialize local variables to determine the selection orientation
-                        initialXPos = mouse.x
-                        initialYPos = mouse.y
+                        initialXPos = mouse.x - twoDView.contentX
+                        initialYPos = mouse.y - twoDView.contentY
 
-                        selectionRect.x = mouse.x
-                        selectionRect.y = mouse.y
+                        selectionRect.x = initialXPos
+                        selectionRect.y = initialYPos
                         selectionRect.width = 0
                         selectionRect.height = 0
                         selectionRect.visible = true
@@ -286,13 +286,13 @@ Rectangle
 
                         if (selectionRect.rotation == 0 || selectionRect.rotation == -180)
                         {
-                            selectionRect.width = Math.abs(mouse.x - selectionRect.x)
-                            selectionRect.height = Math.abs(mouse.y - selectionRect.y)
+                            selectionRect.width = Math.abs(mouse.x - twoDView.contentX - selectionRect.x)
+                            selectionRect.height = Math.abs(mouse.y - twoDView.contentY - selectionRect.y)
                         }
                         else
                         {
-                            selectionRect.width = Math.abs(mouse.y - selectionRect.y)
-                            selectionRect.height = Math.abs(mouse.x - selectionRect.x)
+                            selectionRect.width = Math.abs(mouse.y - twoDView.contentY - selectionRect.y)
+                            selectionRect.height = Math.abs(mouse.x - twoDView.contentX - selectionRect.x)
                         }
                     }
                 }
@@ -301,8 +301,8 @@ Rectangle
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
-                        var rx = selectionRect.x
-                        var ry = selectionRect.y
+                        var rx = selectionRect.x + twoDView.contentX
+                        var ry = selectionRect.y + twoDView.contentY
                         var rw = selectionRect.width
                         var rh = selectionRect.height
                         switch (selectionRect.rotation)
