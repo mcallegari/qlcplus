@@ -45,6 +45,7 @@ class NetworkManager;
 class VideoProvider;
 class FixtureEditor;
 class Tardis;
+class QMouseEvent;
 
 #define SETTINGS_LANGUAGE "ui/language"
 
@@ -189,6 +190,7 @@ protected:
 protected:
     void keyPressEvent(QKeyEvent * e) override;
     void keyReleaseEvent(QKeyEvent * e) override;
+    void mousePressEvent(QMouseEvent *e) override;
     bool event(QEvent *event) override;
 
 protected slots:

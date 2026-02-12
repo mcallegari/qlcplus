@@ -35,24 +35,6 @@ Rectangle
 
     property string currentContext: ""
 
-    // main mouse area to intercept any click and reset
-    // the last clicked type before it is set (or not)
-    // to specifically delete a project item
-    MouseArea
-    {
-        anchors.fill: parent
-        z: 999
-        acceptedButtons: Qt.AllButtons
-        propagateComposedEvents: true
-        onPressed: (mouse) =>
-        {
-            if (contextManager)
-                contextManager.setLastClickedType(App.NoDragItem)
-            // let this event pass through
-            mouse.accepted = false
-        }
-    }
-
     Component.onCompleted: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
     onWidthChanged: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
 
