@@ -118,13 +118,13 @@ void InputProfileEditor::toggleDetection()
     if (m_detection == false)
     {
         /* Listen to input data */
-        connect(m_doc->inputOutputMap(), &InputOutputMap::inputValueChanged,
-                this, &InputProfileEditor::slotInputValueChanged);
+        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+                this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
     }
     else
     {
-        disconnect(m_doc->inputOutputMap(), &InputOutputMap::inputValueChanged,
-                   this, &InputProfileEditor::slotInputValueChanged);
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+                this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
     }
     m_detection = !m_detection;
 }
