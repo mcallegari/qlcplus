@@ -108,20 +108,29 @@ Rectangle
     function setHeadIntensity(headIndex, intensity)
     {
         //console.log("headIdx: " + headIndex + ", int: " + intensity)
-        headsRepeater.itemAt(headIndex).dimmerValue = intensity
+        var item = headsRepeater.itemAt(headIndex)
+        if (item)
+            item.dimmerValue = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
     {
         var headItem = headsRepeater.itemAt(headIndex)
-        headItem.isWheelColor = false
-        headItem.headColor1 = color
+        if (headItem)
+        {
+            headItem.isWheelColor = false
+            headItem.headColor1 = color
+        }
     }
 
     function setShutter(type, low, high)
     {
         for (var i = 0; i < headsRepeater.count; i++)
-            headsRepeater.itemAt(i).setShutter(type, low, high);
+        {
+            var item = headsRepeater.itemAt(i)
+            if (item)
+                item.setShutter(type, low, high)
+        }
     }
 
     function setPosition(pan, tilt)
@@ -138,20 +147,27 @@ Rectangle
     function setWheelColor(headIndex, col1, col2)
     {
         var headItem = headsRepeater.itemAt(headIndex)
-        headItem.headColor1 = col1
-        if (col2 !== Qt.rgba(0,0,0,1))
+        if (headItem)
         {
-            headItem.isWheelColor = true
-            headItem.headColor2 = col2
+            headItem.headColor1 = col1
+            if (col2 !== Qt.rgba(0,0,0,1))
+            {
+                headItem.isWheelColor = true
+                headItem.headColor2 = col2
+            }
         }
     }
 
     function setGoboPicture(headIndex, resource)
     {
-        if (Qt.platform.os === "android")
-            headsRepeater.itemAt(headIndex).goboSource = resource
-        else
-            headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
+        var item = headsRepeater.itemAt(headIndex)
+        if (item)
+        {
+            if (Qt.platform.os === "android")
+                item.goboSource = resource
+            else
+                item.goboSource = "file:/" + resource
+        }
     }
 
     Grid

@@ -228,12 +228,18 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
     if (data.isNull())
         return false;
 
+    if (data.size() < 126)
+        return false;
+
     /* Check valid DMX start code */
     if (data[125] != (char)0x00)
         return false;
 
     universe = (uchar(data[113]) << 8) + uchar(data[114]);
     int length = (uchar(data[123]) << 8) + uchar(data[124]);
+
+    if (length == 0)
+        return true;
 
     qDebug() << "[E1.31 fillDMXdata] universe:" << universe << ", length:" << length - 1;
 

@@ -21,8 +21,14 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#define protected public
+#define private public
+
 #include "show_test.h"
 #include "show.h"
+#include "track.h"
+#include "scene.h"
+#include "showfunction.h"
 
 void Show_Test::initTestCase()
 {
@@ -330,5 +336,56 @@ void Show_Test::save()
     QVERIFY(xmlReader.attributes().value("isMute").toString() == "1");
 }
 
+
+void Show_Test::showFunctionIdGeneration()
+{
+    Show show(m_doc);
+    show.setID(500);
+
+    // Get initial track and show function IDs
+    quint32 trackId1 = show.m_latestTrackId;
+    quint32 sfId1 = show.getLatestShowFunctionId();
+    quint32 sfId2 = show.getLatestShowFunctionId();
+    quint32 trackId2 = show.m_latestTrackId;
+
+    // Show function IDs must increment independently
+    QVERIFY(sfId2 == sfId1 + 1);
+    // Track ID must NOT have changed (C1 bug fix: getLatestShowFunctionId must not touch m_latestTrackId)
+    QVERIFY(trackId2 == trackId1);
+}
+
+void Show_Test::copyShowFunctionId()
+{
+    Show show(m_doc);
+    show.setID(501);
+
+    // Generate some IDs to advance counters
+    show.getLatestShowFunctionId();
+    show.getLatestShowFunctionId();
+    show.getLatestShowFunctionId();
+
+    Scene *scene = new Scene(m_doc);
+    m_doc->addFunction(scene);
+
+    Track *t = new Track(scene->id(), &show);
+    ShowFunction *sf = new ShowFunction(show.getLatestShowFunctionId());
+    sf->setFunctionID(scene->id());
+    sf->setStartTime(0);
+    sf->setDuration(1000);
+    t->addShowFunction(sf);
+    show.addTrack(t);
+
+    quint32 counterBeforeCopy = show.m_latestShowFunctionID;
+
+    Show showCopy(m_doc);
+    showCopy.copyFrom(&show);
+
+    // C1 regression: m_latestShowFunctionID must be copied (not left at 0)
+    // The copy's counter will be >= the original's because createShowFunction()
+    // increments it for each copied show function
+    QVERIFY(showCopy.m_latestShowFunctionID >= counterBeforeCopy);
+    // Must not be 0 (the default) since we advanced the original counter
+    QVERIFY(showCopy.m_latestShowFunctionID > 0);
+}
 
 QTEST_APPLESS_MAIN(Show_Test)

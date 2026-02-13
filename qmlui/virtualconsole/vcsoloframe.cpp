@@ -46,10 +46,12 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    delete component;
 
     item->setParentItem(parent);
     item->setProperty("isSolo", true);

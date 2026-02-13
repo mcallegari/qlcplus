@@ -63,24 +63,34 @@ Rectangle
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
-            channelsRpt.itemAt(i).dmxValue = values[i]
+            var item = channelsRpt.itemAt(i)
+            if (item)
+                item.dmxValue = values[i]
         }
         externalChange = false
     }
 
     function setChannelValue(channel, value)
     {
-        if (showEnablers == true)
-            channelsRpt.itemAt(channel).isEnabled = true
-        externalChange = true
-        channelsRpt.itemAt(channel).dmxValue = value
-        externalChange = false
+        var item = channelsRpt.itemAt(channel)
+        if (item)
+        {
+            if (showEnablers == true)
+                item.isEnabled = true
+            externalChange = true
+            item.dmxValue = value
+            externalChange = false
+        }
     }
 
     function updateChannels()
     {
         for (var i = 0; i < channelsRpt.count; i++)
-            channelsRpt.itemAt(i).updateChannel()
+        {
+            var item = channelsRpt.itemAt(i)
+            if (item)
+                item.updateChannel()
+        }
     }
 
     Column

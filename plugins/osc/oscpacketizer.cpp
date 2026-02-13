@@ -116,7 +116,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
     //qDebug() << "[OSC] path extracted:" << path;
 
     int currPos = commaPos + 1;
-    while (tagsEnded == false)
+    while (tagsEnded == false && currPos < data.size())
     {
         switch (data.at(currPos))
         {
@@ -203,6 +203,8 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
             case StringTag:
             {
                 int firstZeroPos = data.indexOf('\0', currPos);
+                if (firstZeroPos == -1)
+                    firstZeroPos = data.size();
                 QString str = QString(data.mid(currPos, firstZeroPos - currPos));
                 qDebug() << "[OSC] string:" << str;
                 // align current position to a multiple of 4
@@ -250,7 +252,11 @@ QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& 
             // Check where we are here
             while (bufPos < data.size() && data.at(bufPos) != '#')
             {
+                if (bufPos + 4 > data.size())
+                    break;
                 quint32 msgSize = (uchar(data.at(bufPos)) << 24) + (uchar(data.at(bufPos + 1)) << 16) + (uchar(data.at(bufPos + 2)) << 8) + uchar(data.at(bufPos + 3));
+                if (msgSize > (quint32)(data.size() - bufPos - 4))
+                    break;
                 qDebug() << "[OSC] Bundle message size:" << msgSize;
                 bufPos += 4;
 

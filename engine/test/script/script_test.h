@@ -29,6 +29,12 @@ class Script_Test final : public QObject
 private slots:
     void initTestCase();
     void initial();
+    void commentParsingEdgeCases();
+    void parseRandomSpeed();
+    void setData();
+    void syntaxCheck();
+    void loadSave();
+    void handleLabel();
 };
 
 #endif

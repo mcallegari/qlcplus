@@ -26,6 +26,8 @@ class Doc;
 class Show;
 class Track;
 class Scene;
+class MasterTimer;
+class Chaser;
 
 class ShowRunner_Test final : public QObject
 {
@@ -37,6 +39,14 @@ private slots:
     void initRunner();
     void intensity();
     void stopRunner();
+    void writeNullFunction();
+    void writeFunctionStartStop();
+    void writeTimeFunctions();
+    void writeBeatFunctions();
+    void pauseResume();
+    void functionStopTime();
+    void totalRunTime();
+    void fadeInFadeOutE2E();
 
 private:
     Doc *m_doc;

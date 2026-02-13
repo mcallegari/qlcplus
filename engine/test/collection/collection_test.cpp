@@ -594,4 +594,23 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(s2->stopped() == true);
 }
 
+void Collection_Test::totalDurationNullFunction()
+{
+    Collection *c = new Collection(m_doc);
+    m_doc->addFunction(c);
+
+    Scene *s1 = new Scene(m_doc);
+    s1->setValue(0, 0, 255);
+    m_doc->addFunction(s1);
+
+    // Add a valid function and an invalid function ID
+    c->addFunction(s1->id());
+    c->addFunction(9999);  // Non-existent function
+
+    // Must not crash, should return duration of valid function only
+    quint32 dur = c->totalDuration();
+    Q_UNUSED(dur);
+    // Just verify it doesn't crash - the actual duration depends on scene implementation
+}
+
 QTEST_APPLESS_MAIN(Collection_Test)

@@ -232,6 +232,9 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
     if (data.isNull())
         return false;
 
+    if (data.size() < 207)
+        return false;
+
     QByteArray shortName = data.mid(26, 18);
     QByteArray longName = data.mid(44, 64);
     QByteArray nodeReport = data.mid(108, 64);
@@ -256,7 +259,7 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
 
 bool ArtNetPacketizer::fillDMXdata(QByteArray const& data, QByteArray &dmx, quint32 &universe)
 {
-    if (data.isNull())
+    if (data.isNull() || data.size() < 18)
         return false;
     dmx.clear();
     //char sequence = data.at(12);
@@ -290,6 +293,9 @@ bool ArtNetPacketizer::processTODdata(const QByteArray &data, quint32 &universe,
     // 26 BlockCount (consider only when total > 200)
     // 27 UID count
     quint8 uidCount = quint8(data.at(27));
+
+    if (data.size() < 28 + uidCount * 6)
+        return false;
 
     qDebug() << "UID count:" << uidCount;
 
