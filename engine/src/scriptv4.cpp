@@ -364,7 +364,10 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Script::slotRunnerFinished()
 {
-    delete m_runner;
+    // we can't directly delete m_runner here because the finished() signal of
+    // QThread is fired just before the thread has actually finished executing. This
+    // would crash in ~QThread. deleteLater() ensures the thread is actually done.
+    m_runner->deleteLater();
     m_runner = NULL;
 }
 
