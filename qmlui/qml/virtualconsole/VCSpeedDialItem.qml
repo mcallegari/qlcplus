@@ -31,12 +31,6 @@ VCWidgetItem
     property VCSpeedDial speedObj: null
     property int vMask: speedObj ? speedObj.visibilityMask : VCSpeedDial.Nothing
 
-    // needed for tapping
-    property double tapTimeValue: 0
-    property int tapCount: 0
-    property double lastTap: 0
-    property var tapHistory: []
-
     property color activeColor: "green"
     property var speedLabels: [ "", "", "1/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16" ]
 
@@ -67,32 +61,6 @@ VCWidgetItem
         msSpin.value = value
     }
 
-    function tap()
-    {
-        var currTime = new Date().getTime()
-
-        if (lastTap != 0 && currTime - lastTap < 1500)
-        {
-            var newTime = currTime - lastTap
-
-            tapHistory.push(newTime)
-
-            tapTimeValue = TimeUtils.calculateBPMByTapIntervals(tapHistory)
-
-            if (speedObj)
-                speedObj.currentTime = tapTimeValue
-
-            tapTimer.interval = tapTimeValue
-            tapTimer.restart()
-        }
-        else
-        {
-            lastTap = 0
-            tapHistory = []
-        }
-        lastTap = currTime
-    }
-
     function updateTime()
     {
         var newTime = 0
@@ -114,7 +82,7 @@ VCWidgetItem
         id: tapTimer
         repeat: true
         running: false
-        interval: 500
+        interval: speedObj ? speedObj.tapTimeValue : 500
 
         onTriggered:
         {
@@ -122,6 +90,21 @@ VCWidgetItem
                 tapButton.border.color = "#00FF00"
             else
                 tapButton.border.color = UISettings.bgMedium
+        }
+    }
+
+    Connections
+    {
+        target: speedObj
+        function onTapTimeValueChanged()
+        {
+            if (speedObj.tapTimeValue > 0)
+                tapTimer.restart()
+            else
+            {
+                tapTimer.stop()
+                tapButton.border.color = UISettings.bgMedium
+            }
         }
     }
 
@@ -248,19 +231,18 @@ VCWidgetItem
             label: "TAP"
             visible: vMask & VCSpeedDial.Tap
 
-            onClicked:
+            onClicked: function(mouseButton)
             {
                 /* right click resets the current TAP time */
                 if (mouseButton === Qt.RightButton)
                 {
-                    tapTimer.stop()
-                    tapButton.border.color = UISettings.bgMedium
-                    lastTap = 0
-                    tapHistory = []
+                    if (speedObj)
+                        speedObj.resetTap()
                 }
                 else
                 {
-                    speedRoot.tap()
+                    if (speedObj)
+                        speedObj.tap()
                 }
             }
         }

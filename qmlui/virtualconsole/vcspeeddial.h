@@ -51,6 +51,7 @@ class VCSpeedDial : public VCWidget
     Q_PROPERTY(uint currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged FINAL)
     Q_PROPERTY(bool resetOnDialChange READ resetOnDialChange WRITE setResetOnDialChange NOTIFY resetOnDialChangeChanged FINAL)
     Q_PROPERTY(SpeedMultiplier currentFactor READ currentFactor WRITE setCurrentFactor NOTIFY currentFactorChanged FINAL)
+    Q_PROPERTY(int tapTimeValue READ tapTimeValue NOTIFY tapTimeValueChanged FINAL)
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(QVariantList presetsList READ presetsList NOTIFY presetsListChanged)
@@ -253,6 +254,26 @@ private:
 private:
     quint8 m_lastAssignedPresetId;
     QList<class VCSpeedDialPreset*> m_presets;
+
+    /*********************************************************************
+     * Tap
+     *********************************************************************/
+public:
+    int tapTimeValue() const;
+
+    Q_INVOKABLE void tap();
+    Q_INVOKABLE void resetTap();
+
+signals:
+    void tapTimeValueChanged();
+
+private:
+    static int calculateBPMByTapIntervals(QList<int> &tapHistory);
+
+private:
+    QList<int> m_tapHistory;
+    qint64 m_lastTap;
+    int m_tapTimeValue;
 
     /*********************************************************************
      * External input
