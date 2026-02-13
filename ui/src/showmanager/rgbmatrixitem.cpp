@@ -67,10 +67,13 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     ShowItem::paint(painter, option, widget);
 
     int loopCount = 0;
-    if (getDuration() == Function::infiniteSpeed())
-        loopCount = 10000 / m_matrix->duration();
-    else if (getDuration() > 0)
-        loopCount = qFloor(getDuration() / m_matrix->duration());
+    if (m_matrix->duration() > 0)
+    {
+        if (getDuration() == Function::infiniteSpeed())
+            loopCount = 10000 / m_matrix->duration();
+        else if (getDuration() > 0)
+            loopCount = qFloor(getDuration() / m_matrix->duration());
+    }
 
     for (int i = 0; i < loopCount; i++)
     {

@@ -96,10 +96,12 @@ void VCCueList::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    delete component;
 
     m_item->setParentItem(parent);
     m_item->setProperty("cueListObj", QVariant::fromValue(this));

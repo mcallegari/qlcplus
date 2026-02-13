@@ -78,10 +78,13 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     ShowItem::paint(painter, option, widget);
 
     int loopCount = 0;
-    if (getDuration() == Function::infiniteSpeed())
-        loopCount = 10000 / m_efx->duration();
-    else if (getDuration() > 0)
-        loopCount = qFloor(getDuration() / m_efx->duration());
+    if (m_efx->duration() > 0)
+    {
+        if (getDuration() == Function::infiniteSpeed())
+            loopCount = 10000 / m_efx->duration();
+        else if (getDuration() > 0)
+            loopCount = qFloor(getDuration() / m_efx->duration());
+    }
 
     for (int i = 0; i < loopCount; i++)
     {

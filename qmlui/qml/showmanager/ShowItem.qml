@@ -205,7 +205,7 @@ Item
                         var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
-                            lastTime += previewData[1]
+                            lastTime += previewData[i + 1]
                             if (timeDivision === Show.Time)
                                 xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
                             else

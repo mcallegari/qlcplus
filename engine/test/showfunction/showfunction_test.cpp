@@ -23,6 +23,18 @@
 
 #include "showfunction_test.h"
 #include "showfunction.h"
+#include "scene.h"
+#include "doc.h"
+
+void ShowFunction_Test::initTestCase()
+{
+    m_doc = new Doc(this);
+}
+
+void ShowFunction_Test::cleanupTestCase()
+{
+    delete m_doc;
+}
 
 void ShowFunction_Test::defaults()
 {
@@ -122,6 +134,31 @@ void ShowFunction_Test::save()
     QVERIFY(xmlReader.attributes().value("Duration").toString() == "778899");
     QVERIFY(xmlReader.attributes().value("Color").toString() == "#ff0000");
     QVERIFY(xmlReader.attributes().value("Locked").toString() == "1");
+}
+
+void ShowFunction_Test::durationWithDoc()
+{
+    Scene *scene = new Scene(m_doc);
+    m_doc->addFunction(scene);
+
+    ShowFunction sf(0);
+    sf.setFunctionID(scene->id());
+
+    // m_duration is 0 (default), so duration(doc) should fall through
+    // to the underlying function's totalDuration
+    QCOMPARE(sf.duration(), quint32(0));
+    quint32 dur = sf.duration(m_doc);
+    QCOMPARE(dur, scene->totalDuration());
+
+    // With explicit duration set, should return that instead
+    sf.setDuration(5000);
+    QCOMPARE(sf.duration(m_doc), quint32(5000));
+
+    // With null doc, should return 0 when m_duration is 0
+    sf.setDuration(0);
+    QCOMPARE(sf.duration(nullptr), quint32(0));
+
+    m_doc->deleteFunction(scene->id());
 }
 
 QTEST_APPLESS_MAIN(ShowFunction_Test)

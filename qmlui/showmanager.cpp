@@ -984,10 +984,16 @@ QVariantList ShowManager::previewData(Function *f) const
         {
             data.append(RepeatingDuration);
             data.append(f->totalDuration());
-            data.append(FadeIn);
-            data.append(f->fadeInSpeed());
-            data.append(FadeOut);
-            data.append(f->fadeOutSpeed());
+            if (f->fadeInSpeed() > 0)
+            {
+                data.append(FadeIn);
+                data.append(f->fadeInSpeed());
+            }
+            if (f->fadeOutSpeed() > 0)
+            {
+                data.append(FadeOut);
+                data.append(f->fadeOutSpeed());
+            }
         }
         break;
         default:

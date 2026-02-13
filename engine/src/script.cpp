@@ -787,6 +787,9 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
             if (address < 512)
             {
                 quint32 universe = fxi->universe();
+                if (universe >= (quint32)universes.size())
+                    return QString("Invalid universe: %1").arg(universe);
+
                 QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                 if (fader.isNull())
                 {
@@ -910,7 +913,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             {
                 // if we stumbled into a URL like http:// or ftp://
                 // then it's not a comment !
-                if (line.at(left - 1) != ':')
+                if (left == 0 || line.at(left - 1) != ':')
                     line.truncate(left);
                 left += 2;
             }

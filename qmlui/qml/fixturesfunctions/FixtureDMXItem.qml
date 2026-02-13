@@ -37,7 +37,11 @@ Rectangle
         {
             //console.log("Value " + i + " = " + values[i]);
             if (fxColumn.visible === true)
-                channelsRpt.itemAt(i).dmxValue = values[i]
+            {
+                var item = channelsRpt.itemAt(i)
+                if (item)
+                    item.dmxValue = values[i]
+            }
             else
                 consoleLoader.setValues(values)
         }
@@ -49,7 +53,11 @@ Rectangle
             consoleLoader.item.updateChannels()
 
         for (var i = 0; i < channelsRpt.count; i++)
-            channelsRpt.itemAt(i).updateChannel()
+        {
+            var item = channelsRpt.itemAt(i)
+            if (item)
+                item.updateChannel()
+        }
     }
 
     width: fxColumn.visible ? channelsRow.width : consoleLoader.width
@@ -221,7 +229,9 @@ Rectangle
             function onValueChanged(fixtureID, chIndex, value)
             {
                 //console.log("Channel " + chIndex + " value changed " + value)
-                channelsRpt.itemAt(chIndex).dmxValue = value
+                var item = channelsRpt.itemAt(chIndex)
+                if (item)
+                    item.dmxValue = value
             }
 
             function onRequestTool(item, fixtureID, chIndex, value)

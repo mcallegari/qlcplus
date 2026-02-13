@@ -50,6 +50,10 @@ coverage/
 # Development IDEs
 .vscode/
 
+# Claude Code
+.claude/
+.claudeignore
+
 # CMake build
 CMakeLists.txt.user
 build*

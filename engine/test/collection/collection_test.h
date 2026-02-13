@@ -50,6 +50,7 @@ private slots:
     void write();
 
     void stopNotOwnChildren();
+    void totalDurationNullFunction();
 
 private:
     Doc* m_doc;

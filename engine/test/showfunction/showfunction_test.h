@@ -22,14 +22,22 @@
 
 #include <QObject>
 
+class Doc;
+
 class ShowFunction_Test final : public QObject
 {
     Q_OBJECT
 
 private slots:
+    void initTestCase();
+    void cleanupTestCase();
     void defaults();
     void load();
     void save();
+    void durationWithDoc();
+
+private:
+    Doc *m_doc;
 };
 
 #endif

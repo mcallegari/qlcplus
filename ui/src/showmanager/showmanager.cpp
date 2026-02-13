@@ -1747,8 +1747,8 @@ bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
         if (func != NULL)
         {
             quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            if ((startTime >= fst && startTime < fst + sf->duration()) ||
+                (fst >= startTime && fst < startTime + duration))
             {
                 return true;
             }

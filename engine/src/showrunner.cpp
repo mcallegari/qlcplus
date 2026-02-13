@@ -180,6 +180,11 @@ void ShowRunner::write(MasterTimer *timer)
         quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
         Function *f = m_doc->function(sf->functionID());
+        if (f == nullptr)
+        {
+            m_currentTimeFunctionIndex++;
+            continue;
+        }
 
         // this should happen only when a Show is not started from 0
         if (m_elapsedTime > funcStartTime)
@@ -220,6 +225,11 @@ void ShowRunner::write(MasterTimer *timer)
         quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
         Function *f = m_doc->function(sf->functionID());
+        if (f == nullptr)
+        {
+            m_currentBeatFunctionIndex++;
+            continue;
+        }
 
         // this should happen only when a Show is not started from 0
         if (m_elapsedBeats > funcStartTime)
