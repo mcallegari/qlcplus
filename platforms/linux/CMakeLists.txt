@@ -1,8 +1,11 @@
 project(icons)
 
-set(desktop_FILES qlcplus.desktop)
-if(NOT qmlui)
-    list(APPEND desktop_FILES qlcplus-fixtureeditor.desktop)
+if(qmlui)
+    set(desktop_FILES qlcplus5.desktop)
+else()
+    set(desktop_FILES
+        qlcplus.desktop
+        qlcplus-fixtureeditor.desktop)
 endif()
 install(FILES ${desktop_FILES} DESTINATION ${INSTALLROOT}/share/applications/)
 
@@ -14,9 +17,12 @@ install(FILES ${icons_SRCS} DESTINATION ${INSTALLROOT}/share/pixmaps/)
 
 install(FILES qlcplus.xml DESTINATION ${INSTALLROOT}/share/mime/packages)
 
-set(appdata_FILES org.qlcplus.QLCPlus.appdata.xml)
-if(NOT qmlui)
-    list(APPEND appdata_FILES org.qlcplus.QLCPlusFixtureEditor.appdata.xml)
+if(qmlui)
+    set(appdata_FILES org.qlcplus.QLCPlus5.appdata.xml)
+else()
+    set(appdata_FILES
+        org.qlcplus.QLCPlus.appdata.xml
+        org.qlcplus.QLCPlusFixtureEditor.appdata.xml)
 endif()
 install(FILES ${appdata_FILES} DESTINATION ${METAINFODIR})
 

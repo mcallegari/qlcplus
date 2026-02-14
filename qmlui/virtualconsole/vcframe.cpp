@@ -98,6 +98,7 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 

@@ -589,6 +589,19 @@ Rectangle
                 showTimeMarkers: false
             }
 
+            /* Snap-to-item guide line */
+            Rectangle
+            {
+                id: snapGuide
+                x: showManager.snapGuideX
+                y: 0
+                z: 10
+                width: 1
+                height: parent.height
+                color: "#00FF00"
+                visible: showManager.snapGuideX >= 0
+            }
+
             DropArea
             {
                 id: newFuncDrop

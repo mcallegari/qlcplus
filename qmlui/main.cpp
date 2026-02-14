@@ -69,9 +69,10 @@ int main(int argc, char *argv[])
     parser.addVersionOption();
 
     QCommandLineOption openFileOption(QStringList() << "o" << "open",
-                                      "Specify a file to open.",
-                                      "filename", "");
+                                      "Specify a file to open.");
     parser.addOption(openFileOption);
+
+    parser.addPositionalArgument("file", "File to open.", "[file]");
 
     QCommandLineOption openLastOption(QStringList() << "9" << "openlast",
                                       "Open the file from last session.");
@@ -209,7 +210,11 @@ int main(int argc, char *argv[])
     }
 
     // open file
-    QString filename = parser.value(openFileOption);
+    QString filename;
+    QStringList posArgs = parser.positionalArguments();
+    if (!posArgs.isEmpty())
+        filename = posArgs.first();
+
     if (filename.isEmpty() == false)
     {
         if (filename.endsWith(KExtFixture))

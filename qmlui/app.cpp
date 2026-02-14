@@ -31,6 +31,7 @@
 #include <QQuickItem>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QMouseEvent>
 #include <QPrinter>
 #include <QPainter>
 #include <QScreen>
@@ -327,6 +328,14 @@ void App::keyReleaseEvent(QKeyEvent *e)
         m_contextManager->handleKeyRelease(e);
 
     QQuickView::keyReleaseEvent(e);
+}
+
+void App::mousePressEvent(QMouseEvent *e)
+{
+    if (m_contextManager)
+        m_contextManager->setLastClickedType(App::NoDragItem);
+
+    QQuickView::mousePressEvent(e);
 }
 
 bool App::event(QEvent *event)

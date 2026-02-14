@@ -34,6 +34,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentShow(nullptr)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
+    , m_snapGuideX(-1.0)
     , m_timeScale(5.0)
     , m_currentTime(0)
     , m_selectedTrackId(-1)
@@ -157,6 +158,66 @@ void ShowManager::setGridEnabled(bool gridEnabled)
 
     m_gridEnabled = gridEnabled;
     emit gridEnabledChanged(m_gridEnabled);
+}
+
+double ShowManager::snapGuideX() const
+{
+    return m_snapGuideX;
+}
+
+void ShowManager::setSnapGuideX(double snapGuideX)
+{
+    if (qFuzzyCompare(m_snapGuideX, snapGuideX))
+        return;
+
+    m_snapGuideX = snapGuideX;
+    emit snapGuideXChanged();
+}
+
+QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
+                                       double viewportLeft, double viewportRight)
+{
+    QVariantList edges;
+
+    if (m_currentShow == nullptr)
+        return edges;
+
+    int beatsDivision = m_currentShow->beatsDivision();
+
+    for (Track *track : m_currentShow->tracks())
+    {
+        for (ShowFunction *sf : track->showFunctions())
+        {
+            if (sf->functionID() == excludeFuncId)
+                continue;
+
+            double startX, endX;
+            quint32 endTime = sf->startTime() + sf->duration();
+
+            if (timeDivision() == Show::Time)
+            {
+                startX = ((double)sf->startTime() * m_tickSize) / (m_timeScale * 1000.0);
+                endX = ((double)endTime * m_tickSize) / (m_timeScale * 1000.0);
+            }
+            else
+            {
+                startX = (m_tickSize / beatsDivision) * ((double)sf->startTime() / 1000.0);
+                endX = (m_tickSize / beatsDivision) * ((double)endTime / 1000.0);
+            }
+
+            // filter: skip items entirely outside the visible viewport
+            if (viewportLeft >= 0 && viewportRight >= 0)
+            {
+                if (endX < viewportLeft || startX > viewportRight)
+                    continue;
+            }
+
+            edges.append(startX);
+            edges.append(endX);
+        }
+    }
+
+    return edges;
 }
 
 /*********************************************************************
@@ -498,7 +559,7 @@ void ShowManager::deleteShowItem(ShowFunction *sf)
     }
 }
 
-bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
+bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime, bool itemSnapped)
 {
     if (m_currentShow == nullptr || sf == nullptr)
         return false;
@@ -527,7 +588,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
 
     int newTime = newStartTime;
 
-    if (m_gridEnabled)
+    if (m_gridEnabled && !itemSnapped)
     {
         // calculate the X position from time and time scale
         // timescale * 1000 : tickSize = time : x
@@ -987,4 +1048,3 @@ void ShowManager::pasteFromClipboard()
                  QVariantList() << func->id());
     }
 }
-

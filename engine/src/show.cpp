@@ -109,6 +109,7 @@ bool Show::copyFrom(const Function* function)
     m_timeDivisionType = show->m_timeDivisionType;
     m_timeDivisionBPM = show->m_timeDivisionBPM;
     m_latestTrackId = show->m_latestTrackId;
+    m_latestShowFunctionID = show->m_latestShowFunctionID;
 
     // create a copy of each track
     foreach (Track *track, show->tracks())
@@ -340,7 +341,7 @@ quint32 Show::createTrackId()
 
 quint32 Show::getLatestShowFunctionId()
 {
-    return m_latestTrackId++;
+    return m_latestShowFunctionID++;
 }
 
 ShowFunction *Show::showFunction(quint32 id)

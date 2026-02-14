@@ -20,6 +20,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <QDateTime>
+#include <QtMath>
 
 #include <algorithm>
 
@@ -53,6 +55,8 @@ VCSpeedDial::VCSpeedDial(Doc *doc, QObject *parent)
     , m_resetOnDialChange(false)
     , m_currentFactor(One)
     , m_lastAssignedPresetId(15)
+    , m_lastTap(0)
+    , m_tapTimeValue(0)
 {
     setType(VCWidget::SpeedWidget);
 
@@ -103,6 +107,7 @@ void VCSpeedDial::render(QQuickView *view, QQuickItem *parent)
     if (component->isError())
     {
         qDebug() << component->errors();
+        delete component;
         return;
     }
 
@@ -520,6 +525,90 @@ void VCSpeedDial::applyFunctionsTime()
 }
 
 /*********************************************************************
+ * Tap
+ *********************************************************************/
+
+int VCSpeedDial::tapTimeValue() const
+{
+    return m_tapTimeValue;
+}
+
+void VCSpeedDial::tap()
+{
+    qint64 currTime = QDateTime::currentMSecsSinceEpoch();
+
+    if (m_lastTap != 0 && currTime - m_lastTap < 1500)
+    {
+        int newTime = static_cast<int>(currTime - m_lastTap);
+
+        m_tapHistory.append(newTime);
+
+        int tapTime = calculateBPMByTapIntervals(m_tapHistory);
+
+        setCurrentTime(tapTime);
+
+        if (m_tapTimeValue != tapTime)
+        {
+            m_tapTimeValue = tapTime;
+            emit tapTimeValueChanged();
+        }
+    }
+    else
+    {
+        m_lastTap = 0;
+        m_tapHistory.clear();
+    }
+    m_lastTap = currTime;
+}
+
+void VCSpeedDial::resetTap()
+{
+    m_lastTap = 0;
+    m_tapHistory.clear();
+
+    if (m_tapTimeValue != 0)
+    {
+        m_tapTimeValue = 0;
+        emit tapTimeValueChanged();
+    }
+}
+
+int VCSpeedDial::calculateBPMByTapIntervals(QList<int> &tapHistory)
+{
+    // reduce size to only 16 taps
+    while (tapHistory.size() > 16)
+        tapHistory.removeFirst();
+
+    // copy and sort to find median
+    QList<int> sorted = tapHistory;
+    std::sort(sorted.begin(), sorted.end());
+
+    int tapHistoryMedian = sorted[sorted.size() / 2];
+
+    double n = 1, tapx = 0, tapy = 0;
+    double sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0;
+
+    for (int i = 0; i < tapHistory.size(); i++)
+    {
+        int intervalMs = tapHistory[i];
+        n++;
+        // Divide by tapHistoryMedian to determine if a tap was skipped during input
+        tapx += qFloor((tapHistoryMedian / 2.0 + intervalMs) / tapHistoryMedian);
+        tapy += intervalMs;
+        sum_x += tapx;
+        sum_y += tapy;
+        sum_xx += tapx * tapx;
+        sum_xy += tapx * tapy;
+    }
+
+    double denom = n * sum_xx - sum_x * sum_x;
+    if (qFuzzyIsNull(denom))
+        return tapHistory.last();
+
+    return static_cast<int>((n * sum_xy - sum_x * sum_y) / denom);
+}
+
+/*********************************************************************
  * External input
  *********************************************************************/
 
@@ -562,8 +651,7 @@ void VCSpeedDial::slotInputValueChanged(quint8 id, uchar value)
         }
         break;
         case INPUT_TAP_ID:
-            if (m_item)
-                QMetaObject::invokeMethod(m_item, "tap");
+            tap();
         break;
         case INPUT_MULT_ID:
             increaseSpeedFactor();

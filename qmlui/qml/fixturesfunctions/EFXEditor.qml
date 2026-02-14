@@ -78,6 +78,12 @@ Rectangle
     {
         anchors.fill: parent
 
+        handle: Rectangle
+        {
+            implicitWidth: screenPixelDensity * UISettings.scalingFactor * 0.9
+            color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+        }
+
         Loader
         {
             id: fxTreeLoader

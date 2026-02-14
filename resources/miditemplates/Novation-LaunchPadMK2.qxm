@@ -1,0 +1,9 @@
+<!DOCTYPE MidiTemplate>
+<MidiTemplate>
+ <Creator>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Description>Shows a welcome message on your Launchpad MK2</Description>
+ <Name>Novation Launchpad MK2 welcome message</Name>
+ <InitMessage>F0 00 20 29 02 18 14 0B 00 51 4C 43 2B F7</InitMessage>
+</MidiTemplate>

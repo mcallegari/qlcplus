@@ -57,6 +57,12 @@ Rectangle
     {
         anchors.fill: parent
 
+        handle: Rectangle
+        {
+            implicitWidth: screenPixelDensity * UISettings.scalingFactor * 0.9
+            color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+        }
+
         Loader
         {
             id: funcMgrLoader
@@ -77,6 +83,7 @@ Rectangle
 
         Column
         {
+            id: editorColumn
             SplitView.fillWidth: true
 
             EditorTopBar
@@ -205,7 +212,7 @@ Rectangle
                 id: chWidget
                 objectName: "chaserEditorWidget"
                 isSequence: ceContainer.isSequence
-                width: ceContainer.width
+                width: editorColumn.width
                 height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chModes.height
                 model: chaserEditor.stepsList
                 playbackIndex: chaserEditor.playbackIndex
@@ -216,8 +223,16 @@ Rectangle
                 onIndexChanged: (index) => chaserEditor.playbackIndex = index
                 onStepValueChanged: (index, value, type) => chaserEditor.setStepSpeed(index, value, type)
                 onNoteTextChanged: (index, text) => chaserEditor.setStepNote(index, text)
-                onAddFunctions: (list, index) => chaserEditor.addFunctions(list, index)
-                onMoveSteps: (list, index) => chaserEditor.moveSteps(list, index)
+                onAddFunctions: (list, index) =>
+                {
+                    chaserEditor.addFunctions(list, index)
+                    chWidget.scrollToItem(index)
+                }
+                onMoveSteps: (list, index) =>
+                {
+                    chaserEditor.moveSteps(list, index)
+                    chWidget.scrollToItem(index)
+                }
                 onRequestEditor: (funcID) =>
                 {
                     requestView(funcID, functionManager.getEditorResource(funcID), false)

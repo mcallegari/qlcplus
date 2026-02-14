@@ -46,6 +46,24 @@ Item
     property string infoText: ""
     property string toolTipText: ""
 
+    // Snap-to-item properties
+    property var snapEdges: []
+    property real snapThreshold: 15
+    property real pressMouseX: 0
+    property real pressMouseY: 0
+    property bool dragActive: false
+    property bool itemSnapped: false
+
+    function getVisibleSnapEdges()
+    {
+        // itemRoot.parent is the Flickable's contentItem,
+        // itemRoot.parent.parent is the Flickable (itemsArea)
+        var flickable = itemRoot.parent ? itemRoot.parent.parent : null
+        if (flickable && flickable.contentX !== undefined)
+            return showManager.getSnapEdges(sfRef.functionID, flickable.contentX, flickable.contentX + flickable.width)
+        return showManager.getSnapEdges(sfRef.functionID)
+    }
+
     onStartTimeChanged: updateGeometry()
     onDurationChanged: updateGeometry()
     onTimeScaleChanged: updateGeometry()
@@ -240,8 +258,7 @@ Item
         id: sfMouseArea
         anchors.fill: parent
         hoverEnabled: true
-
-        drag.threshold: 30
+        preventStealing: true
 
         Rectangle
         {
@@ -253,7 +270,7 @@ Item
             border.color: isSelected ? UISettings.selection : "white"
             clip: true
 
-            Drag.active: sfMouseArea.drag.active
+            Drag.active: itemRoot.dragActive
             Drag.keys: [ "function" ]
 
             Image
@@ -293,40 +310,85 @@ Item
             }
         }
 
-        onPressed:
+        onPressed: (mouse) =>
         {
             if (sfRef && sfRef.locked)
                 return;
-            console.log("Show Item drag started")
             showManager.enableFlicking(false)
-            drag.target = showItemBody
-            itemRoot.z++
-            infoTextBox.height = itemRoot.height / 4
-            infoTextBox.textHAlign = Text.AlignLeft
+            pressMouseX = mouse.x
+            pressMouseY = mouse.y
             isDragging = true
+            dragActive = false
+            itemSnapped = false
+            snapEdges = getVisibleSnapEdges()
         }
-        onPositionChanged:
+        onPositionChanged: (mouse) =>
         {
-            if (drag.target !== null)
-            {
-                var txt
-                if (timeDivision === Show.Time)
-                    txt = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
-                else
-                    txt = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / beatsDivision), beatsDivision)
+            if (!isDragging)
+                return
 
-                infoText = qsTr("Position: ") + txt
+            var dx = mouse.x - pressMouseX
+            var dy = mouse.y - pressMouseY
+
+            if (!dragActive)
+            {
+                if (Math.abs(dx) < 30 && Math.abs(dy) < 30)
+                    return
+                dragActive = true
+                itemRoot.z++
+                infoTextBox.height = itemRoot.height / 4
+                infoTextBox.textHAlign = Text.AlignLeft
             }
+
+            // snap-to-item: check start edge if clicked on first half,
+            // end edge if clicked on second half
+            var checkStart = (pressMouseX < itemRoot.width / 2)
+            var edgePos = checkStart ? (itemRoot.x + dx) : (itemRoot.x + dx + itemRoot.width)
+            var bestDelta = snapThreshold + 1
+            var bestSnapX = -1
+
+            for (var i = 0; i < snapEdges.length; i++)
+            {
+                var d = snapEdges[i] - edgePos
+                if (Math.abs(d) < Math.abs(bestDelta))
+                {
+                    bestDelta = d
+                    bestSnapX = snapEdges[i]
+                }
+            }
+
+            if (Math.abs(bestDelta) <= snapThreshold)
+            {
+                dx += bestDelta
+                showManager.snapGuideX = bestSnapX
+                itemSnapped = true
+            }
+            else
+            {
+                showManager.snapGuideX = -1
+                itemSnapped = false
+            }
+
+            showItemBody.x = dx
+            showItemBody.y = dy
+
+            var txt
+            if (timeDivision === Show.Time)
+                txt = TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+            else
+                txt = TimeUtils.beatsToString((itemRoot.x + showItemBody.x) / (tickSize / beatsDivision), beatsDivision)
+
+            infoText = qsTr("Position: ") + txt
         }
-        onReleased:
+        onReleased: (mouse) =>
         {
             if (sfRef && sfRef.locked)
                 return;
 
-            if (drag.target !== null)
+            showManager.snapGuideX = -1
+
+            if (dragActive)
             {
-                console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y)
-                drag.target = null
                 infoText = ""
 
                 var newTime
@@ -336,13 +398,12 @@ Item
                     newTime = TimeUtils.posToBeat(itemRoot.x + showItemBody.x, tickSize, beatsDivision)
 
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
-                // dragging to 0 might not be accurate...
                 if (newTime < 0)
                     newTime = 0
 
                 if (newTrackIdx >= 0)
                 {
-                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
+                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime, itemSnapped)
 
                     if (res === true)
                         trackIndex = newTrackIdx
@@ -352,16 +413,21 @@ Item
 
                 showItemBody.x = 0
                 showItemBody.y = 0
+                itemRoot.z--
             }
-            itemRoot.z--
+
             showManager.enableFlicking(true)
             updateTooltipText()
             isDragging = false
+            dragActive = false
+            itemSnapped = false
             updateGeometry()
         }
 
         onClicked: (mouse) =>
         {
+            if (dragActive)
+                return
             var multi = ((mouse.modifiers & Qt.ControlModifier) || (mouse.modifiers & Qt.ShiftModifier))
                     || (showManager && showManager.multipleSelection)
             if (multi)
@@ -400,29 +466,67 @@ Item
             hoverEnabled: true
             cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
 
-            drag.target: horLeftHandler
-            drag.axis: Drag.XAxis
-            drag.maximumX: horRightHandler.x
+            property real pressX: 0
+            property real origItemX: 0
+            property real origItemW: 0
 
-            onPressed: isDragging = true
+            onPressed: (mouse) =>
+            {
+                isDragging = true
+                itemSnapped = false
+                snapEdges = getVisibleSnapEdges()
+                pressX = mapToItem(itemRoot.parent, mouse.x, mouse.y).x
+                origItemX = itemRoot.x
+                origItemW = itemRoot.width
+            }
 
             onPositionChanged: (mouse) =>
             {
-                if (drag.active === true)
-                {
-                    var hdlPos = mapToItem(itemRoot.parent, horLeftHandler.x, horLeftHandler.y)
-                    itemRoot.width = itemRoot.width + (itemRoot.x - hdlPos.x + mouse.x)
-                    itemRoot.x = hdlPos.x - mouse.x
-                    infoTextBox.height = itemRoot.height / 2
-                    infoTextBox.textHAlign = Text.AlignLeft
-                    updateTooltipText()
-                    horLeftHandler.x = 0
-                }
-            }
-            onReleased:
-            {
-                if (drag.active === false)
+                if (!pressed)
                     return
+
+                var globalX = mapToItem(itemRoot.parent, mouse.x, mouse.y).x
+                var dx = globalX - pressX
+                var newX = origItemX + dx
+
+                // snap-to-item: check left edge
+                var bestDist = snapThreshold + 1
+                var bestSnapX = -1
+                for (var i = 0; i < snapEdges.length; i++)
+                {
+                    var dist = Math.abs(snapEdges[i] - newX)
+                    if (dist < bestDist)
+                    {
+                        bestDist = dist
+                        bestSnapX = snapEdges[i]
+                    }
+                }
+                if (bestSnapX >= 0 && bestDist <= snapThreshold)
+                {
+                    newX = bestSnapX
+                    showManager.snapGuideX = bestSnapX
+                    itemSnapped = true
+                }
+                else
+                {
+                    showManager.snapGuideX = -1
+                    itemSnapped = false
+                }
+
+                // clamp: don't allow shrinking past minimum width
+                var maxX = origItemX + origItemW - horLeftHandler.width
+                if (newX > maxX)
+                    newX = maxX
+
+                itemRoot.width = origItemW + (origItemX - newX)
+                itemRoot.x = newX
+                infoTextBox.height = itemRoot.height / 2
+                infoTextBox.textHAlign = Text.AlignLeft
+                updateTooltipText()
+            }
+            onReleased: (mouse) =>
+            {
+                showManager.snapGuideX = -1
 
                 if (sfRef)
                 {
@@ -432,8 +536,8 @@ Item
                         itemRoot.x = 0
                     }
 
-                    // check grid snapping
-                    if (itemRoot.x && showManager.gridEnabled)
+                    // check grid snapping (skip if item-snapped)
+                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled)
                     {
                         var currX = itemRoot.x
                         itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
@@ -464,8 +568,8 @@ Item
                     prCanvas.requestPaint()
                 }
                 infoText = ""
-                horLeftHandler.x = 0
                 isDragging = false
+                itemSnapped = false
                 updateGeometry()
             }
         }
@@ -494,17 +598,46 @@ Item
             drag.axis: Drag.XAxis
             drag.minimumX: horLeftHandler.x + width
 
-            onPressed: isDragging = true
+            onPressed:
+            {
+                isDragging = true
+                itemSnapped = false
+                snapEdges = getVisibleSnapEdges()
+            }
 
             onPositionChanged: (mouse) =>
             {
-                //var mp = mapToItem(itemRoot, mouseX, mouseY)
-                //console.log("Mouse position: " + mp.x)
                 if (drag.active === true)
                 {
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
-                    //console.log("Mapped position: " + obj.x)
-                    itemRoot.width = obj.x + (horRightHdlMa.width - mouse.x)
+                    var newWidth = obj.x + (horRightHdlMa.width - mouse.x)
+
+                    // snap-to-item: check right edge
+                    var rightEdge = itemRoot.x + newWidth
+                    var bestDist = snapThreshold + 1
+                    var bestSnapX = -1
+                    for (var i = 0; i < snapEdges.length; i++)
+                    {
+                        var dist = Math.abs(snapEdges[i] - rightEdge)
+                        if (dist < bestDist)
+                        {
+                            bestDist = dist
+                            bestSnapX = snapEdges[i]
+                        }
+                    }
+                    if (bestSnapX >= 0 && bestDist <= snapThreshold)
+                    {
+                        newWidth = bestSnapX - itemRoot.x
+                        showManager.snapGuideX = bestSnapX
+                        itemSnapped = true
+                    }
+                    else
+                    {
+                        showManager.snapGuideX = -1
+                        itemSnapped = false
+                    }
+
+                    itemRoot.width = newWidth
                     infoTextBox.height = itemRoot.height / 4
                     infoTextBox.textHAlign = Text.AlignRight
                     updateTooltipText()
@@ -515,10 +648,12 @@ Item
                 if (drag.active === false)
                     return
 
+                showManager.snapGuideX = -1
+
                 if (sfRef)
                 {
-                    // check grid snapping
-                    if (showManager.gridEnabled)
+                    // check grid snapping (skip if item-snapped)
+                    if (!itemSnapped && showManager.gridEnabled)
                     {
                         var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
                         itemRoot.width = snappedEndPos - itemRoot.x
@@ -541,6 +676,7 @@ Item
                 }
                 infoText = ""
                 isDragging = false
+                itemSnapped = false
                 updateGeometry()
             }
         }

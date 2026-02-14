@@ -96,6 +96,12 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 height: UISettings.listItemHeight * 8
 
+                handle: Rectangle
+                {
+                    implicitWidth: screenPixelDensity * UISettings.scalingFactor * 0.9
+                    color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+                }
+
                 // List of drives/home
                 ListView
                 {

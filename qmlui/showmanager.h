@@ -50,6 +50,7 @@ class ShowManager final : public PreviewContext
 
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
+    Q_PROPERTY(double snapGuideX READ snapGuideX WRITE setSnapGuideX NOTIFY snapGuideXChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
 
@@ -109,6 +110,10 @@ public:
     bool gridEnabled() const;
     void setGridEnabled(bool gridEnabled);
 
+    /** Get/Set the X position of the snap guide line (-1 = hidden) */
+    double snapGuideX() const;
+    void setSnapGuideX(double snapGuideX);
+
     /** Play or resume the Show playback */
     Q_INVOKABLE void playShow();
 
@@ -124,6 +129,7 @@ signals:
     void showNameChanged(QString showName);
     void stretchFunctionsChanged(bool stretchFunction);
     void gridEnabledChanged(bool gridEnabled);
+    void snapGuideXChanged();
     void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
 
@@ -138,6 +144,9 @@ private:
     /** Flag that indicates if the Show items should be
      *  snapped to the closest grid divisor */
     bool m_gridEnabled;
+
+    /** X position of the snap guide line (-1 = hidden) */
+    double m_snapGuideX;
 
     /*********************************************************************
       * Time
@@ -252,13 +261,19 @@ public:
      *  $originalTrackIdx and moved into $newTrackIdx and true is returned.
      */
     Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
-                                      int newTrackIdx, int newStartTime);
+                                      int newTrackIdx, int newStartTime,
+                                      bool itemSnapped = false);
 
     /** Set the start time of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemStartTime(ShowFunction *sf, int startTime);
 
     /** Set the duration of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemDuration(ShowFunction *sf, int duration);
+
+    /** Returns pixel X positions of all item edges (start + end) across all tracks,
+     *  excluding the item with the given function ID */
+    Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeFuncId,
+                                          double viewportLeft = -1, double viewportRight = -1);
 
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;

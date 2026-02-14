@@ -52,6 +52,12 @@ Rectangle
         orientation: Qt.Vertical
         z: 1
 
+        handle: Rectangle
+        {
+            implicitHeight: screenPixelDensity * UISettings.scalingFactor * 0.9
+            color: SplitHandle.hovered || SplitHandle.pressed ? UISettings.highlight : UISettings.bgLighter
+        }
+
         // Top view (faders)
         Rectangle
         {
