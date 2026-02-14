@@ -26,9 +26,12 @@
 #include <QHash>
 
 #include "scenevalue.h"
+#include "efx.h"
 
 class FixtureGroup;
 class RGBMatrix;
+class EFX;
+class EFXFixture;
 class Fixture;
 class Chaser;
 class Scene;
@@ -56,6 +59,9 @@ public:
         Shutter,
         Gobos,
         ColourMacro,
+        EfxDimmer,
+        EfxRGB,
+        EfxPosition,
         Animation
     };
 
@@ -63,7 +69,10 @@ public:
     {
         None = 0,
         All,
-        OddEven
+        OddEven,
+        Parallel  = 0b00000100,
+        Serial    = 0b00001000,
+        Asymetric = 0b00010000,
     };
 
     /**
@@ -72,8 +81,8 @@ public:
      * @param doc The Doc object that takes all generated functions
      * @param fxiList List of fixtures to create functions for
      */
-    PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList,
-                     PaletteType type = Undefined, PaletteSubType subType = None);
+    PaletteGenerator(Doc* doc, const QList <Fixture*>& fxList, PaletteType type = Undefined,
+                     PaletteSubType subType = None, EFX::Algorithm algo = EFX::Algorithm::Circle);
 
     /** Destructor */
     ~PaletteGenerator();
@@ -112,6 +121,7 @@ public:
     QList<Scene *> scenes();
     QList<Chaser *> chasers();
     QList<RGBMatrix *> matrices();
+    QList<EFX *> efxs();
 
     void addToDoc();
 
@@ -126,6 +136,9 @@ private:
     void createCapabilityScene(QHash<quint32, quint32> chMap, PaletteSubType subType);
 
     void createRGBMatrices(QList<SceneValue> rgbMap);
+
+    EFX* createEfx(QList <Fixture*> fixtures, EFXFixture::Mode mode, EFX::PropagationMode propMode);
+    void createEfxs(QList<Fixture*> fixtures, EFXFixture::Mode mode, PaletteSubType subType);
 
     void createChaser(QString name);
 
@@ -146,12 +159,14 @@ private:
     QString m_name;
     PaletteType m_type;
     PaletteSubType m_subType;
+    EFX::Algorithm m_efxAlgo;
     QList <Fixture*> m_fixtures;
     FixtureGroup *m_fixtureGroup;
     QString m_model;
     QList <Scene*> m_scenes;
     QList <Chaser*> m_chasers;
     QList <RGBMatrix*> m_matrices;
+    QList <EFX*> m_efxs;
 };
 
 /** @} */
