@@ -85,6 +85,9 @@ public slots:
         removed immediately. */
     void slotFunctionRemoved(quint32 function);
 
+    /** Stop the function from the UI (used on EndOfMedia) */
+    Q_INVOKABLE void stopFromUI();
+
     /*********************************************************************
      * Capabilities
      *********************************************************************/

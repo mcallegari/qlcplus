@@ -101,8 +101,8 @@ Rectangle
         {
             objectName: "media-" + video.id
             color: "black"
-            opacity: video.intensity
-            z: video.zIndex
+            opacity: video ? video.intensity : 1.0
+            z: video ? video.zIndex : 1
 
             property VideoFunction video: null
             property alias volume: player.audioOutput.volume
@@ -178,9 +178,9 @@ Rectangle
 
                 videoOutput: pVideoOutput
 
-                onPlaybackStateChanged:
+                onMediaStatusChanged:
                 {
-                    if (playbackState == MediaPlayer.StoppedState)
+                    if (mediaStatus == MediaPlayer.EndOfMedia)
                     {
                         if (video.runOrder === QLCFunction.Loop)
                         {
@@ -190,7 +190,7 @@ Rectangle
                         else
                         {
                             console.log("Video stopped")
-                            ctxRoot.removeContent(video.id)
+                            video.stopFromUI()
                         }
                     }
                 }
@@ -212,8 +212,8 @@ Rectangle
         Image
         {
             objectName: "media-" + picture.id
-            opacity: picture.intensity
-            z: picture.zIndex
+            opacity: picture ? picture.intensity : 1
+            z: picture ? picture.zIndex : 1
 
             property VideoFunction picture: null
             property vector3d rotation: picture.rotation

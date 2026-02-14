@@ -128,8 +128,7 @@ VideoContent::VideoContent(Video *video, VideoProvider *parent)
 {
     Q_ASSERT(video != nullptr);
 
-    if (video->fullscreen() == false)
-        slotDetectResolution();
+    slotDetectResolution();
 
     connect(m_video, SIGNAL(sourceChanged(QString)),
             this, SLOT(slotDetectResolution()));
@@ -254,7 +253,11 @@ void VideoContent::slotDetectResolution()
 
     if (m_video->isPicture())
     {
-        QPixmap img(sourceURL);
+        QString localPath = sourceURL;
+        if (sourceURL.contains("://"))
+            localPath = QUrl(sourceURL).toLocalFile();
+
+        QPixmap img(localPath);
         if (!img.isNull())
         {
             m_video->setResolution(img.size());
