@@ -62,7 +62,7 @@ public:
     /**
      * Returns the widget type
      */
-    int getType();
+    int getType() const;
 
     /** Set the low limits from the fader as a preset filter */
     void setLevelLowLimit(int min);
@@ -74,20 +74,25 @@ public:
      * Returns the color at pos position.
      * Used with primary colors linear gradient
      */
-    QColor getColorAt(uchar pos);
+    QColor getColorAt(uchar pos) const;
 
     /**
      * Return a QImage to be displayed on a Click & Go button
      *
      * @param value the slider position value
      */
-    QImage getImageFromValue(uchar value);
+    QImage getImageFromValue(uchar value) const;
 
     /** Returns a human readable string of a Click And Go type */
     static QString clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo type);
 
     /** Returns a Click And Go type from the given string */
     static ClickAndGoWidget::ClickAndGo stringToClickAndGoType(QString str);
+
+private:
+    QImage getDPIAwareImage(int width, int height) const;
+
+    static QImage getDPIAwareImageStatic(const ClickAndGoWidget* parent, int width, int height);
 
 protected:
     /**
@@ -119,12 +124,12 @@ protected:
      * PresetResource Class
      *************************************************************************/
 private:
-    class PresetResource
+    class PresetResource final
     {
     public:
-        PresetResource(QString path, QString text, uchar min, uchar max);
-        PresetResource(QColor color1, QColor color2, QString text, uchar min, uchar max);
-        PresetResource(int index, QString text, uchar min, uchar max);
+        PresetResource(const ClickAndGoWidget* parent, QString path, QString text, uchar min, uchar max);
+        PresetResource(const ClickAndGoWidget* parent, QColor color1, QColor color2, QString text, uchar min, uchar max);
+        PresetResource(const ClickAndGoWidget* parent, int index, QString text, uchar min, uchar max);
 
     public:
         QImage m_thumbnail;
