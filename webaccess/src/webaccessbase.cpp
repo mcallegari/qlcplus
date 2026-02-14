@@ -211,11 +211,11 @@ void WebAccessBase::sendProjectLoadingResponse(QHttpResponse *resp) const
         return;
 
     QByteArray postReply =
-            QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+            QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
             "<script>\n" PROJECT_LOADED_JS
             "</script></head><body style=\"background-color: #45484d;\">"
             "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
-            "text-align: center; font:bold 24px/1.2em sans-serif;\">"
+            "text-align: center; font: bold 24px/1.2em sans-serif;\">"
             + tr("Loading project...") +
             "</div></body></html>").toUtf8();
 
@@ -306,7 +306,7 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
             return CommonRequestResult::Handled;
 
         QByteArray postReply =
-                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
                         "<script>\n"
                         " alert(\"" + tr("Fixture stored and loaded") + "\");"
                         " window.location = \"/config\"\n"
