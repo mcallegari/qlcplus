@@ -99,11 +99,12 @@ Column
 
             CustomCheckBox
             {
+                id: fxCheckBox
                 visible: isCheckable
                 implicitWidth: UISettings.listItemHeight
                 implicitHeight: implicitWidth
                 checked: isChecked
-                onCheckedChanged: nodeContainer.mouseEvent(App.Checked, -1, -1, nodeContainer, 0)
+                onClicked: nodeContainer.mouseEvent(App.Checked, -1, checked, nodeContainer, 0)
             }
 
             Image
@@ -321,7 +322,8 @@ Column
 
         MouseArea
         {
-            width: showFlags ? fxModes.x : parent.width
+            x: fxCheckBox.visible ? fxCheckBox.width : 0
+            width: (showFlags ? fxModes.x : parent.width) - x
             height: parent.height
 
             property bool dragActive: drag.active

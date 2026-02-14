@@ -69,6 +69,13 @@ private:
     /** Method called recursively to check/uncheck all the sub-items of a tree */
     void setChildrenChecked(TreeModel *tree, bool checked);
 
+    /** Update fixture/group ID lists for a single tree item */
+    void updateFixtureItemID(const QVariantList &itemData, bool checked);
+
+    /** Method called recursively to update fixture ID lists
+     *  when a parent node is checked/unchecked */
+    void updateChildrenFixtureIDs(TreeModel *tree, bool checked);
+
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;

@@ -611,6 +611,63 @@ void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)
     }
 }
 
+void ImportManager::updateFixtureItemID(const QVariantList &itemData, bool checked)
+{
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
+    if (itemData.count() != 6)
+        return;
+
+    int itemType = itemData.at(1).toInt();
+    quint32 itemID = itemData.at(2).toUInt();
+
+    if (itemType == App::FixtureDragItem)
+    {
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        if (checked)
+        {
+            if (m_fixtureIDList.contains(fixtureID) == false)
+                m_fixtureIDList.append(fixtureID);
+            if (linkedIndex > 0 && m_itemIDList.contains(itemID) == false)
+                m_itemIDList.append(itemID);
+        }
+        else
+        {
+            if (linkedIndex > 0)
+                m_itemIDList.removeOne(itemID);
+            else
+                m_fixtureIDList.removeOne(fixtureID);
+        }
+    }
+    else if (itemType == App::FixtureGroupDragItem)
+    {
+        if (checked)
+        {
+            if (m_fixtureGroupIDList.contains(itemID) == false)
+                m_fixtureGroupIDList.append(itemID);
+        }
+        else
+        {
+            m_fixtureGroupIDList.removeOne(itemID);
+        }
+    }
+}
+
+void ImportManager::updateChildrenFixtureIDs(TreeModel *tree, bool checked)
+{
+    if (tree == nullptr)
+        return;
+
+    for (TreeModelItem *item : tree->items())
+    {
+        updateFixtureItemID(item->data(), checked);
+
+        if (item->hasChildren())
+            updateChildrenFixtureIDs(item->children(), checked);
+    }
+}
+
 /*********************************************************************
  * Fixture tree
  *********************************************************************/
@@ -651,52 +708,22 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
     qDebug() << "Fixture tree data changed" << value.toInt() << "data" << item->data() << "value" << value;
 
     if (item->hasChildren())
+    {
         setChildrenChecked(item->children(), checked);
-
-    QVariantList itemData = item->data();
-    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx" << "inGroup";
-    if (itemData.count() != 6)
-        return;
-
-    int itemType = itemData.at(1).toInt();
-    quint32 itemID = itemData.at(2).toUInt();
-
-    if (itemType == App::FixtureDragItem)
-    {
-        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
-        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-
-        if (checked)
-        {
-            if (m_fixtureIDList.contains(fixtureID) == false)
-                m_fixtureIDList.append(fixtureID);
-
-            if (linkedIndex > 0 && m_itemIDList.contains(itemID) == false)
-            {
-                m_itemIDList.append(itemID);
-                checkFixtureTree(m_fixtureTree);
-            }
-        }
-        else
-        {
-            if (linkedIndex > 0)
-                m_itemIDList.removeOne(itemID);
-            else
-                m_fixtureIDList.removeOne(fixtureID);
-        }
+        updateChildrenFixtureIDs(item->children(), checked);
     }
-    else if (itemType == App::FixtureGroupDragItem)
+
+    updateFixtureItemID(item->data(), checked);
+
+    // when a linked fixture is manually checked,
+    // visually update the base fixture in the tree
+    QVariantList itemData = item->data();
+    if (checked && itemData.count() == 6 &&
+        itemData.at(1).toInt() == App::FixtureDragItem)
     {
-        qDebug() << "Fixture group checked" << itemID;
-        if (checked)
-        {
-            if (m_fixtureGroupIDList.contains(itemID) == false)
-                m_fixtureGroupIDList.append(itemID);
-        }
-        else
-        {
-            m_fixtureGroupIDList.removeOne(itemID);
-        }
+        quint32 itemID = itemData.at(2).toUInt();
+        if (FixtureUtils::itemLinkedIndex(itemID) > 0)
+            checkFixtureTree(m_fixtureTree);
     }
 
     m_fixtureTreeUpdating = false;
