@@ -47,6 +47,24 @@ VideoProvider::~VideoProvider()
     m_videoMap.clear();
 }
 
+void VideoProvider::shutdown()
+{
+    for (VideoContent *vc : std::as_const(m_videoMap))
+    {
+        if (vc)
+        {
+            vc->stopContent();
+            vc->destroyContext();
+        }
+    }
+    if (m_fullscreenContext)
+    {
+        m_fullscreenContext->close();
+        m_fullscreenContext->deleteLater();
+        m_fullscreenContext = nullptr;
+    }
+}
+
 QQuickView *VideoProvider::fullscreenContext()
 {
     return m_fullscreenContext;
@@ -149,6 +167,7 @@ void VideoContent::destroyContext()
     }
     else if (m_viewContext)
     {
+        m_viewContext->close();
         m_viewContext->deleteLater();
     }
 

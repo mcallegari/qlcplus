@@ -39,6 +39,8 @@ public:
     /** Get/Set the shared fullscreen context */
     QQuickView *fullscreenContext();
     void setFullscreenContext(QQuickView *context);
+    /** Force close any video windows and contexts */
+    void shutdown();
 
 protected slots:
     void slotFunctionAdded(quint32 id);

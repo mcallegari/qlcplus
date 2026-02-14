@@ -111,6 +111,8 @@ App::~App()
 {
     QSettings settings;
 
+    stopAllFunctions();
+
     if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
         settings.setValue(SETTINGS_GEOMETRY, geometry());
     else
@@ -296,6 +298,7 @@ void App::aboutQt()
 void App::exit(bool force)
 {
     m_forceQuit = force;
+    stopAllFunctions();
     QApplication::quit();
 }
 
@@ -385,11 +388,16 @@ void App::slotScreenChanged(QScreen *screen)
 
 void App::slotClosing()
 {
+    stopAllFunctions();
+
     if (m_contextManager)
     {
         delete m_contextManager;
         m_contextManager = nullptr;
     }
+
+    QCoreApplication::quit();
+    //QTimer::singleShot(2000, []() { QCoreApplication::exit(0); });
 }
 
 void App::slotClientAccessRequest(QString name)
@@ -527,6 +535,10 @@ void App::stopAllFunctions()
 {
     // first, gracefully stop via Function Manager (if that's the case)
     m_functionManager->setPreviewEnabled(false);
+
+    // close any fullscreen video windows before stopping functions
+    if (m_videoProvider)
+        m_videoProvider->shutdown();
 
     // then, brutally kill the rest (could be started from VC, etc)
     m_doc->masterTimer()->stopAllFunctions();
