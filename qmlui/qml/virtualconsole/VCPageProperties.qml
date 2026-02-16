@@ -164,7 +164,13 @@ Rectangle
                 id: deletePagePopup
                 title: qsTr("Delete page")
                 message: qsTr("Are you sure you want to delete the selected page?")
-                onAccepted: virtualConsole.deletePage(virtualConsole.selectedPage)
+                onAccepted:
+                {
+                    // Close first to make sure the dim overlay 
+                    // is cleared before this panel is destroyed.
+                    close()
+                    virtualConsole.deletePage(virtualConsole.selectedPage)
+                }
             }
         }
     }
