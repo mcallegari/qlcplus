@@ -192,10 +192,10 @@
   };
 
   algo.rgbMapGetColors = function(){
-    if (algo.paletteIndex === 1){ return [0xFFFF00, 0xFF0000, 0x000040, 0xFF0000]; }
-    else if (algo.paletteIndex === 2){ return [0x003AB9, 0x02EAFF]; }
-    else if (algo.paletteIndex === 3){ if (!util.colorArray || util.colorArray.length<=0) return [0x00FF00,0xFFAA00,0x0000FF,0xFFFF00,0xFFFFFF]; return util.colorArray; }
-    else { return [0xFF0000, 0x00FF00, 0x0000FF]; }
+    if (algo.paletteIndex === 1){ return [0xFFFF00 >>> 0, 0xFF0000 >>> 0, 0x000040 >>> 0, 0xFF0000 >>> 0]; }
+    else if (algo.paletteIndex === 2){ return [0x003AB9 >>> 0, 0x02EAFF >>> 0]; }
+    else if (algo.paletteIndex === 3){ if (!util.colorArray || util.colorArray.length<=0) return [0x00FF00 >>> 0, 0xFFAA00 >>> 0, 0x0000FF >>> 0, 0xFFFF00 >>> 0, 0xFFFFFF >>> 0]; return util.colorArray; }
+    else { return [0xFF0000 >>> 0, 0x00FF00 >>> 0, 0x0000FF >>> 0]; }
   };
 
   function sampleColor(x,y,w,h,t){

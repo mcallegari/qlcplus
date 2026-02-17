@@ -83,7 +83,7 @@
 
   // --- Colors ---
   var util = {};
-  util.colors = [0xFFFFFF, 0x66B2FF, 0x6A5ACD];
+  util.colors = [0xFFFFFF >>> 0, 0x66B2FF >>> 0, 0x6A5ACD >>> 0];
   algo.rgbMapSetColors = function(c){ if (c && c.length){ util.colors = c; } };
   algo.rgbMapGetColors = function(){ return util.colors; };
 

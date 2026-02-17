@@ -55,7 +55,7 @@
   util.initialized = false;
   util.eyes = [];
   util.stepCounter = 0;
-  util.colors = [0xFF0000, 0x00FF00];
+  util.colors = [0xFF0000 >>> 0, 0x00FF00 >>> 0];
   util.eyeMaxLifetime = {}; // max lifetime per pair
   util.eyeBlinkTimer = {}; // shared blink timer per pair
 

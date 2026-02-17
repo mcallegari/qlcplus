@@ -35,7 +35,7 @@
   algo.setContrast=function(v){algo.contrast=parseInt(v, 10);} ; algo.getContrast=function(){return algo.contrast;};
 
   function defaultPalette(){
-    return [0x001018,0x003048,0x106070,0x40B0A0,0xA0FFE0];
+    return [0x001018 >>> 0, 0x003048 >>> 0, 0x106070 >>> 0, 0x40B0A0 >>> 0, 0xA0FFE0 >>> 0];
   }
 
   algo.rgbMapSetColors = function(rawColors){

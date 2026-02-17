@@ -130,7 +130,7 @@ void testAlgo; // Reserved for development/debugging
 
     algo.rgbMap = function(width, height, rgb, step) {
         // Default color: gold/bronze string color if no color provided
-        if (rgb === 0) rgb = 0xDAA520;
+        if (rgb === 0) rgb = 0xDAA520 >>> 0;
 
         var map = makeMap(width, height, 0);
         var speedFactor = algo.speed / 5;
