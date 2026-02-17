@@ -189,7 +189,7 @@
     var maxSteps = (se.axis==='y') ? (Math.abs(se.ey - se.sy) + 1) : (Math.abs(se.ex - se.sx) + 1);
 
     // style-based length: spark short, others go full to far edge
-    var len = (style === 'spark') ? Math.max(4, Math.floor(maxSteps*0.20)) : maxSteps;
+    var len = (style === 'spark') ? Math.max(4, Math.floor(maxSteps*0.2)) : maxSteps;
 
     var jMag = 1; // random jitter for lightning/spark
     var sd = seed || 0;
@@ -233,7 +233,7 @@
         } else {
           y += irand(-jMag, jMag); if (y<0) y=0; if (y>=height) y=height-1;
         }
-        if (style !== 'spark' && (Math.random() < 0.10)){
+        if (style !== 'spark' && (Math.random() < 0.1)){
           if (se.axis==='y'){
             x += irand(-1,1); if (x<0) x=0; if (x>=width) x=width-1;
           } else {

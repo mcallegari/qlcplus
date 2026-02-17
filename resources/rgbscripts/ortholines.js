@@ -208,16 +208,18 @@
   function drawLinePerPixel(map, w, h, x0, y0, x1, y1, t, alpha){
     var x=Math.floor(x0), y=Math.floor(y0); var x2=Math.floor(x1), y2=Math.floor(y1);
     var dx=Math.abs(x2-x), dy=Math.abs(y2-y); var sx=(x<x2)?1:-1; var sy=(y<y2)?1:-1; var err=dx-dy;
-    while(true){ if(x>=0&&x<w&&y>=0&&y<h){ var col=sampleColor(x,y,w,h,t); if(alpha<0.999){ col=scaleColor(col, alpha); } map[y][x]=addColor(map[y][x], col); }
-      if (x===x2 && y===y2) break; var e2=err*2; if(e2>-dy){ err-=dy; x+=sx; } if(e2<dx){ err+=dx; y+=sy; }
+    var done = false;
+    while(!done){ if(x>=0&&x<w&&y>=0&&y<h){ var col=sampleColor(x,y,w,h,t); if(alpha<0.999){ col=scaleColor(col, alpha); } map[y][x]=addColor(map[y][x], col); }
+      if (x===x2 && y===y2) { done = true; } else { var e2=err*2; if(e2>-dy){ err-=dy; x+=sx; } if(e2<dx){ err+=dx; y+=sy; } }
     }
   }
 
   function drawLineSolid(map, w, h, x0, y0, x1, y1, color){
     var x=Math.floor(x0), y=Math.floor(y0); var x2=Math.floor(x1), y2=Math.floor(y1);
     var dx=Math.abs(x2-x), dy=Math.abs(y2-y); var sx=(x<x2)?1:-1; var sy=(y<y2)?1:-1; var err=dx-dy;
-    while(true){ if(x>=0&&x<w&&y>=0&&y<h){ map[y][x]=addColor(map[y][x], color); }
-      if (x===x2 && y===y2) break; var e2=err*2; if(e2>-dy){ err-=dy; x+=sx; } if(e2<dx){ err+=dx; y+=sy; }
+    var done = false;
+    while(!done){ if(x>=0&&x<w&&y>=0&&y<h){ map[y][x]=addColor(map[y][x], color); }
+      if (x===x2 && y===y2) { done = true; } else { var e2=err*2; if(e2>-dy){ err-=dy; x+=sx; } if(e2<dx){ err+=dx; y+=sy; } }
     }
   }
 
