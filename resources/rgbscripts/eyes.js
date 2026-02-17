@@ -55,7 +55,7 @@
   util.initialized = false;
   util.eyes = [];
   util.stepCounter = 0;
-  util.colors = [0xFF0000 >>> 0, 0x00FF00 >>> 0];
+  util.colors = [16711680, 65280]; // 0xFF0000 (red), 0x00FF00 (green)
   util.eyeMaxLifetime = {}; // max lifetime per pair
   util.eyeBlinkTimer = {}; // shared blink timer per pair
 
@@ -85,7 +85,7 @@
   algo.getEyeLifeRandomness = function(){ return algo.eyeLifeRandomness; };
 
   algo.rgbMapSetColors = function(rawColors){
-    util.colors = [0xFF0000, 0x00FF00];
+    util.colors = [16711680, 65280]; // 0xFF0000 (red), 0x00FF00 (green)
     if (Array.isArray(rawColors)){
       if (rawColors[0] === rawColors[0]) util.colors[0] = rawColors[0];
       if (rawColors[1] === rawColors[1]) util.colors[1] = rawColors[1];
@@ -144,28 +144,29 @@
     var dist = Math.sqrt(dx * dx + dy * dy);
     var sz = eyeSize;
     var factor = 0;
+    var d, dx2, dy2, adx, ady; // Declare all variables at function scope
 
     // Compute outer eye shape based on type
     if (eyeType === "Round"){
-      var d = dist / sz;
+      d = dist / sz;
       factor = Math.max(0, 1 - d * d);
     } else if (eyeType === "Slanted"){
-      var dx2 = dx + 0.2 * dy, dy2 = dy * 0.85;
-      var d = Math.sqrt(dx2 * dx2 + dy2 * dy2) / sz;
+      dx2 = dx + 0.2 * dy; dy2 = dy * 0.85;
+      d = Math.sqrt(dx2 * dx2 + dy2 * dy2) / sz;
       factor = Math.max(0, 1 - d * d);
     } else if (eyeType === "Cat"){
-      var dx2 = dx * 0.6, dy2 = dy;
-      var d = Math.sqrt(dx2 * dx2 + dy2 * dy2) / sz;
+      dx2 = dx * 0.6; dy2 = dy;
+      d = Math.sqrt(dx2 * dx2 + dy2 * dy2) / sz;
       factor = Math.max(0, 1 - d * d);
     } else if (eyeType === "Square"){
-      var adx = Math.abs(dx), ady = Math.abs(dy);
+      adx = Math.abs(dx); ady = Math.abs(dy);
       factor = Math.max(0, 1 - Math.max(adx, ady) / sz);
     } else if (eyeType === "Diamond"){
-      var adx = Math.abs(dx), ady = Math.abs(dy);
+      adx = Math.abs(dx); ady = Math.abs(dy);
       factor = Math.max(0, 1 - (adx + ady) / sz);
     } else if (eyeType === "Oval"){
-      var dx2 = dx, dy2 = dy * 0.6;
-      var d = Math.sqrt(dx2 * dx2 + dy2 * dy2) / sz;
+      dx2 = dx; dy2 = dy * 0.6;
+      d = Math.sqrt(dx2 * dx2 + dy2 * dy2) / sz;
       factor = Math.max(0, 1 - d * d);
     }
 
@@ -187,6 +188,13 @@
 
   algo.rgbMap = function(width, height, _rgb, _step){
     void _rgb; void _step; // QLC+ API requirement
+
+    // Declare all variables at function scope to avoid redeclaration warnings
+    var types, typeIdx, eyeType, color, randomSize, maxAttempts, validPos, cx, cy;
+    var attempt, eyeSpacing, requiredDist, i, dx, dy2, dist, spacing, maxLife;
+    var pairId, leftEye, rightEye, eyesToRemove, eye1, eye2, maxLifetime;
+    var blinkTimer, blinkPhase, blinkDuration, blinkProgress, map, eye, x, y, factor, brightness, finalColor, r;
+
     if (!util.initialized){
       util.eyes = [];
       util.stepCounter = 0;
@@ -197,32 +205,32 @@
 
     // Spawn new eye pairs with collision detection
     if (util.eyes.length < algo.maxPairs * 2 && (util.stepCounter % Math.max(1, algo.spawnDelay)) === 0){
-      var types = ["Round", "Slanted", "Cat", "Square", "Diamond", "Oval"];
-      var typeIdx = Math.floor(Math.random() * types.length);
-      var eyeType = types[typeIdx];
-      var color = randomColor();
+      types = ["Round", "Slanted", "Cat", "Square", "Diamond", "Oval"];
+      typeIdx = Math.floor(Math.random() * types.length);
+      eyeType = types[typeIdx];
+      color = randomColor();
 
       // Random eye size for this pair (determine size first for collision detection)
-      var randomSize = algo.eyeSizeMin + Math.random() * (algo.eyeSizeMax - algo.eyeSizeMin);
+      randomSize = algo.eyeSizeMin + Math.random() * (algo.eyeSizeMax - algo.eyeSizeMin);
       randomSize = Math.floor(randomSize);
 
       // Find valid spawn position (no collision)
-      var maxAttempts = 20;
-      var validPos = false;
-      var cx = 0, cy = 0;
+      maxAttempts = 20;
+      validPos = false;
+      cx = 0; cy = 0;
 
-      for (var attempt = 0; attempt < maxAttempts; attempt++){
-        var eyeSpacing = Math.max(1, Math.floor(randomSize * algo.eyeSpacingRatio));
+      for (attempt = 0; attempt < maxAttempts; attempt++){
+        eyeSpacing = Math.max(1, Math.floor(randomSize * algo.eyeSpacingRatio));
         cx = Math.floor(Math.random() * (width - eyeSpacing - 2)) + eyeSpacing / 2 + 1;
         cy = Math.floor(Math.random() * height);
 
         // Collision detection: check distance to all existing eyes
         validPos = true;
-        var requiredDist = randomSize + algo.minSpacing;
-        for (var i = 0; i < util.eyes.length; i++){
-          var dx = cx - util.eyes[i].x;
-          var dy2 = cy - util.eyes[i].y;
-          var dist = Math.sqrt(dx * dx + dy2 * dy2);
+        requiredDist = randomSize + algo.minSpacing;
+        for (i = 0; i < util.eyes.length; i++){
+          dx = cx - util.eyes[i].x;
+          dy2 = cy - util.eyes[i].y;
+          dist = Math.sqrt(dx * dx + dy2 * dy2);
           if (dist < requiredDist + util.eyes[i].size){
             validPos = false;
             break;
@@ -232,20 +240,20 @@
       }
 
       if (validPos){
-        var eyeSpacing = Math.max(1, Math.floor(randomSize * algo.eyeSpacingRatio));
-        var spacing = eyeSpacing / 2;
-        var maxLife = algo.eyeLife;
+        eyeSpacing = Math.max(1, Math.floor(randomSize * algo.eyeSpacingRatio));
+        spacing = eyeSpacing / 2;
+        maxLife = algo.eyeLife;
         if (algo.eyeLifeRandomness > 0){
           maxLife = Math.max(100, maxLife + (Math.random() - 0.5) * algo.eyeLifeRandomness);
         }
 
-        var pairId = util.eyes.length / 2;
+        pairId = util.eyes.length / 2;
         util.eyeMaxLifetime[pairId] = maxLife;
         util.eyeBlinkTimer[pairId] = Math.floor(Math.random() * algo.blinkInterval);
 
         // Create eye pair (explicit props to avoid for..in)
-        var leftEye = { x: cx - spacing, y: cy, type: eyeType, color: color, size: randomSize, blinkStart: -1, lifetime: 0, pairId: pairId };
-        var rightEye = { x: cx + spacing, y: cy, type: eyeType, color: color, size: randomSize, blinkStart: -1, lifetime: 0, pairId: pairId };
+        leftEye = { x: cx - spacing, y: cy, type: eyeType, color: color, size: randomSize, blinkStart: -1, lifetime: 0, pairId: pairId };
+        rightEye = { x: cx + spacing, y: cy, type: eyeType, color: color, size: randomSize, blinkStart: -1, lifetime: 0, pairId: pairId };
 
         util.eyes.push(leftEye);
         util.eyes.push(rightEye);
@@ -253,11 +261,11 @@
     }
 
     // Update eye pairs: lifetime, blinking, and removal
-    var eyesToRemove = [];
-    for (var i = 0; i < util.eyes.length; i += 2){
-      var eye1 = util.eyes[i];
-      var eye2 = util.eyes[i + 1];
-      var pairId = eye1.pairId;
+    eyesToRemove = [];
+    for (i = 0; i < util.eyes.length; i += 2){
+      eye1 = util.eyes[i];
+      eye2 = util.eyes[i + 1];
+      pairId = eye1.pairId;
 
       eye1.lifetime++;
       eye2.lifetime++;
@@ -297,22 +305,23 @@
     }
 
     // Remove expired pairs (reverse order to preserve indices)
-    for (var r = eyesToRemove.length - 1; r >= 0; r--){
+    var r;
+    for (r = eyesToRemove.length - 1; r >= 0; r--){
       util.eyes.splice(eyesToRemove[r], 1);
     }
 
-    var map = makeMap(width, height);
+    map = makeMap(width, height);
 
     // Render all eyes to map
-    for (var i = 0; i < util.eyes.length; i++){
-      var eye = util.eyes[i];
-      var blinkPhase = (eye.blinkStart >= 0) ? eye.blinkStart : 0;
+    for (i = 0; i < util.eyes.length; i++){
+      eye = util.eyes[i];
+      blinkPhase = (eye.blinkStart >= 0) ? eye.blinkStart : 0;
 
-      for (var y = 0; y < height; y++){
-        for (var x = 0; x < width; x++){
-          var f = eyeFactor(x, y, eye.x, eye.y, eye.type, blinkPhase, eye.size);
-          if (f > 0){
-            map[y][x] = addColor(map[y][x], scaleColor(eye.color, Math.floor(255 * f)));
+      for (y = 0; y < height; y++){
+        for (x = 0; x < width; x++){
+          factor = eyeFactor(x, y, eye.x, eye.y, eye.type, blinkPhase, eye.size);
+          if (factor > 0){
+            map[y][x] = addColor(map[y][x], scaleColor(eye.color, Math.floor(255 * factor)));
           }
         }
       }

@@ -130,36 +130,41 @@ void testAlgo; // Reserved for development/debugging
 
     algo.rgbMap = function(width, height, rgb, step) {
         // Default color: gold/bronze string color if no color provided
-        if (rgb === 0) rgb = 0xDAA520 >>> 0;
+        if (rgb === 0) rgb = 14329120; // 0xDAA520 (goldenrod)
 
-        var map = makeMap(width, height, 0);
-        var speedFactor = algo.speed / 5;
-        var vibrationAmp = algo.vibration / 10;
-        var strumDelay = 3 / speedFactor;  // Frames between each string hit
+        // Declare all variables at function scope to avoid redeclaration warnings
+        var map, speedFactor, vibrationAmp, strumDelay, i, stringHitTimes;
+        var cycleLength, cyclePos, cycleNum, goingDown, s, hitTime, pickCycle;
+        var strumSteps, upSteps, downSteps, timeSinceHit, vibratePhase, displacement;
+        var stringY, x, y, dx, dy, dist, intensity, finalColor;
+
+        map = makeMap(width, height, 0);
+        speedFactor = algo.speed / 5;
+        vibrationAmp = algo.vibration / 10;
+        strumDelay = 3 / speedFactor;  // Frames between each string hit
 
         // Initialize string states for constant mode
         if (util.stringStates.length !== algo.stringCount) {
             util.stringStates = [];
-            for (var i = 0; i < algo.stringCount; i++) {
+            for (i = 0; i < algo.stringCount; i++) {
                 util.stringStates.push({ lastHitTime: -1000 });
             }
         }
 
         // Track when each string was hit (step number)
-        var stringHitTimes = [];
+        stringHitTimes = [];
 
         // Constant mode: continuous strumming with looping
         if (algo.strumType === 3) {
             util.frameCount++;
-            var cycleLength = algo.stringCount * strumDelay + 20;  // Full strum + pause
-            var cyclePos = util.frameCount % cycleLength;
+            cycleLength = algo.stringCount * strumDelay + 20;  // Full strum + pause
+            cyclePos = util.frameCount % cycleLength;
 
             // Alternate direction each cycle
-            var cycleNum = Math.floor(util.frameCount / cycleLength);
-            var goingDown = (cycleNum % 2 === 0);
+            cycleNum = Math.floor(util.frameCount / cycleLength);
+            goingDown = (cycleNum % 2 === 0);
 
-            for (var s = 0; s < algo.stringCount; s++) {
-                var hitTime;
+            for (s = 0; s < algo.stringCount; s++) {
                 if (goingDown) {
                     hitTime = s * strumDelay;
                 } else {
@@ -174,10 +179,10 @@ void testAlgo; // Reserved for development/debugging
         } else if (algo.strumType === 4) {
             // Pick Bottom: only pick the bottom string (last string index) repeatedly
             util.frameCount++;
-            var pickCycle = 15 / speedFactor;  // Time between picks
-            var cyclePos = util.frameCount % pickCycle;
+            pickCycle = 15 / speedFactor;  // Time between picks
+            cyclePos = util.frameCount % pickCycle;
 
-            for (var s = 0; s < algo.stringCount; s++) {
+            for (s = 0; s < algo.stringCount; s++) {
                 if (s === algo.stringCount - 1) {
                     // Bottom string - pick it
                     if (cyclePos < 1) {
@@ -188,8 +193,7 @@ void testAlgo; // Reserved for development/debugging
             }
         } else {
             // Non-constant modes use step-based timing
-            for (var s = 0; s < algo.stringCount; s++) {
-                var hitTime;
+            for (s = 0; s < algo.stringCount; s++) {
                 if (algo.strumType === 0) {
                     // Down strum: high strings (index 0) first, low strings last
                     hitTime = s * strumDelay;
@@ -210,21 +214,21 @@ void testAlgo; // Reserved for development/debugging
         }
 
         // Draw each string
-        for (var s = 0; s < algo.stringCount; s++) {
-            var baseY = getStringY(s, height);
+        var baseY, vibration, brightness, upTime, downTime, decay, frequency;
+        for (s = 0; s < algo.stringCount; s++) {
+            baseY = getStringY(s, height);
 
             // Calculate vibration for this string
-            var vibration = 0;
-            var brightness = 100;  // Base brightness for unplayed string
+            vibration = 0;
+            brightness = 100;  // Base brightness for unplayed string
 
-            var timeSinceHit;
             if (algo.strumType === 3 || algo.strumType === 4) {
                 // Constant and Pick Bottom modes: use frame count based timing
                 timeSinceHit = util.frameCount - stringHitTimes[s];
             } else if (algo.strumType === 2) {
                 // Up-Down: check both hit times
-                var upTime = step - stringHitTimes[s].up;
-                var downTime = step - stringHitTimes[s].down;
+                upTime = step - stringHitTimes[s].up;
+                downTime = step - stringHitTimes[s].down;
                 // Use the most recent hit
                 if (downTime >= 0 && stringHitTimes[s].down <= step) {
                     timeSinceHit = downTime;
@@ -239,8 +243,8 @@ void testAlgo; // Reserved for development/debugging
 
             if (timeSinceHit >= 0) {
                 // String has been hit - calculate vibration
-                var decay = Math.exp(-timeSinceHit * 0.05 / speedFactor);
-                var frequency = 8 + s * 2;  // Higher strings vibrate faster
+                decay = Math.exp(-timeSinceHit * 0.05 / speedFactor);
+                frequency = 8 + s * 2;  // Higher strings vibrate faster
                 vibration = Math.sin(timeSinceHit * frequency * 0.3 * speedFactor) * decay * vibrationAmp * 2;
 
                 // Brightness peaks when hit, then decays
