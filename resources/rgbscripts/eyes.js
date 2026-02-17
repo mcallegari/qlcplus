@@ -59,29 +59,29 @@
   util.eyeMaxLifetime = {}; // max lifetime per pair
   util.eyeBlinkTimer = {}; // shared blink timer per pair
 
-  algo.setMaxPairs = function(v){ algo.maxPairs = parseInt(v); };
+  algo.setMaxPairs = function(v){ algo.maxPairs = parseInt(v, 10); };
   algo.getMaxPairs = function(){ return algo.maxPairs; };
-  algo.setSpawnDelay = function(v){ algo.spawnDelay = parseInt(v); };
+  algo.setSpawnDelay = function(v){ algo.spawnDelay = parseInt(v, 10); };
   algo.getSpawnDelay = function(){ return algo.spawnDelay; };
-  algo.setEyeSizeMin = function(v){ algo.eyeSizeMin = parseInt(v); };
+  algo.setEyeSizeMin = function(v){ algo.eyeSizeMin = parseInt(v, 10); };
   algo.getEyeSizeMin = function(){ return algo.eyeSizeMin; };
-  algo.setEyeSizeMax = function(v){ algo.eyeSizeMax = parseInt(v); };
+  algo.setEyeSizeMax = function(v){ algo.eyeSizeMax = parseInt(v, 10); };
   algo.getEyeSizeMax = function(){ return algo.eyeSizeMax; };
   algo.setEyeSpacingRatio = function(v){ algo.eyeSpacingRatio = parseFloat(v); };
   algo.getEyeSpacingRatio = function(){ return algo.eyeSpacingRatio; };
-  algo.setMinSpacing = function(v){ algo.minSpacing = parseInt(v); };
+  algo.setMinSpacing = function(v){ algo.minSpacing = parseInt(v, 10); };
   algo.getMinSpacing = function(){ return algo.minSpacing; };
-  algo.setBlinkInterval = function(v){ algo.blinkInterval = parseInt(v); };
+  algo.setBlinkInterval = function(v){ algo.blinkInterval = parseInt(v, 10); };
   algo.getBlinkInterval = function(){ return algo.blinkInterval; };
-  algo.setBlinkChance = function(v){ algo.blinkChance = parseInt(v); };
+  algo.setBlinkChance = function(v){ algo.blinkChance = parseInt(v, 10); };
   algo.getBlinkChance = function(){ return algo.blinkChance; };
-  algo.setBlinkRandomness = function(v){ algo.blinkRandomness = parseInt(v); };
+  algo.setBlinkRandomness = function(v){ algo.blinkRandomness = parseInt(v, 10); };
   algo.getBlinkRandomness = function(){ return algo.blinkRandomness; };
-  algo.setBlinkDuration = function(v){ algo.blinkDuration = parseInt(v); };
+  algo.setBlinkDuration = function(v){ algo.blinkDuration = parseInt(v, 10); };
   algo.getBlinkDuration = function(){ return algo.blinkDuration; };
-  algo.setEyeLife = function(v){ algo.eyeLife = parseInt(v); };
+  algo.setEyeLife = function(v){ algo.eyeLife = parseInt(v, 10); };
   algo.getEyeLife = function(){ return algo.eyeLife; };
-  algo.setEyeLifeRandomness = function(v){ algo.eyeLifeRandomness = parseInt(v); };
+  algo.setEyeLifeRandomness = function(v){ algo.eyeLifeRandomness = parseInt(v, 10); };
   algo.getEyeLifeRandomness = function(){ return algo.eyeLifeRandomness; };
 
   algo.rgbMapSetColors = function(rawColors){

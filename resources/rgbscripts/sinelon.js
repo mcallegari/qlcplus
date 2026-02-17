@@ -30,11 +30,11 @@
   util.map = null;
   util.phase = 0.0;
 
-  algo.setSpeed = function(v){ algo.speed = parseInt(v); };
+  algo.setSpeed = function(v){ algo.speed = parseInt(v, 10); };
   algo.getSpeed = function(){ return algo.speed; };
-  algo.setFade = function(v){ algo.fade = parseInt(v); };
+  algo.setFade = function(v){ algo.fade = parseInt(v, 10); };
   algo.getFade = function(){ return algo.fade; };
-  algo.setTail = function(v){ algo.tail = parseInt(v); };
+  algo.setTail = function(v){ algo.tail = parseInt(v, 10); };
   algo.getTail = function(){ return algo.tail; };
 
   function makeMap(width, height, fill){

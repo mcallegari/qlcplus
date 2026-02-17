@@ -116,7 +116,7 @@ void testAlgo; // Reserved for development/debugging
     }
 
     algo.rgbMapStepCount = function(width, height) {
-        void width; // QLC+ API requirement
+        void width; void height; // QLC+ API requirement
         // Constant and Pick Bottom modes loop forever
         if (algo.strumType === 3 || algo.strumType === 4) return 2;
 

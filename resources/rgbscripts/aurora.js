@@ -30,9 +30,9 @@
   util.t = 0;
   util.perm = null;
 
-  algo.setSpeed=function(v){algo.speed=parseInt(v);} ; algo.getSpeed=function(){return algo.speed;};
-  algo.setScale=function(v){algo.scale=parseInt(v);} ; algo.getScale=function(){return algo.scale;};
-  algo.setContrast=function(v){algo.contrast=parseInt(v);} ; algo.getContrast=function(){return algo.contrast;};
+  algo.setSpeed=function(v){algo.speed=parseInt(v, 10);} ; algo.getSpeed=function(){return algo.speed;};
+  algo.setScale=function(v){algo.scale=parseInt(v, 10);} ; algo.getScale=function(){return algo.scale;};
+  algo.setContrast=function(v){algo.contrast=parseInt(v, 10);} ; algo.getContrast=function(){return algo.contrast;};
 
   function defaultPalette(){
     return [0x001018,0x003048,0x106070,0x40B0A0,0xA0FFE0];

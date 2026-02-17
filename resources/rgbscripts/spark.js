@@ -124,7 +124,7 @@
   // simple hash-based noise for jagged path
   function hashf(n){ var s = Math.sin(n*12.9898 + 78.233)*43758.5453; return s - Math.floor(s); }
   function initElectrodeMotion(se, width, height){
-    void width; // Reserved for future use
+    void width; void height; // Reserved for future use
     var sp = 0.05 + 0.45*(algo.freq/10.0);
     if (se.axis==='y'){
       se.f1 = se.sx; se.f2 = se.ex;

@@ -135,7 +135,6 @@
   function addColor(dst, add){ var dr=(dst>>16)&255,dg=(dst>>8)&255,db=dst&255; var ar=(add>>16)&255,ag=(add>>8)&255,ab=add&255; var nr=dr+ar; if(nr>255)nr=255; var ng=dg+ag; if(ng>255)ng=255; var nb=db+ab; if(nb>255)nb=255; return (nr<<16)|(ng<<8)|nb; }
 
   function hsv2rgb(h, s, v){ // h:0..255 s:0..255 v:0..255
-    void hsv2rgb; // Reserved for future use
     if(s===0){ return (v<<16)|(v<<8)|v; }
     var r, g, b; var region = Math.floor(h/43); var rem = (h - region*43)*6;
     var p = (v*(255 - s))>>8; var q = (v*(255 - ((s*rem)>>8)))>>8; var t = (v*(255 - ((s*(255 - rem))>>8)))>>8;
@@ -147,6 +146,7 @@
     else { r=v; g=p; b=q; }
     return (r<<16)|(g<<8)|b;
   }
+  void hsv2rgb; // Reserved for future use
 
   // Plasma field value 0..1 and palette gradient utilities
   function scaleColor(rgb, a){ var r=(rgb>>16)&255, g=(rgb>>8)&255, b=rgb&255; r=Math.floor(r*a); g=Math.floor(g*a); b=Math.floor(b*a); if(r<0)r=0;if(g<0)g=0;if(b<0)b=0; return (r<<16)|(g<<8)|b; }
