@@ -106,6 +106,7 @@
   }
 
   algo.rgbMap = function(width, height, _rgb, _step){
+    void _rgb; void _step; // QLC+ API requirement
     var numSources = algo.flameSources;
     var spatialK = algo.spatialVariation / 100.0;
 
@@ -266,7 +267,7 @@
     return map;
   };
 
-  algo.rgbMapStepCount = function(_width, _height){ return 2; };
+  algo.rgbMapStepCount = function(_width, _height){ void _width; void _height; return 2; };
 
   return algo;
 })();

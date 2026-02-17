@@ -248,6 +248,7 @@
   }
 
   algo.rgbMap = function(width, height, _rgb, _step){
+    void _rgb; void _step; // QLC+ API requirement
     if (!util.initialized || util.heat===null || util.w!==width || util.h!==height){
       util.heat = make2D(width,height,0); util.w=width; util.h=height; util.initialized=true;
     }

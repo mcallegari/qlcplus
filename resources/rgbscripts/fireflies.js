@@ -19,6 +19,7 @@
 
 // Development tool access
 var testAlgo;
+void testAlgo; // Reserved for development/debugging
 
 (function() {
     var algo = {};
@@ -177,6 +178,7 @@ var testAlgo;
     };
 
     algo.rgbMap = function(width, height, rgb, step) {
+        void step; // QLC+ API requirement
         // Default color: dark yellow/gold if no color provided
         if (rgb === 0) rgb = 0xCCAA00;
 
@@ -301,6 +303,7 @@ var testAlgo;
     };
 
     algo.rgbMapStepCount = function(width, height) {
+        void width; void height; // QLC+ API requirement
         return 2;  // Continuous animation
     };
 

@@ -89,6 +89,7 @@
 
   // --- Helpers ---
   function clamp01(x){ return (x<0?0:(x>1?1:x)); }
+  void clamp01; // Reserved for future use
   function lerp(a,b,t){ return a + (b-a)*t; }
   function lerpColor(c1,c2,t){
     var r1=(c1>>16)&255, g1=(c1>>8)&255, b1=c1&255;
@@ -106,6 +107,7 @@
 
   // --- Core ---
   algo.rgbMap = function(width, height, _rgb, _step){
+    void _rgb; void _step; // QLC+ API requirement
     ensureState(width, height);
 
     var sp = algo.speed / 10.0;
@@ -190,7 +192,7 @@
     return map;
   };
 
-  algo.rgbMapStepCount = function(_w,_h){ return 2048; };
+  algo.rgbMapStepCount = function(_w,_h){ void _w; void _h; return 2048; };
 
   return algo;
 })();

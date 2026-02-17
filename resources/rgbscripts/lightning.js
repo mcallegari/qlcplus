@@ -173,6 +173,7 @@
 
   algo.rgbMapStepCount = function(_width, _height)
   {
+    void _width; void _height; // QLC+ API requirement
     // One full lightning event length
     return algo.totalLength;
   };

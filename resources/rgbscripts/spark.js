@@ -124,6 +124,7 @@
   // simple hash-based noise for jagged path
   function hashf(n){ var s = Math.sin(n*12.9898 + 78.233)*43758.5453; return s - Math.floor(s); }
   function initElectrodeMotion(se, width, height){
+    void width; // Reserved for future use
     var sp = 0.05 + 0.45*(algo.freq/10.0);
     if (se.axis==='y'){
       se.f1 = se.sx; se.f2 = se.ex;
@@ -320,6 +321,7 @@
 
   // --- Core ---
   algo.rgbMap = function(width, height, _rgb, _step){
+    void _rgb; void _step; // QLC+ API requirement
     ensureState(width, height);
     util.frame++;
 
@@ -410,7 +412,7 @@
     return map;
   };
 
-  algo.rgbMapStepCount = function(_w,_h){ return 1024; };
+  algo.rgbMapStepCount = function(_w,_h){ void _w; void _h; return 1024; };
 
   return algo;
 })();

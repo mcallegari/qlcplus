@@ -186,6 +186,7 @@
   }
 
   algo.rgbMap = function(width, height, _rgb, _step){
+    void _rgb; void _step; // QLC+ API requirement
     if (!util.initialized){
       util.eyes = [];
       util.stepCounter = 0;
@@ -320,7 +321,7 @@
     return map;
   };
 
-  algo.rgbMapStepCount = function(_width, _height){ return 256; };
+  algo.rgbMapStepCount = function(_width, _height){ void _width; void _height; return 256; };
 
   return algo;
 })();

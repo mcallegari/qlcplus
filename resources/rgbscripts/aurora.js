@@ -80,6 +80,7 @@
   function makeMap(w,h,fill){ var m=new Array(h); for (var y=0;y<h;y++){ m[y]=new Array(w); for (var x=0;x<w;x++) m[y][x]=fill; } return m; }
 
   algo.rgbMap = function(width,height,_rgb,_step){
+    void _rgb; void _step; // QLC+ API requirement
     if (!util.initialized){ util.t=0; util.initialized=true; }
     var pal = getPalette();
     util.t += algo.speed/300.0; // slow drift
@@ -105,7 +106,7 @@
     return map;
   };
 
-  algo.rgbMapStepCount = function(_width,_height){ return 64; };
+  algo.rgbMapStepCount = function(_width,_height){ void _width; void _height; return 64; };
 
   return algo;
 })();

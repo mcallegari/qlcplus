@@ -19,6 +19,7 @@
 
 // Development tool access
 var testAlgo;
+void testAlgo; // Reserved for development/debugging
 
 (function() {
     var algo = {};
@@ -115,6 +116,7 @@ var testAlgo;
     }
 
     algo.rgbMapStepCount = function(width, height) {
+        void width; // QLC+ API requirement
         // Constant and Pick Bottom modes loop forever
         if (algo.strumType === 3 || algo.strumType === 4) return 2;
 

@@ -78,6 +78,7 @@
   }
 
   algo.rgbMap = function(width, height, _rgb, _step){
+    void _rgb; void _step; // QLC+ API requirement
     if (!util.initialized || util.map === null){
       util.map = makeMap(width, height, 0);
       util.phase = 0.0;
@@ -113,7 +114,7 @@
     return out;
   };
 
-  algo.rgbMapStepCount = function(_width, _height){ return 2; };
+  algo.rgbMapStepCount = function(_width, _height){ void _width; void _height; return 2; };
 
   return algo;
 })();

@@ -509,6 +509,7 @@ var testAlgo;
 
     util.getDistributedPosition = function(maxValue, _isHorizontalLine)
     {
+      void _isHorizontalLine; // Reserved for future use
       var dimension = maxValue;
       var maxSteps, stepIndex, halfPoint, range, startPos, endPos, thirdPoint, quarterPoint;
 
@@ -860,6 +861,7 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, _step)
     {
+      void _step; // QLC+ API requirement
       if (util.initialized === false)
       {
         util.initialize(algo.linesSize);
@@ -870,6 +872,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(_width, _height)
     {
+      void _width; void _height; // QLC+ API requirement
       return 2;
     };
 
