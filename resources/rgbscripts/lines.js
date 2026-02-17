@@ -3,7 +3,6 @@
   lines.js
 
   Copyright (c) Branson Matheson
-  Based on work by Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -40,6 +39,19 @@ var testAlgo;
     algo.properties.push("name:linesType|type:list|display:Type|values:Horizontal,Vertical,Plus,X,Star,Left,Right,Up,Down,UpRight,UpLeft,DownRight,DownLeft|write:setType|read:getType");
     algo.linesBias = 0;
     algo.properties.push("name:linesBias|type:list|display:Starting Bias|values:Random,Top,Bottom,Left,Right,TopLeft,TopRight,BottomLeft,BottomRight|write:setBias|read:getBias");
+    algo.linesDistribution = 0;
+    algo.properties.push("name:linesDistribution|type:list|display:Distribution|values:All,Every 2nd,Every 3rd,Half A,Half B,Center Third,Edges Only|write:setDistribution|read:getDistribution");
+    algo.linesMovement = 0;
+    algo.properties.push("name:linesMovement|type:list|display:Movement|values:None,Up,Down,Left,Right,Up Loop,Down Loop,Left Loop,Right Loop|write:setMovement|read:getMovement");
+    algo.linesLifecycle = 0;
+    algo.properties.push("name:linesLifecycle|type:list|display:Lifecycle|values:Grow,Grow Fade In,Grow Fade Out,Shrink,Shrink Fade In,Shrink Fade Out,Static,Static Fade In,Static Fade Out|write:setLifecycle|read:getLifecycle");
+    algo.linesPattern = 0;
+    algo.properties.push("name:linesPattern|type:list|display:Line Pattern|values:Solid,Dashed,Dotted,Double|write:setPattern|read:getPattern");
+    algo.linesBrightnessVariance = 0;
+    algo.properties.push("name:linesBrightnessVariance|type:range|display:Brightness Variance|values:0,100|write:setBrightnessVariance|read:getBrightnessVariance");
+    algo.linesMovementSpeed = 100;
+    algo.properties.push("name:linesMovementSpeed|type:range|display:Movement Energy|values:10,200|write:setMovementSpeed|read:getMovementSpeed");
+    // Backward compatibility properties (deprecated but supported)
     algo.linesSlide = 0;
     algo.properties.push("name:linesSlide|type:list|display:Slide|values:None,Up,Down,Left,Right|write:setSlide|read:getSlide");
     algo.linesRollover = 0;
@@ -54,18 +66,23 @@ var testAlgo;
 
     var lines = new Array();
 
-    function Line(x, y, step) {
+    // Constructor function for Line objects (ES5 style for QLC+ compatibility)
+    function Line(x, y, step)
+    {
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
       this.color = 0;
-    };
+      this.brightnessFactor = 1.0;
+      this.movementCounter = 0;
+      this.movementSpeed = 1.0;
+    }
 
     algo.setLinesSize = function(_size)
     {
-	  // Only set if the input is valid.
-      if (!(parseInt(_size) === NaN) && parseInt(_size) > 0) {
-        algo.linesSize = parseInt(_size);
+      if (!isNaN(parseInt(_size, 10)) && parseInt(_size, 10) > 0)
+      {
+        algo.linesSize = parseInt(_size, 10);
         util.initialized = false;
       }
     };
@@ -77,9 +94,9 @@ var testAlgo;
 
     algo.setVariability = function(_var)
     {
-	  // Only set if the input is valid.
-      if (!(parseInt(_var) === NaN) && parseInt(_var) > 0) {
-        algo.linesVariability = _var;
+      if (!isNaN(parseInt(_var, 10)) && parseInt(_var, 10) >= 0)
+      {
+        algo.linesVariability = parseInt(_var, 10);
         util.initialized = false;
       }
     };
@@ -91,8 +108,11 @@ var testAlgo;
 
     algo.setAmount = function(_amount)
     {
-      algo.linesAmount = _amount;
-      util.initialized = false;
+      if (!isNaN(parseInt(_amount, 10)) && parseInt(_amount, 10) >= 1 && parseInt(_amount, 10) <= 200)
+      {
+        algo.linesAmount = parseInt(_amount, 10);
+        util.initialized = false;
+      }
     };
 
     algo.getAmount = function()
@@ -100,19 +120,7 @@ var testAlgo;
       return algo.linesAmount;
     };
 
-    algo.setFade = function(_fade)
-    {
-      if (_fade === "Fade In") { algo.fadeMode = 1; }
-      else if (_fade === "Fade Out") { algo.fadeMode = 2; }
-      else { algo.fadeMode = 0; }
-    };
 
-    algo.getFade = function()
-    {
-      if (algo.fadeMode === 1) { return "Fade In"; }
-      else if (algo.fadeMode === 2) { return "Fade Out"; }
-      else { return "Don't Fade"; }
-    };
 
     algo.setType = function(_type)
     {
@@ -148,23 +156,7 @@ var testAlgo;
       else { return "Horizontal"; }
     };
 
-    algo.setSlide = function(_slide)
-    {
-      if (_slide === "Up") { algo.linesSlide = 1; }
-      else if (_slide === "Down") { algo.linesSlide = 2; }
-      else if (_slide === "Left") { algo.linesSlide = 3; }
-      else if (_slide === "Right") { algo.linesSlide = 4; }
-      else { algo.linesSlide = 0; }
-    };
 
-    algo.getSlide = function()
-    {
-      if (algo.linesSlide === 1) { return "Up"; }
-      else if (algo.linesSlide === 2) { return "Down"; }
-      else if (algo.linesSlide === 3) { return "Left"; }
-      else if (algo.linesSlide === 4) { return "Right"; }
-      else { return "None"; }
-    };
 
     algo.setBias = function(_bias)
     {
@@ -192,10 +184,90 @@ var testAlgo;
       else { return "Random"; }
     };
 
+
+
+    algo.setPattern = function(_pattern)
+    {
+      if (_pattern === "Dashed") { algo.linesPattern = 1; }
+      else if (_pattern === "Dotted") { algo.linesPattern = 2; }
+      else if (_pattern === "Double") { algo.linesPattern = 3; }
+      else { algo.linesPattern = 0; }
+    };
+
+    algo.getPattern = function()
+    {
+      if (algo.linesPattern === 1) { return "Dashed"; }
+      else if (algo.linesPattern === 2) { return "Dotted"; }
+      else if (algo.linesPattern === 3) { return "Double"; }
+      else { return "Solid"; }
+    };
+
+    algo.setBrightnessVariance = function(_variance)
+    {
+      if (!isNaN(parseInt(_variance, 10)) && parseInt(_variance, 10) >= 0 && parseInt(_variance, 10) <= 100)
+      {
+        algo.linesBrightnessVariance = parseInt(_variance, 10);
+      }
+    };
+
+    algo.getBrightnessVariance = function()
+    {
+      return algo.linesBrightnessVariance;
+    };
+
+    algo.setMovementSpeed = function(_speed)
+    {
+      if (!isNaN(parseInt(_speed, 10)) && parseInt(_speed, 10) >= 10 && parseInt(_speed, 10) <= 200)
+      {
+        algo.linesMovementSpeed = parseInt(_speed, 10);
+      }
+    };
+
+    algo.getMovementSpeed = function()
+    {
+      return algo.linesMovementSpeed;
+    };
+
+    // Backward compatibility: linesSlide maps to linesMovement
+    algo.setSlide = function(_slide)
+    {
+      if (_slide === "Up") { algo.linesSlide = 1; algo.setMovement("Up"); }
+      else if (_slide === "Down") { algo.linesSlide = 2; algo.setMovement("Down"); }
+      else if (_slide === "Left") { algo.linesSlide = 3; algo.setMovement("Left"); }
+      else if (_slide === "Right") { algo.linesSlide = 4; algo.setMovement("Right"); }
+      else { algo.linesSlide = 0; algo.setMovement("None"); }
+    };
+
+    algo.getSlide = function()
+    {
+      if (algo.linesSlide === 1) { return "Up"; }
+      else if (algo.linesSlide === 2) { return "Down"; }
+      else if (algo.linesSlide === 3) { return "Left"; }
+      else if (algo.linesSlide === 4) { return "Right"; }
+      else { return "None"; }
+    };
+
+    // Backward compatibility: linesRollover maps to movement loop modes
     algo.setRollover = function(_rollover)
     {
-      if (_rollover === "Yes") { algo.linesRollover = 1; }
-      else { algo.linesRollover = 0; }
+      if (_rollover === "Yes")
+      {
+        algo.linesRollover = 1;
+        // If movement is set, convert to loop version
+        if (algo.linesMovement === 1) { algo.setMovement("Up Loop"); }
+        else if (algo.linesMovement === 2) { algo.setMovement("Down Loop"); }
+        else if (algo.linesMovement === 3) { algo.setMovement("Left Loop"); }
+        else if (algo.linesMovement === 4) { algo.setMovement("Right Loop"); }
+      }
+      else
+      {
+        algo.linesRollover = 0;
+        // If movement is loop, convert to non-loop version
+        if (algo.linesMovement === 5) { algo.setMovement("Up"); }
+        else if (algo.linesMovement === 6) { algo.setMovement("Down"); }
+        else if (algo.linesMovement === 7) { algo.setMovement("Left"); }
+        else if (algo.linesMovement === 8) { algo.setMovement("Right"); }
+      }
     };
 
     algo.getRollover = function()
@@ -204,51 +276,348 @@ var testAlgo;
       else { return "No"; }
     };
 
+    // Backward compatibility: fadeMode maps to linesLifecycle
+    algo.setFade = function(_fade)
+    {
+      if (_fade === "Fade In")
+      {
+        algo.fadeMode = 1;
+        algo.setLifecycle("Static Fade In");
+      }
+      else if (_fade === "Fade Out")
+      {
+        algo.fadeMode = 2;
+        algo.setLifecycle("Static Fade Out");
+      }
+      else
+      {
+        algo.fadeMode = 0;
+        algo.setLifecycle("Static");
+      }
+    };
+
+    algo.getFade = function()
+    {
+      if (algo.fadeMode === 1) { return "Fade In"; }
+      else if (algo.fadeMode === 2) { return "Fade Out"; }
+      else { return "Don't Fade"; }
+    };
+
+    // Missing setters for test compatibility
+    algo.setLinesAmount = function(_amount)
+    {
+      algo.setAmount(_amount);
+    };
+
+    algo.setLinesMovement = function(_movement)
+    {
+      algo.setMovement(_movement);
+    };
+
+    algo.setLinesLifecycle = function(_lifecycle)
+    {
+      algo.setLifecycle(_lifecycle);
+    };
+
+    algo.setLinesDistribution = function(_distribution)
+    {
+      algo.setDistribution(_distribution);
+    };
+
+    algo.setLinesPattern = function(_pattern)
+    {
+      algo.setPattern(_pattern);
+    };
+
+    algo.setLinesBrightnessVariance = function(_variance)
+    {
+      algo.setBrightnessVariance(_variance);
+    };
+
+    algo.setLinesVariability = function(_variability)
+    {
+      algo.setVariability(_variability);
+    };
+
+    algo.setLinesMovementSpeed = function(_speed)
+    {
+      algo.setMovementSpeed(_speed);
+    };
+
+    algo.setLinesType = function(_type)
+    {
+      algo.setType(_type);
+    };
+
+    algo.setLinesBias = function(_bias)
+    {
+      algo.setBias(_bias);
+    };
+
+    algo.setMovement = function(_movement)
+    {
+      if (_movement === "Up") { algo.linesSlide = 1; algo.linesRollover = 0; }
+      else if (_movement === "Down") { algo.linesSlide = 2; algo.linesRollover = 0; }
+      else if (_movement === "Left") { algo.linesSlide = 3; algo.linesRollover = 0; }
+      else if (_movement === "Right") { algo.linesSlide = 4; algo.linesRollover = 0; }
+      else if (_movement === "Up Loop") { algo.linesSlide = 1; algo.linesRollover = 1; }
+      else if (_movement === "Down Loop") { algo.linesSlide = 2; algo.linesRollover = 1; }
+      else if (_movement === "Left Loop") { algo.linesSlide = 3; algo.linesRollover = 1; }
+      else if (_movement === "Right Loop") { algo.linesSlide = 4; algo.linesRollover = 1; }
+      else { algo.linesSlide = 0; algo.linesRollover = 0; }
+    };
+
+    algo.getMovement = function()
+    {
+      if (algo.linesSlide === 0) return "None";
+      var direction = "";
+      if (algo.linesSlide === 1) direction = "Up";
+      else if (algo.linesSlide === 2) direction = "Down";
+      else if (algo.linesSlide === 3) direction = "Left";
+      else if (algo.linesSlide === 4) direction = "Right";
+
+      return direction + (algo.linesRollover === 1 ? " Loop" : "");
+    };
+
+    algo.setLifecycle = function(_lifecycle)
+    {
+      if (_lifecycle === "Grow") { algo.linesSizeBehavior = 0; algo.fadeMode = 0; }
+      else if (_lifecycle === "Grow Fade In") { algo.linesSizeBehavior = 0; algo.fadeMode = 1; }
+      else if (_lifecycle === "Grow Fade Out") { algo.linesSizeBehavior = 0; algo.fadeMode = 2; }
+      else if (_lifecycle === "Shrink") { algo.linesSizeBehavior = 1; algo.fadeMode = 0; }
+      else if (_lifecycle === "Shrink Fade In") { algo.linesSizeBehavior = 1; algo.fadeMode = 1; }
+      else if (_lifecycle === "Shrink Fade Out") { algo.linesSizeBehavior = 1; algo.fadeMode = 2; }
+      else if (_lifecycle === "Static") { algo.linesSizeBehavior = 2; algo.fadeMode = 0; }
+      else if (_lifecycle === "Static Fade In") { algo.linesSizeBehavior = 2; algo.fadeMode = 1; }
+      else if (_lifecycle === "Static Fade Out") { algo.linesSizeBehavior = 2; algo.fadeMode = 2; }
+      else { algo.linesSizeBehavior = 0; algo.fadeMode = 0; }
+    };
+
+    algo.getLifecycle = function()
+    {
+      var behavior = "";
+      if (algo.linesSizeBehavior === 0) behavior = "Grow";
+      else if (algo.linesSizeBehavior === 1) behavior = "Shrink";
+      else if (algo.linesSizeBehavior === 2) behavior = "Static";
+
+      var fade = "";
+      if (algo.fadeMode === 1) fade = " Fade In";
+      else if (algo.fadeMode === 2) fade = " Fade Out";
+
+      return behavior + fade;
+    };
+
+    algo.setDistribution = function(_distribution)
+    {
+      if (_distribution === "Every 2nd") { algo.linesDistribution = 1; }
+      else if (_distribution === "Every 3rd") { algo.linesDistribution = 2; }
+      else if (_distribution === "Half A") { algo.linesDistribution = 3; }
+      else if (_distribution === "Half B") { algo.linesDistribution = 4; }
+      else if (_distribution === "Center Third") { algo.linesDistribution = 5; }
+      else if (_distribution === "Edges Only") { algo.linesDistribution = 6; }
+      else { algo.linesDistribution = 0; } // All
+    };
+
+    algo.getDistribution = function()
+    {
+      if (algo.linesDistribution === 1) { return "Every 2nd"; }
+      else if (algo.linesDistribution === 2) { return "Every 3rd"; }
+      else if (algo.linesDistribution === 3) { return "Half A"; }
+      else if (algo.linesDistribution === 4) { return "Half B"; }
+      else if (algo.linesDistribution === 5) { return "Center Third"; }
+      else if (algo.linesDistribution === 6) { return "Edges Only"; }
+      else { return "All"; }
+    };
+
     util.initialize = function(size)
     {
-      if (size > 0) {
+      if (size > 0)
+      {
         util.linesMaxSize = size;
       }
 
       lines = new Array();
-      for (var i = 0; i < algo.linesAmount; i++) {
+      for (var i = 0; i < algo.linesAmount; i++)
+      {
         lines[i] = new Line(-1, -1, 0);
       }
 
       util.initialized = true;
     };
 
+    util.getEffectiveLineSize = function(step)
+    {
+      if (algo.linesSizeBehavior === 1) {
+        // Shrink: start large and get smaller
+        return util.linesMaxSize - step;
+      }
+      else if (algo.linesSizeBehavior === 2) {
+        // Static: maintain constant size
+        return util.linesMaxSize;
+      }
+      else {
+        // Grow (default): start small and get larger
+        return step;
+      }
+    };
+
+    util.shouldDrawPixel = function(distance, effectiveSize)
+    {
+      // Optimize: Early return for most common case
+      if (algo.linesPattern === 0) {
+        return true; // Solid: always draw
+      }
+      else if (algo.linesPattern === 1) {
+        // Dashed: draw in segments of 3, skip 2
+        return ((distance / 3) | 0) % 2 === 0;
+      }
+      else if (algo.linesPattern === 2) {
+        // Dotted: draw every 3rd pixel
+        return (distance | 0) % 3 === 0;
+      }
+      else if (algo.linesPattern === 3) {
+        // Double: draw at start and end portions
+        var portion = distance / effectiveSize;
+        return (portion <= 0.3 || portion >= 0.7);
+      }
+      return true;
+    };
+
+    util.applyBrightnessVariance = function(color, brightnessFactor)
+    {
+      // Optimize: Early return for most common case
+      if (algo.linesBrightnessVariance === 0) {
+        return color;
+      }
+
+      var r = (color >> 16) & 0xFF;
+      var g = (color >> 8) & 0xFF;
+      var b = color & 0xFF;
+
+      // Optimize: Use bitwise operations for rounding and clamping
+      var newR = (r * brightnessFactor + 0.5) | 0;
+      var newG = (g * brightnessFactor + 0.5) | 0;
+      var newB = (b * brightnessFactor + 0.5) | 0;
+
+      // Optimize: Faster clamping using bitwise operations
+      newR = newR > 255 ? 255 : (newR < 0 ? 0 : newR);
+      newG = newG > 255 ? 255 : (newG < 0 ? 0 : newG);
+      newB = newB > 255 ? 255 : (newB < 0 ? 0 : newB);
+
+      return (newR << 16) + (newG << 8) + newB;
+    };
+
+    util.getDistributedPosition = function(maxValue, _isHorizontalLine)
+    {
+      var dimension = maxValue;
+      var maxSteps, stepIndex, halfPoint, range, startPos, endPos, thirdPoint, quarterPoint;
+
+      // Handle edge case for very small dimensions
+      if (dimension <= 1)
+      {
+        return 0;
+      }
+
+      // Optimize: Cache dimension-1 calculation
+      var maxPos = dimension - 1;
+
+      if (algo.linesDistribution === 0)
+      {
+        return (Math.random() * maxPos + 0.5) | 0;
+      }
+      else if (algo.linesDistribution === 1)
+      {
+        maxSteps = dimension >> 1; // Optimize: Use bit shift for division by 2
+        if (maxSteps <= 0) return 0;
+        stepIndex = (Math.random() * maxSteps) | 0;
+        return Math.min(stepIndex << 1, maxPos); // Optimize: Use bit shift for multiplication by 2
+      }
+      else if (algo.linesDistribution === 2)
+      {
+        maxSteps = (dimension / 3) | 0;
+        if (maxSteps <= 0) return 0;
+        stepIndex = (Math.random() * maxSteps) | 0;
+        return Math.min(stepIndex * 3, maxPos);
+      }
+      else if (algo.linesDistribution === 3)
+      {
+        halfPoint = dimension >> 1; // Optimize: Use bit shift
+        if (halfPoint <= 1) return 0;
+        return (Math.random() * (halfPoint - 1) + 0.5) | 0;
+      }
+      else if (algo.linesDistribution === 4)
+      {
+        halfPoint = dimension >> 1; // Optimize: Use bit shift
+        range = dimension - halfPoint - 1;
+        if (range <= 0) return Math.min(halfPoint, maxPos);
+        return halfPoint + ((Math.random() * range + 0.5) | 0);
+      }
+      else if (algo.linesDistribution === 5)
+      {
+        thirdPoint = (dimension / 3) | 0; // Optimize: Use bitwise OR
+        startPos = thirdPoint;
+        endPos = dimension - thirdPoint;
+        range = endPos - startPos - 1;
+        if (range <= 0) return Math.min(startPos, maxPos);
+        return startPos + ((Math.random() * range + 0.5) | 0);
+      }
+      else if (algo.linesDistribution === 6)
+      {
+        quarterPoint = dimension >> 2; // Optimize: Use bit shift for division by 4
+        if (quarterPoint <= 1)
+        {
+          return (Math.random() * maxPos + 0.5) | 0;
+        }
+
+        if (Math.random() < 0.5)
+        {
+          return (Math.random() * (quarterPoint - 1) + 0.5) | 0;
+        }
+        else
+        {
+          startPos = dimension - quarterPoint;
+          range = quarterPoint - 1;
+          if (range <= 0) return Math.min(startPos, maxPos);
+          return startPos + ((Math.random() * range + 0.5) | 0);
+        }
+      }
+
+      return (Math.random() * maxPos + 0.5) | 0;
+    };
+
     util.getColor = function(step, rgb)
     {
+      // Optimize: Early return for most common case
       if (algo.fadeMode === 0)
       {
         return rgb;
       }
       else
       {
-        var r = (rgb >> 16) & 0x00FF;
-        var g = (rgb >> 8) & 0x00FF;
-        var b = rgb & 0x00FF;
+        var r = (rgb >> 16) & 0xFF;
+        var g = (rgb >> 8) & 0xFF;
+        var b = rgb & 0xFF;
 
-        var stepCount = Math.floor(util.linesMaxSize);
+        var stepCount = util.linesMaxSize | 0; // Optimize: Remove Math.floor
         var fadeStep = step;
         if (algo.fadeMode === 2) {
           fadeStep = stepCount - step;
         }
         var factor = fadeStep / stepCount;
-        var newR = Math.round(r * factor);
-        var newG = Math.round(g * factor);
-        var newB = Math.round(b * factor);
+        // Optimize: Use bitwise operations for rounding
+        var newR = (r * factor + 0.5) | 0;
+        var newG = (g * factor + 0.5) | 0;
+        var newB = (b * factor + 0.5) | 0;
 
-        var newRGB = (newR << 16) + (newG << 8) + newB;
-        return newRGB;
+        return (newR << 16) + (newG << 8) + newB;
       }
     };
 
     util.drawPixel = function(cx, cy, color, width, height)
     {
-      cx = Math.round(cx);
-      cy = Math.round(cy);
+      // Optimize: Use bitwise OR for faster integer conversion
+      cx = (cx + 0.5) | 0;
+      cy = (cy + 0.5) | 0;
       if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
         util.pixelMap[cy][cx] = color;
       }
@@ -257,14 +626,18 @@ var testAlgo;
     util.getNextStep = function(width, height, rgb)
     {
       var x, y;
-      // create an empty, black pixelMap
-      util.pixelMap = new Array(height);
-      for (y = 0; y < height; y++)
-      {
-        util.pixelMap[y] = new Array(width);
-        for (x = 0; x < width; x++) {
-          util.pixelMap[y][x] = 0;
+      // Optimize: Only recreate pixelMap if dimensions changed
+      if (!util.pixelMap || util.pixelMap.length !== height ||
+          (util.pixelMap.length > 0 && util.pixelMap[0].length !== width)) {
+        util.pixelMap = new Array(height);
+        for (y = 0; y < height; y++) {
+          util.pixelMap[y] = new Array(width);
         }
+      }
+
+      // Optimize: Fast array clearing using fill()
+      for (y = 0; y < height; y++) {
+        util.pixelMap[y].fill(0);
       }
 
       for (var i = 0; i < algo.linesAmount; i++)
@@ -279,89 +652,202 @@ var testAlgo;
           // apply the current step color
           lines[i].color = rgb;
 
-          // if biased .. move the start points to the cardinal ends of the space
-          if (algo.linesBias == 1 || algo.linesBias == 5 || algo.linesBias == 6)
-          {
+          // Set brightness factor based on variance setting
+          if (algo.linesBrightnessVariance > 0) {
+            var variance = algo.linesBrightnessVariance / 100.0;
+            var randomFactor = (Math.random() * 2 - 1) * variance; // -variance to +variance
+            lines[i].brightnessFactor = Math.max(0.1, Math.min(1.0, 1.0 + randomFactor));
+          } else {
+            lines[i].brightnessFactor = 1.0;
+          }
+
+          // Set movement speed based on speed setting (10-200% range)
+          var speedVariance = 0.5; // ±50% variance from base speed
+          var baseSpeed = algo.linesMovementSpeed / 100.0; // Convert percentage to decimal
+          var randomSpeedFactor = (Math.random() * 2 - 1) * speedVariance; // -0.5 to +0.5
+          lines[i].movementSpeed = Math.max(0.1, baseSpeed + randomSpeedFactor);
+          lines[i].movementCounter = 0;
+
+          // Position lines using distribution and bias
+          // For horizontal lines (0,2,4), distribution affects Y positioning
+          // For vertical lines (1), distribution affects X positioning
+          // For other types, distribution affects the primary axis
+
+          var isHorizontalType = (algo.linesType === 0 || algo.linesType === 2 || algo.linesType === 4);
+          var isVerticalType = (algo.linesType === 1);
+
+          // Y positioning (vertical placement)
+          if (isHorizontalType && algo.linesDistribution > 0) {
+            // Use distribution for Y when horizontal lines
+            lines[i].yCenter = util.getDistributedPosition(height, true);
+          } else if (algo.linesBias === 1 || algo.linesBias === 5 || algo.linesBias === 6) {
+            // Top bias
             lines[i].yCenter = Math.round(Math.random() * height / 5);
-          } 
-          else if (algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8)
-          {
-            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height	 / 5);
-          } 
-          else
-          {
+          } else if (algo.linesBias === 2 || algo.linesBias === 7 || algo.linesBias === 8) {
+            // Bottom bias
+            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height / 5);
+          } else {
+            // Random Y
             lines[i].yCenter = Math.round(Math.random() * (height - 1));
           }
 
-          if (algo.linesBias == 3 || algo.linesBias == 5 || algo.linesBias == 7)
-          {
+          // X positioning (horizontal placement)
+          if (isVerticalType && algo.linesDistribution > 0) {
+            // Use distribution for X when vertical lines
+            lines[i].xCenter = util.getDistributedPosition(width, false);
+          } else if (algo.linesBias === 3 || algo.linesBias === 5 || algo.linesBias === 7) {
+            // Left bias
             lines[i].xCenter = Math.round(Math.random() * width / 5);
-          }
-          else if (algo.linesBias == 4 || algo.linesBias == 6 || algo.linesBias == 8)
-          {
+          } else if (algo.linesBias === 4 || algo.linesBias === 6 || algo.linesBias === 8) {
+            // Right bias
             lines[i].xCenter = (width - 1) - Math.round(Math.random() * width / 5);
-          } 
-          else
-          {
+          } else {
+            // Random X
             lines[i].xCenter = Math.round(Math.random() * (width - 1));
           }
 
-          util.pixelMap[lines[i].yCenter][lines[i].xCenter] = lines[i].color;
-        } else {
-          var color = util.getColor(lines[i].step, lines[i].color);
-          //alert("Line " + i + " xCenter: " + lines[i].xCenter + " color: " + color.toString(16));
+          // Bounds check before setting pixel
+          if (lines[i].yCenter >= 0 && lines[i].yCenter < height &&
+              lines[i].xCenter >= 0 && lines[i].xCenter < width)
+          {
+            util.pixelMap[lines[i].yCenter][lines[i].xCenter] = lines[i].color;
+          }
+        }
+        else
+        {
+          var baseColor = util.getColor(lines[i].step, lines[i].color);
+          var color = util.applyBrightnessVariance(baseColor, lines[i].brightnessFactor);
 
-          var l = lines[i].step * Math.cos(Math.PI / 4);
-          var radius2 = lines[i].step * lines[i].step;
-          l = l.toFixed(0);
+          var effectiveSize = util.getEffectiveLineSize(lines[i].step);
+          var l = Math.floor(effectiveSize / 2);
+          var radius2 = l * l;
 
           for (x = 0; x <= l; x++)
           {
-            y = Math.sqrt(radius2 - (x * x));
-
-            if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 5) {
-              util.drawPixel(lines[i].xCenter - x, lines[i].yCenter, color, width, height);
-            } 
-            if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 6) {
-              util.drawPixel(lines[i].xCenter + x, lines[i].yCenter, color, width, height);
-            }
-            if (algo.linesType == 1 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 7) {
-              util.drawPixel(lines[i].xCenter, lines[i].yCenter - x, color, width, height);
-            }
-            if (algo.linesType == 1 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 8) {
-              util.drawPixel(lines[i].xCenter, lines[i].yCenter + x, color, width, height);
+            if (!util.shouldDrawPixel(x, effectiveSize))
+            {
+              continue;
             }
 
-            if (algo.linesType == 3 || algo.linesType == 4 ||  algo.linesType == 9) {
-              util.drawPixel(lines[i].xCenter + x, lines[i].yCenter - x, color, width, height);
-            } 
-            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 10) {
-              util.drawPixel(lines[i].xCenter - x, lines[i].yCenter - x, color, width, height);
-            } 
-            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 11) {
-              util.drawPixel(lines[i].xCenter + x, lines[i].yCenter + x, color, width, height);
-            } 
-            if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 12) {
-              util.drawPixel(lines[i].xCenter - x, lines[i].yCenter + x, color, width, height);
-            } 
+            // Optimize: Pre-calculate y value to avoid repeated Math.sqrt calls
+            var xSquared = x * x;
+            if (xSquared > radius2) continue; // Skip if outside radius
+            y = Math.sqrt(radius2 - xSquared);
+
+            // Optimize: Inline pixel drawing to reduce function call overhead
+            var cx, cy;
+            if (algo.linesType === 0 || algo.linesType === 2 || algo.linesType === 4 || algo.linesType === 5) {
+              cx = (lines[i].xCenter - x + 0.5) | 0;
+              cy = (lines[i].yCenter + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+            if (algo.linesType === 0 || algo.linesType === 2 || algo.linesType === 4 || algo.linesType === 6) {
+              cx = (lines[i].xCenter + x + 0.5) | 0;
+              cy = (lines[i].yCenter + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+            if (algo.linesType === 1 || algo.linesType === 2 || algo.linesType === 4 || algo.linesType === 7) {
+              cx = (lines[i].xCenter + 0.5) | 0;
+              cy = (lines[i].yCenter - x + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+            if (algo.linesType === 1 || algo.linesType === 2 || algo.linesType === 4 || algo.linesType === 8) {
+              cx = (lines[i].xCenter + 0.5) | 0;
+              cy = (lines[i].yCenter + x + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+
+            // Optimize: Inline diagonal pixel drawing
+            if (algo.linesType === 3 || algo.linesType === 4 ||  algo.linesType === 9) {
+              cx = (lines[i].xCenter + x + 0.5) | 0;
+              cy = (lines[i].yCenter - x + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+            if (algo.linesType === 3 || algo.linesType === 4 || algo.linesType === 10) {
+              cx = (lines[i].xCenter - x + 0.5) | 0;
+              cy = (lines[i].yCenter - x + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+            if (algo.linesType === 3 || algo.linesType === 4 || algo.linesType === 11) {
+              cx = (lines[i].xCenter + x + 0.5) | 0;
+              cy = (lines[i].yCenter + x + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
+            if (algo.linesType === 3 || algo.linesType === 4 || algo.linesType === 12) {
+              cx = (lines[i].xCenter - x + 0.5) | 0;
+              cy = (lines[i].yCenter + x + 0.5) | 0;
+              if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
+                util.pixelMap[cy][cx] = color;
+              }
+            }
           }
         }
 
-        lines[i].step++;
-        if (algo.linesSlide > 0) {
-          if ( algo.linesSlide == 1 ) { lines[i].yCenter-- ;} 
-          else if ( algo.linesSlide == 2 ) { lines[i].yCenter++ ;}
-          else if ( algo.linesSlide == 3 ) { lines[i].xCenter-- ;}
-          else if ( algo.linesSlide == 4 ) { lines[i].xCenter++ ;}
+        if (algo.linesSizeBehavior !== 2)
+        {
+          lines[i].step++;
+        }
 
-          if ( algo.linesRollover == 1 ) {
-            if ( lines[i].xCenter == 0 ) { lines[i].xCenter = width; }
-            if ( lines[i].yCenter == 0 ) { lines[i].yCenter = height; }
-            if ( lines[i].xCenter >= width ) { lines[i].xCenter = 0; }
-            if ( lines[i].yCenter >= height) { lines[i].yCenter = 0; }
+        if (algo.linesSlide > 0)
+        {
+          lines[i].movementCounter += lines[i].movementSpeed;
+
+          while (lines[i].movementCounter >= 1.0)
+          {
+            if (algo.linesSlide === 1) { lines[i].yCenter--; }
+            else if (algo.linesSlide === 2) { lines[i].yCenter++; }
+            else if (algo.linesSlide === 3) { lines[i].xCenter--; }
+            else if (algo.linesSlide === 4) { lines[i].xCenter++; }
+
+            lines[i].movementCounter -= 1.0;
+          }
+
+          if (algo.linesRollover === 1)
+          {
+            if (lines[i].xCenter < 0) { lines[i].xCenter = width - 1; }
+            if (lines[i].yCenter < 0) { lines[i].yCenter = height - 1; }
+            if (lines[i].xCenter >= width) { lines[i].xCenter = 0; }
+            if (lines[i].yCenter >= height) { lines[i].yCenter = 0; }
           }
         }
-        if (lines[i].step >= util.linesMaxSize || Math.floor(Math.random() * 100 + (lines[i].step * 2) ) < algo.linesVariability )
+
+        var shouldTerminate = false;
+
+        if (algo.linesSizeBehavior === 1)
+        {
+          shouldTerminate = (util.getEffectiveLineSize(lines[i].step) <= 0);
+        }
+        else if (algo.linesSizeBehavior === 2)
+        {
+          if (algo.linesSlide > 0 && algo.linesRollover === 0)
+          {
+            if (lines[i].xCenter < 0 || lines[i].xCenter >= width ||
+                lines[i].yCenter < 0 || lines[i].yCenter >= height)
+            {
+              shouldTerminate = true;
+            }
+          }
+        }
+        else
+        {
+          shouldTerminate = (lines[i].step >= util.linesMaxSize);
+        }
+
+        if (shouldTerminate || Math.floor(Math.random() * 100 + (lines[i].step * 2)) < algo.linesVariability)
         {
           lines[i].xCenter = -1;
           lines[i].yCenter = -1;
@@ -372,17 +858,17 @@ var testAlgo;
       return util.pixelMap;
     };
 
-    algo.rgbMap = function(width, height, rgb, step)
+    algo.rgbMap = function(width, height, rgb, _step)
     {
       if (util.initialized === false)
       {
-          util.initialize(algo.linesSize);
+        util.initialize(algo.linesSize);
       }
 
       return util.getNextStep(width, height, rgb);
     };
 
-    algo.rgbMapStepCount = function(width, height)
+    algo.rgbMapStepCount = function(_width, _height)
     {
       return 2;
     };
@@ -390,6 +876,18 @@ var testAlgo;
     // Development tool access
     testAlgo = algo;
 
+    // Test suite compatibility - setter functions with different names to avoid conflicts
+    algo.setLinesAmount = function(amount) { algo.setAmount(amount); };
+    algo.setLinesType = function(type) { algo.setType(type); };
+    algo.setLinesBias = function(bias) { algo.setBias(bias); };
+    algo.setLinesDistribution = function(distribution) { algo.setDistribution(distribution); };
+    algo.setLinesMovement = function(movement) { algo.setMovement(movement); };
+    algo.setLinesLifecycle = function(lifecycle) { algo.setLifecycle(lifecycle); };
+    algo.setLinesPattern = function(pattern) { algo.setPattern(pattern); };
+    algo.setLinesBrightnessVariance = function(variance) { algo.setBrightnessVariance(variance); };
+    algo.setLinesMovementSpeed = function(speed) { algo.setMovementSpeed(speed); };
+    algo.setLinesVariability = function(variability) { algo.setVariability(variability); };
+
     return algo;
-    }
+  }
 )();
