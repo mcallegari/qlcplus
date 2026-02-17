@@ -736,6 +736,51 @@ void ChaserEditor::setStepsDuration(int stepsDuration)
     emit stepsListChanged();
 }
 
+void ChaserEditor::autoSetDurations()
+{
+    if (m_chaser == nullptr || m_chaser->stepsCount() == 0)
+        return;
+
+    if (m_chaser->durationMode() != Chaser::PerStep)
+    {
+        m_chaser->setDurationMode(Chaser::PerStep);
+        emit stepsDurationChanged(Chaser::PerStep);
+    }
+
+    for (int i = 0; i < m_chaser->stepsCount(); i++)
+    {
+        QModelIndex idx = m_stepsList->index(i, 0, QModelIndex());
+        QVariant isSelected = m_stepsList->data(idx, "isSelected");
+        if (!isSelected.isValid() || isSelected.toBool() == false)
+            continue;
+
+        ChaserStep step = m_chaser->steps().at(i);
+        Function *func = m_doc->function(step.fid);
+        if (func == nullptr)
+            continue;
+
+        UIntPair oldDuration(i, step.duration);
+        UIntPair oldHold(i, step.hold);
+
+        step.duration = func->totalDuration();
+        if (step.duration == 0)
+            step.duration = 1000;
+        step.hold = Function::speedSubtract(step.duration, step.fadeIn);
+
+        Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(),
+                                          QVariant::fromValue(oldDuration),
+                                          QVariant::fromValue(UIntPair(i, step.duration)));
+        Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, m_chaser->id(),
+                                          QVariant::fromValue(oldHold),
+                                          QVariant::fromValue(UIntPair(i, step.hold)));
+
+        m_chaser->replaceStep(step, i);
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+}
+
 void ChaserEditor::setStepSpeed(int index, int value, int type)
 {
     if (m_chaser == nullptr || index < 0 || index >= m_chaser->stepsCount())

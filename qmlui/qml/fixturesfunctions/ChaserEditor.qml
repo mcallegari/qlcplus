@@ -181,6 +181,17 @@ Rectangle
 
                 IconButton
                 {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    faSource: FontAwesome.fa_stopwatch
+                    faColor: "lightskyblue"
+                    tooltip: qsTr("Auto-set step durations from function total duration")
+                    enabled: chaserEditor && !chaserEditor.previewEnabled && chWidget.selector.itemsCount
+                    onClicked: chaserEditor.autoSetDurations()
+                }
+
+                IconButton
+                {
                     id: removeFunc
                     width: height
                     height: UISettings.iconSizeMedium - 2

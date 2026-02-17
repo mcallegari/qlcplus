@@ -169,6 +169,10 @@ public:
     int stepsDuration() const;
     void setStepsDuration(int stepsDuration);
 
+    /** Auto-set all step durations from their function's total duration.
+     *  Forces duration mode to PerStep if not already set. */
+    Q_INVOKABLE void autoSetDurations();
+
     /** Set the speed value with $type of the step at $index */
     Q_INVOKABLE void setStepSpeed(int index, int value, int type);
 

@@ -172,7 +172,7 @@ Column
         Row
         {
             height: UISettings.listItemHeight
-            spacing: 2
+            spacing: 0
 
             // Step number column
             RobotoText
@@ -185,7 +185,7 @@ Column
                 textHAlign: Text.AlignHCenter
                 fontSize: chListHeader.fSize
             }
-            Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+            Rectangle { height: parent.height; width: screenPixelDensity * UISettings.scalingFactor * 0.6; color: UISettings.fgMedium }
 
             // Step Function name column
             RobotoText
@@ -204,7 +204,7 @@ Column
                 id: nameColDrag
                 visible: !isSequence
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -242,7 +242,7 @@ Column
             {
                 id: fInColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -280,7 +280,7 @@ Column
             {
                 id: holdColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -318,7 +318,7 @@ Column
             {
                 id: fOutColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -356,7 +356,7 @@ Column
             {
                 id: durColDrag
                 height: parent.height
-                width: 1
+                width: screenPixelDensity * UISettings.scalingFactor * 0.6
                 color: UISettings.fgMedium
 
                 MouseArea
@@ -481,7 +481,7 @@ Column
                         csDragItem.y = posInList.y
                         csDragItem.z = 10
 
-                        if (model.isSelected)
+                        if (model.isSelected && mouse.modifiers !== 0)
                             return
 
                         ceSelector.selectItem(index, cStepsList.model, mouse.modifiers)
@@ -524,12 +524,12 @@ Column
                         stepDuration: TimeUtils.timeToQlcString(model.duration, widgetRoot.tempoType)
                         stepNote: model.note
 
-                        col1Width: numCol.width
-                        col2Width: nameCol.width
-                        col3Width: fInCol.width
-                        col4Width: holdCol.width
-                        col5Width: fOutCol.width
-                        col6Width: durCol.width
+                        col1Width: numCol.width + 1
+                        col2Width: nameCol.width + 1
+                        col3Width: fInCol.width + 1
+                        col4Width: holdCol.width + 1
+                        col5Width: fOutCol.width + 1
+                        col6Width: durCol.width + 1
 
                         isPrinting: widgetRoot.isPrinting
                         indexInList: index
@@ -630,6 +630,15 @@ Column
                     cStepsList.dragInsertIndex = idx + 1
             }
         }
+        MouseArea
+        {
+            parent: cStepsList
+            anchors.bottom: parent.bottom
+            width: parent.width
+            height: Math.max(0, parent.height - parent.contentHeight)
+            onClicked: ceSelector.resetSelection(cStepsList.model)
+        }
+
         ScrollBar.vertical: CustomScrollBar { }
     } // end of ListView
 }
