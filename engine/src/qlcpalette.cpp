@@ -826,7 +826,6 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
         QString strVal = attrs.value(KXMLQLCPaletteValue).toString();
         switch (m_type)
         {
-            case Dimmer:
             case Pan:
             case Tilt:
                 setValue(strVal.toInt());
@@ -841,6 +840,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
                     setValue(posList.at(0).toInt(), posList.at(1).toInt());
             }
             break;
+            case Dimmer:
             case Zoom:
                 setValue(strVal.toFloat());
             break;
