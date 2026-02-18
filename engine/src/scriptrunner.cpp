@@ -163,13 +163,17 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 m_fadersMap[val.m_universe] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
-
-            fc->setStart(fc->current());
-            fc->setTarget(val.m_value);
-            fc->setFadeTime(val.m_fadeTime);
-            fc->setElapsed(0);
-            fc->setReady(false);
+            const uchar targetValue = val.m_value;
+            const uint fadeTime = val.m_fadeTime;
+            fader->updateChannel(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel,
+                                 [targetValue, fadeTime](FadeChannel &fc)
+            {
+                fc.setStart(fc.current());
+                fc.setTarget(targetValue);
+                fc.setFadeTime(fadeTime);
+                fc.setElapsed(0);
+                fc.setReady(false);
+            });
         }
     }
     // if we don't have to wait and there are some functions in the queue

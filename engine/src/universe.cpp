@@ -19,6 +19,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QElapsedTimer>
 #include <QDebug>
 #include <math.h>
 
@@ -305,16 +306,20 @@ void Universe::setFaderFadeOut(int fadeTime)
 
 void Universe::tick()
 {
-    m_semaphore.release(1);
+    // Keep at most one pending tick to avoid queueing stale work when running late.
+    if (m_semaphore.available() == 0)
+        m_semaphore.release(1);
 }
 
-void Universe::processFaders()
+void Universe::processFaders(uint elapsedMs)
 {
     flushInput();
     zeroIntensityChannels();
 
+    QList<QSharedPointer<GenericFader>> activeFaders;
     {
         QMutexLocker fadersLocker(&m_fadersMutex);
+        activeFaders.reserve(m_faders.size());
         QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
         while (it.hasNext())
         {
@@ -335,23 +340,27 @@ void Universe::processFaders()
             if (fader->isEnabled() == false)
                 continue;
 
-            //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
-            fader->write(this);
+            activeFaders.append(fader);
         }
     }
 
+    foreach (const QSharedPointer<GenericFader> &fader, activeFaders)
+        fader->write(this, elapsedMs);
+
     bool dataChanged = hasChanged();
-    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+    const QByteArray postGM = QByteArray::fromRawData(m_postGMValues->constData(), m_usedChannels);
     dumpOutput(postGM, dataChanged);
 
     if (dataChanged)
-        emit universeWritten(id(), postGM);
+        emit universeWritten(id(), QByteArray(postGM.constData(), postGM.size()));
 }
 
 void Universe::run()
 {
     m_running = true;
     int timeout = int(MasterTimer::tick()) * 2;
+    QElapsedTimer elapsedTimer;
+    elapsedTimer.start();
 
     qDebug() << "Universe thread started" << id();
 
@@ -366,7 +375,13 @@ void Universe::run()
         if (m_faders.count())
             qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 #endif
-        processFaders();
+        const qint64 elapsedNs = elapsedTimer.nsecsElapsed();
+        elapsedTimer.restart();
+        uint elapsedMs = uint((elapsedNs + 500000) / 1000000);
+        if (elapsedMs == 0)
+            elapsedMs = 1;
+
+        processFaders(elapsedMs);
     }
 
     qDebug() << "Universe thread stopped" << id();
@@ -497,7 +512,7 @@ const QByteArray Universe::preGMValues() const
 
 uchar Universe::preGMValue(int address) const
 {
-    if (address >= m_preGMValues->size())
+    if (address < 0 || address >= m_preGMValues->size())
         return 0U;
 
     return static_cast<uchar>(m_preGMValues->at(address));
@@ -730,8 +745,6 @@ void Universe::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     {
         if (universe == m_id)
         {
-            qDebug() << "write" << channel << value;
-
             if (channel >= UNIVERSE_SIZE)
                 return;
 
@@ -933,7 +946,6 @@ bool Universe::write(int address, uchar value, bool forceLTP)
     {
         if (forceLTP == false && value < (uchar)m_preGMValues->at(address))
         {
-            qDebug() << "[Universe] HTP check not passed" << address << value;
             return false;
         }
     }
@@ -1019,18 +1031,19 @@ bool Universe::writeBlended(int address, quint32 value, int channelCount, Univer
         {
             if ((m_channelsMask->at(address) & HTP) && value < currentValue)
             {
-                qDebug() << "[Universe] HTP check not passed" << address << value;
                 return false;
             }
         }
         break;
         case MaskBlend:
         {
+            const float maxValue = (channelCount == 1)
+                                   ? 255.0f
+                                   : (channelCount == 2 ? 65535.0f : float(pow(255.0f, channelCount)));
             if (value)
             {
-                qDebug() << "Current value" << currentValue << "value" << value;
                 if (currentValue)
-                    value = float(currentValue) * (float(value) / pow(255.0, channelCount));
+                    value = float(currentValue) * (float(value) / maxValue);
                 else
                     value = 0;
             }
@@ -1038,8 +1051,11 @@ bool Universe::writeBlended(int address, quint32 value, int channelCount, Univer
         break;
         case AdditiveBlend:
         {
+            const float maxValue = (channelCount == 1)
+                                   ? 255.0f
+                                   : (channelCount == 2 ? 65535.0f : float(pow(255.0f, channelCount)));
             //qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
-            value = fmin(float(currentValue + value), pow(255.0, channelCount));
+            value = fmin(float(currentValue + value), maxValue);
         }
         break;
         case SubtractiveBlend:
@@ -1310,4 +1326,3 @@ bool Universe::savePluginParametersXML(QXmlStreamWriter *doc,
 
     return true;
 }
-

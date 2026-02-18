@@ -980,7 +980,7 @@ void Chaser_Test::writeLTP()
         QVERIFY(s1->isRunning() == true);
         QVERIFY(s2->isRunning() == false);
         ua = m_doc->inputOutputMap()->claimUniverses();
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QVERIFY(ua[0]->preGMValues()[0] == (char)20);
         m_doc->inputOutputMap()->releaseUniverses(false);
     }
@@ -994,7 +994,7 @@ void Chaser_Test::writeLTP()
         QVERIFY(s1->isRunning() == false);
         QVERIFY(s2->isRunning() == true);
         ua = m_doc->inputOutputMap()->claimUniverses();
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QVERIFY(ua[0]->preGMValues()[0] == (char)142);
         m_doc->inputOutputMap()->releaseUniverses(false);
     }
@@ -1008,7 +1008,7 @@ void Chaser_Test::writeLTP()
         QVERIFY(s1->isRunning() == true);
         QVERIFY(s2->isRunning() == false);
         ua = m_doc->inputOutputMap()->claimUniverses();
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QVERIFY(ua[0]->preGMValues()[0] == (char)20);
         m_doc->inputOutputMap()->releaseUniverses(false);
     }

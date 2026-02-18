@@ -798,9 +798,11 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                     m_fadersMap[universe] = fader;
                 }
 
-                FadeChannel *fc = fader->getChannelFader(doc, universes[universe], fxi->id(), ch);
-                fc->setTarget(value);
-                fc->setFadeTime(time);
+                fader->updateChannel(doc, universes[universe], fxi->id(), ch, [value, time](FadeChannel &fc)
+                {
+                    fc.setTarget(value);
+                    fc.setFadeTime(time);
+                });
 
                 return QString();
             }
@@ -995,4 +997,3 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
 
     return tokens;
 }
-

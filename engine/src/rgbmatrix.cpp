@@ -768,11 +768,11 @@ void RGBMatrix::roundCheck()
         roundElapsed(duration());
 }
 
-FadeChannel *RGBMatrix::getFader(Universe *universe, quint32 fixtureID, quint32 channel)
+QSharedPointer<GenericFader> RGBMatrix::getFader(Universe *universe)
 {
     // get the universe Fader first. If doesn't exist, create it
     if (universe == NULL)
-        return NULL;
+        return QSharedPointer<GenericFader>();
 
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universe->id(), QSharedPointer<GenericFader>());
     if (fader.isNull())
@@ -785,20 +785,20 @@ FadeChannel *RGBMatrix::getFader(Universe *universe, quint32 fixtureID, quint32 
         m_fadersMap[universe->id()] = fader;
     }
 
-    return fader->getChannelFader(doc(), universe, fixtureID, channel);
+    return fader;
 }
 
-void RGBMatrix::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
+void RGBMatrix::updateFaderValues(FadeChannel &fc, uchar value, uint fadeTime)
 {
-    fc->setStart(fc->current());
-    fc->setTarget(value);
-    fc->setElapsed(0);
-    fc->setReady(false);
+    fc.setStart(fc.current());
+    fc.setTarget(value);
+    fc.setElapsed(0);
+    fc.setReady(false);
     // fade in/out depends on target value
     if (value == 0)
-        fc->setFadeTime(fadeOutSpeed());
+        fc.setFadeTime(fadeOutSpeed());
     else
-        fc->setFadeTime(fadeTime);
+        fc.setFadeTime(fadeTime);
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QList<Universe *> universes)
@@ -914,9 +914,18 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
                 continue;
 
             quint32 universeIndex = floor((absAddress + channelList.at(i)) / 512);
+            Universe *universe = universes.at(universeIndex);
+            QSharedPointer<GenericFader> fader = getFader(universe);
+            if (fader.isNull())
+                continue;
 
-            FadeChannel *fc = getFader(universes.at(universeIndex), grpHead.fxi, channelList.at(i));
-            updateFaderValues(fc, valueList.at(i), fadeTime);
+            const quint32 fixtureID = grpHead.fxi;
+            const quint32 channel = channelList.at(i);
+            const uchar value = valueList.at(i);
+            fader->updateChannel(doc(), universe, fixtureID, channel, [this, value, fadeTime](FadeChannel &fc)
+            {
+                updateFaderValues(fc, value, fadeTime);
+            });
         }
     }
 }
@@ -1207,4 +1216,3 @@ bool RGBMatrixStep::checkNextStep(Function::RunOrder order,
 
     return true;
 }
-

@@ -595,7 +595,7 @@ int CueStack::previous()
     return m_currentIndex;
 }
 
-FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+QSharedPointer<GenericFader> CueStack::getFader(QList<Universe *> universes, quint32 universeID)
 {
     // get the universe Fader first. If doesn't exist, create it
     QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
@@ -606,16 +606,16 @@ FadeChannel *CueStack::getFader(QList<Universe *> universes, quint32 universeID,
         m_fadersMap[universeID] = fader;
     }
 
-    return fader->getChannelFader(doc(), universes[universeID], fixtureID, channel);
+    return fader;
 }
 
-void CueStack::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
+void CueStack::updateFaderValues(FadeChannel &fc, uchar value, uint fadeTime)
 {
-    fc->setStart(fc->current());
-    fc->setTarget(value);
-    fc->setElapsed(0);
-    fc->setReady(false);
-    fc->setFadeTime(fadeTime);
+    fc.setStart(fc.current());
+    fc.setTarget(value);
+    fc.setElapsed(0);
+    fc.setReady(false);
+    fc.setFadeTime(fadeTime);
 }
 
 int CueStack::next()
@@ -656,10 +656,20 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
         oldit.next();
         uint absChannel = oldit.key();
         quint32 universe = (absChannel >> 9);
-        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
+        if (universe >= quint32(ua.size()))
+            continue;
 
-        if (fc->flags() & FadeChannel::Intensity)
-            updateFaderValues(fc, 0, oldCue.fadeOutSpeed());
+        QSharedPointer<GenericFader> fader = getFader(ua, universe);
+        if (fader.isNull())
+            continue;
+
+        const uint fadeOut = oldCue.fadeOutSpeed();
+        fader->updateChannel(doc(), ua[universe], Fixture::invalidId(), absChannel,
+                             [this, fadeOut](FadeChannel &fc)
+        {
+            if (fc.flags() & FadeChannel::Intensity)
+                updateFaderValues(fc, 0, fadeOut);
+        });
     }
 
     // Fade in all channels of the new cue
@@ -669,8 +679,19 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
         newit.next();
         uint absChannel = newit.key();
         quint32 universe = (absChannel >> 9);
-        FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
-        updateFaderValues(fc, newit.value(), newCue.fadeInSpeed());
+        if (universe >= quint32(ua.size()))
+            continue;
+
+        QSharedPointer<GenericFader> fader = getFader(ua, universe);
+        if (fader.isNull())
+            continue;
+
+        const uchar target = newit.value();
+        const uint fadeIn = newCue.fadeInSpeed();
+        fader->updateChannel(doc(), ua[universe], Fixture::invalidId(), absChannel,
+                             [this, target, fadeIn](FadeChannel &fc)
+        {
+            updateFaderValues(fc, target, fadeIn);
+        });
     }
 }
-
