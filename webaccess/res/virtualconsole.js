@@ -467,7 +467,7 @@ function onMouseMove(e) {
     }
   }
 }
-function onMouseUp() {    
+function onMouseUp() {
   if (isDisableKnob[selectedID]) return;
   isDragging[selectedID] = false;
   var knob = document.getElementById("knob" + selectedID);
