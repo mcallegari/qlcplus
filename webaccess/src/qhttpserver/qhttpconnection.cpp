@@ -44,8 +44,11 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
       m_transmitLen(0),
       m_transmitPos(0),
       m_postPending(false),
+      m_websocketServer(nullptr),
+      m_webSocket(nullptr),
       m_isWebSocket(false),
-      m_pollTimer(NULL)
+      m_pollTimer(NULL),
+      userData(nullptr)
 {
     m_parser = (http_parser *)malloc(sizeof(http_parser));
     http_parser_init(m_parser, HTTP_REQUEST);
@@ -64,14 +67,21 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
     connect(socket, SIGNAL(readyRead()), this, SLOT(parseRequest()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
     connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(updateWriteCount(qint64)));
+    connect(socket, &QObject::destroyed, this, [this](QObject *) { m_socket = nullptr; });
 
     qDebug() << "HTTP connection created!";
 }
 
 QHttpConnection::~QHttpConnection()
 {
-    delete m_socket;
-    m_socket = 0;
+    if (m_websocketServer != nullptr)
+        m_websocketServer->close();
+
+    if (m_socket != nullptr)
+    {
+        delete m_socket;
+        m_socket = nullptr;
+    }
 
     free(m_parser);
     m_parser = 0;
@@ -119,6 +129,9 @@ void QHttpConnection::updateWriteCount(qint64 count)
 
 void QHttpConnection::parseRequest()
 {
+    if (m_socket == nullptr || m_parser == nullptr)
+        return;
+
     Q_ASSERT(m_parser);
 
     while (m_socket->bytesAvailable())
@@ -143,24 +156,33 @@ void QHttpConnection::parseRequest()
 
 void QHttpConnection::write(const QByteArray &data)
 {
+    if (m_socket == nullptr)
+        return;
+
     m_socket->write(data);
     m_transmitLen += data.size();
 }
 
 void QHttpConnection::flush()
 {
+    if (m_socket == nullptr)
+        return;
+
     m_socket->flush();
 }
 
 void QHttpConnection::waitForBytesWritten()
 {
+    if (m_socket == nullptr)
+        return;
+
     m_socket->waitForBytesWritten();
 }
 
 void QHttpConnection::responseDone()
 {
     QHttpResponse *response = qobject_cast<QHttpResponse *>(QObject::sender());
-    if (response->m_last && m_isWebSocket == false)
+    if (response->m_last && m_isWebSocket == false && m_socket != nullptr)
         m_socket->disconnectFromHost();
 }
 
@@ -344,15 +366,19 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
 
 QHttpConnection *QHttpConnection::enableWebSocket()
 {
+    if (m_socket == nullptr)
+        return nullptr;
+
     m_isWebSocket = true;
 
     disconnect(m_socket, SIGNAL(readyRead()), this, SLOT(parseRequest()));
 
-    m_websocketServer = new QWebSocketServer("QLC+WSServer", QWebSocketServer::NonSecureMode);
+    m_websocketServer = new QWebSocketServer("QLC+WSServer", QWebSocketServer::NonSecureMode, this);
     m_socket->disconnect();
     //m_socket->setParent(m_websocketServer);
     m_socket->rollbackTransaction();
     m_websocketServer->handleConnection(m_socket);
+    m_socket = nullptr;
     //emit m_socket->readyRead();
 
     connect(m_websocketServer, SIGNAL(newConnection()),
@@ -372,6 +398,7 @@ void QHttpConnection::slotWebSocketNewConnection()
                 this, SLOT(slotWebSocketTextMessage(const QString&)));
         connect(m_webSocket, SIGNAL(disconnected()),
                 this, SLOT(slotWebSocketDisconnected()));
+        connect(m_webSocket, &QObject::destroyed, this, [this](QObject *) { m_webSocket = nullptr; });
 
         // activate ping to WS
         m_pollTimer = new QTimer(this);
@@ -386,6 +413,19 @@ void QHttpConnection::slotWebSocketNewConnection()
 
 void QHttpConnection::slotWebSocketDisconnected()
 {
+    if (m_pollTimer != nullptr)
+    {
+        m_pollTimer->stop();
+        m_pollTimer->deleteLater();
+        m_pollTimer = nullptr;
+    }
+
+    if (m_webSocket != nullptr)
+    {
+        m_webSocket->deleteLater();
+        m_webSocket = nullptr;
+    }
+
     Q_EMIT webSocketConnectionClose(this);
 }
 
@@ -405,7 +445,7 @@ void QHttpConnection::webSocketWrite(const QString &message)
 {
     qDebug() << "[webSocketWrite] message length:" << message.size() << "message:" << message;
 
-    if (m_webSocket)
+    if (m_webSocket && m_webSocket->state() == QAbstractSocket::ConnectedState)
         m_webSocket->sendTextMessage(message);
 }
 

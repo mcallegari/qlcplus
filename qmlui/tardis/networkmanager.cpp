@@ -27,6 +27,8 @@
 #include "simplecrypt.h"
 #include "tardis.h"
 #include "doc.h"
+#include "inputoutputmap.h"
+#include "webaccess-qml.h"
 
 #define DEFAULT_UDP_PORT    9997
 #define DEFAULT_TCP_PORT    9998
@@ -35,20 +37,37 @@
 
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
-NetworkManager::NetworkManager(QObject *parent, Doc *doc)
+NetworkManager::NetworkManager(QObject *parent, Doc *doc, VirtualConsole *vc, SimpleDesk *sd)
     : QObject(parent)
     , m_doc(doc)
+    , m_virtualConsole(vc)
+    , m_simpleDesk(sd)
     , m_encryptPackets(true)
+    , m_serverType(NativeServer)
+    , m_startAutomatically(false)
     , m_udpSocket(nullptr)
+    , m_webAccess(nullptr)
+    , m_webServerPort(0)
+    , m_webServerAuth(false)
+    , m_webServerPasswordFile(QString())
     , m_tcpServer(nullptr)
     , m_serverStarted(false)
     , m_tcpSocket(nullptr)
     , m_clientStatus(Disconnected)
 {
     m_hostType = UnknownHostType;
-    setHostName(defaultName());
     m_crypt = new SimpleCrypt(defaultKey);
     m_packetizer = new NetworkPacketizer();
+
+    if (m_doc != nullptr)
+    {
+        connect(m_doc, &Doc::loaded, this, &NetworkManager::slotDocLoaded);
+        slotDocLoaded();
+    }
+    else
+    {
+        setHostName(defaultName());
+    }
 }
 
 NetworkManager::~NetworkManager()
@@ -79,7 +98,78 @@ void NetworkManager::setHostName(QString hostName)
         return;
 
     m_hostName = hostName;
+    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
+        m_doc->inputOutputMap()->setNetworkServerName(hostName);
     emit hostNameChanged(m_hostName);
+}
+
+int NetworkManager::serverType() const
+{
+    return m_serverType;
+}
+
+void NetworkManager::setServerType(int type)
+{
+    if (type != NativeServer && type != WebServer)
+        return;
+
+    if (m_serverType == type)
+        return;
+
+    bool wasStarted = serverStarted();
+    if (wasStarted)
+        stopServer();
+
+    m_serverType = type;
+    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
+    {
+        m_doc->inputOutputMap()->setNetworkServerType(
+            type == WebServer ? InputOutputMap::WebServer : InputOutputMap::NativeServer);
+    }
+
+    emit serverTypeChanged(m_serverType);
+
+    if (wasStarted)
+        startServer();
+}
+
+bool NetworkManager::startAutomatically() const
+{
+    return m_startAutomatically;
+}
+
+void NetworkManager::setStartAutomatically(bool startAutomatically)
+{
+    if (m_startAutomatically == startAutomatically)
+        return;
+
+    m_startAutomatically = startAutomatically;
+    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
+        m_doc->inputOutputMap()->setNetworkServerAutoStart(startAutomatically);
+    emit startAutomaticallyChanged(m_startAutomatically);
+}
+
+QString NetworkManager::serverPassword() const
+{
+    return m_serverPassword;
+}
+
+void NetworkManager::setServerPassword(QString password)
+{
+    if (m_serverPassword == password)
+        return;
+
+    m_serverPassword = password;
+    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
+        m_doc->inputOutputMap()->setNetworkServerPassword(password);
+    emit serverPasswordChanged(m_serverPassword);
+}
+
+void NetworkManager::setWebServerConfiguration(int portNumber, bool enableAuth, const QString &passwordFile)
+{
+    m_webServerPort = portNumber;
+    m_webServerAuth = enableAuth;
+    m_webServerPasswordFile = passwordFile;
 }
 
 int NetworkManager::connectionsCount()
@@ -215,6 +305,25 @@ bool NetworkManager::startServer()
     if (serverStarted() == true)
         return false;
 
+    if (m_serverType == WebServer)
+    {
+        if (m_doc == nullptr || m_virtualConsole == nullptr || m_simpleDesk == nullptr)
+            return false;
+
+        m_webAccess = new WebAccessQml(m_doc, m_virtualConsole, m_simpleDesk,
+                                       m_webServerPort, m_webServerAuth, m_webServerPasswordFile, this);
+        connect(m_webAccess, &WebAccessQml::loadProject, this,
+                [this](const QByteArray &xmlData)
+        {
+            QByteArray xmlCopy = xmlData;
+            emit requestProjectLoad(xmlCopy);
+        });
+        connect(m_webAccess, &WebAccessQml::storeAutostartProject,
+                this, &NetworkManager::storeAutostartProject);
+        setServerStarted(true);
+        return true;
+    }
+
     m_udpSocket = new QUdpSocket(this);
 
     if (m_udpSocket->bind(DEFAULT_UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
@@ -246,6 +355,15 @@ bool NetworkManager::stopServer()
 {
     if (serverStarted() == false)
         return false;
+
+    if (m_webAccess != nullptr)
+    {
+        m_webAccess->closeServer();
+        m_webAccess->deleteLater();
+        m_webAccess = nullptr;
+        setServerStarted(false);
+        return true;
+    }
 
     disconnect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::slotProcessUDPPackets);
     disconnect(m_tcpServer, &QTcpServer::newConnection, this, &NetworkManager::slotProcessNewTCPConnection);
@@ -690,6 +808,28 @@ void NetworkManager::slotProcessTCPPackets()
         bytesProcessed += read;
         bytesAvailable -= read;
     }
+}
+
+void NetworkManager::slotDocLoaded()
+{
+    if (m_doc == nullptr || m_doc->inputOutputMap() == nullptr)
+        return;
+
+    InputOutputMap *ioMap = m_doc->inputOutputMap();
+
+    setServerType(ioMap->networkServerType() == InputOutputMap::WebServer ? WebServer : NativeServer);
+    setStartAutomatically(ioMap->networkServerAutoStart());
+    setServerPassword(ioMap->networkServerPassword());
+
+    QString name = ioMap->networkServerName();
+    if (name.isEmpty())
+        name = defaultName();
+    setHostName(name);
+
+    if (m_hostType != ClientHostType &&
+        m_startAutomatically &&
+        serverStarted() == false)
+        startServer();
 }
 
 void NetworkManager::slotProcessNewTCPConnection()

@@ -19,6 +19,7 @@
 
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 
 import org.qlcplus.classes 1.0
 import "."
@@ -28,6 +29,7 @@ CustomPopupDialog
     id: popupRoot
     width: mainView.width / 3
     title: qsTr("QLC+ server setup")
+    property bool nativeServer: networkManager.serverType === NetworkManager.NativeServer
 
     contentItem:
         GridLayout
@@ -36,7 +38,61 @@ CustomPopupDialog
             rowSpacing: 5
             columnSpacing: 5
 
+            ButtonGroup { id: serverTypeGroup }
+
             // Row 1
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Server type")
+            }
+
+            RowLayout
+            {
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+                spacing: 20
+
+                Row
+                {
+                    spacing: 5
+                    CustomCheckBox
+                    {
+                        id: webServerCheck
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: height
+                        checked: networkManager.serverType === NetworkManager.WebServer
+                        ButtonGroup.group: serverTypeGroup
+                        onClicked: if (checked) networkManager.serverType = NetworkManager.WebServer
+                    }
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Web server")
+                    }
+                }
+
+                Row
+                {
+                    spacing: 5
+                    CustomCheckBox
+                    {
+                        id: nativeServerCheck
+                        implicitHeight: UISettings.listItemHeight
+                        implicitWidth: height
+                        checked: networkManager.serverType === NetworkManager.NativeServer
+                        ButtonGroup.group: serverTypeGroup
+                        onClicked: if (checked) networkManager.serverType = NetworkManager.NativeServer
+                    }
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Native server")
+                    }
+                }
+            }
+
+            // Row 2
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -45,18 +101,15 @@ CustomPopupDialog
 
             CustomTextEdit
             {
-                property string hostname: networkManager.hostName
-
                 id: nameEdit
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                KeyNavigation.tab: keyEdit
-                KeyNavigation.backtab: startCheckBox
-                text: hostname
+                enabled: popupRoot.nativeServer
+                text: networkManager.hostName
                 onTextEdited: networkManager.hostName = text
             }
 
-            // Row 2
+            // Row 3
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -67,23 +120,23 @@ CustomPopupDialog
             {
                 id: keyEdit
                 Layout.fillWidth: true
+                enabled: popupRoot.nativeServer
                 echoMode: TextInput.Password
                 maximumLength: 8
-                KeyNavigation.tab: startCheckBox
-                KeyNavigation.backtab: nameEdit
-
-                onTextEdited: { /* TODO */ }
+                text: networkManager.serverPassword
+                onTextEdited: networkManager.serverPassword = text
             }
 
             IconButton
             {
                 width: UISettings.listItemHeight
                 height: width
+                enabled: popupRoot.nativeServer
                 faSource: FontAwesome.fa_gear
                 faColor: UISettings.fgMain
             }
 
-            // Row 3
+            // Row 4
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -95,11 +148,11 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 Layout.columnSpan: 2
-                KeyNavigation.tab: nameEdit
-                KeyNavigation.backtab: keyEdit
+                checked: networkManager.startAutomatically
+                onClicked: networkManager.startAutomatically = checked
             }
 
-            // Row 4
+            // Row 5
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -114,7 +167,7 @@ CustomPopupDialog
                 labelColor: networkManager.serverStarted ? "green" : "red"
             }
 
-            // Row 5
+            // Row 6
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -125,13 +178,13 @@ CustomPopupDialog
             {
                 height: UISettings.listItemHeight
                 Layout.columnSpan: 2
-                label: networkManager.connectionsCount
+                label: popupRoot.nativeServer ? networkManager.connectionsCount : "-"
             }
 
-            // Row 6
+            // Row 7
             Row
             {
-                Layout.columnSpan: 2
+                Layout.columnSpan: 3
                 Layout.fillWidth: true
 
                 GenericButton

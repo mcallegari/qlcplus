@@ -35,6 +35,9 @@
 class Doc;
 class SimpleCrypt;
 class NetworkPacketizer;
+class VirtualConsole;
+class SimpleDesk;
+class WebAccessQml;
 
 typedef struct
 {
@@ -52,12 +55,16 @@ class NetworkManager final : public QObject
 
     Q_PROPERTY(QString hostName READ hostName WRITE setHostName NOTIFY hostNameChanged)
     Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(int serverType READ serverType WRITE setServerType NOTIFY serverTypeChanged)
+    Q_PROPERTY(bool startAutomatically READ startAutomatically WRITE setStartAutomatically NOTIFY startAutomaticallyChanged)
+    Q_PROPERTY(QString serverPassword READ serverPassword WRITE setServerPassword NOTIFY serverPasswordChanged)
     Q_PROPERTY(QVariant serverList READ serverList NOTIFY serverListChanged)
     Q_PROPERTY(int clientStatus READ clientStatus WRITE setClientStatus NOTIFY clientStatusChanged)
     Q_PROPERTY(int connectionsCount READ connectionsCount NOTIFY connectionsCountChanged)
 
 public:
-    explicit NetworkManager(QObject *parent = nullptr, Doc *doc = nullptr);
+    explicit NetworkManager(QObject *parent = nullptr, Doc *doc = nullptr,
+                            VirtualConsole *vc = nullptr, SimpleDesk *sd = nullptr);
     ~NetworkManager();
 
     enum HostType
@@ -67,9 +74,26 @@ public:
         ClientHostType
     };
 
+    enum ServerType
+    {
+        NativeServer,
+        WebServer
+    };
+    Q_ENUM(ServerType)
+
     /** Get/Set the name of the host within the QLC+ network */
     QString hostName() const;
     void setHostName(QString hostName);
+
+    int serverType() const;
+    void setServerType(int type);
+
+    bool startAutomatically() const;
+    void setStartAutomatically(bool startAutomatically);
+
+    QString serverPassword() const;
+    void setServerPassword(QString password);
+    void setWebServerConfiguration(int portNumber, bool enableAuth, const QString &passwordFile);
 
     int connectionsCount();
 
@@ -84,6 +108,9 @@ protected:
 
 signals:
     void hostNameChanged(QString hostName);
+    void serverTypeChanged(int type);
+    void startAutomaticallyChanged(bool startAutomatically);
+    void serverPasswordChanged(QString password);
     void connectionsCountChanged();
     void actionReady(int code, quint32 id, QVariant value);
 
@@ -94,15 +121,28 @@ protected slots:
     /** Async event raised when unicast packets are received */
     void slotProcessTCPPackets();
 
+    void slotDocLoaded();
+
 private:
     /** Reference to the QLC+ Doc */
     Doc *m_doc;
+    VirtualConsole *m_virtualConsole;
+    SimpleDesk *m_simpleDesk;
 
     /** Global flag to enable/disable packets encryption */
     bool m_encryptPackets;
 
     /** The host name in the QLC+ network */
     QString m_hostName;
+
+    /** Selected server type: Native or Web */
+    int m_serverType;
+
+    /** Whether the selected server should autostart on workspace load */
+    bool m_startAutomatically;
+
+    /** Native server password */
+    QString m_serverPassword;
 
     /** The type of this host */
     HostType m_hostType;
@@ -116,6 +156,14 @@ private:
     /** Reference to a class in charge of packetize/extract data
      *  according to the QLC+ network protocol */
     NetworkPacketizer* m_packetizer;
+
+    /** Runtime instance of the web server */
+    WebAccessQml *m_webAccess;
+
+    /** Web server runtime options */
+    int m_webServerPort;
+    bool m_webServerAuth;
+    QString m_webServerPasswordFile;
 
     /*********************************************************************
      * Server
@@ -182,6 +230,7 @@ signals:
     void serverListChanged();
     void accessMaskChanged(int mask);
     void requestProjectLoad(QByteArray &data);
+    void storeAutostartProject(QString fileName);
 
 private:
     /** The socket used to send/receive unicast TCP packets */

@@ -173,12 +173,14 @@ void App::startup()
     m_showManager = new ShowManager(this, m_doc);
     connect(m_showManager, &ShowManager::itemClicked, m_contextManager, &ContextManager::setLastClickedType);
 
-    m_networkManager = new NetworkManager(this, m_doc);
+    m_networkManager = new NetworkManager(this, m_doc, m_virtualConsole, m_simpleDesk);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
     connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
+    connect(m_networkManager, &NetworkManager::storeAutostartProject,
+            this, &App::slotSaveAutostart);
 
     m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
                           m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
@@ -427,6 +429,11 @@ VirtualConsole *App::virtualConsole() const
 SimpleDesk *App::simpleDesk() const
 {
     return m_simpleDesk;
+}
+
+NetworkManager *App::networkManager() const
+{
+    return m_networkManager;
 }
 
 bool App::docLoaded()

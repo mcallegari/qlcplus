@@ -245,6 +245,9 @@ public:
     /** Return the QML Simple Desk instance */
     SimpleDesk *simpleDesk() const;
 
+    /** Return the network manager instance */
+    NetworkManager *networkManager() const;
+
     /** Return if the current Doc instance has been loaded */
     bool docLoaded();
 

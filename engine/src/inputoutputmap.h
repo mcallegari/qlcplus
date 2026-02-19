@@ -47,6 +47,11 @@ class Doc;
 #define KXMLIOBeatGenerator     QStringLiteral("BeatGenerator")
 #define KXMLIOBeatType          QStringLiteral("BeatType")
 #define KXMLIOBeatsPerMinute    QStringLiteral("BPM")
+#define KXMLIONetworkServer     QStringLiteral("NetworkServer")
+#define KXMLIONetworkType       QStringLiteral("Type")
+#define KXMLIONetworkAutoStart  QStringLiteral("AutoStart")
+#define KXMLIONetworkName       QStringLiteral("Name")
+#define KXMLIONetworkPassword   QStringLiteral("Password")
 
 class InputOutputMap final : public QObject
 {
@@ -613,6 +618,37 @@ private:
     int m_currentBPM;
     QElapsedTimer *m_beatTime;
     AudioCapture *m_inputCapture;
+
+    /*********************************************************************
+     * Network server
+     *********************************************************************/
+public:
+    enum NetworkServerType
+    {
+        NativeServer,
+        WebServer
+    };
+
+    void setNetworkServerType(NetworkServerType type);
+    NetworkServerType networkServerType() const;
+
+    QString networkServerTypeToString(NetworkServerType type) const;
+    NetworkServerType stringToNetworkServerType(const QString &str) const;
+
+    void setNetworkServerAutoStart(bool enable);
+    bool networkServerAutoStart() const;
+
+    void setNetworkServerName(QString name);
+    QString networkServerName() const;
+
+    void setNetworkServerPassword(QString password);
+    QString networkServerPassword() const;
+
+private:
+    NetworkServerType m_networkServerType;
+    bool m_networkServerAutoStart;
+    QString m_networkServerName;
+    QString m_networkServerPassword;
 
     /*********************************************************************
      * Defaults

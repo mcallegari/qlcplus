@@ -89,13 +89,20 @@ WebAccessBase::WebAccessBase(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *s
 
 WebAccessBase::~WebAccessBase()
 {
+    closeServer();
+
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     delete m_netConfig;
 #endif
-    foreach (QHttpConnection *conn, m_webSocketsList)
-        delete conn;
+    m_webSocketsList.clear();
 
     delete m_auth;
+}
+
+void WebAccessBase::closeServer()
+{
+    if (m_httpServer != nullptr)
+        m_httpServer->close();
 }
 
 bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString contentType) const

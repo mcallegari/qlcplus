@@ -24,7 +24,7 @@
 #include <QQmlApplicationEngine>
 
 #include "app.h"
-#include "webaccess-qml.h"
+#include "networkmanager.h"
 #include "qlcfile.h"
 #include "qlcconfig.h"
 
@@ -131,8 +131,8 @@ int main(int argc, char *argv[])
     int webAccessPort = parser.value(webPortOption).toInt();
     QString webAccessPasswordFile = parser.value(webAuthFileOption);
 
-    // 3D enablement
 #if !defined Q_OS_ANDROID
+    // 3D enablement
     if (!parser.isSet(threedSupportOption))
     {
         QSurfaceFormat format;
@@ -189,26 +189,6 @@ int main(int argc, char *argv[])
 
     qlcplusApp.startup();
 
-    if (enableWebAccess)
-    {
-        WebAccessQml *webAccess = new WebAccessQml(qlcplusApp.doc(),
-                                                   qlcplusApp.virtualConsole(),
-                                                   qlcplusApp.simpleDesk(),
-                                                   webAccessPort,
-                                                   enableWebAuth,
-                                                   webAccessPasswordFile,
-                                                   &qlcplusApp);
-
-        QObject::connect(webAccess, &WebAccessQml::loadProject, &qlcplusApp,
-                         [&qlcplusApp](const QByteArray &xmlData)
-        {
-            QByteArray xmlCopy = xmlData;
-            qlcplusApp.slotLoadDocFromMemory(xmlCopy);
-        });
-        QObject::connect(webAccess, &WebAccessQml::storeAutostartProject,
-                         &qlcplusApp, &App::slotSaveAutostart);
-    }
-
     // open file
     QString filename;
     QStringList posArgs = parser.positionalArguments();
@@ -226,6 +206,15 @@ int main(int argc, char *argv[])
     // open last file
     if (parser.isSet(openLastOption))
         qlcplusApp.loadLastWorkspace();
+
+    if (enableWebAccess && qlcplusApp.networkManager() != nullptr)
+    {
+        qlcplusApp.networkManager()->setWebServerConfiguration(webAccessPort, enableWebAuth,
+                                                               webAccessPasswordFile);
+        qlcplusApp.networkManager()->setServerType(NetworkManager::WebServer);
+        if (qlcplusApp.networkManager()->serverStarted() == false)
+            qlcplusApp.networkManager()->startServer();
+    }
 
     // fullscreen mode
     if (parser.isSet(fullscreenOption))

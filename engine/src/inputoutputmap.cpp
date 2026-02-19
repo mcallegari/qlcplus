@@ -50,6 +50,8 @@ InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
     , m_localProfilesLoaded(false)
     , m_currentBPM(0)
     , m_beatTime(new QElapsedTimer())
+    , m_networkServerType(NativeServer)
+    , m_networkServerAutoStart(false)
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
@@ -1154,6 +1156,64 @@ void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar val
 }
 
 /*********************************************************************
+ * Network server
+ *********************************************************************/
+
+void InputOutputMap::setNetworkServerType(InputOutputMap::NetworkServerType type)
+{
+    m_networkServerType = type;
+}
+
+InputOutputMap::NetworkServerType InputOutputMap::networkServerType() const
+{
+    return m_networkServerType;
+}
+
+QString InputOutputMap::networkServerTypeToString(InputOutputMap::NetworkServerType type) const
+{
+    if (type == WebServer)
+        return "Web";
+    return "Native";
+}
+
+InputOutputMap::NetworkServerType InputOutputMap::stringToNetworkServerType(const QString &str) const
+{
+    if (str.compare("Web", Qt::CaseInsensitive) == 0)
+        return WebServer;
+    return NativeServer;
+}
+
+void InputOutputMap::setNetworkServerAutoStart(bool enable)
+{
+    m_networkServerAutoStart = enable;
+}
+
+bool InputOutputMap::networkServerAutoStart() const
+{
+    return m_networkServerAutoStart;
+}
+
+void InputOutputMap::setNetworkServerName(QString name)
+{
+    m_networkServerName = name;
+}
+
+QString InputOutputMap::networkServerName() const
+{
+    return m_networkServerName;
+}
+
+void InputOutputMap::setNetworkServerPassword(QString password)
+{
+    m_networkServerPassword = password;
+}
+
+QString InputOutputMap::networkServerPassword() const
+{
+    return m_networkServerPassword;
+}
+
+/*********************************************************************
  * Defaults - !! FALLBACK !!
  *********************************************************************/
 
@@ -1342,6 +1402,31 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
 
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLIONetworkServer)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+            NetworkServerType type = NativeServer;
+
+            if (attrs.hasAttribute(KXMLIONetworkType))
+                type = stringToNetworkServerType(attrs.value(KXMLIONetworkType).toString());
+            setNetworkServerType(type);
+
+            if (attrs.hasAttribute(KXMLIONetworkAutoStart))
+                setNetworkServerAutoStart(attrs.value(KXMLIONetworkAutoStart) == KXMLQLCTrue);
+
+            if (type == NativeServer)
+            {
+                setNetworkServerName(attrs.value(KXMLIONetworkName).toString());
+                setNetworkServerPassword(attrs.value(KXMLIONetworkPassword).toString());
+            }
+            else
+            {
+                setNetworkServerName(QString());
+                setNetworkServerPassword(QString());
+            }
+
+            root.skipCurrentElement();
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown IO Map tag:" << root.name();
@@ -1362,6 +1447,16 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLIOBeatGenerator);
     doc->writeAttribute(KXMLIOBeatType, beatTypeToString(m_beatGeneratorType));
     doc->writeAttribute(KXMLIOBeatsPerMinute, QString::number(m_currentBPM));
+    doc->writeEndElement();
+
+    doc->writeStartElement(KXMLIONetworkServer);
+    doc->writeAttribute(KXMLIONetworkType, networkServerTypeToString(m_networkServerType));
+    doc->writeAttribute(KXMLIONetworkAutoStart, m_networkServerAutoStart ? KXMLQLCTrue : KXMLQLCFalse);
+    if (m_networkServerType == NativeServer)
+    {
+        doc->writeAttribute(KXMLIONetworkName, m_networkServerName);
+        doc->writeAttribute(KXMLIONetworkPassword, m_networkServerPassword);
+    }
     doc->writeEndElement();
 
     foreach (Universe *uni, m_universeArray)

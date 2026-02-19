@@ -45,6 +45,7 @@ class WebAccessBase : public QObject
     Q_OBJECT
 public:
     virtual ~WebAccessBase();
+    void closeServer();
 
 protected:
     enum class CommonRequestResult
