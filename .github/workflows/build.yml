@@ -591,9 +591,6 @@ jobs:
           BIN_DIR=$APP_DIR/Contents/MacOS
           ENTITLEMENTS="platforms/macos/qlcplus.entitlements"
 
-          codesign --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp --deep \
-            --entitlements "$ENTITLEMENTS" --options runtime "$APP_DIR"
-
           if [ -f "$BIN_DIR/qlcplus" ]; then
             codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
               --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus"
