@@ -464,6 +464,9 @@ jobs:
       MACOS_CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
       MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
       MACOS_CODESIGN_IDENTITY: ${{ secrets.MACOS_CODESIGN_IDENTITY }}
+      MACOS_NOTARY_KEY_P8: ${{ secrets.MACOS_NOTARY_KEY_P8 }}
+      MACOS_NOTARY_KEY_ID: ${{ secrets.MACOS_NOTARY_KEY_ID }}
+      MACOS_NOTARY_ISSUER: ${{ secrets.MACOS_NOTARY_ISSUER }}
 
     steps:
       - name: Checkout
@@ -586,26 +589,7 @@ jobs:
         run: |-
           APP_DIR=~/QLC+.app
           BIN_DIR=$APP_DIR/Contents/MacOS
-          QML_DIR=$APP_DIR/Contents/Resources/qml
           ENTITLEMENTS="platforms/macos/qlcplus.entitlements"
-
-          if [ -d "$APP_DIR/Contents/Frameworks" ]; then
-            find "$APP_DIR/Contents/Frameworks" -type f | while read -r file; do
-              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp "$file"
-            done
-          fi
-
-          if [ -d "$APP_DIR/Contents/PlugIns" ]; then
-            find "$APP_DIR/Contents/PlugIns" -type f -name "*.dylib" | while read -r file; do
-              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp "$file"
-            done
-          fi
-
-          if [ -d "$QML_DIR" ]; then
-            find "$QML_DIR" -type f -name "*.dylib" | while read -r file; do
-              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp "$file"
-            done
-          fi
 
           codesign --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp --deep \
             --entitlements "$ENTITLEMENTS" --options runtime "$APP_DIR"
@@ -645,6 +629,20 @@ jobs:
             --codesign "${{ env.MACOS_CODESIGN_IDENTITY }}" \
             $OUTDIR/QLC+_${{ matrix.task }}.dmg \
             ~/QLC+.app
+
+      - name: Notarize and staple DMG
+        shell: bash
+        if: ${{ env.MACOS_NOTARY_KEY_P8 != '' }}
+        run: |-
+          DMG_PATH="QLC+_${{ matrix.task }}.dmg"
+          echo "${MACOS_NOTARY_KEY_P8}" > /tmp/AuthKey.p8
+          xcrun notarytool submit \
+            --key /tmp/AuthKey.p8 \
+            --key-id "${MACOS_NOTARY_KEY_ID}" \
+            --issuer "${MACOS_NOTARY_ISSUER}" \
+            --wait "${DMG_PATH}"
+          xcrun stapler staple "${DMG_PATH}"
+          rm -f /tmp/AuthKey.p8
 
       - name: Store DMG artifact
         uses: actions/upload-artifact@v4
