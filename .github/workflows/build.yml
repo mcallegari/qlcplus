@@ -533,19 +533,20 @@ jobs:
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
-        if: false
+        with:
+          key: ${{ github.job }}-${{ matrix.task }}
 
       - name: Configure v4 build
         shell: bash
         if: ${{ matrix.task == 'build-v4' }}
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Configure v5 build
         shell: bash
         if: ${{ matrix.task == 'build-v5' }}
         run: |-
-          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -Dqmlui=ON
+          cmake -S . -B build -DCMAKE_PREFIX_PATH="${{ env.QTDIR }}/lib/cmake" -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 -Dqmlui=ON -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 
       - name: Build
         shell: bash
@@ -582,26 +583,6 @@ jobs:
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-qml
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app -qmldir=qmlui/qml
-
-      - name: Sign macOS app bundle
-        shell: bash
-        if: ${{ env.MACOS_CODESIGN_IDENTITY != '' }}
-        run: |-
-          APP_DIR=~/QLC+.app
-          BIN_DIR=$APP_DIR/Contents/MacOS
-          ENTITLEMENTS="platforms/macos/qlcplus.entitlements"
-
-          if [ -f "$BIN_DIR/qlcplus" ]; then
-            codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
-              --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus"
-            if [ -f "$BIN_DIR/qlcplus-launcher" ]; then
-              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
-                --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus-launcher"
-            fi
-          else
-            codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
-              --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus-qml"
-          fi
 
       - name: Create DMG
         # Use retry loop to work around a race condition on macOS causing
