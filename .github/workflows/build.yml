@@ -459,6 +459,11 @@ jobs:
       CI_BRANCH: ${{ github.head_ref }}
       CI_PULL_REQUEST: ${{ github.event.number }}
       QT_VERSION: "6.9.3"
+      MACOS_KEYCHAIN: build.keychain
+      MACOS_KEYCHAIN_PASSWORD: ${{ secrets.MACOS_KEYCHAIN_PASSWORD }}
+      MACOS_CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+      MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+      MACOS_CODESIGN_IDENTITY: ${{ secrets.MACOS_CODESIGN_IDENTITY }}
 
     steps:
       - name: Checkout
@@ -510,6 +515,18 @@ jobs:
           target: 'desktop'
           arch: 'clang_64'
           modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
+
+      - name: Import macOS signing certificate
+        shell: bash
+        if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
+        run: |
+          echo "${MACOS_CERT_P12}" | base64 --decode > /tmp/macos_cert.p12
+          security create-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          security default-keychain -s "${MACOS_KEYCHAIN}"
+          security unlock-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          security import /tmp/macos_cert.p12 -k "${MACOS_KEYCHAIN}" -P "${MACOS_CERT_PASSWORD}" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple: -s -k "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
+          rm -f /tmp/macos_cert.p12
 
       - name: Setup ccache
         uses: hendrikmuhs/ccache-action@v1.2
@@ -563,6 +580,48 @@ jobs:
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-qml
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app -qmldir=qmlui/qml
 
+      - name: Sign macOS app bundle
+        shell: bash
+        if: ${{ env.MACOS_CODESIGN_IDENTITY != '' }}
+        run: |-
+          APP_DIR=~/QLC+.app
+          BIN_DIR=$APP_DIR/Contents/MacOS
+          QML_DIR=$APP_DIR/Contents/Resources/qml
+          ENTITLEMENTS="platforms/macos/qlcplus.entitlements"
+
+          if [ -d "$APP_DIR/Contents/Frameworks" ]; then
+            find "$APP_DIR/Contents/Frameworks" -type f | while read -r file; do
+              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp "$file"
+            done
+          fi
+
+          if [ -d "$APP_DIR/Contents/PlugIns" ]; then
+            find "$APP_DIR/Contents/PlugIns" -type f -name "*.dylib" | while read -r file; do
+              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp "$file"
+            done
+          fi
+
+          if [ -d "$QML_DIR" ]; then
+            find "$QML_DIR" -type f -name "*.dylib" | while read -r file; do
+              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp "$file"
+            done
+          fi
+
+          codesign --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp --deep \
+            --entitlements "$ENTITLEMENTS" --options runtime "$APP_DIR"
+
+          if [ -f "$BIN_DIR/qlcplus" ]; then
+            codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
+              --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus"
+            if [ -f "$BIN_DIR/qlcplus-launcher" ]; then
+              codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
+                --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus-launcher"
+            fi
+          else
+            codesign --force --sign "${MACOS_CODESIGN_IDENTITY}" --timestamp \
+              --entitlements "$ENTITLEMENTS" --options runtime "$BIN_DIR/qlcplus-qml"
+          fi
+
       - name: Create DMG
         # Use retry loop to work around a race condition on macOS causing
         # 'Resource busy' errors with 'hdiutil'. See
@@ -583,6 +642,7 @@ jobs:
             --icon-size 64 \
             --icon "QLC+" 0 150 \
             --app-drop-link 200 150 \
+            --codesign "${{ env.MACOS_CODESIGN_IDENTITY }}" \
             $OUTDIR/QLC+_${{ matrix.task }}.dmg \
             ~/QLC+.app
 
