@@ -922,6 +922,8 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (current != nullptr)
     {
         /* Get rid of old function connections */
+        disconnect(current, SIGNAL(running(quint32)),
+                this, SLOT(slotControlledFunctionRunning(quint32)));
         disconnect(current, SIGNAL(stopped(quint32)),
                 this, SLOT(slotControlledFunctionStopped(quint32)));
         disconnect(current, SIGNAL(attributeChanged(int,qreal)),
@@ -938,6 +940,8 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (function != nullptr)
     {
         /* Connect to the new function */
+        connect(function, SIGNAL(running(quint32)),
+                this, SLOT(slotControlledFunctionRunning(quint32)));
         connect(function, SIGNAL(stopped(quint32)),
                 this, SLOT(slotControlledFunctionStopped(quint32)));
         connect(function, SIGNAL(attributeChanged(int,qreal)),
@@ -1015,6 +1019,17 @@ void VCSlider::slotControlledFunctionStopped(quint32 fid)
     }
 }
 
+void VCSlider::slotControlledFunctionRunning(quint32 fid)
+{
+    if (fid != controlledFunction())
+        return;
+
+    // When the controlled function starts (externally or otherwise), immediately
+    // apply the override attribute at the current slider value so the function
+    // honours the slider position from the very first tick.
+    m_adjustChangeCounter++;
+}
+
 int VCSlider::controlledAttribute() const
 {
     return m_controlledAttributeIndex;
@@ -1050,8 +1065,8 @@ void VCSlider::setControlledAttribute(int attributeIndex)
         newValue = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
-    setRangeLowLimit(qMax(m_attributeMinValue, rangeLowLimit()));
-    setRangeHighLimit(qMin(m_attributeMaxValue, rangeHighLimit()));
+    setRangeLowLimit(m_attributeMinValue);
+    setRangeHighLimit(m_attributeMaxValue);
 
     emit controlledAttributeChanged(attributeIndex);
     emit attributeMinValueChanged();

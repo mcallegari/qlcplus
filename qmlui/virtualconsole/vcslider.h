@@ -393,6 +393,7 @@ signals:
 protected slots:
     void slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction);
     void slotControlledFunctionStopped(quint32 fid);
+    void slotControlledFunctionRunning(quint32 fid);
 
 protected:
     quint32 m_controlledFunctionId;
