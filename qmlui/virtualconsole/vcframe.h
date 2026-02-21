@@ -290,8 +290,15 @@ protected slots:
     /*********************************************************************
      * Submasters
      *********************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal intensity) override;
+
 protected slots:
-    void slotSubmasterValueChanged(qreal value);
+    void slotSubmasterValueChanged(qreal submasterValue);
+
+private:
+    qreal m_submasterValue;
 
     /*********************************************************************
      * External input

@@ -50,6 +50,7 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_pagesLoop(false)
     , m_PIN(0)
     , m_validatedPIN(false)
+    , m_submasterValue(1)
 {
     setType(VCWidget::FrameWidget);
     setTotalPagesNumber(1);
@@ -942,16 +943,44 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
  * Submasters
  *********************************************************************/
 
-void VCFrame::slotSubmasterValueChanged(qreal value)
+void VCFrame::adjustIntensity(qreal intensity)
 {
-    qDebug() << Q_FUNC_INFO << "val:" << value;
+    VCWidget::adjustIntensity(intensity);
+
+    if (isDisabled())
+        return;
+
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child != nullptr && child->parent() == this)
+        {
+            if (child->type() == WidgetType::SliderWidget)
+            {
+                VCSlider* slider = reinterpret_cast<VCSlider*>(child);
+                if (slider != nullptr && slider->sliderMode() == VCSlider::SliderMode::Submaster)
+                    continue;
+            }
+
+            child->adjustIntensity(m_submasterValue * intensity);
+        }
+    }
+}
+
+void VCFrame::slotSubmasterValueChanged(qreal submasterValue)
+{
+    qDebug() << Q_FUNC_INFO << "val:" << submasterValue;
+
+    m_submasterValue = submasterValue;
+
     VCSlider *submaster = qobject_cast<VCSlider *>(sender());
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        if (child->parent() == this && child != submaster)
-            child->adjustIntensity(value);
+        if (child != nullptr && child->parent() == this && child != submaster)
+            child->adjustIntensity(submasterValue * intensity());
     }
 }
 
