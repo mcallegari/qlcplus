@@ -183,6 +183,7 @@ void Doc::clearContents()
     m_orderedGroups.clear();
 
     m_latestFunctionId = 0;
+    m_startupFunctionId = Function::invalidId();
     m_latestFixtureId = 0;
     m_latestFixtureGroupId = 0;
     m_latestChannelsGroupId = 0;
