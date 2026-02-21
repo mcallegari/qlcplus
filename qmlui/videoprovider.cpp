@@ -262,7 +262,11 @@ void VideoContent::stopContent()
     if (m_viewContext == nullptr)
         return;
 
-    QMetaObject::invokeMethod(m_viewContext->rootObject(), "removeContent",
+    QQuickItem *root = m_viewContext->rootObject();
+    if (root == nullptr)
+        return;
+
+    QMetaObject::invokeMethod(root, "removeContent",
                               Q_ARG(QVariant, m_video->id()));
 }
 
@@ -311,6 +315,9 @@ QVariant VideoContent::getAttribute(quint32 id, const char *propName)
 
 void VideoContent::updateAttribute(quint32 id, const char *propName, QVariant value)
 {
+    if (m_viewContext == nullptr)
+        return;
+
     QQuickItem *item = qobject_cast<QQuickItem*>(m_viewContext->findChild<QQuickItem*>(QString("media-%1").arg(id)));
     if (item)
         item->setProperty(propName, value);
@@ -348,6 +355,8 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
         break;
         case Video::XPosition:
         {
+            if (m_viewContext == nullptr)
+                break;
             qreal xDelta = qreal(m_viewContext->width()) * (value / 100.0);
             QVariant var = getAttribute(m_video->id(), "geometry");
             QRect currGeom = var.isNull() ? m_geometry : var.toRect();
@@ -358,6 +367,8 @@ void VideoContent::slotAttributeChanged(int attrIndex, qreal value)
         break;
         case Video::YPosition:
         {
+            if (m_viewContext == nullptr)
+                break;
             qreal yDelta = qreal(m_viewContext->height()) * (value / 100.0);
             QVariant var = getAttribute(m_video->id(), "geometry");
             QRect currGeom = var.isNull() ? m_geometry : var.toRect();
