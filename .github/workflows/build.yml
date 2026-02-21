@@ -520,9 +520,8 @@ jobs:
           modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
       - name: Import macOS signing certificate
-        if: false
         shell: bash
-        if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
+        if: false # ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
         run: |
           echo "${MACOS_CERT_P12}" | base64 --decode > /tmp/macos_cert.p12
           security create-keychain -p "${MACOS_KEYCHAIN_PASSWORD}" "${MACOS_KEYCHAIN}"
@@ -609,9 +608,8 @@ jobs:
             ~/QLC+.app
 
       - name: Notarize and staple DMG
-        if: false
         shell: bash
-        if: ${{ env.MACOS_NOTARY_KEY_P8 != '' }}
+        if: false # ${{ env.MACOS_NOTARY_KEY_P8 != '' }}
         run: |-
           DMG_PATH="QLC+_${{ matrix.task }}.dmg"
           echo "${MACOS_NOTARY_KEY_P8}" > /tmp/AuthKey.p8
