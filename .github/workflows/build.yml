@@ -520,6 +520,7 @@ jobs:
           modules: 'qt3d qtimageformats qtmultimedia qtserialport qtwebsockets'
 
       - name: Import macOS signing certificate
+        if: false
         shell: bash
         if: ${{ env.MACOS_CERT_P12 != '' && env.MACOS_CODESIGN_IDENTITY != '' }}
         run: |
@@ -604,11 +605,11 @@ jobs:
             --icon-size 64 \
             --icon "QLC+" 0 150 \
             --app-drop-link 200 150 \
-            --codesign "${{ env.MACOS_CODESIGN_IDENTITY }}" \
             $OUTDIR/QLC+_${{ matrix.task }}.dmg \
             ~/QLC+.app
 
       - name: Notarize and staple DMG
+        if: false
         shell: bash
         if: ${{ env.MACOS_NOTARY_KEY_P8 != '' }}
         run: |-
