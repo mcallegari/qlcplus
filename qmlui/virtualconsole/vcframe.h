@@ -298,6 +298,9 @@ protected slots:
     void slotSubmasterValueChanged(qreal submasterValue);
 
 private:
+    void applySubmasterValue(qreal submasterValue, VCWidget *submaster = nullptr);
+
+private:
     qreal m_submasterValue;
 
     /*********************************************************************

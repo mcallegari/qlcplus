@@ -76,6 +76,7 @@ void VCFrame::initializeProperties()
     setPagesLoop(false);
     m_PIN = 0;
     m_validatedPIN = false;
+    m_submasterValue = 1;
 }
 
 QString VCFrame::defaultCaption() const
@@ -599,6 +600,13 @@ void VCFrame::setupWidget(VCWidget *widget, int page)
         widget->setupLookAndFeel(m_vc->pixelDensity(), page);
 
     addWidgetToPageMap(widget);
+
+    if (widget->type() != VCWidget::SliderWidget ||
+            qobject_cast<VCSlider *>(widget)->sliderMode() != VCSlider::SliderMode::Submaster)
+    {
+        widget->adjustIntensity(m_submasterValue * intensity());
+    }
+
     checkSubmasterConnection(widget);
 }
 
@@ -611,6 +619,12 @@ void VCFrame::checkSubmasterConnection(VCWidget *widget)
         // always connect a slider in case it emits a submaster signal
         connect(slider, SIGNAL(submasterValueChanged(qreal)),
                 this, SLOT(slotSubmasterValueChanged(qreal)));
+
+        if (slider->sliderMode() == VCSlider::SliderMode::Submaster)
+        {
+            qreal value = qreal(slider->value()) / qreal(UCHAR_MAX);
+            applySubmasterValue(value * slider->intensity(), slider);
+        }
     }
 }
 
@@ -971,10 +985,13 @@ void VCFrame::adjustIntensity(qreal intensity)
 void VCFrame::slotSubmasterValueChanged(qreal submasterValue)
 {
     qDebug() << Q_FUNC_INFO << "val:" << submasterValue;
+    applySubmasterValue(submasterValue, qobject_cast<VCWidget *>(sender()));
+}
 
+void VCFrame::applySubmasterValue(qreal submasterValue, VCWidget *submaster)
+{
     m_submasterValue = submasterValue;
 
-    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
