@@ -65,6 +65,11 @@ void VideoProvider::shutdown()
     }
 }
 
+QQuickView *VideoProvider::view() const
+{
+    return m_view;
+}
+
 QQuickView *VideoProvider::fullscreenContext()
 {
     return m_fullscreenContext;
@@ -223,15 +228,30 @@ void VideoContent::playContent()
         m_viewContext->rootContext()->setContextProperty("videoContent", this);
     }
 
+    uint fadeIn  = m_video->overrideFadeInSpeed()  != Function::defaultSpeed() ? m_video->overrideFadeInSpeed()  : m_video->fadeInSpeed();
+    uint fadeOut = m_video->overrideFadeOutSpeed() != Function::defaultSpeed() ? m_video->overrideFadeOutSpeed() : m_video->fadeOutSpeed();
+    if (fadeIn == Function::defaultSpeed() || fadeIn == Function::infiniteSpeed())
+        fadeIn = 0;
+    if (fadeOut == Function::defaultSpeed() || fadeOut == Function::infiniteSpeed())
+        fadeOut = 0;
+
+    QQuickItem *root = m_viewContext->rootObject();
+    if (root == nullptr)
+        return;
+
     if (m_video->isPicture())
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture",
-                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(root, "addPicture",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)),
+                                  Q_ARG(QVariant, (int)fadeIn),
+                                  Q_ARG(QVariant, (int)fadeOut));
     }
     else
     {
-        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
-                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+        QMetaObject::invokeMethod(root, "addVideo",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)),
+                                  Q_ARG(QVariant, (int)fadeIn),
+                                  Q_ARG(QVariant, (int)fadeOut));
     }
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
@@ -244,7 +264,13 @@ void VideoContent::playContent()
         m_viewContext->showFullScreen();
     }
     else
+    {
         m_viewContext->show();
+        // Restore focus to the main QLC+ window so that VC interactions
+        // (e.g. a slider that started this video) remain active.
+        if (m_provider->view() != nullptr)
+            m_provider->view()->requestActivate();
+    }
 }
 
 void VideoContent::pauseContent(bool enable)
@@ -252,7 +278,11 @@ void VideoContent::pauseContent(bool enable)
     if (m_viewContext == nullptr)
         return;
 
-    QMetaObject::invokeMethod(m_viewContext->rootObject(), "pauseContent",
+    QQuickItem *root = m_viewContext->rootObject();
+    if (root == nullptr)
+        return;
+
+    QMetaObject::invokeMethod(root, "pauseContent",
                               Q_ARG(QVariant, m_video->id()),
                               Q_ARG(QVariant, enable));
 }
@@ -306,6 +336,9 @@ void VideoContent::slotDetectResolution()
 
 QVariant VideoContent::getAttribute(quint32 id, const char *propName)
 {
+    if (m_viewContext == nullptr)
+        return QVariant();
+
     QQuickItem *item = qobject_cast<QQuickItem*>(m_viewContext->findChild<QQuickItem*>(QString("media-%1").arg(id)));
     if (item)
         return item->property(propName);
@@ -424,5 +457,10 @@ void VideoContent::slotMetaDataChanged()
 
 void VideoContent::slotWindowClosing()
 {
-    stopContent();
+    m_viewContext = nullptr;
+
+    // Window teardown can race with scene graph/root object destruction.
+    // Request function stop through the engine path instead of touching QML.
+    if (m_video && m_video->isRunning())
+        m_video->stopFromUI();
 }

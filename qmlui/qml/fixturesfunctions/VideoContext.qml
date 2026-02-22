@@ -35,20 +35,36 @@ Rectangle
     property var mediaArray: []
     property var mediaItems: []
 
-    function addVideo(vContent)
+    Keys.onEscapePressed: stopAllContentFromUI()
+
+    function addVideo(vContent, fadeIn, fadeOut)
     {
-        var item = videoComponent.createObject(ctxRoot, { "video": vContent });
+        var item = videoComponent.createObject(ctxRoot,
+                                               { "video": vContent,
+                                                 "fadeIn": (fadeIn > 0 ? fadeIn : 0),
+                                                 "fadeOut": (fadeOut > 0 ? fadeOut : 0) });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
+
+        if (item.fadeIn > 0)
+            item.requestFadeIn(item.fadeIn)
+
         mediaArray.push(vContent.id)
         mediaItems.push(item)
     }
 
-    function addPicture(pContent)
+    function addPicture(pContent, fadeIn, fadeOut)
     {
-        var item = pictureComponent.createObject(ctxRoot, { "picture": pContent });
+        var item = pictureComponent.createObject(ctxRoot,
+                                                 { "picture": pContent,
+                                                   "fadeIn": (fadeIn > 0 ? fadeIn : 0),
+                                                   "fadeOut": (fadeOut > 0 ? fadeOut : 0) });
         if (pictureComponent.status !== Component.Ready)
             console.log("Picture component is not ready !!")
+
+        if (item.fadeIn > 0)
+            item.requestFadeIn(item.fadeIn)
+
         mediaArray.push(pContent.id)
         mediaItems.push(item)
     }
@@ -65,31 +81,76 @@ Rectangle
         }
     }
 
-    function removeContent(id)
+    function cleanupItem(item)
     {
-        var cIdx = mediaArray.indexOf(id)
+        var cIdx = mediaItems.indexOf(item)
         if (cIdx > -1)
         {
+            var id = mediaArray[cIdx]
             mediaItems[cIdx].stopPlayback()
             mediaItems[cIdx].destroy()
             mediaArray.splice(cIdx, 1)
             mediaItems.splice(cIdx, 1)
         }
 
-        console.log("Removing content with ID: " + id + ", count: " + mediaArray.length)
-
-        if (mediaArray.length == 0)
+        if (mediaArray.length === 0)
             videoContent.destroyContext()
+    }
+
+    function removeContent(id)
+    {
+        var cIdx = mediaArray.indexOf(id)
+        if (cIdx === -1)
+            return
+
+        var item = mediaItems[cIdx]
+        if (item.removalRequested)
+            return
+
+        item.removalRequested = true
+        if (item.fadeOut > 0)
+            item.requestFadeOut(item.fadeOut)
+        else
+            cleanupItem(item)
+    }
+
+    function cleanupContent(id)
+    {
+        var cIdx = mediaArray.indexOf(id)
+        if (cIdx > -1)
+            cleanupItem(mediaItems[cIdx])
+    }
+
+    function stopAllContentFromUI()
+    {
+        // Iterate over a copy because stopFromUI() triggers async removal.
+        var items = mediaItems.slice()
+        for (var i = 0; i < items.length; i++)
+        {
+            var item = items[i]
+            if (item && item.video)
+                item.video.stopFromUI()
+            else if (item && item.picture)
+                item.picture.stopFromUI()
+        }
     }
 
     function translateUrl(url)
     {
         if (url.indexOf("://") !== -1)
             return url
-        if (Qt.platform.os == "windows")
+
+        if (Qt.platform.os === "windows")
             return "file:///" + url
         else
             return "file://" + url
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        acceptedButtons: Qt.AllButtons
+        onPressed: ctxRoot.forceActiveFocus()
     }
 
     // Component representing a video content
@@ -99,15 +160,66 @@ Rectangle
 
         Rectangle
         {
+            id: mediaRect
             objectName: "media-" + video.id
             color: "black"
-            opacity: video ? video.intensity : 1.0
+            opacity: video ? effectiveIntensity * fadeMultiplier : 1.0
             z: video ? video.zIndex : 1
 
             property VideoFunction video: null
             property alias volume: player.audioOutput.volume
             property vector3d rotation: video.rotation
             property rect geometry: video.customGeometry
+            property int fadeIn: 0
+            property int fadeOut: 0
+            property real fadeMultiplier: 1.0
+            property int fadeState: 0 // 0 idle, 1 fade in, 2 fade out
+            property bool removalRequested: false
+            property real frozenIntensity: -1.0
+            property real effectiveIntensity: (fadeState === 2 && frozenIntensity >= 0.0) ?
+                                                  frozenIntensity :
+                                                  (video ? video.intensity : 1.0)
+
+            function requestFadeIn(duration)
+            {
+                if (fadeState === 1)
+                    return
+
+                if (duration <= 0)
+                {
+                    fadeState = 0
+                    fadeMultiplier = 1.0
+                    return
+                }
+
+                fadeState = 1
+                frozenIntensity = -1.0
+                fadeMultiplier = 0.0
+                fadeAnim.to = 1.0
+                fadeAnim.duration = duration
+                fadeAnim.start()
+            }
+
+            function requestFadeOut(duration)
+            {
+                if (fadeState === 2)
+                    return
+
+                if (duration <= 0)
+                {
+                    frozenIntensity = video ? video.intensity : 1.0
+                    fadeState = 0
+                    fadeMultiplier = 0.0
+                    ctxRoot.cleanupItem(mediaRect)
+                    return
+                }
+
+                frozenIntensity = video ? video.intensity : 1.0
+                fadeState = 2
+                fadeAnim.to = 0.0
+                fadeAnim.duration = duration
+                fadeAnim.start()
+            }
 
             function stopPlayback()
             {
@@ -122,6 +234,20 @@ Rectangle
             function resumePlayback()
             {
                 player.play()
+            }
+
+            NumberAnimation on fadeMultiplier
+            {
+                id: fadeAnim
+                running: false
+                onStopped:
+                {
+                    var state = mediaRect.fadeState
+                    mediaRect.fadeState = 0
+                    mediaRect.frozenIntensity = -1.0
+                    if (state === 2)
+                        ctxRoot.cleanupItem(mediaRect)
+                }
             }
 
             onVideoChanged:
@@ -140,7 +266,6 @@ Rectangle
                     anchors.fill = parent
 
                 player.source = translateUrl(video.sourceUrl)
-                console.log("QML video source: " + player.source)
             }
 
             transform: [
@@ -173,7 +298,7 @@ Rectangle
                 autoPlay: true
                 audioOutput:
                     AudioOutput {
-                        volume: video.intensity
+                        volume: mediaRect.effectiveIntensity * mediaRect.fadeMultiplier
                     }
 
                 videoOutput: pVideoOutput
@@ -182,15 +307,13 @@ Rectangle
                 {
                     if (mediaStatus == MediaPlayer.EndOfMedia)
                     {
-                        if (video.runOrder === QLCFunction.Loop)
+                        if (mediaRect.video.runOrder === QLCFunction.Loop)
                         {
-                            console.log("Video loop")
                             player.play()
                         }
                         else
                         {
-                            console.log("Video stopped")
-                            video.stopFromUI()
+                            mediaRect.video.stopFromUI()
                         }
                     }
                 }
@@ -211,17 +334,82 @@ Rectangle
 
         Image
         {
+            id: pictureItem
             objectName: "media-" + picture.id
-            opacity: picture ? picture.intensity : 1
+            opacity: picture ? effectiveIntensity * fadeMultiplier : 1.0
             z: picture ? picture.zIndex : 1
 
             property VideoFunction picture: null
             property vector3d rotation: picture.rotation
             property rect geometry: picture.customGeometry
+            property int fadeIn: 0
+            property int fadeOut: 0
+            property real fadeMultiplier: 1.0
+            property int fadeState: 0 // 0 idle, 1 fade in, 2 fade out
+            property bool removalRequested: false
+            property real frozenIntensity: -1.0
+            property real effectiveIntensity: (fadeState === 2 && frozenIntensity >= 0.0) ?
+                                                  frozenIntensity :
+                                                  (picture ? picture.intensity : 1.0)
+
+            function requestFadeIn(duration)
+            {
+                if (fadeState === 1)
+                    return
+
+                if (duration <= 0)
+                {
+                    fadeState = 0
+                    fadeMultiplier = 1.0
+                    return
+                }
+
+                fadeState = 1
+                frozenIntensity = -1.0
+                fadeMultiplier = 0.0
+                picFadeAnim.to = 1.0
+                picFadeAnim.duration = duration
+                picFadeAnim.start()
+            }
+
+            function requestFadeOut(duration)
+            {
+                if (fadeState === 2)
+                    return
+
+                if (duration <= 0)
+                {
+                    frozenIntensity = picture ? picture.intensity : 1.0
+                    fadeState = 0
+                    fadeMultiplier = 0.0
+                    ctxRoot.cleanupItem(pictureItem)
+                    return
+                }
+
+                frozenIntensity = picture ? picture.intensity : 1.0
+                fadeState = 2
+                picFadeAnim.to = 0.0
+                picFadeAnim.duration = duration
+                picFadeAnim.start()
+            }
 
             function stopPlayback() { }
             function pausePlayback() { }
             function resumePlayback() { }
+
+            NumberAnimation on fadeMultiplier
+            {
+                id: picFadeAnim
+                running: false
+                onStopped:
+                {
+                    var state = pictureItem.fadeState
+                    pictureItem.fadeState = 0
+                    pictureItem.frozenIntensity = -1.0
+                    if (state === 2)
+                        ctxRoot.cleanupItem(pictureItem)
+                }
+            }
 
             onPictureChanged:
             {
@@ -239,7 +427,6 @@ Rectangle
                     anchors.fill = parent
 
                 source = translateUrl(picture.sourceUrl)
-                console.log("QML picture source: " + source)
             }
 
             transform: [
