@@ -29,17 +29,17 @@
         <translation>Número de canal</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="79"/>
+        <location filename="gpioconfiguration.cpp" line="89"/>
         <source>Not used</source>
         <translation>No usado</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="80"/>
+        <location filename="gpioconfiguration.cpp" line="90"/>
         <source>Input</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="81"/>
+        <location filename="gpioconfiguration.cpp" line="91"/>
         <source>Output</source>
         <translation>Salida</translation>
     </message>
@@ -47,7 +47,7 @@
 <context>
     <name>GPIOPlugin</name>
     <message>
-        <location filename="gpioplugin.cpp" line="105"/>
+        <location filename="gpioplugin.cpp" line="176"/>
         <source>This plugin provides input/output on GPIO PINs.</source>
         <translation>Este plugin provee entrada/salida en PINs GPIO.</translation>
     </message>
