@@ -166,17 +166,20 @@ quint32 VideoContent::id() const
 
 void VideoContent::destroyContext()
 {
+    // close() can emit closing() synchronously and invalidate m_viewContext.
+    QPointer<QQuickView> context = m_viewContext;
+    m_viewContext = nullptr;
+
     if (m_video->fullscreen())
     {
         m_provider->setFullscreenContext(nullptr);
     }
-    else if (m_viewContext)
+    else if (context)
     {
-        m_viewContext->close();
-        m_viewContext->deleteLater();
+        context->close();
+        if (context)
+            context->deleteLater();
     }
-
-    m_viewContext = nullptr;
 }
 
 void VideoContent::playContent()
