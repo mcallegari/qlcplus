@@ -634,3 +634,6 @@ install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${BINDIR}
 )
 
+if(LIBSSUBDIR)
+    set_target_properties(${module_name} PROPERTIES INSTALL_RPATH "${INSTALLROOT}/${LIBSDIR}")
+endif()
