@@ -174,7 +174,8 @@ Rectangle
                             Row
                             {
                                 width: barsList.width
-                                height: modelData.type === VCAudioTriggers.FunctionBar ? gridItemsHeight * 2 : gridItemsHeight
+                                height: modelData.type === VCAudioTriggers.FunctionBar ||
+                                        modelData.type === VCAudioTriggers.VCWidgetBar ? gridItemsHeight * 2 : gridItemsHeight
                                 spacing: 10
 
                                 RobotoText
@@ -231,6 +232,8 @@ Rectangle
                                                 sideLoader.source = "qrc:/FixtureGroupManager.qml"
                                             else if (modelData.type === VCAudioTriggers.FunctionBar)
                                                 sideLoader.source = "qrc:/FunctionManager.qml"
+                                            else if (modelData.type === VCAudioTriggers.VCWidgetBar)
+                                                sideLoader.source = "qrc:/VCWidgetsList.qml"
                                             barsList.currentChecked = this
                                             barsList.currentType = modelData.type
                                         }
@@ -283,6 +286,16 @@ Rectangle
                                         tLabel: func ? func.name : ""
                                         functionType: func ? func.type : -1
                                     }
+
+                                    IconTextEntry
+                                    {
+                                        visible: modelData.type === VCAudioTriggers.VCWidgetBar
+                                        y: gridItemsHeight
+                                        height: gridItemsHeight
+                                        width: parent.width
+                                        iSrc: modelData.iconVal ? modelData.iconVal : ""
+                                        tLabel: modelData.strVal ? modelData.strVal : ""
+                                    }
                                 }
                             }
 
@@ -319,6 +332,42 @@ Rectangle
                                     {
                                         barsList.currentChecked.checked = false
                                         widgetRef.setBarFunction(drag.source.itemsList[0])
+                                    }
+                                }
+                            }
+                        }
+
+                        Rectangle
+                        {
+                            id: addWidgetBox
+                            visible: barsList.currentType === VCAudioTriggers.VCWidgetBar
+                            anchors.fill: barsList
+                            color: addWidgetDrop.containsDrag ? UISettings.activeDropArea : UISettings.bgMedium
+                            opacity: 0.9
+                            radius: 10
+
+                            RobotoText
+                            {
+                                anchors.centerIn: parent
+                                label: qsTr("Drop a VC Widget here")
+                                labelColor: addWidgetDrop.containsDrag ? UISettings.bgStronger : UISettings.fgMain
+                                fontBold: addWidgetDrop.containsDrag ? true : false
+                            }
+
+                            DropArea
+                            {
+                                id: addWidgetDrop
+                                anchors.fill: parent
+
+                                keys: [ "audiotriggerswidget" ]
+
+                                onDropped:
+                                {
+                                    if (drag.source.hasOwnProperty("fromVCWidgetsList")
+                                            && drag.source.itemsList.length)
+                                    {
+                                        barsList.currentChecked.checked = false
+                                        widgetRef.setBarWidget(drag.source.itemsList[0])
                                     }
                                 }
                             }

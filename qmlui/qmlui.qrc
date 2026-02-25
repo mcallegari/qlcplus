@@ -231,6 +231,7 @@
     <file alias="WidgetDragItem.qml">qml/virtualconsole/WidgetDragItem.qml</file>
     <file alias="VCWidgetItem.qml">qml/virtualconsole/VCWidgetItem.qml</file>
     <file alias="VCWidgetProperties.qml">qml/virtualconsole/VCWidgetProperties.qml</file>
+    <file alias="VCWidgetsList.qml">qml/virtualconsole/VCWidgetsList.qml</file>
     <file alias="VCFrameItem.qml">qml/virtualconsole/VCFrameItem.qml</file>
     <file alias="VCFrameProperties.qml">qml/virtualconsole/VCFrameProperties.qml</file>
     <file alias="VCButtonItem.qml">qml/virtualconsole/VCButtonItem.qml</file>

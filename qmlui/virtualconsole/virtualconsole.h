@@ -85,6 +85,13 @@ public:
     /** Get a list of Widgets that use $fid */
     Q_INVOKABLE QVariantList usageList(quint32 fid);
 
+    /** Get a filtered list of VC widgets.
+     *  $typeFilters can contain VCWidget::WidgetType values.
+     *  If empty, all widgets are returned.
+     *  $excludeWidgetId can be used to skip a specific widget. */
+    Q_INVOKABLE QVariantList widgetsList(QVariantList typeFilters = QVariantList(),
+                                         quint32 excludeWidgetId = VCWidget::invalidId());
+
 signals:
     void editModeChanged(bool editMode);
     void snappingChanged(bool enable);

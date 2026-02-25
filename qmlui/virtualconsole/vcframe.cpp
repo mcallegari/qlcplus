@@ -320,7 +320,7 @@ VCWidget *VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         break;
         case AudioTriggersWidget:
         {
-            VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
+            VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(audioTrigger, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(audioTrigger);
             Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
@@ -1169,7 +1169,7 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
     else if (root.name() == KXMLQLCVCAudioTriggers)
     {
         /* Create a new clock into its parent */
-        VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, this);
+        VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, m_vc, this);
         if (audioTrigger->loadXML(root) == false)
             delete audioTrigger;
         else

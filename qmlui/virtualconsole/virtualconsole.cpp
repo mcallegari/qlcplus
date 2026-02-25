@@ -22,6 +22,8 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QQuickItem>
+#include <QSet>
+#include <algorithm>
 
 #include "virtualconsole.h"
 #include "contextmanager.h"
@@ -260,6 +262,45 @@ QVariantList VirtualConsole::usageList(quint32 fid)
         }
 
         ++i;
+    }
+
+    if (list.isEmpty())
+    {
+        QVariantMap noneMap;
+        noneMap.insert("label", tr("<None>"));
+        list.append(noneMap);
+    }
+
+    return list;
+}
+
+QVariantList VirtualConsole::widgetsList(QVariantList typeFilters, quint32 excludeWidgetId)
+{
+    QVariantList list;
+    QSet<int> filters;
+
+    for (const QVariant &type : typeFilters)
+        filters.insert(type.toInt());
+
+    QList<quint32> wIDs = m_widgetsMap.keys();
+    std::sort(wIDs.begin(), wIDs.end());
+
+    for (const quint32 wid : wIDs)
+    {
+        VCWidget *widget = m_widgetsMap.value(wid, nullptr);
+        if (widget == nullptr || widget->id() == excludeWidgetId)
+            continue;
+
+        if (!filters.isEmpty() && !filters.contains(widget->type()))
+            continue;
+
+        QVariantMap wMap;
+        wMap.insert("classRef", QVariant::fromValue(widget));
+        wMap.insert("id", widget->id());
+        wMap.insert("type", widget->type());
+        wMap.insert("label", widget->caption());
+        wMap.insert("icon", widgetIcon(widget->type()));
+        list.append(wMap);
     }
 
     if (list.isEmpty())

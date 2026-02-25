@@ -23,12 +23,17 @@
 
 #include "vcaudiotriggers.h"
 #include "fixturemanager.h"
+#include "virtualconsole.h"
 #include "treemodelitem.h"
 #include "fixtureutils.h"
 #include "audiocapture.h"
 #include "genericfader.h"
 #include "fadechannel.h"
+#include "vcspeeddial.h"
 #include "qlcmacros.h"
+#include "vccuelist.h"
+#include "vcbutton.h"
+#include "vcslider.h"
 #include "app.h"
 #include "doc.h"
 
@@ -50,8 +55,9 @@
 #define KXMLQLCAudioBarMaxThreshold QStringLiteral("MaxThreshold")
 #define KXMLQLCAudioBarDivisor      QStringLiteral("Divisor")
 
-VCAudioTriggers::VCAudioTriggers(Doc *doc, QObject *parent)
+VCAudioTriggers::VCAudioTriggers(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_vc(vc)
     , m_captureEnabled(false)
     , m_volumeLevel(100)
     , m_selectedBar(-1)
@@ -123,7 +129,7 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
 
-    VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, parent);
+    VCAudioTriggers *audioTrigger = new VCAudioTriggers(m_doc, m_vc, parent);
     if (audioTrigger->copyFrom(this) == false)
     {
         delete audioTrigger;
@@ -302,13 +308,24 @@ QVariantList VCAudioTriggers::barsInfo() const
         barMap.insert("type", bar.m_type);
 
         if (bar.m_type == VCAudioTriggers::DMXBar)
+        {
             barMap.insert("intVal", bar.m_dmxChannels.count());
+        }
         else if (bar.m_type == VCAudioTriggers::FunctionBar)
-            barMap.insert("intVal", bar.m_functionId);
+        {
+            barMap.insert("intVal", bar.m_functionId == Function::invalidId() ? -1 : int(bar.m_functionId));
+        }
         else if (bar.m_type == VCAudioTriggers::VCWidgetBar)
-            barMap.insert("intVal", bar.m_widgetId);
+        {
+            barMap.insert("intVal", bar.m_widgetId == VCWidget::invalidId() ? -1 : int(bar.m_widgetId));
+            VCWidget *widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
+            barMap.insert("strVal", widget ? widget->caption() : tr("No widget assigned"));
+            barMap.insert("iconVal", widget ? VCWidget::typeToIcon(widget->type()) : QString());
+        }
         else
+        {
             barMap.insert("intVal", 0);
+        }
 
         barMap.insert("minThreshold", qRound(SCALE(float(bar.m_minThreshold), 0.0, 255.0, 0.0, 100.0)));
         barMap.insert("maxThreshold", qRound(SCALE(float(bar.m_maxThreshold), 0.0, 255.0, 0.0, 100.0)));
@@ -335,6 +352,8 @@ void VCAudioTriggers::setBarType(BarType type)
     bar.m_function = nullptr;
     bar.m_widgetId = VCWidget::invalidId();
     bar.m_widget = nullptr;
+    bar.m_tapped = false;
+    bar.m_skippedBeats = 0;
     
     // set the type
     bar.m_type = type;
@@ -373,11 +392,10 @@ void VCAudioTriggers::setBarWidget(quint32 widgetId)
 
     AudioBar &bar = m_spectrumBars[m_selectedBar];
     bar.m_widgetId = widgetId;
-    /* TODO
-    bar.m_widget = (widgetId != VCWidget::invalidId())
-                       ? VirtualConsole::instance()->widget(widgetId)
-                       : nullptr;
-    */
+    bar.m_tapped = false;
+    bar.m_skippedBeats = 0;
+    updateBarWidgetReference(bar);
+    emit barsInfoChanged();
 }
 
 void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
@@ -398,6 +416,95 @@ void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
             const quint32 absAddr = fx->universeAddress() + scv.channel;
             bar.m_absDmxChannels.append(int(absAddr));
         }
+    }
+}
+
+void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar)
+{
+    if (bar.m_widgetId == VCWidget::invalidId())
+    {
+        bar.m_widget = nullptr;
+        return;
+    }
+
+    bar.m_widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
+}
+
+void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar)
+{
+    if (bar.m_widgetId == VCWidget::invalidId())
+        return;
+
+    updateBarWidgetReference(bar);
+    VCWidget *widget = bar.m_widget;
+    if (widget == nullptr)
+        return;
+
+    switch (widget->type())
+    {
+        case VCWidget::ButtonWidget:
+        {
+            VCButton *button = qobject_cast<VCButton *>(widget);
+            if (button == nullptr)
+                return;
+
+            if (bar.m_value >= bar.m_maxThreshold && button->state() == VCButton::Inactive)
+                button->requestStateChange(true);
+            else if (bar.m_value < bar.m_minThreshold && button->state() != VCButton::Inactive)
+                button->requestStateChange(false);
+        }
+        break;
+        case VCWidget::SliderWidget:
+        {
+            VCSlider *slider = qobject_cast<VCSlider *>(widget);
+            if (slider != nullptr)
+                slider->setValue(bar.m_value, true, true);
+        }
+        break;
+        case VCWidget::SpeedWidget:
+        {
+            VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(widget);
+            if (speedDial == nullptr)
+                return;
+
+            int divisor = qMax(1, bar.m_divisor);
+            if (bar.m_value >= bar.m_maxThreshold && !bar.m_tapped)
+            {
+                if (bar.m_skippedBeats == 0)
+                    speedDial->tap();
+
+                bar.m_tapped = true;
+                bar.m_skippedBeats = (bar.m_skippedBeats + 1) % divisor;
+            }
+            else if (bar.m_value < bar.m_minThreshold)
+            {
+                bar.m_tapped = false;
+            }
+        }
+        break;
+        case VCWidget::CueListWidget:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(widget);
+            if (cueList == nullptr)
+                return;
+
+            int divisor = qMax(1, bar.m_divisor);
+            if (bar.m_value >= bar.m_maxThreshold && !bar.m_tapped)
+            {
+                if (bar.m_skippedBeats == 0)
+                    cueList->nextClicked();
+
+                bar.m_tapped = true;
+                bar.m_skippedBeats = (bar.m_skippedBeats + 1) % divisor;
+            }
+            else if (bar.m_value < bar.m_minThreshold)
+            {
+                bar.m_tapped = false;
+            }
+        }
+        break;
+        default:
+        break;
     }
 }
 
@@ -465,12 +572,22 @@ void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
     for (int i = 0; i < m_spectrumBars.count(); i++)
     {
         AudioBar &bar = m_spectrumBars[i];
-        if (bar.m_function != nullptr)
+        if (bar.m_type == FunctionBar)
         {
-            if (bar.m_value >= bar.m_maxThreshold)
-                bar.m_function->start(m_doc->masterTimer(), functionParent());
-            else if (bar.m_value < bar.m_minThreshold)
-                bar.m_function->stop(functionParent());
+            if (bar.m_function == nullptr && bar.m_functionId != Function::invalidId())
+                bar.m_function = m_doc->function(bar.m_functionId);
+
+            if (bar.m_function != nullptr)
+            {
+                if (bar.m_value >= bar.m_maxThreshold)
+                    bar.m_function->start(m_doc->masterTimer(), functionParent());
+                else if (bar.m_value < bar.m_minThreshold)
+                    bar.m_function->stop(functionParent());
+            }
+        }
+        else if (bar.m_type == VCWidgetBar)
+        {
+            checkWidgetFunctionality(bar);
         }
     }
 
@@ -734,7 +851,7 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
     bar.m_type = BarType(attrs.value(KXMLQLCAudioBarType).toString().toInt());
     bar.m_minThreshold = attrs.value(KXMLQLCAudioBarMinThreshold).toString().toInt();
     bar.m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
-    bar.m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
+    bar.m_divisor = qMax(1, attrs.value(KXMLQLCAudioBarDivisor).toString().toInt());
 
     switch (bar.m_type)
     {
@@ -755,6 +872,9 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
             {
                 quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
                 bar.m_widgetId = wid;
+                bar.m_widget = nullptr;
+                bar.m_tapped = false;
+                bar.m_skippedBeats = 0;
             }
         }
         break;

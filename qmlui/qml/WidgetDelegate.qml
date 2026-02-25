@@ -45,7 +45,7 @@ Rectangle
             return
 
         itemIcon = virtualConsole.widgetIcon(cRef.type)
-        console.log("Item icon: " + itemIcon)
+        //console.log("Item icon: " + itemIcon)
     }
 
     Rectangle
@@ -86,8 +86,8 @@ Rectangle
 
         drag.target: dragItem
 
-        onPressed: delegateRoot.mouseEvent(App.Pressed, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
-        onClicked: delegateRoot.mouseEvent(App.Clicked, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
-        onDoubleClicked: delegateRoot.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
+        onPressed: (mouse) => delegateRoot.mouseEvent(App.Pressed, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
+        onClicked: (mouse) => delegateRoot.mouseEvent(App.Clicked, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
+        onDoubleClicked: (mouse) => delegateRoot.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
     }
 }
