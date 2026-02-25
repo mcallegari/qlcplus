@@ -278,6 +278,9 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
 
+    if (!isEnabled())
+        return;
+
     QMapIterator<quint32, SceneItem*> it(m_entitiesMap);
     while (it.hasNext())
     {
@@ -1126,11 +1129,10 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
                 Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
     }
 
-    if (itemFlags & MonitorProperties::HiddenFlag)
-    {
-        meshRef->m_rootItem->setProperty("enabled", false);
-        meshRef->m_selectionBox->setProperty("enabled", false);
-    }
+    bool isEnabled = !(itemFlags & MonitorProperties::HiddenFlag) &&
+                     (m_universeFilter == Universe::invalid() || fixture->universe() == m_universeFilter);
+    meshRef->m_rootItem->setProperty("enabled", isEnabled);
+    meshRef->m_selectionBox->setProperty("enabled", isEnabled);
 
     if (itemFlags & MonitorProperties::InvertedPanFlag)
         meshRef->m_rootItem->setProperty("invertedPan", true);

@@ -598,12 +598,9 @@ void ContextManager::setUniverseFilter(quint32 universeFilter)
 
     m_universeFilter = universeFilter;
 
-    if (m_DMXView->isEnabled())
-        m_DMXView->setUniverseFilter(m_universeFilter);
-    if (m_2DView->isEnabled())
-        m_2DView->setUniverseFilter(m_universeFilter);
-    if (m_3DView->isEnabled())
-        m_3DView->setUniverseFilter(m_universeFilter);
+    m_DMXView->setUniverseFilter(m_universeFilter);
+    m_2DView->setUniverseFilter(m_universeFilter);
+    m_3DView->setUniverseFilter(m_universeFilter);
 
     emit universeFilterChanged(universeFilter);
 }

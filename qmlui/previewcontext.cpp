@@ -35,7 +35,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_pixelDensity(0)
     , m_enabled(false)
     , m_detached(false)
-    , m_universeFilter(0)
+    , m_universeFilter(Universe::invalid())
 {
 }
 

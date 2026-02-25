@@ -67,6 +67,10 @@ void MainView2D::enableContext(bool enable)
 void MainView2D::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
+
+    if (!isEnabled())
+        return;
+
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while (it.hasNext())
     {
@@ -163,9 +167,9 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     newFixtureItem->setParentItem(m_gridItem);
     newFixtureItem->setProperty("itemID", itemID);
     newFixtureItem->setProperty("fixtureName", fixture->name());
-
-    if (itemFlags & MonitorProperties::HiddenFlag)
-        newFixtureItem->setProperty("visible", false);
+    bool isVisible = !(itemFlags & MonitorProperties::HiddenFlag) &&
+                     (m_universeFilter == Universe::invalid() || fixture->universe() == m_universeFilter);
+    newFixtureItem->setProperty("visible", isVisible);
 
     if (fxMode != nullptr && fixture->type() != QLCFixtureDef::Dimmer)
     {
@@ -796,7 +800,6 @@ void MainView2D::setBackgroundImage(QString path)
     m_monProps->setCommonBackgroundImage(path);
     emit backgroundImageChanged();
 }
-
 
 
 
