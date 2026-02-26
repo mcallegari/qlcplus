@@ -495,7 +495,7 @@ qreal VCSlider::rangeLowLimit() const
 
 void VCSlider::setRangeHighLimit(qreal value)
 {
-    if (value == m_rangeLowLimit)
+    if (value == m_rangeHighLimit)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
@@ -1049,6 +1049,13 @@ void VCSlider::setControlledAttribute(int attributeIndex)
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
 
+    // check if the current range is at defaults
+    const qreal oldAttributeMin = m_attributeMinValue;
+    const qreal oldAttributeMax = m_attributeMaxValue;
+    const bool hadFullAttributeRange =
+            qFuzzyCompare(m_rangeLowLimit + 1.0, oldAttributeMin + 1.0) &&
+            qFuzzyCompare(m_rangeHighLimit + 1.0, oldAttributeMax + 1.0);
+
     m_controlledAttributeIndex = attributeIndex;
     qreal newValue = 0;
 
@@ -1065,8 +1072,16 @@ void VCSlider::setControlledAttribute(int attributeIndex)
         newValue = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
-    setRangeLowLimit(m_attributeMinValue);
-    setRangeHighLimit(m_attributeMaxValue);
+    qreal newRangeLow = m_attributeMinValue;
+    qreal newRangeHigh = m_attributeMaxValue;
+    if (!hadFullAttributeRange)
+    {
+        newRangeLow = qBound(m_attributeMinValue, m_rangeLowLimit, m_attributeMaxValue);
+        newRangeHigh = qBound(m_attributeMinValue, m_rangeHighLimit, m_attributeMaxValue);
+    }
+
+    setRangeLowLimit(newRangeLow);
+    setRangeHighLimit(newRangeHigh);
 
     emit controlledAttributeChanged(attributeIndex);
     emit attributeMinValueChanged();
