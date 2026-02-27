@@ -81,10 +81,10 @@ SidePanel
                 autoExclusive: false
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
-                onClicked:
+                onClicked: virtualConsole.editMode = !checked
+
+                onCheckedChanged:
                 {
-                    checked = !checked
-                    virtualConsole.editMode = checked
                     if (checked)
                         loaderSource = "qrc:/VCWidgetProperties.qml"
                     animatePanel(checked)

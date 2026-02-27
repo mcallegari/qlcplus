@@ -1268,6 +1268,13 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
         if (e->isAutoRepeat())
             return;
 
+        if ((e->modifiers() & Qt::ControlModifier) &&
+            e->key() == Qt::Key_E && pressed == false)
+        {
+            setEditMode(!editMode());
+            return;
+        }
+
         QKeySequence seq(e->key() | e->modifiers());
 
         /** first check if this key sequence is a page activation */
