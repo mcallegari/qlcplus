@@ -21,6 +21,7 @@
 #include <QToolButton>
 #include <QComboBox>
 #include <QSpinBox>
+#include <qmath.h>
 
 #include "vcaudiotriggersproperties.h"
 #include "inputselectionwidget.h"
@@ -28,6 +29,7 @@
 #include "functionselection.h"
 #include "vcwidgetselection.h"
 #include "vcaudiotriggers.h"
+#include "audiocapture.h"
 #include "qlcmacros.h"
 #include "audiobar.h"
 
@@ -224,15 +226,29 @@ void AudioTriggersConfiguration::updateTree()
     volItem->setText(KColumnName, tr("Volume Bar"));
     updateTreeItem(volItem, 1000);
 
-    double freqIncr = (double)m_maxFrequency / m_barsNumSpin->value();
-    double freqCount = 0.0;
+    const int bandsNumber = m_barsNumSpin->value();
+    const double minFreq = AudioCapture::minFrequency();
+    const double maxFreq = m_maxFrequency;
+    const double logRange = (bandsNumber > 0 && maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
 
-    for (int i = 0; i < m_barsNumSpin->value(); i++)
+    for (int i = 0; i < bandsNumber; i++)
     {
+        double bandStartFreq = minFreq;
+        double bandEndFreq = maxFreq;
+        if (logRange > 0.0)
+        {
+            bandStartFreq = minFreq * qExp(logRange * (double(i) / double(bandsNumber)));
+            bandEndFreq = minFreq * qExp(logRange * (double(i + 1) / double(bandsNumber)));
+        }
+
+        int bandStartHz = qCeil(bandStartFreq);
+        int bandEndHz = (i == bandsNumber - 1) ? int(maxFreq) : (qCeil(bandEndFreq) - 1);
+        if (bandEndHz <= bandStartHz)
+            bandEndHz = bandStartHz;
+
         QTreeWidgetItem *barItem = new QTreeWidgetItem(m_tree);
-        barItem->setText(KColumnName, tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg((int)freqCount).arg((int)(freqCount + freqIncr)));
+        barItem->setText(KColumnName, tr("#%1 (%2Hz - %3Hz)").arg(i + 1).arg(bandStartHz).arg(bandEndHz));
         updateTreeItem(barItem, i);
-        freqCount += freqIncr;
     }
 
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
@@ -368,4 +384,3 @@ void AudioTriggersConfiguration::slotDivisorChanged(int val)
             bar->setDivisor(val);
     }
 }
-

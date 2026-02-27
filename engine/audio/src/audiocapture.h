@@ -41,6 +41,7 @@
 
 #define FREQ_SUBBANDS_MAX_NUMBER        32
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
+#define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
 
 class BeatTracker;
@@ -80,6 +81,7 @@ public:
      */
     void unregisterBandsNumber(int number);
 
+    static int minFrequency() { return SPECTRUM_MIN_FREQUENCY; }
     static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
 
     /*!
@@ -158,6 +160,7 @@ protected:
     int16_t *m_audioMixdown;
 
     quint32 m_signalPower;
+    double m_smoothedSignalPower;
 
     /** **************** FFT variables ********************** */
     double *m_fftInputBuffer;

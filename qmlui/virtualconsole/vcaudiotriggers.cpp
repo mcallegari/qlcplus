@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <qmath.h>
 
 #include "vcaudiotriggers.h"
 #include "fixturemanager.h"
@@ -284,9 +285,10 @@ void VCAudioTriggers::selectBarForEditing(int index)
 QVariantList VCAudioTriggers::barsInfo() const
 {
     QVariantList bList;
-
-    double freqIncr = (double)m_inputCapture->maxFrequency() / (barsNumber() - 1);
-    double freqCount = 0.0;
+    const int spectrumBars = barsNumber() - 1; // exclude volume bar
+    const double minFreq = AudioCapture::minFrequency();
+    const double maxFreq = m_inputCapture ? m_inputCapture->maxFrequency() : AudioCapture::maxFrequency();
+    const double logRange = (spectrumBars > 0 && maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
 
     int index = 0;
     for (const AudioBar &bar : m_spectrumBars)
@@ -299,9 +301,22 @@ QVariantList VCAudioTriggers::barsInfo() const
         }
         else
         {
+            const int bandIndex = index - 1;
+            double bandStartFreq = minFreq;
+            double bandEndFreq = maxFreq;
+            if (logRange > 0.0)
+            {
+                bandStartFreq = minFreq * qExp(logRange * (double(bandIndex) / double(spectrumBars)));
+                bandEndFreq = minFreq * qExp(logRange * (double(bandIndex + 1) / double(spectrumBars)));
+            }
+
+            int bandStartHz = qCeil(bandStartFreq);
+            int bandEndHz = (bandIndex == spectrumBars - 1) ? int(maxFreq) : (qCeil(bandEndFreq) - 1);
+            if (bandEndHz <= bandStartHz)
+                bandEndHz = bandStartHz;
+
             barMap.insert("bLabel", QString("#%1 (%2Hz - %3Hz)").arg(index)
-                                       .arg(qCeil(freqCount)).arg(qFloor(freqCount + freqIncr)));
-            freqCount += freqIncr;
+                                       .arg(bandStartHz).arg(bandEndHz));
         }
 
         barMap.insert("index", index);
