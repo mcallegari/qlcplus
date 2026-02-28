@@ -20,14 +20,78 @@
 #include <QStringList>
 #include <QSettings>
 #include <QDebug>
+#include <QFileInfo>
 
 #include <gpiod.hpp>
+
+#include <filesystem>
+#include <system_error>
 
 #include "gpioplugin.h"
 #include "gpioreaderthread.h"
 #include "gpioconfiguration.h"
 
 #define SETTINGS_CHIP_NAME "GPIOPlugin/chipname"
+
+namespace
+{
+QList<GPIOPlugin::ChipInfo> scanChips()
+{
+    QList<GPIOPlugin::ChipInfo> chips;
+    std::error_code ec;
+
+    for (const auto &entry : std::filesystem::directory_iterator("/dev", ec))
+    {
+        if (ec)
+            break;
+
+        const auto &path = entry.path();
+        if (!::gpiod::is_gpiochip_device(path))
+            continue;
+
+        try
+        {
+            ::gpiod::chip chip(path);
+            auto info = chip.get_info();
+
+            GPIOPlugin::ChipInfo chipInfo;
+            chipInfo.path = QString::fromStdString(path.string());
+            chipInfo.name = QString::fromStdString(info.name());
+            chips.append(chipInfo);
+        }
+        catch (const std::system_error &e)
+        {
+            qWarning() << "Error while opening GPIO chip:"
+                       << QString::fromStdString(path.string()) << e.what();
+        }
+    }
+
+    return chips;
+}
+
+QString resolveChipPath(const QString &value, const QList<GPIOPlugin::ChipInfo> &chips)
+{
+    if (value.isEmpty())
+        return QString();
+
+    if (value.startsWith('/'))
+        return value;
+
+    const QString devPath = QString("/dev/%1").arg(value);
+    if (::gpiod::is_gpiochip_device(std::filesystem::path(devPath.toStdString())))
+        return devPath;
+
+    for (const auto &chip : chips)
+    {
+        if (chip.name == value)
+            return chip.path;
+        if (QFileInfo(chip.path).fileName() == value)
+            return chip.path;
+    }
+
+    return QString();
+}
+} // namespace
 
 /*****************************************************************************
  * Initialization
@@ -49,24 +113,31 @@ void GPIOPlugin::init()
     m_inputUniverse = UINT_MAX;
     m_outputUniverse = UINT_MAX;
 
+    const QList<ChipInfo> chips = scanChips();
+
     QSettings settings;
     QVariant value = settings.value(SETTINGS_CHIP_NAME);
     if (value.isValid() == true)
     {
-        m_chipName = value.toString().toStdString();
+        QString resolved = resolveChipPath(value.toString(), chips);
+        if (!resolved.isEmpty())
+            m_chipName = resolved.toStdString();
     }
-    else
+
+    if (m_chipName.empty())
     {
         // autodetect chips and use first
         try
         {
-            for (auto& it: ::gpiod::make_chip_iter())
+            for (const auto &chip : chips)
             {
-                qDebug() << "GPIO chip found: " << QString::fromStdString(it.name());
+                qDebug() << "GPIO chip found:" << chip.name
+                         << "(" << chip.path << ")";
                 if (m_chipName.empty())
-                    m_chipName = it.name();
+                    m_chipName = chip.path.toStdString();
                 else
-                	qWarning() << "Multiple GPIO chips found, skipping chip: " << QString::fromStdString(it.name());
+                    qWarning() << "Multiple GPIO chips found, skipping chip:"
+                               << chip.name << "(" << chip.path << ")";
             }
         } catch (const std::system_error& e) {
             qWarning() << "Error while scanning GPIO chips: " << e.what() << " - GPIO plugin not initialized.";
@@ -113,55 +184,71 @@ std::string GPIOPlugin::chipName() const
     return m_chipName;
 }
 
+QList<GPIOPlugin::ChipInfo> GPIOPlugin::availableChips() const
+{
+    return scanChips();
+}
+
 void GPIOPlugin::setChipName(QString name)
 {
-    if (name == QString::fromStdString(m_chipName))
+    QString resolved = resolveChipPath(name, scanChips());
+    if (resolved.isEmpty())
         return;
 
-    m_chipName = name.toStdString();
+    if (resolved == QString::fromStdString(m_chipName))
+        return;
+
+    m_chipName = resolved.toStdString();
 
     QSettings settings;
-    settings.setValue(SETTINGS_CHIP_NAME, name);
+    settings.setValue(SETTINGS_CHIP_NAME, resolved);
 
     updateLinesList();
 }
 
 void GPIOPlugin::updateLinesList()
 {
-    ::gpiod::chip gChip(m_chipName);
-    if (!gChip)
-        return;
-
-    int linesNum = m_gpioList.count();
-    for (int i = 0; i < linesNum; i++)
+    try
     {
-        GPIOLineInfo *gpio = m_gpioList.takeLast();
-        delete gpio;
-    }
+        ::gpiod::chip gChip{std::filesystem::path(m_chipName)};
 
-    for (unsigned int i = 0; i < gChip.num_lines(); i++)
-    {
-        auto line = gChip.get_line(i);
+        int linesNum = m_gpioList.count();
+        for (int i = 0; i < linesNum; i++)
+        {
+            GPIOLineInfo *gpio = m_gpioList.takeLast();
+            delete gpio;
+        }
 
-        GPIOLineInfo *gpio = new GPIOLineInfo;
-        gpio->m_line = i;
-        gpio->m_name = QString::fromStdString(line.name());
-        gpio->m_enabled = false;
-        gpio->m_value = 1;
-        gpio->m_count = 0;
+        auto chipInfo = gChip.get_info();
+        for (unsigned int i = 0; i < chipInfo.num_lines(); i++)
+        {
+            auto lineInfo = gChip.get_line_info(i);
+
+            GPIOLineInfo *gpio = new GPIOLineInfo;
+            gpio->m_line = i;
+            gpio->m_name = QString::fromStdString(lineInfo.name());
+            gpio->m_enabled = false;
+            gpio->m_value = 1;
+            gpio->m_count = 0;
 
         /*
         int direction = line.direction();
 
-        if (direction == ::gpiod::line::DIRECTION_INPUT)
+        if (direction == ::gpiod::line::direction::INPUT)
             gpio->m_direction = InputDirection;
-        else if (direction == ::gpiod::line::DIRECTION_OUTPUT)
+        else if (direction == ::gpiod::line::direction::OUTPUT)
             gpio->m_direction = OutputDirection;
         else
         */
         gpio->m_direction = NoDirection;
 
-        m_gpioList.append(gpio);
+            m_gpioList.append(gpio);
+        }
+    }
+    catch (const std::system_error &e)
+    {
+        qWarning() << "Error while opening GPIO chip:" << e.what();
+        return;
     }
 }
 
@@ -325,10 +412,18 @@ void GPIOPlugin::setLineValue(int lineNumber, uchar value)
 
     qDebug() << "[GPIO] writing line" << lineNumber << "with value" << value;
 
-    ::gpiod::chip gChip(chipName());
-    ::gpiod::line gLine = gChip.get_line(lineNumber);
-    gLine.request({"set_value", gpiod::line_request::DIRECTION_OUTPUT, 0}, value);
-    gLine.release();
+    ::gpiod::chip gChip{std::filesystem::path(chipName())};
+    ::gpiod::line_settings settings;
+    settings.set_direction(::gpiod::line::direction::OUTPUT);
+    settings.set_output_value(value ? ::gpiod::line::value::ACTIVE : ::gpiod::line::value::INACTIVE);
+
+    auto request = gChip.prepare_request()
+        .set_consumer("set_value")
+        .add_line_settings(lineNumber, settings)
+        .do_request();
+
+    request.set_value(lineNumber, value ? ::gpiod::line::value::ACTIVE : ::gpiod::line::value::INACTIVE);
+    request.release();
 
     m_gpioList[lineNumber]->m_value = value;
 }

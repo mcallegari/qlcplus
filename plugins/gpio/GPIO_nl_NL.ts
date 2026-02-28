@@ -29,17 +29,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="79"/>
+        <location filename="gpioconfiguration.cpp" line="89"/>
         <source>Not used</source>
         <translation>Niet in gebruik</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="80"/>
+        <location filename="gpioconfiguration.cpp" line="90"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="gpioconfiguration.cpp" line="81"/>
+        <location filename="gpioconfiguration.cpp" line="91"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
@@ -47,7 +47,7 @@
 <context>
     <name>GPIOPlugin</name>
     <message>
-        <location filename="gpioplugin.cpp" line="105"/>
+        <location filename="gpioplugin.cpp" line="176"/>
         <source>This plugin provides input/output on GPIO PINs.</source>
         <translation>Deze plugin verzorgt input/output op GPIO PINs.</translation>
     </message>
