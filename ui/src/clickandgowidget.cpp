@@ -34,8 +34,21 @@
 #define CELL_H  45
 #define TITLE_H  18
 
-ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
-    QWidget(parent)
+ClickAndGoWidget::ClickAndGoWidget(QWidget *parent)
+    : QWidget(parent)
+    , m_type(ClickAndGo::None)
+    , m_width(10)
+    , m_height(10)
+    , m_cols(0)
+    , m_rows(0)
+    , m_cellWidth(CELL_W)
+    , m_hoverCellIdx(-1)
+    , m_cellBarXpos(1)
+    , m_cellBarYpos(1)
+    , m_cellBarWidth(0)
+    , m_levelLowLimit(0)
+    , m_levelHighLimit(255)
+    , m_linearColor(false)
 {
     // This makes the application crash when a clickAndGoWidget
     // is created in a QDialog.
@@ -43,20 +56,6 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
 
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     setMouseTracking(true);
-
-    m_type = None;
-    m_linearColor = false;
-    m_width = 10;
-    m_height = 10;
-    m_cols = 0;
-    m_rows = 0;
-    m_cellWidth = CELL_W;
-    m_hoverCellIdx = -1;
-    m_cellBarXpos = 1;
-    m_cellBarYpos = 1;
-    m_cellBarWidth = 0;
-    m_levelLowLimit = 0;
-    m_levelHighLimit = 255;
 }
 
 void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
@@ -68,7 +67,7 @@ void ClickAndGoWidget::setupGradient(QColor begin, QColor end)
     // create image and fill it with gradient
     m_width = 276;
     m_height = 40;
-    m_image = QImage(m_width, m_height, QImage::Format_RGB32);
+    m_image = getDPIAwareImage(m_width, m_height);
     QPainter painter(&m_image);
     painter.fillRect(m_image.rect(), linearGrad);
 
@@ -81,7 +80,7 @@ void ClickAndGoWidget::setupColorPicker()
 
     m_width = 256 + 30;
     m_height = 256;
-    m_image = QImage(m_width, m_height, QImage::Format_RGB32);
+    m_image = getDPIAwareImage(m_width, m_height);
     QPainter painter(&m_image);
 
     // Draw 16 default color squares
@@ -111,7 +110,7 @@ void ClickAndGoWidget::setType(int type, const QLCChannel *chan)
     //qDebug() << Q_FUNC_INFO << "Type: " << type;
     if (type == None)
     {
-        m_image = QImage();
+        m_image = getDPIAwareImage(0, 0);
     }
     else if (type == Red)
         setupGradient(Qt::black, Qt::red);
@@ -158,7 +157,7 @@ void ClickAndGoWidget::setLevelHighLimit(int max)
     this->m_levelHighLimit = max;
 }
 
-int ClickAndGoWidget::getType()
+int ClickAndGoWidget::getType() const
 {
     return m_type;
 }
@@ -206,7 +205,7 @@ ClickAndGoWidget::ClickAndGo ClickAndGoWidget::stringToClickAndGoType(QString st
     return None;
 }
 
-QColor ClickAndGoWidget::getColorAt(uchar pos)
+QColor ClickAndGoWidget::getColorAt(uchar pos) const
 {
     if (m_linearColor == true)
     {
@@ -216,7 +215,7 @@ QColor ClickAndGoWidget::getColorAt(uchar pos)
     return QColor(0,0,0);
 }
 
-QImage ClickAndGoWidget::getImageFromValue(uchar value)
+QImage ClickAndGoWidget::getImageFromValue(uchar value) const
 {
     /** If the widget type is a Preset, return directly
      *  the pre-loaded resource */
@@ -258,23 +257,23 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
     {
         if (cap->presetType() == QLCCapability::Picture)
         {
-            m_resources.append(PresetResource(cap->resource(0).toString(), cap->name(),
+            m_resources.append(PresetResource(this, cap->resource(0).toString(), cap->name(),
                                               cap->min(), cap->max()));
         }
         else if (cap->presetType() == QLCCapability::SingleColor)
         {
             QColor col1 = cap->resource(0).value<QColor>();
-            m_resources.append(PresetResource(col1, QColor(), cap->name(), cap->min(), cap->max()));
+            m_resources.append(PresetResource(this, col1, QColor(), cap->name(), cap->min(), cap->max()));
         }
         else if (cap->presetType() == QLCCapability::DoubleColor)
         {
             QColor col1 = cap->resource(0).value<QColor>();
             QColor col2 = cap->resource(1).value<QColor>();
-            m_resources.append(PresetResource(col1, col2, cap->name(), cap->min(), cap->max()));
+            m_resources.append(PresetResource(this, col1, col2, cap->name(), cap->min(), cap->max()));
         }
         else
         {
-            m_resources.append(PresetResource(i, cap->name(), cap->min(), cap->max()));
+            m_resources.append(PresetResource(this, i, cap->name(), cap->min(), cap->max()));
         }
         i++;
     }
@@ -311,7 +310,7 @@ void ClickAndGoWidget::setupPresetPicker()
 
     int x = 0;
     int y = 0;
-    m_image = QImage(m_width, m_height, QImage::Format_RGB32);
+    m_image = getDPIAwareImage(m_width, m_height);
     QPainter painter(&m_image);
     QPalette p = palette();
     painter.setRenderHint(QPainter::Antialiasing);
@@ -429,14 +428,37 @@ void ClickAndGoWidget::paintEvent(QPaintEvent *event)
     }
 }
 
-
-ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uchar min, uchar max)
+QImage ClickAndGoWidget::getDPIAwareImage(int width, int height) const
 {
-    m_descr = text;
-    m_resLowLimit = min;
-    m_resHighLimit = max;
+    qreal devicePixelRatio = 1;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    devicePixelRatio = devicePixelRatioF();
+#else
+    const QScreen* currentScreen = QGuiApplication::screens().first();
+    if (currentScreen != NULL)
+    {
+        devicePixelRatio = currentScreen->devicePixelRatio();
+    }
+#endif
+
+    QImage image(width*devicePixelRatio, height*devicePixelRatio, QImage::Format_RGB32);
+    image.setDevicePixelRatio(devicePixelRatio);
+
+    return image;
+}
+
+QImage ClickAndGoWidget::getDPIAwareImageStatic(const ClickAndGoWidget* parent, int width, int height)
+{
+    return (parent != NULL) ? parent->getDPIAwareImage(width, height) : QImage(width, height, QImage::Format_RGB32);
+}
+
+ClickAndGoWidget::PresetResource::PresetResource(const ClickAndGoWidget* parent, QString path, QString text, uchar min, uchar max)
+    : m_descr(text)
+    , m_resLowLimit(min)
+    , m_resHighLimit(max)
+{
     QImage px(path);
-    m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
+    m_thumbnail = getDPIAwareImageStatic(parent, 40, 40);
     m_thumbnail.fill(Qt::white);
     QPainter painter(&m_thumbnail);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
@@ -444,13 +466,13 @@ ClickAndGoWidget::PresetResource::PresetResource(QString path, QString text, uch
     //qDebug() << "PATH: adding " << path << ", descr: " << text;
 }
 
-ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
+ClickAndGoWidget::PresetResource::PresetResource(const ClickAndGoWidget* parent, QColor color1, QColor color2,
                                                  QString text, uchar min, uchar max)
+    : m_descr(text)
+    , m_resLowLimit(min)
+    , m_resHighLimit(max)
 {
-    m_descr = text;
-    m_resLowLimit = min;
-    m_resHighLimit = max;
-    m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
+    m_thumbnail = getDPIAwareImageStatic(parent, 40, 40);
     if (color2.isValid() == false)
         m_thumbnail.fill(color1.rgb());
     else
@@ -462,12 +484,12 @@ ClickAndGoWidget::PresetResource::PresetResource(QColor color1, QColor color2,
     //qDebug() << "COLOR: adding " << color1.name() << ", descr: " << text;
 }
 
-ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar min, uchar max)
+ClickAndGoWidget::PresetResource::PresetResource(const ClickAndGoWidget* parent, int index, QString text, uchar min, uchar max)
+    : m_descr(text)
+    , m_resLowLimit(min)
+    , m_resHighLimit(max)
 {
-    m_descr = text;
-    m_resLowLimit = min;
-    m_resHighLimit = max;
-    m_thumbnail = QImage(40, 40, QImage::Format_RGB32);
+    m_thumbnail = getDPIAwareImageStatic(parent, 40, 40);
     m_thumbnail.fill(Qt::white);
     QFont tfont = QApplication::font();
     tfont.setBold(true);
@@ -477,5 +499,3 @@ ClickAndGoWidget::PresetResource::PresetResource(int index, QString text, uchar 
     painter.drawText(0, 0, 40, 40, Qt::AlignHCenter|Qt::AlignVCenter, QString("%1").arg(index));
     //qDebug() << "GENERIC: adding " << index << ", descr: " << text;
 }
-
-
