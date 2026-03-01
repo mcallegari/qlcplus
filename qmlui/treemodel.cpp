@@ -127,7 +127,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             item->setPath(label);
             m_itemsPathMap[label] = item;
         }
-        int addIndex = getItemInsertIndex(label);
+        int addIndex = getItemInsertIndex(label, flags);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
         endInsertRows();
@@ -152,7 +152,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
-            int addIndex = getNodeInsertIndex(label);
+            int addIndex = getNodeInsertIndex(pathList.at(0));
             beginInsertRows(QModelIndex(), addIndex, addIndex);
             m_items.insert(addIndex, item);
             endInsertRows();
@@ -456,19 +456,30 @@ void TreeModel::printTree(int tab)
     }
 }
 
-int TreeModel::getItemInsertIndex(QString label)
+int TreeModel::getItemInsertIndex(QString label, int flags)
 {
     if (m_sorting == true)
     {
-        int index = 0;
-        for (int i = 0; i < m_items.count(); i++)
+        bool incomingIsFolder = (flags & EmptyNode);
+        for (int index = 0; index < m_items.count(); ++index)
         {
-            if (m_items.at(i)->hasChildren() == false)
+            TreeModelItem *current = m_items.at(index);
+            bool currentIsFolder = current->hasChildren() || (current->flags() & EmptyNode);
+
+            if (incomingIsFolder)
             {
-                if (QString::localeAwareCompare(m_items.at(i)->label(), label) > 0)
+                if (currentIsFolder == false)
+                    return index;
+                if (QString::localeAwareCompare(current->label(), label) > 0)
                     return index;
             }
-            index++;
+            else
+            {
+                if (currentIsFolder)
+                    continue;
+                if (QString::localeAwareCompare(current->label(), label) > 0)
+                    return index;
+            }
         }
     }
     return rowCount();
@@ -478,15 +489,15 @@ int TreeModel::getNodeInsertIndex(QString label)
 {
     if (m_sorting == true)
     {
-        int index = 0;
-        for (int i = 0; i < m_items.count(); i++)
+        for (int index = 0; index < m_items.count(); ++index)
         {
-            if (m_items.at(i)->hasChildren() == true)
-            {
-                if (QString::localeAwareCompare(m_items.at(i)->label(), label) > 0)
-                    return index;
-                index++;
-            }
+            TreeModelItem *current = m_items.at(index);
+            bool currentIsFolder = current->hasChildren() || (current->flags() & EmptyNode);
+            if (currentIsFolder == false)
+                return index;
+
+            if (QString::localeAwareCompare(current->label(), label) > 0)
+                return index;
         }
     }
     return rowCount();
@@ -521,4 +532,3 @@ QHash<int, QByteArray> TreeModel::roleNames() const
 
     return roles;
 }
-

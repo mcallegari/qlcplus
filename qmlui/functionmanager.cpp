@@ -20,6 +20,7 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QDebug>
+#include <algorithm>
 
 #include "audioplugincache.h"
 #include "collectioneditor.h"
@@ -1486,7 +1487,27 @@ void FunctionManager::addFunctionTreeItem(Function *func)
 
 void FunctionManager::updateFunctionsTree()
 {
+    auto caseInsensitiveLess = [](const QString &left, const QString &right) {
+        return QString::localeAwareCompare(left.toCaseFolded(), right.toCaseFolded()) < 0;
+    };
+
+    auto functionLess = [&caseInsensitiveLess](Function *left, Function *right) {
+        if (left == nullptr || right == nullptr)
+            return left != nullptr;
+
+        QString leftPath = left->path(true);
+        QString rightPath = right->path(true);
+        if (leftPath.compare(rightPath, Qt::CaseInsensitive) != 0)
+            return caseInsensitiveLess(leftPath, rightPath);
+
+        return caseInsensitiveLess(left->name(), right->name());
+    };
+
     QStringList pathsList;
+    QList<Function *> sortedFunctions = m_doc->functions();
+    std::sort(sortedFunctions.begin(), sortedFunctions.end(), functionLess);
+    QStringList sortedEmptyFolders = m_emptyFolderList;
+    std::sort(sortedEmptyFolders.begin(), sortedEmptyFolders.end(), caseInsensitiveLess);
 
     storeExpandedPaths();
 
@@ -1496,7 +1517,7 @@ void FunctionManager::updateFunctionsTree()
 
     m_functionTree->clear();
 
-    for (Function *func : m_doc->functions()) // C++11
+    for (Function *func : sortedFunctions)
     {
         QString fPath = func->path(true);
         if (pathsList.contains(fPath) == false)
@@ -1514,7 +1535,7 @@ void FunctionManager::updateFunctionsTree()
         m_functionTree->setPathData(treePath, folderParams);
     }
 
-    for (QString &folderPath : m_emptyFolderList)
+    for (QString &folderPath : sortedEmptyFolders)
     {
         QStringList tokens = folderPath.split(TreeModel::separator());
         QString fName = tokens.last();

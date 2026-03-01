@@ -139,7 +139,7 @@ protected slots:
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
-    int getItemInsertIndex(QString label);
+    int getItemInsertIndex(QString label, int flags = 0);
     int getNodeInsertIndex(QString label);
 
 protected:
