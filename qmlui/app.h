@@ -217,7 +217,7 @@ private:
     int m_accessMask;
 
     /** 3D support flag */
-    bool m_is3dSupportd;
+    bool m_is3dSupported;
 
     QTranslator *m_translator;
 

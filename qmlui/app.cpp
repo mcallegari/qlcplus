@@ -76,7 +76,7 @@ App::App()
     : QQuickView()
     , m_forceQuit(false)
     , m_accessMask(defaultMask())
-    , m_is3dSupportd(true)
+    , m_is3dSupported(true)
     , m_translator(nullptr)
     , m_fixtureBrowser(nullptr)
     , m_fixtureManager(nullptr)
@@ -290,12 +290,12 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-    return m_is3dSupportd;
+    return m_is3dSupported;
 }
 
 void App::set3dSupported(bool enable)
 {
-    m_is3dSupportd = enable;
+    m_is3dSupported = enable;
 }
 
 void App::aboutQt()
