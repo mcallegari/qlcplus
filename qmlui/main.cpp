@@ -25,8 +25,8 @@
 
 #include "app.h"
 #include "networkmanager.h"
-#include "qlcfile.h"
 #include "qlcconfig.h"
+#include "qlcfile.h"
 
 QFile logFile;
 
@@ -103,6 +103,10 @@ int main(int argc, char *argv[])
                                       "Disable the 3D preview.");
     parser.addOption(threedSupportOption);
 
+    QCommandLineOption noWmOption(QStringList() << "m" << "nowm",
+                                  "The OS doesn't provide a window manager");
+    parser.addOption(noWmOption);
+
     QCommandLineOption webAccessOption(QStringList() << "w" << "web",
                                       "Enable remote web access");
     parser.addOption(webAccessOption);
@@ -142,6 +146,9 @@ int main(int argc, char *argv[])
         QSurfaceFormat::setDefaultFormat(format);
     }
 #endif
+
+    if (parser.isSet(noWmOption))
+        QLCFile::setHasWindowManager(false);
 
     if (parser.isSet(logOption))
     {
