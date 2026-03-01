@@ -44,6 +44,7 @@
 #define KXMLQLCVCFrameIsCollapsed       QStringLiteral("Collapsed")
 #define KXMLQLCVCFrameIsDisabled        QStringLiteral("Disabled")
 #define KXMLQLCVCFrameEnableSource      QStringLiteral("Enable")
+#define KXMLQLCVCFrameCollapseSource    QStringLiteral("Collapse")
 #define KXMLQLCVCFrameShowEnableButton  QStringLiteral("ShowEnableButton")
 
 #define KXMLQLCVCFrameMultipage   QStringLiteral("Multipage")
@@ -69,6 +70,7 @@ public:
     static const quint8 nextPageInputSourceId;
     static const quint8 previousPageInputSourceId;
     static const quint8 enableInputSourceId;
+    static const quint8 collpseInputSourceId;
     static const quint8 shortcutsBaseInputSourceId;
 
     /*********************************************************************
@@ -226,6 +228,12 @@ public:
     /** Get the keyboard key combination to enable/disable the frame */
     QKeySequence enableKeySequence() const;
 
+    /** Set the keyboard key combination to collapse/expand the frame */
+    void setCollapseKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination to collapse/expand the frame */
+    QKeySequence collapseKeySequence() const;
+
     /** Set the keyboard key combination for skipping to the next page */
     void setNextPageKeySequence(const QKeySequence& keySequence);
 
@@ -244,6 +252,7 @@ protected slots:
 
 private:
     QKeySequence m_enableKeySequence;
+    QKeySequence m_collapseKeySequence;
     QKeySequence m_nextPageKeySequence;
     QKeySequence m_previousPageKeySequence;
 
