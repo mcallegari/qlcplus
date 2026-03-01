@@ -369,6 +369,8 @@ void Script::slotRunnerFinished()
     // would crash in ~QThread. deleteLater() ensures the thread is actually done.
     m_runner->deleteLater();
     m_runner = NULL;
+
+    stop(FunctionParent::master());
 }
 
 quint32 Script::getValueFromString(QString str, bool *ok)
