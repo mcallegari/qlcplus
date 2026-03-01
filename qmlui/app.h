@@ -178,7 +178,9 @@ public:
     void setAccessMask(int mask);
     int accessMask() const;
 
+    /** Get/Set the 3D support status */
     bool is3DSupported() const;
+    void set3dSupported(bool enable);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -213,6 +215,9 @@ private:
 
     /** Bitmask to enable/disable UI functionalities */
     int m_accessMask;
+
+    /** 3D support flag */
+    bool m_is3dSupportd;
 
     QTranslator *m_translator;
 

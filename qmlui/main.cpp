@@ -183,6 +183,9 @@ int main(int argc, char *argv[])
     }
     qlcplusApp.setLanguage(locale);
 
+    if (parser.isSet(threedSupportOption))
+        qlcplusApp.set3dSupported(false);
+
     // kiosk mode
     if (parser.isSet(kioskOption))
         qlcplusApp.enableKioskMode();
