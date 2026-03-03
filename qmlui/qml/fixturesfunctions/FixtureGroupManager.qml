@@ -587,11 +587,11 @@ Rectangle
                                 break;
                                 case App.DoubleClicked:
                                     if (qItem === item && model.hasChildren)
-+                                   {
-+                                       item.isExpanded = !item.isExpanded
-+                                       model.isExpanded = item.isExpanded
-+                                   }
-+                                   else if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                    {
+                                        item.isExpanded = !item.isExpanded
+                                        model.isExpanded = item.isExpanded
+                                    }
+                                    else if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
                                     {
                                         fgmContainer.doubleClicked(iID, qItem.itemType)
                                     }
