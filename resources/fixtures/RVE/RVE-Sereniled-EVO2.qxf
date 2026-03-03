@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>RVE</Manufacturer>
  <Model>Sereniled EVO2</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Mode Name="8 Bit">
