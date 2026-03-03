@@ -586,8 +586,15 @@ Rectangle
                                     updateButtons(qItem.itemType, itemID)
                                 break;
                                 case App.DoubleClicked:
-                                    if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                    if (qItem === item && model.hasChildren)
++                                   {
++                                       item.isExpanded = !item.isExpanded
++                                       model.isExpanded = item.isExpanded
++                                   }
++                                   else if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                    {
                                         fgmContainer.doubleClicked(iID, qItem.itemType)
+                                    }
                                 break;
                                 case App.DragStarted:
                                     if (qItem === item && !model.isSelected)
