@@ -37,6 +37,7 @@
 #include "vcslider.h"
 #include "app.h"
 #include "doc.h"
+#include "tardis.h"
 
 #define INPUT_ENABLE_CAPTURE    0
 #define INPUT_VOLUME_CONTROL    1
@@ -149,6 +150,8 @@ void VCAudioTriggers::setCaptureEnabled(bool enable)
 {
     if (enable == m_captureEnabled)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCAudioTriggersSetCaptureEnabled, id(), m_captureEnabled, enable);
 
     m_captureEnabled = enable;
 

@@ -665,15 +665,17 @@ QVariantList VirtualConsole::selectedWidgetIDs()
 
 void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos)
 {
+    if (widget == nullptr || targetFrame == nullptr)
+        return;
+
     VCFrame *sourceFrame = qobject_cast<VCFrame*>(widget->parent());
 
-    if (sourceFrame != targetFrame)
+    if (sourceFrame != nullptr && sourceFrame != targetFrame)
     {
-        sourceFrame->removeWidgetFromPageMap(widget);
-        widget->setPage(targetFrame->currentPage());
-        targetFrame->addWidgetToPageMap(widget);
-
-        widget->setParent(targetFrame);
+        Tardis::instance()->enqueueAction(Tardis::VCWidgetReparent, widget->id(),
+                                          QVariant(sourceFrame->id()),
+                                          QVariant(targetFrame->id()));
+        reparentWidget(widget, targetFrame);
     }
 
     if (snapping())
@@ -687,6 +689,33 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
     widget->setGeometry(wRect);
 
     qDebug() << "New widget geometry:" << widget->geometry();
+}
+
+bool VirtualConsole::reparentWidget(VCWidget *widget, VCFrame *targetFrame)
+{
+    if (widget == nullptr || targetFrame == nullptr)
+        return false;
+
+    VCFrame *sourceFrame = qobject_cast<VCFrame*>(widget->parent());
+    if (sourceFrame == nullptr || sourceFrame == targetFrame)
+        return false;
+
+    sourceFrame->removeWidgetFromPageMap(widget);
+    widget->setPage(targetFrame->currentPage());
+    targetFrame->addWidgetToPageMap(widget);
+    widget->setParent(targetFrame);
+
+    QQuickItem *widgetItem = widget->renderItem();
+    QQuickItem *targetFrameItem = targetFrame->renderItem();
+    if (widgetItem != nullptr && targetFrameItem != nullptr)
+    {
+        QString chName = QString("frameDropArea%1").arg(targetFrame->id());
+        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(targetFrameItem->findChild<QObject *>(chName));
+        if (childrenArea != nullptr)
+            widgetItem->setParentItem(childrenArea);
+    }
+
+    return true;
 }
 
 void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)

@@ -326,6 +326,8 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
     if (mode == m_widgetMode)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetWidgetStyle, id(), m_widgetMode, mode);
+
     m_widgetMode = mode;
     emit widgetStyleChanged(mode);
 }

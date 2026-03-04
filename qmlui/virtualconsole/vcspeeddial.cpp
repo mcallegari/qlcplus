@@ -29,6 +29,7 @@
 #include "qlcmacros.h"
 #include "vcspeeddial.h"
 #include "vcspeeddialpreset.h"
+#include "tardis.h"
 
 #define INPUT_DIAL_ID           0
 #define INPUT_TAP_ID            1
@@ -245,6 +246,8 @@ void VCSpeedDial::setCurrentTime(uint newCurrentTime)
     if (m_currentTime == newCurrentTime)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCSpeedDialSetTime, id(), m_currentTime, newCurrentTime);
+
     m_currentTime = newCurrentTime;
 
     if (m_currentTime != 0)
@@ -280,6 +283,8 @@ void VCSpeedDial::setCurrentFactor(SpeedMultiplier factor)
 {
     if (factor == m_currentFactor)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCSpeedDialSetFactor, id(), int(m_currentFactor), int(factor));
 
     m_currentFactor = factor;
 

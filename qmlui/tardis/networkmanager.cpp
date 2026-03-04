@@ -21,6 +21,7 @@
 #include <QNetworkInterface>
 #include <QtCore/qbuffer.h>
 #include <QFile>
+#include <QDateTime>
 
 #include "networkmanager.h"
 #include "networkpacketizer.h"
@@ -34,6 +35,7 @@
 #define DEFAULT_TCP_PORT    9998
 
 #define WORKSPACE_CHUNK_SIZE    8 * 1024
+#define ECHO_GUARD_WINDOW_MS    15000
 
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
@@ -218,6 +220,16 @@ void NetworkManager::sendAction(int code, TardisAction action)
         while (i != m_hostsMap.constEnd())
         {
             NetworkHost *host = i.value();
+            if (host != nullptr && host->tcpSocket == m_currentRxSocket)
+            {
+                ++i;
+                continue;
+            }
+            if (host != nullptr && shouldSkipEcho(host->tcpSocket, code, action.m_objID))
+            {
+                ++i;
+                continue;
+            }
             sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
             ++i;
         }
@@ -293,6 +305,52 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
         }
     }
 
+    return true;
+}
+
+quint64 NetworkManager::actionKey(int code, quint32 objID) const
+{
+    return (quint64(quint32(code)) << 32) | quint64(objID);
+}
+
+void NetworkManager::markActionSource(int code, quint32 objID, QTcpSocket *socket)
+{
+    if (socket == nullptr)
+        return;
+
+    socket->setProperty("lastActionTs", QDateTime::currentMSecsSinceEpoch());
+    m_recentActionSources[actionKey(code, objID)] = socket;
+}
+
+bool NetworkManager::shouldSkipEcho(QTcpSocket *socket, int code, quint32 objID)
+{
+    if (socket == nullptr)
+        return false;
+
+    quint64 key = actionKey(code, objID);
+    if (!m_recentActionSources.contains(key))
+        return false;
+
+    QPointer<QTcpSocket> sourceSocket = m_recentActionSources.value(key);
+    if (sourceSocket.isNull())
+    {
+        m_recentActionSources.remove(key);
+        return false;
+    }
+
+    if (sourceSocket != socket)
+        return false;
+
+    qint64 ts = sourceSocket->property("lastActionTs").toLongLong();
+    qint64 now = QDateTime::currentMSecsSinceEpoch();
+    if (ts <= 0 || now - ts > ECHO_GUARD_WINDOW_MS)
+    {
+        m_recentActionSources.remove(key);
+        return false;
+    }
+
+    // One-shot suppression: only the first delayed self-echo is discarded.
+    m_recentActionSources.remove(key);
     return true;
 }
 
@@ -728,7 +786,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
 
                 NetworkHost *host = m_hostsMap[senderAddress];
-                if (success == true)
+                if (success == true && paramsList.count() > 1)
                 {
                     host->isAuthenticated = true;
                     host->hostName = paramsList.at(1).toString();
@@ -795,10 +853,24 @@ void NetworkManager::slotProcessTCPPackets()
 
             default:
             {
+                if (paramsList.isEmpty())
+                {
+                    qWarning() << "[TCP] Dropping packet with empty params list. action"
+                               << QString::number(actionCode, 16);
+                    break;
+                }
+
+                markActionSource(actionCode, paramsList.at(0).toUInt(), socket);
+
+                QTcpSocket *prevRxSocket = m_currentRxSocket;
+                m_currentRxSocket = socket;
                 if (paramsList.count() == 2)
                     emit actionReady(actionCode, paramsList.at(0).toUInt(), paramsList.at(1));
+                else if (paramsList.count() > 2)
+                    emit actionReady(actionCode, paramsList.at(0).toUInt(), paramsList.mid(1));
                 else
                     emit actionReady(actionCode, paramsList.at(0).toUInt(), QVariant());
+                m_currentRxSocket = prevRxSocket;
 
                 //qDebug() << "Unsupported opCode" << opCode;
             }

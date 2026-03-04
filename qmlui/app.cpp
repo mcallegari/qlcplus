@@ -390,7 +390,7 @@ void App::slotScreenChanged(QScreen *screen)
     qreal sSize = isLandscape ? screen->size().height() : screen->size().width();
     m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, sSize / 220.0);
     qDebug() << "Screen changed to" << screen->name() << ", pixel density:" << m_pixelDensity
-             << ", physical size:" << screen->physicalSize();
+             << ", geometry:" << screen->size() << ", physical size:" << screen->physicalSize() << isLandscape;
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 

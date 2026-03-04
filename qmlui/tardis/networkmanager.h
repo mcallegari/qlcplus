@@ -29,6 +29,7 @@
 #include <QUdpSocket>
 #include <QThread>
 #include <QHash>
+#include <QPointer>
 
 #include "tardis.h"
 
@@ -123,6 +124,10 @@ protected slots:
 
     void slotDocLoaded();
 
+    quint64 actionKey(int code, quint32 objID) const;
+    void markActionSource(int code, quint32 objID, QTcpSocket *socket);
+    bool shouldSkipEcho(QTcpSocket *socket, int code, quint32 objID);
+
 private:
     /** Reference to the QLC+ Doc */
     Doc *m_doc;
@@ -201,6 +206,10 @@ private:
 
     /** Map of the QLC+ hosts detected on the network */
     QHash<QHostAddress, NetworkHost *> m_hostsMap;
+    /** Socket currently being processed on server RX path (used to avoid echoing back) */
+    QTcpSocket *m_currentRxSocket = nullptr;
+    /** Tracks the source socket of recently received actions, to suppress delayed echo */
+    QHash<quint64, QPointer<QTcpSocket>> m_recentActionSources;
 
     /*********************************************************************
      * Client

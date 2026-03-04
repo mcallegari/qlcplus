@@ -1857,6 +1857,16 @@ void ContextManager::dumpDmxChannels(quint32 channelMask, QString sceneName, int
 
 void ContextManager::resetDumpValues()
 {
+    QVariantList oldValues;
+    for (const SceneValue &sv : m_dumpValues)
+        oldValues.append(QVariant::fromValue(sv));
+
+    if (!oldValues.isEmpty())
+    {
+        Tardis::instance()->enqueueAction(Tardis::FixtureResetDumpValues, 0,
+                              oldValues, QVariantList());
+    }
+
     for (SceneValue &sv : m_dumpValues)
         m_source->unset(sv.fxi, sv.channel);
 
@@ -1868,4 +1878,3 @@ void ContextManager::resetDumpValues()
     m_dumpChannelMask = 0;
     emit dumpChannelMaskChanged();
 }
-

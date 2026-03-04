@@ -193,6 +193,9 @@ public:
     /** Return a list of the currently selected VC widget IDs */
     Q_INVOKABLE QVariantList selectedWidgetIDs();
 
+    /** Re-parent a widget to a different target frame and update frame maps/UI parent */
+    bool reparentWidget(VCWidget *widget, VCFrame *targetFrame);
+
     Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
 
     /** Helper methods to handle alignment, label, background/foreground colors,

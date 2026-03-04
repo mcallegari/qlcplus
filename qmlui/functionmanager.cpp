@@ -508,9 +508,15 @@ void FunctionManager::setPreviewEnabled(bool enable)
             if (f != nullptr)
             {
                 if (enable == false)
+                {
+                    Tardis::instance()->enqueueAction(Tardis::FunctionStop, f->id(), true, false);
                     f->stop(FunctionParent::master());
+                }
                 else
+                {
+                    Tardis::instance()->enqueueAction(Tardis::FunctionStart, f->id(), false, true);
                     f->start(m_doc->masterTimer(), FunctionParent::master());
+                }
             }
         }
     }
@@ -535,7 +541,10 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
             {
                 Function *f = m_doc->function(funcID.toUInt());
                 if (f != nullptr)
+                {
+                    Tardis::instance()->enqueueAction(Tardis::FunctionStop, f->id(), true, false);
                     f->stop(FunctionParent::master());
+                }
             }
         }
         m_selectedIDList.clear();
@@ -548,7 +557,10 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
     {
         Function *f = m_doc->function(fID);
         if (f != nullptr)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionStart, f->id(), false, true);
             f->start(m_doc->masterTimer(), FunctionParent::master());
+        }
     }
     if (fID != Function::invalidId())
         m_selectedIDList.append(QVariant(fID));

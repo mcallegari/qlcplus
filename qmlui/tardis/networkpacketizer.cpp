@@ -49,6 +49,8 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
     if (value.isNull())
         return;
 
+    int oldLength = packet.length();
+
     switch (QMetaType::Type(value.metaType().id()))
     {
         case QMetaType::Bool:
@@ -137,6 +139,21 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append(strVal);
         }
         break;
+        case QMetaType::QVariantList:
+        {
+            QVariantList list = value.toList();
+            for (const QVariant &item : list)
+            {
+                if (!item.canConvert<SceneValue>())
+                {
+                    qDebug() << "Unsupported QVariantList item metatype" << item.typeName();
+                    continue;
+                }
+                addSection(packet, item);
+            }
+
+            return;
+        }
         default:
         {
             if (value.canConvert<SceneValue>())
@@ -210,6 +227,9 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         break;
     }
 
+    if (packet.length() == oldLength)
+        return;
+
     quint16 newLength = packet.length() - HEADER_LENGTH;
     // increment the number of sections
     packet[4] = packet.at(4) + 1;
@@ -236,6 +256,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
     quint8 sections_number = 0;
     quint16 sections_length = 0;
     QByteArray ba;
+    sections.clear();
 
     /* A packet header must be at least 4 bytes long */
     if (packet.length() < HEADER_LENGTH)
@@ -273,21 +294,51 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
     else
         ba = packet;
 
+    auto malformedPacket = [&](const QString &description) -> int
+    {
+        qWarning() << "[Packetizer] Malformed packet:" << description
+                   << "opCode:" << QString::number(opCode, 16)
+                   << "sections:" << sections_number
+                   << "offset:" << bytes_read
+                   << "payload len:" << ba.length();
+        sections.clear();
+        opCode = -1;
+        return HEADER_LENGTH + sections_length;
+    };
+
+    auto ensureBytes = [&](int count, const char *context) -> int
+    {
+        if (bytes_read + count > ba.length())
+            return malformedPacket(QString("%1 needs %2 bytes").arg(context).arg(count));
+        return 0;
+    };
+
     for (int i = 0; i < sections_number; i++)
     {
-        quint8 sType = (quint8)ba.at(bytes_read++);
+        if (bytes_read + 1 > ba.length())
+        {
+            qWarning() << "[Packetizer] Packet ended before all sections were decoded."
+                       << "opCode:" << QString::number(opCode, 16)
+                       << "expected sections:" << sections_number
+                       << "decoded sections:" << sections.length();
+            break;
+        }
 
-        qDebug() << "Section" << i << "type" << sType;
+        quint8 sType = (quint8)ba.at(bytes_read++);
 
         switch(sType)
         {
             case BoolType:
             {
+                if (int err = ensureBytes(1, "bool value"))
+                    return err;
                 sections.append(QVariant((bool)ba.at(bytes_read++)));
             }
             break;
             case IntType:
             {
+                if (int err = ensureBytes(4, "int value"))
+                    return err;
                 int intVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                              ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
@@ -296,6 +347,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case FloatType:
             {
+                if (int err = ensureBytes(sizeof(float), "float value"))
+                    return err;
                 float val = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(val);
                 sections.append(QVariant(val));
@@ -304,9 +357,13 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             case StringType:
             case FontType:
             {
+                if (int err = ensureBytes(2, "string length"))
+                    return err;
                 QString strVal;
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)(quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
+                if (int err = ensureBytes(sLength, "string payload"))
+                    return err;
 
                 strVal.append(ba.mid(bytes_read, sLength));
                 if (sType == FontType)
@@ -325,8 +382,12 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case ByteArrayType:
             {
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                if (int err = ensureBytes(2, "bytearray length"))
+                    return err;
+                quint16 sLength = ((quint16)(quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
+                if (int err = ensureBytes(sLength, "bytearray payload"))
+                    return err;
 
                 sections.append(QVariant(ba.mid(bytes_read, sLength)));
                 bytes_read += sLength;
@@ -334,6 +395,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case Vector3DType:
             {
+                if (int err = ensureBytes(int(sizeof(float) * 3), "vector3d payload"))
+                    return err;
                 float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(x);
                 float y = *reinterpret_cast<const float *>(ba.data() + bytes_read);
@@ -345,6 +408,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case RectFType:
             {
+                if (int err = ensureBytes(int(sizeof(float) * 4), "rectf payload"))
+                    return err;
                 float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(x);
                 float y = *reinterpret_cast<const float *>(ba.data() + bytes_read);
@@ -358,6 +423,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case ColorType:
             {
+                if (int err = ensureBytes(4, "color payload"))
+                    return err;
                 QRgb rgbVal = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                              ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
@@ -366,6 +433,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case SceneValueType:
             {
+                if (int err = ensureBytes(7, "scenevalue payload"))
+                    return err;
                 SceneValue scv;
                 scv.fxi = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                            ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
@@ -381,6 +450,8 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case UIntPairType:
             {
+                if (int err = ensureBytes(8, "uintpair payload"))
+                    return err;
                 UIntPair pairVal;
                 pairVal.first = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                                 ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
@@ -395,15 +466,21 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case StringIntPairType:
             {
+                if (int err = ensureBytes(2, "string/int pair string length"))
+                    return err;
                 StringIntPair pairVal;
                 QString strVal;
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)(quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
+                if (int err = ensureBytes(sLength, "string/int pair string payload"))
+                    return err;
 
                 strVal.append(ba.mid(bytes_read, sLength));
                 pairVal.first = strVal;
                 bytes_read += sLength;
 
+                if (int err = ensureBytes(4, "string/int pair int payload"))
+                    return err;
                 pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                                  ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
@@ -415,15 +492,21 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case StringDoublePairType:
             {
+                if (int err = ensureBytes(2, "string/double pair string length"))
+                    return err;
                 StringDoublePair pairVal;
                 QString strVal;
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)(quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
+                if (int err = ensureBytes(sLength, "string/double pair string payload"))
+                    return err;
 
                 strVal.append(ba.mid(bytes_read, sLength));
                 pairVal.first = strVal;
                 bytes_read += sLength;
 
+                if (int err = ensureBytes(sizeof(double), "string/double pair double payload"))
+                    return err;
                 QByteArray dba = ba.mid(bytes_read, sizeof(double));
 
                 pairVal.second = *((double*)dba.data());
@@ -436,17 +519,25 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case StringStringPairType:
             {
+                if (int err = ensureBytes(2, "string/string pair first length"))
+                    return err;
                 StringStringPair pairVal;
                 QString strVal;
-                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)(quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
+                if (int err = ensureBytes(sLength, "string/string pair first payload"))
+                    return err;
 
                 strVal.append(ba.mid(bytes_read, sLength));
                 pairVal.first = strVal;
                 bytes_read += sLength;
 
-                sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                if (int err = ensureBytes(2, "string/string pair second length"))
+                    return err;
+                sLength = ((quint16)(quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
                 bytes_read += 2;
+                if (int err = ensureBytes(sLength, "string/string pair second payload"))
+                    return err;
 
                 strVal.clear();
                 strVal.append(ba.mid(bytes_read, sLength));
@@ -459,8 +550,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             }
             break;
             default:
-                qDebug() << "Unknown section type" << sType;
-            break;
+                return malformedPacket(QString("unknown section type %1").arg(sType));
         }
     }
 

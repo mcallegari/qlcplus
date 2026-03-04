@@ -734,6 +734,8 @@ void VCCueList::playClicked()
     if (ch == nullptr)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCCueListPlayClicked, id(), QVariant(), QVariant());
+
     if (ch->isRunning())
     {
         if (playbackLayout() == PlayPauseStop)
@@ -766,6 +768,8 @@ void VCCueList::stopClicked()
     if (ch == nullptr)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCCueListStopClicked, id(), QVariant(), QVariant());
+
     if (ch->isRunning())
     {
         if (playbackLayout() == PlayPauseStop)
@@ -789,6 +793,8 @@ void VCCueList::previousClicked()
     Chaser *ch = chaser();
     if (ch == nullptr)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCCueListPreviousClicked, id(), QVariant(), QVariant());
 
     if (ch->isRunning())
     {
@@ -830,6 +836,8 @@ void VCCueList::nextClicked()
     Chaser *ch = chaser();
     if (ch == nullptr)
         return;
+
+    Tardis::instance()->enqueueAction(Tardis::VCCueListNextClicked, id(), QVariant(), QVariant());
 
     if (ch->isRunning())
     {

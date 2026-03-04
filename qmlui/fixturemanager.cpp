@@ -2436,23 +2436,50 @@ void FixtureManager::setChannelModifier(quint32 itemID, quint32 channelIndex)
     if (fixture == nullptr)
         return;
 
-    fixture->setChannelModifier(channelIndex, m_selectedChannelModifier);
+    ChannelModifier *currentModifier = fixture->channelModifier(channelIndex);
+    QString oldModifierName = currentModifier ? currentModifier->name() : QString();
+    QString newModifierName = m_selectedChannelModifier ? m_selectedChannelModifier->name() : QString();
 
-    // update UI tree
-    setItemRoleData(itemID, channelIndex, "modifier", m_selectedChannelModifier == nullptr ?
-                    "" : m_selectedChannelModifier->name());
+    if (oldModifierName == newModifierName)
+        return;
 
-    m_doc->setModified(); // TODO: tardis
+    QVariantMap oldValue;
+    oldValue.insert("channelIndex", channelIndex);
+    oldValue.insert("modifierName", oldModifierName);
 
-    // immediately apply on universe
+    QVariantMap newValue;
+    newValue.insert("channelIndex", channelIndex);
+    newValue.insert("modifierName", newModifierName);
+
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetChannelModifier, fixtureID, oldValue, newValue);
+
+    setChannelModifierByName(fixtureID, channelIndex, newModifierName);
+}
+
+void FixtureManager::setChannelModifierByName(quint32 fixtureID, quint32 channelIndex, const QString &modifierName)
+{
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return;
+
+    ChannelModifier *modifier = modifierName.isEmpty() ? nullptr : m_doc->modifiersCache()->modifier(modifierName);
+    fixture->setChannelModifier(channelIndex, modifier);
+
+    // Update UI tree. Head/link doesn't matter for channel modifiers.
+    quint32 itemID = FixtureUtils::fixtureItemID(fixtureID, 0, 0);
+    setItemRoleData(itemID, channelIndex, "modifier", modifierName);
+
+    // Immediately apply on universe
     QList<Universe *> universes = m_doc->inputOutputMap()->claimUniverses();
-    if (fixture->universe() >= universes.count())
-        return;
-    Universe *universe = universes.at(fixture->universe());
-    if (universe == nullptr)
-        return;
-    quint32 fxAddress = fixture->address();
-    universe->setChannelModifier(fxAddress + channelIndex, m_selectedChannelModifier);
+    if (fixture->universe() < quint32(universes.count()))
+    {
+        Universe *universe = universes.at(fixture->universe());
+        if (universe != nullptr)
+        {
+            quint32 fxAddress = fixture->address();
+            universe->setChannelModifier(fxAddress + channelIndex, modifier);
+        }
+    }
     m_doc->inputOutputMap()->releaseUniverses(true);
 }
 

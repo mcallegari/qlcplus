@@ -39,6 +39,9 @@
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vcspeeddial.h"
+#include "vcaudiotriggers.h"
+#include "vcanimation.h"
 #include "universe.h"
 #include "vcframe.h"
 #include "rgbtext.h"
@@ -123,7 +126,7 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
     m_queueSem.release();
 
     // set modify flag for non-live actions
-    if (action.m_action < VCButtonSetPressed)
+    if (action.m_action < LIVE_ACTIONS_START_CODE)
         m_doc->setModified();
 }
 
@@ -413,7 +416,31 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
     if (value.metaType().id() != QMetaType::QByteArray)
     {
-        qWarning("Action 0x%02X is not buffered!", action);
+        switch (action)
+        {
+            case IOAddUniverse:
+            case IORemoveUniverse:
+            case FixtureCreate:
+            case FixtureDelete:
+            case FixtureGroupCreate:
+            case FunctionCreate:
+            case FunctionDelete:
+            case ChaserAddStep:
+            case ChaserRemoveStep:
+            case EFXAddFixture:
+            case EFXRemoveFixture:
+            case ShowManagerAddTrack:
+            case ShowManagerDeleteTrack:
+            case ShowManagerAddFunction:
+            case ShowManagerDeleteFunction:
+            case VCWidgetCreate:
+            case VCWidgetDelete:
+                qWarning("Action 0x%02X is not buffered!", action);
+            break;
+            default:
+            break;
+        }
+
         return false;
     }
 
@@ -672,6 +699,35 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             SceneValue scv = value->value<SceneValue>();
             m_contextManager->setDumpValue(scv.fxi, scv.channel, scv.value);
+        }
+        break;
+        case FixtureResetDumpValues:
+        {
+            m_contextManager->resetDumpValues();
+
+            QVariantList dumpValues;
+            if (value->canConvert<QVariantList>())
+            {
+                dumpValues = value->toList();
+            }
+            else if (value->canConvert<SceneValue>())
+            {
+                dumpValues.append(*value);
+            }
+
+            for (const QVariant &dumpVal : dumpValues)
+            {
+                SceneValue scv = dumpVal.value<SceneValue>();
+                m_contextManager->setDumpValue(scv.fxi, scv.channel, scv.value);
+            }
+        }
+        break;
+        case FixtureSetChannelModifier:
+        {
+            QVariantMap modifierMap = value->toMap();
+            m_fixtureManager->setChannelModifierByName(action.m_objID,
+                                                       modifierMap.value("channelIndex").toUInt(),
+                                                       modifierMap.value("modifierName").toString());
         }
         break;
 
@@ -1246,6 +1302,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toRectF());
         }
         break;
+        case VCWidgetReparent:
+        {
+            VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID));
+            VCFrame *targetFrame = qobject_cast<VCFrame *>(m_virtualConsole->widget(value->toUInt()));
+            m_virtualConsole->reparentWidget(widget, targetFrame);
+        }
+        break;
         case VCWidgetCaption:
         {
             auto member = std::mem_fn(&VCWidget::setCaption);
@@ -1314,6 +1377,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), VCSlider::SliderMode(value->toInt()));
         }
         break;
+        case VCSliderSetWidgetStyle:
+        {
+            auto member = std::mem_fn(&VCSlider::setWidgetStyle);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)),
+                   VCSlider::SliderWidgetStyle(value->toInt()));
+        }
+        break;
         case VCSliderSetDisplayStyle:
         {
             auto member = std::mem_fn(&VCSlider::setValueDisplayStyle);
@@ -1372,6 +1442,118 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 slider->setValue(value->toInt());
         }
         break;
+        case FunctionStart:
+        {
+            Function *function = m_doc->function(action.m_objID);
+            if (function != nullptr)
+                function->start(m_doc->masterTimer(), FunctionParent::master());
+        }
+        break;
+        case FunctionStop:
+        {
+            Function *function = m_doc->function(action.m_objID);
+            if (function != nullptr)
+                function->stop(FunctionParent::master());
+        }
+        break;
+        case VCCueListPlayClicked:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID));
+            if (cueList)
+                cueList->playClicked();
+        }
+        break;
+        case VCCueListStopClicked:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID));
+            if (cueList)
+                cueList->stopClicked();
+        }
+        break;
+        case VCCueListNextClicked:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID));
+            if (cueList)
+                cueList->nextClicked();
+        }
+        break;
+        case VCCueListPreviousClicked:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID));
+            if (cueList)
+                cueList->previousClicked();
+        }
+        break;
+        case VCSpeedDialSetTime:
+        {
+            VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(m_virtualConsole->widget(action.m_objID));
+            if (speedDial)
+                speedDial->setCurrentTime(value->toUInt());
+        }
+        break;
+        case VCSpeedDialSetFactor:
+        {
+            VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(m_virtualConsole->widget(action.m_objID));
+            if (speedDial)
+                speedDial->setCurrentFactor(VCSpeedDial::SpeedMultiplier(value->toInt()));
+        }
+        break;
+        case VCAudioTriggersSetCaptureEnabled:
+        {
+            VCAudioTriggers *audioTriggers = qobject_cast<VCAudioTriggers *>(m_virtualConsole->widget(action.m_objID));
+            if (audioTriggers)
+                audioTriggers->setCaptureEnabled(value->toBool());
+        }
+        break;
+        case VCAnimationSetFaderLevel:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setFaderLevel(value->toInt());
+        }
+        break;
+        case VCAnimationSetAlgorithmIndex:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setAlgorithmIndex(value->toInt());
+        }
+        break;
+        case VCAnimationSetColor1:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setColor1(value->value<QColor>());
+        }
+        break;
+        case VCAnimationSetColor2:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setColor2(value->value<QColor>());
+        }
+        break;
+        case VCAnimationSetColor3:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setColor3(value->value<QColor>());
+        }
+        break;
+        case VCAnimationSetColor4:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setColor4(value->value<QColor>());
+        }
+        break;
+        case VCAnimationSetColor5:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->setColor5(value->value<QColor>());
+        }
+        break;
 
         default:
             qWarning() << "Action" << action.m_action << "not implemented!";
@@ -1380,4 +1562,3 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     return action.m_action;
 }
-

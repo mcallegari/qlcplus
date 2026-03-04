@@ -24,6 +24,7 @@
 #include "doc.h"
 #include "rgbmatrix.h"
 #include "vcanimation.h"
+#include "tardis.h"
 
 #define INPUT_FADER_ID 0
 
@@ -190,6 +191,8 @@ void VCAnimation::setFaderLevel(int level)
     if (m_matrix == NULL)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetFaderLevel, id(), m_faderLevel, level);
+
     if (level == 0)
     {
         // Make sure we ignore the fade out time
@@ -247,6 +250,7 @@ void VCAnimation::setColor1(QColor color)
 
     if (m_matrix->getColor(0) != color)
     {
+        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor1, id(), m_matrix->getColor(0), color);
         m_matrix->setColor(0, color);
         if (instantChanges())
             m_matrix->updateColorDelta();
@@ -269,6 +273,7 @@ void VCAnimation::setColor2(QColor color)
 
     if (m_matrix->getColor(1) != color)
     {
+        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor2, id(), m_matrix->getColor(1), color);
         m_matrix->setColor(1, color);
         if (instantChanges())
             m_matrix->updateColorDelta();
@@ -291,6 +296,7 @@ void VCAnimation::setColor3(QColor color)
 
     if (m_matrix->getColor(2) != color)
     {
+        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor3, id(), m_matrix->getColor(2), color);
         m_matrix->setColor(2, color);
         emit color3Changed();
     }
@@ -311,6 +317,7 @@ void VCAnimation::setColor4(QColor color)
 
     if (m_matrix->getColor(3) != color)
     {
+        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor4, id(), m_matrix->getColor(3), color);
         m_matrix->setColor(3, color);
         emit color4Changed();
     }
@@ -331,6 +338,7 @@ void VCAnimation::setColor5(QColor color)
 
     if (m_matrix->getColor(4) != color)
     {
+        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor5, id(), m_matrix->getColor(4), color);
         m_matrix->setColor(4, color);
         emit color5Changed();
     }
@@ -367,6 +375,8 @@ void VCAnimation::setAlgorithmIndex(int index)
             return;
         algo->setColors(m_matrix->getColors());
     }
+
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetAlgorithmIndex, id(), algorithmIndex(), index);
 
     m_matrix->setAlgorithm(algo);
     if (instantChanges())

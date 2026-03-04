@@ -60,6 +60,8 @@ Q_DECLARE_METATYPE(StringDoublePair)
 typedef QPair<QString, QString> StringStringPair;
 Q_DECLARE_METATYPE(StringStringPair)
 
+#define LIVE_ACTIONS_START_CODE     0xF000
+
 class Tardis final : public QThread
 {
     Q_OBJECT
@@ -85,6 +87,8 @@ public:
         FixtureMove,
         FixtureSetName,
         FixtureSetDumpValue,
+        FixtureResetDumpValues,
+        FixtureSetChannelModifier,
 
         /* Fixture group editing actions */
         FixtureGroupCreate,
@@ -180,6 +184,7 @@ public:
         VCWidgetCreate = 0xE000,
         VCWidgetDelete,
         VCWidgetGeometry,
+        VCWidgetReparent,
         VCWidgetAllowResize,
         VCWidgetDisabled,
         VCWidgetVisible,
@@ -197,6 +202,7 @@ public:
         VCButtonSetStartupIntensity,
 
         VCSliderSetMode,
+        VCSliderSetWidgetStyle,
         VCSliderSetDisplayStyle,
         VCSliderSetInverted,
         VCSliderSetFunctionID,
@@ -206,9 +212,25 @@ public:
 
         VCCueListSetChaserID,
 
-        /* Virtual Console live actions */
-        VCButtonSetPressed = 0xF000,
+        /* Live actions */
+        FunctionStart = LIVE_ACTIONS_START_CODE,
+        FunctionStop,
+        VCButtonSetPressed,
         VCSliderSetValue,
+        VCCueListPlayClicked,
+        VCCueListStopClicked,
+        VCCueListNextClicked,
+        VCCueListPreviousClicked,
+        VCSpeedDialSetTime,
+        VCSpeedDialSetFactor,
+        VCAudioTriggersSetCaptureEnabled,
+        VCAnimationSetFaderLevel,
+        VCAnimationSetAlgorithmIndex,
+        VCAnimationSetColor1,
+        VCAnimationSetColor2,
+        VCAnimationSetColor3,
+        VCAnimationSetColor4,
+        VCAnimationSetColor5,
 
         /* Network protocol actions */
         NetAnnounce = 0xFF00,

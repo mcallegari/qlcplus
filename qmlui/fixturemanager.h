@@ -533,6 +533,9 @@ public:
     /** Assign the currently selected channel modifier to the given fixture's channel */
     Q_INVOKABLE void setChannelModifier(quint32 itemID, quint32 channelIndex);
 
+    /** Assign a channel modifier by name to the given fixture's channel */
+    void setChannelModifierByName(quint32 fixtureID, quint32 channelIndex, const QString &modifierName);
+
     /** Save a channel modifier template with the provided name and values.
      *  Returns true on success, false on error. */
     Q_INVOKABLE bool saveChannelModifier(QString name, QVariantList values);
