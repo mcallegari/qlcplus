@@ -132,7 +132,7 @@ bool QLCFixtureDefCache::addFixtureDef(QLCFixtureDef* fixtureDef)
     }
 }
 
-bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
+bool QLCFixtureDefCache::storeFixtureDef(const QString& filename, const QString& data)
 {
     QDir userFolder = userDefinitionDirectory();
 
@@ -216,7 +216,7 @@ bool QLCFixtureDefCache::load(const QDir& dir)
     return true;
 }
 
-int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer)
+int QLCFixtureDefCache::loadMapManufacturer(QXmlStreamReader *doc, const QString& manufacturer)
 {
     int count = 0;
     QString spacedManufacturer = manufacturer;

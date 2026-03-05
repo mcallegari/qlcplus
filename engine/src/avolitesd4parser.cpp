@@ -205,7 +205,7 @@ QString AvolitesD4Parser::lastError() const
     return m_lastError;
 }
 
-QLCChannel::Group AvolitesD4Parser::getGroup(QString ID, QString name, QString group)
+QLCChannel::Group AvolitesD4Parser::getGroup(const QString& ID, const QString& name, const QString& group) const
 {
     if (name.isEmpty() && group.isEmpty())
         return QLCChannel::NoGroup;
@@ -295,7 +295,7 @@ QLCChannel::Group AvolitesD4Parser::getGroup(QString ID, QString name, QString g
     return QLCChannel::NoGroup;
 }
 
-QLCChannel::PrimaryColour AvolitesD4Parser::getColour(QString ID, QString name, QString group)
+QLCChannel::PrimaryColour AvolitesD4Parser::getColour(const QString& ID, const QString& name, const QString& group) const
 {
     if (group.compare(KD4GroupColour, Qt::CaseInsensitive) != 0)
         return QLCChannel::NoColour;
@@ -334,7 +334,7 @@ bool AvolitesD4Parser::isFunction(const QDomElement& elem) const
     return false;
 }
 */
-bool AvolitesD4Parser::is16Bit(QString dmx) const
+bool AvolitesD4Parser::is16Bit(const QString& dmx) const
 {
     QStringList dmxValues = dmx.split(KD4TagFunctionDmxValueSeparator);
 
@@ -360,7 +360,7 @@ bool AvolitesD4Parser::is16Bit(QString dmx) const
     return false;
 }
 
-QLCCapability *AvolitesD4Parser::getCapability(QString dmx, QString name, bool isFine)
+QLCCapability *AvolitesD4Parser::getCapability(const QString& dmx, const QString& name, bool isFine) const
 {
     if (dmx.isEmpty())
         return NULL;
@@ -396,10 +396,7 @@ QLCCapability *AvolitesD4Parser::getCapability(QString dmx, QString name, bool i
         minValue = tmp;
     }
 
-    if (isFine)
-        name += " Fine";
-
-    QLCCapability *cap = new QLCCapability(minValue, maxValue, name);
+    QLCCapability *cap = new QLCCapability(minValue, maxValue, isFine ? (name + " Fine") : name);
 
     return cap;
 }
@@ -518,7 +515,7 @@ bool AvolitesD4Parser::parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixt
     return true;
 }
 
-bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef)
+bool AvolitesD4Parser::parseMode(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef) const
 {
     if (doc->name() != KD4TagMode)
         return false;
@@ -576,7 +573,7 @@ bool AvolitesD4Parser::comparePhysical(const QLCPhysical &globalPhy, const QLCPh
     return true;
 }
 
-void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCFixtureMode *mode)
+void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCFixtureMode *mode) const
 {
     if (doc->name() != KD4TagPhysical)
         return;
@@ -655,7 +652,7 @@ void AvolitesD4Parser::parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtu
         mode->setPhysical(phys);
 }
 
-void AvolitesD4Parser::parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode)
+void AvolitesD4Parser::parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode) const
 {
     if (doc->name() != KD4TagModeInclude)
         return;
@@ -726,7 +723,7 @@ void AvolitesD4Parser::parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode)
     }
 }
 
-AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QString& attr)
+AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QString& attr) const
 {
     // If there is none, empty or whatever always return something, default is SPECIAL
     if (attr.isEmpty())
@@ -738,7 +735,7 @@ AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QStri
         return AvolitesD4Parser::SPECIAL;
 }
 
-QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef *def) const
+QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(const QLCFixtureDef *def) const
 {
     Q_ASSERT(def != NULL);
 

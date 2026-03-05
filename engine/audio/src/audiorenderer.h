@@ -94,10 +94,10 @@ public:
     void adjustIntensity(qreal fraction);
 
     /* Get/Set the looping flag */
-    bool isLooped();
+    bool isLooped() const;
     void setLooped(bool looped);
 
-    bool isEos();
+    bool isEos() const;
 
 private:
     bool m_looped;

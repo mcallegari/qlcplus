@@ -211,7 +211,7 @@ bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
     return result;
 }
 
-bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
+bool ChannelsGroup::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

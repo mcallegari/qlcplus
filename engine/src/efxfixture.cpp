@@ -157,7 +157,7 @@ EFXFixture::Mode EFXFixture::mode() const
     return m_mode;
 }
 
-quint32 EFXFixture::universe()
+quint32 EFXFixture::universe() const
 {
     return m_universe;
 }
@@ -207,7 +207,7 @@ void EFXFixture::durationChanged()
     }
 }
 
-QStringList EFXFixture::modeList()
+QStringList EFXFixture::modeList() const
 {
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);

@@ -359,7 +359,7 @@ void QLCInputProfile::destroyChannels()
     m_channels.clear();
 }
 
-bool QLCInputProfile::hasColorTable()
+bool QLCInputProfile::hasColorTable() const
 {
     return m_colorTable.isEmpty() ? false : true;
 }
@@ -386,7 +386,7 @@ QMap<uchar, QPair<QString, QColor> > QLCInputProfile::colorTable()
  * MIDI Channel table
  ********************************************************************/
 
-bool QLCInputProfile::hasMidiChannelTable()
+bool QLCInputProfile::hasMidiChannelTable() const
 {
     return m_midiChannelTable.isEmpty() ? false : true;
 }

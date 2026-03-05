@@ -295,7 +295,7 @@ void ShowRunner::write(MasterTimer *timer)
  * Intensity
  ************************************************************************/
 
-void ShowRunner::adjustIntensity(qreal fraction, Track *track)
+void ShowRunner::adjustIntensity(qreal fraction, const Track *track)
 {
     if (track == NULL)
         return;

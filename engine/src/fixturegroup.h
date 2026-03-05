@@ -196,7 +196,7 @@ private:
 public:
     static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
     bool loadXML(QXmlStreamReader &xmlDoc);
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

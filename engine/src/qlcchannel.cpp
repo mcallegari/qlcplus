@@ -1043,7 +1043,7 @@ bool QLCChannel::setCapabilityRange(QLCCapability* cap, uchar min, uchar max)
     return true;
 }
 
-bool QLCChannel::removeCapability(QLCCapability* cap)
+bool QLCChannel::removeCapability(const QLCCapability* cap)
 {
     Q_ASSERT(cap != NULL);
 

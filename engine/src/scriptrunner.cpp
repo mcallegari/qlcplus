@@ -32,7 +32,7 @@
 #include "mastertimer.h"
 #include "universe.h"
 
-ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
+ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     : QThread(parent)
     , m_doc(doc)
     , m_content(content)
@@ -138,7 +138,7 @@ QStringList ScriptRunner::collectScriptData()
     return syntaxErrorList;
 }
 
-int ScriptRunner::currentWaitTime()
+int ScriptRunner::currentWaitTime() const
 {
     return m_waitCount * MasterTimer::tick();
 }
@@ -353,7 +353,7 @@ bool ScriptRunner::stopOnExit(bool value)
     return true;
 }
 
-Function* ScriptRunner::getFunctionIfRunning(quint32 fID)
+Function* ScriptRunner::getFunctionIfRunning(quint32 fID) const
 {
     if (m_running == false)
         return NULL;
@@ -399,7 +399,7 @@ bool ScriptRunner::isFunctionRunning(quint32 fID)
     return function == NULL ? false : function->isRunning();
 }
 
-float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex)
+float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex) const
 {
     Function *function = getFunctionIfRunning(fID);
     return function == NULL ? 0 : function->getAttributeValue(attributeIndex);

@@ -107,7 +107,7 @@ public:
     Mode mode() const;
 
     /** Return the Universe ID where this head falls in */
-    quint32 universe();
+    quint32 universe() const;
 
     /**
      * Check that this object has a fixture ID and at least LSB channel
@@ -119,7 +119,7 @@ public:
 
 public:
     /** Get the supported mode for this fixture in a string list */
-    QStringList modeList();
+    QStringList modeList() const;
 
     /** Convert a mode to a string */
     static QString modeToString(Mode algo);

@@ -251,16 +251,16 @@ public:
 
     /** Get the resource at the provided index.
      *  Returns an empty QVariant on failure */
-    QVariant resource(int index);
+    QVariant resource(int index) const;
 
     /** Add or replace a resource value at the provided index */
     void setResource(int index, QVariant value);
 
     /** Get the complete list of resources for this capability */
-    QVariantList resources();
+    QVariantList resources() const;
 
     /** Check, whether the given capability overlaps with this */
-    bool overlaps(const QLCCapability* cap);
+    bool overlaps(const QLCCapability* cap) const;
 
 signals:
     void minChanged();
@@ -280,13 +280,13 @@ protected:
      ********************************************************************/
 public:
     /** Get the full list of aliases defined by this capability */
-    QList<AliasInfo> aliasList();
+    QList<AliasInfo> aliasList() const;
 
     /** Add a new alias to the aliases list */
     void addAlias(AliasInfo alias);
 
     /** Remove an existing alias matching the provided structure */
-    void removeAlias(AliasInfo alias);
+    void removeAlias(const AliasInfo& alias);
 
     /** Replace all the current aliases with the ones in the provided list */
     void replaceAliases(QList<AliasInfo> list);
@@ -299,7 +299,7 @@ protected:
      ********************************************************************/
 public:
     /** Save the capability into a QXmlStreamWriter */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /** Load capability contents from an XML element */
     bool loadXML(QXmlStreamReader &doc);

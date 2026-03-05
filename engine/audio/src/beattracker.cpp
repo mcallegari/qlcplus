@@ -320,7 +320,7 @@ double BeatTracker::getCurrentBpm() const
 }
 
 // process interleaved multi-channel audio
-bool BeatTracker::processAudio(int16_t *buffer, int bufferSize)
+bool BeatTracker::processAudio(const int16_t *buffer, int bufferSize)
 {
     if (!buffer || bufferSize <= 0 || m_channels <= 0)
         return false;

@@ -415,7 +415,7 @@ bool Script::waiting()
     return false;
 }
 
-quint32 Script::getValueFromString(QString str, bool *ok)
+quint32 Script::getValueFromString(const QString& str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -423,8 +423,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return Function::stringToSpeed(str);
     }
 
-    QString strippedStr = str.remove("random(");
-    strippedStr.remove(")");
+    QString strippedStr = str;
+    strippedStr.remove("random(").remove(")");
     if (strippedStr.contains(",") == false)
         return -1;
 

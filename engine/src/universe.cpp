@@ -122,17 +122,17 @@ quint32 Universe::id() const
     return m_id;
 }
 
-ushort Universe::usedChannels()
+ushort Universe::usedChannels() const
 {
     return m_usedChannels;
 }
 
-ushort Universe::totalChannels()
+ushort Universe::totalChannels() const
 {
     return m_totalChannels;
 }
 
-bool Universe::hasChanged()
+bool Universe::hasChanged() const
 {
     bool changed =
         memcmp(m_lastPostGMValues->constData(), m_postGMValues->constData(), m_usedChannels) != 0;
@@ -556,7 +556,7 @@ void Universe::updatePostGMValue(int channel)
  * Patches
  ************************************************************************/
 
-bool Universe::isPatched()
+bool Universe::isPatched() const
 {
     if (m_inputPatch != NULL || m_outputPatchList.count() || m_fbPatch != NULL)
         return true;
@@ -831,7 +831,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     }
 }
 
-uchar Universe::channelCapabilities(ushort channel)
+uchar Universe::channelCapabilities(ushort channel) const
 {
     if (channel >= (ushort)m_channelsMask->length())
         return Undefined;

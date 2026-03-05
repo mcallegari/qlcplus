@@ -222,7 +222,7 @@ QList<quint32> Script::fixtureList() const
     return list;
 }
 
-QStringList Script::syntaxErrorsLines()
+QStringList Script::syntaxErrorsLines() const
 {
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
     QStringList errorList = runner->collectScriptData();
@@ -371,7 +371,7 @@ void Script::slotRunnerFinished()
     m_runner = NULL;
 }
 
-quint32 Script::getValueFromString(QString str, bool *ok)
+quint32 Script::getValueFromString(const QString& str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -379,8 +379,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return Function::stringToSpeed(str);
     }
 
-    QString strippedStr = str.remove("random(");
-    strippedStr.remove(")");
+    QString strippedStr = str;
+    strippedStr.remove("random(").remove(")");
     if (strippedStr.contains(",") == false)
         return -1;
 

@@ -106,7 +106,7 @@ public:
      * Returns if the Grand Master should be visible on the virtual
      * console and the web interface.
      */
-    bool visible();
+    bool visible() const;
 
     /**
      * Set the way how Grand Master should treat channels. @See enum

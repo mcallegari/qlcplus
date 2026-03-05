@@ -69,7 +69,7 @@ void QLCClipboard::copyContent(quint32 sourceID, Function *function)
     }
 }
 
-bool QLCClipboard::hasChaserSteps()
+bool QLCClipboard::hasChaserSteps() const
 {
     if (m_copySteps.count() > 0)
         return true;
@@ -77,7 +77,7 @@ bool QLCClipboard::hasChaserSteps()
     return false;
 }
 
-bool QLCClipboard::hasSceneValues()
+bool QLCClipboard::hasSceneValues() const
 {
     if (m_copySceneValues.count() > 0)
         return true;
@@ -85,7 +85,7 @@ bool QLCClipboard::hasSceneValues()
     return false;
 }
 
-bool QLCClipboard::hasFunction()
+bool QLCClipboard::hasFunction() const
 {
     if (m_copyFunction != NULL)
         return true;
@@ -93,17 +93,17 @@ bool QLCClipboard::hasFunction()
     return false;
 }
 
-QList<ChaserStep> QLCClipboard::getChaserSteps()
+QList<ChaserStep> QLCClipboard::getChaserSteps() const
 {
     return m_copySteps;
 }
 
-QList<SceneValue> QLCClipboard::getSceneValues()
+QList<SceneValue> QLCClipboard::getSceneValues() const
 {
     return m_copySceneValues;
 }
 
-Function *QLCClipboard::getFunction()
+Function *QLCClipboard::getFunction() const
 {
     return m_copyFunction;
 }
