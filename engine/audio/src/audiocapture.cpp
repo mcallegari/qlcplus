@@ -214,8 +214,6 @@ double AudioCapture::fillBandsData(int number)
 void AudioCapture::processData()
 {
     unsigned int i, j;
-    double pwrSum = 0.;
-    double maxMagnitude = 0.;
     const double frameSec = (m_sampleRate > 0) ? (double(m_bufferSize) / double(m_sampleRate)) : 0.0;
     static constexpr double kAttackTauSec = 0.040;  // fast rise
     static constexpr double kReleaseTauSec = 0.200; // slower fall
@@ -316,8 +314,8 @@ void AudioCapture::processData()
     // 5) Fill per-band magnitudes and compute power
     for (int barsNumber : m_fftMagnitudeMap.keys())
     {
-        maxMagnitude = fillBandsData(barsNumber); // fills & returns max per-band
-        pwrSum = 0.;
+        double maxMagnitude = fillBandsData(barsNumber); // fills & returns max per-band
+        double pwrSum = 0.;
         for (int n = 0; n < barsNumber; n++)
             pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];
 
