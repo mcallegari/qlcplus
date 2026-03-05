@@ -210,7 +210,7 @@ void PreviewThread::setAudioItem(AudioItem *item)
     m_item = item;
 }
 
-qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize) const
+qint32 PreviewThread::getSample(const unsigned char *data, quint32 idx, int sampleSize) const
 {
     qint32 value = 0;
     if (sampleSize == 1)

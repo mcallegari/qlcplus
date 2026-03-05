@@ -150,7 +150,7 @@ private slots:
     void slotStepChanged(int stepNumber);
 
 private:
-    int getCurrentIndex();
+    int getCurrentIndex() const;
 
     /************************************************************************
      * Utilities
@@ -178,7 +178,7 @@ private:
     void applyStepValues();
 
     /** helper routine to display the current steps of a chaser */
-    void printSteps();
+    void printSteps() const;
 
 private:
     bool m_liveMode;

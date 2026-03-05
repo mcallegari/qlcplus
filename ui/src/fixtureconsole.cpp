@@ -259,7 +259,7 @@ QList <SceneValue> FixtureConsole::values() const
         return list;
 }
 
-bool FixtureConsole::hasSelections()
+bool FixtureConsole::hasSelections() const
 {
     foreach (ConsoleChannel *cc, m_channels)
     {

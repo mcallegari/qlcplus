@@ -51,7 +51,7 @@ protected slots:
     void slotBrightnessVolumeAdjust(qreal value);
 
 private:
-    int getScreenCount();
+    int getScreenCount() const;
 
 protected:
     /** reference to the actual Video Function */

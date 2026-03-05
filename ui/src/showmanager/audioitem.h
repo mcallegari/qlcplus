@@ -98,7 +98,7 @@ public:
 
 private:
     /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, quint32 idx, int sampleSize) const;
+    qint32 getSample(const unsigned char *data, quint32 idx, int sampleSize) const;
     void run() override;
 
     AudioItem *m_item;

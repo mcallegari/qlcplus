@@ -125,42 +125,42 @@ void AddRGBPanel::slotAddressChanged()
     checkAddressAvailability();
 }
 
-QString AddRGBPanel::name()
+QString AddRGBPanel::name() const
 {
     return m_nameEdit->text();
 }
 
-int AddRGBPanel::universeIndex()
+int AddRGBPanel::universeIndex() const
 {
     return m_uniCombo->currentIndex();
 }
 
-int AddRGBPanel::address()
+int AddRGBPanel::address() const
 {
     return m_addressSpin->value() - 1;
 }
 
-int AddRGBPanel::columns()
+int AddRGBPanel::columns() const
 {
     return m_columnSpin->value();
 }
 
-int AddRGBPanel::rows()
+int AddRGBPanel::rows() const
 {
     return m_rowSpin->value();
 }
 
-quint32 AddRGBPanel::physicalWidth()
+quint32 AddRGBPanel::physicalWidth() const
 {
     return m_phyWidthSpin->value();
 }
 
-quint32 AddRGBPanel::physicalHeight()
+quint32 AddRGBPanel::physicalHeight() const
 {
     return m_phyHeightSpin->value();
 }
 
-AddRGBPanel::Orientation AddRGBPanel::orientation()
+AddRGBPanel::Orientation AddRGBPanel::orientation() const
 {
     if (m_oriTopLeftRadio->isChecked())
         return TopLeft;
@@ -174,7 +174,7 @@ AddRGBPanel::Orientation AddRGBPanel::orientation()
     return None;
 }
 
-AddRGBPanel::Type AddRGBPanel::type()
+AddRGBPanel::Type AddRGBPanel::type() const
 {
     if (m_snakeRadio->isChecked())
         return Snake;
@@ -184,7 +184,7 @@ AddRGBPanel::Type AddRGBPanel::type()
     return Unknown;
 }
 
-AddRGBPanel::Direction AddRGBPanel::direction()
+AddRGBPanel::Direction AddRGBPanel::direction() const
 {
 	if (m_verticalRadio->isChecked())
 		return Vertical;
@@ -194,7 +194,7 @@ AddRGBPanel::Direction AddRGBPanel::direction()
 	return Undefined;
 }
 
-Fixture::Components AddRGBPanel::components()
+Fixture::Components AddRGBPanel::components() const
 {
     if (m_compCombo->currentIndex() == 1)
         return Fixture::BGR;
@@ -212,12 +212,12 @@ Fixture::Components AddRGBPanel::components()
     return Fixture::RGB;
 }
 
-bool AddRGBPanel::is16Bit()
+bool AddRGBPanel::is16Bit() const
 {
     return m_16bitCheck->isChecked();
 }
 
-bool AddRGBPanel::crossUniverse()
+bool AddRGBPanel::crossUniverse() const
 {
     return m_crossUniverseCheck->isChecked();
 }

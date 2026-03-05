@@ -175,7 +175,7 @@ void AudioBar::checkWidgetFunctionality()
 
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
-        VCButton *btn = (VCButton *)m_widget;
+        VCButton *btn = qobject_cast<VCButton*>(m_widget);
         if (m_value >= m_maxThreshold && btn->state() == VCButton::Inactive)
         {
             btn->pressFunction();
@@ -190,12 +190,12 @@ void AudioBar::checkWidgetFunctionality()
     }
     else if (m_widget->type() == VCWidget::SliderWidget)
     {
-        VCSlider *slider = (VCSlider *)m_widget;
+        VCSlider *slider = qobject_cast<VCSlider*>(m_widget);
         slider->setSliderValue(m_value, true, true);
     }
     else if (m_widget->type() == VCWidget::SpeedDialWidget)
     {
-        VCSpeedDial *speedDial = (VCSpeedDial *)m_widget;
+        VCSpeedDial *speedDial = qobject_cast<VCSpeedDial*>(m_widget);
         if (m_value >= m_maxThreshold && !m_tapped)
         {
             if (m_skippedBeats == 0)
@@ -211,7 +211,7 @@ void AudioBar::checkWidgetFunctionality()
     }
     else if (m_widget->type() == VCWidget::CueListWidget)
     {
-        VCCueList *cueList = (VCCueList *)m_widget;
+        VCCueList *cueList = qobject_cast<VCCueList*>(m_widget);
         if (m_value >= m_maxThreshold && !m_tapped)
         {
             if (m_skippedBeats == 0)
@@ -225,7 +225,7 @@ void AudioBar::checkWidgetFunctionality()
     }
 }
 
-void AudioBar::debugInfo()
+void AudioBar::debugInfo() const
 {
     qDebug() << "[AudioBar] " << m_name;
     qDebug() << "   type:" << m_type << ", value:" << m_value;

@@ -76,7 +76,7 @@ public:
     void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
 
-    void debugInfo();
+    void debugInfo() const;
 
     /** Load properties and contents from an XML tree */
     bool loadXML(QXmlStreamReader &root, Doc *doc);

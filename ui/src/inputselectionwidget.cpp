@@ -83,7 +83,7 @@ void InputSelectionWidget::setWidgetPage(int page)
     m_widgetPage = page;
 }
 
-bool InputSelectionWidget::isAutoDetecting()
+bool InputSelectionWidget::isAutoDetecting() const
 {
    return m_autoDetectInputButton->isChecked();
 }

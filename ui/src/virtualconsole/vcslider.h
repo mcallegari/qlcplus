@@ -521,7 +521,7 @@ public:
     /**
      * Get the text in the top label
      */
-    QString bottomLabelText();
+    QString bottomLabelText() const;
 
 protected:
     QLabel *m_bottomLabel;

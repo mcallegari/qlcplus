@@ -326,7 +326,7 @@ void VideoWidget::slotBrightnessVolumeAdjust(qreal value)
 #endif
 }
 
-int VideoWidget::getScreenCount()
+int VideoWidget::getScreenCount() const
 {
     int screenCount = QGuiApplication::screens().count();
 

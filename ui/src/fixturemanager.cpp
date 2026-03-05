@@ -797,7 +797,7 @@ void FixtureManager::selectGroup(quint32 id)
     }
 }
 
-QString FixtureManager::fixtureInfoStyleSheetHeader()
+QString FixtureManager::fixtureInfoStyleSheetHeader() const
 {
     QString info;
 
@@ -992,7 +992,7 @@ QString FixtureManager::fixtureInfo(const Fixture *fixture) const
     return info;
 }
 
-QString FixtureManager::channelsGroupInfoStyleSheetHeader()
+QString FixtureManager::channelsGroupInfoStyleSheetHeader() const
 {
     QString info;
 
