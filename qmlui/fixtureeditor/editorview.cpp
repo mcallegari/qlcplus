@@ -289,7 +289,7 @@ void EditorView::addPresetChannel(QString name, int group)
     setModified(true);
 }
 
-bool EditorView::deleteChannel(QLCChannel *channel)
+bool EditorView::deleteChannel(const QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);

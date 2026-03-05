@@ -67,7 +67,7 @@ private:
     void importFunctionID(quint32 funcID);
 
     /** Method called recursively to check/uncheck all the sub-items of a tree */
-    void setChildrenChecked(TreeModel *tree, bool checked);
+    void setChildrenChecked(TreeModel *tree, bool checked) const;
 
     /** Update fixture/group ID lists for a single tree item */
     void updateFixtureItemID(const QVariantList &itemData, bool checked);
@@ -100,7 +100,7 @@ public:
     void setFixtureSearchFilter(QString searchFilter);
 
     /** Method called recursively to update Fixture items checked state */
-    void checkFixtureTree(TreeModel *tree);
+    void checkFixtureTree(TreeModel *tree) const;
 
 protected slots:
     void slotFixtureTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
@@ -139,7 +139,7 @@ private:
     void updateFunctionsTree();
 
     /** Method called recursively to create a map of ID / TreeModelItems */
-    void checkFunctionTree(TreeModel *tree);
+    void checkFunctionTree(TreeModel *tree) const;
 
     /** Method called recursively to check all the Functions needed
      *  by the Function with the provided $id */

@@ -187,7 +187,7 @@ void VirtualConsole::setSnapping(bool enable)
     emit snappingChanged(enable);
 }
 
-qreal VirtualConsole::snappingSize()
+qreal VirtualConsole::snappingSize() const
 {
     return pixelDensity() * 3;
 }
@@ -197,7 +197,7 @@ VirtualConsole::LoadStatus VirtualConsole::loadStatus() const
     return m_loadStatus;
 }
 
-QVariantList VirtualConsole::usageList(quint32 fid)
+QVariantList VirtualConsole::usageList(quint32 fid) const
 {
     QVariantList list;
 
@@ -274,7 +274,7 @@ QVariantList VirtualConsole::usageList(quint32 fid)
     return list;
 }
 
-QVariantList VirtualConsole::widgetsList(QVariantList typeFilters, quint32 excludeWidgetId)
+QVariantList VirtualConsole::widgetsList(QVariantList typeFilters, quint32 excludeWidgetId) const
 {
     QVariantList list;
     QSet<int> filters;
@@ -317,7 +317,7 @@ QVariantList VirtualConsole::widgetsList(QVariantList typeFilters, quint32 exclu
  * Pages
  *********************************************************************/
 
-void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)
+void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page) const
 {
     if (parent == nullptr)
         return;
@@ -463,7 +463,7 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     return true;
 }
 
-bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
+bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember) const
 {
     if (index < 0 || index >= m_pages.count())
         return false;
@@ -560,7 +560,7 @@ void VirtualConsole::removeWidgetFromMap(VCWidget *widget)
     m_widgetsMap.remove(widget->id());
 }
 
-VCWidget *VirtualConsole::widget(quint32 id)
+VCWidget *VirtualConsole::widget(quint32 id) const
 {
     if (id == VCWidget::invalidId())
         return nullptr;
@@ -623,12 +623,12 @@ void VirtualConsole::resetWidgetSelection()
     emit selectedWidgetsCountChanged();
 }
 
-QStringList VirtualConsole::selectedWidgetNames()
+QStringList VirtualConsole::selectedWidgetNames() const
 {
     QStringList names;
 
     {
-        QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
+        QMap<quint32, QQuickItem*>::const_iterator it = m_itemsMap.begin();
         for (; it != m_itemsMap.end(); it++)
         {
             VCWidget *vcWidget = m_widgetsMap[it.key()];
@@ -650,11 +650,11 @@ int VirtualConsole::selectedWidgetsCount() const
     return m_itemsMap.count();
 }
 
-QVariantList VirtualConsole::selectedWidgetIDs()
+QVariantList VirtualConsole::selectedWidgetIDs() const
 {
     QVariantList ids;
 
-    QMap<quint32, QQuickItem*>::iterator it = m_itemsMap.begin();
+    QMap<quint32, QQuickItem*>::const_iterator it = m_itemsMap.begin();
     for (; it != m_itemsMap.end(); it++)
     {
         ids << it.key();
@@ -663,7 +663,7 @@ QVariantList VirtualConsole::selectedWidgetIDs()
     return ids;
 }
 
-void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos)
+void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos) const
 {
     if (widget == nullptr || targetFrame == nullptr)
         return;
@@ -691,7 +691,7 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
     qDebug() << "New widget geometry:" << widget->geometry();
 }
 
-bool VirtualConsole::reparentWidget(VCWidget *widget, VCFrame *targetFrame)
+bool VirtualConsole::reparentWidget(VCWidget *widget, VCFrame *targetFrame) const
 {
     if (widget == nullptr || targetFrame == nullptr)
         return false;
@@ -882,7 +882,7 @@ void VirtualConsole::requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, Q
             Q_ARG(QVariant, pos));
 }
 
-QString VirtualConsole::widgetIcon(int type)
+QString VirtualConsole::widgetIcon(int type) const
 {
     switch (type)
     {
@@ -971,7 +971,7 @@ void VirtualConsole::pasteFromClipboard()
     }
 }
 
-QVariantList VirtualConsole::clipboardItemsList()
+QVariantList VirtualConsole::clipboardItemsList() const
 {
     return m_clipboardIDList;
 }
@@ -1145,7 +1145,7 @@ QVariant VirtualConsole::inputChannelsModel()
     return QVariant::fromValue(m_inputChannelsTree);
 }
 
-QVariantList VirtualConsole::universeListModel()
+QVariantList VirtualConsole::universeListModel() const
 {
     QVariantList list;
 
@@ -1530,7 +1530,7 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
     return true;
 }
 
-bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
+bool VirtualConsole::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 

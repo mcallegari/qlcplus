@@ -687,7 +687,7 @@ void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
     meshRef->m_rootItem->setProperty("invertedTilt", (flags & MonitorProperties::InvertedTiltFlag) ? true : false);
 }
 
-Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
+Qt3DCore::QTransform *MainView3D::getTransform(const QEntity *entity) const
 {
     if (entity == nullptr)
         return nullptr;
@@ -709,7 +709,7 @@ Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
     return nullptr;
 }
 
-QMaterial *MainView3D::getMaterial(QEntity *entity)
+QMaterial *MainView3D::getMaterial(const QEntity *entity) const
 {
     if (entity == nullptr)
         return nullptr;
@@ -725,7 +725,7 @@ QMaterial *MainView3D::getMaterial(QEntity *entity)
     return nullptr;
 }
 
-QVector3D MainView3D::lightPosition(quint32 itemID)
+QVector3D MainView3D::lightPosition(quint32 itemID) const
 {
     SceneItem *meshRef = m_entitiesMap.value(itemID, nullptr);
     if (meshRef == nullptr)
@@ -734,7 +734,7 @@ QVector3D MainView3D::lightPosition(quint32 itemID)
     return meshRef->m_rootItem->property("lightPos").value<QVector3D>();
 }
 
-QMatrix4x4 MainView3D::lightMatrix(quint32 itemID)
+QMatrix4x4 MainView3D::lightMatrix(quint32 itemID) const
 {
     SceneItem *meshRef = m_entitiesMap.value(itemID, nullptr);
     if (meshRef == nullptr)
@@ -920,7 +920,7 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
 }
 
 #ifdef SHOW_FRAMEGRAPH
-void MainView3D::walkNode(QNode *e, int depth)
+void MainView3D::walkNode(QNode *e, int depth) const
 {
     QNodeVector nodes = e->childNodes();
     for (int i = 0; i < nodes.count(); ++i)
@@ -938,7 +938,7 @@ void MainView3D::walkNode(QNode *e, int depth)
 }
 #endif
 
-void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader)
+void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSceneLoader *loader)
 {
     if (m_entitiesMap.contains(itemID) == false)
         return;
@@ -1170,7 +1170,7 @@ void MainView3D::updateFixture(Fixture *fixture, QByteArray &previous)
     }
 }
 
-void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous)
+void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, const QByteArray &previous)
 {
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     SceneItem *meshItem = m_entitiesMap.value(itemID, nullptr);
@@ -1857,7 +1857,7 @@ QVariant MainView3D::genericItemsList() const
     return QVariant::fromValue(m_genericItemsList);
 }
 
-void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)
+void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos) const
 {
     if (isEnabled() == false)
         return;
@@ -1880,7 +1880,7 @@ void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)
     item->m_rootTransform->setTranslation(QVector3D(x, y, z));
 }
 
-QVector3D MainView3D::genericItemsPosition()
+QVector3D MainView3D::genericItemsPosition() const
 {
     if (m_genericSelectedItems.count() == 1)
         return m_monProps->itemPosition(m_genericSelectedItems.first());
@@ -1910,7 +1910,7 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
     emit genericItemsPositionChanged();
 }
 
-void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot)
+void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot) const
 {
     if (isEnabled() == false)
         return;
@@ -1930,7 +1930,7 @@ void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot)
     item->m_rootTransform->setRotation(qRotation);
 }
 
-QVector3D MainView3D::genericItemsRotation()
+QVector3D MainView3D::genericItemsRotation() const
 {
     if (m_genericSelectedItems.count() == 1)
         return m_monProps->itemRotation(m_genericSelectedItems.first());
@@ -1970,7 +1970,7 @@ void MainView3D::setGenericItemsRotation(QVector3D rot)
     emit genericItemsRotationChanged();
 }
 
-void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale)
+void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale) const
 {
     if (isEnabled() == false)
         return;
@@ -1988,7 +1988,7 @@ void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale)
         item->m_selectionBox->setProperty("modScale", scale);
 }
 
-QVector3D MainView3D::genericItemsScale()
+QVector3D MainView3D::genericItemsScale() const
 {
     if (m_genericSelectedItems.count() == 1)
     {
@@ -2110,7 +2110,7 @@ void MainView3D::setSmokeAmount(float smokeAmount)
 }
 
 bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
-                                   const QVector3D &center, const QVector3D &extents, float &hitDistance)
+                                   const QVector3D &center, const QVector3D &extents, float &hitDistance) const
 {
     QVector3D minCorner = center - extents * 0.5f;
     QVector3D maxCorner = center + extents * 0.5f;
@@ -2147,7 +2147,7 @@ bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &
     return true;
 }
 
-QVector3D MainView3D::unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos)
+QVector3D MainView3D::unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const
 {
     QMatrix4x4 viewMatrix;
     viewMatrix.lookAt(m_cameraPosition, m_cameraViewCenter, m_cameraUpVector);
@@ -2169,8 +2169,8 @@ QVector3D MainView3D::unprojectToWorld(const float &aspect, const QVector2D &ndc
     return rayDir;
 }
 
-quint32 MainView3D::itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
-                                     QMap<quint32, SceneItem*> &map, bool generic)
+quint32 MainView3D::itemIntersection(const QVector3D &rayOrigin, const QVector3D &rayDir, const int &modifiers,
+                                     const QMap<quint32, SceneItem*> &map, bool generic) const
 {
     // Step 1: Unproject mouse click to world ray
     quint32 pickedID = Fixture::invalidId();
@@ -2233,7 +2233,7 @@ quint32 MainView3D::itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, in
     return pickedID;
 }
 
-void MainView3D::pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers)
+void MainView3D::pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const
 {
     // Step 1: Unproject mouse click to world ray
     QVector3D rayOrigin = m_cameraPosition;
@@ -2249,7 +2249,7 @@ void MainView3D::pickEntity(const float &aspect, const QVector2D &ndcMousePos, i
  *                          GOBO TEXTURE CLASS METHODS
  *  ********************************************************************************* */
 
-GoboTextureImage::GoboTextureImage(int w, int h, QString filename)
+GoboTextureImage::GoboTextureImage(int w, int h, const QString& filename)
     : m_renderer(nullptr)
 {
     setSize(QSize(w, h));
@@ -2261,7 +2261,7 @@ QString GoboTextureImage::source() const
     return m_source;
 }
 
-void GoboTextureImage::setSource(QString filename)
+void GoboTextureImage::setSource(const QString& filename)
 {
     if (filename == m_source)
         return;

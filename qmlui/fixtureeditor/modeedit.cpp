@@ -91,7 +91,7 @@ QLCChannel *ModeEdit::channelFromIndex(int index) const
     return m_mode->channel(index);
 }
 
-bool ModeEdit::deleteChannel(QLCChannel *channel)
+bool ModeEdit::deleteChannel(const QLCChannel *channel)
 {
     // TODO: Tardis
     bool res = m_mode->removeChannel(channel);

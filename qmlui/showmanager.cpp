@@ -175,7 +175,7 @@ void ShowManager::setSnapGuideX(double snapGuideX)
 }
 
 QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
-                                       double viewportLeft, double viewportRight)
+                                       double viewportLeft, double viewportRight) const
 {
     QVariantList edges;
 

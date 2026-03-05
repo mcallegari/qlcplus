@@ -128,13 +128,13 @@ void UiManager::setDefaultParameter(QString category, QString name, QVariant val
     m_parameterMap.insert(name, prop);
 }
 
-QVariant UiManager::getDefault(QString name)
+QVariant UiManager::getDefault(QString name) const
 {
     UiProperty prop = m_parameterMap.value(name);
     return prop.m_default;
 }
 
-QVariant UiManager::getModified(QString name)
+QVariant UiManager::getModified(QString name) const
 {
     UiProperty prop = m_parameterMap.value(name);
     return prop.m_modified;
@@ -149,13 +149,13 @@ void UiManager::setModified(QString name, QVariant value)
     m_uiStyle->setProperty(str.c_str(), value);
 }
 
-QString UiManager::userConfFilepath()
+QString UiManager::userConfFilepath() const
 {
     QDir userConfDir = QLCFile::userDirectory(QString(USERQLCPLUSDIR), QString(USERQLCPLUSDIR), QStringList());
     return userConfDir.absolutePath() + QDir::separator() + UISTYLEFILE;
 }
 
-bool UiManager::saveSettings()
+bool UiManager::saveSettings() const
 {
     bool ret = true;
     QFile jsonFile(userConfFilepath());

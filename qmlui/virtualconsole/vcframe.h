@@ -102,7 +102,7 @@ protected:
      *********************************************************************/
 public:
     /** Returns if this frame has chidren widgets */
-    bool hasChildren();
+    bool hasChildren() const;
 
     /** Returns a list of the children widgets with the specified
      *  $recursive method */

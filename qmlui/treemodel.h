@@ -87,10 +87,10 @@ public:
      *  $flags are used to give an item a specific initial state. See TreeItemsFlags */
     TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
-    TreeModelItem *itemAtPath(QString path);
+    TreeModelItem *itemAtPath(const QString& path) const;
 
     /** Remove an item with the given $path from the tree */
-    bool removeItem(QString path);
+    bool removeItem(const QString& path);
 
     /**
      * Set the value of an item role by item path. This is recursive.
@@ -111,13 +111,13 @@ public:
     void setItemRoleData(TreeModelItem *item, const QVariant &value, int role = Qt::EditRole);
 
     /** Get the list of first level items of this tree. This doesn't include children. */
-    QList<TreeModelItem *> items();
+    QList<TreeModelItem *> items() const;
 
     /** Set columns data on a specific item with the provided $path */
     void setPathData(QString path, QVariantList data);
 
     /** Get the index of a role by its name. Useful before calling setItemRoleData */
-    int roleIndex(QString role);
+    int roleIndex(const QString& role) const;
 
     /** @reimp */
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const override;
@@ -129,7 +129,7 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
     /** Helper method to print the tree in human readable form */
-    void printTree(int tab = 0);
+    void printTree(int tab = 0) const;
 
 signals:
     void roleChanged(TreeModelItem *item, int role, const QVariant &value);
@@ -139,8 +139,8 @@ protected slots:
 
 protected:
     QHash<int, QByteArray> roleNames() const override;
-    int getItemInsertIndex(QString label, int flags = 0);
-    int getNodeInsertIndex(QString label);
+    int getItemInsertIndex(const QString& label, int flags = 0) const;
+    int getNodeInsertIndex(const QString& label) const;
 
 protected:
     QStringList m_roles;

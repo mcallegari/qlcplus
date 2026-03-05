@@ -437,7 +437,7 @@ void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
     }
 }
 
-void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar)
+void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar) const
 {
     if (bar.m_widgetId == VCWidget::invalidId())
     {
@@ -448,7 +448,7 @@ void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar)
     bar.m_widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
 }
 
-void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar)
+void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar) const
 {
     if (bar.m_widgetId == VCWidget::invalidId())
         return;

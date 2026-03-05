@@ -597,7 +597,7 @@ void ImportManager::importFunctionID(quint32 funcID)
     m_functionIDList.removeOne(funcID);
 }
 
-void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)
+void ImportManager::setChildrenChecked(TreeModel *tree, bool checked) const
 {
     if (tree == nullptr)
         return;
@@ -757,7 +757,7 @@ void ImportManager::setFixtureSearchFilter(QString searchFilter)
     emit fixtureSearchFilterChanged();
 }
 
-void ImportManager::checkFixtureTree(TreeModel *tree)
+void ImportManager::checkFixtureTree(TreeModel *tree) const
 {
     if (tree == nullptr)
         return;
@@ -832,7 +832,7 @@ QVariant ImportManager::functionsTreeModel()
     return QVariant::fromValue(m_functionTree);
 }
 
-void ImportManager::checkFunctionTree(TreeModel *tree)
+void ImportManager::checkFunctionTree(TreeModel *tree) const
 {
     if (tree == nullptr)
         return;

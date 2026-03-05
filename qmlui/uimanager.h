@@ -43,13 +43,13 @@ public:
     void initialize();
     void setDefaultParameter(QString category, QString name, QVariant value);
 
-    Q_INVOKABLE QVariant getDefault(QString name);
+    Q_INVOKABLE QVariant getDefault(QString name) const;
 
-    Q_INVOKABLE QVariant getModified(QString name);
+    Q_INVOKABLE QVariant getModified(QString name) const;
     Q_INVOKABLE void setModified(QString name, QVariant value);
 
-    Q_INVOKABLE QString userConfFilepath();
-    Q_INVOKABLE bool saveSettings();
+    Q_INVOKABLE QString userConfFilepath() const;
+    Q_INVOKABLE bool saveSettings() const;
 
 private:
     /** Reference to the QML view root */

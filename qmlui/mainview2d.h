@@ -63,7 +63,7 @@ public:
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
     /** Select some Fixtures included in the provided $rect area */
-    QList<quint32> selectFixturesRect(QRectF rect);
+    QList<quint32> selectFixturesRect(QRectF rect) const;
 
     /** Return the ID of a Fixture at the given $pos or -1 if not found */
     Q_INVOKABLE int itemIDAtPos(QPointF pos);
@@ -116,7 +116,7 @@ public:
     void setPointOfView(int pointOfView);
 
     /** Get/Set the main background image */
-    QString backgroundImage();
+    QString backgroundImage() const;
     void setBackgroundImage(QString path);
 
 protected:
@@ -124,7 +124,7 @@ protected:
     bool initialize2DProperties();
 
     /** Update the Quick item selection and reparent for dragging if needed */
-    void selectFixture(QQuickItem *fxItem, bool enable);
+    void selectFixture(QQuickItem *fxItem, bool enable) const;
 
 signals:
     void gridSizeChanged();

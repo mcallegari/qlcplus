@@ -89,10 +89,10 @@ void ModelSelector::resetSelection(ListModel *model)
     emit itemsCountChanged(m_itemsCount);
 }
 
-QVariantList ModelSelector::itemsList()
+QVariantList ModelSelector::itemsList() const
 {
     QVariantList list;
-    for (quint32 &sidx : m_selectedIndices)
+    for (const quint32 &sidx : m_selectedIndices)
         list.append(sidx);
 
     return list;
@@ -102,5 +102,3 @@ int ModelSelector::itemsCount() const
 {
     return m_itemsCount;
 }
-
-

@@ -259,7 +259,7 @@ public slots:
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */
-    static bool compareFixtures(Fixture *left, Fixture *right);
+    static bool compareFixtures(const Fixture *left, const Fixture *right);
 
 private:
     /** List of the current Fixture references in Doc */

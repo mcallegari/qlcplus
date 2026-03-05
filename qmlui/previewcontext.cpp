@@ -65,7 +65,7 @@ void PreviewContext::enableContext(bool enable)
     m_enabled = enable;
 }
 
-bool PreviewContext::isEnabled()
+bool PreviewContext::isEnabled() const
 {
     return m_enabled;
 }
@@ -85,12 +85,12 @@ void PreviewContext::setUniverseFilter(quint32 universeFilter)
     emit universeFilterChanged(universeFilter);
 }
 
-QQuickView *PreviewContext::view()
+QQuickView *PreviewContext::view() const
 {
     return m_view;
 }
 
-QQuickItem *PreviewContext::contextItem()
+QQuickItem *PreviewContext::contextItem() const
 {
     return m_contextItem;
 }

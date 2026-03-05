@@ -52,12 +52,12 @@ PaletteManager::~PaletteManager()
 {
 }
 
-QVariant PaletteManager::paletteList()
+QVariant PaletteManager::paletteList() const
 {
     return QVariant::fromValue(m_paletteList);
 }
 
-QLCPalette *PaletteManager::getPalette(quint32 id)
+QLCPalette *PaletteManager::getPalette(quint32 id) const
 {
     QLCPalette *palette = m_doc->palette(id);
     QQmlEngine::setObjectOwnership(palette, QQmlEngine::CppOwnership);
@@ -127,7 +127,7 @@ quint32 PaletteManager::createPalette(QLCPalette *palette, QString name)
     return newPalette->id();
 }
 
-void PaletteManager::previewPalette(QLCPalette *palette)
+void PaletteManager::previewPalette(const QLCPalette *palette)
 {
     if (palette == nullptr)
         return;
@@ -216,7 +216,7 @@ void PaletteManager::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
-QStringList PaletteManager::selectedItemNames(QVariantList list)
+QStringList PaletteManager::selectedItemNames(QVariantList list) const
 {
     QStringList names;
 
@@ -275,5 +275,3 @@ void PaletteManager::slotDocLoaded()
 {
     updatePaletteList();
 }
-
-

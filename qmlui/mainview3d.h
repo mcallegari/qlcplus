@@ -50,11 +50,11 @@ using namespace Qt3DLogic;
 class GoboTextureImage final : public Qt3DRender::QPaintedTextureImage
 {
 public:
-    GoboTextureImage(int w, int h, QString filename);
+    GoboTextureImage(int w, int h, const QString& filename);
 
     /** Get/set the gobo source to use as texture */
     QString source() const;
-    void setSource(QString filename);
+    void setSource(const QString& filename);
 
 protected:
     void paint(QPainter *painter) override;
@@ -221,7 +221,7 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
-    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader);
+    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, const QSceneLoader *loader);
 
     Q_INVOKABLE QString makeShader(QString str);
 
@@ -229,7 +229,7 @@ public:
     void updateFixture(Fixture *fixture, QByteArray &previous);
 
     /** Update a single fixture item for a specific Fixture ID, head index and linked index */
-    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous);
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, const QByteArray &previous);
 
     /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32>fixtures);
@@ -250,10 +250,10 @@ public:
     void removeFixtureItem(quint32 itemID);
 
     /** Get the Fixture light 3D position for the provided $itemID */
-    QVector3D lightPosition(quint32 itemID);
+    QVector3D lightPosition(quint32 itemID) const;
 
     /** Get the Fixture light matrix for the provided $itemID */
-    QMatrix4x4 lightMatrix(quint32 itemID);
+    QMatrix4x4 lightMatrix(quint32 itemID) const;
 
 protected:
     /** First time 3D view variables initializations */
@@ -268,11 +268,11 @@ protected:
                            QLayer *layer, QEffect *effect,
                            bool calculateVolume, QVector3D translation);
 
-    void walkNode(QNode *e, int depth);
+    void walkNode(QNode *e, int depth) const;
 
 private:
-    Qt3DCore::QTransform *getTransform(QEntity *entity);
-    QMaterial *getMaterial(QEntity *entity);
+    Qt3DCore::QTransform *getTransform(const QEntity *entity) const;
+    QMaterial *getMaterial(const QEntity *entity) const;
     void updateLightMatrix(SceneItem *mesh);
 
 private:
@@ -322,16 +322,16 @@ public:
      *  to be displayed in QML */
     QVariant genericItemsList() const;
 
-    void updateGenericItemPosition(quint32 itemID, QVector3D pos);
-    QVector3D genericItemsPosition();
+    void updateGenericItemPosition(quint32 itemID, QVector3D pos) const;
+    QVector3D genericItemsPosition() const;
     void setGenericItemsPosition(QVector3D pos);
 
-    void updateGenericItemRotation(quint32 itemID, QVector3D rot);
-    QVector3D genericItemsRotation();
+    void updateGenericItemRotation(quint32 itemID, QVector3D rot) const;
+    QVector3D genericItemsRotation() const;
     void setGenericItemsRotation(QVector3D rot);
 
-    void updateGenericItemScale(quint32 itemID, QVector3D scale);
-    QVector3D genericItemsScale();
+    void updateGenericItemScale(quint32 itemID, QVector3D scale) const;
+    QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
 
 protected:
@@ -401,16 +401,16 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
-    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers);
+    Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
     void createStage();
-    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos);
+    QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
-                           const QVector3D &center, const QVector3D &extents, float &hitDistance);
+                           const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
 
-    quint32 itemIntersection(QVector3D &rayOrigin, QVector3D &rayDir, int &modifiers,
-                             QMap<quint32, SceneItem *> &map, bool generic);
+    quint32 itemIntersection(const QVector3D &rayOrigin, const QVector3D &rayDir, const int &modifiers,
+                             const QMap<quint32, SceneItem *> &map, bool generic) const;
 
 signals:
     void renderQualityChanged(RenderQuality renderQuality);
