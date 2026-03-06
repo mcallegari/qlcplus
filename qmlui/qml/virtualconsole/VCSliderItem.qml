@@ -146,7 +146,7 @@ VCWidgetItem
             to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
 
-            onValueChanged: if (sliderObj) sliderObj.value = value
+            onMoved: if (sliderObj) sliderObj.value = value
         }
 
         // widget name text box
