@@ -540,72 +540,63 @@ void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
     m_audioLevels.clear();
     m_audioLevels.reserve(size + 1);
 
-    // --- 1) Volume (index 0) normalized to 0..255
-    //      'power' comes from AudioCapture::processData() as an aggregated value;
-    //      map it to [0,1] by clamping against 0x7FFF (15-bit) for a stable UI scale.
-    //      If you want it "hotter", tweak kPowerMax.
+    // Keep the same volume conversion used by the widgets implementation.
     static constexpr double kPowerMax = 32767.0; // 0x7FFF
-    const double vol01 = qBound(0.0, double(power) / kPowerMax, 1.0);
-    const int    vol255 = int(vol01 * 255.0 + 0.5);
+    const int vol255 = qBound(0, int((double(power) * 255.0 / kPowerMax) + 0.5), 255);
 
     m_spectrumBars[0].m_value = uchar(vol255);
     m_audioLevels.append(vol255);
 
-    // --- 2) Spectrum bands normalized to 0..255 by current-frame maxMagnitude
-    //      Optional gamma for nicer perception; 1.0 = linear, <1 brightens, >1 darkens.
+    // Optional perceptual shaping. 1.0 = linear.
     static constexpr double kGamma = 1.0;
-
-    if (maxMagnitude <= 0.0)
-    {
-        // No usable energy: zero all bands
-        for (int i = 0; i < size; ++i)
-        {
-            m_spectrumBars[i + 1].m_value = 0;
-            m_audioLevels.append(0);
-        }
-        emit audioLevelsChanged();
-        return;
-    }
+    static constexpr double kAlpha = 0.25; // 0..1, higher = snappier
 
     for (int i = 0; i < size; ++i)
     {
         // Normalize this band to [0..1]
-        double v = spectrumBands[i] / maxMagnitude;
-        v = qBound(0.0, v, 1.0);
+        double v = 0.0;
+        if (maxMagnitude > 0.0)
+            v = qBound(0.0, spectrumBands[i] / maxMagnitude, 1.0);
 
-        // Perceptual shaping
+        // Perceptual shaping and temporal smoothing
         if (kGamma != 1.0)
             v = qPow(v, kGamma);
 
-        static constexpr double kAlpha = 0.25; // 0..1, higher = snappier
-        double old01 = m_spectrumBars[i + 1].m_value / 255.0;
+        const double old01 = m_spectrumBars[i + 1].m_value / 255.0;
         v = kAlpha * v + (1.0 - kAlpha) * old01;
-        const int v255 = int(v * 255.0 + 0.5);
+        const int bandValue = qBound(0, int(v * 255.0 + 0.5), 255);
 
         // Store in bars (for DMX) and in UI list (index aligned: +1 for volume)
-        m_spectrumBars[i + 1].m_value = uchar(v255);        
-        m_audioLevels.append(v255);
+        m_spectrumBars[i + 1].m_value = uchar(bandValue);
+        m_audioLevels.append(bandValue);
     }
 
     for (int i = 0; i < m_spectrumBars.count(); i++)
     {
         AudioBar &bar = m_spectrumBars[i];
-        if (bar.m_type == FunctionBar)
+        switch (bar.m_type)
         {
-            if (bar.m_function == nullptr && bar.m_functionId != Function::invalidId())
-                bar.m_function = m_doc->function(bar.m_functionId);
-
-            if (bar.m_function != nullptr)
+            case FunctionBar:
             {
-                if (bar.m_value >= bar.m_maxThreshold)
-                    bar.m_function->start(m_doc->masterTimer(), functionParent());
-                else if (bar.m_value < bar.m_minThreshold)
-                    bar.m_function->stop(functionParent());
+                if (bar.m_function == nullptr && bar.m_functionId != Function::invalidId())
+                    bar.m_function = m_doc->function(bar.m_functionId);
+
+                if (bar.m_function != nullptr)
+                {
+                    if (bar.m_value >= bar.m_maxThreshold)
+                        bar.m_function->start(m_doc->masterTimer(), functionParent());
+                    else if (bar.m_value < bar.m_minThreshold)
+                        bar.m_function->stop(functionParent());
+                }
             }
-        }
-        else if (bar.m_type == VCWidgetBar)
-        {
-            checkWidgetFunctionality(bar);
+            break;
+            case VCWidgetBar:
+                checkWidgetFunctionality(bar);
+            break;
+            case DMXBar:
+            case None:
+            default:
+            break;
         }
     }
 
