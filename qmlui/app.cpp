@@ -96,6 +96,8 @@ App::App()
 {
     QSettings settings;
 
+    setResizeMode(QQuickView::SizeRootObjectToView);
+
     updateRecentFilesList();
 
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
@@ -114,10 +116,14 @@ App::~App()
 
     stopAllFunctions();
 
+#if defined(Q_OS_ANDROID)
+    settings.setValue(SETTINGS_GEOMETRY, QVariant());
+#else
     if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
         settings.setValue(SETTINGS_GEOMETRY, geometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
+#endif
 
     /* remove autosave file if present */
     QFile asFile(autoSaveFileName());
@@ -203,11 +209,19 @@ void App::startup()
 
     QSettings settings;
     QRect rect(0, 0, 800, 600);
+    bool restoreWindowGeometry = false;
     QVariant var = settings.value(SETTINGS_GEOMETRY);
+#if defined(Q_OS_ANDROID)
+    QScreen *currScreen = screen();
+    rect = currScreen->geometry();
+    setGeometry(rect);
+    show();
+#else
     if (var.isValid())
     {
         //qDebug() << "Restoring window position" << var.toRect();
         rect = var.toRect();
+        restoreWindowGeometry = true;
         setGeometry(rect);
         show();
     }
@@ -218,6 +232,7 @@ void App::startup()
         setGeometry(rect);
         showMaximized();
     }
+#endif
 
     slotScreenChanged(screen());
     m_uiManager->initialize();
@@ -226,8 +241,8 @@ void App::startup()
     // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
 
-    // set geometry once again
-    setGeometry(rect);
+    if (restoreWindowGeometry)
+        setGeometry(rect);
 }
 
 void App::toggleFullscreen()
