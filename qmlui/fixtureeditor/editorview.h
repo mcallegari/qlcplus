@@ -126,7 +126,7 @@ public:
     Q_INVOKABLE void addPresetChannel(QString name, int group);
 
     /** Delete the given $channel from the definition */
-    Q_INVOKABLE bool deleteChannel(QLCChannel *channel);
+    Q_INVOKABLE bool deleteChannel(const QLCChannel *channel);
 
     Q_INVOKABLE bool deleteChannels(QVariantList channels);
 

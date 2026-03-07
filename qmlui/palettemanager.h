@@ -46,13 +46,13 @@ public:
     ~PaletteManager();
 
     /** Get a list of Palettes filtered with typeFilter */
-    QVariant paletteList();
+    QVariant paletteList() const;
 
     /** Return a list of Palette names from the give $list of IDs */
-    Q_INVOKABLE QStringList selectedItemNames(QVariantList list);
+    Q_INVOKABLE QStringList selectedItemNames(QVariantList list) const;
 
     /** Get the reference to a QLCPalette from the given ID */
-    Q_INVOKABLE QLCPalette *getPalette(quint32 id);
+    Q_INVOKABLE QLCPalette *getPalette(quint32 id) const;
 
     /** Request a palette for editing.
      * The returned palette is mapped by type on m_editingMap */
@@ -66,7 +66,7 @@ public:
     Q_INVOKABLE quint32 createPalette(QLCPalette *palette, QString name);
 
     /** Preview the given palette via Context manager */
-    Q_INVOKABLE void previewPalette(QLCPalette *palette);
+    Q_INVOKABLE void previewPalette(const QLCPalette *palette);
 
     /** Update the give palette with single value (e.g. dimmer, pan, tilt, etc) */
     Q_INVOKABLE void updatePalette(QLCPalette *palette, QVariant value1);

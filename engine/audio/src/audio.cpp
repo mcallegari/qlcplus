@@ -121,7 +121,7 @@ bool Audio::copyFrom(const Function* function)
     return Function::copyFrom(function);
 }
 
-QStringList Audio::getCapabilities()
+QStringList Audio::getCapabilities() const
 {
     return m_doc->audioPluginCache()->getSupportedFormats();
 }
@@ -183,12 +183,12 @@ bool Audio::setSourceFileName(QString filename)
     return true;
 }
 
-QString Audio::getSourceFileName()
+QString Audio::getSourceFileName() const
 {
     return m_sourceFileName;
 }
 
-AudioDecoder *Audio::getAudioDecoder()
+AudioDecoder *Audio::getAudioDecoder() const
 {
     return m_decoder;
 }
@@ -208,7 +208,7 @@ void Audio::setVolume(qreal volume)
     m_volume = volume;
 }
 
-QString Audio::audioDevice()
+QString Audio::audioDevice() const
 {
     return m_audioDevice;
 }

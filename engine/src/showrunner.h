@@ -102,7 +102,7 @@ public:
     /**
      * Adjust the intensity of show track
      */
-    void adjustIntensity(qreal fraction, Track *track);
+    void adjustIntensity(qreal fraction, const Track *track);
 
 private:
     QMap<quint32, qreal> m_intensityMap;

@@ -369,7 +369,7 @@ public:
     bool addCapability(QLCCapability* cap);
 
     /** Remove a capability from the channel */
-    bool removeCapability(QLCCapability* cap);
+    bool removeCapability(const QLCCapability* cap);
 
     /** Change a current cap range, checking for feasibility */
     bool setCapabilityRange(QLCCapability* cap, uchar min, uchar max);

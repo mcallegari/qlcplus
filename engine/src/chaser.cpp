@@ -497,7 +497,7 @@ void Chaser::tap()
         m_runner->tap();
 }
 
-void Chaser::setAction(ChaserAction &action)
+void Chaser::setAction(const ChaserAction &action)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)

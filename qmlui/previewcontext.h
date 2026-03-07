@@ -63,17 +63,17 @@ public:
 
     virtual void enableContext(bool enable);
 
-    virtual bool isEnabled();
+    virtual bool isEnabled() const;
 
     /** Get/Set the current universe filter */
     virtual quint32 universeFilter() const;
     virtual void setUniverseFilter(quint32 universeFilter);
 
     /** Get a handler for the associated QuickView */
-    QQuickView *view();
+    QQuickView *view() const;
 
     /** Get/Set the Quick item to access the context properties/objects */
-    QQuickItem *contextItem();
+    QQuickItem *contextItem() const;
     void setContextItem(QQuickItem *item);
 
     /** Get the context display name */

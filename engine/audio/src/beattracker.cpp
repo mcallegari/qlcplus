@@ -299,9 +299,7 @@ double BeatTracker::computeAdaptiveThreshold() const
     if (count <= 0)
         return std::numeric_limits<double>::infinity();
 
-    double sum = 0.0;
-    for (int i = 0; i < count; ++i)
-        sum += m_fluxHistory[i];
+    double sum = std::accumulate(m_fluxHistory.begin(), m_fluxHistory.end(), 0.0);
 
     double mean = sum / count;
     return mean * m_sensitivity;
@@ -312,9 +310,7 @@ double BeatTracker::getCurrentBpm() const
     if (m_beatIntervalsSec.empty())
         return 0.0;
 
-    double sum = 0.0;
-    for (double dt : m_beatIntervalsSec)
-        sum += dt;
+    double sum = std::accumulate(m_beatIntervalsSec.begin(), m_beatIntervalsSec.end(), 0.0);
 
     if (sum <= 0.0)
         return 0.0;
@@ -324,7 +320,7 @@ double BeatTracker::getCurrentBpm() const
 }
 
 // process interleaved multi-channel audio
-bool BeatTracker::processAudio(int16_t *buffer, int bufferSize)
+bool BeatTracker::processAudio(const int16_t *buffer, int bufferSize)
 {
     if (!buffer || bufferSize <= 0 || m_channels <= 0)
         return false;

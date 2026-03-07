@@ -1546,7 +1546,7 @@ void VCSlider::setBottomLabelText(const QString& text)
     m_bottomLabel->setText(text);
 }
 
-QString VCSlider::bottomLabelText()
+QString VCSlider::bottomLabelText() const
 {
     return m_bottomLabel->text();
 }

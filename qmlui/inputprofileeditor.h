@@ -67,11 +67,11 @@ public:
     void setModel(const QString &newModel);
 
     /* Get/Set the type of the profile currently being edited */
-    QLCInputProfile::Type type();
+    QLCInputProfile::Type type() const;
     void setType(const QLCInputProfile::Type &newType);
 
     /* Get/Set MIDI Note Off setting */
-    bool midiNoteOff();
+    bool midiNoteOff() const;
     void setMidiNoteOff(const bool &newNoteOff);
 
 protected slots:
@@ -127,19 +127,19 @@ public:
 
     /* Return a QML-ready list of channels of the profile
      * currently being edited */
-    QVariant channels();
+    QVariant channels() const;
 
     /* Return a QML-ready list of colors of the profile
      * currently being edited */
-    QVariant colorTable();
+    QVariant colorTable() const;
 
     /* Return a QML-ready list of MIDI channels of the profile
      * currently being edited */
-    QVariant midiChannelTable();
+    QVariant midiChannelTable() const;
 
     /* Return a QML-ready list of channel types to be
      * used by a combo box component */
-    QVariantList channelTypeModel();
+    QVariantList channelTypeModel() const;
 
     /* Get a copy of the channel with the provided number */
     Q_INVOKABLE QLCInputChannel *getEditChannel(int channelNumber);

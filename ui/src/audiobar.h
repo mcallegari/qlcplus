@@ -46,7 +46,7 @@ class AudioBar final
 {
 public:
     /** Normal constructor */
-    AudioBar(int type = 0, uchar value = 0, quint32 parentId = quint32(-1));
+    AudioBar(int type = BarType::None, uchar value = 0, quint32 parentId = quint32(-1));
 
     /** Destructor */
     ~AudioBar() { }
@@ -76,7 +76,7 @@ public:
     void checkFunctionThresholds(Doc *doc);
     void checkWidgetFunctionality();
 
-    void debugInfo();
+    void debugInfo() const;
 
     /** Load properties and contents from an XML tree */
     bool loadXML(QXmlStreamReader &root, Doc *doc);

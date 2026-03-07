@@ -45,12 +45,12 @@ public:
     /** Returns the linked index from the given itemID composite ID */
     static quint16 itemLinkedIndex(quint32 itemID);
 
-    static QPointF item2DPosition(MonitorProperties *monProps, int pointOfView, QVector3D pos);
+    static QPointF item2DPosition(const MonitorProperties *monProps, int pointOfView, QVector3D pos);
     static float item2DRotation(int pointOfView, QVector3D rot);
-    static QSizeF item2DDimension(QLCFixtureMode *fxMode, int pointOfView);
+    static QSizeF item2DDimension(const QLCFixtureMode *fxMode, int pointOfView);
     static void alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment);
 
-    static QVector3D item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal);
+    static QVector3D item3DPosition(const MonitorProperties *monProps, QPointF point, float thirdVal);
 
     /** Returns the first available space (in mm) for a rectangle
      * of the given width and height.

@@ -1,5 +1,6 @@
 add_executable(outputpatch_test WIN32
     outputpatch_test.cpp outputpatch_test.h
+    ../iopluginstub/iopluginstub.cpp
 )
 target_include_directories(outputpatch_test PRIVATE
     ../../../plugins/interfaces

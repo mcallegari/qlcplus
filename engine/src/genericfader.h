@@ -66,7 +66,7 @@ public:
 
     /** Get/Set if this fader should handle primary/secondary channels
      *  when a caller requests a FadeChannel */
-    bool handleSecondary();
+    bool handleSecondary() const;
     void setHandleSecondary(bool enable);
 
     /** Build a hash for a fader channel which is unique in a Universe.
@@ -91,7 +91,7 @@ public:
     void replace(const FadeChannel& ch);
 
     /** Remove a channel whose fixture & channel match with $fc's */
-    void remove(FadeChannel *ch);
+    void remove(const FadeChannel *ch);
 
     /** Remove all channels */
     void removeAll();

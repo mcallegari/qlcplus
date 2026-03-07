@@ -629,7 +629,7 @@ quint16 SpeedDial::defaultVisibilityMask()
     return DEFAULT_VISIBILITY_MASK;
 }
 
-quint16 SpeedDial::visibilityMask()
+quint16 SpeedDial::visibilityMask() const
 {
     return m_visibilityMask;
 }

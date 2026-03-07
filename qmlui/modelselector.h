@@ -45,7 +45,7 @@ public:
 
     /** Return the list of the currently selected
      *  item indices, as list of QVariant */
-    Q_INVOKABLE QVariantList itemsList();
+    Q_INVOKABLE QVariantList itemsList() const;
 
     /** Return the number of items currently selected */
     int itemsCount() const;

@@ -108,7 +108,7 @@ public:
      * @param data the content of a fixture XML data
      * @return
      */
-    bool storeFixtureDef(QString filename, QString data);
+    bool storeFixtureDef(const QString& filename, const QString& data);
 
     /**
      * Reload from file a definition with the provided reference
@@ -145,7 +145,7 @@ public:
      * @param manufacturer used to elapse the fixture file name relative path
      * @return the number of fixtures found
      */
-    int loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer);
+    int loadMapManufacturer(QXmlStreamReader *doc, const QString& manufacturer);
 
     /**
      * Load a map of hardcoded fixture definitions that represent

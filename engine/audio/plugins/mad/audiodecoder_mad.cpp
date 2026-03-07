@@ -447,7 +447,7 @@ bool AudioDecoderMAD::fillBuffer()
     return true;
 }
 
-uint AudioDecoderMAD::findID3v2(uchar *data, ulong size) //retuns ID3v2 tag size
+uint AudioDecoderMAD::findID3v2(const uchar *data, ulong size) //retuns ID3v2 tag size
 {
     if (size < 10)
         return 0;

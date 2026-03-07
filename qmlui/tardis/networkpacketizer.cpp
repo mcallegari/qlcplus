@@ -32,7 +32,7 @@ NetworkPacketizer::NetworkPacketizer()
 {
 }
 
-void NetworkPacketizer::initializePacket(QByteArray &packet, int opCode)
+void NetworkPacketizer::initializePacket(QByteArray &packet, int opCode) const
 {
     packet.clear();
     packet.append((char)0xE6);            // protocol ID MSB
@@ -44,7 +44,7 @@ void NetworkPacketizer::initializePacket(QByteArray &packet, int opCode)
     packet.append((char)0x00);            // sections length LSB
 }
 
-void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
+void NetworkPacketizer::addSection(QByteArray &packet, QVariant value) const
 {
     if (value.isNull())
         return;
@@ -238,7 +238,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
     packet[6] = newLength & 0xFF;
 }
 
-QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *crypter)
+QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *crypter) const
 {
     QByteArray encPacket = packet.mid(0, HEADER_LENGTH); // copy the fixed size header
     encPacket.append(crypter->encryptToByteArray(packet.mid(HEADER_LENGTH))); // encrypt the rest
@@ -250,7 +250,7 @@ QByteArray NetworkPacketizer::encryptPacket(QByteArray &packet, SimpleCrypt *cry
     return encPacket;
 }
 
-int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter)
+int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter) const
 {
     int bytes_read = 0;
     quint8 sections_number = 0;

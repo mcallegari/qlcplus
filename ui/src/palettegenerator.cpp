@@ -67,27 +67,27 @@ void PaletteGenerator::setName(QString name)
     m_name = name;
 }
 
-QString PaletteGenerator::name()
+QString PaletteGenerator::name() const
 {
     return m_name;
 }
 
-QString PaletteGenerator::fullName()
+QString PaletteGenerator::fullName() const
 {
     return m_name + " - " + m_model;
 }
 
-QString PaletteGenerator::model()
+QString PaletteGenerator::model() const
 {
     return m_model;
 }
 
-PaletteGenerator::PaletteType PaletteGenerator::type()
+PaletteGenerator::PaletteType PaletteGenerator::type() const
 {
     return m_type;
 }
 
-PaletteGenerator::PaletteSubType PaletteGenerator::subType()
+PaletteGenerator::PaletteSubType PaletteGenerator::subType() const
 {
     return m_subType;
 }
@@ -179,17 +179,17 @@ QStringList PaletteGenerator::getCapabilities(const Fixture *fixture)
     return caps;
 }
 
-QList<Scene *> PaletteGenerator::scenes()
+QList<Scene *> PaletteGenerator::scenes() const
 {
     return m_scenes;
 }
 
-QList<Chaser *> PaletteGenerator::chasers()
+QList<Chaser *> PaletteGenerator::chasers() const
 {
     return m_chasers;
 }
 
-QList<RGBMatrix *> PaletteGenerator::matrices()
+QList<RGBMatrix *> PaletteGenerator::matrices() const
 {
     return m_matrices;
 }
@@ -587,13 +587,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
     }
 }
 
-QString PaletteGenerator::getNamePrefix(QString name)
+QString PaletteGenerator::getNamePrefix(QString name) const
 {
     // return name + " - " + m_model; // old naming
     return m_model + " - " + name;
 }
 
-QString PaletteGenerator::getNamePrefix(QString type, QString name)
+QString PaletteGenerator::getNamePrefix(QString type, QString name) const
 {
     // return name + " - " + type + " - " + m_model; // old naming
     return m_model + " - " + type + " - " + name;

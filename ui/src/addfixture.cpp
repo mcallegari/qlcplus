@@ -215,7 +215,7 @@ quint32 AddFixture::channels() const
     return m_channelsValue;
 }
 
-bool AddFixture::invalidAddress()
+bool AddFixture::invalidAddress() const
 {
     return m_invalidAddressFlag;
 }

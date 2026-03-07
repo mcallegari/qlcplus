@@ -48,7 +48,7 @@ QList<QString> QLCModifiersCache::templateNames() const
     return m_modifiers.keys();
 }
 
-ChannelModifier *QLCModifiersCache::modifier(QString name) const
+ChannelModifier *QLCModifiersCache::modifier(const QString& name) const
 {
     return m_modifiers.value(name, NULL);
 }

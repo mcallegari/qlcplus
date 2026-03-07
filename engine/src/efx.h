@@ -413,7 +413,7 @@ public:
     /**
      * Returns true when lissajous has been selected
      */
-    bool isFrequencyEnabled();
+    bool isFrequencyEnabled() const;
 
 private:
     /**
@@ -539,7 +539,7 @@ public:
     static QString propagationModeToString(PropagationMode mode);
 
     /** Convert a string to a propagation mode setting */
-    static PropagationMode stringToPropagationMode(QString str);
+    static PropagationMode stringToPropagationMode(const QString& str);
 
 private:
     PropagationMode m_propagationMode;

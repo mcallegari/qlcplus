@@ -96,7 +96,7 @@ public:
     void setServerPassword(QString password);
     void setWebServerConfiguration(int portNumber, bool enableAuth, const QString &passwordFile);
 
-    int connectionsCount();
+    int connectionsCount() const;
 
 public slots:
     void sendAction(int code, TardisAction action);
@@ -126,7 +126,7 @@ protected slots:
 
     quint64 actionKey(int code, quint32 objID) const;
     void markActionSource(int code, quint32 objID, QTcpSocket *socket);
-    bool shouldSkipEcho(QTcpSocket *socket, int code, quint32 objID);
+    bool shouldSkipEcho(const QTcpSocket *socket, int code, quint32 objID);
 
 private:
     /** Reference to the QLC+ Doc */
@@ -185,7 +185,7 @@ public:
     void setServerStarted(bool serverStarted);
 
 protected:
-    QHostAddress getHostFromName(QString name);
+    QHostAddress getHostFromName(QString name) const;
 
 signals:
     void serverStartedChanged(bool serverStarted);

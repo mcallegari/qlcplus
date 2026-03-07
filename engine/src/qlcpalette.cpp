@@ -251,7 +251,7 @@ void QLCPalette::resetValues()
     m_values.clear();
 }
 
-QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtures)
+QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtures) const
 {
     QList<SceneValue> list;
 
@@ -541,7 +541,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
     return list;
 }
 
-QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> groups)
+QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> groups) const
 {
     QList<quint32> fixturesList;
 
@@ -557,7 +557,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> g
     return valuesFromFixtures(doc, fixturesList);
 }
 
-qreal QLCPalette::valueFactor(qreal progress)
+qreal QLCPalette::valueFactor(qreal progress) const
 {
     qreal factor = 1.0;
     qreal normalizedAmount = qreal(m_fanningAmount) / 100.0;
@@ -751,7 +751,7 @@ QString QLCPalette::colorToString(QColor rgb, QColor wauv)
     return final;
 }
 
-bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
+bool QLCPalette::stringToColor(const QString& str, QColor &rgb, QColor &wauv)
 {
     // string must be like #rrggbb or #rrggbbwwaauv
     if (str.length() != 7 && str.length() != 13)
@@ -885,7 +885,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
     return true;
 }
 
-bool QLCPalette::saveXML(QXmlStreamWriter *doc)
+bool QLCPalette::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 

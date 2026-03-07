@@ -273,7 +273,7 @@ public:
     /** Returns pixel X positions of all item edges (start + end) across all tracks,
      *  excluding the item with the given function ID */
     Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeFuncId,
-                                          double viewportLeft = -1, double viewportRight = -1);
+                                          double viewportLeft = -1, double viewportRight = -1) const;
 
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;

@@ -70,7 +70,7 @@ public:
     void setSnapping(bool enable);
 
     /** Get the VC widget position snapping size */
-    qreal snappingSize();
+    qreal snappingSize() const;
 
     enum LoadStatus
     {
@@ -83,14 +83,14 @@ public:
     LoadStatus loadStatus() const;
 
     /** Get a list of Widgets that use $fid */
-    Q_INVOKABLE QVariantList usageList(quint32 fid);
+    Q_INVOKABLE QVariantList usageList(quint32 fid) const;
 
     /** Get a filtered list of VC widgets.
      *  $typeFilters can contain VCWidget::WidgetType values.
      *  If empty, all widgets are returned.
      *  $excludeWidgetId can be used to skip a specific widget. */
     Q_INVOKABLE QVariantList widgetsList(QVariantList typeFilters = QVariantList(),
-                                         quint32 excludeWidgetId = VCWidget::invalidId());
+                                         quint32 excludeWidgetId = VCWidget::invalidId()) const;
 
 signals:
     void editModeChanged(bool editMode);
@@ -111,7 +111,7 @@ protected:
      * Pages
      *********************************************************************/
 public:
-    Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
+    Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page) const;
 
     /** Enable/disable flicking on the active page.
       * This is necessary to drag widgets */
@@ -140,7 +140,7 @@ public:
      *  correct PIN, otherwise false is returned.
      *  The $remember flag is used to avoid requesting the PIN again
      *  for the entire session (on PIN check success) */
-    Q_INVOKABLE bool validatePagePIN(int index, QString PIN, bool remember);
+    Q_INVOKABLE bool validatePagePIN(int index, QString PIN, bool remember) const;
 
     /** Set/Get the currently selected VC page index */
     int selectedPage() const;
@@ -177,7 +177,7 @@ public:
 
     /** Return a reference to the VC widget with the specified $id.
      *  On invalid $id, NULL is returned */
-    VCWidget *widget(quint32 id);
+    VCWidget *widget(quint32 id) const;
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
 
@@ -185,18 +185,18 @@ public:
     Q_INVOKABLE void resetWidgetSelection();
 
     /** Return a list of strings with the currently selected VC widget names */
-    Q_INVOKABLE QStringList selectedWidgetNames();
+    Q_INVOKABLE QStringList selectedWidgetNames() const;
 
     /** Return the number of currently selected VC widgets */
     int selectedWidgetsCount() const;
 
     /** Return a list of the currently selected VC widget IDs */
-    Q_INVOKABLE QVariantList selectedWidgetIDs();
+    Q_INVOKABLE QVariantList selectedWidgetIDs() const;
 
     /** Re-parent a widget to a different target frame and update frame maps/UI parent */
-    bool reparentWidget(VCWidget *widget, VCFrame *targetFrame);
+    bool reparentWidget(VCWidget *widget, VCFrame *targetFrame) const;
 
-    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
+    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos) const;
 
     /** Helper methods to handle alignment, label, background/foreground colors,
      *  background image and font when multiple widgets are selected */
@@ -216,7 +216,7 @@ public:
     Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
 
     /** Return the associated qrc icon resource for the specified VCWidget $type */
-    Q_INVOKABLE QString widgetIcon(int type);
+    Q_INVOKABLE QString widgetIcon(int type) const;
 
 signals:
     /** Notify the listeners that the currently selected VC widget has changed */
@@ -242,7 +242,7 @@ public:
     Q_INVOKABLE void copyToClipboard();
     Q_INVOKABLE void pasteFromClipboard();
 
-    Q_INVOKABLE QVariantList clipboardItemsList();
+    Q_INVOKABLE QVariantList clipboardItemsList() const;
 
     int clipboardItemsCount() const;
 
@@ -282,7 +282,7 @@ public:
     void updatePageInputs();
 
     Q_INVOKABLE QVariant inputChannelsModel();
-    Q_INVOKABLE QVariantList universeListModel();
+    Q_INVOKABLE QVariantList universeListModel() const;
 
 protected slots:
     /**
@@ -353,7 +353,7 @@ public:
     bool loadPropertiesXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /** Do post-load cleanup & checks */
     void postLoad();

@@ -34,11 +34,11 @@ public:
     ~AudioTriggerWidget();
 
     void setBarsNumber(int num);
-    int barsNumber();
+    int barsNumber() const;
 
     void setMaxFrequency(int freq);
 
-    uchar getUcharVolume();
+    uchar getUcharVolume() const;
     uchar getUcharBand(int idx);
 
 signals:

@@ -40,7 +40,7 @@ public:
     /** Get the main QML view */
     QQuickView *view() const;
     /** Get/Set the shared fullscreen context */
-    QQuickView *fullscreenContext();
+    QQuickView *fullscreenContext() const;
     void setFullscreenContext(QQuickView *context);
     /** Force close any video windows and contexts */
     void shutdown();
@@ -81,7 +81,7 @@ public:
     void stopContent();
 
 protected:
-    QVariant getAttribute(quint32 id, const char *propName);
+    QVariant getAttribute(quint32 id, const char *propName) const;
     void updateAttribute(quint32 id, const char *propName, QVariant value);
 
 public slots:

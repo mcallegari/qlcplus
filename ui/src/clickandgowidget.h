@@ -62,7 +62,7 @@ public:
     /**
      * Returns the widget type
      */
-    int getType();
+    int getType() const;
 
     /** Set the low limits from the fader as a preset filter */
     void setLevelLowLimit(int min);
@@ -74,14 +74,14 @@ public:
      * Returns the color at pos position.
      * Used with primary colors linear gradient
      */
-    QColor getColorAt(uchar pos);
+    QColor getColorAt(uchar pos) const;
 
     /**
      * Return a QImage to be displayed on a Click & Go button
      *
      * @param value the slider position value
      */
-    QImage getImageFromValue(uchar value);
+    QImage getImageFromValue(uchar value) const;
 
     /** Returns a human readable string of a Click And Go type */
     static QString clickAndGoTypeToString(ClickAndGoWidget::ClickAndGo type);

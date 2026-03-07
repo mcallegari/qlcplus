@@ -64,11 +64,11 @@ public:
 
     /** QML invokable method that returns if the Scene has the
      *  requested $fixture's $channel */
-    Q_INVOKABLE bool hasChannel(quint32 fxID, quint32 channel);
+    Q_INVOKABLE bool hasChannel(quint32 fxID, quint32 channel) const;
 
     /** QML invokable method that returns the value of the
      *  requested $fixture's $channel */
-    Q_INVOKABLE double channelValue(quint32 fxID, quint32 channel);
+    Q_INVOKABLE double channelValue(quint32 fxID, quint32 channel) const;
 
     /** Remove a channel with the provided $fxID and $channel
      *  from the Scene currently being edited */
@@ -83,7 +83,7 @@ public:
     Q_INVOKABLE void setChannelSelection(quint32 fxID, quint32 channel, bool selected);
 
     /** Return the number of channels currently selected for paste-to-all */
-    int selectedChannelCount();
+    int selectedChannelCount() const;
 
     /** Add a component with of given type
      *  e.g. FixtureGroup, Fixture, Palette */

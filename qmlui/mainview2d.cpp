@@ -263,7 +263,7 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
-QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
+QList<quint32> MainView2D::selectFixturesRect(QRectF rect) const
 {
     QList<quint32>fxList;
 
@@ -564,7 +564,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 }
 
-void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
+void MainView2D::selectFixture(QQuickItem *fxItem, bool enable) const
 {
     if (fxItem == nullptr)
         return;
@@ -782,7 +782,7 @@ void MainView2D::setPointOfView(int pointOfView)
     slotRefreshView();
 }
 
-QString MainView2D::backgroundImage()
+QString MainView2D::backgroundImage() const
 {
     return m_monProps->commonBackgroundImage();
 }
@@ -800,7 +800,3 @@ void MainView2D::setBackgroundImage(QString path)
     m_monProps->setCommonBackgroundImage(path);
     emit backgroundImageChanged();
 }
-
-
-
-

@@ -109,7 +109,7 @@ public:
 
     /** Convert the given QLCInputChannel::Type to a QString */
     static QString typeToString(Type type);
-    QString typeString();
+    QString typeString() const;
 
     /** Convert the given QString to a QLCInputChannel::Type */
     static Type stringToType(const QString& type);

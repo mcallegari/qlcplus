@@ -66,11 +66,11 @@ void AudioBar_Test::copy()
 void AudioBar_Test::setType()
 {
     AudioBar bar;
-    bar.setType(AudioBar::FunctionBar);
-    QCOMPARE(bar.m_type, int(AudioBar::FunctionBar));
+    bar.setType(AudioBar::BarType::FunctionBar);
+    QCOMPARE(bar.m_type, int(AudioBar::BarType::FunctionBar));
 
-    bar.setType(AudioBar::None);
-    QCOMPARE(bar.m_type, int(AudioBar::None));
+    bar.setType(AudioBar::BarType::None);
+    QCOMPARE(bar.m_type, int(AudioBar::BarType::None));
     QCOMPARE(bar.m_value, uchar(0));
     QCOMPARE(bar.m_divisor, 1);
     QCOMPARE(bar.m_dmxChannels.count(), 0);
@@ -121,7 +121,7 @@ void AudioBar_Test::xml()
     fxi->setChannels(1);
     m_doc->addFixture(fxi);
 
-    AudioBar bar(AudioBar::DMXBar, 0, 0);
+    AudioBar bar(AudioBar::BarType::DMXBar, 0, 0);
     bar.setName("bar");
     bar.setMinThreshold(10);
     bar.setMaxThreshold(200);
@@ -144,7 +144,7 @@ void AudioBar_Test::xml()
     AudioBar bar2;
     QVERIFY(bar2.loadXML(xmlReader, m_doc) == true);
     QCOMPARE(bar2.m_name, QString("bar"));
-    QCOMPARE(bar2.m_type, int(AudioBar::DMXBar));
+    QCOMPARE(bar2.m_type, int(AudioBar::BarType::DMXBar));
     QCOMPARE(bar2.m_minThreshold, uchar(10));
     QCOMPARE(bar2.m_maxThreshold, uchar(200));
     QCOMPARE(bar2.m_divisor, 2);

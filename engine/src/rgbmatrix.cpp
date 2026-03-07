@@ -1054,7 +1054,7 @@ int RGBMatrixStep::currentStepIndex() const
     return m_currentStepIndex;
 }
 
-void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor, RGBAlgorithm *algorithm)
+void RGBMatrixStep::calculateColorDelta(const QColor& startColor, const QColor& endColor, const RGBAlgorithm *algorithm)
 {
     m_crDelta = 0;
     m_cgDelta = 0;
@@ -1099,7 +1099,7 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
-void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount, RGBAlgorithm *algorithm)
+void RGBMatrixStep::initializeDirection(Function::Direction direction, const QColor& startColor, const QColor& endColor, int stepsCount, const RGBAlgorithm *algorithm)
 {
     m_direction = direction;
 

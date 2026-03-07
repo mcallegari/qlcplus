@@ -209,7 +209,7 @@ void InputOutputMap::startUniverses()
         uni->start();
 }
 
-quint32 InputOutputMap::getUniverseID(int index)
+quint32 InputOutputMap::getUniverseID(int index) const
 {
     if (index >= 0 && index < m_universeArray.count())
         return index;
@@ -217,7 +217,7 @@ quint32 InputOutputMap::getUniverseID(int index)
     return invalidUniverse();
 }
 
-QString InputOutputMap::getUniverseNameByIndex(int index)
+QString InputOutputMap::getUniverseNameByIndex(int index) const
 {
     if (index >= 0 && index < m_universeArray.count())
         return m_universeArray.at(index)->name();
@@ -225,7 +225,7 @@ QString InputOutputMap::getUniverseNameByIndex(int index)
     return QString();
 }
 
-QString InputOutputMap::getUniverseNameByID(quint32 id)
+QString InputOutputMap::getUniverseNameByID(quint32 id) const
 {
     return getUniverseNameByIndex(id);
 }
@@ -244,7 +244,7 @@ void InputOutputMap::setUniversePassthrough(int index, bool enable)
     m_universeArray.at(index)->setPassthrough(enable);
 }
 
-bool InputOutputMap::getUniversePassthrough(int index)
+bool InputOutputMap::getUniversePassthrough(int index) const
 {
     if (index < 0 || index >= m_universeArray.count())
         return false;
@@ -258,14 +258,14 @@ void InputOutputMap::setUniverseMonitor(int index, bool enable)
     m_universeArray.at(index)->setMonitor(enable);
 }
 
-bool InputOutputMap::getUniverseMonitor(int index)
+bool InputOutputMap::getUniverseMonitor(int index) const
 {
     if (index < 0 || index >= m_universeArray.count())
         return false;
     return m_universeArray.at(index)->monitor();
 }
 
-bool InputOutputMap::isUniversePatched(int index)
+bool InputOutputMap::isUniversePatched(int index) const
 {
     if (index < 0 || index >= m_universeArray.count())
         return false;
@@ -283,7 +283,7 @@ QList<Universe *> InputOutputMap::universes() const
     return m_universeArray;
 }
 
-Universe *InputOutputMap::universe(quint32 id)
+Universe *InputOutputMap::universe(quint32 id) const
 {
     for (int i = 0; i < m_universeArray.size(); i++)
         if (m_universeArray.at(i)->id() == id)
@@ -335,7 +335,7 @@ void InputOutputMap::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
     }
 }
 
-GrandMaster::ChannelMode InputOutputMap::grandMasterChannelMode()
+GrandMaster::ChannelMode InputOutputMap::grandMasterChannelMode() const
 {
     Q_ASSERT(m_grandMaster != NULL);
 
@@ -355,7 +355,7 @@ void InputOutputMap::setGrandMasterValueMode(GrandMaster::ValueMode mode)
     emit grandMasterValueModeChanged(mode);
 }
 
-GrandMaster::ValueMode InputOutputMap::grandMasterValueMode()
+GrandMaster::ValueMode InputOutputMap::grandMasterValueMode() const
 {
     Q_ASSERT(m_grandMaster != NULL);
 
@@ -376,7 +376,7 @@ void InputOutputMap::setGrandMasterValue(uchar value)
         emit grandMasterValueChanged(value);
 }
 
-uchar InputOutputMap::grandMasterValue()
+uchar InputOutputMap::grandMasterValue() const
 {
     Q_ASSERT(m_grandMaster != NULL);
 
@@ -602,7 +602,7 @@ quint32 InputOutputMap::outputMapping(const QString &pluginName, quint32 output)
  * Plugins
  *****************************************************************************/
 
-QString InputOutputMap::pluginDescription(const QString &pluginName)
+QString InputOutputMap::pluginDescription(const QString &pluginName) const
 {
     QLCIOPlugin* plugin = NULL;
 
@@ -617,7 +617,7 @@ QString InputOutputMap::pluginDescription(const QString &pluginName)
         return "";
 }
 
-void InputOutputMap::removeDuplicates(QStringList &list)
+void InputOutputMap::removeDuplicates(QStringList &list) const
 {
     if (list.count() == 1)
         return;
@@ -637,7 +637,7 @@ void InputOutputMap::removeDuplicates(QStringList &list)
     }
 }
 
-QStringList InputOutputMap::inputPluginNames()
+QStringList InputOutputMap::inputPluginNames() const
 {
     QStringList list;
     QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
@@ -650,7 +650,7 @@ QStringList InputOutputMap::inputPluginNames()
     return list;
 }
 
-QStringList InputOutputMap::outputPluginNames()
+QStringList InputOutputMap::outputPluginNames() const
 {
     QStringList list;
     QListIterator <QLCIOPlugin*> it(m_doc->ioPluginCache()->plugins());
@@ -663,7 +663,7 @@ QStringList InputOutputMap::outputPluginNames()
     return list;
 }
 
-QStringList InputOutputMap::pluginInputs(const QString& pluginName)
+QStringList InputOutputMap::pluginInputs(const QString& pluginName) const
 {
     QLCIOPlugin* ip = m_doc->ioPluginCache()->plugin(pluginName);
     if (ip == NULL)
@@ -676,7 +676,7 @@ QStringList InputOutputMap::pluginInputs(const QString& pluginName)
     }
 }
 
-QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
+QStringList InputOutputMap::pluginOutputs(const QString& pluginName) const
 {
     QLCIOPlugin* op = m_doc->ioPluginCache()->plugin(pluginName);
     if (op == NULL)
@@ -689,7 +689,7 @@ QStringList InputOutputMap::pluginOutputs(const QString& pluginName)
     }
 }
 
-bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName)
+bool InputOutputMap::pluginSupportsFeedback(const QString& pluginName) const
 {
     QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
@@ -705,7 +705,7 @@ void InputOutputMap::configurePlugin(const QString& pluginName)
         outputPlugin->configure();
 }
 
-bool InputOutputMap::canConfigurePlugin(const QString& pluginName)
+bool InputOutputMap::canConfigurePlugin(const QString& pluginName) const
 {
     QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
@@ -714,7 +714,7 @@ bool InputOutputMap::canConfigurePlugin(const QString& pluginName)
         return false;
 }
 
-QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 input)
+QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 input) const
 {
     QLCIOPlugin* inputPlugin = NULL;
     QString info;
@@ -737,7 +737,7 @@ QString InputOutputMap::inputPluginStatus(const QString& pluginName, quint32 inp
     return info;
 }
 
-QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 output)
+QString InputOutputMap::outputPluginStatus(const QString& pluginName, quint32 output) const
 {
     QLCIOPlugin* outputPlugin = m_doc->ioPluginCache()->plugin(pluginName);
     if (outputPlugin != NULL)
@@ -841,7 +841,7 @@ void InputOutputMap::loadProfiles(const QDir& dir)
     }
 }
 
-QStringList InputOutputMap::profileNames()
+QStringList InputOutputMap::profileNames() const
 {
     QStringList list;
     QListIterator <QLCInputProfile*> it(m_profiles);
@@ -1283,7 +1283,7 @@ void InputOutputMap::loadDefaults()
     }
 }
 
-void InputOutputMap::saveDefaults()
+void InputOutputMap::saveDefaults() const
 {
     /* ************************ INPUT *********************************** */
     QSettings settings;

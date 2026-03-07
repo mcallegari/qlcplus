@@ -76,7 +76,7 @@ quint16 FixtureUtils::itemLinkedIndex(quint32 itemID)
     return (itemID & ((1 << FIXTURE_LINKED_BITS) - 1));
 }
 
-QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfView,
+QPointF FixtureUtils::item2DPosition(const MonitorProperties *monProps, int pointOfView,
                                      QVector3D pos)
 {
     QPointF point(0, 0);
@@ -126,7 +126,7 @@ float FixtureUtils::item2DRotation(int pointOfView, QVector3D rot)
     return 0;
 }
 
-QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
+QSizeF FixtureUtils::item2DDimension(const QLCFixtureMode *fxMode, int pointOfView)
 {
     QSizeF size(300, 300);
 
@@ -198,7 +198,7 @@ void FixtureUtils::alignItem(QVector3D refPos, QVector3D &origPos, int pointOfVi
     }
 }
 
-QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal)
+QVector3D FixtureUtils::item3DPosition(const MonitorProperties *monProps, QPointF point, float thirdVal)
 {
     QVector3D pos(point.x(), point.y(), thirdVal);
 

@@ -62,17 +62,17 @@ public:
 
     VCProperties properties() const;
 
-    QSize buttonSize();
-    bool buttonStatusLED();
-    QSize sliderSize();
-    QSize speedDialSize();
-    uint speedDialValue();
-    QSize xypadSize();
-    QSize cuelistSize();
-    QSize frameSize();
-    QSize soloFrameSize();
-    QSize audioTriggersSize();
-    QSize rgbMatrixSize();
+    QSize buttonSize() const;
+    bool buttonStatusLED() const;
+    QSize sliderSize() const;
+    QSize speedDialSize() const;
+    uint speedDialValue() const;
+    QSize xypadSize() const;
+    QSize cuelistSize() const;
+    QSize frameSize() const;
+    QSize soloFrameSize() const;
+    QSize audioTriggersSize() const;
+    QSize rgbMatrixSize() const;
 
 private:
     VCProperties m_properties;

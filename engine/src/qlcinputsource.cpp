@@ -219,7 +219,7 @@ void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
     }
 }
 
-bool QLCInputSource::needsUpdate()
+bool QLCInputSource::needsUpdate() const
 {
     if (m_workingMode == Relative || m_workingMode == Encoder ||
         m_emitExtraPressRelease == true)

@@ -115,7 +115,7 @@ public:
      *  The returned list is formatted as: Fixture ID / line number */
     QList<quint32> fixtureList() const;
 
-    QStringList syntaxErrorsLines();
+    QStringList syntaxErrorsLines() const;
 
 private:
     QString m_data;
@@ -153,7 +153,7 @@ private:
      *
      * @return the randomized value requested
      */
-    static quint32 getValueFromString(QString str, bool *ok);
+    static quint32 getValueFromString(const QString& str, bool *ok);
 
     /**
      * Parse one line of script data into a list of token string lists

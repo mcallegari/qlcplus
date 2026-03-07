@@ -183,7 +183,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     return item;
 }
 
-TreeModelItem *TreeModel::itemAtPath(QString path)
+TreeModelItem *TreeModel::itemAtPath(const QString& path) const
 {
     if (path.isEmpty())
         return nullptr;
@@ -211,7 +211,7 @@ TreeModelItem *TreeModel::itemAtPath(QString path)
     return item->children()->itemAtPath(subPath);
 }
 
-bool TreeModel::removeItem(QString path)
+bool TreeModel::removeItem(const QString& path)
 {
     if (path.isEmpty())
         return false;
@@ -299,7 +299,7 @@ void TreeModel::setItemRoleData(TreeModelItem *item, const QVariant &value, int 
     setData(mIndex, value, role);
 }
 
-QList<TreeModelItem *> TreeModel::items()
+QList<TreeModelItem *> TreeModel::items() const
 {
     return m_items;
 }
@@ -325,7 +325,7 @@ void TreeModel::setPathData(QString path, QVariantList data)
     }
 }
 
-int TreeModel::roleIndex(QString role)
+int TreeModel::roleIndex(const QString& role) const
 {
     return roleNames().key(role.toLatin1(), -1);
 }
@@ -446,9 +446,9 @@ void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &v
         emit roleChanged(item, role, value);
 }
 
-void TreeModel::printTree(int tab)
+void TreeModel::printTree(int tab) const
 {
-    for (TreeModelItem *item : m_items)
+    for (const TreeModelItem *item : m_items)
     {
         item->printItem(tab);
         if (item->hasChildren())
@@ -456,7 +456,7 @@ void TreeModel::printTree(int tab)
     }
 }
 
-int TreeModel::getItemInsertIndex(QString label, int flags)
+int TreeModel::getItemInsertIndex(const QString& label, int flags) const
 {
     if (m_sorting == true)
     {
@@ -485,7 +485,7 @@ int TreeModel::getItemInsertIndex(QString label, int flags)
     return rowCount();
 }
 
-int TreeModel::getNodeInsertIndex(QString label)
+int TreeModel::getNodeInsertIndex(const QString& label) const
 {
     if (m_sorting == true)
     {

@@ -48,7 +48,7 @@ void AudioRenderer::adjustIntensity(qreal fraction)
     m_intensity = CLAMP(fraction, 0.0, 1.0);
 }
 
-bool AudioRenderer::isLooped()
+bool AudioRenderer::isLooped() const
 {
     return m_looped;
 }
@@ -58,7 +58,7 @@ void AudioRenderer::setLooped(bool looped)
     m_looped = looped;
 }
 
-bool AudioRenderer::isEos()
+bool AudioRenderer::isEos() const
 {
     return m_isEos;
 }

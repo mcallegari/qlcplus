@@ -383,10 +383,10 @@ bool VCXYPadFixture::loadXML(QXmlStreamReader &root)
     }
 
     /* Fixture ID */
-    GroupHead head;
-    head.fxi = root.attributes().value(KXMLQLCVCXYPadFixtureID).toString().toInt();
-    head.head = root.attributes().value(KXMLQLCVCXYPadFixtureHead).toString().toInt();
-    setHead(head);
+    GroupHead newHead;
+    newHead.fxi = root.attributes().value(KXMLQLCVCXYPadFixtureID).toString().toInt();
+    newHead.head = root.attributes().value(KXMLQLCVCXYPadFixtureHead).toString().toInt();
+    setHead(newHead);
 
     /* Children */
     while (root.readNextStartElement())

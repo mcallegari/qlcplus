@@ -245,12 +245,12 @@ VCProperties VCPropertiesEditor::properties() const
     return m_properties;
 }
 
-QSize VCPropertiesEditor::buttonSize()
+QSize VCPropertiesEditor::buttonSize() const
 {
     return QSize(m_buttonWspin->value(), m_buttonHspin->value());
 }
 
-bool VCPropertiesEditor::buttonStatusLED()
+bool VCPropertiesEditor::buttonStatusLED() const
 {
     if (m_buttonStatusLEDRadio->isChecked())
         return true;
@@ -258,47 +258,47 @@ bool VCPropertiesEditor::buttonStatusLED()
         return false;
 }
 
-QSize VCPropertiesEditor::sliderSize()
+QSize VCPropertiesEditor::sliderSize() const
 {
     return QSize(m_sliderWspin->value(), m_sliderHspin->value());
 }
 
-QSize VCPropertiesEditor::speedDialSize()
+QSize VCPropertiesEditor::speedDialSize() const
 {
     return QSize(m_speedWspin->value(), m_speedHspin->value());
 }
 
-uint VCPropertiesEditor::speedDialValue()
+uint VCPropertiesEditor::speedDialValue() const
 {
     return Function::stringToSpeed(m_speedValueEdit->text());
 }
 
-QSize VCPropertiesEditor::xypadSize()
+QSize VCPropertiesEditor::xypadSize() const
 {
     return QSize(m_xypadWspin->value(), m_xypadHspin->value());
 }
 
-QSize VCPropertiesEditor::cuelistSize()
+QSize VCPropertiesEditor::cuelistSize() const
 {
     return QSize(m_cuelistWspin->value(), m_cuelistHspin->value());
 }
 
-QSize VCPropertiesEditor::frameSize()
+QSize VCPropertiesEditor::frameSize() const
 {
     return QSize(m_frameWspin->value(), m_frameHspin->value());
 }
 
-QSize VCPropertiesEditor::soloFrameSize()
+QSize VCPropertiesEditor::soloFrameSize() const
 {
     return QSize(m_soloWspin->value(), m_soloHspin->value());
 }
 
-QSize VCPropertiesEditor::audioTriggersSize()
+QSize VCPropertiesEditor::audioTriggersSize() const
 {
     return QSize(m_audioWspin->value(), m_audioHspin->value());
 }
 
-QSize VCPropertiesEditor::rgbMatrixSize()
+QSize VCPropertiesEditor::rgbMatrixSize() const
 {
     return QSize(m_matrixWspin->value(), m_matrixHspin->value());
 }

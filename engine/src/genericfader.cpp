@@ -73,7 +73,7 @@ void GenericFader::setPriority(int priority)
     m_priority = priority;
 }
 
-bool GenericFader::handleSecondary()
+bool GenericFader::handleSecondary() const
 {
     return m_handleSecondary;
 }
@@ -114,7 +114,7 @@ void GenericFader::replace(const FadeChannel &ch)
     m_channels.insert(hash, ch);
 }
 
-void GenericFader::remove(FadeChannel *ch)
+void GenericFader::remove(const FadeChannel *ch)
 {
     if (ch == NULL)
         return;

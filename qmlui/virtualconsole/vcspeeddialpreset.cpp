@@ -170,7 +170,7 @@ static void savePresetInput(QXmlStreamWriter *doc, const QSharedPointer<QLCInput
     doc->writeEndElement();
 }
 
-bool VCSpeedDialPreset::saveXML(QXmlStreamWriter *doc)
+bool VCSpeedDialPreset::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != nullptr);
 

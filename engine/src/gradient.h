@@ -29,7 +29,7 @@ class QPainter;
 class Gradient final
 {
 public:
-    /** Get a gradient of default size (252x256) */
+    /** Get a gradient of default size (256x256) */
     static QImage getRGBGradient();
 
     /** Get a gradient of input size */

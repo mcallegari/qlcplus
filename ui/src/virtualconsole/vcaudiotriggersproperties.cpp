@@ -122,7 +122,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
     connect(combo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotTypeComboChanged(int)));
 
-    if (bar->m_type == AudioBar::DMXBar)
+    if (bar->m_type == AudioBar::BarType::DMXBar)
     {
         QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
@@ -131,7 +131,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         connect(btn, SIGNAL(clicked()), this, SLOT(slotDmxSelectionClicked()));
         item->setText(KColumnInfo, tr("%1 channels").arg(bar->m_dmxChannels.count()));
     }
-    else if (bar->m_type == AudioBar::FunctionBar)
+    else if (bar->m_type == AudioBar::BarType::FunctionBar)
     {
         QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
@@ -149,7 +149,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
             item->setIcon(KColumnInfo, QIcon());
         }
     }
-    else if (bar->m_type == AudioBar::VCWidgetBar)
+    else if (bar->m_type == AudioBar::BarType::VCWidgetBar)
     {
         QToolButton *btn = new QToolButton();
         btn->setIcon(QIcon(":/attach.png"));
@@ -173,8 +173,8 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         item->setIcon(KColumnInfo, QIcon());
     }
 
-    if (bar->m_type == AudioBar::FunctionBar
-        || (bar->m_type == AudioBar::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
+    if (bar->m_type == AudioBar::BarType::FunctionBar
+        || (bar->m_type == AudioBar::BarType::VCWidgetBar && ((bar->widget() == NULL) || bar->widget()->type() != VCWidget::SliderWidget)))
     {
         QSpinBox *minspin = new QSpinBox();
         minspin->setMinimum(5);
@@ -197,7 +197,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         m_tree->setItemWidget(item, KColumnMaxThreshold, maxspin);
     }
 
-    if (bar->m_type == AudioBar::VCWidgetBar
+    if (bar->m_type == AudioBar::BarType::VCWidgetBar
         && bar->widget() != NULL
         && (bar->widget()->type() == VCWidget::SpeedDialWidget || bar->widget()->type() == VCWidget::CueListWidget))
     {

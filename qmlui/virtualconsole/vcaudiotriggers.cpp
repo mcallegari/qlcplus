@@ -173,7 +173,7 @@ void VCAudioTriggers::setCaptureEnabled(bool enable)
 
         for (AudioBar &bar : m_spectrumBars)
         {
-            if (bar.m_type == DMXBar)
+            if (bar.m_type == VCAudioTriggers::BarType::DMXBar)
             {
                 m_doc->masterTimer()->registerDMXSource(this);
                 break;
@@ -325,15 +325,15 @@ QVariantList VCAudioTriggers::barsInfo() const
         barMap.insert("index", index);
         barMap.insert("type", bar.m_type);
 
-        if (bar.m_type == VCAudioTriggers::DMXBar)
+        if (bar.m_type == VCAudioTriggers::BarType::DMXBar)
         {
             barMap.insert("intVal", bar.m_dmxChannels.count());
         }
-        else if (bar.m_type == VCAudioTriggers::FunctionBar)
+        else if (bar.m_type == VCAudioTriggers::BarType::FunctionBar)
         {
             barMap.insert("intVal", bar.m_functionId == Function::invalidId() ? -1 : int(bar.m_functionId));
         }
-        else if (bar.m_type == VCAudioTriggers::VCWidgetBar)
+        else if (bar.m_type == VCAudioTriggers::BarType::VCWidgetBar)
         {
             barMap.insert("intVal", bar.m_widgetId == VCWidget::invalidId() ? -1 : int(bar.m_widgetId));
             VCWidget *widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
@@ -437,7 +437,7 @@ void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
     }
 }
 
-void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar)
+void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar) const
 {
     if (bar.m_widgetId == VCWidget::invalidId())
     {
@@ -448,7 +448,7 @@ void VCAudioTriggers::updateBarWidgetReference(AudioBar &bar)
     bar.m_widget = m_vc ? m_vc->widget(bar.m_widgetId) : nullptr;
 }
 
-void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar)
+void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar) const
 {
     if (bar.m_widgetId == VCWidget::invalidId())
         return;
@@ -803,7 +803,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 
     for (AudioBar &bar : m_spectrumBars)
     {
-        if (bar.m_type == DMXBar)
+        if (bar.m_type == VCAudioTriggers::BarType::DMXBar)
         {
             for (int i = 0; i < bar.m_absDmxChannels.count(); i++)
             {
@@ -864,7 +864,7 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
 
     switch (bar.m_type)
     {
-        case FunctionBar:
+        case VCAudioTriggers::BarType::FunctionBar:
         {
             if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
             {
@@ -875,7 +875,7 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
             }
         }
         break;
-        case VCWidgetBar:
+        case VCAudioTriggers::BarType::VCWidgetBar:
         {
             if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
             {
@@ -887,7 +887,7 @@ bool VCAudioTriggers::loadBarXML(QXmlStreamReader &root)
             }
         }
         break;
-        case DMXBar:
+        case VCAudioTriggers::BarType::DMXBar:
         {
             QXmlStreamReader::TokenType tType = root.readNext();
 
@@ -945,7 +945,7 @@ bool VCAudioTriggers::saveBarXML(QXmlStreamWriter *doc, int index) const
     doc->writeAttribute(KXMLQLCAudioBarDivisor, QString::number(bar.m_divisor));
     doc->writeAttribute(KXMLQLCAudioBarIndex, QString::number(index));
 
-    if (bar.m_type == DMXBar && bar.m_dmxChannels.count() > 0)
+    if (bar.m_type == VCAudioTriggers::BarType::DMXBar && bar.m_dmxChannels.count() > 0)
     {
         QString chans;
         foreach (SceneValue scv, bar.m_dmxChannels)
@@ -959,11 +959,11 @@ bool VCAudioTriggers::saveBarXML(QXmlStreamWriter *doc, int index) const
             doc->writeTextElement(KXMLQLCAudioBarDMXChannels, chans);
         }
     }
-    else if (bar.m_type == FunctionBar && bar.m_functionId != Function::invalidId())
+    else if (bar.m_type == VCAudioTriggers::BarType::FunctionBar && bar.m_functionId != Function::invalidId())
     {
         doc->writeAttribute(KXMLQLCAudioBarFunction, QString::number(bar.m_functionId));
     }
-    else if (bar.m_type == VCWidgetBar && bar.m_widgetId != VCWidget::invalidId())
+    else if (bar.m_type == VCAudioTriggers::BarType::VCWidgetBar && bar.m_widgetId != VCWidget::invalidId())
     {
         doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(bar.m_widgetId));
     }
@@ -1054,7 +1054,7 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc) const
     int barIndex = 0;
     for (const AudioBar &bar : m_spectrumBars)
     {
-        if (bar.m_type != None)
+        if (bar.m_type != VCAudioTriggers::BarType::None)
             saveBarXML(doc, barIndex);
         barIndex++;
     }

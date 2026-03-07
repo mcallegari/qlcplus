@@ -70,7 +70,7 @@ QQuickView *VideoProvider::view() const
     return m_view;
 }
 
-QQuickView *VideoProvider::fullscreenContext()
+QQuickView *VideoProvider::fullscreenContext() const
 {
     return m_fullscreenContext;
 }
@@ -337,7 +337,7 @@ void VideoContent::slotDetectResolution()
     }
 }
 
-QVariant VideoContent::getAttribute(quint32 id, const char *propName)
+QVariant VideoContent::getAttribute(quint32 id, const char *propName) const
 {
     if (m_viewContext == nullptr)
         return QVariant();

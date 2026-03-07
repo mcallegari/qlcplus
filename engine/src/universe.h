@@ -120,17 +120,17 @@ public:
     /**
      * Returns the number of channels used in this universe
      */
-    ushort usedChannels();
+    ushort usedChannels() const;
 
     /**
      * Returns the total number of channels in this universe
      */
-    ushort totalChannels();
+    ushort totalChannels() const;
 
     /**
      * Returns if the universe has changed since the last MasterTimer tick
      */
-    bool hasChanged();
+    bool hasChanged() const;
 
     /**
      * Enable or disable the passthrough mode for this universe
@@ -196,7 +196,7 @@ protected:
 public:
     /** Returns true if this universe is patched with an input, output OR feedback
      *  otherwise returns false */
-    bool isPatched();
+    bool isPatched() const;
 
     /** Sets an input patch for this Universe, and connect to it to receive signals */
     bool setInputPatch(QLCIOPlugin *plugin, quint32 input,
@@ -293,7 +293,7 @@ public:
      *
      * @param channel The channel absolute index in the universe
      */
-    uchar channelCapabilities(ushort channel);
+    uchar channelCapabilities(ushort channel) const;
 
     /**
      * Set the default value of a DMX channel to be considered on reset

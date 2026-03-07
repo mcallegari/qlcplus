@@ -74,7 +74,7 @@ AddressTool::~AddressTool()
     delete ui;
 }
 
-int AddressTool::getAddress()
+int AddressTool::getAddress() const
 {
     return (ui->m_addressSpin->value());
 }

@@ -1025,7 +1025,7 @@ void FixtureRemap::accept()
                 VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers*>(widget);
                 foreach (AudioBar *bar, triggers->getAudioBars())
                 {
-                    if (bar->m_type == AudioBar::DMXBar)
+                    if (bar->m_type == AudioBar::BarType::DMXBar)
                     {
                         QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
                         // this is crucial: here all the "unmapped" channels will be lost forever !

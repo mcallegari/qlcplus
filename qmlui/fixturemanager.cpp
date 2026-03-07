@@ -601,7 +601,7 @@ void FixtureManager::setItemRoleData(int itemID, QVariant value, int role)
     m_fixtureTree->setItemRoleData(path, value, role);
 }
 
-bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
+bool FixtureManager::compareFixtures(const Fixture *left, const Fixture *right)
 {
     return *left < *right;
 }
