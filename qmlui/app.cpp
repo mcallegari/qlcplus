@@ -970,10 +970,16 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 
 QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 {
+#if defined(Q_OS_ANDROID)
+    const QString outputFileName(fileName);
+#else
     QString tempFileName(fileName);
     tempFileName += ".temp";
-    QFile file(tempFileName);
-    if (file.open(QIODevice::WriteOnly) == false)
+    const QString outputFileName(tempFileName);
+#endif
+
+    QFile file(outputFileName);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate) == false)
         return file.error();
 
     QXmlStreamWriter doc(&file);
@@ -1009,8 +1015,22 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 
     /* End the document and close all the open elements */
     doc.writeEndDocument();
-    file.close();
 
+    if (doc.hasError())
+    {
+        qWarning() << Q_FUNC_INFO << "Error writing XML to" << outputFileName;
+        file.close();
+#if !defined(Q_OS_ANDROID)
+        file.remove();
+#endif
+        return QFile::WriteError;
+    }
+
+    file.close();
+    if (file.error() != QFile::NoError)
+        return file.error();
+
+#if !defined(Q_OS_ANDROID)
     // Save to actual requested file name
     QFile currFile(fileName);
     if (currFile.exists() && !currFile.remove())
@@ -1023,6 +1043,7 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
         qWarning() << "Could not rename" << tempFileName << "to" << fileName;
         return file.error();
     }
+#endif
 
     if (!autosave)
     {
