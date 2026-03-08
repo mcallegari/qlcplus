@@ -63,7 +63,7 @@ NetworkManager::NetworkManager(QObject *parent, Doc *doc, VirtualConsole *vc, Si
 
     if (m_doc != nullptr)
     {
-        connect(m_doc, &Doc::loaded, this, &NetworkManager::slotDocLoaded);
+        connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
         slotDocLoaded();
     }
     else
