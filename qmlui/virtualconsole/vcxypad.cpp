@@ -20,31 +20,38 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <climits>
 
 #include "vcxypad.h"
-#include "qlcmacros.h"
-#include "fadechannel.h"
-#include "genericfader.h"
+#include "vcxypadpreset.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "fixturegroup.h"
+#include "genericfader.h"
+#include "fadechannel.h"
+#include "qlcchannel.h"
 #include "listmodel.h"
 #include "treemodel.h"
+#include "qlcmacros.h"
+#include "function.h"
+#include "universe.h"
+#include "scene.h"
 #include "doc.h"
 
 /** ************** XML Tags and Attributes ************** */
 
-#define KXMLQLCVCXYPadPan           QStringLiteral("Pan")
-#define KXMLQLCVCXYPadPanFine       QStringLiteral("PanFine")
-#define KXMLQLCVCXYPadTilt          QStringLiteral("Tilt")
-#define KXMLQLCVCXYPadTiltFine      QStringLiteral("TiltFine")
-#define KXMLQLCVCXYPadWidth         QStringLiteral("Width")
-#define KXMLQLCVCXYPadHeight        QStringLiteral("Height")
-#define KXMLQLCVCXYPadPosition      QStringLiteral("Position")
-#define KXMLQLCVCXYPadRangeWindow   QStringLiteral("Window")
-#define KXMLQLCVCXYPadRangeHorizMin QStringLiteral("hMin")
-#define KXMLQLCVCXYPadRangeHorizMax QStringLiteral("hMax")
-#define KXMLQLCVCXYPadRangeVertMin  QStringLiteral("vMin")
-#define KXMLQLCVCXYPadRangeVertMax  QStringLiteral("vMax")
+#define KXMLQLCVCXYPadPan                   QStringLiteral("Pan")
+#define KXMLQLCVCXYPadPanFine               QStringLiteral("PanFine")
+#define KXMLQLCVCXYPadTilt                  QStringLiteral("Tilt")
+#define KXMLQLCVCXYPadTiltFine              QStringLiteral("TiltFine")
+#define KXMLQLCVCXYPadWidth                 QStringLiteral("Width")
+#define KXMLQLCVCXYPadHeight                QStringLiteral("Height")
+#define KXMLQLCVCXYPadPosition              QStringLiteral("Position")
+#define KXMLQLCVCXYPadRangeWindow           QStringLiteral("Window")
+#define KXMLQLCVCXYPadRangeHorizMin         QStringLiteral("hMin")
+#define KXMLQLCVCXYPadRangeHorizMax         QStringLiteral("hMax")
+#define KXMLQLCVCXYPadRangeVertMin          QStringLiteral("vMin")
+#define KXMLQLCVCXYPadRangeVertMax          QStringLiteral("vMax")
 
 #define KXMLQLCVCXYPadInvertedAppearance    QStringLiteral("InvertedAppearance")
 
@@ -68,6 +75,7 @@
 #define INPUT_TILT_FINE_ID      3
 #define INPUT_WIDTH_ID          4
 #define INPUT_HEIGHT_ID         5
+#define INPUT_PRESETS_BASE_ID   30
 
 VCXYPad::VCXYPad(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
@@ -79,6 +87,8 @@ VCXYPad::VCXYPad(Doc *doc, QObject *parent)
     , m_positionChanged(false)
     , m_fixtureTree(nullptr)
     , m_searchFilter(QString())
+    , m_lastAssignedPresetId(15)
+    , m_activePresetId(-1)
 {
     setType(VCWidget::XYPadWidget);
 
@@ -108,6 +118,8 @@ VCXYPad::~VCXYPad()
             fader->requestDelete();
     }
     m_fadersMap.clear();
+
+    clearPresets();
 
     if (m_item)
         delete m_item;
@@ -152,6 +164,16 @@ QString VCXYPad::propertiesResource() const
     return QString("qrc:/VCXYPadProperties.qml");
 }
 
+QString VCXYPad::presetsResource() const
+{
+    return QString("qrc:/VCXYPadPresets.qml");
+}
+
+bool VCXYPad::supportsPresets() const
+{
+    return true;
+}
+
 VCWidget *VCXYPad::createCopy(VCWidget *parent) const
 {
     Q_ASSERT(parent != nullptr);
@@ -173,8 +195,22 @@ bool VCXYPad::copyFrom(const VCWidget *widget)
         return false;
 
     /* Copy and set properties */
+    setInvertedAppearance(XYPad->invertedAppearance());
+    setDisplayMode(XYPad->displayMode());
+    setCurrentPosition(XYPad->currentPosition());
+    setHorizontalRange(XYPad->horizontalRange());
+    setVerticalRange(XYPad->verticalRange());
 
     /* Copy object lists */
+    m_fixtures = XYPad->m_fixtures;
+    updateFixtureList();
+
+    clearPresets();
+    for (VCXYPadPreset *preset : XYPad->presets())
+        addPresetInternal(new VCXYPadPreset(*preset));
+    m_lastAssignedPresetId = XYPad->m_lastAssignedPresetId;
+    setActivePresetId(-1);
+    emit presetsListChanged();
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -182,7 +218,7 @@ bool VCXYPad::copyFrom(const VCWidget *widget)
 
 FunctionParent VCXYPad::functionParent() const
 {
-    return FunctionParent(FunctionParent::AutoVCWidget, id());
+    return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
 /*********************************************************************
@@ -300,7 +336,28 @@ void VCXYPad::setVerticalRange(QPointF newVerticalRange)
 
 void VCXYPad::addGroup(QVariant reference)
 {
-    Q_UNUSED(reference) // TODO
+    if (reference.canConvert<Universe *>())
+    {
+        Universe *uni = reference.value<Universe *>();
+        if (uni == nullptr)
+            return;
+
+        for (Fixture *fixture : m_doc->fixtures())
+        {
+            if (fixture->universe() != uni->id())
+                continue;
+            addFixture(QVariant::fromValue(fixture));
+        }
+    }
+    else if (reference.canConvert<FixtureGroup *>())
+    {
+        FixtureGroup *group = reference.value<FixtureGroup *>();
+        if (group == nullptr)
+            return;
+
+        for (const GroupHead &head : group->headList())
+            addHead(head.fxi, head.head);
+    }
 }
 
 void VCXYPad::addFixture(QVariant reference)
@@ -324,6 +381,8 @@ void VCXYPad::addFixture(QVariant reference)
 
         fxItem.m_head.fxi = fixture->id();
         fxItem.m_head.head = hIdx++;
+        if (hasHead(fxItem.m_head))
+            continue;
         fxItem.m_universe = fixture->universe();
         fxItem.m_xMSB = panCh;
         fxItem.m_xLSB = head.channelNumber(QLCChannel::Pan, QLCChannel::LSB);
@@ -348,6 +407,8 @@ void VCXYPad::addHead(int fixtureID, int headIndex)
 
     fxItem.m_head.fxi = fixture->id();
     fxItem.m_head.head = headIndex;
+    if (hasHead(fxItem.m_head))
+        return;
     fxItem.m_universe = fixture->universe();
 
     computeRange(fxItem);
@@ -405,6 +466,284 @@ QVariant VCXYPad::groupsTreeModel()
     return QVariant::fromValue(m_fixtureTree);
 }
 
+QVariantList VCXYPad::fixturePositions() const
+{
+    return m_fixturePositions;
+}
+
+QVariantList VCXYPad::presetsList() const
+{
+    QVariantList list;
+
+    for (const VCXYPadPreset *preset : presets())
+    {
+        QVariantMap entry;
+        entry.insert("id", preset->m_id);
+        entry.insert("name", preset->m_name);
+        entry.insert("type", int(preset->m_type));
+        entry.insert("typeString", VCXYPadPreset::typeToString(preset->m_type));
+        entry.insert("functionID", preset->m_funcID);
+        entry.insert("headsCount", preset->m_fxGroup.count());
+        entry.insert("color", preset->color());
+        entry.insert("active", preset->m_id == m_activePresetId);
+        list.append(entry);
+    }
+
+    return list;
+}
+
+int VCXYPad::activePresetId() const
+{
+    return m_activePresetId;
+}
+
+int VCXYPad::addPositionPreset()
+{
+    quint8 newId = ++m_lastAssignedPresetId;
+    VCXYPadPreset *preset = new VCXYPadPreset(newId);
+    preset->m_type = VCXYPadPreset::Position;
+    preset->m_dmxPos = m_currentPosition;
+    preset->m_name = QString("X:%1 - Y:%2")
+                     .arg(static_cast<int>(preset->m_dmxPos.x()))
+                     .arg(static_cast<int>(preset->m_dmxPos.y()));
+    addPresetInternal(preset);
+
+    emit presetsListChanged();
+    m_doc->setModified();
+
+    return newId;
+}
+
+int VCXYPad::addFunctionPreset(quint32 functionID)
+{
+    Function *function = m_doc->function(functionID);
+    if (function == nullptr)
+        return -1;
+
+    VCXYPadPreset::PresetType type = VCXYPadPreset::Position;
+    if (function->type() == Function::EFXType)
+        type = VCXYPadPreset::EFX;
+    else if (function->type() == Function::SceneType)
+        type = VCXYPadPreset::Scene;
+    else
+        return -1;
+
+    if (type == VCXYPadPreset::Scene && sceneHasPanTilt(functionID) == false)
+        return -1;
+
+    quint8 newId = ++m_lastAssignedPresetId;
+    VCXYPadPreset *preset = new VCXYPadPreset(newId);
+    preset->m_type = type;
+    preset->m_funcID = functionID;
+    preset->m_name = function->name();
+    addPresetInternal(preset);
+
+    emit presetsListChanged();
+    m_doc->setModified();
+
+    return newId;
+}
+
+int VCXYPad::addFixtureGroupPreset(QVariant reference)
+{
+    QList<GroupHead> heads;
+
+    if (reference.canConvert<Universe *>())
+    {
+        Universe *uni = reference.value<Universe *>();
+        if (uni != nullptr)
+        {
+            for (const XYPadFixture &fixture : m_fixtures)
+            {
+                Fixture *fxi = m_doc->fixture(fixture.m_head.fxi);
+                if (fxi != nullptr && fxi->universe() == uni->id())
+                    heads.append(fixture.m_head);
+            }
+        }
+    }
+    else if (reference.canConvert<FixtureGroup *>())
+    {
+        FixtureGroup *group = reference.value<FixtureGroup *>();
+        if (group != nullptr)
+            heads = group->headList();
+    }
+    else if (reference.canConvert<Fixture *>())
+    {
+        Fixture *fixture = reference.value<Fixture *>();
+        if (fixture != nullptr)
+        {
+            for (const XYPadFixture &fxItem : m_fixtures)
+            {
+                if (fxItem.m_head.fxi == fixture->id())
+                    heads.append(fxItem.m_head);
+            }
+        }
+    }
+
+    heads = uniqueHeadsInPad(heads);
+    if (heads.isEmpty())
+        return -1;
+
+    quint8 newId = ++m_lastAssignedPresetId;
+    VCXYPadPreset *preset = new VCXYPadPreset(newId);
+    preset->m_type = VCXYPadPreset::FixtureGroup;
+    preset->m_name = tr("Fixture Group");
+    preset->m_fxGroup = heads;
+    addPresetInternal(preset);
+
+    emit presetsListChanged();
+    m_doc->setModified();
+
+    return newId;
+}
+
+int VCXYPad::addFixtureGroupHeadPreset(int fixtureID, int headIndex)
+{
+    QList<GroupHead> heads;
+    heads.append(GroupHead(fixtureID, headIndex));
+    heads = uniqueHeadsInPad(heads);
+    if (heads.isEmpty())
+        return -1;
+
+    quint8 newId = ++m_lastAssignedPresetId;
+    VCXYPadPreset *preset = new VCXYPadPreset(newId);
+    preset->m_type = VCXYPadPreset::FixtureGroup;
+    preset->m_name = tr("Fixture Group");
+    preset->m_fxGroup = heads;
+    addPresetInternal(preset);
+
+    emit presetsListChanged();
+    m_doc->setModified();
+
+    return newId;
+}
+
+void VCXYPad::removePreset(quint8 presetId)
+{
+    for (int i = 0; i < m_presets.count(); ++i)
+    {
+        if (m_presets.at(i)->m_id == presetId)
+        {
+            if (presetId <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+                unregisterExternalControl(INPUT_PRESETS_BASE_ID + presetId);
+
+            if (m_presets.at(i)->m_id == m_activePresetId)
+            {
+                deactivatePreset(m_presets.at(i));
+                setActivePresetId(-1);
+            }
+            delete m_presets.takeAt(i);
+            emit presetsListChanged();
+            m_doc->setModified();
+            return;
+        }
+    }
+}
+
+int VCXYPad::movePresetUp(quint8 presetId)
+{
+    QList<VCXYPadPreset*> list = presets();
+    int idx = -1;
+    for (int i = 0; i < list.count(); ++i)
+    {
+        if (list.at(i)->m_id == presetId)
+        {
+            idx = i;
+            break;
+        }
+    }
+
+    if (idx <= 0)
+        return presetId;
+
+    quint8 prevId = list.at(idx - 1)->m_id;
+    list.at(idx - 1)->m_id = list.at(idx)->m_id;
+    list.at(idx)->m_id = prevId;
+    refreshPresetExternalControls();
+    emit presetsListChanged();
+    m_doc->setModified();
+
+    return prevId;
+}
+
+int VCXYPad::movePresetDown(quint8 presetId)
+{
+    QList<VCXYPadPreset*> list = presets();
+    int idx = -1;
+    for (int i = 0; i < list.count(); ++i)
+    {
+        if (list.at(i)->m_id == presetId)
+        {
+            idx = i;
+            break;
+        }
+    }
+
+    if (idx == -1 || idx >= list.count() - 1)
+        return presetId;
+
+    quint8 nextId = list.at(idx + 1)->m_id;
+    list.at(idx + 1)->m_id = list.at(idx)->m_id;
+    list.at(idx)->m_id = nextId;
+    refreshPresetExternalControls();
+    emit presetsListChanged();
+    m_doc->setModified();
+
+    return nextId;
+}
+
+void VCXYPad::setPresetName(quint8 presetId, QString name)
+{
+    VCXYPadPreset *preset = findPreset(presetId);
+    if (preset == nullptr)
+        return;
+
+    if (preset->m_name == name)
+        return;
+
+    preset->m_name = name;
+    if (presetId <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+    {
+        unregisterExternalControl(INPUT_PRESETS_BASE_ID + presetId);
+        registerExternalControl(INPUT_PRESETS_BASE_ID + presetId,
+                                tr("Preset: %1").arg(preset->m_name), true);
+    }
+    emit presetsListChanged();
+    m_doc->setModified();
+}
+
+void VCXYPad::applyPreset(quint8 presetId)
+{
+    VCXYPadPreset *preset = findPreset(presetId);
+    if (preset == nullptr)
+        return;
+
+    if (preset->m_type == VCXYPadPreset::Position)
+    {
+        if (m_activePresetId >= 0 && m_activePresetId != presetId)
+            deactivatePreset(findPreset(m_activePresetId));
+
+        setCurrentPosition(preset->m_dmxPos);
+        setActivePresetId(presetId);
+        return;
+    }
+
+    if (m_activePresetId == presetId)
+    {
+        deactivatePreset(preset);
+        setActivePresetId(-1);
+        return;
+    }
+
+    if (m_activePresetId >= 0)
+        deactivatePreset(findPreset(m_activePresetId));
+
+    if (activatePreset(preset))
+        setActivePresetId(presetId);
+    else
+        setActivePresetId(-1);
+}
+
 QString VCXYPad::searchFilter() const
 {
     return m_searchFilter;
@@ -430,11 +769,194 @@ void VCXYPad::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
+QList<VCXYPadPreset*> VCXYPad::presets() const
+{
+    QList<VCXYPadPreset*> list = m_presets;
+    std::sort(list.begin(), list.end(), VCXYPadPreset::compare);
+    return list;
+}
+
+VCXYPadPreset *VCXYPad::findPreset(quint8 presetId) const
+{
+    for (VCXYPadPreset *preset : m_presets)
+    {
+        if (preset->m_id == presetId)
+            return preset;
+    }
+    return nullptr;
+}
+
+void VCXYPad::refreshPresetExternalControls()
+{
+    for (const VCXYPadPreset *preset : m_presets)
+    {
+        if (preset->m_id > UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+            continue;
+
+        unregisterExternalControl(INPUT_PRESETS_BASE_ID + preset->m_id);
+        registerExternalControl(INPUT_PRESETS_BASE_ID + preset->m_id,
+                                tr("Preset: %1").arg(preset->m_name), true);
+    }
+}
+
+void VCXYPad::clearPresets()
+{
+    if (m_activePresetId >= 0)
+        deactivatePreset(findPreset(m_activePresetId));
+    setActivePresetId(-1);
+
+    for (const VCXYPadPreset *preset : m_presets)
+    {
+        if (preset->m_id <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+            unregisterExternalControl(INPUT_PRESETS_BASE_ID + preset->m_id);
+    }
+
+    qDeleteAll(m_presets);
+    m_presets.clear();
+}
+
+void VCXYPad::addPresetInternal(VCXYPadPreset *preset)
+{
+    if (preset == nullptr)
+        return;
+
+    m_presets.append(preset);
+    if (preset->m_id > m_lastAssignedPresetId)
+        m_lastAssignedPresetId = preset->m_id;
+
+    if (preset->m_id <= UCHAR_MAX - INPUT_PRESETS_BASE_ID)
+    {
+        registerExternalControl(INPUT_PRESETS_BASE_ID + preset->m_id,
+                                tr("Preset: %1").arg(preset->m_name), true);
+    }
+}
+
+bool VCXYPad::hasHead(const GroupHead &head) const
+{
+    for (const XYPadFixture &fixture : m_fixtures)
+    {
+        if (fixture.m_head == head)
+            return true;
+    }
+    return false;
+}
+
+QList<GroupHead> VCXYPad::uniqueHeadsInPad(const QList<GroupHead> &heads) const
+{
+    QList<GroupHead> list;
+
+    for (const GroupHead &head : heads)
+    {
+        if (hasHead(head) && list.contains(head) == false)
+            list.append(head);
+    }
+
+    return list;
+}
+
+bool VCXYPad::sceneHasPanTilt(quint32 functionID) const
+{
+    Function *function = m_doc->function(functionID);
+    if (function == nullptr || function->type() != Function::SceneType)
+        return false;
+
+    Scene *scene = qobject_cast<Scene*>(function);
+    if (scene == nullptr)
+        return false;
+
+    for (const SceneValue &scv : scene->values())
+    {
+        Fixture *fixture = m_doc->fixture(scv.fxi);
+        if (fixture == nullptr)
+            continue;
+
+        const QLCChannel *channel = fixture->channel(scv.channel);
+        if (channel == nullptr)
+            continue;
+
+        if (channel->group() == QLCChannel::Pan || channel->group() == QLCChannel::Tilt)
+            return true;
+    }
+
+    return false;
+}
+
+bool VCXYPad::activatePreset(VCXYPadPreset *preset)
+{
+    if (preset == nullptr)
+        return false;
+
+    if (preset->m_type == VCXYPadPreset::EFX || preset->m_type == VCXYPadPreset::Scene)
+    {
+        Function *function = m_doc->function(preset->m_funcID);
+        if (function == nullptr)
+            return false;
+
+        if (preset->m_type == VCXYPadPreset::EFX && function->type() != Function::EFXType)
+            return false;
+        if (preset->m_type == VCXYPadPreset::Scene && function->type() != Function::SceneType)
+            return false;
+
+        adjustFunctionIntensity(function, intensity());
+        function->start(m_doc->masterTimer(), functionParent());
+        emit functionStarting(this, function->id(), intensity());
+        return true;
+    }
+
+    if (preset->m_type == VCXYPadPreset::FixtureGroup)
+    {
+        for (XYPadFixture &fixture : m_fixtures)
+            fixture.m_enabled = preset->m_fxGroup.contains(fixture.m_head);
+
+        m_fixturePositions.clear();
+        emit fixturePositionsChanged();
+        m_positionChanged = true;
+        return true;
+    }
+
+    return false;
+}
+
+void VCXYPad::deactivatePreset(VCXYPadPreset *preset)
+{
+    if (preset == nullptr)
+        return;
+
+    if (preset->m_type == VCXYPadPreset::EFX || preset->m_type == VCXYPadPreset::Scene)
+    {
+        Function *function = m_doc->function(preset->m_funcID);
+        if (function != nullptr && function->isRunning())
+            function->stop(functionParent());
+        return;
+    }
+
+    if (preset->m_type == VCXYPadPreset::FixtureGroup)
+    {
+        for (XYPadFixture &fixture : m_fixtures)
+            fixture.m_enabled = true;
+
+        m_fixturePositions.clear();
+        emit fixturePositionsChanged();
+        m_positionChanged = true;
+    }
+}
+
+void VCXYPad::setActivePresetId(int presetId)
+{
+    if (m_activePresetId == presetId)
+        return;
+
+    m_activePresetId = presetId;
+    emit activePresetIdChanged();
+    emit presetsListChanged();
+}
+
 void VCXYPad::initXYFixtureItem(XYPadFixture &fixture)
 {
     fixture.m_head.fxi = Fixture::invalidId();
     fixture.m_head.head = 0;
     fixture.m_universe = Universe::invalid();
+    fixture.m_fixtureAddress = QLCChannel::invalid();
     fixture.m_xMSB = QLCChannel::invalid();
     fixture.m_xLSB = QLCChannel::invalid();
     fixture.m_yMSB = QLCChannel::invalid();
@@ -476,6 +998,8 @@ void VCXYPad::computeRange(XYPadFixture &fixture)
 void VCXYPad::updateFixtureList()
 {
     m_fixtureList->clear();
+    m_fixturePositions.clear();
+    emit fixturePositionsChanged();
 
     for (XYPadFixture &fixture : m_fixtures)
     {
@@ -489,6 +1013,7 @@ void VCXYPad::updateFixtureList()
         // cache data just once
         if (fixture.m_universe == Universe::invalid())
             fixture.m_universe = fxi->universe();
+        fixture.m_fixtureAddress = fxi->address();
 
         if (fixture.m_xMSB == QLCChannel::invalid())
         {
@@ -562,8 +1087,66 @@ void VCXYPad::updateChannel(FadeChannel *fc, uchar value)
 
 void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
 {
-    Q_UNUSED(idx)
-    Q_UNUSED(universeData)
+    QVariantList positions;
+
+    for (const XYPadFixture &fixture : m_fixtures)
+    {
+        if (fixture.m_enabled == false)
+            continue;
+
+        if (fixture.m_universe != idx)
+            continue;
+
+        if (fixture.m_xMSB == QLCChannel::invalid() || fixture.m_yMSB == QLCChannel::invalid())
+            continue;
+
+        Fixture *fxi = m_doc->fixture(fixture.m_head.fxi);
+        if (fxi == nullptr)
+            continue;
+
+        quint32 fixtureAddress = fxi->address();
+        if (fixtureAddress == QLCChannel::invalid())
+            continue;
+
+        int x = -1;
+        int y = -1;
+
+        if ((fixture.m_xMSB + fixtureAddress) < quint32(universeData.size()))
+            x = int(uchar(universeData.at(fixture.m_xMSB + fixtureAddress))) * 256;
+        if ((fixture.m_yMSB + fixtureAddress) < quint32(universeData.size()))
+            y = int(uchar(universeData.at(fixture.m_yMSB + fixtureAddress))) * 256;
+
+        if (x == -1 || y == -1)
+            continue;
+
+        if (fixture.m_xLSB != QLCChannel::invalid() &&
+            (fixture.m_xLSB + fixtureAddress) < quint32(universeData.size()))
+        {
+            x += int(uchar(universeData.at(fixture.m_xLSB + fixtureAddress)));
+        }
+        if (fixture.m_yLSB != QLCChannel::invalid() &&
+            (fixture.m_yLSB + fixtureAddress) < quint32(universeData.size()))
+        {
+            y += int(uchar(universeData.at(fixture.m_yLSB + fixtureAddress)));
+        }
+
+        qreal xNorm = qreal(x) / qreal(USHRT_MAX);
+        qreal yNorm = qreal(y) / qreal(USHRT_MAX);
+
+        if (invertedAppearance())
+            yNorm = 1.0 - yNorm;
+
+        QVariantMap posMap;
+        posMap.insert("x", xNorm * 256.0);
+        posMap.insert("y", yNorm * 256.0);
+        positions.append(posMap);
+    }
+
+    if (positions == m_fixturePositions)
+        return;
+
+    m_fixturePositions = positions;
+    emit fixturePositionsChanged();
 }
 
 void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
@@ -669,6 +1252,17 @@ void VCXYPad::updateFeedback()
 
 void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
 {
+    if (id >= INPUT_PRESETS_BASE_ID)
+    {
+        if (value == UCHAR_MAX)
+        {
+            quint8 presetId = id - INPUT_PRESETS_BASE_ID;
+            if (findPreset(presetId) != nullptr)
+                applyPreset(presetId);
+        }
+        return;
+    }
+
     switch (id)
     {
         case INPUT_PAN_ID:
@@ -767,6 +1361,10 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
 
     QPointF currPos(0, 0);
 
+    m_fixtures.clear();
+    clearPresets();
+    m_lastAssignedPresetId = 15;
+
     QXmlStreamAttributes attrs = root.attributes();
 
     /* Widget commons */
@@ -840,6 +1438,14 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
             setVerticalRange(QPointF(y1, y2));
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCVCXYPadPreset)
+        {
+            VCXYPadPreset *preset = new VCXYPadPreset(0xff);
+            if (preset->loadXML(root))
+                addPresetInternal(preset);
+            else
+                delete preset;
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown XY pad tag:" << root.name().toString();
@@ -849,6 +1455,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
 
     updateFixtureList();
     setCurrentPosition(currPos);
+    emit presetsListChanged();
 
     return true;
 }
@@ -941,6 +1548,9 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc) const
     saveXMLInputControl(doc, INPUT_TILT_FINE_ID, false, KXMLQLCVCXYPadTiltFine);
     saveXMLInputControl(doc, INPUT_WIDTH_ID, false, KXMLQLCVCXYPadWidth);
     saveXMLInputControl(doc, INPUT_HEIGHT_ID, false, KXMLQLCVCXYPadHeight);
+
+    for (const VCXYPadPreset *preset : presets())
+        preset->saveXML(doc);
 
     /* Write the <end> tag */
     doc->writeEndElement();

@@ -75,6 +75,7 @@ set(SRC_FILES
     virtualconsole/vcsoloframe.cpp virtualconsole/vcsoloframe.h
     virtualconsole/vcwidget.cpp virtualconsole/vcwidget.h
     virtualconsole/vcxypad.cpp virtualconsole/vcxypad.h
+    virtualconsole/vcxypadpreset.cpp virtualconsole/vcxypadpreset.h
     virtualconsole/vcspeeddial.cpp virtualconsole/vcspeeddial.h
     virtualconsole/vcspeeddialpreset.cpp virtualconsole/vcspeeddialpreset.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h

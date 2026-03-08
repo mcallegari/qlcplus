@@ -22,6 +22,7 @@
 
 #include "vcwidget.h"
 #include "dmxsource.h"
+#include "grouphead.h"
 
 #define KXMLQLCVCXYPad  QStringLiteral("XYPad")
 
@@ -40,8 +41,11 @@ class VCXYPad : public VCWidget, public DMXSource
     Q_PROPERTY(QPointF verticalRange READ verticalRange WRITE setVerticalRange NOTIFY verticalRangeChanged FINAL)
 
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(QVariantList fixturePositions READ fixturePositions NOTIFY fixturePositionsChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
+    Q_PROPERTY(QVariantList presetsList READ presetsList NOTIFY presetsListChanged)
+    Q_PROPERTY(int activePresetId READ activePresetId NOTIFY activePresetIdChanged)
 
     /*********************************************************************
      * Initialization
@@ -61,6 +65,8 @@ public:
 
     /** @reimp */
     QString propertiesResource() const override;
+    QString presetsResource() const override;
+    bool supportsPresets() const override;
 
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent) const override;
@@ -171,11 +177,28 @@ public:
     /** Remove a Fixture from this XY Pad */
     Q_INVOKABLE void removeHeads(QVariantList heads);
 
+    /** Add presets */
+    Q_INVOKABLE int addPositionPreset();
+    Q_INVOKABLE int addFunctionPreset(quint32 functionID);
+    Q_INVOKABLE int addFixtureGroupPreset(QVariant reference);
+    Q_INVOKABLE int addFixtureGroupHeadPreset(int fixtureID, int headIndex);
+
+    /** Remove/reorder/edit presets */
+    Q_INVOKABLE void removePreset(quint8 presetId);
+    Q_INVOKABLE int movePresetUp(quint8 presetId);
+    Q_INVOKABLE int movePresetDown(quint8 presetId);
+    Q_INVOKABLE void setPresetName(quint8 presetId, QString name);
+    Q_INVOKABLE void applyPreset(quint8 presetId);
+
     /** Get the fixture list for the UI */
     QVariant fixtureList() const;
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
+    QVariantList fixturePositions() const;
+
+    QVariantList presetsList() const;
+    int activePresetId() const;
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;
@@ -189,13 +212,20 @@ protected:
 signals:
     /** Notify the listeners that the fixture list model has changed */
     void fixtureListChanged();
+    /** Notify listeners that fixture preview positions changed */
+    void fixturePositionsChanged();
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
     /** Notify the listeners that the search filter has changed */
     void searchFilterChanged();
+    /** Notify listeners that presets data changed */
+    void presetsListChanged();
+    /** Notify listeners that the active preset changed */
+    void activePresetIdChanged();
 
 private:
     QList <XYPadFixture> m_fixtures;
+    QVariantList m_fixturePositions;
 
     /** Reference to a ListModel representing the fixtures list for the QML UI */
     ListModel *m_fixtureList;
@@ -203,6 +233,27 @@ private:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+private:
+    QList<class VCXYPadPreset*> presets() const;
+    class VCXYPadPreset *findPreset(quint8 presetId) const;
+    void refreshPresetExternalControls();
+    void clearPresets();
+    void addPresetInternal(class VCXYPadPreset *preset);
+    bool hasHead(const GroupHead &head) const;
+    QList<GroupHead> uniqueHeadsInPad(const QList<GroupHead> &heads) const;
+    bool sceneHasPanTilt(quint32 functionID) const;
+    bool activatePreset(VCXYPadPreset *preset);
+    void deactivatePreset(VCXYPadPreset *preset);
+    void setActivePresetId(int presetId);
+
+private:
+    quint8 m_lastAssignedPresetId;
+    QList<class VCXYPadPreset*> m_presets;
+    int m_activePresetId;
 
     /*********************************************************************
      * DMXSource

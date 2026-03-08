@@ -245,6 +245,7 @@
     <file alias="VCAudioTriggersProperties.qml">qml/virtualconsole/VCAudioTriggersProperties.qml</file>
     <file alias="VCXYPadItem.qml">qml/virtualconsole/VCXYPadItem.qml</file>
     <file alias="VCXYPadProperties.qml">qml/virtualconsole/VCXYPadProperties.qml</file>
+    <file alias="VCXYPadPresets.qml">qml/virtualconsole/VCXYPadPresets.qml</file>
     <file alias="VCSpeedDialItem.qml">qml/virtualconsole/VCSpeedDialItem.qml</file>
     <file alias="VCSpeedDialProperties.qml">qml/virtualconsole/VCSpeedDialProperties.qml</file>
     <file alias="VCSpeedDialPresets.qml">qml/virtualconsole/VCSpeedDialPresets.qml</file>
