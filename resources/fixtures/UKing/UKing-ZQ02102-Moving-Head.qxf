@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.1 GIT</Version>
+  <Author>Maximilian Wiener</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>ZQ02102 Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Red1" Preset="IntensityRed"/>
+ <Channel Name="Green1" Preset="IntensityGreen"/>
+ <Channel Name="Blue1" Preset="IntensityBlue"/>
+ <Channel Name="White1" Preset="IntensityWhite"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">nothing</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">3s=Reset</Capability>
+ </Channel>
+ <Channel Name="Auto Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Other channel functions</Capability>
+  <Capability Min="10" Max="159">15 color options for LED beads</Capability>
+  <Capability Min="160" Max="179">Color gradient of LED beads</Capability>
+  <Capability Min="180" Max="199">Light bead color jumps</Capability>
+  <Capability Min="200" Max="219">Light bead circle control self-propelled</Capability>
+  <Capability Min="220" Max="239">Auto</Capability>
+  <Capability Min="240" Max="255">Auto Sound</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">fast to slow</Capability>
+ </Channel>
+ <Channel Name="Ring Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">off</Capability>
+  <Capability Min="5" Max="14" Preset="ColorMacro" Res1="#ff0000">Red (static)</Capability>
+  <Capability Min="15" Max="24" Preset="ColorMacro" Res1="#00ff00">Green (static)</Capability>
+  <Capability Min="25" Max="34" Preset="ColorMacro" Res1="#0000ff">Blue (static)</Capability>
+  <Capability Min="35" Max="44" Preset="ColorMacro" Res1="#ffff00">Yellow (static)</Capability>
+  <Capability Min="45" Max="54" Preset="ColorMacro" Res1="#ff00ff">Magenta (static)</Capability>
+  <Capability Min="55" Max="64" Preset="ColorMacro" Res1="#00ffff">Cyan (static)</Capability>
+  <Capability Min="65" Max="74" Preset="ColorMacro" Res1="#ffffff">White (static)</Capability>
+  <Capability Min="75" Max="76" Preset="ColorMacro" Res1="#ff0000">Red Circle (rotating 1x cw)</Capability>
+  <Capability Min="77" Max="78" Preset="ColorMacro" Res1="#00ff00">Green Circle (rotating 1x cw)</Capability>
+  <Capability Min="79" Max="80" Preset="ColorMacro" Res1="#0000ff">Blue Circle (rotating 1x cw)</Capability>
+  <Capability Min="81" Max="82" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (rotating 1x cw)</Capability>
+  <Capability Min="83" Max="84" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (rotating 1x cw)</Capability>
+  <Capability Min="85" Max="86" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (rotating 1x cw)</Capability>
+  <Capability Min="87" Max="88" Preset="ColorMacro" Res1="#ffffff">White Circle (rotating 1x cw)</Capability>
+  <Capability Min="89" Max="90" Preset="ColorMacro" Res1="#ff0000">Red Circle (rotating 2x cw)</Capability>
+  <Capability Min="91" Max="92" Preset="ColorMacro" Res1="#00ff00">Green Circle (rotating 2x cw)</Capability>
+  <Capability Min="93" Max="94" Preset="ColorMacro" Res1="#0000ff">Blue Circle (rotating 2x cw)</Capability>
+  <Capability Min="95" Max="96" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (rotating 2x cw)</Capability>
+  <Capability Min="97" Max="98" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (rotating 2x cw)</Capability>
+  <Capability Min="99" Max="100" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (rotating 2x cw)</Capability>
+  <Capability Min="101" Max="102" Preset="ColorMacro" Res1="#ffffff">White Circle (rotating 2x cw)</Capability>
+  <Capability Min="103" Max="104" Preset="ColorMacro" Res1="#ff0000">Red Circle (rotating 3x cw)</Capability>
+  <Capability Min="105" Max="106" Preset="ColorMacro" Res1="#00ff00">Green Circle (rotating 3x cw)</Capability>
+  <Capability Min="107" Max="108" Preset="ColorMacro" Res1="#0000ff">Blue Circle (rotating 3x cw)</Capability>
+  <Capability Min="109" Max="110" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (rotating 3x cw)</Capability>
+  <Capability Min="111" Max="112" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (rotating 3x cw)</Capability>
+  <Capability Min="113" Max="114" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (rotating 3x cw)</Capability>
+  <Capability Min="115" Max="116" Preset="ColorMacro" Res1="#ffffff">White Circle (rotating 3x cw)</Capability>
+  <Capability Min="117" Max="118" Preset="ColorMacro" Res1="#ff0000">Red Circle (rotating 1/2 cw)</Capability>
+  <Capability Min="119" Max="120" Preset="ColorMacro" Res1="#00ff00">Green Circle (rotating 1/2 cw)</Capability>
+  <Capability Min="121" Max="122" Preset="ColorMacro" Res1="#0000ff">Blue Circle (rotating 1/2)</Capability>
+  <Capability Min="123" Max="124" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (rotating 1/2 cw)</Capability>
+  <Capability Min="125" Max="126" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (rotating 1/2 cw)</Capability>
+  <Capability Min="127" Max="128" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (rotating 1/2 cw)</Capability>
+  <Capability Min="129" Max="130" Preset="ColorMacro" Res1="#ffffff">White Circle (rotating 1/2 cw)</Capability>
+  <Capability Min="131" Max="132" Preset="ColorMacro" Res1="#ff0000">Red Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="133" Max="134" Preset="ColorMacro" Res1="#00ff00">Green Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="135" Max="136" Preset="ColorMacro" Res1="#0000ff">Blue Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="137" Max="138" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="139" Max="140" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="141" Max="142" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="143" Max="144" Preset="ColorMacro" Res1="#ffffff">White Circle (rotating 1/2 cw inverted)</Capability>
+  <Capability Min="145" Max="146" Preset="ColorMacro" Res1="#ff0000">Red Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="147" Max="148" Preset="ColorMacro" Res1="#00ff00">Green Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="149" Max="150" Preset="ColorMacro" Res1="#0000ff">Blue Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="151" Max="152" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="153" Max="154" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="155" Max="156" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="157" Max="158" Preset="ColorMacro" Res1="#ffffff">White Circle (rotating 3/4 cw)</Capability>
+  <Capability Min="159" Max="160" Preset="ColorMacro" Res1="#ff0000">Red Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="161" Max="162" Preset="ColorMacro" Res1="#00ff00">Green Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="163" Max="164" Preset="ColorMacro" Res1="#0000ff">Blue Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="165" Max="166" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="167" Max="168" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="169" Max="170" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="171" Max="172" Preset="ColorMacro" Res1="#ffffff">White Circle (fill ccw, unfill cw)</Capability>
+  <Capability Min="173" Max="174" Preset="ColorMacro" Res1="#ff0000">Red Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="175" Max="176" Preset="ColorMacro" Res1="#00ff00">Green Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="177" Max="178" Preset="ColorMacro" Res1="#0000ff">Blue Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="179" Max="180" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="181" Max="182" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="183" Max="184" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="185" Max="186" Preset="ColorMacro" Res1="#ffffff">White Circle (fill ccw, unfill ccw)</Capability>
+  <Capability Min="187" Max="188" Preset="ColorMacro" Res1="#ff0000">Red Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="189" Max="190" Preset="ColorMacro" Res1="#00ff00">Green Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="191" Max="192" Preset="ColorMacro" Res1="#0000ff">Blue Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="193" Max="194" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="195" Max="196" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="197" Max="198" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="199" Max="200" Preset="ColorMacro" Res1="#ffffff">White Circle (fill lr, unfill lr)</Capability>
+  <Capability Min="201" Max="202" Preset="ColorMacro" Res1="#ff0000">Red Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="203" Max="204" Preset="ColorMacro" Res1="#00ff00">Green Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="205" Max="206" Preset="ColorMacro" Res1="#0000ff">Blue Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="207" Max="208" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="209" Max="210" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="211" Max="212" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="213" Max="214" Preset="ColorMacro" Res1="#ffffff">White Circle (fill lr, unfill rl)</Capability>
+  <Capability Min="215" Max="216" Preset="ColorMacro" Res1="#ff0000">Red Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="217" Max="218" Preset="ColorMacro" Res1="#00ff00">Green Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="219" Max="220" Preset="ColorMacro" Res1="#0000ff">Blue Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="221" Max="222" Preset="ColorMacro" Res1="#ffff00">Yellow Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="223" Max="224" Preset="ColorMacro" Res1="#ff00ff">Magenta Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="225" Max="226" Preset="ColorMacro" Res1="#00ffff">Cyan Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="227" Max="228" Preset="ColorMacro" Res1="#ffffff">White Circle (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="229" Max="230">Color Change Circle (color n lr, color n+1 rl)</Capability>
+  <Capability Min="231" Max="232" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red Blue (rotating 1/2x cw ccw)</Capability>
+  <Capability Min="233" Max="234">Red Green Blue Circle (rotating cw)</Capability>
+  <Capability Min="235" Max="236" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red Blue Circle (rotating cw)</Capability>
+  <Capability Min="237" Max="238">Red Green Blue (rotating cw ccw)</Capability>
+  <Capability Min="239" Max="240">Red (1/3) Blue (2/3) (rotating cw ccw)</Capability>
+  <Capability Min="241" Max="242">Red Green Blue Circle (rotating cw ccw)</Capability>
+  <Capability Min="243" Max="244">Red Blue (rotating 1x cw ccw)</Capability>
+  <Capability Min="245" Max="246">Red Blue (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="247" Max="248">Red Blue Green (fill ccw 2x, unfill cw 2x)</Capability>
+  <Capability Min="249" Max="255">Color Change (mixed)</Capability>
+ </Channel>
+ <Channel Name="Ring Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Ring Speed</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="White2" Preset="IntensityWhite"/>
+ <Channel Name="White3" Preset="IntensityWhite"/>
+ <Mode Name="25 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Red1</Channel>
+  <Channel Number="5">Green1</Channel>
+  <Channel Number="6">Blue1</Channel>
+  <Channel Number="7">White1</Channel>
+  <Channel Number="8">Red2</Channel>
+  <Channel Number="9">Green2</Channel>
+  <Channel Number="10">Blue2</Channel>
+  <Channel Number="11">White2</Channel>
+  <Channel Number="12">Red3</Channel>
+  <Channel Number="13">Green3</Channel>
+  <Channel Number="14">Blue3</Channel>
+  <Channel Number="15">White3</Channel>
+  <Channel Number="16">Strobe</Channel>
+  <Channel Number="17">Zoom</Channel>
+  <Channel Number="18">Auto Effect</Channel>
+  <Channel Number="19">Auto Speed</Channel>
+  <Channel Number="20">Pan fine</Channel>
+  <Channel Number="21">Tilt fine</Channel>
+  <Channel Number="22">Reset</Channel>
+  <Channel Number="23">Ring Effect</Channel>
+  <Channel Number="24">Ring Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Red1</Channel>
+  <Channel Number="5">Green1</Channel>
+  <Channel Number="6">Blue1</Channel>
+  <Channel Number="7">White1</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Auto Effect</Channel>
+  <Channel Number="11">Auto Speed</Channel>
+  <Channel Number="12">Pan fine</Channel>
+  <Channel Number="13">Tilt fine</Channel>
+  <Channel Number="14">Reset</Channel>
+  <Channel Number="15">Ring Effect</Channel>
+  <Channel Number="16">Ring Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.9" Width="330" Height="400" Depth="220"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Layout Width="3" Height="1"/>
+  <Technical PowerConsumption="220" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

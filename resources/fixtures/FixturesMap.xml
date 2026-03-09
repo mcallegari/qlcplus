@@ -119,6 +119,7 @@
     <F n="American-DJ-Mega-Bar-LED" m="Mega Bar LED"/>
     <F n="American-DJ-Mega-Bar-RGBA" m="Mega Bar RGBA"/>
     <F n="American-DJ-Mega-Flash-DMX" m="Mega Flash DMX"/>
+    <F n="American-DJ-Mega-Flat-TRI-PAK-Plus" m="Mega Flat TRI PAK Plus"/>
     <F n="American-DJ-Mega-Hex-Par" m="Mega Hex Par"/>
     <F n="American-DJ-Mega-Panel-LED" m="Mega Panel LED"/>
     <F n="American-DJ-Mega-PAR-Profile-Plus" m="Mega PAR Profile Plus"/>
@@ -259,6 +260,7 @@
     <F n="beamZ-Fuze-75B-Beam" m="Fuze 75B Beam"/>
     <F n="beamZ-Illusion-II" m="Illusion II"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
+    <F n="beamZ-LCB1215IP" m="LCB1215IP"/>
     <F n="beamZ-LCB244" m="LCB244"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
@@ -732,6 +734,7 @@
     <F n="Elation-EVC-MH" m="EVC MH"/>
     <F n="Elation-Fuze-PAR-Z175" m="Fuze PAR Z175"/>
     <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
+    <F n="Elation-KL-PAR-FC" m="KL PAR FC"/>
     <F n="Elation-OPTI-TRI-30" m="OPTI TRI 30"/>
     <F n="Elation-Paladin" m="Paladin"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
@@ -853,6 +856,7 @@
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PARty-TCL-spot" m="LED PARty TCL spot"/>
     <F n="Eurolite-LED-PIX-12-HCL-Bar" m="LED PIX-12 HCL Bar"/>
+    <F n="Eurolite-LED-PIX-144-72" m="LED PIX-144/72"/>
     <F n="Eurolite-LED-PIX-16-QCL-Bar" m="LED PIX-16 QCL Bar"/>
     <F n="Eurolite-LED-PLL-480-CW-WW" m="LED PLL-480 CW/WW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
@@ -1906,6 +1910,7 @@
     <F n="UKing-ZQ01495-200W-Three-in-one-Four-eye-COB-Lamp" m="ZQ01495 200W Three-in-one Four-eye COB Lamp"/>
     <F n="UKing-ZQ01513-100WCOB-Cast-Aluminum-Park-Light" m="ZQ01513 100WCOB Cast Aluminum Park Light"/>
     <F n="UKing-ZQ02021-Beam-Pro" m="ZQ02021 Beam Pro"/>
+    <F n="UKing-ZQ02102-Moving-Head" m="ZQ02102 Moving Head"/>
     <F n="UKing-ZQ02319-Mini-40W-Beam-Moving-Head" m="ZQ-02319"/>
     <F n="UKing-ZQ06122-9-Eye-COB-Matrix" m="ZQ06122 9-Eye COB Matrix"/>
     <F n="UKing-ZQB117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>

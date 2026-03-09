@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.1 GIT</Version>
+  <Author>ChatGPT</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Mega Flat TRI PAK Plus</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="">LED off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="StrobeSlowToFast">Strobe pulse slow - fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeSlowToFast">Random strobe slow - fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="4" Preset="ColorMacro" Res1="#50ffea">[Aqua &amp; Lime] Tropical cyan</Capability>
+  <Capability Min="5" Max="8" Preset="ColorMacro" Res1="#50ffa4">[Aqua &amp; Lime] Lime lagoon</Capability>
+  <Capability Min="9" Max="12" Preset="ColorMacro" Res1="#4dff70">[Aqua &amp; Lime] Fresh spring green</Capability>
+  <Capability Min="13" Max="16" Preset="ColorMacro" Res1="#75ff53">[Aqua &amp; Lime] Neon lime wash</Capability>
+  <Capability Min="17" Max="20" Preset="ColorMacro" Res1="#a0ff4d">[Aqua &amp; Lime] Chartreuse glow</Capability>
+  <Capability Min="21" Max="24" Preset="ColorMacro" Res1="#dfff53">[Aqua &amp; Lime] Acid lime highlight</Capability>
+  <Capability Min="25" Max="28" Preset="ColorMacro" Res1="#fff34d">[Warm Sunsets] Soft sunshine yellow</Capability>
+  <Capability Min="29" Max="32" Preset="ColorMacro" Res1="#ffc84a">[Warm Sunsets] Golden sunset</Capability>
+  <Capability Min="33" Max="36" Preset="ColorMacro" Res1="#ffa64d">[Warm Sunsets] Tangerine wash</Capability>
+  <Capability Min="37" Max="40" Preset="ColorMacro" Res1="#ff7d4a">[Warm Sunsets] Warm amber</Capability>
+  <Capability Min="41" Max="44" Preset="ColorMacro" Res1="#ff614d">[Warm Sunsets] Coral orange</Capability>
+  <Capability Min="45" Max="48" Preset="ColorMacro" Res1="#ff474d">[Warm Sunsets] Fiery coral red</Capability>
+  <Capability Min="49" Max="52" Preset="ColorMacro" Res1="#ff5386">[Pinks &amp; Violets] Ballet rose</Capability>
+  <Capability Min="53" Max="56" Preset="ColorMacro" Res1="#ff5db6">[Pinks &amp; Violets] Candy pink</Capability>
+  <Capability Min="57" Max="60" Preset="ColorMacro" Res1="#ff60ec">[Pinks &amp; Violets] Neon magenta</Capability>
+  <Capability Min="61" Max="64" Preset="ColorMacro" Res1="#ee5dff">[Pinks &amp; Violets] Electric violet</Capability>
+  <Capability Min="65" Max="68" Preset="ColorMacro" Res1="#c457ff">[Pinks &amp; Violets] Lavender beam</Capability>
+  <Capability Min="69" Max="72" Preset="ColorMacro" Res1="#965aff">[Pinks &amp; Violets] Deep orchid</Capability>
+  <Capability Min="73" Max="76" Preset="ColorMacro" Res1="#644dff">[Blue Gradient] Royal violet blue</Capability>
+  <Capability Min="77" Max="80" Preset="ColorMacro" Res1="#4d64ff">[Blue Gradient] Indigo wash</Capability>
+  <Capability Min="81" Max="84" Preset="ColorMacro" Res1="#4394ff">[Blue Gradient] Sky ribbon</Capability>
+  <Capability Min="85" Max="88" Preset="ColorMacro" Res1="#4dc3ff">[Blue Gradient] Arctic sky</Capability>
+  <Capability Min="89" Max="92" Preset="ColorMacro" Res1="#4deaff">[Blue Gradient] Crystal aqua</Capability>
+  <Capability Min="93" Max="96" Preset="ColorMacro" Res1="#9eff90">[Pastels &amp; White] Soft meadow</Capability>
+  <Capability Min="97" Max="100" Preset="ColorMacro" Res1="#fffb99">[Pastels &amp; White] Pastel lemon</Capability>
+  <Capability Min="101" Max="104" Preset="ColorMacro" Res1="#ffaf93">[Pastels &amp; White] Peach sorbet</Capability>
+  <Capability Min="105" Max="108" Preset="ColorMacro" Res1="#ff8aba">[Pastels &amp; White] Rose candy</Capability>
+  <Capability Min="109" Max="112" Preset="ColorMacro" Res1="#ff93fb">[Pastels &amp; White] Fairy magenta</Capability>
+  <Capability Min="113" Max="116" Preset="ColorMacro" Res1="#978aff">[Pastels &amp; White] Lavender haze</Capability>
+  <Capability Min="117" Max="120" Preset="ColorMacro" Res1="#978aff">[Pastels &amp; White] Soft lavender</Capability>
+  <Capability Min="121" Max="124" Preset="ColorMacro" Res1="#8aa9ff">[Pastels &amp; White] Periwinkle veil</Capability>
+  <Capability Min="125" Max="128" Preset="ColorMacro" Res1="#ffffff">[Pastels &amp; White] Pure white</Capability>
+  <Capability Min="129" Max="132" Preset="ColorMacro" Res1="#ffce8f">[Ambers &amp; Reds] Warm peach amber</Capability>
+  <Capability Min="133" Max="136" Preset="ColorMacro" Res1="#feb199">[Ambers &amp; Reds] Blush peach</Capability>
+  <Capability Min="137" Max="140" Preset="ColorMacro" Res1="#fec08a">[Ambers &amp; Reds] Golden peach</Capability>
+  <Capability Min="141" Max="144" Preset="ColorMacro" Res1="#fea562">[Ambers &amp; Reds] Honey amber</Capability>
+  <Capability Min="145" Max="148" Preset="ColorMacro" Res1="#fe7900">[Ambers &amp; Reds] Deep amber flame</Capability>
+  <Capability Min="149" Max="152" Preset="ColorMacro" Res1="#b01100">[Ambers &amp; Reds] Crimson ember</Capability>
+  <Capability Min="153" Max="156" Preset="ColorMacro" Res1="#60000b">[Ambers &amp; Reds] Wine red</Capability>
+  <Capability Min="157" Max="160" Preset="ColorMacro" Res1="#ea8bab">[Romantic &amp; Steel] Dusty rose</Capability>
+  <Capability Min="161" Max="164" Preset="ColorMacro" Res1="#e00561">[Romantic &amp; Steel] Hot fuchsia</Capability>
+  <Capability Min="165" Max="168" Preset="ColorMacro" Res1="#af4dad">[Romantic &amp; Steel] Royal magenta</Capability>
+  <Capability Min="169" Max="172" Preset="ColorMacro" Res1="#7782c7">[Romantic &amp; Steel] Soft steel blue</Capability>
+  <Capability Min="173" Max="176" Preset="ColorMacro" Res1="#93a4d4">[Romantic &amp; Steel] Misty steel</Capability>
+  <Capability Min="177" Max="180" Preset="ColorMacro" Res1="#5802a3">[Violets &amp; Oceans] Deep violet</Capability>
+  <Capability Min="181" Max="184" Preset="ColorMacro" Res1="#002656">[Violets &amp; Oceans] Midnight navy</Capability>
+  <Capability Min="185" Max="188" Preset="ColorMacro" Res1="#008ed0">[Violets &amp; Oceans] Tropical blue</Capability>
+  <Capability Min="189" Max="192" Preset="ColorMacro" Res1="#3494d1">[Violets &amp; Oceans] Lagoon blue</Capability>
+  <Capability Min="193" Max="196" Preset="ColorMacro" Res1="#0186c9">[Violets &amp; Oceans] Ocean cyan</Capability>
+  <Capability Min="197" Max="200" Preset="ColorMacro" Res1="#0091d4">[Violets &amp; Oceans] Bright sky blue</Capability>
+  <Capability Min="201" Max="204" Preset="ColorMacro" Res1="#ff0000">[Primaries] Pure red</Capability>
+  <Capability Min="205" Max="208" Preset="ColorMacro" Res1="#00ff00">[Primaries] Pure green</Capability>
+  <Capability Min="209" Max="212" Preset="ColorMacro" Res1="#005373">[Teals &amp; Forest] Deep teal</Capability>
+  <Capability Min="213" Max="216" Preset="ColorMacro" Res1="#0061a6">[Teals &amp; Forest] Ocean blue</Capability>
+  <Capability Min="217" Max="220" Preset="ColorMacro" Res1="#0164a7">[Teals &amp; Forest] Cyan teal</Capability>
+  <Capability Min="221" Max="224" Preset="ColorMacro" Res1="#002856">[Teals &amp; Forest] Abyss blue</Capability>
+  <Capability Min="225" Max="228" Preset="ColorMacro" Res1="#d1dbb6">[Teals &amp; Forest] Soft sage</Capability>
+  <Capability Min="229" Max="232" Preset="ColorMacro" Res1="#2aa555">[Teals &amp; Forest] Forest green</Capability>
+  <Capability Min="233" Max="236" Preset="ColorMacro" Res1="#002e23">[Deep &amp; Electric Blues] Deep forest</Capability>
+  <Capability Min="237" Max="240" Preset="ColorMacro" Res1="#086bde">[Deep &amp; Electric Blues] Cobalt beam</Capability>
+  <Capability Min="241" Max="244" Preset="ColorMacro" Res1="#6b9ce7">[Deep &amp; Electric Blues] Cornflower blue</Capability>
+  <Capability Min="245" Max="248" Preset="ColorMacro" Res1="#a5c6f7">[Deep &amp; Electric Blues] Pale sky</Capability>
+  <Capability Min="249" Max="252" Preset="ColorMacro" Res1="#0000ff">[Deep &amp; Electric Blues] Electric blue</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#000000">[UV Special] Blacklight only</Capability>
+ </Channel>
+ <Channel Name="Program Selection Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Dimming mode</Capability>
+  <Capability Min="52" Max="102">Color macro mode</Capability>
+  <Capability Min="103" Max="153">Color change mode</Capability>
+  <Capability Min="154" Max="204">Color fade mode</Capability>
+  <Capability Min="205" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Program speed/sound sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow / least sensitive - fast / most sensitive</Capability>
+ </Channel>
+ <Channel Name="Dimmer curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to unit setting</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Program Selection Mode</Channel>
+  <Channel Number="7">Color Macros</Channel>
+  <Channel Number="8">Program speed/sound sensitivity</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Program Selection Mode</Channel>
+  <Channel Number="7">Color Macros</Channel>
+  <Channel Number="8">Program speed/sound sensitivity</Channel>
+  <Channel Number="9">Dimmer curves</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="21" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
