@@ -1001,7 +1001,14 @@ void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fract
     qreal newValue = fraction;
 
     if (attrIndex == Function::Intensity)
-        newValue = qRound(attributeValueToSliderValue(fraction / intensity()));
+    {
+        const qreal widgetIntensity = intensity();
+        if (widgetIntensity <= 0.0)
+            return;
+
+        const qreal normalizedValue = CLAMP(fraction / widgetIntensity, qreal(0.0), qreal(1.0));
+        newValue = qRound(attributeValueToSliderValue(normalizedValue));
+    }
 
     qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed" << fraction << "->" << newValue;
 
