@@ -16,7 +16,7 @@
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31" Preset="">LED off</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED off</Capability>
   <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
   <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
   <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
