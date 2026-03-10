@@ -2,29 +2,42 @@
 DIR=`dirname $0`
 set -e
 
-# Validate the fixtures against the XML scheme
-xmllint --noout --schema "$DIR"/../../schemas/fixture.xsd $(find "$DIR"/.. -name *.qxf) >/dev/null 2>&1 
-RES=$?
-if [ $RES -ne 0 ]; then
-	# Re-Validate to print the error cause
-	xmllint --noout --schema "$DIR"/../../schemas/fixture.xsd $(find "$DIR"/.. -name *.qxf) 2>&1 | grep -v " validates$"
-	exit $RES
+# Validate fixtures against the XML schema one by one, so errors are easy to map
+# back to the failing definition file.
+FIXTURES_SCHEMA="$DIR"/../../schemas/fixture.xsd
+FIXTURES_PATH="$DIR"/..
+FIXTURES_COUNT=0
+FIXTURES_ERRORS=0
+
+TMP_LIST_FILE=$(mktemp)
+trap 'rm -f "$TMP_LIST_FILE"' EXIT HUP INT TERM
+find "$FIXTURES_PATH" -type f -name '*.qxf' | sort > "$TMP_LIST_FILE"
+
+while IFS= read -r qxf_file; do
+	FIXTURES_COUNT=$((FIXTURES_COUNT + 1))
+	if ! xmllint --noout --schema "$FIXTURES_SCHEMA" "$qxf_file" >/dev/null 2>&1; then
+		FIXTURES_ERRORS=$((FIXTURES_ERRORS + 1))
+		echo "Fixture schema validation failed: $qxf_file"
+		xmllint --noout --schema "$FIXTURES_SCHEMA" "$qxf_file" 2>&1 || true
+		echo ""
+	fi
+done < "$TMP_LIST_FILE"
+
+if [ "$FIXTURES_ERRORS" -ne 0 ]; then
+	echo "Fixtures: $FIXTURES_ERRORS/$FIXTURES_COUNT failed schema validation"
+	exit 1
 else
-	echo "Fixtures: OK"
+	echo "Fixtures: OK ($FIXTURES_COUNT files)"
 fi
 
 cd "$DIR"/.. && ./scripts/fixtures-tool.py --validate || exit $?
 cd - >>/dev/null
 
 # Validate the fixture map against the XML scheme
-xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml >/dev/null 2>&1
-RES=$?
-if [ $RES -ne 0 ]; then
+if ! xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml >/dev/null 2>&1; then
 	# Re-Validate to print the error cause
 	xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml 2>&1
-	exit $RES
+	exit 1
 else
 	echo "Fixturesmap: OK"
 fi
-
-
