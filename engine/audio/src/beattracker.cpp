@@ -299,7 +299,10 @@ double BeatTracker::computeAdaptiveThreshold() const
     if (count <= 0)
         return std::numeric_limits<double>::infinity();
 
-    double sum = std::accumulate(m_fluxHistory.begin(), m_fluxHistory.end(), 0.0);
+    // C++20: use std::accumulate
+    double sum = 0.0;
+    for (int i = 0; i < count; ++i)
+        sum += m_fluxHistory[i];
 
     double mean = sum / count;
     return mean * m_sensitivity;
@@ -310,7 +313,10 @@ double BeatTracker::getCurrentBpm() const
     if (m_beatIntervalsSec.empty())
         return 0.0;
 
-    double sum = std::accumulate(m_beatIntervalsSec.begin(), m_beatIntervalsSec.end(), 0.0);
+    // C++20: use std::accumulate
+    double sum = 0.0;
+    for (double dt : m_beatIntervalsSec)
+        sum += dt;
 
     if (sum <= 0.0)
         return 0.0;
