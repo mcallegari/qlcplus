@@ -150,6 +150,46 @@
         <source>Page: %1</source>
         <translation>Pagina %1</translation>
     </message>
+    <message>
+        <source>Expand/Collapse</source>
+        <translation>Espandi/Contrai</translation>
+    </message>
+    <message>
+        <source>Enable/Disable frame</source>
+        <translation>Abilita/Disabilita il frame</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Indietro</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation>Avanti</translation>
+    </message>
+    <message>
+        <source>Enable/Disable Solo frame</source>
+        <translation>Abilita/Disabilita il frame esclusivo</translation>
+    </message>
+    <message>
+        <source>Slider</source>
+        <translation>Fader</translation>
+    </message>
+    <message>
+        <source>Play Cue list</source>
+        <translation>Riproduci la lista di azioni</translation>
+    </message>
+    <message>
+        <source>Stop Cue list</source>
+        <translation>Interrompi la lista di azioni</translation>
+    </message>
+    <message>
+        <source>Go to the previous step in the list</source>
+        <translation>Vai al passo precedente nella lista</translation>
+    </message>
+    <message>
+        <source>Go to the next step in the list</source>
+        <translation>Vai al passo successivo nella lista</translation>
+    </message>
 </context>
 <context>
     <name>WebAccessBase</name>

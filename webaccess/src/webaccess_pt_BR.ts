@@ -4,17 +4,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="webaccessauth.cpp" line="195"/>
+        <location filename="webaccessauth.cpp" line="201"/>
         <source>Unauthorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessauth.cpp" line="198"/>
+        <location filename="webaccessauth.cpp" line="204"/>
         <source>401 Unauthorized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessauth.cpp" line="199"/>
+        <location filename="webaccessauth.cpp" line="205"/>
         <source>Access to this resource requires proper authorization and you have failed to authenticate.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -75,6 +75,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="webaccess.cpp" line="732"/>
+        <location filename="webaccess.cpp" line="841"/>
+        <source>Expand/Collapse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="746"/>
+        <source>Enable/Disable frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="761"/>
+        <location filename="webaccess.cpp" line="870"/>
+        <source>Back</source>
+        <translation type="unfinished">Atrás</translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="768"/>
+        <location filename="webaccess.cpp" line="877"/>
+        <source>Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="855"/>
+        <source>Enable/Disable Solo frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="webaccess.cpp" line="1116"/>
         <source>Enable</source>
         <translation>Activar</translation>
@@ -105,37 +133,62 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1712"/>
+        <location filename="webaccess.cpp" line="1439"/>
+        <source>Slider</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1473"/>
+        <source>Play Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1477"/>
+        <source>Stop Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1481"/>
+        <source>Go to the previous step in the list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1485"/>
+        <source>Go to the next step in the list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="1707"/>
         <source>Color 2 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1721"/>
+        <location filename="webaccess.cpp" line="1716"/>
         <source>Color 3 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1730"/>
+        <location filename="webaccess.cpp" line="1725"/>
         <source>Color 4 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1739"/>
+        <location filename="webaccess.cpp" line="1734"/>
         <source>Color 5 Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1980"/>
+        <location filename="webaccess.cpp" line="1975"/>
         <source>Load project</source>
         <translation>Carregar projecto</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1982"/>
+        <location filename="webaccess.cpp" line="1977"/>
         <source>Simple Desk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1984"/>
+        <location filename="webaccess.cpp" line="1979"/>
         <source>Configuration</source>
         <translation>Configuração</translation>
     </message>
@@ -143,63 +196,63 @@
 <context>
     <name>WebAccessBase</name>
     <message>
-        <location filename="webaccessbase.cpp" line="216"/>
+        <location filename="webaccessbase.cpp" line="226"/>
         <source>Loading project...</source>
         <translation type="unfinished">A carregar projecto...</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="301"/>
+        <location filename="webaccessbase.cpp" line="318"/>
         <source>Fixture stored and loaded</source>
         <translation type="unfinished">Fixture guardado e carregado</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="482"/>
+        <location filename="webaccessbase.cpp" line="501"/>
         <source>Username and password are required fields.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="489"/>
-        <location filename="webaccessbase.cpp" line="516"/>
+        <location filename="webaccessbase.cpp" line="508"/>
+        <location filename="webaccessbase.cpp" line="535"/>
         <source>User level has to be a positive integer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="509"/>
+        <location filename="webaccessbase.cpp" line="528"/>
         <source>Username is required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="531"/>
+        <location filename="webaccessbase.cpp" line="550"/>
         <source>Error while saving passwords file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="552"/>
+        <location filename="webaccessbase.cpp" line="571"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="554"/>
+        <location filename="webaccessbase.cpp" line="573"/>
         <source>An error occurred while updating the network configuration.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="571"/>
+        <location filename="webaccessbase.cpp" line="590"/>
         <source>Wi-Fi hotspot successfully activated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="573"/>
+        <location filename="webaccessbase.cpp" line="592"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="578"/>
+        <location filename="webaccessbase.cpp" line="597"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="595"/>
+        <location filename="webaccessbase.cpp" line="614"/>
         <source>Autostart configuration changed</source>
         <translation type="unfinished">A configuração de início automático foi alterada </translation>
     </message>
@@ -234,6 +287,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="webaccessconfiguration.cpp" line="71"/>
         <location filename="webaccessconfiguration.cpp" line="136"/>
         <source>Passthrough</source>
         <translation type="unfinished">Saltar</translation>
@@ -336,32 +390,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="321"/>
+        <location filename="webaccessconfiguration.cpp" line="324"/>
         <source>System</source>
         <translation type="unfinished">Sistema</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="330"/>
+        <location filename="webaccessconfiguration.cpp" line="333"/>
         <source>Back</source>
         <translation type="unfinished">Atrás</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="338"/>
+        <location filename="webaccessconfiguration.cpp" line="341"/>
         <source>Universes configuration</source>
         <translation type="unfinished">Configuração de universos</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="345"/>
+        <location filename="webaccessconfiguration.cpp" line="348"/>
         <source>Audio configuration</source>
         <translation type="unfinished">Configuração de audio</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="353"/>
+        <location filename="webaccessconfiguration.cpp" line="356"/>
         <source>User loaded fixtures</source>
         <translation type="unfinished">Fixtures carregados pelo utilizador</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="362"/>
+        <location filename="webaccessconfiguration.cpp" line="365"/>
         <source>Authorized users</source>
         <translation type="unfinished"></translation>
     </message>
