@@ -312,25 +312,22 @@ void AudioCapture::processData()
 #endif
 
     // 5) Fill per-band magnitudes and compute power
+    double pwrSum = 0.;
+    double maxMagnitude = 0.;
+    for (int barsNumber : m_fftMagnitudeMap.keys())
     {
-        double maxMagnitude;
-        double pwrSum;
-        for (int barsNumber : m_fftMagnitudeMap.keys())
-        {
-            maxMagnitude = fillBandsData(barsNumber); // fills & returns max per-band
-            pwrSum = 0.;
-            for (int n = 0; n < barsNumber; n++)
-                pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];
+        maxMagnitude = fillBandsData(barsNumber); // fills & returns max per-band
+        pwrSum = 0.;
+        for (int n = 0; n < barsNumber; n++)
+            pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];
 
-            const double rawPower = 32768.0 * pwrSum * qSqrt(M_2PI) / double(barsNumber);
-            m_signalPower = smoothPower(rawPower);
-            emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
-                               m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
-                               maxMagnitude, m_signalPower);
-        }
+        const double rawPower = 32768.0 * pwrSum * qSqrt(M_2PI) / double(barsNumber);
+        m_signalPower = smoothPower(rawPower);
+        emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
+                           m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
+                           maxMagnitude, m_signalPower);
     }
 }
-
 
 void AudioCapture::run()
 {
