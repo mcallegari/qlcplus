@@ -530,7 +530,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="188"/>
         <source>Auto-set step durations from function total duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Establece automáticamente las duraciones del paso desde la duración total de la función</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="212"/>
@@ -2084,65 +2084,65 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="48"/>
         <source>Add a new channel</source>
-        <translation type="unfinished">Añadir un canal nuevo</translation>
+        <translation>Añadir un canal nuevo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="49"/>
         <source>Add a new color</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un color nuevo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="49"/>
         <source>Add a new MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un canal MIDI nuevo</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="50"/>
         <source>Delete the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el canal seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="51"/>
         <source>Delete the selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el color seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="51"/>
         <source>Delete the selected MIDI channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar el canal MIDI seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="52"/>
         <source>Edit the selected channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar el canal seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="275"/>
         <source>Add Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar un color</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="316"/>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="709"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="328"/>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="718"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="338"/>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="727"/>
         <source>Color</source>
-        <translation type="unfinished">Color</translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="369"/>
         <source>Add MIDI Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar un canal MIDI</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="414"/>
@@ -2154,17 +2154,17 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="536"/>
         <source>Input Mapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Mapa de Entrada</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="551"/>
         <source>Colors</source>
-        <translation type="unfinished">Colores</translation>
+        <translation>Colores</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="566"/>
         <source>MIDI Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales MIDI</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="867"/>
@@ -3549,17 +3549,17 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="47"/>
         <source>Server type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de Servidor</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="71"/>
         <source>Web server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor Web</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="90"/>
         <source>Native server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor nativo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="99"/>
@@ -3735,23 +3735,13 @@ Nivel de acceso:</translation>
         <location filename="qml/inputoutput/ProfilesList.qml" line="148"/>
         <source>Edit the selected input profile</source>
         <oldsource>Edit the selected channel</oldsource>
-        <translation type="unfinished">Edita el canal seleccionado</translation>
-    </message>
-    <message>
-        <location filename="qml/inputoutput/ProfilesList.qml" line="148"/>
-        <source>Edit the selected input profile</source>
-        <translation>Edita el perfil de entrada seleccionado</translation>
+        <translation>Editar el perfil de entrada seleccionado</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/ProfilesList.qml" line="173"/>
         <source>Delete the selected input profile(s)</source>
         <oldsource>Delete the selected channel</oldsource>
-        <translation type="unfinished">Borra el canal seleccionado</translation>
-    </message>
-    <message>
-        <location filename="qml/inputoutput/ProfilesList.qml" line="173"/>
-        <source>Delete the selected input profile(s)</source>
-        <translation>Suprime lo/s perfil/es de entrada seleccionado/s</translation>
+        <translation>Eliminar el/los perfil/es de entrada seleccionado</translation>
     </message>
 </context>
 <context>
@@ -5289,7 +5279,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="virtualconsole/vcaudiotriggers.cpp" line="340"/>
         <source>No widget assigned</source>
-        <translation type="unfinished"></translation>
+        <translation>No se ha asignado ningún giny</translation>
     </message>
 </context>
 <context>
@@ -5375,7 +5365,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCAudioTriggersProperties.qml" line="352"/>
         <source>Drop a VC Widget here</source>
-        <translation type="unfinished"></translation>
+        <translation>Suelta un widget VC aquí</translation>
     </message>
 </context>
 <context>
@@ -6671,7 +6661,7 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetsList.qml" line="67"/>
         <source>&lt;None&gt;</source>
-        <translation type="unfinished">&lt;Ninguno&gt;</translation>
+        <translation>&lt;None&gt;&lt;Ninguno&gt;</translation>
     </message>
 </context>
 <context>
@@ -6715,14 +6705,14 @@ el widget para completar esta lista</translation>
         <location filename="virtualconsole/vcxypad.cpp" line="590"/>
         <location filename="virtualconsole/vcxypad.cpp" line="611"/>
         <source>Fixture Group</source>
-        <translation type="unfinished">Grupo de Fixtures</translation>
+        <translation>Grupo de Fixtures</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypad.cpp" line="709"/>
         <location filename="virtualconsole/vcxypad.cpp" line="798"/>
         <location filename="virtualconsole/vcxypad.cpp" line="830"/>
         <source>Preset: %1</source>
-        <translation type="unfinished">Predefinido: %1</translation>
+        <translation>Predefinido: %1</translation>
     </message>
 </context>
 <context>
@@ -6730,57 +6720,57 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="103"/>
         <source>Presets</source>
-        <translation type="unfinished">Predefinidos</translation>
+        <translation>Predefinidos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="126"/>
         <source>Drag Scene/EFX functions as presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrastra las funciones Escena/EFX como predefinidos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="151"/>
         <source>Drag fixture items as fixture-group presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrastra los elementos del fixture como predefinidos del grupo fixture</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="175"/>
         <source>Create a position preset from current XY position</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea un predeterminado de posición desde la posición XY actual</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="195"/>
         <source>Remove selected preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina el predefinido seleccionado</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="216"/>
         <source>Move selected preset down</source>
-        <translation type="unfinished"></translation>
+        <translation>Mueve los predefinidos seleccionados hacia abajo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="234"/>
         <source>Move selected preset up</source>
-        <translation type="unfinished"></translation>
+        <translation>Mueve los predefinidos seleccionados hacia arriba</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="254"/>
         <source>Preset name</source>
-        <translation type="unfinished">Nobre del predefinido</translation>
+        <translation>Nobre del predefinido</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="304"/>
         <source>%1 heads</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 cabezas</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="334"/>
         <source>Drop Scene/EFX functions here</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrastrar funciones de Escena/Efectos aquí</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="377"/>
         <source>Drop fixture groups/heads here</source>
-        <translation type="unfinished"></translation>
+        <translation>Coloque aquí los grupos/cabezales de las luminarias.</translation>
     </message>
 </context>
 <context>
