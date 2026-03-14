@@ -63,13 +63,13 @@ GridLayout
                 goboPicture.source = "file:///" + editor.getCapabilityValueAt(capIndex, 0)
             break
             case QLCCapability.SingleValue:
-                pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
+                pValueSpin.realValue = editor.getCapabilityValueAt(capIndex, 0)
                 pValueSpin.suffix = editor.getCapabilityPresetUnits(capIndex)
             break
             case QLCCapability.DoubleValue:
-                pValueSpin.value = editor.getCapabilityValueAt(capIndex, 0)
+                pValueSpin.realValue = editor.getCapabilityValueAt(capIndex, 0)
                 pValueSpin.suffix = editor.getCapabilityPresetUnits(capIndex)
-                sValueSpin.value = editor.getCapabilityValueAt(capIndex, 1)
+                sValueSpin.realValue = editor.getCapabilityValueAt(capIndex, 1)
                 sValueSpin.suffix = pValueSpin.suffix
             break
             default:
@@ -650,14 +650,15 @@ GridLayout
                         label: qsTr("Value 1")
                     }
 
-                    CustomSpinBox
+                    CustomDoubleSpinBox
                     {
                         id: pValueSpin
                         Layout.fillWidth: true
-                        from: -1000
-                        to: 1000
+                        realFrom: -1000
+                        realTo: 1000
+                        stepSize: 1
 
-                        onValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 0, value)
+                        onRealValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 0, realValue)
                     }
 
                     RobotoText
@@ -666,15 +667,16 @@ GridLayout
                         label: qsTr("Value 2")
                     }
 
-                    CustomSpinBox
+                    CustomDoubleSpinBox
                     {
                         id: sValueSpin
                         visible: presetBox.presetType == QLCCapability.DoubleValue
                         Layout.fillWidth: true
-                        from: -1000
-                        to: 1000
+                        realFrom: -1000
+                        realTo: 1000
+                        stepSize: 1
 
-                        onValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 1, value)
+                        onRealValueChanged: editor.setCapabilityValueAt(editItem.indexInList, 1, realValue)
                     }
                 }
             }
