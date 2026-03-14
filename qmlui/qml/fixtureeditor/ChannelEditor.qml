@@ -559,6 +559,7 @@ GridLayout
                                     editor.setCapabilityValueAt(editItem.indexInList, 0, Qt.rgba(r, g, b, 1.0))
                                     updatePresetBox(editItem.indexInList)
                                 }
+                            onClose: visible = false
                         }
                     }
 
@@ -623,6 +624,7 @@ GridLayout
                                     editor.setCapabilityValueAt(editItem.indexInList, 1, Qt.rgba(r, g, b, 1.0))
                                     updatePresetBox(editItem.indexInList)
                                 }
+                            onClose: visible = false
                         }
                     }
                 }
