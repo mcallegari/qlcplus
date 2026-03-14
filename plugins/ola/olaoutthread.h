@@ -66,9 +66,9 @@ public:
     OlaOutThread();
     virtual ~OlaOutThread();
 
-    void run();
-    bool start(Priority priority=InheritPriority);
-    void stop();
+    void run() override;
+    bool start(Priority priority=InheritPriority) override;
+    void stop() override;
     int write_dmx(unsigned int universe, const QByteArray& data);
     void new_pipe_data();
     void pipe_closed();
@@ -99,8 +99,8 @@ public:
             m_tcp_socket(NULL) {}
 
 private:
-    bool init();
-    void cleanup();
+    bool init() override;
+    void cleanup() override;
     ola::network::TCPSocket *m_tcp_socket;
 };
 
@@ -117,8 +117,8 @@ public:
             m_pipe_socket(NULL) {}
 
 private:
-    bool init();
-    void cleanup();
+    bool init() override;
+    void cleanup() override;
     ola::OlaDaemon *m_daemon;
     ola::io::PipeDescriptor *m_pipe_socket;
 };

@@ -34,13 +34,13 @@ public:
     UnixIOEnumerator(QObject* parent = 0);
     ~UnixIOEnumerator();
 
-    void rescan();
+    void rescan() override;
 
-    QList <OutputDevice*> outputDevices() const;
-    QList <InputDevice*> inputDevices() const;
+    QList <OutputDevice*> outputDevices() const override;
+    QList <InputDevice*> inputDevices() const override;
 
-    OutputDevice* outputDevice(const QVariant& uid) const;
-    InputDevice* inputDevice(const QVariant& uid) const;
+    OutputDevice* outputDevice(const QVariant& uid) const override;
+    InputDevice* inputDevice(const QVariant& uid) const override;
 
 signals:
     void configurationChanged();

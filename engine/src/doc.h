@@ -537,7 +537,7 @@ public:
      * Get the next Function ID that will be assigned at the
      * creation of a new Function
      */
-    quint32 nextFunctionID();
+    quint32 nextFunctionID() const;
 
     /**
      * Set the ID of a function to start every time QLC+ goes
@@ -550,7 +550,7 @@ public:
     /**
      * Retrieve the QLC+ startup function
      */
-    quint32 startupFunction();
+    quint32 startupFunction() const;
 
     /**
      * Find the usage of a Function with the specified $fid
@@ -634,7 +634,7 @@ public:
      * @param wksp_root The workspace root node to save under
      * @return true if successful, otherwise false
      */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /**
      * Append a message to the Doc error log. This can be used to display
@@ -650,7 +650,7 @@ public:
     /**
      * Retrieve the error log string, filled during a project load
      */
-    QString errorLog();
+    QString errorLog() const;
 
 private:
     /**

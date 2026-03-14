@@ -164,7 +164,7 @@ public:
     static quint16 defaultVisibilityMask();
 
     /** Return the widget's elements visibility bitmask */
-    quint16 visibilityMask();
+    quint16 visibilityMask() const;
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */

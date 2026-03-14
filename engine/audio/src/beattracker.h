@@ -48,7 +48,7 @@ public:
     // Process interleaved audio buffer.
     // bufferSize = total number of samples (frames * channels)
     // Returns true if beat onset detected in this block.
-    bool processAudio(int16_t *buffer, int bufferSize);
+    bool processAudio(const int16_t *buffer, int bufferSize);
 
     // Optional: set band where we measure flux (Hz)
     // For rock, try: setBand(40.0, 250.0);

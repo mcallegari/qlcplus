@@ -231,7 +231,7 @@ quint32 FadeChannel::channel() const
     return m_channels.isEmpty() ? QLCChannel::invalid() : m_channels.first();
 }
 
-int FadeChannel::channelIndex(quint32 channel)
+int FadeChannel::channelIndex(quint32 channel) const
 {
     int idx = m_channels.indexOf(channel);
     return idx < 0 ? 0 : idx;

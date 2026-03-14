@@ -154,12 +154,12 @@ void Show::setTimeDivision(Show::TimeDivision type, int BPM)
     m_timeDivisionBPM = BPM;
 }
 
-Show::TimeDivision Show::timeDivisionType()
+Show::TimeDivision Show::timeDivisionType() const
 {
     return m_timeDivisionType;
 }
 
-int Show::beatsDivision()
+int Show::beatsDivision() const
 {
     switch(m_timeDivisionType)
     {
@@ -175,7 +175,7 @@ void Show::setTimeDivisionType(TimeDivision type)
     m_timeDivisionType = type;
 }
 
-int Show::timeDivisionBPM()
+int Show::timeDivisionBPM() const
 {
     return m_timeDivisionBPM;
 }
@@ -200,7 +200,7 @@ QString Show::tempoToString(Show::TimeDivision type)
     return QString();
 }
 
-Show::TimeDivision Show::stringToTempo(QString tempo)
+Show::TimeDivision Show::stringToTempo(const QString& tempo)
 {
     if (tempo == "Time")
         return Time;
@@ -261,7 +261,7 @@ Track* Show::track(quint32 id) const
     return m_tracks.value(id, NULL);
 }
 
-Track* Show::getTrackFromSceneID(quint32 id)
+Track* Show::getTrackFromSceneID(quint32 id) const
 {
     foreach (Track *track, m_tracks)
     {
@@ -271,7 +271,7 @@ Track* Show::getTrackFromSceneID(quint32 id)
     return NULL;
 }
 
-Track *Show::getTrackFromShowFunctionID(quint32 id)
+Track *Show::getTrackFromShowFunctionID(quint32 id) const
 {
     foreach (Track *track, m_tracks)
         if (track->showFunction(id) != NULL)
@@ -280,7 +280,7 @@ Track *Show::getTrackFromShowFunctionID(quint32 id)
     return NULL;
 }
 
-int Show::getTracksCount()
+int Show::getTracksCount() const
 {
     return m_tracks.size();
 }
@@ -344,7 +344,7 @@ quint32 Show::getLatestShowFunctionId()
     return m_latestShowFunctionID++;
 }
 
-ShowFunction *Show::showFunction(quint32 id)
+ShowFunction *Show::showFunction(quint32 id) const
 {
     foreach (Track *track, m_tracks)
     {

@@ -1287,14 +1287,14 @@ qreal ContextManager::getCurrentValue(int type, bool degrees)
     return currValue;
 }
 
-void ContextManager::getCurrentColors(QQuickItem *item)
+void ContextManager::getCurrentColors(QQuickItem *item) const
 {
     int rgbDiffCount = 0;
     int wauvDiffCount = 0;
     QColor rgbColor;
     QColor wauvColor;
 
-    for (quint32 &itemID : m_selectedFixtures)
+    for (const quint32 &itemID : m_selectedFixtures)
     {
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);

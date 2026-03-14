@@ -597,7 +597,7 @@ int EFX::yFrequency() const
     return static_cast<int> (m_yFrequency);
 }
 
-bool EFX::isFrequencyEnabled()
+bool EFX::isFrequencyEnabled() const
 {
     if (m_algorithm == EFX::Lissajous)
         return true;
@@ -651,7 +651,7 @@ bool EFX::addFixture(EFXFixture* ef)
      * not prevent multiple entries because a fixture can have multiple efx. */
     //! @todo Prevent multiple entries using head & mode
     int i;
-    for (i = 0; i < m_fixtures.size (); i++)
+    for (i = 0; i < m_fixtures.size(); i++)
     {
         if (m_fixtures[i]->head() == ef->head())
         {
@@ -817,7 +817,7 @@ QString EFX::propagationModeToString(PropagationMode mode)
         return QString(KXMLQLCEFXPropagationModeParallel);
 }
 
-EFX::PropagationMode EFX::stringToPropagationMode(QString str)
+EFX::PropagationMode EFX::stringToPropagationMode(const QString& str)
 {
     if (str == QString(KXMLQLCEFXPropagationModeSerial))
         return Serial;

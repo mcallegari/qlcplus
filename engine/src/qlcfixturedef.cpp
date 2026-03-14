@@ -255,7 +255,7 @@ bool QLCFixtureDef::addChannel(QLCChannel* channel)
     }
 }
 
-bool QLCFixtureDef::removeChannel(QLCChannel* channel)
+bool QLCFixtureDef::removeChannel(const QLCChannel* channel)
 {
     /* First remove the channel from all modes */
     QListIterator <QLCFixtureMode*> modeit(m_modes);
@@ -313,7 +313,7 @@ bool QLCFixtureDef::addMode(QLCFixtureMode* mode)
     }
 }
 
-bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
+bool QLCFixtureDef::removeMode(const QLCFixtureMode* mode)
 {
     QMutableListIterator <QLCFixtureMode*> it(m_modes);
     while (it.hasNext() == true)

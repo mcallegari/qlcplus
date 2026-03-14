@@ -89,7 +89,7 @@ private:
      * Step control
      ************************************************************************/
 public:
-    void setAction(ChaserAction &action);
+    void setAction(const ChaserAction &action);
 
     /**
      * Produce a tap event to the runner, possibly producing a next() call.

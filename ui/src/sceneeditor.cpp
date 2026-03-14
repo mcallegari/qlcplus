@@ -1036,7 +1036,7 @@ void SceneEditor::slotChaserComboActivated(int index)
         m_recordAction->setEnabled(true);
 }
 
-bool SceneEditor::isColorToolAvailable()
+bool SceneEditor::isColorToolAvailable() const
 {
     Fixture* fxi = NULL;
     quint32 cyan = QLCChannel::invalid(), magenta = QLCChannel::invalid(), yellow = QLCChannel::invalid();
@@ -1100,7 +1100,7 @@ bool SceneEditor::isColorToolAvailable()
     }
 }
 
-bool SceneEditor::isPositionToolAvailable()
+bool SceneEditor::isPositionToolAvailable() const
 {
     Fixture* fxi = NULL;
 
@@ -1468,7 +1468,7 @@ void SceneEditor::updateChannelsGroupsTab()
             this, SLOT(slotGroupValueChanged(quint32,uchar)));
 }
 
-GroupsConsole *SceneEditor::groupConsoleTab(int tab)
+GroupsConsole *SceneEditor::groupConsoleTab(int tab) const
 {
     if (tab != m_channelGroupsTab)
         return NULL;
@@ -1564,7 +1564,7 @@ void SceneEditor::removeFixtureTab(quint32 fixtureID)
     }
 }
 
-FixtureConsole* SceneEditor::fixtureConsoleTab(int tab)
+FixtureConsole* SceneEditor::fixtureConsoleTab(int tab) const
 {
     if (tab >= m_tab->count() || tab <= 0)
         return NULL;

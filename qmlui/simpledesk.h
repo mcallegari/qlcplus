@@ -194,7 +194,7 @@ public:
 
 private:
     FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,
-                          quint32 fixtureID, quint32 channel);
+                          quint32 fixtureID, quint32 channel) const;
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */

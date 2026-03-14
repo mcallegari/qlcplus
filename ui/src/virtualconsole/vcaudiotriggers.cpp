@@ -106,11 +106,11 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
 
     // create the  AudioBar items to hold the spectrum data.
     // To be loaded from the project
-    m_volumeBar = new AudioBar(AudioBar::None, 0, id());
+    m_volumeBar = new AudioBar(AudioBar::BarType::None, 0, id());
     m_spectrumBars.reserve(m_inputCapture->defaultBarsNumber());
     for (int i = 0; i < m_inputCapture->defaultBarsNumber(); i++)
     {
-        AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
+        AudioBar *asb = new AudioBar(AudioBar::BarType::None, 0, id());
         m_spectrumBars.append(asb);
     }
 
@@ -250,17 +250,17 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
     if (mode() == Doc::Design)
         return;
 
-    if (m_volumeBar->m_type == AudioBar::FunctionBar)
+    if (m_volumeBar->m_type == AudioBar::BarType::FunctionBar)
         m_volumeBar->checkFunctionThresholds(m_doc);
-    else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
+    else if (m_volumeBar->m_type == AudioBar::BarType::VCWidgetBar)
         m_volumeBar->checkWidgetFunctionality();
 
     for (int i = 0; i < m_spectrumBars.count(); i++)
     {
         m_spectrumBars[i]->m_value = m_spectrum->getUcharBand(i);
-        if (m_spectrumBars[i]->m_type == AudioBar::FunctionBar)
+        if (m_spectrumBars[i]->m_type == AudioBar::BarType::FunctionBar)
             m_spectrumBars[i]->checkFunctionThresholds(m_doc);
-        else if (m_spectrumBars[i]->m_type == AudioBar::VCWidgetBar)
+        else if (m_spectrumBars[i]->m_type == AudioBar::BarType::VCWidgetBar)
             m_spectrumBars[i]->checkWidgetFunctionality();
     }
 }
@@ -289,7 +289,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
     quint32 lastUniverse = Universe::invalid();
     QSharedPointer<GenericFader> fader;
 
-    if (m_volumeBar->m_type == AudioBar::DMXBar)
+    if (m_volumeBar->m_type == AudioBar::BarType::DMXBar)
     {
         for (int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
         {
@@ -318,7 +318,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
     }
     foreach (AudioBar *sb, m_spectrumBars)
     {
-        if (sb->m_type == AudioBar::DMXBar)
+        if (sb->m_type == AudioBar::BarType::DMXBar)
         {
             for (int i = 0; i < sb->m_absDmxChannels.count(); i++)
             {
@@ -472,7 +472,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
 
         foreach (AudioBar *bar, getAudioBars())
         {
-            if (bar->m_type == AudioBar::DMXBar)
+            if (bar->m_type == AudioBar::BarType::DMXBar)
             {
                 m_doc->masterTimer()->registerDMXSource(this);
                 break;
@@ -527,7 +527,7 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
         int barsToAdd = num - m_spectrumBars.count();
         for (int i = 0 ; i < barsToAdd; i++)
         {
-            AudioBar *asb = new AudioBar(AudioBar::None, 0, id());
+            AudioBar *asb = new AudioBar(AudioBar::BarType::None, 0, id());
             m_spectrumBars.append(asb);
         }
     }
@@ -702,13 +702,13 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
 
     /* Lookup for any assigned bar */
     bool hasAssignment = false;
-    if (m_volumeBar->m_type != AudioBar::None)
+    if (m_volumeBar->m_type != AudioBar::BarType::None)
         hasAssignment = true;
     else
     {
         foreach (AudioBar *bar, m_spectrumBars)
         {
-            if (bar->m_type != AudioBar::None)
+            if (bar->m_type != AudioBar::BarType::None)
             {
                 hasAssignment = true;
                 break;
@@ -723,14 +723,14 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
         return false;
     }
 
-    if (m_volumeBar->m_type != AudioBar::None)
+    if (m_volumeBar->m_type != AudioBar::BarType::None)
     {
         m_volumeBar->saveXML(doc, KXMLQLCVolumeBar, volumeBarIndex());
     }
     int idx = 0;
     foreach (AudioBar *bar, m_spectrumBars)
     {
-        if (bar->m_type != AudioBar::None)
+        if (bar->m_type != AudioBar::BarType::None)
             bar->saveXML(doc, KXMLQLCSpectrumBar, idx);
         idx++;
     }

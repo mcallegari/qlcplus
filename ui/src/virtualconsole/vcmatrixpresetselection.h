@@ -36,9 +36,9 @@ public:
     VCMatrixPresetSelection(Doc *doc, QWidget *parent = 0);
     ~VCMatrixPresetSelection();
 
-    QString selectedPreset();
+    QString selectedPreset() const;
 
-    QMap<QString, QString> customizedProperties();
+    QMap<QString, QString> customizedProperties() const;
 
 protected slots:
     void slotUpdatePresetProperties();

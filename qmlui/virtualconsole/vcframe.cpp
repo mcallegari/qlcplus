@@ -192,7 +192,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     return VCWidget::copyFrom(widget);
 }
 
-bool VCFrame::hasChildren()
+bool VCFrame::hasChildren() const
 {
     return !m_pagesMap.isEmpty();
 }

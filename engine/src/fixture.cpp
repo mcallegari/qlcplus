@@ -55,7 +55,7 @@ Fixture::~Fixture()
 {
 }
 
-bool Fixture::operator<(const Fixture& fxi)
+bool Fixture::operator<(const Fixture& fxi) const
 {
     if (m_address < fxi.m_address)
         return true;
@@ -102,7 +102,7 @@ QString Fixture::name() const
  * Fixture type
  *****************************************************************************/
 
-QString Fixture::typeString()
+QString Fixture::typeString() const
 {
     if (m_fixtureDef != NULL)
         return m_fixtureDef->typeToString(m_fixtureDef->type());
@@ -498,7 +498,7 @@ void Fixture::setChannelCanFade(int idx, bool canFade)
     }
 }
 
-bool Fixture::channelCanFade(int index)
+bool Fixture::channelCanFade(int index) const
 {
     if (m_excludeFadeIndices.contains(index))
         return false;
@@ -878,7 +878,7 @@ QString Fixture::componentsToString(Components comp, bool is16bit)
     return compStr;
 }
 
-Fixture::Components Fixture::stringToComponents(QString str, bool &is16bit)
+Fixture::Components Fixture::stringToComponents(const QString& str, bool &is16bit)
 {
     QStringList strToken = str.split(' ');
     is16bit = false;

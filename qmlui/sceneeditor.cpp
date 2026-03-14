@@ -171,7 +171,7 @@ void SceneEditor::unRegisterFixtureConsole(int index)
     m_fxConsoleMap.take(index);
 }
 
-bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
+bool SceneEditor::hasChannel(quint32 fxID, quint32 channel) const
 {
     if (m_scene == nullptr)
         return false;
@@ -179,7 +179,7 @@ bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
     return m_scene->checkValue(SceneValue(fxID, channel));
 }
 
-double SceneEditor::channelValue(quint32 fxID, quint32 channel)
+double SceneEditor::channelValue(quint32 fxID, quint32 channel) const
 {
     if (m_scene == nullptr)
         return 0;
@@ -292,7 +292,7 @@ void SceneEditor::setChannelSelection(quint32 fxID, quint32 channel, bool select
     emit selectedChannelCountChanged();
 }
 
-int SceneEditor::selectedChannelCount()
+int SceneEditor::selectedChannelCount() const
 {
     return m_selectedChannels.count();
 }

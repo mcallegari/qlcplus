@@ -254,7 +254,7 @@ public:
     Q_INVOKABLE qreal getCurrentValue(int type, bool degrees);
 
     /** Get the RGB color of the current fixture selection */
-    Q_INVOKABLE void getCurrentColors(QQuickItem *item);
+    Q_INVOKABLE void getCurrentColors(QQuickItem *item) const;
 
     Q_INVOKABLE void createFixtureGroup();
 

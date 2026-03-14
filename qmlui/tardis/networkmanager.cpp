@@ -174,7 +174,7 @@ void NetworkManager::setWebServerConfiguration(int portNumber, bool enableAuth, 
     m_webServerPasswordFile = passwordFile;
 }
 
-int NetworkManager::connectionsCount()
+int NetworkManager::connectionsCount() const
 {
     if (m_hostType == ServerHostType)
         return m_hostsMap.count();
@@ -322,7 +322,7 @@ void NetworkManager::markActionSource(int code, quint32 objID, QTcpSocket *socke
     m_recentActionSources[actionKey(code, objID)] = socket;
 }
 
-bool NetworkManager::shouldSkipEcho(QTcpSocket *socket, int code, quint32 objID)
+bool NetworkManager::shouldSkipEcho(const QTcpSocket *socket, int code, quint32 objID)
 {
     if (socket == nullptr)
         return false;
@@ -538,7 +538,7 @@ void NetworkManager::setServerStarted(bool serverStarted)
     emit serverStartedChanged(m_serverStarted);
 }
 
-QHostAddress NetworkManager::getHostFromName(QString name)
+QHostAddress NetworkManager::getHostFromName(QString name) const
 {
     auto i = m_hostsMap.constBegin();
     while (i != m_hostsMap.constEnd())

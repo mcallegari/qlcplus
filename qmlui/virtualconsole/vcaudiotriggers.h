@@ -164,8 +164,8 @@ signals:
     void searchFilterChanged();
 
 private:
-    void updateBarWidgetReference(AudioBar &bar);
-    void checkWidgetFunctionality(AudioBar &bar);
+    void updateBarWidgetReference(AudioBar &bar) const;
+    void checkWidgetFunctionality(AudioBar &bar) const;
 
 private:
     // first bar is always volume

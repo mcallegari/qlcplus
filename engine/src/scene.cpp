@@ -188,12 +188,12 @@ void Scene::unsetValue(quint32 fxi, quint32 ch)
     emit changed(this->id());
 }
 
-uchar Scene::value(quint32 fxi, quint32 ch)
+uchar Scene::value(quint32 fxi, quint32 ch) const
 {
     return m_values.value(SceneValue(fxi, ch, 0), 0);
 }
 
-bool Scene::checkValue(SceneValue val)
+bool Scene::checkValue(const SceneValue& val) const
 {
     return m_values.contains(val);
 }
@@ -218,14 +218,14 @@ QList<quint32> Scene::components() const
     return ids;
 }
 
-QColor Scene::colorValue(quint32 fxi)
+QColor Scene::colorValue(quint32 fxi) const
 {
     int rVal = 0, gVal = 0, bVal = 0;
     int cVal = -1, mVal = -1, yVal = -1;
     bool found = false;
     QColor CMYcol;
 
-    QMap <SceneValue, uchar>::iterator it = m_values.begin();
+    QMap <SceneValue, uchar>::const_iterator it = m_values.begin();
     for (; it != m_values.end(); it++)
     {
         const SceneValue& scv = it.key();
@@ -720,7 +720,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
  * Running
  ****************************************************************************/
 
-void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv)
+void Scene::processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, const SceneValue &scv)
 {
     Fixture *fixture = doc()->fixture(scv.fxi);
 

@@ -107,8 +107,8 @@ private slots:
     void slotViewModeChanged(bool tabbed, bool applyValues = true);
 
 private:
-    bool isColorToolAvailable();
-    bool isPositionToolAvailable();
+    bool isColorToolAvailable() const;
+    bool isPositionToolAvailable() const;
     void createSpeedDials();
     Chaser* selectedChaser() const;
 
@@ -162,7 +162,7 @@ private:
      *********************************************************************/
 private:
     void updateChannelsGroupsTab();
-    GroupsConsole* groupConsoleTab(int tab);
+    GroupsConsole* groupConsoleTab(int tab) const;
 
 private:
     /** Index of the Channel Groups tab. Equal to -1
@@ -189,7 +189,7 @@ private:
 
     void addFixtureTab(Fixture* fixture, quint32 channel = QLCChannel::invalid());
     void removeFixtureTab(quint32 fixtureID);
-    FixtureConsole* fixtureConsoleTab(int tab);
+    FixtureConsole* fixtureConsoleTab(int tab) const;
     void setTabChannelState(bool status, Fixture* fixture, quint32 channel);
 
 signals:

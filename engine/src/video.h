@@ -112,11 +112,11 @@ public:
     quint32 totalDuration() override;
 
     /** Get/Set the video resolution as a QSize variable */
-    QSize resolution();
+    QSize resolution() const;
     void setResolution(QSize size);
 
     /** Get/Set the video custom geometry as a QRect variable */
-    QRect customGeometry();
+    QRect customGeometry() const;
     void setCustomGeometry(QRect rect);
 
     /** Get/Set the video XYZ rotation as a QVector3D variable */
@@ -128,30 +128,30 @@ public:
     void setZIndex(int idx);
 
     /** Get/Set the audio codec for this Video Function */
-    QString audioCodec();
+    QString audioCodec() const;
     void setAudioCodec(QString codec);
 
     /** Get/Set the video codec for this Video Function */
-    QString videoCodec();
+    QString videoCodec() const;
     void setVideoCodec(QString codec);
 
     /** Get/Set the source URL used by this Video object */
-    QString sourceUrl();
+    QString sourceUrl() const;
     bool setSourceUrl(QString filename);
 
     /** Return if the loaded source is a picture */
     bool isPicture() const;
 
     /** Get/Set the screen index where to render the video */
-    int screen();
+    int screen() const;
     void setScreen(int index);
 
     /** Get/Set the video to be rendered in windowed or fullscreen mode */
-    bool fullscreen();
+    bool fullscreen() const;
     void setFullscreen(bool enable);
 
     /** Get the current Video intensity */
-    qreal intensity();
+    qreal intensity() const;
 
     /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId) override;

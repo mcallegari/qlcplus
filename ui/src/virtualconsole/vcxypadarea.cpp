@@ -193,7 +193,7 @@ QString VCXYPadArea::angleString() const
  * Range window
  *************************************************************************/
 
-QRectF VCXYPadArea::rangeWindow()
+QRectF VCXYPadArea::rangeWindow() const
 {
     return m_rangeDmxRect;
 }

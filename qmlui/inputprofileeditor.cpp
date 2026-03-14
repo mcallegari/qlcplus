@@ -82,7 +82,7 @@ void InputProfileEditor::setModel(const QString &newModel)
     emit modelChanged();
 }
 
-QLCInputProfile::Type InputProfileEditor::type()
+QLCInputProfile::Type InputProfileEditor::type() const
 {
     return m_profile == nullptr ? QLCInputProfile::MIDI : m_profile->type();
 }
@@ -97,7 +97,7 @@ void InputProfileEditor::setType(const QLCInputProfile::Type &newType)
     emit typeChanged();
 }
 
-bool InputProfileEditor::midiNoteOff()
+bool InputProfileEditor::midiNoteOff() const
 {
     return m_profile == nullptr ? 0 : m_profile->midiSendNoteOff();
 }
@@ -129,7 +129,7 @@ void InputProfileEditor::toggleDetection()
     m_detection = !m_detection;
 }
 
-QVariant InputProfileEditor::channels()
+QVariant InputProfileEditor::channels() const
 {
     if (m_profile == nullptr)
         return QVariant();
@@ -150,7 +150,7 @@ QVariant InputProfileEditor::channels()
     return QVariant::fromValue(chList);
 }
 
-QVariant InputProfileEditor::colorTable()
+QVariant InputProfileEditor::colorTable() const
 {
     if (m_profile == nullptr)
         return QVariant();
@@ -171,7 +171,7 @@ QVariant InputProfileEditor::colorTable()
     return QVariant::fromValue(colorList);
 }
 
-QVariant InputProfileEditor::midiChannelTable()
+QVariant InputProfileEditor::midiChannelTable() const
 {
     if (m_profile == nullptr)
         return QVariant();
@@ -192,7 +192,7 @@ QVariant InputProfileEditor::midiChannelTable()
     return QVariant::fromValue(midiList);
 }
 
-QVariantList InputProfileEditor::channelTypeModel()
+QVariantList InputProfileEditor::channelTypeModel() const
 {
     QVariantList types;
 

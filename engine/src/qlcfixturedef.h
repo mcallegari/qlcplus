@@ -172,7 +172,7 @@ public:
     bool addChannel(QLCChannel* channel);
 
     /** Remove a certain channel from this fixture */
-    bool removeChannel(QLCChannel* channel);
+    bool removeChannel(const QLCChannel* channel);
 
     /** Search for a channel by its name */
     QLCChannel* channel(const QString& name);
@@ -198,7 +198,7 @@ public:
     bool addMode(QLCFixtureMode* mode);
 
     /** Remove a certain mode from this fixture */
-    bool removeMode(QLCFixtureMode* mode);
+    bool removeMode(const QLCFixtureMode* mode);
 
     /** Get a certain mode by its name */
     QLCFixtureMode* mode(const QString& name);

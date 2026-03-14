@@ -90,7 +90,7 @@ public:
     explicit AddressTool(QWidget *parent = 0, int presetValue = 1);
     ~AddressTool();
 
-    int getAddress();
+    int getAddress() const;
 
 private:
     Ui::AddressTool *ui;

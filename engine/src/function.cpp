@@ -854,7 +854,7 @@ uint Function::defaultSpeed()
  * UI State
  *****************************************************************************/
 
-QVariant Function::uiStateValue(QString property)
+QVariant Function::uiStateValue(QString property) const
 {
     return m_uiState.value(property, QVariant());
 }

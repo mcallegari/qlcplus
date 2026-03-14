@@ -1107,7 +1107,7 @@ Function* Doc::function(quint32 id) const
     return m_functions.value(id, NULL);
 }
 
-quint32 Doc::nextFunctionID()
+quint32 Doc::nextFunctionID() const
 {
     quint32 tmpFID = m_latestFunctionId;
     while (m_functions.contains(tmpFID) == true ||
@@ -1124,7 +1124,7 @@ void Doc::setStartupFunction(quint32 fid)
     m_startupFunctionId = fid;
 }
 
-quint32 Doc::startupFunction()
+quint32 Doc::startupFunction() const
 {
     return m_startupFunctionId;
 }
@@ -1319,7 +1319,7 @@ bool Doc::loadXML(QXmlStreamReader &doc, bool loadIO)
     return true;
 }
 
-bool Doc::saveXML(QXmlStreamWriter *doc)
+bool Doc::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -1399,7 +1399,7 @@ void Doc::clearErrorLog()
     m_errorLog = "";
 }
 
-QString Doc::errorLog()
+QString Doc::errorLog() const
 {
     return m_errorLog;
 }

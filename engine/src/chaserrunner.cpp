@@ -228,7 +228,7 @@ uint ChaserRunner::stepDuration(int stepIdx) const
  * Step control
  ****************************************************************************/
 
-void ChaserRunner::setAction(ChaserAction &action)
+void ChaserRunner::setAction(const ChaserAction &action)
 {
     // apply the actions that can be applied immediately
     switch (action.m_action)

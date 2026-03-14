@@ -173,21 +173,21 @@ public:
      * @param index The universe index
      * @return The universe ID or invalidUniverse()
      */
-    quint32 getUniverseID(int index);
+    quint32 getUniverseID(int index) const;
 
     /**
      * Retrieve the friendly name of the universe at the given index
      * @param index The universe index
      * @return The universe name or an empty string
      */
-    QString getUniverseNameByIndex(int index);
+    QString getUniverseNameByIndex(int index) const;
 
     /**
      * Retrieve the friendly name of the universe with the given ID
      * @param id The universe unique ID
      * @return The universe name or an empty string
      */
-    QString getUniverseNameByID(quint32 id);
+    QString getUniverseNameByID(quint32 id) const;
 
     /**
      * Set a friendly name of the universe with the given index
@@ -208,7 +208,7 @@ public:
      * @param index The universe index
      * @return true = passthrough, false = normal mode
      */
-    bool getUniversePassthrough(int index);
+    bool getUniversePassthrough(int index) const;
 
     /**
      * Enable/disable the monitor mode for the universe with the given index
@@ -222,7 +222,7 @@ public:
      * @param index The universe index
      * @return true = monitor, false = do not monitor
      */
-    bool getUniverseMonitor(int index);
+    bool getUniverseMonitor(int index) const;
 
     /**
      * Return if a universe is patched with any input, output or
@@ -230,7 +230,7 @@ public:
      * @param index The universe index
      * @return true = patched, false = not patched
      */
-    bool isUniversePatched(int index);
+    bool isUniversePatched(int index) const;
 
     /**
      * Retrieve the number of universes in the input/output map
@@ -246,7 +246,7 @@ public:
      * Get a reference to a Universe from the given Universe ID
      * Return NULL if no Universe is found
      */
-    Universe *universe(quint32 id);
+    Universe *universe(quint32 id) const;
 
     /**
      * Claim access to a universe. This is declared virtual to make
@@ -294,7 +294,7 @@ public:
     /**
      * Get grand master channel mode (intensity or all channels)
      */
-    GrandMaster::ChannelMode grandMasterChannelMode();
+    GrandMaster::ChannelMode grandMasterChannelMode() const;
 
     /**
      * Set grand master value mode (limit or reduce)
@@ -304,7 +304,7 @@ public:
     /**
      * Set grand master value mode (limit or reduce)
      */
-    GrandMaster::ValueMode grandMasterValueMode();
+    GrandMaster::ValueMode grandMasterValueMode() const;
 
     /**
      * Set grand master value (0-255)
@@ -314,7 +314,7 @@ public:
     /**
      * Get grand master value (0-255)
      */
-    uchar grandMasterValue();
+    uchar grandMasterValue() const;
 
 signals:
     void grandMasterValueChanged(uchar value);
@@ -428,7 +428,7 @@ public:
     /**
      * Get a description text for the given plugin.
      */
-    QString pluginDescription(const QString& pluginName);
+    QString pluginDescription(const QString& pluginName) const;
 
     /**
      * Get a list of available input plugins as a string list
@@ -436,7 +436,7 @@ public:
      *
      * @return QStringList containing plugins' names
      */
-    QStringList inputPluginNames();
+    QStringList inputPluginNames() const;
 
     /**
      * Get a list of available Output output plugins as a string list
@@ -444,7 +444,7 @@ public:
      *
      * @return QStringList containing plugins' names
      */
-    QStringList outputPluginNames();
+    QStringList outputPluginNames() const;
 
     /**
      * Get the names of all input lines provided by the given plugin.
@@ -453,7 +453,7 @@ public:
      * @return A list containing the name of each input line
      *
      */
-    QStringList pluginInputs(const QString& pluginName);
+    QStringList pluginInputs(const QString& pluginName) const;
 
     /**
      * Get the names of all output lines provided by the given plugin.
@@ -461,7 +461,7 @@ public:
      * @param pluginName Name of the plugin, whose output count to get
      * @return A list containing the name of each output line
      */
-    QStringList pluginOutputs(const QString& pluginName);
+    QStringList pluginOutputs(const QString& pluginName) const;
 
     /**
      * Check, whether a plugin supports feedback
@@ -469,7 +469,7 @@ public:
      * @param pluginName The name of the plugin to check from.
      * @return true if plugin supports feedback. Otherwise false.
      */
-    bool pluginSupportsFeedback(const QString& pluginName);
+    bool pluginSupportsFeedback(const QString& pluginName) const;
 
     /**
      * Open a configuration dialog for the given plugin
@@ -484,7 +484,7 @@ public:
      * @param pluginName The name of the plugin to check from.
      * @return true if plugin can be configured. Otherwise false.
      */
-    bool canConfigurePlugin(const QString& pluginName);
+    bool canConfigurePlugin(const QString& pluginName) const;
 
     /**
      * Get a status text for the given plugin.
@@ -492,7 +492,7 @@ public:
      * @param pluginName Name of the plugin, whose status to get
      * @param input A specific input identifier
      */
-    QString inputPluginStatus(const QString& pluginName, quint32 input);
+    QString inputPluginStatus(const QString& pluginName, quint32 input) const;
 
     /**
      * Get a status text for the given plugin. If no plugin name is
@@ -501,7 +501,7 @@ public:
      * @param pluginName Name of the plugin, whose status to get
      * @param output Plugin's output line for getting more specific info
      */
-    QString outputPluginStatus(const QString& pluginName, quint32 output);
+    QString outputPluginStatus(const QString& pluginName, quint32 output) const;
 
     /**
      * Send feedback value to the input profile e.g. to move a motorized
@@ -511,7 +511,7 @@ public:
 
 private:
     /** In case of duplicate strings, append a number to make them unique */
-    void removeDuplicates(QStringList &list);
+    void removeDuplicates(QStringList &list) const;
 
 private slots:
    /** Slot that catches plugin configuration change notifications from UIPluginCache */
@@ -535,7 +535,7 @@ public:
     void loadProfiles(const QDir& dir);
 
     /** Get a list of available profile names */
-    QStringList profileNames();
+    QStringList profileNames() const;
 
     /** Get a profile by its name */
     QLCInputProfile* profile(const QString& name);
@@ -662,7 +662,7 @@ public:
     /**
      * Save default settings for input/output mapper into QLC+ global settings
      */
-    void saveDefaults();
+    void saveDefaults() const;
 
     /*********************************************************************
      * Load & Save

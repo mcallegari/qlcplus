@@ -168,7 +168,7 @@ private:
      *
      * @return the randomized value requested
      */
-    static quint32 getValueFromString(QString str, bool *ok);
+    static quint32 getValueFromString(const QString& str, bool *ok);
 
     /**
      * Handle "stoponexit" command.

@@ -423,12 +423,12 @@ QList<quint32> MonitorProperties::fixtureIDList(quint32 fid) const
  * Generic items
  ********************************************************************/
 
-QList<quint32> MonitorProperties::genericItemsID()
+QList<quint32> MonitorProperties::genericItemsID() const
 {
     return m_genericItems.keys();
 }
 
-QString MonitorProperties::itemName(quint32 itemID)
+QString MonitorProperties::itemName(quint32 itemID) const
 {
     if (m_genericItems[itemID].m_name.isEmpty())
     {
@@ -444,7 +444,7 @@ void MonitorProperties::setItemName(quint32 itemID, QString name)
     m_genericItems[itemID].m_name = name;
 }
 
-QString MonitorProperties::itemResource(quint32 itemID)
+QString MonitorProperties::itemResource(quint32 itemID) const
 {
     return m_genericItems[itemID].m_resource;
 }
@@ -454,7 +454,7 @@ void MonitorProperties::setItemResource(quint32 itemID, QString resource)
     m_genericItems[itemID].m_resource = resource;
 }
 
-QVector3D MonitorProperties::itemPosition(quint32 itemID)
+QVector3D MonitorProperties::itemPosition(quint32 itemID) const
 {
     return m_genericItems[itemID].m_position;
 }
@@ -464,7 +464,7 @@ void MonitorProperties::setItemPosition(quint32 itemID, QVector3D pos)
     m_genericItems[itemID].m_position = pos;
 }
 
-QVector3D MonitorProperties::itemRotation(quint32 itemID)
+QVector3D MonitorProperties::itemRotation(quint32 itemID) const
 {
     return m_genericItems[itemID].m_rotation;
 }
@@ -474,7 +474,7 @@ void MonitorProperties::setItemRotation(quint32 itemID, QVector3D rot)
     m_genericItems[itemID].m_rotation = rot;
 }
 
-QVector3D MonitorProperties::itemScale(quint32 itemID)
+QVector3D MonitorProperties::itemScale(quint32 itemID) const
 {
     if (m_genericItems[itemID].m_scale.isNull())
         return QVector3D(1.0, 1.0, 1.0);
@@ -487,7 +487,7 @@ void MonitorProperties::setItemScale(quint32 itemID, QVector3D scale)
     m_genericItems[itemID].m_scale = scale;
 }
 
-quint32 MonitorProperties::itemFlags(quint32 itemID)
+quint32 MonitorProperties::itemFlags(quint32 itemID) const
 {
     return m_genericItems[itemID].m_flags;
 }
@@ -501,7 +501,7 @@ void MonitorProperties::setItemFlags(quint32 itemID, quint32 flags)
  * 2D view background
  ********************************************************************/
 
-QString MonitorProperties::customBackground(quint32 fid)
+QString MonitorProperties::customBackground(quint32 fid) const
 {
     return m_customBackgroundImages.value(fid, QString());
 }

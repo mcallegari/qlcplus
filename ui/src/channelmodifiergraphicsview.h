@@ -34,7 +34,7 @@ public:
                         const QBrush & brush = QBrush());
 
     void setBoundingBox(QRectF rect);
-    QRectF boundingBox();
+    QRectF boundingBox() const;
 
 private:
     QRectF m_boundingBox;

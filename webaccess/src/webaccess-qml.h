@@ -45,7 +45,7 @@ class QHttpConnection;
 
 class QJsonObject;
 
-class WebAccessQml : public WebAccessBase
+class WebAccessQml final : public WebAccessBase
 {
     Q_OBJECT
 public:

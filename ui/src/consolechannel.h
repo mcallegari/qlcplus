@@ -126,7 +126,7 @@ signals:
 public:
     void setChannelStyleSheet(const QString& styleSheet);
     void showResetButton(bool show);
-    bool hasResetButton();
+    bool hasResetButton() const;
 
 private slots:
     void slotResetButtonClicked();
@@ -167,7 +167,7 @@ private:
      * Selection
      *************************************************************************/
 public:
-    bool isSelected();
+    bool isSelected() const;
 
 private slots:
     void slotControlClicked();

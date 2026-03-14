@@ -41,7 +41,7 @@ public:
     void setMonitoringSupport(bool enable);
     void setTitle(QString title);
     void setWidgetPage(int page);
-    bool isAutoDetecting();
+    bool isAutoDetecting() const;
     void stopAutoDetection();
     void emitOddValues(bool enable);
 

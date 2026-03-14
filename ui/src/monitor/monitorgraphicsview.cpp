@@ -67,7 +67,7 @@ void MonitorGraphicsView::setGridMetrics(float value)
     }
 }
 
-quint32 MonitorGraphicsView::selectedFixtureID()
+quint32 MonitorGraphicsView::selectedFixtureID() const
 {
     MonitorFixtureItem *item = getSelectedItem();
     if (item != NULL)
@@ -163,7 +163,7 @@ void MonitorGraphicsView::setBackgroundImage(QString filename)
     updateGrid();
 }
 
-MonitorFixtureItem *MonitorGraphicsView::getSelectedItem()
+MonitorFixtureItem *MonitorGraphicsView::getSelectedItem() const
 {
     QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
     while (it.hasNext() == true)

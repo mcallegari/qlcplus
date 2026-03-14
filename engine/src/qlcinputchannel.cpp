@@ -104,7 +104,7 @@ QString QLCInputChannel::typeToString(Type type)
         }
 }
 
-QString QLCInputChannel::typeString()
+QString QLCInputChannel::typeString() const
 {
     return typeToString(type());
 }

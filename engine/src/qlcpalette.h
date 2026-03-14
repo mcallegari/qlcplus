@@ -129,8 +129,8 @@ public:
     void setValues(QVariantList values);
     void resetValues();
 
-    QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32>fixtures);
-    QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32>groups);
+    QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32>fixtures) const;
+    QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32>groups) const;
 
 protected:
     /** This method returns a normalized factor between 0.0 and 1.0
@@ -138,7 +138,7 @@ protected:
      *  DMX value.
      *  It considers the fanning algorithm and amount and with
      *  the provided progress it can calculate the X-axis value. */
-    qreal valueFactor(qreal progress);
+    qreal valueFactor(qreal progress) const;
 
 signals:
     void nameChanged();
@@ -227,7 +227,7 @@ public:
 
     /** Helper method to convert a string created with colorToString
      *  back to 2 separate QColor */
-    static bool stringToColor(QString str, QColor &rgb, QColor &wauv);
+    static bool stringToColor(const QString& str, QColor &rgb, QColor &wauv);
 
     /************************************************************************
      * Load & Save
@@ -240,7 +240,7 @@ public:
     bool loadXML(QXmlStreamReader &doc);
 
     /** Save a Palette to the given XML tag in the given document */
-    bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

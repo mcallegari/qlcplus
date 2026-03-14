@@ -96,16 +96,16 @@ public:
 
     /** Select the type of dump that will be performed.
      *  See TargetType. */
-    void setSelectedTarget(TargetType type);
+    void setSelectedTarget(DmxDumpFactoryProperties::TargetType type);
 
     /** Return the current target that will be used in
      *  the dump process */
-    TargetType selectedTarget() const;
+    DmxDumpFactoryProperties::TargetType selectedTarget() const;
 
 private:
     /** Variable holding the type of dump going to
      *  be performed. See TargetType */
-    TargetType m_selectedTarget;
+    DmxDumpFactoryProperties::TargetType m_selectedTarget;
 
     /** A list of the Chaser IDs on which the dumped
      *  Scene will be added */

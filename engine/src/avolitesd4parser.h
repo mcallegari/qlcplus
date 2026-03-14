@@ -64,8 +64,8 @@ public:
     QString lastError() const;
 
 private:
-    QLCChannel::Group getGroup(QString ID, QString name, QString group);
-    QLCChannel::PrimaryColour getColour(QString ID, QString name, QString group);
+    QLCChannel::Group getGroup(const QString& ID, const QString& name, const QString& group) const;
+    QLCChannel::PrimaryColour getColour(const QString& ID, const QString& name, const QString& group) const;
 
 private:
     enum Attributes
@@ -87,9 +87,9 @@ private:
     //bool isFunction(const QDomElement& elem) const;
 
     /** Check if the given XML element contains a 16bit function */
-    bool is16Bit(QString dmx) const;
+    bool is16Bit(const QString& dmx) const;
 
-    QLCCapability *getCapability(QString dmx, QString name, bool isFine = false);
+    QLCCapability* getCapability(const QString& dmx, const QString& name, bool isFine = false) const;
 
     /** Parse all channels from $elem into $fixtureDef */
     bool parseChannel(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef);
@@ -102,22 +102,22 @@ private:
     bool parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef);
 
     /** Parse a mode contained under $elem into $fixtureDef */
-    bool parseMode(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef);
+    bool parseMode(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef) const;
 
     /** Compare global vs. mode physical to detect override */
     bool comparePhysical(const QLCPhysical &globalPhy, const QLCPhysical &modePhy) const;
 
     /** Parse the fixture's/mode's physical properties from $elem into $mode */
-    void parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCFixtureMode *mode);
+    void parsePhysical(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef, QLCFixtureMode *mode) const;
 
     /** Parse a mode Include tag */
-    void parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode);
+    void parseInclude(QXmlStreamReader *doc, QLCFixtureMode *mode) const;
 
     /** Convert string $attr into an Attributes enum */
-    Attributes stringToAttributeEnum(const QString& attr);
+    Attributes stringToAttributeEnum(const QString& attr) const;
 
     /** Attempt to guess the fixture type from the channels/capabilities in $def */
-    QLCFixtureDef::FixtureType guessType(QLCFixtureDef *def) const;
+    QLCFixtureDef::FixtureType guessType(const QLCFixtureDef *def) const;
 
 private:
     QString m_lastError;
