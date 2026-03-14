@@ -114,29 +114,29 @@
         <location filename="webaccess.cpp" line="732"/>
         <location filename="webaccess.cpp" line="841"/>
         <source>Expand/Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandir/Contraer</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="746"/>
         <source>Enable/Disable frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar/Deshabilitar marco</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="761"/>
         <location filename="webaccess.cpp" line="870"/>
         <source>Back</source>
-        <translation type="unfinished">Atrás</translation>
+        <translation>Atrás</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="768"/>
         <location filename="webaccess.cpp" line="877"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Adelante</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="855"/>
         <source>Enable/Disable Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar/Deshabilitar marco Solo</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1116"/>
@@ -171,27 +171,27 @@
     <message>
         <location filename="webaccess.cpp" line="1439"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Control Deslizante</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1473"/>
         <source>Play Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir lista de Cues</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1477"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Detener lista de cues</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1481"/>
         <source>Go to the previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al paso anterior de la lista</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1485"/>
         <source>Go to the next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Ir al siguiente paso de la lista</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="1707"/>
