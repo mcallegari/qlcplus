@@ -206,6 +206,7 @@
   </M>
   <M n="Astera">
     <F n="Astera-AX3-Lightdrop" m="AX3 Lightdrop"/>
+    <F n="Astera-AX5" m="AX5"/>
     <F n="Astera-Titan-Tube-FP1" m="Titan Tube FP1"/>
   </M>
   <M n="Audibax">
@@ -277,6 +278,7 @@
     <F n="beamZ-SB200-Stage-Blinder-2x50w" m="SB200 Stage Blinder 2x50W"/>
     <F n="beamZ-SB400" m="SB400"/>
     <F n="beamZ-SparkleWall" m="SparkleWall"/>
+    <F n="beamZ-STB448-Strobe-Bar-RGBAW" m="STB448 Strobe Bar RGBAW"/>
   </M>
   <M n="Betopper">
     <F n="Betopper-LB230" m="LB230"/>
@@ -711,6 +713,7 @@
     <F n="DTS-Max-FAR" m="Max FAR"/>
     <F n="DTS-Nick-NRG1201" m="Nick NRG1201"/>
     <F n="DTS-Scena-LED-200" m="Scena LED 200"/>
+    <F n="DTS-Scena-LED-80-FR" m="Scena LED 80 FR"/>
     <F n="DTS-XR5-Wash" m="XR5 Wash"/>
     <F n="DTS-XR7-Spot" m="XR7 Spot"/>
   </M>
@@ -874,6 +877,7 @@
     <F n="Eurolite-LED-SLS-603" m="LED SLS-603"/>
     <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
+    <F n="Eurolite-LED-Strobe-COB-PRO-8x20W" m="LED Strobe COB PRO 8x20W"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
     <F n="Eurolite-LED-Strobe-SMD-PRO-132-DMX-RGB" m="LED Strobe SMD PRO 132 DMX RGB"/>
     <F n="EuroLite-LED-Super-Strobe-ABL" m="LED Super Strobe ABL"/>
@@ -1287,6 +1291,7 @@
     <F n="Mac-Mah-Mac-FOG-DMX" m="Mac FOG DMX"/>
     <F n="Mac-Mah-Mac-Follow-1200" m="Mac Follow 1200"/>
     <F n="Mac-Mah-Moving-FX-Bar" m="Moving-FX Bar"/>
+    <F n="Mac-Mah-Multi-FX-Bar" m="Multi-FX Bar"/>
     <F n="Mac-Mah-WiderPanel" m="Wider Panel"/>
   </M>
   <M n="MagicFX">

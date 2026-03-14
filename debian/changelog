@@ -44,7 +44,10 @@ qlcplus (4.14.4) stable; urgency=low
   * New fixture: beamZ LCB1215IP (thanks to PCLUB)
   * New fixture: UKing ZQ02102 Moving Head (thanks to Maximilian Wiener)
   * New fixture: American DJ Mega Flat TRI PAK Plus (thanks to ChatGPT)
-  * New fixture: Eurolite LED PIX-144/72 (thanks to Daniel Wright)
+  * New fixtures: Eurolite LED PIX-144/72, beamZ STB448 Strobe Bar RGBAW (thanks to Daniel Wright)
+  * New fixtures: DTS Scena LED 80 FR, Astera AX5 (thanks to Andreas Reich)
+  * New fixture: Eurolite LED Strobe COB PRO 8x20W (thanks to Simeon08)
+  * New fixture: Mac Mah Multi-FX Bar (thanks to taz07rx)
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 4 Jan 2026 18:19:20 +0200
 
