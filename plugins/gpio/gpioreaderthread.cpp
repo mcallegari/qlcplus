@@ -95,7 +95,8 @@ void ReadThread::run()
                 int newVal = request.get_value(gpio->m_line) == ::gpiod::line::value::ACTIVE ? 1 : 0;
                 request.release();
 
-                if (newVal != gpio->m_value)
+                // m_value is stored as DMX-style 0/255, while newVal is 0/1.
+                if (newVal != (gpio->m_value > 0))
                 {
                     gpio->m_count++;
                     if (gpio->m_count > HYSTERESIS_THRESHOLD)
