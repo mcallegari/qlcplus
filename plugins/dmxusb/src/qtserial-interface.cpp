@@ -62,7 +62,8 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
         if (validInterface(info.vendorIdentifier(), info.productIdentifier()) == false)
             continue;
 
-        if (info.vendorIdentifier() == DMXInterface::FTDIVID)
+        if (info.vendorIdentifier() == DMXInterface::FTDIVID &&
+            !isCustomVIDPID(info.vendorIdentifier(), info.productIdentifier()))
             continue;
 
         QString serial(info.serialNumber());

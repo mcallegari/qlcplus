@@ -45,7 +45,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Gui Multimedia Multimedia
 if(qmlui)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS 3DCore 3DInput 3DLogic 3DQuick 3DQuickExtras 3DRender WebSockets)
     if(ANDROID)
-        find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Concurrent OpenGL)
+        find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Concurrent OpenGL SerialPort)
     endif()
 
 endif()

@@ -1,4 +1,6 @@
-find_package(PkgConfig REQUIRED)  # Make sure pkg-config is available
+if(NOT WIN32 AND NOT ANDROID)
+    find_package(PkgConfig REQUIRED)  # Make sure pkg-config is available
+endif()
 
 set(module_name "dmxusb")
 
@@ -43,7 +45,16 @@ if(WIN32)
     set(WITH_D2XX TRUE)
 endif()
 
-if(UNIX)
+if(ANDROID)
+    if(QT_VERSION_MAJOR GREATER 5)
+        message("Building with Android D2XX support.")
+        set(WITH_D2XX TRUE)
+    else()
+        message(WARNING "Android D2XX backend requires Qt 6. Building dmxusb without D2XX support.")
+    endif()
+endif()
+
+if(UNIX AND NOT ANDROID)
     pkg_check_modules(LIBFTDI1 IMPORTED_TARGET libftdi1 libusb-1.0)
     pkg_check_modules(LIBFTDI IMPORTED_TARGET libftdi libusb)
 
@@ -128,7 +139,7 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Widgets
 )
 
-if(UNIX)
+if(UNIX AND NOT ANDROID)
     target_sources(${module_name} PUBLIC
         euroliteusbdmxpro.cpp euroliteusbdmxpro.h
         nanodmx.cpp nanodmx.h
@@ -157,7 +168,11 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 if(WITH_D2XX)
-    target_sources(${module_name} PUBLIC ftd2xx-interface.cpp ftd2xx-interface.h)
+    if(ANDROID)
+        target_sources(${module_name} PUBLIC ftd2xx-android-interface.cpp ftd2xx-interface.h)
+    else()
+        target_sources(${module_name} PUBLIC ftd2xx-interface.cpp ftd2xx-interface.h)
+    endif()
     target_compile_definitions(${module_name} PRIVATE FTD2XX)
 endif()
 
@@ -165,7 +180,7 @@ if(WITH_LIBFTDI)
     target_sources(${module_name} PUBLIC libftdi-interface.cpp libftdi-interface.h)
 endif()
 
-if (UNIX AND NOT APPLE)
+if (UNIX AND NOT APPLE AND NOT ANDROID)
    # Rules to make USB DMX devices readable & writable by normal users
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/z65-dmxusb.rules"
            DESTINATION ${UDEVRULESDIR})

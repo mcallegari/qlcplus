@@ -74,6 +74,9 @@ quint8 DMXInterface::busLocation() const
 
 bool DMXInterface::validInterface(quint16 vendor, quint16 product)
 {
+    if (isCustomVIDPID(vendor, product))
+        return true;
+
     if (vendor != DMXInterface::FTDIVID &&
         vendor != DMXInterface::ATMELVID &&
         vendor != DMXInterface::MICROCHIPVID &&
@@ -130,4 +133,48 @@ void DMXInterface::storeFrequencyMap(const QMap<QString, QVariant> map)
 {
     QSettings settings;
     settings.setValue(SETTINGS_FREQ_MAP, map);
+}
+
+bool DMXInterface::customVIDPID(quint16& vendor, quint16& product)
+{
+    QSettings settings;
+    QVariant vidVar(settings.value(SETTINGS_CUSTOM_VID));
+    QVariant pidVar(settings.value(SETTINGS_CUSTOM_PID));
+    if (!vidVar.isValid() || !pidVar.isValid())
+        return false;
+
+    bool okVID = false;
+    bool okPID = false;
+    uint vid = vidVar.toUInt(&okVID);
+    uint pid = pidVar.toUInt(&okPID);
+    if (!okVID || !okPID || vid > 0xFFFF || pid > 0xFFFF)
+        return false;
+
+    vendor = quint16(vid);
+    product = quint16(pid);
+    return true;
+}
+
+void DMXInterface::storeCustomVIDPID(quint16 vendor, quint16 product)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_CUSTOM_VID, uint(vendor));
+    settings.setValue(SETTINGS_CUSTOM_PID, uint(product));
+}
+
+void DMXInterface::clearCustomVIDPID()
+{
+    QSettings settings;
+    settings.remove(SETTINGS_CUSTOM_VID);
+    settings.remove(SETTINGS_CUSTOM_PID);
+}
+
+bool DMXInterface::isCustomVIDPID(quint16 vendor, quint16 product)
+{
+    quint16 customVID = 0;
+    quint16 customPID = 0;
+    if (!customVIDPID(customVID, customPID))
+        return false;
+
+    return (vendor == customVID && product == customPID);
 }

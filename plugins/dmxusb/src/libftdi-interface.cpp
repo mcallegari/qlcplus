@@ -122,7 +122,8 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         if (validInterface(dev_descriptor.idVendor, dev_descriptor.idProduct) == false)
             continue;
 
-        if (dev_descriptor.idVendor != DMXInterface::FTDIVID)
+        if (dev_descriptor.idVendor != DMXInterface::FTDIVID &&
+            !isCustomVIDPID(dev_descriptor.idVendor, dev_descriptor.idProduct))
             continue;
 
         char ser[256];

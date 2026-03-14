@@ -26,6 +26,8 @@
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
 #define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
+#define SETTINGS_CUSTOM_VID "qlcftdi/customvid"
+#define SETTINGS_CUSTOM_PID "qlcftdi/custompid"
 #define READ_CHUNK_SIZE 512
 
 class DMXInterface
@@ -130,6 +132,18 @@ public:
     static QMap <QString,QVariant> frequencyMap();
 
     static void storeFrequencyMap(const QMap <QString,QVariant> map);
+
+    /** Retrieve custom VID/PID configured by the user */
+    static bool customVIDPID(quint16& vendor, quint16& product);
+
+    /** Store a custom VID/PID pair configured by the user */
+    static void storeCustomVIDPID(quint16 vendor, quint16 product);
+
+    /** Clear any custom VID/PID configured by the user */
+    static void clearCustomVIDPID();
+
+    /** Check if this VID/PID matches the configured custom pair */
+    static bool isCustomVIDPID(quint16 vendor, quint16 product);
 
     /************************************************************************
      * DMX/Serial Interface Methods

@@ -23,9 +23,14 @@
 #include <QSettings>
 #include <QComboBox>
 #include <QSpinBox>
+#include <QLineEdit>
+#include <QLabel>
 #include <QLayout>
 #include <QDebug>
 #include <QTimer>
+#include <QMessageBox>
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
 
 #include "dmxusbconfig.h"
 #include "dmxusbwidget.h"
@@ -44,6 +49,9 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     : QDialog(parent)
     , m_plugin(plugin)
     , m_tree(new QTreeWidget(this))
+    , m_customVIDEdit(new QLineEdit(this))
+    , m_customPIDEdit(new QLineEdit(this))
+    , m_applyVIDPIDButton(new QPushButton(tr("Apply custom VID/PID"), this))
     , m_refreshButton(new QPushButton(tr("Refresh"), this))
     , m_closeButton(new QPushButton(tr("Close"), this))
 {
@@ -59,12 +67,37 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     QVBoxLayout *vbox = new QVBoxLayout(this);
     vbox->addWidget(m_tree);
 
+    QHBoxLayout *filterBox = new QHBoxLayout;
+    filterBox->addWidget(new QLabel(tr("Custom VID"), this));
+    filterBox->addWidget(m_customVIDEdit);
+    filterBox->addSpacing(8);
+    filterBox->addWidget(new QLabel(tr("Custom PID"), this));
+    filterBox->addWidget(m_customPIDEdit);
+    filterBox->addWidget(m_applyVIDPIDButton);
+    vbox->addLayout(filterBox);
+
     QHBoxLayout *hbox = new QHBoxLayout;
     hbox->addWidget(m_refreshButton);
     hbox->addStretch();
     hbox->addWidget(m_closeButton);
     vbox->addLayout(hbox);
 
+    QRegularExpression re("^(|0[xX][0-9a-fA-F]{1,4}|[0-9]{1,5})$");
+    auto *validator = new QRegularExpressionValidator(re, this);
+    m_customVIDEdit->setValidator(validator);
+    m_customPIDEdit->setValidator(validator);
+    m_customVIDEdit->setPlaceholderText("0x0403");
+    m_customPIDEdit->setPlaceholderText("0x6001");
+
+    quint16 customVID = 0;
+    quint16 customPID = 0;
+    if (DMXInterface::customVIDPID(customVID, customPID))
+    {
+        m_customVIDEdit->setText(QString("0x%1").arg(customVID, 4, 16, QChar('0')).toUpper());
+        m_customPIDEdit->setText(QString("0x%1").arg(customPID, 4, 16, QChar('0')).toUpper());
+    }
+
+    connect(m_applyVIDPIDButton, SIGNAL(clicked()), this, SLOT(slotApplyCustomVIDPID()));
     connect(m_refreshButton, SIGNAL(clicked()), this, SLOT(slotRefresh()));
     connect(m_closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 
@@ -136,6 +169,44 @@ void DMXUSBConfig::slotRefresh()
     }
 
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
+}
+
+void DMXUSBConfig::slotApplyCustomVIDPID()
+{
+    QString vidText = m_customVIDEdit->text().trimmed();
+    QString pidText = m_customPIDEdit->text().trimmed();
+
+    if (vidText.isEmpty() && pidText.isEmpty())
+    {
+        DMXInterface::clearCustomVIDPID();
+        slotRefresh();
+        return;
+    }
+
+    if (vidText.isEmpty() || pidText.isEmpty())
+    {
+        QMessageBox::warning(this, tr("Invalid VID/PID"),
+                             tr("Please enter both VID and PID, or leave both empty."));
+        return;
+    }
+
+    bool okVID = false;
+    bool okPID = false;
+    uint vid = vidText.toUInt(&okVID, 0);
+    uint pid = pidText.toUInt(&okPID, 0);
+    if (!okVID || !okPID || vid > 0xFFFF || pid > 0xFFFF)
+    {
+        QMessageBox::warning(this, tr("Invalid VID/PID"),
+                             tr("VID and PID must be valid 16-bit values."));
+        return;
+    }
+
+    DMXInterface::storeCustomVIDPID(quint16(vid), quint16(pid));
+
+    // Normalize displayed values to canonical hex representation.
+    m_customVIDEdit->setText(QString("0x%1").arg(vid, 4, 16, QChar('0')).toUpper());
+    m_customPIDEdit->setText(QString("0x%1").arg(pid, 4, 16, QChar('0')).toUpper());
+    slotRefresh();
 }
 
 QComboBox *DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)

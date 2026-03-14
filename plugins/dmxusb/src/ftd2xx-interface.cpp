@@ -169,6 +169,16 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
                 vendor = QString();
             }
 
+            if (VID == 0 || PID == 0)
+            {
+                quint32 usbId = devInfo[i].ID;
+                VID = quint16((usbId >> 16) & 0xFFFF);
+                PID = quint16(usbId & 0xFFFF);
+            }
+
+            if (validInterface(VID, PID) == false)
+                continue;
+
             qDebug() << "serial: " << serial << "name:" << name << "vendor:" << vendor;
 
             bool found = false;
@@ -435,6 +445,5 @@ uchar FTD2XXInterface::readByte(bool* ok)
 
     return 0;
 }
-
 
 

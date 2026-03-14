@@ -27,7 +27,7 @@
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
 #include "dmxusbopenrx.h"
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+#if (defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)) && !defined(Q_OS_ANDROID)
   #include "nanodmx.h"
   #include "euroliteusbdmxpro.h"
 #endif
@@ -111,9 +111,21 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
 #endif
 
     QMap <QString, QVariant> types(DMXInterface::typeMap());
+    quint16 customVID = 0;
+    quint16 customPID = 0;
+    bool hasCustomVIDPID = DMXInterface::customVIDPID(customVID, customPID);
 
     foreach (DMXInterface *iface, interfacesList)
     {
+        if (hasCustomVIDPID &&
+            iface->vendorID() == customVID &&
+            iface->productID() == customPID &&
+            !types.contains(iface->serial()))
+        {
+            // For user-defined VID/PID pairs, default to OpenTX unless overridden.
+            types[iface->serial()] = DMXUSBWidget::OpenTX;
+        }
+
         QString productName = iface->name().toUpper();
 
         // check if protocol must be forced on an interface
@@ -164,7 +176,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 case DMXUSBWidget::VinceTX:
                     widgetList << new VinceUSBDMX512(iface, output_id++);
                 break;
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+#if (defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)) && !defined(Q_OS_ANDROID)
                 case DMXUSBWidget::Eurolite:
                     widgetList << new EuroliteUSBDMXPro(iface, output_id++);
                 break;
@@ -279,7 +291,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
         {
             widgetList << new Stageprofi(iface, output_id++);
         }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
+#if (defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)) && !defined(Q_OS_ANDROID)
         else if (iface->vendorID() == DMXInterface::ATMELVID &&
                  iface->productID() == DMXInterface::NANODMXPID)
         {

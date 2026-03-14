@@ -95,12 +95,37 @@ if(ANDROID)
     file(MAKE_DIRECTORY "${ANDROID_PACKAGE_STAGING_DIR}")
     file(COPY "${PROJECT_SOURCE_DIR}/platforms/android/" DESTINATION "${ANDROID_PACKAGE_STAGING_DIR}")
 
+    set(_detected_dmxusb_d2xx_jar "")
+    if(EXISTS "$ENV{HOME}/projects/various/Android_Java_D2xx_2.13/d2xx.jar")
+        set(_detected_dmxusb_d2xx_jar "$ENV{HOME}/projects/various/Android_Java_D2xx_2.13/d2xx.jar")
+    endif()
+
+    set(DMXUSB_D2XX_JAR_PATH "${_detected_dmxusb_d2xx_jar}" CACHE FILEPATH
+        "Path to FTDI d2xx.jar to bundle in Android packages for dmxusb support")
+
+    if(DMXUSB_D2XX_JAR_PATH)
+        if(EXISTS "${DMXUSB_D2XX_JAR_PATH}")
+            set(_staged_d2xx_jar "${ANDROID_PACKAGE_STAGING_DIR}/libs/d2xx.jar")
+            file(MAKE_DIRECTORY "${ANDROID_PACKAGE_STAGING_DIR}/libs")
+            configure_file("${DMXUSB_D2XX_JAR_PATH}" "${_staged_d2xx_jar}" COPYONLY)
+            set_property(TARGET ${module_name} APPEND PROPERTY
+                QT_ANDROID_BUNDLED_JAR_DEPENDENCIES "${_staged_d2xx_jar}")
+            message(STATUS "Bundling dmxusb Android D2XX JAR: ${DMXUSB_D2XX_JAR_PATH}")
+        else()
+            message(WARNING "DMXUSB_D2XX_JAR_PATH is set but file was not found: ${DMXUSB_D2XX_JAR_PATH}")
+        endif()
+    endif()
+
     qt_policy(SET QTP0002 NEW)
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:artnet>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:e131>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:loopback>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:osc>")
     set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:os2l>")
+    if(TARGET dmxusb)
+        set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_EXTRA_LIBS "$<TARGET_FILE:dmxusb>")
+        set_property(TARGET ${module_name} APPEND PROPERTY QT_ANDROID_FEATURES "android.hardware.usb.host")
+    endif()
 else()
     add_executable(${module_name} WIN32 ${SRC_FILES} ${QM_FILES})
 endif()
@@ -214,6 +239,7 @@ if(ANDROID)
     target_link_libraries(${module_name} PRIVATE
         Qt${QT_MAJOR_VERSION}::Concurrent
         Qt${QT_MAJOR_VERSION}::OpenGL
+        Qt${QT_MAJOR_VERSION}::SerialPort
         GLESv2
         log
         z

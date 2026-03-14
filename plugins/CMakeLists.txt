@@ -9,11 +9,14 @@ add_subdirectory(loopback)
 add_subdirectory(osc)
 add_subdirectory(os2l)
 
+if(NOT IOS)
+    add_subdirectory(dmxusb)
+endif()
+
 if(NOT ANDROID AND NOT IOS)
     pkg_check_modules(LIBOLA IMPORTED_TARGET libola)
     pkg_check_modules(LIBOLASERVER IMPORTED_TARGET libolaserver)
 
-    add_subdirectory(dmxusb)
     add_subdirectory(peperoni)
     add_subdirectory(udmx)
     add_subdirectory(midi)

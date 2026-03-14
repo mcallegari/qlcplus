@@ -29,6 +29,7 @@ class QPushButton;
 class QTreeWidget;
 class QComboBox;
 class QSpinBox;
+class QLineEdit;
 
 class DMXUSBConfig final : public QDialog
 {
@@ -42,6 +43,7 @@ private slots:
     void slotTypeComboActivated(int index);
     void slotFrequencyValueChanged(int value);
     void slotRefresh();
+    void slotApplyCustomVIDPID();
 
 private:
     QComboBox *createTypeCombo(DMXUSBWidget *widget);
@@ -51,6 +53,9 @@ private:
     DMXUSB* m_plugin;
 
     QTreeWidget* m_tree;
+    QLineEdit* m_customVIDEdit;
+    QLineEdit* m_customPIDEdit;
+    QPushButton* m_applyVIDPIDButton;
     QPushButton* m_refreshButton;
     QPushButton* m_closeButton;
 };
