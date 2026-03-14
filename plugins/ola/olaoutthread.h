@@ -67,8 +67,8 @@ public:
     virtual ~OlaOutThread();
 
     void run() override;
-    bool start(Priority priority=InheritPriority) override;
-    void stop() override;
+    bool start(Priority priority=InheritPriority);
+    void stop();
     int write_dmx(unsigned int universe, const QByteArray& data);
     void new_pipe_data();
     void pipe_closed();
