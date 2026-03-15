@@ -21,6 +21,7 @@
 #include <QSettings>
 #include <QDebug>
 #include <QFileInfo>
+#include <QSet>
 
 #include <gpiod.hpp>
 
@@ -35,9 +36,17 @@
 
 namespace
 {
+QString canonicalChipPath(const QString &path)
+{
+    QFileInfo pathInfo(path);
+    const QString canonicalPath = pathInfo.canonicalFilePath();
+    return canonicalPath.isEmpty() ? pathInfo.absoluteFilePath() : canonicalPath;
+}
+
 QList<GPIOPlugin::ChipInfo> scanChips()
 {
     QList<GPIOPlugin::ChipInfo> chips;
+    QSet<QString> seenPaths;
     std::error_code ec;
 
     for (const auto &entry : std::filesystem::directory_iterator("/dev", ec))
@@ -49,20 +58,31 @@ QList<GPIOPlugin::ChipInfo> scanChips()
         if (!::gpiod::is_gpiochip_device(path))
             continue;
 
+        const QString pathStr = QString::fromStdString(path.string());
+        QFileInfo pathInfo(pathStr);
+        const QString canonicalPath = pathInfo.canonicalFilePath();
+        const QString chipPath = canonicalPath.isEmpty()
+            ? pathInfo.absoluteFilePath()
+            : canonicalPath;
+
+        if (chipPath.isEmpty() || seenPaths.contains(chipPath))
+            continue;
+
         try
         {
-            ::gpiod::chip chip(path);
+            ::gpiod::chip chip(std::filesystem::path(chipPath.toStdString()));
             auto info = chip.get_info();
 
             GPIOPlugin::ChipInfo chipInfo;
-            chipInfo.path = QString::fromStdString(path.string());
+            chipInfo.path = chipPath;
             chipInfo.name = QString::fromStdString(info.name());
             chips.append(chipInfo);
+            seenPaths.insert(chipPath);
         }
         catch (const std::system_error &e)
         {
             qWarning() << "Error while opening GPIO chip:"
-                       << QString::fromStdString(path.string()) << e.what();
+                       << chipPath << e.what();
         }
     }
 
@@ -75,11 +95,17 @@ QString resolveChipPath(const QString &value, const QList<GPIOPlugin::ChipInfo> 
         return QString();
 
     if (value.startsWith('/'))
-        return value;
+    {
+        const QString chipPath = canonicalChipPath(value);
+        if (::gpiod::is_gpiochip_device(std::filesystem::path(chipPath.toStdString())))
+            return chipPath;
+        return QString();
+    }
 
     const QString devPath = QString("/dev/%1").arg(value);
-    if (::gpiod::is_gpiochip_device(std::filesystem::path(devPath.toStdString())))
-        return devPath;
+    const QString chipPath = canonicalChipPath(devPath);
+    if (::gpiod::is_gpiochip_device(std::filesystem::path(chipPath.toStdString())))
+        return chipPath;
 
     for (const auto &chip : chips)
     {
