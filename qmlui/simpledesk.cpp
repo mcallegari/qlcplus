@@ -557,7 +557,7 @@ QStringList SimpleDesk::commandHistory() const
  * DMXSource
  ************************************************************************/
 
-FadeChannel *SimpleDesk::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel) const
+FadeChannel *SimpleDesk::getFader(const QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
 {
     qDebug() << "[Simple Desk] get fader for universe" << universeID << "fixture" << fixtureID << "channel" << channel;
 

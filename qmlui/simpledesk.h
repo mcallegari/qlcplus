@@ -193,8 +193,8 @@ public:
     void writeDMX(MasterTimer* timer, QList<Universe*> ua) override;
 
 private:
-    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID,
-                          quint32 fixtureID, quint32 channel) const;
+    FadeChannel *getFader(const QList<Universe *> universes, quint32 universeID,
+                          quint32 fixtureID, quint32 channel);
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
