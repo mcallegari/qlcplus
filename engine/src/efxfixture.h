@@ -195,7 +195,7 @@ private:
     void nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader);
 
     /** Set a 16bit value on a fader gotten from the engine */
-    void updateFaderValues(FadeChannel *fc, quint32 value);
+    void updateFaderValues(FadeChannel &fc, quint32 value);
 
     /** Write this EFXFixture's channel data to universe faders */
     void setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float pan, float tilt);

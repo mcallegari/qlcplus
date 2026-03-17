@@ -35,6 +35,7 @@
 #undef protected
 #include "qlcfile.h"
 #include "doc.h"
+#include "mastertimer.h"
 
 #include "../../../engine/test/common/resource_paths.h"
 
@@ -723,19 +724,19 @@ void VCXYPadFixture_Test::writeDimmer()
     QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     xy.writeDMX(1, 1, fader, ua[0]);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 
     xy.m_xMSB = 0;
     xy.m_yMSB = QLCChannel::invalid();
     xy.writeDMX(1, 1, fader, ua[0]);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 
     xy.m_xMSB = QLCChannel::invalid();
     xy.m_yMSB = 0;
     xy.writeDMX(1, 1, fader, ua[0]);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 }
 
@@ -765,7 +766,7 @@ void VCXYPadFixture_Test::write8bitNoReverse()
         ushort x = floor((qreal(USHRT_MAX) * i) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
 
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[2], char(0));
@@ -801,7 +802,7 @@ void VCXYPadFixture_Test::write8bitReverse()
         ushort x = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * i) + 0.5);
 
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[2], char(0));
@@ -837,7 +838,7 @@ void VCXYPadFixture_Test::write16bitNoReverse()
         ushort x = floor((qreal(USHRT_MAX) * i) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
 
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(x & 0xFF));
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
@@ -881,7 +882,7 @@ void VCXYPadFixture_Test::write16bitReverse()
         ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
 
-        ua[0]->processFaders();
+        ua[0]->processFaders(MasterTimer::tick());
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(x & 0xFF));
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
@@ -925,13 +926,13 @@ void VCXYPadFixture_Test::writeRange()
     qreal ymul = 0.0;
 
     xy.writeDMX(xmul, ymul, fader, ua[0]);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     QCOMPARE((int)ua[0]->preGMValue(0), valueAt0);
 
     // handle on the right
     xmul = 1;
     xy.writeDMX(xmul, ymul, fader, ua[0]);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     QCOMPARE((int)ua[0]->preGMValue(0), valueAt1);
 }
 
@@ -993,7 +994,7 @@ void VCXYPadFixture_Test::readRange()
     qreal ymul = 0.0;
 
     ua[0]->write(0, valueAt0);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     QByteArray uniData = QByteArray(ua[0]->postGMValues()->data(), ua[0]->usedChannels());
     xy.readDMX(uniData, xmul, ymul);
     // the value was scaled to interval rangeMax-rangeMin,
@@ -1003,7 +1004,7 @@ void VCXYPadFixture_Test::readRange()
 
     // handle on the right
     ua[0]->write(0, valueAt1);
-    ua[0]->processFaders();
+    ua[0]->processFaders(MasterTimer::tick());
     uniData = QByteArray(ua[0]->postGMValues()->data(), ua[0]->usedChannels());
     xy.readDMX(uniData, xmul, ymul);
     // again, the resolution depends on the range.

@@ -103,7 +103,6 @@ void GenericFader::add(const FadeChannel& ch)
     else
     {
         m_channels.insert(hash, ch);
-        qDebug() << "Added new fader with hash" << hash;
     }
 }
 
@@ -129,6 +128,7 @@ void GenericFader::removeAll()
 {
     QWriteLocker l(&m_channelsLock);
     m_channels.clear();
+    m_channelCache.clear();
 }
 
 bool GenericFader::deleteRequested()
@@ -143,47 +143,8 @@ void GenericFader::requestDelete()
 
 FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
 {
-    FadeChannel fc(doc, fixtureID, channel);
-    quint32 primary = fc.primaryChannel();
-    quint32 hash;
-
-    // calculate hash depending on primary channel presence
-    if (handleSecondary() && primary != QLCChannel::invalid())
-        hash = channelHash(fc.fixture(), primary);
-    else
-        hash = channelHash(fc.fixture(), fc.channel());
-
-    m_channelsLock.lockForRead();
-    // search for existing FadeChannel
-    QHash<quint32,FadeChannel>::iterator channelIterator = m_channels.find(hash);
-    if (channelIterator != m_channels.end())
-    {
-        FadeChannel *fcFound = &channelIterator.value();
-        m_channelsLock.unlock();
-
-        if (handleSecondary() &&
-            fcFound->channelCount() == 1 &&
-            primary != QLCChannel::invalid())
-        {
-            //qDebug() << "Adding channel to primary" << channel;
-            fcFound->addChannel(channel);
-            if (universe)
-                fcFound->setCurrent(universe->preGMValue(fcFound->address() + 1), 1);
-        }
-        return fcFound;
-    }
-    m_channelsLock.unlock();
-
-    // set current universe value
-    if (universe)
-        fc.setCurrent(universe->preGMValue(fc.address()));
-
-    // new channel. Add to GenericFader
     QWriteLocker l(&m_channelsLock);
-    channelIterator = m_channels.insert(hash, fc);
-    //qDebug() << "Added new fader with hash" << hash;
-
-    return &channelIterator.value();
+    return &channelFaderLocked(doc, universe, fixtureID, channel);
 }
 
 QHash<quint32, FadeChannel> GenericFader::channels() const
@@ -198,7 +159,70 @@ int GenericFader::channelsCount() const
     return m_channels.count();
 }
 
-void GenericFader::write(Universe *universe)
+FadeChannel &GenericFader::channelFaderLocked(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
+{
+    const quint32 requestedHash = channelHash(fixtureID, channel);
+
+    QSharedPointer<FadeChannel> channelTemplate = m_channelCache.value(requestedHash);
+    if (channelTemplate.isNull())
+    {
+        channelTemplate = QSharedPointer<FadeChannel>(new FadeChannel(doc, fixtureID, channel));
+        m_channelCache.insert(requestedHash, channelTemplate);
+    }
+
+    const quint32 primary = channelTemplate->primaryChannel();
+    const quint32 hash = (handleSecondary() && primary != QLCChannel::invalid())
+                         ? channelHash(channelTemplate->fixture(), primary)
+                         : channelHash(channelTemplate->fixture(), channelTemplate->channel());
+
+    QHash<quint32, FadeChannel>::iterator channelIterator = m_channels.find(hash);
+    if (channelIterator != m_channels.end())
+    {
+        FadeChannel &fc = channelIterator.value();
+        if (handleSecondary() &&
+            fc.channelCount() == 1 &&
+            primary != QLCChannel::invalid() &&
+            channel != primary)
+        {
+            fc.addChannel(channel);
+            if (universe)
+                fc.setCurrent(universe->preGMValue(fc.address() + 1), 1);
+        }
+        return fc;
+    }
+
+    FadeChannel fc;
+    if (handleSecondary() && primary != QLCChannel::invalid() && channel != primary)
+    {
+        const quint32 primaryRequestHash = channelHash(fixtureID, primary);
+        QSharedPointer<FadeChannel> primaryTemplate = m_channelCache.value(primaryRequestHash);
+        if (primaryTemplate.isNull())
+        {
+            primaryTemplate = QSharedPointer<FadeChannel>(new FadeChannel(doc, fixtureID, primary));
+            m_channelCache.insert(primaryRequestHash, primaryTemplate);
+        }
+
+        fc = *primaryTemplate;
+        fc.addChannel(channel);
+
+        if (universe)
+        {
+            fc.setCurrent(universe->preGMValue(fc.address()), 0);
+            fc.setCurrent(universe->preGMValue(fc.address() + 1), 1);
+        }
+    }
+    else
+    {
+        fc = *channelTemplate;
+        if (universe)
+            fc.setCurrent(universe->preGMValue(fc.address()));
+    }
+
+    channelIterator = m_channels.insert(hash, fc);
+    return channelIterator.value();
+}
+
+void GenericFader::write(Universe *universe, uint elapsedMs)
 {
     if (m_monitoring)
         emit preWriteData(universe->id(), universe->preGMValues());
@@ -233,7 +257,7 @@ void GenericFader::write(Universe *universe)
 
         // Calculate the next step
         if (m_paused == false)
-            fc.nextStep(MasterTimer::tick());
+            fc.nextStep(elapsedMs);
 
         quint32 value = fc.current();
 
@@ -353,7 +377,7 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
     if (fadeTime == 0)
         return;
 
-    QReadLocker l(&m_channelsLock);
+    QWriteLocker l(&m_channelsLock);
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
@@ -389,7 +413,7 @@ void GenericFader::setMonitoring(bool enable)
 void GenericFader::resetCrossfade()
 {
     qDebug() << name() << "resetting crossfade channels";
-    QReadLocker l(&m_channelsLock);
+    QWriteLocker l(&m_channelsLock);
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {

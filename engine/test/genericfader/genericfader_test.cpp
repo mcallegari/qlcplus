@@ -133,7 +133,7 @@ void GenericFader_Test::writeZeroFade()
 
     fader->add(fc);
     QCOMPARE(ua[0]->preGMValues()[15], (char) 0);
-    fader->write(ua[0]);
+    fader->write(ua[0], MasterTimer::tick());
     QCOMPARE(ua[0]->preGMValues()[15], (char) 255);
 }
 
@@ -154,7 +154,7 @@ void GenericFader_Test::writeLoop()
     for (int i = MasterTimer::tick(); i <= 1000; i += MasterTimer::tick())
     {
         ua[0]->zeroIntensityChannels();
-        fader->write(ua[0]);
+        fader->write(ua[0], MasterTimer::tick());
 
         int actual = uchar(ua[0]->preGMValues()[15]);
         expected += 5;
@@ -190,7 +190,7 @@ void GenericFader_Test::adjustIntensity()
     for (int i = MasterTimer::tick(); i <= 1000; i += MasterTimer::tick())
     {
         ua[0]->zeroIntensityChannels();
-        fader->write(ua[0]);
+        fader->write(ua[0], MasterTimer::tick());
 
         expected += 5;
 

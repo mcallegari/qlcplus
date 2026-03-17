@@ -252,8 +252,8 @@ private:
     /** Check if the engine needs to be re-created */
     void checkEngineCreation();
 
-    FadeChannel *getFader(Universe *universe, quint32 fixtureID, quint32 channel);
-    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
+    QSharedPointer<GenericFader> getFader(Universe *universe);
+    void updateFaderValues(FadeChannel &fc, uchar value, uint fadeTime);
 
     /** Update FadeChannels when $map has changed since last time */
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);

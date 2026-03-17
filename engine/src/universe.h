@@ -363,7 +363,7 @@ public slots:
     void tick();
 
 protected:
-    void processFaders();
+    void processFaders(uint elapsedMs);
 
     /** DMX writer thread worker method */
     void run() override;
