@@ -901,10 +901,16 @@ void FunctionManager::cloneFunctions()
         if (func == nullptr)
             continue;
 
-        Function* copy = func->createCopy(m_doc);
+        Function* copy = func->createCopy(m_doc, false);
         if (copy != nullptr)
         {
             copy->setName(copy->name() + tr(" (Copy)"));
+
+            if (m_doc->addFunction(copy) == false)
+            {
+                delete copy;
+                continue;
+            }
 
             /* If the cloned Function is a Sequence,
              * clone the bound Scene too */
