@@ -481,7 +481,7 @@ Column
                         csDragItem.y = posInList.y
                         csDragItem.z = 10
 
-                        if (model.isSelected && mouse.modifiers !== 0)
+                        if (model.isSelected)
                             return
 
                         ceSelector.selectItem(index, cStepsList.model, mouse.modifiers)
