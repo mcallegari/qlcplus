@@ -33,6 +33,17 @@ VCWidgetItem
     property point vertRange: xyPadObj ? xyPadObj.verticalRange : Qt.point(0, 255)
     property var fixturePositions: xyPadObj ? xyPadObj.fixturePositions : []
 
+    function presetIcon(type)
+    {
+        switch (type)
+        {
+            case "Scene": return "qrc:/scene.svg"
+            case "EFX": return "qrc:/efx.svg"
+            case "FixtureGroup": return "qrc:/group.svg"
+            default: return "qrc:/position.svg"
+        }
+    }
+
     clip: true
 
     onXyPadObjChanged:
@@ -233,8 +244,10 @@ VCWidgetItem
                 GenericButton
                 {
                     height: UISettings.listItemHeight
-                    width: Math.max(UISettings.iconSizeDefault * 3, implicitWidth)
+                    width: Math.max(Math.ceil(height * 1.2), contentWidth + 5)
+                    iconSource: xyPadRoot.presetIcon(modelData.typeString)
                     label: modelData.name
+                    fontSize: Math.round(UISettings.textSizeDefault * 0.8)
                     bgColor: modelData.active ? UISettings.highlight : UISettings.bgControl
                     onClicked:
                     {

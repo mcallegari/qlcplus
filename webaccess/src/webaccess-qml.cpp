@@ -813,6 +813,12 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 qreal maxVal = cmdList[3].toDouble();
                 xypad->setVerticalRange(QPointF(minVal, maxVal));
             }
+            else if (cmdList[1] == "XYPAD_PRESET")
+            {
+                if (cmdList.count() < 3)
+                    return;
+                xypad->applyPreset(cmdList[2].toUInt());
+            }
         }
         break;
         case VCWidget::SpeedWidget:
@@ -1028,6 +1034,8 @@ QJsonObject WebAccessQml::widgetToJson(const VCWidget *widget)
             obj["verticalRange"] = vRange;
             obj["invertedAppearance"] = xypad->invertedAppearance();
             obj["displayMode"] = int(xypad->displayMode());
+            obj["presetsList"] = QJsonArray::fromVariantList(xypad->presetsList());
+            obj["activePresetId"] = xypad->activePresetId();
         }
         break;
         case VCWidget::FrameWidget:
@@ -1276,6 +1284,8 @@ void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
             const VCXYPad *xypad = qobject_cast<const VCXYPad*>(widget);
             connect(xypad, SIGNAL(currentPositionChanged()),
                     this, SLOT(slotXYPadPositionChanged()));
+            connect(xypad, SIGNAL(activePresetIdChanged()),
+                    this, SLOT(slotXYPadPresetChanged()));
             connect(xypad, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotWidgetDisableStateChanged(bool)));
         }
@@ -1497,6 +1507,16 @@ void WebAccessQml::slotXYPadPositionChanged()
 
     QPointF pos = xypad->currentPosition();
     QString wsMessage = QString("%1|XYPAD|%2|%3").arg(xypad->id()).arg(pos.x()).arg(pos.y());
+    sendWebSocketMessage(wsMessage);
+}
+
+void WebAccessQml::slotXYPadPresetChanged()
+{
+    VCXYPad *xypad = qobject_cast<VCXYPad *>(sender());
+    if (xypad == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|XYPAD_PRESET|%2").arg(xypad->id()).arg(xypad->activePresetId());
     sendWebSocketMessage(wsMessage);
 }
 

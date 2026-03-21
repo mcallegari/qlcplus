@@ -88,6 +88,7 @@ protected slots:
     void slotMatrixColorsChanged();
     void slotMatrixAlgorithmChanged();
     void slotXYPadPositionChanged();
+    void slotXYPadPresetChanged();
     void slotSpeedDialTimeChanged();
     void slotSpeedDialFactorChanged();
     void slotClockTimeChanged(int time);

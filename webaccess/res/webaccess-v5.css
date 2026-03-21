@@ -984,6 +984,8 @@ body {
 
 .vc-xypad {
   display: flex;
+  flex-direction: column;
+  gap: 2px;
   width: 100%;
   height: 100%;
   --xypad-track: calc(var(--list-item-height) * 0.15);
@@ -995,10 +997,54 @@ body {
   display: grid;
   grid-template-columns: var(--list-item-height) 1fr var(--list-item-height);
   grid-template-rows: var(--list-item-height) 1fr var(--list-item-height);
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  height: 100%;
   gap: 0;
   box-sizing: border-box;
+}
+
+.xypad-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--bg-stronger);
+  background: var(--bg-light);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.xypad-preset {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--list-item-height);
+  min-width: calc(var(--icon-size-default) * 2.4);
+  padding: 0 6px;
+  border: 1px solid var(--preset-color, var(--bg-stronger));
+  background: var(--bg-control);
+  color: var(--fg-main);
+  cursor: pointer;
+}
+
+.xypad-preset.is-active {
+  outline: 2px solid var(--highlight);
+}
+
+.xypad-preset-icon {
+  width: calc(var(--icon-size-medium) * 0.6);
+  height: calc(var(--icon-size-medium) * 0.6);
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.xypad-preset-name {
+  min-width: 0;
+  max-width: calc(var(--icon-size-default) * 5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .xypad-spacer {

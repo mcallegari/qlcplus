@@ -73,6 +73,13 @@ const FUNCTION_TYPE_ICONS = {
   Video: "video",
 };
 
+const XYPAD_PRESET_ICONS = {
+  Position: "position",
+  EFX: "efx",
+  Scene: "scene",
+  FixtureGroup: "group",
+};
+
 const FA = {
   collapse: "\uf424",
   expand: "\uf422",
@@ -606,6 +613,8 @@ function renderSlider(widget) {
 function renderXYPad(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-xypad");
+  const presets = Array.isArray(widget.presetsList) ? widget.presetsList : [];
+  let presetsRow = null;
 
   const grid = document.createElement("div");
   grid.className = "xypad-grid";
@@ -913,15 +922,18 @@ function renderXYPad(widget) {
     syncRangeInputs();
     setActiveRangeHandle("h", "min");
     setActiveRangeHandle("v", "min");
+    updateXYPadLayout();
     updateRangeWindow();
     setHandle(pos.x, pos.y);
   });
 
   const resizeObserver = new ResizeObserver(() => {
+    updateXYPadLayout();
     updateRangeWindow();
     setHandle(currentPos.x, currentPos.y);
   });
   resizeObserver.observe(area);
+  resizeObserver.observe(root);
 
   grid.append(
     makeSpacer(),
@@ -936,15 +948,65 @@ function renderXYPad(widget) {
   );
 
   root.appendChild(grid);
+  const presetButtons = [];
+  if (presets.length > 0) {
+    presetsRow = document.createElement("div");
+    presetsRow.className = "xypad-presets";
+
+    presets.forEach((preset) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "xypad-preset";
+
+      const icon = document.createElement("img");
+      icon.className = "xypad-preset-icon";
+      icon.src = `/qrc/${XYPAD_PRESET_ICONS[preset.typeString] || "xypad"}.svg`;
+      icon.alt = preset.typeString || "Preset";
+
+      const name = document.createElement("span");
+      name.className = "xypad-preset-name";
+      name.textContent = preset.name || `Preset ${preset.id}`;
+
+      if (preset.color) btn.style.setProperty("--preset-color", preset.color);
+      btn.title = preset.typeString ? `${preset.typeString}: ${name.textContent}` : name.textContent;
+      btn.append(icon, name);
+      btn.addEventListener("click", () => {
+        sendWidgetCommand(widget.id, "XYPAD_PRESET", preset.id);
+        updateXYPadPresetState(widget.id, preset.id);
+      });
+
+      presetButtons.push({ id: parseInt(preset.id, 10), el: btn });
+      presetsRow.appendChild(btn);
+    });
+
+    root.appendChild(presetsRow);
+  }
+
+  function updateXYPadLayout() {
+    if (!presetsRow) return;
+
+    const listItemHeight =
+      parseFloat(window.getComputedStyle(document.documentElement).getPropertyValue("--list-item-height")) || 28;
+    const maxPresetsHeight = listItemHeight * 2 + 8;
+    const minGridHeight = Math.max(listItemHeight * 4, 96);
+    const rootHeight = root.clientHeight || widget.geometry?.h || 0;
+    const targetHeight = Math.max(0, Math.min(maxPresetsHeight, rootHeight - minGridHeight - 2));
+
+    presetsRow.style.maxHeight = `${targetHeight}px`;
+    presetsRow.style.display = targetHeight > 0 ? "flex" : "none";
+  }
+
   state.widgets[widget.id] = {
     type: "xypad",
     el: root,
     handle,
     data: widget,
+    presets: presetButtons,
     setHandle,
     updateRangeWindow,
     rangeInputs: { rangeTopMin, rangeTopMax, rangeLeftMin, rangeLeftMax },
   };
+  updateXYPadPresetState(widget.id, widget.activePresetId);
   return root;
 }
 
@@ -2360,6 +2422,20 @@ function updateSpeedState(id, time, factor) {
   }
 }
 
+function updateXYPadPresetState(id, presetId) {
+  const widget = state.widgets[id];
+  if (!widget || widget.type !== "xypad") return;
+
+  const parsedPresetId = parseInt(presetId, 10);
+  widget.data.activePresetId = Number.isNaN(parsedPresetId) ? -1 : parsedPresetId;
+
+  if (Array.isArray(widget.presets)) {
+    widget.presets.forEach((preset) => {
+      preset.el.classList.toggle("is-active", preset.id === widget.data.activePresetId);
+    });
+  }
+}
+
 function isElementVisible(el) {
   if (!el || !el.isConnected) return false;
   const style = window.getComputedStyle(el);
@@ -2485,6 +2561,9 @@ function handleSocketMessage(ev) {
       if (widget?.setHandle) widget.setHandle(parseFloat(msg[2]), parseFloat(msg[3]));
       break;
     }
+    case "XYPAD_PRESET":
+      updateXYPadPresetState(id, msg[2]);
+      break;
     case "SPEED_STATE":
       updateSpeedState(id, msg[2], msg[3]);
       break;
