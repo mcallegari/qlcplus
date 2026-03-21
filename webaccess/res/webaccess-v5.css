@@ -736,9 +736,35 @@ body {
 }
 
 .vc-cuelist .cue-table td.cue-index,
-.vc-cuelist .cue-table td.cue-name,
 .vc-cuelist .cue-table td.cue-time {
   text-align: center;
+}
+
+.vc-cuelist .cue-table td.cue-name {
+  text-align: left;
+}
+
+.vc-cuelist .cue-func-cell {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+
+.vc-cuelist .cue-func-icon {
+  width: calc(var(--icon-size-medium) * 0.65);
+  height: calc(var(--icon-size-medium) * 0.65);
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.vc-cuelist .cue-func-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .vc-cuelist .cue-table td.cue-time {

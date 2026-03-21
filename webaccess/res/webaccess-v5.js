@@ -60,6 +60,19 @@ const SPEED_VIS = {
 
 const SPEED_LABELS = ["", "", "1/16", "1/8", "1/4", "1/2", "1", "2", "4", "8", "16"];
 
+const FUNCTION_TYPE_ICONS = {
+  Scene: "scene",
+  Chaser: "chaser",
+  EFX: "efx",
+  Collection: "collection",
+  Script: "script",
+  RGBMatrix: "rgbmatrix",
+  Show: "showmanager",
+  Sequence: "sequence",
+  Audio: "audio",
+  Video: "video",
+};
+
 const FA = {
   collapse: "\uf424",
   expand: "\uf422",
@@ -1717,7 +1730,21 @@ function renderCueList(widget) {
     idx.textContent = index + 1;
     const name = document.createElement("td");
     name.className = "cue-name";
-    name.textContent = step.funcName || `Function ${step.funcID || ""}`;
+    const funcCell = document.createElement("div");
+    funcCell.className = "cue-func-cell";
+    const typeIcon = FUNCTION_TYPE_ICONS[step.funcType];
+    if (typeIcon) {
+      const icon = document.createElement("img");
+      icon.className = "cue-func-icon";
+      icon.src = `/qrc/${typeIcon}.svg`;
+      icon.alt = step.funcType || "";
+      funcCell.appendChild(icon);
+    }
+    const nameText = document.createElement("span");
+    nameText.className = "cue-func-name";
+    nameText.textContent = step.funcName || `Function ${step.funcID || ""}`;
+    funcCell.appendChild(nameText);
+    name.appendChild(funcCell);
     const fadeIn = document.createElement("td");
     fadeIn.className = "cue-time";
     fadeIn.textContent = timeToQlcString(step.fadeIn ?? 0);
