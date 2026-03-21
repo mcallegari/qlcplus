@@ -68,6 +68,7 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt6Svg.so
             ${QT_LIBS_PATH}/libQt6Widgets.so
             ${QT_LIBS_PATH}/libQt6OpenGL.so
+            ${QT_LIBS_PATH}/libQt6Concurrent.so
             ${QT_LIBS_PATH}/libQt6Multimedia.so
             ${QT_LIBS_PATH}/libQt6MultimediaWidgets.so
             ${QT_LIBS_PATH}/libQt6SerialPort.so
@@ -122,7 +123,6 @@ if(appimage)
             ${QT_LIBS_PATH}/libQt63DQuickRender.so
             ${QT_LIBS_PATH}/libQt63DQuickScene3D.so
             ${QT_LIBS_PATH}/libQt63DRender.so
-            ${QT_LIBS_PATH}/libQt6Concurrent.so
             ${QT_LIBS_PATH}/libQt6Gamepad.so
             ${QT_LIBS_PATH}/libQt6PrintSupport.so)
 

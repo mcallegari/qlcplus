@@ -35,7 +35,7 @@ cd build
 if [ -n "$QTDIR" ]; then
     cmake -DCMAKE_PREFIX_PATH="$QTDIR/lib/cmake/" $CMAKE_OPTS -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 else
-    cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt5" $CMAKE_OPTS -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
+    cmake -DCMAKE_PREFIX_PATH="/usr/lib/x86_64-linux-gnu/cmake/Qt6" $CMAKE_OPTS -Dappimage=ON -DINSTALL_ROOT=$TARGET_DIR ..
 fi
 
 NUM_CPUS=$(nproc) || true
