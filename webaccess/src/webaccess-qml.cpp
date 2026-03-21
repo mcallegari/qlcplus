@@ -136,6 +136,27 @@ static QString mimeTypeForPath(const QString &path)
     return "application/octet-stream";
 }
 
+static int clockScheduledDaysMask(const VCClock *clock)
+{
+    if (clock == nullptr || clock->clockType() != VCClock::Clock)
+        return 0;
+
+    int mask = 0;
+    const QList<VCClockSchedule*> schedules = clock->schedules();
+    for (VCClockSchedule *sch : schedules)
+    {
+        if (sch == nullptr)
+            continue;
+
+        const int weekMask = sch->weekFlags() & 0x7F;
+        // Show day initials only for specific-day schedules.
+        if (weekMask != 0 && weekMask != 0x7F)
+            mask |= weekMask;
+    }
+
+    return mask;
+}
+
 static bool isWidgetVisibleForWeb(const VCWidget *widget, const VirtualConsole *vc)
 {
     if (widget == nullptr || vc == nullptr)
@@ -842,6 +863,33 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 dial->setCurrentFactor(static_cast<VCSpeedDial::SpeedMultiplier>(cmdList[2].toInt()));
         }
         break;
+        case VCWidget::ClockWidget:
+        {
+            if (cmdList.count() < 2)
+                return;
+
+            VCClock *clock = qobject_cast<VCClock*>(widget);
+            if (clock == nullptr)
+                return;
+
+            if (cmdList[1] == "CLOCK_PLAY")
+            {
+                // Optional desired state (1/0) for reliable start/stop synchronization.
+                bool desiredRunning = !clock->timerRunning();
+                if (cmdList.count() > 2)
+                    desiredRunning = (cmdList[2] == "1" || cmdList[2].compare("true", Qt::CaseInsensitive) == 0);
+
+                if (desiredRunning != clock->timerRunning())
+                    clock->playPauseTimer();
+            }
+            else if (cmdList[1] == "CLOCK_RESET")
+                clock->resetTimer();
+            else if (cmdList[1] == "S") // backward compatibility with legacy web client
+                clock->playPauseTimer();
+            else if (cmdList[1] == "R") // backward compatibility with legacy web client
+                clock->resetTimer();
+        }
+        break;
         default:
         break;
     }
@@ -1094,6 +1142,8 @@ QJsonObject WebAccessQml::widgetToJson(const VCWidget *widget)
             obj["clockType"] = int(clock->clockType());
             obj["currentTime"] = clock->currentTime();
             obj["targetTime"] = clock->targetTime();
+            obj["running"] = clock->timerRunning();
+            obj["scheduledDaysMask"] = clockScheduledDaysMask(clock);
         }
         break;
         case VCWidget::AnimationWidget:
@@ -1306,6 +1356,8 @@ void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
             const VCClock *clock = qobject_cast<const VCClock*>(widget);
             connect(clock, SIGNAL(currentTimeChanged(int)),
                     this, SLOT(slotClockTimeChanged(int)));
+            connect(clock, SIGNAL(timerRunningChanged(bool)),
+                    this, SLOT(slotClockTimerRunningChanged(bool)));
             connect(clock, SIGNAL(disabledStateChanged(bool)),
                     this, SLOT(slotWidgetDisableStateChanged(bool)));
         }
@@ -1554,7 +1606,40 @@ void WebAccessQml::slotClockTimeChanged(int time)
     if (isWidgetVisibleForWeb(clock, m_vc) == false)
         return;
 
-    QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
+    if (clock->clockType() == VCClock::Clock)
+    {
+        QString wsMessage = QString("%1|CLOCK|%2").arg(clock->id()).arg(time);
+        sendWebSocketMessage(wsMessage);
+        return;
+    }
+
+    // For stopwatch/countdown send only second references.
+    if (time != 0 && (time % 1000) != 0)
+        return;
+
+    QString wsMessage = QString("%1|CLOCK|%2|%3")
+            .arg(clock->id())
+            .arg(time)
+            .arg(clock->timerRunning() ? 1 : 0);
+    sendWebSocketMessage(wsMessage);
+}
+
+void WebAccessQml::slotClockTimerRunningChanged(bool running)
+{
+    Q_UNUSED(running)
+    VCClock *clock = qobject_cast<VCClock *>(sender());
+    if (clock == nullptr)
+        return;
+    if (isWidgetVisibleForWeb(clock, m_vc) == false)
+        return;
+
+    if (clock->clockType() == VCClock::Clock)
+        return;
+
+    QString wsMessage = QString("%1|CLOCK|%2|%3")
+            .arg(clock->id())
+            .arg(clock->currentTime())
+            .arg(clock->timerRunning() ? 1 : 0);
     sendWebSocketMessage(wsMessage);
 }
 

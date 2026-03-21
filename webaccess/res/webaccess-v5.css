@@ -1642,6 +1642,43 @@ body {
   justify-content: center;
 }
 
+.clock-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.clock-display {
+  width: 100%;
+  text-align: center;
+}
+
+.clock-days {
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: calc(var(--text-size-default) * 0.72);
+}
+
+.clock-day {
+  width: calc(var(--list-item-height) * 0.35);
+  text-align: center;
+  color: var(--fg-main);
+  opacity: 0.45;
+}
+
+.clock-day.is-active {
+  color: var(--highlight);
+  opacity: 1;
+  font-weight: 700;
+}
+
 @media (max-width: 900px) {
   .topbar {
     flex-wrap: wrap;

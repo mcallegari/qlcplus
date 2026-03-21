@@ -207,6 +207,17 @@ function formatTime(seconds) {
   return `${h}:${m}:${sec}`;
 }
 
+function formatTimerTenths(milliseconds) {
+  const ms = Math.max(0, parseInt(milliseconds, 10) || 0);
+  const totalTenths = Math.floor(ms / 100);
+  const tenths = totalTenths % 10;
+  const totalSeconds = Math.floor(totalTenths / 10);
+  const h = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+  const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+  const sec = String(totalSeconds % 60).padStart(2, "0");
+  return `${h}:${m}:${sec}.${tenths}`;
+}
+
 function sliderDisplayValue(widget, value) {
   if (widget.valueDisplay === "Percentage") {
     const pct = Math.round((value / 255) * 100);
@@ -1706,37 +1717,76 @@ function renderClock(widget) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add("vc-clock");
 
+  const content = document.createElement("div");
+  content.className = "clock-content";
+
   const display = document.createElement("div");
-  display.textContent = formatTime(widget.currentTime || 0);
-  root.appendChild(display);
+  display.className = "clock-display";
+  content.appendChild(display);
 
-  let timer = null;
-  let running = false;
-  let counter = widget.clockType === 2 ? widget.targetTime : 0;
+  if (widget.clockType === 0) {
+    const daysMask = parseInt(widget.scheduledDaysMask, 10) || 0;
+    if (daysMask > 0) {
+      const daysRow = document.createElement("div");
+      daysRow.className = "clock-days";
+      const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
+      dayLabels.forEach((label, idx) => {
+        const day = document.createElement("span");
+        day.className = "clock-day";
+        if ((daysMask & (1 << idx)) !== 0) day.classList.add("is-active");
+        day.textContent = label;
+        daysRow.appendChild(day);
+      });
+      content.appendChild(daysRow);
+    }
+  }
+  root.appendChild(content);
 
-  if (widget.clockType !== 0) {
+  const widgetState = {
+    type: "clock",
+    el: root,
+    display,
+    data: widget,
+    clockState: {
+      counter: parseInt(widget.currentTime, 10) || 0,
+      running: !!widget.running,
+      ticker: null,
+      lastTick: 0,
+    },
+  };
+
+  if (widget.clockType === 0) {
+    display.textContent = formatTime(widget.currentTime || 0);
+  } else {
+    display.textContent = formatTimerTenths(widgetState.clockState.counter);
     root.style.cursor = "pointer";
     root.addEventListener("click", () => {
-      running = !running;
-      if (running && !timer) {
-        timer = setInterval(() => {
-          if (widget.clockType === 1) counter += 1;
-          else counter = Math.max(0, counter - 1);
-          display.textContent = formatTime(counter);
-        }, 1000);
-      } else if (!running && timer) {
-        clearInterval(timer);
-        timer = null;
+      const desiredRunning = !widgetState.clockState.running;
+      widgetState.clockState.running = desiredRunning;
+      display.textContent = formatTimerTenths(clockDisplayMilliseconds(widgetState));
+      if (desiredRunning) {
+        startClockTicker(widgetState);
+      } else {
+        stopClockTicker(widgetState);
       }
+      sendWidgetCommand(widget.id, "CLOCK_PLAY", desiredRunning ? 1 : 0);
     });
     root.addEventListener("contextmenu", (ev) => {
       ev.preventDefault();
-      counter = widget.clockType === 2 ? widget.targetTime : 0;
-      display.textContent = formatTime(counter);
+      widgetState.clockState.running = false;
+      stopClockTicker(widgetState);
+      widgetState.clockState.counter = widget.clockType === 2
+        ? (parseInt(widget.targetTime, 10) || 0)
+        : 0;
+      display.textContent = formatTimerTenths(clockDisplayMilliseconds(widgetState));
+      sendWidgetCommand(widget.id, "CLOCK_RESET");
     });
   }
 
-  state.widgets[widget.id] = { type: "clock", el: root, display, data: widget };
+  state.widgets[widget.id] = widgetState;
+  if (widget.clockType !== 0) {
+    updateClock(widget.id, widgetState.clockState.counter, widgetState.clockState.running ? "1" : "0");
+  }
   return root;
 }
 
@@ -2443,14 +2493,81 @@ function isElementVisible(el) {
   return el.getClientRects().length > 0;
 }
 
-function updateClock(id, time) {
+function startClockTicker(widget) {
+  if (!widget?.clockState || widget.clockState.ticker) return;
+
+  widget.clockState.lastTick = Date.now();
+  widget.clockState.ticker = setInterval(() => {
+    if (!widget.clockState.running) return;
+
+    const now = Date.now();
+    const elapsed = now - widget.clockState.lastTick;
+    widget.clockState.lastTick = now;
+
+    if (widget.data.clockType === 1) {
+      widget.clockState.counter += elapsed;
+    } else {
+      widget.clockState.counter = Math.max(0, widget.clockState.counter - elapsed);
+      if (widget.clockState.counter <= 0) {
+        widget.clockState.running = false;
+        stopClockTicker(widget);
+      }
+    }
+
+    widget.display.textContent = formatTimerTenths(clockDisplayMilliseconds(widget));
+  }, 100);
+}
+
+function stopClockTicker(widget) {
+  if (!widget?.clockState?.ticker) return;
+  clearInterval(widget.clockState.ticker);
+  widget.clockState.ticker = null;
+}
+
+function clockDisplayMilliseconds(widget) {
+  if (!widget?.clockState) return 0;
+  const raw = Math.max(0, parseInt(widget.clockState.counter, 10) || 0);
+  // In running countdown mode, show tenths as 9->0 instead of 0->9.
+  if (widget.data.clockType === 2 && widget.clockState.running && raw > 0) {
+    return raw - 1;
+  }
+  return raw;
+}
+
+function updateClock(id, time, runningState) {
   const widget = state.widgets[id];
   if (!widget) return;
   if (!isElementVisible(widget.el)) {
     return;
   }
   if (widget.data.clockType === 0) {
-    widget.display.textContent = formatTime(parseInt(time, 10));
+    widget.data.currentTime = parseInt(time, 10) || 0;
+    widget.display.textContent = formatTime(widget.data.currentTime);
+    return;
+  }
+
+  if (!widget.clockState) {
+    widget.clockState = {
+      counter: 0,
+      running: false,
+      ticker: null,
+      lastTick: 0,
+    };
+  }
+
+  widget.clockState.counter = parseInt(time, 10) || 0;
+  widget.data.currentTime = widget.clockState.counter;
+
+  if (typeof runningState !== "undefined") {
+    widget.clockState.running = runningState === true || runningState === "1" || runningState === "true";
+    widget.data.running = widget.clockState.running;
+  }
+
+  widget.display.textContent = formatTimerTenths(clockDisplayMilliseconds(widget));
+  if (widget.clockState.running) {
+    startClockTicker(widget);
+  } else {
+    stopClockTicker(widget);
   }
 }
 
@@ -2568,7 +2685,7 @@ function handleSocketMessage(ev) {
       updateSpeedState(id, msg[2], msg[3]);
       break;
     case "CLOCK":
-      updateClock(id, msg[2]);
+      updateClock(id, msg[2], msg[3]);
       break;
     default:
       break;

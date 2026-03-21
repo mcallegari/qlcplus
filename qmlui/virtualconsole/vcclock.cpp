@@ -48,6 +48,8 @@ VCClock::VCClock(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_clocktype(Clock)
     , m_targetTime(0)
+    , m_runtimeTime(0)
+    , m_timerRunning(false)
     , m_enableSchedule(false)
 {
     setType(VCWidget::ClockWidget);
@@ -166,10 +168,26 @@ void VCClock::setClockType(VCClock::ClockType type)
 
     m_clocktype = type;
 
+    m_timer->stop();
+
     if (m_clocktype == Clock)
+    {
+        setTimerRunning(false);
+        sortSchedules();
         m_timer->start(1000);
-    else
-        m_timer->stop();
+    }
+    else if (m_clocktype == Stopwatch)
+    {
+        setTimerRunning(false);
+        m_runtimeTime = 0;
+        emit currentTimeChanged(m_runtimeTime);
+    }
+    else // Countdown
+    {
+        setTimerRunning(false);
+        m_runtimeTime = m_targetTime;
+        emit currentTimeChanged(m_runtimeTime);
+    }
 
     emit clockTypeChanged(type);
 }
@@ -205,6 +223,9 @@ VCClock::ClockType VCClock::stringToType(QString str) const
 
 int VCClock::currentTime() const
 {
+    if (clockType() == Stopwatch || clockType() == Countdown)
+        return m_runtimeTime;
+
     QTime currTime = QDateTime::currentDateTime().time();
     int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
     return dayTimeSecs;
@@ -220,15 +241,110 @@ int VCClock::targetTime() const
 
 void VCClock::setTargetTime(int ms)
 {
+    if (ms < 0)
+        ms = 0;
+
     if (ms == m_targetTime)
         return;
 
     m_targetTime = ms;
+
+    if (clockType() == Countdown && timerRunning() == false)
+    {
+        m_runtimeTime = ms;
+        emit currentTimeChanged(m_runtimeTime);
+    }
+
     emit targetTimeChanged(ms);
+}
+
+void VCClock::playPauseTimer()
+{
+    if (clockType() != Stopwatch && clockType() != Countdown)
+        return;
+
+    if (clockType() == Countdown && m_runtimeTime <= 0)
+        return;
+
+    setTimerRunning(!m_timerRunning);
+    if (m_timerRunning)
+        m_timer->start(100);
+    else
+        m_timer->stop();
+
+    emit currentTimeChanged(m_runtimeTime);
+}
+
+void VCClock::resetTimer()
+{
+    if (clockType() != Stopwatch && clockType() != Countdown)
+        return;
+
+    if (clockType() == Stopwatch)
+        m_runtimeTime = 0;
+    else
+        m_runtimeTime = m_targetTime;
+
+    setTimerRunning(false);
+    m_timer->stop();
+    emit currentTimeChanged(m_runtimeTime);
+}
+
+bool VCClock::timerRunning() const
+{
+    return m_timerRunning;
+}
+
+void VCClock::setTimerRunning(bool running)
+{
+    if (m_timerRunning == running)
+        return;
+
+    m_timerRunning = running;
+    emit timerRunningChanged(running);
+}
+
+void VCClock::triggerCountdownSchedules()
+{
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
+    {
+        Function *f = m_doc->function(sch->functionID());
+        if (f != nullptr)
+        {
+            f->start(m_doc->masterTimer(), functionParent());
+            qDebug() << "VC Clock starting function:" << f->name();
+        }
+    }
 }
 
 void VCClock::slotTimerTimeout()
 {
+    if (clockType() == Stopwatch || clockType() == Countdown)
+    {
+        if (m_timerRunning == false)
+            return;
+
+        if (clockType() == Stopwatch)
+        {
+            m_runtimeTime += 100;
+            emit currentTimeChanged(m_runtimeTime);
+        }
+        else
+        {
+            m_runtimeTime -= 100;
+            if (m_runtimeTime <= 0)
+            {
+                m_runtimeTime = 0;
+                setTimerRunning(false);
+                m_timer->stop();
+                if (enableSchedule())
+                    triggerCountdownSchedules();
+            }
+            emit currentTimeChanged(m_runtimeTime);
+        }
+        return;
+    }
+
     QDateTime currDate = QDateTime::currentDateTime();
     QTime currTime = currDate.time();
     int currDay = 1 << (currDate.date().dayOfWeek() - 1);
@@ -360,7 +476,12 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
 {
     if (schedule->functionID() != Function::invalidId())
         m_scheduleList.append(schedule);
-    std::sort(m_scheduleList.begin(), m_scheduleList.end());
+
+    connect(schedule, SIGNAL(weekFlagsChanged()),
+            this, SIGNAL(scheduleListChanged()));
+
+    if (clockType() == Clock)
+        sortSchedules();
     QQmlEngine::setObjectOwnership(schedule, QQmlEngine::CppOwnership);
     emit scheduleListChanged();
 }
@@ -377,9 +498,12 @@ void VCClock::addSchedules(QVariantList idsList)
         QQmlEngine::setObjectOwnership(sch, QQmlEngine::CppOwnership);
         sch->setFunctionID(funcID);
         m_scheduleList.append(sch);
+        connect(sch, SIGNAL(weekFlagsChanged()),
+                this, SIGNAL(scheduleListChanged()));
     }
 
-    std::sort(m_scheduleList.begin(), m_scheduleList.end());
+    if (clockType() == Clock)
+        sortSchedules();
     emit scheduleListChanged();
 }
 
@@ -527,9 +651,12 @@ bool VCClock::saveXML(QXmlStreamWriter *doc) const
 
 bool VCClockSchedule::operator<(const VCClockSchedule &sch) const
 {
-    if (sch.startTime() < startTime())
-        return false;
-    return true;
+    return startTime() < sch.startTime();
+}
+
+void VCClock::sortSchedules()
+{
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
 }
 
 

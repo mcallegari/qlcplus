@@ -41,16 +41,40 @@ public:
 
     virtual ~VCClockSchedule() { }
 
-    void setFunctionID(quint32 id) { m_id = id; }
+    void setFunctionID(quint32 id)
+    {
+        if (m_id == id)
+            return;
+        m_id = id;
+        emit functionIDChanged();
+    }
     quint32 functionID() const { return m_id; }
 
-    void setStartTime(int time) { m_startTime = time; }
+    void setStartTime(int time)
+    {
+        if (m_startTime == time)
+            return;
+        m_startTime = time;
+        emit startTimeChanged();
+    }
     int startTime() const { return m_startTime; }
 
-    void setStopTime(int time) { m_stopTime = time; }
+    void setStopTime(int time)
+    {
+        if (m_stopTime == time)
+            return;
+        m_stopTime = time;
+        emit stopTimeChanged();
+    }
     int stopTime() const { return m_stopTime; }
 
-    void setWeekFlags(int flags) { m_weekFlags = flags; }
+    void setWeekFlags(int flags)
+    {
+        if (m_weekFlags == flags)
+            return;
+        m_weekFlags = flags;
+        emit weekFlagsChanged();
+    }
     int weekFlags() const { return m_weekFlags; }
 
     /** Sorting operator */
@@ -152,6 +176,9 @@ public:
     /** Get/Set the target time for Countdown and Stopwatch */
     int targetTime() const;
     void setTargetTime(int ms);
+    Q_INVOKABLE void playPauseTimer();
+    Q_INVOKABLE void resetTimer();
+    bool timerRunning() const;
 
 protected slots:
     void slotTimerTimeout();
@@ -162,10 +189,18 @@ signals:
 
     /** Notify the listeners that the clock target time has changed */
     void targetTimeChanged(int ms);
+    void timerRunningChanged(bool running);
 
 private:
+    void setTimerRunning(bool running);
+    void triggerCountdownSchedules();
+    void sortSchedules();
+
     /** the target time in ms of the clock. Used by Countdown and Stopwatch */
     int m_targetTime;
+    /** Runtime time in ms used by Stopwatch and Countdown */
+    int m_runtimeTime;
+    bool m_timerRunning;
     /** The 1 second timer active when m_clocktype is Clock */
     QTimer *m_timer;
 

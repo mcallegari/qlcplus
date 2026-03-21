@@ -92,6 +92,7 @@ protected slots:
     void slotSpeedDialTimeChanged();
     void slotSpeedDialFactorChanged();
     void slotClockTimeChanged(int time);
+    void slotClockTimerRunningChanged(bool running);
     void slotGrandMasterValueChanged(uchar value);
 
 protected:

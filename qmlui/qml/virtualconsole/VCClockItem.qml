@@ -32,56 +32,37 @@ VCWidgetItem
     property var locale: Qt.locale()
     property string timeString: new Date().toLocaleString(locale, "hh:mm:ss");
     property int clockType: clockObj ? clockObj.clockType : VCClock.Clock
-
-    /** The target time from where to start a countdown or a stopwatch */
     property int targetTime: clockObj ? clockObj.targetTime : 0
-
-    /** This is the Countdown/Stopwatch time in milliseconds */
-    property int timeCounter: 0
-
-    /** The current day time in seconds, bound to the C++ timer */
-    property int currentDayTime: clockObj ? clockObj.currentTime : 0
+    /** Seconds in Clock mode, milliseconds in Stopwatch/Countdown */
+    property int clockTimeValue: clockObj ? clockObj.currentTime : 0
+    property int scheduledDaysMask: computeScheduledDaysMask()
 
     clip: true
 
     onClockObjChanged:
     {
         setCommonProperties(clockObj)
-        timeCounter = clockObj.targetTime
-        updateTime(false)
+        updateTime()
     }
 
-    onCurrentDayTimeChanged: updateTime(false)
+    onClockTimeValueChanged: updateTime()
 
-    onTargetTimeChanged:
-    {
-        if (clockTimer.running === false)
-            timeCounter = targetTime
-        updateTime(false)
-    }
+    onTargetTimeChanged: updateTime()
 
     onClockTypeChanged:
     {
-        timeCounter = clockObj.targetTime
-        clockTimer.running = false
-        updateTime(false)
+        updateTime()
     }
 
-    function updateTime(modify)
+    function updateTime()
     {
         switch(clockType)
         {
             case VCClock.Stopwatch:
-                if (modify)
-                    timeCounter += 100
-                timeString = TimeUtils.msToStringWithPrecision(timeCounter, 1)
+                timeString = TimeUtils.msToStringWithPrecision(Math.max(0, clockTimeValue), 1)
             break;
             case VCClock.Countdown:
-                if (modify)
-                    timeCounter -= 100
-                timeString = TimeUtils.msToStringWithPrecision(timeCounter, 1)
-                if (timeCounter == 0)
-                    clockTimer.running = false
+                timeString = TimeUtils.msToStringWithPrecision(Math.max(0, clockTimeValue), 1)
             break;
             case VCClock.Clock:
                 timeString = new Date().toLocaleString(locale, "hh:mm:ss");
@@ -89,57 +70,116 @@ VCWidgetItem
         }
     }
 
+    function computeScheduledDaysMask()
+    {
+        if (!clockObj || clockType !== VCClock.Clock || !clockObj.scheduleList)
+            return 0
+
+        var mask = 0
+        for (var i = 0; i < clockObj.scheduleList.length; i++)
+        {
+            var sch = clockObj.scheduleList[i]
+            if (!sch)
+                continue
+
+            var flags = sch.weekFlags & 0x7F
+            // Do not display day initials for "all days" schedules.
+            if (flags !== 0 && flags !== 0x7F)
+                mask |= flags
+        }
+
+        return mask
+    }
+
+    function isDayScheduled(index)
+    {
+        return (scheduledDaysMask & (1 << index)) !== 0
+    }
+
     Row
     {
         anchors.fill: parent
 
-        Text
+        Column
         {
             width: parent.width - enableChk.width
             height: clockRoot.height
-            font: clockObj ? clockObj.font : Qt.font({ family: UISettings.robotoFontName })
-            text: timeString
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.Wrap
-            lineHeight: 0.8
-            color: clockObj ? clockObj.foregroundColor : "#111"
+            spacing: 0
 
-            MouseArea
+            Text
             {
-                anchors.fill: parent
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
-                onClicked: (mouse) =>
-                {
-                    if (clockType == VCClock.Stopwatch || clockType == VCClock.Countdown)
-                    {
-                        if (mouse.button === Qt.LeftButton)
-                        {
-                            if (clockType === VCClock.Countdown && timeCounter <= 0)
-                                return;
+                width: parent.width
+                height: parent.height - (daysRow.visible ? daysRow.height : 0)
+                font: clockObj ? clockObj.font : Qt.font({ family: UISettings.robotoFontName })
+                text: timeString
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
+                lineHeight: 0.8
+                color: clockObj ? clockObj.foregroundColor : "#111"
 
-                            clockTimer.running = !clockTimer.running
-                            return;
-                        }
-                        else
+                MouseArea
+                {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    onClicked: (mouse) =>
+                    {
+                        if (clockType == VCClock.Stopwatch || clockType == VCClock.Countdown)
                         {
-                            if (clockType == VCClock.Stopwatch)
-                                timeCounter = 0
+                            if (mouse.button === Qt.LeftButton)
+                            {
+                                if (clockType === VCClock.Countdown && clockTimeValue <= 0)
+                                    return
+
+                                if (clockObj)
+                                    clockObj.playPauseTimer()
+                                return
+                            }
                             else
-                                timeCounter = clockObj.targetTime
-                            updateTime(false)
+                            {
+                                if (clockObj)
+                                    clockObj.resetTimer()
+                            }
                         }
                     }
                 }
             }
 
-            Timer
+            Row
             {
-                id: clockTimer
-                running: false
-                interval: 100
-                repeat: true
-                onTriggered: updateTime(true)
+                id: daysRow
+                visible: clockType === VCClock.Clock && scheduledDaysMask !== 0
+                width: parent.width
+                height: Math.min(UISettings.listItemHeight * 0.65, parent.height * 0.35)
+                spacing: 2
+
+                Repeater
+                {
+                    model:
+                    [
+                        qsTr("M", "As in Monday"),
+                        qsTr("T", "As in Tuesday"),
+                        qsTr("W", "As in Wednesday"),
+                        qsTr("T", "As in Thursday"),
+                        qsTr("F", "As in Friday"),
+                        qsTr("S", "As in Saturday"),
+                        qsTr("S", "As in Sunday")
+                    ]
+
+                    Text
+                    {
+                        width: Math.floor((daysRow.width - (daysRow.spacing * 6)) / 7)
+                        height: daysRow.height
+                        text: modelData
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: UISettings.robotoFontName
+                        font.pixelSize: Math.max(8, Math.round(daysRow.height * 0.75))
+                        font.bold: clockRoot.isDayScheduled(index)
+                        color: clockRoot.isDayScheduled(index) ? UISettings.highlight : (clockObj ? clockObj.foregroundColor : "#111")
+                        opacity: clockRoot.isDayScheduled(index) ? 1.0 : 0.45
+                    }
+                }
             }
         }
 
