@@ -254,6 +254,7 @@ bool InputProfileEditor::removeChannel(int channelNumber)
 
     if (m_profile->removeChannel(channelNumber))
     {
+        setModified();
         emit channelsChanged();
         return true;
     }
