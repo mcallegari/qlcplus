@@ -288,13 +288,30 @@ VCWidgetItem
 
                 function toggleVisibility()
                 {
+                    if (!item)
+                        return
+
                     item.visible = !item.visible
+                    if (!item.visible)
+                        return
+
                     if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
                         item.updatePresets(sliderObj.clickAndGoPresetsList)
+
                     item.parent = virtualConsole.currentPageItem()
-                    var posInPage = clickAndGoButton.mapToItem(item.parent, 0, clickAndGoButton.height)
-                    item.x = posInPage.x
-                    item.y = posInPage.y
+                    var pageItem = item.parent
+                    if (!pageItem)
+                        return
+
+                    var posInPage = clickAndGoButton.mapToItem(pageItem, 0, clickAndGoButton.height)
+                    var toolWidth = Math.max(item.width, item.implicitWidth)
+                    var toolHeight = Math.max(item.height, item.implicitHeight)
+                    var belowY = posInPage.y
+                    var aboveY = posInPage.y - clickAndGoButton.height - toolHeight
+                    var preferredY = (belowY + toolHeight <= pageItem.height) ? belowY : aboveY
+
+                    item.x = Math.max(0, Math.min(posInPage.x, pageItem.width - toolWidth))
+                    item.y = Math.max(0, Math.min(preferredY, pageItem.height - toolHeight))
                 }
 
                 onLoaded:
