@@ -343,21 +343,6 @@ void WebAccessQml::handleProjectLoad(const QByteArray &projectXml)
     emit loadProject(projectXml);
 }
 
-bool WebAccessQml::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
-{
-    QString fxPath = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(fxName);
-    QFile fxFile(fxPath);
-    if (fxFile.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        fxFile.write(fixtureXML);
-        fxFile.close();
-        return true;
-    }
-
-    qWarning() << Q_FUNC_INFO << "Unable to save file" << fxPath;
-    return false;
-}
-
 void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 {
     if (conn == nullptr)

@@ -98,7 +98,6 @@ protected:
     void sendMatrixState(const VCAnimation *animation) const;
     void handleAutostartProject(const QString &path) override;
     void handleProjectLoad(const QByteArray &projectXml) override;
-    bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) override;
 
     QByteArray getVCJson();
     QJsonObject baseWidgetToJson(const VCWidget *widget);

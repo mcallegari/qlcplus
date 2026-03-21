@@ -269,13 +269,6 @@ int QHttpConnection::HeadersComplete(http_parser *parser)
     theConnection->m_request->m_remoteAddress = theConnection->m_socket->peerAddress().toString();
     theConnection->m_request->m_remotePort = theConnection->m_socket->peerPort();
 
-    QHttpResponse *response = new QHttpResponse(theConnection);
-    if (parser->http_major < 1 || parser->http_minor < 1)
-        response->m_keepAlive = false;
-
-    connect(theConnection, SIGNAL(destroyed()), response, SLOT(connectionClosed()));
-    connect(response, SIGNAL(done()), theConnection, SLOT(responseDone()));
-
     if (theConnection->m_request->method() == QHttpRequest::HTTP_POST)
     {
         // on a POST, do not emit the newRequest signal until the transfer has
@@ -284,6 +277,13 @@ int QHttpConnection::HeadersComplete(http_parser *parser)
     }
     else
     {
+        QHttpResponse *response = new QHttpResponse(theConnection);
+        if (parser->http_major < 1 || parser->http_minor < 1)
+            response->m_keepAlive = false;
+
+        connect(theConnection, SIGNAL(destroyed()), response, SLOT(connectionClosed()));
+        connect(response, SIGNAL(done()), theConnection, SLOT(responseDone()));
+
         // we are good to go!
         Q_EMIT theConnection->newRequest(theConnection->m_request, response);
     }
@@ -303,6 +303,12 @@ int QHttpConnection::MessageComplete(http_parser *parser)
     {
         theConnection->m_postPending = false;
         QHttpResponse *response = new QHttpResponse(theConnection);
+        if (parser->http_major < 1 || parser->http_minor < 1)
+            response->m_keepAlive = false;
+
+        connect(theConnection, SIGNAL(destroyed()), response, SLOT(connectionClosed()));
+        connect(response, SIGNAL(done()), theConnection, SLOT(responseDone()));
+
         Q_EMIT theConnection->newRequest(theConnection->m_request, response);
     }
     return 0;

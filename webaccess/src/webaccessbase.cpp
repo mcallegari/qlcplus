@@ -20,8 +20,10 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QHostAddress>
 #include <QProcess>
+#include <QRegularExpression>
 #include <QSettings>
 
 #include "webaccessbase.h"
@@ -43,6 +45,91 @@
 
 #define DEFAULT_PORT_NUMBER    9999
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
+
+namespace
+{
+QString sanitizeUploadedFileName(const QString &rawName)
+{
+    QString normalizedName = rawName;
+    normalizedName.replace('\\', '/');
+    return QFileInfo(normalizedName).fileName();
+}
+
+bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, QString *fileName = nullptr)
+{
+    payload.clear();
+    if (fileName != nullptr)
+        fileName->clear();
+
+    if (req == nullptr)
+        return false;
+
+    const QByteArray body = req->body();
+    if (body.isEmpty())
+        return false;
+
+    const QString contentType = req->header("content-type");
+    const bool isMultipart = contentType.contains("multipart/form-data", Qt::CaseInsensitive);
+    const int boundaryPos = contentType.indexOf("boundary=", 0, Qt::CaseInsensitive);
+
+    // Allow plain payloads too (used by programmatic uploads).
+    if (isMultipart == false || boundaryPos < 0)
+    {
+        payload = body;
+        return true;
+    }
+
+    QString boundary = contentType.mid(boundaryPos + 9).trimmed();
+    const int semicolonPos = boundary.indexOf(';');
+    if (semicolonPos >= 0)
+        boundary.truncate(semicolonPos);
+    if (boundary.startsWith('"') && boundary.endsWith('"') && boundary.size() > 1)
+        boundary = boundary.mid(1, boundary.size() - 2);
+    if (boundary.isEmpty())
+        return false;
+
+    const QByteArray boundaryMarker = QByteArray("--") + boundary.toUtf8();
+
+    int partStart = body.indexOf(boundaryMarker);
+    if (partStart < 0)
+        return false;
+    partStart += boundaryMarker.size();
+
+    if (body.mid(partStart, 2) == "\r\n")
+        partStart += 2;
+    else if (body.mid(partStart, 1) == "\n")
+        partStart += 1;
+
+    int headersEnd = body.indexOf("\r\n\r\n", partStart);
+    int payloadSeparatorSize = 4;
+    if (headersEnd < 0)
+    {
+        headersEnd = body.indexOf("\n\n", partStart);
+        payloadSeparatorSize = 2;
+    }
+    if (headersEnd < 0)
+        return false;
+
+    const QByteArray partHeaders = body.mid(partStart, headersEnd - partStart);
+    if (fileName != nullptr)
+    {
+        QRegularExpression re("filename=\"([^\"]*)\"");
+        QRegularExpressionMatch match = re.match(QString::fromUtf8(partHeaders));
+        if (match.hasMatch())
+            *fileName = sanitizeUploadedFileName(match.captured(1));
+    }
+
+    const int payloadStart = headersEnd + payloadSeparatorSize;
+    int payloadEnd = body.indexOf(QByteArray("\r\n") + boundaryMarker, payloadStart);
+    if (payloadEnd < 0)
+        payloadEnd = body.indexOf(QByteArray("\n") + boundaryMarker, payloadStart);
+    if (payloadEnd < 0)
+        return false;
+
+    payload = body.mid(payloadStart, payloadEnd - payloadStart);
+    return true;
+}
+}
 
 WebAccessBase::WebAccessBase(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
                              int portNumber, bool enableAuth, const QString &passwdFile,
@@ -203,12 +290,10 @@ bool WebAccessBase::acceptWebSocket(QHttpResponse *resp, const WebAccessUser &us
 
 QByteArray WebAccessBase::extractProjectXml(const QHttpRequest *req) const
 {
-    if (req == nullptr)
+    QByteArray projectXML;
+    if (!extractMultipartFilePayload(req, projectXML))
         return QByteArray();
 
-    QByteArray projectXML = req->body();
-    projectXML.remove(0, projectXML.indexOf("\n\r\n") + 3);
-    projectXML.truncate(projectXML.lastIndexOf("\n\r\n"));
     return projectXML;
 }
 
@@ -302,15 +387,41 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
             return CommonRequestResult::Handled;
         if (req == nullptr)
             return CommonRequestResult::NotHandled;
-        QByteArray fixtureXML = req->body();
-        int fnamePos = fixtureXML.indexOf("filename=") + 10;
-        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
 
-        fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
-        fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
+        QByteArray fixtureXML;
+        QString fxName;
+        if (!extractMultipartFilePayload(req, fixtureXML, &fxName) || fxName.isEmpty())
+        {
+            qWarning() << Q_FUNC_INFO << "Invalid fixture upload payload";
+            QByteArray postReply =
+                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+                            "<script>\n"
+                            " alert(\"" + tr("Invalid fixture upload payload") + "\");"
+                            " window.location = \"/config\"\n"
+                            "</script></head></html>").toUtf8();
+
+            resp->setHeader("Content-Type", "text/html");
+            resp->setHeader("Content-Length", QString::number(postReply.size()));
+            resp->writeHead(400);
+            resp->end(postReply);
+            return CommonRequestResult::Handled;
+        }
 
         if (!storeFixtureDefinition(fxName, fixtureXML))
+        {
+            QByteArray postReply =
+                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+                            "<script>\n"
+                            " alert(\"" + tr("Unable to store fixture definition") + "\");"
+                            " window.location = \"/config\"\n"
+                            "</script></head></html>").toUtf8();
+
+            resp->setHeader("Content-Type", "text/html");
+            resp->setHeader("Content-Length", QString::number(postReply.size()));
+            resp->writeHead(500);
+            resp->end(postReply);
             return CommonRequestResult::Handled;
+        }
 
         QByteArray postReply =
                 QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
@@ -637,4 +748,15 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
 void WebAccessBase::handleAutostartProject(const QString &path)
 {
     Q_UNUSED(path)
+}
+
+bool WebAccessBase::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
+{
+    if (m_doc == nullptr || fxName.isEmpty())
+        return false;
+
+    bool ok = m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString::fromUtf8(fixtureXML));
+    if (ok == false)
+        qWarning() << Q_FUNC_INFO << "Unable to store fixture definition" << fxName;
+    return ok;
 }

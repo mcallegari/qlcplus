@@ -90,15 +90,6 @@ void WebAccess::handleProjectLoad(const QByteArray &projectXml)
     emit loadProject(QString(projectXml).toUtf8());
 }
 
-bool WebAccess::storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML)
-{
-    qDebug() << "Fixture name:" << fxName;
-    qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
-
-    m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString(fixtureXML).toUtf8());
-    return true;
-}
-
 void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 {
     if (conn == NULL)

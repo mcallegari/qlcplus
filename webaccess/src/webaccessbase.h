@@ -79,7 +79,7 @@ protected:
                                                 QString &content);
     virtual void handleAutostartProject(const QString &path);
     virtual void handleProjectLoad(const QByteArray &projectXml) = 0;
-    virtual bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML) = 0;
+    virtual bool storeFixtureDefinition(const QString &fxName, const QByteArray &fixtureXML);
 
 protected slots:
     virtual void slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp) = 0;
