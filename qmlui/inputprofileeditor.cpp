@@ -349,4 +349,5 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel
             }
         }
     }
+    setModified();
 }
