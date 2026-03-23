@@ -272,7 +272,7 @@ void VCButton::slotFunctionRunning(quint32 fid)
     {
         if (state() == Inactive)
             setState(Monitoring);
-        //emit functionStarting(this, m_functionID);
+        emit functionStarting(this, m_functionID);
     }
 }
 
