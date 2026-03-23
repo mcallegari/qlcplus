@@ -318,6 +318,14 @@ function splitMilliseconds(value) {
   return { hours, minutes, seconds, ms };
 }
 
+function parseSpinTextValue(rawValue, max) {
+  const txt = String(rawValue ?? "");
+  const match = txt.match(/-?\d+/);
+  const num = match ? parseInt(match[0], 10) : 0;
+  const val = Number.isFinite(num) ? num : 0;
+  return Math.max(0, Math.min(max, val));
+}
+
 function applyFont(el, font) {
   if (!font) return;
   if (font.family) el.style.fontFamily = font.family;
@@ -364,7 +372,7 @@ function lightenColor(hex, factor) {
 function renderButton(widget) {
   const btn = applyWidgetBase(document.createElement("div"), widget);
   btn.classList.add("vc-button");
-  btn.textContent = widget.caption || "Button";
+  btn.textContent = widget.caption ?? "";
   btn.dataset.action = widget.actionType ?? 0;
   const bg = widget.bgColor || "#3a3a3a";
   const bgLight = lightenColor(bg, 1.3);
@@ -517,13 +525,50 @@ function renderSlider(widget) {
     input.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
     input.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
 
-    input.addEventListener("input", () => {
-      const val = parseInt(input.value, 10);
-      valueLabel.textContent = sliderDisplayValue(widget, val);
-      const fill = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
+    const applyRangeValue = (rawValue, send) => {
+      const currentVal = parseInt(input.value, 10);
+      const parsed = parseInt(rawValue, 10);
+      const nextVal = Number.isNaN(parsed) ? currentVal : Math.max(minVal, Math.min(maxVal, parsed));
+      input.value = nextVal;
+      valueLabel.textContent = sliderDisplayValue(widget, nextVal);
+      const fill = maxVal > minVal ? ((nextVal - minVal) / (maxVal - minVal)) * 100 : 0;
       input.style.setProperty("--slider-fill", `${fill}%`);
-      sendWidgetValue(widget.id, val);
+      if (send && nextVal !== currentVal)
+        sendWidgetValue(widget.id, nextVal);
+      return nextVal;
+    };
+
+    input.addEventListener("input", () => {
+      applyRangeValue(input.value, true);
     });
+
+    const onRangeWheel = (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const dir = ev.deltaY < 0 ? 1 : -1;
+      const curr = parseInt(input.value, 10);
+      applyRangeValue((Number.isNaN(curr) ? minVal : curr) + dir, true);
+    };
+
+    // Always consume wheel over slider widget to avoid page scrolling,
+    // especially when already at min/max value.
+    input.addEventListener("wheel", onRangeWheel, { passive: false });
+    trackWrap.addEventListener(
+      "wheel",
+      (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      { passive: false }
+    );
+    root.addEventListener(
+      "wheel",
+      (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      { passive: false }
+    );
 
     trackWrap.appendChild(input);
   } else {
@@ -599,9 +644,10 @@ function renderSlider(widget) {
     });
     dialKnob.addEventListener("wheel", (ev) => {
       ev.preventDefault();
+      ev.stopPropagation();
       const dir = ev.deltaY < 0 ? 1 : -1;
       setKnobValue(knobState.value + dir, true);
-    });
+    }, { passive: false });
 
     setKnobValue(knobState.value, false);
   }
@@ -1341,6 +1387,7 @@ function renderSpeed(widget) {
     dial: null,
     beatButtons: {},
     timeInputs: {},
+    timeSpins: {},
     multiplierLabel: null,
     presets: [],
     tap: null,
@@ -1611,17 +1658,119 @@ function renderSpeed(widget) {
     timeRow.style.gridColumn = `1 / span ${columns}`;
     timeRow.style.gridRow = `${timeRowIndex}`;
 
+    const commitTime = () => {
+      Object.values(speedState.timeSpins).forEach((spin) => {
+        spin.syncFromInput(spin.editing ? false : true);
+      });
+
+      const h = speedState.timeSpins.hours?.value ?? 0;
+      const m = speedState.timeSpins.minutes?.value ?? 0;
+      const s = speedState.timeSpins.seconds?.value ?? 0;
+      const ms = speedState.timeSpins.ms?.value ?? 0;
+      const total = Math.max(0, h * 3600000 + m * 60000 + s * 1000 + ms);
+      widget.currentTime = total;
+      updateSpeedState(widget.id, total, widget.currentFactor ?? 0);
+      sendWidgetCommand(widget.id, "SPEED_TIME", total);
+    };
+
     const makeSpin = (key, suffix, max) => {
       const wrap = document.createElement("div");
       wrap.className = "speed-spin";
+
       const input = document.createElement("input");
-      input.type = "number";
-      input.min = "0";
-      input.max = String(max);
-      input.step = "1";
-      const label = document.createElement("span");
-      label.textContent = suffix;
-      wrap.append(input, label);
+      input.className = "speed-spin-input";
+      input.type = "text";
+      input.inputMode = "numeric";
+      input.autocomplete = "off";
+      input.spellcheck = false;
+
+      const controls = document.createElement("div");
+      controls.className = "speed-spin-controls";
+      const upBtn = document.createElement("button");
+      upBtn.type = "button";
+      upBtn.className = "speed-spin-btn speed-spin-up";
+      upBtn.innerHTML = "&#9650;";
+      const downBtn = document.createElement("button");
+      downBtn.type = "button";
+      downBtn.className = "speed-spin-btn speed-spin-down";
+      downBtn.innerHTML = "&#9660;";
+      controls.append(upBtn, downBtn);
+      wrap.append(input, controls);
+
+      const spin = {
+        key,
+        suffix,
+        max,
+        input,
+        value: 0,
+        editing: false,
+        setValue(rawValue, showSuffix = true) {
+          this.value = parseSpinTextValue(rawValue, this.max);
+          this.input.value = showSuffix ? `${this.value}${this.suffix}` : `${this.value}`;
+        },
+        syncFromInput(showSuffix = true) {
+          this.setValue(this.input.value, showSuffix);
+          return this.value;
+        },
+        step(delta) {
+          this.syncFromInput(false);
+          this.setValue(this.value + delta, true);
+          commitTime();
+        },
+      };
+
+      const onWheel = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        spin.step(ev.deltaY < 0 ? 1 : -1);
+      };
+
+      wrap.addEventListener("wheel", onWheel, { passive: false });
+      input.addEventListener("wheel", onWheel, { passive: false });
+      upBtn.addEventListener("wheel", onWheel, { passive: false });
+      downBtn.addEventListener("wheel", onWheel, { passive: false });
+
+      upBtn.addEventListener("click", () => spin.step(1));
+      downBtn.addEventListener("click", () => spin.step(-1));
+
+      input.addEventListener("focus", () => {
+        spin.editing = true;
+        spin.syncFromInput(false);
+        input.select();
+      });
+
+      input.addEventListener("blur", () => {
+        spin.editing = false;
+        spin.syncFromInput(true);
+        commitTime();
+      });
+
+      input.addEventListener("input", () => {
+        if (!spin.editing) return;
+        const parsed = parseSpinTextValue(input.value, max);
+        spin.value = parsed;
+        input.value = String(parsed);
+      });
+
+      input.addEventListener("keydown", (ev) => {
+        if (ev.key === "ArrowUp") {
+          ev.preventDefault();
+          spin.step(1);
+        } else if (ev.key === "ArrowDown") {
+          ev.preventDefault();
+          spin.step(-1);
+        } else if (ev.key === "Enter") {
+          ev.preventDefault();
+          input.blur();
+        } else if (ev.key === "Escape") {
+          ev.preventDefault();
+          spin.setValue(spin.value, true);
+          input.blur();
+        }
+      });
+
+      spin.setValue(0, true);
+      speedState.timeSpins[key] = spin;
       speedState.timeInputs[key] = input;
       return wrap;
     };
@@ -1630,22 +1779,6 @@ function renderSpeed(widget) {
     if (mask & SPEED_VIS.Minutes) timeRow.appendChild(makeSpin("minutes", "m", 59));
     if (mask & SPEED_VIS.Seconds) timeRow.appendChild(makeSpin("seconds", "s", 59));
     if (mask & SPEED_VIS.Milliseconds) timeRow.appendChild(makeSpin("ms", "ms", 999));
-
-    const commitTime = () => {
-      const h = parseInt(speedState.timeInputs.hours?.value || "0", 10);
-      const m = parseInt(speedState.timeInputs.minutes?.value || "0", 10);
-      const s = parseInt(speedState.timeInputs.seconds?.value || "0", 10);
-      const ms = parseInt(speedState.timeInputs.ms?.value || "0", 10);
-      const total = Math.max(0, h * 3600000 + m * 60000 + s * 1000 + ms);
-      widget.currentTime = total;
-      updateSpeedState(widget.id, total, widget.currentFactor ?? 0);
-      sendWidgetCommand(widget.id, "SPEED_TIME", total);
-    };
-
-    Object.values(speedState.timeInputs).forEach((input) => {
-      input.addEventListener("change", commitTime);
-      input.addEventListener("input", commitTime);
-    });
 
     grid.appendChild(timeRow);
   }
@@ -2444,7 +2577,13 @@ function updateSpeedState(id, time, factor) {
   widget.data.currentTime = parseInt(time, 10) || 0;
   widget.data.currentFactor = parseInt(factor, 10) || 0;
 
-  if (widget.timeInputs) {
+  if (widget.timeSpins && Object.keys(widget.timeSpins).length > 0) {
+    const parts = splitMilliseconds(widget.data.currentTime);
+    if (widget.timeSpins.hours) widget.timeSpins.hours.setValue(parts.hours, !widget.timeSpins.hours.editing);
+    if (widget.timeSpins.minutes) widget.timeSpins.minutes.setValue(parts.minutes, !widget.timeSpins.minutes.editing);
+    if (widget.timeSpins.seconds) widget.timeSpins.seconds.setValue(parts.seconds, !widget.timeSpins.seconds.editing);
+    if (widget.timeSpins.ms) widget.timeSpins.ms.setValue(parts.ms, !widget.timeSpins.ms.editing);
+  } else if (widget.timeInputs) {
     const parts = splitMilliseconds(widget.data.currentTime);
     if (widget.timeInputs.hours) widget.timeInputs.hours.value = parts.hours;
     if (widget.timeInputs.minutes) widget.timeInputs.minutes.value = parts.minutes;

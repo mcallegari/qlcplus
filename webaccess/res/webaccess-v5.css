@@ -1570,27 +1570,57 @@ body {
 .speed-spin {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: var(--bg-control);
   border: 2px solid var(--bg-strong);
-  padding: 0 4px;
+  padding: 0;
   height: 100%;
+  overflow: hidden;
 }
 
-.speed-spin input {
-  flex: 1;
+.speed-spin-input,
+.speed-spin input[type="text"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
   background: transparent;
   border: 0;
   color: var(--fg-main);
   text-align: right;
   outline: none;
-  padding: 0 4px 0 0;
+  padding: 0 0.35em;
   font-size: calc(var(--text-size-default) * 0.9);
 }
 
-.speed-spin span {
-  color: var(--fg-light);
-  font-size: calc(var(--text-size-default) * 0.85);
+.speed-spin-controls {
+  flex: 0 0 calc(var(--list-item-height) * 0.65);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--bg-stronger);
+}
+
+.speed-spin-btn {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--bg-light);
+  color: var(--fg-main);
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  flex: 1;
+}
+
+.speed-spin-btn + .speed-spin-btn {
+  border-top: 1px solid var(--bg-stronger);
+}
+
+.speed-spin-btn:hover {
+  background: var(--highlight);
+}
+
+.speed-spin-btn:active {
+  background: var(--highlight-pressed);
 }
 
 .speed-multi-row {
