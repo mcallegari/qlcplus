@@ -22,6 +22,8 @@
 #include <QSettings>
 
 #include "qlcfixturedef.h"
+#include "qlcfixturemode.h"
+#include "fixture.h"
 #include "doc.h"
 
 #include "avolitesd4parser.h"
@@ -188,7 +190,13 @@ void FixtureEditor::deleteEditor(int id)
     // reload fixture definition from disk
     QLCFixtureDef *def = editor->fixtureDefinition();
     if (def != nullptr)
-        m_doc->fixtureDefCache()->reloadFixtureDef(def);
+    {
+        QString manufacturer = def->manufacturer();
+        QString model = def->model();
+        QMap<quint32, QString> fixturesToModeNames = collectFixturesForDefinition(manufacturer, model);
+        if (m_doc->fixtureDefCache()->reloadFixtureDef(def))
+            applyDefinitionToFixtures(manufacturer, model, fixturesToModeNames);
+    }
 
     delete editor;
     emit editorsListChanged();
@@ -196,5 +204,57 @@ void FixtureEditor::deleteEditor(int id)
 
 void FixtureEditor::slotReloadFixture(QLCFixtureDef *def)
 {
-    m_doc->fixtureDefCache()->reloadOrAddFixtureDef(def);
+    if (def == nullptr)
+        return;
+
+    QString manufacturer = def->manufacturer();
+    QString model = def->model();
+    QMap<quint32, QString> fixturesToModeNames = collectFixturesForDefinition(manufacturer, model);
+    if (m_doc->fixtureDefCache()->reloadOrAddFixtureDef(def))
+        applyDefinitionToFixtures(manufacturer, model, fixturesToModeNames);
+}
+
+QMap<quint32, QString> FixtureEditor::collectFixturesForDefinition(const QString &manufacturer, const QString &model) const
+{
+    QMap<quint32, QString> fixturesToModeNames;
+
+    for (Fixture *fixture : m_doc->fixtures())
+    {
+        if (fixture == nullptr || fixture->fixtureDef() == nullptr || fixture->fixtureMode() == nullptr)
+            continue;
+
+        if (fixture->fixtureDef()->manufacturer() == manufacturer &&
+            fixture->fixtureDef()->model() == model)
+        {
+            fixturesToModeNames.insert(fixture->id(), fixture->fixtureMode()->name());
+        }
+    }
+
+    return fixturesToModeNames;
+}
+
+void FixtureEditor::applyDefinitionToFixtures(const QString &manufacturer, const QString &model,
+                                              const QMap<quint32, QString> &fixturesToModeNames)
+{
+    QLCFixtureDef *fixtureDef = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+    if (fixtureDef == nullptr)
+        return;
+
+    for (auto it = fixturesToModeNames.constBegin(); it != fixturesToModeNames.constEnd(); ++it)
+    {
+        Fixture *fixture = m_doc->fixture(it.key());
+        if (fixture == nullptr)
+            continue;
+
+        QLCFixtureMode *mode = fixtureDef->mode(it.value());
+        if (mode == nullptr)
+        {
+            QList<QLCFixtureMode*> modes = fixtureDef->modes();
+            if (modes.isEmpty() == false)
+                mode = modes.first();
+        }
+
+        if (mode != nullptr)
+            fixture->setFixtureDefinition(fixtureDef, mode);
+    }
 }

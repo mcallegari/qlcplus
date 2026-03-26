@@ -148,8 +148,14 @@ void MainViewDMX::updateFixture(Fixture *fixture)
     QByteArray fxValues = fixture->channelValues();
     QVariantList dmxValues;
 
-    for (int i = 0; i < (int)fixture->channels(); i++)
-        dmxValues.append(QString::number((uchar)fxValues.at(i)));
+    int channelsCount = (int)fixture->channels();
+    int valuesCount = fxValues.size();
+
+    for (int i = 0; i < channelsCount; i++)
+    {
+        uchar value = i < valuesCount ? (uchar)fxValues.at(i) : 0;
+        dmxValues.append(QString::number(value));
+    }
 
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
     fxItem->setProperty("values", QVariant::fromValue(dmxValues));
@@ -236,4 +242,3 @@ void MainViewDMX::slotAliasChanged()
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
     QMetaObject::invokeMethod(fxItem, "updateChannels");
 }
-

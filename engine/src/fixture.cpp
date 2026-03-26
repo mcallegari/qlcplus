@@ -658,6 +658,8 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
         int i, chNum;
+        QByteArray prevValues;
+        QByteArray newValues;
 
         if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef &&
             m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
@@ -669,6 +671,13 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         m_fixtureDef = fixtureDef;
         m_fixtureMode = fixtureMode;
         chNum = fixtureMode->channels().size();
+        newValues.reserve(chNum);
+
+        {
+            QMutexLocker locker(&m_channelsInfoMutex);
+            prevValues = m_values;
+            m_values.clear();
+        }
 
         // If there are no head entries in the mode, create one that contains
         // all channels. This const_cast is a bit heretic, but it's easier this
@@ -689,8 +698,11 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
             QLCChannel *channel = fixtureMode->channel(i);
             const QList <QLCCapability*> capsList = channel->capabilities();
 
-            // initialize values with the channel default
-            m_values.append(channel->defaultValue());
+            // initialize values with previous values if possible, otherwise defaults
+            uchar value = channel->defaultValue();
+            if (i < prevValues.size())
+                value = (uchar)prevValues.at(i);
+            newValues.append(value);
 
             // look for aliases
             m_aliasInfo[i].m_hasAlias = false;
@@ -703,6 +715,11 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
             }
         }
 
+        {
+            QMutexLocker locker(&m_channelsInfoMutex);
+            m_values = newValues;
+        }
+
         // Cache all head channels
         fixtureMode->cacheHeads();
     }
@@ -710,6 +727,10 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
     {
         m_fixtureDef = NULL;
         m_fixtureMode = NULL;
+        m_aliasInfo.clear();
+
+        QMutexLocker locker(&m_channelsInfoMutex);
+        m_values.clear();
     }
 
     emit changed(m_id);
