@@ -39,6 +39,7 @@
 QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
     : QObject(parent)
     , m_id(QLCPalette::invalidId())
+    , m_isTemporary(true)
     , m_type(type)
     , m_fanningType(Flat)
     , m_fanningLayout(XAscending)
@@ -81,6 +82,20 @@ void QLCPalette::setID(quint32 id)
 quint32 QLCPalette::invalidId()
 {
     return UINT_MAX;
+}
+
+bool QLCPalette::isTemporary() const
+{
+    return m_isTemporary;
+}
+
+void QLCPalette::setTemporary(bool temporary)
+{
+    if (m_isTemporary == temporary)
+        return;
+
+    m_isTemporary = temporary;
+    emit temporaryChanged();
 }
 
 QLCPalette::PaletteType QLCPalette::type() const

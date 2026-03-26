@@ -46,6 +46,7 @@ class QLCPalette final : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(bool isTemporary READ isTemporary WRITE setTemporary NOTIFY temporaryChanged)
     Q_PROPERTY(int type READ type CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int intValue1 READ intValue1 CONSTANT)
@@ -100,6 +101,10 @@ public:
     /** Get an invalid palette id */
     static quint32 invalidId();
 
+    /** Get/Set temporary state of a palette */
+    bool isTemporary() const;
+    void setTemporary(bool temporary);
+
     /** Get the palette type */
     PaletteType type() const;
 
@@ -142,9 +147,11 @@ protected:
 
 signals:
     void nameChanged();
+    void temporaryChanged();
 
 private:
     quint32 m_id;
+    bool m_isTemporary;
     PaletteType m_type;
     QString m_name;
     QVariantList m_values;

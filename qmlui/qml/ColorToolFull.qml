@@ -37,6 +37,7 @@ Rectangle
     property int colorsMask: 0
     property color currentRGB
     property color currentWAUV
+    property bool showPaletteWAUV: currentWAUV.r > 0 || currentWAUV.g > 0 || currentWAUV.b > 0
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
 
@@ -220,7 +221,7 @@ Rectangle
 
         RobotoText
         {
-            visible: colorsMask & App.White
+            visible: (colorsMask & App.White) || showPaletteWAUV
             height: UISettings.listItemHeight
             label: qsTr("White")
         }
@@ -228,10 +229,12 @@ Rectangle
         CustomSlider
         {
             id: wSlider
-            visible: colorsMask & App.White
+            visible: (colorsMask & App.White) || showPaletteWAUV
             Layout.fillWidth: true
             from: 0
             to: 255
+            stepSize: 1
+            wheelEnabled: true
             value: currentWAUV.r * 255
             onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                   valueAt(position) / 255, currentWAUV.g, currentWAUV.b)
@@ -240,7 +243,7 @@ Rectangle
         CustomSpinBox
         {
             id: wSpin
-            visible: colorsMask & App.White
+            visible: (colorsMask & App.White) || showPaletteWAUV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
@@ -252,7 +255,7 @@ Rectangle
 
         RobotoText
         {
-            visible: colorsMask & App.Amber
+            visible: (colorsMask & App.Amber) || showPaletteWAUV
             height: UISettings.listItemHeight
             label: qsTr("Amber")
         }
@@ -260,10 +263,12 @@ Rectangle
         CustomSlider
         {
             id: aSlider
-            visible: colorsMask & App.Amber
+            visible: (colorsMask & App.Amber) || showPaletteWAUV
             Layout.fillWidth: true
             from: 0
             to: 255
+            stepSize: 1
+            wheelEnabled: true
             value: currentWAUV.g * 255
             onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                   currentWAUV.r, valueAt(position) / 255, currentWAUV.b)
@@ -272,7 +277,7 @@ Rectangle
         CustomSpinBox
         {
             id: aSpin
-            visible: colorsMask & App.Amber
+            visible: (colorsMask & App.Amber) || showPaletteWAUV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
@@ -284,7 +289,7 @@ Rectangle
 
         RobotoText
         {
-            visible: colorsMask & App.UV
+            visible: (colorsMask & App.UV) || showPaletteWAUV
             height: UISettings.listItemHeight
             label: qsTr("UV")
         }
@@ -292,10 +297,12 @@ Rectangle
         CustomSlider
         {
             id: uvSlider
-            visible: colorsMask & App.UV
+            visible: (colorsMask & App.UV) || showPaletteWAUV
             Layout.fillWidth: true
             from: 0
             to: 255
+            stepSize: 1
+            wheelEnabled: true
             value: currentWAUV.b * 255
             onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
                                   currentWAUV.r, currentWAUV.g, valueAt(position) / 255)
@@ -304,7 +311,7 @@ Rectangle
         CustomSpinBox
         {
             id: uvSpin
-            visible: colorsMask & App.UV
+            visible: (colorsMask & App.UV) || showPaletteWAUV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0

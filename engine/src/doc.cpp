@@ -949,6 +949,7 @@ bool Doc::addPalette(QLCPalette *palette, quint32 id)
     else
     {
         palette->setID(id);
+        palette->setTemporary(false);
         m_palettes[id] = palette;
 
         emit paletteAdded(id);

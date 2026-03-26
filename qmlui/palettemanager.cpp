@@ -141,7 +141,10 @@ void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1)
         return;
 
     qDebug() << "[PaletteManager] Single value" << value1;
+    QVariantList prevValues = palette->values();
     palette->setValue(value1);
+    if (prevValues != palette->values() && palette->isTemporary() == false)
+        m_doc->setModified();
 }
 
 void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVariant value2)
@@ -150,7 +153,10 @@ void PaletteManager::updatePalette(QLCPalette *palette, QVariant value1, QVarian
         return;
 
     qDebug() << "[PaletteManager] Double value" << value1 << value2;
+    QVariantList prevValues = palette->values();
     palette->setValue(value1, value2);
+    if (prevValues != palette->values() && palette->isTemporary() == false)
+        m_doc->setModified();
 }
 
 void PaletteManager::deletePalettes(QVariantList list)
