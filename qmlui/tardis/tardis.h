@@ -86,8 +86,6 @@ public:
         FixtureDelete,
         FixtureMove,
         FixtureSetName,
-        FixtureSetDumpValue,
-        FixtureResetDumpValues,
         FixtureSetChannelModifier,
 
         /* Fixture group editing actions */
@@ -213,7 +211,9 @@ public:
         VCCueListSetChaserID,
 
         /* Live actions */
-        FunctionStart = LIVE_ACTIONS_START_CODE,
+        FixtureSetDumpValue = LIVE_ACTIONS_START_CODE,
+        FixtureResetDumpValues,
+        FunctionStart,
         FunctionStop,
         VCButtonSetPressed,
         VCSliderSetValue,
