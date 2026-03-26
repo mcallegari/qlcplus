@@ -269,18 +269,14 @@ Rectangle
                 id: playbackBtn
                 width: parent.height - 6
                 height: width
-                faSource: FontAwesome.fa_play
+                faSource: (showManager.isPlaying && !showManager.isPaused) ? FontAwesome.fa_pause : FontAwesome.fa_play
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Play or resume")
-                checkable: true
+                bgColor: showManager.isPaused ? "green" :
+                         (showManager.isPlaying ? "darkorange" : UISettings.bgLight)
+                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause") : qsTr("Play or resume")
+                checkable: false
                 enabled: showManager.isEditing
-                onToggled:
-                {
-                    if (checked)
-                        showManager.playShow()
-                    else
-                        showManager.stopShow()
-                }
+                onClicked: showManager.playShow()
             }
             IconButton
             {
@@ -289,14 +285,11 @@ Rectangle
                 height: width
                 faSource: FontAwesome.fa_stop
                 faColor: UISettings.fgMain
+                bgColor: showManager.isPlaying ? "red" : UISettings.bgLight
                 tooltip: qsTr("Stop or rewind")
                 checkable: false
                 enabled: showManager.isEditing
-                onClicked:
-                {
-                    playbackBtn.checked = false
-                    showManager.stopShow()
-                }
+                onClicked: showManager.stopShow()
             }
 
             // filler

@@ -52,6 +52,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
     Q_PROPERTY(double snapGuideX READ snapGuideX WRITE setSnapGuideX NOTIFY snapGuideXChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
+    Q_PROPERTY(bool isPaused READ isPaused NOTIFY isPausedChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
 
     Q_PROPERTY(Show::TimeDivision timeDivision READ timeDivision WRITE setTimeDivision NOTIFY timeDivisionChanged)
@@ -117,11 +118,14 @@ public:
     /** Play or resume the Show playback */
     Q_INVOKABLE void playShow();
 
-    /** Pause or rewind the Show playback */
+    /** Stop or rewind the Show playback */
     Q_INVOKABLE void stopShow();
 
     /** Flag that indicates if the Show is currently being played */
     bool isPlaying() const;
+
+    /** Flag that indicates if the Show playback is currently paused */
+    bool isPaused() const;
 
 signals:
     void currentShowIDChanged(int currentShowID);
@@ -131,9 +135,19 @@ signals:
     void gridEnabledChanged(bool gridEnabled);
     void snapGuideXChanged();
     void isPlayingChanged(bool playing);
+    void isPausedChanged(bool paused);
     void showDurationChanged(int showDuration);
 
 private:
+    void setPlaybackState(bool playing, bool paused);
+
+    /** Track if cursor is interactively being moved during pause */
+    bool m_cursorMovedDuringPause;
+
+    /** Cached playback state for immediate UI updates */
+    bool m_isPlaying;
+    bool m_isPaused;
+
     /** A reference to the Show Function being edited */
     Show *m_currentShow;
 
@@ -308,6 +322,8 @@ public:
 
 protected slots:
     void slotTimeChanged(quint32 msec_time);
+    void slotShowFinished();
+    void slotShowStopped();
 
 private:
     /** Check items overlapping for the given track, ShowFunction,

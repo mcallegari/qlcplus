@@ -31,6 +31,9 @@
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
+    , m_cursorMovedDuringPause(false)
+    , m_isPlaying(false)
+    , m_isPaused(false)
     , m_currentShow(nullptr)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
@@ -93,15 +96,20 @@ void ShowManager::setCurrentShowID(int currentShowID)
         if (m_currentShow->id() == (quint32)currentShowID)
             return;
         disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        disconnect(m_currentShow, SIGNAL(showFinished()), this, SLOT(slotShowFinished()));
+        disconnect(m_currentShow, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
     }
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
+    m_cursorMovedDuringPause = false;
     emit currentShowIDChanged(currentShowID);
     emit isEditingChanged();
 
     if (m_currentShow != nullptr)
     {
         connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        connect(m_currentShow, SIGNAL(showFinished()), this, SLOT(slotShowFinished()));
+        connect(m_currentShow, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
         emit showDurationChanged(m_currentShow->totalDuration());
         emit showNameChanged(m_currentShow->name());
     }
@@ -111,6 +119,8 @@ void ShowManager::setCurrentShowID(int currentShowID)
         emit showNameChanged("");
     }
     emit tracksChanged();
+    setPlaybackState(m_currentShow != nullptr ? m_currentShow->isRunning() : false,
+                     m_currentShow != nullptr ? m_currentShow->isPaused() : false);
 }
 
 QString ShowManager::showName() const
@@ -307,6 +317,9 @@ void ShowManager::setCurrentTime(int currentTime)
     if (m_currentTime == currentTime)
         return;
 
+    if (m_currentShow != nullptr && m_currentShow->isPaused())
+        m_cursorMovedDuringPause = true;
+
     m_currentTime = currentTime;
     emit currentTimeChanged(currentTime);
 }
@@ -421,9 +434,12 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
                                           Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, m_currentShow->id()));
 
         connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        connect(m_currentShow, SIGNAL(showFinished()), this, SLOT(slotShowFinished()));
+        connect(m_currentShow, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
         emit isEditingChanged();
+        setPlaybackState(false, false);
     }
 
     Track *selectedTrack = nullptr;
@@ -661,10 +677,20 @@ void ShowManager::resetContents()
     emit currentTimeChanged(m_currentTime);
 
     m_selectedTrackId = -1;
+    m_cursorMovedDuringPause = false;
+
+    if (m_currentShow != nullptr)
+    {
+        disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        disconnect(m_currentShow, SIGNAL(showFinished()), this, SLOT(slotShowFinished()));
+        disconnect(m_currentShow, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
+    }
+
     m_currentShow = nullptr;
 
     emit tracksChanged();
     emit isEditingChanged();
+    setPlaybackState(false, false);
 }
 
 void ShowManager::resetView()
@@ -730,27 +756,63 @@ void ShowManager::playShow()
     if (m_currentShow == nullptr)
         return;
 
-    m_currentShow->start(m_doc->masterTimer(), FunctionParent::master(), m_currentTime);
-    emit isPlayingChanged(true);
+    if (m_currentShow->isRunning() == false)
+    {
+        m_cursorMovedDuringPause = false;
+        m_currentShow->start(m_doc->masterTimer(), FunctionParent::master(), m_currentTime);
+        setPlaybackState(true, false);
+        return;
+    }
+
+    if (m_currentShow->isPaused())
+    {
+        if (m_cursorMovedDuringPause)
+        {
+            m_currentShow->stop(FunctionParent::master());
+            m_currentShow->stopAndWait();
+            m_cursorMovedDuringPause = false;
+            m_currentShow->start(m_doc->masterTimer(), FunctionParent::master(), m_currentTime);
+        }
+        else
+        {
+            m_currentShow->setPause(false);
+        }
+
+        setPlaybackState(true, false);
+        return;
+    }
+
+    m_currentShow->setPause(true);
+    setPlaybackState(true, true);
 }
 
 void ShowManager::stopShow()
 {
     if (m_currentShow != nullptr && m_currentShow->isRunning())
     {
+        m_cursorMovedDuringPause = false;
         m_currentShow->stop(FunctionParent::master());
-        emit isPlayingChanged(false);
+        setPlaybackState(false, false);
         return;
     }
-    m_currentTime = 0;
-    emit currentTimeChanged(m_currentTime);
+
+    setPlaybackState(false, false);
+
+    if (m_currentTime != 0)
+    {
+        m_currentTime = 0;
+        emit currentTimeChanged(m_currentTime);
+    }
 }
 
 bool ShowManager::isPlaying() const
 {
-    if (m_currentShow != nullptr && m_currentShow->isRunning())
-        return true;
-    return false;
+    return m_isPlaying;
+}
+
+bool ShowManager::isPaused() const
+{
+    return m_isPaused;
 }
 
 QColor ShowManager::itemsColor() const
@@ -905,6 +967,34 @@ void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;
     emit currentTimeChanged(m_currentTime);
+}
+
+void ShowManager::slotShowFinished()
+{
+    stopShow();
+}
+
+void ShowManager::slotShowStopped()
+{
+    setPlaybackState(false, false);
+}
+
+void ShowManager::setPlaybackState(bool playing, bool paused)
+{
+    if (playing == false)
+        paused = false;
+
+    if (m_isPlaying != playing)
+    {
+        m_isPlaying = playing;
+        emit isPlayingChanged(m_isPlaying);
+    }
+
+    if (m_isPaused != paused)
+    {
+        m_isPaused = paused;
+        emit isPausedChanged(m_isPaused);
+    }
 }
 
 bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
