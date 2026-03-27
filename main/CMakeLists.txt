@@ -54,6 +54,10 @@ install(TARGETS ${module_name}
     DESTINATION ${INSTALLROOT}/${BINDIR}
 )
 
+if(LIBSSUBDIR)
+    set_target_properties(${module_name} PROPERTIES INSTALL_RPATH "${INSTALLROOT}/${LIBSDIR}")
+endif()
+
 # Consider using qt_generate_deploy_app_script() for app deployment if
 # the project can use Qt 6.3. In that case rerun qmake2cmake with
 # --min-qt-version=6.3.
