@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Encore FR50z</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe" Default="40">
   <Group Byte="0">Shutter</Group>
