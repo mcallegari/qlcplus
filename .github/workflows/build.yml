@@ -71,7 +71,6 @@ jobs:
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "QT_VERSION=6.9.3" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Set Qt ENV variables (v5)
         if: ${{ endsWith( matrix.task, 'v5') }}
@@ -80,7 +79,6 @@ jobs:
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
           echo "QT_VERSION=6.10.2" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
-          source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
       - name: Print ENV vars
         run: |
@@ -132,8 +130,6 @@ jobs:
         run: |
           echo "CXX:"
           ${CXX} --version
-          echo "QMAKE:"
-          ${QMAKE} -v
           echo "Python:"
           python --version
           echo "WHOAMI:"
