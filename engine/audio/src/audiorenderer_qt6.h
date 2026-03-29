@@ -53,6 +53,9 @@ protected:
     qint64 writeAudio(unsigned char *data, qint64 maxSize) override;
 
     /** @reimpl */
+    bool backendDrainedAtEos() const override;
+
+    /** @reimpl */
     void drain() override;
 
     /** @reimpl */
@@ -77,7 +80,8 @@ private:
     QAudioFormat m_format;
     QString m_device;
     QAudioDevice m_deviceInfo;
-    QByteArray m_outputBuffer;
+    qint64 m_bytesWritten;
+    qint64 m_processedUsecsBase;
 };
 
 /** @} */

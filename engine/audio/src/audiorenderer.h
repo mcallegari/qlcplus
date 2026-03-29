@@ -139,6 +139,12 @@ protected:
      */
     virtual qint64 writeAudio(unsigned char *data, qint64 maxSize) = 0;
 
+    /*!
+     * Backend-specific EOS gate. Called after decoder EOF with no pending source
+     * bytes. Return true only when backend output is drained.
+     */
+    virtual bool backendDrainedAtEos() const;
+
 private:
     /** Reference to the decoder to be used as data source */
     AudioDecoder *m_adec;
