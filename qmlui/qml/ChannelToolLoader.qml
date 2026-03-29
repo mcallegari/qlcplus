@@ -33,8 +33,31 @@ Item
     property int channelIndex: -1
     property int channelValue: 0
     property int yPos: 0
+    property Item targetItem: null
 
     signal valueChanged(int fixtureID, int channelIndex, int value)
+
+    function adjustToolPosition()
+    {
+        var parentItem = itemRoot.parent
+        if (!parentItem || !targetItem)
+            return
+
+        var posInParent = targetItem.mapToItem(parentItem, 0, 0)
+        var toolWidth = Math.max(itemRoot.width, itemRoot.implicitWidth)
+        var toolHeight = Math.max(itemRoot.height, itemRoot.implicitHeight)
+
+        var rightX = posInParent.x + UISettings.iconSizeMedium
+        var leftX = posInParent.x + targetItem.width - toolWidth
+        var preferredX = (rightX + toolWidth <= parentItem.width) ? rightX : leftX
+
+        var belowY = posInParent.y
+        var aboveY = posInParent.y + targetItem.height - toolHeight
+        var preferredY = (belowY + toolHeight <= parentItem.height) ? belowY : aboveY
+
+        x = Math.max(0, Math.min(preferredX, parentItem.width - toolWidth))
+        y = Math.max(0, Math.min(preferredY, parentItem.height - toolHeight))
+    }
 
     function loadChannelTool(cItem, fxId, chIdx, val)
     {
@@ -43,10 +66,8 @@ Item
         if (channelType === QLCChannel.NoGroup || channelType === QLCChannel.Nothing)
             return
 
-        var map = cItem.mapToItem(parent, cItem.x, cItem.y)
+        targetItem = cItem
         toolLoader.source = ""
-        x = map.x + UISettings.iconSizeMedium
-        y = map.y
         fixtureId = fxId
         channelIndex = chIdx
         channelValue = val
@@ -84,6 +105,7 @@ Item
         {
             itemRoot.width = width
             itemRoot.height = height
+            itemRoot.adjustToolPosition()
 
             item.showPalette = false
             if (item.hasOwnProperty('dragTarget'))
