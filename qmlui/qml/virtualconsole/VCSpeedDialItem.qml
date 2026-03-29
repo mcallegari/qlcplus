@@ -134,6 +134,7 @@ VCWidgetItem
         QLCPlusKnob
         {
             property int lastValue: 0
+            property int threshold: 50
 
             Layout.columnSpan: tapButton.visible ? 4 : itemsLayout.columns
             Layout.rowSpan: tapButton.visible ? 2 : 1
@@ -144,18 +145,17 @@ VCWidgetItem
             from: 0
             to: 1000
             wrap: true
-            
-            onMoved: 
+
+            function updateCurrentTime()
             {
                 if (speedObj)
                 {
                     var diff = value - lastValue
-                    var THRESHOLD = 50
 
                     // handle wrapping
-                    if (diff > THRESHOLD)
+                    if (diff > threshold)
                         diff = -stepSize;
-                    else if (diff < (-THRESHOLD))
+                    else if (diff < (-threshold))
                         diff = stepSize;
 
                     lastValue = value
@@ -163,6 +163,8 @@ VCWidgetItem
                     speedObj.currentTime += diff
                 }
             }
+
+            onMoved: updateCurrentTime()
         }
 
         GenericButton

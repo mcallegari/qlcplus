@@ -36,7 +36,7 @@ Dial
     from: 0
     to: 255
     stepSize: 1.0
-    wheelEnabled: true
+    wheelEnabled: false
 
     property bool drawOuterLevel: true
     property real knobSize: Math.min(width, height)
@@ -44,6 +44,41 @@ Dial
     onPositionChanged: kCanvas.requestPaint()
     onHeightChanged: kCanvas.requestPaint()
     onWidthChanged: kCanvas.requestPaint()
+
+    MouseArea
+    {
+        anchors.fill: parent
+        acceptedButtons: Qt.NoButton
+
+        onWheel: (wheel) =>
+        {
+            if (!control.enabled)
+                return
+
+            var previousValue = control.value
+            var rawSteps = wheel.angleDelta.y / 120.0
+            if (rawSteps === 0 && wheel.pixelDelta.y !== 0)
+                rawSteps = wheel.pixelDelta.y > 0 ? 1 : -1
+
+            var steps = rawSteps > 0 ? Math.ceil(rawSteps) : Math.floor(rawSteps)
+            if (steps > 0)
+            {
+                for (var i = 0; i < steps; i++)
+                    control.increase()
+            }
+            else if (steps < 0)
+            {
+                for (var j = 0; j < -steps; j++)
+                    control.decrease()
+            }
+
+            if (control.value !== previousValue)
+                control.moved()
+
+            // Keep wheel control local to the knob and avoid page Flickable scrolling.
+            wheel.accepted = true
+        }
+    }
 
     background: Canvas {
         id: kCanvas
