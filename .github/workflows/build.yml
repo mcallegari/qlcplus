@@ -69,7 +69,7 @@ jobs:
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "QT_VERSION=6.10.2" >> $GITHUB_ENV
+          echo "QT_VERSION=6.9.3" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
@@ -78,7 +78,7 @@ jobs:
         run: |
           echo "QT=${QT:-$(echo '${{matrix.task}}' | cut -d '-' -f 2)}" >> $GITHUB_ENV
           echo "QT_INSTALL_DIR=/opt" >> $GITHUB_ENV
-          echo "QT_VERSION=6.8.1" >> $GITHUB_ENV
+          echo "QT_VERSION=6.10.2" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QTDIR=${QT_INSTALL_DIR}/Qt/${QT_VERSION}/gcc_64" >> $GITHUB_ENV
           source $GITHUB_ENV && echo "QMAKE=${QTDIR}/bin/qmake" >> $GITHUB_ENV
 
