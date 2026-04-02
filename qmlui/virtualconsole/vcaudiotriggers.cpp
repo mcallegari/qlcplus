@@ -785,7 +785,7 @@ void VCAudioTriggers::slotInputValueChanged(quint8 id, uchar value)
             setCaptureEnabled(value ? true : false);
         break;
         case INPUT_VOLUME_CONTROL:
-            setVolumeLevel(SCALE(value, 0, 255, 0, 100));
+            setVolumeLevel(SCALE(value, 0.0, 255.0, 0.0, 100.0));
         break;
     }
 }
