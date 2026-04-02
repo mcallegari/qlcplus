@@ -479,6 +479,9 @@ function renderSlider(widget) {
   caption.className = "slider-caption";
   caption.textContent = widget.caption || "";
 
+  const controls = document.createElement("div");
+  controls.className = "slider-controls";
+
   let resetBtn = null;
   if (widget.monitor) {
     resetBtn = document.createElement("button");
@@ -488,6 +491,187 @@ function renderSlider(widget) {
       sendWidgetCommand(widget.id, "SLIDER_OVERRIDE", 0);
     });
     if (widget.isOverriding) resetBtn.classList.add("is-overriding");
+    controls.appendChild(resetBtn);
+  }
+
+  const cngType = widget.clickAndGoType || "None";
+  const cngPresets = Array.isArray(widget.cngPresets) ? widget.cngPresets : [];
+  const hasClickAndGoPresets = cngType === "Preset" && cngPresets.length > 0;
+  const hasClickAndGoColors = cngType === "Colors";
+  const hasClickAndGo = hasClickAndGoPresets || hasClickAndGoColors;
+  let cngBtn = null;
+  let cngPanel = null;
+  let updateClickAndGo = null;
+  let cngPreview = null;
+
+  if (hasClickAndGo) {
+    cngBtn = document.createElement("button");
+    cngBtn.type = "button";
+    cngBtn.className = "slider-cng-btn";
+    cngBtn.title = "Click & Go";
+    cngBtn.innerHTML = `<span class="slider-cng-preview"></span>`;
+    controls.appendChild(cngBtn);
+    cngPreview = cngBtn.querySelector(".slider-cng-preview");
+  }
+
+  if (hasClickAndGoPresets) {
+    cngPanel = document.createElement("div");
+    cngPanel.className = "slider-cng-panel";
+    root.appendChild(cngPanel);
+
+    const cngEntries = [];
+    const rangeLow = parseInt(widget.rangeLow ?? 0, 10);
+    const rangeHigh = parseInt(widget.rangeHigh ?? 255, 10);
+
+    const createPresetSwatch = (preset) => {
+      const swatch = document.createElement("span");
+      swatch.className = "slider-cng-swatch";
+      const color1 = preset.color1 || "";
+      const color2 = preset.color2 || "";
+      const resource = preset.resource || "";
+      if (color1 && color2) {
+        swatch.style.background = `linear-gradient(90deg, ${color1} 0%, ${color1} 50%, ${color2} 50%, ${color2} 100%)`;
+      } else if (color1) {
+        swatch.style.background = color1;
+      } else if (resource) {
+        swatch.classList.add("is-resource");
+        // Native PresetsTool uses a light item background. Keep the same
+        // contrast so dark gobo SVGs are visible.
+        swatch.style.background = "#ffffff";
+        const img = document.createElement("img");
+        img.className = "slider-cng-image";
+        img.src = resource;
+        img.alt = "";
+        swatch.appendChild(img);
+      } else {
+        swatch.textContent = "•";
+      }
+      return swatch;
+    };
+
+    cngPresets.forEach((preset) => {
+      const minVal = parseInt(preset.min, 10);
+      const maxVal = parseInt(preset.max, 10);
+      if (Number.isNaN(minVal) || Number.isNaN(maxVal)) return;
+      if (maxVal < rangeLow || minVal > rangeHigh) return;
+
+      const presetValue = parseInt(preset.value, 10);
+      const value = Number.isNaN(presetValue) ? minVal : presetValue;
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "slider-cng-item";
+      item.appendChild(createPresetSwatch(preset));
+
+      const name = document.createElement("span");
+      name.className = "slider-cng-name";
+      name.textContent = preset.name || `${minVal}-${maxVal}`;
+      item.appendChild(name);
+
+      item.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        sendWidgetCommand(widget.id, "CNG_PRESET", value);
+        widget.value = value;
+        if (updateClickAndGo) updateClickAndGo(value);
+        cngPanel.classList.remove("is-open");
+        cngBtn.classList.remove("is-open");
+      });
+
+      cngPanel.appendChild(item);
+      cngEntries.push({ item, min: minVal, max: maxVal, value, preset });
+    });
+
+    if (cngEntries.length > 0) {
+      updateClickAndGo = (rawValue) => {
+        const currentValue = parseInt(rawValue, 10);
+        const value = Number.isNaN(currentValue) ? parseInt(widget.value ?? 0, 10) : currentValue;
+        let active = null;
+        cngEntries.forEach((entry) => {
+          const isActive = value >= entry.min && value <= entry.max;
+          entry.item.classList.toggle("is-active", isActive);
+          if (isActive && active === null) active = entry;
+        });
+
+        if (!cngPreview) return;
+        cngPreview.innerHTML = "";
+        if (active) {
+          cngPreview.appendChild(createPresetSwatch(active.preset));
+          cngBtn.title = active.preset.name || "Click & Go";
+        } else {
+          cngBtn.title = "Click & Go";
+        }
+      };
+
+      cngBtn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        const nextOpen = !cngPanel.classList.contains("is-open");
+        cngPanel.classList.toggle("is-open", nextOpen);
+        cngBtn.classList.toggle("is-open", nextOpen);
+        if (nextOpen && updateClickAndGo) {
+          updateClickAndGo(widget.value);
+        }
+      });
+    } else {
+      cngBtn.remove();
+      cngPanel.remove();
+      cngBtn = null;
+      cngPanel = null;
+    }
+  }
+  if (hasClickAndGoColors && cngPreview) {
+    const normalizeHexColor = (raw, fallback = "#000000") => {
+      if (typeof raw !== "string") return fallback;
+      const color = raw.trim().toLowerCase();
+      return /^#[0-9a-f]{6}$/.test(color) ? color : fallback;
+    };
+
+    let primaryColor = normalizeHexColor(widget.cngPrimaryColor, "#000000");
+
+    const updateColorPreview = () => {
+      const swatch = document.createElement("span");
+      swatch.className = "slider-cng-swatch";
+      swatch.style.background = primaryColor;
+      cngPreview.innerHTML = "";
+      cngPreview.appendChild(swatch);
+      cngBtn.title = "Click & Go colors";
+    };
+
+    const colorInput = document.createElement("input");
+    colorInput.type = "color";
+    colorInput.className = "slider-cng-native-color";
+    colorInput.value = primaryColor;
+    root.appendChild(colorInput);
+
+    const applyColorInput = (send) => {
+      primaryColor = normalizeHexColor(colorInput.value, primaryColor);
+      widget.cngPrimaryColor = primaryColor;
+      widget.cngSecondaryColor = "#000000";
+      updateColorPreview();
+      if (send) {
+        sendWidgetCommand(widget.id, "CNG_COLORS", primaryColor, "#000000");
+      }
+    };
+
+    colorInput.addEventListener("input", () => applyColorInput(true));
+    colorInput.addEventListener("change", () => applyColorInput(true));
+
+    cngBtn.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      colorInput.value = primaryColor;
+      colorInput.click();
+    });
+
+    updateClickAndGo = () => {
+      primaryColor = normalizeHexColor(widget.cngPrimaryColor, primaryColor);
+      colorInput.value = primaryColor;
+      updateColorPreview();
+    };
+    updateColorPreview();
+  }
+
+  const hasControls = controls.children.length > 0;
+  if (hasControls) {
+    controls.classList.add("has-controls");
+    root.classList.add("has-controls");
   }
 
   const trackWrap = document.createElement("div");
@@ -526,14 +710,17 @@ function renderSlider(widget) {
     input.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
 
     const applyRangeValue = (rawValue, send) => {
-      const currentVal = parseInt(input.value, 10);
+      const currentVal = parseInt(widget.value, 10);
+      const fallbackVal = parseInt(input.value, 10);
+      const previousVal = Number.isNaN(currentVal) ? fallbackVal : currentVal;
       const parsed = parseInt(rawValue, 10);
-      const nextVal = Number.isNaN(parsed) ? currentVal : Math.max(minVal, Math.min(maxVal, parsed));
+      const nextVal = Number.isNaN(parsed) ? previousVal : Math.max(minVal, Math.min(maxVal, parsed));
       input.value = nextVal;
       valueLabel.textContent = sliderDisplayValue(widget, nextVal);
       const fill = maxVal > minVal ? ((nextVal - minVal) / (maxVal - minVal)) * 100 : 0;
       input.style.setProperty("--slider-fill", `${fill}%`);
-      if (send && nextVal !== currentVal)
+      widget.value = nextVal;
+      if (send && nextVal !== previousVal)
         sendWidgetValue(widget.id, nextVal);
       return nextVal;
     };
@@ -590,6 +777,7 @@ function renderSlider(widget) {
     const setKnobValue = (value, send) => {
       const next = clampValue(Math.round(value));
       knobState.value = next;
+      widget.value = next;
       valueLabel.textContent = sliderDisplayValue(widget, next);
       updateKnobAngle(next);
       if (send) sendWidgetValue(widget.id, next);
@@ -653,8 +841,20 @@ function renderSlider(widget) {
   }
 
   root.append(valueLabel, trackWrap, caption);
-  if (resetBtn) root.appendChild(resetBtn);
-  state.widgets[widget.id] = { type: "slider", el: root, input, valueLabel, resetBtn, data: widget, knobState };
+  if (hasControls) root.appendChild(controls);
+  if (updateClickAndGo) updateClickAndGo(widget.value);
+  state.widgets[widget.id] = {
+    type: "slider",
+    el: root,
+    input,
+    valueLabel,
+    resetBtn,
+    cngBtn,
+    cngPanel,
+    updateClickAndGo,
+    data: widget,
+    knobState,
+  };
   requestAnimationFrame(() => {
     const trackHeight = trackWrap.clientHeight || 40;
     if (input) input.style.setProperty("--slider-length", `${trackHeight}px`);
@@ -2286,53 +2486,78 @@ function renderWidget(widget) {
   }
 }
 
+function refreshContainerLayout(container) {
+  if (!container) return;
+
+  const widgets = container.querySelectorAll(".vc-widget");
+  widgets.forEach((child) => {
+    if (!isElementVisible(child)) return;
+    const isDisabled = child.dataset.disabled === "true";
+    child.classList.toggle("is-disabled", isDisabled);
+  });
+
+  const sliders = container.querySelectorAll(".vc-slider");
+  sliders.forEach((slider) => {
+    if (!isElementVisible(slider)) return;
+    const track = slider.querySelector(".slider-track");
+    const isKnob = slider.classList.contains("knob");
+    if (isKnob) {
+      if (!track) return;
+      const trackHeight = track.clientHeight || 40;
+      const trackWidth = track.clientWidth || trackHeight;
+      const knobSize = Math.max(40, Math.min(trackWidth, trackHeight));
+      track.style.setProperty("--knob-size", `${knobSize}px`);
+      return;
+    }
+    const input = slider.querySelector('input[type="range"]');
+    if (!track || !input) return;
+    const trackHeight = track.clientHeight || 40;
+    input.style.setProperty("--slider-length", `${trackHeight}px`);
+  });
+
+  const faders = container.querySelectorAll(".animation-fader input[type=\"range\"]");
+  faders.forEach((fader) => {
+    if (!isElementVisible(fader)) return;
+    const wrap = fader.parentElement;
+    if (!wrap) return;
+    const height = wrap.clientHeight || 40;
+    fader.style.setProperty("--slider-length", `${height}px`);
+  });
+}
+
+function scheduleContainerLayoutRefresh(container) {
+  if (!container) return;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      refreshContainerLayout(container);
+    });
+  });
+}
+
 function applyFramePage(id, pageIndex) {
   const widget = state.widgets[id];
   if (!widget || !widget.content) return;
 
-  widget.data.currentPage = pageIndex;
+  let targetPage = Number(pageIndex);
+  if (!Number.isFinite(targetPage)) return;
+  const totalPages = parseInt(widget.data?.totalPages ?? "0", 10);
+  if (!Number.isNaN(totalPages) && totalPages > 0) {
+    targetPage = Math.max(0, Math.min(totalPages - 1, targetPage));
+  }
+
+  widget.data.currentPage = targetPage;
   if (widget.pageSelect) {
-    widget.pageSelect.value = pageIndex;
+    widget.pageSelect.value = String(targetPage);
   }
   const children = widget.content.children;
   for (const child of children) {
     const pageAttr = child.dataset.page;
     if (pageAttr === undefined || pageAttr === null) continue;
     const childPage = parseInt(pageAttr, 10);
-    child.style.display = childPage === pageIndex ? "" : "none";
+    child.style.display = childPage === targetPage ? "" : "none";
   }
 
-  requestAnimationFrame(() => {
-    const visible = widget.content.querySelectorAll(".vc-widget:not([style*=\"display: none\"])");
-    visible.forEach((child) => {
-      const isDisabled = child.dataset.disabled === "true";
-      child.classList.toggle("is-disabled", isDisabled);
-    });
-    const sliders = widget.content.querySelectorAll(".vc-slider");
-    sliders.forEach((slider) => {
-      const track = slider.querySelector(".slider-track");
-      const isKnob = slider.classList.contains("knob");
-      if (isKnob) {
-        if (!track) return;
-        const trackHeight = track.clientHeight || 40;
-        const trackWidth = track.clientWidth || trackHeight;
-        const knobSize = Math.max(40, Math.min(trackWidth, trackHeight));
-        track.style.setProperty("--knob-size", `${knobSize}px`);
-        return;
-      }
-      const input = slider.querySelector('input[type="range"]');
-      if (!track || !input) return;
-      const trackHeight = track.clientHeight || 40;
-      input.style.setProperty("--slider-length", `${trackHeight}px`);
-    });
-    const faders = widget.content.querySelectorAll(".animation-fader input[type=\"range\"]");
-    faders.forEach((fader) => {
-      const wrap = fader.parentElement;
-      if (!wrap) return;
-      const height = wrap.clientHeight || 40;
-      fader.style.setProperty("--slider-length", `${height}px`);
-    });
-  });
+  scheduleContainerLayoutRefresh(widget.content);
 }
 
 function renderPages(vcData) {
@@ -2428,6 +2653,7 @@ function updateSlider(id, value, displayValue) {
   const widget = state.widgets[id];
   if (!widget) return;
   const val = parseInt(value, 10);
+  widget.data.value = val;
   widget.valueLabel.textContent = sliderDisplayValue(widget.data, val);
   if (widget.input) {
     widget.input.value = value;
@@ -2442,6 +2668,9 @@ function updateSlider(id, value, displayValue) {
     const angle = ratio * 360;
     widget.knobState.value = val;
     widget.knobState.indicator.style.setProperty("--dial-angle", `${angle}deg`);
+  }
+  if (typeof widget.updateClickAndGo === "function") {
+    widget.updateClickAndGo(val);
   }
 }
 
@@ -2770,9 +2999,31 @@ function handleSocketMessage(ev) {
       }
       break;
     }
+    case "WIDGET_VISIBLE": {
+      const widget = state.widgets[id];
+      if (!widget) break;
+      const isVisible = msg[2] === "1" || msg[2] === "true";
+      widget.data.visible = isVisible;
+      widget.el.style.display = isVisible ? "" : "none";
+      if (isVisible) {
+        const container = widget.el.closest(".vc-frame-content") || widget.el.parentElement;
+        scheduleContainerLayoutRefresh(container);
+      }
+      break;
+    }
     case "SLIDER":
       updateSlider(id, msg[2], msg[3]);
       break;
+    case "CNG_COLORS": {
+      const widget = state.widgets[id];
+      if (!widget) break;
+      widget.data.cngPrimaryColor = msg[2] || "";
+      widget.data.cngSecondaryColor = msg[3] || "";
+      if (typeof widget.updateClickAndGo === "function") {
+        widget.updateClickAndGo();
+      }
+      break;
+    }
     case "SLIDER_OVERRIDE":
       updateSliderOverride(id, msg[2] === "1" || msg[2] === "true");
       break;
@@ -2806,9 +3057,12 @@ function handleSocketMessage(ev) {
       }
       break;
     }
-    case "FRAME":
-      applyFramePage(id, parseInt(msg[2], 10));
+    case "FRAME": {
+      const pageIndex = parseInt(msg[2], 10);
+      if (Number.isNaN(pageIndex)) break;
+      applyFramePage(id, pageIndex);
       break;
+    }
     case "MATRIX_STATE":
       updateMatrixState(id, msg[2], msg[3], msg.slice(4));
       break;

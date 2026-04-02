@@ -214,6 +214,15 @@ bool WebAccessBase::sendFile(QHttpResponse *response, QString filename, QString 
 
         response->setHeader("Content-Type", contentType);
         response->setHeader("Content-Length", QString::number(resContent.size()));
+        if (contentType == "text/css" ||
+            contentType == "text/javascript" ||
+            contentType == "text/html" ||
+            contentType == "application/json")
+        {
+            response->setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+            response->setHeader("Pragma", "no-cache");
+            response->setHeader("Expires", "0");
+        }
         response->writeHead(200);
         response->end(resContent);
 

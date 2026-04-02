@@ -23,6 +23,7 @@
 #include <QJsonObject>
 #include <QCoreApplication>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <qmath.h>
 
@@ -50,6 +51,9 @@
 #include "function.h"
 #include "chaser.h"
 #include "doc.h"
+#include "fixture.h"
+#include "qlcchannel.h"
+#include "qlccapability.h"
 #include "listmodel.h"
 #include "simpledesk.h"
 
@@ -85,6 +89,109 @@ static QString colorToString(const QColor &color)
     if (!color.isValid())
         return QString();
     return color.name();
+}
+
+static QString mimeTypeForPath(const QString &path);
+
+static QString resourcePathToWebUrl(const QString &path)
+{
+    if (path.startsWith(":/"))
+        return QString("/qrc/%1").arg(path.mid(2));
+    if (path.startsWith("qrc:/"))
+        return QString("/qrc/%1").arg(path.mid(5));
+    if (QFile::exists(path))
+    {
+        QFile resFile(path);
+        if (resFile.open(QIODevice::ReadOnly))
+        {
+            const QByteArray content = resFile.readAll();
+            resFile.close();
+            if (content.isEmpty() == false)
+            {
+                return QString("data:%1;base64,%2")
+                        .arg(mimeTypeForPath(path))
+                        .arg(QString::fromLatin1(content.toBase64()));
+            }
+        }
+    }
+    return path;
+}
+
+static QColor variantToColor(const QVariant &value)
+{
+    QColor color = value.value<QColor>();
+    if (color.isValid())
+        return color;
+    return QColor(value.toString());
+}
+
+static QJsonObject clickAndGoCapabilityToJson(const QLCCapability *cap)
+{
+    QJsonObject obj;
+    if (cap == nullptr)
+        return obj;
+
+    obj["name"] = cap->name();
+    obj["min"] = int(cap->min());
+    obj["max"] = int(cap->max());
+    obj["value"] = int(cap->middle());
+    obj["presetType"] = int(cap->presetType());
+
+    switch (cap->presetType())
+    {
+        case QLCCapability::SingleColor:
+        {
+            const QColor color1 = variantToColor(cap->resource(0));
+            obj["color1"] = colorToString(color1);
+        }
+        break;
+        case QLCCapability::DoubleColor:
+        {
+            const QColor color1 = variantToColor(cap->resource(0));
+            const QColor color2 = variantToColor(cap->resource(1));
+            obj["color1"] = colorToString(color1);
+            obj["color2"] = colorToString(color2);
+        }
+        break;
+        case QLCCapability::Picture:
+        {
+            const QString resourcePath = cap->resource(0).toString();
+            obj["resource"] = resourcePathToWebUrl(resourcePath);
+        }
+        break;
+        default:
+        break;
+    }
+
+    return obj;
+}
+
+static QJsonArray sliderClickAndGoPresetsToJson(const VCSlider *slider, const Doc *doc)
+{
+    QJsonArray array;
+    if (slider == nullptr || doc == nullptr || slider->clickAndGoType() != VCSlider::CnGPreset)
+        return array;
+
+    const QVariantList channels = const_cast<VCSlider*>(slider)->clickAndGoPresetsList();
+    if (channels.isEmpty())
+        return array;
+
+    const QVariantMap firstChannel = channels.first().toMap();
+    const quint32 fixtureID = firstChannel.value("fixtureID").toUInt();
+    const int channelIdx = firstChannel.value("channelIdx").toInt();
+
+    Fixture *fixture = doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return array;
+
+    const QLCChannel *channel = fixture->channel(channelIdx);
+    if (channel == nullptr)
+        return array;
+
+    for (const QLCCapability *cap : channel->capabilities())
+        array.append(clickAndGoCapabilityToJson(cap));
+
+    return array;
 }
 
 static QJsonObject loadUiStyleJson()
@@ -665,9 +772,9 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
-    uchar value = 0;
+    int value = 0;
     if (cmdList.count() > 1)
-        value = (uchar)cmdList[1].toInt();
+        value = cmdList[1].toInt();
 
     if (widget == nullptr)
         return;
@@ -690,6 +797,20 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 {
                     bool enable = cmdList.count() > 2 ? (cmdList[2].toInt() > 0) : false;
                     slider->setIsOverriding(enable);
+                }
+                else if (cmdList.count() > 2 && cmdList[1] == "CNG_PRESET")
+                {
+                    slider->setClickAndGoPresetValue(cmdList[2].toInt());
+                }
+                else if (cmdList.count() > 3 && cmdList[1] == "CNG_COLORS")
+                {
+                    QColor primary(cmdList[2]);
+                    QColor secondary(cmdList[3]);
+                    if (primary.isValid() == false)
+                        primary = QColor();
+                    if (secondary.isValid() == false)
+                        secondary = QColor();
+                    slider->setClickAndGoColors(primary, secondary);
                 }
                 else
                 {
@@ -934,15 +1055,27 @@ void WebAccessQml::slotSelectedPageChanged(int page)
 
 QString WebAccessQml::webFilePath(const QString &relativePath) const
 {
-    QString basePath = QLCFile::systemDirectory(WEBFILESDIR).path();
-    QString fullPath = QString("%1%2%3").arg(basePath).arg(QDir::separator()).arg(relativePath);
-    if (QFile::exists(fullPath))
-        return fullPath;
-
-    QString appDir = QCoreApplication::applicationDirPath();
     QStringList candidates;
-    candidates << QDir::cleanPath(QString("%1/../webaccess/res/%2").arg(appDir).arg(relativePath));
-    candidates << QDir::cleanPath(QString("%1/webaccess/res/%2").arg(QDir::currentPath()).arg(relativePath));
+    candidates << QDir::cleanPath(QString("%1/webaccess/res/%2")
+                                  .arg(QDir::currentPath())
+                                  .arg(relativePath));
+
+    // Development-friendly lookup: walk up from executable directory and
+    // locate a sibling "webaccess/res" folder from any parent.
+    QDir probeDir(QCoreApplication::applicationDirPath());
+    for (int i = 0; i < 6; i++)
+    {
+        candidates << QDir::cleanPath(QString("%1/webaccess/res/%2")
+                                      .arg(probeDir.absolutePath())
+                                      .arg(relativePath));
+        if (probeDir.cdUp() == false)
+            break;
+    }
+
+    candidates << QDir::cleanPath(QString("%1%2%3")
+                                  .arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                                  .arg(QDir::separator())
+                                  .arg(relativePath));
 
     for (const QString &path : candidates)
     {
@@ -950,7 +1083,7 @@ QString WebAccessQml::webFilePath(const QString &relativePath) const
             return path;
     }
 
-    return fullPath;
+    return candidates.last();
 }
 
 void WebAccessQml::sendMatrixState(const VCAnimation *animation) const
@@ -1062,6 +1195,11 @@ QJsonObject WebAccessQml::widgetToJson(const VCWidget *widget)
             obj["inverted"] = slider->invertedAppearance();
             obj["monitor"] = slider->monitorEnabled();
             obj["isOverriding"] = slider->isOverriding();
+            obj["clickAndGoType"] = VCSlider::clickAndGoTypeToString(slider->clickAndGoType());
+            obj["cngPrimaryColor"] = colorToString(slider->cngPrimaryColor());
+            obj["cngSecondaryColor"] = colorToString(slider->cngSecondaryColor());
+            obj["cngPresetResource"] = resourcePathToWebUrl(slider->cngPresetResource());
+            obj["cngPresets"] = sliderClickAndGoPresetsToJson(slider, m_doc);
         }
         break;
         case VCWidget::XYPadWidget:
@@ -1239,6 +1377,9 @@ void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
 
     m_connectedWidgets.insert(widget->id());
 
+    connect(widget, SIGNAL(isVisibleChanged(bool)),
+            this, SLOT(slotWidgetVisibilityChanged(bool)));
+
     switch (widget->type())
     {
         case VCWidget::ButtonWidget:
@@ -1266,6 +1407,10 @@ void WebAccessQml::setupWidgetConnections(const VCWidget *widget)
                     this, SLOT(slotSliderDisableStateChanged(bool)));
             connect(slider, SIGNAL(isOverridingChanged()),
                     this, SLOT(slotSliderOverrideChanged()));
+            connect(slider, SIGNAL(cngPrimaryColorChanged(QColor)),
+                    this, SLOT(slotSliderClickAndGoColorsChanged()));
+            connect(slider, SIGNAL(cngSecondaryColorChanged(QColor)),
+                    this, SLOT(slotSliderClickAndGoColorsChanged()));
         }
         break;
         case VCWidget::AudioTriggersWidget:
@@ -1398,6 +1543,16 @@ void WebAccessQml::slotLabelDisableStateChanged(bool disable)
     sendWebSocketMessage(wsMessage);
 }
 
+void WebAccessQml::slotWidgetVisibilityChanged(bool isVisible)
+{
+    VCWidget *widget = qobject_cast<VCWidget *>(sender());
+    if (widget == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|WIDGET_VISIBLE|%2").arg(widget->id()).arg(isVisible);
+    sendWebSocketMessage(wsMessage);
+}
+
 void WebAccessQml::slotSliderValueChanged(int value)
 {
     VCSlider *slider = qobject_cast<VCSlider *>(sender());
@@ -1425,6 +1580,19 @@ void WebAccessQml::slotSliderOverrideChanged()
         return;
 
     QString wsMessage = QString("%1|SLIDER_OVERRIDE|%2").arg(slider->id()).arg(slider->isOverriding());
+    sendWebSocketMessage(wsMessage);
+}
+
+void WebAccessQml::slotSliderClickAndGoColorsChanged()
+{
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == nullptr)
+        return;
+
+    QString wsMessage = QString("%1|CNG_COLORS|%2|%3")
+            .arg(slider->id())
+            .arg(colorToString(slider->cngPrimaryColor()))
+            .arg(colorToString(slider->cngSecondaryColor()));
     sendWebSocketMessage(wsMessage);
 }
 

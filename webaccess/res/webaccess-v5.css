@@ -344,12 +344,17 @@ body {
 
 .vc-slider {
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   align-items: center;
   justify-items: center;
   gap: 2px;
   padding: 2px;
   height: 100%;
+  position: absolute;
+}
+
+.vc-slider.has-controls {
+  padding-bottom: calc(var(--icon-size-default) * 1.3 + 4px);
 }
 
 .vc-slider .slider-value,
@@ -371,6 +376,25 @@ body {
   overflow: visible;
 }
 
+.vc-slider .slider-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  transform: translateX(-50%);
+  width: auto;
+  min-height: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 3;
+}
+
+.vc-slider .slider-controls.has-controls {
+  display: flex;
+}
+
 .vc-slider.knob .slider-track {
   width: 100%;
   height: 100%;
@@ -381,7 +405,8 @@ body {
   height: var(--knob-size, 80px);
 }
 
-.vc-slider .slider-reset-btn {
+.vc-slider .slider-reset-btn,
+.vc-slider .slider-cng-btn {
   width: var(--icon-size-default);
   height: var(--icon-size-default);
   background: var(--bg-light);
@@ -399,6 +424,145 @@ body {
 .vc-slider .slider-reset-btn.is-overriding {
   background: #f00;
   color: var(--bg-control);
+}
+
+.vc-slider .slider-cng-btn {
+  position: relative;
+  overflow: hidden;
+  width: calc(var(--icon-size-default) * 1.2);
+  height: calc(var(--icon-size-default) * 1.2);
+}
+
+.vc-slider .slider-cng-btn.is-open {
+  background: var(--highlight);
+}
+
+.vc-slider .slider-cng-preview {
+  position: absolute;
+  inset: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vc-slider .slider-cng-preview .slider-cng-swatch {
+  width: 100%;
+  height: 100%;
+}
+
+.vc-slider .slider-cng-panel {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--big-item-height) * 3);
+  bottom: calc(var(--icon-size-default) * 1.2 + 8px);
+  display: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 2px;
+  padding: 2px;
+  max-height: calc(var(--big-item-height) * 3);
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--bg-strong);
+  border: 1px solid var(--bg-lighter);
+  z-index: 10;
+}
+
+.vc-slider .slider-cng-panel.is-open {
+  display: grid;
+}
+
+.vc-slider .slider-cng-panel.slider-cng-color-panel {
+  width: calc(var(--big-item-height) * 2.2);
+  display: none;
+  grid-template-columns: none;
+  padding: 6px;
+  gap: 6px;
+}
+
+.vc-slider .slider-cng-panel.slider-cng-color-panel.is-open {
+  display: flex;
+  flex-direction: column;
+}
+
+.vc-slider .slider-cng-color-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--fg-main);
+  font-size: calc(var(--text-size-default) * 0.85);
+}
+
+.vc-slider .slider-cng-color-input {
+  width: calc(var(--icon-size-default) * 1.8);
+  height: calc(var(--icon-size-default) * 1.1);
+  border: 1px solid var(--bg-lighter);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.vc-slider .slider-cng-native-color {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vc-slider .slider-cng-item {
+  width: auto;
+  min-height: calc(var(--icon-size-default) * 1.2);
+  background: #ffffff;
+  border: 1px solid var(--bg-stronger);
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 3px;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.vc-slider .slider-cng-item.is-active {
+  border-color: var(--highlight);
+  background: #e5f0ff;
+}
+
+.vc-slider .slider-cng-swatch {
+  width: var(--icon-size-default);
+  height: var(--icon-size-default);
+  border: 1px solid #1d1d1d;
+  background: transparent;
+  flex: 0 0 auto;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vc-slider .slider-cng-swatch.is-resource {
+  background: #ffffff;
+}
+
+.vc-slider .slider-cng-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.vc-slider .slider-cng-name {
+  min-width: 0;
+  max-width: calc(var(--big-item-height) * 0.75);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.05;
+  font-size: calc(var(--text-size-default) * 0.75);
 }
 
 .vc-slider input[type="range"] {
