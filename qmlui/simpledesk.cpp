@@ -312,7 +312,8 @@ int SimpleDesk::getSlidersNumber() const
 
 int SimpleDesk::getCurrentUniverseIndex() const
 {
-    return int(m_universeFilter);
+    const int idx = int(m_universeFilter);
+    return idx < 0 ? 0 : idx;
 }
 
 int SimpleDesk::getCurrentPage() const

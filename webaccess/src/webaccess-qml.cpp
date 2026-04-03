@@ -328,6 +328,8 @@ static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
         return QString();
 
     int uni = sd->getCurrentUniverseIndex() + 1;
+    if (uni < 1)
+        uni = 1;
     int page = sd->getCurrentPage();
 
     QString JScode = "<script src=\"simpledesk-v5.js\"></script>\n";

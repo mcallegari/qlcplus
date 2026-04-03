@@ -350,7 +350,6 @@ body {
   gap: 2px;
   padding: 2px;
   height: 100%;
-  position: absolute;
 }
 
 .vc-slider.has-controls {

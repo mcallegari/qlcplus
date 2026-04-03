@@ -75,6 +75,13 @@ function updatePageDisplay() {
   if (pageDisplay) pageDisplay.textContent = currentPage;
 }
 
+function normalizedUniverse() {
+  var uni = parseInt(currentUniverse, 10);
+  if (isNaN(uni) || uni < 1) uni = 1;
+  currentUniverse = uni;
+  return uni;
+}
+
 function getMaxPages() {
   var perPage = Math.max(1, parseInt(channelsPerPage, 10) || 1);
   return Math.ceil(512 / perPage);
@@ -82,7 +89,8 @@ function getMaxPages() {
 
 function requestPage() {
   var address = ((currentPage - 1) * channelsPerPage) + 1;
-  sendMessage("QLC+API|getChannelsValues|" + currentUniverse + "|" + address + "|" + channelsPerPage);
+  var uni = normalizedUniverse();
+  sendMessage("QLC+API|getChannelsValues|" + uni + "|" + address + "|" + channelsPerPage);
 }
 
 function applyChannelValue(chNum, value, isOverriding) {
@@ -157,7 +165,7 @@ function drawPage(data) {
     var isOverriding = stride === 4 ? (cVars[i + 3] === "1" || cVars[i + 3] === "true") : false;
     if (!hasLayout) {
       html += "<div class='vc-slider sd-slider" + (isOverriding ? " is-active" : "") + "' data-ch='" + chNum + "'>";
-      html += getTopMarkup(type).replace(/>$/, " data-type=\"" + type + "\">");
+      html += getTopMarkup(type);
       html += "<div id='sdslv" + chNum + "' class='slider-value'>" + value + "</div>";
       html += "<div class='slider-track'><input type='range' class='range-vertical sd-range' id='" + chNum + "' min='0' max='255' step='1' value='" + value + "'></div>";
       html += "<div id='sdsln" + chNum + "' class='slider-caption'>" + chNum + "</div>";
@@ -242,14 +250,16 @@ function universeChanged(uniIdx) {
 }
 
 function resetChannel(pageCh) {
-  var chNum = ((currentUniverse - 1) * 512) + parseInt(pageCh, 10);
+  var uni = normalizedUniverse();
+  var chNum = ((uni - 1) * 512) + parseInt(pageCh, 10);
   sendMessage("QLC+API|sdResetChannel|" + chNum);
 }
 
 function resetUniverse() {
+  var uni = normalizedUniverse();
   currentPage = 1;
   updatePageDisplay();
-  sendMessage("QLC+API|sdResetUniverse|" + currentUniverse);
+  sendMessage("QLC+API|sdResetUniverse|" + uni);
   requestPage();
 }
 
@@ -263,6 +273,7 @@ window.addEventListener("load", function() {
   universeSelect = document.getElementById("universeSelect");
   fadersSelect = document.getElementById("fadersSelect");
 
+  normalizedUniverse();
   updatePageDisplay();
   if (fadersSelect) fadersSelect.value = String(channelsPerPage);
 
@@ -295,7 +306,8 @@ window.addEventListener("load", function() {
     updateRangeFill(ev.target);
     var slider = ev.target.closest(".sd-slider");
     if (slider && parseInt(ev.target.value, 10) > 0) slider.classList.add("is-active");
-    var chNum = ((currentUniverse - 1) * 512) + parseInt(id, 10);
+    var uni = normalizedUniverse();
+    var chNum = ((uni - 1) * 512) + parseInt(id, 10);
     sendMessage("CH|" + chNum + "|" + ev.target.value);
   });
 
@@ -325,7 +337,8 @@ window.addEventListener("load", function() {
     if (labelObj) labelObj.textContent = value;
     var slider = input.closest(".sd-slider");
     if (slider) slider.classList.toggle("is-active", value > 0);
-    var chNum = ((currentUniverse - 1) * 512) + parseInt(input.id, 10);
+    var uni = normalizedUniverse();
+    var chNum = ((uni - 1) * 512) + parseInt(input.id, 10);
     sendMessage("CH|" + chNum + "|" + value);
   });
 
