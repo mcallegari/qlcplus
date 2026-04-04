@@ -251,8 +251,32 @@ void VCAudioTriggers::setBarsNumber(int num)
     m_audioLevels.clear();
     m_audioLevels.resize(m_spectrumBars.count());
 
+    if (m_selectedBar >= m_spectrumBars.count())
+    {
+        m_selectedBar = -1;
+        emit selectedBarChanged();
+    }
+
     emit barsNumberChanged();
     emit barsInfoChanged();
+}
+
+int VCAudioTriggers::selectedBar() const
+{
+    return m_selectedBar;
+}
+
+void VCAudioTriggers::setSelectedBar(int index)
+{
+    if (index < -1 || index >= m_spectrumBars.count())
+        index = -1;
+
+    if (index == m_selectedBar)
+        return;
+
+    m_selectedBar = index;
+    updateFixtureTree();
+    emit selectedBarChanged();
 }
 
 QVariantList VCAudioTriggers::audioLevels() const
@@ -281,8 +305,7 @@ FunctionParent VCAudioTriggers::functionParent() const
 
 void VCAudioTriggers::selectBarForEditing(int index)
 {
-    m_selectedBar = index;
-    updateFixtureTree();
+    setSelectedBar(index);
 }
 
 QVariantList VCAudioTriggers::barsInfo() const
@@ -422,13 +445,17 @@ void VCAudioTriggers::setBarDmxChannels(QList<SceneValue> list)
         return;
 
     AudioBar &bar = m_spectrumBars[m_selectedBar];
-    bar.m_dmxChannels.clear();
+    bar.m_dmxChannels = list;
+    rebuildBarAbsDmxChannels(bar);
+    emit barsInfoChanged();
+}
+
+void VCAudioTriggers::rebuildBarAbsDmxChannels(AudioBar &bar) const
+{
     bar.m_absDmxChannels.clear();
 
-    for (SceneValue &scv : list)
+    for (const SceneValue &scv : bar.m_dmxChannels)
     {
-        bar.m_dmxChannels.append(scv);
-
         if (Fixture *fx = m_doc->fixture(scv.fxi))
         {
             const quint32 absAddr = fx->universeAddress() + scv.channel;
@@ -609,7 +636,7 @@ void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
 
 void VCAudioTriggers::updateFixtureTree()
 {
-    if (m_fixtureTree == nullptr)
+    if (m_fixtureTree == nullptr || m_selectedBar < 0 || m_selectedBar >= m_spectrumBars.count())
         return;
 
     m_fixtureTree->clear();
@@ -654,8 +681,9 @@ void VCAudioTriggers::setSearchFilter(QString searchFilter)
 
     m_searchFilter = searchFilter;
 
-    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
+    if ((searchFilter.length() >= SEARCH_MIN_CHARS ||
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+        && m_selectedBar >= 0 && m_selectedBar < m_spectrumBars.count())
     {
         FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
                                          FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowChannels,
@@ -674,8 +702,10 @@ void VCAudioTriggers::applyToSameType(bool enable)
 void VCAudioTriggers::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture,
                                       quint32 channelIndex, bool checked)
 {
-    if (tree == nullptr)
+    if (tree == nullptr || m_selectedBar < 0 || m_selectedBar >= m_spectrumBars.count())
         return;
+
+    AudioBar &bar = m_spectrumBars[m_selectedBar];
 
     for (TreeModelItem *item : tree->items())
     {
@@ -703,12 +733,12 @@ void VCAudioTriggers::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture,
 
                 if (checked)
                 {
-                    if (m_spectrumBars[m_selectedBar].m_dmxChannels.contains(scv) == false)
-                        m_spectrumBars[m_selectedBar].m_dmxChannels.append(scv);
+                    if (bar.m_dmxChannels.contains(scv) == false)
+                        bar.m_dmxChannels.append(scv);
                 }
                 else
                 {
-                    m_spectrumBars[m_selectedBar].m_dmxChannels.removeAll(scv);
+                    bar.m_dmxChannels.removeAll(scv);
                 }
             }
         }
@@ -720,7 +750,7 @@ void VCAudioTriggers::checkFixtureTree(TreeModel *tree, Fixture *sourceFixture,
 
 void VCAudioTriggers::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
 {
-    if (m_isUpdating)
+    if (m_isUpdating || m_selectedBar < 0 || m_selectedBar >= m_spectrumBars.count())
         return;
 
     qDebug() << "VCAudioTriggers tree data changed" << value.toInt();
@@ -744,6 +774,7 @@ void VCAudioTriggers::slotTreeDataChanged(TreeModelItem *item, int role, const Q
         return;
 
     bool checked = value.toInt() == 0 ? false : true;
+    AudioBar &bar = m_spectrumBars[m_selectedBar];
 
     if (m_applyToSameType)
     {
@@ -757,14 +788,17 @@ void VCAudioTriggers::slotTreeDataChanged(TreeModelItem *item, int role, const Q
 
         if (checked)
         {
-            if (m_spectrumBars[m_selectedBar].m_dmxChannels.contains(scv) == false)
-                m_spectrumBars[m_selectedBar].m_dmxChannels.append(scv);
+            if (bar.m_dmxChannels.contains(scv) == false)
+                bar.m_dmxChannels.append(scv);
         }
         else
         {
-            m_spectrumBars[m_selectedBar].m_dmxChannels.removeAll(scv);
+            bar.m_dmxChannels.removeAll(scv);
         }
     }
+
+    rebuildBarAbsDmxChannels(bar);
+    emit barsInfoChanged();
 }
 
 /*********************************************************************

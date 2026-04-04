@@ -36,6 +36,7 @@ class VCAudioTriggers : public VCWidget, public DMXSource
     Q_PROPERTY(bool captureEnabled READ captureEnabled WRITE setCaptureEnabled NOTIFY captureEnabledChanged)
     Q_PROPERTY(uchar volumeLevel READ volumeLevel WRITE setVolumeLevel NOTIFY volumeLevelChanged FINAL)
     Q_PROPERTY(int barsNumber READ barsNumber WRITE setBarsNumber NOTIFY barsNumberChanged FINAL)
+    Q_PROPERTY(int selectedBar READ selectedBar WRITE setSelectedBar NOTIFY selectedBarChanged FINAL)
     Q_PROPERTY(QVariantList audioLevels READ audioLevels NOTIFY audioLevelsChanged)
     Q_PROPERTY(QVariantList barsInfo READ barsInfo NOTIFY barsInfoChanged)
 
@@ -75,6 +76,8 @@ public:
     /** Get/Set the number of spectrum bars */
     int barsNumber() const;
     void setBarsNumber(int num);
+    int selectedBar() const;
+    void setSelectedBar(int index);
 
     QVariantList audioLevels() const;
 
@@ -82,6 +85,7 @@ signals:
     void captureEnabledChanged();
     void volumeLevelChanged();
     void barsNumberChanged();
+    void selectedBarChanged();
     void audioLevelsChanged();
 
 protected:
@@ -166,6 +170,7 @@ signals:
 private:
     void updateBarWidgetReference(AudioBar &bar) const;
     void checkWidgetFunctionality(AudioBar &bar) const;
+    void rebuildBarAbsDmxChannels(AudioBar &bar) const;
 
 private:
     // first bar is always volume

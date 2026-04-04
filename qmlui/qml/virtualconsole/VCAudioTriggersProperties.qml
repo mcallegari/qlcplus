@@ -200,7 +200,7 @@ Rectangle
                                     {
                                         if (widgetRef)
                                         {
-                                            widgetRef.selectBarForEditing(modelData.index)
+                                            widgetRef.selectedBar = modelData.index
                                             widgetRef.setBarType(currentIndex)
                                         }
                                     }
@@ -219,9 +219,10 @@ Rectangle
                                     height: gridItemsHeight
                                     faSource: FontAwesome.fa_pen_to_square
                                     checkable: true
+                                    checked: widgetRef && widgetRef.selectedBar === modelData.index && sideLoader.visible
                                     onCheckedChanged:
                                     {
-                                        widgetRef.selectBarForEditing(modelData.index)
+                                        widgetRef.selectedBar = modelData.index
                                         if (checked)
                                         {
                                             if (!sideLoader.visible)
@@ -268,7 +269,7 @@ Rectangle
                                         hoverEnabled: true
                                         onClicked:
                                         {
-                                            widgetRef.selectBarForEditing(modelData.index)
+                                            widgetRef.selectedBar = modelData.index
                                             thresholdsPopup.tMin = Math.round(modelData.minThreshold)
                                             thresholdsPopup.tMax = Math.round(modelData.maxThreshold)
                                             thresholdsPopup.open()
