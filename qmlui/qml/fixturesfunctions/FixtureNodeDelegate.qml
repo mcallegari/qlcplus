@@ -348,7 +348,6 @@ Column
             onDoubleClicked: (mouse) =>
             {
                 nodeContainer.mouseEvent(App.DoubleClicked, itemID, -1, nodeContainer, mouse.modifiers)
-                isExpanded = !isExpanded
             }
         }
     }
