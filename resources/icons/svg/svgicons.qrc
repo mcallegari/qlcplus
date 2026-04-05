@@ -72,14 +72,12 @@
     <file alias="folder.svg">folder.svg</file>
     <file alias="forward.svg">forward.svg</file>
     <file alias="frame.svg">frame.svg</file>
-    <file alias="fullscreen.svg">fullscreen.svg</file>
     <file alias="functions.svg">functions.svg</file>
     <file alias="gobo.svg">gobo.svg</file>
     <file alias="green.svg">green.svg</file>
     <file alias="grid.svg">grid.svg</file>
     <file alias="group.svg">group.svg</file>
     <file alias="hazer.svg">hazer.svg</file>
-    <file alias="help.svg">help.svg</file>
     <file alias="hidplugin.svg">hidplugin.svg</file>
     <file alias="import.svg">import.svg</file>
     <file alias="indigo.svg">indigo.svg</file>
@@ -113,7 +111,6 @@
     <file alias="other.svg">other.svg</file>
     <file alias="palette.svg">palette.svg</file>
     <file alias="pan.svg">pan.svg</file>
-    <file alias="pause.svg">pause.svg</file>
     <file alias="position.svg">position.svg</file>
     <file alias="prism.svg">prism.svg</file>
     <file alias="qlcplus.svg">qlcplus.svg</file>
@@ -121,7 +118,6 @@
     <file alias="red.svg">red.svg</file>
     <file alias="redo.svg">redo.svg</file>
     <file alias="rename.svg">rename.svg</file>
-    <file alias="reset.svg">reset.svg</file>
     <file alias="resize.svg">resize.svg</file>
     <file alias="rgbmatrix.svg">rgbmatrix.svg</file>
     <file alias="selectall.svg">selectall.svg</file>
@@ -138,11 +134,9 @@
     <file alias="soloframe.svg">soloframe.svg</file>
     <file alias="speed.svg">speed.svg</file>
     <file alias="star.svg">star.svg</file>
-    <file alias="stop.svg">stop.svg</file>
     <file alias="stopall.svg">stopall.svg</file>
     <file alias="strobe.svg">strobe.svg</file>
     <file alias="tilt.svg">tilt.svg</file>
-    <file alias="uncheck.svg">uncheck.svg</file>
     <file alias="undo.svg">undo.svg</file>
     <file alias="uniview.svg">uniview.svg</file>
     <file alias="unlock.svg">unlock.svg</file>
