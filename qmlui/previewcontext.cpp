@@ -138,7 +138,7 @@ void PreviewContext::setDetached(bool detached)
     if (detached == true)
     {
         /** Create a new Quick View, as a true separate window */
-        ContextQuickView *cqView = new ContextQuickView();
+        ContextQuickView *cqView = new ContextQuickView(m_mainView->engine());
         m_view = cqView;
         m_pixelDensity = m_mainView->rootContext()->contextProperty("screenPixelDensity").toReal();
         connect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
@@ -149,6 +149,7 @@ void PreviewContext::setDetached(bool detached)
          *  This is a bit ugly, but I guess it is a downside of the QML programming */
         m_view->rootContext()->setContextProperty("qlcplus", m_mainView->rootContext()->contextProperty("qlcplus"));
         m_view->rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+        m_view->rootContext()->setContextProperty("uiManager", m_mainView->rootContext()->contextProperty("uiManager"));
         m_view->rootContext()->setContextProperty("ioManager", m_mainView->rootContext()->contextProperty("ioManager"));
         m_view->rootContext()->setContextProperty("fixtureBrowser", m_mainView->rootContext()->contextProperty("fixtureBrowser"));
         m_view->rootContext()->setContextProperty("fixtureManager", m_mainView->rootContext()->contextProperty("fixtureManager"));

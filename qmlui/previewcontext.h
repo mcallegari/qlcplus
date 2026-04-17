@@ -25,13 +25,15 @@
 #include <QQuickView>
 
 class Doc;
+class QQmlEngine;
 
 class ContextQuickView final : public QQuickView
 {
     Q_OBJECT
 
 public:
-    ContextQuickView() { }
+    explicit ContextQuickView(QQmlEngine *engine = nullptr, QWindow *parent = nullptr)
+        : QQuickView(engine, parent) { }
     ~ContextQuickView() { }
 
 protected:
