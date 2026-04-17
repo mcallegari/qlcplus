@@ -107,6 +107,26 @@ public:
     /** @reimp */
     QIcon getIcon() const override;
 
+    enum MatrixAttribute
+    {
+        Color1Attr = Function::Intensity + 1,
+        Color2Attr = Color1Attr + 1,
+        Color3Attr = Color1Attr + 2,
+        Color4Attr = Color1Attr + 3,
+        Color5Attr = Color1Attr + 4,
+        ColorLastAttr = Color1Attr + RGBAlgorithmColorDisplayCount - 1,
+        PatternAttr = ColorLastAttr + 1
+    };
+    enum { ColorAttributeCount = RGBAlgorithmColorDisplayCount };
+    static_assert(RGBAlgorithmColorDisplayCount >= 5,
+                  "RGBMatrix exposes Color1..Color5 compatibility attributes and requires at least 5 colors");
+
+    /** Return the index of the currently selected algorithm. */
+    int algorithmIndex() const;
+
+    /** Re-apply style attributes (colors + pattern) to runtime state. */
+    void applyStyleAttributes();
+
     /*********************************************************************
      * Contents
      *********************************************************************/
@@ -257,6 +277,8 @@ private:
 
     /** Update FadeChannels when $map has changed since last time */
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
+    void applyColorAttribute(int colorIndex, qreal packedColor);
+    void applyPatternAttribute(qreal patternIndex);
 
 public:
     /** Convert color values to fader value */
@@ -271,6 +293,7 @@ private:
 
     /** The duration of a step based on the current BPM (Beats tempo only) */
     uint m_stepBeatDuration;
+    bool m_applyingStyleAttributes;
 
     /*********************************************************************
      * Attributes
