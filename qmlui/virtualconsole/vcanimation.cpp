@@ -31,21 +31,34 @@
 VCAnimation::VCAnimation(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_functionID(Function::invalidId())
-    , m_matrix(nullptr)
     , m_faderLevel(0)
     , m_instantChanges(true)
+    , m_localAlgorithmIndex(0)
+    , m_algorithmOverrideID(Function::invalidAttributeId())
 {
     setType(VCWidget::AnimationWidget);
 
     registerExternalControl(INPUT_FADER_ID, tr("Intensity"), true);
 
     m_visibilityMask = defaultVisibilityMask();
+
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+    {
+        m_localColors[i] = QColor();
+        m_colorOverrideIDs[i] = Function::invalidAttributeId();
+    }
 }
 
 VCAnimation::~VCAnimation()
 {
-    if (m_matrix)
-        delete m_matrix;
+    RGBMatrix *matrix = currentMatrix();
+    if (matrix != nullptr)
+    {
+        releaseStyleOverrides(matrix);
+        releaseIntensityOverride(matrix);
+        matrix->stop(functionParent());
+        matrix->applyStyleAttributes();
+    }
 
     if (m_item)
         delete m_item;
@@ -160,21 +173,47 @@ void VCAnimation::setFunctionID(quint32 newFunctionID)
     if (m_functionID == newFunctionID)
         return;
 
+    RGBMatrix *oldMatrix = currentMatrix();
+    if (oldMatrix != nullptr)
+    {
+        releaseStyleOverrides(oldMatrix);
+        releaseIntensityOverride(oldMatrix);
+        oldMatrix->stop(functionParent());
+        oldMatrix->applyStyleAttributes();
+    }
+
     RGBMatrix *matrix = qobject_cast<RGBMatrix*>(m_doc->function(newFunctionID));
-    if (matrix == NULL)
-        return;
+    if (matrix == nullptr)
+    {
+        m_functionID = Function::invalidId();
+        for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+            m_localColors[i] = QColor();
+        m_localAlgorithmIndex = 0;
+    }
+    else
+    {
+        m_functionID = newFunctionID;
+        for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+            m_localColors[i] = matrix->getColor(i);
+        m_localAlgorithmIndex = matrix->algorithmIndex();
+    }
 
-    if (m_matrix != nullptr)
-        delete m_matrix;
-
-    Function *func = matrix->createCopy(m_doc, false);
-    m_matrix = qobject_cast<RGBMatrix*>(func);
-
-    m_functionID = newFunctionID;
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+        m_colorOverrideIDs[i] = Function::invalidAttributeId();
+    m_algorithmOverrideID = Function::invalidAttributeId();
+    if (m_faderLevel != 0)
+    {
+        m_faderLevel = 0;
+        emit faderLevelChanged();
+    }
 
     emit functionIDChanged();
     emit color1Changed();
     emit color2Changed();
+    emit color3Changed();
+    emit color4Changed();
+    emit color5Changed();
+    emit colorsChanged();
     emit algorithmIndexChanged();
 }
 
@@ -188,7 +227,8 @@ void VCAnimation::setFaderLevel(int level)
     if (m_faderLevel == level)
         return;
 
-    if (m_matrix == NULL)
+    RGBMatrix *matrix = currentMatrix();
+    if (matrix == nullptr)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VCAnimationSetFaderLevel, id(), m_faderLevel, level);
@@ -196,20 +236,20 @@ void VCAnimation::setFaderLevel(int level)
     if (level == 0)
     {
         // Make sure we ignore the fade out time
-        adjustFunctionIntensity(m_matrix, 0);
-        if (m_matrix->stopped() == false)
-        {
-            m_matrix->stop(functionParent());
-            resetIntensityOverrideAttribute();
-        }
+        adjustFunctionIntensity(matrix, 0);
+        releaseIntensityOverride(matrix);
+        releaseStyleOverrides(matrix);
+        matrix->stop(functionParent());
+        matrix->applyStyleAttributes();
     }
     else
     {
         qreal pIntensity = qreal(level) / qreal(UCHAR_MAX);
         emit functionStarting(this, m_functionID, pIntensity);
-        adjustFunctionIntensity(m_matrix, pIntensity * intensity());
-        if (m_matrix->stopped() == true)
-            m_matrix->start(m_doc->masterTimer(), functionParent());
+        applyStyleOverrides(matrix);
+        adjustFunctionIntensity(matrix, pIntensity * intensity());
+        if (matrix->stopped() == true)
+            matrix->start(m_doc->masterTimer(), functionParent());
     }
 
     m_faderLevel = level;
@@ -237,110 +277,184 @@ void VCAnimation::setInstantChanges(bool newInstantChanges)
 
 QColor VCAnimation::getColor1() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(0);
+    return m_localColors[0];
 }
 
 void VCAnimation::setColor1(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[0] == color)
         return;
 
-    if (m_matrix->getColor(0) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor1, id(), m_localColors[0], color);
+    m_localColors[0] = color;
+
+    if (m_faderLevel > 0)
     {
-        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor1, id(), m_matrix->getColor(0), color);
-        m_matrix->setColor(0, color);
-        if (instantChanges())
-            m_matrix->updateColorDelta();
-        emit color1Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color1Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor2() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(1);
+    return m_localColors[1];
 }
 
 void VCAnimation::setColor2(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[1] == color)
         return;
 
-    if (m_matrix->getColor(1) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor2, id(), m_localColors[1], color);
+    m_localColors[1] = color;
+
+    if (m_faderLevel > 0)
     {
-        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor2, id(), m_matrix->getColor(1), color);
-        m_matrix->setColor(1, color);
-        if (instantChanges())
-            m_matrix->updateColorDelta();
-        emit color2Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color2Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor3() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(2);
+    return m_localColors[2];
 }
 
 void VCAnimation::setColor3(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[2] == color)
         return;
 
-    if (m_matrix->getColor(2) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor3, id(), m_localColors[2], color);
+    m_localColors[2] = color;
+
+    if (m_faderLevel > 0)
     {
-        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor3, id(), m_matrix->getColor(2), color);
-        m_matrix->setColor(2, color);
-        emit color3Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color3Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor4() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(3);
+    return m_localColors[3];
 }
 
 void VCAnimation::setColor4(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[3] == color)
         return;
 
-    if (m_matrix->getColor(3) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor4, id(), m_localColors[3], color);
+    m_localColors[3] = color;
+
+    if (m_faderLevel > 0)
     {
-        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor4, id(), m_matrix->getColor(3), color);
-        m_matrix->setColor(3, color);
-        emit color4Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
+
+    emit color4Changed();
+    emit colorsChanged();
 }
 
 QColor VCAnimation::getColor5() const
 {
-    if (m_matrix == NULL)
-        return QColor();
-
-    return m_matrix->getColor(4);
+    return m_localColors[4];
 }
 
 void VCAnimation::setColor5(QColor color)
 {
-    if (m_matrix == NULL)
+    if (m_localColors[4] == color)
         return;
 
-    if (m_matrix->getColor(4) != color)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor5, id(), m_localColors[4], color);
+    m_localColors[4] = color;
+
+    if (m_faderLevel > 0)
     {
-        Tardis::instance()->enqueueAction(Tardis::VCAnimationSetColor5, id(), m_matrix->getColor(4), color);
-        m_matrix->setColor(4, color);
-        emit color5Changed();
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
+    }
+
+    emit color5Changed();
+    emit colorsChanged();
+}
+
+int VCAnimation::colorCount() const
+{
+    if (m_doc == nullptr || m_localAlgorithmIndex < 0)
+        return 0;
+
+    QStringList algoList = algorithms();
+    if (m_localAlgorithmIndex >= algoList.count())
+        return 0;
+
+    RGBAlgorithm *algorithm = RGBAlgorithm::algorithm(m_doc, algoList.at(m_localAlgorithmIndex));
+    if (algorithm == nullptr)
+        return 0;
+
+    int acceptedColors = qBound(0, algorithm->acceptColors(), RGBAlgorithmColorDisplayCount);
+    delete algorithm;
+    return acceptedColors;
+}
+
+QVariantList VCAnimation::colors() const
+{
+    QVariantList ret;
+    ret.reserve(RGBAlgorithmColorDisplayCount);
+
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+        ret << m_localColors[i];
+
+    return ret;
+}
+
+QColor VCAnimation::colorAt(int index) const
+{
+    if (index < 0 || index >= RGBAlgorithmColorDisplayCount)
+        return QColor();
+
+    return m_localColors[index];
+}
+
+void VCAnimation::setColorAt(int index, QColor color)
+{
+    switch (index)
+    {
+    case 0: setColor1(color); break;
+    case 1: setColor2(color); break;
+    case 2: setColor3(color); break;
+    case 3: setColor4(color); break;
+    case 4: setColor5(color); break;
+    default:
+        if (index < 0 || index >= RGBAlgorithmColorDisplayCount || m_localColors[index] == color)
+            return;
+
+        m_localColors[index] = color;
+        if (m_faderLevel > 0)
+        {
+            RGBMatrix *matrix = currentMatrix();
+            if (matrix != nullptr)
+                applyStyleOverrides(matrix);
+        }
+
+        emit colorsChanged();
+        break;
     }
 }
 
@@ -351,36 +465,24 @@ QStringList VCAnimation::algorithms() const
 
 int VCAnimation::algorithmIndex() const
 {
-    if (m_matrix == NULL)
-        return 0;
-
-    QStringList algoList = algorithms();
-    return algoList.indexOf(m_matrix->algorithm()->name());
+    return m_localAlgorithmIndex;
 }
 
 void VCAnimation::setAlgorithmIndex(int index)
 {
-    if (m_matrix == NULL)
-        return;
-
     QStringList algoList = algorithms();
-    if (index < 0 || index >= algorithms().count())
+    if (index < 0 || index >= algoList.count() || m_localAlgorithmIndex == index)
         return;
 
-    RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, algoList.at(index));
-    if (algo != nullptr)
+    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetAlgorithmIndex, id(), m_localAlgorithmIndex, index);
+    m_localAlgorithmIndex = index;
+
+    if (m_faderLevel > 0)
     {
-        /** if we're setting the same algorithm, then there's nothing to do */
-        if (m_matrix->algorithm() != nullptr && m_matrix->algorithm()->name() == algo->name())
-            return;
-        algo->setColors(m_matrix->getColors());
+        RGBMatrix *matrix = currentMatrix();
+        if (matrix != nullptr)
+            applyStyleOverrides(matrix);
     }
-
-    Tardis::instance()->enqueueAction(Tardis::VCAnimationSetAlgorithmIndex, id(), algorithmIndex(), index);
-
-    m_matrix->setAlgorithm(algo);
-    if (instantChanges())
-        m_matrix->updateColorDelta();
 
     emit algorithmIndexChanged();
 }
@@ -394,6 +496,76 @@ void VCAnimation::slotInputValueChanged(quint8 id, uchar value)
 {
     if (id == INPUT_FADER_ID)
         setFaderLevel(value);
+}
+
+RGBMatrix *VCAnimation::currentMatrix() const
+{
+    if (m_functionID == Function::invalidId())
+        return nullptr;
+
+    return qobject_cast<RGBMatrix *>(m_doc->function(m_functionID));
+}
+
+void VCAnimation::applyStyleOverrides(RGBMatrix *matrix)
+{
+    if (matrix == nullptr)
+        return;
+
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+    {
+        int attrIndex = RGBMatrix::Color1Attr + i;
+        int colorValue = packColorForOverride(m_localColors[i]);
+        if (m_colorOverrideIDs[i] == Function::invalidAttributeId())
+            m_colorOverrideIDs[i] = matrix->requestAttributeOverride(attrIndex, colorValue);
+        else
+            matrix->adjustAttribute(colorValue, m_colorOverrideIDs[i]);
+    }
+
+    if (m_algorithmOverrideID == Function::invalidAttributeId())
+        m_algorithmOverrideID = matrix->requestAttributeOverride(RGBMatrix::PatternAttr, m_localAlgorithmIndex);
+    else
+        matrix->adjustAttribute(m_localAlgorithmIndex, m_algorithmOverrideID);
+}
+
+void VCAnimation::releaseStyleOverrides(RGBMatrix *matrix)
+{
+    if (matrix == nullptr)
+        return;
+
+    bool released = false;
+    for (int i = 0; i < RGBAlgorithmColorDisplayCount; ++i)
+    {
+        if (m_colorOverrideIDs[i] == Function::invalidAttributeId())
+            continue;
+
+        matrix->releaseAttributeOverride(m_colorOverrideIDs[i]);
+        m_colorOverrideIDs[i] = Function::invalidAttributeId();
+        released = true;
+    }
+
+    if (m_algorithmOverrideID != Function::invalidAttributeId())
+    {
+        matrix->releaseAttributeOverride(m_algorithmOverrideID);
+        m_algorithmOverrideID = Function::invalidAttributeId();
+        released = true;
+    }
+
+    if (released)
+        matrix->applyStyleAttributes();
+}
+
+void VCAnimation::releaseIntensityOverride(RGBMatrix *matrix)
+{
+    if (matrix == nullptr || m_intensityOverrideId == Function::invalidAttributeId())
+        return;
+
+    matrix->releaseAttributeOverride(m_intensityOverrideId);
+    resetIntensityOverrideAttribute();
+}
+
+int VCAnimation::packColorForOverride(const QColor &color)
+{
+    return color.isValid() ? int(color.rgb() & 0x00FFFFFF) : -1;
 }
 
 /*********************************************************************

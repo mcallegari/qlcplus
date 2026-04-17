@@ -31,6 +31,45 @@ VCWidgetItem
 
     clip: true
 
+    function colorControlVisible(index)
+    {
+        return true
+    }
+
+    function toggleColorTool(colorTool, button)
+    {
+        if (!colorTool || !button)
+            return
+
+        var popupParent = virtualConsole ? virtualConsole.currentPageItem() : null
+        if (!popupParent)
+            popupParent = animationRoot.parent
+        if (!popupParent)
+            return
+
+        for (var i = 0; i < colorsRepeater.count; i++)
+        {
+            var repItem = colorsRepeater.itemAt(i)
+            if (!repItem || !repItem.colorTool || repItem.colorTool === colorTool)
+                continue
+            repItem.colorTool.visible = false
+        }
+
+        colorTool.parent = popupParent
+        colorTool.z = 10000
+
+        var posInPage = button.mapToItem(popupParent, 0, button.height)
+        var toolWidth = Math.max(colorTool.width, colorTool.implicitWidth)
+        var toolHeight = Math.max(colorTool.height, colorTool.implicitHeight)
+        var belowY = posInPage.y
+        var aboveY = posInPage.y - button.height - toolHeight
+        var preferredY = (belowY + toolHeight <= popupParent.height) ? belowY : aboveY
+
+        colorTool.x = Math.max(0, Math.min(posInPage.x, popupParent.width - toolWidth))
+        colorTool.y = Math.max(0, Math.min(preferredY, popupParent.height - toolHeight))
+        colorTool.visible = !colorTool.visible
+    }
+
     onAnimationObjChanged:
     {
         setCommonProperties(animationObj)
@@ -73,210 +112,54 @@ VCWidgetItem
             Layout.fillWidth: true
             height: UISettings.iconSizeDefault
 
-            Rectangle
+            Repeater
             {
-                id: col1Button
-                width: UISettings.iconSizeDefault
-                height: width
-                radius: 5
-                border.color: mc1MouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: animationObj ? animationObj.color1 : "transparent"
-                visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color1 : true
+                id: colorsRepeater
+                model: animationObj ? animationObj.colorCount : 0
 
-                MouseArea
+                delegate: Item
                 {
-                    id: mc1MouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked:
+                    required property int index
+                    width: UISettings.iconSizeDefault
+                    height: width
+                    visible: animationRoot.colorControlVisible(index)
+                    property alias colorTool: picker
+
+                    Rectangle
                     {
-                        var pos = col1Button.mapToItem(animationRoot.parent, 0, 0)
-                        col1Tool.x = pos.x
-                        col1Tool.y = pos.y + col1Button.height
-                        col1Tool.visible = !col1Tool.visible
-                    }
-                }
+                        id: colorButton
+                        anchors.fill: parent
+                        radius: 5
+                        border.color: colorMouseArea.containsMouse ? "white" : UISettings.bgLight
+                        border.width: 2
+                        color: animationObj && animationObj.colors.length > index ? animationObj.colors[index] : "transparent"
 
-                ColorTool
-                {
-                    id: col1Tool
-                    parent: animationRoot.parent
-                    visible: false
-                    closeOnSelect: true
-                    currentRGB: animationObj ? animationObj.color1 : "black"
-
-                    onToolColorChanged:
-                        function(r, g, b, w, a, uv)
+                        MouseArea
                         {
-                            col1Button.color = Qt.rgba(r, g, b, 1.0)
-                            animationObj.color1 = col1Button.color
+                            id: colorMouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onClicked: animationRoot.toggleColorTool(picker, colorButton)
                         }
-                    onClose: visible = false
-                }
-            }
-            Rectangle
-            {
-                id: col2Button
-                width: UISettings.iconSizeDefault
-                height: width
-                radius: 5
-                border.color: mc2MouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: animationObj ? animationObj.color2 : "transparent"
-                visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color2 : true
+                    }
 
-                MouseArea
-                {
-                    id: mc2MouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked:
+                    ColorTool
                     {
-                        var pos = col2Button.mapToItem(animationRoot.parent, 0, 0)
-                        col2Tool.x = pos.x
-                        col2Tool.y = pos.y + col2Button.height
-                        col2Tool.visible = !col2Tool.visible
+                        id: picker
+                        parent: animationRoot
+                        z: 10000
+                        visible: false
+                        closeOnSelect: true
+                        currentRGB: colorButton.color
+
+                        onToolColorChanged:
+                            function(r, g, b, w, a, uv)
+                            {
+                                if (animationObj)
+                                    animationObj.setColorAt(index, Qt.rgba(r, g, b, 1.0))
+                            }
+                        onClose: visible = false
                     }
-                }
-
-                ColorTool
-                {
-                    id: col2Tool
-                    parent: animationRoot.parent
-                    visible: false
-                    closeOnSelect: true
-                    currentRGB: animationObj ? animationObj.color2 : "black"
-
-                    onToolColorChanged:
-                        function(r, g, b, w, a, uv)
-                        {
-                            animationObj.color2 = Qt.rgba(r, g, b, 1.0)
-                        }
-                    onClose: visible = false
-                }
-            }
-            Rectangle
-            {
-                id: col3Button
-                width: UISettings.iconSizeDefault
-                height: width
-                radius: 5
-                border.color: mc3MouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: animationObj ? animationObj.color3 : "transparent"
-                visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color3 : true
-
-                MouseArea
-                {
-                    id: mc3MouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked:
-                    {
-                        var pos = col3Button.mapToItem(animationRoot.parent, 0, 0)
-                        col3Tool.x = pos.x
-                        col3Tool.y = pos.y + col3Button.height
-                        col3Tool.visible = !col3Tool.visible
-                    }
-                }
-
-                ColorTool
-                {
-                    id: col3Tool
-                    parent: animationRoot.parent
-                    visible: false
-                    closeOnSelect: true
-                    currentRGB: animationObj ? animationObj.color3 : "black"
-
-                    onToolColorChanged:
-                        function(r, g, b, w, a, uv)
-                        {
-                            animationObj.color3 = Qt.rgba(r, g, b, 1.0)
-                        }
-                    onClose: visible = false
-                }
-            }
-            Rectangle
-            {
-                id: col4Button
-                width: UISettings.iconSizeDefault
-                height: width
-                radius: 5
-                border.color: mc4MouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: animationObj ? animationObj.color4 : "transparent"
-                visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color4 : true
-
-                MouseArea
-                {
-                    id: mc4MouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked:
-                    {
-                        var pos = col4Button.mapToItem(animationRoot.parent, 0, 0)
-                        col4Tool.x = pos.x
-                        col4Tool.y = pos.y + col4Button.height
-                        col4Tool.visible = !col4Tool.visible
-                    }
-                }
-
-                ColorTool
-                {
-                    id: col4Tool
-                    parent: animationRoot.parent
-                    visible: false
-                    closeOnSelect: true
-                    currentRGB: animationObj ? animationObj.color4 : "black"
-
-                    onToolColorChanged:
-                        function(r, g, b, w, a, uv)
-                        {
-                            animationObj.color4 = Qt.rgba(r, g, b, 1.0)
-                        }
-                    onClose: visible = false
-                }
-            }
-            Rectangle
-            {
-                id: col5Button
-                width: UISettings.iconSizeDefault
-                height: width
-                radius: 5
-                border.color: mc5MouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: animationObj ? animationObj.color5 : "transparent"
-                visible: animationObj ? animationObj.visibilityMask & VCAnimation.Color5 : true
-
-                MouseArea
-                {
-                    id: mc5MouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked:
-                    {
-                        var pos = col5Button.mapToItem(animationRoot.parent, 0, 0)
-                        col5Tool.x = pos.x
-                        col5Tool.y = pos.y + col5Button.height
-                        col5Tool.visible = !col5Tool.visible
-                    }
-                }
-
-                ColorTool
-                {
-                    id: col5Tool
-                    parent: animationRoot.parent
-                    visible: false
-                    closeOnSelect: true
-                    currentRGB: animationObj ? animationObj.color5 : "black"
-
-                    onToolColorChanged:
-                        function(r, g, b, w, a, uv)
-                        {
-                            animationObj.color5 = Qt.rgba(r, g, b, 1.0)
-                        }
-                    onClose: visible = false
                 }
             }
         } // RowLayout
@@ -290,7 +173,7 @@ VCWidgetItem
             textRole: ""
             model: animationObj ? animationObj.algorithms : null
             currentIndex: animationObj ? animationObj.algorithmIndex : 0
-            onCurrentIndexChanged:
+            onActivated: (index) =>
             {
                 if (animationObj)
                     animationObj.algorithmIndex = currentIndex

@@ -21,6 +21,8 @@
 #define VCANIMATION_H
 
 #include "vcwidget.h"
+#include "rgbalgorithm.h"
+#include <QVariantList>
 
 #define KXMLQLCVCAnimation             QStringLiteral("Matrix")
 #define KXMLQLCVCAnimationFunction     QStringLiteral("Function")
@@ -36,6 +38,12 @@ class VCAnimation : public VCWidget
 {
     Q_OBJECT
 
+    static_assert(RGBAlgorithmColorDisplayCount >= 5,
+                  "VCAnimation color1..color5 compatibility properties require at least 5 colors");
+#if RGBAlgorithmColorDisplayCount != 5
+#pragma message("VCAnimation visibility enum currently declares 5 color bits. Extend per-color visibility flags if needed.")
+#endif
+
     Q_PROPERTY(quint32 visibilityMask READ visibilityMask WRITE setVisibilityMask NOTIFY visibilityMaskChanged)
     Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
     Q_PROPERTY(int faderLevel READ faderLevel WRITE setFaderLevel NOTIFY faderLevelChanged FINAL)
@@ -46,6 +54,8 @@ class VCAnimation : public VCWidget
     Q_PROPERTY(QColor color3 READ getColor3 WRITE setColor3 NOTIFY color3Changed)
     Q_PROPERTY(QColor color4 READ getColor4 WRITE setColor4 NOTIFY color4Changed)
     Q_PROPERTY(QColor color5 READ getColor5 WRITE setColor5 NOTIFY color5Changed)
+    Q_PROPERTY(int colorCount READ colorCount NOTIFY algorithmIndexChanged FINAL)
+    Q_PROPERTY(QVariantList colors READ colors NOTIFY colorsChanged FINAL)
 
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged FINAL)
@@ -132,9 +142,12 @@ signals:
 
 private:
     quint32 m_functionID;
-    RGBMatrix *m_matrix;
     int m_faderLevel;
     bool m_instantChanges;
+    QColor m_localColors[RGBAlgorithmColorDisplayCount];
+    int m_localAlgorithmIndex;
+    int m_colorOverrideIDs[RGBAlgorithmColorDisplayCount];
+    int m_algorithmOverrideID;
 
     /*********************************************************************
      * Colors and presets
@@ -160,6 +173,16 @@ public:
     QColor getColor5() const;
     void setColor5(QColor color);
 
+    /** Get the amount of configurable colors for the current build */
+    int colorCount() const;
+
+    /** Get all configured colors (for QML repeaters/models) */
+    QVariantList colors() const;
+
+    /** Get/set a color by index */
+    Q_INVOKABLE QColor colorAt(int index) const;
+    Q_INVOKABLE void setColorAt(int index, QColor color);
+
     /** Returns the list of available algorithms */
     QStringList algorithms() const;
 
@@ -173,6 +196,7 @@ signals:
     void color3Changed();
     void color4Changed();
     void color5Changed();
+    void colorsChanged();
     void algorithmIndexChanged();
 
     /*********************************************************************
@@ -194,6 +218,13 @@ public slots:
 public:
     bool loadXML(QXmlStreamReader &root) override;
     bool saveXML(QXmlStreamWriter *doc) const override;
+
+private:
+    RGBMatrix *currentMatrix() const;
+    void applyStyleOverrides(RGBMatrix *matrix);
+    void releaseStyleOverrides(RGBMatrix *matrix);
+    void releaseIntensityOverride(RGBMatrix *matrix);
+    static int packColorForOverride(const QColor &color);
 };
 
 #endif
