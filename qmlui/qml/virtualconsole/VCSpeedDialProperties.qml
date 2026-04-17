@@ -139,20 +139,15 @@ Rectangle
                                 height: UISettings.listItemHeight
 
                                 property int functionID: modelData.funcID
-                                property QLCFunction func
-
-                                onFunctionIDChanged:
-                                {
-                                    func = functionManager.getFunction(functionID)
-                                    funcEntry.tLabel = func.name
-                                    funcEntry.functionType = func.type
-                                }
+                                property QLCFunction func: functionManager.getFunction(functionID)
 
                                 IconTextEntry
                                 {
                                     id: funcEntry
                                     width: functionList.funcColWidth
                                     height: parent.height
+                                    tLabel: func ? func.name : ""
+                                    functionType: func ? func.type : -1
                                 }
 
                                 CustomComboBox
