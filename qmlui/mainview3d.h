@@ -257,7 +257,8 @@ public:
 
 protected:
     /** First time 3D view variables initializations */
-    void initialize3DProperties();
+    bool initialize3DProperties();
+    void scheduleInitializeRetry();
 
     /** Bounding box volume calculation methods */
     //void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
@@ -347,6 +348,7 @@ signals:
 private:
     /** Counter used to give unique IDs to generic items */
     int m_latestGenericID;
+    int m_initRetryCount;
 
     /** QML model for generic items */
     ListModel *m_genericItemsList;

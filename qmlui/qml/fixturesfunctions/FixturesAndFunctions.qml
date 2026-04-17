@@ -74,10 +74,14 @@ Rectangle
         {
             item.visible = true
             if (setChecked)
+            {
                 item.checked = true
+                // The checked change drives loadContext(), which updates
+                // both currentViewQML and currentSubContext consistently.
+                return
+            }
         }
         settingsButton.checked = false
-        contextManager.currentSubContext = ctx
     }
 
     function loadContext(checked, qmlres, ctx)

@@ -22,6 +22,7 @@
 #include <QTexture>
 #include <QPainter>
 #include <QQuickItem>
+#include <QTimer>
 #include <QQmlContext>
 #include <QQmlComponent>
 #include <QSvgRenderer>
@@ -61,10 +62,12 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxFrameCount(0)
     , m_avgFrameCount(1.0)
     , m_scene3D(nullptr)
+    , m_scene3DEntity(nullptr)
     , m_sceneRootEntity(nullptr)
     , m_quadEntity(nullptr)
     , m_gBuffer(nullptr)
     , m_latestGenericID(0)
+    , m_initRetryCount(0)
     , m_renderQuality(HighQuality)
     , m_stageEntity(nullptr)
     , m_ambientIntensity(0.6)
@@ -103,8 +106,11 @@ void MainView3D::enableContext(bool enable)
     {
         resetItems();
         m_scene3D = nullptr;
+        m_scene3DEntity = nullptr;
         m_sceneRootEntity = nullptr;
         m_quadEntity = nullptr;
+        m_gBuffer = nullptr;
+        m_initRetryCount = 0;
 
         if (m_stageEntity)
         {
@@ -130,7 +136,8 @@ void MainView3D::slotRefreshView()
 
     resetItems();
 
-    initialize3DProperties();
+    if (initialize3DProperties() == false)
+        return;
 
     qDebug() << "Refreshing 3D view...";
 
@@ -163,7 +170,8 @@ void MainView3D::resetItems()
 {
     qDebug() << "Resetting 3D items...";
 
-    QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
+    if (m_scene3D)
+        QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
 
     QMapIterator<quint32, SceneItem*> it(m_entitiesMap);
     while (it.hasNext())
@@ -384,7 +392,7 @@ void MainView3D::slotFrameProcessed()
  * Fixtures
  *********************************************************************/
 
-void MainView3D::initialize3DProperties()
+bool MainView3D::initialize3DProperties()
 {
     if (m_fixtureComponent == nullptr)
     {
@@ -407,43 +415,76 @@ void MainView3D::initialize3DProperties()
             qDebug() << m_selectionComponent->errors();
     }
 
-    m_scene3D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("scene3DItem"));
+    m_scene3D = nullptr;
+    QQuickItem *ctxItem = contextItem();
+    if (ctxItem)
+    {
+        if (ctxItem->objectName() == "scene3DItem")
+            m_scene3D = ctxItem;
+        else
+            m_scene3D = qobject_cast<QQuickItem*>(ctxItem->findChild<QObject *>("scene3DItem"));
+    }
+
+    if (m_scene3D == nullptr && m_view && m_view->rootObject())
+        m_scene3D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("scene3DItem"));
 
     qDebug() << Q_FUNC_INFO << m_scene3D;
 
     if (m_scene3D == nullptr)
     {
         qDebug() << "Scene3DItem not found!";
-        return;
+        m_scene3DEntity = nullptr;
+        m_sceneRootEntity = nullptr;
+        m_quadEntity = nullptr;
+        m_gBuffer = nullptr;
+        scheduleInitializeRetry();
+        return false;
     }
 
     m_scene3DEntity = m_scene3D->findChild<QEntity *>("scene3DEntity");
     if (m_scene3DEntity == nullptr)
     {
-        qDebug() << "m_scene3DEntity not found!";
-        return;
+        QObject *sceneEntityObj = m_scene3D->property("entity").value<QObject *>();
+        m_scene3DEntity = qobject_cast<QEntity *>(sceneEntityObj);
     }
 
-    m_sceneRootEntity = m_scene3D->findChild<QEntity *>("sceneRootEntity");
+    if (m_scene3DEntity == nullptr)
+        qDebug() << "m_scene3DEntity not found!";
+
+    m_sceneRootEntity = m_scene3DEntity ? m_scene3DEntity->findChild<QEntity *>("sceneRootEntity") : nullptr;
+    if (m_sceneRootEntity == nullptr)
+        m_sceneRootEntity = m_scene3D->findChild<QEntity *>("sceneRootEntity");
     if (m_sceneRootEntity == nullptr)
     {
         qDebug() << "sceneRootEntity not found!";
-        return;
+        m_quadEntity = nullptr;
+        m_gBuffer = nullptr;
+        scheduleInitializeRetry();
+        return false;
     }
 
-    m_quadEntity = m_scene3D->findChild<QEntity *>("quadEntity");
+    m_quadEntity = m_scene3DEntity ? m_scene3DEntity->findChild<QEntity *>("quadEntity") : nullptr;
+    if (m_quadEntity == nullptr)
+        m_quadEntity = m_scene3D->findChild<QEntity *>("quadEntity");
     if (m_quadEntity == nullptr)
     {
         qDebug() << "quadEntity not found!";
-        return;
+        m_gBuffer = nullptr;
+        scheduleInitializeRetry();
+        return false;
     }
 
-    m_gBuffer = m_scene3D->findChild<QRenderTarget *>("gBuffer");
+    m_gBuffer = m_scene3DEntity ? m_scene3DEntity->findChild<QRenderTarget *>("gBuffer") : nullptr;
+    if (m_gBuffer == nullptr)
+        m_gBuffer = m_scene3D->findChild<QRenderTarget *>("gBuffer");
     if (m_gBuffer == nullptr)
     {
         qDebug() << "gBuffer not found!";
-        return;
+        scheduleInitializeRetry();
+        return false;
     }
+
+    m_initRetryCount = 0;
 
     if (m_frameAction)
         m_sceneRootEntity->addComponent(m_frameAction);
@@ -454,6 +495,27 @@ void MainView3D::initialize3DProperties()
         createStage();
 
     QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
+    return true;
+}
+
+void MainView3D::scheduleInitializeRetry()
+{
+    if (isEnabled() == false)
+        return;
+
+    if (m_initRetryCount >= 120)
+    {
+        qWarning() << "[MainView3D] 3D scene initialization timed out";
+        return;
+    }
+
+    m_initRetryCount++;
+    QTimer::singleShot(50, this, [this]()
+    {
+        if (isEnabled() == false || m_quadEntity != nullptr)
+            return;
+        slotRefreshView();
+    });
 }
 
 QString MainView3D::makeShader(QString str) {
@@ -542,8 +604,8 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (isEnabled() == false)
         return;
 
-    if (m_quadEntity == nullptr)
-        initialize3DProperties();
+    if (m_quadEntity == nullptr && initialize3DProperties() == false)
+        return;
 
     qDebug() << "[MainView3D] Creating fixture with ID" << fxID << "pos:" << pos;
 
@@ -1145,7 +1207,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
     // Update the Scene Graph only when the last fixture has been added to the Scene
     if (m_createItemCount == 0)
     {
-        QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
+        if (m_scene3D)
+            QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 #ifdef SHOW_FRAMEGRAPH
         if (m_scene3DEntity)
             walkNode(m_scene3DEntity, 0);
@@ -1556,7 +1619,8 @@ void MainView3D::removeFixtureItem(quint32 itemID)
     if (isEnabled() == false || m_entitiesMap.contains(itemID) == false)
         return;
 
-    QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
+    if (m_scene3D)
+        QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
 
     SceneItem *mesh = m_entitiesMap.take(itemID);
 
@@ -1578,7 +1642,8 @@ void MainView3D::removeFixtureItem(quint32 itemID)
 
     delete mesh;
 
-    QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
+    if (m_scene3D)
+        QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 }
 
 /*********************************************************************
@@ -1592,8 +1657,8 @@ void MainView3D::createGenericItem(QString filename, int itemID)
 
     qDebug() << "File URL is:" << filename;
 
-    if (m_quadEntity == nullptr)
-        initialize3DProperties();
+    if (m_quadEntity == nullptr && initialize3DProperties() == false)
+        return;
 
     if (itemID == -1)
     {
@@ -2215,18 +2280,24 @@ quint32 MainView3D::itemIntersection(const QVector3D &rayOrigin, const QVector3D
         {
             QVector3D worldIntersection = rayOrigin + rayDir * closestDistance;
 
-            QMetaObject::invokeMethod(m_scene3D, "selectGenericItem",
-                                      Q_ARG(QVariant, pickedID),
-                                      Q_ARG(QVariant, !isSelected),
-                                      Q_ARG(QVariant, modifiers),
-                                      Q_ARG(QVariant, worldIntersection));
+            if (m_scene3D)
+            {
+                QMetaObject::invokeMethod(m_scene3D, "selectGenericItem",
+                                          Q_ARG(QVariant, pickedID),
+                                          Q_ARG(QVariant, !isSelected),
+                                          Q_ARG(QVariant, modifiers),
+                                          Q_ARG(QVariant, worldIntersection));
+            }
         }
         else
         {
-            QMetaObject::invokeMethod(m_scene3D, "selectFixtureItem",
-                                      Q_ARG(QVariant, pickedID),
-                                      Q_ARG(QVariant, !isSelected),
-                                      Q_ARG(QVariant, modifiers));
+            if (m_scene3D)
+            {
+                QMetaObject::invokeMethod(m_scene3D, "selectFixtureItem",
+                                          Q_ARG(QVariant, pickedID),
+                                          Q_ARG(QVariant, !isSelected),
+                                          Q_ARG(QVariant, modifiers));
+            }
         }
     }
 
