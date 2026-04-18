@@ -381,16 +381,34 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
         return false;
 
     TreeModelItem *item = m_items.at(itemRow);
+    const QString oldLabel = item->label();
+    const QString oldPath = item->path();
 
     //qDebug() << "Setting role" << role << "on row" << itemRow << "with value" << value;
 
     switch(role)
     {
         case LabelRole:
+        {
             item->setLabel(value.toString());
+            QString oldKey = oldPath.isEmpty() ? oldLabel : oldPath;
+            if (m_itemsPathMap.value(oldKey, nullptr) == item)
+            {
+                m_itemsPathMap.remove(oldKey);
+                m_itemsPathMap[value.toString()] = item;
+            }
+        }
         break;
         case PathRole:
+        {
             item->setPath(value.toString());
+            QString oldKey = oldPath.isEmpty() ? oldLabel : oldPath;
+            if (m_itemsPathMap.value(oldKey, nullptr) == item)
+            {
+                m_itemsPathMap.remove(oldKey);
+                m_itemsPathMap[value.toString()] = item;
+            }
+        }
         break;
         case IsExpandedRole:
             item->setFlag(Expanded, value.toBool());

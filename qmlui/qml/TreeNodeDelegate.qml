@@ -143,7 +143,7 @@ Column
         {
             id: tnDropArea
             anchors.fill: parent
-            keys: [ nodeContainer.dropKeys ]
+            keys: nodeContainer.dropKeys.length ? [ nodeContainer.dropKeys ] : []
 
             onDropped: (drop) =>
             {
@@ -206,7 +206,7 @@ Column
                             item.isExpanded = Qt.binding(function() { return isExpanded })
                             item.nodeChildren = childrenModel
                             if (item.hasOwnProperty('dropKeys'))
-                                item.dropKeys = nodeContainer.dropKeys
+                                item.dropKeys = Qt.binding(function() { return nodeContainer.dropKeys })
                             if (item.hasOwnProperty('childrenDelegate'))
                                 item.childrenDelegate = childrenDelegate
 
