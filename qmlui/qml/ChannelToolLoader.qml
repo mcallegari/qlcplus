@@ -59,8 +59,24 @@ Item
         y = Math.max(0, Math.min(preferredY, parentItem.height - toolHeight))
     }
 
+    function closeChannelTool()
+    {
+        itemRoot.visible = false
+        toolLoader.source = ""
+        targetItem = null
+        fixtureId = -1
+        channelType = -1
+        channelIndex = -1
+    }
+
     function loadChannelTool(cItem, fxId, chIdx, val)
     {
+        if (itemRoot.visible && fixtureId === fxId && channelIndex === chIdx)
+        {
+            closeChannelTool()
+            return
+        }
+
         channelType = fixtureManager.channelType(fxId, chIdx)
 
         if (channelType === QLCChannel.NoGroup || channelType === QLCChannel.Nothing)
@@ -145,8 +161,7 @@ Item
             }
             function onClose()
             {
-                itemRoot.visible = false
-                toolLoader.source = ""
+                itemRoot.closeChannelTool()
             }
         }
     }
