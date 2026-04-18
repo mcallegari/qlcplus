@@ -84,9 +84,12 @@ Rectangle
                     id: delegateRoot
                     width: UISettings.bigItemHeight * 1.3
                     height: presetToolBar.height
-                    color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
+                    property bool isCurrentPreset: toolRoot.selectedFixture === fxID &&
+                                                    toolRoot.selectedChannel === chIdx
+                    color: isCurrentPreset ? UISettings.highlight :
+                            (prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium)
                     border.width: 1
-                    border.color: UISettings.bgLight
+                    border.color: isCurrentPreset ? UISettings.highlight : UISettings.bgLight
 
                     property int fxID: modelData.fixtureID
                     property int chIdx: modelData.channelIdx
@@ -104,8 +107,8 @@ Rectangle
 
                     RobotoText
                     {
-                        x: 2
-                        width: parent.width - 4
+                        x: 3
+                        width: parent.width - 6
                         height: parent.height
                         label: modelData.name
                         fontSize: UISettings.textSizeDefault * 0.70
@@ -125,7 +128,7 @@ Rectangle
                             prFlickable.contentY = 0
                         }
                     }
-            }
+                }
         }
     }
 
