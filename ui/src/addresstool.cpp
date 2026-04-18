@@ -191,7 +191,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
 
-    int i, j;
+    int i;
     int margin = 20;
     float minDiv = (width() - (margin * 2)) / 10;
     float xpos = margin + (minDiv / 3);
@@ -224,7 +224,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     if (m_horizontalReverse == false)
     {
 
-        for (i = 0, j = 9; i < 10; i++, j--)
+        for (i = 0; i < 10; i++)
         {
             painter.drawText((i == 9)?(xpos-2):(xpos+2), numPos, QString("%1").arg(i + 1));
             xpos += minDiv;
@@ -232,7 +232,7 @@ void DIPSwitchWidget::paintEvent(QPaintEvent *e)
     }
     else
     {
-        for (i = 10, j = 0; i > 0; i--, j++)
+        for (i = 10; i > 0; i--)
         {
             painter.drawText((i == 10)?(xpos-2):(xpos + 2), numPos, QString("%1").arg(i));
             xpos += minDiv;
