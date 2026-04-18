@@ -854,11 +854,15 @@ void FunctionManager::moveFunction(quint32 fID, QString newPath)
 
 void FunctionManager::moveFunctions(QString newPath)
 {
+    newPath.replace('/', TreeModel::separator());
+
+    const bool movingFunctions = !m_selectedIDList.isEmpty();
+    const bool movingFolders = !m_selectedFolderList.isEmpty();
     bool wasEmptyNode = false;
 
     qDebug() << "Moving" << m_selectedIDList.count() << "functions to" << newPath;
 
-    if (m_emptyFolderList.contains(newPath))
+    if (movingFunctions && m_emptyFolderList.contains(newPath))
     {
         m_functionTree->removeItem(newPath);
         m_emptyFolderList.removeAll(newPath);
@@ -876,16 +880,33 @@ void FunctionManager::moveFunctions(QString newPath)
         m_functionTree->setPathData(newPath, folderParams);
     }
 
-    if (m_selectedFolderList.count())
+    if (movingFolders)
     {
-        for (QString &path : m_selectedFolderList)
+        const QStringList selectedFolders = m_selectedFolderList;
+        const QChar sep = TreeModel::separator();
+
+        for (const QString &path : selectedFolders)
         {
+            if (path.isEmpty())
+                continue;
+
+            // Disallow dropping a folder into itself or any of its descendants.
+            if (path == newPath || (!newPath.isEmpty() && newPath.startsWith(path + sep)))
+                continue;
+
             QStringList tokens = path.split(TreeModel::separator());
+            if (tokens.isEmpty())
+                continue;
+
             QString newAbsPath;
             if (newPath.isEmpty())
                 newAbsPath = tokens.last();
             else
-                newAbsPath = newPath + TreeModel::separator() + tokens.last();
+                newAbsPath = newPath + sep + tokens.last();
+
+            if (newAbsPath == path)
+                continue;
+
             setFolderPath(path, newAbsPath, false);
         }
     }
@@ -1069,6 +1090,9 @@ int FunctionManager::selectedFolderCount() const
 
 void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool isRelative)
 {
+    if (oldAbsPath.isEmpty())
+        return;
+
     QStringList tokens = oldAbsPath.split(TreeModel::separator());
     QString newAbsPath;
 
@@ -1092,40 +1116,91 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newPath, bool is
 
     qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
 
-    if (m_emptyFolderList.contains(oldAbsPath))
-    {
-        m_emptyFolderList.removeOne(oldAbsPath);
-        m_emptyFolderList.append(newAbsPath);
-    }
-    else
-    {
-        QString oldAbsPathSlashed = oldAbsPath;
-        QString newAbsPathSlashed = newAbsPath;
-        oldAbsPathSlashed.replace(TreeModel::separator(), "/");
-        newAbsPathSlashed.replace(TreeModel::separator(), "/");
+    const QString treePrefix = oldAbsPath + TreeModel::separator();
+    const QString funcOldPrefix = QString(oldAbsPath).replace(TreeModel::separator(), "/");
+    const QString funcNewPrefix = QString(newAbsPath).replace(TreeModel::separator(), "/");
 
-        for (Function *f : m_doc->functions())
+    auto hasTreePrefix = [&oldAbsPath, &treePrefix](const QString &path) {
+        return path == oldAbsPath || path.startsWith(treePrefix);
+    };
+
+    auto hasFuncPrefix = [&funcOldPrefix](const QString &path) {
+        return path == funcOldPrefix || path.startsWith(funcOldPrefix + "/");
+    };
+
+    QStringList movedEmptyFolders;
+    for (int i = 0; i < m_emptyFolderList.count(); ++i)
+    {
+        const QString currentPath = m_emptyFolderList.at(i);
+        if (!hasTreePrefix(currentPath))
+            continue;
+
+        const QString suffix = currentPath.mid(oldAbsPath.length());
+        const QString updatedPath = newAbsPath + suffix;
+        m_emptyFolderList[i] = updatedPath;
+
+        if (!movedEmptyFolders.contains(updatedPath))
+            movedEmptyFolders.append(updatedPath);
+    }
+
+    for (Function *f : m_doc->functions())
+    {
+        QString funcPath = f->path(true);
+        if (!hasFuncPrefix(funcPath))
+            continue;
+
+        QString repPath = funcPath;
+        repPath.replace(0, funcOldPrefix.length(), funcNewPrefix);
+        if (isRelative)
         {
-            QString funcPath = f->path(true);
-            if (funcPath.startsWith(oldAbsPathSlashed))
-            {
-                if (isRelative)
-                {
-                    Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), funcPath, newAbsPathSlashed);
-                    f->setPath(newAbsPathSlashed);
-                }
-                else
-                {
-                    QString repPath = funcPath.replace(oldAbsPathSlashed, newAbsPathSlashed);
-                    repPath.replace("/", TreeModel::separator());
-                    moveFunction(f->id(), repPath);
-                }
-            }
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), funcPath, repPath);
+            f->setPath(repPath);
+        }
+        else
+        {
+            repPath.replace("/", TreeModel::separator());
+            moveFunction(f->id(), repPath);
         }
     }
 
     if (isRelative == false)
+    {
         m_functionTree->removeItem(oldAbsPath);
+
+        if (!movedEmptyFolders.isEmpty())
+        {
+            std::sort(movedEmptyFolders.begin(), movedEmptyFolders.end(),
+                      [](const QString &left, const QString &right) {
+                return left.count(TreeModel::separator()) < right.count(TreeModel::separator());
+            });
+
+            QVariantList folderParams;
+            folderParams.append(QVariant()); // classRef
+            folderParams.append(App::FolderDragItem); // type
+
+            for (const QString &folderPath : movedEmptyFolders)
+            {
+                QStringList folderTokens = folderPath.split(TreeModel::separator(), Qt::SkipEmptyParts);
+                if (folderTokens.isEmpty())
+                    continue;
+
+                QString folderName = folderTokens.takeLast();
+                QString folderBasePath = folderTokens.join(TreeModel::separator());
+                m_functionTree->addItem(folderName, folderParams, folderBasePath,
+                                        TreeModel::EmptyNode | TreeModel::Expanded);
+            }
+        }
+    }
+
+    for (int i = 0; i < m_selectedFolderList.count(); ++i)
+    {
+        const QString selectedPath = m_selectedFolderList.at(i);
+        if (!hasTreePrefix(selectedPath))
+            continue;
+
+        const QString suffix = selectedPath.mid(oldAbsPath.length());
+        m_selectedFolderList[i] = newAbsPath + suffix;
+    }
 
     //m_functionTree->printTree();
 }
