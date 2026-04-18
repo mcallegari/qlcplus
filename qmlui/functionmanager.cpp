@@ -977,8 +977,29 @@ bool FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
         if (m_doc->functionByName(fName) != nullptr)
             return false;
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
+        QString oldName = f->name();
+        QString oldTreePath = oldName;
+        QString fPath = f->path(true);
+        if (!fPath.isEmpty())
+        {
+            fPath.replace("/", TreeModel::separator());
+            oldTreePath = QString("%1%2%3").arg(fPath).arg(TreeModel::separator()).arg(oldName);
+        }
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), oldName, fName);
         f->setName(fName);
+
+        if (!oldTreePath.isEmpty() && m_functionTree->removeItem(oldTreePath))
+        {
+            QVariantList params;
+            params.append(QVariant::fromValue(f)); // classRef
+            params.append(App::FunctionDragItem); // type
+
+            QString treePath = f->path(true).replace("/", TreeModel::separator());
+            TreeModelItem *item = m_functionTree->addItem(fName, params, treePath);
+            if (item != nullptr && m_selectedIDList.contains(QVariant(f->id())))
+                item->setFlag(TreeModel::Selected, true);
+        }
     }
 
     return true;
