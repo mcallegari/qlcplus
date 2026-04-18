@@ -23,6 +23,9 @@
 #ifndef Q_HTTP_CONNECTION
 #define Q_HTTP_CONNECTION
 
+#include "qhttpresponse.h"
+#include "qhttprequest.h"
+
 //#include "qhttpserverapi.h"
 #include "qhttpserverfwd.h"
 

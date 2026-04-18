@@ -20,9 +20,9 @@
 #ifndef CONFIGUREHID_H
 #define CONFIGUREHID_H
 
+#include "hiddevice.h"
 #include "ui_configurehid.h"
 
-class HIDDevice;
 class HIDPlugin;
 
 class ConfigureHID final : public QDialog, public Ui_ConfigureHID
