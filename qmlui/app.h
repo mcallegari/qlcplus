@@ -26,6 +26,9 @@
 #include <QObject>
 #include "doc.h"
 
+#include "fixtureeditor/modeedit.h"
+#include "treemodelitem.h"
+
 class MainView2D;
 class ShowManager;
 class SimpleDesk;

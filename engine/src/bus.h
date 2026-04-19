@@ -25,6 +25,8 @@
 #include <QString>
 #include <QHash>
 
+#include "../../plugins/interfaces/qlcioplugin.h"
+
 class QXmlStreamReader;
 class BusEntry;
 
