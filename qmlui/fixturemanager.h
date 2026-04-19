@@ -176,6 +176,9 @@ public:
     /** Rename the Fixture with the provided $itemID to $newName */
     Q_INVOKABLE bool renameFixture(quint32 itemID, QString newName);
 
+    /** Change the profile of the fixtures in $fixtureIDList to the provided $manufacturer, $model and $mode */
+    Q_INVOKABLE bool replaceFixturesProfile(QVariantList fixtureIDList, QString manufacturer, QString model, QString mode);
+
     /** Returns the number of fixtures currently loaded in the project */
     int fixturesCount();
 

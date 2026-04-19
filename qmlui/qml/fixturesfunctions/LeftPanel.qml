@@ -37,6 +37,12 @@ SidePanel
         item.height = Qt.binding(function() { return leftSidePanel.height })
     }
 
+    function resetSelection()
+    {
+        fxManagerGroup.checkedButton = null
+        capabilitiesGroup.checkedButton = null
+    }
+
     Rectangle
     {
         id: sideBar

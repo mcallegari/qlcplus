@@ -181,6 +181,19 @@ VCWidget* VCSlider::createCopy(VCWidget* parent) const
     return slider;
 }
 
+void VCSlider::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    QList<SceneValue> newChannels;
+    for (const SceneValue &val : m_levelChannels)
+    {
+        SceneValue key(val.fxi, val.channel);
+        if (remapMap.contains(key))
+            newChannels.append(remapMap.value(key));
+    }
+    m_levelChannels = newChannels;
+    emit channelsCountChanged();
+}
+
 bool VCSlider::copyFrom(const VCWidget *widget)
 {
     const VCSlider *slider = qobject_cast<const VCSlider*> (widget);

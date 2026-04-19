@@ -188,6 +188,31 @@ VCWidget *VCXYPad::createCopy(VCWidget *parent) const
     return XYPad;
 }
 
+void VCXYPad::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    for (int i = 0; i < m_fixtures.count(); i++)
+    {
+        XYPadFixture &fix = m_fixtures[i];
+        quint32 fxID = fix.m_head.fxi;
+
+        SceneValue xKey(fxID, fix.m_xMSB);
+        if (remapMap.contains(xKey))
+            fix.m_xMSB = remapMap.value(xKey).channel;
+
+        xKey.channel = fix.m_xLSB;
+        if (remapMap.contains(xKey))
+            fix.m_xLSB = remapMap.value(xKey).channel;
+
+        SceneValue yKey(fxID, fix.m_yMSB);
+        if (remapMap.contains(yKey))
+            fix.m_yMSB = remapMap.value(yKey).channel;
+
+        yKey.channel = fix.m_yLSB;
+        if (remapMap.contains(yKey))
+            fix.m_yLSB = remapMap.value(yKey).channel;
+    }
+}
+
 bool VCXYPad::copyFrom(const VCWidget *widget)
 {
     const VCXYPad *XYPad = qobject_cast<const VCXYPad*> (widget);

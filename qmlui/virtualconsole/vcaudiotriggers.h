@@ -65,6 +65,9 @@ public:
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent) const override;
 
+    /** @reimp */
+    void remapChannels(const QMap<SceneValue, SceneValue>& remapMap) override;
+
     /** Get/Set the capture enable status of this widget */
     bool captureEnabled() const;
     void setCaptureEnabled(bool enable);

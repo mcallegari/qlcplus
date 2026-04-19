@@ -37,6 +37,9 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "qlcmodifierscache.h"
+#include "virtualconsole.h"
+#include "fixtureremap.h"
+#include "vcwidget.h"
 #include "fixture.h"
 #include "tardis.h"
 #include "doc.h"
@@ -446,6 +449,40 @@ bool FixtureManager::renameFixture(quint32 itemID, QString newName)
     fixture->setName(newName);
 
     return true;
+}
+
+bool FixtureManager::replaceFixturesProfile(QVariantList fixtureIDList, QString manufacturer, QString model, QString mode)
+{
+    qDebug() << "[replaceFixturesProfile]" << fixtureIDList << manufacturer << model << mode;
+
+    QList<quint32> idList;
+    for (const QVariant &vID : fixtureIDList)
+        idList.append(vID.toUInt());
+
+    FixtureRemap remap(m_doc);
+    QMap<SceneValue, SceneValue> channelRemap = remap.replaceProfiles(idList, manufacturer, model, mode);
+
+    if (channelRemap.isEmpty() == false || idList.isEmpty() == false)
+    {
+        /* Remap Virtual Console widgets */
+        VirtualConsole *vc = qobject_cast<App *>(m_view)->virtualConsole();
+        if (vc != nullptr)
+        {
+            QVariantList widgets = vc->widgetsList();
+            for (const QVariant& vWidget : widgets)
+            {
+                VCWidget *widget = vWidget.value<VCWidget*>();
+                if (widget != nullptr)
+                    widget->remapChannels(channelRemap);
+            }
+        }
+
+        updateGroupsTree(m_doc, m_fixtureTree);
+        emit fixturesMapChanged();
+        return true;
+    }
+
+    return false;
 }
 
 int FixtureManager::fixturesCount()

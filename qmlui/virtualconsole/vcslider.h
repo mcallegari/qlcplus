@@ -92,6 +92,9 @@ public:
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent) const override;
 
+    /** @reimp */
+    void remapChannels(const QMap<SceneValue, SceneValue>& remapMap) override;
+
 protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget) override;
