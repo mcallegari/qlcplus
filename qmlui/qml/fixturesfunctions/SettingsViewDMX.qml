@@ -79,5 +79,19 @@ Rectangle
             checked: relativeAddresses
             onToggled: ViewDMX.relativeAddresses = checked
         }
+
+        // row 3
+        RobotoText { label: qsTr("Change profile") }
+        IconButton
+        {
+            id: changeProfileButton
+            implicitHeight: UISettings.listItemHeight
+            implicitWidth: implicitHeight
+            faSource: FontAwesome.fa_arrow_right_arrow_left
+            faColor: "white"
+            tooltip: qsTr("Change profile of the selected fixtures")
+            enabled: contextManager.selectedFixturesCount > 0
+            onClicked: dmxViewRoot.showFixtureBrowser(true)
+        }
     }
 }

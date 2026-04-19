@@ -41,6 +41,34 @@ Rectangle
         dmxSettings.visible = show
     }
 
+    function showFixtureBrowser(show)
+    {
+        if (show)
+        {
+            fixtureAndFunctions.leftPanel.resetSelection()
+            fixtureAndFunctions.leftPanel.loaderSource = "qrc:/FixtureSubstitutionPanel.qml"
+            fixtureAndFunctions.leftPanel.animatePanel(true)
+        }
+        else
+        {
+            fixtureAndFunctions.leftPanel.animatePanel(false)
+        }
+    }
+
+    Connections
+    {
+        target: fixtureAndFunctions.leftPanel
+        function onContentLoaded(item, ID)
+        {
+            if (fixtureAndFunctions.leftPanel.loaderSource === "qrc:/FixtureSubstitutionPanel.qml")
+            {
+                item.closed.connect(function() {
+                    fixtureAndFunctions.leftPanel.animatePanel(false)
+                })
+            }
+        }
+    }
+
     ChannelToolLoader
     {
         id: channelToolLoader
