@@ -58,6 +58,11 @@ bool VCWidget::supportsPresets() const
     return false;
 }
 
+void VCWidget::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    Q_UNUSED(remapMap);
+}
+
 QString VCWidget::presetsResource() const
 {
     return QString();
