@@ -98,6 +98,7 @@ void AudioRenderer::setFadeOut(uint fadeTime)
     int channels = m_adec->audioParameters().channels();
     qreal stepsCount = (qreal)fadeTime * ((qreal)(sampleRate * channels) / 1000);
     m_fadeStep = -(m_intensity / stepsCount);
+    m_currentIntensity = m_intensity;
 
     qDebug() << Q_FUNC_INFO << "stepsCount:" << stepsCount << ", fadeStep:" << m_fadeStep;
 }
