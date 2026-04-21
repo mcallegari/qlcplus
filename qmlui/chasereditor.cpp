@@ -289,8 +289,9 @@ void ChaserEditor::setSequenceStepValue(SceneValue &scv)
     if (m_playbackIndex < 0 || m_playbackIndex >= m_chaser->stepsCount())
         return;
 
-    ChaserStep *cs = m_chaser->stepAt(m_playbackIndex);
-    cs->setValue(scv);
+    ChaserStep step = m_chaser->steps().at(m_playbackIndex);
+    step.setValue(scv);
+    m_chaser->replaceStep(step, m_playbackIndex);
 }
 
 int ChaserEditor::playbackIndex() const

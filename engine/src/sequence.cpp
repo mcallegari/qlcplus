@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
+#include <algorithm>
 
 #include "sequence.h"
 
@@ -95,6 +96,54 @@ QList<quint32> Sequence::components() const
     if (m_boundSceneID != Function::invalidId())
         ids.append(m_boundSceneID);
     return ids;
+}
+
+void Sequence::applyDumpValues(const QList<SceneValue> &dumpedValues, int targetStepIndex)
+{
+    Scene *scene = qobject_cast<Scene *>(doc()->function(boundSceneID()));
+    if (scene == nullptr)
+        return;
+
+    QList<SceneValue> sceneValues = scene->values();
+    std::sort(sceneValues.begin(), sceneValues.end());
+
+    QList<SceneValue> zeroSceneValues = sceneValues;
+    for (SceneValue &scv : zeroSceneValues)
+        scv.value = 0;
+
+    // Keep step values aligned with the bound Scene channels, preserving
+    // existing step values where channels already exist.
+    for (int i = 0; i < stepsCount(); i++)
+    {
+        ChaserStep step = steps().at(i);
+        QList<SceneValue> oldValues = step.values;
+
+        step.values = zeroSceneValues;
+        for (const SceneValue &oldScv : oldValues)
+        {
+            int index = step.values.indexOf(oldScv);
+            if (index != -1)
+                step.values.replace(index, oldScv);
+        }
+
+        replaceStep(step, i);
+    }
+
+    if (targetStepIndex < 0 || targetStepIndex >= stepsCount())
+    {
+        ChaserStep newStep(boundSceneID());
+        newStep.values = zeroSceneValues;
+        for (const SceneValue &scv : dumpedValues)
+            newStep.setValue(scv);
+        addStep(newStep);
+    }
+    else
+    {
+        ChaserStep step = steps().at(targetStepIndex);
+        for (const SceneValue &scv : dumpedValues)
+            step.setValue(scv);
+        replaceStep(step, targetStepIndex);
+    }
 }
 
 /*****************************************************************************

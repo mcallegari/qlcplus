@@ -289,11 +289,23 @@ quint32 FunctionManager::createFunction(int type, QVariantList fixturesList)
         {
             /* a Sequence depends on a Scene, so let's create
              * a new hidden Scene first */
-            Function *scene = new Scene(m_doc);
+            Scene *scene = new Scene(m_doc);
             scene->setVisible(false);
 
             if (m_doc->addFunction(scene) == true)
             {
+                if (fixturesList.count())
+                {
+                    for (QVariant &fixtureID : fixturesList)
+                    {
+                        Fixture *fixture = m_doc->fixture(fixtureID.toUInt());
+                        if (fixture == nullptr)
+                            continue;
+
+                        scene->addFixture(fixture->id());
+                    }
+                }
+
                 f = new Sequence(m_doc);
                 name = tr("New Sequence");
                 Sequence *sequence = qobject_cast<Sequence *>(f);
@@ -1315,9 +1327,28 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
 
     // 2- determine if we're dumping on a new or existing Scene
     Scene *targetScene = nullptr;
+    Sequence *targetSequence = nullptr;
     if (sceneID != Function::invalidId())
     {
-        targetScene = qobject_cast<Scene*>(m_doc->function(sceneID));
+        Function *targetFunction = m_doc->function(sceneID);
+        if (targetFunction == nullptr)
+            return;
+
+        if (targetFunction->type() == Function::SequenceType)
+        {
+            targetSequence = qobject_cast<Sequence*>(targetFunction);
+            if (targetSequence == nullptr)
+                return;
+
+            targetScene = qobject_cast<Scene*>(m_doc->function(targetSequence->boundSceneID()));
+        }
+        else
+        {
+            targetScene = qobject_cast<Scene*>(targetFunction);
+        }
+
+        if (targetScene == nullptr)
+            return;
     }
     else
     {
@@ -1343,8 +1374,8 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
         allChannels = true;
     }
 
-    // 4- iterate over all channels of all gathered fixtures
-    // and store values in the target Scene
+    // 4- iterate over all channels of all gathered fixtures and collect values
+    QList<SceneValue> dumpedValues;
     for (Fixture *fixture : fixtureList)
     {
         quint32 baseAddress = fixture->universeAddress();
@@ -1356,8 +1387,12 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
                 uchar value = preGMValues.at(baseAddress + chIndex);
                 if (!nonZeroOnly || (nonZeroOnly && value > 0))
                 {
-                    SceneValue scv = SceneValue(fixture->id(), chIndex, value);
-                    targetScene->setValue(scv);
+                    SceneValue scv(fixture->id(), chIndex, value);
+                    int index = dumpedValues.indexOf(scv);
+                    if (index == -1)
+                        dumpedValues.append(scv);
+                    else
+                        dumpedValues.replace(index, scv);
                 }
             }
             else
@@ -1380,15 +1415,40 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
                 if (channelMask & chTypeBit)
                 {
                     uchar value = preGMValues.at(baseAddress + chIndex);
-                    SceneValue scv = SceneValue(fixture->id(), chIndex, value);
+                    SceneValue scv(fixture->id(), chIndex, value);
                     int matchVal = dumpValues.indexOf(scv);
                     if (matchVal != -1)
                         scv.value = dumpValues.at(matchVal).value;
 
-                    targetScene->setValue(scv);
+                    int index = dumpedValues.indexOf(scv);
+                    if (index == -1)
+                        dumpedValues.append(scv);
+                    else
+                        dumpedValues.replace(index, scv);
                 }
             }
         }
+    }
+
+    for (SceneValue &scv : dumpedValues)
+        targetScene->setValue(scv);
+
+    if (targetSequence != nullptr)
+    {
+        int targetStepIndex = -1;
+        if (m_currentEditor != nullptr && m_currentEditor->functionType() == Function::SequenceType &&
+            m_currentEditor->functionID() == targetSequence->id())
+        {
+            ChaserEditor *chaserEditor = qobject_cast<ChaserEditor*>(m_currentEditor);
+            if (chaserEditor != nullptr)
+            {
+                targetStepIndex = chaserEditor->playbackIndex();
+                if (targetStepIndex < 0 || targetStepIndex >= targetSequence->stepsCount())
+                    targetStepIndex = (targetSequence->stepsCount() > 0) ? 0 : -1;
+            }
+        }
+
+        targetSequence->applyDumpValues(dumpedValues, targetStepIndex);
     }
 
     // 5- add Scene to the project, if needed
@@ -1521,6 +1581,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     FunctionEditor *editor = m_currentEditor;
     SceneValue scv(fxID, channel, value);
     QVariant currentVal, newVal;
+    bool sequenceMirrorUpdate = false;
 
     if (editor == nullptr)
         return;
@@ -1528,10 +1589,16 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     if (editor->functionType() == Function::SequenceType)
     {
         ChaserEditor *cEditor = qobject_cast<ChaserEditor *>(editor);
-        cEditor->setSequenceStepValue(scv);
+        if (cEditor != nullptr)
+            cEditor->setSequenceStepValue(scv);
+
+        // Keep the Sequence bound Scene in sync with the edited step so
+        // SceneEditor views (like the bottom fixture console) update live.
         editor = m_sceneEditor;
+        sequenceMirrorUpdate = true;
     }
-    else if (editor->functionType() == Function::SceneType)
+
+    if (editor != nullptr && editor->functionType() == Function::SceneType)
     {
         Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
         if (scene == nullptr)
@@ -1541,7 +1608,8 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
         if (scene->checkValue(scv) == false)
         {
-            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
+            if (sequenceMirrorUpdate == false)
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
             scene->setValue(fxID, channel, value);
         }
         else
@@ -1551,7 +1619,8 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 
             if (currentVal != newVal || value != currDmxValue)
             {
-                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+                if (sequenceMirrorUpdate == false)
+                    Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
                 if (scene->isRunning())
                     scene->setValue(scv, false, false);
                 else
