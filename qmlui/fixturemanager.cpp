@@ -332,7 +332,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         if (m_doc->addFixture(fxi) == true)
         {
             fxi->setName(QString("%1 [%2]").arg(name).arg(fxi->id() + 1));
-            Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
+            quint32 itemID = FixtureUtils::fixtureItemID(fxi->id(), 0, 0);
+            Tardis::instance()->enqueueAction(Tardis::FixtureCreate, itemID, QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
             slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
         }
