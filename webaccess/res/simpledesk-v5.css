@@ -27,6 +27,9 @@
   --sd-fader-size: calc(var(--icon-size-default, 28px) * 1);
   --sd-icon-size: calc(var(--sd-fader-size) * 0.8);
   --sd-track-height: calc(var(--big-item-height, 96px) * 2);
+  /* Simple Desk-specific handle tuning (read by getUnifiedSliderThumbSize in JS). */
+  --slider-thumb-scale: 1.00;
+  --slider-thumb-aspect: 0.75;
 }
 
 .sd-section {
@@ -98,6 +101,7 @@
   overflow-x: hidden;
   padding: 8px;
   background: var(--bg-medium);
+  overscroll-behavior: contain;
 }
 
 .sd-sliders {
@@ -177,8 +181,59 @@
   margin-left: calc((5px - var(--slider-thumb-width, 20px)) / 2);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1200px) {
+  :root {
+    --sd-fader-size: calc(var(--icon-size-default) * 0.96);
+    --sd-track-height: calc(var(--big-item-height) * 1.85);
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --sd-fader-size: calc(var(--icon-size-default) * 0.92);
+    --sd-track-height: calc(var(--big-item-height) * 1.7);
+  }
+
   .sd-topbar-center {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 8px;
+    height: auto;
+  }
+
+  .sd-section {
+    gap: 4px;
+  }
+
+  .sd-stage {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --sd-fader-size: calc(var(--icon-size-default) * 0.85);
+    --sd-icon-size: calc(var(--sd-fader-size) * 0.76);
+    --sd-track-height: calc(var(--big-item-height) * 1.5);
+  }
+
+  .sd-topbar-center {
+    gap: 6px;
+  }
+
+  .sd-sliders {
+    gap: 3px;
+  }
+
+  .sd-page-display {
+    min-width: 28px;
+    padding: 0 6px;
+  }
+
+  .sd-select {
+    padding: 0 20px 0 6px;
+    background-position: right 6px center, center;
   }
 }

@@ -186,6 +186,56 @@ function updatePagesCompact() {
   pagesWrap.classList.toggle("is-compact", needsCompact);
 }
 
+function isSliderTouchTarget(target) {
+  if (!target || typeof target.closest !== "function") return false;
+  const range = target.closest('input[type="range"]');
+  if (!range) return false;
+  return !!range.closest(".vc-slider, .vc-audio, .vc-matrix, .vc-xypad, .cue-side-slider");
+}
+
+function isTouchLikeEnvironment() {
+  return !!("ontouchstart" in window || (navigator && navigator.maxTouchPoints > 0));
+}
+
+function isNoLongPressTarget(target) {
+  if (!target || typeof target.closest !== "function") return false;
+  return !!target.closest(
+    ".vc-button, .nav-btn, .page-tab, .topbar, .vc-frame-header, .vc-label, .vc-stage button, button, a, .vc-xypad, .xypad-area, .xypad-range, .xypad-slider"
+  );
+}
+
+function readRootCssNumber(name, fallback) {
+  const value = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function getResponsiveUiScale() {
+  const width = window.innerWidth || document.documentElement.clientWidth || 0;
+  const phoneScale = readRootCssNumber("--ui-scale-phone", 1);
+  const tabletScale = readRootCssNumber("--ui-scale-tablet", 1);
+  const tabletWideScale = readRootCssNumber("--ui-scale-tablet-wide", 1);
+  if (width <= 700) return phoneScale;
+  if (width <= 900) return tabletScale;
+  if (width <= 1280) return tabletWideScale;
+  return 1;
+}
+
+function getEffectiveIconSize() {
+  const cssIconSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--icon-size-default"));
+  if (Number.isFinite(cssIconSize)) return cssIconSize;
+  const density = readRootCssNumber("--pd", state.pixelDensity || 1);
+  return density * 10 * getResponsiveUiScale();
+}
+
+function getUnifiedSliderThumbSize() {
+  const iconSize = getEffectiveIconSize();
+  const scale = readRootCssNumber("--slider-thumb-scale", 1.0);
+  const aspect = readRootCssNumber("--slider-thumb-aspect", 0.75);
+  const width = Math.max(6, iconSize * scale);
+  const height = Math.max(6, width * aspect);
+  return { width, height };
+}
+
 function sendMessage(msg) {
   if (!state.socket || state.socket.readyState !== 1) return;
   state.socket.send(msg);
@@ -702,12 +752,9 @@ function renderSlider(widget) {
       thumbGradient = "linear-gradient(180deg, #a81919 0%, #db2020 45%, #000000 50%, #db2020 55%, #a81919 100%)";
     }
     input.style.setProperty("--slider-thumb-gradient", thumbGradient);
-    const iconSize = state.pixelDensity * 10;
-    const sliderWidth = widget.geometry.w;
-    const thumbWidth = Math.min(sliderWidth, iconSize * 0.75);
-    const thumbHeight = Math.min(iconSize, sliderWidth);
-    input.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-    input.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+    const thumbSize = getUnifiedSliderThumbSize();
+    input.style.setProperty("--slider-thumb-width", `${thumbSize.width}px`);
+    input.style.setProperty("--slider-thumb-height", `${thumbSize.height}px`);
 
     const applyRangeValue = (rawValue, send) => {
       const currentVal = parseInt(widget.value, 10);
@@ -1331,10 +1378,9 @@ function renderAudioTriggers(widget) {
     "--slider-thumb-gradient",
     "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
   );
-  const iconSize = state.pixelDensity * 10;
-  const thumbWidth = iconSize * 0.75;
-  fader.style.setProperty("--slider-thumb-width", `${iconSize}px`);
-  fader.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+  const audioThumbSize = getUnifiedSliderThumbSize();
+  fader.style.setProperty("--slider-thumb-width", `${audioThumbSize.width}px`);
+  fader.style.setProperty("--slider-thumb-height", `${audioThumbSize.height}px`);
   fader.addEventListener("input", () => {
     const value = parseInt(fader.value, 10);
     fader.style.setProperty("--slider-fill", `${(value / 100) * 100}%`);
@@ -1383,12 +1429,9 @@ function renderMatrix(widget) {
       "--slider-thumb-gradient",
       "linear-gradient(180deg, #cccccc 0%, #555555 45%, #000000 50%, #555555 55%, #888888 100%)"
     );
-    const iconSize = state.pixelDensity * 10;
-    const width = widget.geometry?.w ?? iconSize;
-    const thumbWidth = Math.min(width, iconSize * 0.75);
-    const thumbHeight = Math.min(iconSize, width);
-    fader.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-    fader.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+    const matrixThumbSize = getUnifiedSliderThumbSize();
+    fader.style.setProperty("--slider-thumb-width", `${matrixThumbSize.width}px`);
+    fader.style.setProperty("--slider-thumb-height", `${matrixThumbSize.height}px`);
     fader.addEventListener("input", () => {
       const value = parseInt(fader.value, 10);
       const fill = (value / 255) * 100;
@@ -2276,12 +2319,9 @@ function renderCueList(widget) {
     const padding = state.pixelDensity * 4;
     const sfLength = Math.max(40, widget.geometry.h - listItemHeight * labelsCount - padding);
     sfInput.style.setProperty("--slider-length", `${sfLength}px`);
-    const iconSize = state.pixelDensity * 10;
-    const sideWidth = iconSize * 1.2;
-    const thumbWidth = Math.min(iconSize, sideWidth);
-    const thumbHeight = Math.min(sideWidth, iconSize * 0.75);
-    sfInput.style.setProperty("--slider-thumb-width", `${thumbHeight}px`);
-    sfInput.style.setProperty("--slider-thumb-height", `${thumbWidth}px`);
+    const sideThumbSize = getUnifiedSliderThumbSize();
+    sfInput.style.setProperty("--slider-thumb-width", `${sideThumbSize.width}px`);
+    sfInput.style.setProperty("--slider-thumb-height", `${sideThumbSize.height}px`);
     sfInput.style.setProperty("--slider-fill-color", "#38b0ff");
     sfInput.style.setProperty("--slider-empty-color", "#888888");
     const sfMin = parseInt(sfInput.min, 10);
@@ -2382,13 +2422,26 @@ function renderFrame(widget, isSolo) {
     }
 
     if (widget.multiPageMode) {
+      const resolveFrameData = () => {
+        const live = state.widgets[widget.id];
+        return live?.data || widget;
+      };
+
+      const applyAndSendPage = (pageIndex) => {
+        applyFramePage(widget.id, pageIndex);
+        sendWidgetCommand(widget.id, "PAGE", pageIndex);
+      };
+
       const prevBtn = document.createElement("button");
       prevBtn.className = "frame-btn";
       prevBtn.innerHTML = `<span class="fa-icon">${FA.angleLeft}</span>`;
       prevBtn.addEventListener("click", () => {
-        const nextPage = Math.max(0, (widget.currentPage || 0) - 1);
-        applyFramePage(widget.id, nextPage);
-        sendWidgetCommand(widget.id, "PREV_PG");
+        const frameData = resolveFrameData();
+        const totalPages = Math.max(1, parseInt(frameData.totalPages || 1, 10) || 1);
+        const currentPage = parseInt(frameData.currentPage || 0, 10) || 0;
+        let nextPage = currentPage - 1;
+        if (nextPage < 0) nextPage = frameData.pagesLoop ? totalPages - 1 : 0;
+        applyAndSendPage(nextPage);
       });
 
       pageSelect = document.createElement("select");
@@ -2403,18 +2456,20 @@ function renderFrame(widget, isSolo) {
       pageSelect.value = widget.currentPage;
       pageSelect.addEventListener("change", () => {
         const nextPage = parseInt(pageSelect.value, 10);
-        applyFramePage(widget.id, nextPage);
-        sendWidgetCommand(widget.id, "PAGE", nextPage);
+        if (!Number.isNaN(nextPage)) applyAndSendPage(nextPage);
       });
 
       const nextBtn = document.createElement("button");
       nextBtn.className = "frame-btn";
       nextBtn.innerHTML = `<span class="fa-icon">${FA.angleRight}</span>`;
       nextBtn.addEventListener("click", () => {
-        const maxPage = Math.max(0, (widget.totalPages || 1) - 1);
-        const nextPage = Math.min(maxPage, (widget.currentPage || 0) + 1);
-        applyFramePage(widget.id, nextPage);
-        sendWidgetCommand(widget.id, "NEXT_PG");
+        const frameData = resolveFrameData();
+        const totalPages = Math.max(1, parseInt(frameData.totalPages || 1, 10) || 1);
+        const maxPage = totalPages - 1;
+        const currentPage = parseInt(frameData.currentPage || 0, 10) || 0;
+        let nextPage = currentPage + 1;
+        if (nextPage > maxPage) nextPage = frameData.pagesLoop ? 0 : maxPage;
+        applyAndSendPage(nextPage);
       });
       controls.append(prevBtn, pageSelect, nextBtn);
     }
@@ -3128,6 +3183,10 @@ window.addEventListener("load", () => {
   window.addEventListener("resize", () => {
     updateWebPixelDensity();
     updatePagesCompact();
+  });
+  document.addEventListener("contextmenu", (ev) => {
+    if (!isTouchLikeEnvironment()) return;
+    if (isSliderTouchTarget(ev.target) || isNoLongPressTarget(ev.target)) ev.preventDefault();
   });
   document.getElementById("loadProjectBtn").addEventListener("click", () => {
     document.getElementById("loadTrigger").click();

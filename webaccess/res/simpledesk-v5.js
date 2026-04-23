@@ -71,6 +71,45 @@ function updateRangeFill(input) {
   input.style.setProperty("--slider-fill", fill + "%");
 }
 
+function readRootCssNumber(name, fallback) {
+  var value = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+  return isNaN(value) ? fallback : value;
+}
+
+function getResponsiveUiScale() {
+  var width = window.innerWidth || document.documentElement.clientWidth || 0;
+  var phoneScale = readRootCssNumber("--ui-scale-phone", 1);
+  var tabletScale = readRootCssNumber("--ui-scale-tablet", 1);
+  var tabletWideScale = readRootCssNumber("--ui-scale-tablet-wide", 1);
+  if (width <= 700) return phoneScale;
+  if (width <= 900) return tabletScale;
+  if (width <= 1280) return tabletWideScale;
+  return 1;
+}
+
+function getEffectiveIconSize() {
+  var cssIconSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--icon-size-default"));
+  if (!isNaN(cssIconSize)) return cssIconSize;
+  var density = readRootCssNumber("--pd", 1);
+  return density * 10 * getResponsiveUiScale();
+}
+
+function getUnifiedSliderThumbSize() {
+  var iconSize = getEffectiveIconSize();
+  var scale = readRootCssNumber("--slider-thumb-scale", 1.0);
+  var aspect = readRootCssNumber("--slider-thumb-aspect", 0.75);
+  var width = Math.max(6, iconSize * scale);
+  var height = Math.max(6, width * aspect);
+  return { width: width, height: height };
+}
+
+function isSimpleDeskSliderTouchTarget(target) {
+  if (!target || typeof target.closest !== "function") return false;
+  var range = target.closest("input[type='range']");
+  if (!range) return false;
+  return !!range.closest(".sd-slider");
+}
+
 function updatePageDisplay() {
   if (pageDisplay) pageDisplay.textContent = currentPage;
 }
@@ -197,13 +236,9 @@ function drawPage(data) {
       if (!track || !input) return;
       var trackHeight = track.clientHeight || 120;
       input.style.setProperty("--slider-length", trackHeight + "px");
-      var sliderWidth = slider.clientWidth || 60;
-      var rootStyle = getComputedStyle(document.documentElement);
-      var iconSize = parseFloat(rootStyle.getPropertyValue("--icon-size-default")) || 28;
-      var thumbWidth = Math.min(sliderWidth, iconSize * 0.75);
-      var thumbHeight = Math.min(iconSize, sliderWidth);
-      input.style.setProperty("--slider-thumb-width", thumbHeight + "px");
-      input.style.setProperty("--slider-thumb-height", thumbWidth + "px");
+      var thumbSize = getUnifiedSliderThumbSize();
+      input.style.setProperty("--slider-thumb-width", `${thumbSize.width}px`);
+      input.style.setProperty("--slider-thumb-height", `${thumbSize.height}px`);
     });
   }
 }
@@ -268,6 +303,9 @@ window.addEventListener("load", function() {
   window.addEventListener("resize", function() {
     updateWebPixelDensity();
   });
+  document.addEventListener("contextmenu", function(ev) {
+    if (isSimpleDeskSliderTouchTarget(ev.target)) ev.preventDefault();
+  });
   slidersContainer = document.getElementById("slidersContainer");
   pageDisplay = document.getElementById("pageDisplay");
   universeSelect = document.getElementById("universeSelect");
@@ -322,6 +360,7 @@ window.addEventListener("load", function() {
     if (ev.target.closest(".sd-reset-btn") || ev.target.closest("input[type='range']")) return;
     var track = ev.target.closest(".slider-track");
     if (!track) return;
+    ev.preventDefault();
     var input = track.querySelector("input[type='range']");
     if (!input) return;
     var rect = track.getBoundingClientRect();

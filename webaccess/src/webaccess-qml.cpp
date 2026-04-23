@@ -93,6 +93,20 @@ static QString colorToString(const QColor &color)
 
 static QString mimeTypeForPath(const QString &path);
 
+static void setFramePageCompat(VCFrame *frame, int page)
+{
+    if (frame == nullptr)
+        return;
+
+    if (QMetaObject::invokeMethod(frame, "gotoPage", Q_ARG(int, page)))
+        return;
+
+    if (QMetaObject::invokeMethod(frame, "slotSetPage", Q_ARG(int, page)))
+        return;
+
+    frame->setProperty("currentPage", page);
+}
+
 static QString resourcePathToWebUrl(const QString &path)
 {
     if (path.startsWith(":/"))
@@ -885,17 +899,17 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
                 int nextPage = frame->currentPage() + 1;
                 if (nextPage >= frame->totalPagesNumber())
                     nextPage = frame->pagesLoop() ? 0 : frame->currentPage();
-                frame->setCurrentPage(nextPage);
+                setFramePageCompat(frame, nextPage);
             }
             else if (cmdList[1] == "PREV_PG")
             {
                 int prevPage = frame->currentPage() - 1;
                 if (prevPage < 0)
                     prevPage = frame->pagesLoop() ? frame->totalPagesNumber() - 1 : frame->currentPage();
-                frame->setCurrentPage(prevPage);
+                setFramePageCompat(frame, prevPage);
             }
             else if (cmdList[1] == "PAGE" && cmdList.count() > 2)
-                frame->setCurrentPage(cmdList[2].toInt());
+                setFramePageCompat(frame, cmdList[2].toInt());
             else if (cmdList[1] == "FRAME_DISABLE" && cmdList.count() > 2)
                 frame->setDisabled(cmdList[2] == "1");
             else if (cmdList[1] == "COLLAPSE" && cmdList.count() > 2)
