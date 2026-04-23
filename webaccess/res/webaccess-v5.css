@@ -93,9 +93,38 @@ body {
   left: -200vw;
 }
 
+/* ============================================================
+ * Touch ergonomics: prevent text selection / long-press callout
+ * on interactive controls. Without this, long-pressing a button
+ * on iOS/Android selects nearby text or opens a context menu,
+ * which is disruptive when operating a live show.
+ * Defined early in the file so later, more specific selectors
+ * can still override individual properties if needed.
+ * ============================================================ */
+button,
+a,
+.nav-btn,
+.page-tab {
+  touch-action: manipulation;
+}
+
+.topbar,
+.nav-btn,
+.page-tab,
+.vc-stage button,
+.vc-button,
+.vc-frame-header,
+.vc-label {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .topbar {
-  height: var(--toolbar-height);
+  min-height: var(--toolbar-height);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 0 6px;
@@ -122,7 +151,6 @@ body {
 }
 
 .topbar-right {
-  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -143,6 +171,7 @@ body {
   font-family: var(--font-main);
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .nav-btn:hover {
@@ -157,13 +186,17 @@ body {
 }
 
 .status {
-  width: calc(var(--toolbar-height) - 10px);
-  height: calc(var(--toolbar-height) - 10px);
+  position: fixed;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #ff3b30;
   border: 1px solid #7a1210;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4), 0 0 6px rgba(0, 0, 0, 0.4);
-  flex-shrink: 0;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4), 0 0 4px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  pointer-events: none;
 }
 
 .status.connected {
@@ -173,10 +206,10 @@ body {
 
 .pages-wrap {
   flex: 1;
-  min-width: 0;
+  min-width: 220px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
   position: relative;
 }
@@ -1872,17 +1905,23 @@ body {
   font-weight: 700;
 }
 
-@media (max-width: 900px) {
+/* On narrow viewports, scale topbar UP for finger-friendly tap targets.
+   Variables are scoped to .topbar so the rest of the app is unaffected. */
+@media (max-width: 650px) {
   .topbar {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 4px 6px;
+    --text-size-default: 20px;
+    --toolbar-height: 40px;
   }
-  .actions {
-    margin-left: 0;
+
+  .brand-sub {
+    display: none;
   }
-  .pages {
-    height: auto;
-    padding: 4px 6px;
+
+  /* Truncate the (server-provided) app name to avoid eating the whole row */
+  .brand-title {
+    max-width: 4.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
