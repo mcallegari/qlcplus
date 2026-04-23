@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="webaccess-v5.css">
 </head>
 <body>
+  <div class="status disconnected" id="wsStatus" aria-label="Disconnected" title="Disconnected"></div>
   <div id="app">
     <form id="loadForm" action="/loadProject" method="POST" enctype="multipart/form-data">
       <input id="loadTrigger" type="file" accept=".qxw" name="qlcprj">
@@ -28,7 +29,6 @@
           <a class="nav-btn" href="/simpleDesk">Simple Desk</a>
           <a class="nav-btn" href="/config">Configuration</a>
         </div>
-        <div class="status disconnected" id="wsStatus" aria-label="Disconnected" title="Disconnected"></div>
       </div>
     </header>
 
