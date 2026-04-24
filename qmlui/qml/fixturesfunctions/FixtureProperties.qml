@@ -207,8 +207,9 @@ Rectangle
                         Layout.fillWidth: true
                         textRole: ""
                         model: fixtureBrowser.modesList
-                        onModelChanged: currentIndex = 0
-                        onDisplayTextChanged: fixtureBrowser.selectedMode = displayText
+                        currentIndex: -1
+                        onModelChanged: currentIndex = -1
+                        onDisplayTextChanged: if (displayText !== "") fixtureBrowser.selectedMode = displayText
                     }
                     IconButton
                     {

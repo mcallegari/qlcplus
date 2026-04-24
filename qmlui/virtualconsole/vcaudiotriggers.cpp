@@ -141,6 +141,25 @@ VCWidget *VCAudioTriggers::createCopy(VCWidget *parent) const
     return audioTrigger;
 }
 
+void VCAudioTriggers::remapChannels(const QMap<SceneValue, SceneValue> &remapMap)
+{
+    for (AudioBar &bar : m_spectrumBars)
+    {
+        if (bar.m_type == DMXBar)
+        {
+            QList<SceneValue> newList;
+            for (const SceneValue &val : bar.m_dmxChannels)
+            {
+                SceneValue key(val.fxi, val.channel);
+                if (remapMap.contains(key))
+                    newList.append(remapMap.value(key));
+            }
+            bar.m_dmxChannels = newList;
+            rebuildBarAbsDmxChannels(bar);
+        }
+    }
+}
+
 bool VCAudioTriggers::captureEnabled() const
 {
     return m_captureEnabled;

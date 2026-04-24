@@ -37,6 +37,8 @@ Rectangle
     // for dynamic items creation
     property string currentView: contextManager.currentSubContext
 
+    property alias leftPanel: leftPanel
+
     Component.onCompleted:
     {
         switch (contextManager.currentSubContext)
