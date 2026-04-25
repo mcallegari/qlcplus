@@ -26,7 +26,6 @@
 #include "channeledit.h"
 #include "editorview.h"
 #include "listmodel.h"
-#include "modeedit.h"
 #include "qlcfile.h"
 
 EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent)

@@ -22,13 +22,13 @@
 
 #include <QQuickView>
 
+#include "modeedit.h"
 #include "physicaledit.h"
 #include "qlcchannel.h"
 
 class QLCFixtureDef;
 class ChannelEdit;
 class ListModel;
-class ModeEdit;
 
 class EditorView final : public QObject
 {

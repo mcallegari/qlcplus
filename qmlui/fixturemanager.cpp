@@ -31,7 +31,6 @@
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
 #include "qlcfixturedef.h"
-#include "treemodelitem.h"
 #include "fixtureutils.h"
 #include "treemodel.h"
 #include "qlcconfig.h"

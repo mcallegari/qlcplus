@@ -27,13 +27,13 @@
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
+#include "../../plugins/interfaces/qlcioplugin.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QElapsedTimer;
 class QLCInputSource;
 class AudioCapture;
-class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
 class Universe;
