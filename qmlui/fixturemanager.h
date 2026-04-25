@@ -28,12 +28,12 @@
 #include <QDir>
 
 #include "scenevalue.h"
+#include "treemodelitem.h"
 #include "colorfilters.h"
 
 class Doc;
 class Fixture;
 class TreeModel;
-class TreeModelItem;
 class FixtureGroup;
 class MonitorProperties;
 
