@@ -413,7 +413,8 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         currProfile = currInPatch->profile();
         disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-        if (currInPatch->plugin()->capabilities() & QLCIOPlugin::Beats)
+        QLCIOPlugin *currPlugin = currInPatch->plugin();
+        if (currPlugin != NULL && currPlugin->capabilities() & QLCIOPlugin::Beats)
         {
             disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                        this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));
@@ -446,7 +447,8 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         {
             connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                     this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
-            if (ip->plugin()->capabilities() & QLCIOPlugin::Beats)
+            QLCIOPlugin *inputPlugin = ip->plugin();
+            if (inputPlugin != NULL && inputPlugin->capabilities() & QLCIOPlugin::Beats)
             {
                 connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                         this, SLOT(slotPluginBeat(quint32,quint32,uchar,const QString&)));

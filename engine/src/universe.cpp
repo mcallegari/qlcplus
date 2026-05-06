@@ -594,7 +594,7 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
     }
     else
     {
-        if (input == QLCIOPlugin::invalidLine())
+        if (plugin == NULL || input == QLCIOPlugin::invalidLine())
         {
             disconnectInputPatch();
             delete m_inputPatch;

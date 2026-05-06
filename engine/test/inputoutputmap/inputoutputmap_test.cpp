@@ -358,6 +358,29 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputPatch(3) == NULL);
     QVERIFY(im.inputMapping(stub->name(), 3) == 2);
 
+    // Clearing through a null plugin must fully remove the patch.
+    QVERIFY(im.setInputPatch(0, KInputNone, "", 0) == true);
+    QVERIFY(im.inputPatch(0) == NULL);
+    QVERIFY(im.inputMapping(stub->name(), 0) == InputOutputMap::invalidUniverse());
+    QVERIFY(im.isUniversePatched(0) == false);
+
+    QVERIFY(im.setInputPatch(0, stub->name(), stub->inputs().at(1), 1) == true);
+    QVERIFY(im.inputPatch(0) != NULL);
+    QVERIFY(im.inputPatch(0)->plugin() == stub);
+    QVERIFY(im.inputPatch(0)->input() == 1);
+    QVERIFY(im.inputMapping(stub->name(), 1) == 0);
+    QVERIFY(im.isUniversePatched(0) == true);
+
+    QVERIFY(im.setInputPatch(0, KInputNone, "", QLCIOPlugin::invalidLine()) == true);
+    QVERIFY(im.inputPatch(0) == NULL);
+    QVERIFY(im.inputMapping(stub->name(), 1) == InputOutputMap::invalidUniverse());
+    QVERIFY(im.isUniversePatched(0) == false);
+
+    QVERIFY(im.setInputPatch(0, stub->name(), stub->inputs().at(2), 2) == true);
+    QVERIFY(im.inputPatch(0) != NULL);
+    QVERIFY(im.inputPatch(0)->plugin() == stub);
+    QVERIFY(im.inputPatch(0)->input() == 2);
+
     // Universe out of bounds
     QVERIFY(im.setInputPatch(im.universesCount(), stub->name(), stub->inputs().at(0), 0) == false);
 }

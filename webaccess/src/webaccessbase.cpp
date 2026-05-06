@@ -32,6 +32,7 @@
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
 #include "commonjscss.h"
+#include "qlcioplugin.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "doc.h"
@@ -53,6 +54,18 @@ QString sanitizeUploadedFileName(const QString &rawName)
     QString normalizedName = rawName;
     normalizedName.replace('\\', '/');
     return QFileInfo(normalizedName).fileName();
+}
+
+quint32 parsePatchLineValue(const QString &rawValue)
+{
+    bool ok = false;
+    int parsedLine = rawValue.toInt(&ok);
+
+    // Negative line values are interpreted as "None".
+    if (ok == false || parsedLine < 0)
+        return QLCIOPlugin::invalidLine();
+
+    return quint32(parsedLine);
 }
 
 bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, QString *fileName = nullptr)
@@ -546,17 +559,29 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
 
         if (cmdList[1] == "INPUT")
         {
-            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", cmdList[4].toUInt());
+            if (cmdList.count() < 5)
+                return true;
+
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "",
+                                                   parsePatchLineValue(cmdList[4]));
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "OUTPUT")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), false);
+            if (cmdList.count() < 5)
+                return true;
+
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "",
+                                                    parsePatchLineValue(cmdList[4]), false);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
         {
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", cmdList[4].toUInt(), true);
+            if (cmdList.count() < 5)
+                return true;
+
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "",
+                                                    parsePatchLineValue(cmdList[4]), true);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "PROFILE")
