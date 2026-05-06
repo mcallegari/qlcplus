@@ -775,8 +775,6 @@ bool App::loadWorkspace(const QString &fileName)
             }
         }
 
-        m_doc->inputOutputMap()->startUniverses();
-
         return true;
     }
     return false;
@@ -967,6 +965,10 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 
     // Perform post-load operations
     m_virtualConsole->postLoad();
+
+    // Workspace loading replaces Universe instances via InputOutputMap::loadXML(),
+    // so restart them only after the full document is in place.
+    m_doc->inputOutputMap()->startUniverses();
 
     if (m_doc->errorLog().isEmpty() == false &&
         fromMemory == false)
