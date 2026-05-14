@@ -24,10 +24,14 @@
 #include <QObject>
 #include <QAction>
 #include <QFont>
+#include <QList>
 #include <QMutex>
+#include <QThread>
 
 #include "showitem.h"
 #include "audio.h"
+
+class PreviewThread;
 
 /** @addtogroup ui_functions
  * @{
@@ -45,6 +49,7 @@ class AudioItem final : public ShowItem
 
 public:
     AudioItem(Audio *aud, ShowFunction *func);
+    ~AudioItem() override;
 
     /** @reimp */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -81,8 +86,14 @@ private:
     /** Start a thread to elapse a waveform preview over the item */
     void updateWaveformPreview();
 
+    /** Stop and release any running waveform preview threads */
+    void stopWaveformPreviewThreads();
+
     /** Protects waveform preview replacement and paint access */
     QMutex m_previewMutex;
+
+    /** Running waveform preview workers */
+    QList<PreviewThread *> m_previewThreads;
 
 public:
     /** Reference to the actual Audio Function */
@@ -100,6 +111,8 @@ public:
 class PreviewThread final : public QThread
 {
 public:
+    explicit PreviewThread(QObject *parent = nullptr);
+
     void setAudioItem(AudioItem *item);
 
 private:
