@@ -77,7 +77,8 @@ QString WebAccessSimpleDesk::getHTML(const Doc *doc, const SimpleDesk *sd)
     QStringList uniList = doc->inputOutputMap()->universeNames();
     for (int i = 0; i < uniList.count(); i++)
     {
-        bodyHTML += "<option value=\"" + QString::number(i) + "\">" + uniList.at(i) + "</option>\n";
+        bodyHTML += "<option value=\"" + QString::number(i) + "\">" +
+                    uniList.at(i).toHtmlEscaped() + "</option>\n";
     }
     bodyHTML += "</select></div>\n";
     bodyHTML += "</div>\n";

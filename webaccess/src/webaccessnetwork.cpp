@@ -99,6 +99,8 @@ void WebAccessNetwork::appendInterface(InterfaceInfo iface)
 
 QString WebAccessNetwork::getInterfaceHTML(const InterfaceInfo *iface) const
 {
+    const QString devNameAttr = iface->devName.toHtmlEscaped();
+    const QString devNameJsAttr = webAccessJsStringEscaped(iface->devName).toHtmlEscaped();
     QString dhcpChk = iface->isStatic ? QString() : QString("checked");
     QString staticChk = iface->isStatic ? QString("checked") : QString();
     QString editable = iface->isStatic ? QString("") : QString("disabled");
@@ -116,7 +118,7 @@ QString WebAccessNetwork::getInterfaceHTML(const InterfaceInfo *iface) const
         html += "<td><form style=\"margin: 5px 15px; color:#FFF;\">\n";
         html += "<table><tr>";
         html += "<td>" + tr("Access point name (SSID): ") + "</td><td><input type=\"text\" id=\"" +
-                "hotspotSSID\" size=\"15\" value=\"" + iface->ssid + "\"></td></tr>\n";
+                "hotspotSSID\" size=\"15\" value=\"" + iface->ssid.toHtmlEscaped() + "\"></td></tr>\n";
         html += "<td>" + tr("WPA-PSK Password: ") + "</td><td><input type=\"text\" id=\"" +
                 "hotspotWPAPSK\" size=\"15\" value=\"\"></td></tr>\n";
         html += "</tr></table>";
@@ -127,35 +129,35 @@ QString WebAccessNetwork::getInterfaceHTML(const InterfaceInfo *iface) const
     else
     {
         html += "<td style=\"padding: 0 20px; text-align: center; background: #333;\">";
-        html += tr("Network interface") + "<br>" + iface->devName + "</td>\n";
+        html += tr("Network interface") + "<br>" + iface->devName.toHtmlEscaped() + "</td>\n";
 
         html += "<td><form style=\"margin: 5px 15px; color:#FFF;\">\n";
         if (iface->isWireless)
         {
             html += "<table><tr>";
             html += "<td>" + tr("Access point name (SSID): ") + "</td><td><input type=\"text\" id=\"" +
-                    iface->devName + "SSID\" size=\"15\" value=\"" + iface->ssid + "\"></td></tr>\n";
+                    devNameAttr + "SSID\" size=\"15\" value=\"" + iface->ssid.toHtmlEscaped() + "\"></td></tr>\n";
             html += "<td>" + tr("WPA-PSK Password: ") + "</td><td><input type=\"text\" id=\"" +
-                    iface->devName + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass + "\"></td></tr>\n";
+                    devNameAttr + "WPAPSK\" size=\"15\" value=\"" + iface->wpaPass.toHtmlEscaped() + "\"></td></tr>\n";
             html += "</tr></table>";
         }
         /** IP mode radio buttons */
-        html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
-                iface->devName + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
-        html += "<input type=\"radio\" name=" + iface->devName + "NetGroup onclick=\"showStatic('" +
-                iface->devName + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
+        html += "<input type=\"radio\" name=\"" + devNameAttr + "NetGroup\" onclick=\"showStatic('" +
+                devNameJsAttr + "', false);\" value=\"dhcp\" " + dhcpChk + ">" + tr("Dynamic (DHCP)") + "<br>\n";
+        html += "<input type=\"radio\" name=\"" + devNameAttr + "NetGroup\" onclick=\"showStatic('" +
+                devNameJsAttr + "', true);\" value=\"static\" " + staticChk + ">" + tr("Static") + "<br>\n";
 
         /** Static IP fields */
-        html += "<div id=\"" + iface->devName + "StaticFields\" style=\"padding: 5px 30px;\">\n";
+        html += "<div id=\"" + devNameAttr + "StaticFields\" style=\"padding: 5px 30px;\">\n";
         html += "<table><tr>";
         html += "<td>" + tr("IP Address: ") + "</td><td><input type=\"text\" id=\"" +
-                iface->devName + "IPaddr\" size=\"15\" value=\"" + iface->address + "\" " + editable + "></td></tr>\n";
+                devNameAttr + "IPaddr\" size=\"15\" value=\"" + iface->address.toHtmlEscaped() + "\" " + editable + "></td></tr>\n";
         html += "<td>" + tr("Netmask: ") + "</td><td><input type=\"text\" id=\"" +
-                iface->devName + "Netmask\" size=\"15\" value=\"" + iface->netmask + "\" " + editable + "></td></tr>\n";
+                devNameAttr + "Netmask\" size=\"15\" value=\"" + iface->netmask.toHtmlEscaped() + "\" " + editable + "></td></tr>\n";
         html += "<td>" + tr("Gateway: ") + "</td><td><input type=\"text\" size=\"15\" id=\"" +
-                iface->devName + "Gateway\" value=\"" + iface->gateway + "\" " + editable + "></td></tr>\n";
+                devNameAttr + "Gateway\" value=\"" + iface->gateway.toHtmlEscaped() + "\" " + editable + "></td></tr>\n";
         html += "</table></div>\n";
-        html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + iface->devName + "');\" >\n";
+        html += "<input type=\"button\" value=\"" + tr("Apply changes") + "\" onclick=\"applyParams('" + devNameJsAttr + "');\" >\n";
     }
 
     html += "</form></td></tr></table></div></div>";

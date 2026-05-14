@@ -710,7 +710,7 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
             for (const VCFramePageShortcut* shortcut : shortcuts)
             {
                 m_JScode += "framesPageNames[" + QString::number(frame->id()) + "][" + QString::number(index) + "] = \"" +
-                            QString(shortcut->name()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                            webAccessJsStringEscaped(shortcut->name()) + "\";\n";
                 index++;
             }
             currentPageName = QString(shortcuts[frame->currentPage()]->name());
@@ -734,7 +734,7 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
         str += "</div>\n";
 
         m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" +
-                    QString(frame->caption()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                    webAccessJsStringEscaped(frame->caption()) + "\";\n";
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
@@ -758,7 +758,8 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
                    "<img src=\"back.png\" title=\"" + tr("Back") + "\" width=\"27\"></a>";
 
             str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100)+"px;\">" +
-                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
+                   currentPageName.toHtmlEscaped() + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
@@ -819,7 +820,7 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
             for (const VCFramePageShortcut* shortcut : shortcuts)
             {
                 m_JScode += "framesPageNames[" + QString::number(frame->id()) + "][" + QString::number(index) + "] = \"" +
-                            QString(shortcut->name()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                            webAccessJsStringEscaped(shortcut->name()) + "\";\n";
                 index++;
             }
             currentPageName = QString(shortcuts[frame->currentPage()]->name());
@@ -843,7 +844,7 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
         str += "</div>\n";
 
         m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" +
-                    QString(frame->caption()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                    webAccessJsStringEscaped(frame->caption()) + "\";\n";
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
@@ -867,7 +868,8 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
                    "<img src=\"back.png\" title=\"" + tr("Back") + "\" width=\"27\"></a>";
 
             str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100) + "px;\">" +
-                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
+                   currentPageName.toHtmlEscaped() + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
