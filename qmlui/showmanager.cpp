@@ -18,12 +18,16 @@
 */
 
 #include <QQmlContext>
+#include <QtMath>
+#include <QVector>
+#include <algorithm>
 
 #include "waveformimageprovider.h"
 #include "showmanager.h"
 #include "sequence.h"
 #include "tardis.h"
 #include "chaser.h"
+#include "scene.h"
 #include "track.h"
 #include "show.h"
 #include "doc.h"
@@ -668,6 +672,508 @@ bool ShowManager::setShowItemDuration(ShowFunction *sf, int duration)
     sf->setDuration(duration);
 
     return true;
+}
+
+int ShowManager::minimumTimelineDuration(Show::TimeDivision division) const
+{
+    return division == Show::Time ? 1 : 125;
+}
+
+quint32 ShowManager::itemRelativeTimeFromCursor(const ShowFunction *sf, int cursorTime) const
+{
+    if (sf == nullptr)
+        return 0;
+
+    const quint32 currentTimeValue = quint32(qMax(0, cursorTime));
+    if (currentTimeValue <= sf->startTime())
+        return 0;
+
+    return qMin(sf->duration(), currentTimeValue - sf->startTime());
+}
+
+quint32 ShowManager::mapCursorToChaserTime(const ShowFunction *sf, Chaser *chaser, int cursorTime) const
+{
+    if (sf == nullptr || chaser == nullptr)
+        return 0;
+
+    quint32 itemRelativeTime = itemRelativeTimeFromCursor(sf, cursorTime);
+    quint32 chaserRelativeTime = itemRelativeTime;
+    quint32 chaserTotal = chaser->totalDuration();
+    if (sf->duration() > 0 && chaserTotal > 0)
+    {
+        chaserRelativeTime = quint32(qRound((double(itemRelativeTime) * double(chaserTotal))
+                                            / double(sf->duration())));
+    }
+
+    return chaserRelativeTime;
+}
+
+quint32 ShowManager::chaserStepDuration(Chaser *chaser, int index) const
+{
+    if (chaser == nullptr || index < 0 || index >= chaser->stepsCount())
+        return 0;
+
+    if (chaser->durationMode() == Chaser::Common)
+        return chaser->duration();
+
+    ChaserStep *step = chaser->stepAt(index);
+    return step ? step->duration : 0;
+}
+
+int ShowManager::chaserStepIndexFromTime(Chaser *chaser, quint32 timeValue) const
+{
+    if (chaser == nullptr || chaser->stepsCount() == 0)
+        return -1;
+
+    quint32 elapsed = 0;
+    for (int i = 0; i < chaser->stepsCount(); ++i)
+    {
+        quint32 stepDuration = chaserStepDuration(chaser, i);
+        if (stepDuration == 0)
+            stepDuration = 1;
+
+        if (timeValue < elapsed + stepDuration)
+            return i;
+
+        elapsed += stepDuration;
+    }
+
+    return chaser->stepsCount() - 1;
+}
+
+bool ShowManager::setChaserStepDurationWithUndo(Chaser *chaser, int stepIndex, quint32 newDuration)
+{
+    if (chaser == nullptr || stepIndex < 0 || stepIndex >= chaser->stepsCount())
+        return false;
+
+    ChaserStep *stepRef = chaser->stepAt(stepIndex);
+    if (stepRef == nullptr)
+        return false;
+
+    ChaserStep step = *stepRef;
+    newDuration = qMax(quint32(1), newDuration);
+    if (step.duration == newDuration)
+        return true;
+
+    UIntPair oldDuration(stepIndex, step.duration);
+    UIntPair oldHold(stepIndex, step.hold);
+
+    step.duration = newDuration;
+    step.hold = Function::speedSubtract(step.duration, step.fadeIn);
+
+    Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, chaser->id(),
+                                      QVariant::fromValue(oldDuration),
+                                      QVariant::fromValue(UIntPair(stepIndex, step.duration)));
+    Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, chaser->id(),
+                                      QVariant::fromValue(oldHold),
+                                      QVariant::fromValue(UIntPair(stepIndex, step.hold)));
+    chaser->replaceStep(step, stepIndex);
+    return true;
+}
+
+void ShowManager::convertChaserCommonToPerStep(Chaser *chaser)
+{
+    if (chaser == nullptr || chaser->durationMode() != Chaser::Common)
+        return;
+
+    quint32 commonDuration = qMax(quint32(1), chaser->duration());
+    chaser->setDurationMode(Chaser::PerStep);
+    for (int i = 0; i < chaser->stepsCount(); ++i)
+    {
+        ChaserStep *stepRef = chaser->stepAt(i);
+        if (stepRef == nullptr)
+            continue;
+
+        setChaserStepDurationWithUndo(chaser, i, commonDuration);
+    }
+}
+
+void ShowManager::setShowItemDurationWithUndo(ShowFunction *sf, int newDuration)
+{
+    if (sf == nullptr)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(), sf->duration(), newDuration);
+    sf->setDuration(newDuration);
+}
+
+bool ShowManager::moveAllItemsAfterCursor(int cursorTime, int delta)
+{
+    if (m_currentShow == nullptr || delta == 0)
+        return true;
+
+    QList<ShowFunction *> itemsToMove;
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            if (sf == nullptr)
+                continue;
+
+            if (int(sf->startTime()) <= cursorTime)
+                continue;
+
+            itemsToMove.append(sf);
+        }
+    }
+
+    std::sort(itemsToMove.begin(), itemsToMove.end(),
+              [delta](ShowFunction *a, ShowFunction *b)
+              {
+                  if (delta > 0)
+                      return a->startTime() > b->startTime();
+                  return a->startTime() < b->startTime();
+              });
+
+    for (ShowFunction *sf : itemsToMove)
+    {
+        int newStart = int(sf->startTime()) + delta;
+        if (newStart < 0)
+            newStart = 0;
+
+        if (setShowItemStartTime(sf, newStart) == false)
+            return false;
+    }
+
+    return true;
+}
+
+bool ShowManager::insertShowItemTime(ShowFunction *sf, int length)
+{
+    return insertShowItemTimeAt(sf, length, m_currentTime);
+}
+
+bool ShowManager::insertShowItemTimeAt(ShowFunction *sf, int length, int cursorTime)
+{
+    if (m_currentShow == nullptr || sf == nullptr || length <= 0)
+        return false;
+
+    Function *func = m_doc->function(sf->functionID());
+    if (func == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    int minDuration = minimumTimelineDuration(timeDivision());
+
+    switch (func->type())
+    {
+        case Function::AudioType:
+        case Function::VideoType:
+        {
+            if (func->runOrder() != Function::Loop)
+                return false;
+        }
+        Q_FALLTHROUGH();
+        case Function::SceneType:
+        case Function::CollectionType:
+        case Function::EFXType:
+        case Function::RGBMatrixType:
+        {
+            int newDuration = sf->duration() + length;
+            if (newDuration < minDuration)
+                newDuration = minDuration;
+
+            if (checkOverlapping(track, sf, sf->startTime(), newDuration))
+                return false;
+
+            setShowItemDurationWithUndo(sf, newDuration);
+            m_doc->setModified();
+            return true;
+        }
+        case Function::ChaserType:
+        case Function::SequenceType:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(func);
+            if (chaser == nullptr)
+                return false;
+
+            int stepsCount = chaser->stepsCount();
+            if (stepsCount == 0 && func->type() != Function::SequenceType)
+                return false;
+
+            int newItemDuration = int(sf->duration()) + length;
+            if (newItemDuration < minDuration)
+                newItemDuration = minDuration;
+            if (checkOverlapping(track, sf, sf->startTime(), newItemDuration))
+                return false;
+
+            quint32 chaserRelativeTime = mapCursorToChaserTime(sf, chaser, cursorTime);
+
+            int insertIndex = chaserStepIndexFromTime(chaser, chaserRelativeTime);
+            if (insertIndex < 0)
+                return false;
+
+            // In Common mode, all steps share one duration: switch to PerStep first
+            // so we can stretch only the step covering the cursor.
+            convertChaserCommonToPerStep(chaser);
+
+            ChaserStep *targetStepRef = chaser->stepAt(insertIndex);
+            if (targetStepRef == nullptr)
+                return false;
+
+            quint32 targetDuration = targetStepRef->duration + quint32(length);
+            if (setChaserStepDurationWithUndo(chaser, insertIndex, targetDuration) == false)
+                return false;
+
+            setShowItemDurationWithUndo(sf, newItemDuration);
+            m_doc->setModified();
+            return true;
+        }
+        default:
+        break;
+    }
+
+    return false;
+}
+
+bool ShowManager::cutShowItemTime(ShowFunction *sf, int length)
+{
+    return cutShowItemTimeAt(sf, length, m_currentTime);
+}
+
+bool ShowManager::cutShowItemTimeAt(ShowFunction *sf, int length, int cursorTime)
+{
+    if (m_currentShow == nullptr || sf == nullptr || length <= 0)
+        return false;
+
+    Function *func = m_doc->function(sf->functionID());
+    if (func == nullptr)
+        return false;
+
+    int minDuration = minimumTimelineDuration(timeDivision());
+    int maxCutDuration = int(sf->duration()) - minDuration;
+    if (maxCutDuration <= 0)
+        return false;
+
+    int targetCutDuration = qMin(length, maxCutDuration);
+
+    switch (func->type())
+    {
+        case Function::AudioType:
+        case Function::VideoType:
+        {
+            if (func->runOrder() != Function::Loop)
+                return false;
+        }
+        Q_FALLTHROUGH();
+        case Function::SceneType:
+        case Function::CollectionType:
+        case Function::EFXType:
+        case Function::RGBMatrixType:
+        {
+            int newDuration = int(sf->duration()) - targetCutDuration;
+            if (newDuration < minDuration)
+                newDuration = minDuration;
+
+            setShowItemDurationWithUndo(sf, newDuration);
+            m_doc->setModified();
+            return true;
+        }
+        case Function::ChaserType:
+        case Function::SequenceType:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(func);
+            if (chaser == nullptr || chaser->stepsCount() == 0)
+                return false;
+
+            convertChaserCommonToPerStep(chaser);
+
+            quint32 chaserRelativeTime = mapCursorToChaserTime(sf, chaser, cursorTime);
+
+            int cutStartIndex = chaserStepIndexFromTime(chaser, chaserRelativeTime);
+            if (cutStartIndex < 0)
+                return false;
+
+            quint32 stepStartTime = 0;
+            for (int i = 0; i < cutStartIndex; ++i)
+                stepStartTime += qMax(quint32(1), chaserStepDuration(chaser, i));
+
+            int cutRemaining = targetCutDuration;
+            int cutDuration = 0;
+            int stepIndex = cutStartIndex;
+            quint32 cursorOffset = chaserRelativeTime > stepStartTime ? (chaserRelativeTime - stepStartTime) : 0;
+
+            while (cutRemaining > 0 && stepIndex < chaser->stepsCount())
+            {
+                ChaserStep *stepRef = chaser->stepAt(stepIndex);
+                if (stepRef == nullptr)
+                    break;
+
+                ChaserStep step = *stepRef;
+                quint32 stepDuration = qMax(quint32(1), step.duration);
+                quint32 offset = qMin(cursorOffset, stepDuration);
+                int removable = (stepIndex == cutStartIndex) ? int(stepDuration - offset) : int(stepDuration);
+                if (removable <= 0)
+                {
+                    cursorOffset = 0;
+                    stepIndex++;
+                    continue;
+                }
+
+                int consume = qMin(cutRemaining, removable);
+
+                if (stepIndex == cutStartIndex && offset > 0)
+                {
+                    quint32 newStepDuration = stepDuration;
+                    if (consume < removable)
+                        newStepDuration = qMax(quint32(1), quint32(int(stepDuration) - consume));
+                    else
+                        newStepDuration = qMax(quint32(1), quint32(offset));
+                    setChaserStepDurationWithUndo(chaser, stepIndex, newStepDuration);
+
+                    cutDuration += consume;
+                    cutRemaining -= consume;
+                    cursorOffset = 0;
+                    if (consume < removable)
+                        break;
+                    stepIndex++;
+                    continue;
+                }
+
+                if (consume < removable)
+                {
+                    quint32 newStepDuration = qMax(quint32(1), quint32(int(stepDuration) - consume));
+                    setChaserStepDurationWithUndo(chaser, stepIndex, newStepDuration);
+
+                    cutDuration += consume;
+                    cutRemaining = 0;
+                    break;
+                }
+
+                if (chaser->stepsCount() <= 1)
+                {
+                    quint32 newStepDuration = 1;
+                    int actualConsume = int(stepDuration - newStepDuration);
+                    if (actualConsume <= 0)
+                        break;
+
+                    setChaserStepDurationWithUndo(chaser, stepIndex, newStepDuration);
+
+                    cutDuration += actualConsume;
+                    cutRemaining -= actualConsume;
+                    break;
+                }
+
+                Tardis::instance()->enqueueAction(Tardis::ChaserRemoveStep, chaser->id(),
+                                                  Tardis::instance()->actionToByteArray(Tardis::ChaserRemoveStep,
+                                                                                        chaser->id(), stepIndex),
+                                                  QVariant());
+                if (chaser->removeStep(stepIndex) == false)
+                    break;
+
+                cutDuration += consume;
+                cutRemaining -= consume;
+            }
+
+            if (cutDuration <= 0)
+                return false;
+
+            int newDuration = int(sf->duration()) - cutDuration;
+            if (newDuration < minDuration)
+                newDuration = minDuration;
+
+            setShowItemDurationWithUndo(sf, newDuration);
+            m_doc->setModified();
+            return true;
+        }
+        default:
+        break;
+    }
+
+    return false;
+}
+
+bool ShowManager::insertTimeAtCursor(int length, int cursorTime)
+{
+    if (m_currentShow == nullptr || length <= 0)
+        return false;
+
+    bool hasTarget = false;
+    bool hasItemsAfterCursor = false;
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            if (sf == nullptr || sf->isLocked())
+                continue;
+
+            int startTime = int(sf->startTime());
+            if (startTime > cursorTime)
+                hasItemsAfterCursor = true;
+
+            int endTime = startTime + int(sf->duration());
+            if (cursorTime < startTime || cursorTime > endTime)
+                continue;
+
+            hasTarget = true;
+            if (hasItemsAfterCursor)
+                break;
+        }
+
+        if (hasTarget && hasItemsAfterCursor)
+            break;
+    }
+
+    if (!hasTarget && !hasItemsAfterCursor)
+        return false;
+
+    if (moveAllItemsAfterCursor(cursorTime, length) == false)
+        return false;
+
+    bool changed = false;
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            if (sf == nullptr || sf->isLocked())
+                continue;
+
+            int startTime = int(sf->startTime());
+            int endTime = startTime + int(sf->duration());
+            if (cursorTime < startTime || cursorTime > endTime)
+                continue;
+
+            changed |= insertShowItemTimeAt(sf, length, cursorTime);
+        }
+    }
+
+    if (hasTarget && !hasItemsAfterCursor && !changed)
+        moveAllItemsAfterCursor(cursorTime, -length);
+
+    return changed || hasItemsAfterCursor;
+}
+
+bool ShowManager::cutTimeAtCursor(int length, int cursorTime)
+{
+    if (m_currentShow == nullptr || length <= 0)
+        return false;
+
+    bool changed = false;
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            if (sf == nullptr || sf->isLocked())
+                continue;
+
+            int startTime = int(sf->startTime());
+            int endTime = startTime + int(sf->duration());
+            if (cursorTime < startTime || cursorTime > endTime)
+                continue;
+
+            changed |= cutShowItemTimeAt(sf, length, cursorTime);
+        }
+    }
+
+    if (!changed)
+        return false;
+
+    moveAllItemsAfterCursor(cursorTime, -length);
+
+    return changed;
 }
 
 void ShowManager::resetContents()

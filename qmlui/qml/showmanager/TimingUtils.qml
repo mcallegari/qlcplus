@@ -35,11 +35,15 @@ Rectangle
     readonly property int fieldStart: 1
     readonly property int fieldEnd: 2
     readonly property int fieldDuration: 3
+    readonly property int fieldLength: 4
 
     property int activeField: fieldNone
     property var activeTarget: null
+    property var overlayHost: null
     property var selectedItems: []
     property var selectedItem: selectedItems.length === 1 ? selectedItems[0] : null
+    property int cutInsertLength: 1000
+    property int lastTimingSpinValue: 0
     property bool hasSelection: selectedItems.length > 0
     property bool hasSingleSelection: selectedItems.length === 1
     property bool hasMultipleSelection: selectedItems.length > 1
@@ -49,7 +53,7 @@ Rectangle
     {
         selectedItems = showManager.selectedItemRefs()
 
-        if (selectedItems.length === 0)
+        if (selectedItems.length === 0 && activeField !== fieldLength)
             activeField = fieldNone
     }
 
@@ -79,19 +83,136 @@ Rectangle
         return TimeUtils.timeToQlcString(value, tempoType)
     }
 
-    function toggleField(fieldId, target)
+    function cutInsertLengthLabel()
     {
-        if (!hasSelection)
+        return TimeUtils.timeToQlcString(cutInsertLength, tempoType)
+    }
+
+    function isTimingField(fieldId)
+    {
+        return fieldId === fieldStart || fieldId === fieldEnd || fieldId === fieldDuration
+    }
+
+    function isOverlayField(fieldId)
+    {
+        return isTimingField(fieldId) || fieldId === fieldLength
+    }
+
+    function activeFieldValue()
+    {
+        if (!selectedItem)
+            return 0
+        if (activeField === fieldStart)
+            return selectedItem.startTime
+        if (activeField === fieldEnd)
+            return selectedItem.startTime + selectedItem.duration
+        if (activeField === fieldDuration)
+            return selectedItem.duration
+        return 0
+    }
+
+    function syncOverlaySpinValues()
+    {
+        if (!isOverlayField(activeField))
             return
-        if (activeField === fieldId)
+
+        var value = activeField === fieldLength ? cutInsertLength : activeFieldValue()
+        if (value < 0)
+            value = 0
+        if (hasMultipleSelection && isTimingField(activeField))
+            value = 0
+
+        lastTimingSpinValue = value
+
+        overlayHoursSpin.value = Math.floor(value / 3600000)
+        value -= overlayHoursSpin.value * 3600000
+        overlayMinutesSpin.value = Math.floor(value / 60000)
+        value -= overlayMinutesSpin.value * 60000
+        overlaySecondsSpin.value = Math.floor(value / 1000)
+        value -= overlaySecondsSpin.value * 1000
+        overlayMillisSpin.value = value
+    }
+
+    function overlayTotalValue()
+    {
+        return (overlayHoursSpin.value * 3600000)
+                + (overlayMinutesSpin.value * 60000)
+                + (overlaySecondsSpin.value * 1000)
+                + overlayMillisSpin.value
+    }
+
+    function applyOverlaySpinValue()
+    {
+        var value = overlayTotalValue()
+
+        if (activeField === fieldLength)
         {
-            activeField = fieldNone
-            activeTarget = null
+            setCutInsertLength(value)
+            return
+        }
+
+        if (!isTimingField(activeField))
+            return
+
+        if (hasMultipleSelection)
+        {
+            var delta = value - lastTimingSpinValue
+            if (!delta)
+                return
+            lastTimingSpinValue = value
+            applyRelativeValue(activeField, delta)
         }
         else
         {
-            activeField = fieldId
+            applyAbsoluteValue(activeField, value)
+        }
+    }
+
+    function updateOverlayGeometry()
+    {
+        if (!overlayHost || !activeTarget)
+            return
+
+        var pos = activeTarget.mapToItem(overlayHost, 0, 0)
+        timeEditOverlay.x = pos.x
+        timeEditOverlay.y = pos.y
+        timeEditOverlay.width = activeTarget.width
+        timeEditOverlay.height = activeTarget.height
+    }
+
+    function attachOverlayToField()
+    {
+        var host = null
+        if (isOverlayField(activeField) && activeTarget && activeTarget.parent)
+            host = activeTarget.parent.parent ? activeTarget.parent.parent : activeTarget.parent
+        overlayHost = host
+
+        if (!host)
+        {
+            if (timeEditOverlay.parent !== panelContainer)
+                timeEditOverlay.parent = panelContainer
+            return
+        }
+
+        if (timeEditOverlay.parent !== host)
+            timeEditOverlay.parent = host
+        updateOverlayGeometry()
+        syncOverlaySpinValues()
+    }
+
+    function toggleField(fieldId, target)
+    {
+        if (!hasSelection && isTimingField(fieldId))
+            return
+        if (activeField === fieldId)
+        {
+            activeTarget = null
+            activeField = fieldNone
+        }
+        else
+        {
             activeTarget = target
+            activeField = fieldId
         }
     }
 
@@ -203,7 +324,38 @@ Rectangle
         }
     }
 
-    Component.onCompleted: refreshSelection()
+    function insertTime()
+    {
+        var length = cutInsertLength
+        var minValue = minDurationValue()
+        if (length < minValue)
+            length = minValue
+        showManager.insertTimeAtCursor(length, cursorValue())
+    }
+
+    function cutTime()
+    {
+        var length = cutInsertLength
+        var minValue = minDurationValue()
+        if (length < minValue)
+            length = minValue
+        showManager.cutTimeAtCursor(length, cursorValue())
+    }
+
+    function setCutInsertLength(value)
+    {
+        var minValue = minDurationValue()
+        if (value < minValue)
+            value = minValue
+
+        cutInsertLength = value
+    }
+
+    Component.onCompleted:
+    {
+        refreshSelection()
+        setCutInsertLength(cutInsertLength)
+    }
 
     Connections
     {
@@ -218,6 +370,38 @@ Rectangle
         {
             refreshSelection()
         }
+
+        function onTimeDivisionChanged(division)
+        {
+            panelContainer.setCutInsertLength(panelContainer.cutInsertLength)
+        }
+    }
+
+    Connections
+    {
+        target: panelContainer
+        ignoreUnknownSignals: true
+
+        function onActiveFieldChanged()
+        {
+            panelContainer.attachOverlayToField()
+        }
+
+        function onActiveTargetChanged()
+        {
+            panelContainer.attachOverlayToField()
+        }
+    }
+
+    Connections
+    {
+        target: panelContainer.activeTarget
+        ignoreUnknownSignals: true
+
+        function onXChanged() { panelContainer.updateOverlayGeometry() }
+        function onYChanged() { panelContainer.updateOverlayGeometry() }
+        function onWidthChanged() { panelContainer.updateOverlayGeometry() }
+        function onHeightChanged() { panelContainer.updateOverlayGeometry() }
     }
 
     Column
@@ -279,107 +463,8 @@ Rectangle
                     id: timingArea
                     width: panelContainer.width
                     height: timingsGrid.implicitHeight
-                    property var activeTarget: panelContainer.activeTarget
-                    property int lastSpinValue: 0
-                    property real targetX: 0
-                    property real targetY: 0
-                    property real targetWidth: 0
-                    property real targetHeight: 0
-
-                    function updateOverlay(target)
-                    {
-                        if (!target)
-                            return
-                        var pos = target.mapToItem(timingArea, 0, 0)
-                        targetX = pos.x
-                        targetY = pos.y
-                        targetWidth = target.width
-                        targetHeight = target.height
-                    }
-
-                    function activeFieldValue()
-                    {
-                        if (!selectedItem)
-                            return 0
-                        if (activeField === fieldStart)
-                            return selectedItem.startTime
-                        if (activeField === fieldEnd)
-                            return selectedItem.startTime + selectedItem.duration
-                        if (activeField === fieldDuration)
-                            return selectedItem.duration
-                        return 0
-                    }
-
-                    function updateSpinValues()
-                    {
-                        var value = activeFieldValue()
-                        if (value < 0)
-                            value = 0
-                        if (hasMultipleSelection)
-                            value = 0
-                        lastSpinValue = value
-
-                        hoursSpin.value = Math.floor(value / 3600000)
-                        value -= hoursSpin.value * 3600000
-                        minutesSpin.value = Math.floor(value / 60000)
-                        value -= minutesSpin.value * 60000
-                        secondsSpin.value = Math.floor(value / 1000)
-                        value -= secondsSpin.value * 1000
-                        millisSpin.value = value
-                    }
-
-                    function applySpinValue(value)
-                    {
-                        if (hasMultipleSelection)
-                        {
-                            var delta = value - lastSpinValue
-                            if (!delta)
-                                return
-                            lastSpinValue = value
-                            panelContainer.applyRelativeValue(activeField, delta)
-                        }
-                        else
-                        {
-                            panelContainer.applyAbsoluteValue(activeField, value)
-                        }
-                    }
-
-                    onActiveTargetChanged: updateOverlay(activeTarget)
-
-                    Connections
-                    {
-                        target: panelContainer
-                        ignoreUnknownSignals: true
-
-                        function onActiveFieldChanged()
-                        {
-                            timingArea.updateOverlay(timingArea.activeTarget)
-                            if (panelContainer.activeField !== fieldNone)
-                                timingArea.updateSpinValues()
-                        }
-                    }
-
-                    Connections
-                    {
-                        target: timingArea.activeTarget
-                        ignoreUnknownSignals: true
-
-                        function onXChanged() { timingArea.updateOverlay(timingArea.activeTarget) }
-                        function onYChanged() { timingArea.updateOverlay(timingArea.activeTarget) }
-                        function onWidthChanged() { timingArea.updateOverlay(timingArea.activeTarget) }
-                        function onHeightChanged() { timingArea.updateOverlay(timingArea.activeTarget) }
-                    }
-
-                    onWidthChanged:
-                    {
-                        if (activeTarget)
-                            updateOverlay(activeTarget)
-                    }
-                    onHeightChanged:
-                    {
-                        if (activeTarget)
-                            updateOverlay(activeTarget)
-                    }
+                    onWidthChanged: if (panelContainer.overlayHost === timingArea) panelContainer.updateOverlayGeometry()
+                    onHeightChanged: if (panelContainer.overlayHost === timingArea) panelContainer.updateOverlayGeometry()
 
                     GridLayout
                     {
@@ -441,76 +526,132 @@ Rectangle
                         }
                     } // GridLayout
 
-                    Item
-                    {
-                        id: overlayContainer
-                        visible: activeField !== fieldNone && activeTarget
-                        z: 2
-                        x: timingArea.targetX
-                        y: timingArea.targetY
-                        width: timingArea.targetWidth
-                        height: timingArea.targetHeight
-
-                        RowLayout
-                        {
-                            id: overlayContainerRow
-                            anchors.fill: parent
-                            spacing: 3
-
-                            function totalValue()
-                            {
-                                return (hoursSpin.value * 3600000)
-                                        + (minutesSpin.value * 60000)
-                                        + (secondsSpin.value * 1000)
-                                        + millisSpin.value
-                            }
-
-                            CustomSpinBox
-                            {
-                                id: hoursSpin
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: timingArea.targetHeight
-                                from: hasMultipleSelection ? -999 : 0
-                                to: 999
-                                suffix: "h"
-                                onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
-                            }
-
-                            CustomSpinBox
-                            {
-                                id: minutesSpin
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: timingArea.targetHeight
-                                from: hasMultipleSelection ? -59 : 0
-                                to: 59
-                                suffix: "m"
-                                onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
-                            }
-
-                            CustomSpinBox
-                            {
-                                id: secondsSpin
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: timingArea.targetHeight
-                                from: hasMultipleSelection ? -59 : 0
-                                to: 59
-                                suffix: "s"
-                                onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
-                            }
-
-                            CustomSpinBox
-                            {
-                                id: millisSpin
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: timingArea.targetHeight
-                                from: hasMultipleSelection ? -999 : 0
-                                to: 999
-                                suffix: "ms"
-                                onValueModified: timingArea.applySpinValue(overlayContainerRow.totalValue())
-                            }
-                        }
-                    }
                 } // timingArea
         } // SectionBox
+
+        SectionBox
+        {
+            width: parent.width
+            sectionLabel: qsTr("Cut/Insert")
+            sectionContents:
+                Item
+                {
+                    id: cutInsertArea
+                    width: panelContainer.width
+                    height: cutInsertGrid.implicitHeight
+                            + 5 + insertButton.height
+                            + 5 + cutButton.height
+                    onWidthChanged: if (panelContainer.overlayHost === cutInsertArea) panelContainer.updateOverlayGeometry()
+                    onHeightChanged: if (panelContainer.overlayHost === cutInsertArea) panelContainer.updateOverlayGeometry()
+
+                    GridLayout
+                    {
+                        id: cutInsertGrid
+                        width: panelContainer.width
+                        columns: 2
+                        columnSpacing: 5
+                        rowSpacing: 5
+
+                        RobotoText
+                        {
+                            label: qsTr("Length")
+                        }
+
+                        GenericButton
+                        {
+                            id: lengthButton
+                            Layout.fillWidth: true
+                            opacity: activeField === fieldLength ? 0 : 1
+                            enabled: activeField !== fieldLength
+                            bgColor: UISettings.bgMedium
+                            hoverColor: UISettings.fgLight
+                            label: cutInsertLengthLabel()
+                            onClicked: toggleField(fieldLength, lengthButton)
+                        }
+                    }
+
+                    GenericButton
+                    {
+                        id: insertButton
+                        anchors.top: cutInsertGrid.bottom
+                        anchors.topMargin: 5
+                        width: parent.width
+                        height: UISettings.iconSizeDefault
+                        enabled: showManager.isEditing
+                        label: qsTr("Insert time")
+                        onClicked: insertTime()
+                    }
+
+                    GenericButton
+                    {
+                        id: cutButton
+                        anchors.top: insertButton.bottom
+                        anchors.topMargin: 5
+                        width: parent.width
+                        height: UISettings.iconSizeDefault
+                        enabled: showManager.isEditing
+                        label: qsTr("Cut time")
+                        onClicked: cutTime()
+                    }
+
+                }
+        } // SectionBox
     } // Column
+
+    Item
+    {
+        id: timeEditOverlay
+        visible: panelContainer.isOverlayField(activeField) && activeTarget && panelContainer.overlayHost
+        z: 2
+
+        RowLayout
+        {
+            anchors.fill: parent
+            spacing: 3
+
+            CustomSpinBox
+            {
+                id: overlayHoursSpin
+                Layout.fillWidth: true
+                Layout.preferredHeight: timeEditOverlay.height
+                from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -999 : 0
+                to: 999
+                suffix: "h"
+                onValueModified: panelContainer.applyOverlaySpinValue()
+            }
+
+            CustomSpinBox
+            {
+                id: overlayMinutesSpin
+                Layout.fillWidth: true
+                Layout.preferredHeight: timeEditOverlay.height
+                from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -59 : 0
+                to: 59
+                suffix: "m"
+                onValueModified: panelContainer.applyOverlaySpinValue()
+            }
+
+            CustomSpinBox
+            {
+                id: overlaySecondsSpin
+                Layout.fillWidth: true
+                Layout.preferredHeight: timeEditOverlay.height
+                from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -59 : 0
+                to: 59
+                suffix: "s"
+                onValueModified: panelContainer.applyOverlaySpinValue()
+            }
+
+            CustomSpinBox
+            {
+                id: overlayMillisSpin
+                Layout.fillWidth: true
+                Layout.preferredHeight: timeEditOverlay.height
+                from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -999 : 0
+                to: 999
+                suffix: "ms"
+                onValueModified: panelContainer.applyOverlaySpinValue()
+            }
+        }
+    }
 }

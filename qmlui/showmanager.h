@@ -29,6 +29,7 @@
 class Doc;
 class Track;
 class Function;
+class Chaser;
 class ShowFunction;
 class WaveformImageProvider;
 
@@ -284,6 +285,18 @@ public:
     /** Set the duration of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemDuration(ShowFunction *sf, int duration);
 
+    /** Insert a time segment in a ShowFunction item, applying type-specific rules */
+    Q_INVOKABLE bool insertShowItemTime(ShowFunction *sf, int length);
+
+    /** Cut a time segment from a ShowFunction item, applying type-specific rules */
+    Q_INVOKABLE bool cutShowItemTime(ShowFunction *sf, int length);
+
+    /** Insert time at cursor position for all the items covering that position */
+    Q_INVOKABLE bool insertTimeAtCursor(int length, int cursorTime);
+
+    /** Cut time at cursor position for all the items covering that position */
+    Q_INVOKABLE bool cutTimeAtCursor(int length, int cursorTime);
+
     /** Returns pixel X positions of all item edges (start + end) across all tracks,
      *  excluding the item with the given function ID */
     Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeFuncId,
@@ -326,6 +339,24 @@ protected slots:
     void slotShowStopped();
 
 private:
+    // Timeline mapping helpers
+    int minimumTimelineDuration(Show::TimeDivision division) const;
+    quint32 itemRelativeTimeFromCursor(const ShowFunction *sf, int cursorTime) const;
+    quint32 mapCursorToChaserTime(const ShowFunction *sf, Chaser *chaser, int cursorTime) const;
+
+    // Chaser-specific helpers
+    quint32 chaserStepDuration(Chaser *chaser, int index) const;
+    int chaserStepIndexFromTime(Chaser *chaser, quint32 timeValue) const;
+    bool setChaserStepDurationWithUndo(Chaser *chaser, int stepIndex, quint32 newDuration);
+    void convertChaserCommonToPerStep(Chaser *chaser);
+
+    // Timeline mutation helpers
+    void setShowItemDurationWithUndo(ShowFunction *sf, int newDuration);
+    bool moveAllItemsAfterCursor(int cursorTime, int delta);
+
+    bool insertShowItemTimeAt(ShowFunction *sf, int length, int cursorTime);
+    bool cutShowItemTimeAt(ShowFunction *sf, int length, int cursorTime);
+
     /** Check items overlapping for the given track, ShowFunction,
      *  start time and duration. Returns true if overlapping is
      *  detected, otherwise false */
