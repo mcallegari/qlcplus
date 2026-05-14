@@ -17,8 +17,10 @@
 
 .qmake.stash
 .qtc_clangd
+.qt/
 *.pro.user
 *.pro.user.*
+*.qrc.depends
 moc_*.cpp
 qrc_*.cpp
 Makefile
@@ -26,6 +28,7 @@ Makefile.*
 *-build-*
 ui_*
 object_*
+*_autogen/
 engine/src/qlcconfig.h
 *.swp
 *.qmlc
@@ -53,3 +56,13 @@ coverage/
 # CMake build
 CMakeLists.txt.user
 build*
+.ninja_deps
+.ninja_log
+CMakeCache.txt
+CMakeFiles/
+CPackConfig.cmake
+CPackSourceConfig.cmake
+cmake_install.cmake
+cmake_uninstall.cmake
+install_manifest.txt
+/install/
