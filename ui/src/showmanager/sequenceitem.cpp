@@ -99,6 +99,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         if (stepFadeIn > 0)
         {
             int fadeXpos = xpos + ((timeUnit * (float)stepFadeIn) / 1000);
+            fadeXpos = qMin(fadeXpos, getWidth());
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
@@ -128,6 +129,7 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         if (stepFadeOut > 0)
         {
             int fadeXpos = xpos + ((timeUnit * (float)stepFadeOut) / 1000);
+            fadeXpos = qMin(fadeXpos, getWidth());
             // doesn't even draw it if too small
             if (fadeXpos - xpos > 5)
             {
