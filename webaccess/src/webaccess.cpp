@@ -352,6 +352,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             quint32 wID = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
+            if (widget == nullptr)
+                return;
+
             switch(widget->type())
             {
                 case VCWidget::AnimationWidget:
