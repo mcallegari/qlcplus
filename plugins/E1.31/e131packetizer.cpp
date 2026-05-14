@@ -201,8 +201,8 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const i
 
 bool E131Packetizer::checkPacket(QByteArray &data)
 {
-    /* An E1.31 packet must be at least 125 bytes long */
-    if (data.length() < 125)
+    /* An E1.31 DMX packet must include the DMX512-A start code. */
+    if (data.length() < 126)
         return false;
 
     // check ACN packet identifier
@@ -225,7 +225,8 @@ bool E131Packetizer::checkPacket(QByteArray &data)
 
 bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &universe)
 {
-    if (data.isNull())
+    // Keep this self-contained even though callers normally run checkPacket().
+    if (data.isNull() || data.length() < 126)
         return false;
 
     /* Check valid DMX start code */
@@ -234,6 +235,9 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
 
     universe = (uchar(data[113]) << 8) + uchar(data[114]);
     int length = (uchar(data[123]) << 8) + uchar(data[124]);
+
+    if (length < 2 || length > 513 || length > data.length() - 125)
+        return false;
 
     qDebug() << "[E1.31 fillDMXdata] universe:" << universe << ", length:" << length - 1;
 
