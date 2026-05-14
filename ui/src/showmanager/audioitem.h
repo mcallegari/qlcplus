@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QAction>
 #include <QFont>
+#include <QMutex>
 
 #include "showitem.h"
 #include "audio.h"
@@ -72,11 +73,16 @@ protected slots:
     void slotAudioPreviewStereo();
 
 private:
+    friend class PreviewThread;
+
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
 
     /** Start a thread to elapse a waveform preview over the item */
     void updateWaveformPreview();
+
+    /** Protects waveform preview replacement and paint access */
+    QMutex m_previewMutex;
 
 public:
     /** Reference to the actual Audio Function */
