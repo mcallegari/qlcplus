@@ -367,7 +367,10 @@ bool WebAccessNetwork::updateNetworkSettings(QStringList cmdList)
 
             m_interfaces[i].enabled = true;
             bool staticRequest = cmdList.at(3) == "static" ? true : false;
-            QString args = "con add con-name qlcplus" + m_interfaces[i].devName + " ifname " + m_interfaces[i].devName;
+            QString conName = "qlcplus" + m_interfaces[i].devName;
+            QStringList args;
+            args << "con" << "add" << "con-name" << conName
+                 << "ifname" << m_interfaces[i].devName;
 
             if (staticRequest)
             {
@@ -388,11 +391,12 @@ bool WebAccessNetwork::updateNetworkSettings(QStringList cmdList)
                 }
 
                 if (m_interfaces[i].isWireless)
-                    args = args + " type wifi ssid " + cmdList.at(7);
+                    args << "type" << "wifi" << "ssid" << cmdList.at(7);
                 else
-                    args = args + " type ethernet";
+                    args << "type" << "ethernet";
 
-                args = args + " ip4 " + cmdList.at(4) + "/" + QString::number(bitCount) + " gw4 " + cmdList.at(6);
+                args << "ip4" << cmdList.at(4) + "/" + QString::number(bitCount)
+                     << "gw4" << cmdList.at(6);
             }
             else // DHCP
             {
@@ -400,27 +404,27 @@ bool WebAccessNetwork::updateNetworkSettings(QStringList cmdList)
                 {
                     //m_interfaces[i].ssid = cmdList.at(7);
                     //m_interfaces[i].wpaPass = cmdList.at(8);
-                    args = args + " type wifi ssid " + cmdList.at(7);
+                    args << "type" << "wifi" << "ssid" << cmdList.at(7);
                 }
                 else
                 {
-                    args += " type ethernet";
+                    args << "type" << "ethernet";
                 }
             }
 
             // add the new/updated connection profile
-            getNmcliOutput(args.split(" "));
+            getNmcliOutput(args);
 
             // if a password is set, modify the just created connection
             if (m_interfaces[i].isWireless && !cmdList.at(8).isEmpty())
             {
-                args = "con mod qlcplus" + m_interfaces[i].devName + " wifi-sec.key-mgmt wpa-psk wifi-sec.psk " + cmdList.at(8);
-                getNmcliOutput(args.split(" "));
+                getNmcliOutput(QStringList() << "con" << "mod" << conName
+                                             << "wifi-sec.key-mgmt" << "wpa-psk"
+                                             << "wifi-sec.psk" << cmdList.at(8));
             }
 
             // finally, activate the connection
-            args = "con up qlcplus" + m_interfaces[i].devName;
-            getNmcliOutput(args.split(" "));
+            getNmcliOutput(QStringList() << "con" << "up" << conName);
 
             refreshConnectionsList();
 
