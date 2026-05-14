@@ -594,4 +594,146 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(s2->stopped() == true);
 }
 
+void Collection_Test::flashUnflash()
+{
+    Doc* doc = new Doc(this);
+
+    Fixture* fxi = new Fixture(doc);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    fxi->setChannels(4);
+    doc->addFixture(fxi);
+
+    Scene* s1 = new Scene(doc);
+    s1->setName("Scene1");
+    s1->setValue(fxi->id(), 0, 100);
+    s1->setValue(fxi->id(), 1, 200);
+    doc->addFunction(s1);
+
+    Scene* s2 = new Scene(doc);
+    s2->setName("Scene2");
+    s2->setValue(fxi->id(), 2, 150);
+    doc->addFunction(s2);
+
+    Collection* c = new Collection(doc);
+    c->addFunction(s1->id());
+    c->addFunction(s2->id());
+    doc->addFunction(c);
+
+    QList<Universe*> ua;
+    MasterTimerStub* mts = new MasterTimerStub(doc, ua);
+
+    QVERIFY(c->flashing() == false);
+    QVERIFY(s1->flashing() == false);
+    QVERIFY(s2->flashing() == false);
+    QVERIFY(mts->m_dmxSourceList.size() == 0);
+
+    // Flashing the collection propagates to all child scenes
+    c->flash(mts, false, false);
+    QVERIFY(c->flashing() == true);
+    QVERIFY(s1->flashing() == true);
+    QVERIFY(s2->flashing() == true);
+    QVERIFY(mts->m_dmxSourceList.size() == 2);
+
+    // Unflashing the collection propagates to all child scenes
+    c->unFlash(mts);
+    QVERIFY(c->flashing() == false);
+    QVERIFY(s1->flashing() == false);
+    QVERIFY(s2->flashing() == false);
+
+    delete mts;
+    delete doc;
+}
+
+void Collection_Test::flashAlreadyFlashing()
+{
+    Doc* doc = new Doc(this);
+
+    Scene* s = new Scene(doc);
+    doc->addFunction(s);
+
+    Collection* c = new Collection(doc);
+    c->addFunction(s->id());
+    doc->addFunction(c);
+
+    QList<Universe*> ua;
+    MasterTimerStub* mts = new MasterTimerStub(doc, ua);
+
+    c->flash(mts, false, false);
+    QVERIFY(c->flashing() == true);
+    QVERIFY(mts->m_dmxSourceList.size() == 1);
+
+    // Second flash while already flashing: no additional DMX source registered
+    c->flash(mts, false, false);
+    QVERIFY(c->flashing() == true);
+    QVERIFY(mts->m_dmxSourceList.size() == 1);
+
+    delete mts;
+    delete doc;
+}
+
+void Collection_Test::unFlashNotFlashing()
+{
+    Doc* doc = new Doc(this);
+
+    Scene* s = new Scene(doc);
+    doc->addFunction(s);
+
+    Collection* c = new Collection(doc);
+    c->addFunction(s->id());
+    doc->addFunction(c);
+
+    QList<Universe*> ua;
+    MasterTimerStub* mts = new MasterTimerStub(doc, ua);
+
+    QVERIFY(c->flashing() == false);
+    QVERIFY(s->flashing() == false);
+
+    // UnFlash when not flashing: no-op, child scenes are not affected
+    c->unFlash(mts);
+    QVERIFY(c->flashing() == false);
+    QVERIFY(s->flashing() == false);
+    QVERIFY(mts->m_dmxSourceList.size() == 0);
+
+    delete mts;
+    delete doc;
+}
+
+void Collection_Test::flashNestedCollection()
+{
+    Doc* doc = new Doc(this);
+
+    Scene* s = new Scene(doc);
+    doc->addFunction(s);
+
+    Collection* inner = new Collection(doc);
+    inner->setName("Inner");
+    inner->addFunction(s->id());
+    doc->addFunction(inner);
+
+    Collection* outer = new Collection(doc);
+    outer->setName("Outer");
+    outer->addFunction(inner->id());
+    doc->addFunction(outer);
+
+    QList<Universe*> ua;
+    MasterTimerStub* mts = new MasterTimerStub(doc, ua);
+
+    // Flash propagates through nested collections down to the scene
+    outer->flash(mts, false, false);
+    QVERIFY(outer->flashing() == true);
+    QVERIFY(inner->flashing() == true);
+    QVERIFY(s->flashing() == true);
+    QVERIFY(mts->m_dmxSourceList.size() == 1);
+
+    // UnFlash propagates through nested collections down to the scene
+    outer->unFlash(mts);
+    QVERIFY(outer->flashing() == false);
+    QVERIFY(inner->flashing() == false);
+    QVERIFY(s->flashing() == false);
+
+    delete mts;
+    delete doc;
+}
+
 QTEST_APPLESS_MAIN(Collection_Test)

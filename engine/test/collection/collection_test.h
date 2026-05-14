@@ -51,6 +51,11 @@ private slots:
 
     void stopNotOwnChildren();
 
+    void flashUnflash();
+    void flashAlreadyFlashing();
+    void unFlashNotFlashing();
+    void flashNestedCollection();
+
 private:
     Doc* m_doc;
 };
