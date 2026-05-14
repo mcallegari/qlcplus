@@ -1130,52 +1130,52 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="114"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="116"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="115"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="117"/>
         <source>DMX</source>
         <translation>DMX</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="116"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="118"/>
         <source>Function</source>
         <translation>Funktion</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="117"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="119"/>
         <source>VC Widget</source>
         <translation>Virtuelle Konsole Assistent</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="130"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="132"/>
         <source>%1 channels</source>
         <translation>%1 Kanäle</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="146"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="148"/>
         <source>No function</source>
         <translation>Keine Funktion</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="164"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="166"/>
         <source>No widget</source>
         <translation>Kein Assistent</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="170"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="172"/>
         <source>Not assigned</source>
         <translation>Nicht zugewiesen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="224"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="226"/>
         <source>Volume Bar</source>
         <translation>Lautstärke-Balken</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="233"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="250"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation>#%1 (%2Hz - %3Hz)</translation>
     </message>
@@ -3822,7 +3822,7 @@ Bitte in der Plugindokumentation nachlesen, um den Fehler zu beheben.</translati
     <message>
         <location filename="inputprofileeditor.ui" line="134"/>
         <source>Input Mapping</source>
-        <translation>Eingangs-Mapping</translation>
+        <translation>Eingangs-Zuordnung</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="140"/>
@@ -4607,7 +4607,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
         <source>(Not Sent)</source>
-        <translation type="unfinished"></translation>
+        <translation>(nicht gesendet)</translation>
     </message>
 </context>
 <context>
@@ -6244,64 +6244,64 @@ Dauer: %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="201"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="203"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Crossfaderegler anzeigen/ausblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="212"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1079"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="214"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1092"/>
         <source>Play/Pause Cue list</source>
         <translation>Cue-Liste abspielen/pausieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="221"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1080"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="223"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1093"/>
         <source>Stop Cue list</source>
         <translation>Cue-Liste stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="230"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="232"/>
         <source>Go to previous step in the list</source>
         <translation>Zum vorherigen Schritt in der Liste wechseln</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="239"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="241"/>
         <source>Go to next step in the list</source>
         <translation>Zum nächsten Schritt in der Liste wechseln</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="248"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="250"/>
         <source>Cue list</source>
         <translation>Cue-Liste</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1073"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1086"/>
         <source>Play/Stop Cue list</source>
         <translation>Cue-Liste abspielen/stoppen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1074"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1087"/>
         <source>Pause Cue list</source>
         <translation>Cue-Liste pausieren</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1524"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1524"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1524"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1511"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1524"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
@@ -6467,7 +6467,7 @@ Dauer: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1476"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1478"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -7254,7 +7254,7 @@ Dauer: %3
         <translation>Überschreiben zurücksetzen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="1063"/>
+        <location filename="virtualconsole/vcslider.cpp" line="1064"/>
         <source>Flash Function</source>
         <translation>Funktion flashen</translation>
     </message>

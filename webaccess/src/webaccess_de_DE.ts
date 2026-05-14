@@ -19,32 +19,37 @@
         <translation>Zum Zugriff auf diese Ressource ist eine gültige Autorisierung erforderlich. Die Authentifizierung ist jedoch fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="webaccess-qml.cpp" line="218"/>
+        <location filename="webaccess-qml.cpp" line="362"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccess-qml.cpp" line="223"/>
+        <location filename="webaccess-qml.cpp" line="367"/>
         <source>Universe</source>
         <translation>Universum</translation>
     </message>
     <message>
-        <location filename="webaccess-qml.cpp" line="237"/>
         <source>Reset universe</source>
-        <translation>Universum zurücksetzen</translation>
+        <translation type="vanished">Universum zurücksetzen</translation>
     </message>
     <message>
-        <location filename="webaccess-qml.cpp" line="239"/>
+        <location filename="webaccess-qml.cpp" line="381"/>
+        <location filename="webaccess-qml.cpp" line="382"/>
+        <source>Reset the selected universe</source>
+        <translation>Ausgewähltes Universum zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="webaccess-qml.cpp" line="385"/>
         <source>Faders</source>
         <translation>Fader</translation>
     </message>
     <message>
-        <location filename="webaccess-qml.cpp" line="250"/>
+        <location filename="webaccess-qml.cpp" line="396"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="webaccess-qml.cpp" line="258"/>
+        <location filename="webaccess-qml.cpp" line="404"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -100,131 +105,131 @@
         <translation type="vanished">Autostart-Konfiguration geändert</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="652"/>
+        <location filename="webaccess.cpp" line="643"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Assistent wird (zurzeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="725"/>
-        <location filename="webaccess.cpp" line="834"/>
+        <location filename="webaccess.cpp" line="716"/>
+        <location filename="webaccess.cpp" line="825"/>
         <source>Page: %1</source>
         <translation>Seite: %1</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="732"/>
-        <location filename="webaccess.cpp" line="841"/>
+        <location filename="webaccess.cpp" line="723"/>
+        <location filename="webaccess.cpp" line="832"/>
         <source>Expand/Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausklappen/Einklappen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="746"/>
+        <location filename="webaccess.cpp" line="737"/>
         <source>Enable/Disable frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Rahmen aktivieren/deaktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="761"/>
-        <location filename="webaccess.cpp" line="870"/>
+        <location filename="webaccess.cpp" line="752"/>
+        <location filename="webaccess.cpp" line="861"/>
         <source>Back</source>
-        <translation type="unfinished">Zurück</translation>
+        <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="768"/>
-        <location filename="webaccess.cpp" line="877"/>
+        <location filename="webaccess.cpp" line="759"/>
+        <location filename="webaccess.cpp" line="868"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="855"/>
+        <location filename="webaccess.cpp" line="846"/>
         <source>Enable/Disable Solo frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo-Rahmen aktivieren/deaktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1116"/>
+        <location filename="webaccess.cpp" line="1107"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1319"/>
+        <location filename="webaccess.cpp" line="1310"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1320"/>
+        <location filename="webaccess.cpp" line="1311"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1321"/>
+        <location filename="webaccess.cpp" line="1312"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1322"/>
+        <location filename="webaccess.cpp" line="1313"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1323"/>
+        <location filename="webaccess.cpp" line="1314"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1439"/>
+        <location filename="webaccess.cpp" line="1430"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Schieberegler</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1473"/>
+        <location filename="webaccess.cpp" line="1464"/>
         <source>Play Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue-Liste abspielen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1477"/>
+        <location filename="webaccess.cpp" line="1468"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue-Liste stoppen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1481"/>
+        <location filename="webaccess.cpp" line="1472"/>
         <source>Go to the previous step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum vorherigen Schritt in der Liste wechseln</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1485"/>
+        <location filename="webaccess.cpp" line="1476"/>
         <source>Go to the next step in the list</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum nächsten Schritt in der Liste wechseln</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1707"/>
+        <location filename="webaccess.cpp" line="1698"/>
         <source>Color 2 Reset</source>
         <translation>Farbe 2-Reset</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1716"/>
+        <location filename="webaccess.cpp" line="1707"/>
         <source>Color 3 Reset</source>
         <translation>Farbe 3-Reset</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1725"/>
+        <location filename="webaccess.cpp" line="1716"/>
         <source>Color 4 Reset</source>
         <translation>Farbe 4-Reset</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1734"/>
+        <location filename="webaccess.cpp" line="1725"/>
         <source>Color 5 Reset</source>
         <translation>Farbe 5-Reset</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1975"/>
+        <location filename="webaccess.cpp" line="1966"/>
         <source>Load project</source>
         <translation>Lade Projekt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1977"/>
+        <location filename="webaccess.cpp" line="1968"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1979"/>
+        <location filename="webaccess.cpp" line="1970"/>
         <source>Configuration</source>
         <translation>Einstellungen</translation>
     </message>
@@ -232,63 +237,73 @@
 <context>
     <name>WebAccessBase</name>
     <message>
-        <location filename="webaccessbase.cpp" line="226"/>
+        <location filename="webaccessbase.cpp" line="321"/>
         <source>Loading project...</source>
         <translation>Lade Projekt...</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="318"/>
+        <location filename="webaccessbase.cpp" line="409"/>
+        <source>Invalid fixture upload payload</source>
+        <translation>Ungültiges Gerät hochgeladen</translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="425"/>
+        <source>Unable to store fixture definition</source>
+        <translation>Konnte Gerätedefinition nicht speichern</translation>
+    </message>
+    <message>
+        <location filename="webaccessbase.cpp" line="439"/>
         <source>Fixture stored and loaded</source>
         <translation>Gerät gespeichert und geladen</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="501"/>
+        <location filename="webaccessbase.cpp" line="650"/>
         <source>Username and password are required fields.</source>
         <translation>Benutzername und Passwort sind erforderlich.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="508"/>
-        <location filename="webaccessbase.cpp" line="535"/>
+        <location filename="webaccessbase.cpp" line="657"/>
+        <location filename="webaccessbase.cpp" line="684"/>
         <source>User level has to be a positive integer.</source>
         <translation>Benutzerlevel muss eine positive Ganzzahl sein.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="528"/>
+        <location filename="webaccessbase.cpp" line="677"/>
         <source>Username is required.</source>
         <translation>Benutzername ist erforderlich.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="550"/>
+        <location filename="webaccessbase.cpp" line="699"/>
         <source>Error while saving passwords file.</source>
         <translation>Fehler beim Speichern der Passwortdatei.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="571"/>
+        <location filename="webaccessbase.cpp" line="720"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>Die Netzwerkkonfiguration hat sich geändert. Neustarten, um die Änderungen anzuwenden.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="573"/>
+        <location filename="webaccessbase.cpp" line="722"/>
         <source>An error occurred while updating the network configuration.</source>
         <translation>Beim Aktualisieren der Netzwerk-Konfiguration ist ein Fehler aufgetreten.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="590"/>
+        <location filename="webaccessbase.cpp" line="739"/>
         <source>Wi-Fi hotspot successfully activated.</source>
         <translation>Der Wi-Fi-Hotspot wurde erfolgreich aktiviert.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="592"/>
+        <location filename="webaccessbase.cpp" line="741"/>
         <source>An error occurred while creating a Wi-Fi hotspot.</source>
         <translation>Beim Erstellen des Wi-Fi-Hotspots ist ein Fehler aufgetreten.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="597"/>
+        <location filename="webaccessbase.cpp" line="746"/>
         <source>Wi-Fi hotspot successfully deactivated.</source>
         <translation>Der Wi-Fi-Hotspot wurde erfolgreich deaktiviert.</translation>
     </message>
     <message>
-        <location filename="webaccessbase.cpp" line="614"/>
+        <location filename="webaccessbase.cpp" line="763"/>
         <source>Autostart configuration changed</source>
         <translation>Autostart-Konfiguration geändert</translation>
     </message>
