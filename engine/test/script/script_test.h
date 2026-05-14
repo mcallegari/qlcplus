@@ -29,6 +29,10 @@ class Script_Test final : public QObject
 private slots:
     void initTestCase();
     void initial();
+#ifndef QMLUI
+    void setFixtureRejectsMissingUniverse();
+    void setFixtureAcceptsPresentUniverse();
+#endif
 };
 
 #endif
