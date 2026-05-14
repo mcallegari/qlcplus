@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
-#include <QFileInfo>
 #include <QHostAddress>
 #include <QProcess>
 #include <QRegularExpression>
@@ -31,6 +30,7 @@
 #include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
+#include "webaccessupload.h"
 #include "commonjscss.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
@@ -49,13 +49,6 @@
 
 namespace
 {
-QString sanitizeUploadedFileName(const QString &rawName)
-{
-    QString normalizedName = rawName;
-    normalizedName.replace('\\', '/');
-    return QFileInfo(normalizedName).fileName();
-}
-
 bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, QString *fileName = nullptr)
 {
     payload.clear();
@@ -117,7 +110,16 @@ bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, Q
         QRegularExpression re("filename=\"([^\"]*)\"");
         QRegularExpressionMatch match = re.match(QString::fromUtf8(partHeaders));
         if (match.hasMatch())
-            *fileName = sanitizeUploadedFileName(match.captured(1));
+        {
+            const QString rawName = match.captured(1);
+            if (!isPlainUploadedFileName(rawName))
+            {
+                qWarning() << Q_FUNC_INFO << "Rejected fixture upload filename" << rawName;
+                return false;
+            }
+
+            *fileName = rawName;
+        }
     }
 
     const int payloadStart = headersEnd + payloadSeparatorSize;

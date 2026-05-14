@@ -34,6 +34,7 @@ set(WEBACCESS_SOURCES
     webaccessauth.cpp webaccessauth.h
     webaccessconfiguration.cpp webaccessconfiguration.h
     webaccesssimpledesk.cpp webaccesssimpledesk.h
+    webaccessupload.cpp webaccessupload.h
     ${QM_FILES}
 )
 
