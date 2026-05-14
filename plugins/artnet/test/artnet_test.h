@@ -28,6 +28,9 @@ class ArtNet_Test final : public QObject
 
 private slots:
     void setupArtNetDmx();
+    void fillArtPollReplyInfoRejectsShortPacket();
+    void fillDMXdataRejectsShortPacket();
+    void processTODdataRejectsShortUidList();
 };
 
 #endif

@@ -62,4 +62,48 @@ void ArtNet_Test::setupArtNetDmx()
     QCOMPARE(data.data(), "Art-Net");
 }
 
+void ArtNet_Test::fillArtPollReplyInfoRejectsShortPacket()
+{
+    ArtNetPacketizer ap;
+    ArtNetNodeInfo info;
+
+    QByteArray data(186, 0);
+
+    QVERIFY(ap.fillArtPollReplyInfo(data, info) == false);
+
+    ap.setupArtNetPollReply(data, QHostAddress("127.0.0.1"),
+                            "00:11:22:33:44:55", 1, true);
+    QVERIFY(ap.fillArtPollReplyInfo(data, info) == true);
+}
+
+void ArtNet_Test::fillDMXdataRejectsShortPacket()
+{
+    ArtNetPacketizer ap;
+    QByteArray dmx;
+    quint32 universe = 0;
+
+    QByteArray data(17, 0);
+    QVERIFY(ap.fillDMXdata(data, dmx, universe) == false);
+
+    data.resize(18);
+    data[16] = char(0x00);
+    data[17] = char(0x04);
+    QVERIFY(ap.fillDMXdata(data, dmx, universe) == false);
+}
+
+void ArtNet_Test::processTODdataRejectsShortUidList()
+{
+    ArtNetPacketizer ap;
+    QVariantMap values;
+    quint32 universe = 0;
+
+    QByteArray data(28, 0);
+    data[27] = char(0x01);
+    QVERIFY(ap.processTODdata(data, universe, values) == false);
+
+    data.resize(34);
+    QVERIFY(ap.processTODdata(data, universe, values) == true);
+    QCOMPARE(values.value("DISCOVERY_COUNT").toInt(), 1);
+}
+
 QTEST_MAIN(ArtNet_Test)
