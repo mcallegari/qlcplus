@@ -179,6 +179,16 @@ public:
 public:
     /** @reimp */
     void setBlendMode(Universe::BlendMode mode) override;
+
+    /*********************************************************************
+     * Flash
+     *********************************************************************/
+public:
+    /** @reimp */
+    void flash(MasterTimer *timer, bool shouldOverride, bool forceLTP) override;
+
+    /** @reimp */
+    void unFlash(MasterTimer *timer) override;
 };
 
 /** @} */

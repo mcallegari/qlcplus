@@ -467,3 +467,39 @@ void Collection::setBlendMode(Universe::BlendMode mode)
 
     Function::setBlendMode(mode);
 }
+
+/****************************************************************************
+ * Flashing
+ ****************************************************************************/
+
+void Collection::flash(MasterTimer *timer, bool shouldOverride, bool forceLTP)
+{
+    if (flashing() == true)
+        return;
+
+    for (int i = 0; i < m_functions.count(); i++)
+    {
+        Function* function = doc()->function(m_functions.at(i));
+        Q_ASSERT(function != NULL);
+        function->flash(timer, shouldOverride, forceLTP);
+    }
+
+    Q_ASSERT(timer != NULL);
+    Function::flash(timer, shouldOverride, forceLTP);
+}
+
+void Collection::unFlash(MasterTimer *timer)
+{
+    if (flashing() == false)
+        return;
+
+    for (int i = 0; i < m_functions.count(); i++)
+    {
+        Function* function = doc()->function(m_functions.at(i));
+        Q_ASSERT(function != NULL);
+        function->unFlash(timer);
+    }
+
+    Q_ASSERT(timer != NULL);
+    Function::unFlash(timer);
+}
