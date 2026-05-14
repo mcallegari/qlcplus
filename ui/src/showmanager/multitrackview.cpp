@@ -532,7 +532,7 @@ void MultiTrackView::slotTimeScaleChanged(int val)
     }
 
     int newCursorPos = getPositionFromTime(m_cursor->getTime());
-    m_cursor->setPos(newCursorPos + 2, m_cursor->y());
+    m_cursor->setPos(newCursorPos, m_cursor->y());
     updateViewSize();
 }
 
@@ -623,4 +623,3 @@ void MultiTrackView::slotAlignToCursor(ShowItem *item)
     item->setStartTime(getTimeFromPosition(item->x()));
     m_scene->update();
 }
-
