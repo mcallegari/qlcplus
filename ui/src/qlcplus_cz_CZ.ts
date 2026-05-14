@@ -6126,8 +6126,8 @@ Délka: %3
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="63"/>
-        <source>Flash function (only for scenes)</source>
-        <translation>Bliknout funkcí (pouze pro scény)</translation>
+        <source>Flash function (scenes &amp; collections)</source>
+        <translation>Bliknout funkcí (scény a kolekce)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="83"/>

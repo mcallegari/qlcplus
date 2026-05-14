@@ -5402,8 +5402,8 @@ Non c&apos;è abbastanza spazio o l&apos;universo di destinazione non è valido<
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
-        <source>Flash Function (only for Scenes)</source>
-        <translation>Flash della funzione (solo per scene)</translation>
+        <source>Flash Function (Scenes &amp; Collections)</source>
+        <translation>Modalità Flash (scene e collezioni)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>

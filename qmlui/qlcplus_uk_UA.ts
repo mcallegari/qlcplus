@@ -5389,8 +5389,8 @@ There is either not enough space or the target universe is invalid</source>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
-        <source>Flash Function (only for Scenes)</source>
-        <translation>Функція Flash (тільки для Сцен)</translation>
+        <source>Flash Function (Scenes &amp; Collections)</source>
+        <translation>Функція Flash (Сцени та Колекції)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>

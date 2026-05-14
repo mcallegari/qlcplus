@@ -5422,8 +5422,8 @@ Entweder ist nicht genug Platz vorhanden oder das Ziel-Universum ist ungültig</
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
-        <source>Flash Function (only for Scenes)</source>
-        <translation>Funktion flashen</translation>
+        <source>Flash Function (Scenes &amp; Collections)</source>
+        <translation>Flashfunktion (Szenen &amp; Kollektionen)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>

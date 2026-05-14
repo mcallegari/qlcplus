@@ -60,7 +60,7 @@
            <string>Flash the assigned function with this button</string>
           </property>
           <property name="text">
-           <string>Flash function (only for scenes)</string>
+           <string>Flash function (scenes &amp; collections)</string>
           </property>
          </widget>
         </item>

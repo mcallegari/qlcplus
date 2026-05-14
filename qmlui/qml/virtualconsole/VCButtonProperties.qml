@@ -136,7 +136,7 @@ Rectangle
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    label: qsTr("Flash Function (only for Scenes)")
+                    label: qsTr("Flash Function (Scenes & Collections)")
                 }
 
                 CustomCheckBox

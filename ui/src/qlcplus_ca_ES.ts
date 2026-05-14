@@ -6145,8 +6145,8 @@ Durada: %3
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="63"/>
-        <source>Flash function (only for scenes)</source>
-        <translation>Mode Flash (només per escenes)</translation>
+        <source>Flash function (scenes &amp; collections)</source>
+        <translation>Mode Flash (escenes i col·leccions)</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="83"/>

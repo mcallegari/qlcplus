@@ -5405,8 +5405,8 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
-        <source>Flash Function (only for Scenes)</source>
-        <translation>Funció Flash (només per escenes)</translation>
+        <source>Flash Function (Scenes &amp; Collections)</source>
+        <translation>Funció Flash (Escenes i Col·leccions)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>

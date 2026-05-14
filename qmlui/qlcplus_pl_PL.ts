@@ -5400,8 +5400,8 @@ Jest za mało miejsca lub docelowe uniwersum jest niepoprawne.</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
-        <source>Flash Function (only for Scenes)</source>
-        <translation>Chwilowo uaktywnij (tylko dla Scen)</translation>
+        <source>Flash Function (Scenes &amp; Collections)</source>
+        <translation>Chwilowo uaktywnij (sceny i kolekcje)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>
