@@ -1746,9 +1746,10 @@ bool ShowManager::checkOverlapping(quint32 startTime, quint32 duration)
         Function *func = m_doc->function(sf->functionID());
         if (func != NULL)
         {
-            quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            quint64 fst = sf->startTime();
+            quint64 endTime = quint64(startTime) + duration;
+            quint64 fend = fst + sf->duration();
+            if (startTime < fend && fst < endTime)
             {
                 return true;
             }

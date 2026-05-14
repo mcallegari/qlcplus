@@ -1517,9 +1517,10 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
         Function *func = m_doc->function(sf->functionID());
         if (func != nullptr)
         {
-            quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            quint64 fst = sf->startTime();
+            quint64 endTime = quint64(startTime) + duration;
+            quint64 fend = fst + sf->duration();
+            if (startTime < fend && fst < endTime)
             {
                 return true;
             }
