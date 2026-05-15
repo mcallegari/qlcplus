@@ -78,7 +78,7 @@ var testAlgo;
       }
       angle += Math.PI / 2;
       if (offx < 0) {
-        angle += Math.PI;  
+        angle += Math.PI;
       }
       return angle;
     }
@@ -215,7 +215,7 @@ var testAlgo;
           util.map[y][x] = 0;
         }
       }
-      
+
       util.stepFade = algo.rgbMapStepCount(width, height) / algo.segmentsCount;
       util.circleFactor = algo.rgbMapStepCount(width, height) / 3;
 
@@ -299,7 +299,7 @@ var testAlgo;
           util.map[y][x] = 0;
         }
       }
-      
+
       util.progstep = step;
       util.stepPercent = util.progstep / algo.rgbMapStepCount(util.width, util.height);
       if (algo.circularMode === 6) {
@@ -418,9 +418,9 @@ var testAlgo;
         var sidefade1 = Math.atan((algo.getWidth() - virtualx - virtualx) / algo.segmentsCount + 1);
         var sidefade2 = Math.atan((algo.getWidth() + virtualx + virtualx) / algo.segmentsCount + 1);
         var endfade = Math.atan(virtualy + 1.5);
-  
+
         factor = endfade + sidefade1 + sidefade2 - 2;
-  
+
         var fadeFactor = 0;
         if (algo.fadeMode === 1) {
           fadeFactor = algo.divisor * Math.atan(1.5 * (angle / util.twoPi)) - algo.divisor + 1;
@@ -428,8 +428,8 @@ var testAlgo;
         else if (algo.fadeMode === 2) {
           fadeFactor = algo.divisor * Math.atan(1.5 * (1 - (angle / util.twoPi))) - algo.divisor + 1;
         }
-        
-        factor = Math.max(factor, fadeFactor)  
+
+        factor = Math.max(factor, fadeFactor);
       }
 
       if (algo.fillMatrix === 0) {
@@ -455,7 +455,7 @@ var testAlgo;
         }
       }
 
-      // Normalize the factor      
+      // Normalize the factor
       factor = Math.min(1, Math.max(0, factor));
       return util.getColor(r * factor, g * factor, b * factor, util.map[ry][rx]);
     }
@@ -466,7 +466,7 @@ var testAlgo;
       {
           util.initialize(width, height);
       }
-      
+
       util.step(width, height, rgb, step);
 
       return util.map;

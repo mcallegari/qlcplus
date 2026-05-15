@@ -166,7 +166,7 @@ Rectangle
                 message: qsTr("Are you sure you want to delete the selected page?")
                 onAccepted:
                 {
-                    // Close first to make sure the dim overlay 
+                    // Close first to make sure the dim overlay
                     // is cleared before this panel is destroyed.
                     close()
                     virtualConsole.deletePage(virtualConsole.selectedPage)

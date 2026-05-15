@@ -25,6 +25,6 @@ uniform mat4 modelMatrix;
 
 void main()
 {
-    gl_Position = lightProjectionMatrix * lightViewMatrix * modelMatrix * vec4(vertexPosition, 1.0);    
+    gl_Position = lightProjectionMatrix * lightViewMatrix * modelMatrix * vec4(vertexPosition, 1.0);
 }
 

@@ -126,7 +126,7 @@ target_compile_definitions(${module_name} PRIVATE
 )
 
 # Workaround a nasty Debian/Ubuntu Qt3d packaging issue where
-# a non existent path would break the cmake initialization 
+# a non existent path would break the cmake initialization
 set(_qt6_3d_modules 3DCore 3DInput 3DLogic 3DQuick 3DQuickExtras 3DRender 3DExtras)
 set(_qt6_3d_link "")
 foreach(_m IN LISTS _qt6_3d_modules)

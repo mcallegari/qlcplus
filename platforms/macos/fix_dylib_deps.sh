@@ -36,10 +36,10 @@ otool -L "$SRC_DYLIB" | grep opt | awk '{print $1}' | while read -r dep; do
 
         # Update the source dylib's reference to the dependency
         install_name_tool -change "$dep" "@executable_path/../Frameworks/$subst" "$SRC_DYLIB"
-    
+
     elif [[ "$dep" == @loader_path* ]]; then
         echo "Found @loader_path reference: $dep ($subst)"
-        
+
         # Resolve the actual path based on the source dylib's directory
         resolved_path=$(realpath "$dylib_dir/${dep#@loader_path/}")
 

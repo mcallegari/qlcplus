@@ -163,7 +163,7 @@ void FunctionWizard::checkTabsAndButtons()
         break;
         case 2:
         {
-            m_nextButton->setEnabled(m_widgetsTree->topLevelItemCount() > 0);            
+            m_nextButton->setEnabled(m_widgetsTree->topLevelItemCount() > 0);
         }
         break;
         case 3:
@@ -249,7 +249,7 @@ void FunctionWizard::slotRemoveClicked()
     QListIterator <QTreeWidgetItem*> it(m_fixtureTree->selectedItems());
     while (it.hasNext() == true)
         delete it.next();
-    
+
     updateWidgetsTree();
     checkTabsAndButtons();
 }
@@ -476,7 +476,7 @@ void FunctionWizard::addWidgetItem(QTreeWidgetItem *grpItem, QString name, int t
     item->setData(KWidgetName, Qt::UserRole + 2, QVariant::fromValue(channels[0]));
     item->setIcon(KWidgetName, VCWidget::typeToIcon(type));
     if(name.toLower().contains("speed")) item->setIcon(KWidgetName, QIcon(":/knob.png"));
-    
+
 }
 
 void FunctionWizard::checkPanTilt(QTreeWidgetItem *grpItem,
@@ -486,7 +486,7 @@ void FunctionWizard::checkPanTilt(QTreeWidgetItem *grpItem,
     if (channels[0] < 0) return;
     if (channels[2] < 0) return;
     if (channels[1] > 0 && channels[3] < 0) return;
-    
+
     quint32 panTiltChannels[4] = {};
     for (size_t i = 0; i < 4; i++)
         panTiltChannels[i] = channels[i];
@@ -499,7 +499,7 @@ void FunctionWizard::checkPanTilt(QTreeWidgetItem *grpItem,
     channels[3] = -1;
 }
 
-void FunctionWizard::checkRGB(QTreeWidgetItem *grpItem, 
+void FunctionWizard::checkRGB(QTreeWidgetItem *grpItem,
                             QTreeWidgetItem *fxGrpItem, qint32* channels)
 {
     // Check if all required Channels are set
@@ -526,7 +526,7 @@ void FunctionWizard::addChannelsToTree(QTreeWidgetItem *frame, QTreeWidgetItem *
     qint32 lastPanTilt[] = {-1, -1, -1, -1};
     qint32 lastRGB[] = {-1, -1, -1};
 
-    
+
     for (auto &&ch : channels)
     //for (quint32 ch = 0; ch < fxi->channels(); ch++)
     {
@@ -918,7 +918,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                         }
                     }
                 }
-                
+
                 if (isRGB)
                 {
                     slider->setClickAndGoType(ClickAndGoWidget::RGB);
@@ -931,14 +931,14 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 {
                     slider->setClickAndGoType(ClickAndGoWidget::Preset);
                 }
-                
+
                 if (channel->group() == QLCChannel::Speed)
                     slider->setWidgetStyle(VCSlider::WKnob);
 
                 if ((fixtureNr >= 0 || headId >= 0) && m_checkBoxAll->checkState() == Qt::Checked)
                     slider->setChannelsMonitorEnabled(true);
 
-                slider->setSliderMode(VCSlider::Level); 
+                slider->setSliderMode(VCSlider::Level);
             }
 
             slider->resize(QSize(m_sliderWidthSpin->value(), m_sliderHeightSpin->value()));
@@ -971,7 +971,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                 }
             }
             XYPad->resize(QSize(m_sliderHeightSpin->value(), m_sliderHeightSpin->value()));
-                      
+
             widget = XYPad;
         }
         break;
@@ -1059,8 +1059,8 @@ QSize FunctionWizard::recursiveCreateWidget(QTreeWidgetItem *item, VCWidget *par
                         // v page v
                         childItem->setData(KWidgetName, Qt::UserRole + 1, -1); // all fixtures
                         childItem->setData(KWidgetName, Qt::UserRole + 2, -1); // all heads
-                        
-                        groupSize = recursiveCreateWidget(childItem, parent, type);                         
+
+                        groupSize = recursiveCreateWidget(childItem, parent, type);
                         // v frame v
                         childItem->parent()->setData(KWidgetName, Qt::UserRole + 3, groupSize);
                         frame->shortcuts().at(frame->currentPage())->setName("All");

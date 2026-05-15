@@ -46,7 +46,7 @@ public:
      *
      * Merger mode means that all DMX data from the device's input port is
      * copied to its output port and - if output from QLC+ is enabled -
-     * merged with this output in a HTP manner on the device itself. 
+     * merged with this output in a HTP manner on the device itself.
      *
      * @return true if the device offers a merger mode, false otherwise
      */

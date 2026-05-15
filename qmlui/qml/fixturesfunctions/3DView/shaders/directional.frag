@@ -34,7 +34,7 @@ DECLARE_FRAG_COLOR
 
 void main()
 {
-    
+
     vec3 position;
     {
         float z = SAMPLE_TEX2D(depthTex, fsUv).r;
@@ -44,7 +44,7 @@ void main()
         temp.xyz = temp.xyz / temp.w;
         position = temp.xyz;
     }
-    
+
     vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
     vec4 s = SAMPLE_TEX2D(specularTex, fsUv).xyzw;
     vec4 specular = s.xyzw;
@@ -54,15 +54,15 @@ void main()
     vec3 l = normalize(vec3(1.05, 1.3, 0.9));
     vec3 n =  normalize(SAMPLE_TEX2D(normalTex, fsUv).xyz);
     float flag = SAMPLE_TEX2D(normalTex, fsUv).w;
-    
+
     float isGuiElement = abs(albedo.w - 2.0) < 0.0001 ? 1.0 : 0.0;
     finalColor += isGuiElement * albedo.rgb;
 
-    vec3 v = normalize(eyePosition - position); 
-    vec3 r = normalize(2.0 * dot(l, n.xyz) * n.xyz - l); 
+    vec3 v = normalize(eyePosition - position);
+    vec3 r = normalize(2.0 * dot(l, n.xyz) * n.xyz - l);
 
     if(flag < 2.1)
         finalColor += (1.0 - isGuiElement) * ambient * ( albedo.rgb * max(0.0, dot(l, n)) + specular.rgb * pow(max(0.0, dot(r, v) ), shininess));
-  
+
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
 }

@@ -199,7 +199,7 @@ var testAlgo;
           map[y][x] = 0;
         }
       }
-      
+
       algo.speedX = updateFlakeSpeedx(algo.speedX);
 
       // Start moving the flakes by looping through this routine,
@@ -235,19 +235,19 @@ var testAlgo;
 
           // if flake is far away, then it should be darker
           var colorLevel = 1 - (flakes[i].z / depth);
-          
+
           // Get the current channel values
           var pRGB = map[py][px];
           var pr = (pRGB >> 16) & 0x00FF;
           var pg = (pRGB >> 8) & 0x00FF;
           var pb = pRGB & 0x00FF;
-          
+
           // Adjust flake brightness level based on how far away it is
           // and by chosen flake color
           r = Math.floor(r * colorLevel);
           g = Math.floor(g * colorLevel);
           b = Math.floor(b * colorLevel);
-          
+
           // The higher value wins
           r = Math.max(r, pr);
           g = Math.max(g, pg);
@@ -259,7 +259,7 @@ var testAlgo;
           // store the flake's combined color in the map
           map[py][px] = pRGB;
         }
-        
+
         // new position of flake
         flakes[i].x += algo.speedX;
         flakes[i].y += flakes[i].s;

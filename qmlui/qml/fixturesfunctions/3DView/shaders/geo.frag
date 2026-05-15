@@ -32,5 +32,5 @@ void main()
 {
     MGL_FRAG_DATA0 = vec4(diffuse.xyzw);
     MGL_FRAG_DATA1 = vec4(fsNormal.xyz,  float(bloom) * 3.0);
-    MGL_FRAG_DATA2 = vec4(specular.xyz, shininess);  
+    MGL_FRAG_DATA2 = vec4(specular.xyz, shininess);
 }

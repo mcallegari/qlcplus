@@ -501,11 +501,11 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Dependencies
-        run: | 
+        run: |
           brew update
           brew install fftw mad libsndfile libftdi
           brew link --overwrite python@3.13
-    
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:

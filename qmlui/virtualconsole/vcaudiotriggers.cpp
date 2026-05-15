@@ -395,7 +395,7 @@ void VCAudioTriggers::setBarType(BarType type)
     bar.m_widget = nullptr;
     bar.m_tapped = false;
     bar.m_skippedBeats = 0;
-    
+
     // set the type
     bar.m_type = type;
 

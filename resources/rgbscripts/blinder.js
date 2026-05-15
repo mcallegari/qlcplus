@@ -32,14 +32,14 @@ var testAlgo;
 
     algo.divisor = 1;
     algo.properties.push("name:divisor|type:range|display:Divisor|values:1,30|write:setDivisor|read:getDivisor");
-    
+
     // Prepare internal properties
     algo.size = 0;
     algo.width = 0;
     algo.height = 0;
     algo.numX = 0;
     algo.numY = 0;
-    
+
     var util = new Object;
     algo.initialized = false;
 
@@ -61,7 +61,7 @@ var testAlgo;
       b = Math.min(255, Math.round(b));
       return ((r << 16) + (g << 8) + b);
     }
-    
+
     function getColor(r, g, b, mRgb) {
       // split rgb in to components
       var pointr = (mRgb >> 16) & 0x00FF;
@@ -88,7 +88,7 @@ var testAlgo;
         algo.numX = Math.floor(width / algo.size);
         algo.numY = algo.divisor;
       }
-      
+
       algo.bulb = new Array();
 
       var count = 0;
@@ -129,7 +129,7 @@ var testAlgo;
       var r = (rgb >> 16) & 0x00FF;
       var g = (rgb >> 8) & 0x00FF;
       var b = rgb & 0x00FF;
-      
+
       var stepPercent =  progstep / (algo.rgbMapStepCount(width, height) - 1);
 
       var bgPower = Math.pow(stepPercent + 0.1, 2);
@@ -156,8 +156,8 @@ var testAlgo;
               var offy = Math.abs((ry - algo.bulb[i].y) / (algo.size / 2));
 
               // Try at: www.geogebra.org/3d
-              // f(x,y) = 4 sin(π/2 * sqrt(1 - x^2 - y^2)) 
-              //        + 6 cos(π/2 * sqrt(1 - x^2 - y^2)) 
+              // f(x,y) = 4 sin(π/2 * sqrt(1 - x^2 - y^2))
+              //        + 6 cos(π/2 * sqrt(1 - x^2 - y^2))
               //        - sqrt((4 * x)^2 + (4 * y)^2)
               //        - 3
               // + relative step
@@ -167,13 +167,13 @@ var testAlgo;
                 var aFactor = 4 * Math.sin(Math.PI / 2 * Math.sqrt(1 - offx * offx - offy * offy));
                 var bFactor = 6 * Math.cos(Math.PI / 2 * Math.sqrt(1 - offx * offx - offy * offy));
                 var cFactor = Math.sqrt(4 * offx * 4 * offx + 4 * offy * 4 * offy);
-  
+
                 var factor = aFactor
                   + bFactor
                   - cFactor
                   - 3
                   + stepPercent;
-              
+
                 if (factor < 0) {
                   factor = 0;
                 }
@@ -182,7 +182,7 @@ var testAlgo;
                 var pointr = r * factor;
                 var pointg = g * factor;
                 var pointb = b * factor;
-  
+
                 // add the bulb color to the mapped location
                 map[ry][rx] = getColor(pointr, pointg, pointb, map[ry][rx]);
               }

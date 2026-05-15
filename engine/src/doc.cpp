@@ -84,7 +84,7 @@ Doc::Doc(QObject* parent, int universes)
 #if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     qsrand(QTime::currentTime().msec());
 #endif
-    
+
     m_autosaveTimer.setInterval(AUTOSAVE_TIMEOUT * 1000);
     m_autosaveTimer.setSingleShot(true);
 

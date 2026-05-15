@@ -250,7 +250,7 @@ var testAlgo;
       offx = rx - turn * algo.obj[i].xDirection - algo.obj[i].x;
       offy = ry - turn * algo.obj[i].yDirection- algo.obj[i].y;
       distance = Math.sqrt(offx * offx + offy * offy);
-      
+
       distPercent = distance / (eyeAlgo.cache.targetDistanceOuter);
       factor -= util.blindoutPercent(1 - distPercent, 0.5);
 
@@ -343,7 +343,7 @@ var testAlgo;
       // triangle
       offx = rx - algo.obj[i].x;
       offy = ry - algo.obj[i].y;
-      var tips = 3; 
+      var tips = 3;
       distance = Math.sqrt(offx * offx + offy * offy);
       angle = geometryCalc.getAngle(offx, offy);
       targetDistance = geometryCalc.getTargetDistance(angle, tips);
@@ -548,7 +548,7 @@ var testAlgo;
       // calculate the offset difference of algo.map location to the float
       // location of the object
       var offx = rx - algo.obj[i].x;
- 
+
       // Ball 1
       var offy = ry - algo.obj[i].y + snowmanAlgo.cache.yOffset1;
       var factor1 = Math.max(0, Math.min(1, 1 - (Math.sqrt((offx * offx) + (1.5 * offy * offy)) / (snowmanAlgo.cache.size1 + 1))));
@@ -728,13 +728,13 @@ var testAlgo;
       var angle = geometryCalc.getAngle(offx, offy);
       var percent = 0;
       var factor = 0;
-      
+
       // Repeat the pattern
       var fanblades = 3;
       if (algo.presetSize >= 9) {
           fanblades = 5;
       }
-      
+
       angle -= (distance / (algo.presetRadius)) * algo.halfPi;
       // Repeat the pattern
       angle = fanblades * angle;
@@ -749,7 +749,7 @@ var testAlgo;
       // Blind out the outside edges
       percent = Math.max(0, 1 - (distance / algo.presetRadius));
       factor *= util.blindoutPercent(percent, 1)
-      
+
       // Draw a center
       var distPercentCenter = distance / tornadoAlgo.cache.centerCircle;
       factor = Math.max(factor, util.blindoutPercent(1 - distPercentCenter, 3));
@@ -803,7 +803,7 @@ var testAlgo;
         var distance = Math.sqrt((offx * offx) + 1);
         factor = Math.max(factor, 1 - (distance / treeAlgo.cache.bottomWidth));
       }
-    
+
       // add the object color to the algo.mapped location
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     }
@@ -825,7 +825,7 @@ var testAlgo;
       }
       factor = ((1 - (Math.sqrt((offx * offx * 1.8) + (offy * offy * 1.4)))) * 2.5) + offy * 3;
       factor = factor / 3.27;
- 
+
       // add the object color to the algo.mapped location
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
     };
@@ -855,7 +855,7 @@ var testAlgo;
     ufoAlgo.getMapPixelColor = function(i, rx, ry, r, g, b)
     {
       var offx = rx - algo.obj[i].x;
- 
+
       var size = algo.presetSize * 2 / 5;
       var offy1 = ry - algo.obj[i].y;
 
@@ -925,7 +925,7 @@ var testAlgo;
       percent = Math.max(0, 1 - (distance / (algo.presetRadius)));
       // apply a scale factor for the percent / input in the asec function
       factor *= algo.halfPi * Math.acos(1 / (2.5 * percent + 1)) / (algo.halfPi);
-      
+
       factor = Math.max(factorC, factor * 1.5);
 
       return util.getColor(r * factor, g * factor, b * factor, algo.map[ry][rx]);
@@ -1096,7 +1096,7 @@ var testAlgo;
           0.866 * algo.presetRadius;
       } else if (tips === 5) {
         geometryCalc.cache.innerRadius =
-          0.688 * algo.presetRadius / 0.851; 
+          0.688 * algo.presetRadius / 0.851;
       } else if (tips === 4) {
         geometryCalc.cache.innerRadius =
           algo.presetRadius * 0.707;
@@ -1115,7 +1115,7 @@ var testAlgo;
         geometryCalc.cache.tips != tips) {
         geometryCalc.updateCache(tips);
       }
-      
+
       var anglePart = (angle + geometryCalc.cache.r) % (algo.twoPi / tips)
         - geometryCalc.cache.r;
       var targetDistance = geometryCalc.cache.innerRadius /
@@ -1142,11 +1142,11 @@ var testAlgo;
       }
       angle += Math.PI / 2;
       if (offx < 0) {
-        angle += Math.PI;  
+        angle += Math.PI;
       }
       return angle;
     }
-    
+
     // Utility functions --------------------------
 
     util.initialize = function(width, height)
@@ -1221,7 +1221,7 @@ var testAlgo;
       // set algo.mapped point
       return util.mergeRgb(pointr, pointg, pointb);
     }
-    
+
     // Blind out towards 0 percent
     util.blindoutPercent = function(percent, sharpness)
     {

@@ -253,7 +253,7 @@ void QLCInputChannel::setLowerValue(const uchar value)
 {
     if (value == m_lowerValue)
         return;
-    
+
     m_lowerValue = value;
     emit lowerValueChanged();
 }
@@ -267,7 +267,7 @@ void QLCInputChannel::setUpperValue(const uchar value)
 {
     if (value == m_upperValue)
         return;
-    
+
     m_upperValue = value;
     emit upperValueChanged();
 }
@@ -281,7 +281,7 @@ void QLCInputChannel::setLowerChannel(const int channel)
 {
     if (channel == m_lowerChannel)
         return;
-    
+
     m_lowerChannel = channel;
     emit midiChannelChanged();
 }

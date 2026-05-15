@@ -53,4 +53,4 @@ rm -rf generic networkinformation qmltooling renderplugins tls translations
 
 # Create Installer
 makensis -X'SetCompressor /FINAL lzma' qlcplus*.nsi
- 
+

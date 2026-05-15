@@ -268,8 +268,8 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     {
         displayError(value, m_fileName);
         return -1;
-    } 
-    else 
+    }
+    else
     {
         int ret = value.isNumber() ? value.toInt() : -1;
         return ret;
@@ -516,8 +516,8 @@ bool RGBScript::setProperty(QString propertyName, QString value)
             {
                 displayError(written, m_fileName);
                 return false;
-            } 
-            else 
+            }
+            else
             {
                 return true;
             }
@@ -551,7 +551,7 @@ QString RGBScript::property(QString propertyName) const
             {
                 displayError(value, m_fileName);
                 return QString();
-            } 
+            }
             else if (!value.isUndefined())
             {
                 return value.toString();
