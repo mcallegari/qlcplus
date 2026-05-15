@@ -172,11 +172,11 @@ VCWidgetItem
             visible: animationObj ? animationObj.visibilityMask & VCAnimation.PresetCombo : true
             textRole: ""
             model: animationObj ? animationObj.algorithms : null
-            currentIndex: animationObj ? animationObj.algorithmIndex : 0
+            currValue: animationObj ? animationObj.algorithmIndex : 0
             onActivated: (index) =>
             {
                 if (animationObj)
-                    animationObj.algorithmIndex = currentIndex
+                    animationObj.algorithmIndex = index
             }
         }
     }
