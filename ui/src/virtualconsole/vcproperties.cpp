@@ -187,7 +187,7 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterVisible))
             {
-            	setGrandMasterVisible(attrs.value(KXMLQLCVCPropertiesGrandMasterVisible).toString() == "1");
+                setGrandMasterVisible(attrs.value(KXMLQLCVCPropertiesGrandMasterVisible).toString() == "1");
             }
 
             str = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();

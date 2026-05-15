@@ -186,12 +186,12 @@ AddRGBPanel::Type AddRGBPanel::type() const
 
 AddRGBPanel::Direction AddRGBPanel::direction() const
 {
-	if (m_verticalRadio->isChecked())
-		return Vertical;
-	else if (m_horizontalRadio->isChecked())
-		return Horizontal;
+    if (m_verticalRadio->isChecked())
+        return Vertical;
+    else if (m_horizontalRadio->isChecked())
+        return Horizontal;
 
-	return Undefined;
+    return Undefined;
 }
 
 Fixture::Components AddRGBPanel::components() const

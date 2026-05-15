@@ -63,7 +63,7 @@ var testAlgo;
 
     algo.setLinesSize = function(_size)
     {
-	  // Only set if the input is valid.
+      // Only set if the input is valid.
       if (!(parseInt(_size) === NaN) && parseInt(_size) > 0) {
         algo.linesSize = parseInt(_size);
         util.initialized = false;
@@ -77,7 +77,7 @@ var testAlgo;
 
     algo.setVariability = function(_var)
     {
-	  // Only set if the input is valid.
+      // Only set if the input is valid.
       if (!(parseInt(_var) === NaN) && parseInt(_var) > 0) {
         algo.linesVariability = _var;
         util.initialized = false;
@@ -286,7 +286,7 @@ var testAlgo;
           } 
           else if (algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8)
           {
-            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height	 / 5);
+            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height / 5);
           } 
           else
           {

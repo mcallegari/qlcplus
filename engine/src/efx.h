@@ -135,7 +135,7 @@ public:
         Diamond,
         Square,
         SquareChoppy,
-		SquareTrue,
+        SquareTrue,
         Leaf,
         Lissajous
     };

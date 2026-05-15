@@ -14,20 +14,20 @@ trap 'rm -f "$TMP_LIST_FILE"' EXIT HUP INT TERM
 find "$FIXTURES_PATH" -type f -name '*.qxf' | sort > "$TMP_LIST_FILE"
 
 while IFS= read -r qxf_file; do
-	FIXTURES_COUNT=$((FIXTURES_COUNT + 1))
-	if ! xmllint --noout --schema "$FIXTURES_SCHEMA" "$qxf_file" >/dev/null 2>&1; then
-		FIXTURES_ERRORS=$((FIXTURES_ERRORS + 1))
-		echo "Fixture schema validation failed: $qxf_file"
-		xmllint --noout --schema "$FIXTURES_SCHEMA" "$qxf_file" 2>&1 || true
-		echo ""
-	fi
+    FIXTURES_COUNT=$((FIXTURES_COUNT + 1))
+    if ! xmllint --noout --schema "$FIXTURES_SCHEMA" "$qxf_file" >/dev/null 2>&1; then
+        FIXTURES_ERRORS=$((FIXTURES_ERRORS + 1))
+        echo "Fixture schema validation failed: $qxf_file"
+        xmllint --noout --schema "$FIXTURES_SCHEMA" "$qxf_file" 2>&1 || true
+        echo ""
+    fi
 done < "$TMP_LIST_FILE"
 
 if [ "$FIXTURES_ERRORS" -ne 0 ]; then
-	echo "Fixtures: $FIXTURES_ERRORS/$FIXTURES_COUNT failed schema validation"
-	exit 1
+    echo "Fixtures: $FIXTURES_ERRORS/$FIXTURES_COUNT failed schema validation"
+    exit 1
 else
-	echo "Fixtures: OK ($FIXTURES_COUNT files)"
+    echo "Fixtures: OK ($FIXTURES_COUNT files)"
 fi
 
 cd "$DIR"/.. && ./scripts/fixtures-tool.py --validate || exit $?
@@ -35,9 +35,9 @@ cd - >>/dev/null
 
 # Validate the fixture map against the XML scheme
 if ! xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml >/dev/null 2>&1; then
-	# Re-Validate to print the error cause
-	xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml 2>&1
-	exit 1
+    # Re-Validate to print the error cause
+    xmllint --noout --schema "$DIR"/../../schemas/fixturesmap.xsd "$DIR"/../FixturesMap.xml 2>&1
+    exit 1
 else
-	echo "Fixturesmap: OK"
+    echo "Fixturesmap: OK"
 fi

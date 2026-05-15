@@ -38,8 +38,8 @@ target_link_libraries(${module_name} PRIVATE
 )
 
 target_sources(${module_name} PRIVATE
-	${module_name}.cpp ${module_name}.h
-	udmxdevice.cpp udmxdevice.h
+    ${module_name}.cpp ${module_name}.h
+    udmxdevice.cpp udmxdevice.h
 )
 
 pkg_check_modules(LIBUSB1 IMPORTED_TARGET libusb-1.0)

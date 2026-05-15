@@ -368,17 +368,17 @@ void RDMWorker::getUidInfo(quint32 uni, quint32 line, QString UID, UIDInfo &info
     m_fixtureInfo = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";
     m_fixtureInfo += "<HTML><HEAD></HEAD><STYLE>";
     m_fixtureInfo += QString(".hilite {" \
-                             "	background-color: %1;" \
-                             "	color: %2;" \
-                             "	font-size: x-large;" \
+                             "  background-color: %1;" \
+                             "  color: %2;" \
+                             "  font-size: x-large;" \
                              "}").arg(hlBack.name()).arg(hlText.name());
     m_fixtureInfo += QString(".subhi {" \
-                             "	background-color: %1;" \
-                             "	color: %2;" \
-                             "	font-weight: bold;" \
+                             "  background-color: %1;" \
+                             "  color: %2;" \
+                             "  font-weight: bold;" \
                              "}").arg(hlBack.name()).arg(hlText.name());
     m_fixtureInfo += QString(".emphasis {" \
-                             "	font-weight: bold;" \
+                             "  font-weight: bold;" \
                              "}");
     m_fixtureInfo += QString(".tiny {"\
                              "   font-size: small;" \

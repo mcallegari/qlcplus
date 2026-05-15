@@ -26,6 +26,6 @@
 #define MESHESDIR "${MESHESDIR}"
 #define COLORFILTERSDIR "${COLORFILTERSDIR}"
 #define USERCOLORFILTERSDIR "${USERCOLORFILTERSDIR}"
-#endif	/* QMLUI */
+#endif  /* QMLUI */
 
-#endif	/* QLCCONFIG_H */
+#endif  /* QLCCONFIG_H */

@@ -2,7 +2,7 @@
   Q Light Controller
   udmx.h
 
-  Copyright (c)	Lutz Hillebrand
+  Copyright (c) Lutz Hillebrand
                 Heikki Junnila
 
   Licensed under the Apache License, Version 2.0 (the "License");

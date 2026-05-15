@@ -18,7 +18,7 @@
 */
 
 #if defined(WIN32) || defined(Q_OS_WIN)
-#	include <Windows.h>
+#   include <Windows.h>
 #else
 #   include <unistd.h>
 #endif

@@ -808,24 +808,24 @@ QString FixtureManager::fixtureInfoStyleSheetHeader() const
     info += "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";
     info += "<HTML><HEAD></HEAD><STYLE>";
     info += QString(".hilite {" \
-                    "	background-color: %1;" \
-                    "	color: %2;" \
-                    "	font-size: x-large;" \
+                    "   background-color: %1;" \
+                    "   color: %2;" \
+                    "   font-size: x-large;" \
                     "}").arg(hlBack.name()).arg(hlText.name());
     info += QString(".subhi {" \
-                    "	background-color: %1;" \
-                    "	color: %2;" \
-                    "	font-weight: bold;" \
+                    "   background-color: %1;" \
+                    "   color: %2;" \
+                    "   font-weight: bold;" \
                     "}").arg(hlBack.name()).arg(hlText.name());
     info += QString(".emphasis {" \
-                    "	font-weight: bold;" \
+                    "   font-weight: bold;" \
                     "}");
     info += QString(".tiny {"\
                     "   font-size: small;" \
                     "}");
     info += QString(".author {" \
-                    "	font-weight: light;" \
-                    "	font-style: italic;" \
+                    "   font-weight: light;" \
+                    "   font-style: italic;" \
                     "   text-align: right;" \
                     "   font-size: small;"  \
                     "}");
@@ -1004,17 +1004,17 @@ QString FixtureManager::channelsGroupInfoStyleSheetHeader() const
     info += "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";
     info += "<HTML><HEAD></HEAD><STYLE>";
     info += QString(".hilite {" \
-                    "	background-color: %1;" \
-                    "	color: %2;" \
-                    "	font-size: x-large;" \
+                    "   background-color: %1;" \
+                    "   color: %2;" \
+                    "   font-size: x-large;" \
                     "}").arg(hlBack.name()).arg(hlText.name());
     info += QString(".subhi {" \
-                    "	background-color: %1;" \
-                    "	color: %2;" \
-                    "	font-weight: bold;" \
+                    "   background-color: %1;" \
+                    "   color: %2;" \
+                    "   font-weight: bold;" \
                     "}").arg(hlBackSmall.name()).arg(hlText.name());
     info += QString(".emphasis {" \
-                    "	font-weight: bold;" \
+                    "   font-weight: bold;" \
                     "}");
     info += QString(".tiny {"\
                     "   font-size: small;" \
@@ -1340,10 +1340,10 @@ void FixtureManager::slotAddRGBPanel()
         int transpose = 0;
         if (rgb.direction() == AddRGBPanel::Vertical)
         {
-        	int tmp = columns;
-        	columns = rows;
-        	rows = tmp;
-        	transpose = 1;
+            int tmp = columns;
+            columns = rows;
+            rows = tmp;
+            transpose = 1;
         }
 
         QLCFixtureDef *rowDef = NULL;
@@ -1361,35 +1361,35 @@ void FixtureManager::slotAddRGBPanel()
 
         if (transpose)
         {
-			if (rgb.orientation() == AddRGBPanel::TopRight ||
-				rgb.orientation() == AddRGBPanel::BottomRight)
-			{
-				currRow = rows -1;
-				rowInc = -1;
-			}
-			if (rgb.orientation() == AddRGBPanel::BottomRight ||
-				rgb.orientation() == AddRGBPanel::BottomLeft)
-			{
-				xPosStart = columns - 1;
-				xPosEnd = 0;
-				xPosInc = -1;
-			}
+            if (rgb.orientation() == AddRGBPanel::TopRight ||
+                rgb.orientation() == AddRGBPanel::BottomRight)
+            {
+                currRow = rows -1;
+                rowInc = -1;
+            }
+            if (rgb.orientation() == AddRGBPanel::BottomRight ||
+                rgb.orientation() == AddRGBPanel::BottomLeft)
+            {
+                xPosStart = columns - 1;
+                xPosEnd = 0;
+                xPosInc = -1;
+            }
         }
         else
         {
-			if (rgb.orientation() == AddRGBPanel::BottomLeft ||
-				rgb.orientation() == AddRGBPanel::BottomRight)
-			{
-				currRow = rows -1;
-				rowInc = -1;
-			}
-			if (rgb.orientation() == AddRGBPanel::TopRight ||
-				rgb.orientation() == AddRGBPanel::BottomRight)
-			{
-				xPosStart = columns - 1;
-				xPosEnd = 0;
-				xPosInc = -1;
-			}
+            if (rgb.orientation() == AddRGBPanel::BottomLeft ||
+                rgb.orientation() == AddRGBPanel::BottomRight)
+            {
+                currRow = rows -1;
+                rowInc = -1;
+            }
+            if (rgb.orientation() == AddRGBPanel::TopRight ||
+                rgb.orientation() == AddRGBPanel::BottomRight)
+            {
+                xPosStart = columns - 1;
+                xPosEnd = 0;
+                xPosInc = -1;
+            }
         }
 
         for (int i = 0; i < rows; i++)
@@ -1436,10 +1436,10 @@ void FixtureManager::slotAddRGBPanel()
                 int xPos = xPosStart;
                 for (int h = 0; h < fxi->heads(); h++)
                 {
-                	if (transpose)
-                		grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                	else
-                		grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                    if (transpose)
+                        grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                    else
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
                     xPos += xPosInc;
                 }
             }
@@ -1450,10 +1450,10 @@ void FixtureManager::slotAddRGBPanel()
                     int xPos = xPosStart;
                     for (int h = 0; h < fxi->heads(); h++)
                     {
-                    	if (transpose)
-                    		grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                    	else
-                    		grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        if (transpose)
+                            grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                        else
+                            grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
                         xPos += xPosInc;
                     }
                 }
@@ -1462,10 +1462,10 @@ void FixtureManager::slotAddRGBPanel()
                     int xPos = xPosEnd;
                     for (int h = 0; h < fxi->heads(); h++)
                     {
-                    	if (transpose)
-                    		grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                    	else
-                    		grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        if (transpose)
+                            grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                        else
+                            grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
                         xPos += (-xPosInc);
                     }
                 }

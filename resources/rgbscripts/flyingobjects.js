@@ -84,12 +84,12 @@ var testAlgo;
 
       if (offy > bellAlgo.cache.clapperSize) {
         // The bottom
-    	var realOffx = rx - algo.obj[i].x;
-    	var stepInput = bellAlgo.cache.clapperDeflection;
-    	stepInput *= algo.progstep;
-    	stepInput += algo.twoPi * algo.obj[i].random;
-    	var stepPercent = Math.sin(stepInput);
-    	realOffx += bellAlgo.cache.clapperSwing * stepPercent;
+        var realOffx = rx - algo.obj[i].x;
+        var stepInput = bellAlgo.cache.clapperDeflection;
+        stepInput *= algo.progstep;
+        stepInput += algo.twoPi * algo.obj[i].random;
+        var stepPercent = Math.sin(stepInput);
+        realOffx += bellAlgo.cache.clapperSwing * stepPercent;
         realOffy = offy - bellAlgo.cache.clapperSize;
         distance = Math.sqrt((realOffx * realOffx) + (realOffy * realOffy));
         factor = Math.max(factor, 1 - (distance / (algo.presetRadius / 3 + 1)));

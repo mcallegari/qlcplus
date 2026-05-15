@@ -79,7 +79,7 @@ free_memory (void)
 }
 
 AudioRendererWaveOut::AudioRendererWaveOut(QString device, QObject * parent)
-	: AudioRenderer(parent)
+    : AudioRenderer(parent)
 {
     deviceID = WAVE_MAPPER;
     if (device.isEmpty())

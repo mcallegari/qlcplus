@@ -37,7 +37,7 @@
 
 /** Should constitute up to 75 channels (with some unused ones in the middle) */
 #define WING_PROGRAM_CHANNEL_COUNT (8 * WING_PROGRAM_BUTTON_SIZE) \
-					+ WING_PROGRAM_ENCODER_SIZE
+                                      + WING_PROGRAM_ENCODER_SIZE
 
 /****************************************************************************
  * Initialization

@@ -180,7 +180,7 @@ QStringList EFX::algorithmList()
     list << algorithmToString(EFX::Diamond);
     list << algorithmToString(EFX::Square);
     list << algorithmToString(EFX::SquareChoppy);
-	list << algorithmToString(EFX::SquareTrue);
+    list << algorithmToString(EFX::SquareTrue);
     list << algorithmToString(EFX::Leaf);
     list << algorithmToString(EFX::Lissajous);
     return list;
@@ -205,7 +205,7 @@ QString EFX::algorithmToString(EFX::Algorithm algo)
             return QString(KXMLQLCEFXSquareAlgorithmName);
         case EFX::SquareChoppy:
             return QString(KXMLQLCEFXSquareChoppyAlgorithmName);
-		 case EFX::SquareTrue:
+        case EFX::SquareTrue:
             return QString(KXMLQLCEFXSquareTrueAlgorithmName);
         case EFX::Leaf:
             return QString(KXMLQLCEFXLeafAlgorithmName);
@@ -228,7 +228,7 @@ EFX::Algorithm EFX::stringToAlgorithm(const QString& str)
         return EFX::Square;
     else if (str == QString(KXMLQLCEFXSquareChoppyAlgorithmName))
         return EFX::SquareChoppy;
-	 else if (str == QString(KXMLQLCEFXSquareTrueAlgorithmName))
+    else if (str == QString(KXMLQLCEFXSquareTrueAlgorithmName))
         return EFX::SquareTrue;
     else if (str == QString(KXMLQLCEFXLeafAlgorithmName))
         return EFX::Leaf;
@@ -328,7 +328,7 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
     case Diamond:
     case Square:
     case SquareChoppy:
-	case SquareTrue:
+    case SquareTrue:
     case Leaf:
     case Lissajous:
         return (M_PI * 2.0) - iterator;
@@ -395,8 +395,8 @@ void EFX::calculatePoint(float iterator, float *x, float *y) const
         *x = round(cos(iterator));
         *y = round(sin(iterator));
         break;
-		
-	case SquareTrue:
+
+    case SquareTrue:
         if (iterator < M_PI / 2)
         {
             *x = 1;
@@ -417,7 +417,7 @@ void EFX::calculatePoint(float iterator, float *x, float *y) const
             *x = -1;
             *y = 1;
         }
-		break;
+        break;
 
     case Leaf:
         *x = pow(cos(iterator + M_PI_2), 5);
