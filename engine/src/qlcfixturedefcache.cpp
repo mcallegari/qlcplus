@@ -171,23 +171,43 @@ bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
 
 bool QLCFixtureDefCache::reloadOrAddFixtureDef(QLCFixtureDef *fixtureDef)
 {
-    // check upon bundled definitions
-    QListIterator <QLCFixtureDef*> it(m_defs);
-    while (it.hasNext() == true)
+    // Check existing definitions first.
+    for (int i = 0; i < m_defs.size(); i++)
     {
-        QLCFixtureDef *def = it.next();
+        QLCFixtureDef *def = m_defs.at(i);
         if (def->manufacturer() == fixtureDef->manufacturer() &&
             def->model() == fixtureDef->model())
         {
-            // set as user and perform a deep copy
-            def->setIsUser(true);
-            *def = *fixtureDef;
+            if (def == fixtureDef)
+            {
+                // Cache and editor must not share ownership of the same instance.
+                // Keep a detached cache copy and leave editor-owned instance untouched.
+                QLCFixtureDef *cacheCopy = new QLCFixtureDef(fixtureDef);
+                cacheCopy->setIsUser(true);
+                cacheCopy->setLoaded(true);
+                m_defs[i] = cacheCopy;
+            }
+            else
+            {
+                // Set as user and perform a deep copy.
+                def->setIsUser(true);
+                *def = *fixtureDef;
+                def->setLoaded(true);
+            }
+
             return true;
         }
     }
 
-    // add a new user fixture
-    addFixtureDef(fixtureDef);
+    // Add a new user fixture as a detached cache copy.
+    QLCFixtureDef *cacheCopy = new QLCFixtureDef(fixtureDef);
+    cacheCopy->setIsUser(true);
+    cacheCopy->setLoaded(true);
+    if (addFixtureDef(cacheCopy) == false)
+    {
+        delete cacheCopy;
+        return false;
+    }
 
     return true;
 }

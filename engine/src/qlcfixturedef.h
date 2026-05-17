@@ -227,6 +227,9 @@ protected:
      * Load & Save
      *********************************************************************/
 public:
+    /** Clear all fixture definition data and reset to defaults */
+    void clear();
+
     /** Save the fixture into an XML file */
     QFile::FileError saveXML(const QString& fileName);
 

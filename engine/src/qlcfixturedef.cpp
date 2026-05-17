@@ -366,6 +366,20 @@ QLCPhysical QLCFixtureDef::physical() const
  * XML operations
  ****************************************************************************/
 
+void QLCFixtureDef::clear()
+{
+    while (m_channels.isEmpty() == false)
+        delete m_channels.takeFirst();
+    while (m_modes.isEmpty() == false)
+        delete m_modes.takeFirst();
+
+    m_manufacturer.clear();
+    m_model.clear();
+    m_author.clear();
+    m_type = Dimmer;
+    m_physical = QLCPhysical();
+}
+
 QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
 {
     QFile::FileError error;
@@ -484,6 +498,10 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
 
     if (doc.name() == KXMLQLCFixtureDef)
     {
+        // Reset current state before parsing to avoid duplicate append if the same
+        // fixture definition instance is loaded more than once.
+        clear();
+
         while (doc.readNextStartElement())
         {
             if (doc.name() == KXMLQLCCreator)
