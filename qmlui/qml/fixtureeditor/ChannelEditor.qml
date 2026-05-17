@@ -185,9 +185,25 @@ GridLayout
             faSource: FontAwesome.fa_minus
             faColor: "crimson"
             tooltip: qsTr("Delete the selected capabilities")
+            enabled: editItem.indexInList !== -1
             onClicked: {
                 editItem.visible = false
                 editor.removeCapabilityAtIndex(editItem.indexInList)
+            }
+        }
+
+        IconButton
+        {
+            id: autoPatchColorsButton
+            visible: channel ? channel.group === QLCChannel.Colour : false
+            faSource: FontAwesome.fa_palette
+            faColor: "yellow"
+            tooltip: qsTr("Automatic color assignment")
+            onClicked:
+            {
+                editor.autoPatchColorCapabilities()
+                if (editItem.visible && editItem.indexInList >= 0)
+                    updatePresetBox(editItem.indexInList)
             }
         }
 
@@ -373,6 +389,7 @@ GridLayout
                         }
                     }
 
+                    // separator
                     Rectangle
                     {
                         width: capsList.width
@@ -384,6 +401,7 @@ GridLayout
                     MouseArea
                     {
                         anchors.fill: parent
+                        enabled: channel.preset === 0
                         onClicked: (mouse) =>
                         {
                             var compIdx = 0
@@ -396,6 +414,14 @@ GridLayout
                                 compIdx = 2
                             capsList.editRow(index, compIdx)
                         }
+                    }
+
+                    Rectangle
+                    {
+                        anchors.fill: parent
+                        visible: channel.preset !== 0
+                        color: "black"
+                        opacity: 0.4
                     }
                 }
 
@@ -411,7 +437,7 @@ GridLayout
                 visible: false || capsList.count === 0
 
                 property QLCCapability editCap: null
-                property int indexInList: 0
+                property int indexInList: -1
 
                 function focusItem(index)
                 {
@@ -522,9 +548,9 @@ GridLayout
             GroupBox
             {
                 id: previewBox
-                visible: presetBox.presetType == QLCCapability.SingleColor ||
-                         presetBox.presetType == QLCCapability.DoubleColor ||
-                         presetBox.presetType == QLCCapability.Picture
+                visible: presetBox.presetType === QLCCapability.SingleColor ||
+                         presetBox.presetType === QLCCapability.DoubleColor ||
+                         presetBox.presetType === QLCCapability.Picture
                 title: qsTr("Preview")
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
@@ -534,8 +560,8 @@ GridLayout
                 {
                     IconButton
                     {
-                        visible: presetBox.presetType == QLCCapability.SingleColor ||
-                                 presetBox.presetType == QLCCapability.DoubleColor
+                        visible: presetBox.presetType === QLCCapability.SingleColor ||
+                                 presetBox.presetType === QLCCapability.DoubleColor
                         imgSource: "qrc:/color.svg"
                         tooltip: qsTr("Primary color")
                         width: UISettings.iconSizeMedium
@@ -566,15 +592,15 @@ GridLayout
                     MultiColorBox
                     {
                         id: colorPreview
-                        visible: presetBox.presetType == QLCCapability.SingleColor ||
-                                 presetBox.presetType == QLCCapability.DoubleColor
+                        visible: presetBox.presetType === QLCCapability.SingleColor ||
+                                 presetBox.presetType === QLCCapability.DoubleColor
                         width: UISettings.mediumItemHeight
                         height: UISettings.mediumItemHeight
                     }
 
                     GenericButton
                     {
-                        visible: presetBox.presetType == QLCCapability.Picture
+                        visible: presetBox.presetType === QLCCapability.Picture
                         width: UISettings.iconSizeMedium
                         height: UISettings.iconSizeMedium
                         label: "..."
@@ -584,7 +610,7 @@ GridLayout
                     Rectangle
                     {
                         id: goboPreview
-                        visible: presetBox.presetType == QLCCapability.Picture
+                        visible: presetBox.presetType === QLCCapability.Picture
                         width: UISettings.mediumItemHeight
                         height: UISettings.mediumItemHeight
                         radius: 2
@@ -599,7 +625,7 @@ GridLayout
 
                     IconButton
                     {
-                        visible: presetBox.presetType == QLCCapability.DoubleColor
+                        visible: presetBox.presetType === QLCCapability.DoubleColor
                         imgSource: "qrc:/color.svg"
                         tooltip: qsTr("Secondary color")
                         width: UISettings.iconSizeMedium
@@ -633,8 +659,8 @@ GridLayout
             GroupBox
             {
                 id: valuesBox
-                visible: presetBox.presetType == QLCCapability.SingleValue ||
-                         presetBox.presetType == QLCCapability.DoubleValue
+                visible: presetBox.presetType === QLCCapability.SingleValue ||
+                         presetBox.presetType === QLCCapability.DoubleValue
                 title: qsTr("Value(s)")
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
@@ -663,14 +689,14 @@ GridLayout
 
                     RobotoText
                     {
-                        visible: presetBox.presetType == QLCCapability.DoubleValue
+                        visible: presetBox.presetType === QLCCapability.DoubleValue
                         label: qsTr("Value 2")
                     }
 
                     CustomDoubleSpinBox
                     {
                         id: sValueSpin
-                        visible: presetBox.presetType == QLCCapability.DoubleValue
+                        visible: presetBox.presetType === QLCCapability.DoubleValue
                         Layout.fillWidth: true
                         realFrom: -1000
                         realTo: 1000
