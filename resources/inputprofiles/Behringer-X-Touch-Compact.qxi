@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.1</Version>
+  <Author>Benedict Stein + Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Behringer</Manufacturer>
+ <Model>X-Touch Compact</Model>
+ <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
+ <Channel Number="1">
+  <Name>Fader 1A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Fader 2A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Fader 3A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Fader 4A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Fader 5A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Fader 6A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Fader 7A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Fader 8A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Fader Main A</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Encoder 1A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="11">
+  <Name>Encoder 2A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="12">
+  <Name>Encoder 3A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="13">
+  <Name>Encoder 4A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="14">
+  <Name>Encoder 5A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="15">
+  <Name>Encoder 6A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="16">
+  <Name>Encoder 7A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="17">
+  <Name>Encoder 8A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="18">
+  <Name>Encoder 9A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="19">
+  <Name>Encoder 10A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="20">
+  <Name>Encoder 11A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="21">
+  <Name>Encoder 12A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="22">
+  <Name>Encoder 13A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="23">
+  <Name>Encoder 14A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="24">
+  <Name>Encoder 15A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="25">
+  <Name>Encoder 16A</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="28">
+  <Name>Fader 1B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Fader 2B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Fader 3B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Fader 4B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Fader 5B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Fader 6B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Fader 7B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Fader 8B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Fader Main B</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Encoder 1B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="38">
+  <Name>Encoder 2B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="39">
+  <Name>Encoder 3B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="40">
+  <Name>Encoder 4B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="41">
+  <Name>Encoder 5B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="42">
+  <Name>Encoder 6B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="43">
+  <Name>Encoder 7B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="44">
+  <Name>Encoder 8B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="45">
+  <Name>Encoder 9B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="46">
+  <Name>Encoder 10B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="47">
+  <Name>Encoder 11B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="48">
+  <Name>Encoder 12B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="49">
+  <Name>Encoder 13B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="50">
+  <Name>Encoder 14B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="51">
+  <Name>Encoder 15B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="52">
+  <Name>Encoder 16B</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="101">
+  <Name>Fader Button 1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="102">
+  <Name>Fader Button 2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="103">
+  <Name>Fader Button 3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="104">
+  <Name>Fader Button 4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="105">
+  <Name>Fader Button 5A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="106">
+  <Name>Fader Button 6A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="107">
+  <Name>Fader Button 7A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="108">
+  <Name>Fader Button 8A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="109">
+  <Name>Fader Button AMain</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="111">
+  <Name>Fader Button 1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="112">
+  <Name>Fader Button 2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="113">
+  <Name>Fader Button 3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="114">
+  <Name>Fader Button 4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="115">
+  <Name>Fader Button 5B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="116">
+  <Name>Fader Button 6B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="117">
+  <Name>Fader Button 7B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="118">
+  <Name>Fader Button 8B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="119">
+  <Name>Fader Button BMain</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="128">
+  <Name>Encoder Button 1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>Encoder Button 2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Encoder Button 3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Encoder Button 4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Encoder Button 5A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Encoder Button 6A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Encoder Button 7A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Encoder Button 8A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Encoder Button 9A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Encoder Button 10A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Encoder Button 11A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Encoder Button 12A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Encoder Button 13A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Encoder Button 14A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Encoder Button 15A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Encoder Button 16A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Button 1.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Button 2.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Button 3.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Button 4.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Button 5.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Button 6.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Button 7.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Button 8.1A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Button 1.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Button 2.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Button 3.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Button 4.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Button 5.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>Button 6.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>Button 7.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Button 8.2A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Button 1.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Button 2.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Button 3.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Button 4.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Button 5.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Button 6.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Button 7.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>Button 8.3A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="168">
+  <Name>Button 1.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>Button 2.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>Button 3.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>Button 4.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>Button 5.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>Button 6.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Button 7.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Button 8.4A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Button Main A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Button Rewind A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>Button FastForward A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Button Loop A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Button Rec A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Button Stop A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Button Play A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Encoder Button 1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Encoder Button 2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>Encoder Button 3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>Encoder Button 4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="187">
+  <Name>Encoder Button 5B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>Encoder Button 6B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>Encoder Button 7B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>Encoder Button 8B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>Encoder Button 9B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>Encoder Button 10B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>Encoder Button 11B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>Encoder Button 12B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>Encoder Button 13B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>Encoder Button 14B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="197">
+  <Name>Encoder Button 15B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="198">
+  <Name>Encoder Button 16B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>Button 1.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>Button 2.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>Button 3.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>Button 4.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>Button 5.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>Button 6.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="205">
+  <Name>Button 7.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="206">
+  <Name>Button 8.1B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="207">
+  <Name>Button 1.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>Button 2.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Button 3.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Button 4.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Button 5.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Button 6.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>Button 7.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Button 8.2B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>Button 1.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>Button 2.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="217">
+  <Name>Button 3.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="218">
+  <Name>Button 4.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>Button 5.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>Button 6.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="221">
+  <Name>Button 7.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="222">
+  <Name>Button 8.3B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="223">
+  <Name>Button 1.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>Button 2.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>Button 3.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>Button 4.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>Button 5.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="228">
+  <Name>Button 6.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="229">
+  <Name>Button 7.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="230">
+  <Name>Button 8.4B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="231">
+  <Name>Button Main B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="232">
+  <Name>Button Rewind B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="233">
+  <Name>Button Fast Forward B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="234">
+  <Name>Button Loop B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="235">
+  <Name>Button Rec B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="236">
+  <Name>Button Stop B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="237">
+  <Name>Button Play B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="384">
+  <Name>Layer A</Name>
+  <Type>Page Set</Type>
+ </Channel>
+ <Channel Number="385">
+  <Name>Layer B</Name>
+  <Type>Page Set</Type>
+ </Channel>
+</InputProfile>
