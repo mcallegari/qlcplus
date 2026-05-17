@@ -1,5 +1,14 @@
 qlcplus (4.14.5) stable; urgency=low
 
+  * engine: fix crash with Sequences when removing a fixture (thanks to jpue)
+  * engine: apply submaster updates to all Chaser crossfade steps (thanks to Christoph Müllner)
+  * ui: improve Audio editor fileds editing (thanks to Christoph Müllner)
+  * Input profiles: added Behringer X-Touch Compact (thanks to Benedict Stein)
+  * New fixture: Shehds 300W LED Beam Wash & Gobo 3in1 with Ring (thanks to Charles Mountford)
+  * New fixture: Acme Deluge (thanks to Paul)
+  * New fixture: Both Lighting BO-TUBE192 (thanks to Fede79)
+  * New fixture: Ledj Slimline 9Q8 (thanks to Jason)
+
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2026 18:19:20 +0200
 
 qlcplus (4.14.4) stable; urgency=low
