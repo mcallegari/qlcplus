@@ -101,7 +101,7 @@ QString QLCInputChannel::typeToString(Type type)
             return KXMLQLCInputChannelPageSet;
         default:
             return KXMLQLCInputChannelNone;
-        }
+    }
 }
 
 QString QLCInputChannel::typeString() const

@@ -18,11 +18,14 @@
 */
 
 #include <QDebug>
+#include <QtGlobal>
 
 #include "inputprofileeditor.h"
 #include "qlcinputchannel.h"
 #include "inputoutputmap.h"
 #include "doc.h"
+
+#define kDetectionHistoryLength 3
 
 InputProfileEditor::InputProfileEditor(QLCInputProfile *profile, Doc *doc,
                                        QObject *parent)
@@ -37,6 +40,36 @@ InputProfileEditor::InputProfileEditor(QLCInputProfile *profile, Doc *doc,
 
 InputProfileEditor::~InputProfileEditor()
 {
+}
+
+QString InputProfileEditor::defaultChannelName(const QLCInputChannel::Type type, quint32 channel, const QString &key) const
+{
+    if (key.isEmpty() == false)
+        return key;
+
+    if (type == QLCInputChannel::Slider)
+        return tr("Slider %1").arg(channel + 1);
+
+    return tr("Button %1").arg(channel + 1);
+}
+
+void InputProfileEditor::appendRollingValue(QVector<uchar> &history, const uchar value) const
+{
+    history.push_back(value);
+    if (history.length() > kDetectionHistoryLength)
+        history.removeFirst();
+}
+
+bool InputProfileEditor::shouldPromoteToSlider(const QVector<uchar> &history) const
+{
+    if (history.length() < 2)
+        return false;
+
+    const int previousValue = history[history.length() - 2];
+    const int currentValue = history.last();
+    const int interval = qAbs(currentValue - previousValue);
+
+    return interval < 255;
 }
 
 bool InputProfileEditor::modified() const
@@ -117,6 +150,7 @@ void InputProfileEditor::toggleDetection()
 
     if (m_detection == false)
     {
+        m_channelsMap.clear();
         /* Listen to input data */
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
                 this, SLOT(slotInputValueChanged(quint32, quint32, uchar, const QString&)));
@@ -227,10 +261,12 @@ int InputProfileEditor::saveChannel(int originalChannelNumber, int channelNumber
 {
     if (m_profile == nullptr)
         return -3;
+    if (m_editChannel == nullptr)
+        return -4;
 
     if (originalChannelNumber >= 0 && originalChannelNumber != channelNumber)
     {
-        QLCInputChannel *ich = m_profile->channel(originalChannelNumber);
+        QLCInputChannel *ich = m_profile->channel(channelNumber);
         if (ich != nullptr)
             return -1;
     }
@@ -316,38 +352,32 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe, quint32 channel
 
     //qDebug() << "Got input value" << universe << channel << value << key;
     QLCInputChannel *ich = m_profile->channel(channel);
+    const bool alreadyMapped = (ich != nullptr);
     if (ich == nullptr)
     {
         ich = new QLCInputChannel();
-        if (key.isEmpty())
-            ich->setName(tr("Button %1").arg(channel + 1));
-        else
-            ich->setName(key);
+        ich->setName(defaultChannelName(QLCInputChannel::Button, channel, key));
         ich->setType(QLCInputChannel::Button);
         m_profile->insertChannel(channel, ich);
-        m_channelsMap[channel].push_back(value);
+        appendRollingValue(m_channelsMap[channel], value);
         emit channelsChanged();
     }
     else
     {
-        QVector<uchar> vect = m_channelsMap[channel];
-        if (vect.length() < 3)
+        QVector<uchar> &vect = m_channelsMap[channel];
+        appendRollingValue(vect, value);
+
+        if (ich->type() == QLCInputChannel::Button)
         {
-            if (!vect.contains(value))
-                m_channelsMap[channel].push_back(value);
-        }
-        else if (vect.length() == 3)
-        {
-            if (ich->type() == QLCInputChannel::Button)
+            if (shouldPromoteToSlider(vect))
             {
                 ich->setType(QLCInputChannel::Slider);
-                if (key.isEmpty())
-                    ich->setName(tr("Slider %1").arg(channel + 1));
-                else
-                    ich->setName(key);
+                ich->setName(defaultChannelName(QLCInputChannel::Slider, channel, key));
                 emit channelsChanged();
             }
         }
     }
+
+    emit inputSignalReceived(int(channel) + 1, alreadyMapped);
     setModified();
 }

@@ -56,268 +56,262 @@ Rectangle
         }
     }
 
-    ColumnLayout
+    Rectangle
     {
-        implicitWidth: profilesContainer.width
-        height: profilesContainer.height
-        z: 2
-        spacing: 3
-
-        Rectangle
+        id: topBar
+        implicitWidth: parent.width
+        implicitHeight: UISettings.iconSizeMedium
+        z: 5
+        gradient: Gradient
         {
-            id: topBar
-            implicitWidth: profilesContainer.width
-            implicitHeight: UISettings.iconSizeMedium
-            z: 5
-            gradient: Gradient
+            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+            GradientStop { position: 1; color: UISettings.toolbarEnd }
+        }
+
+        RowLayout
+        {
+            width: parent.width
+            height: parent.height
+            y: 1
+
+            IconButton
             {
-                GradientStop { position: 0; color: UISettings.toolbarStartSub }
-                GradientStop { position: 1; color: UISettings.toolbarEnd }
+                width: height
+                height: topBar.height - 2
+                visible: profEditor.isEditing
+                enabled: profEditor.isEditing && profileEditor.modified
+                imgSource: "qrc:/filesave.svg"
+                tooltip: qsTr("Save this profile")
+
+                onClicked:
+                {
+                    ioManager.saveInputProfile()
+                    profListView.model = ioManager.universeInputProfiles(universeIndex)
+                }
             }
 
-            RowLayout
+            IconButton
             {
-                width: parent.width
-                height: parent.height
-                y: 1
+                width: height
+                height: topBar.height - 2
+                visible: profEditor.isEditing
+                checkable: true
+                faSource: FontAwesome.fa_wand_magic_sparkles
+                faColor: "cyan"
+                tooltip: qsTr("Toggle the automatic detection procedure")
 
-                IconButton
+                onToggled:
                 {
-                    width: height
-                    height: topBar.height - 2
-                    visible: profEditor.isEditing
-                    enabled: profEditor.isEditing && profileEditor.modified
-                    imgSource: "qrc:/filesave.svg"
-                    tooltip: qsTr("Save this profile")
-
-                    onClicked:
+                    if (profEditor.isEditing)
                     {
-                        ioManager.saveInputProfile()
-                        profListView.model = ioManager.universeInputProfiles(universeIndex)
+                        if (checked)
+                            profEditor.showWizard()
+                        profileEditor.toggleDetection()
                     }
                 }
+            }
 
-                IconButton
+            IconButton
+            {
+                width: height
+                height: topBar.height - 2
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
+                tooltip: profEditor.isEditing ? profEditor.addTooltip : qsTr("Create a new input profile")
+
+                onClicked:
                 {
-                    width: height
-                    height: topBar.height - 2
-                    visible: profEditor.isEditing
-                    checkable: true
-                    faSource: FontAwesome.fa_wand_magic_sparkles
-                    faColor: "cyan"
-                    tooltip: qsTr("Toggle the automatic detection procedure")
-
-                    onToggled:
+                    if (profEditor.isEditing)
                     {
-                        if (profEditor.isEditing)
-                        {
-                            if (checked)
-                                profEditor.showWizard()
-                            profileEditor.toggleDetection()
-                        }
+                        profEditor.addItem()
+                    }
+                    else
+                    {
+                        ioManager.createInputProfile()
+                        profEditor.isEditing = true
                     }
                 }
+            }
 
-                IconButton
+            IconButton
+            {
+                width: height
+                height: topBar.height - 2
+                imgSource: "qrc:/edit.svg"
+                tooltip: profEditor.isEditing ? profEditor.editTooltip : qsTr("Edit the selected input profile")
+                enabled: profEditor.isEditing ? profEditor.canEditChannel : profListView.selectedIndex >= 0
+
+                onClicked:
                 {
-                    width: height
-                    height: topBar.height - 2
-                    faSource: FontAwesome.fa_plus
-                    faColor: "limegreen"
-                    tooltip: profEditor.isEditing ? profEditor.addTooltip : qsTr("Create a new input profile")
-
-                    onClicked:
+                    if (profEditor.isEditing)
                     {
-                        if (profEditor.isEditing)
-                        {
-                            profEditor.addItem()
-                        }
-                        else
-                        {
-                            ioManager.createInputProfile()
-                            profEditor.isEditing = true
-                        }
+                        profEditor.editSelectedChannel()
+                    }
+                    else
+                    {
+                        ioManager.editInputProfile(profListView.selectedName)
+                        profEditor.isEditing = true
+                        if (profListView.selectedIsUser == false)
+                            profEditor.showWarning()
                     }
                 }
+            }
 
-                IconButton
+            IconButton
+            {
+                width: height
+                height: topBar.height - 2
+                faSource: FontAwesome.fa_minus
+                faColor: "crimson"
+                tooltip: profEditor.isEditing ? profEditor.removeTooltip : qsTr("Delete the selected input profile(s)")
+                enabled: profEditor.isEditing ? profEditor.canRemoveItem : profListView.selectedIndex >= 0 && profListView.selectedIsUser
+
+                onClicked:
                 {
-                    width: height
-                    height: topBar.height - 2
-                    imgSource: "qrc:/edit.svg"
-                    tooltip: profEditor.isEditing ? profEditor.editTooltip : qsTr("Edit the selected input profile")
-                    enabled: profEditor.isEditing ? profEditor.canEditChannel : profListView.selectedIndex >= 0
-
-                    onClicked:
+                    if (profEditor.isEditing)
                     {
-                        if (profEditor.isEditing)
-                        {
-                            profEditor.editSelectedChannel()
-                        }
-                        else
-                        {
-                            ioManager.editInputProfile(profListView.selectedName)
-                            profEditor.isEditing = true
-                            if (profListView.selectedIsUser == false)
-                                profEditor.showWarning()
-                        }
+                        profEditor.removeItem()
+                    }
+                    else
+                    {
+                        if (profListView.selectedIsUser)
+                            deletePopup.open()
                     }
                 }
+            }
 
-                IconButton
+            Rectangle { Layout.fillWidth: true }
+
+            GenericButton
+            {
+                width: height
+                height: topBar.height - 2
+                visible: profEditor.isEditing
+                border.color: UISettings.bgMedium
+                useFontawesome: true
+                label: FontAwesome.fa_xmark
+                onClicked:
                 {
-                    width: height
-                    height: topBar.height - 2
-                    faSource: FontAwesome.fa_minus
-                    faColor: "crimson"
-                    tooltip: profEditor.isEditing ? profEditor.removeTooltip : qsTr("Delete the selected input profile(s)")
-                    enabled: profEditor.isEditing ? profEditor.canRemoveItem : profListView.selectedIndex >= 0 && profListView.selectedIsUser
-
-                    onClicked:
+                    if (profileEditor.modified)
                     {
-                        if (profEditor.isEditing)
-                        {
-                            profEditor.removeItem()
-                        }
-                        else
-                        {
-                            if (profListView.selectedIsUser)
-                                deletePopup.open()
-                        }
+                        profEditor.showSaveFirst()
                     }
-                }
-
-                Rectangle { Layout.fillWidth: true }
-
-                GenericButton
-                {
-                    width: height
-                    height: topBar.height - 2
-                    visible: profEditor.isEditing
-                    border.color: UISettings.bgMedium
-                    useFontawesome: true
-                    label: FontAwesome.fa_xmark
-                    onClicked:
+                    else
                     {
-                        if (profileEditor.modified)
-                        {
-                            profEditor.showSaveFirst()
-                        }
-                        else
-                        {
-                            ioManager.finishInputProfile()
-                            profEditor.isEditing = false
-                        }
+                        ioManager.finishInputProfile()
+                        profEditor.isEditing = false
                     }
                 }
             }
         }
+    }
 
-        ListView
-        {
-            id: profListView
-            implicitWidth: profilesContainer.width
-            Layout.fillHeight: true
-            z: 1
-            boundsBehavior: Flickable.StopAtBounds
-            visible: !profEditor.isEditing
+    ListView
+    {
+        id: profListView
+        implicitWidth: parent.width
+        height: parent.height - topBar.height
+        y: topBar.height
+        z: 1
+        boundsBehavior: Flickable.StopAtBounds
+        visible: !profEditor.isEditing
 
-            property int selectedIndex: -1
-            property string selectedName
-            property bool selectedIsUser: false
+        property int selectedIndex: -1
+        property string selectedName
+        property bool selectedIsUser: false
 
-            delegate:
-                Item
+        delegate:
+            Item
+            {
+                id: itemRoot
+                height: UISettings.listItemHeight * 2
+                width: profilesContainer.width
+
+                MouseArea
                 {
-                    id: itemRoot
-                    height: UISettings.listItemHeight * 2
+                    id: delegateRoot
                     width: profilesContainer.width
+                    height: parent.height
 
-                    MouseArea
+                    drag.target: profileItem
+                    drag.threshold: 30
+
+                    onClicked:
                     {
-                        id: delegateRoot
-                        width: profilesContainer.width
-                        height: parent.height
+                        profListView.selectedIndex = index
+                        profListView.selectedName = profileItem.lineName
+                        profListView.selectedIsUser = modelData.isUser
+                    }
 
-                        drag.target: profileItem
-                        drag.threshold: 30
+                    onReleased:
+                    {
+                        profileItem.x = 3
+                        profileItem.y = 0
 
-                        onClicked:
+                        if (profileItem.Drag.target !== null)
                         {
-                            profListView.selectedIndex = index
-                            profListView.selectedName = profileItem.lineName
-                            profListView.selectedIsUser = modelData.isUser
+                            ioManager.setInputProfile(profileItem.pluginUniverse, profileItem.lineName)
+                            profListView.model = ioManager.universeInputProfiles(universeIndex)
+                        }
+                        else
+                        {
+                            // return the dragged item to its original position
+                            parent = itemRoot
+                        }
+                    }
+
+                    PluginDragItem
+                    {
+                        id: profileItem
+                        x: 3
+                        height: UISettings.listItemHeight * 2
+                        color: delegateRoot.pressed ? UISettings.highlightPressed :
+                            (profListView.selectedIndex === index ? UISettings.highlight : "transparent")
+
+                        pluginUniverse: modelData.universe
+                        pluginName: modelData.plugin
+                        lineName: modelData.name
+                        pluginLine: modelData.line
+
+                        Drag.active: delegateRoot.drag.active
+                        Drag.source: delegateRoot
+                        Drag.hotSpot.x: width / 2
+                        Drag.hotSpot.y: height / 2
+                        // this key must match the one in UniverseIOItem, to avoid dragging
+                        // an input profile in the wrong place
+                        Drag.keys: [ "profile-" + universeIndex ]
+
+                        Text
+                        {
+                            visible: modelData.isUser
+                            anchors.right: parent.right
+                            anchors.rightMargin: 5
+                            anchors.verticalCenter: parent.verticalCenter
+                            color: UISettings.fgMain
+                            font.family: UISettings.fontAwesomeFontName
+                            font.pixelSize: parent.height / 2
+                            text: FontAwesome.fa_user
                         }
 
-                        onReleased:
+                        // line divider
+                        Rectangle
                         {
-                            profileItem.x = 3
-                            profileItem.y = 0
-
-                            if (profileItem.Drag.target !== null)
-                            {
-                                ioManager.setInputProfile(profileItem.pluginUniverse, profileItem.lineName)
-                                profListView.model = ioManager.universeInputProfiles(universeIndex)
-                            }
-                            else
-                            {
-                                // return the dragged item to its original position
-                                parent = itemRoot
-                            }
+                            width: parent.width - 6
+                            height: 1
+                            y: parent.height - 1
+                            color: UISettings.bgLight
                         }
+                    } // PluginDragItem
+                } // MouseArea
+            } // Item
+    } // ListView
 
-                        PluginDragItem
-                        {
-                            id: profileItem
-                            x: 3
-                            height: UISettings.listItemHeight * 2
-                            color: delegateRoot.pressed ? UISettings.highlightPressed :
-                                (profListView.selectedIndex === index ? UISettings.highlight : "transparent")
-
-                            pluginUniverse: modelData.universe
-                            pluginName: modelData.plugin
-                            lineName: modelData.name
-                            pluginLine: modelData.line
-
-                            Drag.active: delegateRoot.drag.active
-                            Drag.source: delegateRoot
-                            Drag.hotSpot.x: width / 2
-                            Drag.hotSpot.y: height / 2
-                            // this key must match the one in UniverseIOItem, to avoid dragging
-                            // an input profile in the wrong place
-                            Drag.keys: [ "profile-" + universeIndex ]
-
-                            Text
-                            {
-                                visible: modelData.isUser
-                                anchors.right: parent.right
-                                anchors.rightMargin: 5
-                                anchors.verticalCenter: parent.verticalCenter
-                                color: UISettings.fgMain
-                                font.family: UISettings.fontAwesomeFontName
-                                font.pixelSize: parent.height / 2
-                                text: FontAwesome.fa_user
-                            }
-
-                            // line divider
-                            Rectangle
-                            {
-                                width: parent.width - 6
-                                height: 1
-                                y: parent.height - 1
-                                color: UISettings.bgLight
-                            }
-                        } // PluginDragItem
-                    } // MouseArea
-                } // Item
-        } // ListView
-
-        InputProfileEditor
-        {
-            id: profEditor
-            width: profilesContainer.width
-            Layout.fillHeight: true
-            visible: isEditing
-        }
-    } // ColumnLayout
+    InputProfileEditor
+    {
+        id: profEditor
+        width: parent.width
+        height: parent.height - topBar.height
+        y: topBar.height
+        visible: isEditing
+    }
 }

@@ -40,6 +40,8 @@ ColumnLayout
     property bool showMovement: false
     property bool showAbsRel: false
     property bool showFeedback: false
+    property int signalChannelNumber: -1
+    property bool signalWasMapped: false
 
     property bool canEditChannel: currentTab === 0 && channelList.selectedChannelNumber >= 0
     property bool canRemoveItem: currentTab === 0 ? channelList.selectedChannelNumber >= 0 :
@@ -137,6 +139,21 @@ ColumnLayout
         return channelList.selectedChannelNumber;
     }
 
+    function scrollToSignalChannel()
+    {
+        if (!channelList.model || signalChannelNumber < 0)
+            return
+
+        for (var i = 0; i < channelList.model.length; i++)
+        {
+            if (channelList.model[i].chNumber === signalChannelNumber)
+            {
+                channelList.positionViewAtIndex(i, ListView.Center)
+                return
+            }
+        }
+    }
+
     function addNewChannel()
     {
         if (!hasProfileEditor)
@@ -221,6 +238,26 @@ ColumnLayout
         {
             if (peContainer.currentTab === 2 && target && target.type !== QLCInputProfile.MIDI)
                 peContainer.setCurrentTab(0)
+        }
+
+        function onInputSignalReceived(channelNumber, alreadyMapped)
+        {
+            peContainer.signalChannelNumber = channelNumber
+            peContainer.signalWasMapped = alreadyMapped
+            Qt.callLater(peContainer.scrollToSignalChannel)
+            signalIndicatorReset.restart()
+        }
+    }
+
+    Timer
+    {
+        id: signalIndicatorReset
+        interval: 800
+        repeat: false
+        onTriggered:
+        {
+            peContainer.signalChannelNumber = -1
+            peContainer.signalWasMapped = false
         }
     }
 
@@ -590,6 +627,18 @@ ColumnLayout
         property int selectedChannelNumber: -1
         property QLCInputChannel selectedChannel: null
 
+        Connections
+        {
+            target: channelList.selectedChannel
+            ignoreUnknownSignals: true
+
+            function onTypeChanged()
+            {
+                if (channelList.selectedChannel)
+                    updateOptions(channelList.selectedChannel.type)
+            }
+        }
+
         header:
             RowLayout
             {
@@ -634,8 +683,10 @@ ColumnLayout
                 Rectangle
                 {
                     anchors.fill: parent
-                    color: UISettings.highlight
-                    visible: channelList.selectedChannelNumber === modelData.chNumber
+                    readonly property bool selectedRow: channelList.selectedChannelNumber === modelData.chNumber
+                    readonly property bool signaledRow: peContainer.signalChannelNumber === modelData.chNumber
+                    visible: selectedRow || signaledRow
+                    color: signaledRow ? (peContainer.signalWasMapped ? "#2ecc71" : "#f39c12") : UISettings.highlight
                 }
 
                 RowLayout

@@ -27,6 +27,7 @@
 #include <QColor>
 
 #include "qlcinputprofile.h"
+#include "qlcinputchannel.h"
 #include "midiprotocol.h"
 
 class Doc;
@@ -162,8 +163,13 @@ signals:
     void channelsChanged();
     void colorTableChanged();
     void midiChannelTableChanged();
+    void inputSignalReceived(int channelNumber, bool alreadyMapped);
 
 private:
+    QString defaultChannelName(QLCInputChannel::Type type, quint32 channel, const QString &key) const;
+    void appendRollingValue(QVector<uchar> &history, uchar value) const;
+    bool shouldPromoteToSlider(const QVector<uchar> &history) const;
+
     // map of <channel, values> used to detect if
     // an input signal comes from a button or a fader
     QMap<quint32, QVector<uchar>> m_channelsMap;

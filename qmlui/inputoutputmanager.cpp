@@ -609,16 +609,10 @@ QString InputOutputManager::profileUserFolder()
 
 void InputOutputManager::createInputProfile()
 {
-    if (m_editProfile != nullptr)
-        delete m_editProfile;
-
+    finishInputProfile();
     m_editProfile = new QLCInputProfile();
-
-    if (m_profileEditor == nullptr)
-    {
-        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
-        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
-    }
+    m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+    view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
 }
 
 bool InputOutputManager::editInputProfile(QString name)
@@ -627,19 +621,13 @@ bool InputOutputManager::editInputProfile(QString name)
     if (ip == nullptr)
         return false;
 
-    // create a copy first
-    if (m_editProfile != nullptr)
-        delete m_editProfile;
-
+    finishInputProfile();
     m_editProfile = ip->createCopy();
 
     qDebug() << "Profile TYPE:" << m_editProfile->type();
 
-    if (m_profileEditor == nullptr)
-    {
-        m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
-        view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
-    }
+    m_profileEditor = new InputProfileEditor(m_editProfile, m_doc);
+    view()->rootContext()->setContextProperty("profileEditor", m_profileEditor);
 
     qDebug() << "Edit profile" << ip->path();
 
@@ -659,11 +647,18 @@ bool InputOutputManager::saveInputProfile()
 
     bool profileExists = QFileInfo::exists(absPath);
 
-    m_editProfile->saveXML(absPath);
-    m_profileEditor->setModified(false);
+    if (m_editProfile->saveXML(absPath) == false)
+        return false;
+
+    if (m_profileEditor != nullptr)
+        m_profileEditor->setModified(false);
 
     if (profileExists == false)
-        m_doc->inputOutputMap()->addProfile(m_editProfile);
+    {
+        // Keep InputOutputMap ownership separate from the editor's working copy.
+        if (m_doc->inputOutputMap()->profile(m_editProfile->name()) == nullptr)
+            m_doc->inputOutputMap()->addProfile(m_editProfile->createCopy());
+    }
 
     return true;
 }
@@ -869,5 +864,4 @@ void InputOutputManager::setBpmNumber(int bpmNumber)
     m_ioMap->setBpmNumber(bpmNumber);
     emit bpmNumberChanged(bpmNumber);
 }
-
 
