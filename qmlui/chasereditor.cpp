@@ -124,6 +124,12 @@ bool ChaserEditor::addStep(int insertIndex)
 
     if (m_chaser->stepsCount() == 0)
     {
+        if (m_chaser->durationMode() == Chaser::Common && m_chaser->duration() == 0)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_chaser->id(), m_chaser->duration(), 1000);
+            m_chaser->setDuration(1000);
+        }
+
         QListIterator <SceneValue> it(currScene->values());
         while (it.hasNext() == true)
         {

@@ -227,6 +227,9 @@ Rectangle
                                         {
                                             chDelegate.isSelected = !chDelegate.isSelected
                                             sceneEditor.setChannelSelection(fixtureObj.id, index, chDelegate.isSelected);
+
+                                            if (sceneConsole == true)
+                                                functionManager.setChannelValue(fixtureObj.id, index, dmxValue)
                                             return
                                         }
 
@@ -311,4 +314,3 @@ Rectangle
         }
     }
 }
-

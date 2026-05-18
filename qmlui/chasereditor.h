@@ -187,4 +187,3 @@ signals:
 };
 
 #endif // CHASEREDITOR_H
-
