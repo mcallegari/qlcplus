@@ -137,14 +137,15 @@ void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel,
 
     for (QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
     {
-        if (match.first->id() == id && match.first->page() == page)
+        if (match.second == widget &&
+            match.first->id() == id &&
+            match.first->page() == page)
         {
             m_inputSourcesMap.remove(key, match);
-
-            //qDebug() << "Multihash keys after deletion:" << m_inputSourcesMap.count(key);
-            return;
         }
     }
+
+    //qDebug() << "Multihash keys after deletion:" << m_inputSourcesMap.count(key);
 }
 
 void VCPage::mapChildrenInputSources()

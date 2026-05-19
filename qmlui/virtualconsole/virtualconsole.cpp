@@ -1211,6 +1211,13 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
          *  it means something went nuts */
         Q_ASSERT(m_autoDetectionWidget != nullptr);
 
+        const quint32 sourceId = m_autoDetectionSource->id();
+        const quint32 oldUniverse = m_autoDetectionSource->universe();
+        const quint32 oldChannel = m_autoDetectionSource->channel();
+
+        for (VCPage *page : m_pages) // C++11
+            page->unMapInputSource(sourceId, oldUniverse, oldChannel, m_autoDetectionWidget, true);
+
         m_autoDetectionWidget->updateInputSource(m_autoDetectionSource, universe, channel);
 
         for (VCPage *page : m_pages) // C++11
