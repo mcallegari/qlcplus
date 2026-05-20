@@ -1469,7 +1469,7 @@ function renderMatrix(widget) {
       const input = document.createElement("input");
       input.type = "color";
       input.className = "animation-color";
-      input.value = widget[c.key] || "#ffffff";
+      input.value = widget[c.key] || "#000000";
       input.addEventListener("input", () => {
         sendWidgetCommand(widget.id, c.cmd, input.value);
       });
