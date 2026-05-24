@@ -309,6 +309,10 @@ void SceneEditor::init(bool applyValues)
             this, SLOT(slotAddFixtureClicked()));
     connect(m_removeFixtureButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveFixtureClicked()));
+    connect(m_moveFixtureUpButton, SIGNAL(clicked()),
+            this, SLOT(slotMoveFixtureUpClicked()));
+    connect(m_moveFixtureDownButton, SIGNAL(clicked()),
+            this, SLOT(slotMoveFixtureDownClicked()));
 
     m_nameEdit->setText(m_scene->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
@@ -1326,6 +1330,73 @@ void SceneEditor::slotRemoveFixtureClicked()
             m_scene->removeFixture(fixture->id());
         }
     }
+}
+
+void SceneEditor::moveFixture(int offset)
+{
+    if ((m_tree == NULL) || (m_scene == NULL) || (offset == 0))
+        return;
+
+    QListIterator<QTreeWidgetItem*> it(m_tree->selectedItems());
+    if (!it.hasNext())
+        return;
+
+    QTreeWidgetItem* item = it.next();
+    if (item == NULL)
+        return;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const QModelIndex modelIndex = m_tree->indexFromItem(item);
+#else
+    m_tree->setCurrentItem(item);
+    const QModelIndex modelIndex = m_tree->currentIndex();
+#endif
+    int row = modelIndex.row();
+    if (!m_scene->moveFixture(row, row+offset))
+        return;
+
+    m_tree->takeTopLevelItem(row);
+    m_tree->insertTopLevelItem(row+offset, item);
+    m_tree->setCurrentItem(item);
+
+    const QVariant tabMode = m_scene->uiStateValue(UI_STATE_TAB_MODE);
+    if (m_tab == NULL)
+        return;
+
+    if (tabMode.isNull() || (tabMode.toInt() == UI_STATE_TABBED_FIXTURES))
+    {
+        QTabBar* tabBar = m_tab->tabBar();
+        if (tabBar == NULL)
+            return;
+
+        const int from = m_fixtureFirstTabIndex + row;
+        tabBar->moveTab(from, from+offset);
+    } else {
+        QScrollArea* area = qobject_cast<QScrollArea*>(m_tab->widget(m_fixtureFirstTabIndex));
+        if (area == NULL)
+            return;
+
+        QGroupBox* grpBox = qobject_cast<QGroupBox*>(area->widget());
+        if (grpBox == NULL)
+            return;
+
+        QHBoxLayout* fixturesLayout = qobject_cast<QHBoxLayout*>(grpBox->layout());
+        if (fixturesLayout == NULL)
+            return;
+
+        QLayoutItem* console = fixturesLayout->takeAt(row);
+        fixturesLayout->insertItem(row+offset, console);
+    }
+}
+
+void SceneEditor::slotMoveFixtureUpClicked()
+{
+    moveFixture(-1);
+}
+
+void SceneEditor::slotMoveFixtureDownClicked()
+{
+    moveFixture(1);
 }
 
 void SceneEditor::slotEnableAll()
