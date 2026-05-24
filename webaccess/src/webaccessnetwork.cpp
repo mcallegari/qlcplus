@@ -436,29 +436,15 @@ bool WebAccessNetwork::createWiFiHotspot(QString SSID, QString password) const
     getNmcliOutput(QStringList() << "con" << "del" << HOTSPOT_CON_NAME);
 
     // create the connection
-    QString args = "con add type wifi ifname wlan0 mode ap con-name " + HOTSPOT_CON_NAME + " autoconnect yes ssid \"" + SSID + "\"";
-    getNmcliOutput(args.split(" "));
-
-    // modify with proper parameters
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless.ssid " + SSID;
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless.band bg";
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.key-mgmt wpa-psk";
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.proto rsn";
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.group ccmp";
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.pairwise ccmp";
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " 802-11-wireless-security.psk " + password;
-    getNmcliOutput(args.split(" "));
-    args = "con modify " + HOTSPOT_CON_NAME + " ipv4.method shared";
-    getNmcliOutput(args.split(" "));
-
-    // activate the connection
-    args = "con up " + HOTSPOT_CON_NAME;
+    QString args = "con add type wifi ifname wlan0 con-name " + HOTSPOT_CON_NAME + " ssid " + SSID + " " +
+                   "802-11-wireless.mode ap " +
+                   "802-11-wireless.band bg " +
+                   "wifi-sec.pairwise ccmp " +
+                   "wifi-sec.proto rsn " +
+                   "wifi-sec.key-mgmt wpa-psk " +
+                   "wifi-sec.psk " + password + " " +
+                   "ipv4.method shared " +
+                   "autoconnect yes";
     getNmcliOutput(args.split(" "));
 
     return true;
