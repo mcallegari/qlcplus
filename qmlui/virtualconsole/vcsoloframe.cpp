@@ -50,16 +50,21 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create solo frame component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
-    item->setParentItem(parent);
-    item->setProperty("isSolo", true);
-    item->setProperty("frameObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("isSolo", true);
+    m_item->setProperty("frameObj", QVariant::fromValue(this));
 
     if (m_pagesMap.count() > 0)
     {
         QString chName = QString("frameDropArea%1").arg(id());
-        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
+        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 
         foreach (VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);

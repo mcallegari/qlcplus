@@ -55,6 +55,8 @@ Column
     function getItemAtPos(x, y)
     {
         var child = nodeChildrenView.itemAt(x, y)
+        if (!child || !child.item)
+            return null
         if (child.item.hasOwnProperty("nodePath"))
             return child.item.getItemAtPos(x, y - child.item.y)
 

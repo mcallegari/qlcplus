@@ -101,6 +101,11 @@ void VCCueList::render(QQuickView *view, QQuickItem *parent)
     }
 
     m_item = qobject_cast<QQuickItem*>(component->create());
+    if (m_item == nullptr)
+        qWarning() << Q_FUNC_INFO << "Unable to create cue list component" << component->errors();
+    delete component;
+    if (m_item == nullptr)
+        return;
 
     m_item->setParentItem(parent);
     m_item->setProperty("cueListObj", QVariant::fromValue(this));
