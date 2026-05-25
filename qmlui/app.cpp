@@ -26,6 +26,7 @@
 #include <QOpenGLContext>
 #include <QPrintDialog>
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QTranslator>
 #include <QQmlContext>
 #include <QQuickItem>
@@ -281,6 +282,10 @@ void App::setLanguage(QString locale)
     m_translator = new QTranslator(QCoreApplication::instance());
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
+
+    if (m_translator->load(QString("%1_%2").arg("qtbase").arg(locale), QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+        QCoreApplication::installTranslator(m_translator);
+    }
 
     QSettings settings;
     settings.setValue(SETTINGS_LANGUAGE, locale);
