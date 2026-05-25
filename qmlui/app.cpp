@@ -79,6 +79,7 @@ App::App()
     , m_accessMask(defaultMask())
     , m_is3dSupported(true)
     , m_translator(nullptr)
+    , m_translator_base(nullptr)
     , m_fixtureBrowser(nullptr)
     , m_fixtureManager(nullptr)
     , m_contextManager(nullptr)
@@ -272,6 +273,11 @@ void App::setLanguage(QString locale)
         QCoreApplication::removeTranslator(m_translator);
         delete m_translator;
     }
+    if (m_translator_base != nullptr)
+    {
+        QCoreApplication::removeTranslator(m_translator_base);
+        delete m_translator_base;
+    }
 
     QString translationPath = QLCFile::systemDirectory(TRANSLATIONDIR).absolutePath();
 
@@ -283,8 +289,10 @@ void App::setLanguage(QString locale)
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
 
-    if (m_translator->load(QString("%1_%2").arg("qtbase").arg(locale), QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
-        QCoreApplication::installTranslator(m_translator);
+    QString file_base(QString("%1_%2").arg("qtbase").arg(locale));
+    m_translator_base = new QTranslator(QCoreApplication::instance());
+    if (m_translator_base->load(file_base, QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+        QCoreApplication::installTranslator(m_translator_base);
     }
 
     QSettings settings;
