@@ -289,7 +289,7 @@ void App::setLanguage(QString locale)
     if (m_translator->load(file, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
 
-    QString file_base(QString("%1_%2").arg("qtbase").arg(locale));
+    QString file_base(QString("%1_%2").arg("qt").arg(locale));
     m_translator_base = new QTranslator(QCoreApplication::instance());
     if (m_translator_base->load(file_base, QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
         QCoreApplication::installTranslator(m_translator_base);
