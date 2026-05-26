@@ -48,7 +48,7 @@ else
 fi
 
 # remove uneeded stuff
-rm -rf generic networkinformation qmltooling renderplugins tls translations
+rm -rf generic networkinformation qmltooling renderplugins tls
 
 
 # Create Installer
