@@ -142,9 +142,6 @@ void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
 
     PreviewContext *context = m_contextsMap[name];
 
-    if (enable == false && context->detached() == true)
-        reattachContext(name);
-
     context->setContextItem(item);
     context->enableContext(enable);
 

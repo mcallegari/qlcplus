@@ -33,20 +33,22 @@ Rectangle
     id: mainView
     anchors.fill: parent
     color: UISettings.bgMedium
+    property string detachedViewSource: ""
+    property string detachedContextName: ""
+    property int detachedContextPage: -1
 
     function closeWindow()
     {
-        console.log("Closing window of context: " + contextName)
+        console.log("Closing window of context: " + detachedContextName)
         if (contextManager)
-            contextManager.enableContext(contextName, false, wLoader.item.contextItem)
+            contextManager.reattachContext(detachedContextName)
     }
 
     Loader
     {
         id: wLoader
         anchors.fill: parent
-        source: viewSource
-        onLoaded: if (item.page) item.page = contextPage
+        source: detachedViewSource
+        onLoaded: if (item.page) item.page = detachedContextPage
     }
 }
-

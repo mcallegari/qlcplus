@@ -164,13 +164,14 @@ void PreviewContext::setDetached(bool detached)
         m_view->rootContext()->setContextProperty("View2D", m_mainView->rootContext()->contextProperty("View2D"));
         m_view->rootContext()->setContextProperty("View3D", m_mainView->rootContext()->contextProperty("View3D"));
 
-        /** Set the fundamental properties to allow the detached context to properly load */
-        m_view->rootContext()->setContextProperty("viewSource", contextResource());
-        m_view->rootContext()->setContextProperty("contextName", name());
-        m_view->rootContext()->setContextProperty("contextPage", contextPage());
-
         /** Finally, load the context wrapper and show it on the screen */
         m_view->setSource(QUrl("qrc:/WindowLoader.qml"));
+        if (m_view->rootObject())
+        {
+            m_view->rootObject()->setProperty("detachedViewSource", contextResource());
+            m_view->rootObject()->setProperty("detachedContextName", name());
+            m_view->rootObject()->setProperty("detachedContextPage", contextPage());
+        }
 
         m_view->setTitle(contextTitle());
         m_view->setIcon(QIcon(":/qlcplus.svg"));
