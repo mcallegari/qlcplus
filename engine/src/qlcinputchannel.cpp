@@ -163,8 +163,8 @@ QString QLCInputChannel::iconResource(Type type, bool svg)
         case Knob: return QString("%1:/knob.%2").arg(prefix, ext);
         case Encoder: return QString("%1:/knob.%2").arg(prefix, ext);
         case Slider: return QString("%1:/slider.%2").arg(prefix, ext);
-        case PrevPage: return QString("%1:/forward.%2").arg(prefix, ext);
-        case NextPage: return QString("%1:/back.%2").arg(prefix, ext);
+        case PrevPage: return QString("%1:/back.%2").arg(prefix, ext);
+        case NextPage: return QString("%1:/forward.%2").arg(prefix, ext);
         case PageSet: return QString("%1:/star.%2").arg(prefix, ext);
         default: return QString();
     }
