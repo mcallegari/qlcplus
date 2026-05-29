@@ -23,6 +23,7 @@
 #include "vcwidget.h"
 #include "treemodel.h"
 #include "dmxsource.h"
+#include "spectrumgrid.h"
 
 #define KXMLQLCVCAudioTriggers QStringLiteral("AudioTriggers")
 
@@ -39,6 +40,9 @@ class VCAudioTriggers : public VCWidget, public DMXSource
     Q_PROPERTY(int selectedBar READ selectedBar WRITE setSelectedBar NOTIFY selectedBarChanged FINAL)
     Q_PROPERTY(QVariantList audioLevels READ audioLevels NOTIFY audioLevelsChanged)
     Q_PROPERTY(QVariantList barsInfo READ barsInfo NOTIFY barsInfoChanged)
+    Q_PROPERTY(int spectrumGridMode READ spectrumGridMode WRITE setSpectrumGridMode NOTIFY spectrumGridModeChanged)
+    Q_PROPERTY(qreal spectrumLowBandGamma READ spectrumLowBandGamma WRITE setSpectrumLowBandGamma NOTIFY spectrumLowBandGammaChanged)
+    Q_PROPERTY(int maxSpectrumBands READ maxSpectrumBands CONSTANT)
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
@@ -76,6 +80,11 @@ public:
     /** Get/Set the number of spectrum bars */
     int barsNumber() const;
     void setBarsNumber(int num);
+    int spectrumGridMode() const;
+    void setSpectrumGridMode(int mode);
+    qreal spectrumLowBandGamma() const;
+    void setSpectrumLowBandGamma(qreal gamma);
+    static int maxSpectrumBands();
     int selectedBar() const;
     void setSelectedBar(int index);
 
@@ -85,6 +94,8 @@ signals:
     void captureEnabledChanged();
     void volumeLevelChanged();
     void barsNumberChanged();
+    void spectrumGridModeChanged();
+    void spectrumLowBandGammaChanged();
     void selectedBarChanged();
     void audioLevelsChanged();
 
@@ -158,7 +169,8 @@ public:
     void setBarDmxChannels(QList<SceneValue>list);
 
 protected slots:
-    void slotSpectrumDataChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotSpectrumDataChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power,
+                               int gridMode, double lowBandGamma);
 
 signals:
     void barsInfoChanged();
@@ -175,6 +187,8 @@ private:
 private:
     // first bar is always volume
     QVector <AudioBar> m_spectrumBars;
+    SpectrumGridMode m_spectrumGridMode = SpectrumGridMode::LogUniform;
+    double m_spectrumLowBandGamma = 1.0;
 
     /** Index of the bar currently being edited.
      *  This is needed to simplify the widget editing */

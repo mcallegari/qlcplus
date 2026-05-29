@@ -31,6 +31,8 @@
 #include "fftw3.h"
 #endif
 
+#include "spectrumgrid.h"
+
 #define SETTINGS_AUDIO_INPUT_DEVICE   "audio/input"
 #define SETTINGS_AUDIO_INPUT_SRATE    "audio/samplerate"
 #define SETTINGS_AUDIO_INPUT_CHANNELS "audio/channels"
@@ -39,7 +41,7 @@
 #define AUDIO_DEFAULT_CHANNELS        1
 #define AUDIO_DEFAULT_BUFFER_SIZE     2048 // bytes per channel
 
-#define FREQ_SUBBANDS_MAX_NUMBER        32
+#define FREQ_SUBBANDS_MAX_NUMBER        64
 #define FREQ_SUBBANDS_DEFAULT_NUMBER    16
 #define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
@@ -71,15 +73,28 @@ public:
     int defaultBarsNumber() const;
 
     /**
-     * Request the given number of frequency bands to the
-     * audiocapture engine
+     * Request the given number of frequency bands (legacy: uniform log grid).
      */
     void registerBandsNumber(int number);
 
     /**
-     * Cancel a previous request of bars
+     * Cancel a previous request of bars (legacy: uniform log grid).
      */
     void unregisterBandsNumber(int number);
+
+    /**
+     * Request spectrum bands with explicit grid partitioning mode.
+     */
+    void registerBands(int number, SpectrumGridMode mode = SpectrumGridMode::LogUniform,
+                       double lowBandGamma = 1.0);
+
+    /**
+     * Cancel a previous bands registration.
+     */
+    void unregisterBands(int number, SpectrumGridMode mode = SpectrumGridMode::LogUniform,
+                         double lowBandGamma = 1.0);
+
+    static int maxSpectrumBands() { return FREQ_SUBBANDS_MAX_NUMBER; }
 
     static int minFrequency() { return SPECTRUM_MIN_FREQUENCY; }
     static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
@@ -135,7 +150,7 @@ protected:
     virtual bool readAudio(int maxSize) = 0;
 
     /** This is called at every processData to fill a single BandsData structure */
-    double fillBandsData(int number);
+    double fillBandsData(quint32 registryKey);
 
     /** This is the method where captured audio data is processed in this order
      *  1) calculates the signal power, which will be the volume bar
@@ -145,7 +160,8 @@ protected:
     void processData();
 
 signals:
-    void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power,
+                       int spectrumGridMode, double spectrumLowBandGamma);
     void volumeChanged(int volume);
     void beatDetected();
 
@@ -169,8 +185,8 @@ protected:
     fftw_plan m_plan_forward;
 #endif
 
-    /** Map of the registered clients (key is the number of bands) */
-    QMap <int, BandsData> m_fftMagnitudeMap;
+    /** Map of registered clients (key: spectrumBandsRegistryKey) */
+    QMap<quint32, BandsData> m_fftMagnitudeMap;
 
     /** Reference to the beat tracking processor */
     BeatTracker *m_beatTracker;

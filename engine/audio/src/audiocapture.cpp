@@ -25,6 +25,7 @@
 
 #include "audiocapture.h"
 #include "beattracker.h"
+#include "spectrumgrid.h"
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
@@ -103,22 +104,34 @@ int AudioCapture::defaultBarsNumber() const
 
 void AudioCapture::registerBandsNumber(int number)
 {
-    qDebug() << "[AudioCapture] registering" << number << "bands";
+    registerBands(number, SpectrumGridMode::LogUniform);
+}
+
+void AudioCapture::unregisterBandsNumber(int number)
+{
+    unregisterBands(number, SpectrumGridMode::LogUniform);
+}
+
+void AudioCapture::registerBands(int number, SpectrumGridMode mode, double lowBandGamma)
+{
+    qDebug() << "[AudioCapture] registering" << number << "bands, grid" << int(mode)
+             << "gamma" << lowBandGamma;
 
     QMutexLocker locker(&m_mutex);
 
+    const quint32 key = spectrumBandsRegistryKey(number, mode, lowBandGamma);
     bool firstBand = m_fftMagnitudeMap.isEmpty();
     if (number > 0 && number <= FREQ_SUBBANDS_MAX_NUMBER)
     {
-        if (m_fftMagnitudeMap.contains(number) == false)
+        if (m_fftMagnitudeMap.contains(key) == false)
         {
             BandsData newBands;
             newBands.m_registerCounter = 1;
             newBands.m_fftMagnitudeBuffer = QVector<double>(number);
-            m_fftMagnitudeMap[number] = newBands;
+            m_fftMagnitudeMap[key] = newBands;
         }
         else
-            m_fftMagnitudeMap[number].m_registerCounter++;
+            m_fftMagnitudeMap[key].m_registerCounter++;
 
         if (firstBand)
         {
@@ -128,17 +141,19 @@ void AudioCapture::registerBandsNumber(int number)
     }
 }
 
-void AudioCapture::unregisterBandsNumber(int number)
+void AudioCapture::unregisterBands(int number, SpectrumGridMode mode, double lowBandGamma)
 {
-    qDebug() << "[AudioCapture] unregistering" << number << "bands";
+    qDebug() << "[AudioCapture] unregistering" << number << "bands, grid" << int(mode)
+             << "gamma" << lowBandGamma;
 
     QMutexLocker locker(&m_mutex);
 
-    if (m_fftMagnitudeMap.contains(number))
+    const quint32 key = spectrumBandsRegistryKey(number, mode, lowBandGamma);
+    if (m_fftMagnitudeMap.contains(key))
     {
-        m_fftMagnitudeMap[number].m_registerCounter--;
-        if (m_fftMagnitudeMap[number].m_registerCounter == 0)
-            m_fftMagnitudeMap.remove(number);
+        m_fftMagnitudeMap[key].m_registerCounter--;
+        if (m_fftMagnitudeMap[key].m_registerCounter == 0)
+            m_fftMagnitudeMap.remove(key);
 
         if (m_fftMagnitudeMap.isEmpty())
         {
@@ -158,12 +173,12 @@ void AudioCapture::stop()
     }
 }
 
-double AudioCapture::fillBandsData(int number)
+double AudioCapture::fillBandsData(quint32 registryKey)
 {
-    // m_fftOutputBuffer contains the real and imaginary data of a spectrum
-    // representing all the frequencies from 0 to m_sampleRate Hz.
-    // Consider the configured spectrum range and calculate average magnitude
-    // with logarithmic bands, which better match audio perception.
+    const int number = spectrumBandsCountFromKey(registryKey);
+    const SpectrumGridMode gridMode = spectrumGridModeFromKey(registryKey);
+    const double lowBandGamma = spectrumLowBandGammaFromKey(registryKey);
+
     double maxMagnitude = 0.;
 #ifdef HAS_FFTW3
     fftw_complex *fft = reinterpret_cast<fftw_complex*>(m_fftOutputBuffer);
@@ -171,42 +186,59 @@ double AudioCapture::fillBandsData(int number)
     const double nyquist = double(m_sampleRate) / 2.0;
     const double minFreq = qMax(1.0, double(SPECTRUM_MIN_FREQUENCY));
     const double maxFreq = qMin(double(SPECTRUM_MAX_FREQUENCY), nyquist);
-    const double logRange = (maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
 
-    if (number <= 0 || maxBin <= 1 || logRange <= 0.0)
+    if (number <= 0 || maxBin <= 1 || maxFreq <= minFreq)
     {
-        if (number > 0 && m_fftMagnitudeMap.contains(number))
-            m_fftMagnitudeMap[number].m_fftMagnitudeBuffer.fill(0.0);
+        if (number > 0 && m_fftMagnitudeMap.contains(registryKey))
+            m_fftMagnitudeMap[registryKey].m_fftMagnitudeBuffer.fill(0.0);
         return 0.0;
     }
 
+    const QVector<double> edges = computeSpectrumBandEdges(number, minFreq, maxFreq, gridMode, lowBandGamma);
+    if (edges.size() != number + 1)
+    {
+        m_fftMagnitudeMap[registryKey].m_fftMagnitudeBuffer.fill(0.0);
+        return 0.0;
+    }
+
+    // Partition FFT bins without overlap. Narrow Hz bands used to map to the same
+    // bin (endBin <= startBin forced +1), producing identical levels ("shelves").
+    QVector<int> binBoundaries(number + 1);
+    const double binHz = double(m_sampleRate) / double(m_bufferSize);
+    binBoundaries[0] = qBound(1, int(qFloor(edges[0] / binHz)), maxBin);
+    for (int b = 1; b < number; ++b)
+    {
+        const int next = qBound(1, int(qFloor(edges[b] / binHz)), maxBin);
+        binBoundaries[b] = qMax(next, binBoundaries[b - 1]);
+    }
+    binBoundaries[number] = maxBin + 1;
+
+    auto &buf = m_fftMagnitudeMap[registryKey].m_fftMagnitudeBuffer;
     for (int b = 0; b < number; b++)
     {
-        const double bandStartFreq = minFreq * qExp(logRange * (double(b) / double(number)));
-        const double bandEndFreq = minFreq * qExp(logRange * (double(b + 1) / double(number)));
-
-        int startBin = qBound(1, int(qFloor((bandStartFreq * m_bufferSize) / double(m_sampleRate))), maxBin);
-        int endBin = qBound(1, int(qCeil((bandEndFreq * m_bufferSize) / double(m_sampleRate))), maxBin + 1);
-
+        const int startBin = binBoundaries[b];
+        int endBin = binBoundaries[b + 1];
         if (b == number - 1)
             endBin = maxBin + 1;
+
         if (endBin <= startBin)
-            endBin = qMin(maxBin + 1, startBin + 1);
+        {
+            buf[b] = 0.0;
+            continue;
+        }
 
         double magnitudeSum = 0.0;
         for (int i = startBin; i < endBin; i++)
-        {
             magnitudeSum += qSqrt((fft[i][0] * fft[i][0]) + (fft[i][1] * fft[i][1]));
-        }
 
         const int bandWidth = endBin - startBin;
         const double bandMagnitude = magnitudeSum / (double(bandWidth) * M_2PI);
-        m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
+        buf[b] = bandMagnitude;
         if (maxMagnitude < bandMagnitude)
             maxMagnitude = bandMagnitude;
     }
 #else
-    Q_UNUSED(number)
+    Q_UNUSED(registryKey)
 #endif
     return maxMagnitude;
 }
@@ -262,15 +294,17 @@ void AudioCapture::processData()
         double maxMagnitude = 0.0;
         quint32 power = smoothPower(0.0);
         m_signalPower = power;
-        for (int barsNumber : m_fftMagnitudeMap.keys())
+        for (quint32 key : m_fftMagnitudeMap.keys())
         {
-            // Ensure the buffer exists and is zeroed
-            auto &buf = m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer;
+            const int barsNumber = spectrumBandsCountFromKey(key);
+            auto &buf = m_fftMagnitudeMap[key].m_fftMagnitudeBuffer;
             if (buf.size() != barsNumber)
                 buf = QVector<double>(barsNumber);
             else
                 buf.fill(0.0);
-            emit dataProcessed(buf.data(), buf.size(), maxMagnitude, power);
+            emit dataProcessed(buf.data(), buf.size(), maxMagnitude, power,
+                               int(spectrumGridModeFromKey(key)),
+                               spectrumLowBandGammaFromKey(key));
         }
         return;
     }
@@ -314,18 +348,21 @@ void AudioCapture::processData()
     // 5) Fill per-band magnitudes and compute power
     double pwrSum = 0.;
     double maxMagnitude = 0.;
-    for (int barsNumber : m_fftMagnitudeMap.keys())
+    for (quint32 key : m_fftMagnitudeMap.keys())
     {
-        maxMagnitude = fillBandsData(barsNumber); // fills & returns max per-band
+        const int barsNumber = spectrumBandsCountFromKey(key);
+        maxMagnitude = fillBandsData(key);
         pwrSum = 0.;
         for (int n = 0; n < barsNumber; n++)
-            pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];
+            pwrSum += m_fftMagnitudeMap[key].m_fftMagnitudeBuffer[n];
 
         const double rawPower = 32768.0 * pwrSum * qSqrt(M_2PI) / double(barsNumber);
         m_signalPower = smoothPower(rawPower);
-        emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
-                           m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
-                           maxMagnitude, m_signalPower);
+        emit dataProcessed(m_fftMagnitudeMap[key].m_fftMagnitudeBuffer.data(),
+                           m_fftMagnitudeMap[key].m_fftMagnitudeBuffer.size(),
+                           maxMagnitude, m_signalPower,
+                           int(spectrumGridModeFromKey(key)),
+                           spectrumLowBandGammaFromKey(key));
     }
 }
 
