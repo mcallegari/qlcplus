@@ -6015,7 +6015,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="90"/>
         <source>Percentage</source>
-        <translation>Pocentatge</translation>
+        <translation>Percentatge</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="107"/>
