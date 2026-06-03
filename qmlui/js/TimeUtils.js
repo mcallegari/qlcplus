@@ -158,17 +158,25 @@ function qlcStringToTime(str, type)
     {
         var tokens = str.split(" ");
 
-        finalTime = parseInt(tokens[0]) * 1000;
-
-        if (tokens.length > 1)
+        for (var t = 0; t < tokens.length; t++)
         {
-            if (tokens[0] === " 1/8") { finalTime += 125; }
-            else if (tokens[0] === " 1/4") { finalTime += 250; }
-            else if (tokens[0] === " 3/8") { finalTime += 375; }
-            else if (tokens[0] === " 1/2") { finalTime += 500; }
-            else if (tokens[0] === " 5/8") { finalTime += 625; }
-            else if (tokens[0] === " 3/4") { finalTime += 750; }
-            else if (tokens[0] === " 7/8") { finalTime += 875; }
+            var token = tokens[t];
+            if (token === "") continue;
+
+            if (token.indexOf("/") !== -1)
+            {
+                if      (token === "1/8") { finalTime += 125; }
+                else if (token === "1/4") { finalTime += 250; }
+                else if (token === "3/8") { finalTime += 375; }
+                else if (token === "1/2") { finalTime += 500; }
+                else if (token === "5/8") { finalTime += 625; }
+                else if (token === "3/4") { finalTime += 750; }
+                else if (token === "7/8") { finalTime += 875; }
+            }
+            else
+            {
+                finalTime += parseInt(token) * 1000;
+            }
         }
     }
 
