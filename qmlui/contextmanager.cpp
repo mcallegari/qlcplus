@@ -519,6 +519,7 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         {
             case App::FixtureDragItem:
                 m_fixtureManager->deleteFixtures(selectedItemIDVariantList());
+                m_fixtureManager->resetCapabilities();
             break;
             case App::FixtureGroupDragItem:
                 //m_fixtureManager->deleteFixtureGroups(); // TODO
