@@ -2114,7 +2114,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemI
     if (fixture->fixtureMode() != nullptr)
         phy = fixture->fixtureMode()->physical();
 
-    for (quint32 ch : channelIndices)
+    for (quint32 &ch : channelIndices)
     {
         const QLCChannel *channel(fixture->channel(ch));
         if (channel == nullptr)
@@ -2300,6 +2300,7 @@ void FixtureManager::resetCapabilities()
     m_minBeamDegrees = 15.0;
     m_maxBeamDegrees = 0;
     m_colorsMask = 0;
+    m_presetsCache.clear();
     m_capabilityMask = 0;
 
     emit capabilityMaskChanged();
