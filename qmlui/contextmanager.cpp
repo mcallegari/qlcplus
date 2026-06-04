@@ -20,6 +20,7 @@
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QDebug>
+#include <QTimer>
 #include <QtMath>
 
 #include "contextmanager.h"
@@ -150,7 +151,18 @@ void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
     else if (name == "2D")
         m_2DView->updateFixtureSelection(m_selectedFixtures);
     else if (name == "3D")
+    {
         m_3DView->updateFixtureSelection(m_selectedFixtures);
+        if (enable)
+        {
+            // RHI view refreshes asynchronously on enable: re-apply selection after items are recreated.
+            QTimer::singleShot(0, this, [this]()
+            {
+                if (m_3DView->isEnabled())
+                    m_3DView->updateFixtureSelection(m_selectedFixtures);
+            });
+        }
+    }
 
     emit currentContextChanged();
 }
@@ -873,6 +885,8 @@ void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal 
         m_2DView->updateFixturePosition(itemID, newPos);
     if (m_3DView->isEnabled())
         m_3DView->updateFixturePosition(itemID, newPos);
+
+    emit fixturesPositionChanged();
 }
 
 void ContextManager::setFixturesOffset(qreal x, qreal y)
@@ -1442,6 +1456,8 @@ void ContextManager::setFixtureRotation(quint32 itemID, QVector3D degrees)
         m_2DView->updateFixtureRotation(itemID, degrees);
     if (m_3DView->isEnabled())
         m_3DView->updateFixtureRotation(itemID, degrees);
+
+    emit fixturesRotationChanged();
 }
 
 void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse)
@@ -1491,6 +1507,11 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
         return;
 
     qDebug() << "[ContextManager] New fixture created" << fxID;
+    qDebug() << "[ContextManager] enabled views:"
+             << "UNIGRID" << m_uniGridView->isEnabled()
+             << "DMX" << m_DMXView->isEnabled()
+             << "2D" << m_2DView->isEnabled()
+             << "3D" << m_3DView->isEnabled();
 
     if (m_uniGridView->isEnabled())
         m_monProps->setFixturePosition(fxID, 0, 0, QVector3D(0, 0, 0));
@@ -1499,7 +1520,11 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
     if (m_2DView->isEnabled())
         m_2DView->createFixtureItems(fxID, QVector3D(x, y, z), false);
     if (m_3DView->isEnabled())
+    {
+        qDebug() << "[ContextManager] creating 3D fixture items for" << fxID
+                 << "at" << QVector3D(x, y, z);
         m_3DView->createFixtureItems(fxID, QVector3D(x, y, z), false);
+    }
 }
 
 void ContextManager::slotFixtureDeleted(quint32 itemID)

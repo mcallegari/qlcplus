@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  ModelItem.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,18 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#include "qml/ModelItem.h"
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
+ModelItem::ModelItem(QObject *parent)
+    : MeshItem(parent)
+{
+}
 
-#endif // MAINVIEW3D_H
+void ModelItem::setPath(const QString &path)
+{
+    if (m_path == path)
+        return;
+    m_path = path;
+    emit pathChanged();
+    notifyParent();
+}

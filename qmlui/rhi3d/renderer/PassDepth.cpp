@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  PassDepth.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,16 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#include "renderer/PassDepth.h"
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
+void PassDepth::prepare(FrameContext &ctx)
+{
+    Q_UNUSED(ctx);
+    // TODO: build depth-only pipeline state and targets.
+}
 
-#endif // MAINVIEW3D_H
+void PassDepth::execute(FrameContext &ctx)
+{
+    Q_UNUSED(ctx);
+    // TODO: render depth pre-pass.
+}

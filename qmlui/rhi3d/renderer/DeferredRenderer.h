@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  DeferredRenderer.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,29 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#pragma once
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
+#include <memory>
 
-#endif // MAINVIEW3D_H
+#include "core/RenderGraph.h"
+
+class RhiContext;
+class RenderTargetCache;
+class ShaderManager;
+class RhiScene;
+
+class DeferredRenderer
+{
+public:
+    DeferredRenderer();
+
+    void initialize(RhiContext *rhi, RenderTargetCache *targets, ShaderManager *shaders);
+    void resize(const QSize &size);
+    void render(RhiScene *scene);
+
+private:
+    RenderGraph m_graph;
+    FrameContext m_frameCtx;
+    ShadowData m_shadowData;
+    LightCullingData m_lightCulling;
+};

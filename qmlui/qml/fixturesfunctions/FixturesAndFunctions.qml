@@ -32,6 +32,8 @@ Rectangle
 
     // will be set later depending on currentView
     property string currentViewQML: ""
+    property string view3DSource: qlcplus.useRhi3DView ? "qrc:/3DViewRhi/3DView.qml" : "qrc:/3DView.qml"
+    property string view3DUnsupportedSource: qlcplus.useRhi3DView ? "qrc:/3DViewRhi/3DViewUnsupported.qml" : "qrc:/3DViewUnsupported.qml"
 
     // string holding the current view. Used by the C++ code
     // for dynamic items creation
@@ -51,7 +53,7 @@ Rectangle
                 currentViewQML = "qrc:/2DView.qml"
             break
             case "3D":
-                currentViewQML = "qrc:/3DView.qml"
+                currentViewQML = view3DSource
             break
         }
 
@@ -222,9 +224,9 @@ Rectangle
                         if (checked)
                         {
                             if (qlcplus.is3DSupported)
-                                loadContext(checked, "qrc:/3DView.qml", "3D")
+                                loadContext(checked, view3DSource, "3D")
                             else
-                                loadContext(checked, "qrc:/3DViewUnsupported.qml", "3D")
+                                loadContext(checked, view3DUnsupportedSource, "3D")
                         }
                     }
                     onRightClicked:

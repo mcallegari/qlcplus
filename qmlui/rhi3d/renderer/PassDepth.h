@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  PassDepth.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,13 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#pragma once
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
+#include "core/RenderGraph.h"
 
-#endif // MAINVIEW3D_H
+class PassDepth final : public RenderPass
+{
+public:
+    void prepare(FrameContext &ctx) override;
+    void execute(FrameContext &ctx) override;
+};

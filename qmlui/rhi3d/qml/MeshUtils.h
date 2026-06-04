@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  MeshUtils.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,18 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#pragma once
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
+#include "scene/Mesh.h"
 
-#endif // MAINVIEW3D_H
+namespace RhiQmlUtils
+{
+
+Mesh createUnitCubeMesh();
+Mesh createUnitQuadMesh();
+Mesh createSphereMesh(float radius = 0.5f, int rings = 16, int sectors = 24);
+Mesh createArcMesh(float majorRadius, float tubeRadius,
+                   float startAngle, float endAngle,
+                   int segments, int sides);
+
+}

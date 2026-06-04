@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  AssimpLoader.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,15 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#pragma once
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
+#include <QtCore/QString>
 
-#endif // MAINVIEW3D_H
+#include "scene/Scene.h"
+
+class AssimpLoader
+{
+public:
+    bool loadModel(const QString &path, RhiScene &scene);
+    bool loadModel(const QString &path, RhiScene &scene, bool append);
+};

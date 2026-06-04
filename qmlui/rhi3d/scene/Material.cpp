@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  mainview3d.h
+  Material.cpp
 
   Copyright (c) Massimo Callegari
 
@@ -17,13 +17,6 @@
   limitations under the License.
 */
 
-#ifndef MAINVIEW3D_H
-#define MAINVIEW3D_H
+#include "scene/Material.h"
 
-#ifdef RHI3D
-#include "mainview3drhi.h"
-#else
-#include "mainview3dqt3d.h"
-#endif
-
-#endif // MAINVIEW3D_H
+// Material is a plain data struct.

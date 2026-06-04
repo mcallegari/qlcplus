@@ -206,6 +206,18 @@
     <file alias="output_depth.frag">qml/fixturesfunctions/3DView/shaders/output_depth.frag</file>
     <file alias="output_depth.vert">qml/fixturesfunctions/3DView/shaders/output_depth.vert</file>
 
+    <!-- 3D View RHI pipeline -->
+    <file alias="3DViewRhi/3DView.qml">qml/fixturesfunctions/3DViewRhi/3DView.qml</file>
+    <file alias="3DViewRhi/3DViewUnsupported.qml">qml/fixturesfunctions/3DViewRhi/3DViewUnsupported.qml</file>
+    <file alias="3DViewRhi/SettingsView3DRhi.qml">qml/fixturesfunctions/3DViewRhi/SettingsView3DRhi.qml</file>
+    <file alias="3DViewRhi/ViewGizmo.qml">qml/fixturesfunctions/3DViewRhi/ViewGizmo.qml</file>
+    <file alias="3DViewRhi/StaticLightFixture.qml">qml/fixturesfunctions/3DViewRhi/StaticLightFixture.qml</file>
+    <file alias="3DViewRhi/MovingHeadFixture.qml">qml/fixturesfunctions/3DViewRhi/MovingHeadFixture.qml</file>
+    <file alias="3DViewRhi/StageSimpleRhi.qml">qml/fixturesfunctions/3DViewRhi/StageSimpleRhi.qml</file>
+    <file alias="3DViewRhi/StageBoxRhi.qml">qml/fixturesfunctions/3DViewRhi/StageBoxRhi.qml</file>
+    <file alias="3DViewRhi/StageRockRhi.qml">qml/fixturesfunctions/3DViewRhi/StageRockRhi.qml</file>
+    <file alias="3DViewRhi/StageTheatreRhi.qml">qml/fixturesfunctions/3DViewRhi/StageTheatreRhi.qml</file>
+
     <!-- Input Output Manager -->
     <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
     <file alias="IOLeftPanel.qml">qml/inputoutput/IOLeftPanel.qml</file>
