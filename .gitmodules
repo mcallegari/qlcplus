@@ -1,0 +1,3 @@
+[submodule "qmlui/rhi3d/shaders"]
+	path = qmlui/rhi3d/shaders
+	url = git@github.com:mcallegari/qlcplus-rhi-shaders.git
