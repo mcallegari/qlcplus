@@ -65,6 +65,7 @@ class App final : public QQuickView
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
     Q_PROPERTY(bool is3DSupported READ is3DSupported CONSTANT)
+    Q_PROPERTY(bool useRhi3DView READ useRhi3DView CONSTANT)
 
 public:
     App();
@@ -181,6 +182,7 @@ public:
     /** Get/Set the 3D support status */
     bool is3DSupported() const;
     void set3dSupported(bool enable);
+    bool useRhi3DView() const;
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

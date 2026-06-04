@@ -313,6 +313,15 @@ void App::set3dSupported(bool enable)
     m_is3dSupported = enable;
 }
 
+bool App::useRhi3DView() const
+{
+#ifdef RHI3D
+    return true;
+#else
+    return false;
+#endif
+}
+
 void App::aboutQt()
 {
     qApp->aboutQt();

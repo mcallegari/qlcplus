@@ -50,10 +50,11 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    // Since Qt6, the default rendering backend is Rhi. 
-    // QLC+ doesn't support it yet so OpenGL have to be forced.
+#ifndef RHI3D
+    // Qt3D backend: force OpenGL-based scene graph and Qt3D renderer.
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
     qputenv("QT3D_RENDERER", "opengl");
+#endif
 
     QApplication::setOrganizationName("qlcplus");
     QApplication::setOrganizationDomain("qlcplus.org");
@@ -135,7 +136,7 @@ int main(int argc, char *argv[])
     int webAccessPort = parser.value(webPortOption).toInt();
     QString webAccessPasswordFile = parser.value(webAuthFileOption);
 
-#if !defined Q_OS_ANDROID
+#if !defined Q_OS_ANDROID && !defined(RHI3D)
     // 3D enablement
     if (!parser.isSet(threedSupportOption))
     {
