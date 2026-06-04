@@ -1,6 +1,12 @@
 project(stage_meshes)
 
-file(GLOB STAGE_MESH_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.obj")
+if(RHI3D)
+    file(GLOB STAGE_MESH_FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/*.glb")
+else()
+    file(GLOB STAGE_MESH_FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/*.obj")
+endif()
 
 # Only perform the copy if we're building for Android
 if(ANDROID)
@@ -10,7 +16,7 @@ if(ANDROID)
     # Create the stage meshes assets directory if it doesn't exist
     file(MAKE_DIRECTORY ${STAGE_MESHES_ASSETS_DIR})
 
-    # Copy the stage mesh .obj files to the assets directory
+    # Copy stage mesh files to the assets directory
     foreach(STAGE_MESH_FILE IN LISTS STAGE_MESH_FILES)
         file(COPY ${STAGE_MESH_FILE} DESTINATION ${STAGE_MESHES_ASSETS_DIR})
     endforeach()
