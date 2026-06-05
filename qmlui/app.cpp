@@ -51,6 +51,7 @@
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
+#include "fixtureremapmanager.h"
 #include "palettemanager.h"
 #include "functionmanager.h"
 #include "fixturegroupeditor.h"
@@ -92,6 +93,7 @@ App::App()
     , m_printItem(nullptr)
     , m_fileName(QString())
     , m_importManager(nullptr)
+    , m_fixtureRemapManager(nullptr)
     , m_fixtureEditor(nullptr)
 {
     QSettings settings;
@@ -171,6 +173,7 @@ void App::startup()
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc, m_fixtureManager);
+    m_fixtureRemapManager = new FixtureRemapManager(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
     m_simpleDesk = new SimpleDesk(this, m_doc, m_functionManager);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);

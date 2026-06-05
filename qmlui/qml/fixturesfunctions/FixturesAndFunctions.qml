@@ -32,6 +32,7 @@ Rectangle
 
     // will be set later depending on currentView
     property string currentViewQML: ""
+    property string previousView: ""
 
     // string holding the current view. Used by the C++ code
     // for dynamic items creation

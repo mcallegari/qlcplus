@@ -109,6 +109,16 @@ function endDrag(mouse)
         y = draggedItem.y - previewLoader.y - viewToolbar.height;
     }
 
+    // Handle remap view: add fixture(s) to the target list instead of the project
+    if (currContext === "REMAP")
+    {
+        fixtureRemapManager.addTargetFixture(manufacturer, model, mode, name,
+                                           universeIndex, address, quantity, gap);
+        draggedItem.destroy();
+        draggedItem = null;
+        return true;
+    }
+
     console.log("[FixtureDrag] Item x: " + x + ", y: " + y);
 
     if (x >= 0 && y >= 0)

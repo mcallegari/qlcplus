@@ -39,6 +39,7 @@ class VirtualConsole;
 class FunctionManager;
 class QXmlStreamReader;
 class FixtureGroupEditor;
+class FixtureRemapManager;
 class InputOutputManager;
 class ImportManager;
 class NetworkManager;
@@ -390,6 +391,7 @@ public:
 
 private:
     ImportManager *m_importManager;
+    FixtureRemapManager *m_fixtureRemapManager;
 
     /*********************************************************************
      * Fixture editor
