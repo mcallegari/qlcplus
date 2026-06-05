@@ -5373,7 +5373,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="66"/>
         <source>Pressure</source>
-        <translation>Pressiño</translation>
+        <translation>Pressió</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="77"/>
