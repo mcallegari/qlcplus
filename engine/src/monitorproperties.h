@@ -46,8 +46,8 @@ typedef struct
     QString m_name;             ///< Fixture/Item Custom name
     QString m_resource;         ///< Generic: source file
     QColor m_color;             ///< Generic: item color, Fixture: gel color
-    int m_zoom;                 ///< Fixture: fixed zoom in degrees
-    quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
+    int m_zoom = 0;             ///< Fixture: fixed zoom in degrees
+    quint32 m_flags = 0;        ///< Item flags as specified in the ItemsFlags enum
 } PreviewItem;
 
 typedef struct
