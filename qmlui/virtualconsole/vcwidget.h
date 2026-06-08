@@ -536,6 +536,11 @@ public:
     /** Update an existing input source with the provided $universe and $channel */
     bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
 
+    /** Look up the input profile channel matching $source's universe/channel and, if found,
+     *  populate the source's feedback extra params, feedback values, working mode and
+     *  signal connections accordingly. */
+    void applyInputProfileSettings(QSharedPointer<QLCInputSource> const& source);
+
     /** Update the control ID of an existing input source bound to $universe and $channel */
     Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
 
