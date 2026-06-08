@@ -26,7 +26,10 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
+#include "virtualconsole.h"
+#include "vcwidget.h"
 #include "fixture.h"
+#include "app.h"
 #include "doc.h"
 
 FixtureRemapManager::FixtureRemapManager(QQuickView *view, Doc *doc, QObject *parent)
@@ -471,7 +474,28 @@ void FixtureRemapManager::applyRemap()
         return;
     }
 
+    const QList<SceneValue> &srcList = m_remapper.sourceList();
+    const QList<SceneValue> &tgtList = m_remapper.targetList();
+
+    QMap<SceneValue, SceneValue> channelRemap;
+    for (int i = 0; i < srcList.count(); i++)
+        channelRemap.insert(srcList.at(i), tgtList.at(i));
+
     m_remapper.applyRemap(m_doc, m_targetDoc->fixtures());
+
+    /* Remap Virtual Console widgets */
+    VirtualConsole *vc = qobject_cast<App *>(m_view)->virtualConsole();
+    if (vc != nullptr)
+    {
+        QVariantList widgets = vc->widgetsList();
+        for (const QVariant &vWidget : widgets)
+        {
+            VCWidget *widget = vWidget.toMap().value("classRef").value<VCWidget *>();
+            if (widget != nullptr)
+                widget->remapChannels(channelRemap);
+        }
+    }
+
     emit remapApplied();
     reset();
 }
