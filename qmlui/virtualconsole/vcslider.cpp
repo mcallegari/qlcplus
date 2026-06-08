@@ -1447,7 +1447,7 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 
 void VCSlider::updateFeedback()
 {
-    int fbv = invertedAppearance() ? rangeHighLimit() - m_value : m_value;
+    int fbv = invertedAppearance() ? rangeHighLimit() - m_value + rangeLowLimit() : m_value;
     fbv = int(SCALE(float(fbv), float(rangeLowLimit()),
                     float(rangeHighLimit()), float(0), float(UCHAR_MAX)));
 
