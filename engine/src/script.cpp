@@ -552,7 +552,7 @@ QString Script::handleStopOnExit(const QList<QStringList>& tokens)
         return QString("Too many arguments");
 
     bool flag = QVariant(tokens[0][1]).toBool();
-    
+
     m_stopOnExit = flag;
 
     return QString();

@@ -161,6 +161,6 @@ void ConfigureHID::slotMergerModeChanged(int state)
     Q_ASSERT(dev != NULL);
 
     bool mergerModeEnabled = (state == Qt::Checked);
-    
+
     dev->enableMergerMode(mergerModeEnabled);
 }

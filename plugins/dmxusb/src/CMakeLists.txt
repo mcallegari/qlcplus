@@ -39,7 +39,7 @@ if(WIN32)
 
     endif()
     target_include_directories(${module_name} PRIVATE ${FTD2XXDIR})
-	message("Building with FTD2xx support.")
+    message("Building with FTD2xx support.")
     set(WITH_D2XX TRUE)
 endif()
 

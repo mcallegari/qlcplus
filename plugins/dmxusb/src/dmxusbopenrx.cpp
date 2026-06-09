@@ -185,8 +185,8 @@ void DMXUSBOpenRx::stop()
         m_running = false;
         wait();
         qDebug() << "Receiving thread stopped";
-    } 
-    else 
+    }
+    else
     {
         qDebug() << "Already stopped";
     }
@@ -207,13 +207,13 @@ void DMXUSBOpenRx::compareAndEmit(const QByteArray& last_payload, const QByteArr
                 emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
                 qDebug() << "Channel" << i - 2 << "changed to" << QString::number((uchar) current_payload[i], 10);
             }
-        } 
+        }
         else if (i < last_payload.length() && i >= current_payload.length())
         {
             // This frame is shorter. So put a 0 instead.
             emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, 0);
             qDebug() << "Channel" << i - 2 << "changed to \"0\"";
-        } 
+        }
         else if (i < current_payload.length() && i >= last_payload.length())
         {
             // Last frame was shorter, just put the current value
@@ -270,13 +270,13 @@ void DMXUSBOpenRx::run()
         {
             usleep(1000); // nothing to read, don't waste CPU
             missed_frames += 1;
-        } 
+        }
         else if (payload.length() == 1)
         {
             // a new frame has begun, the chip returns us the first byte
             current_payload.append(payload);
             usleep(500); // wait a little for the other bytes to be read
-        } 
+        }
         else
         {
             current_payload.append(payload);
@@ -328,7 +328,7 @@ void DMXUSBOpenRx::run()
         {
             m_reader_state = Idling;
             qDebug() << iface()->serial() << "Idling";
-        } 
+        }
         else if (missed_frames == UINT_MAX)
         {
             missed_frames = RECEIVE_START_THRESHOLD;

@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    // Since Qt6, the default rendering backend is Rhi. 
+    // Since Qt6, the default rendering backend is Rhi.
     // QLC+ doesn't support it yet so OpenGL have to be forced.
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
     qputenv("QT3D_RENDERER", "opengl");

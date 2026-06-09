@@ -30,8 +30,8 @@ uniform float coneBottomRadius;
 void main()
 {
     // the mesh is cylinder. We modulate the bottom and top radiuses in the vertex shader.
-    vec3 p = (vertexPosition.y > 0.0) ? 
-                vertexPosition * vec3(coneTopRadius, 1.0, coneTopRadius): 
+    vec3 p = (vertexPosition.y > 0.0) ?
+                vertexPosition * vec3(coneTopRadius, 1.0, coneTopRadius) :
                 vertexPosition * vec3(coneBottomRadius, 1.0, coneBottomRadius);
 
     fsPos = (customModelMatrix * vec4(p, 1.0)).xyz;

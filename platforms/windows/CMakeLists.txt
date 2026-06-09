@@ -8,12 +8,12 @@ else()
 endif()
 
 function(copy_system_library target libname)
-	if(EXISTS ${SYS_LIBS_PATH}/${libname})
-		list(APPEND ${target} ${SYS_LIBS_PATH}/${libname})
-		set(${target} "${${target}}" PARENT_SCOPE)
+    if(EXISTS ${SYS_LIBS_PATH}/${libname})
+        list(APPEND ${target} ${SYS_LIBS_PATH}/${libname})
+        set(${target} "${${target}}" PARENT_SCOPE)
     else()
         message(FATAL_ERROR "ERROR: missing DLL detected: ${libname}")
-	endif()
+    endif()
 endfunction()
 
 # MSYS2 libraries

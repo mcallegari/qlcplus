@@ -63,7 +63,7 @@ var testAlgo;
 
     algo.setLinesSize = function(_size)
     {
-	  // Only set if the input is valid.
+      // Only set if the input is valid.
       if (!(parseInt(_size) === NaN) && parseInt(_size) > 0) {
         algo.linesSize = parseInt(_size);
         util.initialized = false;
@@ -77,7 +77,7 @@ var testAlgo;
 
     algo.setVariability = function(_var)
     {
-	  // Only set if the input is valid.
+      // Only set if the input is valid.
       if (!(parseInt(_var) === NaN) && parseInt(_var) > 0) {
         algo.linesVariability = _var;
         util.initialized = false;
@@ -283,11 +283,11 @@ var testAlgo;
           if (algo.linesBias == 1 || algo.linesBias == 5 || algo.linesBias == 6)
           {
             lines[i].yCenter = Math.round(Math.random() * height / 5);
-          } 
+          }
           else if (algo.linesBias == 2 || algo.linesBias == 7 || algo.linesBias == 8)
           {
-            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height	 / 5);
-          } 
+            lines[i].yCenter = (height - 1) - Math.round(Math.random() * height / 5);
+          }
           else
           {
             lines[i].yCenter = Math.round(Math.random() * (height - 1));
@@ -300,7 +300,7 @@ var testAlgo;
           else if (algo.linesBias == 4 || algo.linesBias == 6 || algo.linesBias == 8)
           {
             lines[i].xCenter = (width - 1) - Math.round(Math.random() * width / 5);
-          } 
+          }
           else
           {
             lines[i].xCenter = Math.round(Math.random() * (width - 1));
@@ -321,7 +321,7 @@ var testAlgo;
 
             if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 5) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter, color, width, height);
-            } 
+            }
             if (algo.linesType == 0 || algo.linesType == 2 || algo.linesType == 4 || algo.linesType == 6) {
               util.drawPixel(lines[i].xCenter + x, lines[i].yCenter, color, width, height);
             }
@@ -334,22 +334,22 @@ var testAlgo;
 
             if (algo.linesType == 3 || algo.linesType == 4 ||  algo.linesType == 9) {
               util.drawPixel(lines[i].xCenter + x, lines[i].yCenter - x, color, width, height);
-            } 
+            }
             if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 10) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter - x, color, width, height);
-            } 
+            }
             if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 11) {
               util.drawPixel(lines[i].xCenter + x, lines[i].yCenter + x, color, width, height);
-            } 
+            }
             if (algo.linesType == 3 || algo.linesType == 4 || algo.linesType == 12) {
               util.drawPixel(lines[i].xCenter - x, lines[i].yCenter + x, color, width, height);
-            } 
+            }
           }
         }
 
         lines[i].step++;
         if (algo.linesSlide > 0) {
-          if ( algo.linesSlide == 1 ) { lines[i].yCenter-- ;} 
+          if ( algo.linesSlide == 1 ) { lines[i].yCenter-- ;}
           else if ( algo.linesSlide == 2 ) { lines[i].yCenter++ ;}
           else if ( algo.linesSlide == 3 ) { lines[i].xCenter-- ;}
           else if ( algo.linesSlide == 4 ) { lines[i].xCenter++ ;}

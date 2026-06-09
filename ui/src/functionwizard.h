@@ -108,7 +108,7 @@ protected:
     void checkPanTilt(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
     void checkRGB(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, qint32* channels);
     void addChannelsToTree(QTreeWidgetItem *grpItem, QTreeWidgetItem *fxGrpItem, QList<quint32> channels );
-    void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type, 
+    void addWidgetItem(QTreeWidgetItem *grpItem, QString name, int type,
                        QTreeWidgetItem *fxGrpItem, quint32 *chan/* , QLCChannel* channel */);
 
     VCWidget *createWidget(int type, VCWidget *parent, int xpos, int ypos,

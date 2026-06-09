@@ -53,9 +53,9 @@ public:
     };
 
     enum Direction {
-    	Undefined,
-		Horizontal,
-		Vertical
+        Undefined,
+        Horizontal,
+        Vertical
     };
 
     QString name() const;

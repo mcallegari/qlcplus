@@ -35,7 +35,7 @@ static QString assembleDevicesName(struct hid_device_info *info)
 
     QString name_part = QString::fromWCharArray(info->manufacturer_string) + " " +
                         QString::fromWCharArray(info->product_string);
-                    
+
     if (name_part.trimmed().isEmpty())
     {
         //use the vendor and product_id combination if name is empty

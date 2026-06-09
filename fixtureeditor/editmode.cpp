@@ -408,7 +408,7 @@ void EditMode::refreshHeadList()
         QList <quint32> channels(head.channels());
         QString summary;
 
-        std::sort(channels.begin(), channels.end());      
+        std::sort(channels.begin(), channels.end());
 
         QListIterator <quint32> it(channels);
         while (it.hasNext() == true)

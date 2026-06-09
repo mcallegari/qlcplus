@@ -272,7 +272,7 @@ Rectangle
                                     if (fixtureObj)
                                         consoleRoot.requestTool(chColumn, fixtureObj.id, index, dmxValue)
                                 }
-                                Keys.onPressed: (event) => 
+                                Keys.onPressed: (event) =>
                                 {
                                     if (event.key === Qt.Key_Escape)
                                         consoleRoot.closeTool()

@@ -125,7 +125,7 @@ void main()
             float refZ = SAMPLE_TEX2D(shadowTex, (q.xy / q.w)).r;
             shadowMask = (curZ < refZ ? 1.0 : 0.0);
         }
-        
+
         float dist = distance(p, lightPos);
         float cos_theta = dot(l, -rd);
         float pm = pmFactor * ((1.0 + cos_theta * cos_theta) / (pow(1.0 + g * g - 2.0 * g * cos_theta, 3.0 / 2.0)));
@@ -136,7 +136,7 @@ void main()
         vec2 tc = mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * (((-myq.xy) * (1.0 / r))) * 0.5 + 0.5;
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
-        
+
         float goboMask = gSample.a * gSample.r;
 
         float contrib =  (1.0 / (1.0  + 0.09 * dist + 0.032 * dist * dist)) * stepLength;

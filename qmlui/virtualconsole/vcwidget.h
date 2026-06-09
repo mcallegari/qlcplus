@@ -553,7 +553,7 @@ public:
                                                   int lower, int upper, int monitor);
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
-    
+
     /** Delete all existing input source from this widget */
     void deleteAllInputSources();
 
