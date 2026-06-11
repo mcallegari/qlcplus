@@ -23,6 +23,9 @@
 #include <Windows.h>
 #include <QObject>
 #include <QList>
+#include <QMap>
+#include <QStringList>
+#include <QVariant>
 
 #include "midienumerator.h"
 
@@ -39,10 +42,11 @@ public:
 
     MidiEnumerator* enumerator() const;
 
-    static QVariant extractInputUID(UINT id);
-    static QVariant extractOutputUID(UINT id);
     static QString extractInputName(UINT id);
     static QString extractOutputName(UINT id);
+
+    static QVariant makeUID(const QString& name, QMap<QString, int>& seen,
+                            const QMap<QString, QStringList>& deviceMap);
 
     void rescan();
 

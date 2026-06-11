@@ -51,6 +51,7 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Widgets
     winmm
+    setupapi
 )
 
 install(TARGETS ${module_name}

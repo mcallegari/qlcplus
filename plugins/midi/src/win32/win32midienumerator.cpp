@@ -18,11 +18,68 @@
 */
 
 #include <windows.h>
+#include <setupapi.h>
 #include <QDebug>
 
 #include "win32midienumeratorprivate.h"
 #include "win32midioutputdevice.h"
 #include "win32midiinputdevice.h"
+
+// {6994AD04-93EF-11D0-A3CC-00A0C9223196}
+static const GUID kKsCategoryMidi = {
+    0x6994AD04, 0x93EF, 0x11D0, {0xA3, 0xCC, 0x00, 0xA0, 0xC9, 0x22, 0x31, 0x96}
+};
+
+// Returns a map of device friendly name -> list of device instance IDs (in
+// enumeration order). Two identical devices share a name but get distinct
+// instance IDs encoding their USB location, e.g. "USB\VID_1235&PID_000A\5&3A4B…".
+// Virtual/software MIDI ports (loopMIDI, etc.) don't appear here.
+static QMap<QString, QStringList> buildMidiDeviceMap()
+{
+    QMap<QString, QStringList> result;
+
+    HDEVINFO devInfo = SetupDiGetClassDevs(
+        &kKsCategoryMidi, NULL, NULL, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
+    if (devInfo == INVALID_HANDLE_VALUE)
+        return result;
+
+    SP_DEVICE_INTERFACE_DATA ifaceData;
+    ifaceData.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
+
+    for (DWORD i = 0; SetupDiEnumDeviceInterfaces(devInfo, NULL, &kKsCategoryMidi, i, &ifaceData); i++)
+    {
+        SP_DEVINFO_DATA devData;
+        devData.cbSize = sizeof(SP_DEVINFO_DATA);
+        DWORD required = 0;
+        // Intentionally passing NULL to get devData populated; call will fail with
+        // ERROR_INSUFFICIENT_BUFFER but that's expected.
+        SetupDiGetDeviceInterfaceDetail(devInfo, &ifaceData, NULL, 0, &required, &devData);
+
+        WCHAR instanceId[256] = {};
+        if (!SetupDiGetDeviceInstanceIdW(devInfo, &devData, instanceId, 256, NULL))
+            continue;
+
+        WCHAR friendlyName[256] = {};
+        DWORD propType = 0;
+        if (!SetupDiGetDeviceRegistryPropertyW(devInfo, &devData, SPDRP_FRIENDLYNAME,
+                                               &propType, (PBYTE)friendlyName,
+                                               sizeof(friendlyName), NULL))
+        {
+            SetupDiGetDeviceRegistryPropertyW(devInfo, &devData, SPDRP_DEVICEDESC,
+                                              &propType, (PBYTE)friendlyName,
+                                              sizeof(friendlyName), NULL);
+        }
+
+        QString name = QString::fromWCharArray(friendlyName);
+        QString instId = QString::fromWCharArray(instanceId).replace('&', ':');
+
+        if (!name.isEmpty() && !instId.isEmpty() && !result[name].contains(instId))
+            result[name].append(instId);
+    }
+
+    SetupDiDestroyDeviceInfoList(devInfo);
+    return result;
+}
 
 /****************************************************************************
  * MIDIEnumeratorPrivate
@@ -50,20 +107,20 @@ MidiEnumerator* MidiEnumeratorPrivate::enumerator() const
     return qobject_cast<MidiEnumerator*> (parent());
 }
 
-QVariant MidiEnumeratorPrivate::extractInputUID(UINT id)
+QVariant MidiEnumeratorPrivate::makeUID(const QString& name, QMap<QString, int>& seen,
+                                        const QMap<QString, QStringList>& deviceMap)
 {
-    MIDIINCAPS caps;
-    if (midiInGetDevCaps(id, &caps, sizeof(MIDIINCAPS)) == MMSYSERR_NOERROR)
-        return QVariant(QString("%1:%2").arg(caps.wMid).arg(caps.wPid));
-    return QVariant(id);
-}
+    int count = seen.value(name, 0);
+    seen[name] = count + 1;
 
-QVariant MidiEnumeratorPrivate::extractOutputUID(UINT id)
-{
-    MIDIOUTCAPS caps;
-    if (midiOutGetDevCaps(id, &caps, sizeof(MIDIOUTCAPS)) == MMSYSERR_NOERROR)
-        return QVariant(QString("%1:%2").arg(caps.wMid).arg(caps.wPid));
-    return QVariant(id);
+    const QStringList& ids = deviceMap.value(name);
+    if (count < ids.size())
+        return QVariant(ids.at(count));
+
+    // Fallback for virtual/software ports not present in SetupAPI
+    if (count == 0)
+        return QVariant(name);
+    return QVariant(QString("%1:%2").arg(name).arg(count));
 }
 
 QString MidiEnumeratorPrivate::extractInputName(UINT id)
@@ -112,11 +169,15 @@ void MidiEnumeratorPrivate::rescan()
     while (m_outputDevices.isEmpty() == false)
         delete m_outputDevices.takeFirst();
 
+    // Build instance-ID map once; covers both directions (same physical device)
+    QMap<QString, QStringList> deviceMap = buildMidiDeviceMap();
+
     // Create new device instances for each valid midi output
+    QMap<QString, int> outputSeen;
     for (UINT id = 0; id < midiOutGetNumDevs(); id++)
     {
-        QVariant uid = extractOutputUID(id);
         QString name = extractOutputName(id);
+        QVariant uid = makeUID(name, outputSeen, deviceMap);
         Win32MidiOutputDevice* dev = new Win32MidiOutputDevice(uid, name, id, this);
         m_outputDevices << dev;
     }
@@ -128,10 +189,11 @@ void MidiEnumeratorPrivate::rescan()
         delete m_inputDevices.takeFirst();
 
     // Create new device instances for each valid midi input
+    QMap<QString, int> inputSeen;
     for (UINT id = 0; id < midiInGetNumDevs(); id++)
     {
-        QVariant uid = extractInputUID(id);
         QString name = extractInputName(id);
+        QVariant uid = makeUID(name, inputSeen, deviceMap);
         Win32MidiInputDevice* dev = new Win32MidiInputDevice(uid, name, id, this);
         m_inputDevices << dev;
     }
