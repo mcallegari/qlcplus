@@ -30,6 +30,7 @@ Item
     height: UISettings.mediumItemHeight
     y: trackIndex >= 0 ? parseInt(height) * trackIndex : 0
     z: 2
+    clip: true
 
     property ShowFunction sfRef: null
     property QLCFunction funcRef: null
@@ -138,7 +139,14 @@ Item
     {
         id: waveformImage
         z: 3
-        anchors.fill: parent
+        x: 0
+        y: 0
+        // Scale width to the full audio duration so the waveform is not
+        // stretched: the parent's clip:true crops it to the item's visible width.
+        width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
+               ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
+               : itemRoot.width
+        height: itemRoot.height
         visible: funcRef && funcRef.type === QLCFunction.AudioType
         cache: false
         fillMode: Image.Stretch
