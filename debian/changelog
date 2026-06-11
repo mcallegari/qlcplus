@@ -6,8 +6,16 @@ qlcplus (4.14.5) stable; urgency=low
   * Input profiles: added Behringer X-Touch Compact (thanks to Benedict Stein)
   * New fixture: Shehds 300W LED Beam Wash & Gobo 3in1 with Ring (thanks to Charles Mountford)
   * New fixture: Acme Deluge (thanks to Paul)
-  * New fixture: Both Lighting BO-TUBE192 (thanks to Fede79)
+  * New fixtures: Both Lighting BO-TUBE192, Varytec Razor Derby (thanks to Fede79)
   * New fixture: Ledj Slimline 9Q8 (thanks to Jason)
+  * New fixture: Betopper LPC-1218 (thanks to Michael)
+  * New fixture: Shehds PAR Light Battery 6x18W RGBAW+UV (thanks to Maurizio)
+  * New fixture: Eurolite LED WF-30 (thanks to Frank Dreesbch)
+  * New fixture: Eurolite LED PMB-8 COB QCL 30W Bar (thanks to saimyx)
+  * New fixture: Eliminator Lighting Frost FX Bar W (thanks to Joseph Brill)
+  * New fixtures: Briteq BT-250 EZ, BT-Coloray 18FCR, lightmaXX Vega Strobe 600 (thanks to Giacomo Gorini)
+  * New fixture: Chauvet FXpar3 (thanks to Toccata)
+  * New fixture: Litecraft MarsX.1 (thanks to Georg Müller)
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Jun 2026 18:19:20 +0200
 

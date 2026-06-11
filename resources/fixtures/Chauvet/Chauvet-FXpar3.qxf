@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Toccata</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>FXpar3</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Par Red" Preset="IntensityRed"/>
+ <Channel Name="Par Green" Preset="IntensityGreen"/>
+ <Channel Name="Par Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par UV" Preset="IntensityUV"/>
+ <Channel Name="Par Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="RGB SMD">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="21" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="22" Max="37" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="38" Max="53" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="54" Max="69" Preset="ColorMacro" Res1="#ffff00">Red + Green (Yellow)</Capability>
+  <Capability Min="70" Max="101" Preset="ColorMacro" Res1="#ff00ff">Red + Blue (Magneta)</Capability>
+  <Capability Min="102" Max="117" Preset="ColorMacro" Res1="#00ffff">Green + Blue (Cyan)</Capability>
+  <Capability Min="118" Max="133" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue (White)</Capability>
+  <Capability Min="134" Max="149">Auto Program 1</Capability>
+  <Capability Min="150" Max="165">Auto Program 2</Capability>
+  <Capability Min="166" Max="181">Auto Program 3</Capability>
+  <Capability Min="182" Max="197">Auto Program 4</Capability>
+  <Capability Min="198" Max="213">Auto Program 5</Capability>
+  <Capability Min="214" Max="229">Auto Program 6</Capability>
+  <Capability Min="230" Max="245">Auto Program 7</Capability>
+  <Capability Min="246" Max="255">Auto Program 8</Capability>
+ </Channel>
+ <Channel Name="RGB SMD Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">No Function (when not Auto Program)</Capability>
+  <Capability Min="1" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast (when not Auto Program), else program speed slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe or program</Capability>
+ </Channel>
+ <Channel Name="White SMD">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="30" Preset="ColorMacro" Res1="#ffffff">All on</Capability>
+  <Capability Min="31" Max="55">Auto Program 1</Capability>
+  <Capability Min="56" Max="80">Auto Program 2</Capability>
+  <Capability Min="81" Max="105">Auto Program 3</Capability>
+  <Capability Min="106" Max="130">Auto Program 4</Capability>
+  <Capability Min="131" Max="155">Auto Program 5</Capability>
+  <Capability Min="156" Max="180">Auto Program 6</Capability>
+  <Capability Min="181" Max="205">Auto Program 7</Capability>
+  <Capability Min="206" Max="230">Auto Program 8</Capability>
+  <Capability Min="231" Max="255">Auto Program 9</Capability>
+ </Channel>
+ <Channel Name="White SMD Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="White SMD Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="250" Preset="SlowToFast">Program Speed, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active program</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="30">Auto program 1</Capability>
+  <Capability Min="31" Max="55">Auto program 2</Capability>
+  <Capability Min="56" Max="80">Auto program 3</Capability>
+  <Capability Min="81" Max="105">Auto program 4</Capability>
+  <Capability Min="106" Max="130">Auto program 5</Capability>
+  <Capability Min="131" Max="155">Auto program 6</Capability>
+  <Capability Min="156" Max="180">Auto program 7</Capability>
+  <Capability Min="181" Max="205">Auto program 8</Capability>
+  <Capability Min="206" Max="230">Auto program 9 (Sound-active program 8)</Capability>
+  <Capability Min="231" Max="255">Auto program 10 (Sound-active program 8)</Capability>
+ </Channel>
+ <Channel Name="Program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250" Preset="SlowToFast">Program speed, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active</Capability>
+ </Channel>
+ <Channel Name="Par Dimmer or No Function">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="255" Preset="LampOn">1 - 100% (Auto programs channel must be active)</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Par Red</Channel>
+  <Channel Number="1">Par Green</Channel>
+  <Channel Number="2">Par Blue</Channel>
+  <Channel Number="3">Par UV</Channel>
+  <Channel Number="4">Par Strobe</Channel>
+  <Channel Number="5">RGB SMD</Channel>
+  <Channel Number="6">RGB SMD Strobe</Channel>
+  <Channel Number="7">White SMD</Channel>
+  <Channel Number="8">White SMD Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Auto programs</Channel>
+  <Channel Number="1">Program speed</Channel>
+  <Channel Number="2">Par Dimmer or No Function</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="CDM 70W" Lumens="0" ColourTemperature="1"/>
+  <Dimensions Weight="1.1" Width="214" Height="264" Depth="79"/>
+  <Lens Name="Other" DegreesMin="22" DegreesMax="22"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="59" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

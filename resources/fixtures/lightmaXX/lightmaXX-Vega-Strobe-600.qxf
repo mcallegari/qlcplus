@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Vega Strobe 600</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Chase slow&gt;fast</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No Effect</Capability>
+  <Capability Min="5" Max="46">Dancing</Capability>
+  <Capability Min="47" Max="89">Lighting</Capability>
+  <Capability Min="90" Max="130">Rnd Strobe</Capability>
+  <Capability Min="131" Max="170">Ramp Up</Capability>
+  <Capability Min="171" Max="214">Ramp Up-Down</Capability>
+  <Capability Min="215" Max="255">Ramp Down</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Speed slow&gt;fast</Capability>
+ </Channel>
+ <Channel Name="Effect Automatic">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Off</Capability>
+  <Capability Min="5" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Effect Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Off</Capability>
+  <Capability Min="5" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Effect Lightning">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Off</Capability>
+  <Capability Min="5" Max="255">On</Capability>
+ </Channel>
+ <Mode Name="Strobe 2 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="Sectors 6 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Dimmer 1</Channel>
+  <Channel Number="2">Dimmer 2</Channel>
+  <Channel Number="3">Dimmer 3</Channel>
+  <Channel Number="4">Dimmer 4</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="Effects 8 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Chase</Channel>
+  <Channel Number="3">Effects</Channel>
+  <Channel Number="4">Effect Speed</Channel>
+  <Channel Number="5">Effect Automatic</Channel>
+  <Channel Number="6">Effect Sound</Channel>
+  <Channel Number="7">Effect Lightning</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="8000" ColourTemperature="7200"/>
+  <Dimensions Weight="7.5" Width="540" Height="205" Depth="320"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="12"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="6" Height="1"/>
+  <Technical PowerConsumption="600" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>
