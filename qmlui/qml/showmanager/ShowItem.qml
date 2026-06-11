@@ -30,8 +30,6 @@ Item
     height: UISettings.mediumItemHeight
     y: trackIndex >= 0 ? parseInt(height) * trackIndex : 0
     z: 2
-    clip: true
-
     property ShowFunction sfRef: null
     property QLCFunction funcRef: null
     property int startTime: sfRef ? sfRef.startTime : -1
@@ -135,39 +133,46 @@ Item
     }
 
     /* Waveform for audio items */
-    Image
+    Item
     {
-        id: waveformImage
         z: 3
-        x: 0
-        y: 0
-        // Scale width to the full audio duration so the waveform is not
-        // stretched: the parent's clip:true crops it to the item's visible width.
-        width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
-               ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
-               : itemRoot.width
-        height: itemRoot.height
+        anchors.fill: parent
+        clip: true
         visible: funcRef && funcRef.type === QLCFunction.AudioType
-        cache: false
-        fillMode: Image.Stretch
 
-        source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
-
-        function reload()
+        Image
         {
-            const old = source;
-            source = "";
-            source = old;
-        }
+            id: waveformImage
+            x: 0
+            y: 0
+            // Natural width spans the full audio duration so the waveform is
+            // not stretched; the parent Item's clip:true crops it to the
+            // show item's visible width.
+            width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
+                   ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
+                   : itemRoot.width
+            height: itemRoot.height
+            cache: false
+            fillMode: Image.Stretch
 
-        Connections
-        {
-            target: waveformProvider
+            source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
 
-            function onWaveformUpdated(fid)
+            function reload()
             {
-                if (funcRef && fid === funcRef.id)
-                    waveformImage.reload()
+                const old = source;
+                source = "";
+                source = old;
+            }
+
+            Connections
+            {
+                target: waveformProvider
+
+                function onWaveformUpdated(fid)
+                {
+                    if (funcRef && fid === funcRef.id)
+                        waveformImage.reload()
+                }
             }
         }
     }
