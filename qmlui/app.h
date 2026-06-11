@@ -221,6 +221,7 @@ private:
     bool m_is3dSupported;
 
     QTranslator *m_translator;
+    QTranslator *m_translator_base;
 
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
