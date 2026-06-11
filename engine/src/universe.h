@@ -58,6 +58,7 @@ class Doc;
 
 #define KXMLQLCUniversePlugin           QStringLiteral("Plugin")
 #define KXMLQLCUniverseLine             QStringLiteral("Line")
+#define KXMLQLCUniverseLineName         QStringLiteral("Name")
 #define KXMLQLCUniverseLineUID          QStringLiteral("UID")
 #define KXMLQLCUniverseProfileName      QStringLiteral("Profile")
 #define KXMLQLCUniversePluginParameters QStringLiteral("PluginParameters")
@@ -615,7 +616,9 @@ public:
      */
     void savePatchXML(QXmlStreamWriter *doc,
         QString const & tag,
-        QString const & pluginName, const QString &lineName,
+        QString const & pluginName,
+        const QString &lineName,
+        const QString &lineUID,
         quint32 line,
         QString profileName,
         QMap<QString, QVariant>parameters) const;

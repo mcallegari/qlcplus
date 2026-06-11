@@ -132,6 +132,19 @@ QString OutputPatch::outputName() const
     }
 }
 
+QString OutputPatch::outputUID() const
+{
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() &&
+        m_pluginLine < quint32(m_plugin->outputs().size()))
+    {
+        return m_plugin->outputsUID()[m_pluginLine];
+    }
+    else
+    {
+        return KOutputNone;
+    }
+}
+
 quint32 OutputPatch::output() const
 {
     return m_pluginLine;

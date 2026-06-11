@@ -395,8 +395,8 @@ void InputOutputMap::flushInputs()
 }
 
 bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
-                                   const QString &inputUID, quint32 input,
-                                   const QString &profileName)
+                                   const QString &inputUID, const QString &inputName,
+                                   quint32 input, const QString &profileName)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -422,19 +422,24 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     InputPatch *ip = NULL;
     QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
-    if (!inputUID.isEmpty() && plugin != NULL)
+    if (plugin != NULL)
     {
-        QStringList inputs = plugin->inputs();
-        int lIdx = inputs.indexOf(inputUID);
+        int lIdx = -1;
+        // 1. Match by stable UID
+        if (!inputUID.isEmpty())
+            lIdx = plugin->inputsUID().indexOf(inputUID);
+        // 2. Match by display name
+        if (lIdx == -1 && !inputName.isEmpty())
+            lIdx = plugin->inputs().indexOf(inputName);
+        // 3. Fall back to saved line number
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on input by name on universe" << universe << "-" << input << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on input on universe" << universe << "line" << lIdx;
             input = lIdx;
         }
         else
         {
-            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "-" << input << inputUID;
-            qDebug() << plugin->inputs();
+            qDebug() << "[IOMAP] !!No match found!! for input on universe" << universe << "uid:" << inputUID << "name:" << inputName;
         }
     }
 
@@ -483,8 +488,8 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
 }
 
 bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
-                                    const QString &outputUID, quint32 output,
-                                    bool isFeedback, int index)
+                                    const QString &outputUID, const QString &outputName,
+                                    quint32 output, bool isFeedback, int index)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -496,19 +501,24 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     QMutexLocker locker(&m_universeMutex);
     QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
 
-    if (!outputUID.isEmpty() && plugin != NULL)
+    if (plugin != NULL)
     {
-        QStringList inputs = plugin->outputs();
-        int lIdx = inputs.indexOf(outputUID);
+        int lIdx = -1;
+        // 1. Match by stable UID
+        if (!outputUID.isEmpty())
+            lIdx = plugin->outputsUID().indexOf(outputUID);
+        // 2. Match by display name
+        if (lIdx == -1 && !outputName.isEmpty())
+            lIdx = plugin->outputs().indexOf(outputName);
+        // 3. Fall back to saved line number
         if (lIdx != -1)
         {
-            qDebug() << "[IOMAP] Found match on output by name on universe" << universe << "-" << output << "vs" << lIdx;
+            qDebug() << "[IOMAP] Found match on output on universe" << universe << "line" << lIdx;
             output = lIdx;
         }
         else
         {
-            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "-" << output << outputUID;
-            qDebug() << plugin->outputs();
+            qDebug() << "[IOMAP] !!No match found!! for output on universe" << universe << "uid:" << outputUID << "name:" << outputName;
         }
     }
 
@@ -1249,7 +1259,7 @@ void InputOutputMap::loadDefaults()
 
         /* Do the mapping */
         if (plugin != KInputNone && input != KInputNone)
-            setInputPatch(i, plugin, "", input.toUInt(), profileName);
+            setInputPatch(i, plugin, "", "", input.toUInt(), profileName);
     }
 
     /* ************************ OUTPUT *********************************** */
@@ -1276,10 +1286,10 @@ void InputOutputMap::loadDefaults()
         feedback = settings.value(key).toString();
 
         if (plugin != KOutputNone && output != KOutputNone)
-            setOutputPatch(i, plugin, "", output.toUInt());
+            setOutputPatch(i, plugin, "", "", output.toUInt());
 
         if (fb_plugin != KOutputNone && feedback != KOutputNone)
-            setOutputPatch(i, fb_plugin, "", feedback.toUInt(), true);
+            setOutputPatch(i, fb_plugin, "", "", feedback.toUInt(), true);
     }
 }
 

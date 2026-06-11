@@ -342,8 +342,8 @@ public:
      * @return true if successful, otherwise false
      */
     bool setInputPatch(quint32 universe, const QString& pluginName,
-                       const QString& inputUID, quint32 input,
-                       const QString& profileName = QString());
+                       const QString& inputUID, const QString& inputName,
+                       quint32 input, const QString& profileName = QString());
 
     /**
      * Set an input profile to the given universe. If the universe doesn't
@@ -368,8 +368,8 @@ public:
      * @return true if successful, otherwise false
      */
     bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        const QString& outputUID, quint32 output = 0,
-                        bool isFeedback = false, int index = 0);
+                        const QString& outputUID, const QString& outputName,
+                        quint32 output = 0, bool isFeedback = false, int index = 0);
 
     int outputPatchesCount(quint32 universe) const;
 

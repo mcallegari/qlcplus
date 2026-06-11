@@ -81,6 +81,9 @@ public:
     /** Friendly name of the assigned output line */
     QString outputName() const;
 
+    /** Stable UID of the assigned output line, used for project XML persistence */
+    QString outputUID() const;
+
     /** Returns true if a valid plugin line has been set */
     bool isPatched() const;
 

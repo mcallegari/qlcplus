@@ -1118,19 +1118,24 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             QString plugin = KInputNone;
             quint32 inputLine = QLCIOPlugin::invalidLine();
             QString inputUID;
+            QString inputName;
             QString profile = KInputNone;
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
                 inputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineName))
+                inputName = pAttrs.value(KXMLQLCUniverseLineName).toString();
+            else if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                inputName = inputUID; // backward compat: old files stored name in UID attribute
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 inputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
             if (pAttrs.hasAttribute(KXMLQLCUniverseProfileName))
                 profile = pAttrs.value(KXMLQLCUniverseProfileName).toString();
 
             // apply the parameters just loaded
-            ioMap->setInputPatch(index, plugin, inputUID, inputLine, profile);
+            ioMap->setInputPatch(index, plugin, inputUID, inputName, inputLine, profile);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1148,17 +1153,22 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         {
             QString plugin = KOutputNone;
             QString outputUID;
+            QString outputName;
             quint32 outputLine = QLCIOPlugin::invalidLine();
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
                 outputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineName))
+                outputName = pAttrs.value(KXMLQLCUniverseLineName).toString();
+            else if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                outputName = outputUID; // backward compat: old files stored name in UID attribute
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 outputLine = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
 
             // apply the parameters just loaded
-            ioMap->setOutputPatch(index, plugin, outputUID, outputLine, false, outputIndex);
+            ioMap->setOutputPatch(index, plugin, outputUID, outputName, outputLine, false, outputIndex);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1178,17 +1188,22 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         {
             QString plugin = KOutputNone;
             QString outputUID;
+            QString outputName;
             quint32 output = QLCIOPlugin::invalidLine();
 
             if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
                 plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
             if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
                 outputUID = pAttrs.value(KXMLQLCUniverseLineUID).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLineName))
+                outputName = pAttrs.value(KXMLQLCUniverseLineName).toString();
+            else if (pAttrs.hasAttribute(KXMLQLCUniverseLineUID))
+                outputName = outputUID; // backward compat: old files stored name in UID attribute
             if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
                 output = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
 
             // apply the parameters just loaded
-            ioMap->setOutputPatch(index, plugin, outputUID, output, true);
+            ioMap->setOutputPatch(index, plugin, outputUID, outputName, output, true);
 
             QXmlStreamReader::TokenType tType = root.readNext();
             if (tType == QXmlStreamReader::Characters)
@@ -1261,17 +1276,20 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (inputPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(), inputPatch()->inputName(),
+        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(),
+            inputPatch()->inputName(), inputPatch()->inputUID(),
             inputPatch()->input(), inputPatch()->profileName(), inputPatch()->getPluginParameters());
     }
     foreach (OutputPatch *op, m_outputPatchList)
     {
-        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(), op->outputName(),
+        savePatchXML(doc, KXMLQLCUniverseOutputPatch, op->pluginName(),
+            op->outputName(), op->outputUID(),
             op->output(), "", op->getPluginParameters());
     }
     if (feedbackPatch() != NULL)
     {
-        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(), feedbackPatch()->outputName(),
+        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(),
+            feedbackPatch()->outputName(), feedbackPatch()->outputUID(),
             feedbackPatch()->output(), "", feedbackPatch()->getPluginParameters());
     }
 
@@ -1286,6 +1304,7 @@ void Universe::savePatchXML(
     const QString &tag,
     const QString &pluginName,
     const QString &lineName,
+    const QString &lineUID,
     quint32 line,
     QString profileName,
     QMap<QString, QVariant> parameters) const
@@ -1296,7 +1315,8 @@ void Universe::savePatchXML(
 
     doc->writeStartElement(tag);
     doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
-    doc->writeAttribute(KXMLQLCUniverseLineUID, lineName);
+    doc->writeAttribute(KXMLQLCUniverseLineName, lineName);
+    doc->writeAttribute(KXMLQLCUniverseLineUID, lineUID);
     doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
     if (!profileName.isEmpty() && profileName != KInputNone)
         doc->writeAttribute(KXMLQLCUniverseProfileName, profileName);
