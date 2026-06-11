@@ -133,7 +133,7 @@ void MidiEnumeratorPrivate::rescan()
                 if (name.contains("__QLC__") == true)
                     continue;
 
-                QVariant uid = AlsaMidiUtil::addressToVariant(address);
+                QVariant uid = AlsaMidiUtil::buildUid(m_alsa, address);
                 MidiInputDevice* dev = inputDevice(uid);
                 if (dev == NULL)
                 {
@@ -155,7 +155,7 @@ void MidiEnumeratorPrivate::rescan()
                 if (name.contains("__QLC__") == true)
                     continue;
 
-                QVariant uid = AlsaMidiUtil::addressToVariant(address);
+                QVariant uid = AlsaMidiUtil::buildUid(m_alsa, address);
                 MidiOutputDevice* dev = outputDevice(uid);
                 if (dev == NULL)
                 {

@@ -50,8 +50,19 @@ MidiEnumerator* MidiEnumeratorPrivate::enumerator() const
     return qobject_cast<MidiEnumerator*> (parent());
 }
 
-QVariant MidiEnumeratorPrivate::extractUID(UINT id)
+QVariant MidiEnumeratorPrivate::extractInputUID(UINT id)
 {
+    MIDIINCAPS caps;
+    if (midiInGetDevCaps(id, &caps, sizeof(MIDIINCAPS)) == MMSYSERR_NOERROR)
+        return QVariant(QString("%1:%2").arg(caps.wMid).arg(caps.wPid));
+    return QVariant(id);
+}
+
+QVariant MidiEnumeratorPrivate::extractOutputUID(UINT id)
+{
+    MIDIOUTCAPS caps;
+    if (midiOutGetDevCaps(id, &caps, sizeof(MIDIOUTCAPS)) == MMSYSERR_NOERROR)
+        return QVariant(QString("%1:%2").arg(caps.wMid).arg(caps.wPid));
     return QVariant(id);
 }
 
@@ -104,7 +115,7 @@ void MidiEnumeratorPrivate::rescan()
     // Create new device instances for each valid midi output
     for (UINT id = 0; id < midiOutGetNumDevs(); id++)
     {
-        QVariant uid = extractUID(id);
+        QVariant uid = extractOutputUID(id);
         QString name = extractOutputName(id);
         Win32MidiOutputDevice* dev = new Win32MidiOutputDevice(uid, name, id, this);
         m_outputDevices << dev;
@@ -119,7 +130,7 @@ void MidiEnumeratorPrivate::rescan()
     // Create new device instances for each valid midi input
     for (UINT id = 0; id < midiInGetNumDevs(); id++)
     {
-        QVariant uid = extractUID(id);
+        QVariant uid = extractInputUID(id);
         QString name = extractInputName(id);
         Win32MidiInputDevice* dev = new Win32MidiInputDevice(uid, name, id, this);
         m_inputDevices << dev;

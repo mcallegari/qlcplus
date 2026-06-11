@@ -19,6 +19,8 @@
 
 #include <alsa/asoundlib.h>
 #include <QDebug>
+#include <QFileInfo>
+#include <QRegularExpression>
 
 #include "alsamidiutil.h"
 
@@ -59,4 +61,52 @@ QString AlsaMidiUtil::extractName(snd_seq_t* alsa, const snd_seq_addr_t* address
     }
     else
         return QString();
+}
+
+QString AlsaMidiUtil::extractUsbPath(snd_seq_t* alsa, int client)
+{
+    Q_ASSERT(alsa != NULL);
+
+    snd_seq_client_info_t* clientInfo = NULL;
+    snd_seq_client_info_alloca(&clientInfo);
+    if (snd_seq_get_any_client_info(alsa, client, clientInfo) != 0)
+        return QString();
+
+    int card = snd_seq_client_info_get_card(clientInfo);
+    if (card < 0)
+        return QString();
+
+    // Resolve /sys/class/sound/cardN symlink to its real device path.
+    // symLinkTarget() follows one level; canonicalFilePath() resolves fully.
+    QString sysfsPath = QString("/sys/class/sound/card%1").arg(card);
+    QString resolved = QFileInfo(sysfsPath).canonicalFilePath();
+    if (resolved.isEmpty())
+        return QString();
+
+    // Extract USB device path: matches "1-8.1.2" from paths like
+    // /sys/devices/.../usb1/1-8/1-8.1/1-8.1.2/1-8.1.2:1.0/sound/cardN
+    static const QRegularExpression re(R"(([\d]+-[\d.]+)(?=:[\d.]+/sound))");
+    QRegularExpressionMatch m = re.match(resolved);
+    if (!m.hasMatch())
+        return QString();
+
+    return m.captured(1);
+}
+
+QVariant AlsaMidiUtil::buildUid(snd_seq_t* alsa, const snd_seq_addr_t* addr)
+{
+    Q_ASSERT(alsa != NULL);
+    Q_ASSERT(addr != NULL);
+
+    QString usbPath = extractUsbPath(alsa, addr->client);
+    if (!usbPath.isEmpty())
+    {
+        // Include port so different ports on the same USB device get distinct UIDs
+        QString uid = QString("%1:%2").arg(usbPath).arg(addr->port);
+        qDebug() << "ALSA MIDI USB UID:" << uid;
+        return QVariant(uid);
+    }
+
+    // Fall back to numeric client:port encoding for non-USB devices
+    return addressToVariant(addr);
 }

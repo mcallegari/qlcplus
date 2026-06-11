@@ -43,6 +43,11 @@ QStringList QLCIOPlugin::outputs()
     return QStringList();
 }
 
+QStringList QLCIOPlugin::outputsUID()
+{
+    return QStringList(outputs().count(), QString());
+}
+
 QString QLCIOPlugin::outputInfo(quint32 output)
 {
     Q_UNUSED(output)
@@ -77,6 +82,11 @@ void QLCIOPlugin::closeInput(quint32 input, quint32 universe)
 QStringList QLCIOPlugin::inputs()
 {
     return QStringList();
+}
+
+QStringList QLCIOPlugin::inputsUID()
+{
+    return QStringList(inputs().count(), QString());
 }
 
 QString QLCIOPlugin::inputInfo(quint32 input)

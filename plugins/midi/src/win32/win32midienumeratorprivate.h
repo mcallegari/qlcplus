@@ -39,7 +39,8 @@ public:
 
     MidiEnumerator* enumerator() const;
 
-    static QVariant extractUID(UINT id);
+    static QVariant extractInputUID(UINT id);
+    static QVariant extractOutputUID(UINT id);
     static QString extractInputName(UINT id);
     static QString extractOutputName(UINT id);
 

@@ -67,7 +67,7 @@ bool AlsaMidiInputThread::addDevice(AlsaMidiInputDevice* device)
     QMutexLocker locker(&m_mutex);
 
     /* Check, whether the hash table already contains the device */
-    uint uid = device->uid().toUInt();
+    uint uid = device->rawAddressUid();
     if (m_devices.contains(uid) == true)
     {
         return false;
@@ -98,7 +98,7 @@ bool AlsaMidiInputThread::removeDevice(AlsaMidiInputDevice* device)
     {
         QMutexLocker locker(&m_mutex);
 
-        uint uid = device->uid().toUInt();
+        uint uid = device->rawAddressUid();
         if (m_devices.remove(uid) > 0)
         {
            unsubscribeDevice(device);

@@ -84,6 +84,9 @@ public:
     QStringList outputs() override;
 
     /** @reimp */
+    QStringList outputsUID() override;
+
+    /** @reimp */
     QString outputInfo(quint32 output) override;
 
     /** @reimp */
@@ -105,6 +108,9 @@ public:
 
     /** @reimp */
     QStringList inputs() override;
+
+    /** @reimp */
+    QStringList inputsUID() override;
 
     /** @reimp */
     QString inputInfo(quint32 input) override;

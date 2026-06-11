@@ -45,6 +45,10 @@ public:
 
     const snd_seq_addr_t* address() const;
 
+    /** Returns the ALSA client:port encoded as uint for internal event routing.
+     *  Use uid() for stable device identification (USB path when available). */
+    uint rawAddressUid() const;
+
     bool processMBC(snd_seq_event_type_t type);
 
 private:

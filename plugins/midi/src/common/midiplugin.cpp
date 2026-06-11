@@ -123,6 +123,20 @@ QStringList MidiPlugin::outputs()
     return list;
 }
 
+QStringList MidiPlugin::outputsUID()
+{
+    QStringList list;
+
+    QListIterator <MidiOutputDevice*> it(m_enumerator->outputDevices());
+    while (it.hasNext() == true)
+    {
+        MidiOutputDevice* dev = it.next();
+        list << dev->uid().toString();
+    }
+
+    return list;
+}
+
 QString MidiPlugin::pluginInfo() const
 {
     QString str;
@@ -238,6 +252,20 @@ QStringList MidiPlugin::inputs()
     QListIterator <MidiInputDevice*> it(m_enumerator->inputDevices());
     while (it.hasNext() == true)
         list << it.next()->name();
+
+    return list;
+}
+
+QStringList MidiPlugin::inputsUID()
+{
+    QStringList list;
+
+    QListIterator <MidiInputDevice*> it(m_enumerator->inputDevices());
+    while (it.hasNext() == true)
+    {
+        MidiInputDevice* dev = it.next();
+        list << dev->uid().toString();
+    }
 
     return list;
 }
