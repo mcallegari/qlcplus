@@ -294,9 +294,8 @@ void App::setLanguage(QString locale)
 
     QString file_base(QString("%1_%2").arg("qt").arg(locale));
     m_translator_base = new QTranslator(QCoreApplication::instance());
-    if (m_translator_base->load(file_base, QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
+    if (m_translator_base->load(file_base, QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
         QCoreApplication::installTranslator(m_translator_base);
-    }
 
     QSettings settings;
     settings.setValue(SETTINGS_LANGUAGE, locale);
