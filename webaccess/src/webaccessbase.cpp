@@ -563,7 +563,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
             if (cmdList.count() < 5)
                 return true;
 
-            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", parseLineIndex(4));
+            m_doc->inputOutputMap()->setInputPatch(universe, cmdList[3], "", "", parseLineIndex(4));
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "OUTPUT")
@@ -571,7 +571,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
             if (cmdList.count() < 5)
                 return true;
 
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", parseLineIndex(4), false);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", "", parseLineIndex(4), false);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "FB")
@@ -579,7 +579,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
             if (cmdList.count() < 5)
                 return true;
 
-            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", parseLineIndex(4), true);
+            m_doc->inputOutputMap()->setOutputPatch(universe, cmdList[3], "", "", parseLineIndex(4), true);
             m_doc->inputOutputMap()->saveDefaults();
         }
         else if (cmdList[1] == "PROFILE")
@@ -590,7 +590,7 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
             InputPatch *inPatch = m_doc->inputOutputMap()->inputPatch(universe);
             if (inPatch != nullptr)
             {
-                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", inPatch->input(), cmdList[3]);
+                m_doc->inputOutputMap()->setInputPatch(universe, inPatch->pluginName(), "", "", inPatch->input(), cmdList[3]);
                 m_doc->inputOutputMap()->saveDefaults();
             }
         }
