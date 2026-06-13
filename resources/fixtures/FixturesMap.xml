@@ -1579,6 +1579,7 @@
     <F n="Robe-Robin-DLX-Spot" m="Robin DLX Spot"/>
     <F n="Robe-Robin-MiniMe" m="Robin MiniMe"/>
     <F n="Robe-Robin-Spikie" m="Robin Spikie"/>
+    <F n="Robe-Robin-T.5-Profile" m="Robin T.5 Profile"/>
     <F n="Robe-Robin-T1-Profile" m="Robin T1 Profile"/>
     <F n="Robe-Robin-Tetra-1" m="Robin Tetra 1"/>
     <F n="Robe-Robin-Tetra-2" m="Robin Tetra 2"/>
@@ -1590,6 +1591,7 @@
     <F n="Robe-Wash-575-XT" m="Wash 575 XT"/>
   </M>
   <M n="Robert_Juliat">
+    <F n="Robert-Juliat-Dalis-860" m="Dalis 860"/>
     <F n="Robert-Juliat-DArtagnan-934SNX" m="D'Artagnan 934SNX"/>
   </M>
   <M n="Rockville">
@@ -1665,6 +1667,7 @@
   </M>
   <M n="Showtec">
     <F n="Showtec-Acrobat" m="Acrobat"/>
+    <F n="Showtec-ACT-Fresnel-150-WW" m="ACT Fresnel 150 WW"/>
     <F n="Showtec-ACT-PC-60-RGBW" m="ACT PC 60 RGBW"/>
     <F n="Showtec-Atmos-F-350" m="Atmos F-350"/>
     <F n="Showtec-Blade-Runner" m="Blade Runner"/>
@@ -1889,6 +1892,7 @@
     <F n="Starway-Servo-Color-4k" m="Servo Color 4k"/>
     <F n="Starway-Servocolor-600" m="Servocolor 600"/>
     <F n="Starway-Servocolor-800" m="ServoColor 800"/>
+    <F n="Starway-SupraKolor" m="SupraKolor"/>
     <F n="Starway-TourKolor" m="TourKolor"/>
     <F n="Starway-UrbanKolor" m="UrbanKolor"/>
   </M>
@@ -1985,6 +1989,7 @@
     <F n="Varytec-LED-Magic-Mushroom" m="LED Magic Mushroom"/>
     <F n="Varytec-LED-Pad-7-BA-D" m="LED Pad 7 BA-D"/>
     <F n="Varytec-LED-Pad-Bar-Compact-ST-RGB" m="LED Pad Bar Compact ST RGB"/>
+    <F n="Varytec-LED-Pad7-7x10W-6in1-RGBWA-BL" m="LED Pad7 7x10W 6in1 RGBWA BL"/>
     <F n="Varytec-LED-PAR-14x8W" m="LED PAR 14x8W"/>
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
