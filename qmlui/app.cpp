@@ -287,14 +287,16 @@ void App::setLanguage(QString locale)
     if (locale.isEmpty() == true)
         locale = QLocale::system().name();
 
-    QString file(QString("%1_%2").arg("qlcplus").arg(locale));
     m_translator = new QTranslator(QCoreApplication::instance());
-    if (m_translator->load(file, translationPath) == true)
+    if (m_translator->load("qlcplus_" + locale, translationPath) == true)
         QCoreApplication::installTranslator(m_translator);
 
-    QString file_base(QString("%1_%2").arg("qt").arg(locale));
     m_translator_base = new QTranslator(QCoreApplication::instance());
-    if (m_translator_base->load(file_base, QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+#if defined(Q_OS_MACOS)
+    if (m_translator_base->load("qtbase_" + locale, translationPath))
+#else
+    if (m_translator_base->load("qt_" + locale, QLibraryInfo::path(QLibraryInfo::TranslationsPath)))
+#endif
         QCoreApplication::installTranslator(m_translator_base);
 
     QSettings settings;
