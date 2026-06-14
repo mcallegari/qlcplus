@@ -32,8 +32,7 @@
 /*********************************************************************
  * Build common header in Constructor
  *********************************************************************/
-IdnPacketizer::IdnPacketizer(){
-}
+IdnPacketizer::IdnPacketizer(){}
 
 IdnPacketizer::~IdnPacketizer(){}
 
@@ -43,7 +42,8 @@ IdnPacketizer::~IdnPacketizer(){}
 
 // bekommt setupIdnDmx(dmxPacket, m_mode, justifiedData, NULL, m_seqnum, true);
 
- void IdnPacketizer::setupIdnDmx(QByteArray& data, const quint8 &mode, const quint8 &channelID, const QByteArray &values, const quint16 offset, const quint32 seqnum, const bool config, const quint8 serviceID){
+ void IdnPacketizer::setupIdnDmx(QByteArray& data, const quint8 &mode, const quint8 &channelID, const QByteArray &values, const quint16 offset, const quint32 seqnum, const bool config, const quint8 serviceID)
+ {
     data.clear();
     IDNDMX_PACKET packet;
     InitDMXPacket(&packet);
@@ -64,7 +64,8 @@ IdnPacketizer::~IdnPacketizer(){}
     data = QByteArray(reinterpret_cast<char*>(packet.buf), packet.end - packet.buf);
 }
 
- void IdnPacketizer::setupIdnDmx(QByteArray& data, const quint8 &mode, const quint8 &channelID, const QByteArray &values, const QList<QPair<int, int> > ranges, const quint32 seqnum, const bool config, const quint8 serviceID){
+ void IdnPacketizer::setupIdnDmx(QByteArray& data, const quint8 &mode, const quint8 &channelID, const QByteArray &values, const QList<QPair<int, int> > ranges, const quint32 seqnum, const bool config, const quint8 serviceID)
+ {
     data.clear();
     IDNDMX_PACKET packet;
     InitDMXPacket(&packet);
@@ -87,13 +88,15 @@ IdnPacketizer::~IdnPacketizer(){}
     data = QByteArray(reinterpret_cast<char*>(packet.buf), packet.end - packet.buf);
 }
 
-void IdnPacketizer::generateNullPacket(QByteArray& data, const quint32 seqnum, const quint8 &mode, const quint8 channelID, const quint8 serviceID){
+void IdnPacketizer::generateNullPacket(QByteArray& data, const quint32 seqnum, const quint8 &mode, const quint8 channelID, const quint8 serviceID)
+{
   QByteArray empty;
   empty.fill(0x00, 512);
   setupIdnDmx(data, mode, channelID, empty, 1, seqnum, true, serviceID);
 }
 
-void IdnPacketizer::generateIdlePacket(QByteArray& data, const quint32 seqnum, const quint8 channelID, const quint8 serviceID){
+void IdnPacketizer::generateIdlePacket(QByteArray& data, const quint32 seqnum, const quint8 channelID, const quint8 serviceID)
+{
   data.clear();
   IDNDMX_PACKET packet;
   InitDMXPacket(&packet);
@@ -104,7 +107,8 @@ void IdnPacketizer::generateIdlePacket(QByteArray& data, const quint32 seqnum, c
   data = QByteArray(reinterpret_cast<char*>(packet.buf), packet.end - packet.buf);
 }
 
-void IdnPacketizer::generateClosePacket(QByteArray& data, const quint32 seqnum, const quint8 channelID, const quint8 serviceID){
+void IdnPacketizer::generateClosePacket(QByteArray& data, const quint32 seqnum, const quint8 channelID, const quint8 serviceID)
+{
   data.clear();
   IDNDMX_PACKET packet;
   InitDMXPacket(&packet);
@@ -115,7 +119,8 @@ void IdnPacketizer::generateClosePacket(QByteArray& data, const quint32 seqnum, 
   data = QByteArray(reinterpret_cast<char*>(packet.buf), packet.end - packet.buf);
 }
 
-void IdnPacketizer::generateScanRequestPacket(QByteArray& data){
+void IdnPacketizer::generateScanRequestPacket(QByteArray& data)
+{
   data.clear();
   IDNDMX_PACKET scanPacket;
   InitDMXPacket(&scanPacket);
@@ -123,7 +128,8 @@ void IdnPacketizer::generateScanRequestPacket(QByteArray& data){
   data = QByteArray(reinterpret_cast<char*>(scanPacket.buf), scanPacket.end - scanPacket.buf);
 }
 
-void IdnPacketizer::generateServiceMapRequestPacket(QByteArray& data){
+void IdnPacketizer::generateServiceMapRequestPacket(QByteArray& data)
+{
   data.clear();
   IDNDMX_PACKET scanPacket;
   InitDMXPacket(&scanPacket);
@@ -131,21 +137,24 @@ void IdnPacketizer::generateServiceMapRequestPacket(QByteArray& data){
   data = QByteArray(reinterpret_cast<char*>(scanPacket.buf), scanPacket.end - scanPacket.buf);
 }
 
-bool IdnPacketizer::validateReply(QByteArray datagram){
+bool IdnPacketizer::validateReply(QByteArray datagram)
+{
     if(datagram.size() == 44 && datagram.data()[0] == IDNCMD_SCANREPLY){
         return true;
     }
     return false;
 }
 
-bool IdnPacketizer::validateServiceMapReply(QByteArray datagram){
+bool IdnPacketizer::validateServiceMapReply(QByteArray datagram)
+{
     if(datagram.size() >= 8 && datagram.data()[0] == IDNCMD_SERVICEREPLY){
         return true;
     }
     return false;
 }
 
- void IdnPacketizer::InitDMXPacket(IDNDMX_PACKET *packet){
+ void IdnPacketizer::InitDMXPacket(IDNDMX_PACKET *packet)
+ {
   packet->packetHeader = NULL;
   packet->channelMessage = NULL;
   packet->channelConfig = NULL;
@@ -155,14 +164,16 @@ bool IdnPacketizer::validateServiceMapReply(QByteArray datagram){
   packet->end = packet->buf;
 }
 
-void IdnPacketizer::setPacketHeader(IDNDMX_PACKET *packet, unsigned char command, unsigned short seqnum){
+void IdnPacketizer::setPacketHeader(IDNDMX_PACKET *packet, unsigned char command, unsigned short seqnum)
+{
   packet->packetHeader = (IDNHDR_PACKET*)IDNAddLayerToPacket(packet, sizeof(IDNHDR_PACKET));
   packet->packetHeader->command = command;
   packet->packetHeader->flags = 0;
   packet->packetHeader->seqnum = htons(seqnum);
 }
 
-int IdnPacketizer::buildChannelMessage(IDNDMX_PACKET *packet, quint8 channelID){
+int IdnPacketizer::buildChannelMessage(IDNDMX_PACKET *packet, quint8 channelID)
+{
   packet->channelMessage = (IDNHDR_CHANNEL_MESSAGE *)IDNAddLayerToPacket(packet, sizeof(IDNHDR_CHANNEL_MESSAGE));
   IDNAddSizeToPacket(packet, sizeof(IDNHDR_CHANNEL_MESSAGE));
 
@@ -172,7 +183,8 @@ int IdnPacketizer::buildChannelMessage(IDNDMX_PACKET *packet, quint8 channelID){
   return 0;
 }
 
-void IdnPacketizer::buildConfigHeader(IDNDMX_PACKET *packet, unsigned char flags, unsigned char serviceMode, unsigned char serviceID){
+void IdnPacketizer::buildConfigHeader(IDNDMX_PACKET *packet, unsigned char flags, unsigned char serviceMode, unsigned char serviceID)
+{
   packet->channelConfig = (IDNHDR_CHANNEL_CONFIG *)IDNAddLayerToPacket(packet, sizeof(IDNHDR_CHANNEL_CONFIG));
   packet->channelMessage->contentID |= IDNFLG_CONTENTID_CONFIG_LSTFRG;
   packet->channelConfig->wordCount = 0;
@@ -181,7 +193,8 @@ void IdnPacketizer::buildConfigHeader(IDNDMX_PACKET *packet, unsigned char flags
   packet->channelConfig->serviceMode = serviceMode;
 }
 
-int IdnPacketizer::addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned short base){
+int IdnPacketizer::addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned short base)
+{
   packet->serviceModeConfig = (IDNHDR_DMX_CONFIG *)IDNAddLayerToPacket(packet, sizeof(IDNHDR_DMX_CONFIG));
   packet->serviceModeConfig->idprm = IDNVAL_SMOD_CONFIG_SUBSET_BASE;
   packet->serviceModeConfig->base = htons(base);
@@ -190,7 +203,8 @@ int IdnPacketizer::addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned sho
   return 0;
 }
 
-int IdnPacketizer::addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned short base, unsigned char count){
+int IdnPacketizer::addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned short base, unsigned char count)
+{
   packet->serviceModeConfig = (IDNHDR_DMX_CONFIG *)IDNAddLayerToPacket(packet, sizeof(IDNHDR_DMX_CONFIG));
   packet->serviceModeConfig->idprm = IDNVAL_SMOD_CONFIG_SUBSET_COUNT;
   packet->serviceModeConfig->base = htons(base);

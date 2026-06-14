@@ -692,7 +692,8 @@ void IdnConfiguration::mergeScanResult(const IdnHostClientSettings &clientSettin
     createTreeItem(clientSettings);
 }
 
-QTreeWidgetItem* IdnConfiguration::createTreeItem(const IdnHostClientSettings &clientSettings) {
+QTreeWidgetItem* IdnConfiguration::createTreeItem(const IdnHostClientSettings &clientSettings) 
+{
     QTreeWidgetItem *nitem = new QTreeWidgetItem(m_clientTree);
 
     nitem->setText(CONFIG_INTERFACE_SLOT, clientSettings.settings.iface.toString());

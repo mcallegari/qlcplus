@@ -64,7 +64,8 @@ IdnClient::~IdnClient()
 	sendClosePacket();
 }
 
-void IdnClient::sendClosePacket(){
+void IdnClient::sendClosePacket()
+{
   QByteArray dmxPacket;
   m_packetizer->generateClosePacket(dmxPacket, m_seqnum, m_channelID, m_serviceID);
   QMutexLocker socketLocker(m_socketMutex.data());
@@ -80,7 +81,8 @@ void IdnClient::sendClosePacket(){
   }
 }
 
-QByteArray IdnClient::optimizedMode(const QByteArray &data){
+QByteArray IdnClient::optimizedMode(const QByteArray &data)
+{
   // Detect blackout: all 512 channels are zero — send a null packet
   if(data.count((char)0x0) == 512){
     QByteArray blackoutpacket;
@@ -157,7 +159,8 @@ QByteArray IdnClient::optimizedMode(const QByteArray &data){
   return dmxPacket; 
 }
 
-QByteArray IdnClient::rangeMode(const QByteArray &data){
+QByteArray IdnClient::rangeMode(const QByteArray &data)
+{
   QByteArray dmxPacket;
 
   QByteArray universeRange(m_rangeEnd, (char)0x0);
@@ -183,7 +186,8 @@ QByteArray IdnClient::rangeMode(const QByteArray &data){
  * Checks whether a config packet is necessary and calls the Packetizer to build
    the packet. Then the function sends the packet to the specific receiver.
  *****************************************************************************/
-void IdnClient::sendDmx(const QByteArray &data){
+void IdnClient::sendDmx(const QByteArray &data)
+{
 
   QMutexLocker locker(&m_dataMutex);
   if(closeTimer->isActive()){
@@ -259,6 +263,7 @@ void IdnClient::sendDmx(const QByteArray &data){
   }
 }
 
-quint64 IdnClient::getPacketSentNumber(){
+quint64 IdnClient::getPacketSentNumber()
+{
     return m_packetSent;
 }

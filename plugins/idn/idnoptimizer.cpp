@@ -30,7 +30,8 @@ IdnOptimizer::IdnOptimizer(){
 IdnOptimizer::~IdnOptimizer(){}
 
 
-IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, const bool checkNullValues){
+IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, const bool checkNullValues)
+{
     QByteArray newData = data;
     QByteArray fill;
     newData.append(fill.fill(0x00, 512), 512-data.length());
@@ -59,7 +60,8 @@ IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, c
     return getRanges(changedList);
 }
 
-QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData){
+QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData)
+{
   QList<int> changedChannelBuffer;
   for(int i = 0; i < oldData.length(); i++){
       if(newData.at(i) == oldData.at(i)){
@@ -71,7 +73,8 @@ QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData){
   return changedChannelBuffer;
 }
 
-IdnOptimizer::PacketInformation IdnOptimizer::getRanges(QList<int> changed){
+IdnOptimizer::PacketInformation IdnOptimizer::getRanges(QList<int> changed)
+{
     sort(changed.begin(), changed.end(), std::greater<int>());
   QList<QPair<int, int> > resultRanges;
   

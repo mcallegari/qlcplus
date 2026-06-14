@@ -230,7 +230,8 @@ void IdnPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 /*****************************************************************************
 * Reconfigure Controller after change of settings
 *****************************************************************************/
- void IdnPlugin::reconfigureController(){
+ void IdnPlugin::reconfigureController()
+ {
    //close all open outputs
    for(int i = 0; i < m_Outputmapping.length(); i++){
      closeOutput(i, 0);
@@ -241,14 +242,16 @@ void IdnPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
  * Configuration
  ****************************************************************************/
 
-void IdnPlugin::configure(){
+void IdnPlugin::configure()
+{
   IdnConfiguration config(this);
   config.exec();
   //reconfigureController();
   emit configurationChanged();
 }
 
-bool IdnPlugin::canConfigure() const{
+bool IdnPlugin::canConfigure() const
+{
     return true;
 }
 
@@ -257,30 +260,12 @@ QList<IdnOutput> IdnPlugin::getOutputmapping()
     return m_Outputmapping;
 }
 
-
-// void IdnPlugin::setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value){
-
-//    if (line >= (quint32)m_Outputmapping.length()) {
-//       return;
-//    }
-
-//    IdnController *controller = m_Outputmapping.at(line).controller;
-//    if (controller == NULL) {
-//     return;
-//    }
-
-//    if(type != Output){
-//        qWarning() << Q_FUNC_INFO << name << "is not a valid IDN parameter";
-//    }
-
-//    QLCIOPlugin::setParameter(universe, line, type, name, value);
-// }
-
 /*****************************************************************************
  * Load Settings from idn.ini File
  *****************************************************************************/
 
-QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings(){
+QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings()
+{
   try
   {
     const std::string filePath = settingsFilePath().toStdString();
@@ -290,7 +275,6 @@ QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings(){
       qWarning() << "Could not open settings file:" << settingsFilePath();
       return m_manualClients;
     }
-
 
     nlohmann::json jsonSettings;
     file >> jsonSettings;
@@ -341,7 +325,8 @@ QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings(){
   }
 }
 
-void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings){
+void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
+{
     m_manualClients.clear();
     if(settings.size() > 0) {
       m_manualClients = settings;
@@ -385,7 +370,8 @@ void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings){
   file << jsonSettings.dump(4);
 }
 
-QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting(){
+QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting()
+{
   return m_manualClients;
 }
 
