@@ -330,7 +330,8 @@ QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings()
   return m_manualClients;
 }
 
-void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings){
+void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
+{
     m_manualClients.clear();
     if(settings.size() > 0) {
       m_manualClients = settings;

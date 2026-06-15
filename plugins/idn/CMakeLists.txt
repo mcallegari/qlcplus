@@ -28,7 +28,6 @@ target_sources(${module_name} PRIVATE
     idnoptimizer.h
     idnpacketizer.cpp
     idnpacketizer.h
-    ui_idnconfiguration.h
 )
 
 target_include_directories(${module_name} PRIVATE
