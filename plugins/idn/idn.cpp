@@ -22,6 +22,10 @@
 #include <QString>
 #include <QDebug>
 #include <QThread>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QFile>
 
 #include "idn.h"
 #include "idnconfiguration.h"
@@ -261,72 +265,72 @@ QList<IdnOutput> IdnPlugin::getOutputmapping()
 }
 
 /*****************************************************************************
- * Load Settings from idn.ini File
+ * Load Settings from idn_settings.json File
  *****************************************************************************/
 
 QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings()
 {
-  try
+  QFile file(settingsFilePath());
+  if (!file.open(QIODevice::ReadOnly))
   {
-    const std::string filePath = settingsFilePath().toStdString();
-    std::ifstream file(filePath);
-    if (!file.is_open())
-    {
-      qWarning() << "Could not open settings file:" << settingsFilePath();
-      return m_manualClients;
-    }
-
-    nlohmann::json jsonSettings;
-    file >> jsonSettings;
-
-    for (const auto &entry : jsonSettings.items())
-    {
-      const std::string &ip = entry.key();
-      const auto &clients = entry.value();
-      for (const auto &client : clients)
-      {
-        // Validate required fields
-        if (!client.contains("serviceID"))
-          qWarning() << "[IDN] loadSettings: entry for IP" << QString::fromStdString(ip) << "is missing 'serviceID', defaulting to 0";
-        if (!client.contains("universe"))
-          qWarning() << "[IDN] loadSettings: entry for IP" << QString::fromStdString(ip) << "is missing 'universe', defaulting to 1";
-        if (!client.contains("iface"))
-          qWarning() << "[IDN] loadSettings: entry for IP" << QString::fromStdString(ip) << "is missing 'iface', defaulting to 127.0.0.1";
-
-        IdnHostInfo hostInfo;
-        hostInfo.address = QHostAddress(QString::fromStdString(ip));
-        hostInfo.serviceId = client.value("serviceID", 0);
-
-        IdnSettings idnSettings;
-        idnSettings.iface = QHostAddress(QString::fromStdString(client.value("iface", "127.0.0.1")));
-        idnSettings.universe = client.value("universe", 1);
-        idnSettings.unitName = QString::fromStdString(client.value("unitName", ""));
-        idnSettings.serviceName = QString::fromStdString(client.value("serviceName", ""));
-        idnSettings.serviceID = client.value("serviceID", 0);
-        idnSettings.serviceType = client.value("serviceType", 0);
-        idnSettings.port = client.value("port", IDN_PORT);
-        idnSettings.mode = client.value("mode", 4);
-        idnSettings.idnChannel = client.value("idnChannel", 0);
-        idnSettings.rangeBegin = client.value("rangeBegin", 1);
-        idnSettings.rangeEnd = client.value("rangeEnd", 512);
-        idnSettings.scan = client.value("scan", false);
-        idnSettings.disabled = client.value("disabled", false);
-
-        m_manualClients[hostInfo] = idnSettings;
-      }
-    }
-
+    qWarning() << "Could not open settings file:" << settingsFilePath();
     return m_manualClients;
   }
-  catch (const std::exception &e)
+
+  const QByteArray fileData = file.readAll();
+  file.close();
+
+  QJsonParseError parseError;
+  const QJsonDocument doc = QJsonDocument::fromJson(fileData, &parseError);
+  if (parseError.error != QJsonParseError::NoError || !doc.isObject())
   {
-    qWarning() << "Error loading settings: " << e.what();
+    qWarning() << "Error loading settings:" << parseError.errorString();
     return m_manualClients;
   }
+
+  const QJsonObject jsonSettings = doc.object();
+  for (auto entry = jsonSettings.constBegin(); entry != jsonSettings.constEnd(); ++entry)
+  {
+    const QString ip = entry.key();
+    const QJsonObject clients = entry.value().toObject();
+    for (const QJsonValue &clientValue : clients)
+    {
+      const QJsonObject client = clientValue.toObject();
+
+      if (!client.contains("serviceID"))
+        qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'serviceID', defaulting to 0";
+      if (!client.contains("universe"))
+        qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'universe', defaulting to 1";
+      if (!client.contains("iface"))
+        qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'iface', defaulting to 127.0.0.1";
+
+      IdnHostInfo hostInfo;
+      hostInfo.address = QHostAddress(ip);
+      hostInfo.serviceId = client.value("serviceID").toInt(0);
+
+      IdnSettings idnSettings;
+      idnSettings.iface = QHostAddress(client.value("iface").toString("127.0.0.1"));
+      idnSettings.universe = client.value("universe").toInt(1);
+      idnSettings.unitName = client.value("unitName").toString("");
+      idnSettings.serviceName = client.value("serviceName").toString("");
+      idnSettings.serviceID = client.value("serviceID").toInt(0);
+      idnSettings.serviceType = client.value("serviceType").toInt(0);
+      idnSettings.port = client.value("port").toInt(IDN_PORT);
+      idnSettings.mode = client.value("mode").toInt(4);
+      idnSettings.idnChannel = client.value("idnChannel").toInt(0);
+      idnSettings.rangeBegin = client.value("rangeBegin").toInt(1);
+      idnSettings.rangeEnd = client.value("rangeEnd").toInt(512);
+      idnSettings.scan = client.value("scan").toBool(false);
+      idnSettings.disabled = client.value("disabled").toBool(false);
+
+      m_manualClients[hostInfo] = idnSettings;
+    }
+  }
+
+  return m_manualClients;
 }
 
-void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
-{
+void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings){
     m_manualClients.clear();
     if(settings.size() > 0) {
       m_manualClients = settings;
@@ -337,18 +341,18 @@ void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
       } 
     }
 
-    nlohmann::json jsonSettings;
+    QJsonObject jsonSettings;
 
   for (auto it = settings.constBegin(); it != settings.constEnd(); ++it)
   {
     const IdnHostInfo &hostInfo = it.key();
     const IdnSettings &idnSettings = it.value();
 
-    nlohmann::json item;
-    item["iface"] = idnSettings.iface.toString().toStdString();
-    item["universe"] = idnSettings.universe;
-    item["unitName"] = idnSettings.unitName.toStdString();
-    item["serviceName"] = idnSettings.serviceName.toStdString();
+    QJsonObject item;
+    item["iface"] = idnSettings.iface.toString();
+    item["universe"] = static_cast<int>(idnSettings.universe);
+    item["unitName"] = idnSettings.unitName;
+    item["serviceName"] = idnSettings.serviceName;
     item["serviceID"] = idnSettings.serviceID;
     item["serviceType"] = idnSettings.serviceType;
     item["port"] = idnSettings.port;
@@ -358,20 +362,25 @@ void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
     item["rangeEnd"] = idnSettings.rangeEnd;
     item["scan"] = idnSettings.scan;
     item["disabled"] = idnSettings.disabled;
-    jsonSettings[hostInfo.address.toString().toStdString()][QString::number(hostInfo.serviceId).toStdString()] = item;
+
+    const QString ip = hostInfo.address.toString();
+    const QString serviceKey = QString::number(hostInfo.serviceId);
+    QJsonObject hostObject = jsonSettings.value(ip).toObject();
+    hostObject[serviceKey] = item;
+    jsonSettings[ip] = hostObject;
   }
 
-  std::ofstream file(settingsFilePath().toStdString());
-  if (!file.is_open())
+  QFile file(settingsFilePath());
+  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
   {
     qWarning() << "[IDN] setSetting: could not write settings file:" << settingsFilePath();
     return;
   }
-  file << jsonSettings.dump(4);
+  file.write(QJsonDocument(jsonSettings).toJson(QJsonDocument::Indented));
+  file.close();
 }
 
-QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting()
-{
+QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting(){
   return m_manualClients;
 }
 

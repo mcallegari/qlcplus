@@ -3,6 +3,7 @@
   idnpacketizer.h
 
   Copyright (c) Daniel Schröder
+  Updated by Mauritz Kauffmann, 2026
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -160,7 +161,7 @@ private:
     int addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned short base, unsigned char count);
     int addServiceModeConfigChunk(IDNDMX_PACKET *packet, unsigned short base);
     int buildDimmerLevelHeader(IDNDMX_PACKET *packet, unsigned char flags);
-    int addDmxData(IDNDMX_PACKET *packet, unsigned char *dataBuffer, unsigned int dataCounter);
+    int addDmxData(IDNDMX_PACKET *packet, const unsigned char *dataBuffer, unsigned int dataCounter);
 };
 
 #endif

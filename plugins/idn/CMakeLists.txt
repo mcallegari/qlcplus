@@ -29,7 +29,6 @@ target_sources(${module_name} PRIVATE
     idnpacketizer.cpp
     idnpacketizer.h
     ui_idnconfiguration.h
-    nlohmann/json.hpp
 )
 
 target_include_directories(${module_name} PRIVATE

@@ -3,6 +3,7 @@
   idnpacketizer.cpp
 
   Copyright (c) Daniel Schröder
+  Updated by Mauritz Kauffmann, 2026
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -32,7 +33,9 @@
 /*********************************************************************
  * Build common header in Constructor
  *********************************************************************/
-IdnPacketizer::IdnPacketizer(){}
+IdnPacketizer::IdnPacketizer()
+{
+}
 
 IdnPacketizer::~IdnPacketizer(){}
 
@@ -59,7 +62,7 @@ IdnPacketizer::~IdnPacketizer(){}
       addServiceModeConfigChunk(&packet, offset);
     }
     buildDimmerLevelHeader(&packet, IDNVAL_DL_VOID);
-    addDmxData(&packet, (unsigned char*)(values.data()), values.length());
+    addDmxData(&packet, reinterpret_cast<const unsigned char*>(values.constData()), values.length());
     finishPacket(&packet); //add size to packet
     data = QByteArray(reinterpret_cast<char*>(packet.buf), packet.end - packet.buf);
 }
@@ -83,7 +86,7 @@ IdnPacketizer::~IdnPacketizer(){}
       }
     }
     buildDimmerLevelHeader(&packet, IDNVAL_DL_VOID);
-    addDmxData(&packet, (unsigned char*)(values.data()), values.length());
+    addDmxData(&packet, reinterpret_cast<const unsigned char*>(values.constData()), values.length());
     finishPacket(&packet); //add size to packet
     data = QByteArray(reinterpret_cast<char*>(packet.buf), packet.end - packet.buf);
 }
@@ -220,7 +223,7 @@ int IdnPacketizer::buildDimmerLevelHeader(IDNDMX_PACKET *packet, unsigned char f
   return 0;
 }
 
-int IdnPacketizer::addDmxData(IDNDMX_PACKET *packet, unsigned char *dataBuffer, unsigned int dataCounter)
+int IdnPacketizer::addDmxData(IDNDMX_PACKET *packet, const unsigned char *dataBuffer, unsigned int dataCounter)
 {
   packet->channelMessage->contentID |= IDNVAL_CNKTYPE_DIMMER_LEVELS;
   packet->values = IDNAddLayerToPacket(packet, dataCounter);

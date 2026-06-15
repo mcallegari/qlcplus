@@ -29,9 +29,6 @@
 #include <QHostAddress>
 #include <QNetworkInterface>
 
-#include <nlohmann/json.hpp>
-#include <fstream>
-
 #include "idncontroller.h"
 #include "qlcioplugin.h"
 
@@ -120,10 +117,6 @@ public:
 
     /** @reimp */
     bool canConfigure() const override;
-
-    
-    /** @reimp */
-    //void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
 
     QList<IdnOutput> getOutputmapping();
 
