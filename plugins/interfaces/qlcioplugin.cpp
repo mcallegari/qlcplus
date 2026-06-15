@@ -45,7 +45,14 @@ QStringList QLCIOPlugin::outputs()
 
 QStringList QLCIOPlugin::outputsUID()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     return QStringList(outputs().count(), QString());
+#else
+    QStringList result;
+    for (int i = 0; i < outputs().count(); i++)
+        result << QString();
+    return result;
+#endif
 }
 
 QString QLCIOPlugin::outputInfo(quint32 output)
@@ -86,7 +93,14 @@ QStringList QLCIOPlugin::inputs()
 
 QStringList QLCIOPlugin::inputsUID()
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     return QStringList(inputs().count(), QString());
+#else
+    QStringList result;
+    for (int i = 0; i < inputs().count(); i++)
+        result << QString();
+    return result;
+#endif
 }
 
 QString QLCIOPlugin::inputInfo(quint32 input)
