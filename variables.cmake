@@ -93,7 +93,7 @@ elseif (UNIX)
 endif ()
 
 if (ANDROID)
-    set(LIBSDIR "/libs/armeabi-v7a")
+    set(LIBSDIR "/libs/${CMAKE_ANDROID_ARCH_ABI}")
 elseif (IOS)
     set(LIBSDIR "lib")
 endif ()
