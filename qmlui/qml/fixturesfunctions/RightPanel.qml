@@ -261,6 +261,18 @@ SidePanel
 
             IconButton
             {
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_hat_wizard
+                faColor: "yellow"
+                tooltip: qsTr("Show Wizard")
+                visible: qlcplus.accessMask & App.AC_FunctionEditing
+                onClicked: mainView.openShowWizard()
+            }
+
+            IconButton
+            {
                 id: addFunction
                 visible: qlcplus.accessMask & App.AC_FunctionEditing
                 z: 2

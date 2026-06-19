@@ -1,0 +1,20 @@
+singleton UISettings 1.0 ../UISettings.qml
+singleton FontAwesome 1.0 ../FontAwesomeVariables.qml
+
+CustomScrollBar 0.1 ../CustomScrollBar.qml
+GenericButton 0.1 ../GenericButton.qml
+IconButton 0.1 ../IconButton.qml
+RobotoText 0.1 ../RobotoText.qml
+
+EffectToggleRow 0.1 EffectToggleRow.qml
+FixtureGroupRoleDelegate 0.1 FixtureGroupRoleDelegate.qml
+ShowTypeCard 0.1 ShowTypeCard.qml
+ShowWizard 0.1 ShowWizard.qml
+VCPreviewButton 0.1 VCPreviewButton.qml
+WizardStep1ShowType 0.1 WizardStep1ShowType.qml
+WizardStep2Fixtures 0.1 WizardStep2Fixtures.qml
+WizardStep3Venue 0.1 WizardStep3Venue.qml
+WizardStep4Effects 0.1 WizardStep4Effects.qml
+WizardStep5Controller 0.1 WizardStep5Controller.qml
+WizardStep6Summary 0.1 WizardStep6Summary.qml
+WizardStepIndicator 0.1 WizardStepIndicator.qml

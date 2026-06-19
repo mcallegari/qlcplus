@@ -38,6 +38,9 @@ Rectangle
     Component.onCompleted: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
     onWidthChanged: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
 
+    property bool showWizardVisible: false
+    function openShowWizard() { mainView.showWizardVisible = true }
+
     function enableContext(ctx, setChecked)
     {
         var item = null
@@ -557,6 +560,16 @@ Rectangle
 
         } // end of RowLayout
     } // end of mainToolbar
+
+    Loader
+    {
+        id: showWizardOverlay
+        width: parent.width
+        height: parent.height
+        source: parent.showWizardVisible ? "qrc:/ShowWizard.qml" : ""
+        z: 100
+        onLoaded: if (item) { item.closeRequested.connect(function() { mainView.showWizardVisible = false }); item.open() }
+    }
 
     Loader
     {

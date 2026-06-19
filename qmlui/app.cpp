@@ -60,6 +60,7 @@
 
 #include "tardis.h"
 #include "networkmanager.h"
+#include "stagewizard.h"
 
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
@@ -90,6 +91,7 @@ App::App()
     , m_videoProvider(nullptr)
     , m_networkManager(nullptr)
     , m_uiManager(nullptr)
+    , m_stageWizard(nullptr)
     , m_doc(nullptr)
     , m_docLoaded(false)
     , m_printItem(nullptr)
@@ -202,6 +204,10 @@ void App::startup()
     m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
                           m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
+
+    m_stageWizard = new StageWizard(m_doc, m_fixtureManager, m_virtualConsole,
+                                    m_contextManager, this);
+    rootContext()->setContextProperty("stageWizard", m_stageWizard);
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_simpleDesk);
