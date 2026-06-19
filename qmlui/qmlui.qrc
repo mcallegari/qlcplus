@@ -61,6 +61,22 @@
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
     <file alias="ZoomItem.qml">qml/ZoomItem.qml</file>
 
+    <!-- Stage Wizard -->
+    <file alias="ShowWizard.qml">qml/stagewizard/ShowWizard.qml</file>
+    <file alias="WizardStepIndicator.qml">qml/stagewizard/WizardStepIndicator.qml</file>
+    <file alias="WizardStep1ShowType.qml">qml/stagewizard/WizardStep1ShowType.qml</file>
+    <file alias="ShowTypeCard.qml">qml/stagewizard/ShowTypeCard.qml</file>
+    <file alias="WizardStep2Fixtures.qml">qml/stagewizard/WizardStep2Fixtures.qml</file>
+    <file alias="WizardFixtureBrowser.qml">qml/stagewizard/WizardFixtureBrowser.qml</file>
+    <file alias="FixtureGroupRoleDelegate.qml">qml/stagewizard/FixtureGroupRoleDelegate.qml</file>
+    <file alias="FixtureGroupBox.qml">qml/stagewizard/FixtureGroupBox.qml</file>
+    <file alias="WizardStep3Venue.qml">qml/stagewizard/WizardStep3Venue.qml</file>
+    <file alias="WizardStep4Effects.qml">qml/stagewizard/WizardStep4Effects.qml</file>
+    <file alias="EffectToggleRow.qml">qml/stagewizard/EffectToggleRow.qml</file>
+    <file alias="WizardStep5Controller.qml">qml/stagewizard/WizardStep5Controller.qml</file>
+    <file alias="WizardStep6Summary.qml">qml/stagewizard/WizardStep6Summary.qml</file>
+    <file alias="VCPreviewButton.qml">qml/stagewizard/VCPreviewButton.qml</file>
+
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>

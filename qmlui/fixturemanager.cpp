@@ -349,7 +349,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
 
     emit fixturesCountChanged();
-    emit fixturesMapChanged();
+    fixturesMap(); // rebuilds and emits fixturesMapChanged + fixtureNamesMapChanged
 
     return true;
 }

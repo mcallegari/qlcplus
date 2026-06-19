@@ -47,7 +47,7 @@ function createItem()
     if (itemComponent.status === Component.Ready && draggedItem == null)
     {
         draggedItem = itemComponent.createObject(mainView,
-                  {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
+                  {"x": posnInWindow.x, "y": posnInWindow.y, "z": 200,
                    "manufacturer": manufacturer, "model": model,
                    "address": address, "universe": universeIndex,
                    "channels": channels, "quantity": quantity, "gap": gap });
@@ -92,6 +92,24 @@ function endDrag(mouse)
     var currContext = previewLoader.item.contextName;
     var x, y;
     console.log("[FixtureDrag] Current context: " + currContext);
+
+    // Show Wizard: hit-test the drop point against the group boxes. The wizard
+    // arms a pending target group, then we patch the fixture at 0,0; the wizard
+    // auto-assigns the newly patched fixture to that box via Doc::fixtureAdded.
+    if (currContext === "WIZARD")
+    {
+        var dropP = draggedItem.mapToItem(null,
+                              draggedItem.width / 2,
+                              draggedItem.height / 2);
+        // contextItem is the wizard step which hit-tests the boxes and arms the
+        // pending target group, then patches + assigns the fixture itself.
+        var hit = previewLoader.item.contextItem.dropFixtureAt(dropP.x, dropP.y,
+                              manufacturer, model, mode, name,
+                              universeIndex, draggedItem.address, channels, quantity, gap);
+        draggedItem.destroy();
+        draggedItem = null;
+        return hit;
+    }
 
     if (currContext === "2D")
     {
