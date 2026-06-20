@@ -73,6 +73,7 @@
 #define KXMLQLCMonitorFixtureHiddenFlag     QStringLiteral("Hidden")
 #define KXMLQLCMonitorFixtureInvPanFlag     QStringLiteral("InvertedPan")
 #define KXMLQLCMonitorFixtureInvTiltFlag    QStringLiteral("InvertedTilt")
+#define KXMLQLCMonitorFixtureLockedFlag     QStringLiteral("Locked")
 
 #define GRID_DEFAULT_WIDTH  5
 #define GRID_DEFAULT_HEIGHT 3
@@ -768,6 +769,8 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
                 item.m_flags |= InvertedPanFlag;
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureInvTiltFlag))
                 item.m_flags |= InvertedTiltFlag;
+            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureLockedFlag))
+                item.m_flags |= LockedFlag;
 
             setFixtureItem(fid, headIndex, linkedIndex, item);
             root.skipCurrentElement();
@@ -843,6 +846,8 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureHiddenFlag))
                 item.m_flags |= HiddenFlag;
+            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureLockedFlag))
+                item.m_flags |= LockedFlag;
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemRes))
                 item.m_resource = tAttrs.value(KXMLQLCMonitorItemRes).toString();
@@ -944,6 +949,8 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
                 doc->writeAttribute(KXMLQLCMonitorFixtureInvPanFlag, KXMLQLCTrue);
             if (item.m_flags & InvertedTiltFlag)
                 doc->writeAttribute(KXMLQLCMonitorFixtureInvTiltFlag, KXMLQLCTrue);
+            if (item.m_flags & LockedFlag)
+                doc->writeAttribute(KXMLQLCMonitorFixtureLockedFlag, KXMLQLCTrue);
 
             // always write position
             doc->writeAttribute(KXMLQLCMonitorItemXPosition, QString::number(item.m_position.x()));
@@ -1019,6 +1026,8 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         // write flags, if present
         if (item.m_flags & HiddenFlag)
             doc->writeAttribute(KXMLQLCMonitorFixtureHiddenFlag, KXMLQLCTrue);
+        if (item.m_flags & LockedFlag)
+            doc->writeAttribute(KXMLQLCMonitorFixtureLockedFlag, KXMLQLCTrue);
 
         // always write position
         doc->writeAttribute(KXMLQLCMonitorItemXPosition, QString::number(item.m_position.x()));

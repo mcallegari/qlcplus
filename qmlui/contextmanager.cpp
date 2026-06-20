@@ -877,6 +877,11 @@ void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal 
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
     quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
     quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    // do not move locked items
+    if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+        return;
+
     QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
     QVector3D newPos(x, y, z);
 
@@ -896,6 +901,11 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        // do not move locked items
+        if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+            continue;
+
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
         QVector3D newPos;
 
@@ -948,6 +958,11 @@ void ContextManager::setFixturesPosition(QVector3D position)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        // do not move locked items
+        if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+            return;
+
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
 
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(position));
@@ -965,6 +980,11 @@ void ContextManager::setFixturesPosition(QVector3D position)
             quint32 fxID = FixtureUtils::itemFixtureID(itemID);
             quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+            // do not move locked items
+            if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+                continue;
+
             QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
             QVector3D newPos = currPos + position;
             Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));

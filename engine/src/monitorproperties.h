@@ -145,7 +145,8 @@ public:
         HiddenFlag          = (1 << 0),
         InvertedPanFlag     = (1 << 1),
         InvertedTiltFlag    = (1 << 2),
-        MeshZUpFlag         = (1 << 3)
+        MeshZUpFlag         = (1 << 3),
+        LockedFlag          = (1 << 4)
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(ItemFlags)
