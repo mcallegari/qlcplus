@@ -56,6 +56,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_viewPosition(0)
     , m_previewEnabled(false)
+    , m_scenePreviewEnabled(false)
     , m_filter(0)
     , m_searchFilter(QString())
 {
@@ -537,6 +538,48 @@ void FunctionManager::setPreviewEnabled(bool enable)
     emit previewEnabledChanged();
 }
 
+bool FunctionManager::scenePreviewEnabled() const
+{
+    return m_scenePreviewEnabled;
+}
+
+void FunctionManager::setScenePreviewEnabled(bool enable)
+{
+    if (m_scenePreviewEnabled == enable)
+        return;
+
+    m_scenePreviewEnabled = enable;
+
+    // the live preview works by running the edited Scene (or the Sequence
+    // bound Scene): once running, channel edits are written to the output
+    // by setChannelValue
+    Scene *scene = nullptr;
+
+    if (m_currentEditor != nullptr)
+    {
+        if (m_currentEditor->functionType() == Function::SceneType)
+        {
+            scene = qobject_cast<Scene *>(m_doc->function(m_currentEditor->functionID()));
+        }
+        else if (m_currentEditor->functionType() == Function::SequenceType)
+        {
+            Sequence *sequence = qobject_cast<Sequence *>(m_doc->function(m_currentEditor->functionID()));
+            if (sequence != nullptr)
+                scene = qobject_cast<Scene *>(m_doc->function(sequence->boundSceneID()));
+        }
+    }
+
+    if (scene != nullptr)
+    {
+        if (enable)
+            scene->start(m_doc->masterTimer(), FunctionParent::master());
+        else
+            scene->stop(FunctionParent::master());
+    }
+
+    emit scenePreviewEnabledChanged();
+}
+
 void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 {
     if (fID == Function::invalidId())
@@ -606,6 +649,10 @@ QString FunctionManager::getEditorResource(int funcID)
 void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
 {
     int previousID = -1;
+
+    // make sure the live preview is stopped when leaving the editor
+    if (m_scenePreviewEnabled)
+        setScenePreviewEnabled(false);
 
     // reset all the editor functions
     if (m_currentEditor != nullptr)

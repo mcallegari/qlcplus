@@ -154,7 +154,10 @@ bool ChaserEditor::addStep(int insertIndex)
                                       Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex));
 
     addStepToListModel(m_doc, m_chaser, m_stepsList, &step);
-    //setPlaybackIndex(insertIndex);
+
+    // select the newly added step. The step is always appended to the list model,
+    // so it lives at the last position
+    setPlaybackIndex(m_chaser->stepsCount() - 1);
 
     return true;
 }

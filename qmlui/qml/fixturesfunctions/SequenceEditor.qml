@@ -140,6 +140,18 @@ Rectangle
                 {
                     width: height
                     height: UISettings.iconSizeMedium - 2
+                    faSource: FontAwesome.fa_eye
+                    faColor: UISettings.fgMain
+                    checkable: true
+                    checked: functionManager.scenePreviewEnabled
+                    tooltip: qsTr("Preview the channel changes on the output")
+                    onClicked: functionManager.scenePreviewEnabled = checked
+                }
+
+                IconButton
+                {
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
                     faSource: FontAwesome.fa_minus
                     faColor: "crimson"
                     tooltip: stepsView.checked ? qsTr("Remove the selected steps") : qsTr("Remove the selected fixtures")
