@@ -72,6 +72,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_fixtureComponent(nullptr)
     , m_genericComponent(nullptr)
     , m_selectionComponent(nullptr)
+    , m_markerComponent(nullptr)
     , m_spotlightConeComponent(nullptr)
     , m_fillGBufferLayer(nullptr)
     , m_createItemCount(0)
@@ -142,6 +143,9 @@ void MainView3D::enableContext(bool enable)
 
         delete m_selectionComponent;
         m_selectionComponent = nullptr;
+
+        delete m_markerComponent;
+        m_markerComponent = nullptr;
 
         delete m_fixtureComponent;
         m_fixtureComponent = nullptr;
@@ -435,6 +439,13 @@ bool MainView3D::initialize3DProperties()
         m_selectionComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/SelectionEntity.qml"));
         if (m_selectionComponent->isError())
             qDebug() << m_selectionComponent->errors();
+    }
+
+    if (m_markerComponent == nullptr)
+    {
+        m_markerComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Position3DMarker.qml"));
+        if (m_markerComponent->isError())
+            qDebug() << m_markerComponent->errors();
     }
 
     m_scene3D = nullptr;
@@ -2155,8 +2166,19 @@ QVector3D MainView3D::position3DMarker() const
 void MainView3D::setPosition3DMarker(QVector3D pos)
 {
     m_position3DMarker = pos;
+
+    // 3D position palette values are stored in grid corner-origin space (the same
+    // space used by setPositionPickPoint / QLCPalette aiming, i.e. scene coords
+    // plus gridMeters/2). The 3D scene renders fixtures in center-origin space, so
+    // convert back to scene space before placing the marker.
+    float unitScale = m_monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    QVector3D gridMeters = m_monProps->gridSize() * unitScale;
+    QVector3D scenePos(pos.x() - gridMeters.x() / 2,
+                       pos.y(),
+                       pos.z() - gridMeters.z() / 2);
+
     if (m_markerEntity)
-        m_markerEntity->setProperty("center", pos);
+        m_markerEntity->setProperty("center", scenePos);
     emit position3DMarkerChanged();
 }
 
@@ -2174,23 +2196,22 @@ void MainView3D::setPosition3DMarkerVisible(bool visible)
 
     if (visible)
     {
-        if (m_markerEntity || !m_sceneRootEntity || !m_selectionComponent)
+        if (m_markerEntity || !m_sceneRootEntity || !m_markerComponent)
             return;
 
         QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
         QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
-        QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
 
-        m_markerEntity = qobject_cast<QEntity *>(m_selectionComponent->create());
+        m_markerEntity = qobject_cast<QEntity *>(m_markerComponent->create());
         if (m_markerEntity)
         {
             m_markerEntity->setParent(m_sceneRootEntity);
             m_markerEntity->setProperty("selectionLayer", QVariant::fromValue(selectionLayer));
             m_markerEntity->setProperty("geometryPassEffect", QVariant::fromValue(sceneEffect));
-            m_markerEntity->setProperty("selectionMesh", QVariant::fromValue(selectionMesh));
-            m_markerEntity->setProperty("extents", QVector3D(0.12f, 0.12f, 0.12f));
-            m_markerEntity->setProperty("center", m_position3DMarker);
-            m_markerEntity->setProperty("color", QVariant::fromValue(QVector4D(0.0f, 0.8f, 1.0f, 2.0f)));
+            m_markerEntity->setProperty("extents", QVector3D(0.18f, 0.18f, 0.18f));
+            // place at the current marker position (handles corner/center space conversion)
+            setPosition3DMarker(m_position3DMarker);
+            m_markerEntity->setProperty("color", QVariant::fromValue(QVector4D(0.55f, 0.0f, 0.0f, 2.0f)));
             m_markerEntity->setProperty("isSelected", true);
         }
     }

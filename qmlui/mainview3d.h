@@ -170,6 +170,7 @@ private:
     QQmlComponent *m_fixtureComponent;
     QQmlComponent *m_genericComponent;
     QQmlComponent *m_selectionComponent;
+    QQmlComponent *m_markerComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
