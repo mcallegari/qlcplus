@@ -48,7 +48,8 @@ public:
         UIntPairType,
         StringIntPairType,
         StringDoublePairType,
-        StringStringPairType
+        StringStringPairType,
+        PointFType
     };
 
     void initializePacket(QByteArray &packet, int opCode) const;

@@ -238,11 +238,15 @@ void VCAudioTriggers::setVolumeLevel(uchar level)
     if (level == m_volumeLevel)
         return;
 
+    uchar previousLevel = m_volumeLevel;
+
     m_volumeLevel = level;
 
     m_doc->audioInputCapture()->setVolume(intensity() * qreal(level) / 100.0);
 
     emit volumeLevelChanged();
+
+    Tardis::instance()->enqueueAction(Tardis::VCAudioTriggersSetLevel, id(), previousLevel, level);
 }
 
 int VCAudioTriggers::barsNumber() const

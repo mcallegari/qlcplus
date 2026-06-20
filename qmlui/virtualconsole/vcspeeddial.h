@@ -189,8 +189,10 @@ public:
     Q_INVOKABLE void decreaseSpeedFactor();
 
     /** This is where the speed magic happens. Current multiplier/divisor
-     *  or absolute time is applied to the controlled Functions */
-    Q_INVOKABLE void applyFunctionsTime();
+     *  or absolute time is applied to the controlled Functions.
+     *  When $enqueue is true (explicit user/external Apply), the action is
+     *  forwarded to Tardis to be replicated on connected peers. */
+    Q_INVOKABLE void applyFunctionsTime(bool enqueue = false);
 
 signals:
     void currentFactorChanged();

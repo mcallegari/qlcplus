@@ -624,15 +624,19 @@ void VCCueList::setPlaybackIndex(int playbackIndex)
     if (m_playbackIndex == playbackIndex)
         return;
 
+    int previousIndex = m_playbackIndex;
+
     m_playbackIndex = playbackIndex;
     emit playbackIndexChanged(playbackIndex);
 
     Chaser *ch = chaser();
-    if (ch == nullptr)
-        return;
+    if (ch != nullptr)
+    {
+        m_nextStepIndex = playbackIndex >= 0 ? ch->computeNextStep(playbackIndex) : -1;
+        emit nextStepIndexChanged();
+    }
 
-    m_nextStepIndex = playbackIndex >= 0 ? ch->computeNextStep(playbackIndex) : -1;
-    emit nextStepIndexChanged();
+    Tardis::instance()->enqueueAction(Tardis::VCCueListSetIndex, id(), previousIndex, playbackIndex);
 }
 
 VCCueList::PlaybackStatus VCCueList::playbackStatus() const

@@ -1159,6 +1159,8 @@ void VCSlider::flashFunction(bool on)
     }
 
     adjustFunctionAttribute(function, on ? 1.0 : m_adjustFlashPreviousValue);
+
+    Tardis::instance()->enqueueAction(Tardis::VCSliderButtonPress, id(), !on, on);
 }
 
 QStringList VCSlider::availableAttributes() const

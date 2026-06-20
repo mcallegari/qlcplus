@@ -19,9 +19,11 @@
 
 #include <QDebug>
 #include <QVector3D>
+#include <QPointF>
 #include <QRectF>
 #include <QColor>
 #include <QFont>
+
 
 #include "networkpacketizer.h"
 #include "simplecrypt.h"
@@ -117,6 +119,16 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value) const
             packet.append(reinterpret_cast<const char*>(&y), sizeof(y));
             packet.append(reinterpret_cast<const char*>(&w), sizeof(w));
             packet.append(reinterpret_cast<const char*>(&h), sizeof(h));
+        }
+        break;
+        case QMetaType::QPointF:
+        {
+            QPointF point = value.value<QPointF>();
+            float x = point.x();
+            float y = point.y();
+            packet.append(PointFType);
+            packet.append(reinterpret_cast<const char*>(&x), sizeof(x));
+            packet.append(reinterpret_cast<const char*>(&y), sizeof(y));
         }
         break;
         case QMetaType::QColor:
@@ -419,6 +431,17 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 float h = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(h);
                 sections.append(QVariant(QRectF(x, y, w, h)));
+            }
+            break;
+            case PointFType:
+            {
+                if (int err = ensureBytes(int(sizeof(float) * 2), "pointf payload"))
+                    return err;
+                float x = *reinterpret_cast<const float *>(ba.data() + bytes_read);
+                bytes_read += sizeof(x);
+                float y = *reinterpret_cast<const float *>(ba.data() + bytes_read);
+                bytes_read += sizeof(y);
+                sections.append(QVariant(QPointF(x, y)));
             }
             break;
             case ColorType:

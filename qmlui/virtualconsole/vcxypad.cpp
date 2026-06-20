@@ -35,6 +35,7 @@
 #include "qlcmacros.h"
 #include "function.h"
 #include "universe.h"
+#include "tardis.h"
 #include "scene.h"
 #include "doc.h"
 
@@ -323,6 +324,8 @@ void VCXYPad::setCurrentPosition(QPointF newCurrentPosition)
     newCurrentPosition.setX(clampPos(newCurrentPosition.x()));
     newCurrentPosition.setY(clampPos(newCurrentPosition.y()));
 
+    QPointF previousPosition = m_currentPosition;
+
     m_currentPosition = newCurrentPosition;
 
     m_x16 = posToU16(m_currentPosition.x());
@@ -330,6 +333,9 @@ void VCXYPad::setCurrentPosition(QPointF newCurrentPosition)
 
     m_positionChanged = true;
     emit currentPositionChanged();
+
+    Tardis::instance()->enqueueAction(Tardis::VCXYPadSetPosition, id(),
+                                      previousPosition, m_currentPosition);
 }
 
 QPointF VCXYPad::horizontalRange() const
@@ -342,8 +348,17 @@ void VCXYPad::setHorizontalRange(QPointF newHorizontalRange)
     if (m_horizontalRange == newHorizontalRange)
         return;
 
+    // Geometry (rubber band) is carried as a QRectF: horizontal range on x/width,
+    // vertical range on y/height
+    QRectF oldGeometry(m_horizontalRange.x(), m_verticalRange.x(),
+                       m_horizontalRange.y(), m_verticalRange.y());
+
     m_horizontalRange = newHorizontalRange;
     emit horizontalRangeChanged();
+
+    QRectF newGeometry(m_horizontalRange.x(), m_verticalRange.x(),
+                       m_horizontalRange.y(), m_verticalRange.y());
+    Tardis::instance()->enqueueAction(Tardis::VCXYPadSetGeometry, id(), oldGeometry, newGeometry);
 }
 
 QPointF VCXYPad::verticalRange() const
@@ -356,8 +371,17 @@ void VCXYPad::setVerticalRange(QPointF newVerticalRange)
     if (m_verticalRange == newVerticalRange)
         return;
 
+    // Geometry (rubber band) is carried as a QRectF: horizontal range on x/width,
+    // vertical range on y/height
+    QRectF oldGeometry(m_horizontalRange.x(), m_verticalRange.x(),
+                       m_horizontalRange.y(), m_verticalRange.y());
+
     m_verticalRange = newVerticalRange;
     emit verticalRangeChanged();
+
+    QRectF newGeometry(m_horizontalRange.x(), m_verticalRange.x(),
+                       m_horizontalRange.y(), m_verticalRange.y());
+    Tardis::instance()->enqueueAction(Tardis::VCXYPadSetGeometry, id(), oldGeometry, newGeometry);
 }
 
 /*************************************************************************
@@ -755,23 +779,24 @@ void VCXYPad::applyPreset(quint8 presetId)
 
         setCurrentPosition(preset->m_dmxPos);
         setActivePresetId(presetId);
-        return;
     }
-
-    if (m_activePresetId == presetId)
+    else if (m_activePresetId == presetId)
     {
         deactivatePreset(preset);
         setActivePresetId(-1);
-        return;
+    }
+    else
+    {
+        if (m_activePresetId >= 0)
+            deactivatePreset(findPreset(m_activePresetId));
+
+        if (activatePreset(preset))
+            setActivePresetId(presetId);
+        else
+            setActivePresetId(-1);
     }
 
-    if (m_activePresetId >= 0)
-        deactivatePreset(findPreset(m_activePresetId));
-
-    if (activatePreset(preset))
-        setActivePresetId(presetId);
-    else
-        setActivePresetId(-1);
+    Tardis::instance()->enqueueAction(Tardis::VCXYPadActivatePreset, id(), QVariant(), presetId);
 }
 
 QString VCXYPad::searchFilter() const
