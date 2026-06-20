@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7</Version>
+  <Author>Liam Clark</Author>
+ </Creator>
+ <Manufacturer>GLP</Manufacturer>
+ <Model>Matrix Eye 4</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="[1] Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="[2] Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="[3] Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="[4] Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe Duration">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">0 -&gt; 650ms</Capability>
+ </Channel>
+ <Channel Name="Strobe Rate" Default="255">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="4">Closed</Capability>
+  <Capability Min="5" Max="250">increase</Capability>
+  <Capability Min="251" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Strobe Mode">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">Off</Capability>
+  <Capability Min="5" Max="9">Single Flash</Capability>
+  <Capability Min="10" Max="14">Spread (offset) FX</Capability>
+  <Capability Min="15" Max="19">Random (All)</Capability>
+  <Capability Min="20" Max="24">Random (Heads)</Capability>
+  <Capability Min="25" Max="29">Pulse (All)</Capability>
+  <Capability Min="30" Max="34">Pulse Random (All)</Capability>
+  <Capability Min="35" Max="39">Pulse Random (Heads)</Capability>
+  <Capability Min="40" Max="44">Pulse Open (All)</Capability>
+  <Capability Min="45" Max="49">Pulse Open Random (All)</Capability>
+  <Capability Min="50" Max="54">Pulse Open Random (Heads)</Capability>
+  <Capability Min="55" Max="59">Pulse Close (All)</Capability>
+  <Capability Min="60" Max="64">Pulse Close Random (All)</Capability>
+  <Capability Min="65" Max="69">Pulse Close Random (Heads)</Capability>
+  <Capability Min="70" Max="74">Double Flash (All)</Capability>
+  <Capability Min="75" Max="79">Double Flash Random (All)</Capability>
+  <Capability Min="80" Max="84">Triple Flash (All)</Capability>
+  <Capability Min="85" Max="89">Triple Flash Random (All)</Capability>
+  <Capability Min="90" Max="94">Lightning</Capability>
+  <Capability Min="95" Max="99">Paparazzi</Capability>
+  <Capability Min="100" Max="104">Spikes (All)</Capability>
+  <Capability Min="105" Max="109">Spikes (Heads)</Capability>
+  <Capability Min="110" Max="255">not used</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">idle</Capability>
+  <Capability Min="10" Max="11">no function</Capability>
+  <Capability Min="12" Max="13">iQ.Service Connect ON</Capability>
+  <Capability Min="14" Max="19">no function</Capability>
+  <Capability Min="20" Max="21">Dimmer: Soft (Square)</Capability>
+  <Capability Min="22" Max="23">Dimmer: Linear</Capability>
+  <Capability Min="24" Max="25">Dimmer: S-Curve</Capability>
+  <Capability Min="26" Max="29">no function</Capability>
+  <Capability Min="30" Max="31">Display: Off</Capability>
+  <Capability Min="32" Max="33">Display: Auto</Capability>
+  <Capability Min="34" Max="35">Display: On</Capability>
+  <Capability Min="36" Max="37">no function</Capability>
+  <Capability Min="38" Max="39">Display Orientation: Auto</Capability>
+  <Capability Min="40" Max="41">Display Orientation: Normal</Capability>
+  <Capability Min="42" Max="43">Display Orientation: Flipped</Capability>
+  <Capability Min="44" Max="45">no function</Capability>
+  <Capability Min="46" Max="47">No Signal: Blackout</Capability>
+  <Capability Min="48" Max="49">No Signal: Hold</Capability>
+  <Capability Min="50" Max="51">No Signal: Scene</Capability>
+  <Capability Min="52" Max="53">Capture DMX Scene</Capability>
+  <Capability Min="54" Max="55">no function</Capability>
+  <Capability Min="56" Max="57">Fan: Minimum</Capability>
+  <Capability Min="58" Max="59">Fan: Regulated</Capability>
+  <Capability Min="60" Max="61">Fan: High</Capability>
+  <Capability Min="62" Max="63">Fan: Medium</Capability>
+  <Capability Min="64" Max="65">Fan: Low</Capability>
+  <Capability Min="66" Max="69">no function</Capability>
+  <Capability Min="70" Max="71">Pixel Mirror: Off</Capability>
+  <Capability Min="72" Max="73">Pixel Mirror: x-mirror</Capability>
+  <Capability Min="74" Max="75">Pixel Mirror: y-mirror</Capability>
+  <Capability Min="76" Max="77">Pixel Mirror: x,y-mirror</Capability>
+  <Capability Min="78" Max="79">no function</Capability>
+  <Capability Min="80" Max="81">Duration: Normal</Capability>
+  <Capability Min="82" Max="83">Duration: Percentage</Capability>
+  <Capability Min="84" Max="85">no function</Capability>
+  <Capability Min="86" Max="87">Output: Boost</Capability>
+  <Capability Min="88" Max="89">Output: Constant</Capability>
+  <Capability Min="90" Max="91">no function</Capability>
+  <Capability Min="92" Max="93">ColorMix Speed: Snap</Capability>
+  <Capability Min="94" Max="95">ColorMix Speed: Fade</Capability>
+  <Capability Min="96" Max="135">no function</Capability>
+  <Capability Min="136" Max="137">White Point: Off</Capability>
+  <Capability Min="138" Max="139">White Point: 8000K</Capability>
+  <Capability Min="140" Max="141">White Point: 6500K</Capability>
+  <Capability Min="142" Max="143">White Point: 5600K</Capability>
+  <Capability Min="144" Max="145">White Point: 4200K</Capability>
+  <Capability Min="146" Max="147">White Point: 3200K</Capability>
+  <Capability Min="148" Max="165">no function</Capability>
+  <Capability Min="166" Max="167">Color Mode: RGB</Capability>
+  <Capability Min="168" Max="169">Color Mode: RGBAL</Capability>
+  <Capability Min="170" Max="189">no function</Capability>
+  <Capability Min="190" Max="191">Hibernation: Off</Capability>
+  <Capability Min="192" Max="193">Hibernation: On</Capability>
+  <Capability Min="194" Max="213">no function</Capability>
+  <Capability Min="214" Max="215">PWM: Low</Capability>
+  <Capability Min="216" Max="217">PWM: Optimal</Capability>
+  <Capability Min="218" Max="219">PWM: High 1</Capability>
+  <Capability Min="220" Max="221">PWM: High 2</Capability>
+  <Capability Min="222" Max="223">PWM: Max</Capability>
+  <Capability Min="224" Max="229">no function</Capability>
+  <Capability Min="230" Max="231">Save to User Preset 1</Capability>
+  <Capability Min="232" Max="233">Save to User Preset 2</Capability>
+  <Capability Min="234" Max="235">Save to User Preset 3</Capability>
+  <Capability Min="236" Max="237">no function</Capability>
+  <Capability Min="238" Max="239">Load User Preset 1</Capability>
+  <Capability Min="240" Max="241">Load User Preset 2</Capability>
+  <Capability Min="242" Max="243">Load User Preset 3</Capability>
+  <Capability Min="244" Max="245">Load Default Settings</Capability>
+  <Capability Min="246" Max="253">no function</Capability>
+  <Capability Min="254" Max="255">Reset ALL</Capability>
+ </Channel>
+ <Channel Name="Tungsten Emulation">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="19">Tungsten ACL 250W/28V</Capability>
+  <Capability Min="20" Max="29">Tungsten Blinder 650W/120V</Capability>
+  <Capability Min="30" Max="39">Tungsten 750W/80V</Capability>
+  <Capability Min="40" Max="49">Tungsten 1000W/240V</Capability>
+  <Capability Min="50" Max="59">Tungsten 1200W/240V</Capability>
+  <Capability Min="60" Max="69">Tungsten 2000W/230V</Capability>
+  <Capability Min="70" Max="79">Tungsten 2500W/230V</Capability>
+  <Capability Min="80" Max="89">Tungsten 5000W/230V</Capability>
+  <Capability Min="90" Max="120">not used</Capability>
+  <Capability Min="121" Max="139">Off</Capability>
+  <Capability Min="140" Max="149">FX Tungsten ACL 250W/28V</Capability>
+  <Capability Min="150" Max="159">FX Tungsten Blinder 650W/120V</Capability>
+  <Capability Min="160" Max="169">FX Tungsten 750W/80V</Capability>
+  <Capability Min="170" Max="179">FX Tungsten 1000W/240V</Capability>
+  <Capability Min="180" Max="189">FX Tungsten 1200W/240V</Capability>
+  <Capability Min="190" Max="199">FX Tungsten 2000W/230V</Capability>
+  <Capability Min="200" Max="209">FX Tungsten 2500W/230V</Capability>
+  <Capability Min="210" Max="219">FX Tungsten 5000W/230V</Capability>
+  <Capability Min="220" Max="255">not used</Capability>
+ </Channel>
+ <Channel Name="not used">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="10">CTC 10000k</Capability>
+  <Capability Min="11" Max="254">CTC 9999k -&gt; 2501k</Capability>
+  <Capability Min="255" Max="255">CTC 2500k</Capability>
+ </Channel>
+ <Channel Name="[1] Red" Preset="IntensityRed"/>
+ <Channel Name="[1] Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="[1] Green" Preset="IntensityGreen"/>
+ <Channel Name="[1] Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="[1] Blue" Preset="IntensityBlue"/>
+ <Channel Name="[1] Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="[1] Amber" Preset="IntensityAmber"/>
+ <Channel Name="[1] Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="[1] Lime" Preset="IntensityLime"/>
+ <Channel Name="[1] Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="[2] Red" Preset="IntensityRed"/>
+ <Channel Name="[2] Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="[2] Green" Preset="IntensityGreen"/>
+ <Channel Name="[2] Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="[2] Blue" Preset="IntensityBlue"/>
+ <Channel Name="[2] Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="[2] Amber" Preset="IntensityAmber"/>
+ <Channel Name="[2] Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="[2] Lime" Preset="IntensityLime"/>
+ <Channel Name="[2] Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="[3] Red" Preset="IntensityRed"/>
+ <Channel Name="[3] Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="[3] Green" Preset="IntensityGreen"/>
+ <Channel Name="[3] Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="[3] Blue" Preset="IntensityBlue"/>
+ <Channel Name="[3] Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="[3] Amber" Preset="IntensityAmber"/>
+ <Channel Name="[3] Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="[3] Lime" Preset="IntensityLime"/>
+ <Channel Name="[3] Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="[4] Red" Preset="IntensityRed"/>
+ <Channel Name="[4] Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="[4] Green" Preset="IntensityGreen"/>
+ <Channel Name="[4] Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="[4] Blue" Preset="IntensityBlue"/>
+ <Channel Name="[4] Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="[4] Amber" Preset="IntensityAmber"/>
+ <Channel Name="[4] Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="[4] Lime" Preset="IntensityLime"/>
+ <Channel Name="[4] Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="unavailable (Amber)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="unavailable (Lime)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="unavailable (Amber fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="unavailable (Lime fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[1] unavailable (Amber)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[1] unavailable (Amber fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[1] unavailable (Lime)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[1] unavailable (Lime fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[2] unavailable (Amber)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[2] unavailable (Amber fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[2] unavailable (Lime)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[2] unavailable (Lime fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[3] unavailable (Amber)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[3] unavailable (Amber fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[3] unavailable (Lime)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[3] unavailable (Lime fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[4] unavailable (Amber)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[4] unavailable (Amber fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[4] unavailable (Lime)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="[4] unavailable (Lime fine)">
+  <Group Byte="1">Nothing</Group>
+  <Capability Min="0" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Mode Name="Individual Generic">
+  <Channel Number="0">[1] Dimmer</Channel>
+  <Channel Number="1">[2] Dimmer</Channel>
+  <Channel Number="2">[3] Dimmer</Channel>
+  <Channel Number="3">[4] Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="All Full (RGB)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Duration</Channel>
+  <Channel Number="3">Strobe Rate</Channel>
+  <Channel Number="4">Strobe Mode</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Tungsten Emulation</Channel>
+  <Channel Number="7">not used</Channel>
+  <Channel Number="8">CTC</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Red fine</Channel>
+  <Channel Number="11">Green</Channel>
+  <Channel Number="12">Green fine</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">Blue fine</Channel>
+  <Channel Number="15">unavailable (Amber)</Channel>
+  <Channel Number="16">unavailable (Amber fine)</Channel>
+  <Channel Number="17">unavailable (Lime)</Channel>
+  <Channel Number="18">unavailable (Lime fine)</Channel>
+ </Mode>
+ <Mode Name="All Full (RGBAL)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Duration</Channel>
+  <Channel Number="3">Strobe Rate</Channel>
+  <Channel Number="4">Strobe Mode</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Tungsten Emulation</Channel>
+  <Channel Number="7">not used</Channel>
+  <Channel Number="8">CTC</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Red fine</Channel>
+  <Channel Number="11">Green</Channel>
+  <Channel Number="12">Green fine</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">Blue fine</Channel>
+  <Channel Number="15">Amber</Channel>
+  <Channel Number="16">Amber fine</Channel>
+  <Channel Number="17">Lime</Channel>
+  <Channel Number="18">Lime fine</Channel>
+ </Mode>
+ <Mode Name="Individual Full (RGB)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Duration</Channel>
+  <Channel Number="3">Strobe Rate</Channel>
+  <Channel Number="4">Strobe Mode</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Tungsten Emulation</Channel>
+  <Channel Number="7">not used</Channel>
+  <Channel Number="8">CTC</Channel>
+  <Channel Number="9">[1] Red</Channel>
+  <Channel Number="10">[1] Red fine</Channel>
+  <Channel Number="11">[1] Green</Channel>
+  <Channel Number="12">[1] Green fine</Channel>
+  <Channel Number="13">[1] Blue</Channel>
+  <Channel Number="14">[1] Blue fine</Channel>
+  <Channel Number="15">[1] unavailable (Amber)</Channel>
+  <Channel Number="16">[1] unavailable (Amber fine)</Channel>
+  <Channel Number="17">[1] unavailable (Lime)</Channel>
+  <Channel Number="18">[1] unavailable (Lime fine)</Channel>
+  <Channel Number="19">[2] Red</Channel>
+  <Channel Number="20">[2] Red fine</Channel>
+  <Channel Number="21">[2] Green</Channel>
+  <Channel Number="22">[2] Green fine</Channel>
+  <Channel Number="23">[2] Blue</Channel>
+  <Channel Number="24">[2] Blue fine</Channel>
+  <Channel Number="25">[2] unavailable (Amber)</Channel>
+  <Channel Number="26">[2] unavailable (Amber fine)</Channel>
+  <Channel Number="27">[2] unavailable (Lime)</Channel>
+  <Channel Number="28">[2] unavailable (Lime fine)</Channel>
+  <Channel Number="29">[3] Red</Channel>
+  <Channel Number="30">[3] Red fine</Channel>
+  <Channel Number="31">[3] Green</Channel>
+  <Channel Number="32">[3] Green fine</Channel>
+  <Channel Number="33">[3] Blue</Channel>
+  <Channel Number="34">[3] Blue fine</Channel>
+  <Channel Number="35">[3] unavailable (Amber)</Channel>
+  <Channel Number="36">[3] unavailable (Amber fine)</Channel>
+  <Channel Number="37">[3] unavailable (Lime)</Channel>
+  <Channel Number="38">[3] unavailable (Lime fine)</Channel>
+  <Channel Number="39">[4] Red</Channel>
+  <Channel Number="40">[4] Red fine</Channel>
+  <Channel Number="41">[4] Green</Channel>
+  <Channel Number="42">[4] Green fine</Channel>
+  <Channel Number="43">[4] Blue</Channel>
+  <Channel Number="44">[4] Blue fine</Channel>
+  <Channel Number="45">[4] unavailable (Amber)</Channel>
+  <Channel Number="46">[4] unavailable (Amber fine)</Channel>
+  <Channel Number="47">[4] unavailable (Lime)</Channel>
+  <Channel Number="48">[4] unavailable (Lime fine)</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Individual Full (RGBAL)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe Duration</Channel>
+  <Channel Number="3">Strobe Rate</Channel>
+  <Channel Number="4">Strobe Mode</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Tungsten Emulation</Channel>
+  <Channel Number="7">not used</Channel>
+  <Channel Number="8">CTC</Channel>
+  <Channel Number="9">[1] Red</Channel>
+  <Channel Number="10">[1] Red fine</Channel>
+  <Channel Number="11">[1] Green</Channel>
+  <Channel Number="12">[1] Green fine</Channel>
+  <Channel Number="13">[1] Blue</Channel>
+  <Channel Number="14">[1] Blue fine</Channel>
+  <Channel Number="15">[1] Amber</Channel>
+  <Channel Number="16">[1] Amber fine</Channel>
+  <Channel Number="17">[1] Lime</Channel>
+  <Channel Number="18">[1] Lime fine</Channel>
+  <Channel Number="19">[2] Red</Channel>
+  <Channel Number="20">[2] Red fine</Channel>
+  <Channel Number="21">[2] Green</Channel>
+  <Channel Number="22">[2] Green fine</Channel>
+  <Channel Number="23">[2] Blue</Channel>
+  <Channel Number="24">[2] Blue fine</Channel>
+  <Channel Number="25">[2] Amber</Channel>
+  <Channel Number="26">[2] Amber fine</Channel>
+  <Channel Number="27">[2] Lime</Channel>
+  <Channel Number="28">[2] Lime fine</Channel>
+  <Channel Number="29">[3] Red</Channel>
+  <Channel Number="30">[3] Red fine</Channel>
+  <Channel Number="31">[3] Green</Channel>
+  <Channel Number="32">[3] Green fine</Channel>
+  <Channel Number="33">[3] Blue</Channel>
+  <Channel Number="34">[3] Blue fine</Channel>
+  <Channel Number="35">[3] Amber</Channel>
+  <Channel Number="36">[3] Amber fine</Channel>
+  <Channel Number="37">[3] Lime</Channel>
+  <Channel Number="38">[3] Lime fine</Channel>
+  <Channel Number="39">[4] Red</Channel>
+  <Channel Number="40">[4] Red fine</Channel>
+  <Channel Number="41">[4] Green</Channel>
+  <Channel Number="42">[4] Green fine</Channel>
+  <Channel Number="43">[4] Blue</Channel>
+  <Channel Number="44">[4] Blue fine</Channel>
+  <Channel Number="45">[4] Amber</Channel>
+  <Channel Number="46">[4] Amber fine</Channel>
+  <Channel Number="47">[4] Lime</Channel>
+  <Channel Number="48">[4] Lime fine</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Pixelmap RGB">
+  <Channel Number="0">[1] Red</Channel>
+  <Channel Number="1">[1] Green</Channel>
+  <Channel Number="2">[1] Blue</Channel>
+  <Channel Number="3">[2] Red</Channel>
+  <Channel Number="4">[2] Green</Channel>
+  <Channel Number="5">[2] Blue</Channel>
+  <Channel Number="6">[3] Red</Channel>
+  <Channel Number="7">[3] Green</Channel>
+  <Channel Number="8">[3] Blue</Channel>
+  <Channel Number="9">[4] Red</Channel>
+  <Channel Number="10">[4] Green</Channel>
+  <Channel Number="11">[4] Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="45200" ColourTemperature="0"/>
+  <Dimensions Weight="15.3" Width="400" Height="400" Depth="353"/>
+  <Lens Name="Other" DegreesMin="80" DegreesMax="80"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="1400" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
