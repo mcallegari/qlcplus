@@ -21,6 +21,7 @@
 #define FIXTUREUTILS_H
 
 #include <QColor>
+#include <QMatrix4x4>
 #include <QPointF>
 #include <QVector3D>
 
@@ -65,6 +66,15 @@ public:
     static QColor headColor(Fixture *fixture, int headIndex = 0);
 
     static QColor applyColorFilter(QColor source, QColor filter);
+
+    /** Returns the mesh resource key used to look up LightItem data for the given fixture,
+     *  or an empty string if the fixture type has no associated 3D light metadata. */
+    static QString fixtureLightResource(const Fixture *fixture);
+
+    /** Reconstruct persisted light properties without requiring the 3D scene graph.
+     *  Returns true when persisted metadata is available for the fixture model/head. */
+    static bool lightProperties(const MonitorProperties *monProps, const Fixture *fixture,
+                                int headIndex, QVector3D &lightPos, QMatrix4x4 &lightMatrix);
 
     /** Calculate the pan/tilt speed depending on the $ch preset */
     static void positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration);

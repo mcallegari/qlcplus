@@ -19,12 +19,15 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QQuaternion>
 #include <QDebug>
 #include <QFont>
 
 #include "monitorproperties.h"
+#include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "fixture.h"
 #include "doc.h"
 
 #define KXMLQLCMonitorDisplay       QStringLiteral("DisplayMode")
@@ -44,6 +47,7 @@
 #define KXMLQLCMonitorCustomBgItem      QStringLiteral("BackgroundItem")
 
 #define KXMLQLCMonitorFixtureItem   QStringLiteral("FxItem")
+#define KXMLQLCMonitorLightItem     QStringLiteral("LightItem")
 #define KXMLQLCMonitorStageItem     QStringLiteral("StageItem")
 #define KXMLQLCMonitorMeshItem      QStringLiteral("MeshItem")
 #define KXMLQLCMonitorItemName      QStringLiteral("Name")
@@ -95,6 +99,7 @@ void MonitorProperties::reset()
     m_stageType = StageSimple;
     m_showLabels = false;
     m_fixtureItems.clear();
+    m_lightItems.clear();
     m_genericItems.clear();
     m_commonBackgroundImage = QString();
 }
@@ -420,6 +425,119 @@ QList<quint32> MonitorProperties::fixtureIDList(quint32 fid) const
 }
 
 /********************************************************************
+ * Fixture lights
+ ********************************************************************/
+
+void MonitorProperties::removeLight(QString resource)
+{
+    if (m_lightItems.contains(resource))
+        m_lightItems.take(resource);
+}
+
+void MonitorProperties::removeLight(QString resource, quint16 head)
+{
+    if (m_lightItems.contains(resource) == false)
+        return;
+
+    m_lightItems[resource].remove(head);
+    if (m_lightItems[resource].isEmpty())
+    {
+        m_lightItems.take(resource);
+    }
+}
+
+bool MonitorProperties::containsLightItem(QString resource, quint16 head) const
+{
+    if (m_lightItems.contains(resource) == false)
+        return false;
+
+    return m_lightItems[resource].contains(head);
+}
+
+void MonitorProperties::setLightPosition(QString resource, quint16 head, QVector3D position)
+{
+    m_lightItems[resource][head].m_position = position;
+}
+
+QVector3D MonitorProperties::lightPosition(QString resource, quint16 head) const
+{
+    return m_lightItems[resource][head].m_position;
+}
+
+LightItem MonitorProperties::lightItem(QString resource, quint16 head) const
+{
+    return m_lightItems[resource][head];
+}
+
+void MonitorProperties::setLightItem(QString resource, quint16 head, LightItem props)
+{
+    m_lightItems[resource][head] = props;
+}
+
+QList<quint32> MonitorProperties::lightHeadList(QString resource) const
+{
+    return m_lightItems.value(resource).keys();
+}
+
+QMatrix4x4 MonitorProperties::fixtureRotationMatrix(QVector3D rot)
+{
+    // Matches Qt3DCore::QTransform::fromAxesAndAngles(X,-rx, Y,-ry, Z,-rz):
+    // individual axis rotations composed as qZ * qY * qX (X applied first)
+    QQuaternion qX = QQuaternion::fromAxisAndAngle(QVector3D(1, 0, 0), -rot.x());
+    QQuaternion qY = QQuaternion::fromAxisAndAngle(QVector3D(0, 1, 0), -rot.y());
+    QQuaternion qZ = QQuaternion::fromAxisAndAngle(QVector3D(0, 0, 1), -rot.z());
+    QMatrix4x4 m;
+    m.rotate(qZ * qY * qX);
+    return m;
+}
+
+bool MonitorProperties::fixtureBeamPosition(const MonitorProperties *monProps,
+                                            const Fixture *fixture, int headIndex,
+                                            QVector3D &beamPos, QMatrix4x4 &rotMatrix)
+{
+    if (monProps == nullptr || fixture == nullptr)
+        return false;
+
+    QString resource;
+    if (fixture->type() == QLCFixtureDef::MovingHead)
+        resource = QStringLiteral("moving_head.dae");
+
+    int lightHead = headIndex;
+    if (!resource.isEmpty())
+    {
+        if (!monProps->containsLightItem(resource, lightHead))
+        {
+            if (lightHead != 0 && monProps->containsLightItem(resource, 0))
+                lightHead = 0;
+            else
+                resource.clear();
+        }
+    }
+
+    QVector3D fixturePos = monProps->fixturePosition(fixture->id(), headIndex, 0);
+    QVector3D fixtureRot = monProps->fixtureRotation(fixture->id(), headIndex, 0);
+
+    float unitScale = monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    QVector3D gridMeters = monProps->gridSize() * unitScale;
+    QVector3D rootPos((fixturePos.x() / 1000.0f) - (gridMeters.x() / 2.0f),
+                       fixturePos.y() / 1000.0f,
+                      (fixturePos.z() / 1000.0f) - (gridMeters.z() / 2.0f));
+
+    rotMatrix = fixtureRotationMatrix(fixtureRot);
+
+    if (!resource.isEmpty())
+    {
+        QVector3D localOffset = monProps->lightPosition(resource, lightHead);
+        QVector4D worldOffset = rotMatrix * QVector4D(localOffset, 0.0f);
+        beamPos = rootPos + QVector3D(worldOffset.x(), worldOffset.y(), worldOffset.z());
+        return true;
+    }
+
+    beamPos = rootPos;
+    return false;
+}
+
+/********************************************************************
  * Generic items
  ********************************************************************/
 
@@ -655,6 +773,33 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             root.skipCurrentElement();
 
         }
+        else if (root.name() == KXMLQLCMonitorLightItem)
+        {
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemRes) == false)
+            {
+                root.skipCurrentElement();
+                continue;
+            }
+
+            LightItem item;
+            QString resource = tAttrs.value(KXMLQLCMonitorItemRes).toString();
+            quint16 headIndex = 0;
+            QVector3D position(0, 0, 0);
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureHeadIndex))
+                headIndex = tAttrs.value(KXMLQLCMonitorFixtureHeadIndex).toString().toUInt();
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemXPosition))
+                position.setX(tAttrs.value(KXMLQLCMonitorItemXPosition).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemYPosition))
+                position.setY(tAttrs.value(KXMLQLCMonitorItemYPosition).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemZPosition))
+                position.setZ(tAttrs.value(KXMLQLCMonitorItemZPosition).toString().toDouble());
+
+            item.m_position = position;
+            setLightItem(resource, headIndex, item);
+            root.skipCurrentElement();
+        }
         else if (root.name() == KXMLQLCMonitorMeshItem)
         {
             // Item ID is mandatory. Skip the whole entry if not found.
@@ -823,6 +968,32 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 
             if (item.m_zoom > 0)
                 doc->writeAttribute(KXMLQLCMonitorFixtureFixedZoom, QString::number(item.m_zoom));
+
+            doc->writeEndElement();
+        }
+    }
+
+    foreach (QString resource, lightResources())
+    {
+        foreach (quint32 headIndex, lightHeadList(resource))
+        {
+            if (containsLightItem(resource, headIndex) == false)
+                continue;
+
+            LightItem item = lightItem(resource, headIndex);
+
+            if (resource.isEmpty())
+                continue;
+
+            doc->writeStartElement(KXMLQLCMonitorLightItem);
+            doc->writeAttribute(KXMLQLCMonitorItemRes, resource);
+
+            if (headIndex)
+                doc->writeAttribute(KXMLQLCMonitorFixtureHeadIndex, QString::number(headIndex));
+
+            doc->writeAttribute(KXMLQLCMonitorItemXPosition, QString::number(item.m_position.x()));
+            doc->writeAttribute(KXMLQLCMonitorItemYPosition, QString::number(item.m_position.y()));
+            doc->writeAttribute(KXMLQLCMonitorItemZPosition, QString::number(item.m_position.z()));
 
             doc->writeEndElement();
         }

@@ -19,10 +19,15 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QVector3D>
+#include <QMatrix4x4>
 #include <QtMath>
 #include <QDebug>
 
 #include "monitorproperties.h"
+#include "qlcfixturemode.h"
+#include "qlcfixturehead.h"
+#include "qlccapability.h"
 #include "qlcpalette.h"
 #include "qlcchannel.h"
 #include "scenevalue.h"
@@ -114,8 +119,9 @@ QString QLCPalette::typeToString(QLCPalette::PaletteType type)
         case PanTilt:   return "PanTilt";
         case Shutter:   return "Shutter";
         case Gobo:      return "Gobo";
-        case Zoom:      return "Zoom";
-        case Undefined: return "";
+        case Zoom:       return "Zoom";
+        case Position3D: return "Position3D";
+        case Undefined:  return "";
     }
 
     return "";
@@ -139,6 +145,8 @@ QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
         return Gobo;
     else if (str == "Zoom")
         return Zoom;
+    else if (str == "Position3D")
+        return Position3D;
 
     return Undefined;
 }
@@ -158,6 +166,7 @@ QString QLCPalette::iconResource(bool svg) const
         case Shutter: return QString("%1:/shutter.%2").arg(prefix).arg(ext);
         case Gobo: return QString("%1:/gobo.%2").arg(prefix).arg(ext);
         case Zoom: return QString("%1:/beam.%2").arg(prefix).arg(ext);
+        case Position3D: return QString("%1:/3dpoint.%2").arg(prefix).arg(ext);
         default: return "";
     }
 }
@@ -208,6 +217,22 @@ float QLCPalette::floatValue1() const
     return m_values.at(0).toFloat();
 }
 
+float QLCPalette::floatValue2() const
+{
+    if (m_values.count() < 2)
+        return -1;
+
+    return m_values.at(1).toFloat();
+}
+
+float QLCPalette::floatValue3() const
+{
+    if (m_values.count() < 3)
+        return -1;
+
+    return m_values.at(2).toFloat();
+}
+
 QString QLCPalette::strValue1() const
 {
     if (m_values.isEmpty())
@@ -238,6 +263,14 @@ QColor QLCPalette::wauvValue() const
     return wauv;
 }
 
+QVector3D QLCPalette::vector3DValue() const
+{
+    if (m_values.count() < 3)
+        return QVector3D();
+
+    return QVector3D(m_values.at(0).toFloat(), m_values.at(1).toFloat(), m_values.at(2).toFloat());
+}
+
 void QLCPalette::setValue(QVariant val)
 {
     m_values.clear();
@@ -249,6 +282,14 @@ void QLCPalette::setValue(QVariant val1, QVariant val2)
     m_values.clear();
     m_values.append(val1);
     m_values.append(val2);
+}
+
+void QLCPalette::setValue(QVariant val1, QVariant val2, QVariant val3)
+{
+    m_values.clear();
+    m_values.append(val1);
+    m_values.append(val2);
+    m_values.append(val3);
 }
 
 QVariantList QLCPalette::values() const
@@ -269,6 +310,9 @@ void QLCPalette::resetValues()
 QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtures) const
 {
     QList<SceneValue> list;
+
+    qDebug() << "[QLCPalette] valuesFromFixtures type:" << typeToString(m_type)
+             << "values:" << m_values << "fixtures:" << fixtures.count();
 
     int fxCount = fixtures.count();
     // normalized progress in [ 0.0, 1.0 ] range
@@ -416,7 +460,6 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             break;
             case Color:
             {
-
                 QColor startColor = rgbValue();
                 QColor col = startColor;
                 QColor wauv = wauvValue();
@@ -517,9 +560,41 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             break;
             case Shutter:
             {
-                quint32 shCh = fixture->channelNumber(QLCChannel::Shutter, QLCChannel::MSB);
-                if (shCh != QLCChannel::invalid())
-                    list << SceneValue(id, shCh, uchar(value().toUInt()));
+                if (m_values.count() < 2)
+                    break;
+
+                QLCCapability::Preset targetPreset = QLCCapability::Preset(m_values.at(0).toInt());
+                int pct = m_values.at(1).toInt(); // 0-100
+
+                for (int h = 0; h < fixture->heads(); h++)
+                {
+                    QLCFixtureHead head = fixture->head(h);
+                    for (quint32 shCh : head.shutterChannels())
+                    {
+                        const QLCChannel *ch = fixture->channel(shCh);
+                        if (ch == nullptr)
+                            continue;
+
+                        for (const QLCCapability *cap : ch->capabilities())
+                        {
+                            if (cap->preset() != targetPreset)
+                                continue;
+
+                            uchar dmx;
+                            if (targetPreset == QLCCapability::ShutterOpen ||
+                                targetPreset == QLCCapability::ShutterClose)
+                            {
+                                dmx = uchar((cap->min() + cap->max()) / 2);
+                            }
+                            else
+                            {
+                                dmx = uchar(cap->min() + (cap->max() - cap->min()) * pct / 100);
+                            }
+                            list << SceneValue(id, shCh, dmx);
+                            break;
+                        }
+                    }
+                }
             }
             break;
             case Gobo:
@@ -543,6 +618,96 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                         list << fixture->zoomToValues(value().toFloat(), false);
                         break;
                     }
+                }
+            }
+            break;
+            case Position3D:
+            {
+                if (m_values.count() < 3)
+                    break;
+
+                quint32 panMSB  = fixture->channelNumber(QLCChannel::Pan,  QLCChannel::MSB);
+                quint32 tiltMSB = fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+                if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
+                    break;
+
+                QVector3D target(m_values.at(0).toFloat(),
+                                 m_values.at(1).toFloat(),
+                                 m_values.at(2).toFloat());
+
+                QVector3D lightPos;
+                QMatrix4x4 rotMatrix;
+                MonitorProperties::fixtureBeamPosition(mProps, fixture, 0, lightPos, rotMatrix);
+
+                // Build the same transposed lightMatrix used by FixtureUtils::lightProperties
+                QVector4D xb = rotMatrix * QVector4D(1, 0, 0, 0);
+                QVector4D yb = rotMatrix * QVector4D(0, 1, 0, 0);
+                QVector4D zb = rotMatrix * QVector4D(0, 0, 1, 0);
+                QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
+                QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
+                QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
+                QMatrix4x4 lightMatrix = QMatrix4x4(
+                    xa.x(), xa.y(), xa.z(), 0,
+                    ya.x(), ya.y(), ya.z(), 0,
+                    za.x(), za.y(), za.z(), 0,
+                    0, 0, 0, 1
+                ).transposed();
+
+                // Apply the same grid-offset adjustment as setPositionPickPoint
+                float unitScale = mProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+                QVector3D gridMeters = mProps->gridSize() * unitScale;
+                lightPos = QVector3D(lightPos.x() + gridMeters.x() / 2,
+                                     lightPos.y(),
+                                     lightPos.z() + gridMeters.z() / 2);
+
+                QVector3D dir = (target - lightPos).normalized();
+
+                quint32 itemFlags = mProps->fixtureFlags(id, 0, 0);
+
+                if (panMSB != QLCChannel::invalid())
+                {
+                    QVector4D res = lightMatrix * QVector4D(1, 0, 0, 0);
+                    QVector3D lxa = QVector3D(res.x(), res.y(), res.z());
+                    res = lightMatrix * QVector4D(0, 0, 1, 0);
+                    QVector3D lza = QVector3D(res.x(), res.y(), res.z());
+
+                    QVector3D projDirX = QVector3D::dotProduct(dir, lxa) * lxa;
+                    QVector3D projDirZ = QVector3D::dotProduct(dir, lza) * lza;
+                    qreal b = projDirX.length();
+                    qreal c = projDirZ.length();
+                    qreal panDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b));
+
+                    bool xLeft = QVector3D::dotProduct(projDirX, lxa) < 0.0;
+                    bool zBack = QVector3D::dotProduct(projDirZ, lza) < 0.0;
+                    if (xLeft && !zBack)       panDeg = 90.0  + (90.0 - panDeg);
+                    else if (!xLeft && !zBack) panDeg = 180.0 + panDeg;
+                    else if (!xLeft && zBack)  panDeg = 270.0 + (90.0 - panDeg);
+
+                    if (itemFlags & MonitorProperties::InvertedPanFlag)
+                    {
+                        QLCPhysical phy = fixture->fixtureMode()->physical();
+                        double maxPan = phy.focusPanMax() ? phy.focusPanMax() : 360.0;
+                        panDeg = maxPan - panDeg;
+                    }
+
+                    list << fixture->positionToValues(QLCChannel::Pan, panDeg);
+                }
+
+                if (tiltMSB != QLCChannel::invalid())
+                {
+                    QVector4D res = lightMatrix * QVector4D(0, -1, 0, 0);
+                    QVector3D lya = QVector3D(res.x(), res.y(), res.z());
+                    qreal tiltDeg = qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, lya)));
+
+                    QLCPhysical phy = fixture->fixtureMode()->physical();
+                    tiltDeg = qBound(0.0, tiltDeg, (qreal)(phy.focusTiltMax() / 2));
+
+                    if (itemFlags & MonitorProperties::InvertedTiltFlag)
+                        tiltDeg = phy.focusTiltMax() / 2 + tiltDeg;
+                    else
+                        tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
+
+                    list << fixture->positionToValues(QLCChannel::Tilt, tiltDeg);
                 }
             }
             break;
@@ -855,11 +1020,24 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
                     setValue(posList.at(0).toInt(), posList.at(1).toInt());
             }
             break;
+            case Position3D:
+            {
+                QStringList posList = strVal.split(",");
+                if (posList.count() == 3)
+                    setValue(posList.at(0).toFloat(), posList.at(1).toFloat(), posList.at(2).toFloat());
+            }
+            break;
             case Dimmer:
             case Zoom:
                 setValue(strVal.toFloat());
             break;
-            case Shutter:   break;
+            case Shutter:
+            {
+                QStringList parts = strVal.split(",");
+                if (parts.count() == 2)
+                    setValue(parts.at(0).toInt(), parts.at(1).toInt());
+            }
+            break;
             case Gobo:      break;
             case Undefined: break;
         }
@@ -890,6 +1068,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
                 case Color:
                     setFanningValue(strVal);
                 break;
+                case Position3D:
                 case Shutter:   break;
                 case Gobo:      break;
                 case Undefined: break;
@@ -930,7 +1109,18 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc) const
             doc->writeAttribute(KXMLQLCPaletteValue,
                                 QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
         break;
-        case Shutter:   break;
+        case Position3D:
+            if (m_values.count() == 3)
+                doc->writeAttribute(KXMLQLCPaletteValue,
+                                    QString("%1,%2,%3").arg(m_values.at(0).toFloat())
+                                                       .arg(m_values.at(1).toFloat())
+                                                       .arg(m_values.at(2).toFloat()));
+        break;
+        case Shutter:
+            if (m_values.count() == 2)
+                doc->writeAttribute(KXMLQLCPaletteValue,
+                                    QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
+        break;
         case Gobo:      break;
         case Undefined: break;
     }

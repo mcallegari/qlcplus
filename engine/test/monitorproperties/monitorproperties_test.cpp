@@ -18,9 +18,13 @@
 */
 
 #include <QtTest>
+#include <QBuffer>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #define private public
 #include "monitorproperties.h"
 #undef private
+#include "doc.h"
 #include "monitorproperties_test.h"
 
 void MonitorProperties_Test::defaults()
@@ -56,6 +60,53 @@ void MonitorProperties_Test::fixtureItems()
 
     mp.removeFixture(10);
     QCOMPARE(mp.containsFixture(10), false);
+}
+
+void MonitorProperties_Test::lightItems()
+{
+    MonitorProperties mp;
+
+    mp.setLightPosition("moving_head.dae", 0, QVector3D(1.5f, 2.5f, 3.5f));
+
+    QList<QString> resources = mp.lightResources();
+    QCOMPARE(resources.count(), 1);
+    QCOMPARE(resources.first(), QString("moving_head.dae"));
+    QCOMPARE(mp.containsLightItem("moving_head.dae", 0), true);
+    QCOMPARE(mp.lightPosition("moving_head.dae", 0), QVector3D(1.5f, 2.5f, 3.5f));
+
+    mp.removeLight("moving_head.dae");
+    QCOMPARE(mp.containsLightItem("moving_head.dae", 0), false);
+}
+
+void MonitorProperties_Test::lightItemsXML()
+{
+    Doc doc(this);
+    MonitorProperties mp;
+    mp.setLightPosition("moving_head.dae", 0, QVector3D(1.5f, 2.5f, 3.5f));
+
+    QByteArray xmlData;
+    QBuffer buffer(&xmlData);
+    QVERIFY(buffer.open(QIODevice::WriteOnly));
+
+    QXmlStreamWriter writer(&buffer);
+    writer.writeStartDocument();
+    QVERIFY(mp.saveXML(&writer, &doc));
+    writer.writeEndDocument();
+    buffer.close();
+
+    MonitorProperties loaded;
+    QXmlStreamReader reader(xmlData);
+    while (reader.readNextStartElement())
+    {
+        if (reader.name() == KXMLQLCMonitorProperties)
+        {
+            QVERIFY(loaded.loadXML(reader, &doc));
+            break;
+        }
+        reader.skipCurrentElement();
+    }
+
+    QCOMPARE(loaded.lightPosition("moving_head.dae", 0), QVector3D(1.5f, 2.5f, 3.5f));
 }
 
 void MonitorProperties_Test::genericItems()
@@ -104,6 +155,7 @@ void MonitorProperties_Test::reset()
     QCOMPARE(mp.stageType(), MonitorProperties::StageSimple);
     QCOMPARE(mp.labelsVisible(), false);
     QCOMPARE(mp.fixtureItemsID().count(), 0);
+    QCOMPARE(mp.lightResources().count(), 0);
     QCOMPARE(mp.genericItemsID().count(), 0);
     QVERIFY(mp.commonBackgroundImage().isEmpty());
 }

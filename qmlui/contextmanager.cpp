@@ -52,6 +52,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_currentSubContext("2D")
     , m_multipleSelection(false)
     , m_positionPicking(false)
+    , m_lastPickedPoint(QVector3D())
     , m_lastClickedType(App::NoDragItem)
     , m_universeFilter(Universe::invalid())
     , m_editingEnabled(false)
@@ -318,6 +319,11 @@ void ContextManager::setPositionPicking(bool enable)
     emit positionPickingChanged();
 }
 
+QVector3D ContextManager::lastPickedPoint() const
+{
+    return m_lastPickedPoint;
+}
+
 void ContextManager::setPositionPickPoint(QVector3D point)
 {
     if (positionPicking() == false)
@@ -326,6 +332,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     point = QVector3D(point.x() + m_monProps->gridSize().x() / 2,
                       point.y(),
                       point.z() + m_monProps->gridSize().z() / 2);
+
+    m_lastPickedPoint = point;
+    emit lastPickedPointChanged();
 
     for (quint32 &itemID : m_selectedFixtures)
     {
@@ -345,8 +354,13 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
             continue;
 
-        QVector3D lightPos = m_3DView->lightPosition(itemID);
-        QMatrix4x4 lightMatrix = m_3DView->lightMatrix(itemID);
+        QVector3D lightPos;
+        QMatrix4x4 lightMatrix;
+        if (FixtureUtils::lightProperties(m_monProps, fixture, headIndex, lightPos, lightMatrix) == false)
+        {
+            lightPos = m_3DView->lightPosition(itemID);
+            lightMatrix = m_3DView->lightMatrix(itemID);
+        }
 
         lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
                              lightPos.y(),

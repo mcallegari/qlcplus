@@ -23,6 +23,7 @@
 #include <QColor>
 #include <QObject>
 #include <QVariant>
+#include <QVector3D>
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -52,6 +53,8 @@ class QLCPalette final : public QObject
     Q_PROPERTY(int intValue1 READ intValue1 CONSTANT)
     Q_PROPERTY(int intValue2 READ intValue2 CONSTANT)
     Q_PROPERTY(float floatValue1 READ floatValue1 CONSTANT)
+    Q_PROPERTY(float floatValue2 READ floatValue2 CONSTANT)
+    Q_PROPERTY(float floatValue3 READ floatValue3 CONSTANT)
     Q_PROPERTY(QString strValue1 READ strValue1 CONSTANT)
     Q_PROPERTY(QColor rgbValue READ rgbValue CONSTANT)
     Q_PROPERTY(QColor wauvValue READ wauvValue CONSTANT)
@@ -68,14 +71,15 @@ public:
     enum PaletteType
     {
         Undefined = 0,
-        Dimmer,
-        Color,
-        Pan,
-        Tilt,
-        PanTilt,
-        Shutter,
-        Gobo,
-        Zoom
+        Dimmer      = 1 << 0,
+        Color       = 1 << 1,
+        Pan         = 1 << 2,
+        Tilt        = 1 << 3,
+        PanTilt     = 1 << 4,
+        Position3D  = 1 << 5,
+        Shutter     = 1 << 6,
+        Gobo        = 1 << 7,
+        Zoom        = 1 << 8,
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PaletteType)
@@ -124,12 +128,16 @@ public:
     int intValue1() const;
     int intValue2() const;
     float floatValue1() const;
+    float floatValue2() const;
+    float floatValue3() const;
     QString strValue1() const;
     QColor rgbValue() const;
     QColor wauvValue() const;
+    QVector3D vector3DValue() const;
 
     void setValue(QVariant val);
     void setValue(QVariant val1, QVariant val2);
+    void setValue(QVariant val1, QVariant val2, QVariant val3);
     QVariantList values() const;
     void setValues(QVariantList values);
     void resetValues();

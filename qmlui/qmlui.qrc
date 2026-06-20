@@ -90,6 +90,7 @@
     <file alias="BottomPanel.qml">qml/fixturesfunctions/BottomPanel.qml</file>
     <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
     <file alias="PositionTool.qml">qml/fixturesfunctions/PositionTool.qml</file>
+    <file alias="Position3DTool.qml">qml/fixturesfunctions/Position3DTool.qml</file>
     <file alias="PresetsTool.qml">qml/fixturesfunctions/PresetsTool.qml</file>
     <file alias="BeamTool.qml">qml/fixturesfunctions/BeamTool.qml</file>
     <file alias="PresetCapabilityItem.qml">qml/fixturesfunctions/PresetCapabilityItem.qml</file>
