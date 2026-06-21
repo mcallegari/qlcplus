@@ -1000,9 +1000,18 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
 
 uchar RGBMatrix::rgbToGrey(uint col)
 {
+    uchar r = qRed(col);
+    uchar g = qGreen(col);
+    uchar b = qBlue(col);
+
+    // Special case: if R=G=B (grayscale), return the value directly.
+    // This avoids floating-point precision issues.
+    if (r == g && g == b)
+        return r;
+
     // the weights are taken from
     // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
-    return (0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
+    return uchar(round(0.299 * r + 0.587 * g + 0.114 * b));
 }
 
 /*********************************************************************
