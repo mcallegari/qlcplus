@@ -959,7 +959,14 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             if (headDim != QLCChannel::invalid() && headDim != masterDim)
             {
                 channelList.append(headDim);
-                valueList.append(rgbToGrey(col) == 0 ? 0 : 255);
+                // If a master dimmer is present, it carries the greyscale fade and the
+                // per-head dimmer is just opened fully (on/off). With no master dimmer
+                // (e.g. generic single-channel dimmers), the head dimmer must carry the
+                // greyscale value itself, otherwise it would only ever output 0 or 255.
+                if (masterDim != QLCChannel::invalid())
+                    valueList.append(rgbToGrey(col) == 0 ? 0 : 255);
+                else
+                    valueList.append(rgbToGrey(col));
             }
         }
         else
