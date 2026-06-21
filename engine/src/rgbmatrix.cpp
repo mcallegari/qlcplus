@@ -75,6 +75,7 @@ RGBMatrix::RGBMatrix(Doc *doc)
     , m_stepHandler(new RGBMatrixStep())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
+    , m_continuousPhase(0.0)
     , m_applyingStyleAttributes(false)
     , m_controlMode(RGBMatrix::ControlModeRgb)
 {
@@ -415,6 +416,10 @@ void RGBMatrix::setMapColors(RGBAlgorithm *algorithm)
 void RGBMatrix::setProperty(QString propName, QString value)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
+
+    // Remember the old step count before changing it (used to scale the step index)
+    int oldStepsCount = m_stepsCount;
+
     m_properties[propName] = value;
     if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
     {
@@ -426,6 +431,31 @@ void RGBMatrix::setProperty(QString propName, QString value)
             setColor(i, QColor::fromRgb(colors.at(i)));
     }
     m_stepsCount = algorithmStepsCount();
+
+    // Scale currentStepIndex to the new step count to preserve the phase.
+    // We use m_continuousPhase (a continuous 0.0-1.0 value) instead of the discrete
+    // stepIndex to avoid accumulating rounding errors over multiple speed changes.
+    // Analogous to EFXFixture::durationChanged() using m_currentAngle.
+    if (m_stepHandler != NULL && m_stepsCount > 0 && oldStepsCount != m_stepsCount)
+    {
+        // If m_continuousPhase is not up to date yet (first change),
+        // compute it from the current stepIndex
+        if (oldStepsCount > 0)
+        {
+            int currentStepIndex = m_stepHandler->currentStepIndex();
+            m_continuousPhase = double(currentStepIndex) / double(oldStepsCount);
+        }
+
+        // Rescale the phase to the new step count (preserve the continuous phase,
+        // not the discrete index)
+        int newStepIndex = int(round(m_continuousPhase * double(m_stepsCount)));
+        // Make sure it stays within range
+        if (newStepIndex >= m_stepsCount)
+            newStepIndex = m_stepsCount - 1;
+        if (newStepIndex < 0)
+            newStepIndex = 0;
+        m_stepHandler->setCurrentStepIndex(newStepIndex);
+    }
 }
 
 QString RGBMatrix::property(QString propName)
@@ -640,6 +670,10 @@ void RGBMatrix::preRun(MasterTimer *timer)
             // Copy direction from parent class direction
             m_stepHandler->initializeDirection(direction(), m_rgbColors[0], m_rgbColors[1], m_stepsCount, m_runAlgorithm);
 
+            // Update continuous phase when starting playback
+            if (m_stepsCount > 0)
+                m_continuousPhase = double(m_stepHandler->currentStepIndex()) / double(m_stepsCount);
+
             if (m_runAlgorithm->type() == RGBAlgorithm::Script)
             {
                 RGBScript *script = static_cast<RGBScript*> (m_runAlgorithm);
@@ -788,6 +822,11 @@ void RGBMatrix::roundCheck()
 
     if (m_stepHandler->checkNextStep(runOrder(), m_rgbColors[0], m_rgbColors[1], m_stepsCount) == false)
         stop(FunctionParent::master());
+
+    // Update continuous phase based on current step index (prevents cumulative rounding errors)
+    // This is analogous to how EFX uses m_currentAngle for phase scaling
+    if (m_stepsCount > 0)
+        m_continuousPhase = double(m_stepHandler->currentStepIndex()) / double(m_stepsCount);
 
     m_roundTime.restart();
 
