@@ -23,6 +23,8 @@
 #include "sequence.h"
 #include "chaser.h"
 #include "tardis.h"
+#include "scene.h"
+#include "doc.h"
 
 ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
@@ -148,10 +150,14 @@ bool ChaserEditor::addStep(int insertIndex)
 
     qDebug() << "Values added: " << step.values.count();
 
-    m_chaser->addStep(step, insertIndex++);
+    // Always append to the chaser so the chaser step order matches the list model,
+    // which also always appends. Inserting at insertIndex would create a mismatch
+    // where m_playbackIndex no longer maps to the correct chaser step.
+    int appendedAt = m_chaser->stepsCount();
+    m_chaser->addStep(step);
 
     Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
-                                      Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex));
+                                      Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), appendedAt));
 
     addStepToListModel(m_doc, m_chaser, m_stepsList, &step);
 
@@ -321,8 +327,29 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
 
         if (currScene != nullptr)
         {
+            bool sceneWasRunning = currScene->isRunning();
+            if (sceneWasRunning)
+            {
+                currScene->stop(FunctionParent::master());
+
+                // Remove channels from the previous step absent in the new step
+                // so the fader re-initialises clean when the scene restarts.
+                if (m_playbackIndex >= 0 && m_playbackIndex < m_chaser->stepsCount())
+                {
+                    const QList<SceneValue> &newVals = m_chaser->stepAt(playbackIndex)->values;
+                    for (const SceneValue &sv : currScene->values())
+                    {
+                        if (!newVals.contains(sv))
+                            currScene->unsetValue(sv.fxi, sv.channel);
+                    }
+                }
+            }
+
             for (SceneValue &scv : m_chaser->stepAt(playbackIndex)->values)
                 currScene->setValue(scv);
+
+            if (sceneWasRunning)
+                currScene->start(m_doc->masterTimer(), FunctionParent::master());
         }
     }
 
