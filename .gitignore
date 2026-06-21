@@ -1,5 +1,4 @@
 # C++ objects and libs
-
 *.slo
 *.lo
 *.o
@@ -14,7 +13,6 @@
 .DS_Store
 
 # Qt-es
-
 .qmake.stash
 .qtc_clangd
 *.pro.user
@@ -53,3 +51,8 @@ coverage/
 # CMake build
 CMakeLists.txt.user
 build*
+
+# AI and agents
+.codex
+.claude
+.agents
