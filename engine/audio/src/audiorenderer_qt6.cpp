@@ -140,13 +140,21 @@ QList<AudioDeviceInfo> AudioRendererQt6::getDevicesInfo()
 
 qint64 AudioRendererQt6::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    if (m_audioSink == NULL || m_output == NULL || m_audioSink->bytesFree() < maxSize)
+    if (m_audioSink == NULL || m_output == NULL)
         return 0;
 
-    qint64 written = m_output->write((const char *)data, maxSize);
+    // Write only as much as currently fits in the device buffer. The base
+    // renderer keeps track of the leftover (pendingAudioBytes) and retries,
+    // so partial writes keep a small buffer steadily topped up without
+    // stalling on the whole 8KB chunk.
+    const qint64 toWrite = qMin<qint64>(maxSize, m_audioSink->bytesFree());
+    if (toWrite <= 0)
+        return 0;
 
-    if (written != maxSize)
-        qDebug() << "[writeAudio] expected to write" << maxSize << "but wrote" << written;
+    qint64 written = m_output->write((const char *)data, toWrite);
+
+    if (written != toWrite)
+        qDebug() << "[writeAudio] expected to write" << toWrite << "but wrote" << written;
 
     if (written > 0)
         m_bytesWritten += written;
@@ -231,7 +239,19 @@ void AudioRendererQt6::run()
             return;
         }
 
-        m_audioSink->setBufferSize(8192 * 8);
+        // Size the output buffer from the actual format so playback starts
+        // with a small, low-latency buffer instead of a fixed 64KB (~370ms
+        // at 44.1kHz/16bit/stereo). Configurable via QSettings.
+        QSettings settings;
+        int bufferMs = settings.value(SETTINGS_AUDIO_OUTPUT_BUFFER,
+                                      DEFAULT_AUDIO_OUTPUT_BUFFER_MS).toInt();
+        if (bufferMs < 10)
+            bufferMs = 10;
+
+        const qint64 bytesPerSecond = qint64(m_format.bytesPerFrame()) * qint64(m_format.sampleRate());
+        if (bytesPerSecond > 0)
+            m_audioSink->setBufferSize((bytesPerSecond * bufferMs) / 1000);
+
         m_output = m_audioSink->start();
         m_bytesWritten = 0;
         m_processedUsecsBase = m_audioSink->processedUSecs();

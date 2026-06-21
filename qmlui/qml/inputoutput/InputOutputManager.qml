@@ -30,6 +30,17 @@ Rectangle
 
     property string contextName: "IOMGR"
 
+    function showAudioConfiguration(input)
+    {
+        audioConfigPopup.isInput = input
+        audioConfigPopup.open()
+    }
+
+    PopupAudioConfiguration
+    {
+        id: audioConfigPopup
+    }
+
     IOLeftPanel
     {
         id: leftPanel

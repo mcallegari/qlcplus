@@ -145,6 +145,18 @@ SidePanel
                 tooltip: qsTr("Open the plugin configuration")
                 onClicked: ioManager.configurePlugin(true)
             }
+
+            IconButton
+            {
+                id: audioInputConfigureButton
+                z: 2
+                visible: showAudioButton
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/configure.svg"
+                tooltip: qsTr("Open the audio input configuration")
+                onClicked: ioMgrContainer.showAudioConfiguration(true)
+            }
         }
     }
 }

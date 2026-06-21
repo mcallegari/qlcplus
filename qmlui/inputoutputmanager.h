@@ -28,6 +28,7 @@
 
 class Doc;
 class Universe;
+class AudioCapture;
 class InputOutputMap;
 class QLCInputProfile;
 class InputProfileEditor;
@@ -45,6 +46,10 @@ class InputOutputManager final : public PreviewContext
     Q_PROPERTY(QVariant audioOutputSources READ audioOutputSources NOTIFY audioOutputSourcesChanged)
     Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
     Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
+    Q_PROPERTY(int audioInputSampleRate READ audioInputSampleRate WRITE setAudioInputSampleRate NOTIFY audioInputSampleRateChanged)
+    Q_PROPERTY(int audioInputChannels READ audioInputChannels WRITE setAudioInputChannels NOTIFY audioInputChannelsChanged)
+    Q_PROPERTY(int audioInputLevel READ audioInputLevel NOTIFY audioInputLevelChanged)
+    Q_PROPERTY(int audioOutputBuffer READ audioOutputBuffer WRITE setAudioOutputBuffer NOTIFY audioOutputBufferChanged)
     Q_PROPERTY(bool blackout READ blackout WRITE setBlackout NOTIFY blackoutChanged)
 
     Q_PROPERTY(bool inputCanConfigure READ inputCanConfigure NOTIFY inputCanConfigureChanged)
@@ -112,12 +117,42 @@ public:
     Q_INVOKABLE void setAudioInput(QString privateName);
     Q_INVOKABLE void setAudioOutput(QString privateName);
 
+    /** Get/Set the audio input sample rate (Hz) */
+    int audioInputSampleRate() const;
+    void setAudioInputSampleRate(int sampleRate);
+
+    /** Get/Set the audio input channel count (1 = mono, 2 = stereo) */
+    int audioInputChannels() const;
+    void setAudioInputChannels(int channels);
+
+    /** Get/Set the audio output buffer length in milliseconds */
+    int audioOutputBuffer() const;
+    void setAudioOutputBuffer(int bufferMs);
+
+    /** Current audio input signal level (0 - 0x7FFF), updated while preview is on */
+    int audioInputLevel() const;
+
+    /** Enable/disable the audio input signal level monitoring */
+    Q_INVOKABLE void enableAudioInputPreview(bool enable);
+
 signals:
     void audioInputDeviceChanged();
     void audioOutputDeviceChanged();
 
     void audioInputSourcesChanged();
     void audioOutputSourcesChanged();
+
+    void audioInputSampleRateChanged();
+    void audioInputChannelsChanged();
+    void audioOutputBufferChanged();
+    void audioInputLevelChanged();
+
+protected slots:
+    void slotAudioInputLevelChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+
+private:
+    AudioCapture *m_inputCapture;
+    int m_audioInputLevel;
 
     /*********************************************************************
      * IO Patches
