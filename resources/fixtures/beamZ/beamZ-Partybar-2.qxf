@@ -36,8 +36,8 @@
   <Capability Min="0" Max="255">Derby 2 speed</Capability>
  </Channel>
 
- <Channel Name="Strobe Speed">
-  <Group Byte="0">Shutter</Group>
+<Channel Name="Strobe Speed">
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="9">No strobe</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
  </Channel>
