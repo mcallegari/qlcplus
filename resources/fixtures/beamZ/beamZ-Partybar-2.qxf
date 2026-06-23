@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Custom fixture definition for BeamZ PartyBar2</Name>
+  <Version>1.1</Version>
+  <Author>Joel Solomons</Author>
+ </Creator>
+
+ <Manufacturer>BeamZ</Manufacturer>
+ <Model>PartyBar2</Model>
+ <Type>Effect</Type>
+
+ <Channel Name="Derby 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 1 White" Preset="IntensityWhite"/>
+
+ <Channel Name="Derby 1 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Derby 1 speed</Capability>
+ </Channel>
+
+ <Channel Name="PARs Red" Preset="IntensityRed"/>
+ <Channel Name="PARs Green" Preset="IntensityGreen"/>
+ <Channel Name="PARs Blue" Preset="IntensityBlue"/>
+ <Channel Name="PARs White" Preset="IntensityWhite"/>
+
+ <Channel Name="Derby 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 2 White" Preset="IntensityWhite"/>
+
+ <Channel Name="Derby 2 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Derby 2 speed</Capability>
+ </Channel>
+
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No strobe</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+
+ <Mode Name="15-channel">
+  <Channel Number="0">Derby 1 Red</Channel>
+  <Channel Number="1">Derby 1 Green</Channel>
+  <Channel Number="2">Derby 1 Blue</Channel>
+  <Channel Number="3">Derby 1 White</Channel>
+  <Channel Number="4">Derby 1 Speed</Channel>
+  <Channel Number="5">PARs Red</Channel>
+  <Channel Number="6">PARs Green</Channel>
+  <Channel Number="7">PARs Blue</Channel>
+  <Channel Number="8">PARs White</Channel>
+  <Channel Number="9">Derby 2 Red</Channel>
+  <Channel Number="10">Derby 2 Green</Channel>
+  <Channel Number="11">Derby 2 Blue</Channel>
+  <Channel Number="12">Derby 2 White</Channel>
+  <Channel Number="13">Derby 2 Speed</Channel>
+  <Channel Number="14">Strobe Speed</Channel>
+ </Mode>
+
+ <Physical>
+  <Bulb Type="2 PAR cans with RGBW LEDs and 2 Derby effects with RGBW LEDs" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.15" Width="920" Height="390" Depth="190"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+ </Physical>
+</FixtureDefinition>

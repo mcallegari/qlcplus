@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Custom fixture definition for BeamZ PartyBar 3</Name>
+  <Version>1.1</Version>
+  <Author>Joel Solomons</Author>
+ </Creator>
+
+ <Manufacturer>BeamZ</Manufacturer>
+ <Model>PartyBar 3</Model>
+ <Type>Color Changer</Type>
+
+ <!--
+  BeamZ PartyBar 3 custom 8-channel definition.
+
+  Channel layout:
+   1: Macro Select
+   2: Colour Macro
+   3: Speed
+   4: Master Dimmer
+   5: Red Dimmer
+   6: Green Dimmer
+   7: Blue Dimmer
+   8: Magic Ball Dimmer
+
+  For manual RGB mixing, use:
+   Macro Select: 0
+   Colour Macro: 0
+   Speed: 0
+   Master Dimmer: 255
+   Red/Green/Blue: as required
+   Magic Ball Dimmer: 0 or 255 depending on whether you want the balls active
+ -->
+
+ <Channel Name="Macro Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Manual RGB mode / no function</Capability>
+  <Capability Min="11" Max="50">Static colour macro mode</Capability>
+  <Capability Min="51" Max="100">Colour jump mode</Capability>
+  <Capability Min="101" Max="150">Colour fade mode</Capability>
+  <Capability Min="151" Max="200">Sound-activated mode</Capability>
+  <Capability Min="201" Max="255">Strobe all colours</Capability>
+ </Channel>
+
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No colour macro / use RGB channels</Capability>
+  <Capability Min="1" Max="15">Red</Capability>
+  <Capability Min="16" Max="30">Green</Capability>
+  <Capability Min="31" Max="45">Blue</Capability>
+  <Capability Min="46" Max="60">Yellow</Capability>
+  <Capability Min="61" Max="75">Cyan</Capability>
+  <Capability Min="76" Max="90">Magenta</Capability>
+  <Capability Min="91" Max="105">White</Capability>
+  <Capability Min="106" Max="120">Amber</Capability>
+  <Capability Min="121" Max="135">Purple</Capability>
+  <Capability Min="136" Max="150">Hot pink</Capability>
+  <Capability Min="151" Max="165">Orange</Capability>
+  <Capability Min="166" Max="180">Lime</Capability>
+  <Capability Min="181" Max="195">Sky blue</Capability>
+  <Capability Min="196" Max="210">Warm white approximation</Capability>
+  <Capability Min="211" Max="225">Cool white approximation</Capability>
+  <Capability Min="226" Max="240">Pastel colour macro</Capability>
+  <Capability Min="241" Max="255">Full colour macro / rainbow</Capability>
+ </Channel>
+
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Stopped / no speed</Capability>
+  <Capability Min="1" Max="63">Slow speed</Capability>
+  <Capability Min="64" Max="127">Medium speed</Capability>
+  <Capability Min="128" Max="191">Fast speed</Capability>
+  <Capability Min="192" Max="255">Very fast speed</Capability>
+ </Channel>
+
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Blackout</Capability>
+  <Capability Min="1" Max="255">Master dimmer, dark to bright</Capability>
+ </Channel>
+
+ <Channel Name="Red Dimmer">
+  <Group Byte="0">Colour</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="0">Red off</Capability>
+  <Capability Min="1" Max="255">Red intensity, dark to bright</Capability>
+ </Channel>
+
+ <Channel Name="Green Dimmer">
+  <Group Byte="0">Colour</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="0">Green off</Capability>
+  <Capability Min="1" Max="255">Green intensity, dark to bright</Capability>
+ </Channel>
+
+ <Channel Name="Blue Dimmer">
+  <Group Byte="0">Colour</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="0">Blue off</Capability>
+  <Capability Min="1" Max="255">Blue intensity, dark to bright</Capability>
+ </Channel>
+
+ <Channel Name="Magic Ball Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Magic Balls off</Capability>
+  <Capability Min="1" Max="255">Magic Ball intensity, dark to bright</Capability>
+ </Channel>
+
+ <Mode Name="8-channel">
+  <Channel Number="0">Macro Select</Channel>
+  <Channel Number="1">Colour Macro</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Red Dimmer</Channel>
+  <Channel Number="5">Green Dimmer</Channel>
+  <Channel Number="6">Blue Dimmer</Channel>
+  <Channel Number="7">Magic Ball Dimmer</Channel>
+ </Mode>
+
+ <Physical>
+  <Bulb Type="4 PAR cans with RGB LEDs and 4 Magic Balls with RGB LEDs" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.0" Width="735" Height="210" Depth="90"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical DmxConnector="3-pin" PowerConsumption="85"/>
+ </Physical>
+</FixtureDefinition>
