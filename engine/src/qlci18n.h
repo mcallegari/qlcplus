@@ -55,6 +55,7 @@ public:
      * @return true if translation was loaded successfully, otherwise false
      */
     static bool loadTranslation(const QString& component);
+    static bool loadQtTranslation(const QString& component);
 
 private:
     static QString s_defaultLocale;
