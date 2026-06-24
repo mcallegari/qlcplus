@@ -64,6 +64,7 @@
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
+    <file alias="PopupAnimationPreset.qml">qml/popup/PopupAnimationPreset.qml</file>
     <file alias="PopupAudioConfiguration.qml">qml/popup/PopupAudioConfiguration.qml</file>
     <file alias="PopupChannelModifiers.qml">qml/popup/PopupChannelModifiers.qml</file>
     <file alias="PopupChannelWizard.qml">qml/popup/PopupChannelWizard.qml</file>
@@ -246,6 +247,7 @@
     <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
     <file alias="VCAnimationItem.qml">qml/virtualconsole/VCAnimationItem.qml</file>
     <file alias="VCAnimationProperties.qml">qml/virtualconsole/VCAnimationProperties.qml</file>
+    <file alias="VCAnimationPresets.qml">qml/virtualconsole/VCAnimationPresets.qml</file>
     <file alias="VCAudioTriggersItem.qml">qml/virtualconsole/VCAudioTriggersItem.qml</file>
     <file alias="VCAudioTriggersProperties.qml">qml/virtualconsole/VCAudioTriggersProperties.qml</file>
     <file alias="VCXYPadItem.qml">qml/virtualconsole/VCXYPadItem.qml</file>

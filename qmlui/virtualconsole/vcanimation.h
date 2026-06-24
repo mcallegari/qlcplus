@@ -21,6 +21,7 @@
 #define VCANIMATION_H
 
 #include "vcwidget.h"
+#include "vcanimationpreset.h"
 #include "rgbalgorithm.h"
 #include <QVariantList>
 
@@ -60,6 +61,9 @@ class VCAnimation : public VCWidget
     Q_PROPERTY(QStringList algorithms READ algorithms CONSTANT)
     Q_PROPERTY(int algorithmIndex READ algorithmIndex WRITE setAlgorithmIndex NOTIFY algorithmIndexChanged FINAL)
 
+    Q_PROPERTY(QVariantList presetsList READ presetsList NOTIFY presetsListChanged FINAL)
+    Q_PROPERTY(int activePresetId READ activePresetId NOTIFY activePresetIdChanged FINAL)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -78,6 +82,12 @@ public:
 
     /** @reimp */
     QString propertiesResource() const override;
+
+    /** @reimp */
+    bool supportsPresets() const override;
+
+    /** @reimp */
+    QString presetsResource() const override;
 
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent) const override;
@@ -200,6 +210,70 @@ signals:
     void algorithmIndexChanged();
 
     /*********************************************************************
+     * Custom controls / presets
+     *********************************************************************/
+public:
+    /** Get the list of configured presets (for QML) */
+    QVariantList presetsList() const;
+
+    /** Get the ID of the currently active preset, or -1 */
+    int activePresetId() const;
+
+    /** Add a fixed-color preset for color slot @a colorIndex (0..4) */
+    Q_INVOKABLE int addColorPreset(int colorIndex, QColor color);
+
+    /** Add the R/G/B knob trio for color slot @a colorIndex (0..4) */
+    Q_INVOKABLE int addColorKnobsPreset(int colorIndex);
+
+    /** Add a Text preset showing the given @a text */
+    Q_INVOKABLE int addTextPreset(QString text);
+
+    /** Return the list of available RGB script algorithm names (scripts only) */
+    Q_INVOKABLE QStringList scriptAlgorithms() const;
+
+    /** Return the editable properties of the given script algorithm.
+     *  Each entry is a map with keys: name, displayName, type
+     *  ("List"/"Range"/"Float"/"String"), listValues, min, max, value */
+    Q_INVOKABLE QVariantList algorithmProperties(QString algoName) const;
+
+    /** Add a full-algorithm preset for the given script @a algoName, applying
+     *  the customized @a properties (name -> value as strings) */
+    Q_INVOKABLE int addAlgorithmPreset(QString algoName, QVariantMap properties);
+
+    /** Remove the preset with the given @a presetId */
+    Q_INVOKABLE void removePreset(quint8 presetId);
+
+    /** Move the given preset up/down. Returns the (possibly unchanged) preset id */
+    Q_INVOKABLE int movePresetUp(quint8 presetId);
+    Q_INVOKABLE int movePresetDown(quint8 presetId);
+
+    /** Activate (apply) the preset with the given @a presetId */
+    Q_INVOKABLE void applyPreset(quint8 presetId);
+
+    /** Set the value of a color-knob preset (0..255) and apply it */
+    Q_INVOKABLE void setPresetKnobValue(quint8 presetId, int value);
+
+    /** Get the current knob value (0..255) for a color-knob preset */
+    Q_INVOKABLE int presetKnobValue(quint8 presetId) const;
+
+signals:
+    void presetsListChanged();
+    void activePresetIdChanged();
+
+private:
+    QList<VCAnimationPreset *> controls() const;
+    VCAnimationPreset *findControl(quint8 controlId) const;
+    void addControlInternal(VCAnimationPreset *control);
+    void clearControls();
+    void refreshPresetExternalControls();
+    void setActivePresetId(int presetId);
+
+private:
+    quint8 m_lastAssignedControlId;
+    QList<VCAnimationPreset *> m_controls;
+    int m_activePresetId;
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 
@@ -222,6 +296,9 @@ public:
 private:
     RGBMatrix *currentMatrix() const;
     void applyStyleOverrides(RGBMatrix *matrix);
+    /** Push text and/or script properties carried by a preset directly onto
+     *  the matrix algorithm (the attribute-override channel cannot carry them) */
+    void applyAlgorithmContent(RGBMatrix *matrix, VCAnimationPreset *control);
     void releaseStyleOverrides(RGBMatrix *matrix);
     void releaseIntensityOverride(RGBMatrix *matrix);
     static int packColorForOverride(const QColor &color);

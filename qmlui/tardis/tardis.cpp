@@ -1626,6 +1626,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 animation->setColor5(value->value<QColor>());
         }
         break;
+        case VCAnimationActivatePreset:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->applyPreset(value->toUInt());
+        }
+        break;
 
         default:
             qWarning() << "Action" << action.m_action << "not implemented!";

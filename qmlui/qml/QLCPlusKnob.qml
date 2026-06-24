@@ -41,9 +41,18 @@ Dial
     property bool drawOuterLevel: true
     property real knobSize: Math.min(width, height)
 
+    /** Base color of the knob body. When set to a non-gray color, the dial
+     *  body is tinted accordingly (used e.g. for R/G/B knobs) */
+    property color knobColor: "#808080"
+
+    /** Color of the level progress arc */
+    property color levelColor: "#00FF00"
+
     onPositionChanged: kCanvas.requestPaint()
     onHeightChanged: kCanvas.requestPaint()
     onWidthChanged: kCanvas.requestPaint()
+    onKnobColorChanged: kCanvas.requestPaint()
+    onLevelColorChanged: kCanvas.requestPaint()
 
     MouseArea
     {
@@ -95,12 +104,14 @@ Dial
 
             var startAngle = 90 + 40
             var arcWidth = 4
+            var darkShade = Qt.darker(control.knobColor, 1.13).toString()
+            var lightShade = Qt.lighter(control.knobColor, 1.07).toString()
             var outerGrad = context.createLinearGradient(0, 0, 0, height)
             var innerGrad = context.createLinearGradient(0, 0, 0, height)
-            outerGrad.addColorStop(0, '#777')
-            outerGrad.addColorStop(1, '#888')
-            innerGrad.addColorStop(0, '#888')
-            innerGrad.addColorStop(1, '#777')
+            outerGrad.addColorStop(0, darkShade)
+            outerGrad.addColorStop(1, lightShade)
+            innerGrad.addColorStop(0, lightShade)
+            innerGrad.addColorStop(1, darkShade)
 
             context.globalAlpha = 1.0
             context.clearRect(0, 0, width, height)
@@ -120,7 +131,7 @@ Dial
             if (drawOuterLevel)
             {
                 context.beginPath()
-                context.strokeStyle = "#00FF00"
+                context.strokeStyle = control.levelColor.toString()
                 context.lineWidth = arcWidth
                 context.arc(width / 2, height / 2, (width / 2) - (arcWidth / 2),
                             DrawFuncs.degToRad(startAngle),
