@@ -229,7 +229,8 @@ bool ArtNetPacketizer::checkPacketAndCode(QByteArray const& data, quint16 &code)
 
 bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeInfo& info)
 {
-    if (data.isNull())
+    // The fields read below extend up to style at byte offset 186.
+    if (data.isNull() || data.length() < 187)
         return false;
 
     QByteArray shortName = data.mid(26, 18);
@@ -256,7 +257,7 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeIn
 
 bool ArtNetPacketizer::fillDMXdata(QByteArray const& data, QByteArray &dmx, quint32 &universe)
 {
-    if (data.isNull())
+    if (data.isNull() || data.length() < 18)
         return false;
     dmx.clear();
     //char sequence = data.at(12);
@@ -267,6 +268,12 @@ bool ArtNetPacketizer::fillDMXdata(QByteArray const& data, QByteArray &dmx, quin
     unsigned int msb = (data.at(16)&0xff);
     unsigned int lsb = (data.at(17)&0xff);
     int length = (msb << 8) | lsb;
+
+    if (length < 2 || length > 512 || length > data.length() - 18)
+    {
+        qWarning() << Q_FUNC_INFO << "Invalid ArtDMX payload length" << length;
+        return false;
+    }
 
     //qDebug() << "length: " << length;
     dmx.append(data.mid(18, length));
@@ -292,6 +299,9 @@ bool ArtNetPacketizer::processTODdata(const QByteArray &data, quint32 &universe,
     quint8 uidCount = quint8(data.at(27));
 
     qDebug() << "UID count:" << uidCount;
+
+    if (data.length() < 28 + (uidCount * 6))
+        return false;
 
     for (int i = 0; i < uidCount; i++)
     {
@@ -320,4 +330,3 @@ bool ArtNetPacketizer::processRDMdata(const QByteArray &data, quint32 &universe,
     RDMProtocol rdm;
     return rdm.parsePacket(data.mid(24), values);
 }
-

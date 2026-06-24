@@ -28,6 +28,15 @@ class ArtNet_Test final : public QObject
 
 private slots:
     void setupArtNetDmx();
+    void fillArtPollReplyInfoRejectsShortPacket();
+    void fillDMXdataRejectsShortPacket();
+    void processTODdataRejectsShortUidList();
+    void rdmParsePacketRejectsShortHeader();
+    void rdmParsePacketRejectsOversizedMessageLength();
+    void rdmParsePacketRejectsTruncatedPdl();
+    void rdmParsePacketRejectsShortPidPayload();
+    void rdmParsePacketAcceptsValidPacket();
+    void rdmParsePacketAcceptsValidDeviceInfoPacket();
 };
 
 #endif
