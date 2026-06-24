@@ -352,6 +352,9 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             quint32 wID = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
+            if (widget == nullptr)
+                return;
+
             switch(widget->type())
             {
                 case VCWidget::AnimationWidget:
@@ -449,12 +452,6 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         return;
     }
-    else if (cmdList[0] == "GM_VALUE")
-    {
-        uchar value = cmdList[1].toInt();
-        m_doc->inputOutputMap()->setGrandMasterValue(value);
-        return;
-    }
     else if (cmdList[0] == "POLL")
         return;
 
@@ -514,30 +511,36 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     cue->slotPreviousCue();
                 else if (cmdList[1] == "NEXT")
                     cue->slotNextCue();
-                else if (cmdList[1] == "STEP")
+                else if (cmdList[1] == "STEP" && cmdList.count() > 2)
                     cue->slotCurrentStepChanged(cmdList[2].toInt());
-                else if (cmdList[1] == "CUE_STEP_NOTE")
+                else if (cmdList[1] == "CUE_STEP_NOTE" && cmdList.count() > 3)
                     cue->slotStepNoteChanged(cmdList[2].toInt(), cmdList[3]);
-                else if (cmdList[1] == "CUE_SHOWPANEL")
+                else if (cmdList[1] == "CUE_SHOWPANEL" && cmdList.count() > 2)
                     cue->slotSideFaderButtonChecked(cmdList[2] == "1" ? false : true);
-                else if (cmdList[1] == "CUE_SIDECHANGE")
+                else if (cmdList[1] == "CUE_SIDECHANGE" && cmdList.count() > 2)
                     cue->slotSetSideFaderValue((cmdList[2]).toInt());
             }
             break;
             case VCWidget::FrameWidget:
             case VCWidget::SoloFrameWidget:
             {
+                if (cmdList.count() < 2)
+                    return;
+
                 VCFrame *frame = qobject_cast<VCFrame*>(widget);
                 if (cmdList[1] == "NEXT_PG")
                     frame->slotNextPage();
                 else if (cmdList[1] == "PREV_PG")
                     frame->slotPreviousPage();
-                else if (cmdList[1] == "FRAME_DISABLE")
+                else if (cmdList[1] == "FRAME_DISABLE" && cmdList.count() > 2)
                     frame->setDisableState(cmdList[2] == "1" ? false : true);
             }
             break;
             case VCWidget::ClockWidget:
             {
+                if (cmdList.count() < 2)
+                    return;
+
                 VCClock *clock = qobject_cast<VCClock*>(widget);
                 if (cmdList[1] == "S")
                     clock->playPauseTimer();
@@ -547,24 +550,27 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             break;
             case VCWidget::AnimationWidget:
             {
+                if (cmdList.count() < 2)
+                    return;
+
                 VCMatrix *matrix = qobject_cast<VCMatrix*>(widget);
-                if (cmdList[1] == "MATRIX_SLIDER_CHANGE")
+                if (cmdList[1] == "MATRIX_SLIDER_CHANGE" && cmdList.count() > 2)
                     matrix->slotSetSliderValue(cmdList[2].toInt());
-                if (cmdList[1] == "MATRIX_COMBO_CHANGE")
+                if (cmdList[1] == "MATRIX_COMBO_CHANGE" && cmdList.count() > 2)
                     matrix->slotSetAnimationValue(cmdList[2]);
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_1")
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList.count() > 3 && cmdList[2] == "COLOR_1")
                     matrix->slotColor1Changed(cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_2")
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList.count() > 3 && cmdList[2] == "COLOR_2")
                     matrix->slotColor2Changed(cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_3")
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList.count() > 3 && cmdList[2] == "COLOR_3")
                     matrix->slotColor3Changed(cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_4")
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList.count() > 3 && cmdList[2] == "COLOR_4")
                     matrix->slotColor4Changed(cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList[2] == "COLOR_5")
+                if (cmdList[1] == "MATRIX_COLOR_CHANGE" && cmdList.count() > 3 && cmdList[2] == "COLOR_5")
                     matrix->slotColor5Changed(cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_KNOB")
+                if (cmdList[1] == "MATRIX_KNOB" && cmdList.count() > 3)
                     matrix->slotMatrixControlKnobValueChanged(cmdList[2].toInt(), cmdList[3].toInt());
-                if (cmdList[1] == "MATRIX_PUSHBUTTON")
+                if (cmdList[1] == "MATRIX_PUSHBUTTON" && cmdList.count() > 2)
                     matrix->slotMatrixControlPushButtonClicked(cmdList[2].toInt());
             }
             break;
@@ -704,7 +710,7 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
             for (const VCFramePageShortcut* shortcut : shortcuts)
             {
                 m_JScode += "framesPageNames[" + QString::number(frame->id()) + "][" + QString::number(index) + "] = \"" +
-                            QString(shortcut->name()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                            webAccessJsStringEscaped(shortcut->name()) + "\";\n";
                 index++;
             }
             currentPageName = QString(shortcuts[frame->currentPage()]->name());
@@ -728,7 +734,7 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
         str += "</div>\n";
 
         m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" +
-                    QString(frame->caption()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                    webAccessJsStringEscaped(frame->caption()) + "\";\n";
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
@@ -752,7 +758,8 @@ QString WebAccess::getFrameHTML(const VCFrame *frame)
                    "<img src=\"back.png\" title=\"" + tr("Back") + "\" width=\"27\"></a>";
 
             str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100)+"px;\">" +
-                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
+                   currentPageName.toHtmlEscaped() + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +
@@ -813,7 +820,7 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
             for (const VCFramePageShortcut* shortcut : shortcuts)
             {
                 m_JScode += "framesPageNames[" + QString::number(frame->id()) + "][" + QString::number(index) + "] = \"" +
-                            QString(shortcut->name()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                            webAccessJsStringEscaped(shortcut->name()) + "\";\n";
                 index++;
             }
             currentPageName = QString(shortcuts[frame->currentPage()]->name());
@@ -837,7 +844,7 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
         str += "</div>\n";
 
         m_JScode += "frameCaption[" + QString::number(frame->id()) + "] = \"" +
-                    QString(frame->caption()).replace("\\", "\\\\").replace("\"", "\\\"") + "\";\n";
+                    webAccessJsStringEscaped(frame->caption()) + "\";\n";
 
         if (frame->isEnableButtonVisible()) {
             str += "<a class=\"vcframeButton\" id=\"frEnBtn" + QString::number(frame->id()) + "\" " +
@@ -861,7 +868,8 @@ QString WebAccess::getSoloFrameHTML(const VCSoloFrame *frame)
                    "<img src=\"back.png\" title=\"" + tr("Back") + "\" width=\"27\"></a>";
 
             str += "<div class=\"vcframePageLabel\" id=\"frPglbl" + QString::number(frame->id()) + "\" style=\"width: " + QString::number(frame->isCollapsed() ? 60 : 100) + "px;\">" +
-                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" + currentPageName + "</div></div>\n";
+                   "<div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">" +
+                   currentPageName.toHtmlEscaped() + "</div></div>\n";
 
             str += "<a class=\"vcframeButton\" id=\"frMpHdrNext" + QString::number(frame->id()) + "\" href=\"javascript:frameNextPage(" +
                    QString::number(frame->id()) + ");\" style=\"display: " + QString(!frame->isCollapsed() ? "block" : "none") + ";\">" +

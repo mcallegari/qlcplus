@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
-#include <QFileInfo>
 #include <QHostAddress>
 #include <QProcess>
 #include <QRegularExpression>
@@ -31,6 +30,7 @@
 #include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
+#include "webaccessupload.h"
 #include "commonjscss.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
@@ -49,13 +49,6 @@
 
 namespace
 {
-QString sanitizeUploadedFileName(const QString &rawName)
-{
-    QString normalizedName = rawName;
-    normalizedName.replace('\\', '/');
-    return QFileInfo(normalizedName).fileName();
-}
-
 bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, QString *fileName = nullptr)
 {
     payload.clear();
@@ -117,7 +110,16 @@ bool extractMultipartFilePayload(const QHttpRequest *req, QByteArray &payload, Q
         QRegularExpression re("filename=\"([^\"]*)\"");
         QRegularExpressionMatch match = re.match(QString::fromUtf8(partHeaders));
         if (match.hasMatch())
-            *fileName = sanitizeUploadedFileName(match.captured(1));
+        {
+            const QString rawName = match.captured(1);
+            if (!isPlainUploadedFileName(rawName))
+            {
+                qWarning() << Q_FUNC_INFO << "Rejected fixture upload filename" << rawName;
+                return false;
+            }
+
+            *fileName = rawName;
+        }
     }
 
     const int payloadStart = headersEnd + payloadSeparatorSize;
@@ -629,6 +631,18 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
 
         return true;
     }
+    else if (cmdList[0] == "GM_VALUE")
+    {
+        if (m_auth && user && user->level < SIMPLE_DESK_AND_VC_LEVEL)
+            return true;
+
+        if (cmdList.count() < 2)
+            return true;
+
+        uchar value = cmdList[1].toInt();
+        m_doc->inputOutputMap()->setGrandMasterValue(value);
+        return true;
+    }
     else if (cmdList[0] == "QLC+AUTH")
     {
         if (!m_auth)
@@ -642,6 +656,9 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
 
         if (cmdList.at(1) == "ADD_USER")
         {
+            if (cmdList.count() < 5)
+                return true;
+
             QString username = cmdList.at(2);
             QString password = cmdList.at(3);
             int level = cmdList.at(4).toInt();
@@ -664,12 +681,18 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
         }
         else if (cmdList.at(1) == "DEL_USER")
         {
+            if (cmdList.count() < 3)
+                return true;
+
             QString username = cmdList.at(2);
             if (!username.isEmpty())
                 m_auth->deleteUser(username);
         }
         else if (cmdList.at(1) == "SET_USER_LEVEL")
         {
+            if (cmdList.count() < 4)
+                return true;
+
             QString username = cmdList.at(2);
             int level = cmdList.at(3).toInt();
             if (username.isEmpty())
@@ -716,7 +739,15 @@ bool WebAccessBase::handleCommonWebSocketCommand(QHttpConnection *conn, const We
         if (cmdList.at(1) == "NETWORK" && m_netConfig != nullptr)
         {
             QString wsMessage;
-            if (m_netConfig->updateNetworkSettings(cmdList))
+            // QLC+SYS|NETWORK|dev|mode|ip|netmask|gateway|ssid|wpapsk
+            if (cmdList.count() < 9)
+            {
+                wsMessage = QString("ALERT|" + tr("Invalid network configuration request."));
+                if (conn)
+                    conn->webSocketWrite(wsMessage);
+                return true;
+            }
+            else if (m_netConfig->updateNetworkSettings(cmdList))
                 wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
             else
                 wsMessage = QString("ALERT|" + tr("An error occurred while updating the network configuration."));
