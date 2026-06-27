@@ -461,6 +461,17 @@ void VideoContent::slotMetaDataChanged()
 
 void VideoContent::slotWindowClosing()
 {
+    // The window is being closed manually (e.g. window manager close button).
+    // The QQuickView only hides on close(), it does not tear down the QML
+    // scene graph, so the MediaPlayer would keep playing in the background.
+    // Stop the QML content explicitly while the root object is still valid.
+    if (m_viewContext)
+    {
+        QQuickItem *root = m_viewContext->rootObject();
+        if (root)
+            QMetaObject::invokeMethod(root, "stopAllPlayback");
+    }
+
     m_viewContext = nullptr;
 
     // Window teardown can race with scene graph/root object destruction.

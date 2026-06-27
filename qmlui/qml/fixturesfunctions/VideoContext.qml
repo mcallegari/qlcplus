@@ -136,6 +136,19 @@ Rectangle
         }
     }
 
+    // Immediately stop playback on all media items, without going through the
+    // engine stop round-trip. Used when the context window is closed manually,
+    // so the MediaPlayer doesn't keep decoding in the background.
+    function stopAllPlayback()
+    {
+        for (var i = 0; i < mediaItems.length; i++)
+        {
+            var item = mediaItems[i]
+            if (item)
+                item.stopPlayback()
+        }
+    }
+
     function translateUrl(url)
     {
         if (url.indexOf("://") !== -1)
