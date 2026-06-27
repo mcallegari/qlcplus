@@ -235,6 +235,11 @@ public:
     Q_INVOKABLE void gotoPage(int pageIndex);
     Q_INVOKABLE void cloneFirstPage();
 
+protected:
+    /** Make sure the label and shortcut control for the first
+     *  page (index 0) are registered */
+    void ensureFirstPage();
+
 signals:
     void multiPageModeChanged(bool multiPageMode);
     void pagesLoopChanged(bool loop);

@@ -557,6 +557,11 @@ public:
     /** Delete all existing input source from this widget */
     void deleteAllInputSources();
 
+    /** Remap all the input sources of this widget to the given page number.
+     *  Used when cloning widgets to the additional pages of a multipage
+     *  frame, so that each cloned widget responds to input only on its page */
+    void remapInputSources(int pgNum);
+
     /** Return a list of references to the input sources currently
      *  added to this widget */
     QList <QSharedPointer<QLCInputSource> > inputSources() const;
