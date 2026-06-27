@@ -254,7 +254,8 @@ void VideoContent::playContent()
         QMetaObject::invokeMethod(root, "addVideo",
                                   Q_ARG(QVariant, QVariant::fromValue(m_video)),
                                   Q_ARG(QVariant, (int)fadeIn),
-                                  Q_ARG(QVariant, (int)fadeOut));
+                                  Q_ARG(QVariant, (int)fadeOut),
+                                  Q_ARG(QVariant, (int)m_video->elapsed()));
     }
 
     m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
