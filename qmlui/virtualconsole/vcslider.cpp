@@ -1493,6 +1493,19 @@ void VCSlider::slotInputValueChanged(quint8 id, uchar value)
     }
 }
 
+void VCSlider::setDisabled(bool disable)
+{
+    // While disabled (e.g. when the containing frame is disabled) input
+    // events are not delivered to this slider, so the cached last input
+    // value gets stale. Reset it so that, once re-enabled, the value
+    // catching feature treats the next external input as a fresh catch
+    // and re-syncs to the controller's current position.
+    if (disable)
+        m_lastInputValue = -1;
+
+    VCWidget::setDisabled(disable);
+}
+
 /*********************************************************************
  * Load & Save
  *********************************************************************/
