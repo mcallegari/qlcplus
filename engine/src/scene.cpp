@@ -364,12 +364,28 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
 void Scene::addFixture(quint32 fixtureId)
 {
     if (m_fixtures.contains(fixtureId) == false)
+    {
         m_fixtures.append(fixtureId);
+        emit changed(this->id());
+    }
 }
 
 bool Scene::removeFixture(quint32 fixtureId)
 {
-    return m_fixtures.removeOne(fixtureId);
+    bool result = m_fixtures.removeOne(fixtureId);
+    emit changed(this->id());
+    return result;
+}
+
+bool Scene::moveFixture(int from, int to)
+{
+    const int length = m_fixtures.count();
+    if ((from < 0) || (to < 0) || (from >= length) || (to >= length))
+        return false;
+
+    m_fixtures.move(from, to);
+    emit changed(this->id());
+    return true;
 }
 
 QList<quint32> Scene::fixtures() const
