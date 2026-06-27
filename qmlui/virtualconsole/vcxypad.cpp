@@ -497,6 +497,124 @@ void VCXYPad::removeHeads(QVariantList heads)
     updateFixtureList();
 }
 
+QVariantMap VCXYPad::headsRangeInfo(QVariantList heads)
+{
+    QVariantMap info;
+    qreal xScale = 100.0, yScale = 100.0;
+    QString units = "%";
+
+    if (m_displayMode == DMX)
+    {
+        xScale = yScale = 255.0;
+        units = "";
+    }
+    else if (m_displayMode == Degrees)
+    {
+        xScale = yScale = 0;
+        units = QString::fromUtf8("°");
+    }
+
+    // collect the selected fixtures and, in Degrees mode, compute the
+    // smallest Pan/Tilt range among the selection
+    QList<XYPadFixture *> selected;
+
+    for (QVariant &vIdx : heads)
+    {
+        QModelIndex idx = m_fixtureList->index(vIdx.toInt(), 0, QModelIndex());
+        quint32 fixtureID = m_fixtureList->data(idx, "fxID").toUInt();
+        int headIndex = m_fixtureList->data(idx, "head").toInt();
+
+        for (XYPadFixture &fixture : m_fixtures)
+        {
+            if (fixture.m_head.fxi == fixtureID && fixture.m_head.head == headIndex)
+            {
+                selected.append(&fixture);
+
+                if (m_displayMode == Degrees)
+                {
+                    Fixture *fxi = m_doc->fixture(fixtureID);
+                    if (fxi != nullptr)
+                    {
+                        QRectF degrees = fxi->degreesRange(headIndex);
+                        if (xScale == 0 || degrees.width() < xScale)
+                            xScale = degrees.width();
+                        if (yScale == 0 || degrees.height() < yScale)
+                            yScale = degrees.height();
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    if (selected.isEmpty())
+        return info;
+
+    // display the current range of the first selected fixture, scaled
+    // with the smallest range so that values stay within the max bounds
+    XYPadFixture *first = selected.first();
+
+    info.insert("units", units);
+    info.insert("xMaxValue", qRound(xScale));
+    info.insert("yMaxValue", qRound(yScale));
+    info.insert("xMin", qRound(first->m_xMin * xScale));
+    info.insert("xMax", qRound(first->m_xMax * xScale));
+    info.insert("xReverse", first->m_xReverse);
+    info.insert("yMin", qRound(first->m_yMin * yScale));
+    info.insert("yMax", qRound(first->m_yMax * yScale));
+    info.insert("yReverse", first->m_yReverse);
+
+    return info;
+}
+
+void VCXYPad::setHeadsRange(QVariantList heads, int xMin, int xMax, bool xReverse,
+                            int yMin, int yMax, bool yReverse)
+{
+    for (QVariant &vIdx : heads)
+    {
+        QModelIndex idx = m_fixtureList->index(vIdx.toInt(), 0, QModelIndex());
+        quint32 fixtureID = m_fixtureList->data(idx, "fxID").toUInt();
+        int headIndex = m_fixtureList->data(idx, "head").toInt();
+
+        qreal xScale = 100.0, yScale = 100.0;
+
+        if (m_displayMode == DMX)
+        {
+            xScale = yScale = 255.0;
+        }
+        else if (m_displayMode == Degrees)
+        {
+            Fixture *fxi = m_doc->fixture(fixtureID);
+            if (fxi == nullptr)
+                continue;
+            QRectF degrees = fxi->degreesRange(headIndex);
+            xScale = degrees.width();
+            yScale = degrees.height();
+        }
+
+        if (xScale == 0 || yScale == 0)
+            continue;
+
+        for (XYPadFixture &fixture : m_fixtures)
+        {
+            if (fixture.m_head.fxi == fixtureID && fixture.m_head.head == headIndex)
+            {
+                fixture.m_xMin = qreal(xMin) / xScale;
+                fixture.m_xMax = qreal(xMax) / xScale;
+                fixture.m_xReverse = xReverse;
+                fixture.m_yMin = qreal(yMin) / yScale;
+                fixture.m_yMax = qreal(yMax) / yScale;
+                fixture.m_yReverse = yReverse;
+                computeRange(fixture);
+                m_doc->setModified();
+                break;
+            }
+        }
+    }
+
+    updateFixtureList();
+}
+
 QVariant VCXYPad::fixtureList() const
 {
     return QVariant::fromValue(m_fixtureList);
@@ -1185,8 +1303,17 @@ void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
             y += int(uchar(universeData.at(fixture.m_yLSB + fixtureAddress)));
         }
 
-        qreal xNorm = qreal(x) / qreal(USHRT_MAX);
-        qreal yNorm = qreal(y) / qreal(USHRT_MAX);
+        // Map the raw DMX value back to the cursor position within the
+        // configured Pan/Tilt range, so the dot tracks the cursor even when
+        // the range is reduced. m_xRange/m_xOffset already account for reverse.
+        // (writeDMX: dmx = m_xRange * cursor + m_xOffset)
+        qreal xNorm = fixture.m_xRange != 0.0 ? (qreal(x) - fixture.m_xOffset) / fixture.m_xRange
+                                              : qreal(x) / qreal(USHRT_MAX);
+        qreal yNorm = fixture.m_yRange != 0.0 ? (qreal(y) - fixture.m_yOffset) / fixture.m_yRange
+                                              : qreal(y) / qreal(USHRT_MAX);
+
+        xNorm = qBound(qreal(0.0), xNorm, qreal(1.0));
+        yNorm = qBound(qreal(0.0), yNorm, qreal(1.0));
 
         if (invertedAppearance())
             yNorm = 1.0 - yNorm;

@@ -39,6 +39,113 @@ Rectangle
         id: fxSelector
     }
 
+    CustomPopupDialog
+    {
+        id: rangePopup
+        width: mainView.width / 3
+        title: qsTr("Set Pan/Tilt range")
+
+        property string units: "%"
+
+        function loadRange()
+        {
+            var info = widgetRef.headsRangeInfo(fxSelector.itemsList())
+            if (info.units === undefined)
+                return false
+
+            units = info.units
+            xMinSpin.to = info.xMaxValue
+            xMaxSpin.to = info.xMaxValue
+            yMinSpin.to = info.yMaxValue
+            yMaxSpin.to = info.yMaxValue
+            xMinSpin.value = info.xMin
+            xMaxSpin.value = info.xMax
+            xReverseCheck.checked = info.xReverse
+            yMinSpin.value = info.yMin
+            yMaxSpin.value = info.yMax
+            yReverseCheck.checked = info.yReverse
+            return true
+        }
+
+        onAccepted:
+        {
+            widgetRef.setHeadsRange(fxSelector.itemsList(),
+                                    xMinSpin.value, xMaxSpin.value, xReverseCheck.checked,
+                                    yMinSpin.value, yMaxSpin.value, yReverseCheck.checked)
+        }
+
+        contentItem:
+            GridLayout
+            {
+                width: parent.width
+                columns: 4
+                columnSpacing: 5
+                rowSpacing: 4
+
+                // header row
+                RobotoText { label: qsTr("Axis") }
+                RobotoText { label: qsTr("Minimum"); Layout.fillWidth: true }
+                RobotoText { label: qsTr("Maximum"); Layout.fillWidth: true }
+                RobotoText { label: qsTr("Reverse") }
+
+                // Pan row
+                RobotoText { label: qsTr("Pan") }
+
+                CustomSpinBox
+                {
+                    id: xMinSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value >= xMaxSpin.value) xMaxSpin.value = value + 1
+                }
+
+                CustomSpinBox
+                {
+                    id: xMaxSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value <= xMinSpin.value) xMinSpin.value = value - 1
+                }
+
+                CustomCheckBox
+                {
+                    id: xReverseCheck
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                }
+
+                // Tilt row
+                RobotoText { label: qsTr("Tilt") }
+
+                CustomSpinBox
+                {
+                    id: yMinSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value >= yMaxSpin.value) yMaxSpin.value = value + 1
+                }
+
+                CustomSpinBox
+                {
+                    id: yMaxSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    suffix: rangePopup.units
+                    onValueModified: if (value <= yMinSpin.value) yMinSpin.value = value - 1
+                }
+
+                CustomCheckBox
+                {
+                    id: yReverseCheck
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                }
+            }
+    }
+
     Column
     {
         id: xyPadPropsColumn
@@ -166,7 +273,7 @@ Rectangle
                         {
                             id: addFixture
                             anchors.top: parent.top
-                            anchors.right: removeFixture.left
+                            anchors.right: editFixture.left
 
                             width: height
                             height: parent.height
@@ -190,6 +297,24 @@ Rectangle
                                     sideLoader.source = ""
                                     sideLoader.visible = false
                                 }
+                            }
+                        }
+                        IconButton
+                        {
+                            id: editFixture
+                            anchors.top: parent.top
+                            anchors.right: removeFixture.left
+                            width: height
+                            height: parent.height
+                            faSource: FontAwesome.fa_pencil
+                            faColor: UISettings.fgMain
+                            tooltip: qsTr("Set the Pan/Tilt range of the selected fixture head(s)")
+                            onClicked:
+                            {
+                                if (fxSelector.itemsCount === 0)
+                                    return
+                                if (rangePopup.loadRange())
+                                    rangePopup.open()
                             }
                         }
                         IconButton
