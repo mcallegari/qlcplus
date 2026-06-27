@@ -238,6 +238,8 @@ CustomPopupDialog
                     selectByMouse: true
                     selectionColor: UISettings.highlightPressed
                     selectedTextColor: UISettings.fgMain
+
+                    onAccepted: popupRoot.accept()
                 }
             }
 
