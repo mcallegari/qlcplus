@@ -280,7 +280,7 @@ protected:
      * Visibility state
      *********************************************************************/
 public:
-    void setVisible(bool isVisible);
+    virtual void setVisible(bool isVisible);
 
     bool isVisible() const;
 signals:

@@ -1506,6 +1506,18 @@ void VCSlider::setDisabled(bool disable)
     VCWidget::setDisabled(disable);
 }
 
+void VCSlider::setVisible(bool isVisible)
+{
+    // Same rationale as setDisabled(): while not visible (e.g. when on a
+    // non-current page of a multipage frame) input events are not delivered,
+    // so reset the cached last input value to re-sync the value catching
+    // feature to the controller once this slider becomes visible again.
+    if (isVisible == false)
+        m_lastInputValue = -1;
+
+    VCWidget::setVisible(isVisible);
+}
+
 /*********************************************************************
  * Load & Save
  *********************************************************************/
