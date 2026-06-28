@@ -40,7 +40,6 @@ launcher/qlcplus-launcher
 hotplugmonitor/test/test
 qmlui/qlcplus-qml
 *.qm
-core
 
 # coverage
 coverage/
