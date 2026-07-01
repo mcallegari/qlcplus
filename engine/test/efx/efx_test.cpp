@@ -3180,6 +3180,10 @@ void EFX_Test::save()
             QVERIFY(xmlReader.readElementText() == "0");
             isRelative = true;
         }
+        else if (xmlReader.name().toString() == "DimmerControl")
+        {
+            QVERIFY(xmlReader.readElementText() == "0");
+        }
         else if (xmlReader.name().toString() == "PropagationMode")
         {
             QVERIFY(xmlReader.readElementText() == "Serial");
