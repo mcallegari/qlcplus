@@ -585,6 +585,34 @@ void EFX_Test::propagationMode()
     QCOMPARE(EFX::stringToPropagationMode("Foobar"), EFX::Parallel);
 }
 
+void EFX_Test::dimmerEnvelope()
+{
+    EFX e(m_doc);
+
+    /* Default: dimmer control off */
+    QCOMPARE(e.dimmerControlEnabled(), false);
+
+    e.setDimmerControlEnabled(true);
+    QCOMPARE(e.dimmerControlEnabled(), true);
+
+    /* The dimmer is driven from the EFX cycle angle, phased by the fixture's
+       StartOffset. Both are in radians. The first half [0, PI) fades from full
+       (at 0) to 0 (at PI); the second half [PI, 2PI) is black. */
+    const float pi = float(M_PI);
+
+    QCOMPARE(e.dimmerLevel(0.0f, 0.0f), 1.0f);         // 0     -> full
+    QCOMPARE(e.dimmerLevel(0.0f, pi * 0.5f), 0.5f);    // PI/2  -> half
+    QVERIFY(e.dimmerLevel(0.0f, pi * 0.99f) < 0.02f);  // ~PI   -> near 0
+    QCOMPARE(e.dimmerLevel(0.0f, pi), 0.0f);           // PI    -> 0 (start of black half)
+    QCOMPARE(e.dimmerLevel(0.0f, pi * 1.5f), 0.0f);    // 3PI/2 -> black
+    QCOMPARE(e.dimmerLevel(0.0f, pi * 1.99f), 0.0f);   // ~2PI  -> black
+
+    /* StartOffset (radians) shifts the phase: a PI offset moves the bright point
+       (0) to where PI was (black), and vice-versa. */
+    QCOMPARE(e.dimmerLevel(pi, 0.0f), 0.0f);           // 0 + PI -> black
+    QCOMPARE(e.dimmerLevel(pi, pi), 1.0f);             // PI + PI = 2PI -> wraps to 0 -> full
+}
+
 void EFX_Test::previewCircle()
 {
     EFX e(m_doc);
