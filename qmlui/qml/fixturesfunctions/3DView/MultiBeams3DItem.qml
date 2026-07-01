@@ -182,16 +182,32 @@ Entity
         headsList[headIndex].lightColor = color
     }
 
+    // See Fixture3DItem: timestamp of the previous setPosition() call, used to pace
+    // animations to the target-arrival rate instead of the full physical slew time.
+    // 0 means "no previous update yet".
+    property real lastPositionTime: 0
+
+    // Gap (ms) above which two updates are treated as a one-shot move (use physical
+    // slew time) rather than a continuous effect (pace to the interval).
+    readonly property real continuousUpdateGap: 1000
+
     function setPosition(pan, tilt)
     {
+        var now = Date.now()
+        var elapsed = (lastPositionTime > 0) ? (now - lastPositionTime) : continuousUpdateGap + 1
+        var oneShot = (elapsed <= 0 || elapsed >= continuousUpdateGap)
+        lastPositionTime = now
+
         if (tiltMaxDegrees)
         {
-            tiltAnim.stop()
-            tiltAnim.from = tiltRotation
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
+            tiltAnim.stop()
+            tiltAnim.from = tiltRotation
             tiltAnim.to = -degTo
-            tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
+            var tiltPhysical = (tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from)
+            tiltAnim.duration = oneShot ? Math.max(tiltPhysical, 300)
+                                        : Math.min(elapsed, Math.max(tiltPhysical, 1))
             tiltAnim.start()
         }
     }
