@@ -65,6 +65,15 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
             this, SLOT(slotAudioPreviewStereo()));
 }
 
+AudioItem::~AudioItem()
+{
+    stopWaveformPreviewThreads();
+
+    QMutexLocker locker(&m_previewMutex);
+    delete m_preview;
+    m_preview = NULL;
+}
+
 void AudioItem::calculateWidth()
 {
     int newWidth = 0;
@@ -89,10 +98,17 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     ShowItem::paint(painter, option, widget);
 
-    if (m_preview != NULL)
+    QPixmap preview;
+    {
+        QMutexLocker locker(&m_previewMutex);
+        if (m_preview != NULL)
+            preview = *m_preview;
+    }
+
+    if (preview.isNull() == false)
     {
         // show preview here
-        painter->drawPixmap(0, 0, m_preview->scaled(m_width, TRACK_HEIGHT - 4));
+        painter->drawPixmap(0, 0, preview.scaled(m_width, TRACK_HEIGHT - 4));
     }
 
     if (m_audio->fadeInSpeed() != 0)
@@ -139,10 +155,34 @@ Audio *AudioItem::getAudio() const
 
 void AudioItem::updateWaveformPreview()
 {
+    for (PreviewThread *thread : m_previewThreads)
+        thread->requestInterruption();
+
     PreviewThread *waveformThread = new PreviewThread;
     waveformThread->setAudioItem(this);
-    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
+    m_previewThreads.append(waveformThread);
+    connect(waveformThread, &PreviewThread::finished, this,
+            [this, waveformThread]()
+            {
+                m_previewThreads.removeOne(waveformThread);
+                waveformThread->deleteLater();
+            });
     waveformThread->start();
+}
+
+void AudioItem::stopWaveformPreviewThreads()
+{
+    for (PreviewThread *thread : m_previewThreads)
+        thread->requestInterruption();
+
+    for (PreviewThread *thread : m_previewThreads)
+    {
+        disconnect(thread, &PreviewThread::finished, this, nullptr);
+        thread->wait();
+        delete thread;
+    }
+
+    m_previewThreads.clear();
 }
 
 void AudioItem::slotAudioChanged(quint32)
@@ -205,6 +245,12 @@ void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
     menu.exec(QCursor::pos());
 }
 
+PreviewThread::PreviewThread(QObject *parent)
+    : QThread(parent)
+    , m_item(NULL)
+{
+}
+
 void PreviewThread::setAudioItem(AudioItem *item)
 {
     m_item = item;
@@ -233,6 +279,9 @@ qint32 PreviewThread::getSample(const unsigned char *data, quint32 idx, int samp
 
 void PreviewThread::run()
 {
+    if (m_item == NULL || isInterruptionRequested())
+        return;
+
     bool left = m_item->m_previewLeftAction->isChecked() || m_item->m_previewStereoAction->isChecked();
     bool right = m_item->m_previewRightAction->isChecked() || m_item->m_previewStereoAction->isChecked();
 
@@ -275,11 +324,14 @@ void PreviewThread::run()
         qDebug() << "Samples per second:" << oneSecondSamples << ", for one pixel:" << onePixelSamples <<
                     ", onePixelReadLen:" << onePixelReadLen;
 
-        delete m_item->m_preview;
-        m_item->m_preview = NULL;
+        {
+            QMutexLocker locker(&m_item->m_previewMutex);
+            delete m_item->m_preview;
+            m_item->m_preview = NULL;
+        }
         m_item->update();
 
-        while (dataRead)
+        while (dataRead && !isInterruptionRequested())
         {
             quint32 tmpExceedData = 0;
             if (audioDataOffset < onePixelReadLen)
@@ -389,13 +441,24 @@ void PreviewThread::run()
         }
         //qDebug() << "Iterations done: " << xpos;
         delete ad;
-        m_item->m_preview = preview;
+        if (isInterruptionRequested())
+        {
+            delete preview;
+            return;
+        }
+
+        {
+            QMutexLocker locker(&m_item->m_previewMutex);
+            m_item->m_preview = preview;
+        }
     }
     else // no preview selected. Delete pixmap
     {
+        QMutexLocker locker(&m_item->m_previewMutex);
         delete m_item->m_preview;
         m_item->m_preview = NULL;
     }
 
-    m_item->update();
+    if (!isInterruptionRequested())
+        m_item->update();
 }

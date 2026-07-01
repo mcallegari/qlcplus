@@ -67,14 +67,18 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     ShowItem::paint(painter, option, widget);
 
     int loopCount = 0;
-    if (getDuration() == Function::infiniteSpeed())
-        loopCount = 10000 / m_matrix->duration();
-    else if (getDuration() > 0)
-        loopCount = qFloor(getDuration() / m_matrix->duration());
+    quint32 loopDuration = m_matrix->totalDuration();
+    if (loopDuration > 0)
+    {
+        if (getDuration() == Function::infiniteSpeed())
+            loopCount = 10000 / loopDuration;
+        else if (getDuration() > 0)
+            loopCount = qFloor(getDuration() / loopDuration);
+    }
 
     for (int i = 0; i < loopCount; i++)
     {
-        xpos += ((timeUnit * float(m_matrix->totalDuration())) / 1000);
+        xpos += ((timeUnit * float(loopDuration)) / 1000);
         // draw loop vertical delimiter
         painter->setPen(QPen(Qt::white, 1));
         painter->drawLine(int(xpos), 1, int(xpos), TRACK_HEIGHT - 5);

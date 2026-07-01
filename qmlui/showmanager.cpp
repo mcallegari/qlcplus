@@ -1545,9 +1545,10 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
         Function *func = m_doc->function(sf->functionID());
         if (func != nullptr)
         {
-            quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            quint64 fst = sf->startTime();
+            quint64 endTime = quint64(startTime) + duration;
+            quint64 fend = fst + sf->duration();
+            if (startTime < fend && fst < endTime)
             {
                 return true;
             }
@@ -1608,10 +1609,16 @@ QVariantList ShowManager::previewData(Function *f) const
         {
             data.append(RepeatingDuration);
             data.append(f->totalDuration());
-            data.append(FadeIn);
-            data.append(f->fadeInSpeed());
-            data.append(FadeOut);
-            data.append(f->fadeOutSpeed());
+            if (f->fadeInSpeed() > 0)
+            {
+                data.append(FadeIn);
+                data.append(f->fadeInSpeed());
+            }
+            if (f->fadeOutSpeed() > 0)
+            {
+                data.append(FadeOut);
+                data.append(f->fadeOutSpeed());
+            }
         }
         break;
         default:
