@@ -351,10 +351,13 @@ float EFX::calculateDirection(Function::Direction direction, float iterator) con
 
 float EFX::dimmerLevel(float startOffset, float iterator) const
 {
-    /* The dimmer is driven from the EFX cycle angle, phased per fixture by its
-       StartOffset (both in radians). Over one cycle the first half fades from full
-       (at 0) to 0 (at PI), and the second half [PI, 2PI) stays black. The EFX
-       Direction is handled by the movement itself, so it is not applied here. */
+    /* The dimmer follows the tilt itself, so it fades at the same RATE as the
+       movement (not linearly), reaching full/0 exactly when the tilt reaches its
+       extremes. The angle is phased per fixture by its StartOffset (both in
+       radians). Over the first half [0, PI) the tilt goes from its +1 extreme to
+       its -1 extreme; the second half [PI, 2PI) (the return stroke) stays black.
+       The EFX Direction is handled by the movement itself, so it is not applied
+       here. */
     const float PI = float(M_PI);
     const float TWO_PI = float(M_PI * 2.0);
 
@@ -364,9 +367,11 @@ float EFX::dimmerLevel(float startOffset, float iterator) const
         angle += TWO_PI;
 
     if (angle >= PI)
-        return 0.0f; // second half: black
+        return 0.0f; // return stroke: black
 
-    return 1.0f - angle / PI; // first half: full -> 0
+    /* cos(angle): +1 at angle 0 (tilt extreme) -> -1 at angle PI (other extreme).
+       Map to 0..1 so brightness tracks the tilt curve: full at +1, dark at -1. */
+    return (cosf(angle) + 1.0f) * 0.5f;
 }
 
 // this function should map from 0..M_PI * 2 -> -1..1
