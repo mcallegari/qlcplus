@@ -62,16 +62,78 @@ Rectangle
         }
     }
 
-    PopupInputNumber
+    CustomPopupDialog
     {
-        id: popupNumber
-        from: 0
-        to: 360
-        title: qsTr("EFX increasing offset")
-        label: qsTr("Offset in degrees")
-        suffix: "°"
+        id: offsetPopup
+        width: mainView.width / 3
+        title: qsTr("EFX fixtures offset")
 
-        onAccepted: efxEditor.setFixturesOffset(popupNumber.value)
+        // Distribution mode: 0 = absolute, 1 = increasing, 2 = random
+        // (matches EFXEditor::FixturesOffsetMode)
+        property int offsetMode:
+            offsetIncreasingCheck.checked ? 1 :
+            (offsetRandomCheck.checked ? 2 : 0)
+
+        onAccepted: efxEditor.setFixturesOffset(offsetSpin.value, offsetPopup.offsetMode)
+
+        contentItem:
+            GridLayout
+            {
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 4
+
+                // Row 1: the offset value
+                RobotoText
+                {
+                    label: qsTr("Offset")
+                    height: UISettings.listItemHeight
+                }
+                CustomSpinBox
+                {
+                    id: offsetSpin
+                    Layout.fillWidth: true
+                    from: 0
+                    to: 360
+                    suffix: "°"
+                    value: 0
+                }
+
+                // Row 2: Increasing checkbox (exclusive with Randomize)
+                CustomCheckBox
+                {
+                    id: offsetIncreasingCheck
+                    implicitWidth: UISettings.listItemHeight
+                    implicitHeight: implicitWidth
+                    autoExclusive: false
+                    checked: true
+                    onCheckedChanged: if (checked) offsetRandomCheck.checked = false
+                }
+                RobotoText
+                {
+                    Layout.fillWidth: true
+                    label: qsTr("Increasing")
+                    height: UISettings.listItemHeight
+                }
+
+                // Row 3: Randomize checkbox (exclusive with Increasing)
+                CustomCheckBox
+                {
+                    id: offsetRandomCheck
+                    implicitWidth: UISettings.listItemHeight
+                    implicitHeight: implicitWidth
+                    autoExclusive: false
+                    checked: false
+                    onCheckedChanged: if (checked) offsetIncreasingCheck.checked = false
+                }
+                RobotoText
+                {
+                    Layout.fillWidth: true
+                    label: qsTr("Randomize")
+                    height: UISettings.listItemHeight
+                }
+            }
     }
 
     SplitView
@@ -204,8 +266,8 @@ Rectangle
                                         height: parent.height
                                         faSource: FontAwesome.fa_arrow_down_wide_short
                                         faColor: "white"
-                                        tooltip: qsTr("Add an increasing offset to all fixtures")
-                                        onClicked: popupNumber.open()
+                                        tooltip: qsTr("Set an offset on all fixtures")
+                                        onClicked: offsetPopup.open()
                                     }
 
                                     IconButton
@@ -745,6 +807,31 @@ Rectangle
                                     suffix: "°"
                                     value: efxEditor.algorithmYPhase
                                     onValueModified: efxEditor.algorithmYPhase = value
+                                }
+
+                                // Enable/disable dimmer control. Off by default:
+                                // the EFX then animates Pan/Tilt only, as before.
+                                Row
+                                {
+                                    Layout.columnSpan: 2
+                                    Layout.fillWidth: true
+                                    spacing: 4
+
+                                    CustomCheckBox
+                                    {
+                                        id: dimmerControlCheck
+                                        implicitWidth: UISettings.listItemHeight
+                                        implicitHeight: implicitWidth
+                                        autoExclusive: false
+                                        checked: efxEditor.dimmerControl
+                                        onCheckedChanged: efxEditor.dimmerControl = checked
+                                    }
+
+                                    RobotoText
+                                    {
+                                        label: qsTr("Enable dimmer control")
+                                        height: UISettings.listItemHeight
+                                    }
                                 }
                             } // GridLayout
                     } // SectionBox
