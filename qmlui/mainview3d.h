@@ -250,6 +250,10 @@ public:
     /** Update the scale of a Fixture with the provided $itemID */
     void updateFixtureScale(quint32 itemID, QVector3D origSize);
 
+    /** Loaded mesh bounding-box extents (in metres) for the item with $itemID,
+     *  or a zero vector if the item is not (yet) present in the 3D scene. */
+    QVector3D fixtureExtents(quint32 itemID) const;
+
     /** Remove a Fixture item with the provided $itemID from the preview */
     void removeFixtureItem(quint32 itemID);
 

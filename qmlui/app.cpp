@@ -205,8 +205,8 @@ void App::startup()
                           m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
 
-    m_stageWizard = new StageWizard(m_doc, m_fixtureManager, m_virtualConsole,
-                                    m_contextManager, this);
+    m_stageWizard = new StageWizard(m_doc, m_fixtureManager, m_functionManager,
+                                    m_virtualConsole, m_contextManager, this);
     rootContext()->setContextProperty("stageWizard", m_stageWizard);
 
     m_contextManager->registerContext(m_virtualConsole);

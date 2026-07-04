@@ -22,7 +22,9 @@
 
 #include <QObject>
 #include <QVariant>
+#include <QHash>
 #include <QVector3D>
+#include <QColor>
 
 class Doc;
 class Fixture;
@@ -32,8 +34,10 @@ class EFX;
 class RGBMatrix;
 class FixtureGroup;
 class VirtualConsole;
+class VCPage;
 class ContextManager;
 class FixtureManager;
+class FunctionManager;
 class MainView3D;
 
 class StageWizard : public QObject
@@ -54,6 +58,10 @@ class StageWizard : public QObject
 
     // ── Step 3 – Venue / Stage ────────────────────────────────────────────────
     Q_PROPERTY(int stageType READ stageType WRITE setStageType NOTIFY stageTypeChanged)
+    // Environment size in metres (width, height, depth)
+    Q_PROPERTY(qreal envWidth  READ envWidth  WRITE setEnvWidth  NOTIFY envSizeChanged)
+    Q_PROPERTY(qreal envHeight READ envHeight WRITE setEnvHeight NOTIFY envSizeChanged)
+    Q_PROPERTY(qreal envDepth  READ envDepth  WRITE setEnvDepth  NOTIFY envSizeChanged)
 
     // ── Step 4 – Effects ─────────────────────────────────────────────────────
     Q_PROPERTY(QVariant effectsModel READ effectsModel NOTIFY effectsModelChanged)
@@ -124,6 +132,7 @@ public:
 public:
     explicit StageWizard(Doc *doc,
                          FixtureManager *fixtureManager,
+                         FunctionManager *functionManager,
                          VirtualConsole *virtualConsole,
                          ContextManager  *contextManager,
                          QObject *parent = nullptr);
@@ -180,6 +189,16 @@ public:
     int stageType() const;
     void setStageType(int type);
 
+    qreal envWidth() const  { return m_envSize.x(); }
+    qreal envHeight() const { return m_envSize.y(); }
+    qreal envDepth() const  { return m_envSize.z(); }
+    void setEnvWidth(qreal w);
+    void setEnvHeight(qreal h);
+    void setEnvDepth(qreal d);
+
+    /** Suggest an environment size (metres) from the current fixture count. */
+    void suggestEnvSize();
+
     // ── Step 4 ──────────────────────────────────────────────────────────────
     QVariant effectsModel() const;
 
@@ -206,6 +225,7 @@ signals:
     void fixtureRoleModelChanged();
     void groupsModelChanged();
     void stageTypeChanged(int type);
+    void envSizeChanged();
     void effectsModelChanged();
     void canGoNextChanged();
     void isGeneratingChanged();
@@ -215,6 +235,9 @@ signals:
 private:
     // ── Internal helpers ─────────────────────────────────────────────────────
 
+    // Anchor points a relative movement EFX is centred on.
+    enum MovementAnchor { AnchorCentre, AnchorAerial, AnchorAudience };
+
     struct FixtureGroupEntry
     {
         quint32     groupId;        ///< Existing Doc FixtureGroup id, or invalidId() for new boxes
@@ -222,9 +245,11 @@ private:
         QList<quint32> fixtureIDs;  ///< IDs of fixtures in this box
         bool        selected;       ///< Checkbox state (selected boxes drive column 3)
         FixtureRole role;           ///< Assigned role
+        bool        roleUserSet;    ///< True once the user picked the role manually
         bool        hasMovement;
         bool        hasRGB;
         bool        hasCMY;
+        bool        hasColorWheel;  ///< Has a colour-wheel channel (QLCChannel::Colour)
         bool        hasGobo;
         bool        hasShutter;
         bool        hasDimmer;
@@ -255,7 +280,8 @@ private slots:
     // Step 3 – placement
     void applyStageLayout();
     QVector3D computePosition(int index, int total, FixtureRole role,
-                              const QVector3D &envSize) const;
+                              const QVector3D &envSize,
+                              const QVector3D &fxSizeMM) const;
     QVector3D computeRotation(FixtureRole role, int index, int total) const;
 
     // Step 4 defaults
@@ -268,6 +294,16 @@ private slots:
     void generateGoboPalette(const FixtureGroupEntry &grp, const QString &prefix);
     void generateShutterEffects(const FixtureGroupEntry &grp, const QString &prefix);
     void generatePositionPresets(const FixtureGroupEntry &grp, const QString &prefix);
+
+    /** Position scene aiming a group's heads at a stage anchor (created once per
+     *  group+anchor). Returns its function id. */
+    quint32 baseMovementPosition(const FixtureGroupEntry &grp, MovementAnchor anchor);
+
+    /** Relative movement EFX (Circle/Eight/…): builds the EFX and wraps it with a
+     *  base Position scene in a Collection so it starts from a defined aim. */
+    void generateMovementEffect(const FixtureGroupEntry &grp, const QString &prefix,
+                                int algorithm, const QString &label, MovementAnchor anchor);
+
     void generateEFX(const FixtureGroupEntry &grp, const QString &prefix,
                      int algorithm, const QString &label);
     void generateRGBMatrix(const FixtureGroupEntry &grp, const QString &scriptName,
@@ -282,8 +318,55 @@ private slots:
     Chaser *generateBigMoment();
     Chaser *generateAmbientLoop();
 
+    // ── Palette-based generation ────────────────────────────────────────────
+    /** Find an existing Doc palette of $type whose values match, or invalidId(). */
+    quint32 findPalette(int type, const QVariantList &values) const;
+
+    /** Create a Color palette (rgb) owned by the Doc. Returns its id. */
+    quint32 makeColorPalette(const QString &name, const QColor &color);
+    /** Create a Dimmer palette (0-255). */
+    quint32 makeDimmerPalette(const QString &name, int value);
+    /** Create a Shutter palette from a capability preset (+ optional percent). */
+    quint32 makeShutterPalette(const QString &name, int preset, int percent = 100);
+    /** Create a Position3D palette aiming at a target point (mm, monitor frame). */
+    quint32 makePosition3DPalette(const QString &name, const QVector3D &targetMM);
+
+    /** Build a Scene that references a group + one palette. Adds it to the Doc,
+     *  optionally under a function-tree $path. */
+    Scene *makePaletteScene(const QString &name, quint32 groupID, quint32 paletteID,
+                            const QString &path = QString());
+
+    /** Root of the wizard's function-tree folder. */
+    QString wizardPath(const QString &sub = QString()) const;
+
+    /** Create the standard palette set (colour/dimmer/shutter) + palette scenes
+     *  for a group, using its persisted FixtureGroup id. */
+    void generateGroupPalettes(const FixtureGroupEntry &grp);
+
+    /** Count of moving heads (Pan/Tilt fixtures, per head) in a group. */
+    int movingHeadCount(const FixtureGroupEntry &grp) const;
+
+    /** Moving-head fixture IDs of a group paired with their placed X (mm). */
+    QList<QPair<quint32, float>> movingHeadsByX(const FixtureGroupEntry &grp) const;
+
+    /** Representative pan/tilt max travel (degrees) of a group's first moving
+     *  head. Falls back to 540/270 when the physical data is missing. */
+    void groupPanTiltMax(const FixtureGroupEntry &grp, float &panDeg, float &tiltDeg) const;
+
+    /** EFX Width/Height (0-127) that yields $degrees of total pan/tilt swing on a
+     *  head whose full range is $maxDeg. */
+    int efxSizeForDegrees(float degrees, float maxDeg) const;
+
+    /** For a front Key group: musician key-light scenes with Position3D palettes.
+     *  Spot count = frontMovingHeads / 2 (key+fill); a few pushed upstage when
+     *  Back-role moving heads are present for depth. */
+    void generateMusicianKeyScenes(const FixtureGroupEntry &grp);
+
     // VC layout
     void createVCLayout();
+    /** Return the first empty VC page; if all pages have widgets, add and
+     *  return a new one. */
+    VCPage *pickTargetPage();
     void createGroupFrame(void *vcPage, const FixtureGroupEntry &grp,
                           int xPos, int yPos);
 
@@ -297,12 +380,14 @@ private slots:
 private:
     Doc             *m_doc;
     FixtureManager  *m_fixtureManager;
+    FunctionManager *m_functionManager;
     VirtualConsole  *m_virtualConsole;
     ContextManager  *m_contextManager;
 
     int              m_currentStep;
     int              m_showType;
     int              m_stageType;
+    QVector3D        m_envSize;      ///< Environment size in metres (W, H, D)
     bool             m_isGenerating;
 
     QList<FixtureGroupEntry> m_groups;
@@ -311,6 +396,10 @@ private:
     // IDs collected during generation (for undo and VC wiring)
     QList<quint32>   m_generatedFunctionIDs;
     QList<quint32>   m_generatedGroupIDs;
+
+    // Cache of base movement-position scene IDs, keyed by (groupId, anchor),
+    // so effects sharing an anchor reuse the same Position scene.
+    QHash<quint64, quint32> m_basePositionScenes;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(StageWizard::EffectFlags)

@@ -128,6 +128,11 @@ public:
 
     Q_INVOKABLE QString functionPath(quint32 id);
 
+    /** Rebuild the functions tree. Public/invokable so it can be triggered after
+     *  functions are added or re-pathed outside this manager (e.g. the Stage
+     *  Wizard). */
+    Q_INVOKABLE void updateFunctionsTree();
+
     /** Enable/disable the Function preview feature */
     bool previewEnabled() const;
     void setPreviewEnabled(bool enable);
@@ -205,7 +210,6 @@ public:
 protected:
     quint32 addFunctiontoDoc(Function *func, QString name, bool select);
     void addFunctionTreeItem(Function *func);
-    void updateFunctionsTree();
     void clearTree();
     void moveFunction(quint32 fID, QString newPath);
     void storeExpandedPaths();
