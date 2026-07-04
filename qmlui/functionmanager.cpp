@@ -1332,13 +1332,30 @@ void FunctionManager::deleteSelectedFolders()
         }
         else
         {
+            // Function paths use '/' as separator, while folder paths in the tree
+            // use TreeModel::separator(). Convert before comparing.
+            QString slashedPath = QString(path).replace(TreeModel::separator(), '/');
+
             for (Function *func : m_doc->functions())
             {
                 if (func == nullptr)
                     continue;
 
-                if (func->path(true).startsWith(path))
+                QString funcPath = func->path(true);
+                // Delete a function if it lives in this folder or in any of its subfolders,
+                // matching on a folder boundary to avoid catching sibling folders that
+                // share the same prefix (e.g. "Foo" must not match "Foobar").
+                if (funcPath == slashedPath || funcPath.startsWith(slashedPath + '/'))
                     deleteFunction(func->id());
+            }
+
+            // Empty subfolders nested under the deleted one are not backed by any
+            // function, so remove them from the empty folder list as well.
+            for (int i = m_emptyFolderList.count() - 1; i >= 0; i--)
+            {
+                const QString &emptyPath = m_emptyFolderList.at(i);
+                if (emptyPath.startsWith(path + TreeModel::separator()))
+                    m_emptyFolderList.removeAt(i);
             }
         }
 
@@ -1523,6 +1540,7 @@ void FunctionManager::dumpDmxValues(QList<SceneValue> dumpValues, QList<quint32>
             setPreviewEnabled(false);
             Tardis::instance()->enqueueAction(Tardis::FunctionCreate, targetScene->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, targetScene->id()));
+            emit sceneCountChanged();
         }
         else
             delete targetScene;
