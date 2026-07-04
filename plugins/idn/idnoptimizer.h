@@ -25,9 +25,9 @@ public:
 		int numberOfChannelPacks;
 		int byteCount;
 	};
-    PacketInformation optimize(const QByteArray& data, const bool checkNullValues);
+    PacketInformation optimize(const QByteArray& data, const bool checkNullValues, int rangeBegin, int rangeEnd);
 private:
-	QList<int> changedValues(QByteArray oldData, QByteArray newData);
+	QList<int> changedValues(QByteArray oldData, QByteArray newData,  int rangeBegin, int rangeEnd);
 	PacketInformation getRanges(QList<int> changed);
 	QSet<int> changed;
  	QByteArray oldData;

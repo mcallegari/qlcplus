@@ -381,7 +381,8 @@ void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
   file.close();
 }
 
-QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting(){
+QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting()
+{
   return m_manualClients;
 }
 

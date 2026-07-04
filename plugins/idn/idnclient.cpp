@@ -92,14 +92,14 @@ QByteArray IdnClient::optimizedMode(const QByteArray &data)
 
   bool configTime = (QDateTime::currentMSecsSinceEpoch() - timestamp) > IDN_CONFIG_INTERVAL ? true : false;
 
-  IdnOptimizer::PacketInformation pi = m_optimizer->optimize(data, configTime);
+  IdnOptimizer::PacketInformation pi = m_optimizer->optimize(data, configTime, m_rangeBegin, m_rangeEnd);
   //setze den Datachunk zusammen
   QByteArray dmxPacket, justifiedData;
   bool addRangeEndFrame = true;
 
   for(int i = 0; i < pi.ranges.length(); i++){
     for(int j = pi.ranges[i].first; j < pi.ranges[i].second+1; j++){
-      if(pi.ranges[i].first == m_rangeEnd || pi.ranges[i].second == m_rangeEnd){
+      if(pi.ranges[i].first == m_rangeEnd || pi.ranges[i].second == m_rangeEnd - 1){
         addRangeEndFrame = false;
       }
       if (j < data.size()){

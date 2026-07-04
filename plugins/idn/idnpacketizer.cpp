@@ -37,13 +37,12 @@ IdnPacketizer::IdnPacketizer()
 {
 }
 
-IdnPacketizer::~IdnPacketizer(){}
+IdnPacketizer::~IdnPacketizer()
+{}
 
 /*********************************************************************
  * Build IDN Packet
  *********************************************************************/
-
-// bekommt setupIdnDmx(dmxPacket, m_mode, justifiedData, NULL, m_seqnum, true);
 
  void IdnPacketizer::setupIdnDmx(QByteArray& data, const quint8 &mode, const quint8 &channelID, const QByteArray &values, const quint16 offset, const quint32 seqnum, const bool config, const quint8 serviceID)
  {

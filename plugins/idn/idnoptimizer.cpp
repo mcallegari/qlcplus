@@ -3,6 +3,7 @@
   idnoptimizer.cpp
 
   Copyright (c) Daniel Schröder
+  Updated by Mauritz Kauffmann, 2026
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,19 +24,21 @@
 
 QTextStream out33(stdout);
 
-IdnOptimizer::IdnOptimizer(){
+IdnOptimizer::IdnOptimizer()
+{
     oldData.fill(0x00, 512);
 }
 
-IdnOptimizer::~IdnOptimizer(){}
+IdnOptimizer::~IdnOptimizer()
+{}
 
 
-IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, const bool checkNullValues)
+IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, const bool checkNullValues, int rangeBegin, int rangeEnd)
 {
     QByteArray newData = data;
     QByteArray fill;
     newData.append(fill.fill(0x00, 512), 512-data.length());
-    QList<int> changedVal = changedValues(oldData, newData);
+    QList<int> changedVal = changedValues(oldData, newData, rangeBegin, rangeEnd);
     QSet<int> changedValSet(changedVal.begin(), changedVal.end());
     changed = changed.unite(changedValSet);
 
@@ -60,10 +63,10 @@ IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, c
     return getRanges(changedList);
 }
 
-QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData)
+QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData, int rangeBegin, int rangeEnd)
 {
   QList<int> changedChannelBuffer;
-  for(int i = 0; i < oldData.length(); i++){
+  for(int i = rangeBegin - 1; i < rangeEnd - 1 ; i++){
       if(newData.at(i) == oldData.at(i)){
           continue;
         }else{

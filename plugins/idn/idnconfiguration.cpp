@@ -440,7 +440,8 @@ void IdnConfiguration::on_m_buttonBox_rejected()
     QDialog::reject();
 }
 
-void IdnConfiguration::on_m_clearButton_clicked() {
+void IdnConfiguration::on_m_clearButton_clicked() 
+{
     m_clientTree->clear();
 }
 
