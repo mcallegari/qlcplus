@@ -415,7 +415,8 @@ void ShowManager::deleteSelectedTrack()
   * Show Items
   ********************************************************************/
 
-void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList)
+void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList,
+                           ShowFunction *sourceFunc)
 {
     if (idsList.count() == 0)
         return;
@@ -503,6 +504,14 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         showFunc->setStartTime(startTime);
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
+        // when pasting, inherit the customized properties of the source item
+        if (sourceFunc != nullptr)
+        {
+            showFunc->setDuration(sourceFunc->duration());
+            showFunc->setColor(sourceFunc->color());
+            showFunc->setLocked(sourceFunc->isLocked());
+        }
+
         Tardis::instance()->enqueueAction(
             Tardis::ShowManagerAddFunction, m_currentShow->id(), QVariant(),
             Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddFunction, m_currentShow->id(), showFunc->id()));
@@ -542,15 +551,18 @@ void ShowManager::deleteShowItems(QVariantList data)
     if (m_currentShow == nullptr)
         return;
 
+    int clipboardCount = m_clipboard.count();
+
     foreach (SelectedShowItem ssi, m_selectedItems)
     {
         quint32 trackIndex = ssi.m_trackIndex;
         qDebug() << "Selected item has track index:" << trackIndex;
 
-        for (int i = 0; i < m_clipboard.count(); i++)
+        // drop any clipboard reference to the item being deleted to
+        // avoid dangling pointers when pasting later
+        for (int i = m_clipboard.count() - 1; i >= 0; i--)
         {
-            SelectedShowItem cItem = m_clipboard.at(i);
-            if (cItem.m_showFunc == ssi.m_showFunc)
+            if (m_clipboard.at(i).m_showFunc == ssi.m_showFunc)
                 m_clipboard.removeAt(i);
         }
 
@@ -566,6 +578,9 @@ void ShowManager::deleteShowItems(QVariantList data)
 
     m_selectedItems.clear();
     emit selectedItemsCountChanged(0);
+
+    if (m_clipboard.count() != clipboardCount)
+        emit clipboardItemsCountChanged(m_clipboard.count());
 }
 
 void ShowManager::deleteShowItem(ShowFunction *sf)
@@ -1194,6 +1209,14 @@ void ShowManager::resetContents()
 
     m_currentShow = nullptr;
 
+    // the clipboard holds ShowFunction pointers belonging to the show
+    // being closed, so drop them to avoid dangling references
+    if (m_clipboard.isEmpty() == false)
+    {
+        m_clipboard.clear();
+        emit clipboardItemsCountChanged(0);
+    }
+
     emit tracksChanged();
     emit isEditingChanged();
     setPlaybackState(false, false);
@@ -1338,6 +1361,11 @@ void ShowManager::setItemsColor(QColor itemsColor)
 int ShowManager::selectedItemsCount() const
 {
     return m_selectedItems.count();
+}
+
+int ShowManager::clipboardItemsCount() const
+{
+    return m_clipboard.count();
 }
 
 bool ShowManager::multipleSelection() const
@@ -1603,6 +1631,8 @@ void ShowManager::copyToClipboard()
 
     for (SelectedShowItem item : m_selectedItems)
         m_clipboard.append(item);
+
+    emit clipboardItemsCountChanged(m_clipboard.count());
 }
 
 void ShowManager::pasteFromClipboard()
@@ -1641,6 +1671,6 @@ void ShowManager::pasteFromClipboard()
 
         addItems(contextItem(), item.m_trackIndex,
                  m_currentTime + item.m_showFunc->startTime() - lowerTime,
-                 QVariantList() << func->id());
+                 QVariantList() << func->id(), item.m_showFunc);
     }
 }

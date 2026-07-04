@@ -65,6 +65,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
+    Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
 
 public:
@@ -255,9 +256,12 @@ public:
     /** Add a new Item to the timeline.
      *  This happens when dragging an existing Function from the Function Manager.
      *  If the current Show is NULL, a new Show is created.
-     *  If the provided $trackIdx is not valid, a new Track is created
+     *  If the provided $trackIdx is not valid, a new Track is created.
+     *  If $sourceFunc is not NULL (e.g. when pasting), the created ShowFunction
+     *  inherits its duration, color and lock state from it.
      */
-    Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
+    Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList,
+                              ShowFunction *sourceFunc = nullptr);
 
     /** Add a Show item from an existing ShowFunction reference and Track Id */
     void addShowItem(ShowFunction *sf, quint32 trackId);
@@ -304,6 +308,9 @@ public:
 
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;
+
+    /** Returns the number of Show items currently in the clipboard */
+    int clipboardItemsCount() const;
 
     /** Get/Set multi selection mode for Show items */
     bool multipleSelection() const;
@@ -366,6 +373,7 @@ private:
 signals:
     void itemsColorChanged(QColor itemsColor);
     void selectedItemsCountChanged(int count);
+    void clipboardItemsCountChanged(int count);
     void multipleSelectionChanged();
 
 private:

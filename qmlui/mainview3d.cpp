@@ -72,6 +72,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_fixtureComponent(nullptr)
     , m_genericComponent(nullptr)
     , m_selectionComponent(nullptr)
+    , m_markerComponent(nullptr)
     , m_spotlightConeComponent(nullptr)
     , m_fillGBufferLayer(nullptr)
     , m_createItemCount(0)
@@ -87,6 +88,9 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_gBuffer(nullptr)
     , m_latestGenericID(0)
     , m_initRetryCount(0)
+    , m_position3DMarker(QVector3D())
+    , m_position3DMarkerVisible(false)
+    , m_markerEntity(nullptr)
     , m_renderQuality(HighQuality)
     , m_stageEntity(nullptr)
     , m_ambientIntensity(0.6)
@@ -139,6 +143,9 @@ void MainView3D::enableContext(bool enable)
 
         delete m_selectionComponent;
         m_selectionComponent = nullptr;
+
+        delete m_markerComponent;
+        m_markerComponent = nullptr;
 
         delete m_fixtureComponent;
         m_fixtureComponent = nullptr;
@@ -432,6 +439,13 @@ bool MainView3D::initialize3DProperties()
         m_selectionComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/SelectionEntity.qml"));
         if (m_selectionComponent->isError())
             qDebug() << m_selectionComponent->errors();
+    }
+
+    if (m_markerComponent == nullptr)
+    {
+        m_markerComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Position3DMarker.qml"));
+        if (m_markerComponent->isError())
+            qDebug() << m_markerComponent->errors();
     }
 
     m_scene3D = nullptr;
@@ -1555,7 +1569,7 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
     /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
 
-    updateLightMatrix(mesh);
+    updateLightMatrix(mesh, itemID);
 }
 
 void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
@@ -1575,10 +1589,10 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
                                                         QVector3D(0, 0, 1), -degrees.z());
     mesh->m_rootTransform->setRotation(qRotation);
 
-    updateLightMatrix(mesh);
+    updateLightMatrix(mesh, itemID);
 }
 
-void MainView3D::updateLightMatrix(SceneItem *mesh)
+void MainView3D::updateLightMatrix(SceneItem *mesh, quint32 itemID)
 {
     // no head ? Nothing to do
     if (mesh->m_headItem == nullptr)
@@ -1621,6 +1635,31 @@ void MainView3D::updateLightMatrix(SceneItem *mesh)
             Q_ARG(QVariant, 0),
             Q_ARG(QVariant, QVariant::fromValue(QVector3D(result.x(), result.y(), result.z()))),
             Q_ARG(QVariant, QVariant::fromValue(lightMatrix)));
+
+    // Persist the head's local offset so setPositionPickPoint works without the 3D view loaded.
+    // The offset is model-space only (arm + head translations, no root position/rotation).
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture != nullptr)
+    {
+        const QString resource = FixtureUtils::fixtureLightResource(fixture);
+        if (!resource.isEmpty() && !m_monProps->containsLightItem(resource, headIndex))
+        {
+            QVector3D localOffset;
+            if (mesh->m_armItem)
+            {
+                QMatrix4x4 armTransform = getTransform(mesh->m_armItem)->matrix();
+                localOffset += QVector3D(armTransform.data()[12], armTransform.data()[13], armTransform.data()[14]);
+            }
+            if (mesh->m_headItem)
+            {
+                QMatrix4x4 headTransform = getTransform(mesh->m_headItem)->matrix();
+                localOffset += QVector3D(headTransform.data()[12], headTransform.data()[13], headTransform.data()[14]);
+            }
+            m_monProps->setLightPosition(resource, headIndex, localOffset);
+        }
+    }
 }
 
 void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
@@ -2117,6 +2156,74 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     }
 
     emit genericItemsScaleChanged();
+}
+
+QVector3D MainView3D::position3DMarker() const
+{
+    return m_position3DMarker;
+}
+
+void MainView3D::setPosition3DMarker(QVector3D pos)
+{
+    m_position3DMarker = pos;
+
+    // 3D position palette values are stored in grid corner-origin space (the same
+    // space used by setPositionPickPoint / QLCPalette aiming, i.e. scene coords
+    // plus gridMeters/2). The 3D scene renders fixtures in center-origin space, so
+    // convert back to scene space before placing the marker.
+    float unitScale = m_monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    QVector3D gridMeters = m_monProps->gridSize() * unitScale;
+    QVector3D scenePos(pos.x() - gridMeters.x() / 2,
+                       pos.y(),
+                       pos.z() - gridMeters.z() / 2);
+
+    if (m_markerEntity)
+        m_markerEntity->setProperty("center", scenePos);
+    emit position3DMarkerChanged();
+}
+
+bool MainView3D::position3DMarkerVisible() const
+{
+    return m_position3DMarkerVisible;
+}
+
+void MainView3D::setPosition3DMarkerVisible(bool visible)
+{
+    if (m_position3DMarkerVisible == visible)
+        return;
+    m_position3DMarkerVisible = visible;
+    emit position3DMarkerVisibleChanged();
+
+    if (visible)
+    {
+        if (m_markerEntity || !m_sceneRootEntity || !m_markerComponent)
+            return;
+
+        QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
+        QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+
+        m_markerEntity = qobject_cast<QEntity *>(m_markerComponent->create());
+        if (m_markerEntity)
+        {
+            m_markerEntity->setParent(m_sceneRootEntity);
+            m_markerEntity->setProperty("selectionLayer", QVariant::fromValue(selectionLayer));
+            m_markerEntity->setProperty("geometryPassEffect", QVariant::fromValue(sceneEffect));
+            m_markerEntity->setProperty("extents", QVector3D(0.18f, 0.18f, 0.18f));
+            // place at the current marker position (handles corner/center space conversion)
+            setPosition3DMarker(m_position3DMarker);
+            m_markerEntity->setProperty("color", QVariant::fromValue(QVector4D(0.55f, 0.0f, 0.0f, 2.0f)));
+            m_markerEntity->setProperty("isSelected", true);
+        }
+    }
+    else
+    {
+        if (m_markerEntity)
+        {
+            m_markerEntity->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
+            m_markerEntity->deleteLater();
+            m_markerEntity = nullptr;
+        }
+    }
 }
 
 /*********************************************************************

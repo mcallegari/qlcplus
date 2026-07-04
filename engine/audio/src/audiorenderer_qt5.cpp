@@ -144,14 +144,21 @@ QList<AudioDeviceInfo> AudioRendererQt5::getDevicesInfo()
 
 qint64 AudioRendererQt5::writeAudio(unsigned char *data, qint64 maxSize)
 {
-    if (m_audioOutput == NULL || m_audioOutput->bytesFree() < maxSize)
+    if (m_audioOutput == NULL)
+        return 0;
+
+    // Write only as much as currently fits in the device buffer. The base
+    // renderer tracks the leftover (pendingAudioBytes) and retries, so
+    // partial writes keep a small buffer steadily topped up.
+    const qint64 toWrite = qMin<qint64>(maxSize, m_audioOutput->bytesFree());
+    if (toWrite <= 0)
         return 0;
 
     //qDebug() << "writeAudio called !! - " << maxSize;
-    qint64 written = m_output->write((const char *)data, maxSize);
+    qint64 written = m_output->write((const char *)data, toWrite);
 
-    if (written != maxSize)
-        qDebug() << "[writeAudio] expected to write" << maxSize << "but wrote" << written;
+    if (written != toWrite)
+        qDebug() << "[writeAudio] expected to write" << toWrite << "but wrote" << written;
 
     return written;
 }
@@ -188,7 +195,19 @@ void AudioRendererQt5::run()
             return;
         }
 
-        m_audioOutput->setBufferSize(8192 * 8);
+        // Size the output buffer from the actual format so playback starts
+        // with a small, low-latency buffer instead of a fixed 64KB (~370ms
+        // at 44.1kHz/16bit/stereo). Configurable via QSettings.
+        QSettings settings;
+        int bufferMs = settings.value(SETTINGS_AUDIO_OUTPUT_BUFFER,
+                                      DEFAULT_AUDIO_OUTPUT_BUFFER_MS).toInt();
+        if (bufferMs < 10)
+            bufferMs = 10;
+
+        const qint64 bufferBytes = m_format.bytesForDuration(qint64(bufferMs) * 1000);
+        if (bufferBytes > 0)
+            m_audioOutput->setBufferSize(bufferBytes);
+
         m_output = m_audioOutput->start();
 
         if (m_audioOutput->error() != QAudio::NoError)

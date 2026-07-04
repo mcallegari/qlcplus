@@ -20,6 +20,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QQmlEngine>
+#include <QRandomGenerator>
 
 #include "qlcfixturemode.h"
 #include "fixturemanager.h"
@@ -333,6 +334,23 @@ void EFXEditor::setAlgorithmYPhase(int algorithmYPhase)
     updateAlgorithmData();
 }
 
+bool EFXEditor::dimmerControl() const
+{
+    if (m_efx == nullptr)
+        return false;
+
+    return m_efx->dimmerControlEnabled();
+}
+
+void EFXEditor::setDimmerControl(bool dimmerControl)
+{
+    if (m_efx == nullptr || dimmerControl == m_efx->dimmerControlEnabled())
+        return;
+
+    m_efx->setDimmerControlEnabled(dimmerControl);
+    emit dimmerControlChanged();
+}
+
 /************************************************************************
  * Fixtures
  ************************************************************************/
@@ -589,17 +607,44 @@ void EFXEditor::setFixtureOffset(quint32 fixtureID, int headIndex, int offset)
     }
 }
 
-void EFXEditor::setFixturesOffset(int offset)
+void EFXEditor::setFixturesOffset(int offset, int mode)
 {
-    int currentOffset = offset;
+    if (m_efx == nullptr)
+        return;
 
-    for (EFXFixture *ef : m_efx->fixtures()) // C++11
+    QList<EFXFixture *> fixtures = m_efx->fixtures();
+
+    if (mode == OffsetAbsolute)
     {
-        ef->setStartOffset(currentOffset);
-        currentOffset += offset;
-        if (currentOffset >= 360)
-            currentOffset -= 360;
+        // The same absolute offset on every fixture
+        for (EFXFixture *ef : fixtures)
+            ef->setStartOffset(offset);
     }
+    else
+    {
+        // Build the increasing offsets starting from 0: 0, offset, 2*offset, ... (mod 360)
+        QList<int> offsets;
+        int currentOffset = 0;
+        for (int i = 0; i < fixtures.count(); i++)
+        {
+            offsets.append(currentOffset % 360);
+            currentOffset += offset;
+        }
+
+        // Random mode: shuffle which fixture gets which of those offsets
+        if (mode == OffsetRandom)
+        {
+            for (int i = offsets.count() - 1; i > 0; i--)
+            {
+                int j = QRandomGenerator::global()->generate() % (i + 1);
+                qSwap(offsets[i], offsets[j]);
+            }
+        }
+
+        for (int i = 0; i < fixtures.count(); i++)
+            fixtures.at(i)->setStartOffset(offsets.at(i));
+    }
+
     updateFixtureList();
     updateAlgorithmData();
 }

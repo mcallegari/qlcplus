@@ -170,8 +170,28 @@ Entity
         lightColor = color
     }
 
+    // Timestamp of the previous setPosition() call, used to pace animations to the
+    // rate at which new targets arrive (e.g. an EFX ticking every few ms) instead
+    // of always animating over the full physical slew time (which lags badly).
+    // 0 means "no previous update yet".
+    property real lastPositionTime: 0
+
+    // Gap (ms) above which two updates are considered unrelated: the previous move
+    // has settled, so the new one is a one-shot and should use the realistic
+    // physical slew time rather than being paced to the (long) elapsed interval.
+    readonly property real continuousUpdateGap: 1000
+
     function setPosition(pan, tilt)
     {
+        // Time since the last update. On a continuous effect (e.g. an EFX) this is
+        // the tick period, and we pace the animation to it so consecutive ticks
+        // chain smoothly and keep up. A large gap (or the very first move) means a
+        // one-shot: animate over the physical slew time so it looks like a real head.
+        var now = Date.now()
+        var elapsed = (lastPositionTime > 0) ? (now - lastPositionTime) : continuousUpdateGap + 1
+        var oneShot = (elapsed <= 0 || elapsed >= continuousUpdateGap)
+        lastPositionTime = now
+
         if (panMaxDegrees)
         {
             var basePanPos = (meshType == MainView3D.ScannerMeshType) ? (180 - (panMaxDegrees / 2)) : 0
@@ -180,7 +200,9 @@ Entity
             panAnim.stop()
             panAnim.from = panRotation
             panAnim.to = panTgtDeg
-            panAnim.duration = Math.max((panSpeed / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
+            // Physical slew time for this move: the fastest a real head could do it.
+            var panPhysical = (panSpeed / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from)
+            panAnim.duration = animationDuration(elapsed, panPhysical, oneShot)
             panAnim.start()
         }
 
@@ -196,9 +218,22 @@ Entity
             tiltAnim.stop()
             tiltAnim.from = tiltRotation
             tiltAnim.to = tiltTgtDeg
-            tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
+            var tiltPhysical = (tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from)
+            tiltAnim.duration = animationDuration(elapsed, tiltPhysical, oneShot)
             tiltAnim.start()
         }
+    }
+
+    // Pick the animation duration for one position update.
+    //  - one-shot (first move / after a gap): use the realistic physical slew time
+    //    so an isolated move looks like a real head travelling (min 300 ms).
+    //  - continuous (rapid updates, e.g. an EFX): pace to the update interval so
+    //    ticks chain smoothly, but never faster than the head physically could.
+    function animationDuration(elapsed, physical, oneShot)
+    {
+        if (oneShot)
+            return Math.max(physical, 300)
+        return Math.min(elapsed, Math.max(physical, 1))
     }
 
     function setPositionSpeed(panDuration, tiltDuration)

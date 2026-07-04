@@ -47,13 +47,13 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_isCollapsed(false)
     , m_multiPageMode(false)
     , m_currentPage(0)
+    , m_totalPagesNumber(1)
     , m_pagesLoop(false)
     , m_PIN(0)
     , m_validatedPIN(false)
     , m_submasterValue(1)
 {
     setType(VCWidget::FrameWidget);
-    setTotalPagesNumber(1);
 
     registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
     registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
@@ -758,7 +758,26 @@ void VCFrame::setMultiPageMode(bool multiPageMode)
         return;
 
     m_multiPageMode = multiPageMode;
+
+    // when enabling, make sure the label and shortcut control for the
+    // first page (index 0) exist
+    if (multiPageMode)
+        ensureFirstPage();
+
     emit multiPageModeChanged(multiPageMode);
+    setDocModified();
+}
+
+void VCFrame::ensureFirstPage()
+{
+    if (m_pageLabels.contains(0))
+        return;
+
+    // register the label and shortcut control for the first page (index 0).
+    // Further pages are added on demand by setTotalPagesNumber()
+    m_pageLabels.insert(0, tr("Page 1"));
+    registerExternalControl(INPUT_SHORTCUT_BASE_ID, m_pageLabels.value(0), true);
+    emit pageLabelsChanged();
 }
 
 void VCFrame::setTotalPagesNumber(int num)
@@ -766,9 +785,12 @@ void VCFrame::setTotalPagesNumber(int num)
     if (m_totalPagesNumber == num)
         return;
 
+    // pages rely on the first page (index 0) being registered
+    ensureFirstPage();
+
     if (num < m_totalPagesNumber)
     {
-        for (int i = m_totalPagesNumber - 1; i > num; i--)
+        for (int i = m_totalPagesNumber - 1; i >= num; i--)
         {
             m_pageLabels.remove(i);
             unregisterExternalControl(INPUT_SHORTCUT_BASE_ID + i);
@@ -903,6 +925,8 @@ void VCFrame::cloneFirstPage()
                 VCWidget *newWidget = child->createCopy(this);
                 m_vc->addWidgetToMap(newWidget);
                 newWidget->setPage(pg);
+                newWidget->remapInputSources(pg);
+
                 setupWidget(newWidget, pg);
                 newWidget->render(m_vc->view(), m_item);
             }

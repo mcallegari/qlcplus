@@ -38,6 +38,18 @@ Item
 
     signal positionTypeChanged()
 
+    Component.onCompleted:
+    {
+        if (!isEditing && visible && paletteType !== QLCPalette.Undefined)
+            editingPalette = paletteManager.getEditingPalette(paletteType)
+    }
+
+    onPaletteTypeChanged:
+    {
+        if (!isEditing && visible && paletteType !== QLCPalette.Undefined)
+            editingPalette = paletteManager.getEditingPalette(paletteType)
+    }
+
     onVisibleChanged:
     {
         if (isEditing)
@@ -139,6 +151,7 @@ Item
             IconButton
             {
                 id: fanningButton
+                visible: boxRoot.paletteType !== QLCPalette.Shutter
                 width: UISettings.iconSizeMedium
                 height: width
                 imgSource: "qrc:/fanning.svg"

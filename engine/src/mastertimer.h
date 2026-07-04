@@ -26,6 +26,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QList>
+#include <atomic>
 
 class MasterTimerPrivate;
 class GenericFader;
@@ -130,7 +131,7 @@ private:
     QMutex m_functionListMutex;
 
     /** Flag for stopping all functions */
-    bool m_stopAllFunctions;
+    std::atomic<bool> m_stopAllFunctions;
 
     /*************************************************************************
      * DMX Sources

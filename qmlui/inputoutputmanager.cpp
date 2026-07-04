@@ -25,6 +25,8 @@
 #include "inputprofileeditor.h"
 #include "monitorproperties.h"
 #include "audioplugincache.h"
+#include "audiorenderer.h"
+#include "audiocapture.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
@@ -37,6 +39,8 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedUniverseIndex(-1)
     , m_blackout(false)
+    , m_inputCapture(nullptr)
+    , m_audioInputLevel(0)
     , m_profileEditor(nullptr)
     , m_editProfile(nullptr)
     , m_beatType("INTERNAL")
@@ -389,6 +393,110 @@ void InputOutputManager::setAudioOutput(QString privateName)
         settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, privateName);
     emit audioOutputSourcesChanged();
     emit audioOutputDeviceChanged();
+}
+
+int InputOutputManager::audioInputSampleRate() const
+{
+    QSettings settings;
+    return settings.value(SETTINGS_AUDIO_INPUT_SRATE, AUDIO_DEFAULT_SAMPLE_RATE).toInt();
+}
+
+void InputOutputManager::setAudioInputSampleRate(int sampleRate)
+{
+    if (sampleRate == audioInputSampleRate())
+        return;
+
+    QSettings settings;
+    if (sampleRate == AUDIO_DEFAULT_SAMPLE_RATE)
+        settings.remove(SETTINGS_AUDIO_INPUT_SRATE);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_SRATE, sampleRate);
+
+    enableAudioInputPreview(false);
+    m_doc->destroyAudioCapture();
+    emit audioInputSampleRateChanged();
+}
+
+int InputOutputManager::audioInputChannels() const
+{
+    QSettings settings;
+    return settings.value(SETTINGS_AUDIO_INPUT_CHANNELS, AUDIO_DEFAULT_CHANNELS).toInt();
+}
+
+void InputOutputManager::setAudioInputChannels(int channels)
+{
+    if (channels == audioInputChannels())
+        return;
+
+    QSettings settings;
+    if (channels == AUDIO_DEFAULT_CHANNELS)
+        settings.remove(SETTINGS_AUDIO_INPUT_CHANNELS);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_CHANNELS, channels);
+
+    enableAudioInputPreview(false);
+    m_doc->destroyAudioCapture();
+    emit audioInputChannelsChanged();
+}
+
+int InputOutputManager::audioOutputBuffer() const
+{
+    QSettings settings;
+    return settings.value(SETTINGS_AUDIO_OUTPUT_BUFFER, DEFAULT_AUDIO_OUTPUT_BUFFER_MS).toInt();
+}
+
+void InputOutputManager::setAudioOutputBuffer(int bufferMs)
+{
+    if (bufferMs == audioOutputBuffer())
+        return;
+
+    QSettings settings;
+    if (bufferMs == DEFAULT_AUDIO_OUTPUT_BUFFER_MS)
+        settings.remove(SETTINGS_AUDIO_OUTPUT_BUFFER);
+    else
+        settings.setValue(SETTINGS_AUDIO_OUTPUT_BUFFER, bufferMs);
+
+    emit audioOutputBufferChanged();
+}
+
+int InputOutputManager::audioInputLevel() const
+{
+    return m_audioInputLevel;
+}
+
+void InputOutputManager::enableAudioInputPreview(bool enable)
+{
+    QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
+    m_inputCapture = capture.data();
+
+    if (m_inputCapture == nullptr)
+        return;
+
+    if (enable == true)
+    {
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                this, SLOT(slotAudioInputLevelChanged(double*,int,double,quint32)));
+        m_inputCapture->registerBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
+    }
+    else
+    {
+        m_inputCapture->unregisterBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
+        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                   this, SLOT(slotAudioInputLevelChanged(double*,int,double,quint32)));
+
+        m_audioInputLevel = 0;
+        emit audioInputLevelChanged();
+    }
+}
+
+void InputOutputManager::slotAudioInputLevelChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+{
+    Q_UNUSED(spectrumBands)
+    Q_UNUSED(size)
+    Q_UNUSED(maxMagnitude)
+
+    m_audioInputLevel = int(power);
+    emit audioInputLevelChanged();
 }
 
 /*********************************************************************

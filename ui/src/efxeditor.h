@@ -32,6 +32,10 @@
 class SpeedDialWidget;
 class EFXPreviewArea;
 class Doc;
+class QSpinBox;
+class QComboBox;
+class QCheckBox;
+class QLabel;
 
 class EfxUiState;
 
@@ -149,12 +153,19 @@ private slots:
     void slotXPhaseSpinChanged(int value);
     void slotYPhaseSpinChanged(int value);
 
+    void slotDimmerControlToggled(bool checked);
+
     void slotLoopClicked();
     void slotSingleShotClicked();
     void slotPingPongClicked();
 
     void slotForwardClicked();
     void slotBackwardClicked();
+
+private:
+    /* Dimmer envelope widgets, created at runtime and added to the
+       parameters group, gated by the dimmer control checkbox) */
+    QCheckBox *m_dimmerControlCheck = nullptr;
 
 private:
     void redrawPreview();

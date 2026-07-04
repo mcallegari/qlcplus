@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="/">
     <file alias="2dview.svg">2dview.svg</file>
+    <file alias="3dpoint.svg">3dpoint.svg</file>
     <file alias="3dview.svg">3dview.svg</file>
     <file alias="add.svg">add.svg</file>
     <file alias="algo-flat.svg">algo-flat.svg</file>

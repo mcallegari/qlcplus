@@ -52,6 +52,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_currentSubContext("2D")
     , m_multipleSelection(false)
     , m_positionPicking(false)
+    , m_lastPickedPoint(QVector3D())
     , m_lastClickedType(App::NoDragItem)
     , m_universeFilter(Universe::invalid())
     , m_editingEnabled(false)
@@ -318,6 +319,11 @@ void ContextManager::setPositionPicking(bool enable)
     emit positionPickingChanged();
 }
 
+QVector3D ContextManager::lastPickedPoint() const
+{
+    return m_lastPickedPoint;
+}
+
 void ContextManager::setPositionPickPoint(QVector3D point)
 {
     if (positionPicking() == false)
@@ -326,6 +332,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     point = QVector3D(point.x() + m_monProps->gridSize().x() / 2,
                       point.y(),
                       point.z() + m_monProps->gridSize().z() / 2);
+
+    m_lastPickedPoint = point;
+    emit lastPickedPointChanged();
 
     for (quint32 &itemID : m_selectedFixtures)
     {
@@ -345,8 +354,13 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
             continue;
 
-        QVector3D lightPos = m_3DView->lightPosition(itemID);
-        QMatrix4x4 lightMatrix = m_3DView->lightMatrix(itemID);
+        QVector3D lightPos;
+        QMatrix4x4 lightMatrix;
+        if (FixtureUtils::lightProperties(m_monProps, fixture, headIndex, lightPos, lightMatrix) == false)
+        {
+            lightPos = m_3DView->lightPosition(itemID);
+            lightMatrix = m_3DView->lightMatrix(itemID);
+        }
 
         lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
                              lightPos.y(),
@@ -863,6 +877,11 @@ void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal 
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
     quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
     quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    // do not move locked items
+    if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+        return;
+
     QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
     QVector3D newPos(x, y, z);
 
@@ -882,6 +901,11 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        // do not move locked items
+        if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+            continue;
+
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
         QVector3D newPos;
 
@@ -934,6 +958,11 @@ void ContextManager::setFixturesPosition(QVector3D position)
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        // do not move locked items
+        if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+            return;
+
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
 
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(position));
@@ -951,6 +980,11 @@ void ContextManager::setFixturesPosition(QVector3D position)
             quint32 fxID = FixtureUtils::itemFixtureID(itemID);
             quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+            // do not move locked items
+            if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+                continue;
+
             QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
             QVector3D newPos = currPos + position;
             Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));

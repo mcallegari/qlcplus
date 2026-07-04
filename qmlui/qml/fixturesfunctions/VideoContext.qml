@@ -37,12 +37,13 @@ Rectangle
 
     Keys.onEscapePressed: stopAllContentFromUI()
 
-    function addVideo(vContent, fadeIn, fadeOut)
+    function addVideo(vContent, fadeIn, fadeOut, startTime)
     {
         var item = videoComponent.createObject(ctxRoot,
                                                { "video": vContent,
                                                  "fadeIn": (fadeIn > 0 ? fadeIn : 0),
-                                                 "fadeOut": (fadeOut > 0 ? fadeOut : 0) });
+                                                 "fadeOut": (fadeOut > 0 ? fadeOut : 0),
+                                                 "startTime": (startTime > 0 ? startTime : 0) });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
 
@@ -135,6 +136,19 @@ Rectangle
         }
     }
 
+    // Immediately stop playback on all media items, without going through the
+    // engine stop round-trip. Used when the context window is closed manually,
+    // so the MediaPlayer doesn't keep decoding in the background.
+    function stopAllPlayback()
+    {
+        for (var i = 0; i < mediaItems.length; i++)
+        {
+            var item = mediaItems[i]
+            if (item)
+                item.stopPlayback()
+        }
+    }
+
     function translateUrl(url)
     {
         if (url.indexOf("://") !== -1)
@@ -172,6 +186,7 @@ Rectangle
             property rect geometry: video.customGeometry
             property int fadeIn: 0
             property int fadeOut: 0
+            property int startTime: 0 // resume position in ms (0 = from the beginning)
             property real fadeMultiplier: 1.0
             property int fadeState: 0 // 0 idle, 1 fade in, 2 fade out
             property bool removalRequested: false
@@ -305,6 +320,16 @@ Rectangle
 
                 onMediaStatusChanged:
                 {
+                    // Seek to the resume position once the media is loaded.
+                    // This is needed e.g. when the Show Manager resumes a
+                    // video item that was paused at a non-zero position.
+                    if (mediaRect.startTime > 0 &&
+                        (mediaStatus == MediaPlayer.LoadedMedia || mediaStatus == MediaPlayer.BufferedMedia))
+                    {
+                        player.position = mediaRect.startTime
+                        mediaRect.startTime = 0
+                    }
+
                     if (mediaStatus == MediaPlayer.EndOfMedia)
                     {
                         if (mediaRect.video.runOrder === QLCFunction.Loop)

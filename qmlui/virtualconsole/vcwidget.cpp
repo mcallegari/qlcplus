@@ -967,6 +967,12 @@ void VCWidget::deleteAllInputSources()
     emit inputSourcesListChanged();
 }
 
+void VCWidget::remapInputSources(int pgNum)
+{
+    for (QSharedPointer<QLCInputSource> &source : m_inputSources) // C++11
+        source->setPage(pgNum);
+}
+
 QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
 {
     return m_inputSources;

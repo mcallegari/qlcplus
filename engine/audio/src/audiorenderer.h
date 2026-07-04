@@ -34,6 +34,11 @@
 
 #define SETTINGS_AUDIO_OUTPUT_DEVICE "audio/output"
 
+/** Output buffer length in milliseconds. Lower values reduce playback
+ *  startup latency but increase the risk of underruns on slow systems. */
+#define SETTINGS_AUDIO_OUTPUT_BUFFER "audio/outputBufferMs"
+#define DEFAULT_AUDIO_OUTPUT_BUFFER_MS 100
+
 typedef struct
 {
     QString deviceName;

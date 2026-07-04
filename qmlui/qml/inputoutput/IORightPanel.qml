@@ -125,6 +125,18 @@ SidePanel
                 onClicked: ioManager.configurePlugin(false)
             }
 
+            IconButton
+            {
+                id: audioOutputConfigureButton
+                z: 2
+                visible: showAudioButton
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/configure.svg"
+                tooltip: qsTr("Open the audio output configuration")
+                onClicked: ioMgrContainer.showAudioConfiguration(false)
+            }
+
             /* filler object */
             Rectangle
             {

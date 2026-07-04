@@ -180,6 +180,17 @@ public:
     /** Remove a Fixture from this XY Pad */
     Q_INVOKABLE void removeHeads(QVariantList heads);
 
+    /** Return a map with the current Pan/Tilt range of the given $heads.
+     *  The displayed min/max values follow the current display mode and,
+     *  for a mix of fixtures, the maximum allowed value is the smallest
+     *  among the selection. */
+    Q_INVOKABLE QVariantMap headsRangeInfo(QVariantList heads);
+
+    /** Apply the given Pan/Tilt range (expressed in the current display
+     *  mode units) and reverse flags to the given $heads */
+    Q_INVOKABLE void setHeadsRange(QVariantList heads, int xMin, int xMax, bool xReverse,
+                                   int yMin, int yMax, bool yReverse);
+
     /** Add presets */
     Q_INVOKABLE int addPositionPreset();
     Q_INVOKABLE int addFunctionPreset(quint32 functionID);

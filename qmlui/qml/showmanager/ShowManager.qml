@@ -236,7 +236,7 @@ Rectangle
                 faSource: FontAwesome.fa_paste
                 faColor: UISettings.fgMain
                 tooltip: qsTr("Paste items in the clipboard at cursor position")
-                counter: showManager.selectedItemsCount
+                counter: showManager.clipboardItemsCount
                 onClicked: showManager.pasteFromClipboard()
             }
 

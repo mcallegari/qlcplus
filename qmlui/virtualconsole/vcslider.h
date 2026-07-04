@@ -95,6 +95,12 @@ public:
     /** @reimp */
     void remapChannels(const QMap<SceneValue, SceneValue> &remapMap) override;
 
+    /** @reimp */
+    void setDisabled(bool disable) override;
+
+    /** @reimp */
+    void setVisible(bool isVisible) override;
+
 protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget) override;

@@ -36,3 +36,4 @@ CustomPopupDialog 0.1 CustomPopupDialog.qml
 PopupCustomFeedback 0.1 PopupCustomFeedback.qml
 PopupPINSetup 0.1 PopupPINSetup.qml
 PopupPINRequest 0.1 PopupPINRequest.qml
+PopupAnimationPreset 0.1 PopupAnimationPreset.qml

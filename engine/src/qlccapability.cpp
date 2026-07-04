@@ -86,6 +86,11 @@ QLCCapability::Preset QLCCapability::preset() const
     return m_preset;
 }
 
+int QLCCapability::presetInt() const
+{
+    return int(m_preset);
+}
+
 void QLCCapability::setPreset(QLCCapability::Preset preset)
 {
     if (preset == m_preset)

@@ -293,6 +293,12 @@ private:
 
     /** The duration of a step based on the current BPM (Beats tempo only) */
     uint m_stepBeatDuration;
+
+    /** Continuous phase (0.0 - 1.0) for accurate phase scaling during runtime speed changes.
+     *  This prevents cumulative rounding errors when properties are changed multiple times.
+     *  Analogous to EFX's m_currentAngle, but for RGBMatrix step-based animations. */
+    double m_continuousPhase;
+
     bool m_applyingStyleAttributes;
 
     /*********************************************************************

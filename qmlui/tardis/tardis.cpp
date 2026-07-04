@@ -42,6 +42,8 @@
 #include "vcspeeddial.h"
 #include "vcaudiotriggers.h"
 #include "vcanimation.h"
+#include "vcxypad.h"
+#include "vcclock.h"
 #include "universe.h"
 #include "vcframe.h"
 #include "rgbtext.h"
@@ -1442,6 +1444,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 slider->setValue(value->toInt());
         }
         break;
+        case VCSliderButtonPress:
+        {
+            VCSlider *slider = qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID));
+            if (slider)
+                slider->flashFunction(value->toBool());
+        }
+        break;
         case FunctionStart:
         {
             Function *function = m_doc->function(action.m_objID);
@@ -1484,6 +1493,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 cueList->previousClicked();
         }
         break;
+        case VCCueListSetIndex:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID));
+            if (cueList)
+                cueList->setPlaybackIndex(value->toInt());
+        }
+        break;
         case VCSpeedDialSetTime:
         {
             VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(m_virtualConsole->widget(action.m_objID));
@@ -1498,11 +1514,67 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 speedDial->setCurrentFactor(VCSpeedDial::SpeedMultiplier(value->toInt()));
         }
         break;
+        case VCSpeedDialApply:
+        {
+            VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(m_virtualConsole->widget(action.m_objID));
+            if (speedDial)
+                speedDial->applyFunctionsTime();
+        }
+        break;
+        case VCXYPadSetPosition:
+        {
+            VCXYPad *xyPad = qobject_cast<VCXYPad *>(m_virtualConsole->widget(action.m_objID));
+            if (xyPad)
+                xyPad->setCurrentPosition(value->toPointF());
+        }
+        break;
+        case VCXYPadSetGeometry:
+        {
+            VCXYPad *xyPad = qobject_cast<VCXYPad *>(m_virtualConsole->widget(action.m_objID));
+            if (xyPad)
+            {
+                // QRectF carries the rubber band ranges: horizontal on x/width, vertical on y/height
+                QRectF range = value->toRectF();
+                xyPad->setHorizontalRange(QPointF(range.x(), range.width()));
+                xyPad->setVerticalRange(QPointF(range.y(), range.height()));
+            }
+        }
+        break;
+        case VCXYPadActivatePreset:
+        {
+            VCXYPad *xyPad = qobject_cast<VCXYPad *>(m_virtualConsole->widget(action.m_objID));
+            if (xyPad)
+                xyPad->applyPreset(value->toUInt());
+        }
+        break;
         case VCAudioTriggersSetCaptureEnabled:
         {
             VCAudioTriggers *audioTriggers = qobject_cast<VCAudioTriggers *>(m_virtualConsole->widget(action.m_objID));
             if (audioTriggers)
                 audioTriggers->setCaptureEnabled(value->toBool());
+        }
+        break;
+        case VCAudioTriggersSetLevel:
+        {
+            VCAudioTriggers *audioTriggers = qobject_cast<VCAudioTriggers *>(m_virtualConsole->widget(action.m_objID));
+            if (audioTriggers)
+                audioTriggers->setVolumeLevel(uchar(value->toUInt()));
+        }
+        break;
+        case VCClockSetEnabled:
+        {
+            VCClock *clock = qobject_cast<VCClock *>(m_virtualConsole->widget(action.m_objID));
+            // playPauseTimer toggles the running state and manages the underlying
+            // timer, so only trigger it when the requested state actually differs
+            if (clock && clock->timerRunning() != value->toBool())
+                clock->playPauseTimer();
+        }
+        break;
+        case VCClockReset:
+        {
+            VCClock *clock = qobject_cast<VCClock *>(m_virtualConsole->widget(action.m_objID));
+            if (clock)
+                clock->resetTimer();
         }
         break;
         case VCAnimationSetFaderLevel:
@@ -1552,6 +1624,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
             VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
             if (animation)
                 animation->setColor5(value->value<QColor>());
+        }
+        break;
+        case VCAnimationActivatePreset:
+        {
+            VCAnimation *animation = qobject_cast<VCAnimation *>(m_virtualConsole->widget(action.m_objID));
+            if (animation)
+                animation->applyPreset(value->toUInt());
         }
         break;
 
