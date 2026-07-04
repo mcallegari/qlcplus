@@ -26,6 +26,7 @@
 #include <QByteArray>
 #include <QThread>
 #include <QSet>
+#include <atomic>
 
 #include "inputpatch.h"
 #include "qlcchannel.h"
@@ -376,7 +377,7 @@ protected:
     QSemaphore m_semaphore;
 
     /** Indicated if the DMX writer worker thread is running */
-    bool m_running;
+    std::atomic<bool> m_running;
 
     /** IMPORTANT: this is the list of faders that will compose
      *  the Universe values. The order is very important ! */

@@ -265,6 +265,27 @@ Column
                         height: parent.height - 2
                         width: height
                         border.width: 0
+                        faSource: checked ? FontAwesome.fa_lock : FontAwesome.fa_lock_open
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.LockedFlag ? true : false
+                        tooltip: qsTr("Lock/Unlock position")
+                        onToggled:
+                        {
+                            if (itemFlags & MonitorProperties.LockedFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.LockedFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.LockedFlag)
+                        }
+                    }
+
+                    IconButton
+                    {
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
                         faSource: FontAwesome.fa_arrows_left_right
                         faColor: checked ? "#00FF00" : UISettings.fgMedium
                         bgColor: "transparent"

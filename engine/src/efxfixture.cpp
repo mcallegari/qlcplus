@@ -58,6 +58,9 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_firstLsbChannel(QLCChannel::invalid())
     , m_secondMsbChannel(QLCChannel::invalid())
     , m_secondLsbChannel(QLCChannel::invalid())
+
+    , m_intensityMsbChannel(QLCChannel::invalid())
+    , m_intensityLsbChannel(QLCChannel::invalid())
 {
     Q_ASSERT(parent != NULL);
 
@@ -411,6 +414,17 @@ void EFXFixture::start(QSharedPointer<GenericFader> fader)
             {
                 fader->setHandleSecondary(false);
             }
+
+            /* When dimmer control is enabled, cache the intensity channel too so
+               the EFX can drive the dimmer from the tilt (see nextStep). */
+            if (m_parent->dimmerControlEnabled())
+            {
+                m_intensityMsbChannel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head);
+                if (m_intensityMsbChannel != QLCChannel::invalid())
+                    m_intensityLsbChannel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::LSB, head().head);
+                else
+                    m_intensityMsbChannel = fxi->masterIntensityChannel();
+            }
         }
         break;
 
@@ -503,6 +517,12 @@ void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFad
     {
         case PanTilt:
             setPointPanTilt(universes, fader, valX, valY);
+            /* When dimmer control is enabled, drive the dimmer from the EFX cycle
+               angle, phased by this fixture's StartOffset. See EFX::dimmerLevel(). */
+            if (m_parent->dimmerControlEnabled())
+                setPointIntensity(universes, fader,
+                                  m_parent->dimmerLevel(m_parent->convertOffset(m_startOffset),
+                                                        m_currentAngle));
         break;
 
         case RGB:
@@ -633,6 +653,34 @@ void EFXFixture::setPointDimmer(QList<Universe *> universes, QSharedPointer<Gene
             updateFaderValues(fc, dimmerValue);
         });
     }
+}
+
+void EFXFixture::setPointIntensity(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer)
+{
+    if (fader.isNull())
+        return;
+
+    if (m_intensityMsbChannel == QLCChannel::invalid())
+        return;
+
+    Universe *uni = universes[universe()];
+
+    /* Scale the 0.0 - 1.0 dimmer level to a 16bit-capable DMX value */
+    quint32 value = quint32(dimmer * float(UCHAR_MAX));
+
+    quint32 intChannel = m_intensityMsbChannel;
+    if (m_intensityLsbChannel != QLCChannel::invalid() && fader->handleSecondary())
+    {
+        fader->updateChannel(doc(), uni, head().fxi, m_intensityMsbChannel, [](FadeChannel &) {});
+        value = (value << 8) + quint32((dimmer * float(UCHAR_MAX) - floor(dimmer * float(UCHAR_MAX))) * float(UCHAR_MAX));
+        intChannel = m_intensityLsbChannel;
+    }
+
+    fader->updateChannel(doc(), uni, head().fxi, intChannel, [this, value](FadeChannel &fc)
+    {
+        fc.setFadeTime(0);
+        updateFaderValues(fc, value);
+    });
 }
 
 void EFXFixture::setPointRGB(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y)

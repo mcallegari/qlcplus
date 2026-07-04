@@ -22,11 +22,13 @@
 
 #include <QObject>
 #include <QVector3D>
+#include <QMatrix4x4>
 #include <QColor>
 #include <QFont>
 #include <QSize>
 #include <QMap>
 
+class Fixture;
 class QXmlStreamReader;
 class QXmlStreamWriter;
 
@@ -54,6 +56,11 @@ struct FixturePreviewItem
 {
     PreviewItem m_baseItem;                 ///< Base fixture item properties
     QMap<quint32, PreviewItem> m_subItems;  ///< Map of the heads/linked fixtures
+};
+
+struct LightItem
+{
+    QVector3D m_position;       ///< Local offset from fixture root to beam origin
 };
 
 class MonitorProperties final : public QObject
@@ -138,7 +145,8 @@ public:
         HiddenFlag          = (1 << 0),
         InvertedPanFlag     = (1 << 1),
         InvertedTiltFlag    = (1 << 2),
-        MeshZUpFlag         = (1 << 3)
+        MeshZUpFlag         = (1 << 3),
+        LockedFlag          = (1 << 4)
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(ItemFlags)
@@ -209,6 +217,46 @@ public:
 private:
     bool m_showLabels;
     QMap <quint32, FixturePreviewItem> m_fixtureItems;
+
+    /********************************************************************
+     * Light items
+     ********************************************************************/
+public:
+    /** Remove a Light entry from the Monitor map by resource name */
+    void removeLight(QString resource);
+
+    /** Remove a Light entry from the Monitor map by resource name and head index */
+    void removeLight(QString resource, quint16 head);
+
+    /** Returns true if the provided resource and head index are in the light map */
+    bool containsLightItem(QString resource, quint16 head) const;
+
+    /** Get/Set the beam origin offset associated to a light item */
+    void setLightPosition(QString resource, quint16 head, QVector3D position);
+    QVector3D lightPosition(QString resource, quint16 head) const;
+
+    /** Get/Set a single Light item property with the given resource and head index */
+    LightItem lightItem(QString resource, quint16 head) const;
+    void setLightItem(QString resource, quint16 head, LightItem props);
+
+    /** Get a list of resources that currently have persisted light metadata */
+    QList<QString> lightResources() const { return m_lightItems.keys(); }
+
+    /** Return a list of head IDs for a light item with the given resource */
+    QList<quint32> lightHeadList(QString resource) const;
+
+    /** Build a rotation matrix from fixture Euler rotation (degrees), matching
+     *  Qt3DCore::QTransform::fromAxesAndAngles(X,-rx, Y,-ry, Z,-rz) — X applied first */
+    static QMatrix4x4 fixtureRotationMatrix(QVector3D rotationDegrees);
+
+    /** Compute the world-space beam origin for a fixture head.
+     *  Returns false if no LightItem data is available for this fixture. */
+    static bool fixtureBeamPosition(const MonitorProperties *monProps,
+                                    const Fixture *fixture, int headIndex,
+                                    QVector3D &beamPos, QMatrix4x4 &rotMatrix);
+
+private:
+    QMap <QString, QMap<quint32, LightItem> > m_lightItems;
 
     /********************************************************************
      * Generic items

@@ -1159,6 +1159,8 @@ void VCSlider::flashFunction(bool on)
     }
 
     adjustFunctionAttribute(function, on ? 1.0 : m_adjustFlashPreviousValue);
+
+    Tardis::instance()->enqueueAction(Tardis::VCSliderButtonPress, id(), !on, on);
 }
 
 QStringList VCSlider::availableAttributes() const
@@ -1489,6 +1491,31 @@ void VCSlider::slotInputValueChanged(quint8 id, uchar value)
             flashFunction(value ? true : false);
         break;
     }
+}
+
+void VCSlider::setDisabled(bool disable)
+{
+    // While disabled (e.g. when the containing frame is disabled) input
+    // events are not delivered to this slider, so the cached last input
+    // value gets stale. Reset it so that, once re-enabled, the value
+    // catching feature treats the next external input as a fresh catch
+    // and re-syncs to the controller's current position.
+    if (disable)
+        m_lastInputValue = -1;
+
+    VCWidget::setDisabled(disable);
+}
+
+void VCSlider::setVisible(bool isVisible)
+{
+    // Same rationale as setDisabled(): while not visible (e.g. when on a
+    // non-current page of a multipage frame) input events are not delivered,
+    // so reset the cached last input value to re-sync the value catching
+    // feature to the controller once this slider becomes visible again.
+    if (isVisible == false)
+        m_lastInputValue = -1;
+
+    VCWidget::setVisible(isVisible);
 }
 
 /*********************************************************************

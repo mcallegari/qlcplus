@@ -41,21 +41,35 @@ CustomPopupDialog
     {
         switch (type)
         {
-            case QLCPalette.Dimmer:    return qsTr("Dimmer");
-            case QLCPalette.Color:     return qsTr("Color");
+            case QLCPalette.Dimmer:     return qsTr("Dimmer");
+            case QLCPalette.Color:      return qsTr("Color");
             case QLCPalette.Pan:
             case QLCPalette.Tilt:
-            case QLCPalette.PanTilt:
-                                       return qsTr("Position");
-            case QLCPalette.Shutter:   return qsTr("Shutter");
-            case QLCPalette.Gobo:      return qsTr("Gobo");
-            case QLCPalette.Undefined: return "";
+            case QLCPalette.PanTilt:    return qsTr("Position");
+            case QLCPalette.Position3D: return qsTr("Position 3D");
+            case QLCPalette.Shutter:    return qsTr("Shutter");
+            case QLCPalette.Gobo:       return qsTr("Gobo");
+            case QLCPalette.Undefined:  return "";
         }
+    }
+
+    function isPositionType(type)
+    {
+        return type === QLCPalette.Pan || type === QLCPalette.Tilt || type === QLCPalette.PanTilt
     }
 
     onAccepted:
     {
-        var pId = paletteManager.createPalette(paletteObj, nameInputBox.text)
+        let pId
+        if (save3DCheck.checked && isPositionType(paletteObj ? paletteObj.type : QLCPalette.Undefined))
+        {
+            let p = contextManager.lastPickedPoint
+            pId = paletteManager.createPosition3DPalette(nameInputBox.text, p.x, p.y, p.z)
+        }
+        else
+        {
+            pId = paletteManager.createPalette(paletteObj, nameInputBox.text)
+        }
         if (createSceneCheck.checked)
             paletteManager.addPaletteToNewScene(pId, sceneNameInput.text)
     }
@@ -96,7 +110,28 @@ CustomPopupDialog
                 label: popupRoot.paletteObj ? typeToString(popupRoot.paletteObj.type) : ""
             }
 
-            // row 3
+            // row 3 - Save 3D position (only for position-type palettes)
+            RowLayout
+            {
+                Layout.columnSpan: 2
+                visible: popupRoot.paletteObj ? isPositionType(popupRoot.paletteObj.type) : false
+
+                CustomCheckBox
+                {
+                    id: save3DCheck
+                    implicitHeight: UISettings.listItemHeight
+                    implicitWidth: implicitHeight
+                    autoExclusive: false
+                }
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("Save as 3D position")
+                }
+            }
+
+            // row 4
             RowLayout
             {
                 Layout.columnSpan: 2

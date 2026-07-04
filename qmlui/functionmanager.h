@@ -70,6 +70,7 @@ class FunctionManager final : public QObject
     Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
 
     Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
+    Q_PROPERTY(bool scenePreviewEnabled READ scenePreviewEnabled WRITE setScenePreviewEnabled NOTIFY scenePreviewEnabledChanged)
 
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -130,6 +131,12 @@ public:
     /** Enable/disable the Function preview feature */
     bool previewEnabled() const;
     void setPreviewEnabled(bool enable);
+
+    /** Enable/disable the live preview of the channel values being edited
+     *  on a Scene/Sequence. When enabled, the edited Scene (or the Sequence
+     *  bound Scene) is started, so channel changes are sent to the output */
+    bool scenePreviewEnabled() const;
+    void setScenePreviewEnabled(bool enable);
 
     /** Add $fID to the list of the currently selected Function IDs,
      *  considering $multiSelection as an append/replace action */
@@ -219,6 +226,7 @@ signals:
     void videoCountChanged();
     void selectedFunctionCountChanged(int count);
     void previewEnabledChanged();
+    void scenePreviewEnabledChanged();
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
@@ -238,6 +246,10 @@ private:
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;
+
+    /** Flag that holds if the live preview of the edited Scene/Sequence
+     *  channel values is enabled or not */
+    bool m_scenePreviewEnabled;
 
     /** List of the Function IDs currently selected
      *  and previewed, if preview is enabled */

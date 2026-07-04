@@ -54,6 +54,7 @@ class ContextManager final : public QObject
     Q_PROPERTY(quint32 dumpChannelMask READ dumpChannelMask NOTIFY dumpChannelMaskChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
+    Q_PROPERTY(QVector3D lastPickedPoint READ lastPickedPoint NOTIFY lastPickedPointChanged)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
@@ -106,6 +107,9 @@ public:
 
     Q_INVOKABLE void setPositionPickPoint(QVector3D point);
 
+    /** Returns the last 3D point picked in the scene (in monitor coordinates, mm) */
+    QVector3D lastPickedPoint() const;
+
     /** Get/Set the last item clicked type */
     int lastClickedType() const;
 
@@ -117,6 +121,7 @@ signals:
     void currentSubContextChanged();
     void environmentSizeChanged();
     void positionPickingChanged();
+    void lastPickedPointChanged();
     void multipleSelectionChanged();
 
 public slots:
@@ -160,6 +165,8 @@ private:
     bool m_multipleSelection;
     /** Flag that indicates if a position picking is active */
     bool m_positionPicking;
+    /** Last 3D point picked in the scene (in monitor coordinates) */
+    QVector3D m_lastPickedPoint;
 
     /** Keep track of the last item type that was
      *  clicked, to handle the Del keypress */

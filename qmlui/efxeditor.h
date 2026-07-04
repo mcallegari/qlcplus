@@ -50,6 +50,8 @@ class EFXEditor final : public FunctionEditor
 
     Q_PROPERTY(int propagation READ propagation WRITE setPropagation NOTIFY propagationChanged)
 
+    Q_PROPERTY(bool dimmerControl READ dimmerControl WRITE setDimmerControl NOTIFY dimmerControlChanged)
+
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(qreal maxPanDegrees READ maxPanDegrees NOTIFY maxPanDegreesChanged)
@@ -126,9 +128,14 @@ public:
     int algorithmYPhase() const;
     void setAlgorithmYPhase(int algorithmYPhase);
 
+    /** Get/set whether the EFX drives the fixtures' dimmer from their tilt */
+    bool dimmerControl() const;
+    void setDimmerControl(bool dimmerControl);
+
 signals:
     void algorithmIndexChanged();
     void isRelativeChanged();
+    void dimmerControlChanged();
     void algorithmWidthChanged();
     void algorithmHeightChanged();
     void algorithmXOffsetChanged();
@@ -176,11 +183,21 @@ public:
     /** Reverse the provided Fixture */
     Q_INVOKABLE void setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed);
 
+    /** How to distribute an offset across all the EFX fixtures */
+    enum FixturesOffsetMode
+    {
+        OffsetAbsolute = 0, //!< The same offset on every fixture
+        OffsetIncreasing,   //!< Increasing offset: offset, 2*offset, 3*offset, ...
+        OffsetRandom        //!< Increasing offsets, randomly assigned to the fixtures
+    };
+    Q_ENUM(FixturesOffsetMode)
+
     /** Set an offset in degrees to the provided fixture and head */
     Q_INVOKABLE void setFixtureOffset(quint32 fixtureID, int headIndex, int offset);
 
-    /** Set an increasing $offset in degrees on all the EFX fixtures */
-    Q_INVOKABLE void setFixturesOffset(int offset);
+    /** Apply an $offset in degrees to all the EFX fixtures, distributed per $mode
+        (see FixturesOffsetMode) */
+    Q_INVOKABLE void setFixturesOffset(int offset, int mode);
 
 protected:
     void updateFixtureList();

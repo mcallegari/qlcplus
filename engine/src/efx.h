@@ -47,6 +47,7 @@ class Fixture;
 #define KXMLQLCEFXRotation                  QStringLiteral("Rotation")
 #define KXMLQLCEFXStartOffset               QStringLiteral("StartOffset")
 #define KXMLQLCEFXIsRelative                QStringLiteral("IsRelative")
+#define KXMLQLCEFXDimmerControl             QStringLiteral("DimmerControl")
 #define KXMLQLCEFXAxis                      QStringLiteral("Axis")
 #define KXMLQLCEFXOffset                    QStringLiteral("Offset")
 #define KXMLQLCEFXFrequency                 QStringLiteral("Frequency")
@@ -155,6 +156,21 @@ public:
     /** Convert a string to an algorithm type */
     static Algorithm stringToAlgorithm(const QString& str);
 
+    /** Get/set whether the EFX drives the fixtures' dimmer from their tilt */
+    bool dimmerControlEnabled() const;
+    void setDimmerControlEnabled(bool enable);
+
+    /**
+     * Dimmer brightness (0.0 - 1.0) driven from the EFX cycle angle, phased per
+     * fixture by its StartOffset. Over one cycle the first half [0, PI) fades from
+     * full (at 0) to 0 (at PI); the second half [PI, 2PI) stays black. The EFX
+     * Direction is handled by the movement itself, so it is not applied here.
+     *
+     * @param startOffset this fixture's StartOffset in radians
+     * @param iterator    the EFX cycle position (0..2PI over one Duration)
+     */
+    float dimmerLevel(float startOffset, float iterator) const;
+
     /**
      * Get a preview of the current algorithm. Puts 128 points to the
      * given polygon, 255px wide and 255px high at maximum, that represents
@@ -224,6 +240,9 @@ private:
 private:
     /** Current algorithm used by the EFX */
     Algorithm m_algorithm;
+
+    /** Whether the EFX drives the contained fixtures' dimmer from their tilt */
+    bool m_dimmerControl;
 
     /*********************************************************************
      * Width

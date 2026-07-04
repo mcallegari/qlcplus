@@ -27,6 +27,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QGridLayout>
 #include <QPainter>
 #include <QLabel>
 #include <QDebug>
@@ -231,6 +232,22 @@ void EFXEditor::initMovementPage()
     m_yFrequencySpin->setValue(m_efx->yFrequency());
     m_xPhaseSpin->setValue(m_efx->xPhase());
     m_yPhaseSpin->setValue(m_efx->yPhase());
+
+    /* Dimmer control. A single checkbox, not in the .ui file: when enabled the
+       EFX drives each fixture's dimmer from its own tilt (full at maximum tilt,
+       zero at minimum). Off by default. */
+    QGridLayout *paramsLayout = qobject_cast<QGridLayout*>(m_parametersGroup->layout());
+    if (paramsLayout != NULL)
+    {
+        int dimRow = paramsLayout->rowCount();
+
+        m_dimmerControlCheck = new QCheckBox(tr("Enable dimmer control"), m_parametersGroup);
+        m_dimmerControlCheck->setChecked(m_efx->dimmerControlEnabled());
+        paramsLayout->addWidget(m_dimmerControlCheck, dimRow, 0, 1, 2);
+
+        connect(m_dimmerControlCheck, SIGNAL(toggled(bool)),
+                this, SLOT(slotDimmerControlToggled(bool)));
+    }
 
     /* Running order */
     switch (m_efx->runOrder())
@@ -1014,6 +1031,12 @@ void EFXEditor::slotYPhaseSpinChanged(int value)
     Q_ASSERT(m_efx != NULL);
     m_efx->setYPhase(value);
     redrawPreview();
+}
+
+void EFXEditor::slotDimmerControlToggled(bool checked)
+{
+    Q_ASSERT(m_efx != NULL);
+    m_efx->setDimmerControlEnabled(checked);
 }
 
 /*****************************************************************************

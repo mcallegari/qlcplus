@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <Qt3DCore/QTransform>
 
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
@@ -44,6 +45,20 @@
 
 #define MIN_GOBO_SPEED      500 // ms
 #define MAX_GOBO_SPEED      5000 // ms
+
+QString FixtureUtils::fixtureLightResource(const Fixture *fixture)
+{
+    if (fixture == nullptr)
+        return QString();
+
+    switch (fixture->type())
+    {
+        case QLCFixtureDef::MovingHead:
+            return QStringLiteral("moving_head.dae");
+        default:
+            return QString();
+    }
+}
 
 FixtureUtils::FixtureUtils()
 {
@@ -382,6 +397,31 @@ QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
                   source.blueF() * filter.blueF() * 255.0);
 }
 
+bool FixtureUtils::lightProperties(const MonitorProperties *monProps, const Fixture *fixture,
+                                   int headIndex, QVector3D &lightPos, QMatrix4x4 &lightMatrix)
+{
+    QMatrix4x4 rotMatrix;
+    if (!MonitorProperties::fixtureBeamPosition(monProps, fixture, headIndex, lightPos, rotMatrix))
+        return false;
+
+    QVector4D xb = rotMatrix * QVector4D(1, 0, 0, 0);
+    QVector4D yb = rotMatrix * QVector4D(0, 1, 0, 0);
+    QVector4D zb = rotMatrix * QVector4D(0, 0, 1, 0);
+
+    QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
+    QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
+    QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
+
+    lightMatrix = QMatrix4x4(
+        xa.x(), xa.y(), xa.z(), 0,
+        ya.x(), ya.y(), ya.z(), 0,
+        za.x(), za.y(), za.z(), 0,
+        0, 0, 0, 1
+    ).transposed();
+
+    return true;
+}
+
 void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
 {
     panDuration = -1;
@@ -553,4 +593,3 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
 
     return capPreset;
 }
-

@@ -24,6 +24,7 @@
 #include <QTimer>
 
 #include "vcclock.h"
+#include "tardis.h"
 #include "doc.h"
 
 /** ************** XML Tags and Attributes ************** */
@@ -271,6 +272,8 @@ void VCClock::playPauseTimer()
     if (clockType() == Countdown && m_runtimeTime <= 0)
         return;
 
+    bool previousRunning = m_timerRunning;
+
     setTimerRunning(!m_timerRunning);
     if (m_timerRunning)
         m_timer->start(100);
@@ -278,6 +281,8 @@ void VCClock::playPauseTimer()
         m_timer->stop();
 
     emit currentTimeChanged(m_runtimeTime);
+
+    Tardis::instance()->enqueueAction(Tardis::VCClockSetEnabled, id(), previousRunning, m_timerRunning);
 }
 
 void VCClock::resetTimer()
@@ -293,6 +298,8 @@ void VCClock::resetTimer()
     setTimerRunning(false);
     m_timer->stop();
     emit currentTimeChanged(m_runtimeTime);
+
+    Tardis::instance()->enqueueAction(Tardis::VCClockReset, id(), QVariant(), QVariant());
 }
 
 bool VCClock::timerRunning() const

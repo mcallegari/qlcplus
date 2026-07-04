@@ -120,6 +120,11 @@ App::~App()
 
     stopAllFunctions();
 
+    // exit fullscreen before saving the geometry, otherwise the full screen
+    // rect would be stored and the window would be hard to resize at next startup
+    if (windowState() & Qt::WindowFullScreen)
+        showNormal();
+
 #if defined(Q_OS_ANDROID)
     settings.setValue(SETTINGS_GEOMETRY, QVariant());
 #else

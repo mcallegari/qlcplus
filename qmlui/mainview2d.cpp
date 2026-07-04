@@ -261,6 +261,10 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
         return;
 
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
+
+    // re-evaluate the drag layer parenting in case the locked flag changed
+    if (fxItem->property("isSelected").toBool())
+        selectFixture(fxItem, true);
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect) const
@@ -571,7 +575,14 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable) const
 
     fxItem->setProperty("isSelected", enable);
 
-    if (enable)
+    quint32 itemID = fxItem->property("itemID").toUInt();
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    bool locked = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag;
+
+    // a locked item must not follow the drag layer, so keep it parented to the grid
+    if (enable && !locked)
     {
         QQuickItem *rootObj = m_view->rootObject();
         if (rootObj == nullptr)

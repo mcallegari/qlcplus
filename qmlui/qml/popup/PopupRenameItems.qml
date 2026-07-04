@@ -33,7 +33,13 @@ CustomPopupDialog
     property alias startNumber: startNumSpin.value
     property alias digits: digitsSpin.value
 
-    onOpened: newNameEdit.selectAndFocus()
+    onOpened:
+    {
+        // numbering can be enabled only when the related controls are visible
+        if (!showNumbering)
+            numCheckBox.checked = false
+        newNameEdit.selectAndFocus()
+    }
 
     contentItem:
         GridLayout

@@ -36,6 +36,20 @@ VCWidgetItem
         return true
     }
 
+    function presetButtonLabel(presetData)
+    {
+        if (!presetData)
+            return ""
+
+        switch (presetData.typeString)
+        {
+            case "Animation": return presetData.resource
+            case "Text": return presetData.resource
+            // Color/Reset buttons rely on the swatch color, keep them compact
+            default: return ""
+        }
+    }
+
     function toggleColorTool(colorTool, button)
     {
         if (!colorTool || !button)
@@ -178,6 +192,93 @@ VCWidgetItem
                 if (animationObj)
                     animationObj.algorithmIndex = index
             }
+        }
+
+        Flow
+        {
+            id: presetsFlow
+            Layout.fillWidth: true
+            Layout.columnSpan: itemsLayout.columns
+            spacing: 3
+            visible: animationObj && animationObj.presetsList.length > 0
+
+            Repeater
+            {
+                id: presetsRepeater
+                model: animationObj ? animationObj.presetsList : null
+
+                delegate: Loader
+                {
+                    required property var modelData
+                    sourceComponent: modelData.isKnob ? knobPresetComponent : buttonPresetComponent
+
+                    onLoaded:
+                    {
+                        item.presetData = modelData
+                    }
+                }
+            }
+        }
+    }
+
+    Component
+    {
+        id: buttonPresetComponent
+
+        GenericButton
+        {
+            property var presetData
+
+            // color presets are square swatches, label presets (Text/Animation) are wider
+            width: (presetData && presetData.colorIndex >= 0)
+                   ? UISettings.iconSizeDefault : UISettings.iconSizeDefault * 2
+            height: UISettings.iconSizeDefault
+            label: presetData ? animationRoot.presetButtonLabel(presetData) : ""
+            bgColor: (presetData && presetData.colorIndex >= 0 && presetData.color)
+                     ? presetData.color : UISettings.bgControl
+            border.color: (presetData && presetData.active) ? "white" : UISettings.bgLight
+            border.width: (presetData && presetData.active) ? 2 : 1
+
+            onClicked:
+            {
+                if (animationObj && presetData)
+                    animationObj.applyPreset(presetData.id)
+            }
+        }
+    }
+
+    Component
+    {
+        id: knobPresetComponent
+
+        QLCPlusKnob
+        {
+            id: knobControl
+            property var presetData
+
+            width: UISettings.iconSizeDefault
+            height: width
+            from: 0
+            to: 255
+            // R/G/B knobs are tinted with their channel color
+            knobColor: (presetData && presetData.color) ? presetData.color : "#808080"
+            levelColor: (presetData && presetData.color) ? presetData.color : "#00FF00"
+            // re-read whenever the matrix colors change (referencing colors makes
+            // the binding reactive even though the value comes from a method)
+            value: (animationObj && presetData && animationObj.colors)
+                   ? animationObj.presetKnobValue(presetData.id) : 0
+
+            onMoved:
+            {
+                if (animationObj && presetData)
+                    animationObj.setPresetKnobValue(presetData.id, value)
+            }
+
+            // tooltip indicating the RGB channel this knob controls
+            ToolTip.text: knobControl.presetData ? knobControl.presetData.tooltip : ""
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.visible: knobControl.hovered && ToolTip.text
         }
     }
 

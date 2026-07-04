@@ -78,6 +78,7 @@ class QLCCapability final : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(WarningType warning READ warning WRITE setWarning NOTIFY warningChanged)
     Q_PROPERTY(QVariantList resources READ resources CONSTANT)
+    Q_PROPERTY(int preset READ presetInt CONSTANT)
 
     /********************************************************************
      * Initialization
@@ -200,6 +201,7 @@ public:
 
     /** Get/Set the preset value for this capability */
     Preset preset() const;
+    int presetInt() const;
     void setPreset(Preset preset);
 
     /** Return the type of the current preset.

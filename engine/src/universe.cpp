@@ -86,7 +86,13 @@ Universe::~Universe()
             usleep(10000);
 
         m_running = false;
-        wait(1000);
+        if (!wait(2000))
+        {
+            qCritical() << Q_FUNC_INFO << "Universe" << m_id
+                        << "thread did not stop within 2 seconds, forcing termination";
+            terminate();
+            wait();
+        }
     }
 
     delete m_inputPatch;

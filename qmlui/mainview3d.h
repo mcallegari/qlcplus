@@ -116,6 +116,9 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
 
+    Q_PROPERTY(QVector3D position3DMarker READ position3DMarker WRITE setPosition3DMarker NOTIFY position3DMarkerChanged)
+    Q_PROPERTY(bool position3DMarkerVisible READ position3DMarkerVisible WRITE setPosition3DMarkerVisible NOTIFY position3DMarkerVisibleChanged)
+
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~MainView3D();
@@ -167,6 +170,7 @@ private:
     QQmlComponent *m_fixtureComponent;
     QQmlComponent *m_genericComponent;
     QQmlComponent *m_selectionComponent;
+    QQmlComponent *m_markerComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
@@ -274,7 +278,7 @@ protected:
 private:
     Qt3DCore::QTransform *getTransform(const QEntity *entity) const;
     QMaterial *getMaterial(const QEntity *entity) const;
-    void updateLightMatrix(SceneItem *mesh);
+    void updateLightMatrix(SceneItem *mesh, quint32 itemID);
 
 private:
     /** Reference to the Scene3D component */
@@ -335,6 +339,11 @@ public:
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
 
+    QVector3D position3DMarker() const;
+    Q_INVOKABLE void setPosition3DMarker(QVector3D pos);
+    bool position3DMarkerVisible() const;
+    Q_INVOKABLE void setPosition3DMarkerVisible(bool visible);
+
 protected:
     void updateGenericItemsList();
 
@@ -344,6 +353,8 @@ signals:
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void position3DMarkerChanged();
+    void position3DMarkerVisibleChanged();
 
 private:
     /** Counter used to give unique IDs to generic items */
@@ -357,6 +368,10 @@ private:
 
     /** Map of the generic items in the scene */
     QMap<quint32, SceneItem*> m_genericMap;
+
+    QVector3D m_position3DMarker;
+    bool m_position3DMarkerVisible;
+    QEntity *m_markerEntity;
 
     /*********************************************************************
      * Environment

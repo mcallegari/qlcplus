@@ -72,7 +72,7 @@ QtObject
 
     /* Channel properties column widths */
     property real chPropsModesWidth: bigItemHeight * 1.2
-    property real chPropsFlagsWidth: bigItemHeight
+    property real chPropsFlagsWidth: bigItemHeight * 1.3
     property real chPropsCanFadeWidth: bigItemHeight * 0.7
     property real chPropsPrecedenceWidth: bigItemHeight * 1.2
     property real chPropsModifierWidth: bigItemHeight

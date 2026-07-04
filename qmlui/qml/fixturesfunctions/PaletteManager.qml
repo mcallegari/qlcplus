@@ -34,10 +34,7 @@ Rectangle
 
     function setTypeFilter(pType, checked)
     {
-        if (checked === true)
-            paletteManager.typeFilter |= pType
-        else
-            paletteManager.typeFilter &= ~pType
+        paletteManager.setTypeFilter(pType, checked)
     }
 
     ModelSelector
@@ -119,10 +116,22 @@ Rectangle
                     height: topBar.height - 2
                     imgSource: "qrc:/position.svg"
                     checkable: true
-                    checked: paletteManager.typeFilter & (QLCPalette.Pan || QLCPalette.Tilt || QLCPalette.PanTilt)
+                    checked: paletteManager.typeFilter & (QLCPalette.Pan | QLCPalette.Tilt | QLCPalette.PanTilt)
                     tooltip: qsTr("Position")
                     counter: paletteManager.positionCount
                     onCheckedChanged: setTypeFilter(QLCPalette.Pan | QLCPalette.Tilt | QLCPalette.PanTilt, checked)
+                }
+                IconButton
+                {
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/3dpoint.svg"
+                    checkable: true
+                    checked: paletteManager.typeFilter & QLCPalette.Position3D
+                    tooltip: qsTr("3D Position")
+                    counter: paletteManager.position3DCount
+                    onCheckedChanged: setTypeFilter(QLCPalette.Position3D, checked)
                 }
 
                 Rectangle { Layout.fillWidth: true }
@@ -280,6 +289,9 @@ Rectangle
                                 case QLCPalette.Zoom:
                                     toolLoader.source = "qrc:/BeamTool.qml"
                                 break
+                                case QLCPalette.Position3D:
+                                    toolLoader.source = "qrc:/Position3DTool.qml"
+                                break
                             }
                         }
 
@@ -368,6 +380,7 @@ Rectangle
         {
             item.width = toolLoader.width
             item.height = toolLoader.height
+            item.showPalette = false
             item.loadPalette(paletteID)
         }
     }
