@@ -54,6 +54,9 @@ make install
 cp -v ../resources/icons/svg/qlcplus.svg $TARGET_DIR
 cp -v ../platforms/linux/qlcplus.desktop $TARGET_DIR
 
+# Install base Qt translations
+cp $QTDIR/translations/qtbase_* $TARGET_DIR/share/qlcplus/translations/
+
 find $TARGET_DIR/usr/lib/ -name 'libqlcplusengine.so*' -exec strip -v {} \;
 
 if [ "$1" == "qmlui" ]; then

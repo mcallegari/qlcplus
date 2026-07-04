@@ -328,7 +328,7 @@ int main(int argc, char** argv)
 
     /* Load translation for main application */
     QLCi18n::loadTranslation("qlcplus");
-#if defined(Q_OS_MACOS)
+#if defined(Q_OS_MACOS) || defined(APPIMAGE)
     QLCi18n::loadTranslation("qtbase");
 #else
     QLCi18n::loadQtTranslation("qt");

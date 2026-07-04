@@ -297,7 +297,7 @@ void App::setLanguage(QString locale)
         QCoreApplication::installTranslator(m_translator);
 
     m_translator_base = new QTranslator(QCoreApplication::instance());
-#if defined(Q_OS_MACOS)
+#if defined(Q_OS_MACOS) || defined(APPIMAGE)
     if (m_translator_base->load("qtbase_" + locale, translationPath))
 #else
     if (m_translator_base->load("qt_" + locale, QLibraryInfo::path(QLibraryInfo::TranslationsPath)))

@@ -24,6 +24,10 @@ else()
     set(APPVERSION "4.14.5 GIT")
 endif()
 
+if(appimage)
+    add_definitions(-DAPPIMAGE)
+endif()
+
 if(UNIX)
     set(OLA_GIT "/usr/src/ola") # OLA directories
 endif()
