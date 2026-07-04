@@ -1577,6 +1577,14 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
     updateLightMatrix(mesh, itemID);
 }
 
+QVector3D MainView3D::fixtureExtents(quint32 itemID) const
+{
+    SceneItem *mesh = m_entitiesMap.value(itemID, nullptr);
+    if (mesh == nullptr)
+        return QVector3D(0, 0, 0);
+    return mesh->m_volume.m_extents;
+}
+
 void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
 {
     if (isEnabled() == false)

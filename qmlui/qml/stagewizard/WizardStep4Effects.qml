@@ -28,8 +28,8 @@ Item
 
     readonly property var familyIcons: ({
         "Color":     "🎨",
-        "Intensity": "⚡",
-        "Movement":  "🌀",
+        "Intensity": "💡",
+        "Movement":  "🎯",
         "Matrix":    "▦",
         "Show Cues": "🎬"
     })
@@ -89,7 +89,7 @@ Item
                 label: qsTr("Pre-selected based on your show type. Greyed items need fixtures with the matching capability.")
                 fontSize: UISettings.textSizeDefault * 0.9
                 labelColor: "#888899"
-                wrapText: true
+                //wrapText: true
             }
         }
 
@@ -98,36 +98,43 @@ Item
         // Quick summary count
         Rectangle
         {
+            id: countBadge
             height: UISettings.listItemHeight * 0.9
             width: countText.implicitWidth + 20
             radius: height / 2
             color: "#E94560"
 
-            RobotoText
+            property int selectedCount: 0
+
+            function updateCount()
+            {
+                var n = 0
+                if (stageWizard && stageWizard.effectsModel)
+                {
+                    var m = stageWizard.effectsModel
+                    for (var i = 0; i < m.length; ++i)
+                        if (m[i].enabled) n++
+                }
+                selectedCount = n
+            }
+
+            Component.onCompleted: updateCount()
+
+            Text
             {
                 id: countText
                 anchors.centerIn: parent
-                label: qsTr("%1 selected").arg(selectedCount())
-                fontSize: UISettings.textSizeDefault * 0.9
-                fontBold: true
-                labelColor: "white"
-            }
-
-            function selectedCount()
-            {
-                if (!stageWizard) return 0
-                var m = stageWizard.effectsModel
-                if (!m) return 0
-                var n = 0
-                for (var i = 0; i < m.length; ++i)
-                    if (m[i].enabled) n++
-                return n
+                text: qsTr("%1 selected").arg(countBadge.selectedCount)
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault * 0.9
+                font.bold: true
+                color: "white"
             }
 
             Connections
             {
                 target: stageWizard
-                function onEffectsModelChanged() { countText.parent.color = countText.parent.color }
+                function onEffectsModelChanged() { countBadge.updateCount() }
             }
         }
     }
@@ -163,68 +170,73 @@ Item
                     // Family header
                     Rectangle
                     {
+                        id: familyHeader
                         width: parent.width
                         height: UISettings.listItemHeight * 1.1
                         color: root.familyColors[modelData.family] || "#2A2A2A"
                         radius: 8
 
-                        RowLayout
+                        // Icon
+                        RobotoText
                         {
-                            anchors.fill: parent
-                            anchors.margins: 12
-                            spacing: 8
+                            id: famIcon
+                            anchors.left: parent.left
+                            anchors.leftMargin: 12
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: parent.height
+                            label: root.familyIcons[modelData.family] || "•"
+                            fontSize: UISettings.textSizeDefault * 1.3
+                            labelColor: "white"
+                        }
 
-                            Text
-                            {
-                                Layout.alignment: Qt.AlignVCenter
-                                text: root.familyIcons[modelData.family] || "•"
-                                font.family: UISettings.robotoFontName
-                                font.pixelSize: UISettings.textSizeDefault * 1.3
-                            }
-                            Text
-                            {
-                                Layout.alignment: Qt.AlignVCenter
-                                text: modelData.family
-                                font.family: UISettings.robotoFontName
-                                font.pixelSize: UISettings.textSizeDefault * 1.1
-                                font.bold: true
-                                color: "white"
-                            }
-                            Item { Layout.fillWidth: true }
+                        // Family name
+                        RobotoText
+                        {
+                            anchors.left: famIcon.right
+                            anchors.leftMargin: 8
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: parent.height
+                            label: modelData.family
+                            fontSize: UISettings.textSizeDefault * 1.1
+                            fontBold: true
+                            labelColor: "white"
+                        }
 
-                            // Select all / none for this family
-                            Rectangle
+                        // Select all / none for this family
+                        Rectangle
+                        {
+                            id: allNoneBtn
+                            anchors.right: parent.right
+                            anchors.rightMargin: 12
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: UISettings.listItemHeight * 0.65
+                            width: allText.width + 14
+                            radius: height / 2
+                            color: "#00000033"
+                            property bool famHover: false
+
+                            MouseArea
                             {
-                                Layout.alignment: Qt.AlignVCenter
-                                height: UISettings.listItemHeight * 0.65
-                                width: allText.implicitWidth + 14
-                                radius: height / 2
-                                color: "#00000033"
-                                property bool famHover: false
-                                MouseArea
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                onEntered:  allNoneBtn.famHover = true
+                                onExited:   allNoneBtn.famHover = false
+                                onClicked:
                                 {
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    onEntered:  parent.famHover = true
-                                    onExited:   parent.famHover = false
-                                    onClicked:
-                                    {
-                                        var effects = modelData.effects
-                                        var anyOff = effects.some(function(e) { return !e.enabled && e.available })
-                                        for (var i = 0; i < effects.length; ++i)
-                                            if (effects[i].available)
-                                                stageWizard.setEffectEnabled(effects[i].flag, anyOff)
-                                    }
+                                    var effects = modelData.effects
+                                    var anyOff = effects.some(function(e) { return !e.enabled && e.available })
+                                    for (var i = 0; i < effects.length; ++i)
+                                        if (effects[i].available)
+                                            stageWizard.setEffectEnabled(effects[i].flag, anyOff)
                                 }
-                                Text
-                                {
-                                    id: allText
-                                    anchors.centerIn: parent
-                                    text: qsTr("All / None")
-                                    font.family: UISettings.robotoFontName
-                                    font.pixelSize: UISettings.textSizeDefault * 0.78
-                                    color: parent.famHover ? "white" : "#AAAACC"
-                                }
+                            }
+                            RobotoText
+                            {
+                                id: allText
+                                anchors.centerIn: parent
+                                label: qsTr("All / None")
+                                fontSize: UISettings.textSizeDefault * 0.78
+                                labelColor: allNoneBtn.famHover ? "white" : "#AAAACC"
                             }
                         }
                     }

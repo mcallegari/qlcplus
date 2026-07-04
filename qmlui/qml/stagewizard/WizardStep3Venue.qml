@@ -78,7 +78,7 @@ Item
         RobotoText
         {
             Layout.fillWidth: true
-            label: qsTr("The 3D view updates live as you select. Fixtures are automatically positioned following industry rigging conventions.")
+            label: qsTr("Fixtures are automatically positioned following industry rigging conventions.")
             fontSize: UISettings.textSizeDefault * 0.9
             labelColor: "#888899"
             wrapText: true
@@ -214,6 +214,91 @@ Item
             }
         }
 
+        // ── Environment size (auto-suggested, editable) ──────────────────────
+        RobotoText
+        {
+            Layout.topMargin: UISettings.listItemHeight * 0.3
+            label: qsTr("Stage size (metres)")
+            fontSize: UISettings.textSizeDefault * 1.0
+            fontBold: true
+            labelColor: "#AAAACC"
+        }
+
+        RowLayout
+        {
+            Layout.fillWidth: true
+            spacing: UISettings.listItemHeight * 0.4
+
+            // One labelled numeric field per dimension
+            Repeater
+            {
+                model: [
+                    { key: "W", tip: qsTr("Width") },
+                    { key: "H", tip: qsTr("Height") },
+                    { key: "D", tip: qsTr("Depth") }
+                ]
+
+                RowLayout
+                {
+                    spacing: 4
+
+                    RobotoText
+                    {
+                        label: modelData.key
+                        fontSize: UISettings.textSizeDefault
+                        fontBold: true
+                        labelColor: "#888899"
+                    }
+
+                    TextField
+                    {
+                        id: dimField
+                        Layout.preferredWidth: UISettings.bigItemHeight
+                        height: UISettings.listItemHeight
+                        color: "white"
+                        font.family: UISettings.robotoFontName
+                        font.pixelSize: UISettings.textSizeDefault
+                        horizontalAlignment: TextInput.AlignHCenter
+                        inputMethodHints: Qt.ImhDigitsOnly
+                        validator: IntValidator { bottom: 2; top: 100 }
+                        selectByMouse: true
+
+                        text: !stageWizard ? "5"
+                              : (modelData.key === "W" ? Math.round(stageWizard.envWidth)
+                              :  modelData.key === "H" ? Math.round(stageWizard.envHeight)
+                              :                          Math.round(stageWizard.envDepth))
+
+                        background: Rectangle
+                        {
+                            radius: 4
+                            color: "#0E0E20"
+                            border.color: dimField.activeFocus ? "#0978FF" : "#2A2A44"
+                            border.width: 1
+                        }
+
+                        onEditingFinished:
+                        {
+                            if (!stageWizard) return
+                            var v = parseFloat(text.replace(",", "."))
+                            if (isNaN(v)) return
+                            if (modelData.key === "W")      stageWizard.envWidth = v
+                            else if (modelData.key === "H") stageWizard.envHeight = v
+                            else                            stageWizard.envDepth = v
+                        }
+                    }
+                }
+            }
+        }
+
+        RobotoText
+        {
+            Layout.fillWidth: true
+            label: qsTr("Suggested from your fixture count. Adjust if your real stage differs.")
+            fontSize: UISettings.textSizeDefault * 0.8
+            labelColor: "#666688"
+            wrapText: true
+        }
+
         // Push cards to the top
         Item { Layout.fillHeight: true }
     }
@@ -290,72 +375,47 @@ Item
                     anchors.margins: 10
                     spacing: 10
 
-                    Text
+                    RobotoText
                     {
                         Layout.preferredWidth: parent.width * 0.28
-                        text: modelData.name
-                        font.family: UISettings.robotoFontName
-                        font.bold: true
-                        font.pixelSize: UISettings.textSizeDefault
-                        color: "white"
-                        elide: Text.ElideRight
+                        implicitHeight: UISettings.listItemHeight
+                        Layout.alignment: Qt.AlignVCenter
+                        label: modelData.name
+                        fontBold: true
+                        labelColor: "white"
                     }
 
-                    Text
+                    RobotoText
                     {
-                        text: "→"
-                        font.family: UISettings.robotoFontName
-                        font.pixelSize: UISettings.textSizeDefault
-                        color: "#555577"
+                        Layout.alignment: Qt.AlignVCenter
+                        implicitHeight: UISettings.listItemHeight
+                        label: "→"
+                        labelColor: "#555577"
                     }
 
-                    Text
+                    RobotoText
                     {
                         Layout.fillWidth: true
-                        text: rolePlacement[modelData.role] || ""
-                        font.family: UISettings.robotoFontName
-                        font.pixelSize: UISettings.textSizeDefault * 0.85
-                        color: "#8888AA"
-                        wrapMode: Text.WordWrap
+                        Layout.alignment: Qt.AlignVCenter
+                        implicitHeight: UISettings.listItemHeight
+                        label: rolePlacement[modelData.role] || ""
+                        fontSize: UISettings.textSizeDefault * 0.85
+                        labelColor: "#8888AA"
+                        wrapText: true
                     }
 
-                    Text
+                    RobotoText
                     {
-                        text: modelData.fixtureCount + "x"
-                        font.family: UISettings.robotoFontName
-                        font.pixelSize: UISettings.textSizeDefault * 0.85
-                        color: "#555566"
+                        Layout.alignment: Qt.AlignVCenter
+                        implicitHeight: UISettings.listItemHeight
+                        label: modelData.fixtureCount + "x"
+                        fontSize: UISettings.textSizeDefault * 0.85
+                        labelColor: "#555566"
                     }
                 }
             }
 
             ScrollBar.vertical: CustomScrollBar {}
-        }
-
-        // Live 3D note
-        Rectangle
-        {
-            Layout.fillWidth: true
-            height: UISettings.listItemHeight * 1.2
-            radius: 8
-            color: "#0A1A0A"
-            border.color: "#1A4A1A"
-
-            RowLayout
-            {
-                anchors.fill: parent
-                anchors.margins: 10
-                spacing: 8
-                Text { text: "💡"; font.pixelSize: UISettings.textSizeDefault * 1.1 }
-                RobotoText
-                {
-                    Layout.fillWidth: true
-                    label: qsTr("The 3D view behind the wizard is updating live. You can see the fixture placement as you change the venue type.")
-                    fontSize: UISettings.textSizeDefault * 0.85
-                    labelColor: "#66AA66"
-                    wrapText: true
-                }
-            }
         }
     }
 }

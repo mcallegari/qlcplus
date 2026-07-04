@@ -46,6 +46,11 @@ PaletteManager::PaletteManager(QQuickView *view, Doc *doc,
     m_dimmerCount = m_colorCount = m_positionCount = m_position3DCount = 0;
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+
+    // Refresh the list when palettes are added/removed outside this manager
+    // (e.g. by the Stage Wizard).
+    connect(m_doc, &Doc::paletteAdded,   this, [this]() { updatePaletteList(); });
+    connect(m_doc, &Doc::paletteRemoved, this, [this]() { updatePaletteList(); });
 }
 
 PaletteManager::~PaletteManager()

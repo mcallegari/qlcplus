@@ -21,11 +21,14 @@
 
 #include "doc.h"
 #include "fixture.h"
+#include "function.h"
 #include "scene.h"
+#include "qlcpalette.h"
 #include "scenevalue.h"
 #include "chaser.h"
 #include "chaserstep.h"
 #include "efx.h"
+#include "collection.h"
 #include "efxfixture.h"
 #include "rgbmatrix.h"
 #include "rgbalgorithm.h"
@@ -37,6 +40,7 @@
 #include "qlcfixturemode.h"
 
 #include "fixturemanager.h"
+#include "functionmanager.h"
 #include "virtualconsole/virtualconsole.h"
 #include "virtualconsole/vcpage.h"
 #include "virtualconsole/vcframe.h"
@@ -46,6 +50,8 @@
 #include "virtualconsole/vccuelist.h"
 #include "virtualconsole/vcxypad.h"
 #include "contextmanager.h"
+#include "mainview3d.h"
+#include "fixtureutils.h"
 
 #include <QtMath>
 #include <QDebug>
@@ -66,17 +72,20 @@ static const int kFrmPad = 4;
 
 StageWizard::StageWizard(Doc *doc,
                          FixtureManager *fixtureManager,
+                         FunctionManager *functionManager,
                          VirtualConsole *virtualConsole,
                          ContextManager  *contextManager,
                          QObject *parent)
     : QObject(parent)
     , m_doc(doc)
     , m_fixtureManager(fixtureManager)
+    , m_functionManager(functionManager)
     , m_virtualConsole(virtualConsole)
     , m_contextManager(contextManager)
     , m_currentStep(0)
     , m_showType(ClubNight)
     , m_stageType(0) // MonitorProperties::StageSimple
+    , m_envSize(m_doc->monitorProperties()->gridSize())
     , m_isGenerating(false)
 {
     buildEffectsModel();
@@ -117,13 +126,15 @@ void StageWizard::setCurrentStep(int step)
     if (step == 1 && m_groups.isEmpty())
         loadExistingGroups();
 
-    // On entering step 3: set stage default for show type and auto-place
+    // On entering step 3: set stage default for show type and suggest a size
     if (step == 2)
     {
         if (m_showType == ClubNight)     setStageType(1); // StageBox
         else if (m_showType == Concert)  setStageType(2); // StageRock
         else if (m_showType == Theatrical) setStageType(3); // StageTheatre
         else                             setStageType(0); // StageSimple
+
+        suggestEnvSize();
     }
 
     // On entering step 4: rebuild effects model with current group capabilities
@@ -184,7 +195,8 @@ void StageWizard::loadExistingGroups()
         e.name     = grp->name();
         e.selected = false;
         e.role     = RoleKey;
-        e.hasMovement = e.hasRGB = e.hasCMY = e.hasGobo = e.hasShutter = e.hasDimmer = false;
+        e.roleUserSet = false;
+        e.hasMovement = e.hasRGB = e.hasCMY = e.hasColorWheel = e.hasGobo = e.hasShutter = e.hasDimmer = false;
 
         for (quint32 fxID : grp->fixtureList())
         {
@@ -208,7 +220,8 @@ int StageWizard::addGroup()
     e.name     = tr("Group %1").arg(++m_groupCounter);
     e.selected = false;
     e.role     = RoleKey;
-    e.hasMovement = e.hasRGB = e.hasCMY = e.hasGobo = e.hasShutter = e.hasDimmer = false;
+    e.roleUserSet = false;
+    e.hasMovement = e.hasRGB = e.hasCMY = e.hasColorWheel = e.hasGobo = e.hasShutter = e.hasDimmer = false;
     m_groups.append(e);
 
     emit groupsModelChanged();
@@ -318,7 +331,8 @@ void StageWizard::slotFixtureAdded(quint32 fixtureID)
 
 void StageWizard::detectGroupCapabilities(FixtureGroupEntry &e) const
 {
-    e.hasMovement = e.hasRGB = e.hasCMY = e.hasGobo = e.hasShutter = e.hasDimmer = false;
+    e.hasMovement = e.hasRGB = e.hasCMY = e.hasColorWheel = false;
+    e.hasGobo = e.hasShutter = e.hasDimmer = false;
 
     for (quint32 fxID : e.fixtureIDs)
     {
@@ -338,6 +352,9 @@ void StageWizard::detectGroupCapabilities(FixtureGroupEntry &e) const
             {
                 case QLCChannel::Pan:       hasPan  = true; break;
                 case QLCChannel::Tilt:      hasTilt = true; break;
+                case QLCChannel::Colour:
+                    if (channel->capabilities().size() > 1) e.hasColorWheel = true;
+                    break;
                 case QLCChannel::Gobo:
                     if (channel->capabilities().size() > 1) e.hasGobo = true;
                     break;
@@ -419,6 +436,7 @@ void StageWizard::autoDetectRoles()
 {
     for (FixtureGroupEntry &e : m_groups)
     {
+        if (e.roleUserSet)                continue;  // keep the user's choice
         if (e.hasMovement && e.hasGobo)   { e.role = RoleEffect;  continue; }
         if (e.hasMovement && e.hasRGB)    { e.role = RoleKey;     continue; }
         if (e.hasMovement)                { e.role = RoleKey;     continue; }
@@ -463,6 +481,7 @@ void StageWizard::setGroupRole(int groupIndex, int role)
     if (groupIndex < 0 || groupIndex >= m_groups.count())
         return;
     m_groups[groupIndex].role = static_cast<FixtureRole>(role);
+    m_groups[groupIndex].roleUserSet = true;   // stop auto-detect overriding it
     emit fixtureRoleModelChanged();
 }
 
@@ -476,15 +495,56 @@ void StageWizard::setStageType(int type)
         return;
     m_stageType = type;
 
-    // Push to 3D view immediately so user sees change live
-    if (m_contextManager)
-    {
-        MonitorProperties *props = m_doc->monitorProperties();
-        props->setStageType(static_cast<MonitorProperties::StageType>(type));
-    }
-
-    applyStageLayout();
+    // The stage type and fixture placement are applied only at generation time
+    // (see generate()); the wizard does not modify the live 3D environment while
+    // the user is still navigating the steps.
     emit stageTypeChanged(m_stageType);
+}
+
+void StageWizard::setEnvWidth(qreal w)
+{
+    // Whole metres only (trusses use 1 m / 2 m segments)
+    float nw = float(qBound(2, int(qRound(w)), 100));
+    if (qFuzzyCompare(m_envSize.x(), nw)) return;
+    m_envSize.setX(nw);
+    emit envSizeChanged();
+}
+
+void StageWizard::setEnvHeight(qreal h)
+{
+    float nh = float(qBound(2, int(qRound(h)), 30));
+    if (qFuzzyCompare(m_envSize.y(), nh)) return;
+    m_envSize.setY(nh);
+    emit envSizeChanged();
+}
+
+void StageWizard::setEnvDepth(qreal d)
+{
+    float nd = float(qBound(2, int(qRound(d)), 100));
+    if (qFuzzyCompare(m_envSize.z(), nd)) return;
+    m_envSize.setZ(nd);
+    emit envSizeChanged();
+}
+
+void StageWizard::suggestEnvSize()
+{
+    // Count fixtures across the selected groups (fall back to whole project).
+    int count = 0;
+    for (const FixtureGroupEntry &g : m_groups)
+        if (g.selected)
+            count += g.fixtureIDs.count();
+    if (count == 0)
+        count = m_doc->fixtures().count();
+
+    // Width scales the most (trusses get longer), depth moderately, height least.
+    // Sizes are whole metres: trusses are built from 1 m / 2 m segments and
+    // cannot be scaled to fractional lengths.
+    float w = float(qBound(6, int(qRound(4.0 + count * 0.5)),  40));
+    float d = float(qBound(5, int(qRound(4.0 + count * 0.3)),  30));
+    float h = float(qBound(4, int(qRound(4.0 + count * 0.05)), 12));
+
+    m_envSize = QVector3D(w, h, d);
+    emit envSizeChanged();
 }
 
 /*
@@ -504,11 +564,14 @@ void StageWizard::setStageType(int type)
  */
 void StageWizard::applyStageLayout()
 {
-    MonitorProperties *props = m_doc->monitorProperties();
-
     for (const FixtureGroupEntry &grp : m_groups)
     {
         if (!grp.selected || grp.fixtureIDs.isEmpty())
+            continue;
+
+        // Pre-existing groups already have a layout the user set up: don't touch
+        // their 3D placement, only generate functions/VC for them.
+        if (grp.groupId != FixtureGroup::invalidId())
             continue;
 
         // One placement slot per head so multi-head bars spread out too
@@ -527,72 +590,123 @@ void StageWizard::applyStageLayout()
         {
             quint32 fxID = placements[i].first;
             int     head = placements[i].second;
-            QVector3D pos = computePosition(i, total, grp.role, props->gridSize());
+            quint32 itemID = FixtureUtils::fixtureItemID(fxID, head, 0);
+
+            // Fixture size in millimetres. Prefer the ACTUAL loaded mesh extents
+            // from the 3D view (this is what MainView3D uses to place/snap the
+            // item); fall back to the declared physical size, then a default.
+            QVector3D fxSize(300.0f, 300.0f, 300.0f);
+            Fixture *fx = m_doc->fixture(fxID);
+            if (fx && fx->fixtureMode())
+            {
+                QLCPhysical phy = fx->fixtureMode()->physical();
+                if (phy.width() > 0)  fxSize.setX(phy.width());
+                if (phy.height() > 0) fxSize.setY(phy.height());
+                if (phy.depth() > 0)  fxSize.setZ(phy.depth());
+            }
+
+            MainView3D *view3D = m_contextManager ? m_contextManager->get3DView() : nullptr;
+            if (view3D)
+            {
+                QVector3D ext = view3D->fixtureExtents(itemID); // metres
+                if (ext.x() > 0.0f) fxSize.setX(ext.x() * 1000.0f);
+                if (ext.y() > 0.0f) fxSize.setY(ext.y() * 1000.0f);
+                if (ext.z() > 0.0f) fxSize.setZ(ext.z() * 1000.0f);
+            }
+
+            QVector3D pos = computePosition(i, total, grp.role, m_envSize, fxSize);
             QVector3D rot = computeRotation(grp.role, i, total);
-            props->setFixturePosition(fxID, head, 0, pos);
-            props->setFixtureRotation(fxID, head, 0, rot);
+
+            qDebug() << "[StageWizard] place fx" << fxID << "role" << grp.role
+                     << "env(m)" << m_envSize << "fxSize(mm)" << fxSize
+                     << "pos(mm)" << pos << "rot" << rot;
+
+            // Route through ContextManager so the change is persisted AND the
+            // live 2D/3D views are refreshed (writing MonitorProperties directly
+            // would not update the running 3D view).
+            m_contextManager->setFixturePosition(itemID, pos.x(), pos.y(), pos.z());
+            m_contextManager->setFixtureRotation(itemID, rot);
         }
     }
 }
 
 QVector3D StageWizard::computePosition(int index, int total,
                                        FixtureRole role,
-                                       const QVector3D &gridM) const
+                                       const QVector3D &gridM,
+                                       const QVector3D &fxSizeMM) const
 {
     // Grid size in millimetres (monitor units)
     const float gx = gridM.x() * 1000.0f;
     const float gy = gridM.y() * 1000.0f;
     const float gz = gridM.z() * 1000.0f;
 
-    // Nominal fixture size, so fixtures hang just under the truss bar instead of
-    // floating above it (MainView3D adds half the mesh extents back).
-    const float fxDrop = 300.0f; // ~30 cm
+    // Fixture dimensions in mm
+    const float fxW = fxSizeMM.x();
+    const float fxH = fxSizeMM.y();
+    const float fxD = fxSizeMM.z();
 
-    // Evenly spread along the stage width, leaving a margin at both ends.
-    // For N fixtures: centres at (k + 0.5)/N of the span.
-    auto spreadX = [&](float fromX, float toX) -> float
+    // Truss bar half-thickness, matching the 3D view (trussHalfSize = 0.15 m)
+    const float trussHalf = 150.0f;
+
+    // Snap under the top truss: the fixture top touches the truss underside.
+    // (worldY = pos.y/1000 + meshExtY/2, box top = pos.y + fxH; truss underside
+    // is worldY = gy, so pos.y = gy - fxH.)
+    const float hangY = gy - fxH;
+
+    // Snap to the front / rear truss lines, accounting for the render offset
+    // (worldZ = pos.z/1000 - gz/2 + fxD/2).
+    const float frontZ = gz + trussHalf - fxD / 2.0f;   // front truss line
+    const float rearZ  = -trussHalf + fxD / 2.0f;       // rear truss line
+
+    // Evenly spread the group along the span, centred on the span midpoint.
+    // The -fxW/2 term cancels the X render offset (worldX = pos.x/1000 - gx/2
+    // + meshExtX/2) so the group ends up centred on the truss.
+    auto spread = [&](float from, float to) -> float
     {
-        if (total <= 1)
-            return (fromX + toX) * 0.5f;
-        return fromX + (toX - fromX) * ((index + 0.5f) / float(total));
+        float centre = (total <= 1)
+                       ? (from + to) * 0.5f
+                       : from + (to - from) * ((index + 0.5f) / float(total));
+        return centre - fxW / 2.0f;
     };
-    const float margin = gx * 0.08f;   // keep clear of the truss corners
-    const float topY   = gy - fxDrop;  // hung under the top truss
-    const float frontZ = gz;           // front truss / downstage edge
-    const float rearZ  = 0.0f;         // rear truss / upstage edge
+
+    const float endPad = qMax(gx * 0.06f, fxW);  // clear the truss corners
+    const float xFrom  = endPad;
+    const float xTo    = gx - endPad;
 
     switch (role)
     {
         case RoleKey:
             // Front truss, hung overhead, spread across the full width
-            return QVector3D(spreadX(margin, gx - margin), topY, frontZ);
+            return QVector3D(spread(xFrom, xTo), hangY, frontZ);
 
         case RoleFill:
-            // Front truss too, but a touch upstage of the key light row
-            return QVector3D(spreadX(margin, gx - margin), topY, gz * 0.75f);
+            // Overhead, one step upstage of the key light row
+            return QVector3D(spread(xFrom, xTo), hangY, gz * 0.72f + fxD / 2.0f);
 
         case RoleBack:
             // Rear truss, overhead
-            return QVector3D(spreadX(margin, gx - margin), topY, rearZ);
+            return QVector3D(spread(xFrom, xTo), hangY, rearZ);
 
         case RoleEffect:
             // Top mid truss, over the centre line
-            return QVector3D(spreadX(margin, gx - margin), topY, gz * 0.5f);
+            return QVector3D(spread(xFrom, xTo), hangY, gz * 0.5f);
 
         case RoleStrip:
             // Full-width batten on the front truss
-            return QVector3D(spreadX(0.0f, gx), topY, frontZ);
+            return QVector3D(spread(fxW, gx - fxW), hangY, frontZ);
 
         case RoleBlinder:
             // Front truss, audience-facing
-            return QVector3D(spreadX(margin, gx - margin), topY, frontZ);
+            return QVector3D(spread(xFrom, xTo), hangY, frontZ);
 
         case RoleSide:
         {
             // Side trusses / booms: alternate stage-left and stage-right,
-            // spread along depth, at mid height
+            // snapped to the side-truss line, spread along depth at mid height
+            // Subtract fxW/2 for the render offset (see spread() note)
             bool left = (index % 2 == 0);
-            float xSide = left ? margin : gx - margin;
+            float xSide = left ? (trussHalf - fxW / 2.0f)
+                               : (gx - trussHalf - fxW / 2.0f);
             int   pairIndex = index / 2;
             int   pairCount = (total + 1) / 2;
             float t = (pairCount <= 1) ? 0.5f : (pairIndex + 0.5f) / float(pairCount);
@@ -602,14 +716,14 @@ QVector3D StageWizard::computePosition(int index, int total,
 
         case RoleHazer:
             // On the floor, upstage centre
-            return QVector3D(spreadX(gx * 0.3f, gx * 0.7f), 0.0f, gz * 0.2f);
+            return QVector3D(spread(gx * 0.3f, gx * 0.7f), 0.0f, gz * 0.2f);
 
         case RoleFloor:
             // Floor level, front row, uplighting
-            return QVector3D(spreadX(margin, gx - margin), 0.0f, gz * 0.6f);
+            return QVector3D(spread(xFrom, xTo), 0.0f, gz * 0.6f);
 
         default:
-            return QVector3D(spreadX(margin, gx - margin), topY, frontZ);
+            return QVector3D(spread(xFrom, xTo), hangY, frontZ);
     }
 }
 
@@ -620,21 +734,21 @@ QVector3D StageWizard::computeRotation(FixtureRole role,
     Q_UNUSED(total)
 
     // Rotation in degrees: X = tilt (about world X), Y = pan (about Y), Z = roll.
-    // Overhead fixtures hang inverted: a 180° rotation about X flips the body so
-    // the base points up and the head hangs below the truss. Beam aim for movers
-    // is then handled by pan/tilt at runtime.
+    // The fixture mesh loads ALREADY inverted (head-down), which is how movers
+    // hang from a truss. So overhead roles keep X = 0 (no flip). Only the
+    // floor-standing roles apply X = 180° to turn the mesh upright.
     switch (role)
     {
-        case RoleKey:      return QVector3D(180.0f,   0.0f, 0.0f); // hung, facing audience
-        case RoleFill:     return QVector3D(180.0f,   0.0f, 0.0f);
-        case RoleBack:     return QVector3D(180.0f, 180.0f, 0.0f); // hung, facing upstage
-        case RoleEffect:   return QVector3D(180.0f,   0.0f, 0.0f);
-        case RoleStrip:    return QVector3D(180.0f,   0.0f, 0.0f);
-        case RoleBlinder:  return QVector3D(180.0f,   0.0f, 0.0f);
-        case RoleSide:     return QVector3D(180.0f,  90.0f, 0.0f); // hung, aimed inward
-        case RoleHazer:    return QVector3D(0.0f,     0.0f, 0.0f); // upright on floor
-        case RoleFloor:    return QVector3D(0.0f,     0.0f, 0.0f); // upright, uplight
-        default:           return QVector3D(180.0f,   0.0f, 0.0f);
+        case RoleKey:      return QVector3D(0.0f,     0.0f, 0.0f); // hung, facing audience
+        case RoleFill:     return QVector3D(0.0f,     0.0f, 0.0f);
+        case RoleBack:     return QVector3D(0.0f,   180.0f, 0.0f); // hung, facing upstage
+        case RoleEffect:   return QVector3D(0.0f,     0.0f, 0.0f);
+        case RoleStrip:    return QVector3D(0.0f,     0.0f, 0.0f);
+        case RoleBlinder:  return QVector3D(0.0f,     0.0f, 0.0f);
+        case RoleSide:     return QVector3D(0.0f,    90.0f, 0.0f); // hung, aimed inward
+        case RoleHazer:    return QVector3D(180.0f,   0.0f, 0.0f); // upright on floor
+        case RoleFloor:    return QVector3D(180.0f,   0.0f, 0.0f); // upright, uplight
+        default:           return QVector3D(0.0f,     0.0f, 0.0f);
     }
 }
 
@@ -910,6 +1024,7 @@ void StageWizard::reset()
     m_currentStep = 0;
     m_showType    = ClubNight;
     m_stageType   = 0;
+    m_envSize     = m_doc->monitorProperties()->gridSize();
     m_isGenerating = false;
     m_groups.clear();
     m_groupCounter = 0;
@@ -922,6 +1037,7 @@ void StageWizard::reset()
     emit currentStepChanged(m_currentStep);
     emit showTypeChanged(m_showType);
     emit stageTypeChanged(m_stageType);
+    emit envSizeChanged();
     emit groupsModelChanged();
     emit fixtureRoleModelChanged();
     emit effectsModelChanged();
@@ -938,34 +1054,28 @@ void StageWizard::createFixtureGroups()
         if (!grp.selected || grp.fixtureIDs.isEmpty())
             continue;
 
-        FixtureGroup *group = nullptr;
-        bool isNew = false;
-
-        if (grp.groupId != FixtureGroup::invalidId())
-            group = m_doc->fixtureGroup(grp.groupId);
-
-        if (group == nullptr)
+        // Pre-existing group: leave its name, membership and grid untouched.
+        // We only need its ID so functions/VC can target it.
+        if (grp.groupId != FixtureGroup::invalidId() &&
+            m_doc->fixtureGroup(grp.groupId) != nullptr)
         {
-            group = new FixtureGroup(m_doc);
-            isNew = true;
+            m_generatedGroupIDs.append(grp.groupId);
+            continue;
         }
 
+        // New group created inside the wizard: build it from scratch.
+        FixtureGroup *group = new FixtureGroup(m_doc);
         group->setName(grp.name);
 
         int cols = qMax(1, static_cast<int>(qCeil(qSqrt(grp.fixtureIDs.count()))));
         int rows = (grp.fixtureIDs.count() + cols - 1) / cols;
         group->setSize(QSize(cols, rows));
 
-        // Re-assign all member fixtures into a clean grid
-        group->reset();
         for (int i = 0; i < grp.fixtureIDs.count(); ++i)
             group->assignFixture(grp.fixtureIDs[i], QLCPoint(i % cols, i / cols));
 
-        if (isNew)
-        {
-            m_doc->addFixtureGroup(group);
-            grp.groupId = group->id();
-        }
+        m_doc->addFixtureGroup(group);
+        grp.groupId = group->id();
 
         m_generatedGroupIDs.append(group->id());
     }
@@ -980,12 +1090,22 @@ void StageWizard::generate()
 
     m_generatedFunctionIDs.clear();
     m_generatedGroupIDs.clear();
+    m_basePositionScenes.clear();
+
+    // Apply the chosen stage type and place the fixtures FIRST, while a box's
+    // groupId still tells us whether the group pre-existed (loaded from the
+    // project) or is about to be created by the wizard. applyStageLayout() skips
+    // pre-existing groups; running it before createFixtureGroups() ensures newly
+    // built groups are not mistaken for pre-existing ones.
+    m_doc->monitorProperties()->setStageType(
+        static_cast<MonitorProperties::StageType>(m_stageType));
+    // Route the grid size through ContextManager so the 2D/3D views update too
+    // (writing MonitorProperties directly would leave the 2D grid stale).
+    m_contextManager->setEnvironmentSize(m_envSize);
+    applyStageLayout();
 
     // Persist the user-defined boxes as real FixtureGroups
     createFixtureGroups();
-
-    // First make sure stage layout is applied (user may have skipped step 3)
-    applyStageLayout();
 
     // Blackout scene – always created
     Scene *blackout = makeBlackoutScene();
@@ -1003,6 +1123,16 @@ void StageWizard::generate()
 
         const QString prefix = grp.name;
 
+        // Group + palette based building blocks (colour/dimmer/shutter scenes)
+        generateGroupPalettes(grp);
+
+        // Front key lights: 6 musician position scenes aimed at the floor
+        generateMusicianKeyScenes(grp);
+
+        // Everything the effect generators add below goes under the group's
+        // "Effects" folder. Snapshot the id list, then path the new entries.
+        int effectsStart = m_generatedFunctionIDs.count();
+
         for (const EffectEntry &eff : m_effects)
         {
             if (!eff.enabled || !eff.available)
@@ -1010,20 +1140,12 @@ void StageWizard::generate()
 
             switch (eff.flag)
             {
-                case EffectColorPalette:
-                    generateColorPalette(grp, prefix);
-                    break;
+                // Color / Shutter / Dimmer / Position are now generated as
+                // group+palette scenes in generateGroupPalettes() and
+                // generateMusicianKeyScenes(), so they are not handled here.
                 case EffectGoboPalette:
                     if (grp.hasGobo)
                         generateGoboPalette(grp, prefix);
-                    break;
-                case EffectShutter:
-                    if (grp.hasShutter)
-                        generateShutterEffects(grp, prefix);
-                    break;
-                case EffectPositionPreset:
-                    if (grp.hasMovement)
-                        generatePositionPresets(grp, prefix);
                     break;
                 case EffectFlyOut:
                     if (grp.hasMovement)
@@ -1035,15 +1157,15 @@ void StageWizard::generate()
                     break;
                 case EffectCircleChase:
                     if (grp.hasMovement)
-                        generateEFX(grp, prefix, EFX::Circle, tr("Circle Chase"));
+                        generateMovementEffect(grp, prefix, EFX::Circle, tr("Circle Chase"), AnchorCentre);
                     break;
                 case EffectFigureEight:
                     if (grp.hasMovement)
-                        generateEFX(grp, prefix, EFX::Eight, tr("Figure Eight"));
+                        generateMovementEffect(grp, prefix, EFX::Eight, tr("Figure Eight"), AnchorCentre);
                     break;
                 case EffectAudienceSweep:
                     if (grp.hasMovement)
-                        generateEFX(grp, prefix, EFX::Line, tr("Audience Sweep"));
+                        generateMovementEffect(grp, prefix, EFX::Line, tr("Audience Sweep"), AnchorAudience);
                     break;
                 case EffectColorRainbow:
                     if (grp.hasRGB || grp.hasCMY)
@@ -1102,23 +1224,48 @@ void StageWizard::generate()
                     break;
             }
         }
-    }
 
-    // Show-level cues (run once, not per group)
-    for (const EffectEntry &eff : m_effects)
-    {
-        if (!eff.enabled) continue;
-        switch (eff.flag)
+        // Path all functions the effect generators just created for this group
+        const QString effectsPath = wizardPath(prefix + "/" + tr("Effects"));
+        for (int i = effectsStart; i < m_generatedFunctionIDs.count(); i++)
         {
-            case EffectShowOpen:  { auto *c = generateShowOpen();   if (c) m_generatedFunctionIDs.append(c->id()); break; }
-            case EffectShowClose: { auto *c = generateShowClose();  if (c) m_generatedFunctionIDs.append(c->id()); break; }
-            case EffectBigMoment: { auto *c = generateBigMoment();  if (c) m_generatedFunctionIDs.append(c->id()); break; }
-            case EffectAmbientLoop:{ auto *c = generateAmbientLoop(); if (c) m_generatedFunctionIDs.append(c->id()); break; }
-            default: break;
+            Function *f = m_doc->function(m_generatedFunctionIDs.at(i));
+            if (f) f->setPath(effectsPath);
         }
     }
 
+    // Show-level cues (run once, not per group)
+    const QString cuesPath = wizardPath(tr("Show Cues"));
+    for (const EffectEntry &eff : m_effects)
+    {
+        if (!eff.enabled) continue;
+        Function *c = nullptr;
+        switch (eff.flag)
+        {
+            case EffectShowOpen:   c = generateShowOpen();   break;
+            case EffectShowClose:  c = generateShowClose();  break;
+            case EffectBigMoment:  c = generateBigMoment();  break;
+            case EffectAmbientLoop: c = generateAmbientLoop(); break;
+            default: break;
+        }
+        if (c)
+        {
+            m_generatedFunctionIDs.append(c->id());
+            c->setPath(cuesPath);
+        }
+    }
+
+    // Blackout lives at the wizard root
+    if (blackout)
+        blackout->setPath(wizardPath());
+
     createVCLayout();
+
+    // Rebuild the function tree so all generated functions (and their paths)
+    // show up in the QML function list without needing a reload. Palettes
+    // refresh via Doc::paletteAdded (see PaletteManager).
+    if (m_functionManager)
+        m_functionManager->updateFunctionsTree();
 
     m_isGenerating = false;
     emit isGeneratingChanged();
@@ -1189,6 +1336,321 @@ Chaser *StageWizard::makeChaserFromScenes(const QList<Scene *> &scenes,
         ch->addStep(step);
     }
     return ch;
+}
+
+// ── Palette-based generation ────────────────────────────────────────────────
+
+quint32 StageWizard::findPalette(int type, const QVariantList &values) const
+{
+    for (QLCPalette *p : m_doc->palettes())
+    {
+        if (p == nullptr || int(p->type()) != type)
+            continue;
+        if (p->values() == values)
+            return p->id();
+    }
+    return QLCPalette::invalidId();
+}
+
+quint32 StageWizard::makeColorPalette(const QString &name, const QColor &color)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Color);
+    p->setValue(QLCPalette::colorToString(color, QColor()));
+
+    // Colour palettes are value-based (group independent): reuse if one exists.
+    quint32 existing = findPalette(QLCPalette::Color, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+quint32 StageWizard::makeDimmerPalette(const QString &name, int value)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Dimmer);
+    p->setValue(value);
+
+    quint32 existing = findPalette(QLCPalette::Dimmer, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+quint32 StageWizard::makeShutterPalette(const QString &name, int preset, int percent)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Shutter);
+    p->setValue(preset, percent); // (QLCCapability::Preset, 0-100)
+
+    quint32 existing = findPalette(QLCPalette::Shutter, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+quint32 StageWizard::makePosition3DPalette(const QString &name, const QVector3D &targetMM)
+{
+    QLCPalette *p = new QLCPalette(QLCPalette::Position3D);
+    // Position3D palette targets are expressed in metres (monitor/grid frame).
+    p->setValue(targetMM.x() / 1000.0f, targetMM.y() / 1000.0f, targetMM.z() / 1000.0f);
+
+    quint32 existing = findPalette(QLCPalette::Position3D, p->values());
+    if (existing != QLCPalette::invalidId()) { delete p; return existing; }
+
+    p->setName(name);
+    if (!m_doc->addPalette(p)) { delete p; return QLCPalette::invalidId(); }
+    return p->id();
+}
+
+Scene *StageWizard::makePaletteScene(const QString &name, quint32 groupID,
+                                     quint32 paletteID, const QString &path)
+{
+    if (paletteID == QLCPalette::invalidId())
+        return nullptr;
+
+    Scene *s = new Scene(m_doc);
+    s->setName(name);
+    if (groupID != FixtureGroup::invalidId())
+        s->addFixtureGroup(groupID);
+    s->addPalette(paletteID);
+    // Set the path BEFORE addFunction so FunctionManager::slotFunctionAdded
+    // places the tree item in the right folder immediately.
+    if (!path.isEmpty())
+        s->setPath(path);
+    m_doc->addFunction(s);
+    m_generatedFunctionIDs.append(s->id());
+    return s;
+}
+
+QString StageWizard::wizardPath(const QString &sub) const
+{
+    QString base = tr("Show Wizard");
+    return sub.isEmpty() ? base : base + "/" + sub;
+}
+
+void StageWizard::generateGroupPalettes(const FixtureGroupEntry &grp)
+{
+    if (grp.groupId == FixtureGroup::invalidId())
+        return;
+
+    const QString prefix = grp.name;
+
+    // ── RGB/CMY colour palettes + scenes ────────────────────────────────────
+    if (grp.hasRGB || grp.hasCMY)
+    {
+        const QString path = wizardPath(prefix + "/" + tr("Colors"));
+        struct ColorDef { const char *name; QColor color; };
+        const ColorDef colors[] = {
+            { QT_TR_NOOP("Red"),     QColor(255,   0,   0) },
+            { QT_TR_NOOP("Green"),   QColor(  0, 255,   0) },
+            { QT_TR_NOOP("Blue"),    QColor(  0,   0, 255) },
+            { QT_TR_NOOP("Cyan"),    QColor(  0, 255, 255) },
+            { QT_TR_NOOP("Magenta"), QColor(255,   0, 255) },
+            { QT_TR_NOOP("Yellow"),  QColor(255, 255,   0) },
+            { QT_TR_NOOP("White"),   QColor(255, 255, 255) },
+        };
+        for (const ColorDef &cd : colors)
+        {
+            // Palette name is generic (shared across groups); scene name is group-specific.
+            quint32 pid = makeColorPalette(tr(cd.name), cd.color);
+            makePaletteScene(tr("%1 – %2").arg(prefix).arg(tr(cd.name)), grp.groupId, pid, path);
+        }
+    }
+
+    // ── Colour-wheel scenes (fixtures with a colour wheel, e.g. spots) ───────
+    // Palettes can't drive a colour wheel, so build scenes with raw wheel values
+    // taken from the first fixture's capabilities.
+    if (grp.hasColorWheel)
+    {
+        const QString path = wizardPath(prefix + "/" + tr("Colors"));
+        Fixture *sample = nullptr;
+        for (quint32 id : grp.fixtureIDs)
+        {
+            sample = m_doc->fixture(id);
+            if (sample) break;
+        }
+        if (sample)
+        {
+            for (quint32 ch = 0; ch < sample->channels(); ++ch)
+            {
+                const QLCChannel *c = sample->channel(ch);
+                if (!c || c->group() != QLCChannel::Colour) continue;
+                for (const QLCCapability *cap : c->capabilities())
+                {
+                    // Only single solid colours (ColorMacro). Skip split colours
+                    // (ColorDoubleMacro), CTO/CTB correction, and rotation ranges.
+                    if (cap->preset() != QLCCapability::ColorMacro)
+                        continue;
+
+                    Scene *s = new Scene(m_doc);
+                    s->setName(tr("%1 – %2").arg(prefix).arg(cap->name()));
+                    s->addFixtureGroup(grp.groupId);
+                    uchar val = uchar((cap->min() + cap->max()) / 2);
+                    for (quint32 fxID : grp.fixtureIDs)
+                        s->setValue(SceneValue(fxID, ch, val));
+                    s->setPath(path);
+                    m_doc->addFunction(s);
+                    m_generatedFunctionIDs.append(s->id());
+                }
+                break; // only the first colour-wheel channel
+            }
+        }
+    }
+
+    // ── Dimmer palettes + scenes ────────────────────────────────────────────
+    if (grp.hasDimmer || grp.hasRGB || grp.hasCMY)
+    {
+        const QString path = wizardPath(prefix + "/" + tr("Dimmer"));
+        struct DimDef { const char *name; int value; };
+        const DimDef dims[] = {
+            { QT_TR_NOOP("Full"), 255 },
+            { QT_TR_NOOP("Half"), 128 },
+            { QT_TR_NOOP("Off"),    0 },
+        };
+        for (const DimDef &dd : dims)
+        {
+            // Generic palette name (shared); group-specific scene name.
+            quint32 pid = makeDimmerPalette(tr("Dimmer %1").arg(tr(dd.name)), dd.value);
+            makePaletteScene(tr("%1 – Dimmer %2").arg(prefix).arg(tr(dd.name)), grp.groupId, pid, path);
+        }
+    }
+
+    // ── Shutter palettes + scenes ───────────────────────────────────────────
+    if (grp.hasShutter)
+    {
+        const QString path = wizardPath(prefix + "/" + tr("Shutter"));
+        quint32 openPid = makeShutterPalette(tr("Shutter Open"),
+                                             QLCCapability::ShutterOpen);
+        makePaletteScene(tr("%1 – Shutter Open").arg(prefix), grp.groupId, openPid, path);
+
+        quint32 closePid = makeShutterPalette(tr("Shutter Closed"),
+                                              QLCCapability::ShutterClose);
+        makePaletteScene(tr("%1 – Shutter Closed").arg(prefix), grp.groupId, closePid, path);
+    }
+}
+
+int StageWizard::movingHeadCount(const FixtureGroupEntry &grp) const
+{
+    int n = 0;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx && fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+            n += qMax(1, fx->heads());
+    }
+    return n;
+}
+
+// Moving-head fixture IDs of a group, paired with their placed X (mm).
+QList<QPair<quint32, float>> StageWizard::movingHeadsByX(const FixtureGroupEntry &grp) const
+{
+    MonitorProperties *props = m_doc->monitorProperties();
+    QList<QPair<quint32, float>> heads;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx || fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid())
+            continue;
+        heads.append(qMakePair(fxID, props->fixturePosition(fxID, 0, 0).x()));
+    }
+    return heads;
+}
+
+void StageWizard::generateMusicianKeyScenes(const FixtureGroupEntry &grp)
+{
+    if (grp.groupId == FixtureGroup::invalidId())
+        return;
+    if (grp.role != RoleKey || !grp.hasMovement)
+        return;
+
+    // Front (key/fill) moving heads come from this Key group; back (rim/depth)
+    // heads come from Back-role groups.
+    QList<QPair<quint32, float>> frontHeads = movingHeadsByX(grp);
+    QList<QPair<quint32, float>> backHeads;
+    for (const FixtureGroupEntry &g : m_groups)
+        if (g.selected && g.role == RoleBack)
+            backHeads.append(movingHeadsByX(g));
+
+    // Each musician needs 2 heads from the front (key + fill). The number of
+    // spots is bounded by the available front heads, capped at 6 (a band).
+    int spotCount = qMin(frontHeads.count() / 2, 6);
+    if (spotCount < 1)
+        return;
+
+    // Lay musicians out in rows of at most 3 (so max 2 rows / 6 total).
+    const int perRow  = 3;
+    const int rowCount = (spotCount + perRow - 1) / perRow;   // 1 or 2
+
+    const float gx = m_envSize.x() * 1000.0f;
+    const float gz = m_envSize.z() * 1000.0f;
+    // Musician rows along the depth. Z: 0 = rear, gz = front (audience), so the
+    // front row is the LARGER Z. Front row at 2/3, back row at 1/3.
+    // (e.g. 9 m stage -> front 6 m, back 3 m)
+    const float rowZ[2] = { gz * (2.0f / 3.0f), gz * (1.0f / 3.0f) };
+
+    // Consume the nearest still-unused heads (by X) to a target X.
+    auto takeNearest = [](QList<QPair<quint32, float>> &pool, float x, int n) -> QList<quint32>
+    {
+        QList<quint32> picked;
+        for (int k = 0; k < n && !pool.isEmpty(); k++)
+        {
+            int best = 0;
+            float bestDist = qAbs(pool[0].second - x);
+            for (int i = 1; i < pool.count(); i++)
+            {
+                float dd = qAbs(pool[i].second - x);
+                if (dd < bestDist) { bestDist = dd; best = i; }
+            }
+            picked.append(pool[best].first);
+            pool.removeAt(best);
+        }
+        return picked;
+    };
+
+    const QString path = wizardPath(grp.name + "/" + tr("Positions"));
+
+    for (int m = 0; m < spotCount; m++)
+    {
+        int row = m / perRow;
+        int col = m % perRow;
+        // Number of spots actually on this row (last row may be shorter).
+        int spotsInRow = qMin(perRow, spotCount - row * perRow);
+
+        // Spread this row evenly across the usable stage width, centred.
+        float x = (spotsInRow <= 1) ? gx * 0.5f
+                                    : gx * (0.20f + 0.60f * (col / float(spotsInRow - 1)));
+        float z = rowZ[qMin(row, rowCount - 1)];
+        QVector3D target(x, 0.0f, z);
+
+        // 2 front heads + up to 2 back heads aimed at this spot.
+        QList<quint32> heads = takeNearest(frontHeads, x, 2);
+        heads.append(takeNearest(backHeads, x, 2));
+        if (heads.isEmpty())
+            break;
+
+        QString name = tr("Musician %1").arg(m + 1);
+
+        // Reference the Position3D palette and add ONLY the chosen heads as the
+        // scene's fixtures. At playback the engine resolves the palette against
+        // the scene's fixtures (Scene::write), so exactly those heads aim at the
+        // spot — the rest of the rig is untouched.
+        quint32 pid = makePosition3DPalette(tr("%1 – %2").arg(grp.name).arg(name), target);
+        if (pid == QLCPalette::invalidId())
+            continue;
+
+        Scene *s = new Scene(m_doc);
+        s->setName(tr("%1 – %2").arg(grp.name).arg(name));
+        for (quint32 headID : heads)
+            s->addFixture(headID);
+        s->addPalette(pid);
+        s->setPath(path);
+        m_doc->addFunction(s);
+        m_generatedFunctionIDs.append(s->id());
+    }
 }
 
 void StageWizard::generateColorPalette(const FixtureGroupEntry &grp, const QString &prefix)
@@ -1363,34 +1825,118 @@ void StageWizard::generatePositionPresets(const FixtureGroupEntry &grp, const QS
     }
 }
 
-void StageWizard::generateEFX(const FixtureGroupEntry &grp, const QString &prefix,
-                               int algorithm, const QString &label)
+quint32 StageWizard::baseMovementPosition(const FixtureGroupEntry &grp, MovementAnchor anchor)
+{
+    // Reuse a base position scene already made for this group + anchor.
+    quint64 key = (quint64(grp.groupId) << 8) | quint64(anchor);
+    if (m_basePositionScenes.contains(key))
+        return m_basePositionScenes.value(key);
+
+    const float gx = m_envSize.x() * 1000.0f;
+    const float gz = m_envSize.z() * 1000.0f;
+    const float gy = m_envSize.y() * 1000.0f;
+
+    QVector3D target;
+    QString aname;
+    switch (anchor)
+    {
+        case AnchorAerial:   // up into the air, centre
+            target = QVector3D(gx * 0.5f, gy * 0.9f, gz * 0.5f);
+            aname = tr("Aerial");
+            break;
+        case AnchorAudience: // out over the audience (front edge, low on the floor beyond)
+            target = QVector3D(gx * 0.5f, 0.0f, gz * 1.2f);
+            aname = tr("Audience");
+            break;
+        case AnchorCentre:   // stage floor centre
+        default:
+            target = QVector3D(gx * 0.5f, 0.0f, gz * 0.5f);
+            aname = tr("Centre");
+            break;
+    }
+
+    quint32 pid = makePosition3DPalette(tr("%1 – %2").arg(grp.name).arg(aname), target);
+    if (pid == QLCPalette::invalidId())
+        return Function::invalidId();
+
+    Scene *s = new Scene(m_doc);
+    s->setName(tr("%1 – Position %2").arg(grp.name).arg(aname));
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx && fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+            s->addFixture(fxID);
+    }
+    s->addPalette(pid);
+    s->setPath(wizardPath(grp.name + "/" + tr("Positions")));
+    m_doc->addFunction(s);
+    m_generatedFunctionIDs.append(s->id());
+    m_basePositionScenes.insert(key, s->id());
+    return s->id();
+}
+
+void StageWizard::groupPanTiltMax(const FixtureGroupEntry &grp, float &panDeg, float &tiltDeg) const
+{
+    panDeg = 540.0f;
+    tiltDeg = 270.0f;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx || !fx->fixtureMode())
+            continue;
+        QLCPhysical phy = fx->fixtureMode()->physical();
+        if (phy.focusPanMax() > 0)  panDeg  = phy.focusPanMax();
+        if (phy.focusTiltMax() > 0) tiltDeg = phy.focusTiltMax();
+        return; // first moving head is representative
+    }
+}
+
+int StageWizard::efxSizeForDegrees(float degrees, float maxDeg) const
+{
+    if (maxDeg <= 0.0f)
+        maxDeg = 360.0f;
+    // EFX swings +/- Width DMX; full DMX (255) spans maxDeg. So a total swing of
+    // $degrees needs Width = degrees * 127.5 / maxDeg.
+    int w = int(qRound(degrees * 127.5f / maxDeg));
+    return qBound(1, w, 127);
+}
+
+void StageWizard::generateMovementEffect(const FixtureGroupEntry &grp, const QString &prefix,
+                                         int algorithm, const QString &label,
+                                         MovementAnchor anchor)
 {
     if (!grp.hasMovement) return;
 
-    EFX *efx = new EFX(m_doc);
-    efx->setName(tr("%1 – %2").arg(prefix).arg(label));
-    efx->setAlgorithm(static_cast<EFX::Algorithm>(algorithm));
-    efx->setWidth(127);
-    efx->setHeight(127);
-    efx->setXOffset(127);
-    efx->setYOffset(127);
+    // Base position scene the effect starts from (so the relative EFX has a
+    // defined aim to ride on top of and never teleports).
+    quint32 posID = baseMovementPosition(grp, anchor);
+    if (posID == Function::invalidId())
+        return;
 
-    if (label == tr("Fly Out") || label == tr("Fly In"))
+    float panMax, tiltMax;
+    groupPanTiltMax(grp, panMax, tiltMax);
+
+    EFX *efx = new EFX(m_doc);
+    efx->setName(tr("%1 – %2 (motion)").arg(prefix).arg(label));
+    efx->setAlgorithm(static_cast<EFX::Algorithm>(algorithm));
+    // Relative: the pattern rides on top of each head's current (base-position)
+    // aim, so heads move smoothly around the anchor.
+    efx->setIsRelative(true);
+    efx->setFadeInSpeed(1000);
+
+    if (label == tr("Audience Sweep"))
     {
-        efx->setPropagationMode(EFX::Serial);
-        // Fly Out: fixtures fan outward → use Line2 with spread
-        efx->setWidth(200);
-        efx->setHeight(100);
-    }
-    else if (label == tr("Circle Chase"))
-    {
-        efx->setPropagationMode(EFX::Serial);
-    }
-    else if (label == tr("Audience Sweep"))
-    {
-        efx->setHeight(20);  // keep tilt fixed low
+        // Wide horizontal sweep across the audience, shallow vertically.
+        efx->setWidth(efxSizeForDegrees(60.0f, panMax));
+        efx->setHeight(efxSizeForDegrees(8.0f, tiltMax));
         efx->setPropagationMode(EFX::Parallel);
+    }
+    else
+    {
+        // Compact aerial figure: ~50 degrees of travel max.
+        efx->setWidth(efxSizeForDegrees(50.0f, panMax));
+        efx->setHeight(efxSizeForDegrees(50.0f, tiltMax));
+        efx->setPropagationMode(EFX::Serial);  // chase-style phase spread
     }
 
     for (quint32 fxID : grp.fixtureIDs)
@@ -1401,6 +1947,59 @@ void StageWizard::generateEFX(const FixtureGroupEntry &grp, const QString &prefi
         for (int h = 0; h < heads; ++h)
             efx->addFixture(fxID, h);
     }
+    m_doc->addFunction(efx);
+    efx->setPath(wizardPath(grp.name + "/" + tr("Effects")));
+    m_generatedFunctionIDs.append(efx->id());
+
+    // Collection = base position + relative EFX on top.
+    Collection *col = new Collection(m_doc);
+    col->setName(tr("%1 – %2").arg(prefix).arg(label));
+    col->addFunction(posID);
+    col->addFunction(efx->id());
+    m_doc->addFunction(col);
+    col->setPath(wizardPath(grp.name + "/" + tr("Effects")));
+    m_generatedFunctionIDs.append(col->id());
+}
+
+void StageWizard::generateEFX(const FixtureGroupEntry &grp, const QString &prefix,
+                               int algorithm, const QString &label)
+{
+    // Fly Out / Fly In: a vertical Line EFX with dimmer control, so beams sweep
+    // up/down over half the tilt range and fade in/out as they "fly". Absolute
+    // and phase-spread across the fixtures.
+    Q_UNUSED(algorithm)
+    if (!grp.hasMovement) return;
+
+    float panMax, tiltMax;
+    groupPanTiltMax(grp, panMax, tiltMax);
+    Q_UNUSED(panMax)
+
+    EFX *efx = new EFX(m_doc);
+    efx->setName(tr("%1 – %2").arg(prefix).arg(label));
+    efx->setAlgorithm(EFX::Line);
+    efx->setWidth(0);                                        // vertical line: no pan swing
+    efx->setHeight(efxSizeForDegrees(tiltMax / 2.0f, tiltMax)); // half the tilt range
+    efx->setXOffset(127);
+    efx->setYOffset(127);
+    efx->setPropagationMode(EFX::Parallel);
+    efx->setDimmerControlEnabled(true);                     // beams fade as they fly
+    efx->setFadeInSpeed(1000);
+
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (!fx) continue;
+        int heads = qMax(1, fx->heads());
+        for (int h = 0; h < heads; ++h)
+            efx->addFixture(fxID, h);
+    }
+
+    // Spread the phase evenly across the fixtures (0, 360/N, 2*360/N, …) so they
+    // fly in a cascade rather than all together.
+    const QList<EFXFixture *> efxFx = efx->fixtures();
+    int n = efxFx.count();
+    for (int i = 0; i < n; i++)
+        efxFx.at(i)->setStartOffset(n > 0 ? (i * 360 / n) : 0);
 
     m_doc->addFunction(efx);
     m_generatedFunctionIDs.append(efx->id());
@@ -1745,9 +2344,26 @@ Chaser *StageWizard::generateAmbientLoop()
 
 // ── Virtual Console layout ────────────────────────────────────────────────────
 
+VCPage *StageWizard::pickTargetPage()
+{
+    int count = m_virtualConsole->pagesCount();
+
+    // Reuse the first page that has no widgets yet
+    for (int i = 0; i < count; i++)
+    {
+        VCPage *page = m_virtualConsole->page(i);
+        if (page && page->children(false).isEmpty())
+            return page;
+    }
+
+    // All existing pages are populated: append a fresh one
+    m_virtualConsole->addPage(count);
+    return m_virtualConsole->page(count);
+}
+
 void StageWizard::createVCLayout()
 {
-    VCPage *page = m_virtualConsole->page(0);
+    VCPage *page = pickTargetPage();
     if (!page) return;
 
     int pd  = static_cast<int>(m_virtualConsole->pixelDensity());

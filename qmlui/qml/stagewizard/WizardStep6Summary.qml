@@ -27,7 +27,7 @@ Item
 
     readonly property var sectionIcons: ({
         "Stage":           "🏛",
-        "Functions":       "⚡",
+        "Functions":       "🧩",
         "Virtual Console": "🎛"
     })
 
