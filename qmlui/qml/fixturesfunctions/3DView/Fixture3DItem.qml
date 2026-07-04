@@ -227,13 +227,16 @@ Entity
     // Pick the animation duration for one position update.
     //  - one-shot (first move / after a gap): use the realistic physical slew time
     //    so an isolated move looks like a real head travelling (min 300 ms).
-    //  - continuous (rapid updates, e.g. an EFX): pace to the update interval so
-    //    ticks chain smoothly, but never faster than the head physically could.
+    //  - continuous (rapid updates, e.g. an EFX): pace to the update interval, but
+    //    NEVER shorter than the physical slew time — otherwise a large per-tick
+    //    step would be crossed in a few ms, i.e. the head would teleport. When the
+    //    effect ticks faster than the head can move, we run at physical speed and
+    //    the head simply lags (as a real head would); it never jumps.
     function animationDuration(elapsed, physical, oneShot)
     {
         if (oneShot)
             return Math.max(physical, 300)
-        return Math.min(elapsed, Math.max(physical, 1))
+        return Math.max(elapsed, physical, 1)
     }
 
     function setPositionSpeed(panDuration, tiltDuration)
