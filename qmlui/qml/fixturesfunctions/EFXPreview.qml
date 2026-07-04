@@ -54,9 +54,12 @@ Rectangle
 
     Timer
     {
+        // Only animate when there is data and a sane (> 0) interval. A 0ms
+        // interval on a repeating running Timer fires on every event loop
+        // pass, repainting the Canvas non-stop and hanging the GUI thread.
         interval: animationInterval
         repeat: true
-        running: true
+        running: animationInterval > 0 && efxData !== undefined && efxData.length > 0
         onTriggered: headsLayer.requestPaint()
     }
 
@@ -266,6 +269,11 @@ Rectangle
             context.clearRect(0, 0, width, height);
             context.fillRect(0, 0, width, height);
 
+            // no path to draw yet: reading efxData[0]/[1] below when empty
+            // yields NaN coordinates, which can hang the raster engine
+            if (efxData === undefined || efxData.length < 4)
+                return;
+
             var i;
             var x1, y1, x2, y2;
 
@@ -396,6 +404,13 @@ Rectangle
             context.clearRect(0, 0, width, height);
             context.fillRect(0, 0, width, height);
 
+            // Bail out if there is no algorithm data yet: indexing an empty
+            // efxData below yields undefined -> NaN head coordinates, and the
+            // Qt raster engine can get stuck stroking NaN paths (GUI hang).
+            if (efxData === undefined || efxData.length === 0 ||
+                fixturesData === undefined || fixturesData.length === 0)
+                return;
+
             var x, y;
             var headRadius = height / 20;
             var halfHeadRadius = headRadius / 2;
@@ -417,6 +432,14 @@ Rectangle
 
                 x = efxData[idx * 2] * xScaleFactor;
                 y = efxData[(idx * 2) + 1] * yScaleFactor;
+
+                // skip this head if its coordinates are not finite (e.g. idx
+                // out of range): NaN coordinates can hang the raster engine
+                if (!isFinite(x) || !isFinite(y))
+                {
+                    fxCountDown--;
+                    continue;
+                }
 
                 context.fillStyle = "white";
 

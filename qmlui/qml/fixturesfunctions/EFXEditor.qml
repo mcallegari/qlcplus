@@ -219,7 +219,14 @@ Rectangle
 
                     property int itemsHeight: UISettings.listItemHeight
                     property int firstColumnWidth: 0
-                    property int colWidth: parent.width - (sbar.visible ? sbar.width : 0)
+                    // Always reserve a constant scrollbar gutter, independent of
+                    // the scrollbar's visibility/width. Making the content width
+                    // depend on the scrollbar state creates a layout feedback loop
+                    // (content width -> content height -> scrollbar visible ->
+                    // content width ...) that never settles and hangs the GUI
+                    // thread when the content height sits near the scroll
+                    // threshold (e.g. right after creating a new EFX).
+                    property int colWidth: parent.width - UISettings.scrollBarWidth
 
                     // row 1
                     EFXPreview
@@ -233,7 +240,11 @@ Rectangle
 
                         efxData: efxEditor.algorithmData
                         fixturesData: efxEditor.fixturesData
-                        animationInterval: efxEditor.duration / (efxData.length / 2)
+                        // guard against an empty efxData: dividing by 0 yields
+                        // Infinity/NaN, which coerces to a 0ms Timer interval and
+                        // makes the heads animation repaint the Canvas on every
+                        // event loop pass, hanging the GUI thread (see EFXPreview)
+                        animationInterval: efxData.length > 0 ? efxEditor.duration / (efxData.length / 2) : 0
                         isRelative: efxEditor.isRelative
                     }
 

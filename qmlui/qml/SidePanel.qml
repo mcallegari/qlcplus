@@ -65,10 +65,6 @@ Rectangle
         width: sidePanelRoot.width - collapseWidth
         height: parent.height
         source: loaderSource
-        // load the editor/view content off the GUI critical path, so that
-        // instantiating heavy components (e.g. the EFX preview Canvas layers)
-        // does not block and freeze the panel open/close animation half way
-        asynchronous: true
         z: 3
 
         // this is a generic ID used by the Loader
