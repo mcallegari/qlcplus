@@ -55,6 +55,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_lastPickedPoint(QVector3D())
     , m_lastClickedType(App::NoDragItem)
     , m_universeFilter(Universe::invalid())
+    , m_currentFixtureGroupID(Function::invalidId())
     , m_editingEnabled(false)
     , m_selectedDimmersCount(0)
     , m_dumpChannelMask(0)
@@ -505,6 +506,9 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         {
             case Qt::Key_A:
                 toggleFixturesSelection();
+            break;
+            case Qt::Key_Tab:
+                selectNextFixtureGroup();
             break;
             case Qt::Key_P:
                 setPositionPicking(true);
@@ -1517,6 +1521,34 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
             }
         }
     }
+}
+
+void ContextManager::selectNextFixtureGroup()
+{
+    QList<FixtureGroup *> groups = m_doc->fixtureGroups();
+    if (groups.isEmpty())
+        return;
+
+    /* Find the index of the currently selected group, if any */
+    int currentIndex = -1;
+    for (int i = 0; i < groups.count(); i++)
+    {
+        if (groups.at(i)->id() == m_currentFixtureGroupID)
+        {
+            currentIndex = i;
+            break;
+        }
+    }
+
+    /* Move on to the next group, cycling back to the first one */
+    int nextIndex = (currentIndex + 1) % groups.count();
+    quint32 nextGroupID = groups.at(nextIndex)->id();
+
+    /* Clear the current selection before selecting the new group */
+    resetFixtureSelection();
+
+    m_currentFixtureGroupID = nextGroupID;
+    setFixtureGroupSelection(nextGroupID, true, false);
 }
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)

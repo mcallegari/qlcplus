@@ -317,8 +317,17 @@ signals:
     void fixturesRotationChanged();
 
 private:
+    /** Select the next available Fixture group, cycling through the
+     *  groups defined in the Doc. Deselects everything else. */
+    void selectNextFixtureGroup();
+
+private:
     /** The list of the currently selected Fixture item IDs */
     QList<quint32> m_selectedFixtures;
+
+    /** The ID of the Fixture group currently selected via CTRL+Tab,
+     *  or Function::invalidId() if none */
+    quint32 m_currentFixtureGroupID;
 
     /** A flag indicating if a Function is currently being edited */
     bool m_editingEnabled;
