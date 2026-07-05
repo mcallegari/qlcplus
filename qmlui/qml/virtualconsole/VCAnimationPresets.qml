@@ -321,16 +321,35 @@ Rectangle
         visible: false
         closeOnSelect: true
 
+        // the "Full" color picker emits toolColorChanged continuously while
+        // dragging, so just remember the latest color here and create a single
+        // preset once the tool is closed
+        property color pickedColor
+        property bool colorPicked: false
+
         onToolColorChanged:
             function(r, g, b, w, a, uv)
             {
-                if (!widgetRef)
-                    return
-
-                var presetId = widgetRef.addColorPreset(presetsRoot.colorSlot, Qt.rgba(r, g, b, 1.0))
-                if (presetId >= 0)
-                    selectedPresetId = presetId
+                pickedColor = Qt.rgba(r, g, b, 1.0)
+                colorPicked = true
             }
+
+        onVisibleChanged:
+        {
+            if (visible)
+            {
+                colorPicked = false
+                return
+            }
+
+            if (!widgetRef || !colorPicked)
+                return
+
+            var presetId = widgetRef.addColorPreset(presetsRoot.colorSlot, pickedColor)
+            if (presetId >= 0)
+                selectedPresetId = presetId
+        }
+
         onClose: visible = false
     }
 
