@@ -157,8 +157,12 @@ Rectangle
             from: 0
             to: 255
             value: currentRGB.r * 255
-            onValueModified: toolColorChanged(value / 255, currentRGB.g, currentRGB.b,
-                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            onValueModified:
+            {
+                currentRGB = Qt.rgba(value / 255, currentRGB.g, currentRGB.b, 1.0)
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                 currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         RobotoText
@@ -175,8 +179,12 @@ Rectangle
             from: 0
             to: 255
             value: currentRGB.g * 255
-            onValueModified: toolColorChanged(currentRGB.r, value / 255, currentRGB.b,
-                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            onValueModified:
+            {
+                currentRGB = Qt.rgba(currentRGB.r, value / 255, currentRGB.b, 1.0)
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                 currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         RobotoText
@@ -193,8 +201,12 @@ Rectangle
             from: 0
             to: 255
             value: currentRGB.b * 255
-            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, value / 255,
-                                          currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            onValueModified:
+            {
+                currentRGB = Qt.rgba(currentRGB.r, currentRGB.g, value / 255, 1.0)
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                                 currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         RobotoText
