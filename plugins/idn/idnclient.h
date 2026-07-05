@@ -3,6 +3,7 @@
   idnclient.h
 
   Copyright (c) Daniel Schröder
+  Updated by Mauritz Kauffmann, 2026
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -45,7 +46,7 @@ class IdnClient : public QObject
 public:
     IdnClient(QHostAddress const &clientAddress, QSharedPointer<QUdpSocket> const& udpSocket,
               QSharedPointer<QMutex> const& socketMutex,
-              int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID, int const& serviceID);
+              int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID, int const& serviceID, QSharedPointer<quint32> const& seqnum);
     ~IdnClient();
     void sendDmx(const QByteArray &data);
     quint64 getPacketSentNumber();
@@ -80,7 +81,7 @@ public:
     /** Timestamp of the last submitted packet */
     qint64 lastsend;
     /** Sequence Number */
-    quint32 m_seqnum;
+    QSharedPointer<quint32> m_seqnum;
 	quint32 m_packetSent;
     
     QMutex m_dataMutex;

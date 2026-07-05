@@ -3,6 +3,7 @@
   idncontroller.cpp
 
   Copyright (c) Daniel Schröder
+  Updated by Mauritz Kauffmann, 2026
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -67,8 +68,15 @@ void IdnController::initClients()
             client.universe = settings.value().universe;
             client.iface = settings.value().iface;
             client.serviceID = settings.value().serviceID;
+
+            if(!m_seqnumMap.contains(settings.key().address))
+            {
+                m_seqnumMap[settings.key().address] = QSharedPointer<quint32>::create(0);
+            }
+
             client.client = new IdnClient(settings.key().address, m_socket, m_socketMutex, client.port,
-                                          client.rangeBegin, client.rangeEnd, client.mode, client.idnChannel, client.serviceID);
+                                          client.rangeBegin, client.rangeEnd, client.mode, client.idnChannel,
+                                          client.serviceID, m_seqnumMap[settings.key().address]);
             m_clientsList[settings.key()] = client;
         }
     }

@@ -3,6 +3,7 @@
   idncontroller.h
 
   Copyright (c) Daniel Schröder
+  Updated by Mauritz Kauffmann, 2026
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -159,6 +160,8 @@ private:
   QHash<IdnHostInfo, IdnClientInfo> m_clientsList;
   QHash<IdnHostInfo, IdnSettings> m_fileSettings;
 
+  QHash<QHostAddress, QSharedPointer<quint32>> m_seqnumMap;
+
   /** Keeps the current dmx values to send only the ones that changed */
   /** It holds values for all the handled universes */
   QMap<int, QByteArray *> m_dmxValuesMap;
@@ -180,39 +183,8 @@ private:
   /** Shared mutex to protect concurrent writeDatagram() calls on m_socket */
   QSharedPointer<QMutex> m_socketMutex;
 
-  //QSharedPointer<QUdpSocket> getUdpSocket();
-  //quint32 blackCounter;
-
-  //int blackCounter;
-
-  /** if data does not change the old data will be send */
-  //QByteArray oldData;
-  /** old packetinformation */
-  //IdnOptimizer::PacketInformation oldpi;
-
-	/** Timestamp to check wheater a config packet is neccessary */
-	//qint64 timestamp;
-  /** Timestamp of the last submitted packet */
-  //qint64 lastsend;
-	/** Sequence Number */
-	//quint32 m_seqnum;
-
-	/** Range of Channels */
-	//int m_port; 
-  //int m_rangeBegin;
-	//int m_rangeEnd;
-	//quint8 m_mode;
 	QScopedPointer<IdnOptimizer> m_optimizer;
 
-  //QByteArray optimizedMode(const QByteArray &data, const IdnClientInfo info);
-  //QByteArray rangeMode(const QByteArray &data);
-
-  //void sendClosePacket();
-  //Timer for the blackout functionality to close the IDN channel
-//  QTimer *closeTimer;
-
-  // public slots:
-  //   void waitforScanReply();
 };
 
 #endif
