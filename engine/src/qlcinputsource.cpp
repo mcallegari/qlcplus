@@ -253,13 +253,20 @@ void QLCInputSource::updateInputValue(uchar value)
     QMutexLocker locker(&m_mutex);
     if (m_workingMode == Encoder)
     {
+        // Detect the rotation direction by comparing the raw value with the
+        // previous one received from the controller...
         if (value < m_inputValue)
             m_sensitivity = -qAbs(m_sensitivity);
         else if (value > m_inputValue)
             m_sensitivity = qAbs(m_sensitivity);
-        m_inputValue = CLAMP(m_inputValue + (char)m_sensitivity, 0, UCHAR_MAX);
+        m_inputValue = value;
+
+        // ...then step the actual item value (kept in sync via feedback) by
+        // the sensitivity, so the encoder acts relative to the current position
+        m_outputValue = CLAMP(m_outputValue + (char)m_sensitivity, 0, UCHAR_MAX);
+        uchar newValue = m_outputValue;
         locker.unlock();
-        emit inputValueChanged(m_universe, m_channel, m_inputValue);
+        emit inputValueChanged(m_universe, m_channel, newValue);
     }
     else if (m_emitExtraPressRelease == true)
     {
