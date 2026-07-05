@@ -207,17 +207,35 @@ Rectangle
 
         SectionBox
         {
-            sectionLabel: qsTr("Dial Properties")
+            sectionLabel: qsTr("Control Properties")
 
             sectionContents:
-              GridLayout
+              ColumnLayout
               {
                 width: parent.width
-                columns: 5
 
                 Row
                 {
-                    Layout.columnSpan: 5
+                    visible: widgetRef ? widgetRef.visibilityMask & VCSpeedDial.Tap : false
+
+                    CustomCheckBox
+                    {
+                        implicitWidth: UISettings.iconSizeMedium
+                        implicitHeight: implicitWidth
+                        checked: widgetRef ? widgetRef.controlBPM : false
+                        onClicked: if (widgetRef) widgetRef.controlBPM = checked
+                    }
+
+                    RobotoText
+                    {
+                        height: UISettings.listItemHeight
+                        label: qsTr("Tap button controls the global BPM rate")
+                    }
+                }
+
+                Row
+                {
+                    visible: widgetRef ? widgetRef.visibilityMask & VCSpeedDial.Dial : false
 
                     CustomCheckBox
                     {
@@ -234,76 +252,82 @@ Rectangle
                     }
                 }
 
-                RobotoText
+                Row
                 {
-                    height: UISettings.listItemHeight
-                    label: qsTr("Dial time range")
-                }
-                CustomSpinBox
-                {
-                    from: 0
-                    to: 100000
-                    suffix: timeSwitchButton.checked ? "ms" : "s"
-                    value: widgetRef ? (timeSwitchButton.checked ? widgetRef.timeMinimumValue : Math.floor(widgetRef.timeMinimumValue / 1000)) : 0
-                    onValueModified:
-                    {
-                        if (timeSwitchButton.checked)
-                            widgetRef.timeMinimumValue = value
-                        else
-                            widgetRef.timeMinimumValue = value * 1000
-                    }
-                }
-
-                RobotoText
-                {
-                    height: UISettings.listItemHeight
-                    label: qsTr("to")
-                }
-
-                CustomSpinBox
-                {
-                    from: 0
-                    to: 100000
-                    suffix: timeSwitchButton.checked ? "ms" : "s"
-                    value: widgetRef ? (timeSwitchButton.checked ? widgetRef.timeMaximumValue : Math.floor(widgetRef.timeMaximumValue / 1000)) : 0
-                    onValueModified:
-                    {
-                        if (timeSwitchButton.checked)
-                            widgetRef.timeMaximumValue = value
-                        else
-                            widgetRef.timeMaximumValue = value * 1000
-                    }
-                }
-
-                Rectangle
-                {
-                    id: timeSwitchButton
-                    width: UISettings.iconSizeDefault * 1.1
-                    height: UISettings.listItemHeight
-                    border.width: 2
-                    border.color: "white"
-                    radius: 5
-                    color: UISettings.sectionHeader
-
-                    property bool checked: false
+                    visible: widgetRef ? widgetRef.visibilityMask & VCSpeedDial.Dial : false
+                    spacing: 5
 
                     RobotoText
                     {
-                        height: parent.height
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        label: timeSwitchButton.checked ? "ms" : "S"
-                        fontSize: UISettings.textSizeDefault
-                        fontBold: true
+                        height: UISettings.listItemHeight
+                        label: qsTr("Dial time range")
+                    }
+                    CustomSpinBox
+                    {
+                        from: 0
+                        to: 100000
+                        suffix: timeSwitchButton.checked ? "ms" : "s"
+                        value: widgetRef ? (timeSwitchButton.checked ? widgetRef.timeMinimumValue : Math.floor(widgetRef.timeMinimumValue / 1000)) : 0
+                        onValueModified:
+                        {
+                            if (timeSwitchButton.checked)
+                                widgetRef.timeMinimumValue = value
+                            else
+                                widgetRef.timeMinimumValue = value * 1000
+                        }
                     }
 
-                    MouseArea
+                    RobotoText
                     {
-                        anchors.fill: parent
-                        onClicked: timeSwitchButton.checked = !timeSwitchButton.checked
+                        height: UISettings.listItemHeight
+                        label: qsTr("to")
+                    }
+
+                    CustomSpinBox
+                    {
+                        from: 0
+                        to: 100000
+                        suffix: timeSwitchButton.checked ? "ms" : "s"
+                        value: widgetRef ? (timeSwitchButton.checked ? widgetRef.timeMaximumValue : Math.floor(widgetRef.timeMaximumValue / 1000)) : 0
+                        onValueModified:
+                        {
+                            if (timeSwitchButton.checked)
+                                widgetRef.timeMaximumValue = value
+                            else
+                                widgetRef.timeMaximumValue = value * 1000
+                        }
+                    }
+
+                    Rectangle
+                    {
+                        id: timeSwitchButton
+                        width: UISettings.iconSizeDefault * 1.1
+                        height: UISettings.listItemHeight
+                        border.width: 2
+                        border.color: "white"
+                        radius: 5
+                        color: UISettings.sectionHeader
+
+                        property bool checked: false
+
+                        RobotoText
+                        {
+                            height: parent.height
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            label: timeSwitchButton.checked ? "ms" : "S"
+                            fontSize: UISettings.textSizeDefault
+                            fontBold: true
+                        }
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked: timeSwitchButton.checked = !timeSwitchButton.checked
+                        }
                     }
                 }
               }
-        }
+        } // SectionBox
 
         SectionBox
         {

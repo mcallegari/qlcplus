@@ -118,7 +118,6 @@ VCWidgetItem
         // row 1 widget name text box
         Text
         {
-            id: sliderText
             visible: (speedObj && speedObj.caption.length) ? true : false
             Layout.columnSpan: itemsLayout.columns
             Layout.fillWidth: true
@@ -226,9 +225,10 @@ VCWidgetItem
         GenericButton
         {
             id: tapButton
-            Layout.columnSpan: 2
+            Layout.columnSpan: vMask === VCSpeedDial.Tap ? itemsLayout.columns : 2
             Layout.rowSpan: 2
             Layout.fillHeight: true
+            Layout.fillWidth: true
 
             label: "TAP"
             visible: vMask & VCSpeedDial.Tap
