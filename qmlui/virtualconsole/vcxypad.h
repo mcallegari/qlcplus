@@ -128,6 +128,12 @@ private:
     QPointF m_verticalRange;
     bool m_positionChanged;
 
+    /** Flag raised while a position change is driven by external input, so
+     *  that setCurrentPosition doesn't echo a feedback straight back to the
+     *  controller. Any other position change (UI drag, preset, undo) will
+     *  re-sync the controllers instead. */
+    bool m_handlingExternalInput = false;
+
     /** Cached MSB/LSB values for an
      *  efficient DMX computation */
     quint16 m_x16 = 0;

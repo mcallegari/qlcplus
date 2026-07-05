@@ -334,6 +334,13 @@ void VCXYPad::setCurrentPosition(QPointF newCurrentPosition)
     m_positionChanged = true;
     emit currentPositionChanged();
 
+    // If the position was changed by something other than external input
+    // (UI drag, preset, undo, ...) send feedback so external controllers stay
+    // in sync: absolute faders track the cursor, encoders keep acting relative
+    // to the new position
+    if (m_handlingExternalInput == false)
+        updateFeedback();
+
     Tardis::instance()->enqueueAction(Tardis::VCXYPadSetPosition, id(),
                                       previousPosition, m_currentPosition);
 }
@@ -1429,7 +1436,17 @@ void VCXYPad::writeDMX(MasterTimer *timer, QList<Universe *> universes)
 
 void VCXYPad::updateFeedback()
 {
+    // Send back the current position on each axis. This keeps external
+    // controllers in sync with the pad: motorized/absolute faders track the
+    // cursor, while relative controllers (encoders) get their internal value
+    // seeded so they act relative to the actual position rather than from zero.
+    int panFeedback = SCALE(qreal(m_x16 >> 8), m_horizontalRange.x(), m_horizontalRange.y(), 0, 255);
+    int tiltFeedback = SCALE(qreal(m_y16 >> 8), m_verticalRange.x(), m_verticalRange.y(), 0, 255);
 
+    sendFeedback(CLAMP(panFeedback, 0, 255), INPUT_PAN_ID);
+    sendFeedback(m_x16 & 0xFF, INPUT_PAN_FINE_ID);
+    sendFeedback(CLAMP(tiltFeedback, 0, 255), INPUT_TILT_ID);
+    sendFeedback(m_y16 & 0xFF, INPUT_TILT_FINE_ID);
 }
 
 void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
@@ -1444,6 +1461,10 @@ void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
         }
         return;
     }
+
+    // Mark that the following position change originates from external input,
+    // so setCurrentPosition doesn't echo a feedback back to the controller
+    m_handlingExternalInput = true;
 
     switch (id)
     {
@@ -1470,6 +1491,8 @@ void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
         case INPUT_HEIGHT_ID:
         break;
     }
+
+    m_handlingExternalInput = false;
 }
 
 /*********************************************************************
