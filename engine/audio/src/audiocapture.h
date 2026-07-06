@@ -44,9 +44,19 @@
 #define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
 
+/** Beat tracker implementation selection (issue #1881 work):
+ *  AUTO_TRACKER: multi-band onset front end + comb-scored ACF estimator,
+ *                ported from QLCplusShowCreator (benchmarked: 64/64 on the
+ *                synthetic audio suite vs 48/64 impl A and 54/64 impl B)
+ *  NEW_TRACKER:  reactive spectral-flux onset detector (beattracker.cpp)
+ *  neither:      ACF tempo-induction tracker by D. Suermann (beattracking.cpp)
+ */
+#define AUTO_TRACKER
 //#define NEW_TRACKER
 
-#ifdef NEW_TRACKER
+#if defined(AUTO_TRACKER)
+  class BeatTrackerAuto;
+#elif defined(NEW_TRACKER)
   class BeatTracker;
 #else
   class BeatTracking;
@@ -155,6 +165,12 @@ signals:
     void volumeChanged(int volume);
     void beatDetected();
 
+    /** Emitted when the beat tracker's own tempo estimate changes.
+     *  0 means "no confident estimate". Consumers should prefer this
+     *  over re-deriving BPM from the wall-clock spacing of
+     *  beatDetected() signals, which amplifies emission jitter. */
+    void beatBpmChanged(int bpm);
+
 protected:
     QMutex m_mutex;
 
@@ -178,7 +194,11 @@ protected:
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
 
-#ifdef NEW_TRACKER
+#if defined(AUTO_TRACKER)
+    BeatTrackerAuto *m_beatTracker;
+    /** Last BPM reported via beatBpmChanged() */
+    int m_lastTrackerBpm;
+#elif defined(NEW_TRACKER)
     BeatTracker *m_beatTracker;
 #else
     BeatTracking *m_beatTracker;
