@@ -131,7 +131,11 @@ onsets — is what makes the beat output steady on syncopated material.
   2.5 s dropout, +30% tempo step; rendered percussion as int16 PCM):
   **64/64 correct** (4% tolerance). Faithful ports of QLC+'s two existing
   trackers on the same suite: 48/64 (beattracking.cpp) and 54/64
-  (beattracker.cpp).
+  (beattracker.cpp). An in-repo C++ port of this suite lives in
+  `engine/test/beattrackerbench` (run with `--full` for the whole table);
+  with its RNG it reproduces 63/64 vs. 54/64 vs. 48/64 — the single flip
+  is a 90 BPM 8th-hats clip reading an octave up, i.e. the known limit
+  described above.
 - Onset-level suite (7 scenarios × 20 tempi incl. noise at SNR 2:1):
   139/140.
 - Real songs: 9-song album benchmark with per-section ground truth,

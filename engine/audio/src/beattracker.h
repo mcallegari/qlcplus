@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#ifndef BEATTRACKING_H
-#define BEATTRACKING_H
+#ifndef BEATTRACKER_H
+#define BEATTRACKER_H
 
 #include <cstdint>
 #include <vector>
