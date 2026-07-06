@@ -2,11 +2,11 @@
   Q Light Controller Plus
   beattrackerauto.cpp
 
-  Port of the QLCplusShowCreator beat tracker (Python reference,
-  commit aa8ca6f). See beattrackerauto.h for the algorithm overview;
-  the reference implementation and its measured benchmarks live in
-  QLCplusShowCreator: audio/realtime_spectral.py (_push_beat_samples),
-  auto/bpm_detector.py (AutoBPMDetector), docs/beat-tracking.md.
+  Copyright (c) varghele
+
+  Beat tracker by varghele. See beattrackerauto.h for the class
+  overview and beattrackerauto.md for the full algorithm
+  documentation, tuning rationale and benchmark methodology.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

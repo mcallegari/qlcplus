@@ -45,9 +45,9 @@
 #define SPECTRUM_MAX_FREQUENCY          5000
 
 /** Beat tracker implementation selection (issue #1881 work):
- *  AUTO_TRACKER: multi-band onset front end + comb-scored ACF estimator,
- *                ported from QLCplusShowCreator (benchmarked: 64/64 on the
- *                synthetic audio suite vs 48/64 impl A and 54/64 impl B)
+ *  AUTO_TRACKER: multi-band onset front end + comb-scored ACF tempo
+ *                estimator by varghele (beattrackerauto.cpp, documented
+ *                in beattrackerauto.md)
  *  NEW_TRACKER:  reactive spectral-flux onset detector (beattracker.cpp)
  *  neither:      ACF tempo-induction tracker by D. Suermann (beattracking.cpp)
  */
