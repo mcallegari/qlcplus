@@ -48,6 +48,9 @@ public:
      *  AudioCapture::run() passes. */
     bool processAudio(int16_t *buffer, int bufferSize);
 
+    /** Current tempo estimate in BPM */
+    double currentBpm() const { return m_currentBPM; }
+
 private:
     enum PredictionState{ACF, CONTINUITY};
 
