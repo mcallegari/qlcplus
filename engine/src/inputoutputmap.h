@@ -608,6 +608,11 @@ protected slots:
     void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
     void slotProcessBeat();
 
+    /** Receives the audio beat tracker's own tempo estimate (0 = no
+     *  confident estimate). Preferred over the wall-clock BPM derived
+     *  in slotProcessBeat(), which jitters with emission timing. */
+    void slotAudioBpmChanged(int bpm);
+
 signals:
     void beatGeneratorTypeChanged();
     void bpmNumberChanged(int bpmNumber);
@@ -616,6 +621,10 @@ signals:
 private:
     BeatGeneratorType m_beatGeneratorType;
     int m_currentBPM;
+    /** Tracker-reported BPM while the Audio generator is active
+     *  (0 = none); when set, slotProcessBeat() skips its wall-clock
+     *  BPM derivation. */
+    int m_audioTrackerBpm;
     QElapsedTimer *m_beatTime;
     AudioCapture *m_inputCapture;
 

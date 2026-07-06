@@ -24,7 +24,9 @@
 #include <qmath.h>
 
 #include "audiocapture.h"
-#ifdef NEW_TRACKER
+#if defined(AUTO_TRACKER)
+  #include "beattrackerauto.h"
+#elif defined(NEW_TRACKER)
   #include "beattracker.h"
 #else
   #include "beattracking.h"
@@ -78,13 +80,16 @@ AudioCapture::AudioCapture (QObject* parent)
     m_plan_forward = fftw_plan_dft_r2c_1d(m_bufferSize, m_fftInputBuffer,
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
 #endif
- #ifdef NEW_TRACKER
+ #if defined(AUTO_TRACKER)
+    m_beatTracker = new BeatTrackerAuto(m_sampleRate, m_channels);
+    m_lastTrackerBpm = 0;
+ #elif defined(NEW_TRACKER)
     m_beatTracker = new BeatTracker(m_sampleRate, m_bufferSize, m_channels, 86, 1.3);
     m_beatTracker->setBand(40.0, 400.0);      // bit wider band for now
     m_beatTracker->setFluxSmoothing(0.6);     // less smoothing
     m_beatTracker->setMinBeatInterval(0.20);  // ~300 BPM max
  #else
-    m_beatTracker = new BeatTracking(2);
+    m_beatTracker = new BeatTracking(m_sampleRate, m_channels);
  #endif
 }
 
@@ -93,6 +98,7 @@ AudioCapture::~AudioCapture()
     // stop() has to be called from the implementation class
     Q_ASSERT(!this->isRunning());
 
+    delete m_beatTracker;
     delete[] m_audioBuffer;
     delete[] m_audioMixdown;
     delete[] m_fftInputBuffer;
@@ -360,6 +366,14 @@ void AudioCapture::run()
 
                 if (m_beatTracker->processAudio(m_audioBuffer, m_captureSize))
                     emit beatDetected();
+#ifdef AUTO_TRACKER
+                int bpm = qRound(m_beatTracker->bpm());
+                if (bpm != m_lastTrackerBpm)
+                {
+                    m_lastTrackerBpm = bpm;
+                    emit beatBpmChanged(bpm);
+                }
+#endif
             }
             else
             {

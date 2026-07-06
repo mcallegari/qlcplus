@@ -31,10 +31,10 @@
 const double filterCoeffA[] = { 1, 0.23484048, 0};
 const double filterCoeffB[] = { 0.15998789, 0.31997577, 0.15998789 };
 
-BeatTracking::BeatTracking(int channels, QObject *parent)
+BeatTracking::BeatTracking(int sampleRate, int channels, QObject *parent)
     : QObject(parent)
-    , m_channels(channels)
-    , m_sampleRate(BEAT_DEFAULT_SAMPLE_RATE)
+    , m_channels(channels > 0 ? channels : 1)
+    , m_sampleRate(sampleRate > 0 ? sampleRate : BEAT_DEFAULT_SAMPLE_RATE)
     , m_windowSize(BEAT_DEFAULT_WINDOW_SIZE)
     , m_hopSize(BEAT_DEFAULT_HOP_SIZE)
     , m_onsetWindowSize(ONSET_WINDOW_SIZE)
@@ -121,7 +121,9 @@ bool BeatTracking::processAudio(int16_t * buffer, int bufferSize)
     //timer1.start(); // Monitor computation time
     bool isBeat = false;
 
-    for (int i = 0; i < bufferSize; ++i)
+    // bufferSize is the total sample count; mix interleaved frames to mono
+    int frames = bufferSize / static_cast<int>(m_channels);
+    for (int i = 0; i < frames; ++i)
     {
         m_windowBuffer.append(0.0);
         int idx = m_windowBuffer.size() - 1;
