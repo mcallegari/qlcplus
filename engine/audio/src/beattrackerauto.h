@@ -2,12 +2,12 @@
   Q Light Controller Plus
   beattrackerauto.h
 
-  Port of the QLCplusShowCreator beat tracker (Python reference,
-  commit aa8ca6f): multi-band saturated rising-edge onset front end
-  (audio/realtime_spectral.py, _push_beat_samples) feeding a
-  comb-scored autocorrelation tempo estimator with a temporal belief
-  filter, octave-raise walk and beat-phase output
-  (auto/bpm_detector.py, AutoBPMDetector).
+  Copyright (c) varghele
+
+  Beat tracker by varghele: a multi-band saturated rising-edge onset
+  front end feeding a comb-scored autocorrelation tempo estimator with
+  a temporal belief filter, octave-raise walk and beat-phase output.
+  Algorithm documentation: beattrackerauto.md (same directory).
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
