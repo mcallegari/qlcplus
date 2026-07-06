@@ -40,8 +40,12 @@ class BeatTracking : public QObject
     Q_OBJECT
 
 public:
-    BeatTracking(int channels, QObject *parent = nullptr);
+    BeatTracking(int sampleRate, int channels, QObject *parent = nullptr);
     ~BeatTracking();
+
+    /** Process an interleaved int16 block. @a bufferSize is the TOTAL
+     *  number of samples (frames * channels), matching what
+     *  AudioCapture::run() passes. */
     bool processAudio(int16_t *buffer, int bufferSize);
 
 private:
