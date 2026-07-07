@@ -22,6 +22,7 @@ else()
 endif()
 
 set(WEBACCESS_SOURCES
+    commonjscss.cpp
     commonjscss.h
     qhttpserver/http_parser.c qhttpserver/http_parser.h
     qhttpserver/qhttpconnection.cpp qhttpserver/qhttpconnection.h
@@ -33,6 +34,7 @@ set(WEBACCESS_SOURCES
     webaccessauth.cpp webaccessauth.h
     webaccessconfiguration.cpp webaccessconfiguration.h
     webaccesssimpledesk.cpp webaccesssimpledesk.h
+    webaccessupload.cpp webaccessupload.h
     ${QM_FILES}
 )
 

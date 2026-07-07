@@ -20,6 +20,10 @@
 #ifndef COMMONJSCSS_H
 #define COMMONJSCSS_H
 
+#include <QString>
+
+QString webAccessJsStringEscaped(const QString &text);
+
 #define HTML_HEADER \
     "<!DOCTYPE html>\n" \
     "<head>\n" \

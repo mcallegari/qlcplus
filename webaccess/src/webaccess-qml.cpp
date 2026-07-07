@@ -774,12 +774,6 @@ void WebAccessQml::slotHandleWebSocketRequest(QHttpConnection *conn, QString dat
         m_sd->setAbsoluteChannelValue(absAddress, uchar(value));
         return;
     }
-    else if (cmdList[0] == "GM_VALUE")
-    {
-        uchar value = cmdList[1].toInt();
-        m_doc->inputOutputMap()->setGrandMasterValue(value);
-        return;
-    }
     else if (cmdList[0] == "POLL")
         return;
 

@@ -86,7 +86,8 @@ QString WebAccessConfiguration::getIOConfigHTML(const Doc *doc)
         quint32 currentFeedback = (fp == NULL)?QLCChannel::invalid():fp->output();
         QString currentProfileName = (ip == NULL)?KInputNone:ip->profileName();
 
-        html += "<tr style=\"text-align: center;\"><td>" + uniName + "</td>\n";
+        html += "<tr style=\"text-align: center;\"><td>" +
+                uniName.toHtmlEscaped() + "</td>\n";
         html += "<td><select onchange=\"ioChanged('INPUT', " + QString::number(i) + ", this.value);\">\n";
         for (int in = 0; in < inputLines.count(); in++)
         {
@@ -94,8 +95,10 @@ QString WebAccessConfiguration::getIOConfigHTML(const Doc *doc)
             QString selected = "";
             if (currentInputPluginName == strList.at(0) && currentInput == strList.at(2).toUInt())
                 selected = "selected";
-            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
-                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
+            const QString value = QString("%1|%2").arg(strList.at(0)).arg(strList.at(2));
+            const QString text = QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1));
+            html += "<option value=\"" + value.toHtmlEscaped() + "\" " + selected + ">" +
+                    text.toHtmlEscaped() + "</option>\n";
         }
         html += "</select></td>\n";
         html += "<td><select onchange=\"ioChanged('OUTPUT', " + QString::number(i) + ", this.value);\">\n";
@@ -105,8 +108,10 @@ QString WebAccessConfiguration::getIOConfigHTML(const Doc *doc)
             QString selected = "";
             if (currentOutputPluginName == strList.at(0) && currentOutput == strList.at(2).toUInt())
                 selected = "selected";
-            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
-                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
+            const QString value = QString("%1|%2").arg(strList.at(0)).arg(strList.at(2));
+            const QString text = QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1));
+            html += "<option value=\"" + value.toHtmlEscaped() + "\" " + selected + ">" +
+                    text.toHtmlEscaped() + "</option>\n";
         }
         html += "</select></td>\n";
         html += "<td><select onchange=\"ioChanged('FB', " + QString::number(i) + ", this.value);\">\n";
@@ -116,8 +121,10 @@ QString WebAccessConfiguration::getIOConfigHTML(const Doc *doc)
             QString selected = "";
             if (currentFeedbackPluginName == strList.at(0) && currentFeedback == strList.at(2).toUInt())
                 selected = "selected";
-            html += "<option value=\"" + QString("%1|%2").arg(strList.at(0)).arg(strList.at(2)) + "\" " + selected + ">" +
-                    QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1)) + "</option>\n";
+            const QString value = QString("%1|%2").arg(strList.at(0)).arg(strList.at(2));
+            const QString text = QString("[%1] %2").arg(strList.at(0)).arg(strList.at(1));
+            html += "<option value=\"" + value.toHtmlEscaped() + "\" " + selected + ">" +
+                    text.toHtmlEscaped() + "</option>\n";
         }
         html += "</select></td>\n";
         html += "<td><select onchange=\"ioChanged('PROFILE', " + QString::number(i) + ", this.value);\">\n";
@@ -126,7 +133,8 @@ QString WebAccessConfiguration::getIOConfigHTML(const Doc *doc)
             QString selected = "";
             if (currentProfileName == profiles.at(p))
                 selected = "selected";
-            html += "<option value=\"" + profiles.at(p) + "\" " + selected + ">" + profiles.at(p) + "</option>\n";
+            html += "<option value=\"" + profiles.at(p).toHtmlEscaped() + "\" " +
+                    selected + ">" + profiles.at(p).toHtmlEscaped() + "</option>\n";
         }
         html += "</select></td>\n";
         html += "<td><label><input type=\"checkbox\" ";
@@ -169,13 +177,13 @@ QString WebAccessConfiguration::getAudioConfigHTML(const Doc *doc)
     foreach (AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
-            audioInSelect += "<option value=\"" + info.privateName + "\" " +
+            audioInSelect += "<option value=\"" + info.privateName.toHtmlEscaped() + "\" " +
                              ((info.privateName == inputName)?"selected":"") + ">" +
-                             info.deviceName + "</option>\n";
+                             info.deviceName.toHtmlEscaped() + "</option>\n";
         if (info.capabilities & AUDIO_CAP_OUTPUT)
-            audioOutSelect += "<option value=\"" + info.privateName + "\" " +
+            audioOutSelect += "<option value=\"" + info.privateName.toHtmlEscaped() + "\" " +
                     ((info.privateName == outputName)?"selected":"") + ">" +
-                    info.deviceName + "</option>\n";
+                    info.deviceName.toHtmlEscaped() + "</option>\n";
     }
     audioInSelect += "</select></td>\n";
     audioOutSelect += "</select></td>\n";
@@ -202,7 +210,7 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
         QString path(it.next());
 
         if (path.toLower().endsWith(".qxf") || path.toLower().endsWith(".d4"))
-                html += "<tr><td>" + path + "</td></tr>\n";
+                html += "<tr><td>" + path.toHtmlEscaped() + "</td></tr>\n";
     }
     html += "</table>\n";
     html += "<br><a class=\"button button-blue\" href=\"javascript:document.getElementById('loadTrigger').click();\">\n"
@@ -226,14 +234,16 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(const WebAccessAuth *auth
     foreach (WebAccessUser user, auth->getUsers())
     {
         QString username = user.username;
+        QString usernameAttr = username.toHtmlEscaped();
+        QString usernameJsAttr = webAccessJsStringEscaped(username).toHtmlEscaped();
         int level = user.level;
 
-        html += "<tr id=\"auth-row-" + username + "\">";
-        html += "<td>" + username + "</td>";
-        html += "<td><input type=\"password\" id=\"auth-password-" + username + "\""
-                " placeholder=\"" + tr("Leave blank to not change") + "\"></td>";
+        html += "<tr id=\"auth-row-" + usernameAttr + "\">";
+        html += "<td>" + usernameAttr + "</td>";
+        html += "<td><input type=\"password\" id=\"auth-password-" + usernameAttr + "\""
+                " placeholder=\"" + tr("Leave blank to not change").toHtmlEscaped() + "\"></td>";
         html += "<td>";
-            html += "<select id=\"auth-level-" + username + "\">";
+            html += "<select id=\"auth-level-" + usernameAttr + "\">";
 
             html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\"";
             if (level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
@@ -253,17 +263,17 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(const WebAccessAuth *auth
             html += "</select>";
         html += "</td>";
         html += "<td>";
-            html += "<button onclick=\"authChangeUser('" + username + "')\">"
+            html += "<button onclick=\"authChangeUser('" + usernameJsAttr + "')\">"
                  + tr("Change") + "</button>";
-            html += "<button onclick=\"authDeleteUser('" + username + "')\">"
+            html += "<button onclick=\"authDeleteUser('" + usernameJsAttr + "')\">"
                  + tr("Delete user") + "</button>";
         html += "</td>";
         html += "</tr>";
     }
 
     html += "<tr>";
-    html += "<td><input type=\"text\" id=\"auth-new-username\" placeholder=\"" + tr("New username...") + "\"></td>";
-    html += "<td><input type=\"password\" id=\"auth-new-password\" placeholder=\"" + tr("New password...") + "\"></td>";
+    html += "<td><input type=\"text\" id=\"auth-new-username\" placeholder=\"" + tr("New username...").toHtmlEscaped() + "\"></td>";
+    html += "<td><input type=\"password\" id=\"auth-new-password\" placeholder=\"" + tr("New password...").toHtmlEscaped() + "\"></td>";
     html += "<td>";
         html += "<select id=\"auth-new-level\">";
 
@@ -279,9 +289,10 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(const WebAccessAuth *auth
     html += "<td>";
         // Script will dynamically add rows with users so it needs to know translations
         html += "<button onclick=\"authAddUser("
-                "'" + tr("Change") + "','" + tr("Delete user") + "'"
-                ",'" + tr("Username and password are required fields.") + "'"
-                ",'" + tr("New password...") + "'"
+                "'" + webAccessJsStringEscaped(tr("Change")).toHtmlEscaped() + "',"
+                "'" + webAccessJsStringEscaped(tr("Delete user")).toHtmlEscaped() + "',"
+                "'" + webAccessJsStringEscaped(tr("Username and password are required fields.")).toHtmlEscaped() + "',"
+                "'" + webAccessJsStringEscaped(tr("New password...")).toHtmlEscaped() + "'"
                 ")\" class=\"authAddUser\">"
                 + tr("Add user") + "</button>";
     html += "</td>";
