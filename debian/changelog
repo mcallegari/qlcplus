@@ -18,6 +18,8 @@ qlcplus (4.14.5) stable; urgency=low
   * New fixture: Litecraft MarsX.1 (thanks to Georg Müller)
   * New fixture: Starway SupraKolor (thanks to Rodolphe Catrais)
   * New fixtures: Varytec LED Pad7 7x10W 6in1 RGBWA BL, Showtec ACT Fresnel 150 WW (thanks to Laurent Georget)
+  * New fixtures: beamZ PartyBar 2, PartyBar 3
+  * New fixtures: GLP Matrix Eye 2 and 4 (thanks to Liam Clark)
 
 -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 13 Jun 2026 18:19:20 +0200
 
