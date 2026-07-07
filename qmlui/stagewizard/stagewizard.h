@@ -313,6 +313,9 @@ private slots:
     Chaser *generateColorRainbow(const FixtureGroupEntry &grp, const QString &prefix);
     Chaser *generateSplitColor(const FixtureGroupEntry &grp, const QString &prefix);
     Scene  *generateBlinderHit(const FixtureGroupEntry &grp, const QString &prefix);
+    /** Show-level scene: all blinder-role fixtures at full, 300 ms fade-out, for
+     *  a momentary Flash button. Returns nullptr when there are no blinders. */
+    Scene  *generateBlinderFlash();
     Chaser *generateShowOpen();
     Chaser *generateShowClose();
     Chaser *generateBigMoment();

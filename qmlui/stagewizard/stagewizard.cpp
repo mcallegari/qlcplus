@@ -696,22 +696,51 @@ QVector3D StageWizard::computePosition(int index, int total,
             return QVector3D(spread(fxW, gx - fxW), hangY, frontZ);
 
         case RoleBlinder:
-            // Front truss, audience-facing
-            return QVector3D(spread(xFrom, xTo), hangY, frontZ);
+        {
+            // Audience blinders: on the FRONT truss facing the audience. If more
+            // blinders than fit across the front truss, the overflow goes on the
+            // side trusses, always on the front (audience) side.
+            float usable = (gx - 2.0f * endPad);
+            int frontCap = qMax(1, int(usable / qMax(fxW * 1.2f, 1.0f)));
+            frontCap = qMin(frontCap, total);
+
+            if (index < frontCap)
+            {
+                // Evenly spread across the front truss.
+                float x = (frontCap <= 1) ? gx * 0.5f
+                        : xFrom + (xTo - xFrom) * (index / float(frontCap - 1));
+                return QVector3D(x - fxW / 2.0f, hangY, frontZ);
+            }
+
+            // Overflow onto the side trusses, near the front (audience) end,
+            // alternating left / right and stacking downstage-to-upstage.
+            int ov = index - frontCap;
+            bool left = (ov % 2 == 0);
+            float xSide = left ? (trussHalf - fxW / 2.0f)
+                               : (gx - trussHalf - fxW / 2.0f);
+            int   depthIdx = ov / 2;
+            // Start just behind the front edge and move upstage per pair.
+            float z = gz * (0.85f - 0.15f * depthIdx);
+            if (z < gz * 0.4f) z = gz * 0.4f;
+            return QVector3D(xSide, hangY, z);
+        }
 
         case RoleSide:
         {
-            // Side trusses / booms: alternate stage-left and stage-right,
-            // snapped to the side-truss line, spread along depth at mid height
-            // Subtract fxW/2 for the render offset (see spread() note)
+            // Side trusses: hung from the top side-truss line (same height as the
+            // other overhead roles), alternating stage-left / stage-right, spread
+            // along the depth. The head faces inward (Y rot 90) so its depth
+            // footprint is along X — no fxD correction on Z here.
+            // Snap X to the side-truss line, with the render offset (-fxW/2).
             bool left = (index % 2 == 0);
             float xSide = left ? (trussHalf - fxW / 2.0f)
                                : (gx - trussHalf - fxW / 2.0f);
             int   pairIndex = index / 2;
             int   pairCount = (total + 1) / 2;
+            // Spread along the depth with a margin from the very front/rear.
             float t = (pairCount <= 1) ? 0.5f : (pairIndex + 0.5f) / float(pairCount);
-            float z = rearZ + (frontZ - rearZ) * t;
-            return QVector3D(xSide, gy * 0.55f, z);
+            float z = gz * (0.20f + 0.60f * t);
+            return QVector3D(xSide, hangY, z);
         }
 
         case RoleHazer:
@@ -1258,6 +1287,9 @@ void StageWizard::generate()
     // Blackout lives at the wizard root
     if (blackout)
         blackout->setPath(wizardPath());
+
+    // Blinder flash scene (only if there are blinders) for a VC Flash button
+    generateBlinderFlash();
 
     createVCLayout();
 
@@ -2200,20 +2232,58 @@ Chaser *StageWizard::generateSplitColor(const FixtureGroupEntry &grp, const QStr
 
 Scene *StageWizard::generateBlinderHit(const FixtureGroupEntry &grp, const QString &prefix)
 {
+    if (grp.groupId == FixtureGroup::invalidId())
+        return nullptr;
+
+    // Full-intensity WHITE hit via (shared) Dimmer Full + Color White palettes.
+    quint32 dimPid = makeDimmerPalette(tr("Dimmer %1").arg(tr("Full")), 255);
+    if (dimPid == QLCPalette::invalidId())
+        return nullptr;
+    quint32 whitePid = makeColorPalette(tr("White"), QColor(255, 255, 255));
+
     Scene *s = new Scene(m_doc);
     s->setName(tr("%1 – Blinder Hit").arg(prefix));
-    for (quint32 fxID : grp.fixtureIDs)
-    {
-        Fixture *fx = m_doc->fixture(fxID);
-        if (!fx) continue;
-        for (quint32 ch = 0; ch < fx->channels(); ++ch)
-        {
-            const QLCChannel *c = fx->channel(ch);
-            if (c && c->group() == QLCChannel::Intensity)
-                s->setValue(SceneValue(fxID, ch, 255));
-        }
-    }
+    s->addFixtureGroup(grp.groupId);
+    s->addPalette(dimPid);
+    if (whitePid != QLCPalette::invalidId())
+        s->addPalette(whitePid);
     m_doc->addFunction(s);
+    return s;
+}
+
+Scene *StageWizard::generateBlinderFlash()
+{
+    // All selected Blinder-role groups.
+    QList<quint32> blinderGroups;
+    for (const FixtureGroupEntry &grp : m_groups)
+    {
+        if (grp.selected && grp.role == RoleBlinder &&
+            grp.groupId != FixtureGroup::invalidId() && !grp.fixtureIDs.isEmpty())
+            blinderGroups.append(grp.groupId);
+    }
+    if (blinderGroups.isEmpty())
+        return nullptr;
+
+    // Full-intensity WHITE hit via (shared) Dimmer Full + Color White palettes.
+    quint32 dimPid = makeDimmerPalette(tr("Dimmer %1").arg(tr("Full")), 255);
+    if (dimPid == QLCPalette::invalidId())
+        return nullptr;
+    quint32 whitePid = makeColorPalette(tr("White"), QColor(255, 255, 255));
+
+    Scene *s = new Scene(m_doc);
+    s->setName(tr("Blinder Flash"));
+    for (quint32 gid : blinderGroups)
+        s->addFixtureGroup(gid);
+    s->addPalette(dimPid);
+    if (whitePid != QLCPalette::invalidId())
+        s->addPalette(whitePid);
+    // Instant on, short fade-out so releasing the momentary Flash button leaves
+    // a quick decay rather than a hard cut.
+    s->setFadeInSpeed(0);
+    s->setFadeOutSpeed(300);
+    m_doc->addFunction(s);
+    s->setPath(wizardPath(tr("Show Cues")));
+    m_generatedFunctionIDs.append(s->id());
     return s;
 }
 
@@ -2405,6 +2475,15 @@ void StageWizard::createVCLayout()
     addButton(tr("Big Moment"),  findFunc("Big Moment"),  x, y);
     addButton(tr("Show Close"),  findFunc("Show Close"),  x, y);
     addButton(tr("Ambient"),     findFunc("Ambient Loop"),x, y);
+
+    // Blinder flash — momentary button (only present when blinders exist)
+    quint32 blinderFlashID = findFunc("Blinder Flash");
+    if (blinderFlashID != Function::invalidId())
+    {
+        VCButton *btn = addButton(tr("Blinder"), blinderFlashID, x, y);
+        if (btn)
+            btn->setActionType(VCButton::Flash);
+    }
 
     y += btnH + kFrmPad * 2 * pd;
 
