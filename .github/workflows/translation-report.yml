@@ -1,0 +1,49 @@
+name: Translation Coverage Report
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.ts" # Trigger only if .ts files are modified
+
+jobs:
+  translation-report:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Make the script executable
+      - name: Make script executable
+        run: chmod +x ./translate.sh
+
+      # 3. Run the translation report script
+      - name: Run translation report
+        id: run_report
+        run: |
+          echo "Generating translation report..."
+          OUTPUT=$(./translate.sh stats)
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # 4. Post the report as a PR comment
+      - name: Comment on PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: translation-report
+          message: |
+            ### 📝 Translation Coverage Report
+            The following report was generated for the modified `.ts` files:
+
+            <details>
+
+            ${{ steps.run_report.outputs.report }}
+
+            </details>
+
+            :white_check_mark: This comment updates automatically if you push new commits.
