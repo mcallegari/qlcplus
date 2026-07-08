@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Ovation H-105WW</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Fine Dimmer" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Strobe Speed">
