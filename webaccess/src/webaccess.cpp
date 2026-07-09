@@ -198,8 +198,13 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         else if (apiCmd == "getWidgetsNumber")
         {
             VCFrame *mainFrame = m_vc->contents();
-            QList<VCWidget *> chList = mainFrame->findChildren<VCWidget*>();
-            wsAPIMessage.append(QString::number(chList.count()));
+            if (mainFrame != NULL)
+            {
+                QList<VCWidget *> chList = mainFrame->findChildren<VCWidget*>();
+                wsAPIMessage.append(QString::number(chList.count()));
+            } else {
+                wsAPIMessage.append("-1");
+            }
         }
         else if (apiCmd == "getWidgetsList")
         {
