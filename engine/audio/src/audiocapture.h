@@ -163,13 +163,12 @@ protected:
 signals:
     void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
     void volumeChanged(int volume);
-    void beatDetected();
 
-    /** Emitted when the beat tracker's own tempo estimate changes.
-     *  0 means "no confident estimate". Consumers should prefer this
-     *  over re-deriving BPM from the wall-clock spacing of
-     *  beatDetected() signals, which amplifies emission jitter. */
-    void beatBpmChanged(int bpm);
+    /** Emitted on every beat detected by the beat tracker. @a bpm is
+     *  the tracker's own tempo estimate; 0 means "no estimate", in
+     *  which case the receiver has to derive the tempo from the
+     *  spacing of the beat signals. */
+    void beatDetected(int bpm);
 
 protected:
     QMutex m_mutex;
@@ -196,8 +195,6 @@ protected:
 
 #if defined(AUTO_TRACKER)
     BeatTrackerAuto *m_beatTracker;
-    /** Last BPM reported via beatBpmChanged() */
-    int m_lastTrackerBpm;
 #elif defined(NEW_TRACKER)
     BeatTracker *m_beatTracker;
 #else

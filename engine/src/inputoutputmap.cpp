@@ -49,7 +49,6 @@ InputOutputMap::InputOutputMap(const Doc *doc, quint32 universes)
     , m_universeChanged(false)
     , m_localProfilesLoaded(false)
     , m_currentBPM(0)
-    , m_audioTrackerBpm(0)
     , m_beatTime(new QElapsedTimer())
     , m_networkServerType(NativeServer)
     , m_networkServerAutoStart(false)
@@ -1031,9 +1030,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
     if (m_beatGeneratorType == Audio)
     {
         m_inputCapture->unregisterBandsNumber(4);
-        disconnect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
-        disconnect(m_inputCapture, SIGNAL(beatBpmChanged(int)), this, SLOT(slotAudioBpmChanged(int)));
-        m_audioTrackerBpm = 0;
+        disconnect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
     }
 
     m_beatGeneratorType = type;
@@ -1063,9 +1060,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             m_beatTime->restart();
             QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
             m_inputCapture = capture.data();
-            m_audioTrackerBpm = 0;
-            connect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
-            connect(m_inputCapture, SIGNAL(beatBpmChanged(int)), this, SLOT(slotAudioBpmChanged(int)));
+            connect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
             m_inputCapture->registerBandsNumber(4);
         }
         break;
@@ -1129,39 +1124,38 @@ int InputOutputMap::bpmNumber() const
     return m_currentBPM;
 }
 
-void InputOutputMap::slotProcessBeat()
+void InputOutputMap::slotProcessBeat(int bpm)
 {
     // process the timer as first thing, to avoid wasting time
     // with the operations below
     qint64 elapsed = m_beatTime->elapsed();
     m_beatTime->restart();
 
-    // When the audio tracker reports its own tempo estimate (see
-    // slotAudioBpmChanged), that value drives the BPM number; deriving
-    // it from the wall-clock spacing of beat signals amplifies every
-    // hop of emission jitter into a BPM change
-    if (m_beatGeneratorType != Audio || m_audioTrackerBpm <= 0)
+    if (bpm > 0)
     {
-        int bpm = qRound(60000.0 / (float)elapsed);
+        // the beat source provides its own tempo estimate
+        if (bpm != m_currentBPM)
+        {
+            qDebug() << "[InputOutputMap] beat source BPM:" << bpm;
+            setBpmNumber(bpm);
+        }
+    }
+    else
+    {
+        // no tempo estimate available: derive the BPM number from the
+        // wall-clock spacing of the beat signals
+        int elapsedBpm = qRound(60000.0 / (float)elapsed);
         float currBpmTime = 60000.0 / (float)m_currentBPM;
         // here we check if the difference between the current BPM duration
         // and the current time elapsed is within a range of +/-1ms.
         // If it isn't, then the BPM number has really changed, otherwise
         // it's just a tiny time drift
         if (qAbs((float)elapsed - currBpmTime) > 1)
-            setBpmNumber(bpm);
+            setBpmNumber(elapsedBpm);
     }
 
     m_doc->masterTimer()->requestBeat();
     emit beat();
-}
-
-void InputOutputMap::slotAudioBpmChanged(int bpm)
-{
-    qDebug() << "[InputOutputMap] audio tracker BPM:" << bpm;
-    m_audioTrackerBpm = bpm;
-    if (m_beatGeneratorType == Audio && bpm > 0)
-        setBpmNumber(bpm);
 }
 
 void InputOutputMap::slotMasterTimerBeat()
