@@ -82,7 +82,6 @@ AudioCapture::AudioCapture (QObject* parent)
 #endif
  #if defined(AUTO_TRACKER)
     m_beatTracker = new BeatTrackerAuto(m_sampleRate, m_channels);
-    m_lastTrackerBpm = 0;
  #elif defined(NEW_TRACKER)
     m_beatTracker = new BeatTracker(m_sampleRate, m_bufferSize, m_channels, 86, 1.3);
     m_beatTracker->setBand(40.0, 400.0);      // bit wider band for now
@@ -365,15 +364,15 @@ void AudioCapture::run()
                 processData();
 
                 if (m_beatTracker->processAudio(m_audioBuffer, m_captureSize))
-                    emit beatDetected();
-#ifdef AUTO_TRACKER
-                int bpm = qRound(m_beatTracker->bpm());
-                if (bpm != m_lastTrackerBpm)
                 {
-                    m_lastTrackerBpm = bpm;
-                    emit beatBpmChanged(bpm);
-                }
+#if defined(AUTO_TRACKER)
+                    emit beatDetected(qRound(m_beatTracker->bpm()));
+#elif defined(NEW_TRACKER)
+                    emit beatDetected(qRound(m_beatTracker->getCurrentBpm()));
+#else
+                    emit beatDetected(qRound(m_beatTracker->currentBpm()));
 #endif
+                }
             }
             else
             {
