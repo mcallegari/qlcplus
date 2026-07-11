@@ -390,6 +390,17 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
         emit fixtureDeleted(itemID);
     }
 
+    // delete any group left empty by the fixtures just removed, otherwise a
+    // stale empty group would linger in the project and block the creation of
+    // a new group with the same name (see #2063)
+    QVariantList emptyGroups;
+    for (FixtureGroup *group : m_doc->fixtureGroups())
+        if (group->fixtureList().isEmpty())
+            emptyGroups << group->id();
+
+    if (!emptyGroups.isEmpty())
+        deleteFixtureGroups(emptyGroups);
+
     emit fixturesCountChanged();
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
