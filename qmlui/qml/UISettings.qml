@@ -70,6 +70,10 @@ QtObject
     property real scrollBarWidth:   screenPixelDensity * scalingFactor * 6
     property real sidePanelWidth:   screenPixelDensity * scalingFactor * 50
 
+    /* Persisted Simple Desk channel view scroll position, as the index of the
+       first visible channel (survives context changes) */
+    property int simpleDeskScrollIndex: 0
+
     /* Channel properties column widths */
     property real chPropsModesWidth: bigItemHeight * 1.2
     property real chPropsFlagsWidth: bigItemHeight * 1.3

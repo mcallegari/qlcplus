@@ -148,6 +148,33 @@ Rectangle
                 highlightFollowsCurrentItem: false
                 currentIndex: -1
 
+                // Set once the saved scroll position has been restored, so that
+                // scrolling caused by the restore itself is not saved back
+                property bool scrollRestored: false
+
+                // Restore the channel the view was scrolled to before the last
+                // context change. Positioning by index is reliable even while the
+                // ListView is still laying out its delegates (unlike setting
+                // contentX, which gets clamped when contentWidth isn't known yet).
+                Component.onCompleted:
+                {
+                    if (UISettings.simpleDeskScrollIndex > 0)
+                        positionViewAtIndex(UISettings.simpleDeskScrollIndex, ListView.Beginning)
+                    scrollRestored = true
+                }
+
+                // Persist the first visible channel so it can be restored when
+                // coming back to the Simple Desk context
+                onContentXChanged:
+                {
+                    if (scrollRestored)
+                    {
+                        let firstIdx = indexAt(contentX, 0)
+                        if (firstIdx >= 0)
+                            UISettings.simpleDeskScrollIndex = firstIdx
+                    }
+                }
+
                 function scrollToItem(chIdx)
                 {
                     console.log("[scrollToItem] chIdx: " + chIdx)
