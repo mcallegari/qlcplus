@@ -177,6 +177,7 @@ jobs:
           cmake --build build --target install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
+          cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations/
 
       - name: Set APPVERSION
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
