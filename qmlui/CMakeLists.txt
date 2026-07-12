@@ -27,6 +27,7 @@ set(SRC_FILES
     efxeditor.cpp efxeditor.h
     fixturebrowser.cpp fixturebrowser.h
     fixtureremapmanager.cpp fixtureremapmanager.h
+    fixtureeditor/aliasedit.cpp fixtureeditor/aliasedit.h
     fixtureeditor/channeledit.cpp fixtureeditor/channeledit.h
     fixtureeditor/editorview.cpp fixtureeditor/editorview.h
     fixtureeditor/fixtureeditor.cpp fixtureeditor/fixtureeditor.h

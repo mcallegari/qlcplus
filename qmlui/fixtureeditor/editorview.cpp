@@ -24,6 +24,7 @@
 #include "qlccapability.h"
 
 #include "channeledit.h"
+#include "aliasedit.h"
 #include "editorview.h"
 #include "listmodel.h"
 #include "qlcfile.h"
@@ -34,6 +35,7 @@ EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObj
     , m_id(id)
     , m_channelEdit(nullptr)
     , m_modeEdit(nullptr)
+    , m_aliasEdit(nullptr)
     , m_isModified(false)
 {
     m_fixtureDef = new QLCFixtureDef(fixtureDef);
@@ -57,6 +59,13 @@ EditorView::EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObj
     m_modeList->setRoleNames(modeRoles);
 
     updateModeList();
+
+    m_aliasList = new ListModel(this);
+    QStringList aliasRoles;
+    aliasRoles << "cRef" << "capIndex" << "label" << "aliasCount" << "isSelected";
+    m_aliasList->setRoleNames(aliasRoles);
+
+    updateAliasList();
 }
 
 EditorView::~EditorView()
@@ -66,6 +75,7 @@ EditorView::~EditorView()
 
     dismissChannelEditor();
     dismissModeEditor();
+    dismissAliasEditor();
 }
 
 int EditorView::id() const
@@ -186,6 +196,7 @@ void EditorView::dismissChannelEditor()
 
     disconnect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
+    disconnect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(updateAliasList()));
     delete m_channelEdit;
     m_channelEdit = nullptr;
 }
@@ -198,6 +209,7 @@ QVariant EditorView::channels() const
 ChannelEdit *EditorView::requestChannelEditor(QString name)
 {
     dismissModeEditor();
+    dismissAliasEditor();
     dismissChannelEditor();
 
     QLCChannel *ch = m_fixtureDef->channel(name);
@@ -215,6 +227,8 @@ ChannelEdit *EditorView::requestChannelEditor(QString name)
     QQmlEngine::setObjectOwnership(m_channelEdit, QQmlEngine::CppOwnership);
     connect(m_channelEdit, SIGNAL(channelChanged()), this, SLOT(setModified()));
     connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(setModified()));
+    // capability preset changes may add/remove alias capabilities
+    connect(m_channelEdit, SIGNAL(capabilitiesChanged()), this, SLOT(updateAliasList()));
     return m_channelEdit;
 }
 
@@ -293,6 +307,8 @@ bool EditorView::deleteChannel(const QLCChannel *channel)
     // TODO: Tardis
     bool res = m_fixtureDef->removeChannel(channel);
     setModified(true);
+    // a removed channel may have carried alias capabilities
+    updateAliasList();
     return res;
 }
 
@@ -324,6 +340,7 @@ QVariant EditorView::modes() const
 ModeEdit *EditorView::requestModeEditor(QString name)
 {
     dismissChannelEditor();
+    dismissAliasEditor();
     dismissModeEditor();
 
     QLCFixtureMode *mode = m_fixtureDef->mode(name);
@@ -389,6 +406,86 @@ void EditorView::modeNameChanged()
 {
     setModified(true);
     updateModeList();
+    // a mode rename may invalidate alias mode references
+    updateAliasList();
+}
+
+/************************************************************************
+ * Aliases
+ ************************************************************************/
+
+QVariant EditorView::aliasCapabilities() const
+{
+    return QVariant::fromValue(m_aliasList);
+}
+
+void EditorView::updateAliasList()
+{
+    m_aliasList->clear();
+
+    for (QLCChannel *channel : m_fixtureDef->channels())
+    {
+        const QList<QLCCapability*> caps = channel->capabilities();
+        for (int capIndex = 0; capIndex < caps.count(); capIndex++)
+        {
+            QLCCapability *cap = caps.at(capIndex);
+            if (cap->preset() != QLCCapability::Alias)
+                continue;
+
+            QVariantMap aliasMap;
+            aliasMap.insert("cRef", QVariant::fromValue(channel));
+            aliasMap.insert("capIndex", capIndex);
+            aliasMap.insert("label", QString("%1 - %2 [%3-%4]")
+                                        .arg(channel->name(), cap->name())
+                                        .arg(cap->min()).arg(cap->max()));
+            aliasMap.insert("aliasCount", cap->aliasList().count());
+            aliasMap.insert("isSelected", false);
+            m_aliasList->addDataMap(aliasMap);
+        }
+    }
+
+    emit aliasCapabilitiesChanged();
+}
+
+AliasEdit *EditorView::requestAliasEditor(QString channelName, int capIndex)
+{
+    dismissChannelEditor();
+    dismissModeEditor();
+    dismissAliasEditor();
+
+    QLCChannel *channel = m_fixtureDef->channel(channelName);
+    if (channel == nullptr)
+        return nullptr;
+
+    const QList<QLCCapability*> caps = channel->capabilities();
+    if (capIndex < 0 || capIndex >= caps.count())
+        return nullptr;
+
+    QLCCapability *cap = caps.at(capIndex);
+    if (cap->preset() != QLCCapability::Alias)
+        return nullptr;
+
+    m_aliasEdit = new AliasEdit(m_fixtureDef, channel, cap);
+    QQmlEngine::setObjectOwnership(m_aliasEdit, QQmlEngine::CppOwnership);
+    connect(m_aliasEdit, SIGNAL(aliasesModified()), this, SLOT(aliasesModified()));
+    return m_aliasEdit;
+}
+
+void EditorView::dismissAliasEditor()
+{
+    if (m_aliasEdit == nullptr)
+        return;
+
+    disconnect(m_aliasEdit, SIGNAL(aliasesModified()), this, SLOT(aliasesModified()));
+    delete m_aliasEdit;
+    m_aliasEdit = nullptr;
+}
+
+void EditorView::aliasesModified()
+{
+    setModified(true);
+    // refresh the left column so alias counts stay in sync
+    updateAliasList();
 }
 
 /*********************************************************************

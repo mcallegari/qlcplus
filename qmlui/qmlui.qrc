@@ -274,6 +274,7 @@
     <file alias="PhysicalProperties.qml">qml/fixtureeditor/PhysicalProperties.qml</file>
     <file alias="ChannelEditor.qml">qml/fixtureeditor/ChannelEditor.qml</file>
     <file alias="ModeEditor.qml">qml/fixtureeditor/ModeEditor.qml</file>
+    <file alias="AliasEditor.qml">qml/fixtureeditor/AliasEditor.qml</file>
 
     <!-- JavaScript helpers -->
     <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>

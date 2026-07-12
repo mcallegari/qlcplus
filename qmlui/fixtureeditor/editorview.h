@@ -27,7 +27,9 @@
 #include "qlcchannel.h"
 
 class QLCFixtureDef;
+class QLCCapability;
 class ChannelEdit;
+class AliasEdit;
 class ListModel;
 
 class EditorView final : public QObject
@@ -48,6 +50,8 @@ class EditorView final : public QObject
     Q_PROPERTY(QVariant channels READ channels NOTIFY channelsChanged)
 
     Q_PROPERTY(QVariant modes READ modes NOTIFY modesChanged)
+
+    Q_PROPERTY(QVariant aliasCapabilities READ aliasCapabilities NOTIFY aliasCapabilitiesChanged)
 
 public:
     EditorView(QQuickView *view, int id, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
@@ -173,6 +177,40 @@ private:
 
 signals:
     void modesChanged();
+
+    /************************************************************************
+     * Aliases
+     ************************************************************************/
+public:
+    /** Get a list of all the alias capabilities in the definition. Each entry
+     *  exposes the owning channel (cRef), the capability (capRef) and a
+     *  display label */
+    QVariant aliasCapabilities() const;
+
+    /** Request an editor for the alias capability described by $channelName
+     *  and $capIndex (the capability index within that channel) */
+    Q_INVOKABLE AliasEdit *requestAliasEditor(QString channelName, int capIndex);
+
+    /** Rebuild the alias capability list. Public so the QML side can refresh
+     *  it after channel/capability edits that may have added or removed
+     *  alias-preset capabilities */
+    Q_INVOKABLE void updateAliasList();
+
+private:
+    void dismissAliasEditor();
+
+protected slots:
+    void aliasesModified();
+
+private:
+    /** Reference to the alias capability list usable in QML */
+    ListModel *m_aliasList;
+
+    /** Reference to an alias editor */
+    AliasEdit *m_aliasEdit;
+
+signals:
+    void aliasCapabilitiesChanged();
 
     /*********************************************************************
      * Load & Save

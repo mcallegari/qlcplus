@@ -30,6 +30,7 @@
 #include "fixtureeditor.h"
 #include "physicaledit.h"
 #include "channeledit.h"
+#include "aliasedit.h"
 #include "editorview.h"
 #include "modeedit.h"
 #include "qlcfile.h"
@@ -47,6 +48,7 @@ FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<PhysicalEdit>("org.qlcplus.classes", 1, 0, "PhysicalEdit", "Can't create PhysicalEdit!");
     qmlRegisterUncreatableType<ChannelEdit>("org.qlcplus.classes", 1, 0, "ChannelEdit", "Can't create ChannelEdit!");
     qmlRegisterUncreatableType<ModeEdit>("org.qlcplus.classes", 1, 0, "ModeEdit", "Can't create ModeEdit!");
+    qmlRegisterUncreatableType<AliasEdit>("org.qlcplus.classes", 1, 0, "AliasEdit", "Can't create AliasEdit!");
 
     QSettings settings;
     QVariant dir = settings.value(SETTINGS_DEF_WORKINGPATH);
