@@ -907,7 +907,7 @@ def createFixturesReport(paths, reportFile):
         csvFile = open(reportFile, "wb")
 
     writer = csv.writer(csvFile)
-    writer.writerow(["manufacturer", "model", "type", "mode", "channels", "heads number"])
+    writer.writerow(["manufacturer", "model", "type", "mode", "channels", "heads number", "aliases"])
 
     for absname in files:
         parser = etree.XMLParser(ns_clean=True, recover=True)
@@ -921,11 +921,20 @@ def createFixturesReport(paths, reportFile):
         model = model_tag.text if model_tag is not None and model_tag.text else ""
         fixture_type = type_tag.text if type_tag is not None and type_tag.text else ""
 
+        # Count the Alias capabilities defined in the whole fixture definition.
+        # Alias capabilities live on the fixture root <Channel> elements and are
+        # identified by the Preset="Alias" attribute.
+        alias_count = 0
+        for channel in root.findall('{' + namespace + '}Channel'):
+            for cap in channel.findall('{' + namespace + '}Capability'):
+                if cap.attrib.get('Preset', '') == "Alias":
+                    alias_count += 1
+
         for mode in root.findall('{' + namespace + '}Mode'):
             mode_name = mode.attrib.get('Name', '')
             mode_channels = len(mode.findall('{' + namespace + '}Channel'))
             mode_heads = len(mode.findall('{' + namespace + '}Head'))
-            writer.writerow([manufacturer, model, fixture_type, mode_name, mode_channels, mode_heads])
+            writer.writerow([manufacturer, model, fixture_type, mode_name, mode_channels, mode_heads, alias_count])
 
     csvFile.close()
     print("Report written to " + reportFile)
