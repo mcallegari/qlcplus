@@ -2,7 +2,8 @@ workflow:
   steps:
     - trigger_services:
         project: home:mcallegari79
-        package: qlcplus-git
-        package: qlcplus5-git
+        packages:
+          - qlcplus-git
+          - qlcplus5-git
   filters:
     event: push
