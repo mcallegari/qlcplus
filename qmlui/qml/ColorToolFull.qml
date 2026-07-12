@@ -37,7 +37,9 @@ Rectangle
     property int colorsMask: 0
     property color currentRGB
     property color currentWAUV
-    property bool showPaletteWAUV: currentWAUV.r > 0 || currentWAUV.g > 0 || currentWAUV.b > 0
+    property bool showWhite: (colorsMask & App.White)
+    property bool showAmber: (colorsMask & App.Amber)
+    property bool showUV: (colorsMask & App.UV)
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
 
@@ -117,7 +119,9 @@ Rectangle
 
             function setPickedColor(mouse)
             {
-                var imgData = colorBox.context.getImageData(mouse.x, mouse.y, 1, 1).data
+                var scaledX = mouse.x / colorBox.scale
+                var scaledY = mouse.y / colorBox.scale
+                var imgData = colorBox.context.getImageData(scaledX, scaledY, 1, 1).data
                 var r = imgData[0]
                 var g = imgData[1]
                 var b = imgData[2]
@@ -233,7 +237,7 @@ Rectangle
 
         RobotoText
         {
-            visible: (colorsMask & App.White) || showPaletteWAUV
+            visible: showWhite
             height: UISettings.listItemHeight
             label: qsTr("White")
         }
@@ -241,7 +245,7 @@ Rectangle
         CustomSlider
         {
             id: wSlider
-            visible: (colorsMask & App.White) || showPaletteWAUV
+            visible: showWhite
             Layout.fillWidth: true
             from: 0
             to: 255
@@ -255,7 +259,7 @@ Rectangle
         CustomSpinBox
         {
             id: wSpin
-            visible: (colorsMask & App.White) || showPaletteWAUV
+            visible: showWhite
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
@@ -267,7 +271,7 @@ Rectangle
 
         RobotoText
         {
-            visible: (colorsMask & App.Amber) || showPaletteWAUV
+            visible: showAmber
             height: UISettings.listItemHeight
             label: qsTr("Amber")
         }
@@ -275,7 +279,7 @@ Rectangle
         CustomSlider
         {
             id: aSlider
-            visible: (colorsMask & App.Amber) || showPaletteWAUV
+            visible: showAmber
             Layout.fillWidth: true
             from: 0
             to: 255
@@ -289,7 +293,7 @@ Rectangle
         CustomSpinBox
         {
             id: aSpin
-            visible: (colorsMask & App.Amber) || showPaletteWAUV
+            visible: showAmber
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
@@ -301,7 +305,7 @@ Rectangle
 
         RobotoText
         {
-            visible: (colorsMask & App.UV) || showPaletteWAUV
+            visible: showUV
             height: UISettings.listItemHeight
             label: qsTr("UV")
         }
@@ -309,7 +313,7 @@ Rectangle
         CustomSlider
         {
             id: uvSlider
-            visible: (colorsMask & App.UV) || showPaletteWAUV
+            visible: showUV
             Layout.fillWidth: true
             from: 0
             to: 255
@@ -323,7 +327,7 @@ Rectangle
         CustomSpinBox
         {
             id: uvSpin
-            visible: (colorsMask & App.UV) || showPaletteWAUV
+            visible: showUV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
