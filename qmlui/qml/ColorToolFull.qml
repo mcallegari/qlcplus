@@ -37,9 +37,11 @@ Rectangle
     property int colorsMask: 0
     property color currentRGB
     property color currentWAUV
-    property bool showWhite: (colorsMask & App.White)
-    property bool showAmber: (colorsMask & App.Amber)
-    property bool showUV: (colorsMask & App.UV)
+    property bool isPaletteEditing: false
+    property bool showPaletteWAUV: (currentWAUV.r > 0 || currentWAUV.g > 0 || currentWAUV.b > 0)
+    property bool showWhite: (colorsMask & App.White) || isPaletteEditing
+    property bool showAmber: (colorsMask & App.Amber) || isPaletteEditing
+    property bool showUV: (colorsMask & App.UV) || isPaletteEditing
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
 

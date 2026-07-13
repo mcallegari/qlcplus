@@ -198,6 +198,8 @@ Rectangle
                     item.currentRGB = Qt.binding(function() { return colorToolBox.currentRGB })
                 if (item.hasOwnProperty("currentWAUV"))
                     item.currentWAUV = Qt.binding(function() { return colorToolBox.currentWAUV })
+                if (item.hasOwnProperty("isPaletteEditing"))
+                    item.isPaletteEditing = Qt.binding(function() { return paletteBox.isEditing })
             }
 
             Connections
