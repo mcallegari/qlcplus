@@ -231,6 +231,31 @@ void App::startup()
     {
         //qDebug() << "Restoring window position" << var.toRect();
         rect = var.toRect();
+
+        // Make sure the saved geometry is still valid against the current display
+        // configuration. If the window was closed on a secondary monitor that is no
+        // longer connected, the stored rect would place it off-screen, making it
+        // impossible to move back. Consider it valid only if a meaningful portion of
+        // the window (enough to grab the title bar) overlaps a connected screen.
+        bool geometryValid = false;
+        for (QScreen *displayScreen : QGuiApplication::screens())
+        {
+            QRect overlap = displayScreen->availableGeometry().intersected(rect);
+            if (overlap.width() >= 100 && overlap.height() >= 30)
+            {
+                geometryValid = true;
+                break;
+            }
+        }
+
+        if (geometryValid == false)
+        {
+            qDebug() << "Saved geometry" << rect << "is off-screen. Restoring on the current display";
+            QRect available = screen()->availableGeometry();
+            rect.setSize(rect.size().boundedTo(available.size()));
+            rect.moveCenter(available.center());
+        }
+
         restoreWindowGeometry = true;
         setGeometry(rect);
         show();
