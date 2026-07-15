@@ -290,7 +290,12 @@ void VCSlider::setSliderMode(SliderMode mode)
     switch (mode)
     {
         case Level:
+            setValue(0);
+            m_doc->masterTimer()->registerDMXSource(this);
+        break;
         case Adjust:
+            // channels monitoring is a Level mode only feature
+            setMonitorEnabled(false);
             setValue(0);
             m_doc->masterTimer()->registerDMXSource(this);
         break;
@@ -540,6 +545,13 @@ void VCSlider::setMonitorEnabled(bool enable)
         return;
 
     m_monitorEnabled = enable;
+
+    // overriding is meaningful only while monitoring
+    if (enable == false && m_isOverriding)
+    {
+        m_isOverriding = false;
+        emit isOverridingChanged();
+    }
 
     emit monitorEnabledChanged();
 }
@@ -939,6 +951,13 @@ void VCSlider::setControlledFunction(quint32 fid)
 
     if (m_controlledFunctionId == fid)
         return;
+
+    /* Attaching a function is meaningful only in Adjust mode, so switch
+     * to it right away. Note this is done only when a valid function is
+     * provided, to avoid recursion when Submaster/GrandMaster modes
+     * detach the current function */
+    if (m_doc->function(fid) != nullptr && sliderMode() != Adjust)
+        setSliderMode(Adjust);
 
     Function *current = m_doc->function(m_controlledFunctionId);
     if (current != nullptr)
