@@ -49,21 +49,9 @@
         <translation>&amp;Nieuw</translation>
     </message>
     <message>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translatorcomment>Bestand|Nieuw</translatorcomment>
-        <translation type="vanished">CTRL+N</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="251"/>
         <source>&amp;Open</source>
         <translation>&amp;Open</translation>
-    </message>
-    <message>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translatorcomment>Bestand|Openen</translatorcomment>
-        <translation type="vanished">CTRL+O</translation>
     </message>
     <message>
         <location filename="app.cpp" line="257"/>
@@ -71,21 +59,9 @@
         <translation>Op&amp;slaan</translation>
     </message>
     <message>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translatorcomment>Bestand|Opslaan</translatorcomment>
-        <translation type="vanished">CTRL+S</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="263"/>
         <source>Save &amp;As...</source>
         <translation>Opslaan &amp;Als...</translation>
-    </message>
-    <message>
-        <source>CTRL+SHIFT+S</source>
-        <comment>File|Save As...</comment>
-        <translatorcomment>Bestand|Opslaan als...</translatorcomment>
-        <translation type="vanished">CTRL+SHIFT+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="269"/>
@@ -93,21 +69,9 @@
         <translation>S&amp;luiten</translation>
     </message>
     <message>
-        <source>CTRL+Q</source>
-        <comment>File|Quit</comment>
-        <translatorcomment>Bestand|Sluiten</translatorcomment>
-        <translation type="vanished">CTRL+L</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="276"/>
         <source>Index</source>
         <translation>Index</translation>
-    </message>
-    <message>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translatorcomment>Help|Index</translatorcomment>
-        <translation type="vanished">SHIFT+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>

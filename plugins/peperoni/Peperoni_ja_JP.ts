@@ -28,7 +28,7 @@
 <context>
     <name>PeperoniDevice</name>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="172"/>
+        <location filename="unix/peperonidevice.cpp" line="187"/>
         <location filename="win32/peperonidevice.cpp" line="70"/>
         <source>Device is working correctly.</source>
         <translation type="unfinished">デバイスは正常に動作しています。</translation>
@@ -44,50 +44,50 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="140"/>
+        <location filename="unix/peperonidevice.cpp" line="155"/>
         <location filename="win32/peperonidevice.cpp" line="111"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="159"/>
+        <location filename="unix/peperonidevice.cpp" line="174"/>
         <source>Universe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="174"/>
+        <location filename="unix/peperonidevice.cpp" line="189"/>
         <source>Firmware version: %1</source>
         <translation type="unfinished">ファームウェアバージョン: %1</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="180"/>
+        <location filename="unix/peperonidevice.cpp" line="195"/>
         <source>Unknown device</source>
         <translation type="unfinished">不明なデバイス</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="183"/>
+        <location filename="unix/peperonidevice.cpp" line="198"/>
         <source>Cannot connect to USB device.</source>
         <translation type="unfinished">USBデバイスに接続できません。</translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="195"/>
+        <location filename="unix/peperonidevice.cpp" line="210"/>
         <source>Input line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="197"/>
-        <location filename="unix/peperonidevice.cpp" line="214"/>
+        <location filename="unix/peperonidevice.cpp" line="212"/>
+        <location filename="unix/peperonidevice.cpp" line="229"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="199"/>
-        <location filename="unix/peperonidevice.cpp" line="216"/>
+        <location filename="unix/peperonidevice.cpp" line="214"/>
+        <location filename="unix/peperonidevice.cpp" line="231"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="unix/peperonidevice.cpp" line="212"/>
+        <location filename="unix/peperonidevice.cpp" line="227"/>
         <source>Output line</source>
         <translation type="unfinished"></translation>
     </message>

@@ -52,55 +52,55 @@
 <context>
     <name>MidiPlugin</name>
     <message>
-        <location filename="common/midiplugin.cpp" line="138"/>
+        <location filename="common/midiplugin.cpp" line="152"/>
         <source>This plugin provides input/output support for MIDI devices.</source>
         <translation>Tento plugin přidává podporu vstupu/výstupu pro zařízení MIDI.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="152"/>
+        <location filename="common/midiplugin.cpp" line="166"/>
         <source>No output support available.</source>
         <translation>Podpora výstupu není k dispozici.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="160"/>
+        <location filename="common/midiplugin.cpp" line="174"/>
         <source>Output</source>
         <translation>Výstup</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="163"/>
-        <location filename="common/midiplugin.cpp" line="270"/>
+        <location filename="common/midiplugin.cpp" line="177"/>
+        <location filename="common/midiplugin.cpp" line="298"/>
         <source>Open</source>
         <translation>Otevřený</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="165"/>
-        <location filename="common/midiplugin.cpp" line="272"/>
+        <location filename="common/midiplugin.cpp" line="179"/>
+        <location filename="common/midiplugin.cpp" line="300"/>
         <source>Not Open</source>
         <translation>Neotevřený</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="166"/>
-        <location filename="common/midiplugin.cpp" line="273"/>
+        <location filename="common/midiplugin.cpp" line="180"/>
+        <location filename="common/midiplugin.cpp" line="301"/>
         <source>Status</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="172"/>
+        <location filename="common/midiplugin.cpp" line="186"/>
         <source>Invalid Output</source>
         <translation>Chybný výstup</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="259"/>
+        <location filename="common/midiplugin.cpp" line="287"/>
         <source>No input support available.</source>
         <translation>Podpora vstupu není k dispozici.</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="267"/>
+        <location filename="common/midiplugin.cpp" line="295"/>
         <source>Input</source>
         <translation>Vstup</translation>
     </message>
     <message>
-        <location filename="common/midiplugin.cpp" line="279"/>
+        <location filename="common/midiplugin.cpp" line="307"/>
         <source>Invalid Input</source>
         <translation>Chybný vstup</translation>
     </message>

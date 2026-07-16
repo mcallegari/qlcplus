@@ -17,47 +17,47 @@
 <context>
     <name>UDMXDevice</name>
     <message>
-        <location filename="udmxdevice.cpp" line="122"/>
+        <location filename="udmxdevice.cpp" line="130"/>
         <source>Unknown</source>
         <translation>Desconhecido</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="142"/>
+        <location filename="udmxdevice.cpp" line="150"/>
         <source>Device name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="144"/>
+        <location filename="udmxdevice.cpp" line="152"/>
         <source>DMX Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="146"/>
+        <location filename="udmxdevice.cpp" line="154"/>
         <source>DMX Frame Frequency</source>
         <translation>Frequência de Frames DMX</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="149"/>
+        <location filename="udmxdevice.cpp" line="157"/>
         <source>Bad</source>
         <translation>Má</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="151"/>
+        <location filename="udmxdevice.cpp" line="159"/>
         <source>Good</source>
         <translation>Boa</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="153"/>
+        <location filename="udmxdevice.cpp" line="161"/>
         <source>Patch this device to a universe to find out.</source>
         <translation>Efectuar patch deste dispositivo a um universo para descobrir.</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="154"/>
+        <location filename="udmxdevice.cpp" line="162"/>
         <source>System Timer Accuracy</source>
         <translation>Precisão do relógio de sistema</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="159"/>
+        <location filename="udmxdevice.cpp" line="167"/>
         <source>Device not in use</source>
         <translation type="unfinished"></translation>
     </message>

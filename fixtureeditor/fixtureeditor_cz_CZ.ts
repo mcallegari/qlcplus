@@ -49,19 +49,9 @@
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation type="vanished">CTRL+N</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="251"/>
         <source>&amp;Open</source>
         <translation>&amp;Otevřít</translation>
-    </message>
-    <message>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation type="vanished">CTRL+O</translation>
     </message>
     <message>
         <location filename="app.cpp" line="257"/>
@@ -69,19 +59,9 @@
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation type="vanished">CTRL+S</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="263"/>
         <source>Save &amp;As...</source>
         <translation>Uložit &amp;Jako...</translation>
-    </message>
-    <message>
-        <source>CTRL+SHIFT+S</source>
-        <comment>File|Save As...</comment>
-        <translation type="vanished">CTRL+SHIFT+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="269"/>
@@ -89,19 +69,9 @@
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <source>CTRL+Q</source>
-        <comment>File|Quit</comment>
-        <translation type="vanished">CTRL+Q</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="276"/>
         <source>Index</source>
         <translation>Obsah</translation>
-    </message>
-    <message>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation type="vanished">SHIFT+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="282"/>

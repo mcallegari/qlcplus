@@ -623,29 +623,14 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <source>CTRL+N</source>
-        <comment>File|New</comment>
-        <translation type="vanished">STRG+N</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="686"/>
         <source>&amp;Open</source>
         <translation>Ö&amp;ffnen</translation>
     </message>
     <message>
-        <source>CTRL+O</source>
-        <comment>File|Open</comment>
-        <translation type="vanished">STRG+O</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="690"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
-    </message>
-    <message>
-        <source>CTRL+S</source>
-        <comment>File|Save</comment>
-        <translation type="vanished">STRG+S</translation>
     </message>
     <message>
         <location filename="app.cpp" line="694"/>
@@ -656,11 +641,6 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
         <location filename="app.cpp" line="698"/>
         <source>&amp;Operate</source>
         <translation>&amp;Betrieb</translation>
-    </message>
-    <message>
-        <source>CTRL+F12</source>
-        <comment>Control|Toggle operate/design mode</comment>
-        <translation type="vanished">STRG+F12</translation>
     </message>
     <message>
         <location filename="app.cpp" line="719"/>
@@ -726,29 +706,14 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <source>CTRL+M</source>
-        <comment>Control|Monitor</comment>
-        <translation type="vanished">STRG+M</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="755"/>
         <source>Toggle Full Screen</source>
         <translation>Vollbildmodus umschalten</translation>
     </message>
     <message>
-        <source>CTRL+F11</source>
-        <comment>Control|Toggle Full Screen</comment>
-        <translation type="vanished">STRG+F11</translation>
-    </message>
-    <message>
         <location filename="app.cpp" line="761"/>
         <source>&amp;Index</source>
         <translation>&amp;Handbuch</translation>
-    </message>
-    <message>
-        <source>SHIFT+F1</source>
-        <comment>Help|Index</comment>
-        <translation type="vanished">SHIFT+F1</translation>
     </message>
     <message>
         <location filename="app.cpp" line="765"/>
@@ -790,11 +755,6 @@ Die ausgewählte Datei wurde verschoben oder gelöscht.</translation>
         <location filename="app.cpp" line="724"/>
         <source>Dump DMX values to a function</source>
         <translation>Abbild (Dump) der DMX-Werte in einer Funktion</translation>
-    </message>
-    <message>
-        <source>CTRL+D</source>
-        <comment>Control|Dump DMX</comment>
-        <translation type="vanished">STRG+D</translation>
     </message>
     <message>
         <location filename="app.cpp" line="728"/>
@@ -2152,12 +2112,17 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Effekt-Vorschau</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="733"/>
+        <location filename="efxeditor.cpp" line="244"/>
+        <source>Enable dimmer control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="efxeditor.cpp" line="750"/>
         <source>Remove fixtures</source>
         <translation>Gerät entfernen</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="734"/>
+        <location filename="efxeditor.cpp" line="751"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Willst du die ausgewählten Funktionen entfernen?</translation>
     </message>
@@ -2668,88 +2633,88 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Gerätenamen neu zuweisen</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="144"/>
-        <location filename="fixtureremap.cpp" line="146"/>
+        <location filename="fixtureremap.cpp" line="137"/>
+        <location filename="fixtureremap.cpp" line="139"/>
         <source> (remapped)</source>
         <translation> (neu zugewiesen)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="224"/>
+        <location filename="fixtureremap.cpp" line="217"/>
         <source>Import Fixtures List</source>
         <translation>Gerätedefinitionsliste importieren</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="229"/>
+        <location filename="fixtureremap.cpp" line="222"/>
         <source>Fixtures List (*%1)</source>
         <translation>Gerätedefinitionsliste (*%1)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="231"/>
+        <location filename="fixtureremap.cpp" line="224"/>
         <source>All Files (*.*)</source>
         <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="233"/>
+        <location filename="fixtureremap.cpp" line="226"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="259"/>
+        <location filename="fixtureremap.cpp" line="252"/>
         <source>Do you want to automatically connect fixtures with the same name?</source>
         <translation>Geräte mit gleichem Namen automatisch verbinden?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="393"/>
+        <location filename="fixtureremap.cpp" line="386"/>
         <source>Generic Dimmer</source>
         <translation>Generischer Dimmer</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="464"/>
+        <location filename="fixtureremap.cpp" line="457"/>
         <source>Delete Fixtures</source>
         <translation>Geräte löschen</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="465"/>
+        <location filename="fixtureremap.cpp" line="458"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Ausgewählte Objekte löschen?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="513"/>
+        <location filename="fixtureremap.cpp" line="506"/>
         <source>Invalid operation</source>
         <translation>Ungültiger Vorgang</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="514"/>
+        <location filename="fixtureremap.cpp" line="507"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
         <translation>Geräteadresse für das Klonen bereits belegt. Bitte die Zielliste korrigieren.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="576"/>
-        <location filename="fixtureremap.cpp" line="603"/>
-        <location filename="fixtureremap.cpp" line="626"/>
-        <location filename="fixtureremap.cpp" line="730"/>
+        <location filename="fixtureremap.cpp" line="569"/>
+        <location filename="fixtureremap.cpp" line="592"/>
+        <location filename="fixtureremap.cpp" line="609"/>
+        <location filename="fixtureremap.cpp" line="652"/>
         <source>Invalid selection</source>
         <translation>Ungültige Auswahl</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="577"/>
-        <location filename="fixtureremap.cpp" line="604"/>
-        <location filename="fixtureremap.cpp" line="731"/>
+        <location filename="fixtureremap.cpp" line="570"/>
+        <location filename="fixtureremap.cpp" line="593"/>
+        <location filename="fixtureremap.cpp" line="653"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Bitte Quell- und Zielgerät oder Kanal zur Ausführung auswählen.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="627"/>
+        <location filename="fixtureremap.cpp" line="610"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Zur Änderung der Gerätezuweisung bitte Geräte in beiden Listen auswählen.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="839"/>
+        <location filename="fixtureremap.cpp" line="717"/>
         <source>This might take a while...</source>
         <translation>Hierzu wird einige Zeit benötigt...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="839"/>
+        <location filename="fixtureremap.cpp" line="717"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
