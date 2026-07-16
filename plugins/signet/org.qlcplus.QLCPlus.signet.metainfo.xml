@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.qlcplus.QLCPlus.signet</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>Sig-Net plugin</name>
+  <summary>Secure Sig-Net DMX and RDM transport plugin for QLC+</summary>
+  <description>
+    <p>
+      Provides Sig-Net streaming and RDM access for QLC+, including secure
+      level transport, manager polling, node discovery and targeted RDM commands.
+    </p>
+  </description>
+  <developer_name>Massimo Callegari</developer_name>
+</component>
