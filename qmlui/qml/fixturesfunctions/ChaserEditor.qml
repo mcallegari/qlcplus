@@ -72,6 +72,12 @@ Rectangle
             height: ceContainer.height
             source: ""
 
+            onLoaded:
+            {
+                if (source)
+                    item.allowEditing = false
+            }
+
             Rectangle
             {
                 width: 2
