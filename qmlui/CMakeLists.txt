@@ -90,8 +90,8 @@ if(ANDROID)
     set_target_properties(${module_name} PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR "${ANDROID_PACKAGE_STAGING_DIR}"
         QT_ANDROID_APP_ICON "@drawable/ic_launcher"
-        QT_ANDROID_PACKAGE_NAME "org.qlcplus"
-        QT_ANDROID_VERSION_CODE 4               # Version code. Update at each release
+        QT_ANDROID_PACKAGE_NAME "org.qlcplus.android"
+        QT_ANDROID_VERSION_CODE 1               # Version code. Update at each release
         QT_ANDROID_VERSION_NAME "${APPVERSION}" # Version visible to users
         OUTPUT_NAME "QLC+"
     )
