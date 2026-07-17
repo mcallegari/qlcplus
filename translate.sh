@@ -9,12 +9,54 @@ set -euo pipefail
 
 which_qt() {
   local base="$1"
-  command -v "$base" 2>/dev/null || command -v "${base}-qt6" 2>/dev/null || command -v "${base}-qt5" 2>/dev/null || true
+  # Explicit override via env var (LRELEASE / LUPDATE)
+  local override_var; override_var="$(echo "$base" | tr '[:lower:]' '[:upper:]')"
+  if [ -n "${!override_var:-}" ]; then echo "${!override_var}"; return 0; fi
+
+  # Search PATH under the common tool names
+  command -v "$base" 2>/dev/null && return 0
+  command -v "${base}-qt6" 2>/dev/null && return 0
+  command -v "${base}-qt5" 2>/dev/null && return 0
+  command -v "${base}6" 2>/dev/null && return 0
+
+  # Fall back to well-known Qt bin dirs (e.g. keg-only Homebrew installs)
+  local qt_paths=(
+    /usr/lib/qt6/bin
+    /usr/lib64/qt6/bin
+    /usr/lib/x86_64-linux-gnu/qt6/bin
+    /usr/local/opt/qt@6/bin    # Homebrew on Intel macOS
+    /opt/homebrew/opt/qt@6/bin # Homebrew on Apple Silicon
+  )
+  local d name
+  for d in "${qt_paths[@]}"; do
+    for name in "$base" "${base}-qt6" "${base}6"; do
+      [ -x "$d/$name" ] && { echo "$d/$name"; return 0; }
+    done
+  done
+
+  return 1
 }
-LRELEASE="$(which_qt lrelease)"
-LUPDATE="$(which_qt lupdate)"
-: "${LRELEASE:?lrelease not found}"
-: "${LUPDATE:?lupdate not found}"
+
+LRELEASE="$(which_qt lrelease)" || {
+  cat >&2 <<EOF
+Error: Could not find lrelease. Please install the Qt Linguist tools package.
+
+Common package names:
+  - Debian/Ubuntu: qttools6-dev-tools or qttools5-dev-tools
+  - Fedora:        qt6-linguist or qt5-linguist
+  - Arch Linux:    qt6-tools or qt5-tools
+  - macOS (Homebrew): qt or qt@5
+
+You can also set the LRELEASE environment variable to point to the lrelease executable.
+Example: LRELEASE=/path/to/lrelease ./translate.sh update
+EOF
+  exit 1
+}
+
+LUPDATE="$(which_qt lupdate)" || {
+  echo "Error: Could not find lupdate. Please install the Qt Linguist tools package (see lrelease hint above)." >&2
+  exit 1
+}
 
 ACTION="${1:-}"
 UI_LANGS="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"

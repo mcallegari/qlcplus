@@ -207,7 +207,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="667"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザー名とパスワードの両方に入力してください</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="674"/>

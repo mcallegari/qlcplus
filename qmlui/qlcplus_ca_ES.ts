@@ -231,7 +231,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="220"/>
         <source>Source and target channels are the same</source>
-        <translation type="unfinished">El canal d'origen i el de destinació són el mateix</translation>
+        <translation type="unfinished">El canal d&apos;origen i el de destinació són el mateix</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="224"/>
@@ -251,7 +251,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="237"/>
         <source>Mode &apos;%1&apos; is aliased more than once</source>
-        <translation type="unfinished">El mode &apos;%1&apos; té més d'un àlies</translation>
+        <translation type="unfinished">El mode &apos;%1&apos; té més d&apos;un àlies</translation>
     </message>
 </context>
 <context>
@@ -259,7 +259,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="73"/>
         <source>While this capability is active, the source channel is replaced by the target channel in the selected mode.</source>
-        <translation type="unfinished">Mentre aquesta capacitat està activa, el canal d'origen se substitueix pel canal de destinació al mode seleccionat.</translation>
+        <translation type="unfinished">Mentre aquesta capacitat està activa, el canal d&apos;origen se substitueix pel canal de destinació al mode seleccionat.</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="95"/>
@@ -1086,7 +1086,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="843"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished">Activa el control d'intensitat</translation>
+        <translation type="unfinished">Activa el control d&apos;intensitat</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="855"/>
@@ -1264,7 +1264,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="671"/>
         <source>Set a capability preset to &apos;Alias&apos; in the channel editor to make it appear here.</source>
-        <translation type="unfinished">Estableix una capacitat predefinida com a &apos;Alias&apos; a l'editor de canals perquè aparegui aquí.</translation>
+        <translation type="unfinished">Estableix una capacitat predefinida com a &apos;Alias&apos; a l&apos;editor de canals perquè aparegui aquí.</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="219"/>
@@ -1738,18 +1738,18 @@ Si us plau, proporcioneu un nom diferent.</translation>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="41"/>
         <source>Cannot clone fixture: the target address range is already in use.
 Remove or move the conflicting fixture first.</source>
-        <translation type="unfinished">No es pot clonar l'aparell: el rang d'adreces de destinació ja s'està fent servir.
-Elimineu o moveu abans l'aparell en conflicte.</translation>
+        <translation type="unfinished">No es pot clonar l&apos;aparell: el rang d&apos;adreces de destinació ja s&apos;està fent servir.
+Elimineu o moveu abans l&apos;aparell en conflicte.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="257"/>
         <source>Fixture Remap</source>
-        <translation type="unfinished">Reassignació d'aparells</translation>
+        <translation type="unfinished">Reassignació d&apos;aparells</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="274"/>
         <source>Clone the selected source fixture and auto-connect its channels</source>
-        <translation type="unfinished">Clona l'aparell d'origen seleccionat i connecta'n automàticament els canals</translation>
+        <translation type="unfinished">Clona l&apos;aparell d&apos;origen seleccionat i connecta&apos;n automàticament els canals</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="289"/>
@@ -2091,7 +2091,7 @@ cap a aquesta àrea</translation>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="157"/>
         <source>Open the audio input configuration</source>
-        <translation type="unfinished">Obre la configuració d'entrada d'àudio</translation>
+        <translation type="unfinished">Obre la configuració d&apos;entrada d&apos;àudio</translation>
     </message>
 </context>
 <context>
@@ -2119,7 +2119,7 @@ cap a aquesta àrea</translation>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="136"/>
         <source>Open the audio output configuration</source>
-        <translation type="unfinished">Obre la configuració de sortida d'àudio</translation>
+        <translation type="unfinished">Obre la configuració de sortida d&apos;àudio</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="155"/>
@@ -2954,12 +2954,12 @@ Els canvis es perdran si no els deseu.</translation>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="30"/>
         <source>Audio input configuration</source>
-        <translation type="unfinished">Configuració d'entrada d'àudio</translation>
+        <translation type="unfinished">Configuració d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="30"/>
         <source>Audio output configuration</source>
-        <translation type="unfinished">Configuració de sortida d'àudio</translation>
+        <translation type="unfinished">Configuració de sortida d&apos;àudio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="57"/>
@@ -2989,7 +2989,7 @@ Els canvis es perdran si no els deseu.</translation>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="120"/>
         <source>Start/Stop the audio input signal level check</source>
-        <translation type="unfinished">Inicia/Atura la comprovació del nivell de senyal d'entrada d'àudio</translation>
+        <translation type="unfinished">Inicia/Atura la comprovació del nivell de senyal d&apos;entrada d&apos;àudio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="161"/>
@@ -4331,7 +4331,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RemapRowDelegate.qml" line="155"/>
         <source>Remove all connections for this fixture</source>
-        <translation type="unfinished">Elimina totes les connexions d'aquest aparell</translation>
+        <translation type="unfinished">Elimina totes les connexions d&apos;aquest aparell</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RemapRowDelegate.qml" line="168"/>
@@ -4341,7 +4341,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RemapRowDelegate.qml" line="227"/>
         <source>Remove connection for this channel</source>
-        <translation type="unfinished">Elimina la connexió d'aquest canal</translation>
+        <translation type="unfinished">Elimina la connexió d&apos;aquest canal</translation>
     </message>
 </context>
 <context>
@@ -5142,7 +5142,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="581"/>
         <source>Insert time</source>
-        <translation type="unfinished">Temps d'inserció</translation>
+        <translation type="unfinished">Temps d&apos;inserció</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="593"/>
@@ -5541,7 +5541,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="157"/>
         <source>Add a script algorithm preset</source>
-        <translation type="unfinished">Afegeix un algorisme d'script predefinit</translation>
+        <translation type="unfinished">Afegeix un algorisme d&apos;script predefinit</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="175"/>
@@ -7279,7 +7279,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="311"/>
         <source>Set the Pan/Tilt range of the selected fixture head(s)</source>
-        <translation type="unfinished">Estableix el rang de Pan/Tilt del(s) cap(s) d'aparell seleccionat(s)</translation>
+        <translation type="unfinished">Estableix el rang de Pan/Tilt del(s) cap(s) d&apos;aparell seleccionat(s)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="329"/>
