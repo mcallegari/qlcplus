@@ -32,7 +32,7 @@
         <location filename="webaccess-qml.cpp" line="381"/>
         <location filename="webaccess-qml.cpp" line="382"/>
         <source>Reset the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer el universo seleccionado</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="385"/>
@@ -192,12 +192,12 @@
     <message>
         <location filename="webaccessbase.cpp" line="411"/>
         <source>Invalid fixture upload payload</source>
-        <translation type="unfinished"></translation>
+        <translation>Carga útil de accesorios no válida</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="427"/>
         <source>Unable to store fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>No se pudo almacenar la definición del fixture</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="441"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Solicitud de configuración de red no válida.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="751"/>

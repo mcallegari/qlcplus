@@ -2115,7 +2115,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="efxeditor.cpp" line="244"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar el control de dimmer</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="750"/>
@@ -4574,7 +4574,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
         <source>(Not Sent)</source>
-        <translation type="unfinished"></translation>
+        <translation>(No enviado)</translation>
     </message>
 </context>
 <context>
