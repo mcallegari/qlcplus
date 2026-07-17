@@ -321,9 +321,8 @@ bool SigNetController::sendRDMCommand(quint32 universe, uchar command, QVariantL
     QString targetTuidString = info.rdmTargetTuid.toUpper();
     if (targetTuidString.isEmpty() && !params.isEmpty())
     {
-        QByteArray requestedTuid;
         const QString requestedUid = params.first().toString().trimmed().toUpper();
-        if (SigNetPacketizer::parseTuid(requestedUid, requestedTuid))
+        if (m_discoveredNodes.contains(requestedUid))
             targetTuidString = requestedUid;
     }
 
@@ -331,7 +330,13 @@ bool SigNetController::sendRDMCommand(quint32 universe, uchar command, QVariantL
         targetTuidString = m_discoveredNodes.cbegin().key();
 
     if (targetTuidString.isEmpty())
+    {
+        qWarning().nospace().noquote()
+            << "[SigNet] Unable to resolve target node TUID for RDM on universe " << universe
+            << ". Configure " << SIGNET_RDM_TUID
+            << " with the Sig-Net node TUID, not the downstream RDM responder UID.";
         return false;
+    }
 
     quint16 targetEndpoint = info.rdmTargetEndpoint;
     QString targetAddress = info.rdmTargetAddress;

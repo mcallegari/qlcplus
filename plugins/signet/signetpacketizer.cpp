@@ -19,6 +19,7 @@
 
 #include "signetpacketizer.h"
 
+#include <QDebug>
 #include <QStringList>
 
 #include "sig-net-coap.hpp"
@@ -31,6 +32,16 @@
 namespace
 {
 const quint16 KUriPathOption = SigNet::COAP_OPTION_URI_PATH;
+
+QString buildUriString(const QString& scope, const QStringList& resourceSegments)
+{
+    QStringList uriSegments;
+    uriSegments << QString(SigNet::SIGNET_URI_PREFIX)
+                << QString(SigNet::SIGNET_URI_VERSION)
+                << scope;
+    uriSegments.append(resourceSegments);
+    return QString("/%1").arg(uriSegments.join('/'));
+}
 
 bool encodeUriPath(SigNet::PacketBuffer& buffer, const QStringList& segments)
 {
@@ -126,7 +137,7 @@ QByteArray buildSignedPacket(const QString& scope,
         return QByteArray();
     }
 
-    const QString uri = QString("/%1").arg(uriSegments.join('/'));
+    const QString uri = buildUriString(scope, resourceSegments);
     return finalizePacket(packet, uri, options, payload, signingKey);
 }
 }
@@ -265,10 +276,11 @@ QByteArray SigNetPacketizer::buildTodControlPacket(const QString& scope,
     if (SigNet::TLV::EncodeTLV(payload, tlv) != SigNet::SIGNET_SUCCESS)
         return QByteArray();
 
-    return buildSignedPacket(scope,
-                             QStringList() << QStringLiteral("manager")
+    const QStringList resourceSegments = QStringList() << QStringLiteral("manager")
                                            << tuidToString(targetTuid)
-                                           << QString::number(targetEndpoint),
+                                                       << QString::number(targetEndpoint);
+    const QByteArray packet = buildSignedPacket(scope,
+                                                resourceSegments,
                              payload,
                              localTuid,
                              0,
@@ -276,6 +288,17 @@ QByteArray SigNetPacketizer::buildTodControlPacket(const QString& scope,
                              seqNum,
                              messageId,
                              managerLocalKey);
+    if (!packet.isEmpty())
+    {
+        qDebug().nospace().noquote()
+            << "[SigNet] RDM TOD derived key uri="
+            << buildUriString(scope, resourceSegments)
+            << " session=" << sessionId
+            << " seq=" << seqNum
+            << " key=" << managerLocalKey.toHex();
+    }
+
+    return packet;
 }
 
 QByteArray SigNetPacketizer::buildRdmCommandPacket(const QString& scope,
@@ -295,10 +318,11 @@ QByteArray SigNetPacketizer::buildRdmCommandPacket(const QString& scope,
     if (SigNet::TLV::EncodeTLV(payload, tlv) != SigNet::SIGNET_SUCCESS)
         return QByteArray();
 
-    return buildSignedPacket(scope,
-                             QStringList() << QStringLiteral("manager")
+    const QStringList resourceSegments = QStringList() << QStringLiteral("manager")
                                            << tuidToString(targetTuid)
-                                           << QString::number(targetEndpoint),
+                                                       << QString::number(targetEndpoint);
+    const QByteArray packet = buildSignedPacket(scope,
+                                                resourceSegments,
                              payload,
                              localTuid,
                              0,
@@ -306,6 +330,17 @@ QByteArray SigNetPacketizer::buildRdmCommandPacket(const QString& scope,
                              seqNum,
                              messageId,
                              managerLocalKey);
+    if (!packet.isEmpty())
+    {
+        qDebug().nospace().noquote()
+            << "[SigNet] RDM command derived key uri="
+            << buildUriString(scope, resourceSegments)
+            << " session=" << sessionId
+            << " seq=" << seqNum
+            << " key=" << managerLocalKey.toHex();
+    }
+
+    return packet;
 }
 
 bool SigNetPacketizer::parseMessage(const QByteArray& datagram, Message& message, QString* error)
