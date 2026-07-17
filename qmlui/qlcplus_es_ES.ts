@@ -231,27 +231,27 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="220"/>
         <source>Source and target channels are the same</source>
-        <translation type="unfinished">El canal de origen y el de destino son el mismo</translation>
+        <translation>El canal de origen y el de destino son el mismo</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="224"/>
         <source>Mode &apos;%1&apos; does not exist</source>
-        <translation type="unfinished">El modo &apos;%1&apos; no existe</translation>
+        <translation>El modo &apos;%1&apos; no existe</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="227"/>
         <source>Channel &apos;%1&apos; is not present in mode &apos;%2&apos;</source>
-        <translation type="unfinished">El canal &apos;%1&apos; no está presente en el modo &apos;%2&apos;</translation>
+        <translation>El canal &apos;%1&apos; no está presente en el modo &apos;%2&apos;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="231"/>
         <source>Target channel &apos;%1&apos; does not exist</source>
-        <translation type="unfinished">El canal de destino &apos;%1&apos; no existe</translation>
+        <translation>El canal de destino &apos;%1&apos; no existe</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="237"/>
         <source>Mode &apos;%1&apos; is aliased more than once</source>
-        <translation type="unfinished">El modo &apos;%1&apos; tiene más de un alias</translation>
+        <translation>El modo &apos;%1&apos; tiene más de un alias</translation>
     </message>
 </context>
 <context>
@@ -259,37 +259,37 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="73"/>
         <source>While this capability is active, the source channel is replaced by the target channel in the selected mode.</source>
-        <translation type="unfinished">Mientras esta capacidad está activa, el canal de origen se sustituye por el canal de destino en el modo seleccionado.</translation>
+        <translation>Mientras esta capacidad está activa, el canal de origen se sustituye por el canal de destino en el modo seleccionado.</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="95"/>
         <source>Add an alias</source>
-        <translation type="unfinished">Añadir un alias</translation>
+        <translation>Añadir un alias</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="114"/>
         <source>Apply to all modes</source>
-        <translation type="unfinished">Aplicar a todos los modos</translation>
+        <translation>Aplicar a todos los modos</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="140"/>
         <source>In mode</source>
-        <translation type="unfinished">En el modo</translation>
+        <translation>En el modo</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="147"/>
         <source>Replace</source>
-        <translation type="unfinished">Sustituir</translation>
+        <translation>Sustituir</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="154"/>
         <source>With</source>
-        <translation type="unfinished">Con</translation>
+        <translation>Con</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/AliasEditor.qml" line="245"/>
         <source>Remove this alias</source>
-        <translation type="unfinished">Eliminar este alias</translation>
+        <translation>Eliminar este alias</translation>
     </message>
 </context>
 <context>
@@ -489,7 +489,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="201"/>
         <source>Automatic color assignment</source>
-        <translation type="unfinished">Asignación automática de color</translation>
+        <translation>Asignación automática de color</translation>
     </message>
     <message>
         <location filename="qml/fixtureeditor/ChannelEditor.qml" line="215"/>
@@ -954,27 +954,27 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="69"/>
         <source>EFX fixtures offset</source>
-        <translation type="unfinished">Desplazamiento de aparatos EFX</translation>
+        <translation>Desplazamiento de fixtures EFX</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="90"/>
         <source>Offset</source>
-        <translation type="unfinished">Desfase</translation>
+        <translation>Desfase</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="116"/>
         <source>Increasing</source>
-        <translation type="unfinished">Creciente</translation>
+        <translation>Creciente</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="133"/>
         <source>Randomize</source>
-        <translation type="unfinished">Aleatorizar</translation>
+        <translation>Aleatorizar</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="280"/>
         <source>Set an offset on all fixtures</source>
-        <translation type="unfinished">Establecer un desplazamiento en todos los aparatos</translation>
+        <translation>Establecer un desplazamiento en todos los fixtures</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="295"/>
@@ -1086,7 +1086,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="843"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished">Activar el control de intensidad</translation>
+        <translation>Activar el control de intensidad</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="855"/>
@@ -1264,7 +1264,7 @@ Los cambios que no guarde se perderán.</translation>
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="671"/>
         <source>Set a capability preset to &apos;Alias&apos; in the channel editor to make it appear here.</source>
-        <translation type="unfinished">Establezca una capacidad predefinida como &apos;Alias&apos; en el editor de canales para que aparezca aquí.</translation>
+        <translation>Establezca una capacidad predefinida como &apos;Alias&apos; en el editor de canales para que aparezca aquí.</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="219"/>
@@ -1396,7 +1396,7 @@ Establece otra dirección DMX.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureBrowser.qml" line="118"/>
         <source>Remap fixtures...</source>
-        <translation type="unfinished">Reasignar aparatos...</translation>
+        <translation>Reasignar fixtures...</translation>
     </message>
 </context>
 <context>
@@ -1661,7 +1661,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="211"/>
         <source>mode overlaps with another fixture!</source>
-        <translation type="unfinished">¡el modo se solapa con otro aparato!</translation>
+        <translation>¡el modo se solapa con otro fixture!</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="253"/>
@@ -1671,7 +1671,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="274"/>
         <source>Lock/Unlock position</source>
-        <translation type="unfinished">Bloquear/Desbloquear posición</translation>
+        <translation>Bloquear/Desbloquear posición</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureNodeDelegate.qml" line="295"/>
@@ -1732,50 +1732,50 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="40"/>
         <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="41"/>
         <source>Cannot clone fixture: the target address range is already in use.
 Remove or move the conflicting fixture first.</source>
-        <translation type="unfinished">No se puede clonar el aparato: el rango de direcciones de destino ya está en uso.
-Elimine o mueva primero el aparato en conflicto.</translation>
+        <translation>No se puede clonar el fixture: el rango de direcciones de destino ya está en uso.
+Elimine o mueva primero el fixture en conflicto.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="257"/>
         <source>Fixture Remap</source>
-        <translation type="unfinished">Reasignación de aparatos</translation>
+        <translation>Reasignación de fixtures</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="274"/>
         <source>Clone the selected source fixture and auto-connect its channels</source>
-        <translation type="unfinished">Clonar el aparato de origen seleccionado y autoconectar sus canales</translation>
+        <translation>Clonar el fixture de origen seleccionado y autoconectar sus canales</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="289"/>
         <source>Apply remap and save project</source>
-        <translation type="unfinished">Aplicar reasignación y guardar el proyecto</translation>
+        <translation>Aplicar reasignación y guardar el proyecto</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="300"/>
         <source>Cancel — discard and go back</source>
-        <translation type="unfinished">Cancelar — descartar y volver</translation>
+        <translation>Cancelar — descartar y volver</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="339"/>
         <source>Source — current project fixtures</source>
-        <translation type="unfinished">Origen — aparatos del proyecto actual</translation>
+        <translation>Origen — fixtures del proyecto actual</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="496"/>
         <source>Target — drop new fixtures here</source>
-        <translation type="unfinished">Destino — suelte aquí los aparatos nuevos</translation>
+        <translation>Destino — suelte aquí los fixtures nuevos</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureRemap.qml" line="548"/>
         <source>Drag fixtures from the browser
 into this area</source>
-        <translation type="unfinished">Arrastre los aparatos desde el navegador
+        <translation>Arrastre los fixtures desde el navegador
 a esta área</translation>
     </message>
 </context>
@@ -2091,7 +2091,7 @@ a esta área</translation>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="157"/>
         <source>Open the audio input configuration</source>
-        <translation type="unfinished">Abrir la configuración de entrada de audio</translation>
+        <translation>Abrir la configuración de entrada de audio</translation>
     </message>
 </context>
 <context>
@@ -2119,7 +2119,7 @@ a esta área</translation>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="136"/>
         <source>Open the audio output configuration</source>
-        <translation type="unfinished">Abrir la configuración de salida de audio</translation>
+        <translation>Abrir la configuración de salida de audio</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="155"/>
@@ -2778,7 +2778,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="132"/>
         <source>3D Position</source>
-        <translation type="unfinished">Posición 3D</translation>
+        <translation>Posición 3D</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="147"/>
@@ -2936,17 +2936,17 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupAnimationPreset.qml" line="32"/>
         <source>Add algorithm preset</source>
-        <translation type="unfinished">Añadir preajuste de algoritmo</translation>
+        <translation>Añadir preajuste de algoritmo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAnimationPreset.qml" line="80"/>
         <source>Algorithm</source>
-        <translation type="unfinished">Algoritmo</translation>
+        <translation>Algoritmo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAnimationPreset.qml" line="99"/>
         <source>Parameters</source>
-        <translation type="unfinished">Parámetros</translation>
+        <translation>Parámetros</translation>
     </message>
 </context>
 <context>
@@ -2954,47 +2954,47 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="30"/>
         <source>Audio input configuration</source>
-        <translation type="unfinished">Configuración de entrada de audio</translation>
+        <translation>Configuración de entrada de audio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="30"/>
         <source>Audio output configuration</source>
-        <translation type="unfinished">Configuración de salida de audio</translation>
+        <translation>Configuración de salida de audio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="57"/>
         <source>Sample rate</source>
-        <translation type="unfinished">Frecuencia de muestreo</translation>
+        <translation>Frecuencia de muestreo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="82"/>
         <source>Channels</source>
-        <translation type="unfinished">Canales</translation>
+        <translation>Canales</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="91"/>
         <source>Mono</source>
-        <translation type="unfinished">Mono</translation>
+        <translation>Mono</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="92"/>
         <source>Stereo</source>
-        <translation type="unfinished">Estéreo</translation>
+        <translation>Estéreo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="103"/>
         <source>Signal level</source>
-        <translation type="unfinished">Nivel de señal</translation>
+        <translation>Nivel de señal</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="120"/>
         <source>Start/Stop the audio input signal level check</source>
-        <translation type="unfinished">Iniciar/Detener la comprobación del nivel de señal de entrada de audio</translation>
+        <translation>Iniciar/Detener la comprobación del nivel de señal de entrada de audio</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAudioConfiguration.qml" line="161"/>
         <source>Buffer size</source>
-        <translation type="unfinished">Tamaño del búfer</translation>
+        <translation>Tamaño del búfer</translation>
     </message>
 </context>
 <context>
@@ -3243,7 +3243,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="49"/>
         <source>Position 3D</source>
-        <translation type="unfinished">Posición 3D</translation>
+        <translation>Posición 3D</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="50"/>
@@ -3273,7 +3273,7 @@ Los cambios se perderán si no los guarda.</translation>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="130"/>
         <source>Save as 3D position</source>
-        <translation type="unfinished">Guardar como posición 3D</translation>
+        <translation>Guardar como posición 3D</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="150"/>
@@ -4331,17 +4331,17 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RemapRowDelegate.qml" line="155"/>
         <source>Remove all connections for this fixture</source>
-        <translation type="unfinished">Eliminar todas las conexiones de este aparato</translation>
+        <translation>Eliminar todas las conexiones de este fixture</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RemapRowDelegate.qml" line="168"/>
         <source>Remove this target fixture</source>
-        <translation type="unfinished">Eliminar este aparato de destino</translation>
+        <translation>Eliminar este fixture de destino</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RemapRowDelegate.qml" line="227"/>
         <source>Remove connection for this channel</source>
-        <translation type="unfinished">Eliminar la conexión de este canal</translation>
+        <translation>Eliminar la conexión de este canal</translation>
     </message>
 </context>
 <context>
@@ -4587,12 +4587,12 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="109"/>
         <source>Add a fixture/group</source>
-        <translation type="unfinished">Añadir un fixture/grupo</translation>
+        <translation>Añadir un fixture/grupo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="147"/>
         <source>Preview the channel changes on the output</source>
-        <translation type="unfinished">Previsualizar los cambios de canal en la salida</translation>
+        <translation>Previsualizar los cambios de canal en la salida</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="157"/>
@@ -4970,7 +4970,7 @@ Indique un nombre diferente.</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="276"/>
         <source>Pause</source>
-        <translation type="unfinished">Pausa</translation>
+        <translation>Pausa</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="289"/>
@@ -5132,22 +5132,22 @@ arrastrar una función en la línea de tiempo</translation>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="535"/>
         <source>Cut/Insert</source>
-        <translation type="unfinished">Cortar/Insertar</translation>
+        <translation>Cortar/Insertar</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="557"/>
         <source>Length</source>
-        <translation type="unfinished">Longitud</translation>
+        <translation>Longitud</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="581"/>
         <source>Insert time</source>
-        <translation type="unfinished">Tiempo de inserción</translation>
+        <translation>Tiempo de inserción</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="593"/>
         <source>Cut time</source>
-        <translation type="unfinished">Tiempo de corte</translation>
+        <translation>Tiempo de corte</translation>
     </message>
 </context>
 <context>
@@ -5463,27 +5463,27 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
         <location filename="virtualconsole/vcanimation.cpp" line="549"/>
         <location filename="virtualconsole/vcanimation.cpp" line="570"/>
         <source>Preset: %1</source>
-        <translation type="unfinished">Predefinido: %1</translation>
+        <translation>Predefinido: %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcanimation.cpp" line="610"/>
         <source>Red</source>
-        <translation type="unfinished">Rojo</translation>
+        <translation>Rojo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcanimation.cpp" line="612"/>
         <source>Green</source>
-        <translation type="unfinished">Verde</translation>
+        <translation>Verde</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcanimation.cpp" line="614"/>
         <source>Blue</source>
-        <translation type="unfinished">Azul</translation>
+        <translation>Azul</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcanimation.cpp" line="616"/>
         <source>Color %1 %2 component</source>
-        <translation type="unfinished">Componente %2 del color %1</translation>
+        <translation>Componente %2 del color %1</translation>
     </message>
 </context>
 <context>
@@ -5491,87 +5491,87 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="60"/>
         <source>Text: %1</source>
-        <translation type="unfinished">Texto: %1</translation>
+        <translation>Texto: %1</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="74"/>
         <source>Presets</source>
-        <translation type="unfinished">Predefinidos</translation>
+        <translation>Predefinidos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="93"/>
         <source>Color slot</source>
-        <translation type="unfinished">Ranura de color</translation>
+        <translation>Ranura de color</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="102"/>
         <source>Color 1</source>
-        <translation type="unfinished">Color 1</translation>
+        <translation>Color 1</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="102"/>
         <source>Color 2</source>
-        <translation type="unfinished">Color 2</translation>
+        <translation>Color 2</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="102"/>
         <source>Color 3</source>
-        <translation type="unfinished">Color 3</translation>
+        <translation>Color 3</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="103"/>
         <source>Color 4</source>
-        <translation type="unfinished">Color 4</translation>
+        <translation>Color 4</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="103"/>
         <source>Color 5</source>
-        <translation type="unfinished">Color 5</translation>
+        <translation>Color 5</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="123"/>
         <source>Add a fixed-color preset for the selected color slot</source>
-        <translation type="unfinished">Añadir un preajuste de color fijo para la ranura de color seleccionada</translation>
+        <translation>Añadir un preajuste de color fijo para la ranura de color seleccionada</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="138"/>
         <source>Add R/G/B knobs for the selected color slot</source>
-        <translation type="unfinished">Añadir mandos R/G/B para la ranura de color seleccionada</translation>
+        <translation>Añadir mandos R/G/B para la ranura de color seleccionada</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="157"/>
         <source>Add a script algorithm preset</source>
-        <translation type="unfinished">Añadir un preajuste de algoritmo de script</translation>
+        <translation>Añadir un preajuste de algoritmo de script</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="175"/>
         <source>Add a Text preset using the text on the right</source>
-        <translation type="unfinished">Añadir un preajuste de texto usando el texto de la derecha</translation>
+        <translation>Añadir un preajuste de texto usando el texto de la derecha</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="207"/>
         <source>Remove selected preset</source>
-        <translation type="unfinished">Elimina el predefinido seleccionado</translation>
+        <translation>Elimina el predefinido seleccionado</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="226"/>
         <source>Move selected preset down</source>
-        <translation type="unfinished">Mueve los predefinidos seleccionados hacia abajo</translation>
+        <translation>Mueve los predefinidos seleccionados hacia abajo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="242"/>
         <source>Move selected preset up</source>
-        <translation type="unfinished">Mueve los predefinidos seleccionados hacia arriba</translation>
+        <translation>Mueve los predefinidos seleccionados hacia arriba</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="297"/>
         <source>Knob</source>
-        <translation type="unfinished">Perilla</translation>
+        <translation>Perilla</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCAnimationPresets.qml" line="297"/>
         <source>Button</source>
-        <translation type="unfinished">Botón</translation>
+        <translation>Botón</translation>
     </message>
 </context>
 <context>
@@ -5837,43 +5837,43 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="160"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation type="unfinished">L</translation>
+        <translation>L</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="161"/>
         <source>T</source>
         <comment>As in Tuesday</comment>
-        <translation type="unfinished">M</translation>
+        <translation>M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="162"/>
         <source>W</source>
         <comment>As in Wednesday</comment>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="163"/>
         <source>T</source>
         <comment>As in Thursday</comment>
-        <translation type="unfinished">M</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="164"/>
         <source>F</source>
         <comment>As in Friday</comment>
-        <translation type="unfinished">V</translation>
+        <translation>J</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="165"/>
         <source>S</source>
         <comment>As in Saturday</comment>
-        <translation type="unfinished">S</translation>
+        <translation>S</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="166"/>
         <source>S</source>
         <comment>As in Sunday</comment>
-        <translation type="unfinished">S</translation>
+        <translation>D</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="194"/>
@@ -6172,7 +6172,7 @@ No hay suficiente espacio o el universo de destino no es válido</translation>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="778"/>
         <source>Page 1</source>
-        <translation type="unfinished">Página 1</translation>
+        <translation>Página 1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="803"/>
@@ -6881,12 +6881,12 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="210"/>
         <source>Control Properties</source>
-        <translation type="unfinished">Propiedades de control</translation>
+        <translation>Propiedades de control</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="232"/>
         <source>Tap button controls the global BPM rate</source>
-        <translation type="unfinished">El botón de tap controla la tasa global de BPM</translation>
+        <translation>El botón de tap controla la tasa global de BPM</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="515"/>
@@ -7196,7 +7196,7 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadPresets.qml" line="377"/>
         <source>Drop fixture groups/heads here</source>
-        <translation>Coloque aquí los grupos/cabezales de las luminarias.</translation>
+        <translation>Coloque aquí los grupos/cabezales de los fixtures</translation>
     </message>
 </context>
 <context>
@@ -7204,37 +7204,37 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="46"/>
         <source>Set Pan/Tilt range</source>
-        <translation type="unfinished">Establecer el rango de Pan/Tilt</translation>
+        <translation>Establecer el rango de Pan/Tilt</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="86"/>
         <source>Axis</source>
-        <translation type="unfinished">Eje</translation>
+        <translation>Eje</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="87"/>
         <source>Minimum</source>
-        <translation type="unfinished">Mínimo</translation>
+        <translation>Mínimo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="88"/>
         <source>Maximum</source>
-        <translation type="unfinished">Máximo</translation>
+        <translation>Máximo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="89"/>
         <source>Reverse</source>
-        <translation type="unfinished">Invertir</translation>
+        <translation>Invertir</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="92"/>
         <source>Pan</source>
-        <translation type="unfinished">Pan</translation>
+        <translation>Pan</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="120"/>
         <source>Tilt</source>
-        <translation type="unfinished">Tilt</translation>
+        <translation>Tilt</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="157"/>
@@ -7279,7 +7279,7 @@ el widget para completar esta lista</translation>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="311"/>
         <source>Set the Pan/Tilt range of the selected fixture head(s)</source>
-        <translation type="unfinished">Establecer el rango de Pan/Tilt de las cabezas de aparato seleccionadas</translation>
+        <translation>Establecer el rango de Pan/Tilt de las cabezas de aparato seleccionadas</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCXYPadProperties.qml" line="329"/>
