@@ -2114,7 +2114,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.cpp" line="244"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer-Steuerung aktivieren</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="750"/>
