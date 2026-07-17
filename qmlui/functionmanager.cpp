@@ -842,6 +842,21 @@ void FunctionManager::deleteFunction(quint32 fid)
     if (f == nullptr)
         return;
 
+    // if the function being deleted is currently open in an editor,
+    // close the editor first to avoid keeping a dangling reference
+    // (e.g. the RGBMatrix preview timer firing on a deleted function).
+    // The editor is destroyed but the side panel is kept open, going back
+    // to the function list
+    if ((m_currentEditor != nullptr && m_currentEditor->functionID() == fid) ||
+        (m_sceneEditor != nullptr && m_sceneEditor->functionID() == fid))
+    {
+        setEditorFunction(-1, false, false);
+
+        QQuickItem *rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+        if (rightPanel != nullptr)
+            QMetaObject::invokeMethod(rightPanel, "closeEditor");
+    }
+
     if (f->isRunning())
         f->stopAndWait();
 

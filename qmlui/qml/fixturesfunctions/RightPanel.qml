@@ -92,6 +92,20 @@ SidePanel
         }
     }
 
+    // Close the currently open function editor but keep the side panel open,
+    // going back to the function list (e.g. when the edited function gets
+    // deleted by an undo action)
+    function closeEditor()
+    {
+        if (!(qlcplus.accessMask & App.AC_FunctionEditing))
+            return
+
+        loaderSource = ""
+        itemID = -1
+        loaderSource = "qrc:/FunctionManager.qml"
+        funcManagerButton.checked = true
+    }
+
     function requestEditor(funcID, funcType)
     {
         if (!(qlcplus.accessMask & App.AC_FunctionEditing))
