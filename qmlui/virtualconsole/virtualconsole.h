@@ -201,6 +201,7 @@ public:
     /** Helper methods to handle alignment, label, background/foreground colors,
      *  background image and font when multiple widgets are selected */
     Q_INVOKABLE void setWidgetsAlignment(VCWidget *refWidget, int alignment);
+    Q_INVOKABLE void setWidgetsDistribution(int direction);
     Q_INVOKABLE void setWidgetsCaption(QString caption);
     Q_INVOKABLE void setWidgetsForegroundColor(QColor color);
     Q_INVOKABLE void setWidgetsBackgroundColor(QColor color);

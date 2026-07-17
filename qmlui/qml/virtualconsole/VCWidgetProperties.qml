@@ -486,6 +486,40 @@ Rectangle
                                 onClicked: virtualConsole.setWidgetsAlignment(wObj, Qt.AlignBottom)
                             }
                         }
+
+                        // row 8
+                        RobotoText
+                        {
+                            visible: selectedWidgetsCount > 2 ? true : false
+                            label: qsTr("Distribution")
+                        }
+
+                        Row
+                        {
+                            Layout.fillWidth: true
+                            visible: selectedWidgetsCount > 2 ? true : false
+
+                            IconButton
+                            {
+                                id: distributeXBtn
+                                width: UISettings.iconSizeDefault
+                                height: width
+                                bgColor: UISettings.bgLighter
+                                imgSource: "qrc:/distribute-x.svg"
+                                tooltip: qsTr("Equally distribute horizontally the selected widgets")
+                                onClicked: virtualConsole.setWidgetsDistribution(Qt.Horizontal)
+                            }
+                            IconButton
+                            {
+                                id: distributeYBtn
+                                width: UISettings.iconSizeDefault
+                                height: width
+                                bgColor: UISettings.bgLighter
+                                imgSource: "qrc:/distribute-y.svg"
+                                tooltip: qsTr("Equally distribute vertically the selected widgets")
+                                onClicked: virtualConsole.setWidgetsDistribution(Qt.Vertical)
+                            }
+                        }
                      } // GridLayout
                 } // SectionBox
 

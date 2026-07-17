@@ -763,6 +763,84 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
     }
 }
 
+void VirtualConsole::setWidgetsDistribution(int direction)
+{
+    if (m_widgetsMap.count() < 3)
+        return;
+
+    qreal min = 1000000;
+    qreal max = 0;
+    qreal widgetsSize = 0;
+    qreal gap = 0;
+    QVector<VCWidget *> sortedWidgets;
+    QVector<qreal> sortedPos;
+
+    /* cycle through selected widgets and do the following:
+     * 1- calculate the total width/height
+     * 2- sort the widgets from the leftmost/topmost item
+     * 3- detect the minimum and maximum items position
+     */
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while (it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        QRectF wGeom = widget->geometry();
+        qreal pos = direction == Qt::Horizontal ? wGeom.x() : wGeom.y();
+        qreal size = direction == Qt::Horizontal ? wGeom.width() : wGeom.height();
+        int i = 0;
+
+        // 1
+        widgetsSize += size;
+
+        // 2
+        for (i = 0; i < sortedPos.count(); i++)
+        {
+            if (pos < sortedPos[i])
+                break;
+        }
+        if (sortedPos.isEmpty() || i == sortedWidgets.count())
+        {
+            sortedWidgets.append(widget);
+            sortedPos.append(pos);
+        }
+        else
+        {
+            sortedWidgets.insert(i, widget);
+            sortedPos.insert(i, pos);
+        }
+
+        // 3
+        if (pos + size > max)
+            max = pos + size;
+        if (pos < min)
+            min = pos;
+    }
+
+    gap = ((max - min) - widgetsSize) / (sortedWidgets.count() - 1);
+
+    qreal newPos = min;
+
+    for (int idx = 0; idx < sortedWidgets.count(); idx++)
+    {
+        VCWidget *widget = sortedWidgets[idx];
+        QRectF wGeom = widget->geometry();
+        qreal size = direction == Qt::Horizontal ? wGeom.width() : wGeom.height();
+
+        // the first and last widget don't need any adjustment
+        if (idx > 0 && idx < sortedWidgets.count() - 1)
+        {
+            if (direction == Qt::Horizontal)
+                widget->setGeometry(QRect(newPos, wGeom.y(), wGeom.width(), wGeom.height()));
+            else
+                widget->setGeometry(QRect(wGeom.x(), newPos, wGeom.width(), wGeom.height()));
+        }
+
+        newPos += size + gap;
+    }
+}
+
 void VirtualConsole::setWidgetsCaption(QString caption)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
