@@ -104,6 +104,21 @@ Rectangle
 
                 drag.target: dragItem
 
+                // While dragging, keep the drag item aligned to the cursor,
+                // vertically centered on it. mouse.x/y mapped into the drag item's
+                // parent give the cursor position even when the pointer has left
+                // this row's bounds.
+                onPositionChanged: (mouse) =>
+                {
+                    if (!drag.active || dragItem === null)
+                        return
+                    // dragItem (GenericMultiDragItem) root has no intrinsic size,
+                    // so use the drag content height (listItemHeight) for the offset
+                    var mapped = mapToItem(dragItem.parent, mouse.x, mouse.y)
+                    dragItem.x = mapped.x - UISettings.listItemHeight / 2
+                    dragItem.y = mapped.y - UISettings.listItemHeight / 2
+                }
+
                 onPressed: (mouse) => funcDelegate.mouseEvent(App.Pressed, cRef ? cRef.id : -1, cRef ? cRef.type : -1, funcDelegate, mouse.modifiers)
                 onClicked: (mouse) => funcDelegate.mouseEvent(App.Clicked, cRef ? cRef.id : -1, cRef ? cRef.type : -1, funcDelegate, mouse.modifiers)
                 onDoubleClicked: (mouse) => funcDelegate.mouseEvent(App.DoubleClicked, cRef ? cRef.id : -1, cRef ? cRef.type : -1, funcDelegate, mouse.modifiers)
