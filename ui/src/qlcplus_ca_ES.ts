@@ -2108,7 +2108,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="efxeditor.cpp" line="244"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita el control de dimmer</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="750"/>
@@ -4559,7 +4559,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="virtualconsole/vcspeeddialfunction.cpp" line="99"/>
         <source>(Not Sent)</source>
-        <translation type="unfinished"></translation>
+        <translation>(No enviat)</translation>
     </message>
 </context>
 <context>

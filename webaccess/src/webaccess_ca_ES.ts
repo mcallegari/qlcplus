@@ -32,7 +32,7 @@
         <location filename="webaccess-qml.cpp" line="381"/>
         <location filename="webaccess-qml.cpp" line="382"/>
         <source>Reset the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix l&apos;univers seleccionat</translation>
     </message>
     <message>
         <location filename="webaccess-qml.cpp" line="385"/>
@@ -192,12 +192,12 @@
     <message>
         <location filename="webaccessbase.cpp" line="411"/>
         <source>Invalid fixture upload payload</source>
-        <translation type="unfinished"></translation>
+        <translation>Pujada de càrrega útil de fixtures no vàlida</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="427"/>
         <source>Unable to store fixture definition</source>
-        <translation type="unfinished"></translation>
+        <translation>No s&apos;ha pogut emmagatzemar la definició del fixture</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="441"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol·licitud de configuració de xarxa no vàlida.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="751"/>
