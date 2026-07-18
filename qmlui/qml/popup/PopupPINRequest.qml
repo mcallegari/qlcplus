@@ -25,15 +25,17 @@ import "."
 
 CustomPopupDialog
 {
+    id: pinRequestDialog
     width: mainView.width / 3
 
     property string currentPIN: ""
     property alias sessionValidate: validateCheck.checked
+    property alias pinField: currentPinEdit
 
     onOpened:
     {
-        currentPinEdit.text = ""
-        currentPinEdit.selectAndFocus()
+        pinField.text = ""
+        pinField.selectAndFocus()
     }
 
     contentItem:
@@ -61,7 +63,8 @@ CustomPopupDialog
                 inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
                 maximumLength: 4
 
-                onTextEdited: currentPIN = text
+                onTextEdited: pinRequestDialog.currentPIN = currentPinEdit.text
+                onAccepted: pinRequestDialog.accept()
             }
 
             // Row 2
