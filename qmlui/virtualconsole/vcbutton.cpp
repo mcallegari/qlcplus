@@ -367,6 +367,17 @@ void VCButton::setState(ButtonState state)
     updateFeedback();
 }
 
+void VCButton::setVisible(bool isVisible)
+{
+    // A Flash button relies on a release event to unflash. When it gets hidden
+    // (e.g. its multipage frame switches page) while active, that release never
+    // comes, leaving the button stuck on and the function flashed. Release it.
+    if (isVisible == false && actionType() == Flash && state() == Active)
+        requestStateChange(false);
+
+    VCWidget::setVisible(isVisible);
+}
+
 void VCButton::requestStateChange(bool pressed)
 {
     qDebug() << "Requested button state" << pressed;
