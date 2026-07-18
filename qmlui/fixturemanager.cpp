@@ -675,11 +675,9 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
         quint16 headIndex = monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
         quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-        int flags = monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex);
 
-        // do not show hidden fixtures if not editing
-        if (!(showFlags & ShowFlags) && (flags & MonitorProperties::HiddenFlag))
-            continue;
+        // the hidden flag only affects 2D/3D preview visibility.
+        // Hidden fixtures are still shown in the fixture tree.
 
         // represent dimmers as a whole fixture + (channels || heads)
         if (fixture->type() == QLCFixtureDef::Dimmer && headIndex > 0)
