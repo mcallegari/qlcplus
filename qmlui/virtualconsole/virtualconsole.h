@@ -27,6 +27,7 @@
 
 #include "previewcontext.h"
 #include "vcwidget.h"
+#include "vcpage.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -34,7 +35,6 @@ class QLCInputSource;
 class ContextManager;
 class TreeModel;
 class VCFrame;
-class VCPage;
 class Doc;
 
 #define KXMLQLCVirtualConsole QStringLiteral("VirtualConsole")

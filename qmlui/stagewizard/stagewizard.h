@@ -26,6 +26,8 @@
 #include <QVector3D>
 #include <QColor>
 
+#include "vcpage.h"
+
 class Doc;
 class Fixture;
 class Chaser;
@@ -34,7 +36,6 @@ class EFX;
 class RGBMatrix;
 class FixtureGroup;
 class VirtualConsole;
-class VCPage;
 class ContextManager;
 class FixtureManager;
 class FunctionManager;
