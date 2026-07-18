@@ -158,6 +158,19 @@ SidePanel
 
             IconButton
             {
+                id: cutButton
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_scissors
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Cut the selected widgets to clipboard")
+                counter: virtualConsole.selectedWidgetsCount
+                onClicked: virtualConsole.cutToClipboard()
+            }
+
+            IconButton
+            {
                 id: pasteButton
                 z: 2
                 width: iconSize

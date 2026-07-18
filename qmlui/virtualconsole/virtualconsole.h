@@ -241,17 +241,30 @@ protected:
      *********************************************************************/
 public:
     Q_INVOKABLE void copyToClipboard();
+    Q_INVOKABLE void cutToClipboard();
     Q_INVOKABLE void pasteFromClipboard();
 
     Q_INVOKABLE QVariantList clipboardItemsList() const;
 
     int clipboardItemsCount() const;
 
+    /** Return true if the clipboard content comes from a cut operation */
+    bool clipboardIsCut() const;
+
+    /** If the clipboard holds a cut, delete the source widgets and
+     *  reset the clipboard. To be called once the widgets have been pasted.
+     *  $targetFrameID is the frame the widgets have been pasted into and
+     *  is never deleted, even if present in the clipboard */
+    void flushClipboardAfterPaste(quint32 targetFrameID = VCWidget::invalidId());
+
 signals:
     void clipboardItemsCountChanged();
 
 protected:
     QVariantList m_clipboardIDList;
+
+    /** Flag indicating that the clipboard content is a cut operation */
+    bool m_clipboardIsCut;
 
     /*********************************************************************
      * External controllers input

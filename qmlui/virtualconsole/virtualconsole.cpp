@@ -71,6 +71,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     , m_contextManager(ctxManager)
     , m_selectedPage(0)
     , m_latestWidgetId(0)
+    , m_clipboardIsCut(false)
     , m_inputDetectionEnabled(false)
     , m_autoDetectionWidget(nullptr)
     , m_autoDetectionSource(nullptr)
@@ -166,6 +167,7 @@ void VirtualConsole::setEditMode(bool editMode)
     if (editMode == false)
     {
         m_clipboardIDList.clear();
+        m_clipboardIsCut = false;
         emit clipboardItemsCountChanged();
 
         resetWidgetSelection();
@@ -996,6 +998,19 @@ void VirtualConsole::copyToClipboard()
     for (quint32 wID : m_itemsMap.keys())
         m_clipboardIDList.append(wID);
 
+    m_clipboardIsCut = false;
+
+    emit clipboardItemsCountChanged();
+}
+
+void VirtualConsole::cutToClipboard()
+{
+    m_clipboardIDList.clear();
+    for (quint32 wID : m_itemsMap.keys())
+        m_clipboardIDList.append(wID);
+
+    m_clipboardIsCut = true;
+
     emit clipboardItemsCountChanged();
 }
 
@@ -1049,6 +1064,8 @@ void VirtualConsole::pasteFromClipboard()
             currPos.setY(currPos.y() + copy->geometry().height());
         }
     }
+
+    flushClipboardAfterPaste(frame->id());
 }
 
 QVariantList VirtualConsole::clipboardItemsList() const
@@ -1058,7 +1075,54 @@ QVariantList VirtualConsole::clipboardItemsList() const
 
 int VirtualConsole::clipboardItemsCount() const
 {
-    return m_clipboardIDList.count();
+    int count = 0;
+
+    // count the clipboard items, including the children of the
+    // frames, since those are pasted along with their parent
+    for (QVariant wID : m_clipboardIDList)
+    {
+        VCWidget *w = widget(wID.toUInt());
+        if (w == nullptr)
+            continue;
+
+        count++;
+
+        if (w->type() == VCWidget::FrameWidget ||
+            w->type() == VCWidget::SoloFrameWidget)
+        {
+            VCFrame *frame = qobject_cast<VCFrame *>(w);
+            count += frame->children(true).count();
+        }
+    }
+
+    return count;
+}
+
+bool VirtualConsole::clipboardIsCut() const
+{
+    return m_clipboardIsCut;
+}
+
+void VirtualConsole::flushClipboardAfterPaste(quint32 targetFrameID)
+{
+    if (m_clipboardIsCut == false)
+        return;
+
+    // a cut/paste: remove the source widgets and empty the clipboard.
+    // Never delete the frame the widgets have been pasted into
+    QVariantList toDelete;
+    for (QVariant wID : m_clipboardIDList)
+    {
+        if (wID.toUInt() == targetFrameID)
+            continue;
+        toDelete.append(wID);
+    }
+
+    deleteVCWidgets(toDelete);
+
+    m_clipboardIDList.clear();
+    m_clipboardIsCut = false;
+    emit clipboardItemsCountChanged();
 }
 
 /*********************************************************************

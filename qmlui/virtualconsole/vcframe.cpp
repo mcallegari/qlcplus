@@ -473,6 +473,10 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
         if (widget == nullptr)
             continue;
 
+        // do not allow pasting an item into itself
+        if (widget->id() == this->id())
+            continue;
+
         VCWidget *copy = widget->createCopy(this);
         addWidget(parent, copy, currPos);
 
@@ -483,6 +487,10 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
             currPos.setY(currPos.y() + copy->geometry().height());
         }
     }
+
+    // if this was a cut operation, remove the source widgets
+    // and reset the clipboard
+    m_vc->flushClipboardAfterPaste(this->id());
 }
 
 void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
