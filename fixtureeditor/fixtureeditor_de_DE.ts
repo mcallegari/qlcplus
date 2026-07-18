@@ -150,7 +150,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="114"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>Der gemeinsame Basisname für alle Funktionen. Verwende die Raute &apos;#&apos;, um eine Nummerierung zu erstellen.</translation>
+        <translation>Der gemeinsame Basisname für alle Funktionen. Verwende die Raute „#“, um eine Nummerierung zu erstellen.</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="117"/>
@@ -791,7 +791,7 @@
 &quot;%1&quot;
 before closing?</source>
         <translation>Willst du die Änderungen am Gerät
-&quot;%1&quot;
+„%1“
 vor dem Schließen speichern?</translation>
     </message>
     <message>
@@ -849,7 +849,7 @@ Kann Gerät nicht speichern.</translation>
         <location filename="fixtureeditor.cpp" line="448"/>
         <location filename="fixtureeditor.cpp" line="546"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
-        <translation>Ein Kanal mit dem Namen &quot;%1&quot; existiert bereits!</translation>
+        <translation>Ein Kanal mit dem Namen „%1“ existiert bereits!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="455"/>

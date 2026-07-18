@@ -237,22 +237,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="224"/>
         <source>Mode &apos;%1&apos; does not exist</source>
-        <translation>Modus &apos;%1&apos; existiert nicht</translation>
+        <translation>Modus „%1“ existiert nicht</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="227"/>
         <source>Channel &apos;%1&apos; is not present in mode &apos;%2&apos;</source>
-        <translation>Kanal &apos;%1&apos; ist im Modus &apos;%2&apos; nicht vorhanden</translation>
+        <translation>Kanal „%1“ ist im Modus „%2“ nicht vorhanden</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="231"/>
         <source>Target channel &apos;%1&apos; does not exist</source>
-        <translation>Zielkanal &apos;%1&apos; existiert nicht</translation>
+        <translation>Zielkanal „%1“ existiert nicht</translation>
     </message>
     <message>
         <location filename="fixtureeditor/aliasedit.cpp" line="237"/>
         <source>Mode &apos;%1&apos; is aliased more than once</source>
-        <translation>Modus &apos;%1&apos; hat mehr als einen Alias</translation>
+        <translation>Modus „%1“ hat mehr als einen Alias</translation>
     </message>
 </context>
 <context>
@@ -1267,7 +1267,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixtureeditor/EditorView.qml" line="671"/>
         <source>Set a capability preset to &apos;Alias&apos; in the channel editor to make it appear here.</source>
-        <translation>Setzen Sie im Kanaleditor eine Fähigkeitsvorlage auf &apos;Alias&apos;, damit sie hier erscheint.</translation>
+        <translation>Setzen Sie im Kanaleditor eine Fähigkeitsvorlage auf „Alias“, damit sie hier erscheint.</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="219"/>
@@ -1287,12 +1287,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="508"/>
         <source>&lt;li&gt;No capability provided in channel &apos;%1&apos;&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Kein Fähigkeit in Kanal &apos;%1&apos; angegeben&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Kein Fähigkeit in Kanal „%1“ angegeben&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="513"/>
         <source>&lt;li&gt;Empty capability description provided in channel &apos;%1&apos;&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Leere Fähigkeitsbeschreibung für Kanal &apos;%1&apos; angegeben&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Leere Fähigkeitsbeschreibung für Kanal „%1“ angegeben&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="520"/>
@@ -1302,12 +1302,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="523"/>
         <source>&lt;li&gt;Mode &apos;%1&apos; has no channels defined&lt;/li&gt;</source>
-        <translation>&lt;li&gt;Modus &apos;%1&apos; hat keine Kanäle definiert&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;Modus „%1“ hat keine Kanäle definiert&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="530"/>
         <source>&lt;li&gt;In mode &apos;%1&apos;, channel &apos;%2&apos; cannot act on itself&lt;/li&gt;</source>
-        <translation>&lt;li&gt;In Modus &apos;%1&apos; kann Kanal &apos;%2&apos; nicht auf sich selbst agieren&lt;/li&gt;</translation>
+        <translation>&lt;li&gt;In Modus „%1“ kann Kanal „%2“ nicht auf sich selbst agieren&lt;/li&gt;</translation>
     </message>
     <message>
         <location filename="fixtureeditor/editorview.cpp" line="537"/>
@@ -2231,7 +2231,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="541"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation>Wenn MIDI-Noten benutzt werden, ein &quot;Note Off&quot; senden, wenn der Wert 0 ist</translation>
+        <translation>Wenn MIDI-Noten benutzt werden, ein „Note Off“ senden, wenn der Wert 0 ist</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/InputProfileEditor.qml" line="439"/>
@@ -3015,7 +3015,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="216"/>
         <source>Please choose a name other than &quot;None&quot;.</source>
-        <translation>Bitte einen anderen Namen als &quot;Nichts&quot; wählen.</translation>
+        <translation>Bitte einen anderen Namen als „Nichts“ wählen.</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupChannelModifiers.qml" line="224"/>
