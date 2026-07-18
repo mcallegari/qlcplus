@@ -165,6 +165,10 @@ public:
     /** Toggle the checkbox of a group box. Selected boxes drive column 3. */
     Q_INVOKABLE void setGroupSelected(int groupIndex, bool selected);
 
+    /** Selection state of a group box. Bound live in column 2 so toggling the
+     *  checkbox doesn't rebuild the groups model (which would reset scroll). */
+    Q_INVOKABLE bool isGroupSelected(int groupIndex) const;
+
     /** Assign an already-patched fixture to the group box at $groupIndex. */
     Q_INVOKABLE void assignFixtureToGroup(int groupIndex, quint32 fixtureID);
 
@@ -184,6 +188,12 @@ public:
 
     /** Suggest roles based on detected capabilities (called automatically on step entry). */
     Q_INVOKABLE void autoDetectRoles();
+
+    /** True if any selected box is a NEW (wizard-created) group, i.e. the wizard
+     *  will place fixtures in 3D. When false, the Venue & Stage step is skipped
+     *  and generation leaves stage type, environment size and fixture positions
+     *  untouched (functions/VC only). */
+    Q_INVOKABLE bool hasNewGroups() const;
 
     // ── Step 3 ──────────────────────────────────────────────────────────────
     int stageType() const;
@@ -205,6 +215,11 @@ public:
     /** Toggle an individual effect on/off. */
     Q_INVOKABLE void setEffectEnabled(int effectFlag, bool enabled);
 
+    /** Enable/disable every available effect of a family in one shot (emits the
+     *  model-changed signal once). If $enabled is not given, toggles: turns all
+     *  on when any is currently off, otherwise turns all off. */
+    Q_INVOKABLE void setFamilyEffectsEnabled(const QString &family);
+
     /** Returns a human-readable preview string, e.g. "3 scenes + 1 chaser". */
     Q_INVOKABLE QString effectPreview(int effectFlag) const;
 
@@ -224,6 +239,7 @@ signals:
     void showTypeChanged(int type);
     void fixtureRoleModelChanged();
     void groupsModelChanged();
+    void groupSelectionChanged();
     void stageTypeChanged(int type);
     void envSizeChanged();
     void effectsModelChanged();
@@ -346,6 +362,11 @@ private slots:
      *  for a group, using its persisted FixtureGroup id. */
     void generateGroupPalettes(const FixtureGroupEntry &grp);
 
+    /** Full function set for one group: palettes, musician key scenes and all
+     *  enabled per-group effects (pathed under the group's Effects folder).
+     *  Runs for each selected group and for the "All Groups" aggregate. */
+    void generateGroupFunctions(const FixtureGroupEntry &grp);
+
     /** Count of moving heads (Pan/Tilt fixtures, per head) in a group. */
     int movingHeadCount(const FixtureGroupEntry &grp) const;
 
@@ -370,8 +391,26 @@ private slots:
     /** Return the first empty VC page; if all pages have widgets, add and
      *  return a new one. */
     VCPage *pickTargetPage();
-    void createGroupFrame(void *vcPage, const FixtureGroupEntry &grp,
-                          int xPos, int yPos);
+
+    // ── Multipage master frame: loopback page switching ─────────────────────
+    /** Set up page switching: find the first universe with no fixtures, patch it
+     *  to loopback OUTPUT (input on output+1), and add $pageCount generic
+     *  1-channel dimmers there — one per page. Fills $loopInUniverse and appends
+     *  the dimmer fixture ids to $bridgeFixtureIDs (page order). Returns false if
+     *  the loopback plugin is unavailable or patching fails. */
+    bool ensureLoopbackPatch(int pageCount, quint32 &loopInUniverse,
+                             QList<quint32> &bridgeFixtureIDs);
+
+    /** Generate the page-switch scenes, one per dimmer in $bridgeFixtureIDs.
+     *  Index 0 = "All Groups", 1..N = each selected group, in the same order
+     *  createVCLayout() assigns pages. Appends their ids to $outIDs. */
+    void generatePageSwitchScenes(const QList<quint32> &bridgeFixtureIDs,
+                                  const QList<const FixtureGroupEntry *> &pageGroups,
+                                  QList<quint32> &outIDs);
+
+    /** Representative RGB of a wizard color scene, for a color button's
+     *  background. Reads the scene's actual channel values. */
+    QColor sceneColor(quint32 sceneID) const;
 
     // Helpers
     Scene *makeBlackoutScene();
@@ -395,6 +434,12 @@ private:
 
     QList<FixtureGroupEntry> m_groups;
     QList<EffectEntry>       m_effects;
+
+    // Synthetic "All Groups" aggregate (union of all selected groups' fixtures
+    // and capabilities), backed by a real FixtureGroup created at generation.
+    // Drives the master frame's page 0. Valid only while generating.
+    FixtureGroupEntry        m_allGroups;
+    bool                     m_hasAllGroups = false;
 
     // IDs collected during generation (for undo and VC wiring)
     QList<quint32>   m_generatedFunctionIDs;

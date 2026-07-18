@@ -36,6 +36,9 @@ Item
 
         ColumnLayout
         {
+            Layout.fillWidth: true   // take the remaining width so the long
+                                     // description wraps instead of pushing the
+                                     // "Optional" pill off-screen
             spacing: 4
             RobotoText
             {
@@ -54,13 +57,13 @@ Item
             }
         }
 
-        Item { Layout.fillWidth: true }
-
         // Skip hint
         Rectangle
         {
+            Layout.alignment: Qt.AlignVCenter
             height: UISettings.listItemHeight * 0.8
-            width: skipText.implicitWidth + 20
+            // RobotoText reports its size via width (not implicitWidth).
+            width: skipText.width + 20
             radius: height / 2
             color: "#1A2A1A"
             border.color: "#2A4A2A"

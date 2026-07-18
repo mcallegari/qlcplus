@@ -16,20 +16,26 @@ import "."
 
 Rectangle
 {
+    id: previewButton
     property string label: ""
+    property bool highlighted: false
+    readonly property real hPad: 10
 
-    width: Math.max(labelText.implicitWidth + 12, 60)
+    // Size to the text: the label's painted width plus horizontal padding.
+    implicitWidth: labelText.implicitWidth + hPad * 2
+    width: implicitWidth
     height: UISettings.listItemHeight * 0.8
     radius: 5
-    color: "#1A1A3A"
-    border.color: "#333366"
+    color: highlighted ? "#0550AA" : "#1A1A3A"
+    border.color: highlighted ? "#0978FF" : "#333366"
 
-    RobotoText
+    Text
     {
         id: labelText
         anchors.centerIn: parent
-        label: parent.label
-        fontSize: UISettings.textSizeDefault * 0.78
-        labelColor: "#AAAACC"
+        text: previewButton.label
+        font.family: UISettings.robotoFontName
+        font.pixelSize: UISettings.textSizeDefault * 0.78
+        color: previewButton.highlighted ? "white" : "#AAAACC"
     }
 }

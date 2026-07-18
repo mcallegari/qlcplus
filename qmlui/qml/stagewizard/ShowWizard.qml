@@ -32,6 +32,22 @@ Rectangle
 
     property int step: stageWizard ? stageWizard.currentStep : 0
 
+    // Venue & Stage (index 2) is bypassed when the wizard only builds
+    // functions/VC for existing groups (no new fixtures to lay out).
+    // Re-evaluated whenever the group set or selection changes.
+    property bool skipVenue: false
+    function refreshSkipVenue()
+    {
+        skipVenue = stageWizard ? !stageWizard.hasNewGroups() : false
+    }
+    Connections
+    {
+        target: stageWizard
+        function onGroupsModelChanged()     { wizardRoot.refreshSkipVenue() }
+        function onGroupSelectionChanged()  { wizardRoot.refreshSkipVenue() }
+    }
+    Component.onCompleted: refreshSkipVenue()
+
     // Signal the Loader in MainView to unload us
     signal closeRequested()
 
@@ -162,6 +178,7 @@ Rectangle
         currentStep: wizardRoot.step
         totalSteps: stageWizard ? stageWizard.totalSteps : 6
         stepTitles: wizardRoot.stepTitles
+        skippedStep: wizardRoot.skipVenue ? 2 : -1
     }
 
     // ── Step content area ──────────────────────────────────────────────────────
