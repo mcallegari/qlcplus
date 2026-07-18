@@ -3246,7 +3246,7 @@ Ungespeicherte Änderungen gehen verloren.</translation>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="49"/>
         <source>Position 3D</source>
-        <translation>Position 3D</translation>
+        <translation>3D-Position</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="50"/>
@@ -4597,7 +4597,7 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="147"/>
         <source>Preview the channel changes on the output</source>
-        <translation>Vorschau der Kanaländerungen an der Ausgabe</translation>
+        <translation>Vorschau der Kanaländerungen in der Ausgabe</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="157"/>
@@ -6839,7 +6839,7 @@ fallen lassen um die Liste zu füllen</translation>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="210"/>
         <source>Control Properties</source>
         <oldsource>Dial Properties</oldsource>
-        <translation>Drehrad-Eigenschaften</translation>
+        <translation>Eigenschaften der Steuerelemente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSpeedDialProperties.qml" line="232"/>
