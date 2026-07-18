@@ -73,7 +73,8 @@ Item
         ColumnLayout
         {
             Layout.fillHeight: true
-            Layout.preferredWidth: parent.width * 0.42
+            Layout.fillWidth: true
+            Layout.preferredWidth: 1   // equal split with the right column
             Layout.alignment: Qt.AlignTop
             spacing: UISettings.listItemHeight * 0.35
 
@@ -221,6 +222,7 @@ Item
         {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            Layout.preferredWidth: 1   // equal split with the left column
             spacing: UISettings.listItemHeight * 0.4
 
             Text
@@ -232,9 +234,11 @@ Item
                 color: "#AAAACC"
             }
 
-            // Schematic mockup of the VC layout
+            // Schematic mockup of the actual VC layout: ONE multipage frame with
+            // an "All Groups" page (index 0) plus one page per selected group.
             Rectangle
             {
+                id: vcMock
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 radius: 10
@@ -242,142 +246,170 @@ Item
                 border.color: "#2A2A44"
                 clip: true
 
+                // Selected groups (page 1..N). Page 0 is the "All Groups" master.
+                readonly property var groups: stageWizard ? stageWizard.fixtureRoleModel : []
+                // Currently previewed page: 0 = All Groups, 1..N = a group.
+                property int previewPage: 0
+                readonly property var pageData: previewPage === 0
+                    ? ({ name: qsTr("All Groups"),
+                         hasRGB: true, hasDimmer: true,
+                         hasMovement: groupsAnyMovement(), all: true })
+                    : (groups[previewPage - 1] || ({}))
+
+                function groupsAnyMovement()
+                {
+                    for (let i = 0; i < groups.length; ++i)
+                        if (groups[i].hasMovement) return true
+                    return false
+                }
+
                 Column
                 {
                     anchors.fill: parent
                     anchors.margins: 10
                     spacing: 8
 
-                    // Row 1: global cue buttons
+                    // ── Frame caption ────────────────────────────────────────
+                    Text
+                    {
+                        text: qsTr("🎛  Show Wizard  ·  multipage frame")
+                        font.family: UISettings.robotoFontName
+                        font.pixelSize: UISettings.textSizeDefault * 0.78
+                        font.bold: true
+                        color: "#7777AA"
+                    }
+
+                    // ── Page-switch tabs (flash buttons): All Groups + each grp ─
                     Flow
                     {
                         width: parent.width
                         spacing: 6
+
+                        VCPreviewButton
+                        {
+                            label: qsTr("All Groups")
+                            highlighted: vcMock.previewPage === 0
+                            MouseArea { anchors.fill: parent; onClicked: vcMock.previewPage = 0 }
+                        }
+
                         Repeater
                         {
-                            model: [qsTr("Blackout"), qsTr("Show Open"), qsTr("Big Moment"), qsTr("Show Close"), qsTr("Ambient")]
-                            VCPreviewButton { label: modelData }
+                            model: vcMock.groups
+                            VCPreviewButton
+                            {
+                                label: modelData.name
+                                highlighted: vcMock.previewPage === (index + 1)
+                                MouseArea { anchors.fill: parent; onClicked: vcMock.previewPage = index + 1 }
+                            }
                         }
                     }
 
                     // Separator
                     Rectangle { width: parent.width; height: 1; color: "#1A1A30" }
 
-                    // Row 2: one frame per fixture group
-                    Flow
+                    // ── Current page body ────────────────────────────────────
+                    Column
                     {
                         width: parent.width
                         spacing: 8
 
-                        Repeater
+                        Text
                         {
-                            model: stageWizard ? stageWizard.fixtureRoleModel : []
+                            text: (vcMock.pageData.all ? "◉ " : "▸ ") +
+                                  (vcMock.pageData.name || "")
+                            font.family: UISettings.robotoFontName
+                            font.pixelSize: UISettings.textSizeDefault * 0.8
+                            font.bold: true
+                            color: vcMock.pageData.all ? "#E9C046" : "#AAAACC"
+                        }
 
+                        // Intensity slider + XY pad
+                        Row
+                        {
+                            spacing: 8
+                            visible: vcMock.pageData.hasDimmer || vcMock.pageData.hasRGB
+
+                            // Intensity slider (Level mode)
                             Rectangle
                             {
-                                width: 110
-                                height: 160
-                                radius: 6
-                                color: "#0E0E22"
-                                border.color: "#333355"
-
-                                Column
+                                width: 16; height: 64
+                                radius: 6; color: "#0A0A1A"
+                                border.color: "#222244"
+                                Rectangle
                                 {
-                                    anchors.fill: parent
-                                    anchors.margins: 6
-                                    spacing: 5
+                                    anchors.bottom: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    width: 10; height: parent.height * 0.7
+                                    radius: 4; color: "#E94560"
+                                }
+                            }
 
-                                    Text
-                                    {
-                                        width: parent.width
-                                        text: modelData.name
-                                        font.family: UISettings.robotoFontName
-                                        font.pixelSize: UISettings.textSizeDefault * 0.72
-                                        font.bold: true
-                                        color: "#AAAACC"
-                                        elide: Text.ElideRight
-                                    }
+                            // XY pad (movers only)
+                            Rectangle
+                            {
+                                visible: vcMock.pageData.hasMovement
+                                width: 64; height: 64
+                                radius: 4; color: "#0A0A1A"
+                                border.color: "#222244"
+                                Rectangle
+                                {
+                                    width: 10; height: 10
+                                    radius: 5; color: "#E94560"
+                                    x: 27; y: 27
+                                }
+                            }
 
-                                    // Color cue list representation
+                            // Color buttons (background = scene colour)
+                            Grid
+                            {
+                                visible: vcMock.pageData.hasRGB
+                                columns: 4
+                                spacing: 4
+                                Repeater
+                                {
+                                    model: ["#FF0000","#00FF00","#0000FF","#00FFFF",
+                                            "#FF00FF","#FFFF00","#FFFFFF"]
                                     Rectangle
                                     {
-                                        visible: modelData.hasRGB
-                                        width: parent.width
-                                        height: 40
-                                        radius: 4
-                                        color: "#0A0A1A"
+                                        width: 14; height: 14
+                                        radius: 3; color: modelData
                                         border.color: "#222244"
-
-                                        Column
-                                        {
-                                            anchors.fill: parent
-                                            anchors.margins: 3
-                                            spacing: 2
-                                            Repeater
-                                            {
-                                                model: ["Red","Green","Blue","Cyan"]
-                                                Rectangle { width: parent.width; height: 6; radius: 3; color: "#1A1A3A" }
-                                            }
-                                        }
-                                    }
-
-                                    // Intensity slider + XY pad representation
-                                    Row
-                                    {
-                                        spacing: 4
-                                        visible: modelData.hasDimmer || modelData.hasRGB
-
-                                        Rectangle
-                                        {
-                                            width: 12; height: 50
-                                            radius: 6; color: "#0A0A1A"
-                                            border.color: "#222244"
-
-                                            Rectangle
-                                            {
-                                                anchors.bottom: parent.bottom
-                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                width: 8; height: parent.height * 0.7
-                                                radius: 4; color: "#E94560"
-                                            }
-                                        }
-
-                                        // XY pad
-                                        Rectangle
-                                        {
-                                            visible: modelData.hasMovement
-                                            width: 50; height: 50
-                                            radius: 4; color: "#0A0A1A"
-                                            border.color: "#222244"
-
-                                            Rectangle
-                                            {
-                                                width: 8; height: 8
-                                                radius: 4; color: "#E94560"
-                                                x: 20; y: 20
-                                            }
-                                        }
-                                    }
-
-                                    // EFX/Strobe buttons
-                                    Flow
-                                    {
-                                        width: parent.width
-                                        spacing: 3
-
-                                        Repeater
-                                        {
-                                            model: modelData.hasMovement ? 3 : 1
-                                            Rectangle
-                                            {
-                                                width: 28; height: 14
-                                                radius: 3; color: "#1A1A2A"
-                                                border.color: "#333355"
-                                            }
-                                        }
                                     }
                                 }
                             }
+                        }
+
+                        // Effect / blinder buttons
+                        Flow
+                        {
+                            width: parent.width
+                            spacing: 4
+                            Repeater
+                            {
+                                model: vcMock.pageData.hasMovement ? 5 : 2
+                                Rectangle
+                                {
+                                    width: 30; height: 14
+                                    radius: 3; color: "#1A1A2A"
+                                    border.color: "#333355"
+                                }
+                            }
+                        }
+                    }
+
+                    // Separator
+                    Rectangle { width: parent.width; height: 1; color: "#1A1A30" }
+
+                    // ── Shared show-cue row (present on every page) ───────────
+                    Flow
+                    {
+                        width: parent.width
+                        spacing: 6
+                        Repeater
+                        {
+                            model: [qsTr("Blackout"), qsTr("Show Open"), qsTr("Big Moment"),
+                                    qsTr("Show Close"), qsTr("Ambient"), qsTr("Blinder")]
+                            VCPreviewButton { label: modelData }
                         }
                     }
                 }

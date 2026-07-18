@@ -28,6 +28,10 @@ Item
     property int totalSteps: 6
     property var stepTitles: []
 
+    // Index of a step that is bypassed for the current flow (e.g. Venue is
+    // skipped when the wizard only builds functions/VC). -1 = none skipped.
+    property int skippedStep: -1
+
     height: UISettings.iconSizeMedium * 0.8
     width: parent.width
 
@@ -73,8 +77,9 @@ Item
                 width: dots.width / root.totalSteps
                 height: root.height
 
-                property bool isDone:   index < root.currentStep
-                property bool isCurrent: index === root.currentStep
+                property bool isSkipped: index === root.skippedStep
+                property bool isDone:   !isSkipped && index < root.currentStep
+                property bool isCurrent: !isSkipped && index === root.currentStep
 
                 // Dot circle
                 Rectangle
@@ -87,11 +92,23 @@ Item
                                      : UISettings.iconSizeMedium * 0.65
                     height: width
                     radius: width / 2
+                    opacity: isSkipped ? 0.4 : 1.0
                     color: isCurrent ? "#0978FF"
                                      : (isDone ? '#5c9f83' : "#333355")
 
                     Behavior on width { NumberAnimation { duration: 300 } }
                     Behavior on color { ColorAnimation  { duration: 300 } }
+
+                    // Dash marker for the skipped step
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        visible: isSkipped
+                        height: UISettings.textSizeDefault * 0.8
+                        label: "–"
+                        labelColor: "#777799"
+                        fontSize: height
+                    }
 
                     // Checkmark for done steps
                     RobotoText
@@ -108,7 +125,7 @@ Item
                     RobotoText
                     {
                         anchors.centerIn: parent
-                        visible: !isDone && !isCurrent
+                        visible: !isDone && !isCurrent && !isSkipped
                         height: UISettings.textSizeDefault * 0.8
                         label: (index + 1).toString()
                         labelColor: "#777799"
@@ -124,6 +141,7 @@ Item
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width - 4
                     label: root.stepTitles[index] || ""
+                    opacity: isSkipped ? 0.5 : 1.0
                     labelColor: isCurrent ? "#0978FF"
                                          : (isDone ? "#9999BB" : "#555577")
                     fontSize: UISettings.textSizeDefault * 0.8

@@ -83,6 +83,9 @@ set(SRC_FILES
     virtualconsole/vcspeeddialpreset.cpp virtualconsole/vcspeeddialpreset.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
     stagewizard/stagewizard.cpp stagewizard/stagewizard.h
+    stagewizard/stagewizard_placement.cpp
+    stagewizard/stagewizard_functions.cpp
+    stagewizard/stagewizard_vc.cpp
 )
 
 # This is most of the Android deployment code

@@ -31,7 +31,22 @@ Rectangle
     readonly property int     groupIndex: groupData.index !== undefined ? groupData.index : -1
     readonly property string  groupName:  groupData.name || ""
     readonly property int     fixtureCount: groupData.fixtureCount || 0
-    readonly property bool    selected:   groupData.selected === true
+
+    // Read selection live from the wizard (kept in sync via groupSelectionChanged)
+    // rather than from the model snapshot, so toggling doesn't rebuild the list.
+    property bool selected: groupData.selected === true
+
+    function refreshSelected()
+    {
+        if (stageWizard && groupIndex >= 0)
+            selected = stageWizard.isGroupSelected(groupIndex)
+    }
+
+    Connections
+    {
+        target: stageWizard
+        function onGroupSelectionChanged() { box.refreshSelected() }
+    }
 
     readonly property real pad: UISettings.listItemHeight * 0.35
     readonly property real rowH: UISettings.listItemHeight * 1.1

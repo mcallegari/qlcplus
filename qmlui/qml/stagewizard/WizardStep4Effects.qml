@@ -142,6 +142,7 @@ Item
     // ── Grouped effect families ──────────────────────────────────────────────
     Flickable
     {
+        id: effectsFlick
         anchors.top: hdr.bottom
         anchors.topMargin: UISettings.listItemHeight * 0.4
         anchors.left: parent.left
@@ -150,12 +151,16 @@ Item
         clip: true
         contentHeight: effectsColumn.implicitHeight
         boundsBehavior: Flickable.StopAtBounds
+        // Reserve room on the right only while the scrollbar is shown, so the
+        // family headers' "All / None" button isn't cut off underneath it.
+        readonly property bool scrollShown: contentHeight > height
         ScrollBar.vertical: CustomScrollBar {}
 
         Column
         {
             id: effectsColumn
-            width: parent.width
+            width: effectsFlick.width
+                   - (effectsFlick.scrollShown ? UISettings.scrollBarWidth : 0)
             spacing: UISettings.listItemHeight * 0.6
 
             Repeater
@@ -223,11 +228,11 @@ Item
                                 onExited:   allNoneBtn.famHover = false
                                 onClicked:
                                 {
-                                    var effects = modelData.effects
-                                    var anyOff = effects.some(function(e) { return !e.enabled && e.available })
-                                    for (var i = 0; i < effects.length; ++i)
-                                        if (effects[i].available)
-                                            stageWizard.setEffectEnabled(effects[i].flag, anyOff)
+                                    // Single C++ batch call: toggling per-effect
+                                    // here rebuilt the model mid-loop and left the
+                                    // button doing nothing.
+                                    if (stageWizard)
+                                        stageWizard.setFamilyEffectsEnabled(modelData.family)
                                 }
                             }
                             RobotoText

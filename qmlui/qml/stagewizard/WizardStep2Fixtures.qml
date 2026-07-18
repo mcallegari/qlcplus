@@ -146,7 +146,7 @@ Item
                     {
                         anchors.fill: parent
                         anchors.leftMargin: 10
-                        anchors.rightMargin: 6
+                        anchors.rightMargin: 0
 
                         Text
                         {
@@ -162,8 +162,8 @@ Item
                         GenericButton
                         {
                             label: qsTr("+ Add group")
-                            height: UISettings.listItemHeight * 0.8
-                            width: UISettings.bigItemHeight * 2.2
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight * 1.5
                             bgColor: "#0550AA"
                             hoverColor: "#0978FF"
                             fgColor: "white"
