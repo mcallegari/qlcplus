@@ -1649,7 +1649,7 @@ void MainView3D::updateLightMatrix(SceneItem *mesh, quint32 itemID)
     if (fixture != nullptr)
     {
         const QString resource = FixtureUtils::fixtureLightResource(fixture);
-        if (!resource.isEmpty() && !m_monProps->containsLightItem(resource, headIndex))
+        if (!resource.isEmpty() && !m_monProps->containsLightEmitter(resource, headIndex))
         {
             QVector3D localOffset;
             if (mesh->m_armItem)

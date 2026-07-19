@@ -47,7 +47,7 @@
 #define KXMLQLCMonitorCustomBgItem      QStringLiteral("BackgroundItem")
 
 #define KXMLQLCMonitorFixtureItem   QStringLiteral("FxItem")
-#define KXMLQLCMonitorLightItem     QStringLiteral("LightItem")
+#define KXMLQLCMonitorLightEmitter  QStringLiteral("LightEmitter")
 #define KXMLQLCMonitorStageItem     QStringLiteral("StageItem")
 #define KXMLQLCMonitorMeshItem      QStringLiteral("MeshItem")
 #define KXMLQLCMonitorItemName      QStringLiteral("Name")
@@ -447,7 +447,7 @@ void MonitorProperties::removeLight(QString resource, quint16 head)
     }
 }
 
-bool MonitorProperties::containsLightItem(QString resource, quint16 head) const
+bool MonitorProperties::containsLightEmitter(QString resource, quint16 head) const
 {
     if (m_lightItems.contains(resource) == false)
         return false;
@@ -465,12 +465,12 @@ QVector3D MonitorProperties::lightPosition(QString resource, quint16 head) const
     return m_lightItems[resource][head].m_position;
 }
 
-LightItem MonitorProperties::lightItem(QString resource, quint16 head) const
+LightEmitter MonitorProperties::lightEmitter(QString resource, quint16 head) const
 {
     return m_lightItems[resource][head];
 }
 
-void MonitorProperties::setLightItem(QString resource, quint16 head, LightItem props)
+void MonitorProperties::setLightEmitter(QString resource, quint16 head, LightEmitter props)
 {
     m_lightItems[resource][head] = props;
 }
@@ -506,9 +506,9 @@ bool MonitorProperties::fixtureBeamPosition(const MonitorProperties *monProps,
     int lightHead = headIndex;
     if (!resource.isEmpty())
     {
-        if (!monProps->containsLightItem(resource, lightHead))
+        if (!monProps->containsLightEmitter(resource, lightHead))
         {
-            if (lightHead != 0 && monProps->containsLightItem(resource, 0))
+            if (lightHead != 0 && monProps->containsLightEmitter(resource, 0))
                 lightHead = 0;
             else
                 resource.clear();
@@ -776,7 +776,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             root.skipCurrentElement();
 
         }
-        else if (root.name() == KXMLQLCMonitorLightItem)
+        else if (root.name() == KXMLQLCMonitorLightEmitter)
         {
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemRes) == false)
             {
@@ -784,7 +784,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
                 continue;
             }
 
-            LightItem item;
+            LightEmitter item;
             QString resource = tAttrs.value(KXMLQLCMonitorItemRes).toString();
             quint16 headIndex = 0;
             QVector3D position(0, 0, 0);
@@ -800,7 +800,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
                 position.setZ(tAttrs.value(KXMLQLCMonitorItemZPosition).toString().toDouble());
 
             item.m_position = position;
-            setLightItem(resource, headIndex, item);
+            setLightEmitter(resource, headIndex, item);
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCMonitorMeshItem)
@@ -984,15 +984,15 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     {
         foreach (quint32 headIndex, lightHeadList(resource))
         {
-            if (containsLightItem(resource, headIndex) == false)
+            if (containsLightEmitter(resource, headIndex) == false)
                 continue;
 
-            LightItem item = lightItem(resource, headIndex);
+            LightEmitter item = lightEmitter(resource, headIndex);
 
             if (resource.isEmpty())
                 continue;
 
-            doc->writeStartElement(KXMLQLCMonitorLightItem);
+            doc->writeStartElement(KXMLQLCMonitorLightEmitter);
             doc->writeAttribute(KXMLQLCMonitorItemRes, resource);
 
             if (headIndex)
