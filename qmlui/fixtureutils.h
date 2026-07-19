@@ -67,7 +67,7 @@ public:
 
     static QColor applyColorFilter(QColor source, QColor filter);
 
-    /** Returns the mesh resource key used to look up LightItem data for the given fixture,
+    /** Returns the mesh resource key used to look up LightEmitter data for the given fixture,
      *  or an empty string if the fixture type has no associated 3D light metadata. */
     static QString fixtureLightResource(const Fixture *fixture);
 

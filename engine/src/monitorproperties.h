@@ -58,7 +58,7 @@ struct FixturePreviewItem
     QMap<quint32, PreviewItem> m_subItems;  ///< Map of the heads/linked fixtures
 };
 
-struct LightItem
+struct LightEmitter
 {
     QVector3D m_position;       ///< Local offset from fixture root to beam origin
 };
@@ -229,15 +229,15 @@ public:
     void removeLight(QString resource, quint16 head);
 
     /** Returns true if the provided resource and head index are in the light map */
-    bool containsLightItem(QString resource, quint16 head) const;
+    bool containsLightEmitter(QString resource, quint16 head) const;
 
     /** Get/Set the beam origin offset associated to a light item */
     void setLightPosition(QString resource, quint16 head, QVector3D position);
     QVector3D lightPosition(QString resource, quint16 head) const;
 
-    /** Get/Set a single Light item property with the given resource and head index */
-    LightItem lightItem(QString resource, quint16 head) const;
-    void setLightItem(QString resource, quint16 head, LightItem props);
+    /** Get/Set a single light emitter with the given resource and head index */
+    LightEmitter lightEmitter(QString resource, quint16 head) const;
+    void setLightEmitter(QString resource, quint16 head, LightEmitter props);
 
     /** Get a list of resources that currently have persisted light metadata */
     QList<QString> lightResources() const { return m_lightItems.keys(); }
@@ -250,13 +250,13 @@ public:
     static QMatrix4x4 fixtureRotationMatrix(QVector3D rotationDegrees);
 
     /** Compute the world-space beam origin for a fixture head.
-     *  Returns false if no LightItem data is available for this fixture. */
+     *  Returns false if no LightEmitter data is available for this fixture. */
     static bool fixtureBeamPosition(const MonitorProperties *monProps,
                                     const Fixture *fixture, int headIndex,
                                     QVector3D &beamPos, QMatrix4x4 &rotMatrix);
 
 private:
-    QMap <QString, QMap<quint32, LightItem> > m_lightItems;
+    QMap <QString, QMap<quint32, LightEmitter> > m_lightItems;
 
     /********************************************************************
      * Generic items

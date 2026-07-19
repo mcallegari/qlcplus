@@ -71,11 +71,11 @@ void MonitorProperties_Test::lightItems()
     QList<QString> resources = mp.lightResources();
     QCOMPARE(resources.count(), 1);
     QCOMPARE(resources.first(), QString("moving_head.dae"));
-    QCOMPARE(mp.containsLightItem("moving_head.dae", 0), true);
+    QCOMPARE(mp.containsLightEmitter("moving_head.dae", 0), true);
     QCOMPARE(mp.lightPosition("moving_head.dae", 0), QVector3D(1.5f, 2.5f, 3.5f));
 
     mp.removeLight("moving_head.dae");
-    QCOMPARE(mp.containsLightItem("moving_head.dae", 0), false);
+    QCOMPARE(mp.containsLightEmitter("moving_head.dae", 0), false);
 }
 
 void MonitorProperties_Test::lightItemsXML()
