@@ -228,7 +228,7 @@
     <message>
         <location filename="webaccessbase.cpp" line="745"/>
         <source>Invalid network configuration request.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige Netzwerkkonfigurations-Anfrage.</translation>
     </message>
     <message>
         <location filename="webaccessbase.cpp" line="751"/>

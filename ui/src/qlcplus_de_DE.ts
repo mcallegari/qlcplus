@@ -2114,7 +2114,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="efxeditor.cpp" line="244"/>
         <source>Enable dimmer control</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer-Steuerung aktivieren</translation>
     </message>
     <message>
         <location filename="efxeditor.cpp" line="750"/>
@@ -3701,7 +3701,7 @@ Bitte in der Plugindokumentation nachlesen, um den Fehler zu beheben.</translati
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="769"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Willst du das Profil &quot;%1&quot; permanent löschen?</translation>
+        <translation>Willst du das Profil „%1“ permanent löschen?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="797"/>
@@ -3782,7 +3782,7 @@ Bitte in der Plugindokumentation nachlesen, um den Fehler zu beheben.</translati
     <message>
         <location filename="inputprofileeditor.ui" line="110"/>
         <source>When MIDI notes are used, send a Note Off when value is 0</source>
-        <translation>Wenn MIDI-Noten verwendet werden, sende ein &quot;Note Off&quot;, wenn der Wert 0 ist</translation>
+        <translation>Wenn MIDI-Noten verwendet werden, sende ein „Note Off“, wenn der Wert 0 ist</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="134"/>
@@ -3812,7 +3812,7 @@ Bitte in der Plugindokumentation nachlesen, um den Fehler zu beheben.</translati
     <message>
         <location filename="inputprofileeditor.ui" line="199"/>
         <source>Generate an extra Press/Release when toggled</source>
-        <translation>Ein zusätzliches &quot;Drücken/Loslassen&quot; beim Umschalten generieren</translation>
+        <translation>Ein zusätzliches „Drücken/Loslassen“ beim Umschalten generieren</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="352"/>
@@ -6319,7 +6319,7 @@ Dauer: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
         <location filename="virtualconsole/vccuelistproperties.ui" line="134"/>
         <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
-        <translation>Verhalten der &quot;Nächster/Voriger&quot;-Knöpfe, wenn der Chaser nicht aktiv ist</translation>
+        <translation>Verhalten der „Nächster/Voriger“-Knöpfe, wenn der Chaser nicht aktiv ist</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="141"/>
