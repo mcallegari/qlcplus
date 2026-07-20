@@ -49,7 +49,8 @@ private:
     void setAudioCapture(AudioCapture* cap);
 
 protected slots:
-    void slotAudioBarsChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotAudioBarsChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power,
+                              int spectrumGridMode, double spectrumLowBandGamma);
 
 private:
     void calculateColors(int barsHeight = 0);

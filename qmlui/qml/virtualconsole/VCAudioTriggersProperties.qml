@@ -115,11 +115,51 @@ Rectangle
                     {
                         Layout.fillWidth: true
                         height: gridItemsHeight
+                        from: 1
+                        to: widgetRef ? widgetRef.maxSpectrumBands : 64
                         value: widgetRef ? widgetRef.barsNumber - 1 : 0
                         onValueModified: if (widgetRef) widgetRef.barsNumber = value + 1
                     }
 
-                    // row 2
+                    RobotoText
+                    {
+                        height: gridItemsHeight
+                        label: qsTr("Spectrum grid")
+                    }
+
+                    CustomComboBox
+                    {
+                        Layout.fillWidth: true
+                        height: gridItemsHeight
+                        model: [
+                            { mLabel: qsTr("Uniform log"), mValue: 0 },
+                            { mLabel: qsTr("Semi-log (1-2-5)"), mValue: 1 }
+                        ]
+                        currValue: widgetRef ? widgetRef.spectrumGridMode : 0
+                        onValueChanged: if (widgetRef) widgetRef.spectrumGridMode = value
+                    }
+
+                    RobotoText
+                    {
+                        height: gridItemsHeight
+                        label: qsTr("Low band emphasis")
+                    }
+
+                    CustomSpinBox
+                    {
+                        Layout.fillWidth: true
+                        height: gridItemsHeight
+                        from: 10
+                        to: 40
+                        value: widgetRef ? Math.round(widgetRef.spectrumLowBandGamma * 10) : 10
+                        suffix: "×0.1"
+                        onValueModified:
+                        {
+                            if (widgetRef)
+                                widgetRef.spectrumLowBandGamma = value / 10.0
+                        }
+                    }
+
                     ListView
                     {
                         id: barsList

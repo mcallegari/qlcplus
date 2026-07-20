@@ -28,6 +28,7 @@
 #include "treemodelitem.h"
 #include "fixtureutils.h"
 #include "audiocapture.h"
+#include "spectrumgrid.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "vcspeeddial.h"
@@ -43,6 +44,8 @@
 #define INPUT_VOLUME_CONTROL    1
 
 #define KXMLQLCAudioBarsNumber      QStringLiteral("BarsNumber")
+#define KXMLQLCAudioSpectrumGrid    QStringLiteral("SpectrumGrid")
+#define KXMLQLCAudioSpectrumLowBandGamma QStringLiteral("SpectrumLowBandGamma")
 #define KXMLQLCAudioTriggerBar      QStringLiteral("Bar")
 #define KXMLQLCVolumeBar            QStringLiteral("VolumeBar")   // LEGACY
 #define KXMLQLCSpectrumBar          QStringLiteral("SpectrumBar") // LEGACY
@@ -186,11 +189,11 @@ void VCAudioTriggers::setCaptureEnabled(bool enable)
 
     if (enable == true)
     {
-        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                this, SLOT(slotSpectrumDataChanged(double*,int,double,quint32)));
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                this, SLOT(slotSpectrumDataChanged(double*,int,double,quint32,int,double)));
         connect(m_inputCapture, SIGNAL(volumeChanged(int)),
                 this, SIGNAL(volumeLevelChanged()));
-        m_inputCapture->registerBandsNumber(m_spectrumBars.count() - 1);
+        m_inputCapture->registerBands(m_spectrumBars.count() - 1, m_spectrumGridMode, m_spectrumLowBandGamma);
 
         // Invalid ID: Stop every other widget
         emit functionStarting(this, Function::invalidId());
@@ -208,9 +211,9 @@ void VCAudioTriggers::setCaptureEnabled(bool enable)
     {
         if (!captureIsNew)
         {
-            m_inputCapture->unregisterBandsNumber(m_spectrumBars.count() - 1);
-            disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                       this, SLOT(slotSpectrumDataChanged(double*,int,double,quint32)));
+            m_inputCapture->unregisterBands(m_spectrumBars.count() - 1, m_spectrumGridMode, m_spectrumLowBandGamma);
+            disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                       this, SLOT(slotSpectrumDataChanged(double*,int,double,quint32,int,double)));
             disconnect(m_inputCapture, SIGNAL(volumeChanged(int)),
                        this, SIGNAL(volumeLevelChanged()));
         }
@@ -289,6 +292,68 @@ void VCAudioTriggers::setBarsNumber(int num)
     emit barsInfoChanged();
 }
 
+int VCAudioTriggers::spectrumGridMode() const
+{
+    return int(m_spectrumGridMode);
+}
+
+void VCAudioTriggers::setSpectrumGridMode(int mode)
+{
+    SpectrumGridMode newMode = SpectrumGridMode::LogUniform;
+    if (mode == int(SpectrumGridMode::SemiLogPreferred))
+        newMode = SpectrumGridMode::SemiLogPreferred;
+
+    if (m_spectrumGridMode == newMode)
+        return;
+
+    const int bands = m_spectrumBars.count() - 1;
+    if (m_captureEnabled && m_inputCapture && bands > 0)
+    {
+        m_inputCapture->unregisterBands(bands, m_spectrumGridMode, m_spectrumLowBandGamma);
+        m_spectrumGridMode = newMode;
+        m_inputCapture->registerBands(bands, m_spectrumGridMode, m_spectrumLowBandGamma);
+    }
+    else
+    {
+        m_spectrumGridMode = newMode;
+    }
+
+    emit spectrumGridModeChanged();
+    emit barsInfoChanged();
+}
+
+qreal VCAudioTriggers::spectrumLowBandGamma() const
+{
+    return m_spectrumLowBandGamma;
+}
+
+void VCAudioTriggers::setSpectrumLowBandGamma(qreal gamma)
+{
+    const double newGamma = qBound(1.0, double(gamma), 4.0);
+    if (qAbs(m_spectrumLowBandGamma - newGamma) < 0.05)
+        return;
+
+    const int bands = m_spectrumBars.count() - 1;
+    if (m_captureEnabled && m_inputCapture && bands > 0)
+    {
+        m_inputCapture->unregisterBands(bands, m_spectrumGridMode, m_spectrumLowBandGamma);
+        m_spectrumLowBandGamma = newGamma;
+        m_inputCapture->registerBands(bands, m_spectrumGridMode, m_spectrumLowBandGamma);
+    }
+    else
+    {
+        m_spectrumLowBandGamma = newGamma;
+    }
+
+    emit spectrumLowBandGammaChanged();
+    emit barsInfoChanged();
+}
+
+int VCAudioTriggers::maxSpectrumBands()
+{
+    return AudioCapture::maxSpectrumBands();
+}
+
 int VCAudioTriggers::selectedBar() const
 {
     return m_selectedBar;
@@ -320,9 +385,9 @@ bool VCAudioTriggers::copyFrom(const VCWidget *widget)
 
     /* Copy and set properties */
 
-    /* Copy object lists */
+    m_spectrumGridMode = audioTrigger->m_spectrumGridMode;
+    m_spectrumLowBandGamma = audioTrigger->m_spectrumLowBandGamma;
 
-    /* Common stuff */
     return VCWidget::copyFrom(widget);
 }
 
@@ -342,7 +407,8 @@ QVariantList VCAudioTriggers::barsInfo() const
     const int spectrumBars = barsNumber() - 1; // exclude volume bar
     const double minFreq = AudioCapture::minFrequency();
     const double maxFreq = m_inputCapture ? m_inputCapture->maxFrequency() : AudioCapture::maxFrequency();
-    const double logRange = (spectrumBars > 0 && maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
+    const QVector<double> edges = computeSpectrumBandEdges(spectrumBars, minFreq, maxFreq, m_spectrumGridMode,
+                                                           m_spectrumLowBandGamma);
 
     int index = 0;
     for (const AudioBar &bar : m_spectrumBars)
@@ -356,16 +422,8 @@ QVariantList VCAudioTriggers::barsInfo() const
         else
         {
             const int bandIndex = index - 1;
-            double bandStartFreq = minFreq;
-            double bandEndFreq = maxFreq;
-            if (logRange > 0.0)
-            {
-                bandStartFreq = minFreq * qExp(logRange * (double(bandIndex) / double(spectrumBars)));
-                bandEndFreq = minFreq * qExp(logRange * (double(bandIndex + 1) / double(spectrumBars)));
-            }
-
-            int bandStartHz = qCeil(bandStartFreq);
-            int bandEndHz = (bandIndex == spectrumBars - 1) ? int(maxFreq) : (qCeil(bandEndFreq) - 1);
+            int bandStartHz = int(qCeil(edges[bandIndex]));
+            int bandEndHz = (bandIndex == spectrumBars - 1) ? int(maxFreq) : (qCeil(edges[bandIndex + 1]) - 1);
             if (bandEndHz <= bandStartHz)
                 bandEndHz = bandStartHz;
 
@@ -584,8 +642,15 @@ void VCAudioTriggers::checkWidgetFunctionality(AudioBar &bar) const
 void VCAudioTriggers::slotSpectrumDataChanged(double *spectrumBands,
                                              int size,
                                              double maxMagnitude,
-                                             quint32 power)
+                                             quint32 power,
+                                             int gridMode,
+                                             double lowBandGamma)
 {
+    if (gridMode != int(m_spectrumGridMode))
+        return;
+    if (qAbs(lowBandGamma - m_spectrumLowBandGamma) > 0.05)
+        return;
+
     // First element of m_spectrumBars is the volume bar.
     // We registered bandsNumber = m_spectrumBars.count() - 1 with AudioCapture,
     // so 'size' must match that.
@@ -1050,6 +1115,13 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
         int barsNum = root.attributes().value(KXMLQLCAudioBarsNumber).toInt();
         setBarsNumber(barsNum + 1);
     }
+    if (attrs.hasAttribute(KXMLQLCAudioSpectrumGrid))
+        m_spectrumGridMode = spectrumGridModeFromString(attrs.value(KXMLQLCAudioSpectrumGrid).toString());
+    if (attrs.hasAttribute(KXMLQLCAudioSpectrumLowBandGamma))
+    {
+        m_spectrumLowBandGamma = qBound(1.0,
+            attrs.value(KXMLQLCAudioSpectrumLowBandGamma).toString().toDouble(), 4.0);
+    }
 
     /* Widget commons */
     loadXMLCommon(root);
@@ -1099,6 +1171,9 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc) const
     /* VC object entry */
     doc->writeStartElement(KXMLQLCVCAudioTriggers);
     doc->writeAttribute(KXMLQLCAudioBarsNumber, QString::number(barsNumber() - 1));
+    doc->writeAttribute(KXMLQLCAudioSpectrumGrid, spectrumGridModeToString(m_spectrumGridMode));
+    if (qAbs(m_spectrumLowBandGamma - 1.0) > 0.05)
+        doc->writeAttribute(KXMLQLCAudioSpectrumLowBandGamma, QString::number(m_spectrumLowBandGamma, 'f', 1));
 
     saveXMLCommon(doc);
 

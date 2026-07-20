@@ -119,7 +119,8 @@ private slots:
     void slotSampleRateIndexChanged(int index);
     void slotAudioChannelsChanged(int index);
     void slotAudioInputPreview(bool enable);
-    void slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+    void slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power,
+                              int spectrumGridMode, double spectrumLowBandGamma);
 
 private:
     AudioCapture *m_inputCapture;
