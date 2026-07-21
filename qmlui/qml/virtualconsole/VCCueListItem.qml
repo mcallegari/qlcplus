@@ -201,8 +201,16 @@ VCWidgetItem
             onIndexChanged: if (cueListObj) cueListObj.playbackIndex = index
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
             onNoteTextChanged: if (cueListObj) cueListObj.setStepNote(index, text)
-            onAddFunctions: if (cueListObj) cueListObj.addFunctions(list, index)
-            onEnterPressed: if (cueListObj) cueListObj.playCurrentStep()
+            onAddFunctions: (list, index) =>
+            {
+                if (cueListObj) 
+                    cueListObj.addFunctions(list, index)
+            }
+            onEnterPressed: (list, index) =>
+            {
+                if (cueListObj) 
+                    cueListObj.playCurrentStep()
+            }
 
             states: [
                 State
