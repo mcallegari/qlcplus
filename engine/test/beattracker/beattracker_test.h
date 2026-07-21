@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus - Unit test
-  beattrackerauto_test.h
+  beattracker_test.h
 
   Copyright (c) varghele
 
@@ -17,12 +17,12 @@
   limitations under the License.
 */
 
-#ifndef BEATTRACKERAUTO_TEST_H
-#define BEATTRACKERAUTO_TEST_H
+#ifndef BEATTRACKER_TEST_H
+#define BEATTRACKER_TEST_H
 
 #include <QObject>
 
-class BeatTrackerAuto_Test : public QObject
+class BeatTracker_Test : public QObject
 {
     Q_OBJECT
 

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus - Unit test
-  beattrackerauto_test.cpp
+  beattracker_test.cpp
 
   Copyright (c) varghele
 
@@ -21,8 +21,8 @@
 #include <cmath>
 #include <vector>
 
-#include "beattrackerauto.h"
-#include "beattrackerauto_test.h"
+#include "beattracker.h"
+#include "beattracker_test.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -68,7 +68,7 @@ static std::vector<int16_t> makeKickTrack(double bpm, double seconds)
 
 /** Feed a mono track through the tracker in AudioCapture-sized blocks;
  *  returns the block index of every emitted beat */
-static std::vector<int> runTracker(BeatTrackerAuto &tracker,
+static std::vector<int> runTracker(BeatTracker &tracker,
                                    const std::vector<int16_t> &audio,
                                    int channels = 1)
 {
@@ -89,7 +89,7 @@ static std::vector<int> runTracker(BeatTrackerAuto &tracker,
     return beatBlocks;
 }
 
-void BeatTrackerAuto_Test::detectsSteadyTempo_data()
+void BeatTracker_Test::detectsSteadyTempo_data()
 {
     QTest::addColumn<double>("bpm");
     QTest::newRow("90 BPM") << 90.0;
@@ -98,11 +98,11 @@ void BeatTrackerAuto_Test::detectsSteadyTempo_data()
     QTest::newRow("174 BPM") << 174.0;
 }
 
-void BeatTrackerAuto_Test::detectsSteadyTempo()
+void BeatTracker_Test::detectsSteadyTempo()
 {
     QFETCH(double, bpm);
 
-    BeatTrackerAuto tracker(SAMPLE_RATE, 1);
+    BeatTracker tracker(SAMPLE_RATE, 1);
     std::vector<int16_t> audio = makeKickTrack(bpm, 20.0);
     runTracker(tracker, audio);
 
@@ -112,10 +112,10 @@ void BeatTrackerAuto_Test::detectsSteadyTempo()
                         .arg(tracker.bpm()).arg(bpm)));
 }
 
-void BeatTrackerAuto_Test::beatSpacingIsRegular()
+void BeatTracker_Test::beatSpacingIsRegular()
 {
     const double bpm = 120.0;
-    BeatTrackerAuto tracker(SAMPLE_RATE, 1);
+    BeatTracker tracker(SAMPLE_RATE, 1);
     std::vector<int16_t> audio = makeKickTrack(bpm, 30.0);
     std::vector<int> beats = runTracker(tracker, audio);
 
@@ -152,9 +152,9 @@ void BeatTrackerAuto_Test::beatSpacingIsRegular()
                         .arg(mean).arg(period)));
 }
 
-void BeatTrackerAuto_Test::silenceGivesNoEstimate()
+void BeatTracker_Test::silenceGivesNoEstimate()
 {
-    BeatTrackerAuto tracker(SAMPLE_RATE, 1);
+    BeatTracker tracker(SAMPLE_RATE, 1);
     std::vector<int16_t> silence(size_t(15.0 * SAMPLE_RATE), 0);
     std::vector<int> beats = runTracker(tracker, silence);
 
@@ -162,19 +162,19 @@ void BeatTrackerAuto_Test::silenceGivesNoEstimate()
     QVERIFY(beats.empty());
 }
 
-void BeatTrackerAuto_Test::stereoMatchesMono()
+void BeatTracker_Test::stereoMatchesMono()
 {
     const double bpm = 120.0;
     std::vector<int16_t> audio = makeKickTrack(bpm, 20.0);
 
-    BeatTrackerAuto mono(SAMPLE_RATE, 1);
+    BeatTracker mono(SAMPLE_RATE, 1);
     runTracker(mono, audio, 1);
 
-    BeatTrackerAuto stereo(SAMPLE_RATE, 2);
+    BeatTracker stereo(SAMPLE_RATE, 2);
     runTracker(stereo, audio, 2);
 
     QVERIFY(mono.bpm() > 0.0);
     QCOMPARE(stereo.bpm(), mono.bpm());
 }
 
-QTEST_GUILESS_MAIN(BeatTrackerAuto_Test)
+QTEST_GUILESS_MAIN(BeatTracker_Test)

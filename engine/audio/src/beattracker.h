@@ -2,7 +2,12 @@
   Q Light Controller Plus
   beattracker.h
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) varghele
+
+  Beat tracker by varghele: a multi-band saturated rising-edge onset
+  front end feeding a comb-scored autocorrelation tempo estimator with
+  a temporal belief filter, octave-raise walk and beat-phase output.
+  Algorithm documentation: beattracker.md (same directory).
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,106 +28,170 @@
 #include <cstdint>
 #include <vector>
 
-#ifdef HAS_FFTW3
-#include <fftw3.h>
-#endif
+/** @addtogroup engine_audio Audio
+ * @{
+ */
 
-class BeatTracker final
+/**
+ * Onset front end: one band-combined onset value per 512 input samples
+ * (86.13 Hz at 44100). 4096-sample Hann-windowed FFT (~93 ms - the window
+ * span in SECONDS is load-bearing: a ~46 ms window resolves every
+ * micro-transient of sustained instruments and buries the beat in onset
+ * noise on real music), log1p magnitude, positive spectral difference,
+ * three bands (<200 Hz kick / 200-4000 Hz snare-vocals / >=4 kHz hats).
+ * Each band is saturated against its own recent peak (~3 s decay
+ * follower) and reduced to its rising edge, then combined with weights
+ * 1 / 1 / 0.4. Self-contained radix-2 FFT; no external dependencies.
+ */
+class BeatOnsetExtractor
 {
 public:
-    // Constructor: initial format
-    BeatTracker(int sampleRate,
-                int bufferSize,          // frames per callback
-                int channels = 1,
-                int historySize = 86,    // ~2s history at ~40–50 fps
-                double sensitivity = 1.3);
+    explicit BeatOnsetExtractor(int sampleRate);
 
-    ~BeatTracker();
+    void reset();
 
-    // Change sample rate / channels / frame size at runtime.
-    // Call this from a non-audio thread or while audio is stopped.
-    void setFormat(int sampleRate,
-                   int bufferSize,
-                   int channels);
+    /** Onset values produced per second of audio (sampleRate / 512). */
+    double frameRateHz() const { return double(m_sampleRate) / double(m_hop); }
 
-    // Process interleaved audio buffer.
-    // bufferSize = total number of samples (frames * channels)
-    // Returns true if beat onset detected in this block.
-    bool processAudio(const int16_t *buffer, int bufferSize);
-
-    // Optional: set band where we measure flux (Hz)
-    // For rock, try: setBand(40.0, 250.0);
-    void setBand(double minHz, double maxHz);
-
-    // Optional tuning if you want to tweak at runtime:
-    void setSensitivity(double sensitivity) { m_sensitivity = sensitivity; }
-    void setFluxSmoothing(double alpha)     { m_fluxSmoothingAlpha = alpha; }
-    void setMinBeatInterval(double seconds) { m_minBeatIntervalSec = seconds; }
-
-    // Silence gate threshold on normalized sample amplitude [0..1].
-    // Typical values: 0.005–0.02 (~ -46..-34 dBFS).
-    void setSilenceThreshold(double t)      { m_silenceThreshold = t; }
-
-    // Estimated BPM from the last few beats.
-    // Returns 0.0 if not enough data yet.
-    double getCurrentBpm() const;
+    /** Feed mono samples in [-1, 1]; appends one onset value per
+     *  elapsed 512-sample hop to @a onsetsOut (possibly none). */
+    void push(const float *samples, int count, std::vector<double> &onsetsOut);
 
 private:
-    // Internal helpers
-    void allocateFft();
-    void freeFft();
-    void initWindow();
-    double computeSpectralFlux();
-    double computeAdaptiveThreshold() const;
+    void processHop(const float *chunk, std::vector<double> &onsetsOut);
 
 private:
     int m_sampleRate;
-    int m_frameSize;      // frames per block
-    int m_fftSize;
-    int m_channels;
+    int m_hop;      // 512
+    int m_fftSize;  // 4096
 
-    double m_sensitivity;
+    std::vector<float> m_window;    // Hann, float32 to match the reference
+    std::vector<float> m_buffer;    // sliding fftSize window
+    std::vector<float> m_pending;   // not-yet-hop-aligned input
 
-    // FFTW
-    double *m_fftInput;
-#ifdef HAS_FFTW3
-    fftw_complex *m_fftOutput;
-    fftw_plan m_fftPlan;
-#endif
+    std::vector<double> m_prevMagLog;
+    bool m_hasPrev;
 
-    // Window + magnitude history
-    std::vector<double> m_window;
-    std::vector<double> m_prevMag;
+    double m_refDecay;              // exp(-1 / (3 s * frame rate))
+    double m_bandRefs[3];
+    double m_bandPrev[3];
 
-    // Spectral flux history (adaptive threshold)
-    std::vector<double> m_fluxHistory;
-    int m_historySize;
-    int m_historyIndex;
-    bool m_historyFilled;
-
-    double m_lastFlux;
-
-    // Smoothed flux
-    double m_fluxSmoothed;
-    double m_fluxSmoothingAlpha; // 0=no smoothing, ->1 more smoothing
-
-    // Refractory period
-    double m_minBeatIntervalSec; // seconds
-    int    m_samplesSinceBeat;   // in samples
-
-    // BPM estimation
-    std::vector<double> m_beatIntervalsSec; // last few intervals in seconds
-    int                 m_lastBeatSample;   // sample index of last beat
-    int                 m_totalSamplesProcessed; // running sample position
-
-    // Silence gate
-    double m_silenceThreshold;      // amplitude threshold for silence [0..1]
-    int    m_consecutiveSilentFrames;
-    int    m_silenceResetFrames;    // after this many silent frames, reset BPM
-
-    // Frequency band in bins
-    int m_minBin;
-    int m_maxBin;
+    // FFT workspace (radix-2, complex in-place)
+    std::vector<double> m_re, m_im;
 };
 
-#endif
+/**
+ * Tempo + phase estimator over the onset train. Every 2 s of audio it
+ * runs, on an 8 s window: unbiased autocorrelation pre-smoothed with a
+ * rate-scaled (~+/-23 ms) Hann kernel; a harmonic comb score for every
+ * candidate on a fractional 50-240 BPM grid (0.25 steps, ACF sampled at
+ * 1x..4x the period as the local max within +/-1 lag, weights
+ * 1/0.7/0.45/0.3); a forward-filtered belief over the grid (observation
+ * = scores^3, transition = gaussian blur + 10% uniform jump) picks the
+ * base candidate; an octave-raise walk prefers the fastest 2x/3x
+ * candidate holding >= 0.90 of the current score, with +/-0.04
+ * hysteresis toward the previous estimate. Reported BPM is the median
+ * of the last 3 analyses, gated on comb confidence >= 0.15.
+ */
+class AutoBpmDetector
+{
+public:
+    explicit AutoBpmDetector(double analysisRateHz,
+                             double windowSeconds = 8.0,
+                             double octaveRaiseThreshold = 0.90);
+
+    void reset();
+
+    /** Feed one onset value (one hop of audio). */
+    void pushOnset(double value);
+
+    /** Median of the last 3 analyses, or 0.0 while confidence < 0.15. */
+    double bpm() const;
+
+    /** Comb score of the current estimate, ~0..1. */
+    double confidence() const { return m_confidence; }
+
+    /** Total onset frames received so far. */
+    long long frameCount() const { return m_count; }
+
+    /** Absolute (fractional) frame index of the next predicted beat,
+     *  >= frameCount()-1, or a negative value when there is no
+     *  confident estimate. */
+    double nextBeatFrame() const;
+
+    /** Current beat period in frames, or 0 when unknown. */
+    double beatPeriodFrames() const { return m_beatPeriodFrames; }
+
+private:
+    void analyze();
+    int raiseOctave(int idx, const std::vector<double> &scores) const;
+    void estimatePhase(const std::vector<double> &signal);
+
+private:
+    double m_rate;
+    int m_windowSize;
+    double m_octaveRaiseThreshold;
+
+    std::vector<float> m_fluxBuffer;   // ring buffer, float32 like the reference
+    int m_writePos;
+    long long m_count;
+    double m_lastAnalysisTime;         // audio seconds
+    double m_analysisInterval;
+
+    bool m_hasBpm;
+    double m_currentBpm;
+    double m_confidence;
+    std::vector<double> m_recentBpms;  // last <= 3 analyses
+
+    std::vector<double> m_bpmGrid;     // 50..240 step 0.25
+    std::vector<double> m_acfSmoothKernel;
+    std::vector<double> m_beliefBlur;  // 15-tap gaussian, sigma 4 grid steps
+    double m_beliefJumpProb;
+    std::vector<double> m_belief;
+    bool m_hasBelief;
+
+    double m_beatAnchorFrame;          // absolute frame of last located beat
+    double m_beatPeriodFrames;
+    bool m_hasPhase;
+};
+
+/**
+ * QLC+ facade: implements the AudioCapture beat interface (interleaved
+ * int16 blocks, bufferSize = TOTAL samples = frames * channels).
+ * processAudio() returns true when a predicted beat falls inside the
+ * block; bpm() exposes the estimator's tempo so the UI can display it
+ * instead of re-deriving BPM from wall-clock signal spacing.
+ */
+class BeatTracker
+{
+public:
+    BeatTracker(int sampleRate, int channels);
+
+    /** Reconfigure for a new capture format; resets all state. */
+    void setFormat(int sampleRate, int channels);
+
+    void reset();
+
+    /** Process an interleaved int16 block; bufferSize is the total
+     *  number of samples (frames * channels). Returns true if a beat
+     *  occurred within this block. */
+    bool processAudio(const int16_t *buffer, int bufferSize);
+
+    /** Current tempo estimate, 0.0 while unavailable/low-confidence. */
+    double bpm() const { return m_detector.bpm(); }
+
+    double confidence() const { return m_detector.confidence(); }
+
+private:
+    int m_sampleRate;
+    int m_channels;
+    BeatOnsetExtractor m_extractor;
+    AutoBpmDetector m_detector;
+    std::vector<float> m_mono;
+    std::vector<double> m_onsets;
+    double m_lastEmitFrame;
+};
+
+/** @} */
+
+#endif // BEATTRACKER_H

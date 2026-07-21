@@ -4,16 +4,15 @@
 
   Copyright (c) varghele
 
-  Head-to-head benchmark of the beat tracker implementations on
-  synthesized percussion audio with known ground-truth tempo.
-  C++ port of varghele's Python benchmark harness (the source of the
-  numbers quoted in issue #1881).
+  Benchmark of the BeatTracker on synthesized percussion audio with
+  known ground-truth tempo. C++ port of varghele's Python benchmark
+  harness (the source of the numbers quoted in issue #1881).
 
   Usage:
     beattrackerbench            quick mode: 4 scenarios x 4 tempi,
-                                asserts the default tracker is correct
-                                on every clip (used by test.sh)
-    beattrackerbench --full     8 scenarios x 8 tempi comparison table
+                                asserts BeatTracker is correct on every
+                                clip (used by test.sh)
+    beattrackerbench --full     8 scenarios x 8 tempi accuracy table
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,9 +34,7 @@
 #include <string>
 #include <vector>
 
-#include "beattrackerauto.h"
 #include "beattracker.h"
-#include "beattracking.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -319,16 +316,12 @@ int main(int argc, char **argv)
     static const double quickTempi[] = { 75, 105, 140, 174 };
     const double *tempi = full ? allTempi : quickTempi;
 
-    static const char *trackerNames[] = {
-        "BeatTrackerAuto (default)", "BeatTracker (spectral flux)",
-        "BeatTracking (ACF)"
-    };
-    int correct[3] = { 0, 0, 0 };
-    int perScenario[3][8];
+    int correct = 0;
+    int perScenario[8];
     std::memset(perScenario, 0, sizeof(perScenario));
-    int defaultTrackerFailures = 0;
+    int failures = 0;
 
-    std::printf("Beat tracker comparison: %d scenarios x %d tempi, "
+    std::printf("BeatTracker accuracy: %d scenarios x %d tempi, "
                 "%.0f+ s clips, tolerance %.0f%%\n\n",
                 nScenarios, nTempi, CLIP_SECONDS, TOLERANCE * 100.0);
 
@@ -338,63 +331,37 @@ int main(int argc, char **argv)
         for (int t = 0; t < nTempi; t++)
         {
             Clip clip = scenarioClip(allScenarios[s], tempi[t], rng);
-            double est[3];
-            Verdict verdict[3];
 
-            BeatTrackerAuto autoTracker(SAMPLE_RATE, 1);
-            est[0] = runClip(clip,
-                [&](int16_t *b, int n){ autoTracker.processAudio(b, n); },
-                [&](){ return autoTracker.bpm(); });
+            BeatTracker tracker(SAMPLE_RATE, 1);
+            double est = runClip(clip,
+                [&](int16_t *b, int n){ tracker.processAudio(b, n); },
+                [&](){ return tracker.bpm(); });
 
-            BeatTracker flux(SAMPLE_RATE, BLOCK_FRAMES, 1, 86, 1.3);
-            flux.setBand(40.0, 400.0);
-            flux.setFluxSmoothing(0.6);
-            flux.setMinBeatInterval(0.20);
-            est[1] = runClip(clip,
-                [&](int16_t *b, int n){ flux.processAudio(b, n); },
-                [&](){ return flux.getCurrentBpm(); });
-
-            BeatTracking acf(SAMPLE_RATE, 1);
-            est[2] = runClip(clip,
-                [&](int16_t *b, int n){ acf.processAudio(b, n); },
-                [&](){ return acf.currentBpm(); });
-
-            for (int i = 0; i < 3; i++)
+            Verdict verdict = classify(est, clip.truth);
+            if (verdict == Correct)
             {
-                verdict[i] = classify(est[i], clip.truth);
-                if (verdict[i] == Correct)
-                {
-                    correct[i]++;
-                    perScenario[i][s]++;
-                }
+                correct++;
+                perScenario[s]++;
             }
-            if (verdict[0] != Correct)
-                defaultTrackerFailures++;
+            else
+                failures++;
 
-            std::printf("%-20s %3.0f BPM:  auto %7.2f (%s)  flux %7.2f (%s)"
-                        "  acf %7.2f (%s)\n",
+            std::printf("%-20s %3.0f BPM:  %7.2f (%s)\n",
                         allScenarios[s], clip.truth,
-                        est[0], verdictName(verdict[0]),
-                        est[1], verdictName(verdict[1]),
-                        est[2], verdictName(verdict[2]));
+                        est, verdictName(verdict));
         }
     }
 
     const int total = nScenarios * nTempi;
-    std::printf("\n%-30s %s\n", "tracker", "correct");
-    for (int i = 0; i < 3; i++)
-    {
-        std::printf("%-30s %d/%d   per scenario:", trackerNames[i],
-                    correct[i], total);
-        for (int s = 0; s < nScenarios; s++)
-            std::printf(" %d", perScenario[i][s]);
-        std::printf("\n");
-    }
+    std::printf("\nBeatTracker: %d/%d   per scenario:", correct, total);
+    for (int s = 0; s < nScenarios; s++)
+        std::printf(" %d", perScenario[s]);
+    std::printf("\n");
 
-    if (!full && defaultTrackerFailures > 0)
+    if (!full && failures > 0)
     {
-        std::printf("\nFAIL: default tracker missed %d/%d quick clips\n",
-                    defaultTrackerFailures, total);
+        std::printf("\nFAIL: BeatTracker missed %d/%d quick clips\n",
+                    failures, total);
         return 1;
     }
     return 0;
