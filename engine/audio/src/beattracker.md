@@ -1,8 +1,8 @@
-# BeatTrackerAuto — algorithm documentation
+# BeatTracker — algorithm documentation
 
 Beat tracker by varghele, developed and benchmarked in Python across several
 measured iterations, then ported to self-contained C++ for QLC+
-(`beattrackerauto.{h,cpp}`). This document is the standalone description of
+(`beattracker.{h,cpp}`). This document is the standalone description of
 how it works, why each stage exists, and how it was validated. Related
 upstream discussion: issue #1881.
 
@@ -19,7 +19,7 @@ int16 PCM blocks -> BeatOnsetExtractor -> onset value per 512-sample hop
                                          2 s of audio)     predicted beat grid
 ```
 
-`BeatTrackerAuto` is the facade that adapts both to QLC+'s `AudioCapture`
+`BeatTracker` is the facade that adapts both to QLC+'s `AudioCapture`
 contract: interleaved int16 input where `bufferSize` is the **total** sample
 count (frames × channels), a boolean per-block "beat occurred" return that
 drives `beatDetected()`, and a `bpm()` getter for the UI.
@@ -129,22 +129,22 @@ onsets — is what makes the beat output steady on syncopated material.
 - Synthetic audio suite (8 scenarios × 8 tempi, 50–240 BPM: four-on-floor,
   8th hats, kick/snare backbeat, 8th-note bassline, swung hats, ±3% drift,
   2.5 s dropout, +30% tempo step; rendered percussion as int16 PCM):
-  **64/64 correct** (4% tolerance). Faithful ports of QLC+'s two existing
-  trackers on the same suite: 48/64 (beattracking.cpp) and 54/64
-  (beattracker.cpp). An in-repo C++ port of this suite lives in
-  `engine/test/beattrackerbench` (run with `--full` for the whole table);
-  with its RNG it reproduces 63/64 vs. 54/64 vs. 48/64 — the single flip
-  is a 90 BPM 8th-hats clip reading an octave up, i.e. the known limit
-  described above.
+  **64/64 correct** (4% tolerance). When it was selected, faithful ports of
+  QLC+'s two former trackers scored 48/64 (D. Suermann's ACF tracker) and
+  54/64 (the reactive spectral-flux detector) on the same suite. An in-repo
+  C++ port of this suite lives in `engine/test/beattrackerbench` (run with
+  `--full` for the whole table); with its RNG it reproduces 63/64 — the
+  single miss is a 90 BPM 8th-hats clip reading an octave up, i.e. the known
+  limit described above.
 - Onset-level suite (7 scenarios × 20 tempi incl. noise at SNR 2:1):
   139/140.
 - Real songs: 9-song album benchmark with per-section ground truth,
-  scored as % of post-warmup time within 4%: 65% vs. 63% and 4% for the
-  two existing trackers.
+  scored as % of post-warmup time within 4%: 65%, versus 63% and 4% for the
+  two former trackers when it was selected.
 - Issue #1881's reference video (a 100 BPM metronome): reads 100.00 BPM
   with 0.600 s beat intervals; a 140 BPM rock drum-track video reads
   139.75. Both confirmed in a live microphone test.
-- Unit test: `engine/test/beattrackerauto` (tempo accuracy at
+- Unit test: `engine/test/beattracker` (tempo accuracy at
   90/120/140/174 BPM, beat spacing regularity, silence gating,
   stereo/mono equivalence).
 

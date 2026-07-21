@@ -8,9 +8,7 @@ target_include_directories(beattrackerbench PRIVATE
     ../../src
 )
 
-# Link the audio static library directly: the benchmark drives all three
-# tracker implementations, including ones not referenced by (and therefore
-# not exported from) the engine shared library
+# Link the audio static library directly for the BeatTracker symbols
 target_link_libraries(beattrackerbench PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
     Qt${QT_MAJOR_VERSION}::Gui

@@ -44,23 +44,10 @@
 #define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
 
-/** Beat tracker implementation selection (issue #1881 work):
- *  AUTO_TRACKER: multi-band onset front end + comb-scored ACF tempo
- *                estimator by varghele (beattrackerauto.cpp, documented
- *                in beattrackerauto.md)
- *  NEW_TRACKER:  reactive spectral-flux onset detector (beattracker.cpp)
- *  neither:      ACF tempo-induction tracker by D. Suermann (beattracking.cpp)
- */
-#define AUTO_TRACKER
-//#define NEW_TRACKER
-
-#if defined(AUTO_TRACKER)
-  class BeatTrackerAuto;
-#elif defined(NEW_TRACKER)
-  class BeatTracker;
-#else
-  class BeatTracking;
-#endif
+/** Beat tracker (issue #1881 work): multi-band onset front end +
+ *  comb-scored ACF tempo estimator by varghele (beattracker.cpp,
+ *  documented in beattracker.md). */
+class BeatTracker;
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -193,13 +180,7 @@ protected:
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
 
-#if defined(AUTO_TRACKER)
-    BeatTrackerAuto *m_beatTracker;
-#elif defined(NEW_TRACKER)
     BeatTracker *m_beatTracker;
-#else
-    BeatTracking *m_beatTracker;
-#endif
 };
 
 /** @} */
