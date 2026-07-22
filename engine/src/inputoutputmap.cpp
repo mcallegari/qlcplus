@@ -1030,7 +1030,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
     if (m_beatGeneratorType == Audio)
     {
         m_inputCapture->unregisterBandsNumber(4);
-        disconnect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
+        disconnect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
     }
 
     m_beatGeneratorType = type;
@@ -1060,7 +1060,7 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             m_beatTime->restart();
             QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
             m_inputCapture = capture.data();
-            connect(m_inputCapture, SIGNAL(beatDetected()), this, SLOT(slotProcessBeat()));
+            connect(m_inputCapture, SIGNAL(beatDetected(int)), this, SLOT(slotProcessBeat(int)));
             m_inputCapture->registerBandsNumber(4);
         }
         break;
@@ -1124,21 +1124,35 @@ int InputOutputMap::bpmNumber() const
     return m_currentBPM;
 }
 
-void InputOutputMap::slotProcessBeat()
+void InputOutputMap::slotProcessBeat(int bpm)
 {
     // process the timer as first thing, to avoid wasting time
     // with the operations below
     qint64 elapsed = m_beatTime->elapsed();
     m_beatTime->restart();
 
-    int bpm = qRound(60000.0 / (float)elapsed);
-    float currBpmTime = 60000.0 / (float)m_currentBPM;
-    // here we check if the difference between the current BPM duration
-    // and the current time elapsed is within a range of +/-1ms.
-    // If it isn't, then the BPM number has really changed, otherwise
-    // it's just a tiny time drift
-    if (qAbs((float)elapsed - currBpmTime) > 1)
-        setBpmNumber(bpm);
+    if (bpm > 0)
+    {
+        // the beat source provides its own tempo estimate
+        if (bpm != m_currentBPM)
+        {
+            qDebug() << "[InputOutputMap] beat source BPM:" << bpm;
+            setBpmNumber(bpm);
+        }
+    }
+    else
+    {
+        // no tempo estimate available: derive the BPM number from the
+        // wall-clock spacing of the beat signals
+        int elapsedBpm = qRound(60000.0 / (float)elapsed);
+        float currBpmTime = 60000.0 / (float)m_currentBPM;
+        // here we check if the difference between the current BPM duration
+        // and the current time elapsed is within a range of +/-1ms.
+        // If it isn't, then the BPM number has really changed, otherwise
+        // it's just a tiny time drift
+        if (qAbs((float)elapsed - currBpmTime) > 1)
+            setBpmNumber(elapsedBpm);
+    }
 
     m_doc->masterTimer()->requestBeat();
     emit beat();

@@ -44,6 +44,9 @@
 #define SPECTRUM_MIN_FREQUENCY          40
 #define SPECTRUM_MAX_FREQUENCY          5000
 
+/** Beat tracker (issue #1881 work): multi-band onset front end +
+ *  comb-scored ACF tempo estimator by varghele (beattracker.cpp,
+ *  documented in beattracker.md). */
 class BeatTracker;
 
 /** @addtogroup engine_audio Audio
@@ -147,7 +150,12 @@ protected:
 signals:
     void dataProcessed(double *spectrumBands, int size, double maxMagnitude, quint32 power);
     void volumeChanged(int volume);
-    void beatDetected();
+
+    /** Emitted on every beat detected by the beat tracker. @a bpm is
+     *  the tracker's own tempo estimate; 0 means "no estimate", in
+     *  which case the receiver has to derive the tempo from the
+     *  spacing of the beat signals. */
+    void beatDetected(int bpm);
 
 protected:
     QMutex m_mutex;
@@ -172,7 +180,6 @@ protected:
     /** Map of the registered clients (key is the number of bands) */
     QMap <int, BandsData> m_fftMagnitudeMap;
 
-    /** Reference to the beat tracking processor */
     BeatTracker *m_beatTracker;
 };
 

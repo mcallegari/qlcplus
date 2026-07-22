@@ -74,10 +74,7 @@ AudioCapture::AudioCapture (QObject* parent)
     m_plan_forward = fftw_plan_dft_r2c_1d(m_bufferSize, m_fftInputBuffer,
                                           reinterpret_cast<fftw_complex*>(m_fftOutputBuffer), 0);
 #endif
-    m_beatTracker = new BeatTracker(m_sampleRate, m_bufferSize, m_channels, 86, 1.3);
-    m_beatTracker->setBand(40.0, 400.0);      // bit wider band for now
-    m_beatTracker->setFluxSmoothing(0.6);     // less smoothing
-    m_beatTracker->setMinBeatInterval(0.20);  // ~300 BPM max
+    m_beatTracker = new BeatTracker(m_sampleRate, m_channels);
 }
 
 AudioCapture::~AudioCapture()
@@ -85,6 +82,7 @@ AudioCapture::~AudioCapture()
     // stop() has to be called from the implementation class
     Q_ASSERT(!this->isRunning());
 
+    delete m_beatTracker;
     delete[] m_audioBuffer;
     delete[] m_audioMixdown;
     delete[] m_fftInputBuffer;
@@ -351,7 +349,7 @@ void AudioCapture::run()
                 processData();
 
                 if (m_beatTracker->processAudio(m_audioBuffer, m_captureSize))
-                    emit beatDetected();
+                    emit beatDetected(qRound(m_beatTracker->bpm()));
             }
             else
             {

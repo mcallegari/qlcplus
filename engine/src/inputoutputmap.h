@@ -606,7 +606,12 @@ public:
 protected slots:
     void slotMasterTimerBeat();
     void slotPluginBeat(quint32 universe, quint32 channel, uchar value, const QString &key);
-    void slotProcessBeat();
+
+    /** Process a beat from the current beat source. @a bpm is the
+     *  source's own tempo estimate; 0 means "unknown", in which case
+     *  the BPM number is derived from the wall-clock spacing of the
+     *  beat signals. */
+    void slotProcessBeat(int bpm = 0);
 
 signals:
     void beatGeneratorTypeChanged();
