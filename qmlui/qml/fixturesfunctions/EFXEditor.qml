@@ -29,16 +29,33 @@ import "."
 Rectangle
 {
     id: efxeContainer
+    objectName: "efxEditorRoot"
     color: "transparent"
 
     property int functionID: -1
 
     signal requestView(int ID, string qmlSrc, bool back)
 
+    function deleteSelectedItems()
+    {
+        if (eeSelector.itemsCount === 0)
+            return
+
+        deleteItemsPopup.open()
+    }
+
     ModelSelector
     {
         id: eeSelector
         onItemsCountChanged: console.log("EFX Editor selected items changed!")
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete fixture heads")
+        message: qsTr("Are you sure you want to remove the selected fixture head(s)?")
+        onAccepted: efxEditor.removeHeads(eeSelector.itemsList())
     }
 
     TimeEditTool
@@ -321,7 +338,7 @@ Rectangle
                                         faSource: FontAwesome.fa_minus
                                         faColor: "crimson"
                                         tooltip: qsTr("Remove the selected fixture head(s)")
-                                        onClicked: efxEditor.removeHeads(eeSelector.itemsList())
+                                        onClicked: efxeContainer.deleteSelectedItems()
                                     }
                                 }
 
@@ -429,7 +446,7 @@ Rectangle
                                             MouseArea
                                             {
                                                 anchors.fill: parent
-                                                onClicked:
+                                                onClicked: (mouse) =>
                                                 {
                                                     eeSelector.selectItem(index, fixtureListView.model, mouse.modifiers)
                                                 }

@@ -36,6 +36,7 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_source(nullptr)
 {
     m_view->rootContext()->setContextProperty("sceneEditor", this);
+    m_editorObjectName = "sceneEditorRoot";
     m_source = new GenericDMXSource(m_doc);
     m_fixtureList = new ListModel(this);
     QStringList fRoles;

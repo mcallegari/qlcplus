@@ -171,6 +171,12 @@ public:
      *  This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteEditorItems(QVariantList list);
 
+    /** Ask the currently open Function editor to delete its selected items.
+     *  The editor raises its own confirmation popup, so this happens
+     *  BEFORE any actual deletion.
+     *  Returns true if an editor handled the request */
+    bool deleteCurrentEditorItems();
+
     /** Specific method to delete fixtures from the currently edited Sequence.
      *  This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteSequenceFixtures(QVariantList list);

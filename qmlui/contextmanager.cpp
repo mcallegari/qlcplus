@@ -533,6 +533,20 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     // 'Delete' key has its own handling
     if (e->key() == Qt::Key_Delete)
     {
+        // When a Function editor is open, the selection belongs to the editor
+        // (e.g. the Scene Editor fixture list or the EFX Editor head list), so
+        // the editor decides what to delete. Never delete Fixtures or Functions
+        // from the project while editing.
+        // Show items and Tracks are excluded, as those are explicitly clicked
+        // on the Show Manager timeline, which can be visible while editing.
+        if (m_editingEnabled &&
+            m_lastClickedType != App::ShowDragItem &&
+            m_lastClickedType != App::TrackDragItem)
+        {
+            if (m_functionManager->deleteCurrentEditorItems())
+                return;
+        }
+
         switch (m_lastClickedType)
         {
             case App::FixtureDragItem:

@@ -53,6 +53,15 @@ void ChaserEditor::setFunctionID(quint32 ID)
     emit stepsListChanged();
 }
 
+bool ChaserEditor::requestDeleteItems()
+{
+    // a Sequence is edited by the SequenceEditor QML, which wraps both
+    // this editor and the bound Scene editor, so it decides what to delete
+    m_editorObjectName = isSequence() ? "sequenceEditorRoot" : "chaserEditorRoot";
+
+    return FunctionEditor::requestDeleteItems();
+}
+
 bool ChaserEditor::isSequence() const
 {
     if (m_chaser != nullptr && m_chaser->type() == Function::SequenceType)
