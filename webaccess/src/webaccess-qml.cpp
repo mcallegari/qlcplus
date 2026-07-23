@@ -372,7 +372,7 @@ static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
     {
         QString selected = (i + 1 == uni) ? " selected" : "";
         bodyHTML += "<option value=\"" + QString::number(i) + "\"" + selected + ">"
-                + uniList.at(i) + "</option>\n";
+                + uniList.at(i).toHtmlEscaped() + "</option>\n";
     }
 
     bodyHTML += "</select>\n"
