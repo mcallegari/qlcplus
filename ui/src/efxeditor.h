@@ -164,7 +164,7 @@ private slots:
 
 private:
     /* Dimmer envelope widgets, created at runtime and added to the
-       parameters group, gated by the dimmer control checkbox) */
+       parameters group, gated by the dimmer control checkbox */
     QCheckBox *m_dimmerControlCheck = nullptr;
 
 private:

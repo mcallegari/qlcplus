@@ -47,7 +47,7 @@ namespace
 #define PERF_BENCHMARK_TICKS 150
 #define PERF_FADE_MS        2000
 
-class TestUniverse : public Universe
+class TestUniverse final : public Universe
 {
 public:
     using Universe::Universe;

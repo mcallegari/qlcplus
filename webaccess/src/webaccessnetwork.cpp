@@ -129,7 +129,7 @@ QString WebAccessNetwork::getInterfaceHTML(const InterfaceInfo *iface) const
     else
     {
         html += "<td style=\"padding: 0 20px; text-align: center; background: #333;\">";
-        html += tr("Network interface") + "<br>" + iface->devName.toHtmlEscaped() + "</td>\n";
+        html += tr("Network interface") + "<br>" + devNameAttr + "</td>\n";
 
         html += "<td><form style=\"margin: 5px 15px; color:#FFF;\">\n";
         if (iface->isWireless)

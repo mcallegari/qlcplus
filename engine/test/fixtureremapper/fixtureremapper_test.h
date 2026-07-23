@@ -27,7 +27,7 @@ class Fixture;
 class QLCFixtureDef;
 class QLCFixtureMode;
 
-class FixtureRemapper_Test : public QObject
+class FixtureRemapper_Test final : public QObject
 {
     Q_OBJECT
 

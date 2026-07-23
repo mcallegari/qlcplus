@@ -215,7 +215,7 @@ void DmxDumpFactory::accept()
     QByteArray dumpMask = m_properties->channelsMask();
     QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
 
-    QByteArray preGMValues(ua.size() * UNIVERSE_SIZE, 0); //= ua->preGMValues();
+    QByteArray preGMValues(ua.size() * UNIVERSE_SIZE, 0); // = ua->preGMValues();
 
     for (int i = 0; i < ua.count(); ++i)
     {
