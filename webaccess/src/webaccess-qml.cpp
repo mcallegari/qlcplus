@@ -1361,6 +1361,13 @@ QByteArray WebAccessQml::getVCJson()
     appObj["name"] = QString(APPNAME);
     appObj["version"] = QString(APPVERSION);
     root["app"] = appObj;
+    QJsonObject translationObj;
+    translationObj["loadProject"] = QObject::tr("Load project");
+    translationObj["simpleDesk"] = QObject::tr("Simple Desk");
+    translationObj["configuration"] = QObject::tr("Configuration");
+    translationObj["connected"] = QObject::tr("Connected");
+    translationObj["disconnected"] = QObject::tr("Disconnected");
+    root["translations"] = translationObj;
     root["pixelDensity"] = m_vc->pixelDensity();
     root["selectedPage"] = m_vc->selectedPage();
     QJsonObject uiStyle = loadUiStyleJson();

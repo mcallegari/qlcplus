@@ -113,6 +113,11 @@ const wsStatus = document.getElementById("wsStatus");
 const brandTitle = document.querySelector(".brand-title");
 const appMeta = document.getElementById("appMeta");
 
+const connectedTranslationEnglishFallback = "Connected";
+const disconnectedTranslationEnglishFallback = "Disconnected";
+let connectedTranslation = connectedTranslationEnglishFallback;
+let disconnectedTranslation = disconnectedTranslationEnglishFallback;
+
 function updateWebPixelDensity() {
   const dpr = window.devicePixelRatio || 1;
   const dpi = 96 * dpr;
@@ -174,8 +179,8 @@ function setStatus(connected) {
   wsStatus.textContent = "";
   wsStatus.classList.toggle("connected", connected);
   wsStatus.classList.toggle("disconnected", !connected);
-  wsStatus.setAttribute("aria-label", connected ? "Connected" : "Disconnected");
-  wsStatus.title = connected ? "Connected" : "Disconnected";
+  wsStatus.setAttribute("aria-label", connected ? connectedTranslation : disconnectedTranslation);
+  wsStatus.title = connected ? connectedTranslation : disconnectedTranslation;
 }
 
 function updatePagesCompact() {
@@ -2690,6 +2695,12 @@ function renderVC(vcData) {
   const appVersion = vcData.app?.version || "";
   if (brandTitle) brandTitle.textContent = appName;
   appMeta.textContent = appVersion;
+  if (vcData.translations?.loadProject) document.getElementById("loadProjectBtn").innerText = vcData.translations?.loadProject;
+  if (vcData.translations?.simpleDesk) document.getElementById("loadProjectBtn").nextElementSibling.innerText = vcData.translations?.simpleDesk;
+  if (vcData.translations?.configuration) document.getElementById("loadProjectBtn").nextElementSibling.nextElementSibling.innerText = vcData.translations?.configuration;
+  connectedTranslation = vcData.translations?.connected || connectedTranslationEnglishFallback;
+  disconnectedTranslation = vcData.translations?.disconnected || disconnectedTranslationEnglishFallback;
+  setStatus(wsStatus.classList.contains('connected'));
   renderPages(vcData);
 }
 
