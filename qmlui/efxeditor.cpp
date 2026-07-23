@@ -39,6 +39,7 @@ EFXEditor::EFXEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_maxTiltDegrees(270.0)
 {
     m_view->rootContext()->setContextProperty("efxEditor", this);
+    m_editorObjectName = "efxEditorRoot";
 
     m_fixtureList = new ListModel(this);
     QStringList listRoles;

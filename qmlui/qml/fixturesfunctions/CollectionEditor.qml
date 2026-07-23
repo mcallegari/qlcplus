@@ -27,12 +27,29 @@ import "."
 Rectangle
 {
     id: ceContainer
+    objectName: "collectionEditorRoot"
     anchors.fill: parent
     color: "transparent"
 
     property int functionID: -1
 
     signal requestView(int ID, string qmlSrc, bool back)
+
+    function deleteSelectedItems()
+    {
+        if (ceSelector.itemsCount === 0)
+            return
+
+        deleteItemsPopup.open()
+    }
+
+    CustomPopupDialog
+    {
+        id: deleteItemsPopup
+        title: qsTr("Delete functions")
+        message: qsTr("Are you sure you want to remove the selected functions?")
+        onAccepted: functionManager.deleteEditorItems(ceSelector.itemsList())
+    }
 
     ModelSelector
     {
@@ -131,15 +148,7 @@ Rectangle
                     faSource: FontAwesome.fa_minus
                     faColor: "crimson"
                     tooltip: qsTr("Remove the selected function")
-                    onClicked: deleteItemsPopup.open()
-
-                    CustomPopupDialog
-                    {
-                        id: deleteItemsPopup
-                        title: qsTr("Delete functions")
-                        message: qsTr("Are you sure you want to remove the selected functions?")
-                        onAccepted: functionManager.deleteEditorItems(ceSelector.itemsList())
-                    }
+                    onClicked: ceContainer.deleteSelectedItems()
                 }
             }
 

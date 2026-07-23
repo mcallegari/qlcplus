@@ -76,6 +76,14 @@ public:
       * $list might be a list of indices, IDs or something else */
     virtual void deleteItems(QVariantList list);
 
+    /** Request the deletion of the items currently selected in the editor.
+      * The selection lives in the editor QML (a ModelSelector), so this
+      * asks the editor QML root to raise its delete confirmation popup.
+      * Subclasses only need to set $m_editorObjectName and provide a
+      * 'deleteSelectedItems' function in their QML.
+      * Returns true if the request has been delivered */
+    virtual bool requestDeleteItems();
+
 signals:
     void functionNameChanged(QString functionName);
     void previousIDChanged(int previousID);
@@ -96,6 +104,9 @@ protected:
     Function::Type m_functionType;
     /** Flag that holds if the editor should preview its function */
     bool m_previewEnabled;
+    /** objectName of the editor QML root, used to deliver requests
+      * to the editor UI (see requestDeleteItems) */
+    QString m_editorObjectName;
 
     /************************************************************************
      * Speed

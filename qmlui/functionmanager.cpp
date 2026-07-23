@@ -1043,6 +1043,14 @@ void FunctionManager::deleteEditorItems(QVariantList list)
         m_currentEditor->deleteItems(list);
 }
 
+bool FunctionManager::deleteCurrentEditorItems()
+{
+    if (m_currentEditor == nullptr)
+        return false;
+
+    return m_currentEditor->requestDeleteItems();
+}
+
 void FunctionManager::deleteSequenceFixtures(QVariantList list)
 {
     if (m_sceneEditor == nullptr)

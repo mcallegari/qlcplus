@@ -28,6 +28,7 @@ import "."
 Rectangle
 {
     id: ceContainer
+    objectName: "chaserEditorRoot"
     anchors.fill: parent
     color: "transparent"
 

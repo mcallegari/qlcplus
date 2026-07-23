@@ -272,6 +272,11 @@ public:
     /** Delete the item referencing the provided ShowFunction from the QML view */
     void deleteShowItem(ShowFunction *sf);
 
+    /** Rebuild the whole timeline from the current Show contents.
+      * Used when Tracks are added/removed outside of the normal UI flow,
+      * for example by an undo/redo action */
+    void refreshView();
+
     /** Method invoked when moving an existing Show Item on the timeline.
      *  The new position is checked for overlapping against existing items on the
      *  provided $newTrackIdx. On overlapping, false is returned and the UI

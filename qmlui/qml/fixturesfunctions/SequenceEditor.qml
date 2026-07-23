@@ -27,12 +27,23 @@ import "."
 Rectangle
 {
     id: seqContainer
+    objectName: "sequenceEditorRoot"
     anchors.fill: parent
     color: "transparent"
 
     property int functionID: -1
 
     signal requestView(int ID, string qmlSrc, bool back)
+
+    /** Route the deletion to the currently visible view, as a Sequence
+      * shows either the Chaser steps or the bound Scene fixtures */
+    function deleteSelectedItems()
+    {
+        if (stepsView.checked)
+            chaserEditorLoader.item.deleteSelectedItems()
+        else
+            sceneEditorLoader.item.deleteSelectedItems()
+    }
 
     SplitView
     {
@@ -155,17 +166,7 @@ Rectangle
                     faSource: FontAwesome.fa_minus
                     faColor: "crimson"
                     tooltip: stepsView.checked ? qsTr("Remove the selected steps") : qsTr("Remove the selected fixtures")
-                    onClicked:
-                    {
-                        if (stepsView.checked)
-                        {
-                            chaserEditorLoader.item.deleteSelectedItems()
-                        }
-                        else
-                        {
-                            sceneEditorLoader.item.deleteSelectedItems()
-                        }
-                    }
+                    onClicked: seqContainer.deleteSelectedItems()
                 }
             }
 

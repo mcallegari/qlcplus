@@ -28,6 +28,7 @@ CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_collection(nullptr)
 {
     m_view->rootContext()->setContextProperty("collectionEditor", this);
+    m_editorObjectName = "collectionEditorRoot";
 
     m_functionsList = new ListModel(this);
     QStringList listRoles;

@@ -105,6 +105,9 @@ public:
     /** @reimp */
     void deleteItems(QVariantList list) override;
 
+    /** @reimp */
+    bool requestDeleteItems() override;
+
     void setSequenceStepValue(SceneValue& scv);
     void removeFixtures(QVariantList list);
 

@@ -28,6 +28,7 @@ import "."
 Rectangle
 {
     id: seContainer
+    objectName: "sceneEditorRoot"
     anchors.fill: parent
     color: "transparent"
 

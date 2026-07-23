@@ -544,6 +544,8 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             Track *track = new Track();
             track->loadXML(xmlReader);
             show->addTrack(track, track->id());
+            // Tracks carry their Show items, so the timeline must be rebuilt
+            m_showManager->refreshView();
         }
         break;
         case ShowManagerDeleteTrack:
@@ -552,16 +554,24 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             Show *show = qobject_cast<Show *>(m_doc->function(objID));
             if (attrs.hasAttribute(KXMLQLCTrackID))
                 show->removeTrack(attrs.value(KXMLQLCTrackID).toUInt());
+            m_showManager->refreshView();
         }
         break;
         case ShowManagerAddFunction:
         {
             QXmlStreamAttributes attrs = xmlReader.attributes();
             Show *show = qobject_cast<Show *>(m_doc->function(objID));
-            ShowFunction *sf = new ShowFunction(show->getLatestShowFunctionId());
+            // restore the original UID, so that a following redo can
+            // find this very item again by its ID
+            quint32 sfUID = attrs.hasAttribute(KXMLShowFunctionUid) ?
+                        attrs.value(KXMLShowFunctionUid).toUInt() :
+                        show->getLatestShowFunctionId();
+            ShowFunction *sf = new ShowFunction(sfUID);
             sf->loadXML(xmlReader);
             quint32 trackId = attrs.value(KXMLShowFunctionTrackId).toUInt();
             Track *track = show->track(trackId);
+            if (track == nullptr)
+                break;
             track->addShowFunction(sf);
             m_showManager->addShowItem(sf, trackId);
         }

@@ -395,6 +395,13 @@ void ShowManager::deleteSelectedTrack()
 
     qDebug() << "Deleting track" << track->id();
 
+    // serialize the track (and its Functions) before removing it, as
+    // the undo action needs to restore it from its XML representation
+    Tardis::instance()->enqueueAction(
+        Tardis::ShowManagerDeleteTrack, m_currentShow->id(),
+        Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteTrack, m_currentShow->id(), track->id()),
+        QVariant());
+
     QList <ShowFunction *> sfList = track->showFunctions();
     for (ShowFunction *sf : sfList)
     {
@@ -532,13 +539,27 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
 void ShowManager::addShowItem(ShowFunction *sf, quint32 trackId)
 {
-    QQuickItem *itemsArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
-    QQuickItem *contentItem = qobject_cast<QQuickItem*>(itemsArea->findChild<QObject *>("contentItem"));
-    QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
-    Function *func = m_doc->function(sf->functionID());
+    if (m_currentShow == nullptr || sf == nullptr)
+        return;
 
-    newItem->setParentItem(contentItem);
-    newItem->setProperty("trackIndex", trackId);
+    // items are parented to the same item used by renderView()
+    QQuickItem *parent = contextItem();
+    if (parent == nullptr)
+        return;
+
+    Function *func = m_doc->function(sf->functionID());
+    if (func == nullptr)
+        return;
+
+    // ShowItem places itself vertically by track *index*, not by track ID
+    int trackIndex = m_currentShow->tracks().indexOf(m_currentShow->track(trackId));
+    if (trackIndex < 0)
+        return;
+
+    QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
+
+    newItem->setParentItem(parent);
+    newItem->setProperty("trackIndex", trackIndex);
     newItem->setProperty("sfRef", QVariant::fromValue(sf));
     newItem->setProperty("funcRef", QVariant::fromValue(func));
     m_itemsMap[sf->id()] = newItem;
@@ -568,6 +589,14 @@ void ShowManager::deleteShowItems(QVariantList data)
 
         Track *track = m_currentShow->tracks().at(trackIndex);
         quint32 sfId = ssi.m_showFunc->id();
+
+        // serialize the item before removing it, as the undo action
+        // needs to restore it from its XML representation
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerDeleteFunction, m_currentShow->id(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteFunction, m_currentShow->id(), sfId),
+            QVariant());
+
         track->removeShowFunction(ssi.m_showFunc, true);
         if (ssi.m_item != nullptr)
         {
@@ -581,6 +610,16 @@ void ShowManager::deleteShowItems(QVariantList data)
 
     if (m_clipboard.count() != clipboardCount)
         emit clipboardItemsCountChanged(m_clipboard.count());
+}
+
+void ShowManager::refreshView()
+{
+    if (contextItem() != nullptr)
+        renderView(contextItem());
+
+    emit tracksChanged();
+    if (m_currentShow != nullptr)
+        emit showDurationChanged(m_currentShow->totalDuration());
 }
 
 void ShowManager::deleteShowItem(ShowFunction *sf)
