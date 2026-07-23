@@ -205,7 +205,7 @@ int AliasEdit::applyToAllModes(QString targetChannel)
     return added;
 }
 
-QString AliasEdit::aliasWarning(int index)
+QString AliasEdit::aliasWarning(int index) const
 {
     if (m_capability == nullptr || m_fixtureDef == nullptr)
         return QString();

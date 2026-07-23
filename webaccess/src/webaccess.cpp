@@ -198,8 +198,15 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         else if (apiCmd == "getWidgetsNumber")
         {
             VCFrame *mainFrame = m_vc->contents();
-            QList<VCWidget *> chList = mainFrame->findChildren<VCWidget*>();
-            wsAPIMessage.append(QString::number(chList.count()));
+            if (mainFrame != NULL)
+            {
+                QList<VCWidget *> chList = mainFrame->findChildren<VCWidget*>();
+                wsAPIMessage.append(QString::number(chList.count()));
+            } 
+            else 
+            {
+                wsAPIMessage.append("-1");
+            }
         }
         else if (apiCmd == "getWidgetsList")
         {
@@ -1192,25 +1199,33 @@ void WebAccess::slotCuePlaybackStateChanged()
     QString stopButtonImage = "player_stop.png";
     bool stopButtonPaused = false;
 
-    if (chaser->isRunning()) {
-        if (cue->playbackLayout() == VCCueList::PlayPauseStop) {
-            if (chaser->isPaused()) {
+    if (chaser->isRunning()) 
+    {
+        if (cue->playbackLayout() == VCCueList::PlayPauseStop) 
+        {
+            if (chaser->isPaused()) 
+            {
                 playbackButtonImage = "player_play.png";
                 playbackButtonPaused = true;
-            } else {
+            } 
+            else 
+            {
                 playbackButtonImage  = "player_pause.png";
             }
-        } else if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+        } 
+        else if (cue->playbackLayout() == VCCueList::PlayStopPause) 
+        {
             playbackButtonImage = "player_stop.png";
             stopButtonImage = "player_pause.png";
-            if (chaser->isPaused()) {
+
+            if (chaser->isPaused()) 
                 stopButtonPaused = true;
-            }
         }
-    } else {
-        if (cue->playbackLayout() == VCCueList::PlayStopPause) {
+    } 
+    else 
+    {
+        if (cue->playbackLayout() == VCCueList::PlayStopPause)
             stopButtonImage = "player_pause.png";
-        }
     }
 
     QString wsMessage = QString("%1|CUE_CHANGE|%2|%3|%4|%5")

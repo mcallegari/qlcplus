@@ -95,7 +95,7 @@ public:
 
     /** Return a validation warning string for the alias at $index, or an
      *  empty string when the alias is valid */
-    Q_INVOKABLE QString aliasWarning(int index);
+    Q_INVOKABLE QString aliasWarning(int index) const;
 
 private:
     /** Rebuild the QML list model from the capability alias list */

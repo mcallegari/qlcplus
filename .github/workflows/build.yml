@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: false
 
@@ -95,7 +95,7 @@ jobs:
           echo "NPROC: ${NPROC}"
 
       - name: Download, cache and install packages
-        uses: awalsh128/cache-apt-pkgs-action@v1.6.0
+        uses: awalsh128/cache-apt-pkgs-action@v1.6.3
         with:
           packages: ${{env.PACKAGES_ALL}}
           version: ${{runner.os}}-apt
@@ -177,6 +177,7 @@ jobs:
           cmake --build build --target install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
+          cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations/
 
       - name: Set APPVERSION
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -262,7 +263,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: false
 
@@ -466,7 +467,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: false
 

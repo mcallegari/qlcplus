@@ -43,7 +43,7 @@
  * follower) and reduced to its rising edge, then combined with weights
  * 1 / 1 / 0.4. Self-contained radix-2 FFT; no external dependencies.
  */
-class BeatOnsetExtractor
+class BeatOnsetExtractor final
 {
 public:
     explicit BeatOnsetExtractor(int sampleRate);
@@ -93,7 +93,7 @@ private:
  * hysteresis toward the previous estimate. Reported BPM is the median
  * of the last 3 analyses, gated on comb confidence >= 0.15.
  */
-class AutoBpmDetector
+class AutoBpmDetector final
 {
 public:
     explicit AutoBpmDetector(double analysisRateHz,
@@ -162,7 +162,7 @@ private:
  * block; bpm() exposes the estimator's tempo so the UI can display it
  * instead of re-deriving BPM from wall-clock signal spacing.
  */
-class BeatTracker
+class BeatTracker final
 {
 public:
     BeatTracker(int sampleRate, int channels);

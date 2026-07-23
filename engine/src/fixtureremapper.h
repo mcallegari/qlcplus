@@ -49,7 +49,7 @@ class Fixture;
  *     the sourceList() / targetList() accessors together with
  *     remapSceneValues().
  */
-class FixtureRemapper
+class FixtureRemapper final
 {
 public:
     FixtureRemapper();
