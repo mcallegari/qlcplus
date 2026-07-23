@@ -22,7 +22,7 @@
 
 #include <QObject>
 
-class BeatTracker_Test : public QObject
+class BeatTracker_Test final : public QObject
 {
     Q_OBJECT
 

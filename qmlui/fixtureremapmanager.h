@@ -43,7 +43,7 @@ class Fixture;
  *
  * Registered as QML context property "FixtureRemapManager".
  */
-class FixtureRemapManager : public QObject
+class FixtureRemapManager final : public QObject
 {
     Q_OBJECT
 
