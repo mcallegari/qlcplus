@@ -1152,15 +1152,6 @@ function renderXYPad(widget) {
     return (rel / rect.height) * 255;
   };
 
-  const handleRangePointer = (axis, ev, container) => {
-    const value = rangeValueFromPointer(axis, ev, container);
-    const which = pickRangeTarget(axis, value);
-    setActiveRangeHandle(axis, which);
-    updateRangeValue(axis, which, value);
-    syncRangeInputs();
-    sendRangeUpdate(axis);
-  };
-
   const rangeDrag = { active: false, axis: null, which: null, container: null };
   const startRangeDrag = (axis, ev, container) => {
     rangeDrag.active = true;
@@ -2380,7 +2371,6 @@ function renderFrame(widget, isSolo) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add(isSolo ? "vc-soloframe" : "vc-frame");
 
-  let headerHeight = 0;
   let pageSelect = null;
   let enableBtn = null;
   let collapseBtn = null;
@@ -2388,7 +2378,6 @@ function renderFrame(widget, isSolo) {
   if (widget.showHeader) {
     const header = document.createElement("div");
     header.className = "vc-frame-header";
-    headerHeight = 28;
 
     collapseBtn = document.createElement("button");
     collapseBtn.className = "frame-btn";
