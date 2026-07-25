@@ -31,6 +31,7 @@
 
 QString QLCi18n::s_defaultLocale = QString();
 QString QLCi18n::s_translationFilePath = QString();
+QString QLCi18n::s_loadedLanguage = QString();
 
 void QLCi18n::init()
 {
@@ -58,6 +59,16 @@ QString QLCi18n::translationFilePath()
     return s_translationFilePath;
 }
 
+void QLCi18n::setLoadedLanguage(const QString& language)
+{
+    s_loadedLanguage = language;
+}
+
+QString QLCi18n::loadedLanguage()
+{
+    return s_loadedLanguage;
+}
+
 bool QLCi18n::loadTranslation(const QString& component)
 {
     const QString lc = defaultLocale().isEmpty() ? QLocale::system().name() : defaultLocale();
@@ -66,10 +77,12 @@ bool QLCi18n::loadTranslation(const QString& component)
     if (translator->load(file, translationFilePath()) == true)
     {
         QCoreApplication::installTranslator(translator);
+        setLoadedLanguage(lc);
         return true;
     }
     else
     {
+        setLoadedLanguage("en");
         return false;
     }
 }
