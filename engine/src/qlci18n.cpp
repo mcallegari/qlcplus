@@ -32,6 +32,7 @@
 QString QLCi18n::s_defaultLocale = QString();
 QString QLCi18n::s_translationFilePath = QString();
 QString QLCi18n::s_loadedLanguage = QString();
+QString QLCi18n::s_loadedLanguageHTML = QString();
 
 void QLCi18n::init()
 {
@@ -62,11 +63,17 @@ QString QLCi18n::translationFilePath()
 void QLCi18n::setLoadedLanguage(const QString& language)
 {
     s_loadedLanguage = language;
+    s_loadedLanguageHTML = language.toLower().replace('_', '-');
 }
 
 QString QLCi18n::loadedLanguage()
 {
     return s_loadedLanguage;
+}
+
+QString QLCi18n::loadedLanguageHTML()
+{
+    return s_loadedLanguageHTML;
 }
 
 bool QLCi18n::loadTranslation(const QString& component)

@@ -50,6 +50,7 @@
 
 #include "function.h"
 #include "chaser.h"
+#include "app.h"
 #include "doc.h"
 #include "fixture.h"
 #include "qlcchannel.h"
@@ -412,7 +413,7 @@ static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
                 "</main>\n"
                 "</div>\n";
 
-    return QString(HTML_HEADER) + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+    return QString(HTML_HEADER(" lang=\"" + App::languageHTML() + "\"")) + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 }
 
 WebAccessQml::WebAccessQml(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
@@ -481,7 +482,7 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
     if (serveWebFile(resp, "/webaccess-v5.html", "text/html"))
         return;
-    content = QString(HTML_HEADER) + "</head><body>Missing webaccess-v5.html</body></html>";
+    content = QString(HTML_HEADER(" lang=\"" + App::languageHTML() + "\"")) + "</head><body>Missing webaccess-v5.html</body></html>";
     sendHtmlResponse(resp, content);
 }
 

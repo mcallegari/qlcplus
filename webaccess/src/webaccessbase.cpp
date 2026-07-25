@@ -315,7 +315,7 @@ void WebAccessBase::sendProjectLoadingResponse(QHttpResponse *resp) const
         return;
 
     QByteArray postReply =
-            QString("<!DOCTYPE html>\n<html>\n<head>\n"
+            QString("<!DOCTYPE html>\n<html lang=\"" + LANGUAGE_HTML + "\">\n<head>\n"
             "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
             "<script>\n" PROJECT_LOADED_JS
             "</script>\n"
@@ -403,7 +403,8 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
         if (req == nullptr)
             return CommonRequestResult::NotHandled;
 
-        const QString reply("<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+        const QString reply("<!DOCTYPE html>\n<html lang=\"" + LANGUAGE_HTML + "\">\n"
+                            "<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
                             "<title>QLC+ Webaccess%1</title>\n"
                             "<script>\n"
                             " alert(\"%2\");\n"
