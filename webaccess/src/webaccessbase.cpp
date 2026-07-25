@@ -315,13 +315,16 @@ void WebAccessBase::sendProjectLoadingResponse(QHttpResponse *resp) const
         return;
 
     QByteArray postReply =
-            QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+            QString("<!DOCTYPE html>\n<html>\n<head>\n"
+            "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
             "<script>\n" PROJECT_LOADED_JS
-            "</script></head><body style=\"background-color: #45484d;\">"
-            "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
-            "text-align: center; font: bold 24px/1.2em sans-serif;\">"
+            "</script>\n"
+            "<title>QLC+ Webaccess: " + tr("Loading project...") + "</title>\n"
+            "</head>\n<body style=\"background-color: #45484d;\">\n"
+            "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888; "
+            "text-align: center; font: bold 24px/1.2em sans-serif;\">\n"
             + tr("Loading project...") +
-            "</div></body></html>").toUtf8();
+            "\n</div>\n</body>\n</html>").toUtf8();
 
     resp->setHeader("Content-Type", "text/html");
     resp->setHeader("Content-Length", QString::number(postReply.size()));
@@ -400,17 +403,18 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
         if (req == nullptr)
             return CommonRequestResult::NotHandled;
 
+        const QString reply("<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
+                            "<title>QLC+ Webaccess%1</title>\n"
+                            "<script>\n"
+                            " alert(\"%2\");\n"
+                            " window.location = \"/config\";\n"
+                            "</script>\n</head>\n</html>");
         QByteArray fixtureXML;
         QString fxName;
         if (!extractMultipartFilePayload(req, fixtureXML, &fxName) || fxName.isEmpty())
         {
             qWarning() << Q_FUNC_INFO << "Invalid fixture upload payload";
-            QByteArray postReply =
-                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
-                            "<script>\n"
-                            " alert(\"" + tr("Invalid fixture upload payload") + "\");"
-                            " window.location = \"/config\"\n"
-                            "</script></head></html>").toUtf8();
+            const QByteArray postReply = reply.arg(": " + tr("Error")).arg(tr("Invalid fixture upload payload")).toUtf8();
 
             resp->setHeader("Content-Type", "text/html");
             resp->setHeader("Content-Length", QString::number(postReply.size()));
@@ -421,12 +425,7 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
 
         if (!storeFixtureDefinition(fxName, fixtureXML))
         {
-            QByteArray postReply =
-                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
-                            "<script>\n"
-                            " alert(\"" + tr("Unable to store fixture definition") + "\");"
-                            " window.location = \"/config\"\n"
-                            "</script></head></html>").toUtf8();
+            const QByteArray postReply = reply.arg(": " + tr("Error")).arg(tr("Unable to store fixture definition")).toUtf8();
 
             resp->setHeader("Content-Type", "text/html");
             resp->setHeader("Content-Length", QString::number(postReply.size()));
@@ -435,12 +434,7 @@ WebAccessBase::CommonRequestResult WebAccessBase::handleCommonHTTPRequest(const 
             return CommonRequestResult::Handled;
         }
 
-        QByteArray postReply =
-                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">\n"
-                        "<script>\n"
-                        " alert(\"" + tr("Fixture stored and loaded") + "\");"
-                        " window.location = \"/config\"\n"
-                        "</script></head></html>").toUtf8();
+        const QByteArray postReply = reply.arg("").arg(tr("Fixture stored and loaded")).toUtf8();
 
         resp->setHeader("Content-Type", "text/html");
         resp->setHeader("Content-Length", QString::number(postReply.size()));
