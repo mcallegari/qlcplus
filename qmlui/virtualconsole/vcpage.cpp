@@ -148,6 +148,31 @@ void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel,
     //qDebug() << "Multihash keys after deletion:" << m_inputSourcesMap.count(key);
 }
 
+void VCPage::removeWidgetFromMaps(VCWidget *widget)
+{
+    if (widget == nullptr)
+        return;
+
+    /** Remove every input source binding referencing this widget.
+     *  A widget can be bound to more than one key, so scan the whole map. */
+    for (auto it = m_inputSourcesMap.begin(); it != m_inputSourcesMap.end(); )
+    {
+        if (it.value().second == widget)
+            it = m_inputSourcesMap.erase(it);
+        else
+            ++it;
+    }
+
+    /** Do the same for the key sequences map */
+    for (auto it = m_keySequencesMap.begin(); it != m_keySequencesMap.end(); )
+    {
+        if (it.value().second == widget)
+            it = m_keySequencesMap.erase(it);
+        else
+            ++it;
+    }
+}
+
 void VCPage::mapChildrenInputSources()
 {
     /** Scan all the children widgets and map the detected input sources */

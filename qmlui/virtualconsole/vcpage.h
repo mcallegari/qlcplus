@@ -62,6 +62,11 @@ public:
     /** Unmap a single input source for a specific VC widget. */
     void unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget, bool checkChildren = false);
 
+    /** Remove every input source and key sequence entry referencing the given
+     *  $widget. This must be called before a widget is deleted, otherwise the
+     *  maps would keep dangling pointers to freed memory. */
+    void removeWidgetFromMaps(VCWidget *widget);
+
     /** Map all the children widgets input sources into $m_inputSourcesMap.
      *  This method is called only by VirtualConsole postLoad event */
     void mapChildrenInputSources();
