@@ -109,7 +109,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
 
     m_genericItemsList = new ListModel(this);
     QStringList listRoles;
-    listRoles << "itemID" << "name" << "isSelected";
+    listRoles << "itemID" << "name" << "isSelected" << "isLocked";
     m_genericItemsList->setRoleNames(listRoles);
 
     resetCameraPosition();
@@ -1909,6 +1909,7 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
         }
         m_genericSelectedItems.clear();
         emit genericSelectedCountChanged();
+        emit genericSelectedLockedChanged();
     }
 
     SceneItem *meshRef = m_genericMap.value(itemID, nullptr);
@@ -1924,11 +1925,57 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
         m_genericSelectedItems.removeAll(itemID);
 
     emit genericSelectedCountChanged();
+    emit genericSelectedLockedChanged();
+}
+
+void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifiers)
+{
+    QList<quint32> ids = m_monProps->genericItemsID();
+    if (index < 0 || index >= ids.count())
+        return;
+
+    setItemSelection(ids.at(index), enable, keyModifiers);
 }
 
 int MainView3D::genericSelectedCount() const
 {
     return m_genericSelectedItems.count();
+}
+
+bool MainView3D::genericSelectedLocked() const
+{
+    for (const int &id : m_genericSelectedItems)
+    {
+        if (m_monProps->itemFlags(id) & MonitorProperties::LockedFlag)
+            return true;
+    }
+
+    return false;
+}
+
+void MainView3D::toggleGenericItemsLock()
+{
+    if (m_genericSelectedItems.isEmpty())
+        return;
+
+    // if any of the selected items is locked, unlock them all;
+    // otherwise lock them all
+    bool lock = !genericSelectedLocked();
+
+    for (const int &id : m_genericSelectedItems)
+    {
+        quint32 flags = m_monProps->itemFlags(id);
+        if (lock)
+            flags |= MonitorProperties::LockedFlag;
+        else
+            flags &= ~MonitorProperties::LockedFlag;
+
+        m_monProps->setItemFlags(id, flags);
+    }
+
+    m_doc->setModified();
+    updateGenericItemsList();
+    emit genericSelectedLockedChanged();
 }
 
 void MainView3D::removeSelectedGenericItems()
@@ -1996,6 +2043,7 @@ void MainView3D::updateGenericItemsList()
         itemMap.insert("itemID", itemID);
         itemMap.insert("name", m_monProps->itemName(itemID));
         itemMap.insert("isSelected", false);
+        itemMap.insert("isLocked", (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag) ? true : false);
         m_genericItemsList->addDataMap(itemMap);
     }
 
@@ -2045,13 +2093,23 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
 
     if (m_genericSelectedItems.count() == 1)
     {
-        updateGenericItemPosition(m_genericSelectedItems.first(), pos);
+        quint32 itemID = m_genericSelectedItems.first();
+
+        // do not move locked items
+        if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
+            return;
+
+        updateGenericItemPosition(itemID, pos);
     }
     else
     {
         // relative position change
         for (int &itemID : m_genericSelectedItems)
         {
+            // do not move locked items
+            if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
+                continue;
+
             QVector3D newPos = m_monProps->itemPosition(itemID) + pos;
             updateGenericItemPosition(itemID, newPos);
         }

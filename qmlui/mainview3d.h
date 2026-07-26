@@ -112,6 +112,7 @@ class MainView3D final : public PreviewContext
 
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
+    Q_PROPERTY(bool genericSelectedLocked READ genericSelectedLocked NOTIFY genericSelectedLockedChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
@@ -316,8 +317,22 @@ public:
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
+    /** Select/deselect a generic item by its row $index in the items list model.
+     *  Used to keep the 3D selection in sync with multi-row (range) selections
+     *  performed on the QML list */
+    Q_INVOKABLE void setItemSelectionByIndex(int index, bool enable, int keyModifiers);
+
     /** Get the number of generic items currently selected */
     int genericSelectedCount() const;
+
+    /** Returns true if at least one of the currently selected
+     *  generic items is locked */
+    bool genericSelectedLocked() const;
+
+    /** Lock/unlock the position of the currently selected generic items.
+     *  If any selected item is unlocked, all get locked; otherwise all
+     *  get unlocked */
+    Q_INVOKABLE void toggleGenericItemsLock();
 
     /** Remove the currently selected generic items
      *  from the 3D scene */
@@ -354,6 +369,7 @@ protected:
 signals:
     void genericItemsListChanged();
     void genericSelectedCountChanged();
+    void genericSelectedLockedChanged();
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
