@@ -926,9 +926,18 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
                 Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, w->id(),
                                                   Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, child->id()),
                                                   QVariant());
+                /* Remove any input source/key sequence binding pointing to the
+                 * child, otherwise the page maps would keep dangling pointers */
+                for (VCPage *page : m_pages)
+                    page->removeWidgetFromMaps(child);
                 m_widgetsMap.remove(child->id());
             }
         }
+
+        /* Remove any input source/key sequence binding pointing to the widget,
+         * otherwise the page maps would keep dangling pointers to freed memory */
+        for (VCPage *page : m_pages)
+            page->removeWidgetFromMaps(w);
 
         /* 3- remove the widget from the global VC widgets map */
         VCFrame *parent = qobject_cast<VCFrame *>(w->parent());
