@@ -101,6 +101,24 @@ Rectangle
     {
         id: giSelector
         onItemsCountChanged: { }
+
+        // keep the 3D view selection in sync with the list selection,
+        // including multi-row (range) selections. Use ControlModifier so
+        // each row is added/removed without clearing the others
+        onItemSelectionChanged: (itemIndex, selected) =>
+        {
+            View3D.setItemSelectionByIndex(itemIndex, selected, Qt.ControlModifier)
+        }
+    }
+
+    // catch wheel events over the whole panel so they don't
+    // fall through to the 3D view behind and zoom it in/out.
+    // This sits below the Flickable, which consumes its own wheel
+    // events for scrolling; anything not consumed there is stopped here.
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: (wheel) => { wheel.accepted = true }
     }
 
     Flickable
@@ -677,6 +695,17 @@ Rectangle
                                     tooltip: qsTr("Normalize the selected items")
                                     onClicked: View3D.normalizeSelectedGenericItems()
                                 }
+                                IconButton
+                                {
+                                    enabled: selGenericCount
+                                    height: UISettings.iconSizeMedium
+                                    width: height
+                                    checked: View3D.genericSelectedLocked
+                                    faSource: checked ? FontAwesome.fa_lock : FontAwesome.fa_lock_open
+                                    faColor: checked ? "#00FF00" : UISettings.fgMain
+                                    tooltip: qsTr("Lock/Unlock the selected items")
+                                    onClicked: View3D.toggleGenericItemsLock()
+                                }
                                 Rectangle
                                 {
                                     Layout.fillWidth: true
@@ -690,14 +719,19 @@ Rectangle
                         {
                             id: itemsList
                             width: parent.width
-                            height: UISettings.bigItemHeight * 4
-                            boundsBehavior: Flickable.StopAtBounds
+                            // show all the items and let the Flickable scrollbar handle
+                            // scrolling, so there are not two nested scrollbars
+                            height: count * UISettings.listItemHeight
+                            interactive: false
                             model: View3D.genericItemsList
+                            clip: true
 
                             delegate:
                                 Rectangle
                                 {
-                                    width: itemsList.width
+                                    // account for the Flickable scrollbar so the lock
+                                    // icon on the right edge stays visible
+                                    width: itemsList.width - (sbar.visible ? sbar.width : 0)
                                     height: UISettings.listItemHeight
                                     color: isSelected ? UISettings.highlight : "transparent"
 
@@ -713,12 +747,25 @@ Rectangle
                                         MouseArea
                                         {
                                             anchors.fill: parent
-                                            onClicked:
+                                            onClicked: (mouse) =>
                                             {
+                                                // giSelector.onItemSelectionChanged keeps the
+                                                // 3D view selection in sync (see above)
                                                 giSelector.selectItem(index, itemsList.model, mouse.modifiers)
-                                                View3D.setItemSelection(itemID, isSelected, mouse.modifiers)
                                             }
                                         }
+                                    }
+
+                                    Text
+                                    {
+                                        visible: isLocked
+                                        anchors.right: parent.right
+                                        anchors.rightMargin: 6
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color: "#00FF00"
+                                        font.family: UISettings.fontAwesomeFontName
+                                        font.pixelSize: UISettings.listItemHeight * 0.6
+                                        text: FontAwesome.fa_lock
                                     }
                                 }
                         }
