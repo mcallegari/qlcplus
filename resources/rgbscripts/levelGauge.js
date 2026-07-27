@@ -1,3 +1,7 @@
+/* This approach doesn't work, needs to refer to a Property that is set via API ect
+*/
+
+
 /*
   Q Light Controller Plus
   levelGauge.js
