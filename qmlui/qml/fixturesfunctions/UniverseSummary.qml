@@ -31,6 +31,55 @@ Rectangle
 
     function hasSettings() { return false; }
 
+    // the single definition of the table columns: headers and data cells are
+    // both built from this, so they can never drift apart.
+    // 'role' tells the delegate what to display, 'text' is the header label
+    property var columns:
+    [
+        { role: "id", text: "ID", width: UISettings.bigItemHeight * 0.5, visible: true },
+        { role: "icon", text: "", width: UISettings.iconSizeDefault, visible: true },
+        { role: "name", text: qsTr("Name"), width: UISettings.bigItemHeight * 2, visible: true },
+        { role: "manuf", text: qsTr("Manufacturer"), width: UISettings.bigItemHeight * 1.5, visible: manufCheck.checked },
+        { role: "fmodel", text: qsTr("Model"), width: UISettings.bigItemHeight * 1.5, visible: modelCheck.checked },
+        { role: "address", text: qsTr("Address"), width: UISettings.bigItemHeight, visible: true },
+        { role: "channels", text: qsTr("Channels"), width: UISettings.bigItemHeight * 0.7, visible: true },
+        { role: "weight", text: qsTr("Weight"), width: UISettings.bigItemHeight * 0.7, visible: weightCheck.checked },
+        { role: "power", text: qsTr("Consumption"), width: UISettings.bigItemHeight * 0.7, visible: powerCheck.checked },
+        { role: "dip", text: qsTr("DIP switch"), width: dipWidth + 10, visible: dipCheck.checked }
+    ]
+
+    // DMXAddressWidget derives the size of a single switch from its width
+    // (10 switches plus a fixed 10px gap each), while the bit box is half of
+    // its height and the two numbering labels take 20% each. Sizing both from
+    // one figure keeps them in proportion: too wide and the switch squares
+    // overflow their box, too short and the numbers become unreadable.
+    property real dipSwitchSize: UISettings.iconSizeDefault * 0.4
+    property real dipWidth: (dipSwitchSize + 10) * 10
+    property real dipHeight: dipSwitchSize * 3.5
+
+    // a DIP switch needs a bit more vertical room than a line of text
+    property real rowHeight: dipCheck.checked ? dipHeight + 6
+                                              : UISettings.iconSizeDefault
+
+    property real tableWidth:
+    {
+        let total = 0
+        for (let i = 0; i < columns.length; i++)
+            if (columns[i].visible)
+                total += columns[i].width
+        return total
+    }
+
+    // index of the rightmost visible column, which doesn't get a separator
+    property int lastVisibleColumn:
+    {
+        let last = 0
+        for (let i = 0; i < columns.length; i++)
+            if (columns[i].visible)
+                last = i
+        return last
+    }
+
     Rectangle
     {
         id: selBar
@@ -110,244 +159,262 @@ Rectangle
         id: flickView
         x: 5
         y: selBar.height
-        width: gridBox.width
+        width: Math.min(uniSummaryView.width - x, tableContent.width)
         height: parent.height - y
-        contentHeight: gridBox.height + summaryGrid.height
+        contentWidth: tableContent.width
+        contentHeight: tableContent.height
         boundsBehavior: Flickable.StopAtBounds
 
         property color textColor: "black"
-        property int totalChannels: 0
-        property real totalWeight: 0.0
-        property int totalPower: 0
+        property var summaryModel: fixtureManager.universeInfo(fixtureManager.itemID)
 
-        Grid
+        // totals are computed from the model rather than accumulated by the
+        // delegates, which would count twice every time a column is toggled
+        property int totalChannels:
         {
-            id: gridBox
-            columns: 5 + (manufCheck.checked ? 1 : 0) + (modelCheck.checked ? 1 : 0) +
-                         (weightCheck.checked ? 1 : 0) + (powerCheck.checked ? 1 : 0) + (dipCheck.checked ? 1 : 0)
-            columnSpacing: 5
-            rowSpacing: 0
+            let total = 0
+            for (let i = 0; i < summaryModel.length; i++)
+                if (summaryModel[i].classRef)
+                    total += summaryModel[i].classRef.channels
+            return total
+        }
+        property real totalWeight:
+        {
+            let total = 0.0
+            for (let i = 0; i < summaryModel.length; i++)
+                total += summaryModel[i].weight
+            return total
+        }
+        property int totalPower:
+        {
+            let total = 0
+            for (let i = 0; i < summaryModel.length; i++)
+                total += summaryModel[i].power
+            return total
+        }
 
-            RobotoText { label: "ID"; labelColor: flickView.textColor }
-            Rectangle  { width: UISettings.iconSizeDefault; height: width }
-            RobotoText { label: qsTr("Name"); labelColor: flickView.textColor }
-            RobotoText { visible: manufCheck.checked; label: qsTr("Manufacturer"); labelColor: flickView.textColor }
-            RobotoText { visible: modelCheck.checked; label: qsTr("Model"); labelColor: flickView.textColor }
-            RobotoText { label: qsTr("Address"); labelColor: flickView.textColor }
-            RobotoText { label: qsTr("Channels"); labelColor: flickView.textColor }
-            RobotoText { visible: weightCheck.checked; label: qsTr("Weight"); labelColor: flickView.textColor }
-            RobotoText { visible: powerCheck.checked; label: qsTr("Consumption"); labelColor: flickView.textColor }
-            RobotoText { visible: dipCheck.checked; label: qsTr("DIP switch"); labelColor: flickView.textColor }
+        Column
+        {
+            id: tableContent
+            width: uniSummaryView.tableWidth
+            spacing: 0
 
-            Rectangle { Layout.columnSpan: gridBox.columns; Layout.fillWidth: true; height: 1; color: "black" }
+            // header row: headers are a single line of text,
+            // so they don't follow the data row height
+            Row
+            {
+                id: headerRow
+                width: parent.width
+                height: UISettings.iconSizeDefault
+                spacing: 0
+
+                Repeater
+                {
+                    model: uniSummaryView.columns
+
+                    delegate:
+                        Rectangle
+                        {
+                            visible: modelData.visible
+                            width: visible ? modelData.width : 0
+                            height: headerRow.height
+                            color: "transparent"
+                            clip: true
+
+                            RobotoText
+                            {
+                                anchors.fill: parent
+                                leftMargin: 5
+                                rightMargin: 5
+                                label: modelData.text
+                                labelColor: flickView.textColor
+                                fontBold: true
+                                wrapText: true
+                            }
+
+                            // column separator, skipped on the last visible column
+                            Rectangle
+                            {
+                                visible: index < uniSummaryView.lastVisibleColumn
+                                anchors.right: parent.right
+                                width: 1
+                                height: parent.height
+                                color: "black"
+                            }
+                        }
+                }
+            }
+
+            Rectangle { width: parent.width; height: 1; color: "black" }
 
             Repeater
             {
-                model: fixtureManager.universeInfo(fixtureManager.itemID)
-
-                onItemRemoved:
-                {
-                    flickView.totalWeight = 0
-                    flickView.totalPower = 0
-                }
+                id: fixtureRepeater
+                model: flickView.summaryModel
 
                 delegate:
-                    Item
+                    Column
                     {
+                        id: fxDelegate
+                        width: tableContent.width
+
                         property Fixture cRef: modelData.classRef
+                        property string fxManuf: modelData.manuf
+                        property string fxModel: modelData.fmodel
+                        property real fxWeight: modelData.weight
+                        property int fxPower: modelData.power
 
-                        Rectangle
+                        // returns the text to display for a plain text column
+                        function cellText(role)
                         {
-                            parent: gridBox
-                            Layout.columnSpan: gridBox.columns
-                            Layout.fillWidth: true
-                            height: 1
-                            color: "black"
+                            if (!cRef)
+                                return ""
+
+                            switch (role)
+                            {
+                                case "id": return cRef.id
+                                case "name": return cRef.name
+                                case "manuf": return fxManuf
+                                case "fmodel": return fxModel
+                                case "address": return "" + (cRef.address + 1) + "-" +
+                                                       (cRef.address + cRef.channels)
+                                case "channels": return cRef.channels
+                                case "weight": return fxWeight + "Kg"
+                                case "power": return fxPower + "W"
+                            }
+                            return ""
                         }
 
-                        // DIP switch
-                        DMXAddressWidget
+                        // every cell is given the full row height, so the column
+                        // separators join up even when the DIP switch is shown
+                        Row
                         {
-                            parent: gridBox
-                            visible: dipCheck.checked
-                            height: UISettings.iconSizeDefault * 1.5
-                            width: UISettings.bigItemHeight * 2
-                            color: UISettings.bgLighter
-                            Layout.fillWidth: true
-                            currentValue: cRef ? cRef.address + 1 : 1
+                            width: parent.width
+                            spacing: 0
+
+                            Repeater
+                            {
+                                model: uniSummaryView.columns
+
+                                delegate:
+                                    Rectangle
+                                    {
+                                        visible: modelData.visible
+                                        width: visible ? modelData.width : 0
+                                        height: uniSummaryView.rowHeight
+                                        color: "transparent"
+                                        clip: true
+
+                                        // text columns
+                                        RobotoText
+                                        {
+                                            anchors.fill: parent
+                                            visible: modelData.role !== "icon" && modelData.role !== "dip"
+                                            leftMargin: 5
+                                            rightMargin: 5
+                                            label: fxDelegate.cellText(modelData.role)
+                                            labelColor: flickView.textColor
+                                            wrapText: true
+                                        }
+
+                                        // fixture icon
+                                        Image
+                                        {
+                                            anchors.centerIn: parent
+                                            visible: modelData.role === "icon"
+                                            source: visible && fxDelegate.cRef ? fxDelegate.cRef.iconResource(true) : ""
+                                            width: UISettings.iconSizeDefault
+                                            height: width
+                                            sourceSize: Qt.size(width, height)
+                                        }
+
+                                        // DIP switch
+                                        DMXAddressWidget
+                                        {
+                                            anchors.centerIn: parent
+                                            visible: modelData.role === "dip"
+                                            width: uniSummaryView.dipWidth
+                                            height: uniSummaryView.dipHeight
+                                            color: UISettings.bgLighter
+                                            editable: false
+                                            currentValue: fxDelegate.cRef ? fxDelegate.cRef.address + 1 : 1
+                                        }
+
+                                        // column separator, skipped on the last visible column
+                                        Rectangle
+                                        {
+                                            visible: index < uniSummaryView.lastVisibleColumn
+                                            anchors.right: parent.right
+                                            width: 1
+                                            height: parent.height
+                                            color: "black"
+                                        }
+                                    }
+                            }
                         }
 
-                        // power comsumption
-                        RobotoText
-                        {
-                            parent: gridBox
-                            visible: powerCheck.checked
-                            label: modelData.power + "W"
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-                            width: UISettings.bigItemHeight
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-                            Component.onCompleted: flickView.totalPower += modelData.power
-                        }
-
-                        // weight
-                        RobotoText
-                        {
-                            parent: gridBox
-                            visible: weightCheck.checked
-                            label: modelData.weight + "Kg"
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-                            width: UISettings.bigItemHeight
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-                            Component.onCompleted: flickView.totalWeight += modelData.weight
-                        }
-
-                        // channels
-                        RobotoText
-                        {
-                            parent: gridBox
-                            label: cRef ? cRef.channels : 0
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-                            width: UISettings.bigItemHeight
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-
-                            Component.onCompleted: flickView.totalChannels += cRef.channels
-                        }
-
-                        // address range
-                        RobotoText
-                        {
-                            parent: gridBox
-                            label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-                            leftMargin: 5
-                            width: UISettings.bigItemHeight
-
-                            Rectangle { anchors.left: parent.left; height: parent.height; width: 1; color: "black" }
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-                        }
-
-                        // model
-                        RobotoText
-                        {
-                            parent: gridBox
-                            visible: modelCheck.checked
-                            label: modelData.fmodel
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-                        }
-
-                        // manufacturer
-                        RobotoText
-                        {
-                            parent: gridBox
-                            visible: manufCheck.checked
-                            label: modelData.manuf
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-                        }
-
-                        // fixture name
-                        RobotoText
-                        {
-                            parent: gridBox
-                            label: cRef ? cRef.name : ""
-                            labelColor: flickView.textColor
-                            rightMargin: 5
-                        }
-
-                        // icon
-                        Image
-                        {
-                            parent: gridBox
-                            source: cRef ? cRef.iconResource(true) : ""
-                            width: UISettings.iconSizeDefault
-                            height: width
-                            sourceSize: Qt.size(width, height)
-                        }
-
-                        // ID
-                        RobotoText
-                        {
-                            parent: gridBox
-                            label: cRef ? cRef.id : ""
-                            labelColor: flickView.textColor
-                            width: UISettings.iconSizeDefault
-
-                            Rectangle { anchors.right: parent.right; height: parent.height; width: 1; color: "black" }
-                        }
+                        Rectangle { width: parent.width; height: 1; color: "black" }
                     } // delegate
             } // Repeater
-        } // GridLayout
 
-        Grid
-        {
-            id: summaryGrid
-            anchors.top: gridBox.bottom
-            columns: 2
-            columnSpacing: 5
-            rowSpacing: 0
+            Grid
+            {
+                id: summaryGrid
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 0
 
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: qsTr("Summary")
-                labelColor: flickView.textColor
-                fontBold: true
-            }
-            Rectangle { width: UISettings.listItemHeight; height: width; color: "transparent" }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("Summary")
+                    labelColor: flickView.textColor
+                    fontBold: true
+                }
+                Rectangle { width: UISettings.listItemHeight; height: width; color: "transparent" }
 
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: qsTr("DMX channels used:")
-                labelColor: flickView.textColor
-                fontBold: true
-            }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: " " + flickView.totalChannels
-                labelColor: flickView.textColor
-            }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("DMX channels used:")
+                    labelColor: flickView.textColor
+                    fontBold: true
+                }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: " " + flickView.totalChannels
+                    labelColor: flickView.textColor
+                }
 
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: qsTr("Total weight:")
-                labelColor: flickView.textColor
-                fontBold: true
-            }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: " " + flickView.totalWeight.toFixed(2) + "Kg"
-                labelColor: flickView.textColor
-            }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("Total weight:")
+                    labelColor: flickView.textColor
+                    fontBold: true
+                }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: " " + flickView.totalWeight.toFixed(2) + "Kg"
+                    labelColor: flickView.textColor
+                }
 
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: qsTr("Estimated power consumption:")
-                labelColor: flickView.textColor
-                fontBold: true
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("Estimated power consumption:")
+                    labelColor: flickView.textColor
+                    fontBold: true
+                }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: " " + flickView.totalPower + "W";
+                    labelColor: flickView.textColor
+                }
             }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: " " + flickView.totalPower + "W";
-                labelColor: flickView.textColor
-            }
-        }
+        } // Column
     } // Flickable
 }
