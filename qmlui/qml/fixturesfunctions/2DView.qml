@@ -101,7 +101,10 @@ Rectangle
     {
         id: twoDView
         objectName: "twoDView"
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: groupsBar.visible ? groupsBar.bottom : parent.top
+        anchors.bottom: parent.bottom
         z: 1
         interactive: false
         boundsBehavior: Flickable.StopAtBounds
@@ -410,6 +413,11 @@ Rectangle
         border.width: 1
         border.color: "#103A6E"
         transformOrigin: Item.TopLeft
+
+        /* x/y are assigned from coordinates relative to the Flickable, so
+         * shift the item down by the space taken by the groups bar. This is
+         * done with a transform to leave the selection arithmetic untouched */
+        transform: Translate { y: twoDView.y }
     }
 
     PopupMonitor
@@ -425,5 +433,18 @@ Rectangle
         visible: false
         x: parent.width - width
         z: 5
+    }
+
+    FixtureGroupsBar
+    {
+        id: groupsBar
+        visible: contextManager ? contextManager.showFixtureGroups : false
+        anchors.left: parent.left
+        // leave the side settings panel space untouched when it is open
+        anchors.right: twoDSettings.visible ? twoDSettings.left : parent.right
+        anchors.top: parent.top
+        z: 6
+
+        onVisibleChanged: twoDView.calculateCellSize()
     }
 }

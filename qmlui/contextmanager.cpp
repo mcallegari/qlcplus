@@ -52,6 +52,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_currentSubContext("2D")
     , m_multipleSelection(false)
     , m_positionPicking(false)
+    , m_showFixtureGroups(false)
     , m_lastPickedPoint(QVector3D())
     , m_lastClickedType(App::NoDragItem)
     , m_universeFilter(Universe::invalid())
@@ -463,6 +464,21 @@ int ContextManager::lastClickedType() const
 void ContextManager::setLastClickedType(const int &newLastClickedType)
 {
     m_lastClickedType = newLastClickedType;
+}
+
+bool ContextManager::showFixtureGroups() const
+{
+    return m_showFixtureGroups;
+}
+
+void ContextManager::setShowFixtureGroups(bool show)
+{
+    if (m_showFixtureGroups == show)
+        return;
+
+    m_showFixtureGroups = show;
+
+    emit showFixtureGroupsChanged();
 }
 
 void ContextManager::resetContexts()
