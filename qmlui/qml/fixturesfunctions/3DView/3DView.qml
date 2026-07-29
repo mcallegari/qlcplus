@@ -56,7 +56,10 @@ Rectangle
         id: scene3d
         objectName: "scene3DItem"
         z: 1
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: groupsBar.visible ? groupsBar.bottom : parent.top
+        anchors.bottom: parent.bottom
         aspects: ["input", "logic"]
 
         function updateFrameGraph(create)
@@ -823,6 +826,7 @@ Rectangle
     {
         visible: View3D.frameCountEnabled
         z: 4
+        y: groupsBar.visible ? groupsBar.height : 0
         opacity: 0.6
         color: UISettings.bgMedium
         width: height
@@ -843,5 +847,16 @@ Rectangle
         visible: false
         x: parent.width - width
         z: 5
+    }
+
+    FixtureGroupsBar
+    {
+        id: groupsBar
+        visible: contextManager ? contextManager.showFixtureGroups : false
+        anchors.left: parent.left
+        // leave the side settings panel space untouched when it is open
+        anchors.right: threeDSettings.visible ? threeDSettings.left : parent.right
+        anchors.top: parent.top
+        z: 6
     }
 }

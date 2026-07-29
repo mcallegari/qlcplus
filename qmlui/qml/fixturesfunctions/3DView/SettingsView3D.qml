@@ -283,6 +283,16 @@ Rectangle
                             onToggled: View3D.frameCountEnabled = checked
                         }
 
+                        // row 5
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Show fixture groups") }
+                        CustomCheckBox
+                        {
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            checked: contextManager ? contextManager.showFixtureGroups : false
+                            onToggled: contextManager.showFixtureGroups = checked
+                        }
+
                     } // GridLayout
             } // SectionBox - Rendering
 

@@ -55,6 +55,7 @@ class ContextManager final : public QObject
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
     Q_PROPERTY(QVector3D lastPickedPoint READ lastPickedPoint NOTIFY lastPickedPointChanged)
+    Q_PROPERTY(bool showFixtureGroups READ showFixtureGroups WRITE setShowFixtureGroups NOTIFY showFixtureGroupsChanged)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
@@ -113,6 +114,11 @@ public:
     /** Get/Set the last item clicked type */
     int lastClickedType() const;
 
+    /** Get/Set the visibility of the fixture groups bar. This is shared
+     *  between the 2D and 3D views and not persisted across sessions */
+    bool showFixtureGroups() const;
+    void setShowFixtureGroups(bool show);
+
 public slots:
     void setLastClickedType(const int &newLastClickedType);
 
@@ -123,6 +129,7 @@ signals:
     void positionPickingChanged();
     void lastPickedPointChanged();
     void multipleSelectionChanged();
+    void showFixtureGroupsChanged();
 
 public slots:
     /** Resets the data structures and update the currently enabled views */
@@ -165,6 +172,8 @@ private:
     bool m_multipleSelection;
     /** Flag that indicates if a position picking is active */
     bool m_positionPicking;
+    /** Flag that indicates if the fixture groups bar is visible in the 2D/3D views */
+    bool m_showFixtureGroups;
     /** Last 3D point picked in the scene (in monitor coordinates) */
     QVector3D m_lastPickedPoint;
 
