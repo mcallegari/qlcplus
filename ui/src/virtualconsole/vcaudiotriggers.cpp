@@ -27,6 +27,7 @@
 #include "vcpropertieseditor.h"
 #include "vcaudiotriggers.h"
 #include "audiocapture.h"
+#include "spectrumgrid.h"
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "universe.h"
@@ -50,6 +51,8 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     , m_spectrum(NULL)
     , m_volumeSlider(NULL)
     , m_inputCapture(NULL)
+    , m_spectrumGridMode(SpectrumGridMode::LogUniform)
+    , m_spectrumLowBandGamma(1.0)
 {
     /* Set the class name "VCAudioTriggers" as the object name as well */
     setObjectName(VCAudioTriggers::staticMetaObject.className());
@@ -130,6 +133,7 @@ VCAudioTriggers::VCAudioTriggers(QWidget* parent, Doc* doc)
     m_spectrum->setBarsNumber(m_inputCapture->defaultBarsNumber());
     m_spectrum->setMaxFrequency(AudioCapture::maxFrequency());
     m_spectrum->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    updateSpectrumBandLayout();
 
     layout()->addItem(hbox2);
     hbox2->addWidget(m_spectrum);
@@ -151,7 +155,7 @@ VCAudioTriggers::~VCAudioTriggers()
     QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
 
     if (m_inputCapture == capture.data())
-        m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
+        m_inputCapture->unregisterBands(m_spectrum->barsNumber(), m_spectrumGridMode, m_spectrumLowBandGamma);
 
     qDeleteAll(m_spectrumBars);
     delete m_volumeBar;
@@ -185,11 +189,11 @@ void VCAudioTriggers::enableCapture(bool enable)
 
     if (enable == true)
     {
-        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                this, SLOT(slotDisplaySpectrum(double*,int,double,quint32,int,double)));
         connect(m_inputCapture, SIGNAL(volumeChanged(int)),
                 this, SLOT(slotUpdateVolumeSlider(int)));
-        m_inputCapture->registerBandsNumber(m_spectrum->barsNumber());
+        m_inputCapture->registerBands(m_spectrum->barsNumber(), m_spectrumGridMode, m_spectrumLowBandGamma);
 
         m_button->blockSignals(true);
         m_button->setChecked(true);
@@ -204,9 +208,9 @@ void VCAudioTriggers::enableCapture(bool enable)
     {
         if (!captureIsNew)
         {
-            m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
-            disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                       this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+            m_inputCapture->unregisterBands(m_spectrum->barsNumber(), m_spectrumGridMode, m_spectrumLowBandGamma);
+            disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                       this, SLOT(slotDisplaySpectrum(double*,int,double,quint32,int,double)));
             disconnect(m_inputCapture, SIGNAL(volumeChanged(int)),
                        this, SLOT(slotUpdateVolumeSlider(int)));
         }
@@ -238,9 +242,14 @@ void VCAudioTriggers::slotEnableButtonToggled(bool toggle)
 }
 
 void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
-                                          double maxMagnitude, quint32 power)
+                                          double maxMagnitude, quint32 power,
+                                          int spectrumGridMode, double spectrumLowBandGamma)
 {
-    //qDebug() << "Display spectrum ----- bars:" << size;
+    if (spectrumGridMode != int(m_spectrumGridMode))
+        return;
+    if (qAbs(spectrumLowBandGamma - m_spectrumLowBandGamma) > 0.05)
+        return;
+
     if (size != m_spectrum->barsNumber())
         return;
 
@@ -427,10 +436,79 @@ bool VCAudioTriggers::copyFrom(const VCWidget *widget)
     if (triggers == NULL)
         return false;
 
-    /* TODO: Copy triggers-specific stuff */
+    m_spectrumGridMode = triggers->m_spectrumGridMode;
+    m_spectrumLowBandGamma = triggers->m_spectrumLowBandGamma;
+    updateSpectrumBandLayout();
 
-    /* Copy common stuff */
     return VCWidget::copyFrom(widget);
+}
+
+SpectrumGridMode VCAudioTriggers::spectrumGridMode() const
+{
+    return m_spectrumGridMode;
+}
+
+void VCAudioTriggers::setSpectrumGridMode(SpectrumGridMode mode)
+{
+    if (m_spectrumGridMode == mode)
+        return;
+
+    const int bars = m_spectrum->barsNumber();
+    const bool capturing = (m_button && m_button->isChecked());
+
+    if (capturing && m_inputCapture)
+    {
+        m_inputCapture->unregisterBands(bars, m_spectrumGridMode, m_spectrumLowBandGamma);
+        m_spectrumGridMode = mode;
+        m_inputCapture->registerBands(bars, m_spectrumGridMode, m_spectrumLowBandGamma);
+    }
+    else
+    {
+        m_spectrumGridMode = mode;
+    }
+
+    updateSpectrumBandLayout();
+}
+
+double VCAudioTriggers::spectrumLowBandGamma() const
+{
+    return m_spectrumLowBandGamma;
+}
+
+void VCAudioTriggers::setSpectrumLowBandGamma(double gamma)
+{
+    gamma = qBound(1.0, gamma, 4.0);
+    if (qAbs(m_spectrumLowBandGamma - gamma) < 0.05)
+        return;
+
+    const int bars = m_spectrum->barsNumber();
+    const bool capturing = (m_button && m_button->isChecked());
+
+    if (capturing && m_inputCapture)
+    {
+        m_inputCapture->unregisterBands(bars, m_spectrumGridMode, m_spectrumLowBandGamma);
+        m_spectrumLowBandGamma = gamma;
+        m_inputCapture->registerBands(bars, m_spectrumGridMode, m_spectrumLowBandGamma);
+    }
+    else
+    {
+        m_spectrumLowBandGamma = gamma;
+    }
+
+    updateSpectrumBandLayout();
+}
+
+void VCAudioTriggers::updateSpectrumBandLayout()
+{
+    if (m_spectrum == NULL)
+        return;
+
+    const double minFreq = qMax(1.0, double(AudioCapture::minFrequency()));
+    const double maxFreq = double(AudioCapture::maxFrequency());
+    const QVector<double> edges = computeSpectrumBandEdges(m_spectrum->barsNumber(),
+                                                           minFreq, maxFreq, m_spectrumGridMode,
+                                                           m_spectrumLowBandGamma);
+    m_spectrum->setBandFrequencyEdges(edges);
 }
 
 /*************************************************************************
@@ -540,6 +618,8 @@ void VCAudioTriggers::setSpectrumBarsNumber(int num)
 
     if (m_spectrum != NULL)
         m_spectrum->setBarsNumber(num);
+
+    updateSpectrumBandLayout();
 }
 
 void VCAudioTriggers::setSpectrumBarType(int index, int type)
@@ -578,6 +658,7 @@ void VCAudioTriggers::editProperties()
     }
 
     m_spectrum->setBarsNumber(m_spectrumBars.count());
+    updateSpectrumBandLayout();
 
     if (barsNumber != m_spectrumBars.count())
     {
@@ -588,14 +669,14 @@ void VCAudioTriggers::editProperties()
         if (m_button->isChecked())
         {
             if (!captureIsNew)
-                m_inputCapture->unregisterBandsNumber(barsNumber);
+                m_inputCapture->unregisterBands(barsNumber, m_spectrumGridMode, m_spectrumLowBandGamma);
 
-            m_inputCapture->registerBandsNumber(m_spectrumBars.count());
+            m_inputCapture->registerBands(m_spectrumBars.count(), m_spectrumGridMode, m_spectrumLowBandGamma);
 
             if (captureIsNew)
             {
-                connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                        this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+                connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                        this, SLOT(slotDisplaySpectrum(double*,int,double,quint32,int,double)));
                 connect(m_inputCapture, SIGNAL(volumeChanged(qreal)),
                         this, SLOT(slotUpdateVolumeSlider(int)));
             }
@@ -625,6 +706,17 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
         int barsNum = root.attributes().value(KXMLQLCVCATBarsNumber).toString().toInt();
         setSpectrumBarsNumber(barsNum);
     }
+    if (root.attributes().hasAttribute(KXMLQLCVCATSpectrumGrid))
+    {
+        m_spectrumGridMode = spectrumGridModeFromString(
+            root.attributes().value(KXMLQLCVCATSpectrumGrid).toString());
+    }
+    if (root.attributes().hasAttribute(KXMLQLCVCATSpectrumLowBandGamma))
+    {
+        m_spectrumLowBandGamma = qBound(1.0,
+            root.attributes().value(KXMLQLCVCATSpectrumLowBandGamma).toString().toDouble(), 4.0);
+    }
+    updateSpectrumBandLayout();
 
     /* Widget commons */
     loadXMLCommon(root);
@@ -684,6 +776,9 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
     /* VC button entry */
     doc->writeStartElement(KXMLQLCVCAudioTriggers);
     doc->writeAttribute(KXMLQLCVCATBarsNumber, QString::number(m_spectrumBars.count()));
+    doc->writeAttribute(KXMLQLCVCATSpectrumGrid, spectrumGridModeToString(m_spectrumGridMode));
+    if (qAbs(m_spectrumLowBandGamma - 1.0) > 0.05)
+        doc->writeAttribute(KXMLQLCVCATSpectrumLowBandGamma, QString::number(m_spectrumLowBandGamma, 'f', 1));
 
     saveXMLCommon(doc);
 

@@ -23,7 +23,11 @@
 #include <QDialog>
 
 #include "ui_vcaudiotriggersproperties.h"
+#include "spectrumgrid.h"
 #include "doc.h"
+
+class QComboBox;
+class QDoubleSpinBox;
 
 class InputSelectionWidget;
 class VCAudioTriggers;
@@ -54,12 +58,17 @@ private slots:
     void slotMinThresholdChanged(int val);
     void slotMaxThresholdChanged(int val);
     void slotDivisorChanged(int val);
+    void slotGridModeChanged(int index);
+    void slotGammaChanged(double value);
 
 private:
     Doc *m_doc;
     VCAudioTriggers *m_triggers;
     int m_maxFrequency;
     InputSelectionWidget *m_inputSelWidget;
+    QComboBox *m_gridCombo;
+    QDoubleSpinBox *m_gammaSpin;
+    SpectrumGridMode m_initialGridMode;
 };
 
 /** @} */
