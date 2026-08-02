@@ -25,6 +25,7 @@
 #include "mastertimer.h"
 #include "script_test.h"
 #include "universe.h"
+#include "fixture.h"
 #include "script.h"
 #include "doc.h"
 
@@ -68,5 +69,60 @@ void Script_Test::initial()
 
     scr.postRun(doc.masterTimer(), ua);
 }
+
+#ifndef QMLUI
+void Script_Test::setFixtureRejectsMissingUniverse()
+{
+    Doc doc(this);
+
+    Fixture *fxi = new Fixture(&doc);
+    fxi->setUniverse(1);
+    fxi->setAddress(0);
+    fxi->setChannels(1);
+    // 99 is the fixture ID referenced by the setfixture token below.
+    QVERIFY(doc.addFixture(fxi, 99));
+
+    GrandMaster *gm = new GrandMaster();
+    QList<Universe*> ua;
+    ua.append(new Universe(0, gm));
+
+    Script scr(&doc);
+    QList<QStringList> tokens;
+    tokens << (QStringList() << Script::setFixtureCmd << "99");
+    tokens << (QStringList() << "value" << "255");
+    tokens << (QStringList() << "channel" << "0");
+
+    QCOMPARE(scr.handleSetFixture(tokens, ua), QString("Invalid universe: 1"));
+
+    qDeleteAll(ua);
+    delete gm;
+}
+
+void Script_Test::setFixtureAcceptsPresentUniverse()
+{
+    Doc doc(this);
+
+    Fixture *fxi = new Fixture(&doc);
+    fxi->setUniverse(0);
+    fxi->setAddress(0);
+    fxi->setChannels(1);
+    QVERIFY(doc.addFixture(fxi, 99));
+
+    GrandMaster *gm = new GrandMaster();
+    QList<Universe*> ua;
+    ua.append(new Universe(0, gm));
+
+    Script scr(&doc);
+    QList<QStringList> tokens;
+    tokens << (QStringList() << Script::setFixtureCmd << "99");
+    tokens << (QStringList() << "value" << "255");
+    tokens << (QStringList() << "channel" << "0");
+
+    QCOMPARE(scr.handleSetFixture(tokens, ua), QString());
+
+    qDeleteAll(ua);
+    delete gm;
+}
+#endif
 
 QTEST_MAIN(Script_Test)
