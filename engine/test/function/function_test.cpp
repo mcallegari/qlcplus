@@ -545,6 +545,43 @@ void Function_Test::attributes()
     QCOMPARE(stub->getAttributeValue(1), 0.3); /* Last wins */
 }
 
+void Function_Test::unregisterAttributeOverrides()
+{
+    Doc doc(this);
+
+    Function_Stub* stub = new Function_Stub(&doc);
+
+    /* Intensity is index 0, then register two more attributes */
+    stub->registerAttribute("Foo", Function::LastWins, 0.0, 1.0, 1.0);
+    stub->registerAttribute("Bar", Function::LastWins, 0.0, 1.0, 1.0);
+    QCOMPARE(stub->attributes().count(), 3);
+
+    /* Override the last attribute, like a VC Slider in Adjust mode would */
+    int barAttr = stub->requestAttributeOverride(2, 0.3);
+    stub->adjustAttribute(0.3, barAttr);
+    QCOMPARE(stub->getAttributeValue(2), 0.3);
+
+    /* Removing an attribute placed before the overridden one must keep
+     * the override pointing at the very same attribute */
+    stub->unregisterAttribute("Foo");
+    QCOMPARE(stub->attributes().count(), 2);
+    QCOMPARE(stub->getAttributeIndex("Bar"), 1);
+
+    stub->adjustAttribute(0.6, barAttr);
+    QCOMPARE(stub->getAttributeValue(1), 0.6);
+
+    /* Intensity must not have been affected by the override realignment */
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
+
+    /* Removing the overridden attribute must drop its override.
+     * Adjusting it afterwards must not crash, nor touch other attributes */
+    stub->unregisterAttribute("Bar");
+    QCOMPARE(stub->attributes().count(), 1);
+
+    QCOMPARE(stub->adjustAttribute(0.9, barAttr), -1);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
+}
+
 void Function_Test::blendMode()
 {
     Doc doc(this);

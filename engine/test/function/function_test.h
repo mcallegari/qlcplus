@@ -51,6 +51,7 @@ private slots:
     void speedOperations();
     void tempo();
     void attributes();
+    void unregisterAttributeOverrides();
     void blendMode();
     void loaderWrongRoot();
     void loaderWrongID();
