@@ -26,6 +26,10 @@ Item
 {
     id: root
 
+    // Re-scan whenever this step becomes visible, so a controller patched in
+    // the I/O panel while the wizard is open shows up on return.
+    onVisibleChanged: if (visible && stageWizard) stageWizard.refreshControllers()
+
     // ── Header ──────────────────────────────────────────────────────────────
     RowLayout
     {
@@ -50,7 +54,7 @@ Item
             RobotoText
             {
                 Layout.fillWidth: true
-                label: qsTr("Connect a MIDI, OSC, or DMX controller. This step is optional — you can skip it and assign controls later from the Virtual Console.")
+                label: qsTr("Pick a patched MIDI, OSC or DMX controller and the wizard will bind it to the Virtual Console it generates. This step is optional — you can skip it and assign controls later.")
                 fontSize: UISettings.textSizeDefault * 0.9
                 labelColor: "#888899"
                 wrapText: true
@@ -80,82 +84,187 @@ Item
     }
 
     // ── Content ──────────────────────────────────────────────────────────────
+    // Two equal columns: both fillWidth with the same preferredWidth, so the
+    // RowLayout splits the space 50/50 regardless of what either side contains.
     RowLayout
     {
+        id: content
         anchors.top: hdr.bottom
         anchors.topMargin: UISettings.listItemHeight * 0.5
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        spacing: UISettings.listItemHeight
+        spacing: UISettings.listItemHeight * 0.75
 
-        // ── Left: detected controllers ──────────────────────────────────────
+        // ── Left: patched controllers ───────────────────────────────────────
         ColumnLayout
         {
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            width: parent.width * 0.38
+            Layout.preferredWidth: 1   // equal weight with the right column
             spacing: UISettings.listItemHeight * 0.4
 
             RobotoText
             {
-                label: qsTr("Detected controllers")
+                label: qsTr("Connected controllers")
                 fontSize: UISettings.textSizeDefault * 1.0
                 fontBold: true
                 labelColor: "#AAAACC"
             }
 
-            // Controller list from ioManager
+            // Universes that carry an input patch (the Loopback universes the
+            // wizard uses for page switching are filtered out in C++).
             ListView
             {
+                id: ctrlList
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
                 spacing: 4
-                model: ioManager ? ioManager.universeInputSources(0) : []
+                model: stageWizard ? stageWizard.controllersModel : []
 
                 delegate: Rectangle
                 {
-                    width: ListView.view.width
-                    height: UISettings.listItemHeight * 1.1
+                    id: ctrlDelegate
+                    width: ctrlList.width
+                    // Height follows the row's own implicit height. The row is
+                    // anchored left/right/top only — anchoring it to fill the
+                    // delegate would make its height depend on the delegate's,
+                    // which depends on the row's: a binding loop that collapses
+                    // the list.
+                    height: ctrlRow.implicitHeight + 18
                     radius: 8
-                    color: "#0E0E20"
+                    color: selected ? "#161636" : "#0E0E20"
+                    border.width: selected ? 2 : 1
+                    border.color: selected ? "#E94560" : "#22224A"
+
+                    property bool selected: stageWizard &&
+                                            stageWizard.controllerUniverse === modelData.universe
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            // Clicking the selected entry deselects it, so the
+                            // user can opt out without leaving the step.
+                            stageWizard.controllerUniverse =
+                                ctrlDelegate.selected ? -1 : modelData.universe
+                        }
+                    }
 
                     RowLayout
                     {
-                        anchors.fill: parent
-                        anchors.margins: 10
+                        id: ctrlRow
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.margins: 9
                         spacing: 8
 
-                        Text { text: "🎛"; font.pixelSize: UISettings.textSizeDefault * 1.1 }
+                        Text
+                        {
+                            text: "🎛"
+                            font.pixelSize: UISettings.textSizeDefault * 1.3
+                            Layout.alignment: Qt.AlignTop
+                        }
 
                         ColumnLayout
                         {
-                            spacing: 2
+                            id: ctrlCol
+                            Layout.fillWidth: true
+                            spacing: 3
+
                             RobotoText
                             {
-                                label: modelData.pluginName || qsTr("Unknown")
+                                label: modelData.lineName || modelData.plugin
                                 fontBold: true
                                 fontSize: UISettings.textSizeDefault
                                 labelColor: "white"
                             }
                             RobotoText
                             {
-                                label: modelData.lineName || ""
+                                label: qsTr("%1 · Universe %2")
+                                       .arg(modelData.plugin)
+                                       .arg(modelData.universe + 1)
                                 fontSize: UISettings.textSizeDefault * 0.82
                                 labelColor: "#777799"
+                            }
+
+                            // Capability pills: profile, channel counts, feedback
+                            Flow
+                            {
+                                Layout.fillWidth: true
+                                spacing: 4
+
+                                Repeater
+                                {
+                                    model:
+                                    {
+                                        var pills = []
+                                        if (modelData.hasProfile)
+                                            pills.push({ t: modelData.profile, c: "#2A4A2A", f: "#77BB77" })
+                                        else
+                                            pills.push({ t: qsTr("No input profile"), c: "#4A3A1A", f: "#CCAA55" })
+
+                                        pills.push({ t: qsTr("%1 buttons").arg(modelData.buttons),
+                                                     c: "#1A2A4A", f: "#7799CC" })
+                                        pills.push({ t: qsTr("%1 faders").arg(modelData.faders),
+                                                     c: "#1A2A4A", f: "#7799CC" })
+                                        if (modelData.hasColorTable)
+                                            pills.push({ t: qsTr("colour LEDs"), c: "#3A1A3A", f: "#CC77CC" })
+                                        if (modelData.feedback)
+                                            pills.push({ t: qsTr("feedback on"), c: "#2A4A2A", f: "#77BB77" })
+                                        return pills
+                                    }
+
+                                    Rectangle
+                                    {
+                                        height: UISettings.listItemHeight * 0.62
+                                        width: pillText.width + 12
+                                        radius: 4
+                                        color: modelData.c
+
+                                        RobotoText
+                                        {
+                                            id: pillText
+                                            anchors.centerIn: parent
+                                            label: modelData.t
+                                            fontSize: UISettings.textSizeDefault * 0.75
+                                            labelColor: modelData.f
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
 
                 // Empty state
-                RobotoText
+                ColumnLayout
                 {
                     anchors.centerIn: parent
-                    visible: parent.count === 0
-                    label: qsTr("No controllers detected")
-                    labelColor: "#444466"
-                    fontSize: UISettings.textSizeDefault
+                    width: parent.width * 0.8
+                    visible: ctrlList.count === 0
+                    spacing: 6
+
+                    RobotoText
+                    {
+                        Layout.alignment: Qt.AlignHCenter
+                        label: qsTr("No controller patched")
+                        labelColor: "#666688"
+                        fontSize: UISettings.textSizeDefault
+                        fontBold: true
+                    }
+                    RobotoText
+                    {
+                        Layout.fillWidth: true
+                        label: qsTr("Patch your controller's input line to a universe in the I/O panel, then come back here.")
+                        labelColor: "#444466"
+                        fontSize: UISettings.textSizeDefault * 0.85
+                        wrapText: true
+                        textHAlign: Text.AlignHCenter
+                    }
                 }
 
                 ScrollBar.vertical: CustomScrollBar {}
@@ -192,7 +301,7 @@ Item
                     Text { text: "⚙"; font.pixelSize: UISettings.textSizeDefault * 1.1 }
                     RobotoText
                     {
-                        label: qsTr("Open I/O panel to add a controller")
+                        label: qsTr("Open I/O panel to patch a controller")
                         fontSize: UISettings.textSizeDefault * 0.9
                         labelColor: "#AAAACC"
                     }
@@ -200,101 +309,139 @@ Item
             }
         }
 
-        // Vertical divider
+        // Vertical divider. A plain width in a RowLayout is advisory, so the
+        // layout is told the exact width instead.
         Rectangle
         {
             Layout.fillHeight: true
-            width: 1
+            Layout.preferredWidth: 1
             color: "#2A2A44"
         }
 
-        // ── Right: explanation / instructions ───────────────────────────────
+        // ── Right: mapping options ──────────────────────────────────────────
         ColumnLayout
         {
+            id: optionsCol
             Layout.fillWidth: true
             Layout.fillHeight: true
-            spacing: UISettings.listItemHeight * 0.6
+            Layout.preferredWidth: 1   // equal weight with the left column
+            Layout.alignment: Qt.AlignTop
+            spacing: UISettings.listItemHeight * 0.5
+
+            // Everything on this side needs a selected controller to mean
+            // anything, so it's dimmed and inert until one is picked.
+            property bool hasCtrl: stageWizard && stageWizard.controllerUniverse >= 0
 
             RobotoText
             {
-                label: qsTr("How controller mapping works")
+                label: qsTr("Mapping options")
                 fontSize: UISettings.textSizeDefault * 1.0
                 fontBold: true
                 labelColor: "#AAAACC"
             }
 
-            Repeater
+            WizardOptionRow
             {
-                model: [
-                    {
-                        icon: "①",
-                        title: qsTr("Generate the show"),
-                        body: qsTr("Complete the wizard. The Virtual Console is built automatically with buttons, sliders, cue lists, and XY pads for each fixture group.")
-                    },
-                    {
-                        icon: "②",
-                        title: qsTr("Open the Virtual Console"),
-                        body: qsTr("Switch to the Virtual Console view. Each widget has an 'External Controls' section in its properties panel.")
-                    },
-                    {
-                        icon: "③",
-                        title: qsTr("Learn mode"),
-                        body: qsTr("Click 'Auto Detect' on any widget, then move a fader or press a button on your controller. QLC+ learns the mapping automatically.")
-                    },
-                    {
-                        icon: "④",
-                        title: qsTr("Profile library"),
-                        body: qsTr("Many popular controllers (Behringer X-TOUCH, Akai APC, Novation Launch Control…) have pre-built profiles in the I/O panel.")
-                    }
-                ]
+                id: mapRow
+                Layout.fillWidth: true
+                rowEnabled: optionsCol.hasCtrl
+                checked: stageWizard ? stageWizard.mapController : true
+                title: qsTr("Auto-map Virtual Console controls")
+                body: qsTr("Bind the generated buttons, faders and XY pads to the controller's channels. Buttons on the controller drive buttons in the VC; faders and encoders drive the intensity sliders and pan/tilt.")
+                onToggled: function(value) { stageWizard.mapController = value }
+            }
 
-                Rectangle
+            WizardOptionRow
+            {
+                Layout.fillWidth: true
+                rowEnabled: optionsCol.hasCtrl && mapRow.checked
+                checked: stageWizard ? stageWizard.sendFeedback : true
+                title: qsTr("Send feedback to the controller")
+                body: qsTr("Patch the controller's output line so QLC+ lights its LEDs and moves its motorised faders to match the Virtual Console state.")
+                onToggled: function(value) { stageWizard.sendFeedback = value }
+            }
+
+            WizardOptionRow
+            {
+                Layout.fillWidth: true
+                rowEnabled: optionsCol.hasCtrl && mapRow.checked
+                checked: stageWizard ? stageWizard.mapColors : true
+                title: qsTr("Match LED colours to button colours")
+                body: qsTr("For controllers whose input profile has a colour table, each colour button lights its pad in the nearest matching colour. Ignored on controllers without colour LEDs.")
+                onToggled: function(value) { stageWizard.mapColors = value }
+            }
+
+            // Live estimate of what the mapping will consume.
+            Rectangle
+            {
+                id: previewBox
+                Layout.fillWidth: true
+                // In a ColumnLayout a plain height is only advisory — the
+                // layout sizes children from their implicit height.
+                implicitHeight: previewCol.implicitHeight + 20
+                radius: 8
+                color: "#12121F"
+                border.color: "#2A2A44"
+                visible: optionsCol.hasCtrl && mapRow.checked
+
+                // controllerMappingPreview() is a plain invokable, so it has no
+                // binding dependencies — refresh it explicitly whenever the
+                // selection or the toggles change.
+                property string previewText: ""
+
+                function refresh()
                 {
-                    Layout.fillWidth: true
-                    height: stepContent.implicitHeight + 20
-                    radius: 8
-                    color: "#0E0E20"
+                    previewText = (stageWizard && stageWizard.controllerUniverse >= 0)
+                                  ? stageWizard.controllerMappingPreview() : ""
+                }
 
-                    RowLayout
+                Component.onCompleted: refresh()
+                onVisibleChanged: if (visible) refresh()
+
+                Connections
+                {
+                    target: stageWizard
+                    function onControllerChanged() { previewBox.refresh() }
+                }
+
+                ColumnLayout
+                {
+                    id: previewCol
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.topMargin: 10
+                    anchors.leftMargin: 12
+                    anchors.rightMargin: 12
+                    spacing: 3
+
+                    RobotoText
                     {
-                        id: stepContent
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.margins: 12
-                        spacing: 10
-
-                        RobotoText
-                        {
-                            label: modelData.icon
-                            fontSize: UISettings.textSizeDefault * 1.6
-                            labelColor: "#E94560"
-                            fontBold: true
-                        }
-
-                        ColumnLayout
-                        {
-                            Layout.fillWidth: true
-                            spacing: 3
-
-                            RobotoText
-                            {
-                                label: modelData.title
-                                fontBold: true
-                                fontSize: UISettings.textSizeDefault
-                                labelColor: "white"
-                            }
-                            RobotoText
-                            {
-                                Layout.fillWidth: true
-                                label: modelData.body
-                                fontSize: UISettings.textSizeDefault * 0.85
-                                labelColor: "#777799"
-                                wrapText: true
-                            }
-                        }
+                        label: qsTr("Estimated usage")
+                        fontBold: true
+                        fontSize: UISettings.textSizeDefault * 0.9
+                        labelColor: "#AAAACC"
+                    }
+                    RobotoText
+                    {
+                        Layout.fillWidth: true
+                        label: previewBox.previewText
+                        fontSize: UISettings.textSizeDefault * 0.85
+                        labelColor: "#888899"
+                        wrapText: true
                     }
                 }
+            }
+
+            // Hint shown until a controller is picked.
+            RobotoText
+            {
+                Layout.fillWidth: true
+                visible: !optionsCol.hasCtrl
+                label: qsTr("Select a controller on the left to enable mapping, or continue without one — you can always use 'Auto Detect' on any Virtual Console widget later.")
+                fontSize: UISettings.textSizeDefault * 0.85
+                labelColor: "#666688"
+                wrapText: true
             }
 
             Item { Layout.fillHeight: true }

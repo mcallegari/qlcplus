@@ -86,6 +86,7 @@ set(SRC_FILES
     stagewizard/stagewizard_placement.cpp
     stagewizard/stagewizard_functions.cpp
     stagewizard/stagewizard_vc.cpp
+    stagewizard/stagewizard_controller.cpp
 )
 
 # This is most of the Android deployment code

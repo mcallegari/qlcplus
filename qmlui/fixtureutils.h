@@ -67,8 +67,14 @@ public:
 
     static QColor applyColorFilter(QColor source, QColor filter);
 
-    /** Returns the mesh resource key used to look up LightEmitter data for the given fixture,
-     *  or an empty string if the fixture type has no associated 3D light metadata. */
+    /** Returns the file name of the generic 3D mesh used to draw the given
+     *  fixture, which doubles as the resource key for its LightEmitter data.
+     *  Empty for fixture types drawn without a mesh (LED bars, which are built
+     *  procedurally from the fixture's own layout).
+     *
+     *  Single source of truth: MainView3D picks the mesh to load with it, and
+     *  anything needing a fixture's real drawn geometry resolves the same file
+     *  through it. */
     static QString fixtureLightResource(const Fixture *fixture);
 
     /** Reconstruct persisted light properties without requiring the 3D scene graph.

@@ -19,6 +19,8 @@
 
 #include "stagewizard.h"
 
+#include <QtMath>
+
 #include "doc.h"
 #include "fixture.h"
 #include "function.h"
@@ -61,6 +63,18 @@
 #include <QtMath>
 #include <QSet>
 #include <QDebug>
+
+// External control IDs of the widgets the wizard creates. These are #defined
+// privately inside each widget's .cpp, so they're mirrored here.
+static const quint8 kBtnPressureID  = 0;   // VCButton  – Pressure
+static const quint8 kSliderLevelID  = 0;   // VCSlider  – Slider Control
+static const quint8 kXYPadPanID     = 0;   // VCXYPad   – Pan / horizontal
+static const quint8 kXYPadTiltID    = 2;   // VCXYPad   – Tilt / vertical
+
+// Logical slot bases for the rows replicated on every frame page, so each
+// replica of a given tab / cue reuses the same controller button.
+static const int kSlotTabBase = 0;
+static const int kSlotCueBase = 1000;
 
 // Layout metrics — pixelDensity units, matching the VC default drop sizes.
 static const int kBtnW  = 17;   // all buttons: VC default square (pd * 17)
@@ -115,6 +129,60 @@ void StageWizard::createVCLayout()
     QList<quint32> pageSceneIDs; // index 0 = All Groups, 1..N = groups
     if (loopback)
         generatePageSwitchScenes(bridgeFx, pageGroups, pageSceneIDs);
+
+    // ── External controller mapping (step 5) ────────────────────────────────
+    // Channels are handed out in the order widgets are created below, so the
+    // controller's physical layout lines up with the VC layout: page tabs
+    // first, then per-page colours/effects, then the shared cue row.
+    CtrlPools ctrlPools;
+    const bool ctrlMap = m_ctrlMap && m_ctrlUniverse >= 0;
+    if (ctrlMap)
+    {
+        buildControllerPools(ctrlPools);
+        ensureFeedbackPatch();
+    }
+
+    // Hand a button/fader channel to $widget's control $controlID. No-ops when
+    // mapping is off or the controller has run out of channels, so a small
+    // controller simply maps as far as it reaches.
+    auto mapButton = [&](VCWidget *w, quint8 controlID,
+                         const QColor &color = QColor())
+    {
+        quint32 ch = 0;
+        if (ctrlMap && w && nextButtonChannel(ctrlPools, ch))
+            mapWidgetControl(w, controlID, ch, color);
+    };
+    auto mapFader = [&](VCWidget *w, quint8 controlID)
+    {
+        quint32 ch = 0;
+        if (ctrlMap && w && nextFaderChannel(ctrlPools, ch))
+            mapWidgetControl(w, controlID, ch);
+    };
+
+    // The tab row and the cue row are replicated on every page, and an input
+    // source only fires while its own page is showing — so each replica needs
+    // its own source, all bound to the SAME controller button. $sharedButtons
+    // remembers the channel picked for logical slot $slot on the first page and
+    // replays it for the rest, so N pages don't consume N times the buttons.
+    QHash<int, quint32> sharedButtons;
+    auto mapSharedButton = [&](VCWidget *w, int slot)
+    {
+        if (!ctrlMap || !w)
+            return;
+
+        auto it = sharedButtons.constFind(slot);
+        if (it != sharedButtons.constEnd())
+        {
+            mapWidgetControl(w, kBtnPressureID, it.value());
+            return;
+        }
+
+        quint32 ch = 0;
+        if (!nextButtonChannel(ctrlPools, ch))
+            return;
+        sharedButtons.insert(slot, ch);
+        mapWidgetControl(w, kBtnPressureID, ch);
+    };
 
     // ── Find show cue functions by name suffix ──────────────────────────────
     auto findFunc = [&](const QString &suffix) -> quint32
@@ -210,7 +278,10 @@ void StageWizard::createVCLayout()
 
         if (loopback && !pageSceneIDs.isEmpty())
         {
-            auto addPageButton = [&](const QString &caption, quint32 sceneID)
+            // $slot is the tab's position in the row — stable across pages, so
+            // every replica of tab N binds to the same controller button.
+            auto addPageButton = [&](const QString &caption, quint32 sceneID,
+                                     int slot)
             {
                 QPoint p = place(c, txtW, btnH);
                 VCButton *btn = qobject_cast<VCButton *>(
@@ -223,12 +294,14 @@ void StageWizard::createVCLayout()
                     btn->setFunctionID(sceneID);
                     btn->setActionType(VCButton::Flash);
                 }
+                mapSharedButton(btn, kSlotTabBase + slot);
             };
             addPageButton(tr("All Groups"),
-                          pageSceneIDs.value(0, Function::invalidId()));
+                          pageSceneIDs.value(0, Function::invalidId()), 0);
             for (int i = 0; i < pageGroups.count(); i++)
                 addPageButton(pageGroups[i]->name,
-                              pageSceneIDs.value(i + 1, Function::invalidId()));
+                              pageSceneIDs.value(i + 1, Function::invalidId()),
+                              i + 1);
         }
         topOut = c.y + c.rowH + pad;   // Y below the (possibly wrapped) tab row
     };
@@ -238,7 +311,10 @@ void StageWizard::createVCLayout()
         frame->setCurrentPage(pageIdx);
         Cursor c { pad, cueY, 0 };
 
-        auto addCue = [&](const QString &caption, quint32 funcID, bool flash)
+        // $slot is fixed per cue (not a running counter), so a cue that is
+        // absent on this project doesn't shift the others onto other buttons.
+        auto addCue = [&](const QString &caption, quint32 funcID, bool flash,
+                          int slot)
         {
             if (funcID == Function::invalidId())
                 return;
@@ -251,14 +327,15 @@ void StageWizard::createVCLayout()
             btn->setFunctionID(funcID);
             if (flash)
                 btn->setActionType(VCButton::Flash);
+            mapSharedButton(btn, kSlotCueBase + slot);
         };
 
-        addCue(tr("Blackout"),   findFunc("Blackout"),    false);
-        addCue(tr("Show Open"),  findFunc("Show Open"),    false);
-        addCue(tr("Big Moment"), findFunc("Big Moment"),   false);
-        addCue(tr("Show Close"), findFunc("Show Close"),   false);
-        addCue(tr("Ambient"),    findFunc("Ambient Loop"), false);
-        addCue(tr("Blinder"),    blinderFlashID,           true);
+        addCue(tr("Blackout"),   findFunc("Blackout"),    false, 0);
+        addCue(tr("Show Open"),  findFunc("Show Open"),    false, 1);
+        addCue(tr("Big Moment"), findFunc("Big Moment"),   false, 2);
+        addCue(tr("Show Close"), findFunc("Show Close"),   false, 3);
+        addCue(tr("Ambient"),    findFunc("Ambient Loop"), false, 4);
+        addCue(tr("Blinder"),    blinderFlashID,           true,  5);
     };
 
     // ── Group page body ──────────────────────────────────────────────────────
@@ -302,6 +379,7 @@ void StageWizard::createVCLayout()
                         }
                     }
                     colStartX = pad + w + pad;  // colours start right of the fader
+                    mapFader(slider, kSliderLevelID);
                 }
             }
             row2Bottom = bodyTop + slH;
@@ -339,7 +417,14 @@ void StageWizard::createVCLayout()
 
                 QColor col = sceneColor(id);
                 if (col.isValid())
+                {
                     btn->setBackgroundColor(col);
+                    btn->setForegroundColor(contrastingTextColor(col));
+                }
+
+                // Pass the swatch colour so the controller's LED lights up in
+                // the same colour when the scene is active.
+                mapButton(btn, kBtnPressureID, col);
 
                 colX += btnW + pad;
                 colCount++;
@@ -373,6 +458,10 @@ void StageWizard::createVCLayout()
                 }
                 effStartX = pad + w + pad;   // effects start right of the XY pad
                 row4Bottom = qMax(row4Bottom, row4Top + h);
+
+                // Two faders/encoders drive the pad's two axes.
+                mapFader(xy, kXYPadPanID);
+                mapFader(xy, kXYPadTiltID);
             }
         }
 
@@ -398,6 +487,10 @@ void StageWizard::createVCLayout()
                 btn->setFunctionID(id);
                 if (action != VCButton::Toggle)
                     btn->setActionType(action);
+                // No colour: effect buttons keep the VC default background, so
+                // there is nothing meaningful to translate to an LED colour —
+                // the profile's own on/off feedback values are used instead.
+                mapButton(btn, kBtnPressureID);
                 effX += txtW + pad;
                 effCount++;
                 row4Bottom = qMax(row4Bottom, effY + btnH);
@@ -482,6 +575,15 @@ void StageWizard::createVCLayout()
     // starts working after a project reload (the loader does this scan), which
     // is why it "didn't work the first time". Doing it here fixes it live.
     page->mapChildrenInputSources();
+
+    // Push the initial state out to the controller, so its LEDs show the (all
+    // off) VC state right away instead of staying dark until the first press.
+    if (ctrlMap && m_ctrlFeedback)
+    {
+        for (VCWidget *w : page->children(true))
+            if (w)
+                w->updateFeedback();
+    }
 }
 
 QColor StageWizard::sceneColor(quint32 sceneID) const
@@ -545,6 +647,27 @@ QColor StageWizard::sceneColor(quint32 sceneID) const
     }
 
     return any ? QColor(r, g, b) : QColor();
+}
+
+QColor StageWizard::contrastingTextColor(const QColor &background)
+{
+    if (!background.isValid())
+        return Qt::white;
+
+    // Relative luminance (WCAG): linearise each sRGB component, then weight.
+    auto linear = [](int c)
+    {
+        qreal v = c / 255.0;
+        return v <= 0.03928 ? v / 12.92 : qPow((v + 0.055) / 1.055, 2.4);
+    };
+
+    qreal lum = 0.2126 * linear(background.red()) +
+                0.7152 * linear(background.green()) +
+                0.0722 * linear(background.blue());
+
+    // Contrast ratio against white is (1.05 / (lum + 0.05)), against black
+    // ((lum + 0.05) / 0.05). They cross at lum = sqrt(1.05 * 0.05) - 0.05.
+    return lum > 0.1791 ? QColor(Qt::black) : QColor(Qt::white);
 }
 
 bool StageWizard::ensureLoopbackPatch(int pageCount, quint32 &loopInUniverse,
@@ -624,6 +747,14 @@ bool StageWizard::ensureLoopbackPatch(int pageCount, quint32 &loopInUniverse,
             delete dimmer;
             return false;
         }
+
+        // These dimmers are pure plumbing for the VC page switching — they have
+        // no physical counterpart on the rig. Hide them from the 2D/3D preview,
+        // else they show up as unexplained extra fixtures parked at the stage
+        // origin (they were being mistaken for real PARs).
+        m_doc->monitorProperties()->setFixtureFlags(
+            dimmer->id(), 0, 0, MonitorProperties::HiddenFlag);
+
         bridgeFixtureIDs.append(dimmer->id());
     }
 
