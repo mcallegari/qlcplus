@@ -152,6 +152,12 @@ void StageWizard::setCurrentStep(int step)
         applyShowTypeDefaults();
     }
 
+    // On entering step 5: re-scan the patched input universes. Done on every
+    // entry (not just the first) so a controller patched in the I/O panel while
+    // the wizard is open shows up when the user comes back.
+    if (step == 4)
+        refreshControllers();
+
     m_currentStep = step;
     emit currentStepChanged(m_currentStep);
     emit canGoNextChanged();
@@ -466,15 +472,40 @@ void StageWizard::autoDetectRoles()
     for (FixtureGroupEntry &e : m_groups)
     {
         if (e.roleUserSet)                continue;  // keep the user's choice
+
+        // Group NAME wins over capabilities when it states the intent. Two
+        // groups of gobo movers (e.g. Sharpys up front, Intimidators on the
+        // rear truss) are indistinguishable by channel layout alone, so the
+        // name is the only signal for which truss each belongs on.
+        if (e.name.contains(tr("Back"), Qt::CaseInsensitive) ||
+            e.name.contains(tr("Rear"), Qt::CaseInsensitive))
+                                          { e.role = RoleBack;    continue; }
+        if (e.name.contains(tr("Key"),  Qt::CaseInsensitive) ||
+            e.name.contains(tr("Front"), Qt::CaseInsensitive))
+                                          { e.role = RoleKey;     continue; }
+        if (e.name.contains(tr("Side"), Qt::CaseInsensitive))
+                                          { e.role = RoleSide;    continue; }
+        if (e.name.contains(tr("Flood"), Qt::CaseInsensitive) ||
+            e.name.contains(tr("PAR"),  Qt::CaseInsensitive))
+                                          { e.role = RoleFloor;   continue; }
+
         if (e.hasMovement && e.hasGobo)   { e.role = RoleEffect;  continue; }
         if (e.hasMovement && e.hasRGB)    { e.role = RoleKey;     continue; }
         if (e.hasMovement)                { e.role = RoleKey;     continue; }
         if (e.name.contains(tr("Strobe"), Qt::CaseInsensitive) ||
             e.name.contains(tr("Blinder"), Qt::CaseInsensitive))
                                           { e.role = RoleBlinder; continue; }
+        // Capability fallback: a static unit with a shutter/strobe channel and
+        // no colour mixing is a blinder/strobe whatever the fixture is called.
+        if (e.hasShutter && !e.hasRGB && !e.hasCMY)
+                                          { e.role = RoleBlinder; continue; }
         if (e.name.contains(tr("Strip"), Qt::CaseInsensitive) ||
             e.name.contains(tr("Bar"), Qt::CaseInsensitive))
                                           { e.role = RoleStrip;   continue; }
+        // A static RGB unit with no shutter is a PAR / flood: rig it on the
+        // truss uprights as side wash (RoleFloor) rather than overhead, where
+        // it would just duplicate the key light.
+        if (e.hasRGB && !e.hasMovement)   { e.role = RoleFloor;   continue; }
         if (e.hasDimmer && !e.hasRGB)     { e.role = RoleFill;    continue; }
         e.role = RoleFill;
     }
@@ -557,21 +588,61 @@ void StageWizard::setEnvDepth(qreal d)
 
 void StageWizard::suggestEnvSize()
 {
-    // Count fixtures across the selected groups (fall back to whole project).
-    int count = 0;
-    for (const FixtureGroupEntry &g : m_groups)
-        if (g.selected)
-            count += g.fixtureIDs.count();
-    if (count == 0)
-        count = m_doc->fixtures().count();
+    // The stage has to be as wide as the WIDEST ROW the rig needs, not as wide
+    // as the total fixture count. Counting every fixture (including the ones
+    // stacked on side columns or hung on the rear truss) inflated the stage
+    // badly: 32 fixtures produced a 20 x 14 m stadium for a rig whose widest
+    // bank is 8 heads / ~7 m.
+    //
+    // Rows are sized per role, since each role occupies its own truss:
+    //   Key / Fill / Effect / Strip → front or mid truss (one row each)
+    //   Back                        → rear truss
+    //   Blinder                     → ~2/3 across the front, rest on the sides
+    //   Side / Floor                → side columns, split left/right
+    int widestRow = 0;
+    int totalCount = 0;
 
-    // Width scales the most (trusses get longer), depth moderately, height least.
+    for (const FixtureGroupEntry &g : m_groups)
+    {
+        if (!g.selected)
+            continue;
+
+        int n = g.fixtureIDs.count();
+        totalCount += n;
+
+        int row = n;
+        switch (g.role)
+        {
+            case RoleBlinder: row = (n * 2 + 2) / 3; break;   // front share only
+            case RoleSide:
+            case RoleFloor:   row = 0;               break;   // vertical, on the columns
+            default:                                 break;   // full row on a truss
+        }
+        widestRow = qMax(widestRow, row);
+    }
+
+    if (totalCount == 0)
+    {
+        widestRow  = m_doc->fixtures().count();
+        totalCount = widestRow;
+    }
+
+    // Width: the widest row at ~1 m pitch (the upper end of the spacing rule),
+    // plus a bay of clearance at each end so the outer fixtures aren't jammed
+    // into the truss corners.
+    float w = float(qBound(6, int(qRound(widestRow * 1.0 + 3.0)), 40));
+
+    // Depth: enough to separate the front and rear trusses and leave a working
+    // stage between them. Grows slowly with the rig, and never exceeds the
+    // width — a stage deeper than it is wide is not a stage.
+    float d = float(qBound(5, int(qRound(5.0 + totalCount * 0.12)), 20));
+    d = qMin(d, w);
+
+    // Height: trim height for the trusses; barely varies with rig size.
+    float h = float(qBound(4, int(qRound(4.0 + totalCount * 0.05)), 12));
+
     // Sizes are whole metres: trusses are built from 1 m / 2 m segments and
     // cannot be scaled to fractional lengths.
-    float w = float(qBound(6, int(qRound(4.0 + count * 0.5)),  40));
-    float d = float(qBound(5, int(qRound(4.0 + count * 0.3)),  30));
-    float h = float(qBound(4, int(qRound(4.0 + count * 0.05)), 12));
-
     m_envSize = QVector3D(w, h, d);
     emit envSizeChanged();
 }
@@ -868,6 +939,22 @@ QVariant StageWizard::summaryModel() const
         m["detail"]  = tr("1 main page + %1 group frame(s)").arg(vcGroups);
         list.append(m);
     }
+    {
+        QVariantMap m;
+        m["section"] = tr("Controller");
+        if (m_ctrlUniverse < 0 || !m_ctrlMap)
+        {
+            m["detail"] = tr("No external controller mapped");
+        }
+        else
+        {
+            QString detail = controllerMappingPreview();
+            if (m_ctrlFeedback)
+                detail += tr(" (with feedback)");
+            m["detail"] = detail;
+        }
+        list.append(m);
+    }
 
     return QVariant::fromValue(list);
 }
@@ -886,8 +973,14 @@ void StageWizard::reset()
     m_generatedFunctionIDs.clear();
     m_generatedGroupIDs.clear();
     m_hasAllGroups = false;
+    m_ctrlUniverse = -1;
+    m_ctrlMap      = true;
+    m_ctrlFeedback = true;
+    m_ctrlColors   = true;
     buildEffectsModel();
 
+    emit controllersModelChanged();
+    emit controllerChanged();
     emit currentStepChanged(m_currentStep);
     emit showTypeChanged(m_showType);
     emit stageTypeChanged(m_stageType);

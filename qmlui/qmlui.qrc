@@ -74,6 +74,7 @@
     <file alias="WizardStep4Effects.qml">qml/stagewizard/WizardStep4Effects.qml</file>
     <file alias="EffectToggleRow.qml">qml/stagewizard/EffectToggleRow.qml</file>
     <file alias="WizardStep5Controller.qml">qml/stagewizard/WizardStep5Controller.qml</file>
+    <file alias="WizardOptionRow.qml">qml/stagewizard/WizardOptionRow.qml</file>
     <file alias="WizardStep6Summary.qml">qml/stagewizard/WizardStep6Summary.qml</file>
     <file alias="VCPreviewButton.qml">qml/stagewizard/VCPreviewButton.qml</file>
 

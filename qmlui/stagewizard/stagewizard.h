@@ -29,6 +29,8 @@
 #include "vcpage.h"
 
 class Doc;
+class VCWidget;
+class QLCInputProfile;
 class Fixture;
 class Chaser;
 class Scene;
@@ -66,6 +68,13 @@ class StageWizard : public QObject
 
     // ── Step 4 – Effects ─────────────────────────────────────────────────────
     Q_PROPERTY(QVariant effectsModel READ effectsModel NOTIFY effectsModelChanged)
+
+    // ── Step 5 – External controller ─────────────────────────────────────────
+    Q_PROPERTY(QVariant controllersModel READ controllersModel NOTIFY controllersModelChanged)
+    Q_PROPERTY(int  controllerUniverse READ controllerUniverse WRITE setControllerUniverse NOTIFY controllerChanged)
+    Q_PROPERTY(bool mapController      READ mapController      WRITE setMapController      NOTIFY controllerChanged)
+    Q_PROPERTY(bool sendFeedback       READ sendFeedback       WRITE setSendFeedback       NOTIFY controllerChanged)
+    Q_PROPERTY(bool mapColors          READ mapColors          WRITE setMapColors          NOTIFY controllerChanged)
 
     // ── State ────────────────────────────────────────────────────────────────
     Q_PROPERTY(bool canGoNext  READ canGoNext  NOTIFY canGoNextChanged)
@@ -224,6 +233,34 @@ public:
     /** Returns a human-readable preview string, e.g. "3 scenes + 1 chaser". */
     Q_INVOKABLE QString effectPreview(int effectFlag) const;
 
+    // ── Step 5 – External controller ─────────────────────────────────────────
+    /** Universes that carry an input patch, as a list of
+     *  { universe, universeName, plugin, line, lineName, profile, hasProfile,
+     *    buttons, faders, hasColorTable, feedback } maps.
+     *  This lists what is actually PATCHED (unlike ioManager's
+     *  universeInputSources(), which lists still-available plugin lines). */
+    QVariant controllersModel() const;
+
+    /** Re-read the patched input universes (called on step entry and after the
+     *  user comes back from the I/O panel). */
+    Q_INVOKABLE void refreshControllers();
+
+    int  controllerUniverse() const { return m_ctrlUniverse; }
+    void setControllerUniverse(int universe);
+
+    bool mapController() const { return m_ctrlMap; }
+    void setMapController(bool map);
+
+    bool sendFeedback() const { return m_ctrlFeedback; }
+    void setSendFeedback(bool enable);
+
+    bool mapColors() const { return m_ctrlColors; }
+    void setMapColors(bool enable);
+
+    /** Human-readable preview of what the mapping will consume, e.g.
+     *  "18 of 24 buttons, 3 of 9 faders". Empty when nothing is selected. */
+    Q_INVOKABLE QString controllerMappingPreview() const;
+
     // ── State ────────────────────────────────────────────────────────────────
     bool canGoNext() const;
     bool isGenerating() const;
@@ -244,6 +281,8 @@ signals:
     void stageTypeChanged(int type);
     void envSizeChanged();
     void effectsModelChanged();
+    void controllersModelChanged();
+    void controllerChanged();
     void canGoNextChanged();
     void isGeneratingChanged();
     void summaryModelChanged();
@@ -295,11 +334,29 @@ private slots:
     void slotFixtureAdded(quint32 fixtureID);
 
     // Step 3 – placement
+
+    /** Size (mm) the 3D view will actually DRAW $fixtureID at — not the declared
+     *  physical size. MainView3D fits a generic per-type mesh into the declared
+     *  box with a uniform scale, so the two differ whenever the aspect ratios
+     *  do not match, and snapping to a truss must use the drawn size. */
+    QVector3D fixtureDrawnSizeMM(quint32 fixtureID) const;
+
+    /** Truss bar geometry of the current stage, in mm (monitor space):
+     *  $halfMM is the bar half-thickness, $bottomYMM its underside (what
+     *  fixtures hang from) and $topYMM its top face. All read from the stage
+     *  model at runtime; $halfMM is 0 for stages that have no trusses. */
+    void trussGeometryMM(float &halfMM, float &bottomYMM, float &topYMM) const;
+
     void applyStageLayout();
     QVector3D computePosition(int index, int total, FixtureRole role,
                               const QVector3D &envSize,
                               const QVector3D &fxSizeMM) const;
-    QVector3D computeRotation(FixtureRole role, int index, int total) const;
+    /** Rotation for the fixture at $index. Takes the same grid/size inputs as
+     *  computePosition() because some roles rotate depending on WHERE the unit
+     *  landed (a blinder bar on a side column is turned 90° to stand vertical). */
+    QVector3D computeRotation(FixtureRole role, int index, int total,
+                              const QVector3D &envSize,
+                              const QVector3D &fxSizeMM) const;
 
     // Step 4 defaults
     void applyShowTypeDefaults();
@@ -387,6 +444,54 @@ private slots:
      *  Back-role moving heads are present for depth. */
     void generateMusicianKeyScenes(const FixtureGroupEntry &grp);
 
+private:
+    // ── Step 5: external controller mapping ─────────────────────────────────
+    /** A controller channel the wizard can hand out, taken from the patched
+     *  universe's input profile (or synthesised when there is no profile). */
+    struct CtrlChannel
+    {
+        quint32 channel;    ///< Input channel number
+        QString name;       ///< Profile channel name (for logging/preview)
+    };
+
+    /** Pools of still-unassigned controller channels, refilled by
+     *  buildControllerPools() at the start of a mapping run. */
+    struct CtrlPools
+    {
+        QList<CtrlChannel> buttons;  ///< Button-type channels
+        QList<CtrlChannel> faders;   ///< Slider/Knob/Encoder-type channels
+        int buttonTotal = 0;         ///< Pool sizes before any hand-out
+        int faderTotal  = 0;
+        int nextButton  = 0;         ///< Hand-out cursors
+        int nextFader   = 0;
+    };
+
+    /** Fill $pools from the input profile patched on m_ctrlUniverse. With no
+     *  profile assigned, falls back to a synthetic layout (channels 0..7 faders,
+     *  8.. buttons) so a bare MIDI/OSC patch still gets a usable mapping. */
+    void buildControllerPools(CtrlPools &pools) const;
+
+    /** Take the next free button/fader channel. Returns false when exhausted. */
+    bool nextButtonChannel(CtrlPools &pools, quint32 &channel) const;
+    bool nextFaderChannel(CtrlPools &pools, quint32 &channel) const;
+
+    /** Attach a controller input source to $widget's control $controlID, and
+     *  apply feedback / colour feedback when enabled. $color is the widget's
+     *  background colour, matched against the profile's colour table. */
+    void mapWidgetControl(VCWidget *widget, quint8 controlID, quint32 channel,
+                          const QColor &color = QColor());
+
+    /** Input profile currently patched on m_ctrlUniverse, or nullptr. */
+    QLCInputProfile *controllerProfile() const;
+
+    /** Colour-table value of the entry closest to $color, or -1 when the
+     *  profile has no colour table. */
+    int closestProfileColor(const QColor &color) const;
+
+    /** Enable the feedback (output) patch on the controller's universe, so LED
+     *  / motor-fader feedback actually reaches the device. */
+    void ensureFeedbackPatch();
+
     // VC layout
     void createVCLayout();
     /** Return the first empty VC page; if all pages have widgets, add and
@@ -413,6 +518,9 @@ private slots:
      *  background. Reads the scene's actual channel values. */
     QColor sceneColor(quint32 sceneID) const;
 
+    /** Black or white, whichever keeps a caption readable on $background. */
+    static QColor contrastingTextColor(const QColor &background);
+
     // Helpers
     Scene *makeBlackoutScene();
     Scene *makeFullScene(const FixtureGroupEntry &grp, const QString &name);
@@ -435,6 +543,12 @@ private:
 
     QList<FixtureGroupEntry> m_groups;
     QList<EffectEntry>       m_effects;
+
+    // ── Step 5 state ────────────────────────────────────────────────────────
+    int  m_ctrlUniverse = -1;      ///< Patched input universe to map to, -1 = none
+    bool m_ctrlMap      = true;    ///< Auto-map VC widgets to the controller
+    bool m_ctrlFeedback = true;    ///< Enable the feedback (output) patch
+    bool m_ctrlColors   = true;    ///< Map button colours to colour-table feedback
 
     // Synthetic "All Groups" aggregate (union of all selected groups' fixtures
     // and capabilities), backed by a real FixtureGroup created at generation.
