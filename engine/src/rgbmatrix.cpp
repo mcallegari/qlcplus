@@ -85,8 +85,8 @@ RGBMatrix::RGBMatrix(Doc *doc)
     m_rgbColors.fill(QColor(), RGBAlgorithmColorDisplayCount);
     setColor(0, Qt::red);
 
-    setAlgorithm(RGBAlgorithm::algorithm(doc, "Stripes"));
-
+    /** Register the fixed attributes before loading an algorithm, so that
+     *  the attributes exposed by a Script are always appended after them */
     for (int i = 0; i < ColorAttributeCount; ++i)
     {
         registerAttribute(tr("Color %1").arg(i + 1), LastWins | Single, -1.0, 16777215.0,
@@ -94,7 +94,9 @@ RGBMatrix::RGBMatrix(Doc *doc)
     }
 
     int algoCount = RGBAlgorithm::algorithms(doc).count();
-    registerAttribute(tr("Pattern"), LastWins | Single, 0.0, algoCount > 0 ? algoCount - 1 : 0, algorithmIndex());
+    registerAttribute(tr("Pattern"), LastWins | Single, 0.0, algoCount > 0 ? algoCount - 1 : 0, 0);
+
+    setAlgorithm(RGBAlgorithm::algorithm(doc, "Stripes"));
 }
 
 RGBMatrix::~RGBMatrix()
@@ -241,6 +243,11 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
 {
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
+
+        /** Unregister the attributes of the outgoing algorithm while it is
+         *  still around, since their names come from its properties */
+        unregisterScriptPropertyAttributes();
+
         delete m_algorithm;
         m_algorithm = algo;
 
@@ -270,6 +277,9 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm *algo)
         }
     }
     m_stepsCount = algorithmStepsCount();
+
+    /** Expose the properties of the new algorithm as Function attributes */
+    registerScriptPropertyAttributes();
 
     if (m_applyingStyleAttributes == false)
         Function::adjustAttribute(algorithmIndex(), PatternAttr);
@@ -1045,6 +1055,10 @@ int RGBMatrix::adjustAttribute(qreal fraction, int attributeId)
     {
         applyPatternAttribute(getAttributeValue(PatternAttr));
     }
+    else if (attrIndex >= ScriptPropertyAttr)
+    {
+        applyScriptPropertyAttribute(attrIndex - ScriptPropertyAttr, getAttributeValue(attrIndex));
+    }
 
     return attrIndex;
 }
@@ -1055,6 +1069,109 @@ void RGBMatrix::applyStyleAttributes()
         applyColorAttribute(i, getAttributeValue(Color1Attr + i));
 
     applyPatternAttribute(getAttributeValue(PatternAttr));
+
+    for (int i = 0; i < scriptPropertyAttributes().count(); i++)
+        applyScriptPropertyAttribute(i, getAttributeValue(ScriptPropertyAttr + i));
+}
+
+QList<RGBScriptProperty> RGBMatrix::scriptPropertyAttributes() const
+{
+    QList<RGBScriptProperty> list;
+
+    if (m_algorithm == NULL || m_algorithm->type() != RGBAlgorithm::Script)
+        return list;
+
+    RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+
+    foreach (RGBScriptProperty prop, script->properties())
+    {
+        /** Only the properties that a slider can drive are exposed:
+         *  a list needs at least two values to pick from, a range needs
+         *  a meaningful span and a string cannot be controlled at all */
+        if (prop.m_type == RGBScriptProperty::List)
+        {
+            if (prop.m_listValues.count() > 1)
+                list.append(prop);
+        }
+        else if (prop.m_type == RGBScriptProperty::Range)
+        {
+            if (prop.m_rangeMaxValue > prop.m_rangeMinValue)
+                list.append(prop);
+        }
+        else if (prop.m_type == RGBScriptProperty::Float)
+        {
+            list.append(prop);
+        }
+    }
+
+    return list;
+}
+
+QString RGBMatrix::scriptPropertyAttributeName(const RGBScriptProperty &prop)
+{
+    return prop.m_displayName.isEmpty() ? prop.m_name : prop.m_displayName;
+}
+
+void RGBMatrix::unregisterScriptPropertyAttributes()
+{
+    foreach (RGBScriptProperty prop, scriptPropertyAttributes())
+        unregisterAttribute(scriptPropertyAttributeName(prop));
+}
+
+void RGBMatrix::registerScriptPropertyAttributes()
+{
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
+    foreach (RGBScriptProperty prop, scriptPropertyAttributes())
+    {
+        qreal min = 0.0;
+        qreal max = 1.0;
+
+        if (prop.m_type == RGBScriptProperty::List)
+            max = prop.m_listValues.count() - 1;
+        else if (prop.m_type == RGBScriptProperty::Range)
+        {
+            min = prop.m_rangeMinValue;
+            max = prop.m_rangeMaxValue;
+        }
+        /** Scripts don't declare a range for float properties,
+         *  so 0.0 - 1.0 is assumed */
+
+        /** A list property holds a string, so the attribute value is the
+         *  index of the current value in the values list */
+        QString current = property(prop.m_name);
+        qreal value = prop.m_type == RGBScriptProperty::List ?
+                      qMax(0, prop.m_listValues.indexOf(current)) : current.toDouble();
+
+        registerAttribute(scriptPropertyAttributeName(prop), LastWins | Single,
+                          min, max, qBound(min, value, max));
+    }
+}
+
+void RGBMatrix::applyScriptPropertyAttribute(int attrIndex, qreal value)
+{
+    QList<RGBScriptProperty> props = scriptPropertyAttributes();
+    if (attrIndex < 0 || attrIndex >= props.count())
+        return;
+
+    const RGBScriptProperty prop = props.at(attrIndex);
+    QString strValue;
+
+    switch (prop.m_type)
+    {
+        case RGBScriptProperty::List:
+            strValue = prop.m_listValues.at(qBound(0, int(qRound(value)), prop.m_listValues.count() - 1));
+        break;
+        case RGBScriptProperty::Float:
+            strValue = QString::number(value);
+        break;
+        default:
+            strValue = QString::number(qRound(value));
+        break;
+    }
+
+    if (property(prop.m_name) != strValue)
+        setProperty(prop.m_name, strValue);
 }
 
 void RGBMatrix::applyColorAttribute(int colorIndex, qreal packedColor)

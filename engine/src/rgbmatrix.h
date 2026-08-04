@@ -115,7 +115,9 @@ public:
         Color4Attr = Color1Attr + 3,
         Color5Attr = Color1Attr + 4,
         ColorLastAttr = Color1Attr + RGBAlgorithmColorDisplayCount - 1,
-        PatternAttr = ColorLastAttr + 1
+        PatternAttr = ColorLastAttr + 1,
+        /** First index of the attributes dynamically registered by a Script algorithm. */
+        ScriptPropertyAttr = PatternAttr + 1
     };
     enum { ColorAttributeCount = RGBAlgorithmColorDisplayCount };
     static_assert(RGBAlgorithmColorDisplayCount >= 5,
@@ -234,6 +236,29 @@ public:
 
     /** Retrieve the value of the property with the given name */
     QString property(QString propName);
+
+private:
+    /** Return the properties of the currently loaded Script algorithm that
+     *  are exposed as Function attributes. Index 0 of the returned list
+     *  matches the attribute index $ScriptPropertyAttr */
+    QList<RGBScriptProperty> scriptPropertyAttributes() const;
+
+    /** Return the attribute name used to expose the given Script property */
+    static QString scriptPropertyAttributeName(const RGBScriptProperty &prop);
+
+    /** Register a Function attribute for every property exposed by the
+     *  currently loaded Script algorithm, so that they can be controlled
+     *  by a VC Slider in 'Adjust' mode */
+    void registerScriptPropertyAttributes();
+
+    /** Unregister the attributes of the currently loaded Script algorithm.
+     *  To be called before replacing it, since the attribute names are
+     *  retrieved from the algorithm itself */
+    void unregisterScriptPropertyAttributes();
+
+    /** Apply the value of a Script property attribute to the algorithm.
+     *  $attrIndex is an index of $scriptPropertyAttributes */
+    void applyScriptPropertyAttribute(int attrIndex, qreal value);
 
 private:
     /** A map of the custom properties for this matrix */
