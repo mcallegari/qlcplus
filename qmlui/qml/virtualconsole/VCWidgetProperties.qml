@@ -425,7 +425,7 @@ Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            from: -1000
+                            from: 0
                             to: 1000
                             value: wObj ? wObj.zIndex : 0
                             visible: selectedWidgetsCount < 2
