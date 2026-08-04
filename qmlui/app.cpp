@@ -74,6 +74,10 @@
 
 #define MAX_RECENT_FILES    10
 
+/** Resolution multiplier applied when grabbing an item for printing.
+ *  3x brings a screen resolution item close to a 300DPI page */
+#define PRINT_OVERSAMPLING  3.0
+
 App::App()
     : QQuickView()
     , m_forceQuit(false)
@@ -641,7 +645,31 @@ void App::printItem(QQuickItem *item)
         return;
 
     m_printItem = item;
-    m_printerImage = item->grabToImage();
+
+    // Grab the item at a multiple of its on-screen size, otherwise the capture
+    // carries only screen resolution pixels (~96DPI) and looks blurry once
+    // blown up to a 300DPI page. The factor is clamped so the offscreen
+    // surface never exceeds what the GPU can allocate (GL_MAX_TEXTURE_SIZE is
+    // commonly 16384), which would silently return an empty grab.
+    const qreal maxDimension = 16384.0;
+    qreal factor = PRINT_OVERSAMPLING;
+
+    if (item->width() > 0)
+        factor = qMin(factor, maxDimension / item->width());
+    if (item->height() > 0)
+        factor = qMin(factor, maxDimension / item->height());
+    factor = qMax(factor, 1.0);
+
+    QSize targetSize(qRound(item->width() * factor), qRound(item->height() * factor));
+
+    m_printerImage = item->grabToImage(targetSize);
+    if (m_printerImage.isNull())
+    {
+        qWarning() << "Failed to grab item for printing";
+        m_printItem = nullptr;
+        return;
+    }
+
     connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
 }
 
@@ -651,41 +679,49 @@ void App::slotItemReadyForPrinting()
     QPrintDialog *dlg = new QPrintDialog(&printer);
     if (dlg->exec() == QDialog::Accepted)
     {
-        QRectF pageRect = printer.pageLayout().paintRect();
-        QSize imgSize = m_printerImage->image().size();
-        int totalHeight = imgSize.height();
-        int yOffset = 0;
-
-        qDebug() << "Page size:" << pageRect << ", image size:" << imgSize;
-        QPainter painter(&printer);
-        painter.setRenderHint(QPainter::Antialiasing, false);
-        painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
+        // the page rectangle must be expressed in device pixels, since it is
+        // used together with image pixels below. paintRect() would return
+        // points instead, which are a much coarser unit
+        QRect pageRect = printer.pageLayout().paintRectPixels(printer.resolution());
         QImage img = m_printerImage->image();
-        int actualWidth = imgSize.width();
 
-        // if the grabbed image is larger than the page, fit it to the page width
-        if (pageRect.width() < imgSize.width())
+        qDebug() << "Page size:" << pageRect << ", image size:" << img.size();
+
+        if (img.isNull() == false && pageRect.isEmpty() == false)
         {
-            img = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
-            actualWidth = pageRect.width();
-        }
+            QPainter painter(&printer);
+            painter.setRenderHint(QPainter::Antialiasing, true);
+            painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 
-        // handle multi-page printing
-        while (totalHeight > 0)
-        {
-            painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
-            yOffset += pageRect.height();
-            totalHeight -= pageRect.height();
-            if (totalHeight > 0)
-                printer.newPage();
-        }
+            // scale factor to map image pixels to page pixels. Shrink an image
+            // wider than the page, but never enlarge a narrower one
+            qreal scale = qMin(qreal(1.0), pageRect.width() / qreal(img.width()));
 
-        painter.end();
+            // number of image rows that fit on a single page
+            int sliceHeight = qMax(1, int(pageRect.height() / scale));
+
+            // handle multi-page printing. Offsets are in image coordinates and
+            // the painter does the scaling, so the full grabbed resolution is
+            // handed to the print device rather than a pre-downscaled copy
+            for (int yOffset = 0; yOffset < img.height(); yOffset += sliceHeight)
+            {
+                int height = qMin(sliceHeight, img.height() - yOffset);
+                QRectF srcRect(0, yOffset, img.width(), height);
+                QRectF dstRect(0, 0, img.width() * scale, height * scale);
+
+                painter.drawImage(dstRect, img, srcRect);
+
+                if (yOffset + sliceHeight < img.height())
+                    printer.newPage();
+            }
+
+            painter.end();
+        }
     }
 
     m_printerImage.clear();
-    m_printItem->setProperty("isPrinting", false);
+    if (m_printItem != nullptr)
+        m_printItem->setProperty("isPrinting", false);
     m_printItem = nullptr;
 }
 
