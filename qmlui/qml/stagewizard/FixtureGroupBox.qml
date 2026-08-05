@@ -29,12 +29,26 @@ Rectangle
     property bool dropHover: false
 
     readonly property int     groupIndex: groupData.index !== undefined ? groupData.index : -1
-    readonly property string  groupName:  groupData.name || ""
-    readonly property int     fixtureCount: groupData.fixtureCount || 0
+    // Derived from the live list, not from groupData.fixtureCount: membership
+    // changes no longer rebuild the model, so the snapshot would go stale.
+    readonly property int     fixtureCount: fixtures.length
 
-    // Read selection live from the wizard (kept in sync via groupSelectionChanged)
-    // rather than from the model snapshot, so toggling doesn't rebuild the list.
-    property bool selected: groupData.selected === true
+    // Name and selection live on the delegate, seeded from the model snapshot.
+    // Both renameGroup() and setGroupSelected() deliberately skip
+    // groupsModelChanged() — re-emitting it would hand column 2's ListView a
+    // fresh model and reset its scroll position — so the wizard never pushes
+    // these two values back down. The delegate owns them instead: the name field
+    // writes groupName on commit, and groupSelectionChanged refreshes selected.
+    property string groupName: groupData.name || ""
+    property bool   selected:  groupData.selected === true
+
+    // A delegate can be recycled onto a different row, so re-seed from the new
+    // model item whenever groupData is swapped in.
+    onGroupDataChanged:
+    {
+        groupName = groupData.name || ""
+        selected  = groupData.selected === true
+    }
 
     function refreshSelected()
     {
@@ -82,6 +96,10 @@ Rectangle
                 anchors.right: checkBox.left
                 anchors.rightMargin: 8
                 anchors.verticalCenter: parent.verticalCenter
+                // Bound to the delegate's own groupName (not to groupData), so
+                // committing a rename does not need a model rebuild. box.onGroupDataChanged
+                // re-seeds groupName when the delegate is recycled, which
+                // refreshes this field through the same binding.
                 text: box.groupName
                 color: "white"
                 font.family: UISettings.robotoFontName
@@ -99,7 +117,17 @@ Rectangle
                 onEditingFinished:
                 {
                     if (stageWizard && text.length > 0)
+                    {
+                        box.groupName = text
                         stageWizard.renameGroup(box.groupIndex, text)
+                    }
+                    else
+                    {
+                        // Empty name is rejected by renameGroup(): restore the
+                        // field rather than leaving it blank next to a group
+                        // that still has its old name.
+                        text = box.groupName
+                    }
                 }
             }
 
@@ -274,6 +302,10 @@ Rectangle
     Connections
     {
         target: stageWizard
+        // groupFixturesChanged: membership changed inside existing boxes (drag
+        // drop / removal). groupsModelChanged: the set of boxes itself changed,
+        // so this delegate may now be showing a different group.
+        function onGroupFixturesChanged() { box.fixtures = box.refreshFixtures() }
         function onGroupsModelChanged() { box.fixtures = box.refreshFixtures() }
     }
 }

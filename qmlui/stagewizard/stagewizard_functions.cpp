@@ -255,7 +255,11 @@ void StageWizard::generateGroupPalettes(const FixtureGroupEntry &grp)
     // taken from the first fixture's capabilities.
     if (grp.hasColorWheel)
     {
-        const QString path = wizardPath(prefix + "/" + tr("Colors"));
+        // Own subfolder, NOT "Colors": these are raw wheel values specific to
+        // this group's fixture model, whereas the palette scenes above are
+        // generic and shared. createVCLayout() keys off this path to put the two
+        // kinds in separate solo frames.
+        const QString path = wizardPath(prefix + "/" + tr("Color Wheel"));
         Fixture *sample = nullptr;
         for (quint32 id : grp.fixtureIDs)
         {
