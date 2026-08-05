@@ -516,40 +516,22 @@ QVector3D StageWizard::computePosition(int index, int total,
 
         case RoleFloor:
         {
-            // Flood / uplight PARs: stacked up the truss COLUMNS on both sides
-            // (the vertical uprights), alternating stage-left / stage-right.
-            // This keeps the stage floor clear and gives side wash, which is
-            // what PAR cans on a box or rock truss are actually rigged for.
-            bool  left = (index % 2 == 0);
-            int   slot = index / 2;              // position within this side
-
-            float xSide = sideX(left);
-
-            // Spread up the column between floor level and just under the truss.
-            // The number of tiers a column can hold is bounded by the spacing
-            // rule; anything beyond that starts a NEW column further upstage
-            // rather than piling up at the top (a plain qMin() clamp would put
-            // every extra unit at the same height).
-            float topY  = qMax(0.0f, trussBottomY - fxH);
-            // Vertical pitch comes from the fixture's HEIGHT: minGap is an
-            // X-axis (width-based) clearance and is far too coarse for stacking.
-            float vStep = qMax(kMinFixtureGapMM, fxH * 1.5f);
-            int   tiers = qMax(1, int(topY / vStep) + 1);
-
-            int   tier = slot % tiers;           // height within the column
-            int   col  = slot / tiers;           // which upright, front to back
-
-            float y = qBound(0.0f, float(tier) * vStep, topY);
-
-            // Columns march upstage from the downstage corner, far enough apart
-            // that two uprights never overlap. When the depth runs out too, step
-            // inward along X rather than stacking on an occupied point.
-            float zStep = qMax(kMinFixtureGapMM, fxD * 2.0f);
-            int   zCols = qMax(1, int((gz * 0.80f - fxD / 2.0f) / zStep) + 1);
-            float z = gz * 0.80f - float(col % zCols) * zStep;
-            float xNudge = float(col / zCols) * minGap * (left ? 1.0f : -1.0f);
-
-            return QVector3D(qBound(0.0f, xSide + xNudge, gx - fxW), y, z);
+            // Uplighters standing ON THE DECK (y = 0), in a row across the back
+            // of the stage, washing forward/up towards the performers.
+            //
+            // They are floor units: they belong on the floor, not stacked up the
+            // truss uprights (an earlier revision put them there to "keep the
+            // floor clear", which contradicts the role).
+            //
+            // Rear-most row sits just downstage of the back wall so the beam has
+            // something to travel across; overflow rows step DOWNSTAGE, since
+            // there is nothing behind the back row.
+            const float baseZ = gz * 0.12f + fxD / 2.0f;
+            QVector3D p = rowSpread(baseZ, gz * 0.12f);
+            // rowSpread() places at truss height (hangY); these stand on the
+            // deck, so override Y. X/Z spreading and the wrap rule still apply.
+            p.setY(0.0f);
+            return p;
         }
 
         default:
@@ -604,9 +586,19 @@ QVector3D StageWizard::computeRotation(FixtureRole role,
         }
 
         case RoleFloor:
-            // PARs on the truss uprights, angled inward across the stage.
-            // Alternating sides mirror each other (see computePosition()).
-            return QVector3D(0.0f, (index % 2 == 0) ? 90.0f : -90.0f, 0.0f);
+            // Standing on the deck at the back of the stage (see
+            // computePosition()), aimed forward across it towards the audience.
+            //
+            // The mesh loads head-DOWN, so X = 180 stands it upright (the same
+            // value RoleHazer and RoleStrip use to sit a unit on the deck /
+            // truss top). Backing off by 35 degrees rakes the beam downstage
+            // across the performers instead of firing straight into the roof.
+            //
+            // Sign: MainView3D::updateFixtureRotation() NEGATES the angles
+            // (fromAxesAndAngles(..., -degrees.x(), ...)), and Z runs rear ->
+            // front, so a value ABOVE 180 is what tips the beam towards the
+            // audience. 215 = upright (180) + 35 downstage.
+            return QVector3D(215.0f, 0.0f, 0.0f);
 
         case RoleHazer:    return QVector3D(180.0f,   0.0f, 0.0f); // upright on floor
         default:           return QVector3D(0.0f,     0.0f, 0.0f);

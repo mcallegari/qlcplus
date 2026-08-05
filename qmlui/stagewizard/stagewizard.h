@@ -278,6 +278,11 @@ signals:
     void fixtureRoleModelChanged();
     void groupsModelChanged();
     void groupSelectionChanged();
+    /** A group's fixture membership changed, but the set of group boxes did not.
+     *  Delegates re-read groupFixtures()/fixtureCount from this instead of from
+     *  groupsModelChanged(), which would reassign column 2's model and reset the
+     *  ListView's scroll position. */
+    void groupFixturesChanged();
     void stageTypeChanged(int type);
     void envSizeChanged();
     void effectsModelChanged();

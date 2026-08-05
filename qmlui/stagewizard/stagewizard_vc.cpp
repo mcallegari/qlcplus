@@ -232,7 +232,8 @@ void StageWizard::createVCLayout()
     // still doesn't fit wraps to a new row so nothing is ever cut.
     int xyPadW = btnH * 3 + pad * 2;                            // square XY pad
     int tabsW = pad + pageCount * (txtW + pad);                 // row 1: page tabs
-    int row2W = pad + kSlW * pd + pad + 8 * (kBtnW * pd + pad); // fader + 8 swatches
+    // fader + a solo frame holding 8 swatches (frame adds pad on each side)
+    int row2W = pad + kSlW * pd + pad + pad * 2 + 8 * (kBtnW * pd + pad);
     int row4W = pad + xyPadW + pad + 4 * (txtW + pad);          // XY pad + 4 effects
     int cueW  = pad + 6 * (txtW + pad);                         // 6 show cues
 
@@ -384,52 +385,119 @@ void StageWizard::createVCLayout()
             }
             row2Bottom = bodyTop + slH;
 
-            // Colour buttons: grid of max 8 per row, beside the fader.
+            // ── Colour buttons, in solo frames ───────────────────────────────
+            // Colours are mutually exclusive, so they live in a VCSoloFrame:
+            // activating one scene releases the others. The header is hidden —
+            // these are inline swatch strips, not user-managed containers — so
+            // children start at y=0 inside the frame (the header is visible:
+            // toggled in VCFrameItem.qml, it does not reserve space when off).
+            //
+            // Two SEPARATE solo frames, because the two kinds are not mutually
+            // exclusive with each other: the palette colours drive RGB/CMY
+            // mixing, while the wheel colours are raw values on a colour wheel.
+            // A spot with both can legitimately hold a wheel position AND an RGB
+            // wash; putting them in one solo frame would make each cancel the
+            // other. Within each kind, exclusivity is what you want.
             const int perRow = 8;
-            int colCount = 0, colX = colStartX, colY = bodyTop;
-            for (quint32 id : m_generatedFunctionIDs)
+            int soloY = bodyTop;
+
+            // Build one headerless solo frame holding every scene under $subPath.
+            // Returns the bottom Y reached, or $soloY untouched when no scene
+            // matched (no empty frame is left behind).
+            auto buildColorSolo = [&](const QString &subPath, const QString &caption) -> void
             {
-                Function *f = m_doc->function(id);
-                if (!f || f->type() != Function::SceneType)
-                    continue;
-                if (!f->path().contains(grp.name + "/" + tr("Colors")))
-                    continue;
-
-                // Wrap after 8, or if the swatch would exceed the frame width.
-                if (colCount > 0 &&
-                    (colCount % perRow == 0 || colX + btnW > usableRight))
+                // Collect first: an empty solo frame must not be created at all.
+                QList<quint32> ids;
+                for (quint32 id : m_generatedFunctionIDs)
                 {
-                    colX = colStartX;
-                    colY += btnH + pad;
+                    Function *f = m_doc->function(id);
+                    if (!f || f->type() != Function::SceneType)
+                        continue;
+                    if (f->path().contains(grp.name + "/" + subPath))
+                        ids.append(id);
+                }
+                if (ids.isEmpty())
+                    return;
+
+                // Lay the swatches out first (relative to the frame's origin) so
+                // the frame can be sized to exactly fit them.
+                const int availW = qMax(btnW, usableRight - colStartX);
+                const int maxCols = qMax(1, qMin(perRow, (availW + pad) / (btnW + pad)));
+                const int cols = qMin(maxCols, ids.count());
+                const int rows = (ids.count() + cols - 1) / cols;
+                const int soloW = cols * btnW + (cols - 1) * pad + pad * 2;
+                const int soloH = rows * btnH + (rows - 1) * pad + pad * 2;
+
+                // "Solo frame" — lowercase 'f'. This is the key VCWidget::
+                // stringToType() expects; VCWidget::typeToString() returns the
+                // translated DISPLAY string ("Solo Frame"), which does NOT round
+                // trip and silently yields UnknownWidget -> addWidget() == null.
+                VCFrame *solo = qobject_cast<VCFrame *>(
+                    frame->addWidget(nullptr, "Solo frame", QPoint(colStartX, soloY)));
+                if (!solo)
+                    return;
+
+                solo->setCaption(caption);
+                solo->setShowHeader(false);
+                solo->setGeometry(QRectF(colStartX, soloY, soloW, soloH));
+
+                // No setPage() needed: buildBody() already did
+                // frame->setCurrentPage(pageIdx), and VCFrame::addWidget() stamps
+                // a new child with the parent's currentPage() and registers it in
+                // m_pagesMap under that same value — so the solo frame is already
+                // on the right page. (setupWidget() is protected, so re-registering
+                // from here isn't possible anyway.)
+
+                for (int i = 0; i < ids.count(); i++)
+                {
+                    // Positions are relative to the solo frame, not the page.
+                    int bx = pad + (i % cols) * (btnW + pad);
+                    int by = pad + (i / cols) * (btnH + pad);
+
+                    VCButton *btn = qobject_cast<VCButton *>(
+                        solo->addWidget(nullptr, "Button", QPoint(bx, by)));
+                    if (!btn) continue;
+
+                    // NOTE: deliberately NOT setPage(pageIdx) here. The button's
+                    // page is its page WITHIN the solo frame, which is single
+                    // page, so it must stay 0 — setting it to pageIdx would make
+                    // the solo frame's own setCurrentPage(0) hide it. Per-page
+                    // visibility is already handled one level up, by the solo
+                    // frame sitting on page pageIdx of the master frame.
+                    // VCPage::inputValueChanged() matches source->page() against
+                    // widget->page() and separately checks isEffectivelyVisible()
+                    // (which walks the parent chain), so leaving both at 0 is
+                    // both correct and what makes the mapping fire only while
+                    // the owning page is shown.
+
+                    Function *f = m_doc->function(ids.at(i));
+                    QString cap = f ? f->name() : QString();
+                    int dash = cap.indexOf(QStringLiteral(" – "));
+                    if (dash >= 0) cap = cap.mid(dash + 3);
+                    btn->setCaption(cap);
+                    btn->setGeometry(QRectF(bx, by, btnW, btnH));
+                    btn->setFunctionID(ids.at(i));
+                    btn->setActionType(VCButton::Toggle);
+
+                    QColor col = sceneColor(ids.at(i));
+                    if (col.isValid())
+                    {
+                        btn->setBackgroundColor(col);
+                        btn->setForegroundColor(contrastingTextColor(col));
+                    }
+
+                    // Pass the swatch colour so the controller's LED lights up in
+                    // the same colour when the scene is active.
+                    mapButton(btn, kBtnPressureID, col);
                 }
 
-                VCButton *btn = qobject_cast<VCButton *>(
-                    frame->addWidget(nullptr, "Button", QPoint(colX, colY)));
-                if (!btn) continue;
+                soloY += soloH + pad;
+                row2Bottom = qMax(row2Bottom, soloY - pad);
+            };
 
-                QString cap = f->name();
-                int dash = cap.indexOf(QStringLiteral(" – "));
-                if (dash >= 0) cap = cap.mid(dash + 3);
-                btn->setCaption(cap);
-                btn->setGeometry(QRectF(colX, colY, btnW, btnH));
-                btn->setFunctionID(id);
-                btn->setActionType(VCButton::Toggle);
-
-                QColor col = sceneColor(id);
-                if (col.isValid())
-                {
-                    btn->setBackgroundColor(col);
-                    btn->setForegroundColor(contrastingTextColor(col));
-                }
-
-                // Pass the swatch colour so the controller's LED lights up in
-                // the same colour when the scene is active.
-                mapButton(btn, kBtnPressureID, col);
-
-                colX += btnW + pad;
-                colCount++;
-                row2Bottom = qMax(row2Bottom, colY + btnH);
-            }
+            // Generic RGB/CMY palette colours, then this group's colour wheel.
+            buildColorSolo(tr("Colors"), tr("Colors"));
+            buildColorSolo(tr("Color Wheel"), tr("Color Wheel"));
         }
 
         // ── Row 4: XY pad (3 rows tall) + effect/blinder buttons (max 4/row) ──
@@ -449,12 +517,24 @@ void StageWizard::createVCLayout()
             {
                 xy->setCaption(tr("Position"));
                 xy->setGeometry(QRectF(pad, row4Top, w, h));
+                // addHead() is what actually puts a head under the pad's control
+                // (appends to m_fixtures + computes its pan/tilt range).
+                // addFixtureGroupHeadPreset() only creates a preset BUTTON for
+                // heads the pad already drives — it runs the head list through
+                // uniqueHeadsInPad() and bails out when the pad is still empty,
+                // so calling it here left the pad with no heads and no presets.
                 for (quint32 fxID : grp.fixtureIDs)
                 {
                     Fixture *fx = m_doc->fixture(fxID);
                     if (!fx) continue;
+                    // Only pan/tilt-capable fixtures belong on an XY pad; the
+                    // group may also hold static units (grp.hasMovement is true
+                    // as soon as ONE member moves).
+                    if (fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid() &&
+                        fx->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid())
+                        continue;
                     for (int h2 = 0; h2 < qMax(1, fx->heads()); ++h2)
-                        xy->addFixtureGroupHeadPreset(static_cast<int>(fxID), h2);
+                        xy->addHead(static_cast<int>(fxID), h2);
                 }
                 effStartX = pad + w + pad;   // effects start right of the XY pad
                 row4Bottom = qMax(row4Bottom, row4Top + h);
@@ -509,6 +589,32 @@ void StageWizard::createVCLayout()
                 }
             }
         };
+
+        // Shutter Open / Closed. These match on the FULL scene name built by
+        // generateGroupPalettes() rather than a suffix, because a suffix match
+        // against "Shutter Open" would also hit another group's scene whose name
+        // happens to contain this group's name (e.g. "Spots" inside "Back Spots").
+        if (grp.hasShutter)
+        {
+            // $target must be built from the SAME translatable string
+            // generateGroupPalettes() used, not from a "%1 – %2" template plus a
+            // separate label, or the two would diverge in a translated build and
+            // the buttons would silently disappear.
+            auto addShutter = [&](const QString &target, const QString &caption)
+            {
+                for (quint32 id : m_generatedFunctionIDs)
+                {
+                    Function *f = m_doc->function(id);
+                    if (f && f->type() == Function::SceneType && f->name() == target)
+                    {
+                        addEffectBtn(caption, id, VCButton::Toggle);
+                        return;
+                    }
+                }
+            };
+            addShutter(tr("%1 – Shutter Open").arg(grp.name), tr("Shutter Open"));
+            addShutter(tr("%1 – Shutter Closed").arg(grp.name), tr("Shutter Closed"));
+        }
 
         if (grp.hasMovement)
         {

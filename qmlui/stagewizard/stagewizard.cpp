@@ -259,8 +259,14 @@ void StageWizard::renameGroup(int groupIndex, const QString &name)
     if (groupIndex < 0 || groupIndex >= m_groups.count() || name.isEmpty())
         return;
 
+    if (m_groups.at(groupIndex).name == name)
+        return;
+
     m_groups[groupIndex].name = name;
-    emit groupsModelChanged();
+    // Like setGroupSelected(): do NOT emit groupsModelChanged() here. The name is
+    // already displayed by the delegate's own TextField, and reassigning column
+    // 2's model would hand the ListView a fresh list and reset its scroll
+    // position. Column 3 shows the name too, so only that is rebuilt.
     rebuildRoleModel();
 }
 
@@ -309,7 +315,11 @@ void StageWizard::assignFixtureToGroup(int groupIndex, quint32 fixtureID)
     m_groups[groupIndex].fixtureIDs.append(fixtureID);
     detectGroupCapabilities(m_groups[groupIndex]);
 
-    emit groupsModelChanged();
+    // Membership changed, but the set of boxes did not: emitting
+    // groupsModelChanged() here would reassign column 2's model and scroll the
+    // list back to the top mid-drag. Delegates re-read their fixture rows and
+    // count from groupFixturesChanged() instead.
+    emit groupFixturesChanged();
     emit canGoNextChanged();
     rebuildRoleModel();
 }
@@ -322,7 +332,7 @@ void StageWizard::removeFixtureFromGroup(int groupIndex, quint32 fixtureID)
     m_groups[groupIndex].fixtureIDs.removeAll(fixtureID);
     detectGroupCapabilities(m_groups[groupIndex]);
 
-    emit groupsModelChanged();
+    emit groupFixturesChanged();
     emit canGoNextChanged();
     rebuildRoleModel();
 }
