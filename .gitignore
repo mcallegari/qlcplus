@@ -36,7 +36,7 @@ main/qlcplus
 fixtureeditor/qlcplus-fixtureeditor
 launcher/qlcplus-launcher
 hotplugmonitor/test/test
-qmlui/qlcplus-qml
+qmlui/qlcplus5
 *.qm
 core
 

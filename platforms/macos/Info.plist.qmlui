@@ -18,7 +18,7 @@
 	<string>????</string>
 
 	<key>CFBundleExecutable</key>
-	<string>qlcplus-qml</string>
+	<string>qlcplus5</string>
 
 	<key>CFBundleName</key>
 	<string>Q Light Controller Plus</string>

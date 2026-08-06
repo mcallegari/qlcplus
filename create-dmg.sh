@@ -62,7 +62,7 @@ if [ -f "$BIN_DIR/qlcplus" ]; then
     platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus
     platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus-fixtureeditor
 else
-    platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus-qml
+    platforms/macos/fix_dylib_deps.sh $BIN_DIR/qlcplus5
 fi
 
 echo "Run macdeployqt..."
@@ -107,7 +107,7 @@ if [ -n "$SIGNATURE" ]; then
         codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus
         codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus-launcher
     else
-        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus-qml
+        codesign --force --sign "$SIGNATURE" --timestamp --entitlements $ENTITLEMENTS --options runtime $BIN_DIR/qlcplus5
     fi
 fi
 

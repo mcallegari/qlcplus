@@ -181,7 +181,7 @@ set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT
 if(UNIX)
     if(qmlui)
        add_custom_target(run
-            COMMAND ${CMAKE_COMMAND} -E env LD_LIBRARY_PATH=engine/src:$ENV{LD_LIBRARY_PATH} qmlui/qlcplus-qml
+            COMMAND ${CMAKE_COMMAND} -E env LD_LIBRARY_PATH=engine/src:webaccess/src:$ENV{LD_LIBRARY_PATH} qmlui/${APPBINARY}
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         )
     else()
