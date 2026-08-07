@@ -551,5 +551,15 @@ elseif(NOT APPLE AND NOT IOS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+    # GCC's value range propagation produces a false positive inside Qt's
+    # QHash when the hash internals get inlined at -O2 with LTO (as done by
+    # the Debian packaging flags): it cannot prove that the span count is
+    # bounded and reports an allocation of SIZE_MAX. The warning points at
+    # Qt's own headers, not at our code, so just don't make it an error.
+    # Seen with GCC 13/14 and Qt 6.4.
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=alloc-size-larger-than=")
+    endif()
 endif()
 
