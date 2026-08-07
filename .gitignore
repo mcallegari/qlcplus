@@ -22,6 +22,7 @@ qrc_*.cpp
 Makefile
 Makefile.*
 *-build-*
+obj-x86_64-linux-gnu
 ui_*
 object_*
 engine/src/qlcconfig.h
