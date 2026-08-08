@@ -1,0 +1,15 @@
+usr/bin/qlcplus5
+usr/lib/*/libqlcplusengine5.so
+usr/lib/*/qt6/plugins/qlcplus5/
+
+usr/share/applications/qlcplus5.desktop
+usr/share/metainfo/org.qlcplus.QLCPlus5.appdata.xml
+
+usr/share/qlcplus/colorfilters/
+usr/share/qlcplus/meshes/
+usr/share/qlcplus/translations5/
+usr/share/qlcplus/web/simpledesk-v5.css
+usr/share/qlcplus/web/simpledesk-v5.js
+usr/share/qlcplus/web/webaccess-v5.css
+usr/share/qlcplus/web/webaccess-v5.html
+usr/share/qlcplus/web/webaccess-v5.js

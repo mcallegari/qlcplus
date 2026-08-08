@@ -21,6 +21,24 @@ endif()
 # (-DDEVEL=OFF) when building an official release.
 option(DEVEL "Mark this build as a development (GIT) build" ON)
 
+# Unless the build type was set explicitly, follow the DEVEL flag: a
+# development build defaults to Debug, a release build to Release
+if(NOT CMAKE_BUILD_TYPE)
+    if(DEVEL)
+        set(_default_build_type "Debug")
+    else()
+        set(_default_build_type "Release")
+    endif()
+    set(CMAKE_BUILD_TYPE "${_default_build_type}" CACHE STRING
+        "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif()
+
+# variables.cmake is included by several subdirectories too, so only report
+# this once, from the top level
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    message("Build type: ${CMAKE_BUILD_TYPE} (DEVEL=${DEVEL})")
+endif()
+
 # Flavour-dependent naming, so that QLC+ 4 (QtWidgets UI) and QLC+ 5 (QML UI)
 # can be installed side by side. Everything that is built from flavour
 # dependent sources (libraries, executables, I/O plugins) gets a "5" suffix

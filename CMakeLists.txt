@@ -3,10 +3,8 @@ project(qlcplus VERSION 4.14.4 LANGUAGES C CXX)
 
 option(qmlui "Build for QLC+ 5 QML UI" OFF)
 
-# Set Release build type by default
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
-endif()
+# Note: the default CMAKE_BUILD_TYPE is set in variables.cmake, together
+# with the DEVEL flag it follows
 
 # Prevent CMake make install strips off non-standard build paths
 # Refer to https://stackoverflow.com/questions/7970544/cmake-make-install-output-cant-find-shared-qt-libraries-under-redhat
