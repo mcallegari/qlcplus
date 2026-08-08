@@ -76,7 +76,7 @@ make %{?_smp_mflags}
 %install
 INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %if "%{ui}" == "qmlui"
-mv %{buildroot}/%{_bindir}/qlcplus-qml %{buildroot}/%{_bindir}/qlcplus
+mv %{buildroot}/%{_bindir}/qlcplus5 %{buildroot}/%{_bindir}/qlcplus
 sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus/g' %{buildroot}/%{_datadir}/applications/qlcplus.desktop
 %endif
 

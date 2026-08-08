@@ -74,7 +74,7 @@ Section "Q Light Controller Plus" SEC_MAIN
 	StrCpy $R1 $R0 1
 	StrCmp $R1 ">" skip
 		CreateDirectory $SMPROGRAMS\$R0
-		CreateShortCut '$SMPROGRAMS\$R0\Q Light Controller Plus.lnk' $INSTDIR\qlcplus-qml.exe
+		CreateShortCut '$SMPROGRAMS\$R0\Q Light Controller Plus.lnk' $INSTDIR\qlcplus5.exe
 
 		CreateDirectory $SMPROGRAMS\$R0
 		CreateShortCut '$SMPROGRAMS\$R0\Uninstall.lnk' $INSTDIR\uninstall.exe
@@ -88,13 +88,13 @@ Section "Associate .qxw and .qxf files" SEC_ASSOC
 	; Per-user classes (maps to HKCR for current user)
 	WriteRegStr HKCU "Software\Classes\.qxw" "" "QLightControllerPlus.Document"
 	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document" "" "Q Light Controller Plus Workspace"
-	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
-	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\DefaultIcon" "" "$INSTDIR\qlcplus5.exe,0"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlus.Document\shell\open\command" "" '"$INSTDIR\qlcplus5.exe" --open "%1"'
 
 	WriteRegStr HKCU "Software\Classes\.qxf" "" "QLightControllerPlusFixture.Document"
 	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document" "" "Q Light Controller Plus Fixture"
-	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus-qml.exe,0"
-	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus-qml.exe" --open "%1"'
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\DefaultIcon" "" "$INSTDIR\qlcplus5.exe,0"
+	WriteRegStr HKCU "Software\Classes\QLightControllerPlusFixture.Document\shell\open\command" "" '"$INSTDIR\qlcplus5.exe" --open "%1"'
 
 	; Notify Explorer to refresh icons
 	System::Call 'SHELL32::SHChangeNotify(i 0x08000000, i 0, i 0, i 0)'
@@ -103,7 +103,7 @@ SectionEnd
 ;--------------------------------
 ; File installation section
 Section
-	File qlcplus-qml.exe
+	File qlcplus5.exe
 	File *.dll
 	File *.qm
 	File Sample.qxw
@@ -139,7 +139,7 @@ UninstPage uninstConfirm
 UninstPage instfiles
 Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
-	Delete $INSTDIR\qlcplus-qml.exe
+	Delete $INSTDIR\qlcplus5.exe
 	Delete $INSTDIR\*.dll
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
