@@ -34,11 +34,11 @@
 
 #define IDN_MAX_CLIENTS 8
 
-typedef struct
+typedef struct 
 {
     QNetworkAddressEntry address;
-    IdnController* controller;
-}IdnOutput;
+    IdnController *controller;
+} IdnOutput;
 
 #define MAX_OUTPUT 8
 
@@ -94,14 +94,14 @@ public:
      * Settings
      *********************************************************************/
 private:
-      /** Map of the IDN clients discovered */
+    /** Map of the IDN clients discovered */
     QHash<IdnHostInfo, IdnSettings> m_manualClients;
     QHash<IdnHostInfo, IdnSettings> loadSettings();
 
 
-     /*********************************************************************
-     * Mapping
-     *********************************************************************/
+    /*********************************************************************
+    * Mapping
+    *********************************************************************/
 private:
     /** Map of the IDN plugin Output lines */
     QList<IdnOutput> m_Outputmapping;

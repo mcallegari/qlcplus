@@ -25,9 +25,9 @@
 #include <QPair>
 #include <QString>
 
-  /*********************************************************************
-  * IDN Specific Constants
-  *********************************************************************/
+/*********************************************************************
+* IDN Specific Constants
+*********************************************************************/
 
 #define IDNCMD_VOID                         0x00
 #define IDNCMD_SCANREQUEST                  0x10
@@ -73,7 +73,7 @@
 
 class IdnPacketizer
 {
-	/*********************************************************************
+    /*********************************************************************
     * Initialization
     *********************************************************************/
 public:
@@ -81,10 +81,10 @@ public:
     ~IdnPacketizer();
 
 public:
-	/** Prepare an IDN packet */
+    /** Prepare an IDN packet */
     void setupIdnDmx(QByteArray& data, const quint8 &mode, const quint8 &channelID, const QByteArray &values, const quint16 offset, const quint32 seqnum, const bool config, const quint8 serviceID);
     void setupIdnDmx(QByteArray& data,  const quint8 &mode, const quint8 &channelID, const QByteArray &values, const QList<QPair<int, int> > ranges, const quint32 seqnum, const bool config, const quint8 serviceID);
-    void generateNullPacket(QByteArray& data,const quint32 seqnum, const quint8 &mode, const quint8 channelID, const quint8 serviceID);
+    void generateNullPacket(QByteArray& data, const quint32 seqnum, const quint8 &mode, const quint8 channelID, const quint8 serviceID);
     void generateIdlePacket(QByteArray& data, const quint32 seqnum, const quint8 channelID, const quint8 serviceID);
     void generateClosePacket(QByteArray& data, const quint32 seqnum, const quint8 channelID, const quint8 serviceID);
     void generateScanRequestPacket(QByteArray& data);
@@ -94,61 +94,59 @@ public:
 private:
     qint64 timestamp;
 
-    #pragma pack(push,1)
-    typedef struct{
-      unsigned char command;    // The command code (IDNCMD_*)
-      unsigned char flags;
-      unsigned short seqnum;  // Sequence counter
+#pragma pack(push,1)
+    typedef struct {
+        unsigned char command;    // The command code (IDNCMD_*)
+        unsigned char flags;
+        unsigned short seqnum;  // Sequence counter
     } IDNHDR_PACKET;
-    #pragma pack(pop)
+#pragma pack(pop)
 
-    #pragma pack(push,1)
-    typedef struct{
-      unsigned short totalSize;
-      unsigned short contentID;
-      quint32 timestamp;
+#pragma pack(push,1)
+    typedef struct {
+        unsigned short totalSize;
+        unsigned short contentID;
+        quint32 timestamp;
     } IDNHDR_CHANNEL_MESSAGE;
-    #pragma pack(pop)
+#pragma pack(pop)
 
-    #pragma pack(push,1)
-    typedef struct{
-      unsigned char wordCount;
-      unsigned char flags;                // Upper 4 bit decoder flags (0x30: Version), lower config
-      unsigned char serviceID;
-      unsigned char serviceMode;
+#pragma pack(push,1)
+    typedef struct {
+        unsigned char wordCount;
+        unsigned char flags;                // Upper 4 bit decoder flags (0x30: Version), lower config
+        unsigned char serviceID;
+        unsigned char serviceMode;
     } IDNHDR_CHANNEL_CONFIG;
-    #pragma pack(pop)
+#pragma pack(pop)
 
-    #pragma pack(push,1)
-    typedef struct
-    {
-      unsigned char idprm;
-      unsigned short base;
-      unsigned char count;
+#pragma pack(push,1)
+    typedef struct {
+        unsigned char idprm;
+        unsigned short base;
+        unsigned char count;
     } IDNHDR_DMX_CONFIG;
-    #pragma pack(pop)
+#pragma pack(pop)
 
-    #pragma pack(push,1)
-    typedef struct
-    {
-      unsigned char flags;
-      unsigned char null[3];
+#pragma pack(push,1)
+    typedef struct {
+        unsigned char flags;
+        unsigned char null[3];
     } IDNHDR_DIMMER_LEVEL;
-    #pragma pack(pop)
+#pragma pack(pop)
 
 
-    #pragma pack(push,1)
-    typedef struct{
-      IDNHDR_PACKET *packetHeader;
-      IDNHDR_CHANNEL_MESSAGE *channelMessage;
-      IDNHDR_CHANNEL_CONFIG   *channelConfig;
-      IDNHDR_DMX_CONFIG  *serviceModeConfig;
-      IDNHDR_DIMMER_LEVEL *dimmerLevelHeader;
-      unsigned char *values;
-      unsigned char *end;
-      unsigned char       buf[MAX_UDP_PAYLOAD];
+#pragma pack(push,1)
+    typedef struct {
+        IDNHDR_PACKET *packetHeader;
+        IDNHDR_CHANNEL_MESSAGE *channelMessage;
+        IDNHDR_CHANNEL_CONFIG   *channelConfig;
+        IDNHDR_DMX_CONFIG  *serviceModeConfig;
+        IDNHDR_DIMMER_LEVEL *dimmerLevelHeader;
+        unsigned char *values;
+        unsigned char *end;
+        unsigned char       buf[MAX_UDP_PAYLOAD];
     } IDNDMX_PACKET;
-    #pragma pack(pop)
+#pragma pack(pop)
 
     unsigned char *IDNAddLayerToPacket(IDNDMX_PACKET *packet, size_t size);
     unsigned char *IDNGetLayerInPacket(IDNDMX_PACKET *packet, size_t size);

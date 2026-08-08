@@ -25,7 +25,7 @@
 #include <QtNetwork>
 #include <QScopedPointer>
 #include <QTimer>
-#include <QMutex> 
+#include <QMutex>
 
 #include "idnoptimizer.h"
 #include "idnpacketizer.h"
@@ -46,16 +46,17 @@ class IdnClient : public QObject
 public:
     IdnClient(QHostAddress const &clientAddress, QSharedPointer<QUdpSocket> const& udpSocket,
               QSharedPointer<QMutex> const& socketMutex,
-              int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID, int const& serviceID, QSharedPointer<quint32> const& seqnum);
+              int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID,
+              int const& serviceID, QSharedPointer<quint32> const& seqnum);
     ~IdnClient();
     void sendDmx(const QByteArray &data);
     quint64 getPacketSentNumber();
-  private:
+private:
     QHostAddress m_address;
     QSharedPointer<QUdpSocket> m_udpSocket;
     /** Shared mutex protecting concurrent writeDatagram() calls on m_udpSocket */
     QSharedPointer<QMutex> m_socketMutex;
-    quint16 m_port; 
+    quint16 m_port;
     quint16 m_rangeBegin;
     quint16 m_rangeEnd;
     quint8 m_mode;
@@ -82,15 +83,15 @@ public:
     qint64 lastsend;
     /** Sequence Number */
     QSharedPointer<quint32> m_seqnum;
-	quint32 m_packetSent;
-    
+    quint32 m_packetSent;
+
     QMutex m_dataMutex;
 
     QTimer *closeTimer;
 
     QByteArray optimizedMode(const QByteArray &data);
     QByteArray rangeMode(const QByteArray &data);
-  private slots:
+private slots:
     void sendClosePacket();
 };
 

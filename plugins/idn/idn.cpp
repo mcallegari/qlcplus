@@ -38,7 +38,7 @@ static bool initialized = false;
  * Initialization
  *****************************************************************************/
 
-IdnPlugin::~IdnPlugin(){}
+IdnPlugin::~IdnPlugin() {}
 
 static QString settingsFilePath()
 {
@@ -47,37 +47,43 @@ static QString settingsFilePath()
 
 void IdnPlugin::init()
 {
-  for (QNetworkInterface networkInterface : QNetworkInterface::allInterfaces())
-  {
-      for (QNetworkAddressEntry entry : networkInterface.addressEntries()){
-        QHostAddress addr = entry.ip();
-        if (addr.protocol() != QAbstractSocket::IPv6Protocol)
+    for (QNetworkInterface networkInterface : QNetworkInterface::allInterfaces()) 
+    {
+        for (QNetworkAddressEntry entry : networkInterface.addressEntries()) 
         {
-          IdnOutput tmp;
-          tmp.address = entry;
-          tmp.controller = NULL;
+            QHostAddress addr = entry.ip();
+            if (addr.protocol() != QAbstractSocket::IPv6Protocol) 
+            {
+                IdnOutput tmp;
+                tmp.address = entry;
+                tmp.controller = NULL;
 
-          bool alreadyInList = false;
+                bool alreadyInList = false;
 
-          for(int j = 0; j < m_Outputmapping.count(); j++){
-            if (m_Outputmapping.at(j).address == tmp.address){
-              alreadyInList = true;
-              break;
+                for (int j = 0; j < m_Outputmapping.count(); j++) 
+                {
+                    if (m_Outputmapping.at(j).address == tmp.address) 
+                    {
+                        alreadyInList = true;
+                        break;
+                    }
+                }
+                if (alreadyInList == false) 
+                {
+                    m_Outputmapping.append(tmp);
+                }
             }
-          }
-          if (alreadyInList == false){
-            m_Outputmapping.append(tmp);
-          }
         }
-      }
-  }
-  if(!initialized){
-      initialized = true;
-      QFileInfo checkFile(settingsFilePath());
-      if(checkFile.exists() && checkFile.isFile()){
-        loadSettings();
-      }
-  }
+    }
+    if (!initialized) 
+    {
+        initialized = true;
+        QFileInfo checkFile(settingsFilePath());
+        if (checkFile.exists() && checkFile.isFile()) 
+        {
+            loadSettings();
+        }
+    }
 }
 
 QString IdnPlugin::name() const
@@ -95,32 +101,33 @@ int IdnPlugin::capabilities() const
  *****************************************************************************/
 
 bool IdnPlugin::openOutput(quint32 output, quint32 universe)
-{   
-  if (requestLine(output, MAX_INIT_RETRY) == false)
+{
+    if (requestLine(output, MAX_INIT_RETRY) == false)
         return false;
-  
-  if(m_Outputmapping[output].controller == NULL){
-    IdnController *controller = new IdnController(m_Outputmapping.at(output).address,
-                                                  output, m_manualClients, this);
-    m_Outputmapping[output].controller = controller;
 
-  }
+    if (m_Outputmapping[output].controller == NULL) 
+    {
+        IdnController *controller = new IdnController(m_Outputmapping.at(output).address,
+                                                      output, m_manualClients, this);
+        m_Outputmapping[output].controller = controller;
+
+    }
 
 
-  m_Outputmapping[output].controller->addUniverse(universe);
+    m_Outputmapping[output].controller->addUniverse(universe);
 
-  addToMap(universe, output, Output);
-  return true;
+    addToMap(universe, output, Output);
+    return true;
 }
 
 bool IdnPlugin::requestLine(quint32 line, int retries)
 {
     int retryCount = 0;
 
-    while (line >= (quint32)m_Outputmapping.length())
+    while (line >= (quint32)m_Outputmapping.length()) 
     {
         qDebug() << "[IDN] cannot open line" << line << "(available:" << m_Outputmapping.length() << ")";
-		QThread::sleep(1);
+        QThread::sleep(1);
         init();
         if (retryCount++ == retries)
             return false;
@@ -130,17 +137,19 @@ bool IdnPlugin::requestLine(quint32 line, int retries)
 
 void IdnPlugin::closeOutput(quint32 output, quint32 universe)
 {
-  if (output >= (quint32)m_Outputmapping.length())
-      return;
-  
-  removeFromMap(universe, output, Output);
-  IdnController *controller = m_Outputmapping.at(output).controller;
-  if(controller != NULL){
-    if(controller->closeByUniverse(universe)){
-      delete m_Outputmapping[output].controller;
-      m_Outputmapping[output].controller = NULL; 
+    if (output >= (quint32)m_Outputmapping.length())
+        return;
+
+    removeFromMap(universe, output, Output);
+    IdnController *controller = m_Outputmapping.at(output).controller;
+    if (controller != NULL) 
+    {
+        if (controller->closeByUniverse(universe)) 
+        {
+            delete m_Outputmapping[output].controller;
+            m_Outputmapping[output].controller = NULL;
+        }
     }
-  }
 }
 
 /*****************************************************************************
@@ -154,7 +163,7 @@ QStringList IdnPlugin::outputs()
 
     init();
 
-    foreach(IdnOutput line, m_Outputmapping)
+    foreach (IdnOutput line, m_Outputmapping) 
     {
         list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
         j++;
@@ -168,43 +177,46 @@ QStringList IdnPlugin::outputs()
 
 QString IdnPlugin::pluginInfo() const
 {
-  QString str;
+    QString str;
 
-  str += QString("<HTML>");
-  str += QString("<HEAD>");
-  str += QString("<TITLE>%1</TITLE>").arg(name());
-  str += QString("</HEAD>");
-  str += QString("<BODY>");
+    str += QString("<HTML>");
+    str += QString("<HEAD>");
+    str += QString("<TITLE>%1</TITLE>").arg(name());
+    str += QString("</HEAD>");
+    str += QString("<BODY>");
 
-  str += QString("<P>");
-  str += QString("<H3>%1</H3>").arg(name());
-  str += tr("This plugin provides DMX output for devices supported by "
-            "the IDN driver suite.");
-  str += QString("</P>");
+    str += QString("<P>");
+    str += QString("<H3>%1</H3>").arg(name());
+    str += tr("This plugin provides DMX output for devices supported by "
+              "the IDN driver suite.");
+    str += QString("</P>");
 
-  return str;
+    return str;
 }
 
 QString IdnPlugin::outputInfo(quint32 output)
 {
-  Q_UNUSED(output);
+    Q_UNUSED(output);
     QString str;
     IdnController *controller = m_Outputmapping.at(output).controller;
 
-    if (output != QLCIOPlugin::invalidLine())
+    if (output != QLCIOPlugin::invalidLine()) 
     {
 
-            str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
-            str += QString("<P>");
-            if(controller != NULL){
-                str += QString("Status: Open");
-                str += QString("<BR>");
-                str += QString("Packets send: %1").arg(controller->getPacketSentNumber());
-                str += QString("<BR>");
-            }else{
-                str += QString("Status: Not open");
-            }
-            str += QString("</P>");
+        str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
+        str += QString("<P>");
+        if (controller != NULL) 
+        {
+            str += QString("Status: Open");
+            str += QString("<BR>");
+            str += QString("Packets send: %1").arg(controller->getPacketSentNumber());
+            str += QString("<BR>");
+        } 
+        else 
+        {
+            str += QString("Status: Not open");
+        }
+        str += QString("</P>");
     }
     str += QString("</BODY>");
     str += QString("</HTML>");
@@ -216,30 +228,34 @@ QString IdnPlugin::outputInfo(quint32 output)
  * Send DMX Data to controller, that builds a IDN Packet and sends the Packet
  *****************************************************************************/
 
-void IdnPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data, bool dataChanged)
+void IdnPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray &data,
+                              bool dataChanged)
 {
-  if (output >= (quint32) m_Outputmapping.count())
-    return;
+    if (output >= (quint32) m_Outputmapping.count())
+        return;
 
-  IdnController *controller = m_Outputmapping.at(output).controller;
-  if (controller != NULL) {
-    controller->handleDmx(universe, data);
-  }
+    IdnController *controller = m_Outputmapping.at(output).controller;
+    if (controller != NULL) 
+    {
+        controller->handleDmx(universe, data);
+    }
 
-  if(dataChanged) {
+    if (dataChanged) 
+    {
 
-  }
+    }
 }
 
 /*****************************************************************************
 * Reconfigure Controller after change of settings
 *****************************************************************************/
- void IdnPlugin::reconfigureController()
- {
-   //close all open outputs
-   for(int i = 0; i < m_Outputmapping.length(); i++){
-     closeOutput(i, 0);
-   }
+void IdnPlugin::reconfigureController()
+{
+    //close all open outputs
+    for (int i = 0; i < m_Outputmapping.length(); i++) 
+    {
+        closeOutput(i, 0);
+    }
 }
 
 /*****************************************************************************
@@ -248,10 +264,10 @@ void IdnPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 
 void IdnPlugin::configure()
 {
-  IdnConfiguration config(this);
-  config.exec();
-  //reconfigureController();
-  emit configurationChanged();
+    IdnConfiguration config(this);
+    config.exec();
+    //reconfigureController();
+    emit configurationChanged();
 }
 
 bool IdnPlugin::canConfigure() const
@@ -270,120 +286,123 @@ QList<IdnOutput> IdnPlugin::getOutputmapping()
 
 QHash<IdnHostInfo, IdnSettings> IdnPlugin::loadSettings()
 {
-  QFile file(settingsFilePath());
-  if (!file.open(QIODevice::ReadOnly))
-  {
-    qWarning() << "Could not open settings file:" << settingsFilePath();
-    return m_manualClients;
-  }
-
-  const QByteArray fileData = file.readAll();
-  file.close();
-
-  QJsonParseError parseError;
-  const QJsonDocument doc = QJsonDocument::fromJson(fileData, &parseError);
-  if (parseError.error != QJsonParseError::NoError || !doc.isObject())
-  {
-    qWarning() << "Error loading settings:" << parseError.errorString();
-    return m_manualClients;
-  }
-
-  const QJsonObject jsonSettings = doc.object();
-  for (auto entry = jsonSettings.constBegin(); entry != jsonSettings.constEnd(); ++entry)
-  {
-    const QString ip = entry.key();
-    const QJsonObject clients = entry.value().toObject();
-    for (const QJsonValue &clientValue : clients)
+    QFile file(settingsFilePath());
+    if (!file.open(QIODevice::ReadOnly)) 
     {
-      const QJsonObject client = clientValue.toObject();
-
-      if (!client.contains("serviceID"))
-        qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'serviceID', defaulting to 0";
-      if (!client.contains("universe"))
-        qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'universe', defaulting to 1";
-      if (!client.contains("iface"))
-        qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'iface', defaulting to 127.0.0.1";
-
-      IdnHostInfo hostInfo;
-      hostInfo.address = QHostAddress(ip);
-      hostInfo.serviceId = client.value("serviceID").toInt(0);
-
-      IdnSettings idnSettings;
-      idnSettings.iface = QHostAddress(client.value("iface").toString("127.0.0.1"));
-      idnSettings.universe = client.value("universe").toInt(1);
-      idnSettings.unitName = client.value("unitName").toString("");
-      idnSettings.serviceName = client.value("serviceName").toString("");
-      idnSettings.serviceID = client.value("serviceID").toInt(0);
-      idnSettings.serviceType = client.value("serviceType").toInt(0);
-      idnSettings.port = client.value("port").toInt(IDN_PORT);
-      idnSettings.mode = client.value("mode").toInt(4);
-      idnSettings.idnChannel = client.value("idnChannel").toInt(0);
-      idnSettings.rangeBegin = client.value("rangeBegin").toInt(1);
-      idnSettings.rangeEnd = client.value("rangeEnd").toInt(512);
-      idnSettings.scan = client.value("scan").toBool(false);
-      idnSettings.disabled = client.value("disabled").toBool(false);
-
-      m_manualClients[hostInfo] = idnSettings;
+        qWarning() << "Could not open settings file:" << settingsFilePath();
+        return m_manualClients;
     }
-  }
 
-  return m_manualClients;
+    const QByteArray fileData = file.readAll();
+    file.close();
+
+    QJsonParseError parseError;
+    const QJsonDocument doc = QJsonDocument::fromJson(fileData, &parseError);
+    if (parseError.error != QJsonParseError::NoError || !doc.isObject()) 
+    {
+        qWarning() << "Error loading settings:" << parseError.errorString();
+        return m_manualClients;
+    }
+
+    const QJsonObject jsonSettings = doc.object();
+    for (auto entry = jsonSettings.constBegin(); entry != jsonSettings.constEnd(); ++entry) 
+    {
+        const QString ip = entry.key();
+        const QJsonObject clients = entry.value().toObject();
+        for (const QJsonValue &clientValue : clients) 
+        {
+            const QJsonObject client = clientValue.toObject();
+
+            if (!client.contains("serviceID"))
+                qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'serviceID', defaulting to 0";
+            if (!client.contains("universe"))
+                qWarning() << "[IDN] loadSettings: entry for IP" << ip << "is missing 'universe', defaulting to 1";
+            if (!client.contains("iface"))
+                qWarning() << "[IDN] loadSettings: entry for IP" << ip <<
+                              "is missing 'iface', defaulting to 127.0.0.1";
+
+            IdnHostInfo hostInfo;
+            hostInfo.address = QHostAddress(ip);
+            hostInfo.serviceId = client.value("serviceID").toInt(0);
+
+            IdnSettings idnSettings;
+            idnSettings.iface = QHostAddress(client.value("iface").toString("127.0.0.1"));
+            idnSettings.universe = client.value("universe").toInt(1);
+            idnSettings.unitName = client.value("unitName").toString("");
+            idnSettings.serviceName = client.value("serviceName").toString("");
+            idnSettings.serviceID = client.value("serviceID").toInt(0);
+            idnSettings.serviceType = client.value("serviceType").toInt(0);
+            idnSettings.port = client.value("port").toInt(IDN_PORT);
+            idnSettings.mode = client.value("mode").toInt(4);
+            idnSettings.idnChannel = client.value("idnChannel").toInt(0);
+            idnSettings.rangeBegin = client.value("rangeBegin").toInt(1);
+            idnSettings.rangeEnd = client.value("rangeEnd").toInt(512);
+            idnSettings.scan = client.value("scan").toBool(false);
+            idnSettings.disabled = client.value("disabled").toBool(false);
+
+            m_manualClients[hostInfo] = idnSettings;
+        }
+    }
+
+    return m_manualClients;
 }
 
 void IdnPlugin::setSetting(QHash<IdnHostInfo, IdnSettings> settings)
 {
     m_manualClients.clear();
-    if(settings.size() > 0) {
-      m_manualClients = settings;
+    if (settings.size() > 0) 
+    {
+        m_manualClients = settings;
 
-      QHashIterator<IdnHostInfo, IdnSettings> it(settings);
-      while (it.hasNext()) {
-          it.next();
-      } 
+        QHashIterator<IdnHostInfo, IdnSettings> it(settings);
+        while (it.hasNext()) 
+        {
+            it.next();
+        }
     }
 
     QJsonObject jsonSettings;
 
-  for (auto it = settings.constBegin(); it != settings.constEnd(); ++it)
-  {
-    const IdnHostInfo &hostInfo = it.key();
-    const IdnSettings &idnSettings = it.value();
+    for (auto it = settings.constBegin(); it != settings.constEnd(); ++it) 
+    {
+        const IdnHostInfo &hostInfo = it.key();
+        const IdnSettings &idnSettings = it.value();
 
-    QJsonObject item;
-    item["iface"] = idnSettings.iface.toString();
-    item["universe"] = static_cast<int>(idnSettings.universe);
-    item["unitName"] = idnSettings.unitName;
-    item["serviceName"] = idnSettings.serviceName;
-    item["serviceID"] = idnSettings.serviceID;
-    item["serviceType"] = idnSettings.serviceType;
-    item["port"] = idnSettings.port;
-    item["mode"] = idnSettings.mode;
-    item["idnChannel"] = idnSettings.idnChannel;
-    item["rangeBegin"] = idnSettings.rangeBegin;
-    item["rangeEnd"] = idnSettings.rangeEnd;
-    item["scan"] = idnSettings.scan;
-    item["disabled"] = idnSettings.disabled;
+        QJsonObject item;
+        item["iface"] = idnSettings.iface.toString();
+        item["universe"] = static_cast<int>(idnSettings.universe);
+        item["unitName"] = idnSettings.unitName;
+        item["serviceName"] = idnSettings.serviceName;
+        item["serviceID"] = idnSettings.serviceID;
+        item["serviceType"] = idnSettings.serviceType;
+        item["port"] = idnSettings.port;
+        item["mode"] = idnSettings.mode;
+        item["idnChannel"] = idnSettings.idnChannel;
+        item["rangeBegin"] = idnSettings.rangeBegin;
+        item["rangeEnd"] = idnSettings.rangeEnd;
+        item["scan"] = idnSettings.scan;
+        item["disabled"] = idnSettings.disabled;
 
-    const QString ip = hostInfo.address.toString();
-    const QString serviceKey = QString::number(hostInfo.serviceId);
-    QJsonObject hostObject = jsonSettings.value(ip).toObject();
-    hostObject[serviceKey] = item;
-    jsonSettings[ip] = hostObject;
-  }
+        const QString ip = hostInfo.address.toString();
+        const QString serviceKey = QString::number(hostInfo.serviceId);
+        QJsonObject hostObject = jsonSettings.value(ip).toObject();
+        hostObject[serviceKey] = item;
+        jsonSettings[ip] = hostObject;
+    }
 
-  QFile file(settingsFilePath());
-  if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-  {
-    qWarning() << "[IDN] setSetting: could not write settings file:" << settingsFilePath();
-    return;
-  }
-  file.write(QJsonDocument(jsonSettings).toJson(QJsonDocument::Indented));
-  file.close();
+    QFile file(settingsFilePath());
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) 
+    {
+        qWarning() << "[IDN] setSetting: could not write settings file:" << settingsFilePath();
+        return;
+    }
+    file.write(QJsonDocument(jsonSettings).toJson(QJsonDocument::Indented));
+    file.close();
 }
 
 QHash<IdnHostInfo, IdnSettings> IdnPlugin::getSetting()
 {
-  return m_manualClients;
+    return m_manualClients;
 }
 
 

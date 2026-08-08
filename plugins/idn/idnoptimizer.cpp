@@ -37,7 +37,7 @@ IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, c
 {
     QByteArray newData = data;
     QByteArray fill;
-    newData.append(fill.fill(0x00, 512), 512-data.length());
+    newData.append(fill.fill(0x00, 512), 512 - data.length());
     QList<int> changedVal = changedValues(oldData, newData, rangeBegin, rangeEnd);
     QSet<int> changedValSet(changedVal.begin(), changedVal.end());
     changed = changed.unite(changedValSet);
@@ -47,14 +47,14 @@ IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, c
     QSet<int> temp = changed;
 
     QMutableSetIterator<int> i(changed);
-    while(i.hasNext()){
+    while (i.hasNext()) {
         int val = i.next();
 
-        if(oldData.at(val) == 0x00){
+        if (oldData.at(val) == 0x00) {
             nullChannelBuffer << val;
         }
 
-        if(nullChannelBuffer.count(val) > 5 && checkNullValues){
+        if (nullChannelBuffer.count(val) > 5 && checkNullValues) {
             changed.remove(val);
         }
     }
@@ -63,80 +63,96 @@ IdnOptimizer::PacketInformation IdnOptimizer::optimize(const QByteArray& data, c
     return getRanges(changedList);
 }
 
-QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData, int rangeBegin, int rangeEnd)
+QList<int> IdnOptimizer::changedValues(QByteArray oldData, QByteArray newData, int rangeBegin,
+                                       int rangeEnd)
 {
-  QList<int> changedChannelBuffer;
-  for(int i = rangeBegin - 1; i < rangeEnd - 1 ; i++){
-      if(newData.at(i) == oldData.at(i)){
-          continue;
-        }else{
-          changedChannelBuffer << i;
-      }
-     }
-  return changedChannelBuffer;
+    QList<int> changedChannelBuffer;
+    for (int i = rangeBegin - 1; i < rangeEnd; i++) 
+    {
+        if (newData.at(i) == oldData.at(i)) 
+        {
+            continue;
+        } 
+        else 
+        {
+            changedChannelBuffer << i;
+        }
+    }
+    return changedChannelBuffer;
 }
 
 IdnOptimizer::PacketInformation IdnOptimizer::getRanges(QList<int> changed)
 {
     sort(changed.begin(), changed.end(), std::greater<int>());
-  QList<QPair<int, int> > resultRanges;
-  
-  PacketInformation pi;
-  pi.numberOfSingleChannels = 0;
-  pi.numberOfChannelPacks = 0;
-  pi.byteCount = 0;
+    QList<QPair<int, int> > resultRanges;
 
-  QPair<int, int> range;
+    PacketInformation pi;
+    pi.numberOfSingleChannels = 0;
+    pi.numberOfChannelPacks = 0;
+    pi.byteCount = 0;
 
-  for(int i = 0; i < changed.length(); i++){
-    if(i > 0 && i < changed.length()-1){
-      if(changed[i] - changed[i+1] == 1 && changed[i-1]-changed[i] != 1){
-        //start of continues channels
-        range.second = changed[i];
-        continue;
-      }
+    QPair<int, int> range;
 
-      if(changed[i] - changed[i+1] != 1 && changed[i-1] - changed[i] == 1){
-        //end of contiguous channels
-        range.first = changed[i];
-        resultRanges.append(range);
-        pi.numberOfChannelPacks++;
-        pi.byteCount += range.second - range.first+1;
-        continue;
-      }
+    for (int i = 0; i < changed.length(); i++) 
+    {
+        if (i > 0 && i < changed.length() - 1) 
+        {
+            if (changed[i] - changed[i + 1] == 1 && changed[i - 1] - changed[i] != 1) 
+            {
+                //start of continues channels
+                range.second = changed[i];
+                continue;
+            }
 
-      if(changed[i] - changed[i+1] != 1 && changed[i-1] - changed[i] != 1){
-        //single channel
-        range.first = changed[i];
-        range.second = changed[i];
-        resultRanges.append(range);
-        pi.numberOfSingleChannels++;
-        continue;
-      }
-    }else{
-      if(i == 0 && changed.length() > 1 && changed[i]-changed[i+1] == 1){
-        //start of contiguous row of channels
-        range.second = changed[i];
-        continue;
-      }
-      else if(i == changed.length()-1 && i > 0 && changed[i-1] - changed[i] == 1){
-        //end of contiguous row of channels
-        range.first = changed[i];
-        resultRanges.append(range);
-        pi.numberOfChannelPacks++;
-        pi.byteCount += range.second - range.first+1;
-        continue;
-      }else{
-        //single channel
-        range.first = changed[i];
-        range.second = changed[i];
-        resultRanges.append(range);
-        pi.numberOfSingleChannels++;
-        continue;
-      }
+            if (changed[i] - changed[i + 1] != 1 && changed[i - 1] - changed[i] == 1) 
+            {
+                //end of contiguous channels
+                range.first = changed[i];
+                resultRanges.append(range);
+                pi.numberOfChannelPacks++;
+                pi.byteCount += range.second - range.first + 1;
+                continue;
+            }
+
+            if (changed[i] - changed[i + 1] != 1 && changed[i - 1] - changed[i] != 1) 
+            {
+                //single channel
+                range.first = changed[i];
+                range.second = changed[i];
+                resultRanges.append(range);
+                pi.numberOfSingleChannels++;
+                continue;
+            }
+        } 
+        else 
+        {
+            if (i == 0 && changed.length() > 1 && changed[i] - changed[i + 1] == 1) 
+            {
+                //start of contiguous row of channels
+                range.second = changed[i];
+                continue;
+            } 
+            else if (i == changed.length() - 1 && i > 0 && changed[i - 1] - changed[i] == 1) 
+            {
+                //end of contiguous row of channels
+                range.first = changed[i];
+                resultRanges.append(range);
+                pi.numberOfChannelPacks++;
+                pi.byteCount += range.second - range.first + 1;
+                continue;
+            } 
+            else 
+            {
+                //single channel
+                range.first = changed[i];
+                range.second = changed[i];
+                resultRanges.append(range);
+                pi.numberOfSingleChannels++;
+                continue;
+            }
+        }
     }
-  }
-  pi.byteCount += pi.numberOfSingleChannels;
-  pi.ranges = resultRanges;
-  return pi;
+    pi.byteCount += pi.numberOfSingleChannels;
+    pi.ranges = resultRanges;
+    return pi;
 }

@@ -35,13 +35,13 @@
 #define IDN_PORT 7255
 #define IDN_MAX_CLIENTS 8
 
-typedef struct
+typedef struct 
 {
     QHostAddress outputAddress;
     ushort outputUniverse;
 } UniverseInfo;
 
-typedef struct
+typedef struct 
 {
     int port;
     QString serviceName;
@@ -54,11 +54,11 @@ typedef struct
     int rangeEnd;
     quint32 universe;
     QHostAddress iface;
-	bool scan;
-  bool disabled;
-}IdnSettings;
+    bool scan;
+    bool disabled;
+} IdnSettings;
 
-typedef struct
+typedef struct 
 {
     int port;
     int mode;
@@ -69,17 +69,17 @@ typedef struct
     quint32 universe;
     QHostAddress iface;
     IdnClient *client;
-}IdnClientInfo;
+} IdnClientInfo;
 
-struct IdnHostInfo
+struct IdnHostInfo 
 {
-  QHostAddress address;
-  int serviceId;
+    QHostAddress address;
+    int serviceId;
 
-  bool operator==(const IdnHostInfo &other) const
-  {
-      return address == other.address && serviceId == other.serviceId;
-  }
+    bool operator==(const IdnHostInfo &other) const
+    {
+        return address == other.address && serviceId == other.serviceId;
+    }
 };
 
 inline size_t qHash(const IdnHostInfo &key, size_t seed = 0)
@@ -87,7 +87,8 @@ inline size_t qHash(const IdnHostInfo &key, size_t seed = 0)
     return qHash(key.address, seed) ^ qHash(key.serviceId, seed);
 }
 
-typedef struct {
+typedef struct 
+{
     IdnHostInfo hostInfo;
     IdnSettings settings;
 } IdnHostClientSettings;
@@ -97,93 +98,93 @@ class IdnController : public QObject
     Q_OBJECT
 
 public:
-  IdnController(QNetworkAddressEntry const& address, quint32 line, QHash<IdnHostInfo, IdnSettings> settings, QObject *parent = 0);
+    IdnController(QNetworkAddressEntry const& address, quint32 line, QHash<IdnHostInfo, IdnSettings> settings, QObject *parent = 0);
 
-	~IdnController();
+    ~IdnController();
 
-	/** Send DMX data to a specific port/universe */
-  void handleDmx(const quint32 universe, const QByteArray& data);
-  
-  /** Return the controller IP address */
-  QString getNetworkIP();
-  
-  /** Returns the map of all clients */
-  QHash<IdnHostInfo, IdnClientInfo> getClientsList();
+    /** Send DMX data to a specific port/universe */
+    void handleDmx(const quint32 universe, const QByteArray& data);
 
-  /** Add a universe to the map of this controller */
-  void addUniverse(quint32 universe);
+    /** Return the controller IP address */
+    QString getNetworkIP();
 
-  /** Remove a universe from the map of this controller */
-  void removeUniverse(quint32 universe);
+    /** Returns the map of all clients */
+    QHash<IdnHostInfo, IdnClientInfo> getClientsList();
 
-  /** Return the list of the universes handled by this controller */
-  QList<quint32> universesList();
+    /** Add a universe to the map of this controller */
+    void addUniverse(quint32 universe);
 
-  /** Return the specific information for the given universe */
-  UniverseInfo *getUniverseInfo(quint32 universe);
+    /** Remove a universe from the map of this controller */
+    void removeUniverse(quint32 universe);
 
-  /** Return the plugin line associated to this controller */
-  quint32 line();
+    /** Return the list of the universes handled by this controller */
+    QList<quint32> universesList();
 
-  /** Get the number of packets sent by this controller */
-  quint64 getPacketSentNumber();
+    /** Return the specific information for the given universe */
+    UniverseInfo *getUniverseInfo(quint32 universe);
+
+    /** Return the plugin line associated to this controller */
+    quint32 line();
+
+    /** Get the number of packets sent by this controller */
+    quint64 getPacketSentNumber();
     // Debug
-  void DBG_CheckSettings();
+    void DBG_CheckSettings();
 
-  bool closeByUniverse(quint32 universe);
-
-private:
-  /** The network interface associated to this controller */
-  QNetworkInterface m_interface;
-  QNetworkAddressEntry m_address;
-  int m_prefixLength;
-  /** The controller IP address as QHostAddress */
-  QHostAddress m_ipAddr;
-  
-  /** The controller broadcast address as QHostAddress */
-  QHostAddress m_broadcastAddr;
-
-  /** Counter for transmitted packets */
-  quint64 m_packetSent;
-
-  /** QLC+ line to be used when emitting a signal */
-  quint32 m_line;
-
-  /** The UDP socket used to send/receive IDN packets */
-  QSharedPointer<QUdpSocket> m_socket;
-  QUdpSocket *m_scanSocket;
-
-  /** Helper class used to create or parse IDN packets */
-  QScopedPointer<IdnPacketizer> m_packetizer;
-
-  /** Map of the IDN clients discovered */
-  QHash<IdnHostInfo, IdnClientInfo> m_clientsList;
-  QHash<IdnHostInfo, IdnSettings> m_fileSettings;
-
-  QHash<QHostAddress, QSharedPointer<quint32>> m_seqnumMap;
-
-  /** Keeps the current dmx values to send only the ones that changed */
-  /** It holds values for all the handled universes */
-  QMap<int, QByteArray *> m_dmxValuesMap;
-
-  /** Map of the QLC+ universes transmitted/received by this
-   *  controller, with the related, specific parameters */
-  QMap<quint32, UniverseInfo> m_universeMap;
-
-  /** Mutex to handle the change of output IP address or in general
-    *  variables that could be used to transmit/receive data */
-  QMutex m_dataMutex;
-
- public:
-  void sendScan();
+    bool closeByUniverse(quint32 universe);
 
 private:
-  void initClients();
+    /** The network interface associated to this controller */
+    QNetworkInterface m_interface;
+    QNetworkAddressEntry m_address;
+    int m_prefixLength;
+    /** The controller IP address as QHostAddress */
+    QHostAddress m_ipAddr;
 
-  /** Shared mutex to protect concurrent writeDatagram() calls on m_socket */
-  QSharedPointer<QMutex> m_socketMutex;
+    /** The controller broadcast address as QHostAddress */
+    QHostAddress m_broadcastAddr;
 
-	QScopedPointer<IdnOptimizer> m_optimizer;
+    /** Counter for transmitted packets */
+    quint64 m_packetSent;
+
+    /** QLC+ line to be used when emitting a signal */
+    quint32 m_line;
+
+    /** The UDP socket used to send/receive IDN packets */
+    QSharedPointer<QUdpSocket> m_socket;
+    QUdpSocket *m_scanSocket;
+
+    /** Helper class used to create or parse IDN packets */
+    QScopedPointer<IdnPacketizer> m_packetizer;
+
+    /** Map of the IDN clients discovered */
+    QHash<IdnHostInfo, IdnClientInfo> m_clientsList;
+    QHash<IdnHostInfo, IdnSettings> m_fileSettings;
+
+    QHash<QHostAddress, QSharedPointer<quint32>> m_seqnumMap;
+
+    /** Keeps the current dmx values to send only the ones that changed */
+    /** It holds values for all the handled universes */
+    QMap<int, QByteArray *> m_dmxValuesMap;
+
+    /** Map of the QLC+ universes transmitted/received by this
+     *  controller, with the related, specific parameters */
+    QMap<quint32, UniverseInfo> m_universeMap;
+
+    /** Mutex to handle the change of output IP address or in general
+      *  variables that could be used to transmit/receive data */
+    QMutex m_dataMutex;
+
+public:
+    void sendScan();
+
+private:
+    void initClients();
+
+    /** Shared mutex to protect concurrent writeDatagram() calls on m_socket */
+    QSharedPointer<QMutex> m_socketMutex;
+
+    QScopedPointer<IdnOptimizer> m_optimizer;
 
 };
 

@@ -76,11 +76,11 @@ private:
     QString scanItemKey(QTreeWidgetItem *item);
     bool isManualItem(QTreeWidgetItem *item);
     void mergeScanResult(const IdnHostClientSettings &clientSettings);
-    QTreeWidgetItem* createTreeItem(const IdnHostClientSettings &clientSettings);
+    QTreeWidgetItem *createTreeItem(const IdnHostClientSettings &clientSettings);
 
 private:
-	IdnPlugin* m_plugin;
-    QList<QUdpSocket*> activeSockets;
+    IdnPlugin *m_plugin;
+    QList<QUdpSocket *> activeSockets;
     QHash<QHostAddress, QString> unitNames;
     QTimer *m_scanTimer;
     QTimer *m_scanAnimationTimer;

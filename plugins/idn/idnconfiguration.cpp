@@ -29,7 +29,8 @@
 #include "idnconfiguration.h"
 
 
-IdnConfiguration::IdnConfiguration(IdnPlugin *plugin, QWidget *parent) : QDialog(parent), m_packetizer(new IdnPacketizer())
+IdnConfiguration::IdnConfiguration(IdnPlugin *plugin, QWidget *parent) : QDialog(parent),
+    m_packetizer(new IdnPacketizer())
 {
     Q_ASSERT(plugin != NULL);
     m_plugin = plugin;
@@ -72,7 +73,7 @@ void IdnConfiguration::fillTree()
     QHash<IdnHostInfo, IdnSettings> clientMap = m_plugin->getSetting();
     QHashIterator<IdnHostInfo, IdnSettings> it(clientMap);
 
-    while (it.hasNext())
+    while (it.hasNext()) 
     {
         it.next();
         QTreeWidgetItem *pitem = new QTreeWidgetItem(m_clientTree);
@@ -80,14 +81,14 @@ void IdnConfiguration::fillTree()
         QSpinBox *universeSpin = new QSpinBox(this);
         universeSpin->setMinimum(0);
         quint32 universeValue = 0;
-        if (it.value().disabled == false)
+        if (it.value().disabled == false) 
         {
             universeValue = it.value().universe;
         }
         universeSpin->setValue(universeValue);
         m_clientTree->setItemWidget(pitem, CONFIG_UNIVERSE_SLOT, universeSpin);
 
-        if (it.value().scan)
+        if (it.value().scan) 
         {
             pitem->setText(CONFIG_INTERFACE_SLOT, it.value().iface.toString());
             pitem->setText(CONFIG_IPADDRESS_SLOT, it.key().address.toString());         // IP
@@ -95,12 +96,13 @@ void IdnConfiguration::fillTree()
             pitem->setText(CONFIG_UNITNAME_SLOT, it.value().unitName);          // Unit Name
             pitem->setText(CONFIG_SERVICENAME_SLOT, it.value().serviceName); // Service Name
             pitem->setText(CONFIG_SERVICEID_SLOT, QString::number(it.value().serviceID)); // Service ID
-            pitem->setText(CONFIG_SERVICETYPE_SLOT, getServiceType(it.value().serviceType)); // Rec. Service Mode
-        }
-        else
+            pitem->setText(CONFIG_SERVICETYPE_SLOT,
+                           getServiceType(it.value().serviceType)); // Rec. Service Mode
+        } 
+        else 
         {
             QComboBox *ifaceCombo = new QComboBox(this);
-            foreach (IdnOutput output, m_plugin->getOutputmapping())
+            foreach (IdnOutput output, m_plugin->getOutputmapping()) 
             {
                 ifaceCombo->addItem(output.address.ip().toString());
             }
@@ -129,7 +131,8 @@ void IdnConfiguration::fillTree()
             QSpinBox *idnReceiveModeSpinBox = new QSpinBox(this);
             idnReceiveModeSpinBox->setRange(0, 7);
             idnReceiveModeSpinBox->setValue(it.value().serviceType);
-            m_clientTree->setItemWidget(pitem, CONFIG_SERVICETYPE_SLOT, idnReceiveModeSpinBox); // Rec. Service Mode
+            m_clientTree->setItemWidget(pitem, CONFIG_SERVICETYPE_SLOT,
+                                        idnReceiveModeSpinBox); // Rec. Service Mode
         }
 
         QComboBox *combo = new QComboBox(this);
@@ -138,7 +141,7 @@ void IdnConfiguration::fillTree()
         combo->addItem(tr("DMX512 (Discrete)"));
         combo->addItem(tr("DMX512 (Discrete) - Optimized"));
 
-        switch (it.value().mode)
+        switch (it.value().mode) 
         {
         case 4:
             combo->setCurrentIndex(0);
@@ -179,29 +182,30 @@ int IdnConfiguration::findDuplicates(QString ipAddress, int port, int serviceID)
 
     QList<QTreeWidgetItem *> items = m_clientTree->findItems(ipAddress, Qt::MatchExactly, CONFIG_IPADDRESS_SLOT);
 
-    foreach (QTreeWidgetItem *item, items)
+    foreach (QTreeWidgetItem *item, items) 
     {
         int wPort, wServiceId;
-        if (item->text(CONFIG_PORT_SLOT).isEmpty())
+        if (item->text(CONFIG_PORT_SLOT).isEmpty()) 
         {
             QSpinBox *portSpinBox = qobject_cast<QSpinBox *>(m_clientTree->itemWidget(item, CONFIG_PORT_SLOT));
             wPort = portSpinBox->value();
-        }
-        else
+        } 
+        else 
         {
             wPort = item->text(CONFIG_PORT_SLOT).toInt();
         }
 
-        if(item->text(CONFIG_SERVICEID_SLOT).isEmpty()) {
+        if (item->text(CONFIG_SERVICEID_SLOT).isEmpty()) 
+        {
             QSpinBox *serviceIDSpinBox = qobject_cast<QSpinBox *>(m_clientTree->itemWidget(item, CONFIG_SERVICEID_SLOT));
             wServiceId = serviceIDSpinBox->value();
-        }
-        else
+        } 
+        else 
         {
             wServiceId = item->text(CONFIG_SERVICEID_SLOT).toInt();
         }
 
-        if (wPort == port && wServiceId == serviceID)
+        if (wPort == port && wServiceId == serviceID) 
         {
             candidateList << 1;
         }
@@ -221,7 +225,7 @@ void IdnConfiguration::addReceiverSlot()
 
     QComboBox *ifaceCombo = new QComboBox(this);
 
-    foreach (IdnOutput output, m_plugin->getOutputmapping())
+    foreach (IdnOutput output, m_plugin->getOutputmapping()) 
     {
         ifaceCombo->addItem(output.address.ip().toString());
     }
@@ -281,122 +285,119 @@ void IdnConfiguration::addReceiverSlot()
 void IdnConfiguration::on_m_buttonBox_accepted()
 {
     QHash<IdnHostInfo, IdnSettings> settings;
-    for (int i = 0; i < m_clientTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_clientTree->topLevelItemCount(); i++) 
     {
         QTreeWidgetItem *item = m_clientTree->topLevelItem(i);
         IdnSettings tmp;
-        if (item->text(CONFIG_INTERFACE_SLOT).isEmpty())
+        if (item->text(CONFIG_INTERFACE_SLOT).isEmpty()) 
         {
             QComboBox *ifaceCombo = qobject_cast<QComboBox *>(m_clientTree->itemWidget(item, CONFIG_INTERFACE_SLOT));
             tmp.iface = QHostAddress(ifaceCombo->currentText());
             tmp.scan = false;
-        }
-        else
+        } 
+        else 
         {
             tmp.iface = QHostAddress(item->text(CONFIG_INTERFACE_SLOT));
             tmp.scan = true;
         }
 
-        if (item->text(CONFIG_UNIVERSE_SLOT).isEmpty())
+        if (item->text(CONFIG_UNIVERSE_SLOT).isEmpty()) 
         {
             QSpinBox *universeSpinBox = qobject_cast<QSpinBox *>(m_clientTree->itemWidget(item, CONFIG_UNIVERSE_SLOT));
-            if (universeSpinBox->value() == 0)
-            {
+            if (universeSpinBox->value() == 0) {
                 tmp.disabled = true;
                 tmp.universe = 1;
-            }
-            else
-            {
+            } else {
                 tmp.disabled = false;
                 tmp.universe = universeSpinBox->value();
             }
-        }
-        else
+        } 
+        else 
         {
             int universe = item->text(CONFIG_UNIVERSE_SLOT).toInt();
-            if (universe == 0)
+            if (universe == 0) 
             {
                 tmp.disabled = true;
                 tmp.universe = 1;
-            }
-            else
+            } 
+            else 
             {
                 tmp.disabled = false;
                 tmp.universe = universe;
             }
         }
 
-        if(item->text(CONFIG_UNITNAME_SLOT).isEmpty())
+        if (item->text(CONFIG_UNITNAME_SLOT).isEmpty()) 
         {
             QLineEdit *unitNameEdit = qobject_cast<QLineEdit *>(m_clientTree->itemWidget(item, CONFIG_UNITNAME_SLOT));
             tmp.unitName = unitNameEdit->text();
-        }
-        else
+        } 
+        else 
         {
             tmp.unitName = item->text(CONFIG_UNITNAME_SLOT);
         }
 
-        if(item->text(CONFIG_SERVICENAME_SLOT).isEmpty())
+        if (item->text(CONFIG_SERVICENAME_SLOT).isEmpty()) 
         {
             QLineEdit *serviceNameEdit = qobject_cast<QLineEdit *>(m_clientTree->itemWidget(item, CONFIG_SERVICENAME_SLOT));
             tmp.serviceName = serviceNameEdit->text();
-        }
-        else
+        } 
+        else 
         {
             tmp.serviceName = item->text(CONFIG_SERVICENAME_SLOT);
         }
 
 
-        if (item->text(CONFIG_SERVICEID_SLOT).isEmpty())
+        if (item->text(CONFIG_SERVICEID_SLOT).isEmpty()) 
         {
             QSpinBox *serviceIDSpinBox = qobject_cast<QSpinBox *>(m_clientTree->itemWidget(item, CONFIG_SERVICEID_SLOT));
             tmp.serviceID = serviceIDSpinBox->value();
-        }
-        else
+        } 
+        else 
         {
             tmp.serviceID = item->text(CONFIG_SERVICEID_SLOT).toInt();
         }
 
         QString ipStr;
-        if (item->text(CONFIG_IPADDRESS_SLOT).isEmpty())
+        if (item->text(CONFIG_IPADDRESS_SLOT).isEmpty()) 
         {
             QLineEdit *ipAddrEdit = qobject_cast<QLineEdit *>(m_clientTree->itemWidget(item, CONFIG_IPADDRESS_SLOT));
             ipStr = ipAddrEdit->text();
-        }
-        else
+        } 
+        else 
         {
             ipStr = item->text(CONFIG_IPADDRESS_SLOT);
         }
         QHostAddress ip = QHostAddress(ipStr);
 
-        if (ip.isNull())
+        if (ip.isNull()) 
         {
             QMessageBox::critical(this, tr("QLC+ IDN Plugin"), tr("You have to enter an valid IP-Address.\n"), QMessageBox::Cancel);
             return;
         }
 
-        if (item->text(CONFIG_PORT_SLOT).isEmpty())
+        if (item->text(CONFIG_PORT_SLOT).isEmpty()) 
         {
             QSpinBox *portSpinBox = qobject_cast<QSpinBox *>(m_clientTree->itemWidget(item, CONFIG_PORT_SLOT));
             tmp.port = portSpinBox->value();
-        }
-        else
+        } 
+        else 
         {
             tmp.port = item->text(CONFIG_PORT_SLOT).toInt();
         }
 
-        if (findDuplicates(ip.toString(), tmp.port, tmp.serviceID) > 1)
+        if (findDuplicates(ip.toString(), tmp.port, tmp.serviceID) > 1) 
         {
             QMessageBox::critical(this, tr("QLC+ IDN Plugin"), tr("There are at least two receivers with the same IP-Address and Port.\n"), QMessageBox::Cancel);
             return;
         }
 
-        if (item->text(CONFIG_SERVICETYPE_SLOT).isEmpty())
+        if (item->text(CONFIG_SERVICETYPE_SLOT).isEmpty()) 
         {
             QSpinBox *serviceTypeSpinBox = qobject_cast<QSpinBox *>(m_clientTree->itemWidget(item, CONFIG_SERVICETYPE_SLOT));
             tmp.serviceType = serviceTypeSpinBox->value();
-        }
-        else
+        } 
+        else 
         {
             tmp.serviceType = getServiceTypeFromText(item->text(CONFIG_SERVICETYPE_SLOT));
         }
@@ -428,7 +429,7 @@ void IdnConfiguration::deleteSlot()
 {
     QList<QTreeWidgetItem *> itemList;
     itemList = m_clientTree->selectedItems();
-    foreach (QTreeWidgetItem *item, itemList)
+    foreach (QTreeWidgetItem *item, itemList) 
     {
         int index = m_clientTree->indexOfTopLevelItem(item);
         m_clientTree->takeTopLevelItem(index);
@@ -440,14 +441,14 @@ void IdnConfiguration::on_m_buttonBox_rejected()
     QDialog::reject();
 }
 
-void IdnConfiguration::on_m_clearButton_clicked() 
+void IdnConfiguration::on_m_clearButton_clicked()
 {
     m_clientTree->clear();
 }
 
 void IdnConfiguration::onScanComplete()
 {
-    for (int i = m_clientTree->topLevelItemCount() - 1; i >= 0; --i)
+    for (int i = m_clientTree->topLevelItemCount() - 1; i >= 0; --i) 
     {
         QTreeWidgetItem *item = m_clientTree->topLevelItem(i);
         if (isManualItem(item))
@@ -479,7 +480,7 @@ void IdnConfiguration::on_m_scanButton_clicked()
     m_scanAnimationTimer->start(350);
 
     m_staleScanKeys.clear();
-    for (int i = 0; i < m_clientTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_clientTree->topLevelItemCount(); i++) 
     {
         QTreeWidgetItem *item = m_clientTree->topLevelItem(i);
         if (!isManualItem(item))
@@ -487,7 +488,7 @@ void IdnConfiguration::on_m_scanButton_clicked()
     }
     m_scanTimer->start(3000);
 
-    for (QUdpSocket *oldSocket : activeSockets)
+    for (QUdpSocket *oldSocket : activeSockets) 
     {
         oldSocket->disconnect();
         oldSocket->close();
@@ -495,13 +496,14 @@ void IdnConfiguration::on_m_scanButton_clicked()
     }
     activeSockets.clear();
 
-    foreach (IdnOutput output, m_plugin->getOutputmapping())
+    foreach (IdnOutput output, m_plugin->getOutputmapping()) 
     {
         QUdpSocket *socket = new QUdpSocket(this);
-        bool bindSuccess = socket->bind(output.address.ip(), 0, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+        bool bindSuccess = socket->bind(output.address.ip(), 0,
+                                        QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
         activeSockets.append(socket);
 
-        if (bindSuccess)
+        if (bindSuccess) 
         {
             sendScan(socket, output.address.ip(), IDNCMD_SCANREQUEST);
             connect(socket, SIGNAL(readyRead()), this, SLOT(waitForReply()));
@@ -513,23 +515,23 @@ void IdnConfiguration::sendScan(QUdpSocket *socket, QHostAddress outputIP, int c
 {
     QByteArray scanRequestPacket;
     QHostAddress sendToIP = outputIP;
-    if (command == IDNCMD_SCANREQUEST)
+    if (command == IDNCMD_SCANREQUEST) 
     {
         qDebug() << "[IDN] Sending scan request";
         m_packetizer->generateScanRequestPacket(scanRequestPacket);
         sendToIP = QHostAddress(QHostAddress::Broadcast);
-    }
-    else if (command == IDNCMD_SERVICEREQUEST)
+    } 
+    else if (command == IDNCMD_SERVICEREQUEST) 
     {
         qDebug() << "[IDN] Sending service map request";
         m_packetizer->generateServiceMapRequestPacket(scanRequestPacket);
-    }
-    else
+    } 
+    else 
     {
         qWarning() << "[IDN] sendScan: unknown command" << command;
     }
     qint64 sent = socket->writeDatagram(scanRequestPacket, sendToIP, IDN_PORT);
-    if (sent < 0)
+    if (sent < 0) 
     {
         qWarning() << "[IDN] sendScan failed to" << sendToIP.toString() << ":" << IDN_PORT
                    << "error:" << socket->errorString();
@@ -543,35 +545,36 @@ void IdnConfiguration::waitForReply()
     QHostAddress senderAddress;
     quint16 senderPort;
 
-    while (socket->hasPendingDatagrams())
+    while (socket->hasPendingDatagrams()) 
     {
         datagram.resize(socket->pendingDatagramSize());
         qint64 sent = socket->readDatagram(datagram.data(), datagram.size(), &senderAddress, &senderPort);
-        qDebug() << QString("Packet from %1, size %2, data %3, port %4, iface %5")
+
+        if (senderAddress == socket->localAddress()
+                && senderAddress != QHostAddress(QString("127.0.0.1"))) 
+            {
+            qDebug() << "[IDN] Ignoring own packet from" << senderAddress.toString();
+            qDebug() << QString("Packet from %1, size %2, data %3, port %4, iface %5")
                           .arg(senderAddress.toString())
                           .arg(sent)
                           .arg(datagram.toHex(' '))
                           .arg(senderPort)
                           .arg(socket->localAddress().toString());
-
-        if (senderAddress == socket->localAddress() && senderAddress != QHostAddress(QString("127.0.0.1")))
-        {
-            qDebug() << "[IDN] Ignoring own packet from" << senderAddress.toString();
             continue;
         }
 
-        if (m_packetizer->validateReply(datagram))
+        if (m_packetizer->validateReply(datagram)) 
         {
             unitNames.insert(senderAddress, QString::fromUtf8(datagram.mid(24, 20).data()));
             sendScan(socket, senderAddress, IDNCMD_SERVICEREQUEST);
-        }
-        else if (m_packetizer->validateServiceMapReply(datagram))
+        } 
+        else if (m_packetizer->validateServiceMapReply(datagram)) 
         {
             int length = static_cast<unsigned char>(datagram[7]);
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < length; i++) 
             {
                 int offset = 8 + i * 24;
-                if(datagram.mid(offset, 1)[0] == 0x00)
+                if (datagram.mid(offset, 1)[0] == 0x00) 
                 {
                     qWarning() << "ServiceID 0, ignore entry";
                     length++;
@@ -595,8 +598,8 @@ void IdnConfiguration::waitForReply()
 
                 mergeScanResult(clientSettings);
             }
-        }
-        else
+        } 
+        else 
         {
             qWarning() << "Received invalid packet from " << senderAddress.toString();
         }
@@ -606,14 +609,14 @@ void IdnConfiguration::waitForReply()
 void IdnConfiguration::on_m_clientTree_customContextMenuRequested(const QPoint &pos)
 {
     QMenu *menu = new QMenu(this);
-    if (m_clientTree->selectedItems().count() != 0)
+    if (m_clientTree->selectedItems().count() != 0) 
     {
         QAction *deleteClient = new QAction("Delete", this);
         connect(deleteClient, SIGNAL(triggered()), SLOT(deleteSlot()));
         menu->addAction(deleteClient);
         menu->popup(m_clientTree->mapToGlobal(pos));
-    }
-    else
+    } 
+    else 
     {
         QAction *scan = new QAction("Scan", this);
         connect(scan, SIGNAL(triggered()), SLOT(on_m_scanButton_clicked()));
@@ -632,7 +635,7 @@ void IdnConfiguration::on_m_addClientButton_clicked()
 
 QString IdnConfiguration::getServiceType(int serviceType)
 {
-    switch (serviceType)
+    switch (serviceType) 
     {
     case 0x00:
         return tr("Void");
@@ -674,21 +677,21 @@ int IdnConfiguration::getServiceTypeFromText(QString serviceType)
 QString IdnConfiguration::scanItemKey(const IdnHostClientSettings &clientSettings)
 {
     return QString("%1_%2_%3_%4_%5")
-        .arg(clientSettings.settings.unitName)
-        .arg(clientSettings.settings.serviceName)
-        .arg(clientSettings.settings.serviceID)
-        .arg(clientSettings.settings.serviceType)
-        .arg(clientSettings.hostInfo.address.toString());
+           .arg(clientSettings.settings.unitName)
+           .arg(clientSettings.settings.serviceName)
+           .arg(clientSettings.settings.serviceID)
+           .arg(clientSettings.settings.serviceType)
+           .arg(clientSettings.hostInfo.address.toString());
 }
 
 QString IdnConfiguration::scanItemKey(QTreeWidgetItem *item)
 {
     return QString("%1_%2_%3_%4_%5")
-        .arg(item->text(CONFIG_UNITNAME_SLOT))
-        .arg(item->text(CONFIG_SERVICENAME_SLOT))
-        .arg(item->text(CONFIG_SERVICEID_SLOT))
-        .arg(getServiceTypeFromText(item->text(CONFIG_SERVICETYPE_SLOT)))
-        .arg(item->text(CONFIG_IPADDRESS_SLOT));
+           .arg(item->text(CONFIG_UNITNAME_SLOT))
+           .arg(item->text(CONFIG_SERVICENAME_SLOT))
+           .arg(item->text(CONFIG_SERVICEID_SLOT))
+           .arg(getServiceTypeFromText(item->text(CONFIG_SERVICETYPE_SLOT)))
+           .arg(item->text(CONFIG_IPADDRESS_SLOT));
 }
 
 bool IdnConfiguration::isManualItem(QTreeWidgetItem *item)
@@ -703,7 +706,7 @@ void IdnConfiguration::mergeScanResult(const IdnHostClientSettings &clientSettin
     if (m_staleScanKeys.remove(key))
         return;
 
-    for (int i = 0; i < m_clientTree->topLevelItemCount(); i++)
+    for (int i = 0; i < m_clientTree->topLevelItemCount(); i++) 
     {
         QTreeWidgetItem *item = m_clientTree->topLevelItem(i);
         if (!isManualItem(item) && scanItemKey(item) == key)
@@ -713,7 +716,7 @@ void IdnConfiguration::mergeScanResult(const IdnHostClientSettings &clientSettin
     createTreeItem(clientSettings);
 }
 
-QTreeWidgetItem* IdnConfiguration::createTreeItem(const IdnHostClientSettings &clientSettings) 
+QTreeWidgetItem *IdnConfiguration::createTreeItem(const IdnHostClientSettings &clientSettings)
 {
     QTreeWidgetItem *nitem = new QTreeWidgetItem(m_clientTree);
 
@@ -724,12 +727,12 @@ QTreeWidgetItem* IdnConfiguration::createTreeItem(const IdnHostClientSettings &c
     universeSpin->setValue(0);
     m_clientTree->setItemWidget(nitem, CONFIG_UNIVERSE_SLOT, universeSpin);
 
-    nitem->setText(CONFIG_IPADDRESS_SLOT, clientSettings.hostInfo.address.toString());        
+    nitem->setText(CONFIG_IPADDRESS_SLOT, clientSettings.hostInfo.address.toString());
     nitem->setText(CONFIG_PORT_SLOT, QString::number(IDN_PORT));
 
-    
+
     nitem->setText(CONFIG_SERVICEID_SLOT, QString::number(clientSettings.settings.serviceID));
-    
+
     nitem->setText(CONFIG_SERVICENAME_SLOT, clientSettings.settings.serviceName);
     nitem->setText(CONFIG_UNITNAME_SLOT, unitNames.value(clientSettings.hostInfo.address));
 

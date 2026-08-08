@@ -24,170 +24,186 @@ QTextStream out32(stdout);
 
 IdnClient::IdnClient(QHostAddress const &clientAddress, QSharedPointer<QUdpSocket> const& udpSocket,
                      QSharedPointer<QMutex> const& socketMutex,
-                     int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID, int const& serviceId, QSharedPointer<quint32> const& seqnum)
-  : m_address(clientAddress)
-  , m_udpSocket(udpSocket)
-  , m_socketMutex(socketMutex)
-  , m_port(port)
-  , m_rangeBegin(rangeBegin)
-  , m_rangeEnd(rangeEnd)
-  , m_mode(mode)
-  , m_channelID(channelID)
-  , m_serviceID(serviceId)
+                     int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID,
+                     int const& serviceId, QSharedPointer<quint32> const& seqnum)
+    : m_address(clientAddress)
+    , m_udpSocket(udpSocket)
+    , m_socketMutex(socketMutex)
+    , m_port(port)
+    , m_rangeBegin(rangeBegin)
+    , m_rangeEnd(rangeEnd)
+    , m_mode(mode)
+    , m_channelID(channelID)
+    , m_serviceID(serviceId)
 
-  , m_packetizer(new IdnPacketizer())
-  , m_optimizer(new IdnOptimizer())
-  , m_seqnum(seqnum)
-  , m_packetSent(0)
+    , m_packetizer(new IdnPacketizer())
+    , m_optimizer(new IdnOptimizer())
+    , m_seqnum(seqnum)
+    , m_packetSent(0)
 {
     //first packet has to be a config packet
-  config = true;
-  //init timestamp
-  timestamp = QDateTime::currentMSecsSinceEpoch();
-  lastsend = 0;
-  blackCounter = 0;
+    config = true;
+    //init timestamp
+    timestamp = QDateTime::currentMSecsSinceEpoch();
+    lastsend = 0;
+    blackCounter = 0;
 
-  if (m_rangeBegin < 1){
-	  m_rangeBegin = 1;
-  }
-  if (m_rangeEnd > 512){
-	  m_rangeEnd = 512;
-  }
-  //timer to close the connection in case of a blackout
-  closeTimer = new QTimer(this);
-  closeTimer->setInterval(IDN_TIMEOUT);
-  closeTimer->setSingleShot(true);
-  connect(closeTimer, SIGNAL(timeout()), this, SLOT(sendClosePacket()));
+    if (m_rangeBegin < 1) {
+        m_rangeBegin = 1;
+    }
+    if (m_rangeEnd > 512) {
+        m_rangeEnd = 512;
+    }
+    //timer to close the connection in case of a blackout
+    closeTimer = new QTimer(this);
+    closeTimer->setInterval(IDN_TIMEOUT);
+    closeTimer->setSingleShot(true);
+    connect(closeTimer, SIGNAL(timeout()), this, SLOT(sendClosePacket()));
 }
 
 IdnClient::~IdnClient()
 {
-	sendClosePacket();
+    sendClosePacket();
 }
 
 void IdnClient::sendClosePacket()
 {
-  QByteArray dmxPacket;
-  QMutexLocker socketLocker(m_socketMutex.data());
-  m_packetizer->generateClosePacket(dmxPacket, *m_seqnum, m_channelID, m_serviceID);
-  qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
-  lastsend = QDateTime::currentMSecsSinceEpoch();
-  if (sent < 0){
-    qWarning() << "sendDmx failed";
-    qWarning() << "Errno: " << m_udpSocket->error();
-    qWarning() << "Errmgs: " << m_udpSocket->errorString();
-  }else{
-    m_packetSent++;
-    (*m_seqnum)++;
-  }
+    QByteArray dmxPacket;
+    QMutexLocker socketLocker(m_socketMutex.data());
+    m_packetizer->generateClosePacket(dmxPacket, *m_seqnum, m_channelID, m_serviceID);
+    qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
+    lastsend = QDateTime::currentMSecsSinceEpoch();
+    if (sent < 0) 
+    {
+        qWarning() << "sendDmx failed";
+        qWarning() << "Errno: " << m_udpSocket->error();
+        qWarning() << "Errmgs: " << m_udpSocket->errorString();
+    } 
+    else 
+    {
+        m_packetSent++;
+        (*m_seqnum)++;
+    }
 }
 
 QByteArray IdnClient::optimizedMode(const QByteArray &data)
 {
-  // Detect blackout: all 512 channels are zero — send a null packet
-  if(data.count((char)0x0) == 512){
-    QByteArray blackoutpacket;
-    m_packetizer->generateNullPacket(blackoutpacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
-    return blackoutpacket;
-  }
-
-  bool configTime = (QDateTime::currentMSecsSinceEpoch() - timestamp) > IDN_CONFIG_INTERVAL ? true : false;
-
-  int rangeBegin = 1;
-  int rangeEnd = 512;
-  if(m_mode == 5 || m_mode == 7) {
-    rangeBegin = m_rangeBegin;
-    rangeEnd = m_rangeEnd;
-  }
-
-  IdnOptimizer::PacketInformation pi = m_optimizer->optimize(data, configTime, rangeBegin, rangeEnd);
-  //setze den Datachunk zusammen
-  QByteArray dmxPacket, justifiedData;
-  bool addRangeEndFrame = true;
-
-  for(int i = 0; i < pi.ranges.length(); i++){
-    for(int j = pi.ranges[i].first; j < pi.ranges[i].second+1; j++){
-      if(pi.ranges[i].first == rangeEnd || pi.ranges[i].second == rangeEnd - 1){
-        addRangeEndFrame = false;
-      }
-      if (j < data.size()){
-        justifiedData.append(data[j]);
-      } else {
-        justifiedData.append((char)0x0);
-      }
+    // Detect blackout: all 512 channels are zero — send a null packet
+    if (data.count((char)0x0) == 512) 
+    {
+        QByteArray blackoutpacket;
+        m_packetizer->generateNullPacket(blackoutpacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
+        return blackoutpacket;
     }
-  }
 
-  if(addRangeEndFrame){
-    if(data.size() >= rangeEnd){
-      justifiedData.append(data[rangeEnd-1]);
-    }
-    else{
-      justifiedData.append((char)0x0);
-    }
-    pi.byteCount++;
-    pi.numberOfSingleChannels++;
-    QPair<int, int> finalFrame;
-    finalFrame.first = rangeEnd-1;
-    finalFrame.second = rangeEnd-1;
-    pi.ranges.append(finalFrame);   
-  }
+    bool configTime = (QDateTime::currentMSecsSinceEpoch() - timestamp) > IDN_CONFIG_INTERVAL ? true : false;
 
-  bool newConfig = false;
-  if(pi.ranges.length() != oldpi.ranges.length()){
-    newConfig = true;
-  }else{
-    for(int i = 0; i < pi.ranges.length(); i++){
-      if(pi.ranges[i] == oldpi.ranges[i]){
-        continue;
-      }else{
+    int rangeBegin = 1;
+    int rangeEnd = 512;
+    if (m_mode == 5 || m_mode == 7) 
+    {
+        rangeBegin = m_rangeBegin;
+        rangeEnd = m_rangeEnd;
+    }
+
+    IdnOptimizer::PacketInformation pi = m_optimizer->optimize(data, configTime, rangeBegin, rangeEnd);
+    //put Datachunk together
+    QByteArray dmxPacket, justifiedData;
+
+    for (int i = 0; i < pi.ranges.length(); i++) 
+    {
+        for (int j = pi.ranges[i].first; j < pi.ranges[i].second + 1; j++) 
+        {
+            if (j < data.size()) 
+            {
+                justifiedData.append(data[j]);
+            } 
+            else 
+            {
+                justifiedData.append((char)0x0);
+            }
+        }
+    }
+
+    if(pi.ranges.isEmpty())
+    {
+      justifiedData.append(data.size() >= rangeEnd ? data[rangeEnd - 1] : (char)0x0);
+      pi.byteCount++;
+      pi.numberOfSingleChannels++;
+      pi.ranges.append(QPair<int,int>(rangeEnd - 1, rangeEnd - 1));
+    }
+
+    bool newConfig = false;
+    if (pi.ranges.length() != oldpi.ranges.length()) 
+    {
         newConfig = true;
-        break;
-      }
+    } 
+    else 
+    {
+        for (int i = 0; i < pi.ranges.length(); i++) 
+        {
+            if (pi.ranges[i] == oldpi.ranges[i]) 
+            {
+                continue;
+            } 
+            else 
+            {
+                newConfig = true;
+                break;
+            }
+        }
     }
-  }
-  if(!newConfig){
-    config = false;
-    if(configTime){
-      config = true;
-    }else{
-      config = false;
+    if (!newConfig) 
+    {
+        config = false;
+        if (configTime) 
+        {
+            config = true;
+        } 
+        else 
+        {
+            config = false;
+        }
+    } 
+    else 
+    {
+        config = true;
     }
-  }else{
-    config = true;
-  }
 
-  oldData = justifiedData;
-  oldpi = pi;
+    oldData = justifiedData;
+    oldpi = pi;
 
-  m_packetizer->setupIdnDmx(dmxPacket, m_mode, m_channelID, justifiedData, pi.ranges, *m_seqnum, config, m_serviceID);
+    m_packetizer->setupIdnDmx(dmxPacket, m_mode, m_channelID, justifiedData, pi.ranges, *m_seqnum, config, m_serviceID);
 
-  if(config)
-    timestamp = QDateTime::currentMSecsSinceEpoch();
-  return dmxPacket; 
+    if (config)
+        timestamp = QDateTime::currentMSecsSinceEpoch();
+    return dmxPacket;
 }
 
 QByteArray IdnClient::rangeMode(const QByteArray &data)
 {
-  QByteArray dmxPacket;
+    QByteArray dmxPacket;
 
-  QByteArray universeRange(m_rangeEnd, (char)0x0);
+    QByteArray universeRange(m_rangeEnd, (char)0x0);
 
     universeRange.replace(0, data.length(), data);
-  QByteArray justifiedData = universeRange.right(m_rangeEnd-m_rangeBegin+1);
+    QByteArray justifiedData = universeRange.right(m_rangeEnd - m_rangeBegin + 1);
 
-  if((QDateTime::currentMSecsSinceEpoch() - timestamp) > IDN_CONFIG_INTERVAL || m_packetSent == 0){
-    config = true;
-  }else{
-    config = false;
-  }
+    if ((QDateTime::currentMSecsSinceEpoch() - timestamp) > IDN_CONFIG_INTERVAL || m_packetSent == 0) 
+    {
+        config = true;
+    } 
+    else 
+    {
+        config = false;
+    }
 
-  m_packetizer->setupIdnDmx(dmxPacket, m_mode, m_channelID, justifiedData, m_rangeBegin, *m_seqnum, config, m_serviceID);
+    m_packetizer->setupIdnDmx(dmxPacket, m_mode, m_channelID, justifiedData, m_rangeBegin, *m_seqnum, config, m_serviceID);
 
-  if(config)
-    timestamp = QDateTime::currentMSecsSinceEpoch();
-  
-  return dmxPacket;   
+    if (config)
+        timestamp = QDateTime::currentMSecsSinceEpoch();
+
+    return dmxPacket;
 }
 
 /*****************************************************************************
@@ -197,78 +213,98 @@ QByteArray IdnClient::rangeMode(const QByteArray &data)
 void IdnClient::sendDmx(const QByteArray &data)
 {
 
-  QMutexLocker locker(&m_dataMutex);
-  if(closeTimer->isActive()){
-    closeTimer->stop();
-  }
-  QByteArray dmxPacket;
-
-  if(m_packetSent == 0){
-      QMutexLocker socketLocker(m_socketMutex.data());
-      m_packetizer->generateNullPacket(dmxPacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
-      qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
-      lastsend = QDateTime::currentMSecsSinceEpoch();
-        
-      if (sent < 0){
-          qWarning() << "sendDmx failed";
-          qWarning() << "Errno: " << m_udpSocket->error();
-          qWarning() << "Errmgs: " << m_udpSocket->errorString();
-      }else{
-        m_packetSent++;
-        (*m_seqnum)++;
-      }
-  }
-
-  
-
-  //count the 512 Byte long data chunks. The first packet is allowed to pass the throttle because the chunk can be a blackout chunk
-  data.count((char)0x0) == 512 ? blackCounter++ : blackCounter = 0;
-
-  if(m_mode == 5 || m_mode == 7){
-    // Throttle: minimum gap = (overhead + slot_time * numChannels) converted from µs to ms
-    const int minGapMs = (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US * m_rangeEnd) / 1000;
-    if((QDateTime::currentMSecsSinceEpoch() - lastsend) > minGapMs || blackCounter == 1){
-      QMutexLocker socketLocker(m_socketMutex.data());
-      if(blackCounter == 1){
-        m_packetizer->generateNullPacket(dmxPacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
-      }else{
-        dmxPacket = optimizedMode(data);
-      }
-      qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
-      if (sent < 0){
-        qWarning() << "sendDmx (optimized) failed, error:" << m_udpSocket->errorString();
-      }
-      else{
-        lastsend = QDateTime::currentMSecsSinceEpoch();
-        m_packetSent++;
-        (*m_seqnum)++;
-      }
+    QMutexLocker locker(&m_dataMutex);
+    if (closeTimer->isActive()) 
+    {
+        closeTimer->stop();
     }
-  }else{
-    // Throttle: minimum gap based on actual channel range
-    const int minGapMs = (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US * (m_rangeEnd - m_rangeBegin)) / 1000;
-    if((QDateTime::currentMSecsSinceEpoch() - lastsend) > minGapMs || blackCounter == 1){
-      QMutexLocker socketLocker(m_socketMutex.data());
-      if(blackCounter == 1){
+    QByteArray dmxPacket;
+
+    if (m_packetSent == 0) 
+    {
+        QMutexLocker socketLocker(m_socketMutex.data());
         m_packetizer->generateNullPacket(dmxPacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
-      }else{
-        dmxPacket = rangeMode(data);
-      }
-      qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
-      if (sent < 0){
-        qWarning() << "sendDmx (range) failed, error:" << m_udpSocket->errorString();
-      }
-      else{
+        qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
         lastsend = QDateTime::currentMSecsSinceEpoch();
-        m_packetSent++;
-        (*m_seqnum)++;
-      }
+
+        if (sent < 0) 
+        {
+            qWarning() << "sendDmx failed";
+            qWarning() << "Errno: " << m_udpSocket->error();
+            qWarning() << "Errmgs: " << m_udpSocket->errorString();
+        } 
+        else 
+        {
+            m_packetSent++;
+            (*m_seqnum)++;
+        }
     }
-  }
-  if(data.count((char)0x0) == 512){
-    //start Blackouttimer
-    closeTimer->start();
-  }
+
+
+
+    //count the 512 Byte long data chunks. The first packet is allowed to pass the throttle because the chunk can be a blackout chunk
+    data.count((char)0x0) == 512 ? blackCounter++ : blackCounter = 0;
+
+    if (m_mode == 5 || m_mode == 7) 
+    {
+        // Throttle: minimum gap = (overhead + slot_time * numChannels) converted from µs to ms
+        const int minGapMs = (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US * m_rangeEnd) / 1000;
+        if ((QDateTime::currentMSecsSinceEpoch() - lastsend) > minGapMs || blackCounter == 1) 
+        {
+            QMutexLocker socketLocker(m_socketMutex.data());
+            if (blackCounter == 1) 
+            {
+                m_packetizer->generateNullPacket(dmxPacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
+            } 
+            else 
+            {
+                dmxPacket = optimizedMode(data);
+            }
+            qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
+            if (sent < 0) 
+            {
+                qWarning() << "sendDmx (optimized) failed, error:" << m_udpSocket->errorString();
+            } 
+            else 
+            {
+                lastsend = QDateTime::currentMSecsSinceEpoch();
+                m_packetSent++;
+                (*m_seqnum)++;
+            }
+        }
+    } else {
+        // Throttle: minimum gap based on actual channel range
+        const int minGapMs = (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US *
+                              (m_rangeEnd - m_rangeBegin)) / 1000;
+        if ((QDateTime::currentMSecsSinceEpoch() - lastsend) > minGapMs || blackCounter == 1) 
+        {
+            QMutexLocker socketLocker(m_socketMutex.data());
+            if (blackCounter == 1) 
+            {
+                m_packetizer->generateNullPacket(dmxPacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
+            } 
+            else 
+            {
+                dmxPacket = rangeMode(data);
+            }
+            qint64 sent = m_udpSocket->writeDatagram(dmxPacket, m_address, m_port);
+            if (sent < 0) 
+            {
+                qWarning() << "sendDmx (range) failed, error:" << m_udpSocket->errorString();
+            } 
+            else 
+            {
+                lastsend = QDateTime::currentMSecsSinceEpoch();
+                m_packetSent++;
+                (*m_seqnum)++;
+            }
+        }
+    }
+    if (data.count((char)0x0) == 512) 
+    {
+        //start Blackouttimer
+        closeTimer->start();
+    }
 }
 
 quint64 IdnClient::getPacketSentNumber()

@@ -34,7 +34,8 @@
 #include "idncontroller.h"
 #include "idn.h"
 
-IdnController::IdnController(QNetworkAddressEntry const &address, quint32 line, QHash<IdnHostInfo, IdnSettings> settings, QObject *parent)
+IdnController::IdnController(QNetworkAddressEntry const &address, quint32 line,
+                             QHash<IdnHostInfo, IdnSettings> settings, QObject *parent)
     : QObject(parent), m_ipAddr(address.ip()), m_packetSent(0), m_line(line)
     , m_socket(new QUdpSocket(this)), m_packetizer(new IdnPacketizer())
     , m_fileSettings(settings), m_socketMutex(new QMutex())
@@ -54,10 +55,10 @@ IdnController::~IdnController()
 void IdnController::initClients()
 {
     QHashIterator<IdnHostInfo, IdnSettings> settings(m_fileSettings);
-    while (settings.hasNext())
+    while (settings.hasNext()) 
     {
         settings.next();
-        if (settings.value().disabled == false)
+        if (settings.value().disabled == false) 
         {
             IdnClientInfo client;
             client.port = settings.value().port;
@@ -69,7 +70,7 @@ void IdnController::initClients()
             client.iface = settings.value().iface;
             client.serviceID = settings.value().serviceID;
 
-            if(!m_seqnumMap.contains(settings.key().address))
+            if (!m_seqnumMap.contains(settings.key().address)) 
             {
                 m_seqnumMap[settings.key().address] = QSharedPointer<quint32>::create(0);
             }
@@ -90,10 +91,10 @@ void IdnController::handleDmx(const quint32 universe, const QByteArray &data)
 {
     QHashIterator<IdnHostInfo, IdnClientInfo> client(getClientsList());
     quint64 t_packetSend = 0;
-    while (client.hasNext())
+    while (client.hasNext()) 
     {
         client.next();
-        if (client.value().universe - 1 == universe && client.value().iface == m_ipAddr)
+        if (client.value().universe - 1 == universe && client.value().iface == m_ipAddr) 
         {
             client.value().client->sendDmx(data);
             t_packetSend += client.value().client->getPacketSentNumber();
@@ -115,7 +116,7 @@ QHash<IdnHostInfo, IdnClientInfo> IdnController::getClientsList()
 void IdnController::addUniverse(quint32 universe)
 {
     qDebug() << "[IDN] addUniverse - universe" << universe;
-    if (!m_universeMap.contains(universe))
+    if (!m_universeMap.contains(universe)) 
     {
         UniverseInfo info;
         info.outputAddress = m_broadcastAddr;
@@ -127,7 +128,7 @@ void IdnController::addUniverse(quint32 universe)
 
 void IdnController::removeUniverse(quint32 universe)
 {
-    if (m_universeMap.contains(universe))
+    if (m_universeMap.contains(universe)) 
     {
         m_universeMap.take(universe);
     }
@@ -163,10 +164,10 @@ quint64 IdnController::getPacketSentNumber()
 bool IdnController::closeByUniverse(quint32 universe)
 {
     QMutableHashIterator<IdnHostInfo, IdnClientInfo> clients(m_clientsList);
-    while (clients.hasNext())
+    while (clients.hasNext()) 
     {
         clients.next();
-        if (clients.value().universe - 1 == universe)
+        if (clients.value().universe - 1 == universe) 
         {
             delete clients.value().client;
             clients.remove();
