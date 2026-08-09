@@ -1257,6 +1257,7 @@ void VirtualConsole::slotBackgroundColor()
     {
         if (m_selectedWidgets.isEmpty() == true)
         {
+            contents()->setAutoFillBackground(true);
             contents()->setBackgroundColor(color);
         }
         else
@@ -1287,6 +1288,7 @@ void VirtualConsole::slotBackgroundImage()
     {
         if (m_selectedWidgets.isEmpty() == true)
         {
+            contents()->setAutoFillBackground(true);
             contents()->setBackgroundImage(path);
         }
         else
@@ -1304,6 +1306,7 @@ void VirtualConsole::slotBackgroundNone()
 
     if (m_selectedWidgets.isEmpty() == true)
     {
+        contents()->setAutoFillBackground(true);
         contents()->resetBackgroundColor();
     }
     else
@@ -1609,6 +1612,7 @@ void VirtualConsole::initContents()
     m_contentsLayout->addWidget(m_scrollArea);
     m_scrollArea->setAlignment(Qt::AlignCenter);
     m_scrollArea->setWidgetResizable(false);
+    m_scrollArea->setAutoFillBackground(true);
 
     resetContents();
 }
