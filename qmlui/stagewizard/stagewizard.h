@@ -26,6 +26,8 @@
 #include <QVector3D>
 #include <QColor>
 
+#include <climits>
+
 #include "vcpage.h"
 
 class Doc;
@@ -459,26 +461,112 @@ private:
         QString name;       ///< Profile channel name (for logging/preview)
     };
 
-    /** Pools of still-unassigned controller channels, refilled by
-     *  buildControllerPools() at the start of a mapping run. */
-    struct CtrlPools
+    /** The role a VC widget plays, which decides WHERE on the controller it
+     *  lands. On a grid surface each role owns a horizontal band of rows, so a
+     *  given kind of control always sits in the same place no matter which page
+     *  is showing — that spatial stability is the whole point of mapping to a
+     *  grid rather than handing out channels in creation order. */
+    enum CtrlRole
     {
-        QList<CtrlChannel> buttons;  ///< Button-type channels
-        QList<CtrlChannel> faders;   ///< Slider/Knob/Encoder-type channels
-        int buttonTotal = 0;         ///< Pool sizes before any hand-out
-        int faderTotal  = 0;
-        int nextButton  = 0;         ///< Hand-out cursors
-        int nextFader   = 0;
+        CtrlRolePageTab,    ///< Frame page selector (shared across pages)
+        CtrlRoleColor,      ///< Colour / colour-wheel swatch
+        CtrlRoleEffect,     ///< Movement, shutter, strobe, blinder …
+        CtrlRoleShowCue,    ///< Blackout / Open / Big Moment … (shared)
+        CtrlRoleCount
     };
 
-    /** Fill $pools from the input profile patched on m_ctrlUniverse. With no
-     *  profile assigned, falls back to a synthetic layout (channels 0..7 faders,
-     *  8.. buttons) so a bare MIDI/OSC patch still gets a usable mapping. */
-    void buildControllerPools(CtrlPools &pools) const;
+    /** How the wizard understood the patched controller. */
+    enum CtrlSurfaceKind
+    {
+        CtrlSurfaceNone,    ///< Nothing patched / nothing usable
+        CtrlSurfaceGrid,    ///< A rows x cols pad matrix was recognised
+        CtrlSurfaceStrip,   ///< Mixer-style: faders only, buttons left alone
+        CtrlSurfaceLinear   ///< Unknown layout: hand out buttons in order
+    };
 
-    /** Take the next free button/fader channel. Returns false when exhausted. */
-    bool nextButtonChannel(CtrlPools &pools, quint32 &channel) const;
-    bool nextFaderChannel(CtrlPools &pools, quint32 &channel) const;
+    /** A recognised pad grid. $cells is row-major and normalised so that row 0
+     *  is always the PHYSICAL TOP row: profiles disagree on whether "row 1" is
+     *  the top or the bottom (APC mini numbers from the bottom, Launchpad Mini
+     *  MK3 from the top), so buildControllerSurface() flips when needed. A cell
+     *  with channel == invalidChannel is a hole in the matrix. */
+    struct CtrlGrid
+    {
+        int rows = 0;
+        int cols = 0;
+        QList<CtrlChannel> cells;    ///< rows * cols, row-major, top row first
+
+        static const quint32 invalidChannel = UINT_MAX;
+
+        bool isValid() const { return rows > 0 && cols > 0; }
+        const CtrlChannel *at(int r, int c) const
+        {
+            if (r < 0 || c < 0 || r >= rows || c >= cols)
+                return nullptr;
+            const CtrlChannel &cc = cells.at(r * cols + c);
+            return cc.channel == invalidChannel ? nullptr : &cc;
+        }
+    };
+
+    /** A contiguous band of grid rows reserved for one role, plus the cursor
+     *  tracking how far into it we have allocated. */
+    struct CtrlBand
+    {
+        int firstRow = 0;
+        int rowCount = 0;
+        int nextCell = 0;   ///< Running index within the band, row-major
+    };
+
+    /** Everything the mapper knows about the patched controller: the grid (when
+     *  one was recognised), the per-role bands, and the leftover pools. */
+    struct CtrlSurface
+    {
+        CtrlSurfaceKind kind = CtrlSurfaceNone;
+
+        CtrlGrid grid;
+        CtrlBand bands[CtrlRoleCount];
+
+        /// Buttons that are NOT grid cells (Shift, Scene launch, arrows, …).
+        /// Used as overflow once a role's band is full.
+        QList<CtrlChannel> aux;
+        int nextAux = 0;
+
+        /// Buttons in plain creation order — CtrlSurfaceLinear only.
+        QList<CtrlChannel> buttons;
+        int nextButton = 0;
+
+        QList<CtrlChannel> faders;
+        int nextFader = 0;
+
+        int buttonTotal = 0;    ///< Mappable counts, for the step 5 preview
+        int faderTotal  = 0;
+    };
+
+    /** Inspect the profile patched on m_ctrlUniverse and decide how to lay the
+     *  VC out on it: recognise a pad grid from the channel names, split the
+     *  non-grid buttons into the aux pool, and reserve a row band per role.
+     *  With no profile, falls back to a synthetic linear layout so a bare
+     *  MIDI/OSC patch still gets a usable mapping. */
+    void buildControllerSurface(CtrlSurface &surface) const;
+
+    /** Parse $profile's button names into a normalised grid. Returns false when
+     *  no grid convention is recognised; $aux collects the buttons left over. */
+    static bool parseControllerGrid(const QLCInputProfile *profile,
+                                    CtrlGrid &grid, QList<CtrlChannel> &aux);
+
+    /** Reserve a band of rows per role, sized for the layout the VC generator
+     *  is about to build ($pageCount pages, $colorRows rows of swatches). */
+    static void assignControllerBands(CtrlSurface &surface, int pageCount,
+                                      int colorRows);
+
+    /** Take the next channel for $role. On a grid this walks the role's band
+     *  left-to-right / top-to-bottom and spills into the aux pool when full;
+     *  otherwise it just pops the linear button pool. Returns false when
+     *  everything is exhausted. */
+    bool nextRoleChannel(CtrlSurface &surface, CtrlRole role,
+                         quint32 &channel) const;
+
+    /** Take the next free fader channel. Returns false when exhausted. */
+    bool nextFaderChannel(CtrlSurface &surface, quint32 &channel) const;
 
     /** Attach a controller input source to $widget's control $controlID, and
      *  apply feedback / colour feedback when enabled. $color is the widget's

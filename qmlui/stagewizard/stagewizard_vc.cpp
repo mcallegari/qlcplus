@@ -131,31 +131,63 @@ void StageWizard::createVCLayout()
         generatePageSwitchScenes(bridgeFx, pageGroups, pageSceneIDs);
 
     // ── External controller mapping (step 5) ────────────────────────────────
-    // Channels are handed out in the order widgets are created below, so the
-    // controller's physical layout lines up with the VC layout: page tabs
-    // first, then per-page colours/effects, then the shared cue row.
-    CtrlPools ctrlPools;
+    // Widgets ask for a channel BY ROLE, not in creation order. On a controller
+    // whose profile describes a pad matrix (APC mini, Launchpad, APC40 …) each
+    // role owns a band of grid rows, so the VC's structure — tab row on top,
+    // colours, effects, cue row at the bottom — is reproduced on the pads. On
+    // anything else the roles collapse back to a plain in-order hand-out.
+    CtrlSurface ctrlSurface;
     const bool ctrlMap = m_ctrlMap && m_ctrlUniverse >= 0;
     if (ctrlMap)
     {
-        buildControllerPools(ctrlPools);
+        buildControllerSurface(ctrlSurface);
         ensureFeedbackPatch();
+
+        // Size the colour band from the BUSIEST page, so the effect row below it
+        // sits at the same height on every page. Sizing it per page would move
+        // the effects up and down as the user switches groups, which defeats the
+        // point of a fixed layout.
+        if (ctrlSurface.kind == CtrlSurfaceGrid)
+        {
+            int maxColors = 0;
+            auto countColors = [&](const FixtureGroupEntry &grp)
+            {
+                int n = 0;
+                for (quint32 id : m_generatedFunctionIDs)
+                {
+                    Function *f = m_doc->function(id);
+                    if (f && f->type() == Function::SceneType &&
+                        (f->path().contains(grp.name + "/" + tr("Colors")) ||
+                         f->path().contains(grp.name + "/" + tr("Color Wheel"))))
+                        n++;
+                }
+                maxColors = qMax(maxColors, n);
+            };
+            if (m_hasAllGroups)
+                countColors(m_allGroups);
+            for (const FixtureGroupEntry *grp : pageGroups)
+                countColors(*grp);
+
+            const int cols = qMax(1, ctrlSurface.grid.cols);
+            assignControllerBands(ctrlSurface, pageCount,
+                                  (maxColors + cols - 1) / cols);
+        }
     }
 
     // Hand a button/fader channel to $widget's control $controlID. No-ops when
     // mapping is off or the controller has run out of channels, so a small
     // controller simply maps as far as it reaches.
-    auto mapButton = [&](VCWidget *w, quint8 controlID,
+    auto mapButton = [&](VCWidget *w, CtrlRole role, quint8 controlID,
                          const QColor &color = QColor())
     {
         quint32 ch = 0;
-        if (ctrlMap && w && nextButtonChannel(ctrlPools, ch))
+        if (ctrlMap && w && nextRoleChannel(ctrlSurface, role, ch))
             mapWidgetControl(w, controlID, ch, color);
     };
     auto mapFader = [&](VCWidget *w, quint8 controlID)
     {
         quint32 ch = 0;
-        if (ctrlMap && w && nextFaderChannel(ctrlPools, ch))
+        if (ctrlMap && w && nextFaderChannel(ctrlSurface, ch))
             mapWidgetControl(w, controlID, ch);
     };
 
@@ -165,7 +197,13 @@ void StageWizard::createVCLayout()
     // remembers the channel picked for logical slot $slot on the first page and
     // replays it for the rest, so N pages don't consume N times the buttons.
     QHash<int, quint32> sharedButtons;
-    auto mapSharedButton = [&](VCWidget *w, int slot)
+
+    // How far the shared tab / cue rows have claimed into the overflow pools.
+    // Filled in once those rows are reserved (just before the page loop); the
+    // per-page reset in buildBody() rewinds to here, never past it.
+    int auxFloor    = 0;
+    int buttonFloor = 0;
+    auto mapSharedButton = [&](VCWidget *w, CtrlRole role, int slot)
     {
         if (!ctrlMap || !w)
             return;
@@ -178,7 +216,7 @@ void StageWizard::createVCLayout()
         }
 
         quint32 ch = 0;
-        if (!nextButtonChannel(ctrlPools, ch))
+        if (!nextRoleChannel(ctrlSurface, role, ch))
             return;
         sharedButtons.insert(slot, ch);
         mapWidgetControl(w, kBtnPressureID, ch);
@@ -295,7 +333,7 @@ void StageWizard::createVCLayout()
                     btn->setFunctionID(sceneID);
                     btn->setActionType(VCButton::Flash);
                 }
-                mapSharedButton(btn, kSlotTabBase + slot);
+                mapSharedButton(btn, CtrlRolePageTab, kSlotTabBase + slot);
             };
             addPageButton(tr("All Groups"),
                           pageSceneIDs.value(0, Function::invalidId()), 0);
@@ -328,7 +366,7 @@ void StageWizard::createVCLayout()
             btn->setFunctionID(funcID);
             if (flash)
                 btn->setActionType(VCButton::Flash);
-            mapSharedButton(btn, kSlotCueBase + slot);
+            mapSharedButton(btn, CtrlRoleShowCue, kSlotCueBase + slot);
         };
 
         addCue(tr("Blackout"),   findFunc("Blackout"),    false, 0);
@@ -346,6 +384,30 @@ void StageWizard::createVCLayout()
     auto buildBody = [&](int pageIdx, const FixtureGroupEntry &grp, int bodyTop) -> int
     {
         frame->setCurrentPage(pageIdx);
+
+        // Restart the per-page bands. Only one frame page is ever visible, and
+        // an input source only fires for the page it is tagged with, so every
+        // page may reuse the SAME pads: page 2's first colour belongs on the
+        // same pad as page 1's, directly under that page's tab. Letting the
+        // cursors run on across pages instead pushed each page's content further
+        // down the grid until it spilled into aux and then ran out — the VC
+        // layout, which is identical on every page, stopped matching the pads.
+        // The shared tab and cue rows are NOT reset: they are one physical row
+        // of buttons replicated on each page, allocated once via $sharedButtons.
+        ctrlSurface.bands[CtrlRoleColor].nextCell  = 0;
+        ctrlSurface.bands[CtrlRoleEffect].nextCell = 0;
+
+        // The overflow pools have to restart too, or a page whose colours spill
+        // out of their band would take different spill buttons than the next
+        // page — reintroducing the very drift the band reset removes. $auxFloor
+        // keeps the buttons already claimed by the shared tab/cue rows (they are
+        // allocated before the first page and must not be handed out again).
+        ctrlSurface.nextAux    = auxFloor;
+        ctrlSurface.nextButton = buttonFloor;
+
+        // Faders are per-page for the same reason: page N's Intensity should be
+        // fader 1, not fader N.
+        ctrlSurface.nextFader = 0;
 
         int btnW = kBtnW * pd;                  // square swatches
 
@@ -488,7 +550,7 @@ void StageWizard::createVCLayout()
 
                     // Pass the swatch colour so the controller's LED lights up in
                     // the same colour when the scene is active.
-                    mapButton(btn, kBtnPressureID, col);
+                    mapButton(btn, CtrlRoleColor, kBtnPressureID, col);
                 }
 
                 soloY += soloH + pad;
@@ -570,7 +632,7 @@ void StageWizard::createVCLayout()
                 // No colour: effect buttons keep the VC default background, so
                 // there is nothing meaningful to translate to an LED colour —
                 // the profile's own on/off feedback values are used instead.
-                mapButton(btn, kBtnPressureID);
+                mapButton(btn, CtrlRoleEffect, kBtnPressureID);
                 effX += txtW + pad;
                 effCount++;
                 row4Bottom = qMax(row4Bottom, effY + btnH);
@@ -641,6 +703,34 @@ void StageWizard::createVCLayout()
 
         return row4Bottom;   // bottom Y reached by this page's content
     };
+
+    // ── Reserve the shared rows before any page body ─────────────────────────
+    // The tab and cue rows are one physical row of buttons each, replicated on
+    // every page. Their channels must be claimed BEFORE the per-page content
+    // starts resetting its cursors, otherwise (in linear mode, where there are
+    // no bands to keep them apart) the cue row — which is built last, after
+    // every page — would be handed buttons the page bodies already took.
+    // Reserving here costs nothing in grid mode, where the bands already
+    // separate them.
+    if (ctrlMap)
+    {
+        for (int slot = 0; slot < pageCount; slot++)
+        {
+            quint32 ch = 0;
+            if (nextRoleChannel(ctrlSurface, CtrlRolePageTab, ch))
+                sharedButtons.insert(kSlotTabBase + slot, ch);
+        }
+        for (int slot = 0; slot < 6; slot++)   // the six show cues
+        {
+            quint32 ch = 0;
+            if (nextRoleChannel(ctrlSurface, CtrlRoleShowCue, ch))
+                sharedButtons.insert(kSlotCueBase + slot, ch);
+        }
+    }
+
+    // Everything claimed above is off-limits to the per-page reset below.
+    auxFloor    = ctrlSurface.nextAux;
+    buttonFloor = ctrlSurface.nextButton;
 
     // ── Build all pages, tracking the tallest so the frame fits everything ────
     int maxBodyBottom = 0;
