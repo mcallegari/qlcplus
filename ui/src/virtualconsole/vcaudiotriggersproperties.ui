@@ -103,7 +103,7 @@
             <number>5</number>
            </property>
            <property name="maximum">
-            <number>32</number>
+            <number>64</number>
            </property>
            <property name="value">
             <number>16</number>

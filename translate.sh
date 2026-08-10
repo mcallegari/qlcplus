@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Debian/Ubuntu Qt packages install lrelease under /usr/lib/qt6/bin (not always in PATH)
+for _qt_bin in /usr/lib/qt6/bin /usr/lib/qt5/bin; do
+  if [[ -d "$_qt_bin" ]]; then
+    PATH="${_qt_bin}:${PATH}"
+  fi
+done
+unset _qt_bin
+
 # Usage:
 #   ./translate.sh update
 #   ./translate.sh release [qmlui|ui]
