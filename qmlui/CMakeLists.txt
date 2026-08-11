@@ -85,6 +85,7 @@ set(SRC_FILES
     stagewizard/stagewizard.cpp stagewizard/stagewizard.h
     stagewizard/stagewizard_placement.cpp
     stagewizard/stagewizard_functions.cpp
+    stagewizard/stagewizard_colors.cpp
     stagewizard/stagewizard_vc.cpp
     stagewizard/stagewizard_controller.cpp
 )

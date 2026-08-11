@@ -75,6 +75,9 @@ static const quint8 kXYPadTiltID    = 2;   // VCXYPad   – Tilt / vertical
 // replica of a given tab / cue reuses the same controller button.
 static const int kSlotTabBase = 0;
 static const int kSlotCueBase = 1000;
+// Blackout lives in the top-right corner rather than the cue row, but it is
+// still one of the shared buttons, so it takes a slot of its own past the cues.
+static const int kSlotBlackout = 100;
 
 // Layout metrics — pixelDensity units, matching the VC default drop sizes.
 static const int kBtnW  = 17;   // all buttons: VC default square (pd * 17)
@@ -82,6 +85,10 @@ static const int kBtnH  = 17;
 static const int kSlW   = 15;   // slider width (VC default)
 static const int kHeaderH = 8;  // frame title-bar height (~listItemHeight in pd)
 static const int kFrmPad = 4;
+// Width the VC's right-hand editing panel takes off the visible page area,
+// mirroring UISettings.sidePanelWidth (screenPixelDensity * scalingFactor * 50)
+// plus a little for the page's vertical scroll bar.
+static const int kSidePanelW = 54;
 
 // ── Virtual Console layout ────────────────────────────────────────────────────
 
@@ -265,17 +272,70 @@ void StageWizard::createVCLayout()
     // Every button is the VC default square size (pixelDensity * 17).
     const int txtW = kBtnW * pd;
 
-    // ── Frame width = exactly what the widest content row needs ───────────────
-    // (No arbitrary minimum — that was making the frame too wide.) Content that
-    // still doesn't fit wraps to a new row so nothing is ever cut.
+    // ── Frame width ──────────────────────────────────────────────────────────
+    // Start from what the widest fixed row needs, then CLAMP to the page canvas
+    // so the frame is always fully on screen. A VC page is a fixed-size canvas
+    // (VCPage::resetProperties sets 1920x1080) that the view scales to fit the
+    // window, so "fits on screen" means "fits the page", not the pixel size of
+    // whatever display this happens to be running on.
     int xyPadW = btnH * 3 + pad * 2;                            // square XY pad
     int tabsW = pad + pageCount * (txtW + pad);                 // row 1: page tabs
-    // fader + a solo frame holding 8 swatches (frame adds pad on each side)
-    int row2W = pad + kSlW * pd + pad + pad * 2 + 8 * (kBtnW * pd + pad);
-    int row4W = pad + xyPadW + pad + 4 * (txtW + pad);          // XY pad + 4 effects
-    int cueW  = pad + 6 * (txtW + pad);                         // 6 show cues
+    // Row 2 wants the fader plus the three swatch strips SIDE BY SIDE. Measure
+    // what they actually come to on the busiest page — asking for a fixed three
+    // strips of 8 made the frame wider than any page needed, which is what left
+    // an empty band down the right-hand side. Each strip is laid out as a
+    // roughly 2:1 block (see buildSwatchSolo), so its width follows from its
+    // scene count; the clamp below caps the total, and buildSwatchSolo() then
+    // reflows to whatever width it really got.
+    auto stripWidthFor = [&](int count) -> int
+    {
+        if (count <= 0)
+            return 0;
+        int cols = qMax(1, int(qCeil(qSqrt(qreal(count) * 2.0))));
+        cols = qMin(cols, count);
+        // Mirrors buildSwatchSolo(): soloW = cols*btnW + (cols-1)*pad + pad*2,
+        // then the cursor advances by soloW + pad for the next strip.
+        return cols * (kBtnW * pd) + (cols - 1) * pad + pad * 2 + pad;
+    };
 
-    int frmW = qMax(qMax(tabsW, row2W), qMax(row4W, cueW)) + pad;
+    int widestStrips = 0;
+    auto measureStrips = [&](const FixtureGroupEntry &grp)
+    {
+        int colors = 0, wheel = 0, gobos = 0;
+        for (quint32 id : m_generatedFunctionIDs)
+        {
+            Function *f = m_doc->function(id);
+            if (!f || f->type() != Function::SceneType)
+                continue;
+            if (f->path().contains(grp.name + "/" + tr("Colors")))            colors++;
+            else if (f->path().contains(grp.name + "/" + tr("Color Wheel")))  wheel++;
+            else if (f->path().contains(grp.name + "/" + tr("Gobos")))        gobos++;
+        }
+        widestStrips = qMax(widestStrips, stripWidthFor(colors) +
+                                          stripWidthFor(wheel) +
+                                          stripWidthFor(gobos));
+    };
+    if (m_hasAllGroups)
+        measureStrips(m_allGroups);
+    for (const FixtureGroupEntry *grp : pageGroups)
+        measureStrips(*grp);
+
+    int row2W = pad + kSlW * pd + pad + widestStrips;
+    int row3W = pad + xyPadW + pad + 4 * (txtW + pad);          // XY pad + 4 effects
+    int cueW  = pad + 3 * (txtW + pad);                         // 3 show cues
+
+    // The frame sits at (pad, pad), so it can be at most the page width less
+    // one pad on each side — minus the VC's right-hand editing panel, which
+    // overlays the page area (VirtualConsole.qml sizes centerView as
+    // parent.width - rightSidePanel.width). Reserving its EXPANDED width
+    // (UISettings.sidePanelWidth = pd * 50) means the frame stays fully visible
+    // with the panel open, which is exactly when the user is looking at the
+    // layout the wizard just built. A scroll bar takes another few units.
+    const int sidePanelW = kSidePanelW * pd;
+    const int pageW = int(page->geometry().width());
+    const int maxFrameW = qMax(txtW * 4, pageW - sidePanelW - pad * 2);
+
+    int frmW = qMin(qMax(qMax(tabsW, row2W), qMax(row3W, cueW)) + pad, maxFrameW);
 
     // The usable content width (inside the left/right frame padding).
     const int usableRight = frmW - pad;
@@ -287,13 +347,13 @@ void StageWizard::createVCLayout()
     quint32 blinderFlashID = findFunc("Blinder Flash");
 
     // A wrapping row cursor: places a widget of ($w x $h) at the current spot,
-    // wrapping to the next row when it would cross the frame's right edge, so
-    // every widget stays fully inside the frame. Returns the placement point.
+    // wrapping to the next row when it would cross $limit, so every widget
+    // stays fully inside the frame. Returns the placement point.
     struct Cursor { int x; int y; int rowH; };
 
-    auto place = [&](Cursor &c, int w, int h) -> QPoint
+    auto place = [&](Cursor &c, int w, int h, int limit) -> QPoint
     {
-        if (c.x > pad && c.x + w > usableRight)  // doesn't fit → next row
+        if (c.x > pad && c.x + w > limit)  // doesn't fit → next row
         {
             c.x = pad;
             c.y += c.rowH + pad;
@@ -304,6 +364,10 @@ void StageWizard::createVCLayout()
         c.rowH = qMax(c.rowH, h);
         return p;
     };
+
+    // The tab row stops short of the Blackout button parked in the corner, so a
+    // row that wraps never runs underneath it.
+    const int tabRowRight = usableRight - txtW - pad;
 
     // The qmlui multipage frame shows only the widgets whose page == current
     // page; there is no "all pages" flag. So the page-switch row and the
@@ -322,7 +386,7 @@ void StageWizard::createVCLayout()
             auto addPageButton = [&](const QString &caption, quint32 sceneID,
                                      int slot)
             {
-                QPoint p = place(c, txtW, btnH);
+                QPoint p = place(c, txtW, btnH, tabRowRight);
                 VCButton *btn = qobject_cast<VCButton *>(
                     frame->addWidget(nullptr, "Button", p));
                 if (!btn) return;
@@ -343,6 +407,25 @@ void StageWizard::createVCLayout()
                               i + 1);
         }
         topOut = c.y + c.rowH + pad;   // Y below the (possibly wrapped) tab row
+
+        // ── Blackout, pinned to the top-right corner ─────────────────────────
+        // A Blackout-action button drives the engine's blackout directly, so it
+        // needs no scene behind it — and unlike a scene it kills EVERYTHING,
+        // which is what you want from the panic button. Parked in the corner,
+        // clear of the tab row, so it is always in the same place and never
+        // gets hit by accident while switching pages.
+        {
+            const int bx = usableRight - txtW;
+            VCButton *btn = qobject_cast<VCButton *>(
+                frame->addWidget(nullptr, "Button", QPoint(bx, contentTop)));
+            if (btn)
+            {
+                btn->setCaption(tr("Blackout"));
+                btn->setGeometry(QRectF(bx, contentTop, txtW, btnH));
+                btn->setActionType(VCButton::Blackout);
+                mapSharedButton(btn, CtrlRoleShowCue, kSlotCueBase + kSlotBlackout);
+            }
+        }
     };
 
     auto buildSharedCueRow = [&](int pageIdx, int cueY)
@@ -357,7 +440,7 @@ void StageWizard::createVCLayout()
         {
             if (funcID == Function::invalidId())
                 return;
-            QPoint p = place(c, txtW, btnH);
+            QPoint p = place(c, txtW, btnH, usableRight);
             VCButton *btn = qobject_cast<VCButton *>(
                 frame->addWidget(nullptr, "Button", p));
             if (!btn) return;
@@ -369,18 +452,22 @@ void StageWizard::createVCLayout()
             mapSharedButton(btn, CtrlRoleShowCue, kSlotCueBase + slot);
         };
 
-        addCue(tr("Blackout"),   findFunc("Blackout"),    false, 0);
-        addCue(tr("Show Open"),  findFunc("Show Open"),    false, 1);
-        addCue(tr("Big Moment"), findFunc("Big Moment"),   false, 2);
-        addCue(tr("Show Close"), findFunc("Show Close"),   false, 3);
-        addCue(tr("Ambient"),    findFunc("Ambient Loop"), false, 4);
-        addCue(tr("Blinder"),    blinderFlashID,           true,  5);
+        // Blackout is NOT here — it sits in the top-right corner, built by
+        // buildSharedTopRow() as a Blackout-action button with no function.
+        addCue(tr("Ambient"), findFunc("Ambient Loop"), false, 0);
+        addCue(tr("Blinder"), blinderFlashID,           true,  1);
     };
 
     // ── Group page body ──────────────────────────────────────────────────────
-    // Row 2 = dimmer fader (2 rows tall) + colour buttons (max 8/row); row 4 =
-    // XY pad (2 rows tall) + effect/blinder buttons (max 4/row). $bodyTop is the
-    // Y just below the shared top row. Returns the bottom Y reached.
+    // The page layout is fixed, so the same control is always in the same place
+    // whichever group is showing:
+    //   row 2 — Intensity fader (spans the row), then the swatch strips flowing
+    //           left to right — colours, colour wheel, gobos (the gobo strip
+    //           exists only on pages whose fixtures declare gobo macros) — and
+    //           below them the shutter buttons (Open / Strobe Slow / Strobe
+    //           Fast, + Lamp On when the fixtures can strike a lamp)
+    //   row 3 — XY pad (spans the row) + Fly Out / Fly In / Centre / Circle
+    // $bodyTop is the Y just below the shared top row. Returns the bottom Y.
     auto buildBody = [&](int pageIdx, const FixtureGroupEntry &grp, int bodyTop) -> int
     {
         frame->setCurrentPage(pageIdx);
@@ -411,14 +498,20 @@ void StageWizard::createVCLayout()
 
         int btnW = kBtnW * pd;                  // square swatches
 
-        // ── Row 2: dimmer slider (2 rows tall) + colour buttons (max 8/row) ──
-        // The slider spans two button rows; colour buttons form a grid to its
-        // right, wrapping at 8 per row.
+        // ── Row 2: dimmer slider + colour swatches + shutter buttons ─────────
+        // The slider spans the whole row; colours and shutter controls stack to
+        // its right, each in its own strip.
         int row2Bottom = bodyTop;               // grows as content is placed
+        int colStartX  = pad;                   // content left edge, past the fader
+        int soloY      = bodyTop;               // top of the next strip in the row
         {
-            int slH = btnH * 2 + pad * 3;       // fader spans ~2 button rows (taller)
+            // Provisional height; the fader is stretched to the row's real
+            // height once the strips beside it have been placed, so it always
+            // spans the row exactly however many lines they end up taking.
+            int slH = btnH * 2 + pad;
+            int slW = 0;
+            VCSlider *rowSlider = nullptr;
 
-            int colStartX = pad;                // colour grid left edge
             if (grp.hasDimmer || grp.hasRGB || grp.hasCMY)
             {
                 int w = kSlW * pd;
@@ -426,6 +519,8 @@ void StageWizard::createVCLayout()
                     frame->addWidget(nullptr, "Slider", QPoint(pad, bodyTop)));
                 if (slider)
                 {
+                    rowSlider = slider;
+                    slW = w;
                     slider->setCaption(tr("Intensity"));
                     slider->setGeometry(QRectF(pad, bodyTop, w, slH));
                     slider->setSliderMode(VCSlider::Level);
@@ -443,30 +538,47 @@ void StageWizard::createVCLayout()
                     }
                     colStartX = pad + w + pad;  // colours start right of the fader
                     mapFader(slider, kSliderLevelID);
+                    row2Bottom = bodyTop + slH;
                 }
             }
-            row2Bottom = bodyTop + slH;
 
-            // ── Colour buttons, in solo frames ───────────────────────────────
-            // Colours are mutually exclusive, so they live in a VCSoloFrame:
-            // activating one scene releases the others. The header is hidden —
-            // these are inline swatch strips, not user-managed containers — so
-            // children start at y=0 inside the frame (the header is visible:
-            // toggled in VCFrameItem.qml, it does not reserve space when off).
+            // ── Swatch strips, in solo frames ────────────────────────────────
+            // Each kind is mutually exclusive within itself, so it lives in a
+            // VCSoloFrame: activating one scene releases the others. The header
+            // is hidden — these are inline swatch strips, not user-managed
+            // containers — so children start at y=0 inside the frame (the header
+            // is visible: toggled in VCFrameItem.qml, it does not reserve space
+            // when off).
             //
-            // Two SEPARATE solo frames, because the two kinds are not mutually
+            // SEPARATE solo frames per kind, because the kinds are not mutually
             // exclusive with each other: the palette colours drive RGB/CMY
-            // mixing, while the wheel colours are raw values on a colour wheel.
-            // A spot with both can legitimately hold a wheel position AND an RGB
-            // wash; putting them in one solo frame would make each cancel the
-            // other. Within each kind, exclusivity is what you want.
-            const int perRow = 8;
-            int soloY = bodyTop;
+            // mixing, the wheel colours are raw values on a colour wheel, and
+            // the gobos are a different wheel again. A spot can legitimately
+            // hold a wheel position AND an RGB wash AND a gobo; one shared solo
+            // frame would make each cancel the others.
+            //
+            // The strips flow LEFT TO RIGHT across the row and only drop to a
+            // new line when the next one would not fit — gobos sit beside the
+            // colours rather than under them, which is what was making the page
+            // so tall. $soloX/$soloY is the cursor, $lineH the tallest strip on
+            // the current line.
+            //
+            // $shutterY / $shutterRight track where the shutter buttons may go:
+            // directly under the COLOUR strips, not under the tallest strip on
+            // the line. A tall gobo block beside a short colour block would
+            // otherwise push the shutter row all the way down past it, leaving
+            // a large hole under the colours.
+            int soloX = colStartX;
+            int lineH = 0;
+            int shutterY = soloY;
+            int shutterRight = usableRight;
 
-            // Build one headerless solo frame holding every scene under $subPath.
-            // Returns the bottom Y reached, or $soloY untouched when no scene
-            // matched (no empty frame is left behind).
-            auto buildColorSolo = [&](const QString &subPath, const QString &caption) -> void
+            // Build one headerless solo frame holding every scene under
+            // $subPath. Does nothing when no scene matched, so no empty frame is
+            // left behind. $gobo switches the buttons to gobo styling: white
+            // background with the GoboMacro picture on it.
+            auto buildSwatchSolo = [&](const QString &subPath, const QString &caption,
+                                       CtrlRole role, bool gobo) -> void
             {
                 // Collect first: an empty solo frame must not be created at all.
                 QList<quint32> ids;
@@ -481,11 +593,29 @@ void StageWizard::createVCLayout()
                 if (ids.isEmpty())
                     return;
 
-                // Lay the swatches out first (relative to the frame's origin) so
-                // the frame can be sized to exactly fit them.
-                const int availW = qMax(btnW, usableRight - colStartX);
-                const int maxCols = qMax(1, qMin(perRow, (availW + pad) / (btnW + pad)));
-                const int cols = qMin(maxCols, ids.count());
+                // How many swatches fit on one line of THIS strip, given what is
+                // left of the row.
+                auto fitsFrom = [&](int fromX)
+                {
+                    int availW = usableRight - fromX - pad * 2;  // frame padding
+                    return (availW + pad) / (btnW + pad);
+                };
+
+                // Prefer a roughly square block over one long line: 15 colours
+                // become 8x2, not 15x1. A single stretched-out row is both
+                // harder to scan and eats the width the NEXT strip needs, which
+                // is what was leaving a gap at the right-hand end of the row.
+                const int wanted = qMax(1, int(qCeil(qSqrt(qreal(ids.count()) * 2.0))));
+
+                if (soloX > colStartX && fitsFrom(soloX) < qMin(4, ids.count()))
+                {
+                    soloX  = colStartX;               // next line
+                    soloY += lineH + pad;
+                    lineH  = 0;
+                }
+
+                const int cols = qBound(1, qMin(fitsFrom(soloX), wanted),
+                                        ids.count());
                 const int rows = (ids.count() + cols - 1) / cols;
                 const int soloW = cols * btnW + (cols - 1) * pad + pad * 2;
                 const int soloH = rows * btnH + (rows - 1) * pad + pad * 2;
@@ -495,13 +625,13 @@ void StageWizard::createVCLayout()
                 // translated DISPLAY string ("Solo Frame"), which does NOT round
                 // trip and silently yields UnknownWidget -> addWidget() == null.
                 VCFrame *solo = qobject_cast<VCFrame *>(
-                    frame->addWidget(nullptr, "Solo frame", QPoint(colStartX, soloY)));
+                    frame->addWidget(nullptr, "Solo frame", QPoint(soloX, soloY)));
                 if (!solo)
                     return;
 
                 solo->setCaption(caption);
                 solo->setShowHeader(false);
-                solo->setGeometry(QRectF(colStartX, soloY, soloW, soloH));
+                solo->setGeometry(QRectF(soloX, soloY, soloW, soloH));
 
                 // No setPage() needed: buildBody() already did
                 // frame->setCurrentPage(pageIdx), and VCFrame::addWidget() stamps
@@ -541,44 +671,138 @@ void StageWizard::createVCLayout()
                     btn->setFunctionID(ids.at(i));
                     btn->setActionType(VCButton::Toggle);
 
-                    QColor col = sceneColor(ids.at(i));
-                    if (col.isValid())
+                    QColor col;
+                    if (gobo)
                     {
-                        btn->setBackgroundColor(col);
-                        btn->setForegroundColor(contrastingTextColor(col));
+                        // Gobo pictures are dark line art on transparency, so
+                        // they need a white ground to read at all.
+                        btn->setBackgroundColor(Qt::white);
+                        btn->setForegroundColor(Qt::black);
+
+                        QString pic = goboPicture(ids.at(i));
+                        if (!pic.isEmpty())
+                        {
+                            btn->setBackgroundImage(pic);
+                            // The picture IS the label; the capability name on
+                            // top of it would just obscure the pattern.
+                            btn->setCaption(QString());
+                        }
+                    }
+                    else
+                    {
+                        col = sceneColor(ids.at(i));
+                        if (col.isValid())
+                        {
+                            btn->setBackgroundColor(col);
+                            btn->setForegroundColor(contrastingTextColor(col));
+                        }
                     }
 
                     // Pass the swatch colour so the controller's LED lights up in
                     // the same colour when the scene is active.
-                    mapButton(btn, CtrlRoleColor, kBtnPressureID, col);
+                    mapButton(btn, role, kBtnPressureID, col);
                 }
 
-                soloY += soloH + pad;
-                row2Bottom = qMax(row2Bottom, soloY - pad);
+                // The shutter row goes under the colour strips and to the LEFT
+                // of anything taller sitting beside them (the gobo block).
+                // Colours push the row down and widen how far it may run; a
+                // gobo strip ON THE SAME LINE caps it at its own left edge so
+                // the two never overlap. A gobo strip that wrapped to its own
+                // line sits below everything and imposes no such limit.
+                if (gobo && soloX > colStartX)
+                    shutterRight = qMin(shutterRight, soloX - pad);  // beside
+                else
+                    shutterY = qMax(shutterY, soloY + soloH + pad);  // above
+
+                soloX += soloW + pad;
+                lineH  = qMax(lineH, soloH);
+                row2Bottom = qMax(row2Bottom, soloY + soloH);
             };
 
-            // Generic RGB/CMY palette colours, then this group's colour wheel.
-            buildColorSolo(tr("Colors"), tr("Colors"));
-            buildColorSolo(tr("Color Wheel"), tr("Color Wheel"));
+            // Generic RGB/CMY palette colours, this group's colour wheel, then
+            // its gobos — all on the same line while there is room for them.
+            buildSwatchSolo(tr("Colors"), tr("Colors"), CtrlRoleColor, false);
+            buildSwatchSolo(tr("Color Wheel"), tr("Color Wheel"), CtrlRoleColor, false);
+            buildSwatchSolo(tr("Gobos"), tr("Gobos"), CtrlRoleEffect, true);
+
+            // The shutter buttons tuck in directly under the colour swatches,
+            // beside whatever taller strip shares the line with them.
+            soloX = colStartX;
+            soloY = shutterY;
+
+            // ── Shutter strip: Open / Strobe Slow / Strobe Fast (+ Lamp On) ──
+            // Matched on the FULL scene name, not a suffix: a suffix match would
+            // also hit another group's scene whose name happens to contain this
+            // group's name (e.g. "Spots" inside "Back Spots").
+            auto addShutterBtn = [&](const QString &target, const QString &caption)
+            {
+                for (quint32 id : m_generatedFunctionIDs)
+                {
+                    Function *f = m_doc->function(id);
+                    if (!f || f->type() != Function::SceneType || f->name() != target)
+                        continue;
+
+                    // Wrap rather than run under the strip on the right.
+                    if (soloX > colStartX && soloX + btnW > shutterRight)
+                    {
+                        soloX  = colStartX;
+                        soloY += btnH + pad;
+                    }
+                    VCButton *btn = qobject_cast<VCButton *>(
+                        frame->addWidget(nullptr, "Button", QPoint(soloX, soloY)));
+                    if (!btn)
+                        return;
+                    btn->setCaption(caption);
+                    btn->setGeometry(QRectF(soloX, soloY, btnW, btnH));
+                    btn->setFunctionID(id);
+                    btn->setActionType(VCButton::Toggle);
+                    mapButton(btn, CtrlRoleEffect, kBtnPressureID);
+                    soloX += btnW + pad;
+                    row2Bottom = qMax(row2Bottom, soloY + btnH);
+                    return;
+                }
+            };
+
+            if (grp.hasShutter)
+            {
+                // $target is built from the SAME translatable strings
+                // generateGroupPalettes() used — a "%1 – %2" template plus a
+                // separate label would diverge in a translated build and the
+                // buttons would silently disappear.
+                addShutterBtn(tr("%1 – Shutter Open").arg(grp.name), tr("Open"));
+                addShutterBtn(tr("%1 – Strobe Slow").arg(grp.name), tr("Strobe Slow"));
+                addShutterBtn(tr("%1 – Strobe Fast").arg(grp.name), tr("Strobe Fast"));
+            }
+            // Only groups whose fixtures declare a LampOn capability got a
+            // "Lamp On" scene, so this button appears on those pages only.
+            addShutterBtn(tr("%1 – Lamp On").arg(grp.name), tr("Lamp On"));
+
+            // Stretch the fader to whatever height the row actually came to.
+            if (rowSlider)
+            {
+                slH = qMax(slH, row2Bottom - bodyTop);
+                rowSlider->setGeometry(QRectF(pad, bodyTop, slW, slH));
+                row2Bottom = qMax(row2Bottom, bodyTop + slH);
+            }
         }
 
-        // ── Row 4: XY pad (3 rows tall) + effect/blinder buttons (max 4/row) ──
-        int row4Top = row2Bottom + pad;
-        int row4Bottom = row4Top;
+        // ── Row 3: XY pad + effect buttons ───────────────────────────────────
+        int row3Top = row2Bottom + pad;
+        int row3Bottom = row3Top;
 
         // XY Pad (moving heads only) — leads the row, spanning three button rows
-        // so it's large enough to be usable (roughly square).
+        // so it's large enough to be usable (square).
         int effStartX = pad;
         if (grp.hasMovement)
         {
             int h = btnH * 3 + pad * 2;   // three button rows tall
             int w = h;                    // square pad
             VCXYPad *xy = qobject_cast<VCXYPad *>(
-                frame->addWidget(nullptr, "XYPad", QPoint(pad, row4Top)));
+                frame->addWidget(nullptr, "XYPad", QPoint(pad, row3Top)));
             if (xy)
             {
                 xy->setCaption(tr("Position"));
-                xy->setGeometry(QRectF(pad, row4Top, w, h));
+                xy->setGeometry(QRectF(pad, row3Top, w, h));
                 // addHead() is what actually puts a head under the pad's control
                 // (appends to m_fixtures + computes its pan/tilt range).
                 // addFixtureGroupHeadPreset() only creates a preset BUTTON for
@@ -599,7 +823,7 @@ void StageWizard::createVCLayout()
                         xy->addHead(static_cast<int>(fxID), h2);
                 }
                 effStartX = pad + w + pad;   // effects start right of the XY pad
-                row4Bottom = qMax(row4Bottom, row4Top + h);
+                row3Bottom = qMax(row3Bottom, row3Top + h);
 
                 // Two faders/encoders drive the pad's two axes.
                 mapFader(xy, kXYPadPanID);
@@ -609,7 +833,7 @@ void StageWizard::createVCLayout()
 
         // Effect + blinder buttons: fixed size, max 4 per row, beside the XY pad.
         const int effPerRow = 4;
-        int effCount = 0, effX = effStartX, effY = row4Top;
+        int effCount = 0, effX = effStartX, effY = row3Top;
 
         auto addEffectBtn = [&](const QString &caption, quint32 id,
                                 VCButton::ButtonAction action)
@@ -635,73 +859,46 @@ void StageWizard::createVCLayout()
                 mapButton(btn, CtrlRoleEffect, kBtnPressureID);
                 effX += txtW + pad;
                 effCount++;
-                row4Bottom = qMax(row4Bottom, effY + btnH);
+                row3Bottom = qMax(row3Bottom, effY + btnH);
             }
         };
 
-        auto addEffect = [&](const QString &suffix)
+        // Match on the FULL function name rather than a suffix: a suffix match
+        // would also hit another group's function whose name happens to contain
+        // this group's name (e.g. "Spots" inside "Back Spots").
+        auto addEffect = [&](const QString &target, const QString &caption)
         {
             for (quint32 id : m_generatedFunctionIDs)
             {
                 Function *f = m_doc->function(id);
-                if (f && f->name().contains(grp.name) && f->name().endsWith(suffix))
+                if (f && f->name() == target)
                 {
-                    addEffectBtn(suffix, id, VCButton::Toggle);
+                    addEffectBtn(caption, id, VCButton::Toggle);
                     return;
                 }
             }
         };
 
-        // Shutter Open / Closed. These match on the FULL scene name built by
-        // generateGroupPalettes() rather than a suffix, because a suffix match
-        // against "Shutter Open" would also hit another group's scene whose name
-        // happens to contain this group's name (e.g. "Spots" inside "Back Spots").
-        if (grp.hasShutter)
-        {
-            // $target must be built from the SAME translatable string
-            // generateGroupPalettes() used, not from a "%1 – %2" template plus a
-            // separate label, or the two would diverge in a translated build and
-            // the buttons would silently disappear.
-            auto addShutter = [&](const QString &target, const QString &caption)
-            {
-                for (quint32 id : m_generatedFunctionIDs)
-                {
-                    Function *f = m_doc->function(id);
-                    if (f && f->type() == Function::SceneType && f->name() == target)
-                    {
-                        addEffectBtn(caption, id, VCButton::Toggle);
-                        return;
-                    }
-                }
-            };
-            addShutter(tr("%1 – Shutter Open").arg(grp.name), tr("Shutter Open"));
-            addShutter(tr("%1 – Shutter Closed").arg(grp.name), tr("Shutter Closed"));
-        }
-
+        // The four movement controls that go beside the pad. "Circle" is the
+        // Collection generateMovementEffect() built (base Centre position + the
+        // 10 s relative circle EFX riding on it), not the bare EFX — running the
+        // EFX alone would spin around wherever the heads happen to point.
         if (grp.hasMovement)
         {
-            addEffect(tr("Fly Out"));
-            addEffect(tr("Fly In"));
-            addEffect(tr("Circle Chase"));
-            addEffect(tr("Figure Eight"));
-            addEffect(tr("Audience Sweep"));
-        }
-        addEffect(tr("Strobe Chase"));
-        addEffect(tr("Heartbeat"));
-
-        // Blinder Toggle + Flash pair
-        for (quint32 id : m_generatedFunctionIDs)
-        {
-            Function *f = m_doc->function(id);
-            if (!f || !f->name().contains(grp.name) ||
-                !f->name().endsWith(tr("Blinder Hit")))
-                continue;
-            addEffectBtn(tr("Blinder"),       id, VCButton::Toggle);
-            addEffectBtn(tr("Blinder Flash"), id, VCButton::Flash);
-            break;
+            // Each target is rebuilt from the SAME translatable template the
+            // generator used, so the two can't drift apart in a translated
+            // build and leave the button silently missing.
+            addEffect(tr("%1 – %2").arg(grp.name).arg(tr("Fly Out")),
+                      tr("Fly Out"));
+            addEffect(tr("%1 – %2").arg(grp.name).arg(tr("Fly In")),
+                      tr("Fly In"));
+            addEffect(tr("%1 – Position %2").arg(grp.name).arg(tr("Centre")),
+                      tr("Centre"));
+            addEffect(tr("%1 – %2").arg(grp.name).arg(tr("Circle Chase")),
+                      tr("Circle"));
         }
 
-        return row4Bottom;   // bottom Y reached by this page's content
+        return row3Bottom;   // bottom Y reached by this page's content
     };
 
     // ── Reserve the shared rows before any page body ─────────────────────────
@@ -720,11 +917,18 @@ void StageWizard::createVCLayout()
             if (nextRoleChannel(ctrlSurface, CtrlRolePageTab, ch))
                 sharedButtons.insert(kSlotTabBase + slot, ch);
         }
-        for (int slot = 0; slot < 6; slot++)   // the six show cues
+        for (int slot = 0; slot < 2; slot++)   // Ambient, Blinder
         {
             quint32 ch = 0;
             if (nextRoleChannel(ctrlSurface, CtrlRoleShowCue, ch))
                 sharedButtons.insert(kSlotCueBase + slot, ch);
+        }
+        // Blackout: same role, but it lives in the top-right corner instead of
+        // the cue row, so it gets its own slot rather than a cue index.
+        {
+            quint32 ch = 0;
+            if (nextRoleChannel(ctrlSurface, CtrlRoleShowCue, ch))
+                sharedButtons.insert(kSlotCueBase + kSlotBlackout, ch);
         }
     }
 
@@ -843,6 +1047,34 @@ QColor StageWizard::sceneColor(quint32 sceneID) const
     }
 
     return any ? QColor(r, g, b) : QColor();
+}
+
+QString StageWizard::goboPicture(quint32 sceneID) const
+{
+    Scene *s = qobject_cast<Scene *>(m_doc->function(sceneID));
+    if (!s) return QString();
+
+    // A gobo scene sets one value on a Gobo-group channel; resolve the
+    // capability that value falls in and take its picture. The resource is
+    // already an absolute path — QLCCapability::loadXML() expands the relative
+    // form against the system gobo directory when the definition is read.
+    for (const SceneValue &sv : s->values())
+    {
+        Fixture *fx = m_doc->fixture(sv.fxi);
+        if (!fx) continue;
+        const QLCChannel *c = fx->channel(sv.channel);
+        if (!c || c->group() != QLCChannel::Gobo) continue;
+
+        const QLCCapability *cap = c->searchCapability(sv.value);
+        if (cap && cap->preset() == QLCCapability::GoboMacro)
+        {
+            QString path = cap->resource(0).toString();
+            if (!path.isEmpty())
+                return path;
+        }
+    }
+
+    return QString();
 }
 
 QColor StageWizard::contrastingTextColor(const QColor &background)

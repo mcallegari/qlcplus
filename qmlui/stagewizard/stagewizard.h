@@ -132,9 +132,6 @@ public:
         EffectFireworks     = 1 << 16,
         EffectPlasma        = 1 << 17,
         EffectMarquee       = 1 << 18,
-        EffectShowOpen      = 1 << 19,
-        EffectShowClose     = 1 << 20,
-        EffectBigMoment     = 1 << 21,
         EffectAmbientLoop   = 1 << 22
     };
     Q_ENUM(EffectFlag)
@@ -316,6 +313,12 @@ private:
         bool        hasGobo;
         bool        hasShutter;
         bool        hasDimmer;
+        /** True only for the synthetic "All Groups" aggregate. It spans every
+         *  selected fixture, so anything whose DMX values are read off a single
+         *  sample fixture (gobo wheel, colour wheel) would be wrong for every
+         *  OTHER model in it and is skipped; palette-driven scenes, which each
+         *  fixture resolves for itself, are still fine. */
+        bool        isAggregate = false;
     };
 
     struct EffectEntry
@@ -340,6 +343,7 @@ private:
 private slots:
     void slotFixtureAdded(quint32 fixtureID);
 
+private:
     // Step 3 – placement
 
     /** Size (mm) the 3D view will actually DRAW $fixtureID at — not the declared
@@ -373,6 +377,9 @@ private slots:
     void createFixtureGroups();         ///< Persist selected boxes as Doc FixtureGroups
     void generateColorPalette(const FixtureGroupEntry &grp, const QString &prefix);
     void generateGoboPalette(const FixtureGroupEntry &grp, const QString &prefix);
+    /** Lamp-strike scene for groups whose fixtures declare a LampOn capability.
+     *  Filed with the shutter scenes; no scene (and so no button) otherwise. */
+    void generateLampOnScene(const FixtureGroupEntry &grp, const QString &prefix);
     void generateShutterEffects(const FixtureGroupEntry &grp, const QString &prefix);
     void generatePositionPresets(const FixtureGroupEntry &grp, const QString &prefix);
 
@@ -397,14 +404,55 @@ private slots:
     /** Show-level scene: all blinder-role fixtures at full, 300 ms fade-out, for
      *  a momentary Flash button. Returns nullptr when there are no blinders. */
     Scene  *generateBlinderFlash();
-    Chaser *generateShowOpen();
-    Chaser *generateShowClose();
-    Chaser *generateBigMoment();
     Chaser *generateAmbientLoop();
+
+    // ── Colour-wheel matching ───────────────────────────────────────────────
+    /** One selectable colour on one fixture's colour wheel. */
+    struct WheelColor
+    {
+        quint32 fixtureID = 0;
+        quint32 channel   = 0;   ///< The wheel's channel on that fixture
+        uchar   value     = 0;   ///< DMX value that selects this slot
+        QString name;            ///< Capability name, e.g. "Dark blue"
+        QColor  color;           ///< The capability's Res1 resource colour
+    };
+
+    /** A colour found on EVERY wheel that was compared, with the per-fixture
+     *  slot that produces it. $label is the clearest of the members' names. */
+    struct CommonWheelColor
+    {
+        QString label;
+        QColor  color;                  ///< Representative colour (canonical if named)
+        QList<WheelColor> members;      ///< One entry per contributing fixture
+    };
+
+    /** Every ColorMacro slot on $fixture's first colour wheel. */
+    QList<WheelColor> wheelColorsOf(quint32 fixtureID) const;
+
+    /** Colours common to all the passed fixtures' wheels, matched by name and
+     *  by perceptual closeness. Fixtures with no wheel are ignored; the result
+     *  is ordered by the canonical colour vocabulary so the swatch strip keeps
+     *  a stable, sensible order. */
+    QList<CommonWheelColor> commonWheelColors(const QList<quint32> &fixtureIDs) const;
+
+    /** Canonical name for a wheel colour ("dark blue" -> "Blue"), derived from
+     *  the capability name first and the resource colour second. Empty when the
+     *  colour doesn't map onto the vocabulary (CTO/CTB correction, UV, …). */
+    static QString canonicalColorName(const QString &capabilityName,
+                                      const QColor &color);
+
+    /** Perceptual distance between two colours, 0 (identical) to 1 (opposite).
+     *  Hue-weighted so "dark blue" and "blue" read as the same colour while
+     *  "blue" and "cyan" do not. */
+    static qreal colorDistance(const QColor &a, const QColor &b);
 
     // ── Palette-based generation ────────────────────────────────────────────
     /** Find an existing Doc palette of $type whose values match, or invalidId(). */
     quint32 findPalette(int type, const QVariantList &values) const;
+
+    /** True when every selected colour-mixing group can produce $color. Used to
+     *  keep the "All Groups" page to colours the whole rig can actually show. */
+    bool allGroupsCanRender(const QColor &color) const;
 
     /** Create a Color palette (rgb) owned by the Doc. Returns its id. */
     quint32 makeColorPalette(const QString &name, const QColor &color);
@@ -471,7 +519,7 @@ private:
         CtrlRolePageTab,    ///< Frame page selector (shared across pages)
         CtrlRoleColor,      ///< Colour / colour-wheel swatch
         CtrlRoleEffect,     ///< Movement, shutter, strobe, blinder …
-        CtrlRoleShowCue,    ///< Blackout / Open / Big Moment … (shared)
+        CtrlRoleShowCue,    ///< Blackout / Open / Close / Ambient … (shared)
         CtrlRoleCount
     };
 
@@ -611,11 +659,14 @@ private:
      *  background. Reads the scene's actual channel values. */
     QColor sceneColor(quint32 sceneID) const;
 
+    /** Absolute path of the gobo picture a wizard gobo scene selects, for a
+     *  gobo button's background image. Empty when there is none. */
+    QString goboPicture(quint32 sceneID) const;
+
     /** Black or white, whichever keeps a caption readable on $background. */
     static QColor contrastingTextColor(const QColor &background);
 
     // Helpers
-    Scene *makeBlackoutScene();
     Scene *makeFullScene(const FixtureGroupEntry &grp, const QString &name);
     Chaser *makeChaserFromScenes(const QList<Scene *> &scenes,
                                  const QString &name,

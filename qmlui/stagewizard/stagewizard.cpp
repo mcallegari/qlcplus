@@ -664,6 +664,10 @@ void StageWizard::buildEffectsModel()
     // Determine which capabilities exist across all groups
     bool anyMovement = false, anyRGB = false, anyGobo = false;
     bool anyShutter = false, anyDimmer = false;
+    // Colour mixing on units that DON'T move. A slow background wash belongs on
+    // static washes/bars; running it on movers just parks them somewhere and
+    // holds a colour, which is not what an ambient look is for.
+    bool anyStaticRGB = false;
     for (const FixtureGroupEntry &g : m_groups)
     {
         if (g.hasMovement) anyMovement = true;
@@ -671,6 +675,7 @@ void StageWizard::buildEffectsModel()
         if (g.hasGobo)    anyGobo    = true;
         if (g.hasShutter) anyShutter = true;
         if (g.hasDimmer)  anyDimmer  = true;
+        if ((g.hasRGB || g.hasCMY) && !g.hasMovement) anyStaticRGB = true;
     }
 
     m_effects.clear();
@@ -715,10 +720,7 @@ void StageWizard::buildEffectsModel()
     addEffect(EffectMarquee,        tr("Marquee"),          tr("Matrix"),    anyRGB);
 
     // Show cues family
-    addEffect(EffectShowOpen,       tr("Show Open"),        tr("Show Cues"), true);
-    addEffect(EffectShowClose,      tr("Show Close"),       tr("Show Cues"), true);
-    addEffect(EffectBigMoment,      tr("Big Moment"),       tr("Show Cues"), true);
-    addEffect(EffectAmbientLoop,    tr("Ambient Loop"),     tr("Show Cues"), anyRGB || anyDimmer);
+    addEffect(EffectAmbientLoop,    tr("Ambient Loop"),     tr("Show Cues"), anyStaticRGB);
 }
 
 void StageWizard::applyShowTypeDefaults()
@@ -747,7 +749,6 @@ void StageWizard::applyShowTypeDefaults()
             enable(EffectFlyIn);
             enable(EffectCircleChase);
             enable(EffectPixelChase);
-            enable(EffectBigMoment);
             break;
 
         case Concert:
@@ -761,17 +762,16 @@ void StageWizard::applyShowTypeDefaults()
             enable(EffectFlyIn);
             enable(EffectCircleChase);
             enable(EffectAudienceSweep);
-            enable(EffectShowOpen);
-            enable(EffectShowClose);
-            enable(EffectBigMoment);
+            // Only takes effect when the rig actually has static colour mixers
+            // (enable() honours availability), so a movers-only concert rig
+            // still gets no ambient wash.
+            enable(EffectAmbientLoop);
             break;
 
         case Theatrical:
             enable(EffectColorPalette);
             enable(EffectPositionPreset);
             enable(EffectGoboPalette);
-            enable(EffectShowOpen);
-            enable(EffectShowClose);
             enable(EffectAmbientLoop);
             break;
 
@@ -888,9 +888,6 @@ QString StageWizard::effectPreview(int effectFlag) const
         case EffectPlasma:
         case EffectMarquee:
             return tr("%1 RGB matrix(es)").arg(qMax(1, rgbGroups));
-        case EffectShowOpen:
-        case EffectShowClose:
-        case EffectBigMoment:
         case EffectAmbientLoop:
             return tr("1 chaser");
         default:
@@ -1050,6 +1047,7 @@ void StageWizard::createFixtureGroups()
     // provides "control everything at once" colours/dimmers/positions/effects.
     m_allGroups.role        = RoleEffect;
     m_allGroups.roleUserSet = false;
+    m_allGroups.isAggregate = true;
 
     for (const FixtureGroupEntry &grp : m_groups)
     {
@@ -1116,14 +1114,6 @@ void StageWizard::generate()
     // Persist the user-defined boxes as real FixtureGroups
     createFixtureGroups();
 
-    // Blackout scene – always created
-    Scene *blackout = makeBlackoutScene();
-    if (blackout)
-    {
-        m_doc->addFunction(blackout);
-        m_generatedFunctionIDs.append(blackout->id());
-    }
-
     // Per-group generation (selected boxes only)
     for (const FixtureGroupEntry &grp : m_groups)
     {
@@ -1142,12 +1132,16 @@ void StageWizard::generate()
     for (const EffectEntry &eff : m_effects)
     {
         if (!eff.enabled) continue;
+
+        // Snapshot first: makeChaserFromScenes() adds the chaser's STEP scenes
+        // to the doc and to m_generatedFunctionIDs itself, and those need
+        // filing too — pathing only the returned chaser left them scattered at
+        // the root of the function tree.
+        const int cueStart = m_generatedFunctionIDs.count();
+
         Function *c = nullptr;
         switch (eff.flag)
         {
-            case EffectShowOpen:   c = generateShowOpen();   break;
-            case EffectShowClose:  c = generateShowClose();  break;
-            case EffectBigMoment:  c = generateBigMoment();  break;
             case EffectAmbientLoop: c = generateAmbientLoop(); break;
             default: break;
         }
@@ -1156,11 +1150,14 @@ void StageWizard::generate()
             m_generatedFunctionIDs.append(c->id());
             c->setPath(cuesPath);
         }
-    }
 
-    // Blackout lives at the wizard root
-    if (blackout)
-        blackout->setPath(wizardPath());
+        for (int i = cueStart; i < m_generatedFunctionIDs.count(); i++)
+        {
+            Function *f = m_doc->function(m_generatedFunctionIDs.at(i));
+            if (f && f->path(true).isEmpty())
+                f->setPath(cuesPath);
+        }
+    }
 
     // Blinder flash scene (only if there are blinders) for a VC Flash button
     generateBlinderFlash();
@@ -1189,6 +1186,12 @@ void StageWizard::generateGroupFunctions(const FixtureGroupEntry &grp)
     // Front key lights: 6 musician position scenes aimed at the floor
     generateMusicianKeyScenes(grp);
 
+    // "Centre" home position for movers. It used to appear only as a by-product
+    // of a movement effect being enabled; the VC gives every mover page a
+    // Centre button, so it has to exist whenever the group can move.
+    if (grp.hasMovement)
+        baseMovementPosition(grp, AnchorCentre);
+
     // Everything the effect generators add below goes under the group's
     // "Effects" folder. Snapshot the id list, then path the new entries.
     int effectsStart = m_generatedFunctionIDs.count();
@@ -1204,7 +1207,11 @@ void StageWizard::generateGroupFunctions(const FixtureGroupEntry &grp)
             // group+palette scenes in generateGroupPalettes() and
             // generateMusicianKeyScenes(), so they are not handled here.
             case EffectGoboPalette:
-                if (grp.hasGobo)
+                // Gobo scenes are raw DMX values read off one sample fixture's
+                // wheel, so they only mean anything within a single model. On
+                // the "All Groups" aggregate they would aim one mover's wheel
+                // positions at every other model in the rig.
+                if (grp.hasGobo && !grp.isAggregate)
                     generateGoboPalette(grp, prefix);
                 break;
             case EffectFlyOut:
@@ -1285,11 +1292,20 @@ void StageWizard::generateGroupFunctions(const FixtureGroupEntry &grp)
         }
     }
 
-    // Path all functions the effect generators just created for this group
+    // Path whatever the effect generators just created for this group and did
+    // NOT file itself. A generator that chose its own folder (gobo scenes go to
+    // "Gobos", the movement effects to their own subtree) keeps it — the VC
+    // layout looks those up BY PATH, so flattening them here would make the
+    // buttons disappear.
+    // NOTE: path(true) — the SIMPLIFIED path. The no-argument path() prefixes
+    // the function type ("Scene/…"), so it is never empty and testing it here
+    // silently skipped every function, leaving the effects unfiled at the root
+    // of the function tree.
     const QString effectsPath = wizardPath(prefix + "/" + tr("Effects"));
     for (int i = effectsStart; i < m_generatedFunctionIDs.count(); i++)
     {
         Function *f = m_doc->function(m_generatedFunctionIDs.at(i));
-        if (f) f->setPath(effectsPath);
+        if (f && f->path(true).isEmpty())
+            f->setPath(effectsPath);
     }
 }

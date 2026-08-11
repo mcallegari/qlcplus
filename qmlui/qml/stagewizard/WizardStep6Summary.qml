@@ -279,28 +279,43 @@ Item
                         color: "#7777AA"
                     }
 
-                    // ── Page-switch tabs (flash buttons): All Groups + each grp ─
-                    Flow
+                    // ── Page-switch tabs (flash buttons): All Groups + each grp,
+                    //    with Blackout pinned to the right-hand corner ─────────
+                    Item
                     {
                         width: parent.width
-                        spacing: 6
+                        height: Math.max(pageTabs.height, blackoutBtn.height)
+
+                        Flow
+                        {
+                            id: pageTabs
+                            width: parent.width - blackoutBtn.width - 6
+                            spacing: 6
+
+                            VCPreviewButton
+                            {
+                                label: qsTr("All Groups")
+                                highlighted: vcMock.previewPage === 0
+                                MouseArea { anchors.fill: parent; onClicked: vcMock.previewPage = 0 }
+                            }
+
+                            Repeater
+                            {
+                                model: vcMock.groups
+                                VCPreviewButton
+                                {
+                                    label: modelData.name
+                                    highlighted: vcMock.previewPage === (index + 1)
+                                    MouseArea { anchors.fill: parent; onClicked: vcMock.previewPage = index + 1 }
+                                }
+                            }
+                        }
 
                         VCPreviewButton
                         {
-                            label: qsTr("All Groups")
-                            highlighted: vcMock.previewPage === 0
-                            MouseArea { anchors.fill: parent; onClicked: vcMock.previewPage = 0 }
-                        }
-
-                        Repeater
-                        {
-                            model: vcMock.groups
-                            VCPreviewButton
-                            {
-                                label: modelData.name
-                                highlighted: vcMock.previewPage === (index + 1)
-                                MouseArea { anchors.fill: parent; onClicked: vcMock.previewPage = index + 1 }
-                            }
+                            id: blackoutBtn
+                            anchors.right: parent.right
+                            label: qsTr("Blackout")
                         }
                     }
 
@@ -407,8 +422,7 @@ Item
                         spacing: 6
                         Repeater
                         {
-                            model: [qsTr("Blackout"), qsTr("Show Open"), qsTr("Big Moment"),
-                                    qsTr("Show Close"), qsTr("Ambient"), qsTr("Blinder")]
+                            model: [qsTr("Ambient"), qsTr("Blinder")]
                             VCPreviewButton { label: modelData }
                         }
                     }

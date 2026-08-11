@@ -233,7 +233,7 @@ QString StageWizard::controllerMappingPreview() const
     const int pageCount = pageGroups.count() + 1;   // + "All Groups"
 
     int buttons = pageCount   // one page tab per page
-                + 6;          // Blackout / Open / Big Moment / Close / Ambient / Blinder
+                + 3;          // Blackout (corner) + Ambient / Blinder cues
     int faders  = 0;
     int maxColors = 0;        // busiest page, which is what sizes the colour band
 
@@ -244,19 +244,28 @@ QString StageWizard::controllerMappingPreview() const
         if (grp.hasMovement)
         {
             faders  += 2;                   // XY pad pan + tilt
-            buttons += 5;                   // Fly Out/In, Circle, Eight, Sweep
+            buttons += 4;                   // Fly Out / Fly In / Centre / Circle
         }
-        buttons += 2;                       // Strobe Chase, Heartbeat
+        if (grp.hasShutter)
+            buttons += 3;                   // Open / Strobe Slow / Strobe Fast
+
         // Colour buttons: one per generated colour scene for this group.
-        int colors = 0;
+        // Gobo scenes exist only where the fixtures declare gobo macros, so a
+        // group without them costs nothing here.
+        int colors = 0, gobos = 0;
         for (quint32 id : m_generatedFunctionIDs)
         {
             Function *f = m_doc->function(id);
-            if (f && f->type() == Function::SceneType &&
-                f->path().contains(grp.name + "/" + tr("Colors")))
+            if (!f || f->type() != Function::SceneType)
+                continue;
+            if (f->path().contains(grp.name + "/" + tr("Colors")))
                 colors++;
+            else if (f->path().contains(grp.name + "/" + tr("Gobos")))
+                gobos++;
+            else if (f->name() == tr("%1 – Lamp On").arg(grp.name))
+                buttons++;
         }
-        buttons  += colors;
+        buttons  += colors + gobos;
         maxColors = qMax(maxColors, colors);
     };
 
