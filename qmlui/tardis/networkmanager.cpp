@@ -20,6 +20,8 @@
 #include <QXmlStreamWriter>
 #include <QNetworkInterface>
 #include <QtCore/qbuffer.h>
+#include <QCryptographicHash>
+#include <QSettings>
 #include <QFile>
 #include <QDateTime>
 
@@ -37,6 +39,8 @@
 #define WORKSPACE_CHUNK_SIZE    8 * 1024
 #define ECHO_GUARD_WINDOW_MS    15000
 
+#define SETTINGS_SERVER_KEY     QStringLiteral("network/serverkey")
+
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
 NetworkManager::NetworkManager(QObject *parent, Doc *doc, VirtualConsole *vc, SimpleDesk *sd)
@@ -53,13 +57,23 @@ NetworkManager::NetworkManager(QObject *parent, Doc *doc, VirtualConsole *vc, Si
     , m_webServerAuth(false)
     , m_webServerPasswordFile(QString())
     , m_tcpServer(nullptr)
-    , m_serverStarted(false)
+    , m_serverStartedMask(NoServer)
     , m_tcpSocket(nullptr)
     , m_clientStatus(Disconnected)
 {
     m_hostType = UnknownHostType;
     m_crypt = new SimpleCrypt(defaultKey);
     m_packetizer = new NetworkPacketizer();
+
+    // restore the encryption key saved in the global QLC+ settings
+    QSettings settings;
+    QVariant storedKey = settings.value(SETTINGS_SERVER_KEY);
+    if (storedKey.isValid())
+    {
+        SimpleCrypt masterCrypt(defaultKey);
+        m_serverPassword = masterCrypt.decryptToString(storedKey.toString());
+    }
+    applyEncryptionKey();
 
     if (m_doc != nullptr)
     {
@@ -110,29 +124,66 @@ int NetworkManager::serverType() const
     return m_serverType;
 }
 
-void NetworkManager::setServerType(int type)
+void NetworkManager::setServerType(int typeMask)
+{
+    typeMask = (typeMask & (NativeServer | WebServer)) | m_forcedServerTypes;
+
+    if (m_serverType == typeMask)
+        return;
+
+    // stop the servers that are being disabled
+    int toStop = m_serverType & ~typeMask;
+    if (toStop & NativeServer)
+        stopServerType(NativeServer);
+    if (toStop & WebServer)
+        stopServerType(WebServer);
+
+    m_serverType = typeMask;
+    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
+    {
+        int ioMask = InputOutputMap::NoServer;
+        if (typeMask & NativeServer)
+            ioMask |= InputOutputMap::NativeServer;
+        if (typeMask & WebServer)
+            ioMask |= InputOutputMap::WebServer;
+        m_doc->inputOutputMap()->setNetworkServerType(ioMask);
+    }
+
+    emit serverTypeChanged(m_serverType);
+}
+
+void NetworkManager::enableServerType(int type, bool enable)
 {
     if (type != NativeServer && type != WebServer)
         return;
 
-    if (m_serverType == type)
-        return;
+    // if some server is already running, follow the user
+    // intention and start/stop the requested type as well
+    bool applyToRuntime = serverStarted();
 
-    bool wasStarted = serverStarted();
-    if (wasStarted)
-        stopServer();
+    setServerType(enable ? (m_serverType | type) : (m_serverType & ~type));
 
-    m_serverType = type;
-    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
+    if (applyToRuntime && enable && (m_serverType & type))
+        startServerType(type);
+}
+
+bool NetworkManager::toggleServerType(int type)
+{
+    if (type != NativeServer && type != WebServer)
+        return false;
+
+    // stopping: disabling the type stops it as well, so that
+    // an autostart won't bring it up again on the next load
+    if (m_serverStartedMask & type)
     {
-        m_doc->inputOutputMap()->setNetworkServerType(
-            type == WebServer ? InputOutputMap::WebServer : InputOutputMap::NativeServer);
+        setServerType(m_serverType & ~type);
+        return false;
     }
 
-    emit serverTypeChanged(m_serverType);
+    // starting: make sure the type is enabled before running it
+    setServerType(m_serverType | type);
 
-    if (wasStarted)
-        startServer();
+    return startServerType(type);
 }
 
 bool NetworkManager::startAutomatically() const
@@ -162,9 +213,65 @@ void NetworkManager::setServerPassword(QString password)
         return;
 
     m_serverPassword = password;
-    if (m_doc != nullptr && m_doc->inputOutputMap() != nullptr)
-        m_doc->inputOutputMap()->setNetworkServerPassword(password);
     emit serverPasswordChanged(m_serverPassword);
+}
+
+quint64 NetworkManager::sessionKey() const
+{
+    // an empty key means "no custom key": fall back to
+    // the QLC+ master key, so that a default setup still works
+    if (m_serverPassword.isEmpty())
+        return defaultKey;
+
+    // fold the user key into the 64 bits SimpleCrypt expects. A hash is
+    // used so that keys sharing a prefix don't end up being equivalent
+    QByteArray digest = QCryptographicHash::hash(m_serverPassword.toUtf8(),
+                                                 QCryptographicHash::Sha256);
+    quint64 key = 0;
+    for (int i = 0; i < 8; i++)
+        key = (key << 8) | quint8(digest.at(i));
+
+    return key;
+}
+
+void NetworkManager::applyEncryptionKey()
+{
+    m_crypt->setKey(sessionKey());
+}
+
+bool NetworkManager::saveEncryptionKey(QString key)
+{
+    setServerPassword(key);
+
+    // store the key in the global QLC+ settings, encrypted with the master key
+    QSettings settings;
+    if (key.isEmpty())
+    {
+        settings.remove(SETTINGS_SERVER_KEY);
+    }
+    else
+    {
+        SimpleCrypt masterCrypt(defaultKey);
+        settings.setValue(SETTINGS_SERVER_KEY, masterCrypt.encryptToString(key));
+    }
+
+    // the key is the shared secret of the whole session: restart
+    // the running servers so peers negotiate with the new one
+    int runningMask = m_serverStartedMask;
+
+    if (runningMask & NativeServer)
+        stopServerType(NativeServer);
+    if (runningMask & WebServer)
+        stopServerType(WebServer);
+
+    applyEncryptionKey();
+
+    if (runningMask & NativeServer)
+        startServerType(NativeServer);
+    if (runningMask & WebServer)
+        startServerType(WebServer);
+
+    return true;
 }
 
 void NetworkManager::setWebServerConfiguration(int portNumber, bool enableAuth, const QString &passwordFile)
@@ -174,9 +281,15 @@ void NetworkManager::setWebServerConfiguration(int portNumber, bool enableAuth, 
     m_webServerPasswordFile = passwordFile;
 }
 
-void NetworkManager::setForceWebServerMode(bool force)
+void NetworkManager::setForcedServerTypes(int typeMask)
 {
-    m_forceWebServerMode = force;
+    m_forcedServerTypes = typeMask & (NativeServer | WebServer);
+
+    // the command line defines the enabled types exactly: only the
+    // requested ones must run, no matter what the default or the
+    // workspace settings ask for
+    if (m_forcedServerTypes != NoServer)
+        setServerType(m_forcedServerTypes);
 }
 
 int NetworkManager::connectionsCount() const
@@ -365,10 +478,36 @@ bool NetworkManager::shouldSkipEcho(const QTcpSocket *socket, int code, quint32 
 
 bool NetworkManager::startServer()
 {
-    if (serverStarted() == true)
+    bool result = false;
+
+    if (m_serverType & NativeServer)
+        result |= startServerType(NativeServer);
+
+    if (m_serverType & WebServer)
+        result |= startServerType(WebServer);
+
+    return result;
+}
+
+bool NetworkManager::stopServer()
+{
+    bool result = false;
+
+    if (m_serverStartedMask & NativeServer)
+        result |= stopServerType(NativeServer);
+
+    if (m_serverStartedMask & WebServer)
+        result |= stopServerType(WebServer);
+
+    return result;
+}
+
+bool NetworkManager::startServerType(int type)
+{
+    if (m_serverStartedMask & type)
         return false;
 
-    if (m_serverType == WebServer)
+    if (type == WebServer)
     {
         if (m_doc == nullptr || m_virtualConsole == nullptr || m_simpleDesk == nullptr)
             return false;
@@ -383,15 +522,20 @@ bool NetworkManager::startServer()
         });
         connect(m_webAccess, &WebAccessQml::storeAutostartProject,
                 this, &NetworkManager::storeAutostartProject);
-        setServerStarted(true);
+        setServerStartedMask(m_serverStartedMask | WebServer);
         return true;
     }
+
+    if (type != NativeServer)
+        return false;
 
     m_udpSocket = new QUdpSocket(this);
 
     if (m_udpSocket->bind(DEFAULT_UDP_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
     {
         qDebug() << Q_FUNC_INFO << "Error in binding UDP socket on" << DEFAULT_UDP_PORT;
+        delete m_udpSocket;
+        m_udpSocket = nullptr;
         return false;
     }
     qDebug() << "UDP socket opened";
@@ -403,30 +547,42 @@ bool NetworkManager::startServer()
     if (m_tcpServer->listen(QHostAddress::Any, DEFAULT_TCP_PORT) == false)
     {
         qDebug() << Q_FUNC_INFO << "Error listening TCP socket on" << DEFAULT_TCP_PORT;
+        disconnect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::slotProcessUDPPackets);
+        m_udpSocket->close();
+        delete m_udpSocket;
+        m_udpSocket = nullptr;
+        delete m_tcpServer;
+        m_tcpServer = nullptr;
         return false;
     }
     connect(m_tcpServer, &QTcpServer::newConnection, this, &NetworkManager::slotProcessNewTCPConnection);
 
     m_hostType = ServerHostType;
 
-    setServerStarted(true);
+    setServerStartedMask(m_serverStartedMask | NativeServer);
 
     return true;
 }
 
-bool NetworkManager::stopServer()
+bool NetworkManager::stopServerType(int type)
 {
-    if (serverStarted() == false)
+    if ((m_serverStartedMask & type) == 0)
         return false;
 
-    if (m_webAccess != nullptr)
+    if (type == WebServer)
     {
-        m_webAccess->closeServer();
-        m_webAccess->deleteLater();
-        m_webAccess = nullptr;
-        setServerStarted(false);
+        if (m_webAccess != nullptr)
+        {
+            m_webAccess->closeServer();
+            m_webAccess->deleteLater();
+            m_webAccess = nullptr;
+        }
+        setServerStartedMask(m_serverStartedMask & ~WebServer);
         return true;
     }
+
+    if (type != NativeServer)
+        return false;
 
     disconnect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::slotProcessUDPPackets);
     disconnect(m_tcpServer, &QTcpServer::newConnection, this, &NetworkManager::slotProcessNewTCPConnection);
@@ -434,7 +590,10 @@ bool NetworkManager::stopServer()
     m_udpSocket->close();
     m_tcpServer->close();
 
-    setServerStarted(false);
+    if (m_hostType == ServerHostType)
+        m_hostType = UnknownHostType;
+
+    setServerStartedMask(m_serverStartedMask & ~NativeServer);
 
     delete m_udpSocket;
     delete m_tcpServer;
@@ -531,16 +690,27 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
 
 bool NetworkManager::serverStarted() const
 {
-    return m_serverStarted;
+    return m_serverStartedMask != NoServer;
 }
 
-void NetworkManager::setServerStarted(bool serverStarted)
+bool NetworkManager::nativeServerStarted() const
 {
-    if (m_serverStarted == serverStarted)
+    return (m_serverStartedMask & NativeServer) ? true : false;
+}
+
+bool NetworkManager::webServerStarted() const
+{
+    return (m_serverStartedMask & WebServer) ? true : false;
+}
+
+void NetworkManager::setServerStartedMask(int mask)
+{
+    if (m_serverStartedMask == mask)
         return;
 
-    m_serverStarted = serverStarted;
-    emit serverStartedChanged(m_serverStarted);
+    m_serverStartedMask = mask;
+    emit serverStartedChanged(serverStarted());
+    emit connectionsCountChanged();
 }
 
 QHostAddress NetworkManager::getHostFromName(QString name) const
@@ -633,7 +803,7 @@ bool NetworkManager::connectClient(QString ipAddress)
 
     QByteArray packet;
     m_packetizer->initializePacket(packet, Tardis::NetAuthentication);
-    m_packetizer->addSection(packet, QVariant(QString::number(defaultKey, 16).toUtf8()));
+    m_packetizer->addSection(packet, QVariant(QString::number(sessionKey(), 16).toUtf8()));
     m_packetizer->addSection(packet, QVariant(hostName()));
 
     setClientStatus(WaitAuthentication);
@@ -783,7 +953,7 @@ void NetworkManager::slotProcessTCPPackets()
                 if (!paramsList.isEmpty())
                 {
                     QByteArray decrPayload = paramsList.at(0).toByteArray();
-                    if (QString::fromUtf8(decrPayload) == QString::number(defaultKey, 16))
+                    if (QString::fromUtf8(decrPayload) == QString::number(sessionKey(), 16))
                     {
                         qDebug() << "Key matches!";
                         success = true;
@@ -892,21 +1062,21 @@ void NetworkManager::slotDocLoaded()
     if (m_doc == nullptr || m_doc->inputOutputMap() == nullptr)
         return;
 
-    if (m_forceWebServerMode)
-    {
-        setServerType(WebServer);
-
-        if (m_hostType != ClientHostType && serverStarted() == false)
-            startServer();
-
-        return;
-    }
-
     InputOutputMap *ioMap = m_doc->inputOutputMap();
+    int typeMask = NoServer;
 
-    setServerType(ioMap->networkServerType() == InputOutputMap::WebServer ? WebServer : NativeServer);
+    if (ioMap->networkServerType() & InputOutputMap::NativeServer)
+        typeMask |= NativeServer;
+    if (ioMap->networkServerType() & InputOutputMap::WebServer)
+        typeMask |= WebServer;
+
+    // the types requested from the command line always win: when they
+    // are set they replace the workspace ones, so that a project can't
+    // bring up a server that was not asked for
+    setServerType(m_forcedServerTypes != NoServer ? m_forcedServerTypes : typeMask);
     setStartAutomatically(ioMap->networkServerAutoStart());
-    setServerPassword(ioMap->networkServerPassword());
+    // NOTE: the encryption key is deliberately not taken from the project.
+    // It is a machine-wide setting stored in the global QLC+ configuration
 
     QString name = ioMap->networkServerName();
     if (name.isEmpty())
@@ -914,8 +1084,7 @@ void NetworkManager::slotDocLoaded()
     setHostName(name);
 
     if (m_hostType != ClientHostType &&
-        m_startAutomatically &&
-        serverStarted() == false)
+        (m_startAutomatically || m_forcedServerTypes != NoServer))
         startServer();
 }
 

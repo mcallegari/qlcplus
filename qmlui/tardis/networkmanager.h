@@ -55,7 +55,9 @@ class NetworkManager final : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString hostName READ hostName WRITE setHostName NOTIFY hostNameChanged)
-    Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(bool serverStarted READ serverStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(bool nativeServerStarted READ nativeServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(bool webServerStarted READ webServerStarted NOTIFY serverStartedChanged)
     Q_PROPERTY(int serverType READ serverType WRITE setServerType NOTIFY serverTypeChanged)
     Q_PROPERTY(bool startAutomatically READ startAutomatically WRITE setStartAutomatically NOTIFY startAutomaticallyChanged)
     Q_PROPERTY(QString serverPassword READ serverPassword WRITE setServerPassword NOTIFY serverPasswordChanged)
@@ -75,10 +77,13 @@ public:
         ClientHostType
     };
 
+    /** Types of server that can be enabled. These are flags,
+     *  so both servers can run at the same time */
     enum ServerType
     {
-        NativeServer,
-        WebServer
+        NoServer     = 0,
+        NativeServer = 1 << 0,
+        WebServer    = 1 << 1
     };
     Q_ENUM(ServerType)
 
@@ -86,16 +91,37 @@ public:
     QString hostName() const;
     void setHostName(QString hostName);
 
+    /** Get/Set the mask of the enabled server types */
     int serverType() const;
-    void setServerType(int type);
+    void setServerType(int typeMask);
+
+    /** Enable/disable a single server type. If the currently
+     *  enabled servers are running, $type is started/stopped as well */
+    Q_INVOKABLE void enableServerType(int type, bool enable);
+
+    /** Start $type if it is stopped, stop it otherwise. The enabled
+     *  server types mask is updated accordingly, so that the autostart
+     *  option follows what the user actually started.
+     *  Return true if $type is running when returning */
+    Q_INVOKABLE bool toggleServerType(int type);
 
     bool startAutomatically() const;
     void setStartAutomatically(bool startAutomatically);
 
     QString serverPassword() const;
     void setServerPassword(QString password);
+
+    /** Store $key in the global QLC+ settings, encrypted with the QLC+
+     *  master key, and make it the key in use. Running servers are
+     *  restarted, since the key is the session shared secret */
+    Q_INVOKABLE bool saveEncryptionKey(QString key);
+
     void setWebServerConfiguration(int portNumber, bool enableAuth, const QString &passwordFile);
-    void setForceWebServerMode(bool force);
+
+    /** Force the given server types to be always enabled and running,
+     *  regardless of the workspace network settings.
+     *  This is used by the command line options */
+    void setForcedServerTypes(int typeMask);
 
     int connectionsCount() const;
 
@@ -104,6 +130,14 @@ public slots:
 
 protected:
     QString defaultName();
+
+    /** Return the 64 bit key currently in use: the user encryption key
+     *  if set, otherwise the QLC+ master key. It is both the packets
+     *  cypher key and the secret exchanged on authentication */
+    quint64 sessionKey() const;
+
+    /** Feed the session key to the encryption engine */
+    void applyEncryptionKey();
 
     /** Send the content of $packet using the provided $socket */
     bool sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt);
@@ -141,7 +175,7 @@ private:
     /** The host name in the QLC+ network */
     QString m_hostName;
 
-    /** Selected server type: Native or Web */
+    /** Mask of the enabled server types: Native and/or Web */
     int m_serverType;
 
     /** Whether the selected server should autostart on workspace load */
@@ -175,18 +209,30 @@ private:
      * Server
      *********************************************************************/
 public:
+    /** Start/stop every server type currently enabled.
+     *  Return true if at least one server changed state */
     Q_INVOKABLE bool startServer();
     Q_INVOKABLE bool stopServer();
+
+    /** Start/stop a single server type, no matter if it is enabled or not */
+    Q_INVOKABLE bool startServerType(int type);
+    Q_INVOKABLE bool stopServerType(int type);
 
     Q_INVOKABLE bool setClientAccess(QString hostName, bool allow, int accessMask);
     Q_INVOKABLE bool sendWorkspaceToClient(QString hostName, QString filename);
 
-    /** Get/Set the status of a QLC+ server instance */
+    /** Return true if at least one server instance is running */
     bool serverStarted() const;
-    void setServerStarted(bool serverStarted);
+
+    /** Get the running status of each server type */
+    bool nativeServerStarted() const;
+    bool webServerStarted() const;
 
 protected:
     QHostAddress getHostFromName(QString name) const;
+
+    /** Update the mask of the running servers and notify the changes */
+    void setServerStartedMask(int mask);
 
 signals:
     void serverStartedChanged(bool serverStarted);
@@ -202,8 +248,8 @@ private:
     /** Instance of a TCP server used by a QLC+ server */
     QTcpServer *m_tcpServer;
 
-    /** Flag that indicates if a server instance is running */
-    bool m_serverStarted;
+    /** Mask of the server types currently running */
+    int m_serverStartedMask;
 
     /** Map of the QLC+ hosts detected on the network */
     QHash<QHostAddress, NetworkHost *> m_hostsMap;
@@ -211,8 +257,9 @@ private:
     QTcpSocket *m_currentRxSocket = nullptr;
     /** Tracks the source socket of recently received actions, to suppress delayed echo */
     QHash<quint64, QPointer<QTcpSocket>> m_recentActionSources;
-    /** Keep runtime server in web mode regardless of workspace network settings. */
-    bool m_forceWebServerMode = false;
+    /** Mask of the server types forced from the command line, kept
+     *  enabled regardless of the workspace network settings */
+    int m_forcedServerTypes = NoServer;
 
     /*********************************************************************
      * Client

@@ -628,17 +628,21 @@ private:
      * Network server
      *********************************************************************/
 public:
+    /** Types of network server that can be enabled.
+     *  These are flags, so both servers can be enabled at the same time */
     enum NetworkServerType
     {
-        NativeServer,
-        WebServer
+        NoServer     = 0,
+        NativeServer = 1 << 0,
+        WebServer    = 1 << 1
     };
 
-    void setNetworkServerType(NetworkServerType type);
-    NetworkServerType networkServerType() const;
+    /** Get/Set the mask of the enabled network server types */
+    void setNetworkServerType(int typeMask);
+    int networkServerType() const;
 
-    QString networkServerTypeToString(NetworkServerType type) const;
-    NetworkServerType stringToNetworkServerType(const QString &str) const;
+    QString networkServerTypeToString(int typeMask) const;
+    int stringToNetworkServerType(const QString &str) const;
 
     void setNetworkServerAutoStart(bool enable);
     bool networkServerAutoStart() const;
@@ -650,7 +654,7 @@ public:
     QString networkServerPassword() const;
 
 private:
-    NetworkServerType m_networkServerType;
+    int m_networkServerType;
     bool m_networkServerAutoStart;
     QString m_networkServerName;
     QString m_networkServerPassword;

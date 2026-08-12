@@ -29,7 +29,21 @@ CustomPopupDialog
     id: popupRoot
     width: mainView.width / 3
     title: qsTr("QLC+ server setup")
-    property bool nativeServer: networkManager.serverType === NetworkManager.NativeServer
+
+    /** Flag of the native server being enabled. Settings that apply
+     *  only to that server type are disabled when it is off */
+    property bool nativeServer: (networkManager.serverType & NetworkManager.NativeServer) !== 0
+
+    /** Flag raised when the encryption key has been edited but not
+     *  applied yet. It enables the key "apply" button */
+    property bool keyModified: false
+
+    // discard a key edited but never applied on the previous run
+    onOpened:
+    {
+        keyEdit.text = networkManager.serverPassword
+        keyModified = false
+    }
 
     contentItem:
         GridLayout
@@ -38,61 +52,57 @@ CustomPopupDialog
             rowSpacing: 5
             columnSpacing: 5
 
-            ButtonGroup { id: serverTypeGroup }
-
             // Row 1
             RobotoText
             {
                 height: UISettings.listItemHeight
-                label: qsTr("Server type")
+                label: qsTr("Web server")
             }
 
-            RowLayout
+            RobotoText
             {
-                Layout.columnSpan: 2
                 Layout.fillWidth: true
-                spacing: 20
+                height: UISettings.listItemHeight
+                label: networkManager.webServerStarted ? qsTr("Started") : qsTr("Stopped")
+                labelColor: networkManager.webServerStarted ? "green" : "red"
+            }
 
-                Row
-                {
-                    spacing: 5
-                    CustomCheckBox
-                    {
-                        id: webServerCheck
-                        implicitHeight: UISettings.listItemHeight
-                        implicitWidth: height
-                        checked: networkManager.serverType === NetworkManager.WebServer
-                        ButtonGroup.group: serverTypeGroup
-                        onClicked: if (checked) networkManager.serverType = NetworkManager.WebServer
-                    }
-                    RobotoText
-                    {
-                        height: UISettings.listItemHeight
-                        label: qsTr("Web server")
-                    }
-                }
-
-                Row
-                {
-                    spacing: 5
-                    CustomCheckBox
-                    {
-                        id: nativeServerCheck
-                        implicitHeight: UISettings.listItemHeight
-                        implicitWidth: height
-                        checked: networkManager.serverType === NetworkManager.NativeServer
-                        ButtonGroup.group: serverTypeGroup
-                        onClicked: if (checked) networkManager.serverType = NetworkManager.NativeServer
-                    }
-                    RobotoText
-                    {
-                        height: UISettings.listItemHeight
-                        label: qsTr("Native server")
-                    }
-                }
+            IconButton
+            {
+                width: UISettings.listItemHeight
+                height: width
+                tooltip: networkManager.webServerStarted ? qsTr("Stop the web server") : qsTr("Start the web server")
+                faSource: networkManager.webServerStarted ? FontAwesome.fa_stop : FontAwesome.fa_play
+                faColor: networkManager.webServerStarted ? "red" : UISettings.fgMain
+                onClicked: networkManager.toggleServerType(NetworkManager.WebServer)
             }
 
             // Row 2
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Native server")
+            }
+
+            RobotoText
+            {
+                Layout.fillWidth: true
+                height: UISettings.listItemHeight
+                label: networkManager.nativeServerStarted ? qsTr("Started") : qsTr("Stopped")
+                labelColor: networkManager.nativeServerStarted ? "green" : "red"
+            }
+
+            IconButton
+            {
+                width: UISettings.listItemHeight
+                height: width
+                tooltip: networkManager.nativeServerStarted ? qsTr("Stop the native server") : qsTr("Start the native server")
+                faSource: networkManager.nativeServerStarted ? FontAwesome.fa_stop : FontAwesome.fa_play
+                faColor: networkManager.nativeServerStarted ? "red" : UISettings.fgMain
+                onClicked: networkManager.toggleServerType(NetworkManager.NativeServer)
+            }
+
+            // Row 3
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -109,7 +119,7 @@ CustomPopupDialog
                 onTextEdited: networkManager.hostName = text
             }
 
-            // Row 3
+            // Row 4
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -123,20 +133,27 @@ CustomPopupDialog
                 enabled: popupRoot.nativeServer
                 echoMode: TextInput.Password
                 maximumLength: 8
-                text: networkManager.serverPassword
-                onTextEdited: networkManager.serverPassword = text
+                // not bound: the text is loaded on open and pushed
+                // to the NetworkManager only when applied
+                onTextEdited: popupRoot.keyModified = true
             }
 
             IconButton
             {
                 width: UISettings.listItemHeight
                 height: width
-                enabled: popupRoot.nativeServer
-                faSource: FontAwesome.fa_gear
+                enabled: popupRoot.nativeServer && popupRoot.keyModified
+                tooltip: qsTr("Apply and save the encryption key")
+                faSource: FontAwesome.fa_upload
                 faColor: UISettings.fgMain
+                onClicked:
+                {
+                    networkManager.saveEncryptionKey(keyEdit.text)
+                    popupRoot.keyModified = false
+                }
             }
 
-            // Row 4
+            // Row 5
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -152,21 +169,6 @@ CustomPopupDialog
                 onClicked: networkManager.startAutomatically = checked
             }
 
-            // Row 5
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: qsTr("Server status")
-            }
-
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                Layout.columnSpan: 2
-                label: networkManager.serverStarted ? qsTr("Running") : qsTr("Stopped")
-                labelColor: networkManager.serverStarted ? "green" : "red"
-            }
-
             // Row 6
             RobotoText
             {
@@ -177,29 +179,18 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
+                Layout.fillWidth: true
                 Layout.columnSpan: 2
-                label: popupRoot.nativeServer ? networkManager.connectionsCount : "-"
+                label: networkManager.nativeServerStarted ? networkManager.connectionsCount : "-"
             }
 
             // Row 7
-            Row
+            GenericButton
             {
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-
-                GenericButton
-                {
-                    width: contentItem.width / 2
-                    label: qsTr("Close")
-                    onClicked: popupRoot.close()
-                }
-
-                GenericButton
-                {
-                    width: contentItem.width / 2
-                    label: networkManager.serverStarted ? qsTr("Stop server") : qsTr("Start server")
-                    onClicked: networkManager.serverStarted ? networkManager.stopServer() : networkManager.startServer()
-                }
+                label: qsTr("Close")
+                onClicked: popupRoot.close()
             }
         }
 

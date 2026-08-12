@@ -125,6 +125,10 @@ int main(int argc, char *argv[])
                                       "file", "");
     parser.addOption(webAuthFileOption);
 
+    QCommandLineOption remoteOption(QStringList() << "r" << "remote",
+                                      "Enable the native remote server");
+    parser.addOption(remoteOption);
+
     parser.process(app);
 
     bool enableWebAccess = parser.isSet(webAccessOption)
@@ -134,6 +138,7 @@ int main(int argc, char *argv[])
     bool enableWebAuth = parser.isSet(webAuthOption);
     int webAccessPort = parser.value(webPortOption).toInt();
     QString webAccessPasswordFile = parser.value(webAuthFileOption);
+    bool enableNativeServer = parser.isSet(remoteOption);
 
 #if !defined Q_OS_ANDROID
     // 3D enablement
@@ -217,14 +222,22 @@ int main(int argc, char *argv[])
     if (parser.isSet(openLastOption))
         qlcplusApp.loadLastWorkspace();
 
-    if (enableWebAccess && qlcplusApp.networkManager() != nullptr)
+    if ((enableWebAccess || enableNativeServer) && qlcplusApp.networkManager() != nullptr)
     {
-        qlcplusApp.networkManager()->setWebServerConfiguration(webAccessPort, enableWebAuth,
-                                                               webAccessPasswordFile);
-        qlcplusApp.networkManager()->setForceWebServerMode(true);
-        qlcplusApp.networkManager()->setServerType(NetworkManager::WebServer);
-        if (qlcplusApp.networkManager()->serverStarted() == false)
-            qlcplusApp.networkManager()->startServer();
+        NetworkManager *netMgr = qlcplusApp.networkManager();
+        int forcedTypes = NetworkManager::NoServer;
+
+        if (enableWebAccess)
+        {
+            netMgr->setWebServerConfiguration(webAccessPort, enableWebAuth, webAccessPasswordFile);
+            forcedTypes |= NetworkManager::WebServer;
+        }
+
+        if (enableNativeServer)
+            forcedTypes |= NetworkManager::NativeServer;
+
+        netMgr->setForcedServerTypes(forcedTypes);
+        netMgr->startServer();
     }
 
     // fullscreen mode

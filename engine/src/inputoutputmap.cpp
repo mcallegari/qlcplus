@@ -1183,28 +1183,48 @@ void InputOutputMap::slotPluginBeat(quint32 universe, quint32 channel, uchar val
  * Network server
  *********************************************************************/
 
-void InputOutputMap::setNetworkServerType(InputOutputMap::NetworkServerType type)
+void InputOutputMap::setNetworkServerType(int typeMask)
 {
-    m_networkServerType = type;
+    m_networkServerType = typeMask;
 }
 
-InputOutputMap::NetworkServerType InputOutputMap::networkServerType() const
+int InputOutputMap::networkServerType() const
 {
     return m_networkServerType;
 }
 
-QString InputOutputMap::networkServerTypeToString(InputOutputMap::NetworkServerType type) const
+QString InputOutputMap::networkServerTypeToString(int typeMask) const
 {
-    if (type == WebServer)
-        return "Web";
-    return "Native";
+    QStringList types;
+
+    if (typeMask & NativeServer)
+        types << "Native";
+    if (typeMask & WebServer)
+        types << "Web";
+
+    if (types.isEmpty())
+        return "None";
+
+    return types.join("|");
 }
 
-InputOutputMap::NetworkServerType InputOutputMap::stringToNetworkServerType(const QString &str) const
+int InputOutputMap::stringToNetworkServerType(const QString &str) const
 {
-    if (str.compare("Web", Qt::CaseInsensitive) == 0)
-        return WebServer;
-    return NativeServer;
+    int typeMask = NoServer;
+
+    // a legacy project stores a single type, while a
+    // recent one can store a '|' separated list of types
+    for (const QString &token : str.split('|', Qt::SkipEmptyParts))
+    {
+        QString type = token.trimmed();
+
+        if (type.compare("Native", Qt::CaseInsensitive) == 0)
+            typeMask |= NativeServer;
+        else if (type.compare("Web", Qt::CaseInsensitive) == 0)
+            typeMask |= WebServer;
+    }
+
+    return typeMask;
 }
 
 void InputOutputMap::setNetworkServerAutoStart(bool enable)
@@ -1429,16 +1449,16 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLIONetworkServer)
         {
             QXmlStreamAttributes attrs = root.attributes();
-            NetworkServerType type = NativeServer;
+            int typeMask = NativeServer;
 
             if (attrs.hasAttribute(KXMLIONetworkType))
-                type = stringToNetworkServerType(attrs.value(KXMLIONetworkType).toString());
-            setNetworkServerType(type);
+                typeMask = stringToNetworkServerType(attrs.value(KXMLIONetworkType).toString());
+            setNetworkServerType(typeMask);
 
             if (attrs.hasAttribute(KXMLIONetworkAutoStart))
                 setNetworkServerAutoStart(attrs.value(KXMLIONetworkAutoStart) == KXMLQLCTrue);
 
-            if (type == NativeServer)
+            if (typeMask & NativeServer)
             {
                 setNetworkServerName(attrs.value(KXMLIONetworkName).toString());
                 setNetworkServerPassword(attrs.value(KXMLIONetworkPassword).toString());
@@ -1476,7 +1496,7 @@ bool InputOutputMap::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLIONetworkServer);
     doc->writeAttribute(KXMLIONetworkType, networkServerTypeToString(m_networkServerType));
     doc->writeAttribute(KXMLIONetworkAutoStart, m_networkServerAutoStart ? KXMLQLCTrue : KXMLQLCFalse);
-    if (m_networkServerType == NativeServer)
+    if (m_networkServerType & NativeServer)
     {
         doc->writeAttribute(KXMLIONetworkName, m_networkServerName);
         doc->writeAttribute(KXMLIONetworkPassword, m_networkServerPassword);
