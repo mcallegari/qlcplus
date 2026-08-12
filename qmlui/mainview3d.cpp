@@ -26,6 +26,11 @@
 #include <QQmlContext>
 #include <QQmlComponent>
 #include <QSvgRenderer>
+#include <QFile>
+#include <QDir>
+#include <QUrl>
+#include <QXmlStreamReader>
+#include <QRegularExpression>
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DCore/QNode>
@@ -744,41 +749,43 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     }
     newItem->setParent(m_sceneRootEntity);
 
+    // The mesh FILE comes from FixtureUtils::fixtureLightResource(), so any
+    // caller that needs a fixture's real geometry without a live scene (the
+    // Stage Wizard snapping to a truss) resolves the exact same file. Only the
+    // QML meshType property is decided here.
+    QString meshFile = FixtureUtils::fixtureLightResource(fixture);
+    meshPath.append(meshFile);
+
     switch (fixture->type())
     {
         case QLCFixtureDef::ColorChanger:
         case QLCFixtureDef::Dimmer:
-            meshPath.append("par.dae");
             newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
         break;
         case QLCFixtureDef::MovingHead:
-            meshPath.append("moving_head.dae");
             newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
         break;
         case QLCFixtureDef::Scanner:
-            meshPath.append("scanner.dae");
             newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
         break;
         case QLCFixtureDef::Strobe:
-            meshPath.append("strobe.dae");
             newItem->setProperty("meshType", FixtureMeshType::StrobeMeshType);
         break;
         case QLCFixtureDef::Hazer:
-            meshPath.append("hazer.dae");
-            newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
-        break;
         case QLCFixtureDef::Smoke:
-            meshPath.append("smoke.dae");
             newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
         break;
         case QLCFixtureDef::LEDBarBeams:
         case QLCFixtureDef::LEDBarPixels:
-            meshPath.clear();
+            // drawn without a mesh
         break;
         default:
             qDebug() << "I don't know what to do with you :'(";
         break;
     }
+
+    if (meshFile.isEmpty())
+        meshPath.clear();
 
     // at last, add the new fixture to the items map
     m_entitiesMap[itemID] = mesh;
@@ -1577,6 +1584,196 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
     updateLightMatrix(mesh, itemID);
 }
 
+QVector3D MainView3D::fixtureExtents(quint32 itemID) const
+{
+    SceneItem *mesh = m_entitiesMap.value(itemID, nullptr);
+    if (mesh == nullptr)
+        return QVector3D(0, 0, 0);
+    return mesh->m_volume.m_extents;
+}
+
+qreal MainView3D::trussHalfSize() const
+{
+    // Preferred source: the live stage entity, so the value always matches the
+    // stage model actually on screen.
+    if (m_stageEntity != nullptr)
+    {
+        QVariant v = m_stageEntity->property("trussHalfSize");
+        if (v.isValid())
+            return v.toReal();
+    }
+
+    // The 3D view may never have been created (the Stage Wizard runs while the
+    // user is on another context). Read the declaration straight out of the
+    // stage's QML source rather than duplicating the number here.
+    int stageType = m_monProps ? int(m_monProps->stageType()) : 0;
+    if (stageType < 0 || stageType >= m_stageResourceList.count())
+        return 0.0;
+
+    // qrc:/StageRock.qml → :/StageRock.qml
+    QString resPath = m_stageResourceList.at(stageType);
+    resPath.replace(QStringLiteral("qrc:/"), QStringLiteral(":/"));
+
+    QFile qml(resPath);
+    if (qml.open(QIODevice::ReadOnly | QIODevice::Text) == false)
+        return 0.0;
+
+    QRegularExpression re(QStringLiteral("property\\s+real\\s+trussHalfSize\\s*:\\s*([0-9.]+)"));
+    QRegularExpressionMatch m = re.match(QString::fromUtf8(qml.readAll()));
+    if (m.hasMatch())
+        return m.captured(1).toDouble();
+
+    // Stage model without trusses (Simple/Theatre): nothing to snap to.
+    return 0.0;
+}
+
+void MainView3D::trussVerticalSpan(qreal &bottomY, qreal &topY) const
+{
+    qreal half = trussHalfSize();
+    if (half <= 0.0)
+    {
+        bottomY = topY = 0.0;
+        return;
+    }
+
+    // StageRock.qml places the bar centres at `sizeMeters.y + trussHalfSize`,
+    // i.e. the truss sits entirely ABOVE the environment box rather than
+    // straddling its top. In monitor space (y measured from the floor) that
+    // makes the underside exactly the grid height.
+    float unitScale = m_monProps->gridUnits() == MonitorProperties::Meters ? 1.0f : 0.3048f;
+    qreal gridY = m_monProps->gridSize().y() * unitScale;
+
+    bottomY = gridY;
+    topY    = gridY + half * 2.0;
+}
+
+QString MainView3D::fixtureMeshPath(const Fixture *fixture) const
+{
+    QString file = FixtureUtils::fixtureLightResource(fixture);
+    if (file.isEmpty())
+        return QString();
+
+    return meshDirectory() + "fixtures" + QDir::separator() + file;
+}
+
+QVector3D MainView3D::meshFileExtents(const QString &meshPath) const
+{
+    if (meshPath.isEmpty())
+        return QVector3D(0, 0, 0);
+
+    auto cached = m_meshFileExtents.constFind(meshPath);
+    if (cached != m_meshFileExtents.constEnd())
+        return cached.value();
+
+    QVector3D extents(0, 0, 0);
+
+    // meshDirectory() returns a file:// URL prefix, so go back to a local path.
+    QString localPath = meshPath;
+    if (localPath.startsWith(QLCFile::fileUrlPrefix()))
+        localPath = QUrl(localPath).toLocalFile();
+
+    QFile file(localPath);
+    if (file.open(QIODevice::ReadOnly) == false)
+    {
+        qWarning() << "[MainView3D] cannot read mesh" << localPath;
+        m_meshFileExtents.insert(meshPath, extents);
+        return extents;
+    }
+
+    // COLLADA (.dae): vertex positions live in <float_array> elements belonging
+    // to a <source> whose id marks it as positions. Walk every such array and
+    // take the overall min/max per axis — that is the same bounding volume
+    // addVolumes() accumulates from the loaded scene graph, without needing Qt3D
+    // to have actually loaded anything.
+    bool haveAny = false;
+    float minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
+
+    QXmlStreamReader xml(&file);
+    while (!xml.atEnd())
+    {
+        if (xml.readNext() != QXmlStreamReader::StartElement)
+            continue;
+        if (xml.name().toString() != QStringLiteral("float_array"))
+            continue;
+
+        // Only positional sources: ids conventionally end in "positions-array"
+        // or "POSITION". Anything else (normals, UVs) must not affect the box.
+        QString id = xml.attributes().value(QStringLiteral("id")).toString();
+        if (!id.contains(QStringLiteral("position"), Qt::CaseInsensitive))
+            continue;
+
+        const QStringList values = xml.readElementText().split(QRegularExpression(QStringLiteral("\\s+")),
+                                                               Qt::SkipEmptyParts);
+        for (int i = 0; i + 2 < values.count(); i += 3)
+        {
+            bool okX = false, okY = false, okZ = false;
+            float x = values.at(i).toFloat(&okX);
+            float y = values.at(i + 1).toFloat(&okY);
+            float z = values.at(i + 2).toFloat(&okZ);
+            if (!okX || !okY || !okZ)
+                continue;
+
+            if (!haveAny)
+            {
+                minX = maxX = x; minY = maxY = y; minZ = maxZ = z;
+                haveAny = true;
+                continue;
+            }
+            minX = qMin(minX, x); maxX = qMax(maxX, x);
+            minY = qMin(minY, y); maxY = qMax(maxY, y);
+            minZ = qMin(minZ, z); maxZ = qMax(maxZ, z);
+        }
+    }
+
+    if (haveAny)
+        extents = QVector3D(maxX - minX, maxY - minY, maxZ - minZ);
+    else
+        qWarning() << "[MainView3D] no vertex positions found in" << localPath;
+
+    m_meshFileExtents.insert(meshPath, extents);
+    return extents;
+}
+
+QVector3D MainView3D::fixtureDrawnSize(quint32 fixtureID) const
+{
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return QVector3D(0, 0, 0);
+
+    // Declared physical size — the box the mesh gets fitted into, and the answer
+    // outright for fixture types drawn without a mesh.
+    QVector3D declared(0.3f, 0.3f, 0.3f);
+    QLCFixtureMode *fxMode = fixture->fixtureMode();
+    if (fxMode != nullptr)
+    {
+        QLCPhysical phy = fxMode->physical();
+        if (phy.width())  declared.setX(phy.width()  / 1000.0f);
+        if (phy.height()) declared.setY(phy.height() / 1000.0f);
+        if (phy.depth())  declared.setZ(phy.depth()  / 1000.0f);
+    }
+
+    // If the item is already in the scene its volume has been scaled already:
+    // that is the authoritative answer.
+    quint32 itemID = FixtureUtils::fixtureItemID(fixtureID, 0, 0);
+    QVector3D live = fixtureExtents(itemID);
+    if (live.x() > 0.0f && live.y() > 0.0f && live.z() > 0.0f)
+        return live;
+
+    QVector3D mesh = meshFileExtents(fixtureMeshPath(fixture));
+    if (mesh.x() <= 0.0f || mesh.y() <= 0.0f || mesh.z() <= 0.0f)
+        return declared;    // no mesh (LED bars) → drawn at the declared size
+
+    // Same uniform fit updateFixtureScale() applies: the mesh keeps its aspect
+    // ratio, so it ends up smaller than the declared box on two axes.
+    float scale = qMin(declared.x() / mesh.x(),
+                       qMin(declared.y() / mesh.y(),
+                            declared.z() / mesh.z()));
+    if (scale <= 0.0f)
+        return declared;
+
+    return mesh * scale;
+}
+
 void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
 {
     if (isEnabled() == false)
@@ -1648,8 +1845,19 @@ void MainView3D::updateLightMatrix(SceneItem *mesh, quint32 itemID)
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture != nullptr)
     {
+        // Only fixtures that actually steer a beam need a persisted emitter
+        // offset — it exists so setPositionPickPoint() works without the 3D
+        // view loaded, and that path bails on fixtures with no Pan/Tilt.
+        // (fixtureLightResource() names a mesh for every type, and par.dae /
+        // scanner.dae do contain a "head" node, so without this guard static
+        // fixtures would start writing LightEmitter entries nothing reads.)
+        const bool steersBeam =
+            fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid() ||
+            fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid();
+
         const QString resource = FixtureUtils::fixtureLightResource(fixture);
-        if (!resource.isEmpty() && !m_monProps->containsLightEmitter(resource, headIndex))
+        if (steersBeam && !resource.isEmpty() &&
+            !m_monProps->containsLightEmitter(resource, headIndex))
         {
             QVector3D localOffset;
             if (mesh->m_armItem)

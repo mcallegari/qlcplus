@@ -142,7 +142,7 @@ VCWidgetItem
                 CustomComboBox
                 {
                     id: pageSelector
-                    width: UISettings.bigItemHeight
+                    implicitWidth: Math.max(frameHeader.width * 0.25, UISettings.bigItemHeight)
                     height: parent.height
                     textRole: ""
                     model: frameObj ? frameObj.pageLabels : null

@@ -884,6 +884,13 @@ QStringList VCFrame::pageLabels() const
 void VCFrame::setShortcutName(int pageIndex, QString name)
 {
     m_pageLabels[pageIndex] = name;
+
+    // Keep the registered external (input/key) control description in sync with
+    // the page name, so a bound input channel shows the current page label.
+    // Re-registering with the same id updates the entry in place; the id is what
+    // input sources reference, so existing bindings are preserved.
+    registerExternalControl(INPUT_SHORTCUT_BASE_ID + pageIndex, name, true);
+
     setDocModified();
 
     emit pageLabelsChanged();

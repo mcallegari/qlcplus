@@ -100,6 +100,11 @@ public:
     /** @reimp */
     void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity, bool excludeMonitored) override;
 
+    /** @reimp – when a Flash button is hidden (e.g. a multipage frame switches
+     *  page) while pressed, its release event never arrives, so release the
+     *  flash here to avoid the button staying stuck on. */
+    void setVisible(bool isVisible) override;
+
 signals:
     void functionIDChanged(quint32 id);
 

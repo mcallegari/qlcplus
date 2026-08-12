@@ -53,10 +53,18 @@ QString FixtureUtils::fixtureLightResource(const Fixture *fixture)
 
     switch (fixture->type())
     {
-        case QLCFixtureDef::MovingHead:
-            return QStringLiteral("moving_head.dae");
-        default:
-            return QString();
+        case QLCFixtureDef::MovingHead:     return QStringLiteral("moving_head.dae");
+        case QLCFixtureDef::ColorChanger:
+        case QLCFixtureDef::Dimmer:         return QStringLiteral("par.dae");
+        case QLCFixtureDef::Scanner:        return QStringLiteral("scanner.dae");
+        case QLCFixtureDef::Strobe:         return QStringLiteral("strobe.dae");
+        case QLCFixtureDef::Hazer:          return QStringLiteral("hazer.dae");
+        case QLCFixtureDef::Smoke:          return QStringLiteral("smoke.dae");
+        // LED bars are built procedurally from the fixture's own layout, so they
+        // have no mesh file: their drawn size IS their declared physical size.
+        case QLCFixtureDef::LEDBarBeams:
+        case QLCFixtureDef::LEDBarPixels:
+        default:                            return QString();
     }
 }
 

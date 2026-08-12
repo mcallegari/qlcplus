@@ -82,6 +82,12 @@ set(SRC_FILES
     virtualconsole/vcspeeddial.cpp virtualconsole/vcspeeddial.h
     virtualconsole/vcspeeddialpreset.cpp virtualconsole/vcspeeddialpreset.h
     virtualconsole/virtualconsole.cpp virtualconsole/virtualconsole.h
+    stagewizard/stagewizard.cpp stagewizard/stagewizard.h
+    stagewizard/stagewizard_placement.cpp
+    stagewizard/stagewizard_functions.cpp
+    stagewizard/stagewizard_colors.cpp
+    stagewizard/stagewizard_vc.cpp
+    stagewizard/stagewizard_controller.cpp
 )
 
 # This is most of the Android deployment code
@@ -122,6 +128,7 @@ target_include_directories(${module_name} PRIVATE
     fixtureeditor
     tardis
     virtualconsole
+    stagewizard
 )
 target_include_directories(${module_name} PUBLIC ${FFTW3_INCLUDE_DIRS})
 
@@ -233,6 +240,7 @@ if(lupdate_only)
         qml/inputoutput/*.qml
         qml/popup/*.qml
         qml/showmanager/*.qml
+        qml/stagewizard/*.qml
         qml/virtualconsole/*.qml
     )
 endif()
