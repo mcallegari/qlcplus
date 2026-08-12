@@ -22,6 +22,7 @@ qrc_*.cpp
 Makefile
 Makefile.*
 *-build-*
+obj-x86_64-linux-gnu
 ui_*
 object_*
 engine/src/qlcconfig.h
@@ -36,7 +37,7 @@ main/qlcplus
 fixtureeditor/qlcplus-fixtureeditor
 launcher/qlcplus-launcher
 hotplugmonitor/test/test
-qmlui/qlcplus-qml
+qmlui/qlcplus5
 *.qm
 core
 
@@ -56,3 +57,16 @@ build*
 .codex
 .claude
 .agents
+
+# debian packaging leftovers
+debian/files
+debian/*.debhelper
+debian/*.debhelper.log
+debian/*.substvars
+debian/debhelper-build-stamp
+debian/qlcplus/
+debian/qlcplus5/
+debian/qlcplus-data/
+debian/qlcplus-dbg/
+debian/qlcplus5-dbg/
+debian/tmp/

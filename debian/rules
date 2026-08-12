@@ -4,17 +4,37 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
+# QLC+ 4 and QLC+ 5 are built one flavour per run: create-deb.sh points
+# debian/changelog at changelog-v4 or changelog-v5 before invoking
+# dpkg-buildpackage, so that each flavour gets its own upstream version.
+# The flavour is detected from the version in the changelog.
+UPSTREAM_VERSION := $(shell dpkg-parsechangelog -SVersion | cut -d- -f1)
+QLCPLUS_MAJOR := $(shell echo $(UPSTREAM_VERSION) | cut -d. -f1)
+
+ifeq ($(QLCPLUS_MAJOR),5)
+QMLUI = -Dqmlui=on
+FLAVOUR_PACKAGES = -pqlcplus5 -pqlcplus-data
+else
+QMLUI =
+FLAVOUR_PACKAGES = -pqlcplus -pqlcplus-data
+endif
+
 %:
 	dh  $@ --parallel
 
 override_dh_auto_configure:
 	./translate.sh
-	dh_auto_configure --
-	# Use this to build QLC+ v5 with the QML UI:
-	#dh_auto_configure -- -Dqmlui=on
+	dh_auto_configure -- $(QMLUI)
 
 override_dh_shlibdeps:
 	dh_shlibdeps -Xlibsndfileplugin.so -Xlibolaio.so
 
 override_dh_install:
-	dh_install
+	dh_install $(FLAVOUR_PACKAGES)
+
+# Only build the packages that belong to the flavour being built
+override_dh_gencontrol:
+	dh_gencontrol $(FLAVOUR_PACKAGES)
+
+override_dh_builddeb:
+	dh_builddeb $(FLAVOUR_PACKAGES)

@@ -154,6 +154,16 @@ if((NOT ANDROID AND NOT IOS) AND (${FFTW3_FOUND}))
     target_link_libraries(${module_name} PUBLIC ${FFTW3_LIBRARIES})
 endif()
 
+# Keep the CMake target name stable ("qlcplusengine") so that all the
+# dependants don't need to know about the flavour, but give the QLC+ 5
+# library a distinct file name, so it can be installed next to the QLC+ 4
+# one: libqlcplusengine5.so vs libqlcplusengine.so
+if(qmlui AND UNIX AND NOT ANDROID AND NOT IOS AND NOT APPLE)
+    set_target_properties(${module_name} PROPERTIES
+        OUTPUT_NAME "qlcplusengine5"
+    )
+endif()
+
 set(CONFIGFILE ${CMAKE_SOURCE_DIR}/engine/src/qlcconfig.h)
 set(LITERAL_HASH "#")
 

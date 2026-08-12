@@ -1,4 +1,4 @@
-set(module_name "qlcplus-qml")
+set(module_name "qlcplus5")
 
 set(TS_FILES
     qlcplus_ca_ES.ts

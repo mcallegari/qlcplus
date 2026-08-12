@@ -83,6 +83,6 @@
  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
  <launchable type="desktop-id">qlcplus5.desktop</launchable>
  <provides>
-  <binary>qlcplus-qml</binary>
+  <binary>qlcplus5</binary>
  </provides>
 </component>

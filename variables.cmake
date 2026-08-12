@@ -17,11 +17,46 @@ if(ANDROID OR IOS)
     set(qmlui ON)
 endif()
 
+# Development builds mark the version string as "GIT". Turn this off
+# (-DDEVEL=OFF) when building an official release.
+option(DEVEL "Mark this build as a development (GIT) build" ON)
+
+# Unless the build type was set explicitly, follow the DEVEL flag: a
+# development build defaults to Debug, a release build to Release
+if(NOT CMAKE_BUILD_TYPE)
+    if(DEVEL)
+        set(_default_build_type "Debug")
+    else()
+        set(_default_build_type "Release")
+    endif()
+    set(CMAKE_BUILD_TYPE "${_default_build_type}" CACHE STRING
+        "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
+endif()
+
+# variables.cmake is included by several subdirectories too, so only report
+# this once, from the top level
+if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    message("Build type: ${CMAKE_BUILD_TYPE} (DEVEL=${DEVEL})")
+endif()
+
+# Flavour-dependent naming, so that QLC+ 4 (QtWidgets UI) and QLC+ 5 (QML UI)
+# can be installed side by side. Everything that is built from flavour
+# dependent sources (libraries, executables, I/O plugins) gets a "5" suffix
+# when building qmlui. Resources (fixtures, rgbscripts, gobos, ...) are
+# deliberately left unsuffixed, since they are shared between the two.
 if(qmlui)
     add_definitions(-DQMLUI)
-    set(APPVERSION "5.3.0 GIT")
+    set(APPVERSION "5.3.0")
+    set(APPBINARY "qlcplus5")
+    set(PLUGINSUBDIR "qlcplus5")
 else()
-    set(APPVERSION "4.14.5 GIT")
+    set(APPVERSION "4.14.5")
+    set(APPBINARY "qlcplus")
+    set(PLUGINSUBDIR "qlcplus")
+endif()
+
+if(DEVEL)
+    set(APPVERSION "${APPVERSION} GIT")
 endif()
 
 if(appimage)
@@ -63,6 +98,12 @@ if (ANDROID)
 elseif (IOS)
     set(INSTALLROOT "/")
 endif ()
+
+# The prefix as it will look on the target system, i.e. without any staging
+# directory prepended. GNUInstallDirs needs this to decide whether the
+# multiarch tuple applies, since that only happens for a /usr prefix.
+set(TARGETPREFIX "${INSTALLROOT}")
+
 if (NOT ${INSTALL_ROOT} STREQUAL "/")
     set(INSTALLROOT ${INSTALL_ROOT}/${INSTALLROOT})
     message("Set INSTALL_ROOT ${INSTALL_ROOT}")
@@ -88,6 +129,19 @@ elseif (IOS)
 endif()
 
 # Libraries
+# GNUInstallDirs computes CMAKE_INSTALL_LIBDIR from CMAKE_INSTALL_PREFIX, and
+# only appends the multiarch tuple (e.g. lib/x86_64-linux-gnu) when the prefix
+# is /usr. The top level CMakeLists.txt includes it before INSTALLROOT is
+# known, so re-run the detection here against the unstaged target prefix.
+if (UNIX AND NOT APPLE AND NOT ANDROID AND NOT IOS)
+    set(_saved_install_prefix "${CMAKE_INSTALL_PREFIX}")
+    set(CMAKE_INSTALL_PREFIX "${TARGETPREFIX}")
+    unset(CMAKE_INSTALL_LIBDIR CACHE)
+    unset(CMAKE_INSTALL_LIBDIR)
+    include(GNUInstallDirs)
+    set(CMAKE_INSTALL_PREFIX "${_saved_install_prefix}")
+endif ()
+
 if (WIN32)
     set(LIBSDIR "")
 elseif (APPLE)
@@ -291,9 +345,9 @@ elseif (APPLE)
     set(PLUGINDIR "PlugIns")
 elseif (UNIX)
     if (appimage)
-        set(PLUGINDIR "../lib/qt${QT_MAJOR_VERSION}/plugins/qlcplus")
+        set(PLUGINDIR "../lib/qt${QT_MAJOR_VERSION}/plugins/${PLUGINSUBDIR}")
     else ()
-        set(PLUGINDIR "${LIBSDIR}/qt${QT_MAJOR_VERSION}/plugins/qlcplus")
+        set(PLUGINDIR "${LIBSDIR}/qt${QT_MAJOR_VERSION}/plugins/${PLUGINSUBDIR}")
     endif ()
 endif ()
 
@@ -317,12 +371,19 @@ endif ()
 
 
 # Translations
+# The .qm files of the two flavours share the same "qlcplus_<lang>.qm" names
+# but are built from different .ts sources (ui/ vs qmlui/), so on Linux they
+# get a flavour specific directory to avoid overwriting each other
 if (WIN32)
     set(TRANSLATIONDIR "")
 elseif (APPLE)
     set(TRANSLATIONDIR "${DATADIR}/Translations")
 elseif (UNIX)
-    set(TRANSLATIONDIR "${DATADIR}/translations")
+    if (qmlui)
+        set(TRANSLATIONDIR "${DATADIR}/translations5")
+    else ()
+        set(TRANSLATIONDIR "${DATADIR}/translations")
+    endif ()
 endif ()
 
 if (ANDROID)
@@ -489,7 +550,7 @@ if (UNIX AND NOT APPLE)
         set(QTLIBSDIR "${QT_INSTALL_LIBS}")
         set(QTPLUGINSDIR "${QT_INSTALL_PLUGINS}")
         string(REPLACE "/usr/" "" LIBSDIR "${QTLIBSDIR}")
-        string(REPLACE "/usr/" "" PLUGINDIR "${QTPLUGINSDIR}/qlcplus")
+        string(REPLACE "/usr/" "" PLUGINDIR "${QTPLUGINSDIR}/${PLUGINSUBDIR}")
         set(AUDIOPLUGINDIR "${PLUGINDIR}/audio")
     endif()
 
@@ -508,5 +569,15 @@ elseif(NOT APPLE AND NOT IOS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+    # GCC's value range propagation produces a false positive inside Qt's
+    # QHash when the hash internals get inlined at -O2 with LTO (as done by
+    # the Debian packaging flags): it cannot prove that the span count is
+    # bounded and reports an allocation of SIZE_MAX. The warning points at
+    # Qt's own headers, not at our code, so just don't make it an error.
+    # Seen with GCC 13/14 and Qt 6.4.
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error=alloc-size-larger-than=")
+    endif()
 endif()
 

@@ -123,8 +123,12 @@ if(UNIX AND NOT APPLE)
 endif()
 
 
-install(TARGETS ${module_name}
-    ARCHIVE DESTINATION ${INSTALLROOT}/${LIBSDIR}
-    LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
-    RUNTIME DESTINATION ${INSTALLROOT}/${LIBSDIR}
-)
+# For qmlui this is a static library linked into the qlcplus5 executable,
+# so there is nothing to install and nothing that could clash with QLC+ 4
+if(NOT qmlui)
+    install(TARGETS ${module_name}
+        ARCHIVE DESTINATION ${INSTALLROOT}/${LIBSDIR}
+        LIBRARY DESTINATION ${INSTALLROOT}/${LIBSDIR}
+        RUNTIME DESTINATION ${INSTALLROOT}/${LIBSDIR}
+    )
+endif()

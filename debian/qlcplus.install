@@ -1,8 +1,19 @@
-usr/*
+usr/bin/qlcplus
+usr/bin/qlcplus-fixtureeditor
+usr/lib/*/libqlcplusengine.so
+usr/lib/*/libqlcplusui.so
+usr/lib/*/libqlcpluswebaccess.so
+usr/lib/*/qt6/plugins/qlcplus/
 
-# udev rules
-etc/udev/rules.d/z65-dmxusb.rules
-etc/udev/rules.d/z65-peperoni.rules
-etc/udev/rules.d/z65-anyma-udmx.rules
-etc/udev/rules.d/z65-spi.rules
-etc/udev/rules.d/z65-fx5-hid.rules
+usr/share/applications/qlcplus.desktop
+usr/share/applications/qlcplus-fixtureeditor.desktop
+usr/share/metainfo/org.qlcplus.QLCPlus.appdata.xml
+usr/share/metainfo/org.qlcplus.QLCPlusFixtureEditor.appdata.xml
+usr/share/pixmaps/qlcplus-fixtureeditor.png
+usr/share/man/man1/
+
+usr/share/qlcplus/translations/
+usr/share/qlcplus/web/simpledesk.css
+usr/share/qlcplus/web/simpledesk.js
+usr/share/qlcplus/web/virtualconsole.css
+usr/share/qlcplus/web/virtualconsole.js

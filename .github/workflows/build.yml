@@ -177,7 +177,13 @@ jobs:
           cmake --build build --target install
           cp -v resources/icons/svg/qlcplus.svg ${INSTALL_ROOT}
           cp -v platforms/linux/qlcplus.desktop ${INSTALL_ROOT}
-          cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations/
+          # QLC+ 5 keeps its translations in a separate directory, so that the
+          # two flavours don't overwrite each other's .qm files
+          if [ "${{ matrix.task }}" == "build-v5" ]; then
+            cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations5/
+          else
+            cp -v $QTDIR/translations/qtbase_* ${INSTALL_ROOT}/share/qlcplus/translations/
+          fi
 
       - name: Set APPVERSION
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -193,8 +199,8 @@ jobs:
       - name: Adapt qlcplus for AppImage (v5)
         if: ${{ matrix.task == 'build-v5' }}
         run: |
-          chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus-qml
-          sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus-qml/g' ${INSTALL_ROOT}/qlcplus.desktop
+          chrpath -r "../lib" ${INSTALL_ROOT}/usr/bin/qlcplus5
+          sed -i -e 's/Exec=qlcplus --open %f/Exec=qlcplus5/g' ${INSTALL_ROOT}/qlcplus.desktop
 
       - name: Store original install artifacts before stripping and AppImage
         # Activate for debugging
@@ -208,13 +214,13 @@ jobs:
         if: ${{ matrix.task == 'build-v4' }}
         run: |
           strip -v ${INSTALL_ROOT}/usr/bin/qlcplus
-          find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+          find ${INSTALL_ROOT}/usr/lib/ -name 'libqlcplus*.so*' -exec strip -v {} \;
 
       - name: Strip Binaries (v5)
         if: ${{ matrix.task == 'build-v5' }}
         run: |
-          strip -v ${INSTALL_ROOT}/usr/bin/qlcplus-qml
-          find ${INSTALL_ROOT}/usr/lib/ -name libqlcplusengine.so.1.0.0 -exec strip -v {} \;
+          strip -v ${INSTALL_ROOT}/usr/bin/qlcplus5
+          find ${INSTALL_ROOT}/usr/lib/ -name 'libqlcplus*.so*' -exec strip -v {} \;
 
       - name: Delete unused files for AppImage
         if: ${{ ! startsWith( matrix.task, 'coverage') }}
@@ -428,7 +434,7 @@ jobs:
           ./translate.sh release qmlui
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml qlcplus-qml.exe qlcplusengine.dll plugins/dmxusb.dll
+          ${{ env.QTDIR }}/bin/windeployqt --qmldir $SRC_DIR/qmlui/qml qlcplus5.exe qlcplusengine.dll plugins/dmxusb.dll
 
       - name: Build installation package
         shell: msys2 {0}
@@ -578,7 +584,7 @@ jobs:
         if: ${{ matrix.task == 'build-v5' }}
         run: |-
           platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/Frameworks/libsndfile.1.dylib
-          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus-qml
+          platforms/macos/fix_dylib_deps.sh ~/QLC+.app/Contents/MacOS/qlcplus5
           ${{ env.QTDIR }}/bin/macdeployqt ~/QLC+.app -qmldir=qmlui/qml
 
       - name: Create DMG
