@@ -261,67 +261,39 @@ void StageWizard::generateGroupPalettes(const FixtureGroupEntry &grp)
 
     const QString prefix = grp.name;
 
-    // ── RGB/CMY colour palettes + scenes ────────────────────────────────────
-    if (grp.hasRGB || grp.hasCMY)
-    {
-        const QString path = wizardPath(prefix + "/" + tr("Colors"));
-        struct ColorDef { const char *name; QColor color; };
-        const ColorDef colors[] = {
-            { QT_TR_NOOP("Red"),     QColor(255,   0,   0) },
-            { QT_TR_NOOP("Green"),   QColor(  0, 255,   0) },
-            { QT_TR_NOOP("Blue"),    QColor(  0,   0, 255) },
-            { QT_TR_NOOP("Cyan"),    QColor(  0, 255, 255) },
-            { QT_TR_NOOP("Magenta"), QColor(255,   0, 255) },
-            { QT_TR_NOOP("Yellow"),  QColor(255, 255,   0) },
-            { QT_TR_NOOP("White"),   QColor(255, 255, 255) },
-        };
-        for (const ColorDef &cd : colors)
-        {
-            // On the aggregate, keep only the colours EVERY selected group can
-            // actually produce. A rig of RGB washes plus amber-only bars would
-            // otherwise offer a page-0 "Blue" that half the rig ignores, which
-            // reads as a broken button rather than a partial one.
-            if (grp.isAggregate && !allGroupsCanRender(cd.color))
-                continue;
-
-            // Palette name is generic (shared across groups); scene name is group-specific.
-            quint32 pid = makeColorPalette(tr(cd.name), cd.color);
-            makePaletteScene(tr("%1 – %2").arg(prefix).arg(tr(cd.name)), grp.groupId, pid, path);
-        }
-    }
-
-    // ── Colour-wheel scenes (fixtures with a colour wheel, e.g. spots) ───────
-    // Palettes can't drive a colour wheel, so these are raw DMX values. Each
-    // fixture is resolved SEPARATELY — its own wheel channel, its own slot for
-    // the colour — because the wheel layout differs per model: what one calls
-    // "Dark blue" at slot 3 another calls "Blue" at slot 5. Taking the channel
-    // and value from one sample fixture (as this used to) sends the sample's
-    // slot numbers to every other model in the group.
+    // ── Colours ─────────────────────────────────────────────────────────────
+    // Colour wheels LEAD and RGB follows. A wheel can only ever produce the
+    // gels physically in it, whereas a mixing fixture can produce anything —
+    // so the wheels decide the vocabulary and the RGB units are slaved to it.
+    // Forcing a fixed R/G/B/C/M/Y set and then dropping whatever the wheels
+    // happen not to have is backwards: it left the page offering Cyan and
+    // Magenta that only half the rig could show.
     //
-    // On the aggregate that same mechanism gives the intersection for free:
-    // only colours EVERY wheel-equipped group can show get a scene, and each
-    // fixture gets the DMX value for its own wheel.
-    if (grp.hasColorWheel)
+    //   1. take the common colours across every wheel in the group
+    //   2. build one scene per colour: wheel units get their own slot value,
+    //      mixing units get a Color palette for the same colour
+    //   3. only when the group has NO wheel at all does the generic mixing
+    //      palette apply, since then nothing constrains the vocabulary
+    const QList<CommonWheelColor> wheelColors =
+        grp.hasColorWheel ? commonWheelColors(grp.fixtureIDs)
+                          : QList<CommonWheelColor>();
+
+    const bool hasMixers = grp.hasRGB || grp.hasCMY;
+
+    if (!wheelColors.isEmpty())
     {
-        // Own subfolder, NOT "Colors": these are wheel slots, whereas the
-        // palette scenes above are generic RGB/CMY mixes. createVCLayout() keys
-        // off this path to put the two kinds in separate solo frames.
+        // Wheel slots are raw DMX, resolved per fixture: the layout differs per
+        // model, so what one calls "Dark blue" at slot 3 another calls "Blue"
+        // at slot 5. commonWheelColors() matched them by name and perceptual
+        // closeness (see stagewizard_colors.cpp).
         const QString path = wizardPath(prefix + "/" + tr("Color Wheel"));
 
-        // commonWheelColors() matches slots across models by name AND by
-        // perceptual closeness (see stagewizard_colors.cpp), so a group — or
-        // the whole-rig aggregate — holding a Chauvet "Dark blue" beside a
-        // Martin "Deep Blue" still gets one Blue button that puts BOTH in the
-        // right slot. For a single-model group it returns that model's whole
-        // wheel, which is the old behaviour.
-        for (const CommonWheelColor &cwc : commonWheelColors(grp.fixtureIDs))
+        for (const CommonWheelColor &cwc : wheelColors)
         {
             Scene *s = new Scene(m_doc);
             s->setName(tr("%1 – %2").arg(prefix).arg(cwc.label));
             s->addFixtureGroup(grp.groupId);
 
-            // Each member carries its OWN channel and DMX value, so every model
-            // lands on its own slot for this colour.
             QSet<quint32> onWheel;
             for (const WheelColor &wc : cwc.members)
             {
@@ -329,12 +301,9 @@ void StageWizard::generateGroupPalettes(const FixtureGroupEntry &grp)
                 onWheel.insert(wc.fixtureID);
             }
 
-            // Colour-mixing fixtures in the same group have no wheel to put in
-            // the gate, but they can render the colour directly — so attach a
-            // Color palette for them and the whole group changes colour
-            // together instead of only the spots. The palette resolves per
-            // fixture and produces nothing for the wheel units, which already
-            // have their explicit values above.
+            // The mixing units follow the wheel: same colour, via a palette
+            // that each fixture resolves for itself. This is what makes an RGB
+            // par match the spots instead of offering its own separate set.
             bool anyMixer = false;
             for (quint32 fxID : grp.fixtureIDs)
             {
@@ -363,6 +332,37 @@ void StageWizard::generateGroupPalettes(const FixtureGroupEntry &grp)
             s->setPath(path);
             m_doc->addFunction(s);
             m_generatedFunctionIDs.append(s->id());
+        }
+    }
+    else if (hasMixers)
+    {
+        // No wheel anywhere in this group, so nothing constrains the palette:
+        // give the mixers the standard set. Amber and Lime are included because
+        // a fixture carrying those emitters can hit them cleanly, and they are
+        // the two most common extras beyond RGB.
+        const QString path = wizardPath(prefix + "/" + tr("Colors"));
+        struct ColorDef { const char *name; QColor color; };
+        const ColorDef colors[] = {
+            { QT_TR_NOOP("Red"),     QColor(255,   0,   0) },
+            { QT_TR_NOOP("Green"),   QColor(  0, 255,   0) },
+            { QT_TR_NOOP("Blue"),    QColor(  0,   0, 255) },
+            { QT_TR_NOOP("Cyan"),    QColor(  0, 255, 255) },
+            { QT_TR_NOOP("Magenta"), QColor(255,   0, 255) },
+            { QT_TR_NOOP("Yellow"),  QColor(255, 255,   0) },
+            { QT_TR_NOOP("Amber"),   QColor(255, 191,   0) },
+            { QT_TR_NOOP("Lime"),    QColor(191, 255,   0) },
+            { QT_TR_NOOP("White"),   QColor(255, 255, 255) },
+        };
+        for (const ColorDef &cd : colors)
+        {
+            // On the aggregate, keep only what EVERY mixing group can produce,
+            // so page 0 never offers a colour half the rig ignores.
+            if (grp.isAggregate && !allGroupsCanRender(cd.color))
+                continue;
+
+            // Palette name is generic (shared across groups); scene name is group-specific.
+            quint32 pid = makeColorPalette(tr(cd.name), cd.color);
+            makePaletteScene(tr("%1 – %2").arg(prefix).arg(tr(cd.name)), grp.groupId, pid, path);
         }
     }
 
@@ -912,23 +912,58 @@ void StageWizard::generateMovementEffect(const FixtureGroupEntry &grp, const QSt
 void StageWizard::generateEFX(const FixtureGroupEntry &grp, const QString &prefix,
                                int algorithm, const QString &label)
 {
-    // Fly Out / Fly In: a vertical Line EFX with dimmer control, so beams sweep
-    // up/down over half the tilt range and fade in/out as they "fly". Absolute
-    // and phase-spread across the fixtures.
+    // Fly Out / Fly In: beams sweep up and down and fade as they "fly".
     Q_UNUSED(algorithm)
     if (!grp.hasMovement) return;
 
-    float panMax, tiltMax;
-    groupPanTiltMax(grp, panMax, tiltMax);
-    Q_UNUSED(panMax)
+    // ABSOLUTE, not relative: an absolute EFX writes pan on every tick, so it
+    // drives the aim itself rather than riding a base position scene the way
+    // the relative Circle/Eight effects do. Pairing it with one would just make
+    // the two fight over the pan channel.
+    //
+    // EFX offsets are raw DMX, NOT degrees, so there is nothing to convert:
+    // these are the values from the hand-tuned reference rig, used verbatim.
+    // The only things that vary are how the head is hung — upside down, or
+    // panned away from the audience — which computeRotation() already decided
+    // when the fixtures were placed.
+    static const int kFlyHeight  = 70;   // tilt swing, DMX
+    static const int kFlyXOffset = 83;   // pan aim, DMX
+    static const int kFlyYOffset = 75;   // tilt centre of the sweep, DMX
+
+    // Orientation of this group's heads, as the placement step set it.
+    // X ~180 = the unit stands on the deck with the mesh flipped upright, so
+    // its tilt runs the opposite way; Y = how far it is panned off "front".
+    QVector3D rot;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx && fx->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+        {
+            rot = m_doc->monitorProperties()->fixtureRotation(fxID, 0, 0);
+            break;   // one mover is representative of the group
+        }
+    }
+    const bool upsideDown = qAbs(rot.x() - 180.0f) < 90.0f;
+
+    // Pan: the reference aim, mirrored about centre when the head is turned to
+    // face upstage (Y ~180), so a back-truss unit flies out over the crowd
+    // rather than into the backdrop.
+    int xOffset = kFlyXOffset;
+    if (qAbs(rot.y()) > 90.0f && qAbs(rot.y()) < 270.0f)
+        xOffset = 255 - kFlyXOffset;
+
+    // Tilt: mirrored when the unit hangs the other way up, since its tilt zero
+    // is then at the opposite end of the travel.
+    const int yOffset = upsideDown ? (255 - kFlyYOffset) : kFlyYOffset;
 
     EFX *efx = new EFX(m_doc);
     efx->setName(tr("%1 – %2").arg(prefix).arg(label));
     efx->setAlgorithm(EFX::Line);
-    efx->setWidth(0);                                        // vertical line: no pan swing
-    efx->setHeight(efxSizeForDegrees(tiltMax / 2.0f, tiltMax)); // half the tilt range
-    efx->setXOffset(127);
-    efx->setYOffset(127);
+    efx->setWidth(0);                                        // no pan swing: tilt only
+    efx->setHeight(kFlyHeight);
+    efx->setIsRelative(false);
+    efx->setXOffset(xOffset);
+    efx->setYOffset(yOffset);
     efx->setPropagationMode(EFX::Parallel);
     efx->setDimmerControlEnabled(true);                     // beams fade as they fly
     efx->setFadeInSpeed(1000);
@@ -949,7 +984,12 @@ void StageWizard::generateEFX(const FixtureGroupEntry &grp, const QString &prefi
     for (int i = 0; i < n; i++)
         efxFx.at(i)->setStartOffset(n > 0 ? (i * 360 / n) : 0);
 
+    // No Collection wrapper here, unlike Circle/Eight: those are RELATIVE and
+    // need a base position underneath to ride on, whereas this one is absolute
+    // and drives pan itself. Pairing it with a position scene would just have
+    // the two fight over the pan channel every tick.
     m_doc->addFunction(efx);
+    efx->setPath(wizardPath(grp.name + "/" + tr("Effects")));
     m_generatedFunctionIDs.append(efx->id());
 }
 
@@ -959,25 +999,82 @@ void StageWizard::generateRGBMatrix(const FixtureGroupEntry &grp,
 {
     if (grp.fixtureIDs.isEmpty()) return;
 
-    // Create a FixtureGroup for the matrix
-    FixtureGroup *group = new FixtureGroup(m_doc);
-    group->setName(tr("%1 – %2 Grid").arg(grp.name).arg(label));
-    int cols = qMax(1, static_cast<int>(qCeil(qSqrt(grp.fixtureIDs.count()))));
-    int rows = (grp.fixtureIDs.count() + cols - 1) / cols;
-    group->setSize(QSize(cols, rows));
-    for (int i = 0; i < grp.fixtureIDs.count(); ++i)
-        group->assignFixture(grp.fixtureIDs[i], QLCPoint(i % cols, i / cols));
-
-    m_doc->addFixtureGroup(group);
-    m_generatedGroupIDs.append(group->id());
+    // Run on the group the user defined in step 2 (or the "All Groups"
+    // aggregate), NOT on a private one per effect. Five matrix effects used to
+    // mint five identical throwaway groups per group, cluttering the fixture
+    // group list and — worse — each with a made-up square grid that had nothing
+    // to do with where the fixtures actually hang. createFixtureGroups() has
+    // already given this group a grid mirroring the rig's real layout, which is
+    // what makes a wave travel across the rig the way it looks like it should.
+    if (grp.groupId == FixtureGroup::invalidId())
+        return;
 
     RGBMatrix *matrix = new RGBMatrix(m_doc);
     matrix->setName(tr("%1 – %2").arg(grp.name).arg(label));
-    matrix->setFixtureGroup(group->id());
+    matrix->setFixtureGroup(grp.groupId);
 
-    RGBAlgorithm *algo = RGBAlgorithm::algorithm(m_doc, scriptName);
-    if (!algo)
-        algo = RGBAlgorithm::algorithm(m_doc, "Stripes"); // fallback
+    // Control mode is the COMMON DENOMINATOR across the group, not whether any
+    // member can mix. The group's hasRGB flag is an OR — on the "All Groups"
+    // aggregate it is true as soon as one RGB par is in the rig — so keying off
+    // it put a mixed group of moving heads and RGB pars into Rgb mode, where
+    // the heads (colour wheel, no mixing) render nothing at all.
+    //
+    // In Dimmer mode the engine greyscales each cell onto the fixture's
+    // intensity channel (RGBMatrix::updateMapChannels, ControlModeDimmer),
+    // which every one of them has. So: Rgb only when EVERY fixture can mix,
+    // otherwise Dimmer, and the pattern reads across the whole group.
+    bool allCanMix = true;
+    for (quint32 fxID : grp.fixtureIDs)
+    {
+        Fixture *fx = m_doc->fixture(fxID);
+        if (fx == nullptr)
+            continue;
+
+        bool mixes = false;
+        for (quint32 ch = 0; ch < fx->channels() && !mixes; ++ch)
+        {
+            const QLCChannel *c = fx->channel(ch);
+            if (c && c->group() == QLCChannel::Intensity &&
+                c->colour() != QLCChannel::NoColour)
+                mixes = true;
+        }
+        if (!mixes)
+        {
+            allCanMix = false;
+            break;
+        }
+    }
+    matrix->setControlMode(allCanMix ? RGBMatrix::ControlModeRgb
+                                     : RGBMatrix::ControlModeDimmer);
+
+    // NOTE: a bad script name does NOT come back as nullptr. RGBScriptsCache::
+    // script() returns a default-constructed, UNLOADED RGBScript, so the old
+    // "if (!algo)" fallback never fired and the matrix silently ran an
+    // algorithm that renders nothing. An unloaded script has an empty name and
+    // apiVersion 0 — check that instead.
+    auto loadAlgorithm = [this](const QString &name) -> RGBAlgorithm *
+    {
+        RGBAlgorithm *a = RGBAlgorithm::algorithm(m_doc, name);
+        if (a != nullptr && !a->name().isEmpty() && a->apiVersion() > 0)
+            return a;
+        delete a;
+        return nullptr;
+    };
+
+    RGBAlgorithm *algo = loadAlgorithm(scriptName);
+    if (algo == nullptr)
+    {
+        qWarning() << "StageWizard: RGB script" << scriptName
+                   << "not found; falling back to Stripes";
+        algo = loadAlgorithm(QStringLiteral("Stripes"));
+    }
+    if (algo == nullptr)
+    {
+        // No usable algorithm at all (scripts missing from the install): a
+        // matrix with none would be an inert function in the tree.
+        delete matrix;
+        return;
+    }
     matrix->setAlgorithm(algo);
 
     m_doc->addFunction(matrix);

@@ -543,19 +543,21 @@ void StageWizard::createVCLayout()
             }
 
             // ── Swatch strips, in solo frames ────────────────────────────────
-            // Each kind is mutually exclusive within itself, so it lives in a
+            // A strip's swatches are mutually exclusive, so it lives in a
             // VCSoloFrame: activating one scene releases the others. The header
             // is hidden — these are inline swatch strips, not user-managed
             // containers — so children start at y=0 inside the frame (the header
             // is visible: toggled in VCFrameItem.qml, it does not reserve space
             // when off).
             //
-            // SEPARATE solo frames per kind, because the kinds are not mutually
-            // exclusive with each other: the palette colours drive RGB/CMY
-            // mixing, the wheel colours are raw values on a colour wheel, and
-            // the gobos are a different wheel again. A spot can legitimately
-            // hold a wheel position AND an RGB wash AND a gobo; one shared solo
-            // frame would make each cancel the others.
+            // COLOURS SHARE ONE FRAME. The palette colours and the wheel
+            // colours are different mechanisms, but to the user they are one
+            // question — "what colour is this group?" — and they ARE mutually
+            // exclusive in practice: picking an RGB wash while a wheel slot is
+            // in the gate gives you neither. Splitting them into two frames put
+            // a stray pair of buttons in a second box on page 1. Gobos keep
+            // their own frame: a spot can legitimately hold a gobo AND a
+            // colour, so those must not cancel each other.
             //
             // The strips flow LEFT TO RIGHT across the row and only drop to a
             // new line when the next one would not fit — gobos sit beside the
@@ -577,18 +579,24 @@ void StageWizard::createVCLayout()
             // $subPath. Does nothing when no scene matched, so no empty frame is
             // left behind. $gobo switches the buttons to gobo styling: white
             // background with the GoboMacro picture on it.
-            auto buildSwatchSolo = [&](const QString &subPath, const QString &caption,
+            auto buildSwatchSolo = [&](const QStringList &subPaths,
+                                       const QString &caption,
                                        CtrlRole role, bool gobo) -> void
             {
                 // Collect first: an empty solo frame must not be created at all.
+                // Several sub-paths may feed ONE frame (the colour strip takes
+                // both the palette colours and the wheel colours).
                 QList<quint32> ids;
-                for (quint32 id : m_generatedFunctionIDs)
+                for (const QString &subPath : subPaths)
                 {
-                    Function *f = m_doc->function(id);
-                    if (!f || f->type() != Function::SceneType)
-                        continue;
-                    if (f->path().contains(grp.name + "/" + subPath))
-                        ids.append(id);
+                    for (quint32 id : m_generatedFunctionIDs)
+                    {
+                        Function *f = m_doc->function(id);
+                        if (!f || f->type() != Function::SceneType)
+                            continue;
+                        if (f->path().contains(grp.name + "/" + subPath))
+                            ids.append(id);
+                    }
                 }
                 if (ids.isEmpty())
                     return;
@@ -719,11 +727,11 @@ void StageWizard::createVCLayout()
                 row2Bottom = qMax(row2Bottom, soloY + soloH);
             };
 
-            // Generic RGB/CMY palette colours, this group's colour wheel, then
-            // its gobos — all on the same line while there is room for them.
-            buildSwatchSolo(tr("Colors"), tr("Colors"), CtrlRoleColor, false);
-            buildSwatchSolo(tr("Color Wheel"), tr("Color Wheel"), CtrlRoleColor, false);
-            buildSwatchSolo(tr("Gobos"), tr("Gobos"), CtrlRoleEffect, true);
+            // One colour frame (palette mixes + wheel slots together), then the
+            // gobos beside it while there is room on the line.
+            buildSwatchSolo({ tr("Colors"), tr("Color Wheel") }, tr("Colors"),
+                            CtrlRoleColor, false);
+            buildSwatchSolo({ tr("Gobos") }, tr("Gobos"), CtrlRoleEffect, true);
 
             // The shutter buttons tuck in directly under the colour swatches,
             // beside whatever taller strip shares the line with them.

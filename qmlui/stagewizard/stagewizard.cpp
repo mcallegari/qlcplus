@@ -63,6 +63,8 @@
 #include <QSet>
 #include <QDebug>
 
+#include <algorithm>
+
 // This class's methods are split across several .cpp files for readability
 // (all share stagewizard.h):
 //   stagewizard.cpp            – state, navigation, models, generate() flow
@@ -713,11 +715,16 @@ void StageWizard::buildEffectsModel()
     addEffect(EffectAudienceSweep,  tr("Audience Sweep"),   tr("Movement"),  anyMovement);
 
     // Matrix family
-    addEffect(EffectPixelChase,     tr("Pixel Chase"),      tr("Matrix"),    anyRGB);
-    addEffect(EffectWave,           tr("Wave"),             tr("Matrix"),    anyRGB);
-    addEffect(EffectFireworks,      tr("Fireworks"),        tr("Matrix"),    anyRGB);
-    addEffect(EffectPlasma,         tr("Plasma"),           tr("Matrix"),    anyRGB);
-    addEffect(EffectMarquee,        tr("Marquee"),          tr("Matrix"),    anyRGB);
+    // Matrix effects don't require colour mixing: generateRGBMatrix() falls back
+    // to RGBMatrix::ControlModeDimmer, which renders the pattern as greyscale on
+    // each fixture's intensity channel. So a rig of movers or plain dimmers gets
+    // them too, as intensity animations across the rig.
+    const bool anyMatrix = anyRGB || anyDimmer;
+    addEffect(EffectPixelChase,     tr("Pixel Chase"),      tr("Matrix"),    anyMatrix);
+    addEffect(EffectWave,           tr("Wave"),             tr("Matrix"),    anyMatrix);
+    addEffect(EffectFireworks,      tr("Fireworks"),        tr("Matrix"),    anyMatrix);
+    addEffect(EffectPlasma,         tr("Plasma"),           tr("Matrix"),    anyMatrix);
+    addEffect(EffectMarquee,        tr("Marquee"),          tr("Matrix"),    anyMatrix);
 
     // Show cues family
     addEffect(EffectAmbientLoop,    tr("Ambient Loop"),     tr("Show Cues"), anyStaticRGB);
@@ -850,10 +857,12 @@ QString StageWizard::effectPreview(int effectFlag) const
 {
     // Rough preview counts – not computed yet, just indicative for the UI
     int rgbGroups = 0, movGroups = 0, allGroups = m_groups.count();
+    int matrixGroups = 0;   // groups a matrix can drive: colour OR dimmer
     for (const FixtureGroupEntry &g : m_groups)
     {
         if (g.hasRGB || g.hasCMY) rgbGroups++;
         if (g.hasMovement) movGroups++;
+        if (g.hasRGB || g.hasCMY || g.hasDimmer) matrixGroups++;
     }
 
     switch (effectFlag)
@@ -887,7 +896,7 @@ QString StageWizard::effectPreview(int effectFlag) const
         case EffectFireworks:
         case EffectPlasma:
         case EffectMarquee:
-            return tr("%1 RGB matrix(es)").arg(qMax(1, rgbGroups));
+            return tr("%1 RGB matrix(es)").arg(qMax(1, matrixGroups));
         case EffectAmbientLoop:
             return tr("1 chaser");
         default:
@@ -1001,6 +1010,94 @@ void StageWizard::reset()
 
 // ── Generation pipeline ───────────────────────────────────────────────────────
 
+void StageWizard::layoutGroupSpatially(FixtureGroup *group,
+                                       const QList<quint32> &fixtureIDs) const
+{
+    if (group == nullptr || fixtureIDs.isEmpty())
+        return;
+
+    MonitorProperties *props = m_doc->monitorProperties();
+
+    // Position of each fixture in the monitor frame (mm): x is left..right,
+    // z is rear..front. Height is deliberately ignored — a matrix grid is a
+    // plan view of the rig, and two bars at different trim heights over the
+    // same spot should still read as one row.
+    struct Placed { quint32 id; float x; float z; };
+    QList<Placed> placed;
+    bool anyPosition = false;
+
+    for (quint32 fxID : fixtureIDs)
+    {
+        QVector3D p = props->fixturePosition(fxID, 0, 0);
+        if (!qFuzzyIsNull(p.x()) || !qFuzzyIsNull(p.z()))
+            anyPosition = true;
+        placed.append({ fxID, p.x(), p.z() });
+    }
+
+    // Nothing has been placed (every fixture still at the origin): a single row
+    // in patch order is the only honest answer — inventing a square grid would
+    // claim a spatial arrangement that doesn't exist.
+    if (!anyPosition)
+    {
+        group->setSize(QSize(fixtureIDs.count(), 1));
+        for (int i = 0; i < fixtureIDs.count(); i++)
+            group->assignFixture(fixtureIDs.at(i), QLCPoint(i, 0));
+        return;
+    }
+
+    // ── Cluster into rows by depth ──────────────────────────────────────────
+    // Sort by z, then start a new row wherever the gap to the previous fixture
+    // is a large fraction of the group's total depth. That way a single line of
+    // 8 stays 8x1 (all gaps tiny), while a front truss and a back truss split
+    // into two rows without needing a hard-coded distance in millimetres.
+    std::sort(placed.begin(), placed.end(),
+              [](const Placed &a, const Placed &b) { return a.z < b.z; });
+
+    const float zSpan = placed.last().z - placed.first().z;
+    // A row break needs a gap bigger than this. Scaled to the rig so it works
+    // for a 3 m club stage and a 30 m festival stage alike; the floor keeps
+    // rounding noise in the positions from splitting a straight line.
+    const float rowGap = qMax(zSpan * 0.25f, 500.0f);
+
+    QList<QList<Placed>> rows;
+    rows.append(QList<Placed>() << placed.first());
+    for (int i = 1; i < placed.count(); i++)
+    {
+        if (placed.at(i).z - placed.at(i - 1).z > rowGap)
+            rows.append(QList<Placed>());
+        rows.last().append(placed.at(i));
+    }
+
+    // Within a row, left to right as seen from the audience.
+    for (QList<Placed> &row : rows)
+        std::sort(row.begin(), row.end(),
+                  [](const Placed &a, const Placed &b) { return a.x < b.x; });
+
+    // Widest row sets the grid width; shorter rows simply leave cells empty,
+    // which FixtureGroup handles (a hole in the map).
+    int cols = 0;
+    for (const QList<Placed> &row : rows)
+        cols = qMax(cols, row.count());
+
+    // Row 0 of a FixtureGroup grid is the TOP of the matrix, and matrix
+    // patterns are authored to run top-to-bottom. The audience reads the rig
+    // front-to-back, so put the FRONT row (largest z) first — otherwise a
+    // "wave" pattern travels towards the back of the stage instead of towards
+    // the audience.
+    std::reverse(rows.begin(), rows.end());
+
+    group->setSize(QSize(cols, rows.count()));
+    for (int r = 0; r < rows.count(); r++)
+    {
+        const QList<Placed> &row = rows.at(r);
+        // Centre a short row against the widest one, so a rig that narrows
+        // towards the back keeps its shape instead of being flushed left.
+        const int offset = (cols - row.count()) / 2;
+        for (int c = 0; c < row.count(); c++)
+            group->assignFixture(row.at(c).id, QLCPoint(offset + c, r));
+    }
+}
+
 void StageWizard::createFixtureGroups()
 {
     for (FixtureGroupEntry &grp : m_groups)
@@ -1017,16 +1114,12 @@ void StageWizard::createFixtureGroups()
             continue;
         }
 
-        // New group created inside the wizard: build it from scratch.
+        // New group created inside the wizard: build it from scratch. The grid
+        // mirrors the rig's actual layout (a line of 8 is 8x1, not 3x3), since
+        // that grid is what RGB matrix effects animate across.
         FixtureGroup *group = new FixtureGroup(m_doc);
         group->setName(grp.name);
-
-        int cols = qMax(1, static_cast<int>(qCeil(qSqrt(grp.fixtureIDs.count()))));
-        int rows = (grp.fixtureIDs.count() + cols - 1) / cols;
-        group->setSize(QSize(cols, rows));
-
-        for (int i = 0; i < grp.fixtureIDs.count(); ++i)
-            group->assignFixture(grp.fixtureIDs[i], QLCPoint(i % cols, i / cols));
+        layoutGroupSpatially(group, grp.fixtureIDs);
 
         m_doc->addFixtureGroup(group);
         grp.groupId = group->id();
@@ -1069,11 +1162,9 @@ void StageWizard::createFixtureGroups()
     {
         FixtureGroup *allGrp = new FixtureGroup(m_doc);
         allGrp->setName(m_allGroups.name);
-        int cols = qMax(1, static_cast<int>(qCeil(qSqrt(m_allGroups.fixtureIDs.count()))));
-        int rows = (m_allGroups.fixtureIDs.count() + cols - 1) / cols;
-        allGrp->setSize(QSize(cols, rows));
-        for (int i = 0; i < m_allGroups.fixtureIDs.count(); ++i)
-            allGrp->assignFixture(m_allGroups.fixtureIDs[i], QLCPoint(i % cols, i / cols));
+        // Spatial too: the aggregate is the whole-rig matrix, so its grid needs
+        // to be the plan view of every selected fixture — front row first.
+        layoutGroupSpatially(allGrp, m_allGroups.fixtureIDs);
         m_doc->addFixtureGroup(allGrp);
         m_allGroups.groupId = allGrp->id();
         m_generatedGroupIDs.append(allGrp->id());
@@ -1267,24 +1358,27 @@ void StageWizard::generateGroupFunctions(const FixtureGroupEntry &grp)
                 if (ch) m_generatedFunctionIDs.append(ch->id());
                 break;
             }
+            // A matrix renders in colour where the group can mix and as a
+            // greyscale intensity animation where it can't, so a dimmer is
+            // enough to take part — see generateRGBMatrix().
             case EffectPixelChase:
-                if (grp.hasRGB || grp.hasCMY)
+                if (grp.hasRGB || grp.hasCMY || grp.hasDimmer)
                     generateRGBMatrix(grp, "One By One", tr("Pixel Chase"));
                 break;
             case EffectWave:
-                if (grp.hasRGB || grp.hasCMY)
-                    generateRGBMatrix(grp, "Sine wave", tr("Wave"));
+                if (grp.hasRGB || grp.hasCMY || grp.hasDimmer)
+                    generateRGBMatrix(grp, "Sine Wave", tr("Wave"));
                 break;
             case EffectFireworks:
-                if (grp.hasRGB || grp.hasCMY)
+                if (grp.hasRGB || grp.hasCMY || grp.hasDimmer)
                     generateRGBMatrix(grp, "Fireworks", tr("Fireworks"));
                 break;
             case EffectPlasma:
-                if (grp.hasRGB || grp.hasCMY)
+                if (grp.hasRGB || grp.hasCMY || grp.hasDimmer)
                     generateRGBMatrix(grp, "Plasma", tr("Plasma"));
                 break;
             case EffectMarquee:
-                if (grp.hasRGB || grp.hasCMY)
+                if (grp.hasRGB || grp.hasCMY || grp.hasDimmer)
                     generateRGBMatrix(grp, "Marquee", tr("Marquee"));
                 break;
             default:

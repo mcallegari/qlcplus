@@ -375,6 +375,14 @@ private:
 
     // Generation sub-steps
     void createFixtureGroups();         ///< Persist selected boxes as Doc FixtureGroups
+
+    /** Lay $fixtureIDs out on $group's grid according to where they actually
+     *  sit in the 3D view: a line of 8 becomes 8x1, a back truss over a front
+     *  truss becomes Nx2, and so on. The grid is what RGB matrix effects run
+     *  across, so it has to mirror the rig or the patterns move the wrong way.
+     *  Falls back to a single row when no positions are known. */
+    void layoutGroupSpatially(FixtureGroup *group,
+                              const QList<quint32> &fixtureIDs) const;
     void generateColorPalette(const FixtureGroupEntry &grp, const QString &prefix);
     void generateGoboPalette(const FixtureGroupEntry &grp, const QString &prefix);
     /** Lamp-strike scene for groups whose fixtures declare a LampOn capability.

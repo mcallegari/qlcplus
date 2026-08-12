@@ -89,6 +89,42 @@ namespace
      *  light green) match, while blue vs cyan and red vs orange do not. */
     const qreal kSameColorThreshold = 0.22;
 
+    /** One alias, its compiled word-boundary pattern and the canonical label it
+     *  maps to. Built once (buildAliasPatterns) rather than per lookup. */
+    struct AliasPattern
+    {
+        QString label;
+        QString alias;
+        QRegularExpression re;
+    };
+
+    /** Flatten the vocabulary into compiled patterns, LONGEST ALIAS FIRST so a
+     *  caller can stop as soon as it has a match at least as long as whatever
+     *  remains. */
+    QList<AliasPattern> buildAliasPatterns()
+    {
+        QList<AliasPattern> out;
+        for (int i = 0; i < kVocabularyCount; i++)
+        {
+            const QStringList aliases =
+                QString::fromLatin1(kVocabulary[i].aliases).split('|');
+            for (const QString &alias : aliases)
+            {
+                AliasPattern ap;
+                ap.label = QString::fromLatin1(kVocabulary[i].label);
+                ap.alias = alias;
+                ap.re = QRegularExpression(QStringLiteral("\\b%1\\b")
+                                           .arg(QRegularExpression::escape(alias)));
+                ap.re.optimize();
+                out.append(ap);
+            }
+        }
+        std::sort(out.begin(), out.end(),
+                  [](const AliasPattern &a, const AliasPattern &b)
+                  { return a.alias.length() > b.alias.length(); });
+        return out;
+    }
+
     /** Strip the decoration makers append to slot names, so "Color 2 - Deep
      *  Blue - Stepped scrolling" is compared as "deep blue". */
     QString normalizedCapabilityName(const QString &raw)
@@ -134,27 +170,19 @@ QString StageWizard::canonicalColorName(const QString &capabilityName,
         // entry. "Orange red" contains both "orange" and "red"; the longer,
         // more specific "orange red"-style match must decide, otherwise the
         // answer depends on which vocabulary entry happens to come first.
-        QString bestLabel;
-        int bestLen = 0;
-        for (int i = 0; i < kVocabularyCount; i++)
-        {
-            const QStringList aliases =
-                QString::fromLatin1(kVocabulary[i].aliases).split('|');
-            for (const QString &alias : aliases)
-            {
-                if (alias.length() <= bestLen)
-                    continue;
-                QRegularExpression re(QStringLiteral("\\b%1\\b")
-                                      .arg(QRegularExpression::escape(alias)));
-                if (re.match(name).hasMatch())
-                {
-                    bestLabel = QString::fromLatin1(kVocabulary[i].label);
-                    bestLen = alias.length();
-                }
-            }
-        }
-        if (!bestLabel.isEmpty())
-            return bestLabel;
+        //
+        // The alias table is split and its patterns compiled ONCE, on first
+        // use. This function sits in the innermost loop of commonWheelColors()
+        // — on a 37-fixture rig it is called tens of thousands of times per
+        // group — and rebuilding ~40 QRegularExpressions on every call made
+        // generation take visibly long.
+        static const QList<AliasPattern> patterns = buildAliasPatterns();
+
+        // Sorted longest-first, so the FIRST hit is already the most specific
+        // one — "orange red" is tested before the "red" it contains.
+        for (const AliasPattern &ap : patterns)
+            if (ap.re.match(name).hasMatch())
+                return ap.label;
     }
 
     // ── 2. By colour ────────────────────────────────────────────────────────
@@ -271,12 +299,36 @@ StageWizard::commonWheelColors(const QList<quint32> &fixtureIDs) const
     // Wheels, one list per fixture that has one. Fixtures without a colour
     // wheel (a plain wash in the same group) are not counted as dissenters —
     // they simply don't take part.
-    QList<QList<WheelColor>> wheels;
+    //
+    // A rig has many fixtures but few MODELS, so wheels are deduplicated by
+    // their slot signature: 16 identical spots contribute one wheel to the
+    // comparison, and the fixtures sharing it are remembered so every one of
+    // them still gets its scene value. Without this the intersection below is
+    // O(fixtures^2 x slots) and a 37-fixture rig takes seconds.
+    QList<QList<WheelColor>> wheels;          // one per DISTINCT wheel layout
+    QList<QList<quint32>> wheelFixtures;      // fixtures sharing wheels[i]
+    QHash<QString, int> bySignature;
+
     for (quint32 fxID : fixtureIDs)
     {
         QList<WheelColor> w = wheelColorsOf(fxID);
-        if (!w.isEmpty())
-            wheels.append(w);
+        if (w.isEmpty())
+            continue;
+
+        QString sig;
+        for (const WheelColor &wc : w)
+            sig += QString::number(wc.channel) + ':' + QString::number(wc.value)
+                   + ':' + wc.color.name() + '|';
+
+        auto it = bySignature.constFind(sig);
+        if (it != bySignature.constEnd())
+        {
+            wheelFixtures[it.value()].append(fxID);
+            continue;
+        }
+        bySignature.insert(sig, wheels.count());
+        wheels.append(w);
+        wheelFixtures.append(QList<quint32>() << fxID);
     }
 
     QList<CommonWheelColor> result;
@@ -316,7 +368,14 @@ StageWizard::commonWheelColors(const QList<quint32> &fixtureIDs) const
         CommonWheelColor common;
         common.label = label;
         common.color = ref.color;
-        common.members.append(ref);
+
+        // The reference wheel stands for every fixture that shares its layout.
+        for (quint32 fxID : wheelFixtures.at(0))
+        {
+            WheelColor wc = ref;
+            wc.fixtureID = fxID;
+            common.members.append(wc);
+        }
 
         bool onEveryWheel = true;
         for (int w = 1; w < wheels.count(); w++)
@@ -344,7 +403,13 @@ StageWizard::commonWheelColors(const QList<quint32> &fixtureIDs) const
                 onEveryWheel = false;
                 break;
             }
-            common.members.append(*match);
+            // Likewise: one matched slot covers every fixture on that wheel.
+            for (quint32 fxID : wheelFixtures.at(w))
+            {
+                WheelColor wc = *match;
+                wc.fixtureID = fxID;
+                common.members.append(wc);
+            }
         }
 
         if (!onEveryWheel)
