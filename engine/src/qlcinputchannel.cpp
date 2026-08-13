@@ -69,9 +69,9 @@ void QLCInputChannel::setType(Type type)
 
     m_type = type;
     if (type == Encoder)
-        m_movementSensitivity = 1;
+        setMovementSensitivity(1);
     else
-        m_movementSensitivity = 20;
+        setMovementSensitivity(20);
 
     emit typeChanged();
 }
@@ -207,7 +207,11 @@ QLCInputChannel::MovementType QLCInputChannel::movementType() const
 
 void QLCInputChannel::setMovementType(QLCInputChannel::MovementType type)
 {
+    if (type == m_movementType)
+        return;
+
     m_movementType = type;
+    emit movementTypeChanged();
 }
 
 int QLCInputChannel::movementSensitivity() const
@@ -217,7 +221,11 @@ int QLCInputChannel::movementSensitivity() const
 
 void QLCInputChannel::setMovementSensitivity(int value)
 {
+    if (value == m_movementSensitivity)
+        return;
+
     m_movementSensitivity = value;
+    emit movementSensitivityChanged();
 }
 
 /*********************************************************************

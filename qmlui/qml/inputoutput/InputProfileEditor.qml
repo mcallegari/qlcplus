@@ -59,7 +59,7 @@ ColumnLayout
         {
             channelList.selectedChannelNumber = -1
             channelList.selectedChannel = null
-            updateOptions(QLCInputChannel.NoType)
+            updateOptions()
         }
         if (currentTab !== 1)
             selectedColorValue = -1
@@ -99,8 +99,14 @@ ColumnLayout
         messagePopup.open()
     }
 
-    function updateOptions(type)
+    /** Show the option groups relevant to the currently selected channel and
+     *  fill the editing controls with its values.
+     *  Note that the order matters: the sensitivity range must be set before
+     *  its value, otherwise the spin box clamps it to the previous range. */
+    function updateOptions()
     {
+        var channel = channelList.selectedChannel
+        var type = channel ? channel.type : QLCInputChannel.NoType
         var extraPress = false
         var movement = false
         var absRel = false
@@ -132,6 +138,15 @@ ColumnLayout
         showMovement = movement
         showAbsRel = absRel
         showFeedback = feedback
+
+        if (channel === null)
+            return
+
+        sensitivitySpin.value = channel.movementSensitivity
+        movementCombo.currValue = channel.movementType
+        extraPressCheck.checked = channel.sendExtraPress
+        lowerValueSpin.value = channel.lowerValue
+        upperValueSpin.value = channel.upperValue
     }
 
     function selectedChannel()
@@ -159,6 +174,8 @@ ColumnLayout
         if (!hasProfileEditor)
             return
         channelList.selectedChannelNumber = -1
+        channelList.selectedChannel = null
+        updateOptions()
         inputChannelEditor.open()
         inputChannelEditor.initialize(-1, profileEditorRef.type)
     }
@@ -177,6 +194,8 @@ ColumnLayout
             return
         profileEditorRef.removeChannel(channelList.selectedChannelNumber - 1)
         channelList.selectedChannelNumber = -1
+        channelList.selectedChannel = null
+        updateOptions()
     }
 
     function removeSelectedColor()
@@ -634,8 +653,8 @@ ColumnLayout
 
             function onTypeChanged()
             {
-                if (channelList.selectedChannel)
-                    updateOptions(channelList.selectedChannel.type)
+                // the type change also resets the movement sensitivity
+                updateOptions()
             }
         }
 
@@ -725,7 +744,7 @@ ColumnLayout
                     {
                         channelList.selectedChannelNumber = modelData.chNumber
                         channelList.selectedChannel = channel
-                        updateOptions(channel.type)
+                        updateOptions()
                     }
                 }
             }
@@ -928,10 +947,14 @@ ColumnLayout
 
             CustomCheckBox
             {
+                id: extraPressCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
-                checked: channelList.selectedChannel ? channelList.selectedChannel.sendExtraPress : false
-                onToggled: channelList.selectedChannel.sendExtraPress = checked
+                onToggled:
+                {
+                    if (channelList.selectedChannel)
+                        channelList.selectedChannel.sendExtraPress = checked
+                }
             }
             RobotoText
             {
@@ -972,8 +995,11 @@ ColumnLayout
                     { mLabel: "Absolute", mValue: QLCInputChannel.Absolute },
                     { mLabel: "Relative", mValue: QLCInputChannel.Relative }
                 ]
-                currentIndex: channelList.selectedChannel ? channelList.selectedChannel.movementType : QLCInputChannel.Absolute
-                onValueChanged: channelList.selectedChannel.movementType = currentValue
+                onValueChanged: (value) =>
+                {
+                    if (channelList.selectedChannel)
+                        channelList.selectedChannel.movementType = value
+                }
             }
             RobotoText
             {
@@ -986,8 +1012,11 @@ ColumnLayout
                 implicitHeight: UISettings.listItemHeight
                 from: 10
                 to: 100
-                value: channelList.selectedChannel ? channelList.selectedChannel.movementSensitivity : 20
-                onValueModified: channelList.selectedChannel.movementSensitivity = value
+                onValueModified:
+                {
+                    if (channelList.selectedChannel)
+                        channelList.selectedChannel.movementSensitivity = value
+                }
             }
         }
     } // GroupBox
@@ -1013,11 +1042,15 @@ ColumnLayout
             }
             CustomSpinBox
             {
+                id: lowerValueSpin
                 implicitHeight: UISettings.listItemHeight
                 from: 0
                 to: 255
-                value: channelList.selectedChannel ? channelList.selectedChannel.lowerValue : 0
-                onValueModified: channelList.selectedChannel.lowerValue = value
+                onValueModified:
+                {
+                    if (channelList.selectedChannel)
+                        channelList.selectedChannel.lowerValue = value
+                }
             }
             RobotoText
             {
@@ -1026,11 +1059,15 @@ ColumnLayout
             }
             CustomSpinBox
             {
+                id: upperValueSpin
                 implicitHeight: UISettings.listItemHeight
                 from: 0
                 to: 255
-                value: channelList.selectedChannel ? channelList.selectedChannel.upperValue : 255
-                onValueModified: channelList.selectedChannel.upperValue = value
+                onValueModified:
+                {
+                    if (channelList.selectedChannel)
+                        channelList.selectedChannel.upperValue = value
+                }
             }
         }
     } // GroupBox
