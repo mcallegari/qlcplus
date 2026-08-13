@@ -175,11 +175,11 @@
  </Channel>
  <Channel Number="61">
   <Name>Marker Left</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="62">
   <Name>Marker Right</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="64">
   <Name>Record 1</Name>

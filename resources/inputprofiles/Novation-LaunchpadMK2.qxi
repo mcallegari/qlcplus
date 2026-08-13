@@ -19,11 +19,11 @@
  </Channel>
  <Channel Number="106">
   <Name>Left</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="107">
   <Name>Right</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="108">
   <Name>Session</Name>

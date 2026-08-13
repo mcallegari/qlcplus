@@ -61,12 +61,12 @@
  </Channel>
  <Channel Number="93">
   <Name>Left</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
   <Feedback UpperValue="6"/>
  </Channel>
  <Channel Number="94">
   <Name>Right</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
   <Feedback UpperValue="6"/>
  </Channel>
  <Channel Number="95">

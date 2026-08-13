@@ -397,12 +397,12 @@
  </Channel>
  <Channel Number="234">
   <Name>Left Button</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
   <Feedback LowerValue="1" UpperValue="3"/>
  </Channel>
  <Channel Number="235">
   <Name>Right Button</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
   <Feedback LowerValue="1" UpperValue="3"/>
  </Channel>
  <Channel Number="240">

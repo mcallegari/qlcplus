@@ -116,11 +116,11 @@
  </Channel>
  <Channel Number="93">
   <Name>Left Arrow</Name>
-  <Type>Button</Type>
+  <Type>Previous Page</Type>
  </Channel>
  <Channel Number="94">
   <Name>Right Arrow</Name>
-  <Type>Button</Type>
+  <Type>Next Page</Type>
  </Channel>
  <Channel Number="95">
   <Name>Session</Name>
