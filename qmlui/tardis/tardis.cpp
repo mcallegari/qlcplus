@@ -1557,6 +1557,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 xyPad->applyPreset(value->toUInt());
         }
         break;
+        case VCXYPadSetFloorPosition:
+        {
+            VCXYPad *xyPad = qobject_cast<VCXYPad *>(m_virtualConsole->widget(action.m_objID));
+            if (xyPad)
+                xyPad->setFloorPosition(value->value<QVector3D>());
+        }
+        break;
         case VCAudioTriggersSetCaptureEnabled:
         {
             VCAudioTriggers *audioTriggers = qobject_cast<VCAudioTriggers *>(m_virtualConsole->widget(action.m_objID));

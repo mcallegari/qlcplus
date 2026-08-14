@@ -243,6 +243,7 @@ public:
         VCXYPadSetPosition = LIVE_ACTIONS_START_CODE + 0x600,
         VCXYPadSetGeometry,
         VCXYPadActivatePreset,
+        VCXYPadSetFloorPosition,
 
         VCAudioTriggersSetCaptureEnabled = LIVE_ACTIONS_START_CODE + 0x700,
         VCAudioTriggersSetLevel,

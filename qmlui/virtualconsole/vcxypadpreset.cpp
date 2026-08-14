@@ -23,6 +23,7 @@
 #include <climits>
 
 #include "vcxypadpreset.h"
+#include "fixturegroup.h"
 #include "function.h"
 #include "vcwidget.h"
 
@@ -31,6 +32,7 @@ VCXYPadPreset::VCXYPadPreset(quint8 id)
     , m_type(Position)
     , m_dmxPos(QPointF(0, 0))
     , m_funcID(Function::invalidId())
+    , m_fxGroupID(FixtureGroup::invalidId())
 {
 }
 
@@ -52,6 +54,7 @@ VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &preset)
         m_name = preset.m_name;
         m_dmxPos = preset.m_dmxPos;
         m_funcID = preset.m_funcID;
+        m_fxGroupID = preset.m_fxGroupID;
         m_fxGroup = preset.m_fxGroup;
         m_keySequence = preset.m_keySequence;
 
@@ -211,6 +214,15 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
 
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCVCXYPadPresetGroup)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLQLCVCXYPadPresetGroupID))
+                m_fxGroupID = attrs.value(KXMLQLCVCXYPadPresetGroupID).toString().toUInt();
+
+            root.skipCurrentElement();
+        }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {
             m_inputSource = presetInputFromXML(root);
@@ -276,12 +288,22 @@ bool VCXYPadPreset::saveXML(QXmlStreamWriter *doc) const
     }
     else if (m_type == FixtureGroup)
     {
-        for (const GroupHead &gh : m_fxGroup)
+        if (m_fxGroupID != ::FixtureGroup::invalidId())
         {
-            doc->writeStartElement(KXMLQLCVCXYPadPresetFixture);
-            doc->writeAttribute(KXMLQLCVCXYPadPresetFixtureID, QString::number(gh.fxi));
-            doc->writeAttribute(KXMLQLCVCXYPadPresetFixtureHead, QString::number(gh.head));
+            // reference the group, so that the preset follows its membership
+            doc->writeStartElement(KXMLQLCVCXYPadPresetGroup);
+            doc->writeAttribute(KXMLQLCVCXYPadPresetGroupID, QString::number(m_fxGroupID));
             doc->writeEndElement();
+        }
+        else
+        {
+            for (const GroupHead &gh : m_fxGroup)
+            {
+                doc->writeStartElement(KXMLQLCVCXYPadPresetFixture);
+                doc->writeAttribute(KXMLQLCVCXYPadPresetFixtureID, QString::number(gh.fxi));
+                doc->writeAttribute(KXMLQLCVCXYPadPresetFixtureHead, QString::number(gh.head));
+                doc->writeEndElement();
+            }
         }
     }
 

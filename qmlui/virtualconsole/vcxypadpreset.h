@@ -40,6 +40,8 @@ class QXmlStreamWriter;
 #define KXMLQLCVCXYPadPresetFixture     QStringLiteral("Fixture")
 #define KXMLQLCVCXYPadPresetFixtureID   QStringLiteral("ID")
 #define KXMLQLCVCXYPadPresetFixtureHead QStringLiteral("Head")
+#define KXMLQLCVCXYPadPresetGroup       QStringLiteral("Group")
+#define KXMLQLCVCXYPadPresetGroupID     QStringLiteral("ID")
 
 class VCXYPadPreset final
 {
@@ -74,6 +76,14 @@ public:
     QString m_name;
     QPointF m_dmxPos;
     quint32 m_funcID;
+
+    /** ID of the FixtureGroup this preset selects. When valid, m_fxGroup is
+     *  not used and the heads are resolved from the group on demand, so that
+     *  changes to the group membership are picked up automatically. */
+    quint32 m_fxGroupID;
+
+    /** Explicit list of heads, used when the preset selects an arbitrary
+     *  set of heads rather than a whole group */
     QList<GroupHead> m_fxGroup;
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;
