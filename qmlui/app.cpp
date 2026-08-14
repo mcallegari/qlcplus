@@ -345,6 +345,19 @@ void App::setLanguage(QString locale)
     engine()->retranslate();
 }
 
+QString App::language()
+{
+    const QSettings settings;
+    const QVariant language = settings.value(SETTINGS_LANGUAGE);
+
+    return language.isValid() ? language.toString() : "";
+}
+
+QString App::languageHTML()
+{
+    return language().toLower().replace('_', '-');
+}
+
 QString App::goboSystemPath() const
 {
     return QLCFile::systemDirectory(GOBODIR).absolutePath();

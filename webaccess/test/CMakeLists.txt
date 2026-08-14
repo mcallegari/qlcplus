@@ -4,11 +4,19 @@ add_executable(webaccessescaping_test WIN32 MACOSX_BUNDLE
 )
 target_include_directories(webaccessescaping_test PRIVATE
     ../src
+    ../../engine/src
 )
 target_link_libraries(webaccessescaping_test PRIVATE
     Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Quick
     Qt${QT_MAJOR_VERSION}::Test
 )
+if(qmlui)
+    target_include_directories(webaccessescaping_test PRIVATE
+        ../../qmlui
+        ../../plugins/interfaces
+    )
+endif()
 
 add_executable(webaccessupload_test WIN32 MACOSX_BUNDLE
     ../src/webaccessupload.cpp
