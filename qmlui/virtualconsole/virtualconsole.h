@@ -298,6 +298,18 @@ public:
     Q_INVOKABLE QVariant inputChannelsModel();
     Q_INVOKABLE QVariantList universeListModel() const;
 
+    /** Enable/disable the handling of the external controllers input
+     *  signals. When disabled, the Virtual Console ignores every incoming
+     *  input signal, so another context (e.g. the Scene Editor bottom
+     *  panel) can use the controller surface without triggering any VC
+     *  widget. Note that an input source autodetection still has
+     *  priority, to not break the widget mapping process. */
+    void enableExternalInput(bool enable);
+
+    /** Return true if the external input signals are currently
+     *  handled by the Virtual Console */
+    bool externalInputEnabled() const;
+
 protected slots:
     /**
      * Slot that receives external input data from the InputOutputMap class.
@@ -312,6 +324,11 @@ protected:
     /** Flag that indicates that an input source autodetection is running
      *  to properly behave when an input signal is received */
     bool m_inputDetectionEnabled;
+
+    /** Flag that indicates if the external controllers input signals are
+     *  handled. It is lowered when another context takes over the
+     *  controller surface. @see enableExternalInput */
+    bool m_externalInputEnabled;
 
     /** Temporary reference to a VC widget which is in the process
      *  of auto detecting an input source */

@@ -73,6 +73,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     , m_latestWidgetId(0)
     , m_clipboardIsCut(false)
     , m_inputDetectionEnabled(false)
+    , m_externalInputEnabled(true)
     , m_autoDetectionWidget(nullptr)
     , m_autoDetectionSource(nullptr)
     , m_inputChannelsTree(nullptr)
@@ -1325,9 +1326,31 @@ QVariantList VirtualConsole::universeListModel() const
     return list;
 }
 
+void VirtualConsole::enableExternalInput(bool enable)
+{
+    if (m_externalInputEnabled == enable)
+        return;
+
+    qDebug() << "[VirtualConsole] external input enabled:" << enable;
+
+    m_externalInputEnabled = enable;
+}
+
+bool VirtualConsole::externalInputEnabled() const
+{
+    return m_externalInputEnabled;
+}
+
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     //qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
+
+    /** Another context (e.g. the Scene Editor bottom panel) is using the
+     *  external controller surface, so no widget must be triggered here.
+     *  An ongoing autodetection still wins, otherwise the user would not
+     *  be able to map a widget while the input is disabled. */
+    if (m_externalInputEnabled == false && m_inputDetectionEnabled == false)
+        return;
 
     if (m_inputDetectionEnabled == false)
     {

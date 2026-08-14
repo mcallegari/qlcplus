@@ -36,12 +36,27 @@ Rectangle
     property int expandedHeight: mainView.height / 3
     property string editorSource: ""
 
+    /** True when the loaded editor is a Scene fixture console */
+    property bool isSceneConsole: editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
+
     onVisibleChanged:
     {
         if (visible === false)
+        {
             editorLoader.source = ""
+            releaseExternalControl()
+        }
         else
+        {
             editorLoader.source = editorSource
+        }
+    }
+
+    /** Hand the external controllers back to the Virtual Console */
+    function releaseExternalControl()
+    {
+        if (typeof sceneEditor !== "undefined" && sceneEditor)
+            sceneEditor.externalControlEnabled = false
     }
 
     function animatePanel(checked)
@@ -60,6 +75,9 @@ Rectangle
             animateClose.start()
             isOpen = false
             editorLoader.source = ""
+            // the panel is closed, so the Virtual Console
+            // must receive input signals again
+            releaseExternalControl()
         }
     }
 
@@ -125,6 +143,60 @@ Rectangle
             anchors.fill: parent
             z: 2
 
+            // external controller: enable/disable the faders control
+            IconButton
+            {
+                id: extControlButton
+                visible: isOpen && isSceneConsole
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                faSource: FontAwesome.fa_sliders
+                faColor: UISettings.fgMain
+                checkable: true
+                checked: sceneEditor ? sceneEditor.externalControlEnabled : false
+                tooltip: qsTr("Control the channels with an external controller. The Virtual Console will not receive input signals")
+                onToggled: if (sceneEditor) sceneEditor.externalControlEnabled = checked
+            }
+
+            // external controller: normal / pan & tilt mode
+            IconButton
+            {
+                visible: isOpen && isSceneConsole && extControlButton.checked
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                imgSource: "qrc:/position.svg"
+                checkable: true
+                checked: sceneEditor ? sceneEditor.panTiltMode : false
+                tooltip: qsTr("Toggle Pan & Tilt mode. The faders will control pan, pan fine, tilt and tilt fine of one fixture")
+                onToggled: if (sceneEditor) sceneEditor.panTiltMode = checked
+            }
+
+            // external controller: previous page
+            IconButton
+            {
+                visible: isOpen && isSceneConsole && extControlButton.checked
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                faSource: FontAwesome.fa_angle_left
+                faColor: UISettings.fgMain
+                enabled: sceneEditor ? sceneEditor.externalPage > 0 : false
+                tooltip: qsTr("Shift the faders mapping backward")
+                onClicked: if (sceneEditor) sceneEditor.changeExternalPage(-1)
+            }
+
+            // external controller: next page
+            IconButton
+            {
+                visible: isOpen && isSceneConsole && extControlButton.checked
+                width: UISettings.iconSizeDefault
+                height: UISettings.iconSizeDefault
+                faSource: FontAwesome.fa_angle_right
+                faColor: UISettings.fgMain
+                enabled: sceneEditor ? sceneEditor.externalPage < sceneEditor.externalPageCount - 1 : false
+                tooltip: qsTr("Shift the faders mapping forward")
+                onClicked: if (sceneEditor) sceneEditor.changeExternalPage(1)
+            }
+
             // filler
             Rectangle
             {
@@ -135,7 +207,7 @@ Rectangle
 
             IconButton
             {
-                visible: isOpen && editorLoader.item && editorLoader.item.hasOwnProperty("isSceneEditor")
+                visible: isOpen && isSceneConsole
                 width: UISettings.iconSizeDefault
                 height: UISettings.iconSizeDefault
                 faSource: FontAwesome.fa_copy
