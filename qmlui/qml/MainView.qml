@@ -93,10 +93,20 @@ Rectangle
         dimScreen.visible = enable
     }
 
-    function openAccessRequest(clientName)
+    function openAccessRequest(sessionId, clientName, peerAddress, peerPort)
     {
+        clientAccessPopup.deciding = false
+        clientAccessPopup.sessionId = sessionId
         clientAccessPopup.clientName = clientName
+        clientAccessPopup.peerAddress = peerAddress
+        clientAccessPopup.peerPort = peerPort
         clientAccessPopup.open()
+    }
+
+    function closeAccessRequest(sessionId)
+    {
+        if (clientAccessPopup.sessionId === sessionId)
+            clientAccessPopup.close()
     }
 
     function saveProject()
