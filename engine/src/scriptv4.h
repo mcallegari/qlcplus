@@ -143,9 +143,6 @@ public:
     /** @reimp */
     void postRun(MasterTimer *timer, QList<Universe*> universes) override;
 
-protected slots:
-    void slotRunnerFinished();
-
 private:
     /**
      * Parse a string in the form "random(min,max)" and returns

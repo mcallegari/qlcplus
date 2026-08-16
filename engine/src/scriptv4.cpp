@@ -330,7 +330,6 @@ bool Script::saveXML(QXmlStreamWriter *doc) const
 void Script::preRun(MasterTimer* timer)
 {
     m_runner = new ScriptRunner(doc(), m_data);
-    connect(m_runner, SIGNAL(finished()), this, SLOT(slotRunnerFinished()));
     m_runner->execute();
 
     Function::preRun(timer);
@@ -357,20 +356,14 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
         m_runner->stop();
         m_runner->exit();
         m_runner->wait();
+        // we can't directly delete m_runner here because the finished() signal of
+        // QThread is fired just before the thread has actually finished executing.
+        // This would crash in ~QThread. deleteLater() ensures the thread is actually done.
+        m_runner->deleteLater();
+        m_runner = NULL;
     }
 
     Function::postRun(timer, universes);
-}
-
-void Script::slotRunnerFinished()
-{
-    // we can't directly delete m_runner here because the finished() signal of
-    // QThread is fired just before the thread has actually finished executing. This
-    // would crash in ~QThread. deleteLater() ensures the thread is actually done.
-    m_runner->deleteLater();
-    m_runner = NULL;
-
-    stop(FunctionParent::master());
 }
 
 quint32 Script::getValueFromString(const QString& str, bool *ok)
