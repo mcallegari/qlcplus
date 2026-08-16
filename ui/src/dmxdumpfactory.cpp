@@ -55,6 +55,10 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
     setupUi(this);
 
+    /* The number of universes can change at any time during a project
+     * lifetime, so make sure the channels mask can hold them all */
+    m_properties->setUniversesCount(m_doc->inputOutputMap()->universesCount());
+
     quint32 treeFlags = FixtureTreeWidget::ChannelType |
                         FixtureTreeWidget::ChannelSelection;
 
@@ -217,6 +221,10 @@ void DmxDumpFactory::accept()
 
     QByteArray preGMValues(ua.size() * UNIVERSE_SIZE, 0); // = ua->preGMValues();
 
+    /* Guard against fixtures addressed beyond the known universes */
+    if (dumpMask.size() < preGMValues.size())
+        dumpMask.resize(preGMValues.size());
+
     for (int i = 0; i < ua.count(); ++i)
     {
         const int offset = i * UNIVERSE_SIZE;
@@ -257,6 +265,10 @@ void DmxDumpFactory::accept()
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
                     quint32 channel = chanItem->data(KColumnName, PROP_CHANNEL).toUInt();
+
+                    /* Skip fixtures patched outside of the existing universes */
+                    if (baseAddress + channel >= (quint32)dumpMask.size())
+                        continue;
 
                     if (m_dumpAllRadio->isChecked())
                     {

@@ -47,6 +47,13 @@ void DmxDumpFactoryProperties::setNonZeroValuesMode(bool mode)
     m_dumpNonZeroValues = mode;
 }
 
+void DmxDumpFactoryProperties::setUniversesCount(int universes)
+{
+    int size = universes * 512;
+    if (size > m_channelsMask.size())
+        m_channelsMask.append(QByteArray(size - m_channelsMask.size(), 0));
+}
+
 QByteArray DmxDumpFactoryProperties::channelsMask() const
 {
     return m_channelsMask;
@@ -55,7 +62,11 @@ QByteArray DmxDumpFactoryProperties::channelsMask() const
 void DmxDumpFactoryProperties::setChannelsMask(QByteArray mask)
 {
     if (mask.isEmpty() == false)
+    {
+        if (mask.length() > m_channelsMask.length())
+            m_channelsMask.resize(mask.length());
         m_channelsMask.replace(0, mask.length(), mask);
+    }
 }
 
 /************************************************************************

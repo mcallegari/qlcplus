@@ -49,6 +49,12 @@ public:
     /** Set a flag to dump only the channels with non zero values. */
     void setNonZeroValuesMode(bool mode);
 
+    /** Resize the channels mask to hold $universes universes.
+     *  Existing selections are preserved. This must be called
+     *  whenever the number of universes in the project changes,
+     *  otherwise the mask would be indexed out of its boundaries */
+    void setUniversesCount(int universes);
+
     /** Return the current map of the selected DMX channels to dump.
      *  The array has size = universes * 512 */
     QByteArray channelsMask() const;
