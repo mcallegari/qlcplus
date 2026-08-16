@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Worlde</Manufacturer>
+ <Model>Orca PAD16</Model>
+ <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
+ <Channel Number="0">
+  <Name>R1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="1">
+  <Name>R2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>R3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>R4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>R5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>R6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>PAD1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>PAD2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>PAD3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>PAD4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>PAD5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>PAD6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>PAD7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>PAD8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>PAD9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="197">
+  <Name>PAD10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="198">
+  <Name>PAD11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>PAD12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>PAD13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>PAD14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>PAD15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>PAD16</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

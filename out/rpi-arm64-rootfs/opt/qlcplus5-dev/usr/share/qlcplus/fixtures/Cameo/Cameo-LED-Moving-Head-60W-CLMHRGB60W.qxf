@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Jasper Zevering</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED Moving Head 60W CLMHR60W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Motion" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#ff0080">Magenta</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#00e100">Green</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#ff6cff">Bright magenta</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#6cff00">Bright green</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#ffd100">Amber</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="80" Max="99" Preset="GoboMacro" Res1="">Gobo 1 shake, (speed)</Capability>
+  <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="">Gobo 2 shake, (speed)</Capability>
+  <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="">Gobo 3 shake, (speed)</Capability>
+  <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="">Gobo 4 shake, (speed)</Capability>
+  <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="">Gobo 5 shake, (speed)</Capability>
+  <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="">Gobo 6 shake, (speed)</Capability>
+  <Capability Min="200" Max="219" Preset="GoboShakeMacro" Res1="">Gobo 7 shake, (speed)</Capability>
+  <Capability Min="220" Max="255" Preset="RotationClockwiseSlowToFast">Rotation (speed)</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Manual</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Right (speed slow - fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Left (speed slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="127" Preset="StrobeSlowToFast">Stroboscope effect 1 (speed slow - fast)</Capability>
+  <Capability Min="128" Max="137" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="138" Max="201" Preset="StrobeSlowToFast">Stroboscope effect 2 (speed slow - fast)</Capability>
+  <Capability Min="202" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="3">Open</Capability>
+  <Capability Min="4" Max="127">Prism</Capability>
+  <Capability Min="128" Max="255">Rotation (speed slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Function/ program">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="16">No function</Capability>
+  <Capability Min="17" Max="33">Blackout during pan / tilt motion</Capability>
+  <Capability Min="34" Max="50">Blackout during gobo / colour wheel rotation</Capability>
+  <Capability Min="51" Max="67" Preset="ResetColor">Colour motor and gobo wheel motor reset</Capability>
+  <Capability Min="68" Max="84" Preset="ResetAll">Reset all motors</Capability>
+  <Capability Min="85" Max="101">Program 1</Capability>
+  <Capability Min="102" Max="118">Program 2</Capability>
+  <Capability Min="119" Max="135">Program 3</Capability>
+  <Capability Min="136" Max="152">Program 4</Capability>
+  <Capability Min="153" Max="169">Program 5</Capability>
+  <Capability Min="170" Max="186">Program 6</Capability>
+  <Capability Min="187" Max="203">Program 7</Capability>
+  <Capability Min="204" Max="220">Program 8</Capability>
+  <Capability Min="221" Max="237">Show 1</Capability>
+  <Capability Min="238" Max="255">Show 2</Capability>
+ </Channel>
+ <Channel Name="Pan Fine Control" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine Control" Preset="PositionTiltFine"/>
+ <Mode Name="8-Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour Wheel</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Focus</Channel>
+  <Channel Number="7">Prism</Channel>
+ </Mode>
+ <Mode Name="13-Ch">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Motion</Channel>
+  <Channel Number="3">Colour Wheel</Channel>
+  <Channel Number="4">Gobo Wheel</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Rotation</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Focus</Channel>
+  <Channel Number="9">Prism</Channel>
+  <Channel Number="10">Function/ program</Channel>
+  <Channel Number="11">Pan Fine Control</Channel>
+  <Channel Number="12">Tilt Fine Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="230" Height="275" Depth="320"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

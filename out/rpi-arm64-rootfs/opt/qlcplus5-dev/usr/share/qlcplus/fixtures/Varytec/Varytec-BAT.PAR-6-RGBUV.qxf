@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Henrik Bauer, Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>BAT.PAR 6 RGBUV</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="9">Colour 01</Capability>
+  <Capability Min="10" Max="14">Colour 02</Capability>
+  <Capability Min="15" Max="19">Colour 03</Capability>
+  <Capability Min="20" Max="24">Colour 04</Capability>
+  <Capability Min="25" Max="29">Colour 05</Capability>
+  <Capability Min="30" Max="34">Colour 06</Capability>
+  <Capability Min="35" Max="39">Colour 07</Capability>
+  <Capability Min="40" Max="44">Colour 08</Capability>
+  <Capability Min="45" Max="49">Colour 09</Capability>
+  <Capability Min="50" Max="54">Colour 10</Capability>
+  <Capability Min="55" Max="59">Colour 11</Capability>
+  <Capability Min="60" Max="64">Colour 12</Capability>
+  <Capability Min="65" Max="69">Colour 13</Capability>
+  <Capability Min="70" Max="74">Colour 14</Capability>
+  <Capability Min="75" Max="79">Colour 15</Capability>
+  <Capability Min="80" Max="84">Colour 16</Capability>
+  <Capability Min="85" Max="89">Colour 17</Capability>
+  <Capability Min="90" Max="94">Colour 18</Capability>
+  <Capability Min="95" Max="99">Colour 19</Capability>
+  <Capability Min="100" Max="104">Colour 20</Capability>
+  <Capability Min="105" Max="109">Colour 21</Capability>
+  <Capability Min="110" Max="114">Colour 22</Capability>
+  <Capability Min="115" Max="119">Colour 23</Capability>
+  <Capability Min="120" Max="124">Colour 24</Capability>
+  <Capability Min="125" Max="129">Colour 25</Capability>
+  <Capability Min="130" Max="134">Colour 26</Capability>
+  <Capability Min="135" Max="139">Colour 27</Capability>
+  <Capability Min="140" Max="144">Colour 28</Capability>
+  <Capability Min="145" Max="149">Colour 29</Capability>
+  <Capability Min="150" Max="154">Colour 30</Capability>
+  <Capability Min="155" Max="159">Colour 31</Capability>
+  <Capability Min="160" Max="164">Colour 32</Capability>
+  <Capability Min="165" Max="169">Colour 33</Capability>
+  <Capability Min="170" Max="174">Colour 34</Capability>
+  <Capability Min="175" Max="179">Colour 35</Capability>
+  <Capability Min="180" Max="184">Colour 36</Capability>
+  <Capability Min="185" Max="189">Colour 37</Capability>
+  <Capability Min="190" Max="194">Colour 38</Capability>
+  <Capability Min="195" Max="199">Colour 39</Capability>
+  <Capability Min="200" Max="204">Colour 40</Capability>
+  <Capability Min="205" Max="209">Colour 41</Capability>
+  <Capability Min="210" Max="214">Colour 42</Capability>
+  <Capability Min="215" Max="219">Colour 43</Capability>
+  <Capability Min="220" Max="224">Colour 44</Capability>
+  <Capability Min="225" Max="229">Colour 45</Capability>
+  <Capability Min="230" Max="234">Colour 46</Capability>
+  <Capability Min="235" Max="239">Colour 47</Capability>
+  <Capability Min="240" Max="244">Colour 48</Capability>
+  <Capability Min="245" Max="249">Colour 49</Capability>
+  <Capability Min="250" Max="254">Colour 50</Capability>
+  <Capability Min="255" Max="255">Colour 51</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="31">Program 1</Capability>
+  <Capability Min="32" Max="47">Program 2</Capability>
+  <Capability Min="48" Max="63">Program 3</Capability>
+  <Capability Min="64" Max="79">Program 4</Capability>
+  <Capability Min="80" Max="95">Program 5</Capability>
+  <Capability Min="96" Max="111">Program 6</Capability>
+  <Capability Min="112" Max="127">Program 7</Capability>
+  <Capability Min="128" Max="143">Program 8</Capability>
+  <Capability Min="144" Max="159">Program 9</Capability>
+  <Capability Min="160" Max="175">Program 10</Capability>
+  <Capability Min="176" Max="191">Program 11</Capability>
+  <Capability Min="192" Max="207">Program 12</Capability>
+  <Capability Min="208" Max="223">Program 13</Capability>
+  <Capability Min="224" Max="239">Sound mode 1</Capability>
+  <Capability Min="240" Max="255">Sound mode 2</Capability>
+ </Channel>
+ <Channel Name="Program speed/Mic sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program speed/Mic sensitivity (slow-fast/low-high)</Capability>
+ </Channel>
+ <Mode Name="1 channel">
+  <Channel Number="0">Colour Macros</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">UV</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="7 channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">UV</Channel>
+  <Channel Number="5">Programs</Channel>
+  <Channel Number="6">Program speed/Mic sensitivity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="250" Height="254" Depth="130"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

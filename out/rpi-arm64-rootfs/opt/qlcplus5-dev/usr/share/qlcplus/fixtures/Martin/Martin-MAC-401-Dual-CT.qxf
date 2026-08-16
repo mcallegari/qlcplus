@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Tim Cullingworth</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC 401 Dual CT Zoom</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Strobe / Virtual Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Shutter closed</Capability>
+  <Capability Min="20" Max="49">Shutter open</Capability>
+  <Capability Min="50" Max="64">Strobe (fast -&gt;slow)</Capability>
+  <Capability Min="65" Max="69">Shutter open</Capability>
+  <Capability Min="70" Max="84">Opening pulse (fast-&gt;slow)</Capability>
+  <Capability Min="85" Max="89">Shutter open</Capability>
+  <Capability Min="90" Max="104">Closing pulse (fast-&gt;slow)</Capability>
+  <Capability Min="105" Max="109">Shutter open</Capability>
+  <Capability Min="110" Max="124">Random strobe (fast-&gt;slow)</Capability>
+  <Capability Min="125" Max="129">Shutter closed</Capability>
+  <Capability Min="130" Max="144">Random opening pulse (fast-&gt;slow)</Capability>
+  <Capability Min="145" Max="149">Shutter open</Capability>
+  <Capability Min="150" Max="164">Random closing pulse (fast-&gt;slow)</Capability>
+  <Capability Min="165" Max="169">Shutter closed</Capability>
+  <Capability Min="170" Max="184">Burst pulse (fast-&gt;slow)</Capability>
+  <Capability Min="185" Max="189">Shutter open</Capability>
+  <Capability Min="190" Max="204">Random burst pulse (fast-&gt;slow)</Capability>
+  <Capability Min="205" Max="209">Shutter closed</Capability>
+  <Capability Min="210" Max="224">Sine wave (fast-&gt;slow)</Capability>
+  <Capability Min="225" Max="229">Shutter open</Capability>
+  <Capability Min="230" Max="244">Electronic burst (fast-&gt;slow)</Capability>
+  <Capability Min="245" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Virtual Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dynamic Effect 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">No effect</Capability>
+  <Capability Min="20" Max="39">Effect 1 - White single segment chase</Capability>
+  <Capability Min="40" Max="59">Effect 2 - White double segment chase</Capability>
+  <Capability Min="60" Max="189">No Effect</Capability>
+  <Capability Min="190" Max="194">Effect 26 - White flip 1</Capability>
+  <Capability Min="195" Max="199">Effect 27 - White flip 2</Capability>
+  <Capability Min="200" Max="204">Effect 28 - White flicker chase</Capability>
+  <Capability Min="205" Max="209">Effect 29 - Rising pulse</Capability>
+  <Capability Min="210" Max="214">Effect 30 - White flicker</Capability>
+  <Capability Min="215" Max="219">Effect 31 - Strobe pulse</Capability>
+  <Capability Min="220" Max="224">Effect 32 - Single segment chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="225" Max="229">Effect 33 - Two segment chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="230" Max="234">Effect 34 - Double horiz. seg. chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="235" Max="239">Effect 35 - Double vert. seg. chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="240" Max="244">Effect 36 - Double opposite chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="245" Max="249">Effect 37 - Reserved for future use</Capability>
+  <Capability Min="250" Max="255">Effect 38 - Reserved for future use</Capability>
+ </Channel>
+ <Channel Name="Dynamic Effect 1 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Stop</Capability>
+  <Capability Min="3" Max="126">Clockwise rotation, fast -&gt; slow</Capability>
+  <Capability Min="127" Max="129">Stop</Capability>
+  <Capability Min="130" Max="253">Counter-clockwise rotation, slow -&gt; fast</Capability>
+  <Capability Min="254" Max="255">Stop</Capability>
+ </Channel>
+ <Channel Name="Dynamic Effect 1 X-Fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">No fade -&gt; max. fade</Capability>
+ </Channel>
+ <Channel Name="Dynamic Effect 1 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Dynamic Effect 2 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Stop</Capability>
+  <Capability Min="3" Max="126">Clockwise rotation, fast -&gt; slow</Capability>
+  <Capability Min="127" Max="129">Stop</Capability>
+  <Capability Min="130" Max="253">Counter-clockwise rotation, slow -&gt; fast</Capability>
+  <Capability Min="254" Max="255">Stop</Capability>
+ </Channel>
+ <Channel Name="Dynamic Effect 2 X-Fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">No fade -&gt; max. fade</Capability>
+ </Channel>
+ <Channel Name="Dynamic Effect 2 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="200">Wide -&gt; narrow</Capability>
+  <Capability Min="201" Max="210">Hypermode</Capability>
+  <Capability Min="211" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Fixture Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Reset enttire fixture</Capability>
+  <Capability Min="15" Max="19">No function</Capability>
+  <Capability Min="20" Max="24">Reset effects only</Capability>
+  <Capability Min="25" Max="29">No function</Capability>
+  <Capability Min="30" Max="34">Reset pan &amp; tilt only</Capability>
+  <Capability Min="35" Max="39">No function</Capability>
+  <Capability Min="40" Max="44">PTSP = NORM</Capability>
+  <Capability Min="45" Max="49">PTSP = FAST</Capability>
+  <Capability Min="50" Max="54">No function</Capability>
+  <Capability Min="55" Max="59">Reserved for future use</Capability>
+  <Capability Min="60" Max="64">No function</Capability>
+  <Capability Min="65" Max="69">Fan mode - Full</Capability>
+  <Capability Min="70" Max="74">No function</Capability>
+  <Capability Min="75" Max="79">Fan mode - Regulated</Capability>
+  <Capability Min="80" Max="84">No function</Capability>
+  <Capability Min="85" Max="89">Fan mode - Silent</Capability>
+  <Capability Min="90" Max="94">No function</Capability>
+  <Capability Min="95" Max="99">Dimmer curve = LIN</Capability>
+  <Capability Min="100" Max="104">No function</Capability>
+  <Capability Min="105" Max="109">Dimmer curve = SQR</Capability>
+  <Capability Min="110" Max="114">No function</Capability>
+  <Capability Min="115" Max="119">Dimmer curve = ISQR</Capability>
+  <Capability Min="120" Max="124">No function</Capability>
+  <Capability Min="125" Max="129">Dimmer curve = SCUR</Capability>
+  <Capability Min="130" Max="249">No function, resurved for future use</Capability>
+  <Capability Min="250" Max="255">Illuminate display</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Group A CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
+ </Channel>
+ <Channel Name="Group A Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Group A Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Group B CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
+ </Channel>
+ <Channel Name="Group B Warm White" Preset="IntensityWhite"/>
+ <Channel Name="No function B" Preset="NoFunction"/>
+ <Channel Name="Group B Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Group C CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
+ </Channel>
+ <Channel Name="Group C Warm White" Preset="IntensityWhite"/>
+ <Channel Name="No function C" Preset="NoFunction"/>
+ <Channel Name="Group C Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Group D CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
+ </Channel>
+ <Channel Name="Group D Warm White" Preset="IntensityWhite"/>
+ <Channel Name="No function D" Preset="NoFunction"/>
+ <Channel Name="Group D Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Dynamic Effect 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">No effect</Capability>
+  <Capability Min="20" Max="39">Effect 1 - White single segment chase</Capability>
+  <Capability Min="40" Max="59">Effect 2 - White double segment chase</Capability>
+  <Capability Min="60" Max="189">No Effect</Capability>
+  <Capability Min="190" Max="194">Effect 26 - White flip 1</Capability>
+  <Capability Min="195" Max="199">Effect 27 - White flip 2</Capability>
+  <Capability Min="200" Max="204">Effect 28 - White flicker chase</Capability>
+  <Capability Min="205" Max="209">Effect 29 - Rising pulse</Capability>
+  <Capability Min="210" Max="214">Effect 30 - White flicker</Capability>
+  <Capability Min="215" Max="219">Effect 31 - Strobe pulse</Capability>
+  <Capability Min="220" Max="224">Effect 32 - Single segment chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="225" Max="229">Effect 33 - Two segment chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="230" Max="234">Effect 34 - Double horiz. seg. chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="235" Max="239">Effect 35 - Double vert. seg. chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="240" Max="244">Effect 36 - Double opposite chase (use Warm / Cold or CT to set Colour)</Capability>
+  <Capability Min="245" Max="249">Effect 37 - Reserved for future use</Capability>
+  <Capability Min="250" Max="255">Effect 38 - Reserved for future use</Capability>
+ </Channel>
+ <Channel Name="No function A" Preset="NoFunction"/>
+ <Mode Name="HSVX 1">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Dynamic Effect 1</Channel>
+  <Channel Number="3">Dynamic Effect 1 Speed</Channel>
+  <Channel Number="4">Dynamic Effect 1 X-Fade</Channel>
+  <Channel Number="5">Dynamic Effect 1 Intensity</Channel>
+  <Channel Number="6">Dynamic Effect 2</Channel>
+  <Channel Number="7">Dynamic Effect 2 Speed</Channel>
+  <Channel Number="8">Dynamic Effect 2 X-Fade</Channel>
+  <Channel Number="9">Dynamic Effect 2 Intensity</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan Fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt Fine</Channel>
+  <Channel Number="15">Fixture Control</Channel>
+  <Channel Number="16">No function</Channel>
+  <Channel Number="17">Group A Warm White</Channel>
+  <Channel Number="18">No function A</Channel>
+  <Channel Number="19">Group A Cold White</Channel>
+  <Channel Number="20">Group A CTC</Channel>
+  <Channel Number="21">Group B Warm White</Channel>
+  <Channel Number="22">No function B</Channel>
+  <Channel Number="23">Group B Cold White</Channel>
+  <Channel Number="24">Group B CTC</Channel>
+  <Channel Number="25">Group C Warm White</Channel>
+  <Channel Number="26">No function C</Channel>
+  <Channel Number="27">Group C Cold White</Channel>
+  <Channel Number="28">Group C CTC</Channel>
+  <Channel Number="29">Group D Warm White</Channel>
+  <Channel Number="30">No function D</Channel>
+  <Channel Number="31">Group D Cold White</Channel>
+  <Channel Number="32">Group D CTC</Channel>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="HSVX 2V">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Dynamic Effect 1</Channel>
+  <Channel Number="3">Dynamic Effect 1 Speed</Channel>
+  <Channel Number="4">Dynamic Effect 1 X-Fade</Channel>
+  <Channel Number="5">Dynamic Effect 1 Intensity</Channel>
+  <Channel Number="6">Dynamic Effect 2</Channel>
+  <Channel Number="7">Dynamic Effect 2 Speed</Channel>
+  <Channel Number="8">Dynamic Effect 2 X-Fade</Channel>
+  <Channel Number="9">Dynamic Effect 2 Intensity</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan Fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt Fine</Channel>
+  <Channel Number="15">Fixture Control</Channel>
+  <Channel Number="16">No function</Channel>
+  <Channel Number="17">Group A Warm White</Channel>
+  <Channel Number="18">No function A</Channel>
+  <Channel Number="19">Group A Cold White</Channel>
+  <Channel Number="20">Group A CTC</Channel>
+  <Channel Number="21">Group B Warm White</Channel>
+  <Channel Number="22">No function B</Channel>
+  <Channel Number="23">Group B Cold White</Channel>
+  <Channel Number="24">Group B CTC</Channel>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="HSVX 2H">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Dynamic Effect 1</Channel>
+  <Channel Number="3">Dynamic Effect 1 Speed</Channel>
+  <Channel Number="4">Dynamic Effect 1 X-Fade</Channel>
+  <Channel Number="5">Dynamic Effect 1 Intensity</Channel>
+  <Channel Number="6">Dynamic Effect 2</Channel>
+  <Channel Number="7">Dynamic Effect 2 Speed</Channel>
+  <Channel Number="8">Dynamic Effect 2 X-Fade</Channel>
+  <Channel Number="9">Dynamic Effect 2 Intensity</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan Fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt Fine</Channel>
+  <Channel Number="15">Fixture Control</Channel>
+  <Channel Number="16">No function</Channel>
+  <Channel Number="17">Group A Warm White</Channel>
+  <Channel Number="18">No function A</Channel>
+  <Channel Number="19">Group A Cold White</Channel>
+  <Channel Number="20">Group A CTC</Channel>
+  <Channel Number="21">Group B Warm White</Channel>
+  <Channel Number="22">No function B</Channel>
+  <Channel Number="23">Group B Cold White</Channel>
+  <Channel Number="24">Group B CTC</Channel>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="HSVX All">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Dynamic Effect 1</Channel>
+  <Channel Number="3">Dynamic Effect 1 Speed</Channel>
+  <Channel Number="4">Dynamic Effect 1 X-Fade</Channel>
+  <Channel Number="5">Dynamic Effect 1 Intensity</Channel>
+  <Channel Number="6">Dynamic Effect 2</Channel>
+  <Channel Number="7">Dynamic Effect 2 Speed</Channel>
+  <Channel Number="8">Dynamic Effect 2 X-Fade</Channel>
+  <Channel Number="9">Dynamic Effect 2 Intensity</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan Fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt Fine</Channel>
+  <Channel Number="15">Fixture Control</Channel>
+  <Channel Number="16">No function</Channel>
+  <Channel Number="17">Group A Warm White</Channel>
+  <Channel Number="18">No function A</Channel>
+  <Channel Number="19">Group A Cold White</Channel>
+  <Channel Number="20">Group A CTC</Channel>
+ </Mode>
+ <Mode Name="HSV 1">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Fixture Control</Channel>
+  <Channel Number="8">No function</Channel>
+  <Channel Number="9">Group A Warm White</Channel>
+  <Channel Number="10">No function A</Channel>
+  <Channel Number="11">Group A Cold White</Channel>
+  <Channel Number="12">Group A CTC</Channel>
+  <Channel Number="13">Group B Warm White</Channel>
+  <Channel Number="14">No function B</Channel>
+  <Channel Number="15">Group B Cold White</Channel>
+  <Channel Number="16">Group B CTC</Channel>
+  <Channel Number="17">Group C Warm White</Channel>
+  <Channel Number="18">No function C</Channel>
+  <Channel Number="19">Group C Cold White</Channel>
+  <Channel Number="20">Group C CTC</Channel>
+  <Channel Number="21">Group D Warm White</Channel>
+  <Channel Number="22">No function D</Channel>
+  <Channel Number="23">Group D Cold White</Channel>
+  <Channel Number="24">Group D CTC</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="HSV 2V">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Fixture Control</Channel>
+  <Channel Number="8">No function</Channel>
+  <Channel Number="9">Group A Warm White</Channel>
+  <Channel Number="10">No function A</Channel>
+  <Channel Number="11">Group A Cold White</Channel>
+  <Channel Number="12">Group A CTC</Channel>
+  <Channel Number="13">Group B Warm White</Channel>
+  <Channel Number="14">No function B</Channel>
+  <Channel Number="15">Group B Cold White</Channel>
+  <Channel Number="16">Group B CTC</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="HSV 2H">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Fixture Control</Channel>
+  <Channel Number="8">No function</Channel>
+  <Channel Number="9">Group A Warm White</Channel>
+  <Channel Number="10">No function A</Channel>
+  <Channel Number="11">Group A Cold White</Channel>
+  <Channel Number="12">Group A CTC</Channel>
+  <Channel Number="13">Group B Warm White</Channel>
+  <Channel Number="14">No function B</Channel>
+  <Channel Number="15">Group B Cold White</Channel>
+  <Channel Number="16">Group B CTC</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="HSV All">
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
+  <Channel Number="1">Virtual Dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Fixture Control</Channel>
+  <Channel Number="8">No function</Channel>
+  <Channel Number="9">Group A Warm White</Channel>
+  <Channel Number="10">No function A</Channel>
+  <Channel Number="11">Group A Cold White</Channel>
+  <Channel Number="12">Group A CTC</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="386" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Arnaud</Author>
+ </Creator>
+ <Manufacturer>Ghost</Manufacturer>
+ <Model>Spoty</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color &amp; Scrolling macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No function</Capability>
+  <Capability Min="51" Max="100">Jump mode Macro</Capability>
+  <Capability Min="101" Max="150">Fade mode Macro</Capability>
+  <Capability Min="151" Max="200">Pulse mode Macro</Capability>
+  <Capability Min="201" Max="255">Audio mode</Capability>
+ </Channel>
+ <Channel Name="Macro scroll speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Macro scroll speed (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Color &amp; Scrolling macro</Channel>
+  <Channel Number="3">Macro scroll speed</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="290" Height="290" Depth="120"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="160" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

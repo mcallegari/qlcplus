@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Nathan Durnan</Author>
+ </Creator>
+ <Manufacturer>Venue</Manufacturer>
+ <Model>Tetra Bar</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer/Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Master Dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">Strobe (128=slow, 227=max speed, 23Hz)</Capability>
+  <Capability Min="228" Max="255" Preset="LampOn">Master Dimme at 100%, Strobe off</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer/Strobe 1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Master Dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">Strobe (128=slow, 227=max speed, 23Hz)</Capability>
+  <Capability Min="228" Max="255" Preset="LampOn">Master Dimme at 100%, Strobe off</Capability>
+ </Channel>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 1" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer/Strobe 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Master Dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">Strobe (128=slow, 227=max speed, 23Hz)</Capability>
+  <Capability Min="228" Max="255" Preset="LampOn">Master Dimme at 100%, Strobe off</Capability>
+ </Channel>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 2" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer/Strobe 3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Master Dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">Strobe (128=slow, 227=max speed, 23Hz)</Capability>
+  <Capability Min="228" Max="255" Preset="LampOn">Master Dimme at 100%, Strobe off</Capability>
+ </Channel>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 3" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Amber 4" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer/Strobe 4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Master Dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">Strobe (128=slow, 227=max speed, 23Hz)</Capability>
+  <Capability Min="228" Max="255" Preset="LampOn">Master Dimme at 100%, Strobe off</Capability>
+ </Channel>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 4" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="N/A (5-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (6-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (7-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (12-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (13-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (14-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (19-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (20-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (21-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (26-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (27-Blank)" Preset="NoFunction"/>
+ <Channel Name="N/A (28-Blank)" Preset="NoFunction"/>
+ <Mode Name="3-CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="5-CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Dimmer/Strobe</Channel>
+ </Mode>
+ <Mode Name="6-CH">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="12-CH">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16-CH">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Amber 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">Amber 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">Amber 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="20-CH">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">Dimmer/Strobe 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Amber 2</Channel>
+  <Channel Number="9">Dimmer/Strobe 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">Amber 3</Channel>
+  <Channel Number="14">Dimmer/Strobe 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">Amber 4</Channel>
+  <Channel Number="19">Dimmer/Strobe 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="24-CH">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">Dimmer 1</Channel>
+  <Channel Number="5">Strobe 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Amber 2</Channel>
+  <Channel Number="10">Dimmer 2</Channel>
+  <Channel Number="11">Strobe 2</Channel>
+  <Channel Number="12">Red 3</Channel>
+  <Channel Number="13">Green 3</Channel>
+  <Channel Number="14">Blue 3</Channel>
+  <Channel Number="15">Amber 3</Channel>
+  <Channel Number="16">Dimmer 3</Channel>
+  <Channel Number="17">Strobe 3</Channel>
+  <Channel Number="18">Red 4</Channel>
+  <Channel Number="19">Green 4</Channel>
+  <Channel Number="20">Blue 4</Channel>
+  <Channel Number="21">Amber 4</Channel>
+  <Channel Number="22">Dimmer 4</Channel>
+  <Channel Number="23">Strobe 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28-CH (Tetra Control)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">N/A (5-Blank)</Channel>
+  <Channel Number="5">N/A (6-Blank)</Channel>
+  <Channel Number="6">N/A (7-Blank)</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Amber 2</Channel>
+  <Channel Number="11">N/A (12-Blank)</Channel>
+  <Channel Number="12">N/A (13-Blank)</Channel>
+  <Channel Number="13">N/A (14-Blank)</Channel>
+  <Channel Number="14">Red 3</Channel>
+  <Channel Number="15">Green 3</Channel>
+  <Channel Number="16">Blue 3</Channel>
+  <Channel Number="17">Amber 3</Channel>
+  <Channel Number="18">N/A (19-Blank)</Channel>
+  <Channel Number="19">N/A (20-Blank)</Channel>
+  <Channel Number="20">N/A (21-Blank)</Channel>
+  <Channel Number="21">Red 4</Channel>
+  <Channel Number="22">Green 4</Channel>
+  <Channel Number="23">Blue 4</Channel>
+  <Channel Number="24">Amber 4</Channel>
+  <Channel Number="25">N/A (26-Blank)</Channel>
+  <Channel Number="26">N/A (27-Blank)</Channel>
+  <Channel Number="27">N/A (28-Blank)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.6" Width="1004" Height="61" Depth="170"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="46" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

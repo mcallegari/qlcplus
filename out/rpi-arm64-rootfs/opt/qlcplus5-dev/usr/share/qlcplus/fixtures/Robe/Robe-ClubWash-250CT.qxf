@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>ClubWash 250 CT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking</Capability>
+  <Capability Min="1" Max="249">Vect Mode</Capability>
+  <Capability Min="250" Max="252">BO during Col</Capability>
+  <Capability Min="253" Max="255">BO during Pan/Tilt/Col</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Fan speed, max to min</Capability>
+  <Capability Min="128" Max="139">Lamp On, reset</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239">Lamp Off after 3s</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="20">Turquoise</Capability>
+  <Capability Min="21" Max="31">Deep Red</Capability>
+  <Capability Min="32" Max="41">Cyan</Capability>
+  <Capability Min="42" Max="52">UV</Capability>
+  <Capability Min="53" Max="63">Magenta</Capability>
+  <Capability Min="64" Max="73">Light Blue</Capability>
+  <Capability Min="74" Max="84">Yellow</Capability>
+  <Capability Min="85" Max="95">Green</Capability>
+  <Capability Min="96" Max="105">Pink</Capability>
+  <Capability Min="106" Max="116">Blue</Capability>
+  <Capability Min="117" Max="127">Red</Capability>
+  <Capability Min="128" Max="189">Scroll CW</Capability>
+  <Capability Min="190" Max="193">No Scroll</Capability>
+  <Capability Min="194" Max="255">Scroll CCW</Capability>
+ </Channel>
+ <Channel Name="No Func" Preset="NoFunction"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="64" Max="95">Strobe Speed, slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="143">Closing pulses, slow to fast</Capability>
+  <Capability Min="144" Max="159">Opening pulses, fast to slow</Capability>
+  <Capability Min="160" Max="191">No function</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random strobe, slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="16bit">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Control</Channel>
+  <Channel Number="6">Colour</Channel>
+  <Channel Number="7">No Func</Channel>
+  <Channel Number="8">Shutter</Channel>
+  <Channel Number="9">Dimmer</Channel>
+ </Mode>
+ <Mode Name="8bit">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Control</Channel>
+  <Channel Number="4">Colour</Channel>
+  <Channel Number="5">No Func</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Sylvania BA 250/2 SE" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="20.3" Width="417" Height="520" Depth="375"/>
+  <Lens Name="Fresnel" DegreesMin="8" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="530" TiltMax="280"/>
+  <Technical PowerConsumption="410" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

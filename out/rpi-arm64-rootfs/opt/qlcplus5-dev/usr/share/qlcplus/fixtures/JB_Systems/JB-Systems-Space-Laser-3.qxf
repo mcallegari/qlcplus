@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Ben Engelen</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Space Laser 3</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">Laser off (Blackout)</Capability>
+  <Capability Min="20" Max="119">AUTO</Capability>
+  <Capability Min="120" Max="255">MUSIC</Capability>
+ </Channel>
+ <Channel Name="Mode 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Laser output in blackout</Capability>
+  <Capability Min="64" Max="127">Laser in Music mode</Capability>
+  <Capability Min="128" Max="191">Full automatic mode</Capability>
+  <Capability Min="192" Max="255">DMX Mode</Capability>
+ </Channel>
+ <Channel Name="Pattern Group">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="63">1: Lines</Capability>
+  <Capability Min="64" Max="127">2: Tunnels</Capability>
+  <Capability Min="128" Max="191">3: Curves</Capability>
+  <Capability Min="192" Max="255">4: Others</Capability>
+ </Channel>
+ <Channel Name="Pattern Select">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Pattern 1</Capability>
+  <Capability Min="32" Max="63">Pattern 2</Capability>
+  <Capability Min="64" Max="95">Pattern 3</Capability>
+  <Capability Min="96" Max="127">Pattern 4</Capability>
+  <Capability Min="128" Max="159">Pattern 5</Capability>
+  <Capability Min="160" Max="191">Pattern 6</Capability>
+  <Capability Min="192" Max="233">Pattern 7</Capability>
+  <Capability Min="234" Max="255">Pattern 8</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="128" Preset="RotationStop">Fixed rotation position of the pattern</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Continuous pattern rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Size">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="128">Zooming : pattern size from big to small</Capability>
+  <Capability Min="129" Max="255">Continuous pattern zooming from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="128">Pan movement (X Axis horizontal movement)</Capability>
+  <Capability Min="129" Max="255">Pan speed (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="128">Tilt movement (Y-Axis vertical movement)</Capability>
+  <Capability Min="129" Max="255">Tilt speed (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Option">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="85">Original pattern (selected with channels 2+3)</Capability>
+  <Capability Min="86" Max="170">Patterns without blanking (all pattern lines connected together)</Capability>
+  <Capability Min="171" Max="255">Blackout</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Mode 1</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Mode 2</Channel>
+  <Channel Number="1">Pattern Group</Channel>
+  <Channel Number="2">Pattern Select</Channel>
+  <Channel Number="3">Rotation</Channel>
+  <Channel Number="4">Size</Channel>
+  <Channel Number="5">Pan</Channel>
+  <Channel Number="6">Tilt</Channel>
+  <Channel Number="7">Option</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.85" Width="200" Height="90" Depth="240"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="10" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

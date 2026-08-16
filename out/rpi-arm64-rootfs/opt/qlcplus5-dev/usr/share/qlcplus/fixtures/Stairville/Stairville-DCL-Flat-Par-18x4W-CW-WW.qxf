@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Freasy</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DCL Flat Par 18x4W CW/WW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="42">Program 01</Capability>
+  <Capability Min="43" Max="85">Program 02</Capability>
+  <Capability Min="86" Max="128">Program 03</Capability>
+  <Capability Min="129" Max="171">Program 04</Capability>
+  <Capability Min="172" Max="214">Program 05</Capability>
+  <Capability Min="215" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Colour Setting / Process Speed / Sound-Control Sensitivity">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">No function, if channel 4 = 0/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+  <Capability Min="64" Max="127">Warm white, if channel 4 = 1...42 (program 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+  <Capability Min="128" Max="191">Cold white, if channel 4 = 1..42 (program 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+  <Capability Min="192" Max="255">All, if channel 4 = 1..42 (program 01)/Speed, if channel 4 = 43..214/Sensitivity, if channel 4 = 215..255</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Warm White, if Channel 4 = 0">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Colour temperature selection warm white, if channel 4 = 0</Capability>
+ </Channel>
+ <Channel Name="Cold White, if Channel 4 = 0">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Colour temperature selection cold white, if channel 4 = 0</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cold White</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Warm White, if Channel 4 = 0</Channel>
+  <Channel Number="2">Cold White, if Channel 4 = 0</Channel>
+  <Channel Number="3">Programs</Channel>
+  <Channel Number="4">Colour Setting / Process Speed / Sound-Control Sensitivity</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.34" Width="164" Height="164" Depth="105"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="68" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

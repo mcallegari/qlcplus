@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Ivan Brinda</Author>
+ </Creator>
+ <Manufacturer>LedProLight</Manufacturer>
+ <Model>LP05 - 36x15W RGBWAP</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Custom Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Auto Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No Macro</Capability>
+  <Capability Min="1" Max="25">Enable console delay</Capability>
+  <Capability Min="26" Max="50">Close console delay</Capability>
+  <Capability Min="51" Max="90">Color selection</Capability>
+  <Capability Min="91" Max="130">Pulse change</Capability>
+  <Capability Min="131" Max="170">Hopping</Capability>
+  <Capability Min="171" Max="210">Gradual change</Capability>
+  <Capability Min="211" Max="250">Internal mode 1 (not controlled)</Capability>
+  <Capability Min="251" Max="255">Voice mode (not controlled)</Capability>
+ </Channel>
+ <Channel Name="Auto Mode Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Do not use color selection function</Capability>
+  <Capability Min="1" Max="20">R255 G ↑ B0 C0 I0 Y0</Capability>
+  <Capability Min="21" Max="40">R↓ G255 B0 C0 I0 Y0</Capability>
+  <Capability Min="41" Max="60">R0 G255 B ↑ C0 I0 Y0</Capability>
+  <Capability Min="61" Max="80">R0 G ↓ B255 C0 I0 Y0</Capability>
+  <Capability Min="81" Max="100">R ↑ G0 B255 C0 I0 Y0</Capability>
+  <Capability Min="101" Max="120">R255 G0 B ↓ C0 I0 Y0</Capability>
+  <Capability Min="121" Max="140">R255 G↑ B↑ C0 I0 Y0</Capability>
+  <Capability Min="141" Max="160">R↓ G↓ B255 C0 I0 Y0</Capability>
+  <Capability Min="161" Max="170">R255 G255 B255 C255 I0 Y0</Capability>
+  <Capability Min="171" Max="200">R0 G0 B0 C0 I0 Y0</Capability>
+  <Capability Min="201" Max="205">R242 G204 B5 C227 I0 Y0</Capability>
+  <Capability Min="206" Max="210">R242 G215 B5 C227 I0 Y0</Capability>
+  <Capability Min="211" Max="215">R255 G255 B50 C255 I0 Y0</Capability>
+  <Capability Min="216" Max="220">R255 G255 B90 C255 I0 Y0</Capability>
+  <Capability Min="221" Max="225">R255 G255 B132 C255 I0 Y0</Capability>
+  <Capability Min="226" Max="230">R255 G255 B131 C255 I0 Y0</Capability>
+  <Capability Min="231" Max="235">R255 G255 B151 C255 I0 Y0</Capability>
+  <Capability Min="236" Max="240">R255 G255 B171 C255 I0 Y0</Capability>
+  <Capability Min="241" Max="245">R255 G255 B185 C255 I0 Y0</Capability>
+  <Capability Min="246" Max="250">R255 G255 B197 C255 I0 Y0</Capability>
+  <Capability Min="251" Max="255">R255 G255 B234 C255 I0 Y0</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">Invalid</Capability>
+  <Capability Min="250" Max="255">3 seconds after reset</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Pan</Channel>
+  <Channel Number="6">Tilt</Channel>
+  <Channel Number="7">Pan/Tilt speed</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Strobe</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Custom Dimmer</Channel>
+  <Channel Number="7">Pan</Channel>
+  <Channel Number="8">Tilt</Channel>
+  <Channel Number="9">Pan fine</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+  <Channel Number="11">Pan/Tilt speed</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Strobe</Channel>
+  <Channel Number="14">Auto Mode</Channel>
+  <Channel Number="15">Auto Mode Control</Channel>
+  <Channel Number="16">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="12.5" Width="380" Height="450" Depth="350"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="45"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="580" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

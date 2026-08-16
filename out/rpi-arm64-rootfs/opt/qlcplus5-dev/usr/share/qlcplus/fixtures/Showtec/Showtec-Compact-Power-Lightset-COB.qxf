@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Freasy</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Compact Power Lightset COB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Built-in programs / Color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Not functional</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="80" Max="89">Built-in program 1</Capability>
+  <Capability Min="90" Max="99">Built-in program 2</Capability>
+  <Capability Min="100" Max="109">Built-in program 3</Capability>
+  <Capability Min="110" Max="119">Built-in program 4</Capability>
+  <Capability Min="120" Max="129">Built-in program 5</Capability>
+  <Capability Min="130" Max="139">Built-in program 6</Capability>
+  <Capability Min="140" Max="149">Built-in program 7</Capability>
+  <Capability Min="150" Max="159">Built-in program 8</Capability>
+  <Capability Min="160" Max="169">Built-in program 9</Capability>
+  <Capability Min="170" Max="179">Built-in program 10</Capability>
+  <Capability Min="180" Max="189">Built-in program 11</Capability>
+  <Capability Min="190" Max="199">Built-in program 12</Capability>
+  <Capability Min="200" Max="209">Built-in program 13</Capability>
+  <Capability Min="210" Max="219">Built-in program 14</Capability>
+  <Capability Min="220" Max="229">Built-in program 15</Capability>
+  <Capability Min="230" Max="239">Built-in program 16</Capability>
+  <Capability Min="240" Max="255">Sound-controlled Mode</Capability>
+ </Channel>
+ <Channel Name="Speed / Sound Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed from slow to fast when ch1 between 80-239, Sound sensitivity adjustment, from low to high when ch1 between 240-255</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From slow to fast when ch4 between 80-239</Capability>
+ </Channel>
+ <Channel Name="Sound Sensitivity">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Sound sensitivity adjustment from low to high when ch4 between 240-255</Capability>
+ </Channel>
+ <Channel Name="Red 1 and 2" Preset="IntensityRed"/>
+ <Channel Name="Green 1 and 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1 and 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3 and 4" Preset="IntensityRed"/>
+ <Channel Name="Green 3 and 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3 and 4" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Control Modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Manual mode (static color)</Capability>
+  <Capability Min="10" Max="249">Auto mode</Capability>
+  <Capability Min="250" Max="255">Sound-controlled mode</Capability>
+ </Channel>
+ <Mode Name="2 Channels">
+  <Channel Number="0">Built-in programs / Color</Channel>
+  <Channel Number="1">Speed / Sound Sensitivity</Channel>
+ </Mode>
+ <Mode Name="3 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="7 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Built-in programs / Color</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Sound Sensitivity</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channels">
+  <Channel Number="0">Red 1 and 2</Channel>
+  <Channel Number="1">Green 1 and 2</Channel>
+  <Channel Number="2">Blue 1 and 2</Channel>
+  <Channel Number="3">Red 3 and 4</Channel>
+  <Channel Number="4">Green 3 and 4</Channel>
+  <Channel Number="5">Blue 3 and 4</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 Channels">
+  <Channel Number="0">Control Modes</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="846" Height="280" Depth="99"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="95" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

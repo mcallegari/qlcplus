@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Juski</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Gigabar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="1-Red" Preset="IntensityRed"/>
+ <Channel Name="1-Green" Preset="IntensityGreen"/>
+ <Channel Name="1-Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="2-Red" Preset="IntensityRed"/>
+ <Channel Name="2-Green" Preset="IntensityGreen"/>
+ <Channel Name="2-Blue" Preset="IntensityBlue"/>
+ <Channel Name="3-Red" Preset="IntensityRed"/>
+ <Channel Name="3-Green" Preset="IntensityGreen"/>
+ <Channel Name="3-Blue" Preset="IntensityBlue"/>
+ <Channel Name="4-Red" Preset="IntensityRed"/>
+ <Channel Name="4-Green" Preset="IntensityGreen"/>
+ <Channel Name="4-Blue" Preset="IntensityBlue"/>
+ <Channel Name="Flash Speed" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Power 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">ON</Capability>
+ </Channel>
+ <Channel Name="Power 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">ON</Capability>
+ </Channel>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Built in programs</Capability>
+ </Channel>
+ <Channel Name="Sound sensitivity / Flash">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound sensitivity - 1 (lowest) to 5 (highest)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Flash Speed (11 slowest 255 highest)</Capability>
+ </Channel>
+ <Channel Name="R1 R2" Preset="IntensityRed"/>
+ <Channel Name="G1 G2" Preset="IntensityGreen"/>
+ <Channel Name="B1 B2" Preset="IntensityBlue"/>
+ <Channel Name="R3 R4" Preset="IntensityRed"/>
+ <Channel Name="G3 G4" Preset="IntensityGreen"/>
+ <Channel Name="B3 B4" Preset="IntensityBlue"/>
+ <Channel Name="CH1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="36">R</Capability>
+  <Capability Min="37" Max="73">G</Capability>
+  <Capability Min="74" Max="110">B</Capability>
+  <Capability Min="111" Max="147">RG : Yellow</Capability>
+  <Capability Min="148" Max="184">RB : Violet</Capability>
+  <Capability Min="185" Max="221">GB : Cyan</Capability>
+  <Capability Min="222" Max="255">RGB : White</Capability>
+ </Channel>
+ <Channel Name="CH2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="36">R</Capability>
+  <Capability Min="37" Max="73">G</Capability>
+  <Capability Min="74" Max="110">B</Capability>
+  <Capability Min="111" Max="147">RG : Yellow</Capability>
+  <Capability Min="148" Max="184">RB : Violet</Capability>
+  <Capability Min="185" Max="221">GB : Cyan</Capability>
+  <Capability Min="222" Max="255">RGB : White</Capability>
+ </Channel>
+ <Channel Name="CH3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="36">R</Capability>
+  <Capability Min="37" Max="73">G</Capability>
+  <Capability Min="74" Max="110">B</Capability>
+  <Capability Min="111" Max="147">RG : Yellow</Capability>
+  <Capability Min="148" Max="184">RB : Violet</Capability>
+  <Capability Min="185" Max="221">GB : Cyan</Capability>
+  <Capability Min="222" Max="255">RGB : White</Capability>
+ </Channel>
+ <Channel Name="CH4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="36">R</Capability>
+  <Capability Min="37" Max="73">G</Capability>
+  <Capability Min="74" Max="110">B</Capability>
+  <Capability Min="111" Max="147">RG : Yellow</Capability>
+  <Capability Min="148" Max="184">RB : Violet</Capability>
+  <Capability Min="185" Max="221">GB : Cyan</Capability>
+  <Capability Min="222" Max="255">RGB : White</Capability>
+ </Channel>
+ <Mode Name="17  Channel">
+  <Channel Number="0">Program</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Flash Speed</Channel>
+  <Channel Number="3">1-Red</Channel>
+  <Channel Number="4">1-Green</Channel>
+  <Channel Number="5">1-Blue</Channel>
+  <Channel Number="6">2-Red</Channel>
+  <Channel Number="7">2-Green</Channel>
+  <Channel Number="8">2-Blue</Channel>
+  <Channel Number="9">3-Red</Channel>
+  <Channel Number="10">3-Green</Channel>
+  <Channel Number="11">3-Blue</Channel>
+  <Channel Number="12">4-Red</Channel>
+  <Channel Number="13">4-Green</Channel>
+  <Channel Number="14">4-Blue</Channel>
+  <Channel Number="15">Power 1</Channel>
+  <Channel Number="16">Power 2</Channel>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">1-Red</Channel>
+  <Channel Number="1">1-Green</Channel>
+  <Channel Number="2">1-Blue</Channel>
+  <Channel Number="3">2-Red</Channel>
+  <Channel Number="4">2-Green</Channel>
+  <Channel Number="5">2-Blue</Channel>
+  <Channel Number="6">3-Red</Channel>
+  <Channel Number="7">3-Green</Channel>
+  <Channel Number="8">3-Blue</Channel>
+  <Channel Number="9">4-Red</Channel>
+  <Channel Number="10">4-Green</Channel>
+  <Channel Number="11">4-Blue</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Program</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Flash Speed</Channel>
+  <Channel Number="3">1-Red</Channel>
+  <Channel Number="4">1-Green</Channel>
+  <Channel Number="5">1-Blue</Channel>
+  <Channel Number="6">Power 1</Channel>
+  <Channel Number="7">Power 2</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">1-Red</Channel>
+  <Channel Number="1">1-Green</Channel>
+  <Channel Number="2">1-Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Sound sensitivity / Flash</Channel>
+  <Channel Number="5">Power 1</Channel>
+  <Channel Number="6">Power 2</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">R1 R2</Channel>
+  <Channel Number="1">G1 G2</Channel>
+  <Channel Number="2">B1 B2</Channel>
+  <Channel Number="3">R3 R4</Channel>
+  <Channel Number="4">G3 G4</Channel>
+  <Channel Number="5">B3 B4</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">1-Red</Channel>
+  <Channel Number="1">1-Green</Channel>
+  <Channel Number="2">1-Blue</Channel>
+  <Channel Number="3">Power 1</Channel>
+  <Channel Number="4">Power 2</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">1-Red</Channel>
+  <Channel Number="1">1-Green</Channel>
+  <Channel Number="2">1-Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">CH1</Channel>
+  <Channel Number="1">CH2</Channel>
+  <Channel Number="2">CH3</Channel>
+  <Channel Number="3">CH4</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
+  <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

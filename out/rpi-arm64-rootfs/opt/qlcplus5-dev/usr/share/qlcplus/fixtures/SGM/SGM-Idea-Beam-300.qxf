@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Oscar Cervesato</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>Idea BEAM 300</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed pan/tilt">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Max to min speed</Capability>
+  <Capability Min="226" Max="235">Blackout by movement</Capability>
+  <Capability Min="236" Max="245">Blackout by all wheel changing</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">Open / white</Capability>
+  <Capability Min="14" Max="27">Color 1</Capability>
+  <Capability Min="28" Max="41">Color 2</Capability>
+  <Capability Min="42" Max="55">Color 3</Capability>
+  <Capability Min="56" Max="69">Color 4</Capability>
+  <Capability Min="70" Max="83">Color 5</Capability>
+  <Capability Min="84" Max="97">Color 6</Capability>
+  <Capability Min="98" Max="111">Color 7</Capability>
+  <Capability Min="112" Max="127">Color 8</Capability>
+  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect (fast to slow)</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow effect (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Rotating gobos, cont. rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="19">Rot. Gobo 1</Capability>
+  <Capability Min="20" Max="29">Rot. Gobo 2</Capability>
+  <Capability Min="30" Max="39">Rot. Gobo 3</Capability>
+  <Capability Min="40" Max="49">Rot. Gobo 4</Capability>
+  <Capability Min="50" Max="59">Rot. Gobo 5</Capability>
+  <Capability Min="60" Max="69">Rot. Gobo 6</Capability>
+  <Capability Min="70" Max="89">Gobo 1 shake slow to fast</Capability>
+  <Capability Min="90" Max="109">Gobo 2 shake slow to fast</Capability>
+  <Capability Min="110" Max="129">Gobo 3 shake slow to fast</Capability>
+  <Capability Min="130" Max="149">Gobo 4 shake slow to fast</Capability>
+  <Capability Min="150" Max="169">Gobo 5 shake slow to fast</Capability>
+  <Capability Min="170" Max="189">Gobo 6 shake slow to fast</Capability>
+  <Capability Min="190" Max="255">Rot. Gobo wheel cont. rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="128" Max="159">Pulse-effect in sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Rotating gobo index,rotating gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Gobo indexing</Capability>
+  <Capability Min="128" Max="189">Forwards gobo rotation (fast to slow)</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255">Backwards gobo rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Colour macros - CMY and colour wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">OFF</Capability>
+  <Capability Min="8" Max="15">Macro 1</Capability>
+  <Capability Min="16" Max="23">Macro 2</Capability>
+  <Capability Min="24" Max="31">Macro 3</Capability>
+  <Capability Min="32" Max="39">Macro 4</Capability>
+  <Capability Min="40" Max="47">Macro 5</Capability>
+  <Capability Min="48" Max="55">Macro 6</Capability>
+  <Capability Min="56" Max="63">Macro 7</Capability>
+  <Capability Min="64" Max="71">Macro 8</Capability>
+  <Capability Min="72" Max="79">Macro 9</Capability>
+  <Capability Min="80" Max="87">Macro 10</Capability>
+  <Capability Min="88" Max="95">Macro 11</Capability>
+  <Capability Min="96" Max="103">Macro 12</Capability>
+  <Capability Min="104" Max="111">Macro 13</Capability>
+  <Capability Min="112" Max="119">Macro 14</Capability>
+  <Capability Min="120" Max="127">Macro 15</Capability>
+  <Capability Min="128" Max="135">Macro 16</Capability>
+  <Capability Min="136" Max="143">Macro 17</Capability>
+  <Capability Min="144" Max="151">Macro 18</Capability>
+  <Capability Min="152" Max="159">Macro 19</Capability>
+  <Capability Min="160" Max="167">Macro 20</Capability>
+  <Capability Min="168" Max="175">Macro 21</Capability>
+  <Capability Min="176" Max="183">Macro 22</Capability>
+  <Capability Min="184" Max="191">Macro 23</Capability>
+  <Capability Min="192" Max="199">Macro 24</Capability>
+  <Capability Min="200" Max="207">Macro 25</Capability>
+  <Capability Min="208" Max="215">Macro 26</Capability>
+  <Capability Min="216" Max="223">Macro 27</Capability>
+  <Capability Min="224" Max="231">Macro 28</Capability>
+  <Capability Min="232" Max="239">Macro 29</Capability>
+  <Capability Min="240" Max="247">Macro 30</Capability>
+  <Capability Min="248" Max="255">Random CMY</Capability>
+ </Channel>
+ <Channel Name="Lamp on/off, Reset, Internal programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">colour &amp; gobo change normal</Capability>
+  <Capability Min="20" Max="29">colour change to any position</Capability>
+  <Capability Min="30" Max="39">colour &amp; gobo change to any position</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp ON</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp switch OFF</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">All Motor reset</Capability>
+  <Capability Min="85" Max="87">Scan Motor reset</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">Color Motor reset</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">Gobo motor reset</Capability>
+  <Capability Min="94" Max="96">Shutter &amp; Dimmer motor reset</Capability>
+  <Capability Min="97" Max="99">Other motor reset</Capability>
+  <Capability Min="100" Max="119">Internal program 1</Capability>
+  <Capability Min="120" Max="139">Internal program 2</Capability>
+  <Capability Min="140" Max="159">Internal program 3</Capability>
+  <Capability Min="160" Max="179">Internal program 4</Capability>
+  <Capability Min="180" Max="199">Internal program 5</Capability>
+  <Capability Min="200" Max="219">Internal program 6</Capability>
+  <Capability Min="220" Max="239">Internal program 7</Capability>
+  <Capability Min="240" Max="255">Music Control (scene of Program 1)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="255">Frost (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt movement Mode">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="31">Quick</Capability>
+  <Capability Min="32" Max="63">Smooth</Capability>
+  <Capability Min="64" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Fine" Preset="ColorWheelFine"/>
+ <Channel Name="Cyan Color" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Color Fine" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta Color" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta Color Fine" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow Color" Preset="IntensityYellow"/>
+ <Channel Name="Yellow Color Fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Rotating gobo indexing Fine" Preset="GoboIndexFine"/>
+ <Channel Name="Fine Dimmer intensity" Preset="IntensityDimmerFine"/>
+ <Channel Name="Speed Of CMY &amp; Colour macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed Max -&gt;Min</Capability>
+ </Channel>
+ <Channel Name="Rotating Effect index, rotating Effect rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="3">NO Effect</Capability>
+  <Capability Min="4" Max="127">Effect indexing</Capability>
+  <Capability Min="128" Max="189">Forwards prism rotation from fast to slow</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255">Backwards prism rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotating Effect indexing Fine">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="255">Fine indexing</Capability>
+ </Channel>
+ <Channel Name="Frost Fine">
+  <Group Byte="1">Prism</Group>
+  <Capability Min="0" Max="255">Frost Fine</Capability>
+ </Channel>
+ <Mode Name="Standard v1.1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed pan/tilt</Channel>
+  <Channel Number="5">Pan/Tilt movement Mode</Channel>
+  <Channel Number="6">Color Wheel</Channel>
+  <Channel Number="7">Cyan Color</Channel>
+  <Channel Number="8">Magenta Color</Channel>
+  <Channel Number="9">Yellow Color</Channel>
+  <Channel Number="10">Rotating gobos, cont. rotation</Channel>
+  <Channel Number="11">Rotating gobo index,rotating gobo rotation</Channel>
+  <Channel Number="12">Shutter, Strobe</Channel>
+  <Channel Number="13">Dimmer</Channel>
+  <Channel Number="14">Rotating Effect index, rotating Effect rotation</Channel>
+  <Channel Number="15">Frost</Channel>
+  <Channel Number="16">Speed Of CMY &amp; Colour macro Speed</Channel>
+  <Channel Number="17">Colour macros - CMY and colour wheel</Channel>
+  <Channel Number="18">Lamp on/off, Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Base v1.1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed pan/tilt</Channel>
+  <Channel Number="3">Pan/Tilt movement Mode</Channel>
+  <Channel Number="4">Color Wheel</Channel>
+  <Channel Number="5">Cyan Color</Channel>
+  <Channel Number="6">Magenta Color</Channel>
+  <Channel Number="7">Yellow Color</Channel>
+  <Channel Number="8">Rotating gobos, cont. rotation</Channel>
+  <Channel Number="9">Rotating gobo index,rotating gobo rotation</Channel>
+  <Channel Number="10">Shutter, Strobe</Channel>
+  <Channel Number="11">Dimmer</Channel>
+  <Channel Number="12">Rotating Effect index, rotating Effect rotation</Channel>
+  <Channel Number="13">Frost</Channel>
+  <Channel Number="14">Speed Of CMY &amp; Colour macro Speed</Channel>
+  <Channel Number="15">Colour macros - CMY and colour wheel</Channel>
+  <Channel Number="16">Lamp on/off, Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Extended v1.1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed pan/tilt</Channel>
+  <Channel Number="5">Pan/Tilt movement Mode</Channel>
+  <Channel Number="6">Color Wheel</Channel>
+  <Channel Number="7">Color Wheel Fine</Channel>
+  <Channel Number="8">Cyan Color</Channel>
+  <Channel Number="9">Cyan Color Fine</Channel>
+  <Channel Number="10">Magenta Color</Channel>
+  <Channel Number="11">Magenta Color Fine</Channel>
+  <Channel Number="12">Yellow Color</Channel>
+  <Channel Number="13">Yellow Color Fine</Channel>
+  <Channel Number="14">Rotating gobos, cont. rotation</Channel>
+  <Channel Number="15">Rotating gobo index,rotating gobo rotation</Channel>
+  <Channel Number="16">Rotating gobo indexing Fine</Channel>
+  <Channel Number="17">Shutter, Strobe</Channel>
+  <Channel Number="18">Dimmer</Channel>
+  <Channel Number="19">Fine Dimmer intensity</Channel>
+  <Channel Number="20">Rotating Effect index, rotating Effect rotation</Channel>
+  <Channel Number="21">Rotating Effect indexing Fine</Channel>
+  <Channel Number="22">Frost</Channel>
+  <Channel Number="23">Frost Fine</Channel>
+  <Channel Number="24">Speed Of CMY &amp; Colour macro Speed</Channel>
+  <Channel Number="25">Colour macros - CMY and colour wheel</Channel>
+  <Channel Number="26">Lamp on/off, Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Standard v1.0">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed pan/tilt</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Cyan Color</Channel>
+  <Channel Number="7">Magenta Color</Channel>
+  <Channel Number="8">Yellow Color</Channel>
+  <Channel Number="9">Rotating gobos, cont. rotation</Channel>
+  <Channel Number="10">Rotating gobo index,rotating gobo rotation</Channel>
+  <Channel Number="11">Shutter, Strobe</Channel>
+  <Channel Number="12">Dimmer</Channel>
+  <Channel Number="13">Rotating Effect index, rotating Effect rotation</Channel>
+  <Channel Number="14">Frost</Channel>
+  <Channel Number="15">Speed Of CMY &amp; Colour macro Speed</Channel>
+  <Channel Number="16">Colour macros - CMY and colour wheel</Channel>
+  <Channel Number="17">Lamp on/off, Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Base v1.0">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed pan/tilt</Channel>
+  <Channel Number="3">Color Wheel</Channel>
+  <Channel Number="4">Cyan Color</Channel>
+  <Channel Number="5">Magenta Color</Channel>
+  <Channel Number="6">Yellow Color</Channel>
+  <Channel Number="7">Rotating gobos, cont. rotation</Channel>
+  <Channel Number="8">Rotating gobo index,rotating gobo rotation</Channel>
+  <Channel Number="9">Shutter, Strobe</Channel>
+  <Channel Number="10">Dimmer</Channel>
+  <Channel Number="11">Rotating Effect index, rotating Effect rotation</Channel>
+  <Channel Number="12">Frost</Channel>
+  <Channel Number="13">Speed Of CMY &amp; Colour macro Speed</Channel>
+  <Channel Number="14">Colour macros - CMY and colour wheel</Channel>
+  <Channel Number="15">Lamp on/off, Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Extended v1.0">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed pan/tilt</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Color Wheel Fine</Channel>
+  <Channel Number="7">Cyan Color</Channel>
+  <Channel Number="8">Cyan Color Fine</Channel>
+  <Channel Number="9">Magenta Color</Channel>
+  <Channel Number="10">Magenta Color Fine</Channel>
+  <Channel Number="11">Yellow Color</Channel>
+  <Channel Number="12">Yellow Color Fine</Channel>
+  <Channel Number="13">Rotating gobos, cont. rotation</Channel>
+  <Channel Number="14">Rotating gobo index,rotating gobo rotation</Channel>
+  <Channel Number="15">Rotating gobo indexing Fine</Channel>
+  <Channel Number="16">Shutter, Strobe</Channel>
+  <Channel Number="17">Dimmer</Channel>
+  <Channel Number="18">Fine Dimmer intensity</Channel>
+  <Channel Number="19">Rotating Effect index, rotating Effect rotation</Channel>
+  <Channel Number="20">Rotating Effect indexing Fine</Channel>
+  <Channel Number="21">Frost</Channel>
+  <Channel Number="22">Frost Fine</Channel>
+  <Channel Number="23">Speed Of CMY &amp; Colour macro Speed</Channel>
+  <Channel Number="24">Colour macros - CMY and colour wheel</Channel>
+  <Channel Number="25">Lamp on/off, Reset, Internal programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
+  <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
+  <Technical PowerConsumption="780" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

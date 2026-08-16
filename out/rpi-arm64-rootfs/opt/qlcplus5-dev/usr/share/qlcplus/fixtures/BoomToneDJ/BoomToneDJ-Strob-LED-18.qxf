@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Didou</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>Strob LED 18</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="254" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">No strobe</Capability>
+ </Channel>
+ <Mode Name="2 channels">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.65" Width="383" Height="95" Depth="170"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="54" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Justin Hornsby</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Wash FX2</Model>
+ <Type>Flower</Type>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="20">Program 1</Capability>
+  <Capability Min="21" Max="35">Program 2</Capability>
+  <Capability Min="36" Max="50">Program 3</Capability>
+  <Capability Min="51" Max="65">Program 4</Capability>
+  <Capability Min="66" Max="80">Program 5</Capability>
+  <Capability Min="81" Max="95">Program 6</Capability>
+  <Capability Min="96" Max="110">Program 7</Capability>
+  <Capability Min="111" Max="125">Program 8</Capability>
+  <Capability Min="126" Max="140">Program 9</Capability>
+  <Capability Min="141" Max="155">Program 10</Capability>
+  <Capability Min="156" Max="170">Program 11</Capability>
+  <Capability Min="171" Max="185">Program 12</Capability>
+  <Capability Min="186" Max="200">Program 13</Capability>
+  <Capability Min="201" Max="215">Program 14</Capability>
+  <Capability Min="216" Max="230">Program 15</Capability>
+  <Capability Min="231" Max="255">Program 16</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250">Slow to Fast</Capability>
+  <Capability Min="251" Max="255">Sound to light</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red zone 1" Preset="IntensityRed"/>
+ <Channel Name="Green zone 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue zone 1" Preset="IntensityBlue"/>
+ <Channel Name="UV zone 1" Preset="IntensityUV"/>
+ <Channel Name="Red zone 2" Preset="IntensityRed"/>
+ <Channel Name="Red zone 3" Preset="IntensityRed"/>
+ <Channel Name="Red zone 4" Preset="IntensityRed"/>
+ <Channel Name="Red zone 5" Preset="IntensityRed"/>
+ <Channel Name="Red zone 6" Preset="IntensityRed"/>
+ <Channel Name="Green zone 2" Preset="IntensityGreen"/>
+ <Channel Name="Green zone 3" Preset="IntensityGreen"/>
+ <Channel Name="Green zone 4" Preset="IntensityGreen"/>
+ <Channel Name="Green zone 5" Preset="IntensityGreen"/>
+ <Channel Name="Green zone 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue zone 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue zone 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue zone 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue zone 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue zone 6" Preset="IntensityBlue"/>
+ <Channel Name="UV zone 2" Preset="IntensityUV"/>
+ <Channel Name="UV zone 3" Preset="IntensityUV"/>
+ <Channel Name="UV zone 4" Preset="IntensityUV"/>
+ <Channel Name="UV zone 5" Preset="IntensityUV"/>
+ <Channel Name="UV zone 6" Preset="IntensityUV"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Program</Channel>
+  <Channel Number="6">Speed</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="28 Channel">
+  <Channel Number="0">Program</Channel>
+  <Channel Number="1">Speed</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red zone 1</Channel>
+  <Channel Number="5">Green zone 1</Channel>
+  <Channel Number="6">Blue zone 1</Channel>
+  <Channel Number="7">UV zone 1</Channel>
+  <Channel Number="8">Red zone 2</Channel>
+  <Channel Number="9">Green zone 2</Channel>
+  <Channel Number="10">Blue zone 2</Channel>
+  <Channel Number="11">UV zone 2</Channel>
+  <Channel Number="12">Red zone 3</Channel>
+  <Channel Number="13">Green zone 3</Channel>
+  <Channel Number="14">Blue zone 3</Channel>
+  <Channel Number="15">UV zone 3</Channel>
+  <Channel Number="16">Red zone 4</Channel>
+  <Channel Number="17">Green zone 4</Channel>
+  <Channel Number="18">Blue zone 4</Channel>
+  <Channel Number="19">UV zone 4</Channel>
+  <Channel Number="20">Red zone 5</Channel>
+  <Channel Number="21">Green zone 5</Channel>
+  <Channel Number="22">Blue zone 5</Channel>
+  <Channel Number="23">UV zone 5</Channel>
+  <Channel Number="24">Red zone 6</Channel>
+  <Channel Number="25">Green zone 6</Channel>
+  <Channel Number="26">Blue zone 6</Channel>
+  <Channel Number="27">UV zone 6</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Program</Channel>
+  <Channel Number="1">Speed</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.6" Width="310" Height="230" Depth="140"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="145" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Clausi4711</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED FE-800</Model>
+ <Type>Flower</Type>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="16" Max="21" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="22" Max="27" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="28" Max="33" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="34" Max="39" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green+Blue</Capability>
+  <Capability Min="40" Max="45" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red+Blue</Capability>
+  <Capability Min="46" Max="51" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="52" Max="57" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red+White</Capability>
+  <Capability Min="58" Max="63" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Red+Amber</Capability>
+  <Capability Min="64" Max="69" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green+White</Capability>
+  <Capability Min="70" Max="75" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green+Amber</Capability>
+  <Capability Min="76" Max="81" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue+White</Capability>
+  <Capability Min="82" Max="87" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffaa00">Blue+Amber</Capability>
+  <Capability Min="88" Max="93">All LED ON</Capability>
+  <Capability Min="94" Max="123">Program with one Colour</Capability>
+  <Capability Min="124" Max="185">Program with two Colour</Capability>
+  <Capability Min="186" Max="218">fast auto Programs</Capability>
+  <Capability Min="219" Max="250">slow auto Programs</Capability>
+  <Capability Min="251" Max="255">music controlled</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto Program Speed Slow-&gt;Fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="254" Preset="StrobeSlowToFast">Flash Speed Slow-&gt;Fast</Capability>
+  <Capability Min="255" Max="255">Flash, music-controlled</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotoation Clockwise Slow &gt; Fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation Counter-Clockwise Slow-&gt;Fast</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="320" Height="310" Depth="175"/>
+  <Lens Name="Other" DegreesMin="140" DegreesMax="140"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

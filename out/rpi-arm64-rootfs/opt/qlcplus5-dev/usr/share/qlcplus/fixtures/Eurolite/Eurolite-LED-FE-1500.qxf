@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED FE-1500</Model>
+ <Type>Flower</Type>
+ <Channel Name="Operating mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout (all light beams off)</Capability>
+  <Capability Min="10" Max="24">Aut0: Laser + RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="25" Max="39">Aut1: Laser + RGBWA LEDs</Capability>
+  <Capability Min="40" Max="54">Aut2: Laser + white LEDs</Capability>
+  <Capability Min="55" Max="69">Aut3: RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="70" Max="84">Aut4: RGBWA LEDs</Capability>
+  <Capability Min="85" Max="99">Aut5: Laser</Capability>
+  <Capability Min="100" Max="114">Aut6: white LEDs</Capability>
+  <Capability Min="115" Max="129">Sou0: Laser + RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="130" Max="144">Sou1: Laser + RGBWA LEDs</Capability>
+  <Capability Min="145" Max="159">Sou2: Laser + white LEDs</Capability>
+  <Capability Min="160" Max="174">Sou3: RGBWA LEDs + white LEDs</Capability>
+  <Capability Min="175" Max="189">Sou4: RGBWA LEDs</Capability>
+  <Capability Min="190" Max="204">Sou5: Laser</Capability>
+  <Capability Min="205" Max="219">Sou6: white LEDs</Capability>
+  <Capability Min="220" Max="255">DMX mode: This setting enables the functions of the other DMX channels.</Capability>
+ </Channel>
+ <Channel Name="RGBWA LEDs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout (all light beams off)</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="35" Max="39" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + red</Capability>
+  <Capability Min="40" Max="44" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green</Capability>
+  <Capability Min="45" Max="49" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffbf00">Blue + amber</Capability>
+  <Capability Min="55" Max="59" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber + white</Capability>
+  <Capability Min="60" Max="64" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">White + green</Capability>
+  <Capability Min="65" Max="69" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffbf00">Green + amber</Capability>
+  <Capability Min="70" Max="74" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ff0000">Amber + red</Capability>
+  <Capability Min="75" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + white</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#ffffff">Red + green + blue</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#ffdf00">Red + green + amber</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#ffff80">Red + green + white</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#ff6080">Red + amber + blue</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#ff80ff">Red + white + blue</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#ff9555">Red + amber + white</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#92ff92">Amber + green + blue</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#80ffff">Blue + green + white</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#b9ff5d">Amber + green + white</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#ffdfff">Amber + white + blue</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#ffdf80">Red + green + blue + amber</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#ffffff">Red + green + blue + white</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#b9ffb9">Blue + green + white + amber</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#ffea55">Red + green + amber + white</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#ff95aa">White + red + blue + amber</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ffeaaa">Red + green + blue + amber + white</Capability>
+  <Capability Min="165" Max="209">Automatic color change (one color)</Capability>
+  <Capability Min="210" Max="255">Automatic color change (two colors)</Capability>
+ </Channel>
+ <Channel Name="Color change speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Strobe effect of the RGBWA LEDs">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No strobe effect</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeFastToSlow">Strobe effect fast -&gt; slow</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Channel Name="White strobe LEDs">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="LampOff">Blackout (all strobe LEDs off)</Capability>
+  <Capability Min="10" Max="19" Preset="StrobeFastToSlow">Running light pattern 1 fast -&gt; slow</Capability>
+  <Capability Min="20" Max="29" Preset="StrobeFastToSlow">Running light pattern 2 fast -&gt; slow</Capability>
+  <Capability Min="30" Max="39" Preset="StrobeFastToSlow">Running light pattern 3 fast -&gt; slow</Capability>
+  <Capability Min="40" Max="49" Preset="StrobeFastToSlow">Running light pattern 4 fast -&gt; slow</Capability>
+  <Capability Min="50" Max="59" Preset="StrobeFastToSlow">Running light pattern 5 fast -&gt; slow</Capability>
+  <Capability Min="60" Max="69" Preset="StrobeFastToSlow">Running light pattern 6 fast -&gt; slow</Capability>
+  <Capability Min="70" Max="79" Preset="StrobeFastToSlow">Running light pattern 7 fast -&gt; slow</Capability>
+  <Capability Min="80" Max="89" Preset="StrobeFastToSlow">Running light pattern 8 fast -&gt; slow</Capability>
+  <Capability Min="90" Max="99" Preset="StrobeFastToSlow">Running light pattern 9 fast -&gt; slow</Capability>
+  <Capability Min="100" Max="109" Preset="StrobeFastToSlow">Running light pattern 10 fast -&gt; slow</Capability>
+  <Capability Min="110" Max="255" Preset="LampOn">All strobe LEDs constantly on</Capability>
+ </Channel>
+ <Channel Name="Laser">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout (laser off)</Capability>
+  <Capability Min="10" Max="49" Preset="ColorMacro" Res1="#ff0000">Red on</Capability>
+  <Capability Min="50" Max="89" Preset="ColorMacro" Res1="#00ff00">Green on</Capability>
+  <Capability Min="90" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Change green and red</Capability>
+  <Capability Min="130" Max="169" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red on + green strobe</Capability>
+  <Capability Min="170" Max="209" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green on + red strobe</Capability>
+  <Capability Min="210" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red strobe + green strobe</Capability>
+ </Channel>
+ <Channel Name="Strobe effect lasers">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No strobe effect</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeFastToSlow">Strobe effect fast -&gt; slow</Capability>
+  <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
+ </Channel>
+ <Channel Name="Rotation of the RGBWA LEDs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation slow -&gt; fast</Capability>
+  <Capability Min="128" Max="133">No rotation</Capability>
+  <Capability Min="134" Max="255">Anticlockwise rotation slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Rotation of the lasers">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation slow -&gt; fast</Capability>
+  <Capability Min="128" Max="133">No rotation</Capability>
+  <Capability Min="134" Max="255">Anticlockwise rotation slow -&gt; fast</Capability>
+ </Channel>
+ <Mode Name="9-channel">
+  <Channel Number="0">Operating mode</Channel>
+  <Channel Number="1">RGBWA LEDs</Channel>
+  <Channel Number="2">Color change speed</Channel>
+  <Channel Number="3">Strobe effect of the RGBWA LEDs</Channel>
+  <Channel Number="4">White strobe LEDs</Channel>
+  <Channel Number="5">Laser</Channel>
+  <Channel Number="6">Strobe effect lasers</Channel>
+  <Channel Number="7">Rotation of the RGBWA LEDs</Channel>
+  <Channel Number="8">Rotation of the lasers</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED/laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="246" Height="315" Depth="313"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

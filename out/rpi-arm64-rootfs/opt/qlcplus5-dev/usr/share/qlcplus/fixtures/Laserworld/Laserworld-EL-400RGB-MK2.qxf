@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Clément Delabroye</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>EL-400RGB MK2</Model>
+ <Type>Laser</Type>
+ <Channel Name="Style">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Laser off</Capability>
+  <Capability Min="50" Max="99">Sound mode</Capability>
+  <Capability Min="100" Max="149">Automatic mode</Capability>
+  <Capability Min="150" Max="199">Static pattern (DMX mode)</Capability>
+  <Capability Min="200" Max="255">Dynamic pattern (DMX mode)</Capability>
+ </Channel>
+ <Channel Name="Pattern selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Pattern selection</Capability>
+ </Channel>
+ <Channel Name="X axis positioning" Preset="PositionXAxis"/>
+ <Channel Name="Y axis positioning" Preset="PositionYAxis"/>
+ <Channel Name="Scanning speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Scanning speed</Capability>
+ </Channel>
+ <Channel Name="Dynamic pattern speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dynamic pattern speed</Capability>
+ </Channel>
+ <Channel Name="Zoom / size" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Color" Preset="ColorMacro"/>
+ <Channel Name="Color segment" Preset="ColorMacro"/>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Style</Channel>
+  <Channel Number="1">Pattern selection</Channel>
+  <Channel Number="2">X axis positioning</Channel>
+  <Channel Number="3">Y axis positioning</Channel>
+  <Channel Number="4">Scanning speed</Channel>
+  <Channel Number="5">Dynamic pattern speed</Channel>
+  <Channel Number="6">Zoom / size</Channel>
+  <Channel Number="7">Color</Channel>
+  <Channel Number="8">Color segment</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="255" Height="100" Depth="245"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="100"/>
+  <Focus Type="Mirror" PanMax="30" TiltMax="30"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

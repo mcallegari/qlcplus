@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Oliver</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Mini Strobe Cluster SMD 48</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Flash Rate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash Rate</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="36">Strobe</Capability>
+  <Capability Min="37" Max="72">Pulsing</Capability>
+  <Capability Min="73" Max="107">Fast open, slow close</Capability>
+  <Capability Min="108" Max="144">Slow open, fast close</Capability>
+  <Capability Min="145" Max="180">Random strobe</Capability>
+  <Capability Min="181" Max="253">Slow pulsing from 6 to 14 seconds</Capability>
+  <Capability Min="254" Max="255">Sound control</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Flash Rate</Channel>
+  <Channel Number="2">Effects</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="5000"/>
+  <Dimensions Weight="1.06" Width="230" Height="155" Depth="95"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

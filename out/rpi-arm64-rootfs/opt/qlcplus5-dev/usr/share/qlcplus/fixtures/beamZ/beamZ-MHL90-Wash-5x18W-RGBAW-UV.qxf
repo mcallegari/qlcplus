@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>DJ MoreBass (DK)</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>MHL90 Wash 5x18W RGBAW-UV</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimming" Preset="IntensityDimmer"/>
+ <Channel Name="LED Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Turn Off</Capability>
+  <Capability Min="8" Max="15">LED Quick Start</Capability>
+  <Capability Min="16" Max="131">Strobe, Slow to Fast</Capability>
+  <Capability Min="132" Max="139">LED Quick Start</Capability>
+  <Capability Min="140" Max="181">Slow Start, Quick Close</Capability>
+  <Capability Min="182" Max="189">LED Quick Start</Capability>
+  <Capability Min="190" Max="231">Quick Start, Slow Close</Capability>
+  <Capability Min="232" Max="239">LED Quick Start</Capability>
+  <Capability Min="240" Max="247">Random Flash</Capability>
+  <Capability Min="248" Max="255">LED Open Switch</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Static LED Color Select" Preset="ColorMacro"/>
+ <Channel Name="Movement functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">No function</Capability>
+  <Capability Min="70" Max="79">X/Y Move, LED Turn Off</Capability>
+  <Capability Min="80" Max="89">Stop X/Y Move, LED Turn Off</Capability>
+  <Capability Min="90" Max="239">No function</Capability>
+  <Capability Min="240" Max="255">Independent Operation</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimming</Channel>
+  <Channel Number="6">LED Effect</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Amber</Channel>
+  <Channel Number="12">UV</Channel>
+  <Channel Number="13">Static LED Color Select</Channel>
+  <Channel Number="14">Movement functions</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">LED Effect</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Amber</Channel>
+  <Channel Number="8">UV</Channel>
+  <Channel Number="9">Dimming</Channel>
+  <Channel Number="10">Movement functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="5 x HEX LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.3" Width="175" Height="245" Depth="178"/>
+  <Lens Name="Other" DegreesMin="22" DegreesMax="42"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

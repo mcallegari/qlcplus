@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Tolmino Muccitelli</Author>
+ </Creator>
+ <Manufacturer>Fun-Generation</Manufacturer>
+ <Model>LED Diamond Dome</Model>
+ <Type>Flower</Type>
+ <Channel Name="RGBW">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Intensity red (from 0% to 100%)</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00c000">Intensity green (from 0% to 100%)</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Intensity blue (from 0% to 100%)</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">Intensity white (from 0% to 100%)</Capability>
+  <Capability Min="50" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00c000">Intensity red/green (from 0% to 100%)</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Intensity red/blue (from 0% to 100%)</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Intensity red/white (from 0% to 100%)</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#00c000" Res2="#0000ff">Intensity green/blue (from 0% to 100%)</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#00c000" Res2="#ffffff">Intensity green/white (from 0% to 100%)</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Intensity blue/white (from 0% to 100%)</Capability>
+  <Capability Min="110" Max="119">Intensity red/green/blue (from 0% to 100%)</Capability>
+  <Capability Min="120" Max="129">Intensity red/green/white (from 0% to 100%)</Capability>
+  <Capability Min="130" Max="139">Intensity red/blue/white (from 0% to 100%)</Capability>
+  <Capability Min="140" Max="149">Intensity green/blue/white (from 0% to 100%)</Capability>
+  <Capability Min="150" Max="159">All colours (from 0% to 100%)</Capability>
+  <Capability Min="160" Max="229">Auto Operation</Capability>
+  <Capability Min="230" Max="255">Sound-Controlled Operations</Capability>
+ </Channel>
+ <Channel Name="Stroboscope effect - channel 1 from 10 to 229">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">Stroboscope Effect off</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Stoboscope effect on, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Program Speed - channel 1 from 160 to 229">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="8">No function</Capability>
+  <Capability Min="9" Max="255">Program speed increasing to 100%</Capability>
+ </Channel>
+ <Channel Name="Rotation Speed - channel 1 from 10 to 229">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Rotation speed increasing to 100%</Capability>
+ </Channel>
+ <Channel Name="UV">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="24">LED 2</Capability>
+  <Capability Min="25" Max="49">LED 1</Capability>
+  <Capability Min="50" Max="74">LED 3</Capability>
+  <Capability Min="75" Max="99">LED 1 / LED 2</Capability>
+  <Capability Min="100" Max="124">LED 2 / LED 3</Capability>
+  <Capability Min="125" Max="149">LED 1 / LED 3</Capability>
+  <Capability Min="150" Max="159">LED 1 / LED 2 / LED 3</Capability>
+  <Capability Min="160" Max="229">Auto operation</Capability>
+  <Capability Min="230" Max="255">Sound-controlled operation</Capability>
+ </Channel>
+ <Channel Name="RGBWA">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red</Capability>
+  <Capability Min="20" Max="29">Green</Capability>
+  <Capability Min="30" Max="39">Blue</Capability>
+  <Capability Min="40" Max="49">White</Capability>
+  <Capability Min="50" Max="59">Amber</Capability>
+  <Capability Min="60" Max="69">UV light</Capability>
+  <Capability Min="70" Max="79">Red / White</Capability>
+  <Capability Min="80" Max="89">Red / UV</Capability>
+  <Capability Min="90" Max="99">Green / Blue</Capability>
+  <Capability Min="100" Max="109">Green / White</Capability>
+  <Capability Min="110" Max="119">Blue / White</Capability>
+  <Capability Min="120" Max="129">Red / Green / Amber</Capability>
+  <Capability Min="130" Max="139">Red / Blue / UV</Capability>
+  <Capability Min="140" Max="149">Red / Green / White / Amber</Capability>
+  <Capability Min="150" Max="159">All colors</Capability>
+  <Capability Min="160" Max="229">Auto operation</Capability>
+  <Capability Min="230" Max="255">Sound-controlled operation</Capability>
+ </Channel>
+ <Mode Name="4 Channel - RGBW">
+  <Channel Number="0">RGBW</Channel>
+  <Channel Number="1">Stroboscope effect - channel 1 from 10 to 229</Channel>
+  <Channel Number="2">Program Speed - channel 1 from 160 to 229</Channel>
+  <Channel Number="3">Rotation Speed - channel 1 from 10 to 229</Channel>
+ </Mode>
+ <Mode Name="4 Channel - UV">
+  <Channel Number="0">UV</Channel>
+  <Channel Number="1">Stroboscope effect - channel 1 from 10 to 229</Channel>
+  <Channel Number="2">Program Speed - channel 1 from 160 to 229</Channel>
+  <Channel Number="3">Rotation Speed - channel 1 from 10 to 229</Channel>
+ </Mode>
+ <Mode Name="4 Channel - RGBWA">
+  <Channel Number="0">RGBWA</Channel>
+  <Channel Number="1">Stroboscope effect - channel 1 from 10 to 229</Channel>
+  <Channel Number="2">Program Speed - channel 1 from 160 to 229</Channel>
+  <Channel Number="3">Rotation Speed - channel 1 from 10 to 229</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.8" Width="182" Height="162" Depth="182"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

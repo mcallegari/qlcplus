@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jan Lachman</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>Oz-37x15QC</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan movement" Preset="PositionPan"/>
+ <Channel Name="Tilt movement" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt movement speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Fast to slow speed settings</Capability>
+  <Capability Min="226" Max="235">Black out during movements</Capability>
+  <Capability Min="236" Max="255">No function, max speed</Capability>
+ </Channel>
+ <Channel Name="Shutter &amp; Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LEDs off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function, LEDs on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Slow to fast strobe</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function, LEDs on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Slow to fast pulse effect</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function, LEDs on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Slow to fast random strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterClose">No function, LEDs off</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="All LEDs Red" Preset="IntensityRed"/>
+ <Channel Name="All LEDs Green" Preset="IntensityGreen"/>
+ <Channel Name="All LEDs Blue" Preset="IntensityBlue"/>
+ <Channel Name="All LEDs White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Colour macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="39" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">From red to yellow</Capability>
+  <Capability Min="40" Max="71" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#55ff00">From yellow to green</Capability>
+  <Capability Min="72" Max="103" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#55ffff">From green to cyan</Capability>
+  <Capability Min="104" Max="135" Preset="ColorDoubleMacro" Res1="#55ffff" Res2="#0000ff">From cyan to blue</Capability>
+  <Capability Min="136" Max="167" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">From blue to magenta</Capability>
+  <Capability Min="168" Max="199" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">From magenta to red</Capability>
+  <Capability Min="200" Max="231" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">From red to white</Capability>
+  <Capability Min="232" Max="255">Slow to fast rainbow effect</Capability>
+ </Channel>
+ <Channel Name="Preset colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="9">White 2700K</Capability>
+  <Capability Min="10" Max="14">White 3200K</Capability>
+  <Capability Min="15" Max="19">White 4300K</Capability>
+  <Capability Min="20" Max="24">White 5600K</Capability>
+  <Capability Min="25" Max="29">White 6500K</Capability>
+  <Capability Min="30" Max="34">White 8000K</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#55ff00">Green</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="50" Max="54">Cold white</Capability>
+  <Capability Min="55" Max="59">Warm white</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="75" Preset="ColorMacro" Res1="#55ffff">Cyan</Capability>
+  <Capability Min="76" Max="114">Colour palette</Capability>
+  <Capability Min="115" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="120" Max="124" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Green/White</Capability>
+  <Capability Min="125" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue/Red</Capability>
+  <Capability Min="130" Max="134" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/Red</Capability>
+  <Capability Min="135" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaaff">White/Pink</Capability>
+  <Capability Min="140" Max="144" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ffff">White/Turquoise</Capability>
+  <Capability Min="145" Max="149" Preset="ColorDoubleMacro" Res1="#ff5163" Res2="#ffffff">Light red/White</Capability>
+  <Capability Min="150" Max="255">Slow to fast rainbow effect</Capability>
+ </Channel>
+ <Channel Name="Preset colour dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">100% - 0%</Capability>
+ </Channel>
+ <Channel Name="Patterns sequencing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="255">Sequences</Capability>
+ </Channel>
+ <Channel Name="Patterns sequencing speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="125">From fast to slow</Capability>
+  <Capability Min="126" Max="130">Stop</Capability>
+  <Capability Min="131" Max="255">From slow to fast</Capability>
+ </Channel>
+ <Channel Name="Patterns sequencing fader">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Fast to slow fader</Capability>
+ </Channel>
+ <Channel Name="White balance">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="189">No function</Capability>
+  <Capability Min="190" Max="254">New white balance</Capability>
+  <Capability Min="255" Max="255">Save new balance</Capability>
+ </Channel>
+ <Channel Name="Internal programs and options">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="79">No function</Capability>
+  <Capability Min="80" Max="99" Preset="ResetAll">Resets</Capability>
+  <Capability Min="100" Max="230">Internal program 1-7</Capability>
+  <Capability Min="231" Max="255">Music sensitive program</Capability>
+ </Channel>
+ <Mode Name="18 Ch Basic mode">
+  <Channel Number="0">Pan movement</Channel>
+  <Channel Number="1">Tilt movement</Channel>
+  <Channel Number="2">Pan/Tilt movement speed</Channel>
+  <Channel Number="3">Shutter &amp; Strobe</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">All LEDs Red</Channel>
+  <Channel Number="6">All LEDs Green</Channel>
+  <Channel Number="7">All LEDs Blue</Channel>
+  <Channel Number="8">All LEDs White</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Colour macros</Channel>
+  <Channel Number="11">Preset colours</Channel>
+  <Channel Number="12">Preset colour dimmer</Channel>
+  <Channel Number="13">Patterns sequencing</Channel>
+  <Channel Number="14">Patterns sequencing speed</Channel>
+  <Channel Number="15">Patterns sequencing fader</Channel>
+  <Channel Number="16">White balance</Channel>
+  <Channel Number="17">Internal programs and options</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="22.5" Width="498" Height="594" Depth="330"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="56"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="650" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

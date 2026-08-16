@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 2</Version>
+  <Author>Thom Stam</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PARty Hybrid Spot</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50" Preset="Alias">No function</Capability>
+  <Capability Min="51" Max="100" Preset="Alias">Color change ''switching'', with increasing speed
+   <Alias Mode="Default" Channel="Strobe effect" With="Channel 7 Speed"/>
+  </Capability>
+  <Capability Min="101" Max="200" Preset="Alias">Color change ''fading'', with increasing speed
+   <Alias Mode="Default" Channel="Strobe effect" With="Channel 7 Speed"/>
+  </Capability>
+  <Capability Min="201" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Channel 7 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="Alias">Speed (slow-fast) Channel 7</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe effect</Channel>
+  <Channel Number="6">Functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.5" Width="152" Height="1700" Depth="120"/>
+  <Lens Name="Other" DegreesMin="22" DegreesMax="22"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="16" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Dávid Czirók</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>Cuepix Blinder WW2</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Left COB module dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Right COB module dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Flash/strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimming curve modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="41">stamdard</Capability>
+  <Capability Min="42" Max="84">stage</Capability>
+  <Capability Min="85" Max="127">tv</Capability>
+  <Capability Min="128" Max="170">architectural</Capability>
+  <Capability Min="171" Max="213">theatre</Capability>
+  <Capability Min="214" Max="255">Default to unit setting</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Dimming curve modes</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Flash/strobe</Channel>
+  <Channel Number="2">Dimming curve modes</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Left COB module dimmer</Channel>
+  <Channel Number="1">Right COB module dimmer</Channel>
+  <Channel Number="2">Flash/strobe</Channel>
+  <Channel Number="3">Dimming curve modes</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="5.1" Width="260" Height="182" Depth="478"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="229" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

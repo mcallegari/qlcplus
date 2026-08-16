@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>SmartBat</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color + Color Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">R 100% G 0-100% B 0</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">R 100%~0 G 100% B 0</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">R 0 G 100% B 0~100%</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">R 0 G 100%~0 B 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">R 0~100% G 0 B 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">R 100% G 0 B 100%~0</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">R: 100% / G: Up / B: Up</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff00ff">R 100% G 100%~0 B 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">R 100% G 100% B 100% W 100%</Capability>
+  <Capability Min="201" Max="205" Preset="ColorMacro" Res1="#ffc076">Colot temperature 1: 3200K</Capability>
+  <Capability Min="206" Max="210" Preset="ColorMacro" Res1="#ffc61e">Color temperature 2: 3400K</Capability>
+  <Capability Min="211" Max="215" Preset="ColorMacro" Res1="#ffd9ab">Color temperature 3: 4200K</Capability>
+  <Capability Min="216" Max="220" Preset="ColorMacro" Res1="#ffe5c8">Color temperature 4: 4900K</Capability>
+  <Capability Min="221" Max="225" Preset="ColorMacro" Res1="#ffefe1">Color temperature 5: 5600K</Capability>
+  <Capability Min="226" Max="230" Preset="ColorMacro" Res1="#fff3ea">Color temperature 6: 5900K</Capability>
+  <Capability Min="231" Max="235" Preset="ColorMacro" Res1="#fff9fb">Color temperature 7: 6500K</Capability>
+  <Capability Min="236" Max="240" Preset="ColorMacro" Res1="#f3f3ff">Color temperature 8: 7200K</Capability>
+  <Capability Min="241" Max="245" Preset="ColorMacro" Res1="#e5e9ff">Color temperature 9: 8000K</Capability>
+  <Capability Min="246" Max="250" Preset="ColorMacro" Res1="#dfe5ff">Color temperature 10: 8500K</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#cfdaff">Color temperature 11: 10000K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="60">Auto program 1</Capability>
+  <Capability Min="61" Max="120">Auto program 2</Capability>
+  <Capability Min="121" Max="180">Auto program 3</Capability>
+  <Capability Min="181" Max="240">Auto program 4</Capability>
+  <Capability Min="241" Max="255">Sound show</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dim Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode 1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">Dimmer speed mode 2 (middle speed)</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode 3 (slow speed)</Capability>
+ </Channel>
+ <Mode Name="10 Ch Mode">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Color + Color Temperature</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Auto/Sound Programs</Channel>
+  <Channel Number="8">Auto Speed</Channel>
+  <Channel Number="9">Dim Mode</Channel>
+ </Mode>
+ <Mode Name="4 Ch Mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 Ch Mode">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+  <Dimensions Weight="3.4" Width="138" Height="184" Depth="145"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

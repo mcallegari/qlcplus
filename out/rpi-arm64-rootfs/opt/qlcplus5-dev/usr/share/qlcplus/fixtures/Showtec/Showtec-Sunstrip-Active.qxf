@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Julien Poilvilain</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Sunstrip Active</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Channel 1" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 2" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 3" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 4" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 5" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 6" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 7" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 8" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 9" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 10" Preset="IntensityDimmer"/>
+ <Mode Name="1 Channel Mode">
+  <Channel Number="0">Channel 1</Channel>
+ </Mode>
+ <Mode Name="2 Channels Mode">
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="5 Channels Mode">
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+  <Channel Number="4">Channel 5</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="10 Channels Mode">
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+  <Channel Number="4">Channel 5</Channel>
+  <Channel Number="5">Channel 6</Channel>
+  <Channel Number="6">Channel 7</Channel>
+  <Channel Number="7">Channel 8</Channel>
+  <Channel Number="8">Channel 9</Channel>
+  <Channel Number="9">Channel 10</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="240V/75W GU10" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.3" Width="1000" Height="130" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="10" Height="1"/>
+  <Technical PowerConsumption="750" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

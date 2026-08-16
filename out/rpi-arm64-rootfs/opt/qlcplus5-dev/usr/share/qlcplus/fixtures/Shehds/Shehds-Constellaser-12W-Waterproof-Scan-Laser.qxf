@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Tóth János</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>Constellaser 12W Waterproof Scan Laser</Model>
+ <Type>Laser</Type>
+ <Channel Name="Laser source on" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Linear Pattern Size" Preset="BeamZoomSmallBig"/>
+ <Channel Name="X coordinate">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">X</Capability>
+ </Channel>
+ <Channel Name="Y coordinate">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Y</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="63">Color select</Capability>
+  <Capability Min="64" Max="95">Change color speed slow to fast</Capability>
+  <Capability Min="96" Max="127">Changing color effect mode 1 (slow to fast)</Capability>
+  <Capability Min="128" Max="159">Changing color effect mode 2 (slow to fast)</Capability>
+  <Capability Min="160" Max="191">Changing color effect mode 3 (slow to fast)</Capability>
+  <Capability Min="192" Max="223">Changing color effect mode 4 (slow to fast)</Capability>
+  <Capability Min="224" Max="255">Changing color effect mode 5 (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Scan Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Line</Capability>
+  <Capability Min="128" Max="255">Point</Capability>
+ </Channel>
+ <Channel Name="Library select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Library Select</Capability>
+ </Channel>
+ <Channel Name="Pattern Animation library">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Animation Library 1</Capability>
+  <Capability Min="8" Max="15">Animation library 2</Capability>
+  <Capability Min="16" Max="23">Animation library 3</Capability>
+  <Capability Min="24" Max="255">Pattern library</Capability>
+ </Channel>
+ <Channel Name="Play Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="27">Animation playback speed (default)</Capability>
+  <Capability Min="28" Max="127">Animation playback speed (slow to fast)</Capability>
+  <Capability Min="128" Max="255">Sound mode (sound sensitivity slow to high)</Capability>
+ </Channel>
+ <Channel Name="Z rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Pattern Z axis rotating 360</Capability>
+  <Capability Min="128" Max="255">rotating slow to fast</Capability>
+ </Channel>
+ <Channel Name="X rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Pattern X axis rotating 360</Capability>
+  <Capability Min="128" Max="255">Rotating slow to fast</Capability>
+ </Channel>
+ <Channel Name="Y rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Pattern Y axis rotating 360</Capability>
+  <Capability Min="128" Max="255">rotating speed slow to fast</Capability>
+ </Channel>
+ <Channel Name="X axis move">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Pattern or animation X-axis movement</Capability>
+  <Capability Min="128" Max="255">X-axis left to right move (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Y axis move">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Pattern or animation Y-axis movement</Capability>
+  <Capability Min="128" Max="255">Y-axis left to right move (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Pattern or animation zoom</Capability>
+  <Capability Min="128" Max="255">Zoom in&amp;out slow to fast</Capability>
+ </Channel>
+ <Channel Name="Draw Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">pattern draw effect slow to fast</Capability>
+ </Channel>
+ <Channel Name="Twisted Waves">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">X axis twisted Waves</Capability>
+  <Capability Min="128" Max="255">Y axis twisted waves</Capability>
+ </Channel>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Laser source on</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Linear Pattern Size</Channel>
+  <Channel Number="3">X coordinate</Channel>
+  <Channel Number="4">Y coordinate</Channel>
+  <Channel Number="5">Color</Channel>
+  <Channel Number="6">Scan Mode</Channel>
+  <Channel Number="7">Library select</Channel>
+  <Channel Number="8">Pattern Animation library</Channel>
+  <Channel Number="9">Play Speed</Channel>
+  <Channel Number="10">Z rotation</Channel>
+  <Channel Number="11">X rotation</Channel>
+  <Channel Number="12">Y rotation</Channel>
+  <Channel Number="13">X axis move</Channel>
+  <Channel Number="14">Y axis move</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Draw Effect</Channel>
+  <Channel Number="17">Twisted Waves</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Laser source on</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Linear Pattern Size</Channel>
+  <Channel Number="3">X coordinate</Channel>
+  <Channel Number="4">Y coordinate</Channel>
+  <Channel Number="5">Color</Channel>
+  <Channel Number="6">Scan Mode</Channel>
+  <Channel Number="7">Library select</Channel>
+  <Channel Number="8">Pattern Animation library</Channel>
+  <Channel Number="9">Play Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.82" Width="250" Height="330" Depth="180"/>
+  <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+  <Focus Type="Barrel" PanMax="90" TiltMax="75"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

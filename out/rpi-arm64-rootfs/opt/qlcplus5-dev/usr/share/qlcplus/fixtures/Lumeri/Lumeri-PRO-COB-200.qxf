@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Christian Deplano</Author>
+ </Creator>
+ <Manufacturer>Lumeri</Manufacturer>
+ <Model>PRO-COB 200</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Stroboscopic</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Built-in pattern">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="29">Nothing</Capability>
+  <Capability Min="30" Max="39">Red</Capability>
+  <Capability Min="40" Max="49">Green</Capability>
+  <Capability Min="50" Max="59">Blue</Capability>
+  <Capability Min="60" Max="69">Yellow</Capability>
+  <Capability Min="70" Max="79">Purple</Capability>
+  <Capability Min="80" Max="89">Cyan</Capability>
+  <Capability Min="90" Max="99">White</Capability>
+  <Capability Min="100" Max="149">Color changer 1</Capability>
+  <Capability Min="150" Max="199">Color changer 2</Capability>
+  <Capability Min="200" Max="229">Color changer 3</Capability>
+  <Capability Min="230" Max="255">Audio mode</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed From Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Mode Name="A">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Built-in pattern</Channel>
+  <Channel Number="3">Speed</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+ </Mode>
+ <Mode Name="d">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Built-in pattern</Channel>
+  <Channel Number="7">Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="1.8" Width="260" Height="260" Depth="380"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

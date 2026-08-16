@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Piotr Nowik</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>PRO-800RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Laser off</Capability>
+  <Capability Min="10" Max="49">Music mode</Capability>
+  <Capability Min="50" Max="199">Automatic mode</Capability>
+  <Capability Min="200" Max="255">Patterns/DMX</Capability>
+ </Channel>
+ <Channel Name="Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">128 patterns (change every even value)</Capability>
+ </Channel>
+ <Channel Name="Horizontal movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="125">Manual positioning</Capability>
+  <Capability Min="126" Max="155">Left to right slow to fast</Capability>
+  <Capability Min="156" Max="245">Right to left slow to fast</Capability>
+  <Capability Min="246" Max="255">Automatic positioning</Capability>
+ </Channel>
+ <Channel Name="Y Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128">Indexing</Capability>
+  <Capability Min="129" Max="255">Rotating slow to fast</Capability>
+ </Channel>
+ <Channel Name="X Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128">Indexing</Capability>
+  <Capability Min="129" Max="255">Rotating slow to fast</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="10">No zoom</Capability>
+  <Capability Min="11" Max="87">Max size to min size</Capability>
+  <Capability Min="88" Max="150">Auto zooming max-min slow to fast</Capability>
+  <Capability Min="151" Max="200">Auto zooming min-max slow to fast</Capability>
+  <Capability Min="201" Max="255">Continuosly min-max-min slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pattern Buildup (drawing)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="74">Manual drawing</Capability>
+  <Capability Min="75" Max="104">Automatic drawing slow to fast</Capability>
+  <Capability Min="105" Max="144">Automatic reduction slow to fast</Capability>
+  <Capability Min="145" Max="184">Automatic drawing and reduction slow to fast</Capability>
+  <Capability Min="185" Max="255">Automatic two-sided reduction</Capability>
+ </Channel>
+ <Channel Name="Color Seletion">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="119" Max="169" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow mixing static</Capability>
+  <Capability Min="170" Max="220" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow mixing moving</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="238" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow mixing static</Capability>
+ </Channel>
+ <Channel Name="Grating">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="49">No grating</Capability>
+  <Capability Min="50" Max="99">Burst grating</Capability>
+  <Capability Min="100" Max="149">Line grating</Capability>
+  <Capability Min="150" Max="199">3D grating</Capability>
+  <Capability Min="200" Max="255">3D line grating</Capability>
+ </Channel>
+ <Channel Name="Red fading" Preset="IntensityRed"/>
+ <Channel Name="Green fading" Preset="IntensityGreen"/>
+ <Channel Name="Blue fading" Preset="IntensityBlue"/>
+ <Channel Name="Z rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128">Manual indexing</Capability>
+  <Capability Min="129" Max="192">CCW movement slow to fast</Capability>
+  <Capability Min="193" Max="255">CW movement slow to fast</Capability>
+ </Channel>
+ <Channel Name="Y wave">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="69">Small wave slow to fast</Capability>
+  <Capability Min="70" Max="129">Medium wave slow to fast</Capability>
+  <Capability Min="130" Max="189">Large wave slow to fast</Capability>
+  <Capability Min="190" Max="255">Wave effect II</Capability>
+ </Channel>
+ <Channel Name="X wave">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="69">Small wave slow to fast</Capability>
+  <Capability Min="70" Max="129">Medium wave slow to fast</Capability>
+  <Capability Min="130" Max="189">Large wave slow to fast</Capability>
+  <Capability Min="190" Max="255">Wave effect II</Capability>
+ </Channel>
+ <Channel Name="Vertical movement">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="125">Manual positioning</Capability>
+  <Capability Min="126" Max="155">Up to down slow to fast</Capability>
+  <Capability Min="156" Max="245">Down to up slow to fast</Capability>
+  <Capability Min="246" Max="255">Automatic positioning</Capability>
+ </Channel>
+ <Mode Name="16 channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Patterns</Channel>
+  <Channel Number="2">Grating</Channel>
+  <Channel Number="3">Color Seletion</Channel>
+  <Channel Number="4">Red fading</Channel>
+  <Channel Number="5">Green fading</Channel>
+  <Channel Number="6">Blue fading</Channel>
+  <Channel Number="7">Horizontal movement</Channel>
+  <Channel Number="8">Vertical movement</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">X Rotation</Channel>
+  <Channel Number="11">Y Rotation</Channel>
+  <Channel Number="12">Z rotation</Channel>
+  <Channel Number="13">Pattern Buildup (drawing)</Channel>
+  <Channel Number="14">Y wave</Channel>
+  <Channel Number="15">X wave</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.7" Width="235" Height="205" Depth="165"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="1"/>
+  <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

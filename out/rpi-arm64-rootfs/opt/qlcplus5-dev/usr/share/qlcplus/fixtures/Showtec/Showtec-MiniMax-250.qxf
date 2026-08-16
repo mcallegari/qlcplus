@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Klaus Weidenbach</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>MiniMax 250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open/White</Capability>
+  <Capability Min="16" Max="31">Red</Capability>
+  <Capability Min="32" Max="43">Green</Capability>
+  <Capability Min="44" Max="55">Blue</Capability>
+  <Capability Min="56" Max="67">Yellow</Capability>
+  <Capability Min="68" Max="79">Magenta</Capability>
+  <Capability Min="80" Max="91">Cyan</Capability>
+  <Capability Min="92" Max="107">Orange</Capability>
+  <Capability Min="108" Max="119">Pink</Capability>
+  <Capability Min="120" Max="135">Mix Red-Green</Capability>
+  <Capability Min="136" Max="151">Mix Green-Blue</Capability>
+  <Capability Min="152" Max="167">Mix Blue-Yellow</Capability>
+  <Capability Min="168" Max="183">Mix Yellow-Magenta</Capability>
+  <Capability Min="184" Max="199">Mix Magenta-Cyan</Capability>
+  <Capability Min="200" Max="215">Mix Cyan-Orange</Capability>
+  <Capability Min="216" Max="227">Mix Orange-Pink</Capability>
+  <Capability Min="228" Max="239">Mix Pink-White</Capability>
+  <Capability Min="240" Max="255">Rainbow</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="23">Open</Capability>
+  <Capability Min="24" Max="47">Gobo 1 (Stars)</Capability>
+  <Capability Min="48" Max="71">Gobo 2</Capability>
+  <Capability Min="72" Max="95">Gobo 3 (Flowers)</Capability>
+  <Capability Min="96" Max="119">Gobo 4 (Stars &amp; Spirals)</Capability>
+  <Capability Min="120" Max="143">Gobo 5</Capability>
+  <Capability Min="144" Max="167">Gobo 6</Capability>
+  <Capability Min="168" Max="191">Gobot 7</Capability>
+  <Capability Min="192" Max="255">Wheel rotation</Capability>
+ </Channel>
+ <Channel Name="Strobe / Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="15">Closed</Capability>
+  <Capability Min="16" Max="127">Intensity</Capability>
+  <Capability Min="128" Max="239">Strobe effect</Capability>
+  <Capability Min="240" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Lamp Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="LampOn">Lamp ON</Capability>
+  <Capability Min="128" Max="191" Preset="ResetAll">Reset after 5 seconds</Capability>
+  <Capability Min="192" Max="250" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="251" Max="255">Lamp OFF after 10 seconds</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Colour Wheel</Channel>
+  <Channel Number="4">Gobo Wheel</Channel>
+  <Channel Number="5">Strobe / Dimmer</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Colour Wheel</Channel>
+  <Channel Number="4">Gobo Wheel</Channel>
+  <Channel Number="5">Strobe / Dimmer</Channel>
+  <Channel Number="6">Lamp Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="3400"/>
+  <Dimensions Weight="6" Width="220" Height="350" Depth="220"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="510" TiltMax="260"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

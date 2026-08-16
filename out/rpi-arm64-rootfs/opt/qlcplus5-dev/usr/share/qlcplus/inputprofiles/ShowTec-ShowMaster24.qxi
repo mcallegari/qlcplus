@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+<Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author>hjunnila</Author>
+ </Creator>
+ <Manufacturer>ShowTec</Manufacturer>
+ <Model>ShowMaster 24</Model>
+ <Type>MIDI</Type>
+ <Channel Number="22" >
+  <Name>Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23" >
+  <Name>Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24" >
+  <Name>Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25" >
+  <Name>Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26" >
+  <Name>Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="27" >
+  <Name>Scene 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28" >
+  <Name>Scene 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29" >
+  <Name>Scene 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30" >
+  <Name>Scene 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31" >
+  <Name>Scene 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32" >
+  <Name>Scene 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33" >
+  <Name>Scene 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="70" >
+  <Name>Channel 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="71" >
+  <Name>Channel 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="72" >
+  <Name>Channel 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="73" >
+  <Name>Channel 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="74" >
+  <Name>Channel 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="75" >
+  <Name>Channel 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="76" >
+  <Name>Channel 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="77" >
+  <Name>Channel 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="78" >
+  <Name>Channel 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="79" >
+  <Name>Channel 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80" >
+  <Name>Channel 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="81" >
+  <Name>Channel 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="82" >
+  <Name>Channel 13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="83" >
+  <Name>Channel 14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="84" >
+  <Name>Channel 15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="85" >
+  <Name>Channel 16</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="86" >
+  <Name>Channel 17</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="87" >
+  <Name>Channel 18</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="88" >
+  <Name>Channel 19</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="89" >
+  <Name>Channel 20</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="90" >
+  <Name>Channel 21</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="91" >
+  <Name>Channel 22</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="92" >
+  <Name>Channel 23</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="93" >
+  <Name>Channel 24</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="94" >
+  <Name>Full On</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="95" >
+  <Name>Dark</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="96" >
+  <Name>Hold</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="97" >
+  <Name>Audio</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="98" >
+  <Name>Chns &lt;&gt; Scenes</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="99" >
+  <Name>A Double Preset B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="100" >
+  <Name>1-24 Single</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="101" >
+  <Name>Step</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="102" >
+  <Name>Blackout</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
+

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED CLS-9 QCL RGBW 9x8W 12</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Sound Control/Shutter">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control (15 colors)</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe (increasing)</Capability>
+ </Channel>
+ <Channel Name="Shutter / Speed / Sensitivity">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Shutter / Speed / Sensitivity (increasing)</Capability>
+ </Channel>
+ <Channel Name="Color Macros/Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#ff0000">R</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#00ff00">G</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#0000ff">B</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffffff">W</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#8080ff">BW</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff8080">WR</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#80ff80">GW</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#80ffff">GBW</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#ffff80">RGW</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#ff80ff">RBW</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ffffff">RGBW</Capability>
+  <Capability Min="170" Max="179">Pr. 2</Capability>
+  <Capability Min="180" Max="189">Pr. 3</Capability>
+  <Capability Min="190" Max="199">Pr. 4</Capability>
+  <Capability Min="200" Max="209">Pr. 5</Capability>
+  <Capability Min="210" Max="219">Pr. 6</Capability>
+  <Capability Min="220" Max="229">Pr. 7</Capability>
+  <Capability Min="230" Max="239">4 color sound control</Capability>
+  <Capability Min="240" Max="255">15 color sound control</Capability>
+ </Channel>
+ <Channel Name="Flash">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Flash</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Speed/Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="169">Dimmer</Capability>
+  <Capability Min="170" Max="229">Speed</Capability>
+  <Capability Min="230" Max="255">Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="270" Height="310" Depth="110"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Sound Control/Shutter</Channel>
+ </Mode>
+ <Mode Name="12-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="270" Height="310" Depth="110"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="270" Height="310" Depth="110"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Color Macros/Programs</Channel>
+  <Channel Number="1">Dimmer/Speed/Sensitivity</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">White 1</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">White 2</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="335" Height="210" Depth="185"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

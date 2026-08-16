@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Mark Sy</Author>
+ </Creator>
+ <Manufacturer>AVE</Manufacturer>
+ <Model>Quad Pro Flat</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="99" Preset="StrobeSlowToFast">Slow To Fast</Capability>
+  <Capability Min="100" Max="149" Preset="StrobeFastToSlow">Fast to slow</Capability>
+  <Capability Min="150" Max="199">Slow #1</Capability>
+  <Capability Min="200" Max="245">Med #2</Capability>
+  <Capability Min="246" Max="255">Fastest #3</Capability>
+ </Channel>
+ <Channel Name="Sound Control">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="199">Color auto speed</Capability>
+  <Capability Min="200" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Colour Walking">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Color Auto</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Colour Walking</Channel>
+  <Channel Number="7">Sound Control</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="230" Height="240" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="112" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

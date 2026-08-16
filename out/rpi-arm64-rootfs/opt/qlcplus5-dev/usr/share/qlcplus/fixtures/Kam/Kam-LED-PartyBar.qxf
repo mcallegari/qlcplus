@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Administrator</Author>
+ </Creator>
+ <Manufacturer>Kam</Manufacturer>
+ <Model>LED PartyBar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="40">Auto 1</Capability>
+  <Capability Min="41" Max="70">Auto 2</Capability>
+  <Capability Min="71" Max="100">Auto 3</Capability>
+  <Capability Min="101" Max="130">Auto 4</Capability>
+  <Capability Min="131" Max="160">Auto 5</Capability>
+  <Capability Min="161" Max="190">Auto 6</Capability>
+  <Capability Min="191" Max="220">Auto 7</Capability>
+  <Capability Min="221" Max="250">Auto 8</Capability>
+  <Capability Min="251" Max="255">Sound Activated</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe [Slow - Fast]</Capability>
+ </Channel>
+ <Channel Name="Spot1 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot1 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot1 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot2 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot2 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot2 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot3 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot3 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot3 - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot4 - Red" Preset="IntensityRed"/>
+ <Channel Name="Spot4 - Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot4 - Blue" Preset="IntensityBlue"/>
+ <Mode Name="Normal">
+  <Channel Number="0">Sound</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Spot1 - Red</Channel>
+  <Channel Number="4">Spot1 - Green</Channel>
+  <Channel Number="5">Spot1 - Blue</Channel>
+  <Channel Number="6">Spot2 - Red</Channel>
+  <Channel Number="7">Spot2 - Green</Channel>
+  <Channel Number="8">Spot2 - Blue</Channel>
+  <Channel Number="9">Spot3 - Red</Channel>
+  <Channel Number="10">Spot3 - Green</Channel>
+  <Channel Number="11">Spot3 - Blue</Channel>
+  <Channel Number="12">Spot4 - Red</Channel>
+  <Channel Number="13">Spot4 - Green</Channel>
+  <Channel Number="14">Spot4 - Blue</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6" Width="863" Height="220" Depth="50"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="34" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

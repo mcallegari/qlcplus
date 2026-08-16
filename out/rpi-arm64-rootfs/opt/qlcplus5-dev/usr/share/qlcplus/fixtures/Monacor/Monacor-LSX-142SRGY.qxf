@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Monacor</Manufacturer>
+ <Model>LSX-142SRGY</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="20">Off</Capability>
+  <Capability Min="21" Max="40">Auto show with RGY colours</Capability>
+  <Capability Min="41" Max="60" Preset="ColorMacro" Res1="#ff0000">Auto show with red colour</Capability>
+  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#00ff00">Auto show with green colour</Capability>
+  <Capability Min="81" Max="100" Preset="ColorMacro" Res1="#ffff00">Auto show with yellow colour</Capability>
+  <Capability Min="101" Max="120">Sound show with RGY colours</Capability>
+  <Capability Min="121" Max="140" Preset="ColorMacro" Res1="#ff0000">Sound show with red colour</Capability>
+  <Capability Min="141" Max="160" Preset="ColorMacro" Res1="#00ff00">Sound show with green colour</Capability>
+  <Capability Min="161" Max="180" Preset="ColorMacro" Res1="#ffff00">Sound show with yellow colour</Capability>
+  <Capability Min="181" Max="200">Auto pattern show</Capability>
+  <Capability Min="201" Max="220">Sound pattern show</Capability>
+  <Capability Min="221" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Pattern group">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Group 1 patterns</Capability>
+  <Capability Min="52" Max="103">Group 2 patterns</Capability>
+  <Capability Min="104" Max="155">Group 3 patterns</Capability>
+  <Capability Min="156" Max="207">Group 4 patterns</Capability>
+  <Capability Min="208" Max="255">Group 5 patterns</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Patterns</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Original</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="64" Max="111">Colour rolling</Capability>
+  <Capability Min="112" Max="159">Colour jumping</Capability>
+  <Capability Min="160" Max="207">Colour moving</Capability>
+  <Capability Min="208" Max="255">strobing/speed</Capability>
+ </Channel>
+ <Channel Name="Clipping">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No clipping</Capability>
+  <Capability Min="1" Max="127">0-99% clipped</Capability>
+  <Capability Min="128" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Zooming">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">100-5% zoomed</Capability>
+  <Capability Min="128" Max="169">Zooming in</Capability>
+  <Capability Min="170" Max="209">Zooming out</Capability>
+  <Capability Min="210" Max="255">Alternate zooming</Capability>
+ </Channel>
+ <Channel Name="Zoom speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to slow</Capability>
+ </Channel>
+ <Channel Name="Y-axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree Y-axis rolling</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Y-axis roll speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="X-axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree X-axis rolling</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="X-axis roll speed" Preset="SpeedPanFastSlow"/>
+ <Channel Name="Z-axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree Z-axis rolling</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Z-axis roll speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to slow</Capability>
+ </Channel>
+ <Channel Name="X-axis moving">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">X-axis position</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="X-axis move speed" Preset="SpeedPanFastSlow"/>
+ <Channel Name="Y-axis moving">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Y-axis position</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="Y-axis move speed" Preset="SpeedTiltFastSlow"/>
+ <Mode Name="Default">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern group</Channel>
+  <Channel Number="2">Pattern</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Clipping</Channel>
+  <Channel Number="5">Zooming</Channel>
+  <Channel Number="6">Zoom speed</Channel>
+  <Channel Number="7">Y-axis rolling</Channel>
+  <Channel Number="8">Y-axis roll speed</Channel>
+  <Channel Number="9">X-axis rolling</Channel>
+  <Channel Number="10">X-axis roll speed</Channel>
+  <Channel Number="11">Z-axis rolling</Channel>
+  <Channel Number="12">Z-axis roll speed</Channel>
+  <Channel Number="13">X-axis moving</Channel>
+  <Channel Number="14">X-axis move speed</Channel>
+  <Channel Number="15">Y-axis moving</Channel>
+  <Channel Number="16">Y-axis move speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="190" Height="80" Depth="170"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="20" TiltMax="20"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

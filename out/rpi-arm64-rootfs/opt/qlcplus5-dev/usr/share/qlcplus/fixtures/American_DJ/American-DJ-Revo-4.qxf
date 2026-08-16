@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>mac</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Revo 4</Model>
+ <Type>Flower</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="99">Pattern</Capability>
+  <Capability Min="100" Max="239">Chase</Capability>
+  <Capability Min="240" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Pattern (Chase)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Pattern (Chase) 1 </Capability>
+  <Capability Min="21" Max="41">Pattern (Chase) 2</Capability>
+  <Capability Min="42" Max="65">Pattern (Chase) 3</Capability>
+  <Capability Min="66" Max="87">Pattern (Chase) 4</Capability>
+  <Capability Min="88" Max="108">Pattern (Chase) 5</Capability>
+  <Capability Min="109" Max="129">Pattern (Chase) 6</Capability>
+  <Capability Min="130" Max="150">Pattern (Chase) 7</Capability>
+  <Capability Min="151" Max="172">Pattern (Chase) 8</Capability>
+  <Capability Min="173" Max="193">Pattern (Chase) 9</Capability>
+  <Capability Min="194" Max="214">Pattern (Chase) 10</Capability>
+  <Capability Min="215" Max="235">Pattern (Chase) 11</Capability>
+  <Capability Min="236" Max="255">Pattern (Chase) 12</Capability>
+ </Channel>
+ <Channel Name="Colour (Chase Speed)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17">R (Slow)</Capability>
+  <Capability Min="18" Max="34">G</Capability>
+  <Capability Min="35" Max="51">B</Capability>
+  <Capability Min="52" Max="68">W</Capability>
+  <Capability Min="69" Max="85">RG</Capability>
+  <Capability Min="86" Max="102">RB</Capability>
+  <Capability Min="103" Max="119">RW</Capability>
+  <Capability Min="120" Max="136">GB</Capability>
+  <Capability Min="137" Max="153">GW</Capability>
+  <Capability Min="154" Max="170">BW</Capability>
+  <Capability Min="171" Max="187">RGB</Capability>
+  <Capability Min="188" Max="204">RGW</Capability>
+  <Capability Min="205" Max="221">RBW</Capability>
+  <Capability Min="222" Max="238">GBW</Capability>
+  <Capability Min="239" Max="255">RGBW (Fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Stop</Capability>
+  <Capability Min="10" Max="255">Speed</Capability>
+ </Channel>
+ <Mode Name="4-CH">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Pattern (Chase)</Channel>
+  <Channel Number="2">Colour (Chase Speed)</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="306" Height="334" Weight="4" Depth="312"/>
+   <Lens DegreesMax="50" Name="Other" DegreesMin="50"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="29" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Andres Robles</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Super Solar White</Model>
+ <Type>Flower</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">Blackout</Capability>
+  <Capability Min="15" Max="124">Fast to slow rotation CW</Capability>
+  <Capability Min="125" Max="139">Stop rotation</Capability>
+  <Capability Min="140" Max="249">Slow to fast rotation CCW</Capability>
+  <Capability Min="250" Max="255">Music mode</Capability>
+ </Channel>
+ <Channel Name="Dimmer Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="8" Max="199">Dimmer dark to bright</Capability>
+  <Capability Min="200" Max="247">Strobe fast to slow</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Stop</Capability>
+  <Capability Min="10" Max="120">Rotation Fast to Slow cw</Capability>
+  <Capability Min="121" Max="134">Stop</Capability>
+  <Capability Min="135" Max="245">Rotation Slow to Fast ccw</Capability>
+  <Capability Min="246" Max="255">Music mode</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Function</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer Strobe</Channel>
+  <Channel Number="1">Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.8" Width="220" Height="180" Depth="214"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="1"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="38" Height="38"/>
+  <Technical PowerConsumption="27" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Chris de Rock</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TMH-14</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="127">Static Colors</Capability>
+  <Capability Min="128" Max="200">Colorchange 1</Capability>
+  <Capability Min="201" Max="255">Colorchange 2</Capability>
+ </Channel>
+ <Channel Name="Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="120">Macro 1</Capability>
+  <Capability Min="121" Max="244">Macro 2</Capability>
+  <Capability Min="245" Max="255">Music</Capability>
+ </Channel>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Colorchange Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed decreasing</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed decreasing</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="149">No function</Capability>
+  <Capability Min="150" Max="200" Preset="ResetAll">Reset</Capability>
+  <Capability Min="201" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Movement Speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Reset</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.25" Width="200" Height="280" Depth="180"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="32"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="190"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">Color</Channel>
+  <Channel Number="13">Colorchange Speed</Channel>
+  <Channel Number="14">Macros</Channel>
+  <Channel Number="15">Macro Speed</Channel>
+  <Channel Number="16">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.25" Width="200" Height="280" Depth="145"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="32"/>
+  <Focus Type="Head" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

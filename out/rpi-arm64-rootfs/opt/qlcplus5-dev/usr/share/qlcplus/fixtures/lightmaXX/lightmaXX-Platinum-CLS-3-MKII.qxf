@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Hans-Juergen Tappe</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Platinum CLS-3 MKII</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Default="255" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red PAR 1" Preset="IntensityRed"/>
+ <Channel Name="Green PAR 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue PAR 1" Preset="IntensityBlue"/>
+ <Channel Name="White PAR 1" Preset="IntensityWhite"/>
+ <Channel Name="Red PAR 2" Preset="IntensityRed"/>
+ <Channel Name="Green PAR 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue PAR 2" Preset="IntensityBlue"/>
+ <Channel Name="White PAR 2" Preset="IntensityWhite"/>
+ <Channel Name="Red PAR 3" Preset="IntensityRed"/>
+ <Channel Name="Green PAR 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue PAR 3" Preset="IntensityBlue"/>
+ <Channel Name="White PAR 3" Preset="IntensityWhite"/>
+ <Channel Name="Red PAR 4" Preset="IntensityRed"/>
+ <Channel Name="Green PAR 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue PAR 4" Preset="IntensityBlue"/>
+ <Channel Name="White PAR 4" Preset="IntensityWhite"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="99">Full On</Capability>
+  <Capability Min="100" Max="129">Colour Change erratic</Capability>
+  <Capability Min="130" Max="159">Colour Change fade</Capability>
+  <Capability Min="160" Max="189">Colour Change</Capability>
+  <Capability Min="190" Max="219">Music Control Program I</Capability>
+  <Capability Min="220" Max="249">Music Control Program II</Capability>
+  <Capability Min="250" Max="255">Music Control Program III</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Mode Name="5-Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Function</Channel>
+  <Channel Number="7">Speed</Channel>
+ </Mode>
+ <Mode Name="20-Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red PAR 1</Channel>
+  <Channel Number="3">Green PAR 1</Channel>
+  <Channel Number="4">Blue PAR 1</Channel>
+  <Channel Number="5">White PAR 1</Channel>
+  <Channel Number="6">Red PAR 2</Channel>
+  <Channel Number="7">Green PAR 2</Channel>
+  <Channel Number="8">Blue PAR 2</Channel>
+  <Channel Number="9">White PAR 2</Channel>
+  <Channel Number="10">Red PAR 3</Channel>
+  <Channel Number="11">Green PAR 3</Channel>
+  <Channel Number="12">Blue PAR 3</Channel>
+  <Channel Number="13">White PAR 3</Channel>
+  <Channel Number="14">Red PAR 4</Channel>
+  <Channel Number="15">Green PAR 4</Channel>
+  <Channel Number="16">Blue PAR 4</Channel>
+  <Channel Number="17">White PAR 4</Channel>
+  <Channel Number="18">Function</Channel>
+  <Channel Number="19">Speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="14368" ColourTemperature="3200"/>
+  <Dimensions Weight="7.2" Width="1050" Height="340" Depth="165"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

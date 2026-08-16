@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Edgar Aichinger</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Bar 2 RGBA 252/10 40° Indoor</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Mode" Default="11">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5" Preset="Alias">Black out
+   <Alias Mode="19 channel" Channel="All dimm" With="No function"/>
+   <Alias Mode="19 channel" Channel="Flash" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="6" Max="10" Preset="Alias">Dimmer 1
+   <Alias Mode="19 channel" Channel="Red 1" With="All Red"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="All Green"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="All Blue"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="All Amber"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="11" Max="15">Dimmer 2</Capability>
+  <Capability Min="16" Max="20" Preset="Alias">R
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="21" Max="25" Preset="Alias">G
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="26" Max="30" Preset="Alias">B
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="31" Max="35" Preset="Alias">A
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="36" Max="40" Preset="Alias">RA
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="41" Max="45" Preset="Alias">RG
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="46" Max="50" Preset="Alias">RB
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="51" Max="55" Preset="Alias">GB
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="56" Max="60" Preset="Alias">AB
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="61" Max="65" Preset="Alias">AG
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="66" Max="70" Preset="Alias">RGB
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="71" Max="75" Preset="Alias">RGA
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="76" Max="80" Preset="Alias">RBA
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="81" Max="85" Preset="Alias">GBA
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="86" Max="90" Preset="Alias">RGBA
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="91" Max="100" Preset="Alias">Color jump
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="101" Max="110" Preset="Alias">Color fade (in/out)
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="111" Max="120" Preset="Alias">Color dream
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="121" Max="130" Preset="Alias">Color flow
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="131" Max="140" Preset="Alias">Overlap flow
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="141" Max="150" Preset="Alias">Color chase
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="151" Max="160" Preset="Alias">Multi color
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="161" Max="170" Preset="Alias">Fade flow
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="Color select"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="171" Max="180" Preset="Alias">2 flow
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="Color select"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="Color select 2"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="181" Max="190" Preset="Alias">1 direction
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="Color select"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="Color select 2"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="191" Max="200" Preset="Alias">2 directions
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="Color select"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="Color select 2"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="201" Max="210" Preset="Alias">Two color flow
+   <Alias Mode="19 channel" Channel="All dimm" With="Speed"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="Color select"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="Color select 2"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+  <Capability Min="211" Max="255" Preset="Alias">Sound activity
+   <Alias Mode="19 channel" Channel="All dimm" With="Sensitivity"/>
+   <Alias Mode="19 channel" Channel="Flash" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 1" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 2" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 3" With="No function"/>
+   <Alias Mode="19 channel" Channel="Red 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Green 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Blue 4" With="No function"/>
+   <Alias Mode="19 channel" Channel="Amber 4" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="All dimm" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="All Red" Preset="IntensityRed"/>
+ <Channel Name="All Green" Preset="IntensityGreen"/>
+ <Channel Name="All Blue" Preset="IntensityBlue"/>
+ <Channel Name="All Amber" Preset="IntensityAmber"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Amber 4" Preset="IntensityAmber"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound sensitivity</Capability>
+ </Channel>
+ <Channel Name="Color select" Preset="ColorMacro"/>
+ <Channel Name="Color select 2" Preset="ColorMacro"/>
+ <Channel Name="Mode 2">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">On</Capability>
+  <Capability Min="1" Max="5">Sound activated</Capability>
+  <Capability Min="6" Max="10">On</Capability>
+  <Capability Min="11" Max="255">Flash</Capability>
+ </Channel>
+ <Mode Name="19 channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">All dimm</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Amber 1</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Amber 2</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">Amber 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">Amber 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">All Red</Channel>
+  <Channel Number="1">All Green</Channel>
+  <Channel Number="2">All Blue</Channel>
+  <Channel Number="3">All Amber</Channel>
+  <Channel Number="4">All dimm</Channel>
+  <Channel Number="5">Mode 2</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">All Red</Channel>
+  <Channel Number="1">All Green</Channel>
+  <Channel Number="2">All Blue</Channel>
+  <Channel Number="3">All Amber</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="4500"/>
+  <Dimensions Weight="2.5" Width="1070" Height="90" Depth="65"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

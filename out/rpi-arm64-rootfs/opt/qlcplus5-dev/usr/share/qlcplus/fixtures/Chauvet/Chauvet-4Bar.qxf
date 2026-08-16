@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Shikhir Arora, fixed by Jack Logue</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>4Bar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Control/Operating Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">RGB Mode (CH2-15)</Capability>
+  <Capability Min="10" Max="29">Auto Program 1</Capability>
+  <Capability Min="30" Max="49">Auto Program 2</Capability>
+  <Capability Min="50" Max="69">Auto Program 3</Capability>
+  <Capability Min="70" Max="89">Auto Program 4</Capability>
+  <Capability Min="90" Max="109">Auto Program 5</Capability>
+  <Capability Min="110" Max="129">Auto Program 6</Capability>
+  <Capability Min="130" Max="149">Auto Program 7</Capability>
+  <Capability Min="150" Max="169">Auto Program 8</Capability>
+  <Capability Min="170" Max="189">Auto Program 9</Capability>
+  <Capability Min="190" Max="209">Auto Program 10</Capability>
+  <Capability Min="210" Max="229">Auto Program 11</Capability>
+  <Capability Min="230" Max="249">Auto Program 12</Capability>
+  <Capability Min="250" Max="255">Sound Active Mode</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Dimmer 0-100</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow-fast</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Mode Name="15 Channels Mode">
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 Channels Mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11.2" Width="55" Height="285" Depth="1129"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

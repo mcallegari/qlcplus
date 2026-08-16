@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Louis Gutenschwager</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>LED Shadow</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="39">Dimmer Mode</Capability>
+  <Capability Min="40" Max="159">Auto Mode 1</Capability>
+  <Capability Min="160" Max="199">Auto Mode 2</Capability>
+  <Capability Min="200" Max="239">Auto Mode 3</Capability>
+  <Capability Min="240" Max="255">Sound Mode</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="Default">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Speed</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="248" Height="356" Depth="165"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

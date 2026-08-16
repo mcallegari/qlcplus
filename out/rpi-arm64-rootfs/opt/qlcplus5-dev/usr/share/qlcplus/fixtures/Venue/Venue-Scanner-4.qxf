@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.1</Version>
+  <Author>Davey D</Author>
+ </Creator>
+ <Manufacturer>Venue</Manufacturer>
+ <Model>Scanner 4</Model>
+ <Type>Scanner</Type>
+ <Channel Name="pan" Preset="PositionPan"/>
+ <Channel Name="tilt" Preset="PositionTilt"/>
+ <Channel Name="gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4">Lamp on</Capability>
+  <Capability Res="ClayPaky/gobo00061.svg" Min="5" Max="16">Shutter</Capability>
+  <Capability Res="Others/open.svg" Min="17" Max="31">Open/White</Capability>
+  <Capability Res="SGM/gobo00066.svg" Min="32" Max="47">Arrow</Capability>
+  <Capability Res="SGM/gobo00022.png" Min="48" Max="63">Flower</Capability>
+  <Capability Res="SGM-Color/gobo00403.png" Min="64" Max="79">Star Field</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="80" Max="96">Line</Capability>
+  <Capability Res="SGM/gobo00015.png" Min="97" Max="111">Piromid</Capability>
+  <Capability Res="Others/gobo00046.svg" Min="112" Max="127">Spiral</Capability>
+  <Capability Res="Others/gobo00045.svg" Min="128" Max="143">Square</Capability>
+  <Capability Res="Others/gobo00027.svg" Min="144" Max="159">Triangle</Capability>
+  <Capability Res="SGM/gobo00002.svg" Min="160" Max="175">Sun</Capability>
+  <Capability Res="SGM/gobo00225.svg" Min="176" Max="191">Heart</Capability>
+  <Capability Res="ClayPaky/gobo00062.svg" Min="192" Max="207">Daisey</Capability>
+  <Capability Res="SGM/gobo00042.svg" Min="208" Max="223">Circle</Capability>
+  <Capability Min="224" Max="239">Scroll Speed</Capability>
+  <Capability Min="240" Max="255">Strobe Speed</Capability>
+ </Channel>
+ <Channel Name="color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="1" Preset="ColorMacro" Res1="#ffffff">Open/White</Capability>
+  <Capability Min="2" Max="11" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#aa557f">MIX Purple</Capability>
+  <Capability Min="12" Max="25" Preset="ColorDoubleMacro" Res1="#aa00ff" Res2="#ffaa00">MIX Orange</Capability>
+  <Capability Min="26" Max="38" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#5500ff">MIX Blue</Capability>
+  <Capability Min="39" Max="51" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">MIX Red</Capability>
+  <Capability Min="52" Max="64" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aa00">MIX Green</Capability>
+  <Capability Min="65" Max="77" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ff55ff">MIX Violet</Capability>
+  <Capability Min="78" Max="91" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff4d07">MIX Light Red</Capability>
+  <Capability Min="92" Max="103" Preset="ColorDoubleMacro" Res1="#ff4d07" Res2="#00ff00">MIX Light Green</Capability>
+  <Capability Min="104" Max="117" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#ffff00">MIX Yellow</Capability>
+  <Capability Min="118" Max="129" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#55aaff">MIX Aqua</Capability>
+  <Capability Min="130" Max="143" Preset="ColorDoubleMacro" Res1="#55aaff" Res2="#ffffff">MIX White</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#55aaff">Aqua</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#55ff00">Light Green</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ff4d07">Light Red</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#5500ff">Blue</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="224" Max="232" Preset="ColorMacro" Res1="#fccdff">Light Purple</Capability>
+  <Capability Min="233" Max="239" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="240" Max="255">Scroll Speed</Capability>
+ </Channel>
+ <Mode Name="4 channel">
+  <Channel Number="0">pan</Channel>
+  <Channel Number="1">tilt</Channel>
+  <Channel Number="2">gobo</Channel>
+  <Channel Number="3">color</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="HTI 250W" ColourTemperature="0"/>
+   <Dimensions Width="152" Height="562" Weight="4.53" Depth="152"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

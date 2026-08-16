@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.1 GIT</Version>
+  <Author>Andreas Reich</Author>
+ </Creator>
+ <Manufacturer>DTS</Manufacturer>
+ <Model>Scena LED 80 FR</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="29" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="30" Max="119" Preset="StrobeFreqRange" Res1="1" Res2="33">Strobe (3.27s to 30ms)</Capability>
+  <Capability Min="120" Max="149" Preset="PulseSlowToFast">Pulse up (42.6s to 120ms)</Capability>
+  <Capability Min="150" Max="179" Preset="RampDownSlowToFast">Pulse down (42.6s to 120ms)</Capability>
+  <Capability Min="180" Max="204" Preset="StrobeRandomSlowToFast">Random strobe (Dimmer channel active)</Capability>
+  <Capability Min="205" Max="229" Preset="StrobeRandomSlowToFast">Full independent random strobe (Dimmer channel disabled)</Capability>
+  <Capability Min="230" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Shutter/Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Shutter/Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer Fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6923" ColourTemperature="3000"/>
+  <Dimensions Weight="4.2" Width="191" Height="252" Depth="304"/>
+  <Lens Name="Fresnel" DegreesMin="14" DegreesMax="77"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

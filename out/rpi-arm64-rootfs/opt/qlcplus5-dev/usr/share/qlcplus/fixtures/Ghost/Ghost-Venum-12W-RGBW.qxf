@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3</Version>
+  <Author>erdnaxe</Author>
+ </Creator>
+ <Manufacturer>Ghost</Manufacturer>
+ <Model>Venum 12W RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="11" Max="21" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="88" Max="176" Preset="ColorWheelIndex">Wheel index</Capability>
+  <Capability Min="177" Max="255" Preset="RotationClockwiseSlowToFast">Wheel rotation</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="32" Max="46" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="47" Max="62" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="63" Max="78" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="79" Max="93" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="94" Max="109" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="110" Max="124" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="125" Max="249" Preset="GoboShakeMacro" Res1="">Gobo shake</Capability>
+  <Capability Min="250" Max="255" Preset="RotationClockwiseSlowToFast">CW rotation</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="139">Nothing</Capability>
+  <Capability Min="140" Max="249">Auto prog</Capability>
+  <Capability Min="250" Max="255">Music mode</Capability>
+ </Channel>
+ <Channel Name="Macro speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto speed or mic sensitivity (Slow to fast)</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Color wheel</Channel>
+  <Channel Number="6">Gobo wheel</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Shutter</Channel>
+  <Channel Number="9">Macro</Channel>
+  <Channel Number="10">Macro speed</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Color wheel</Channel>
+  <Channel Number="6">Gobo wheel</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Shutter</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Color wheel</Channel>
+  <Channel Number="4">Gobo wheel</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED 12W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="174" Height="242" Depth="162"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

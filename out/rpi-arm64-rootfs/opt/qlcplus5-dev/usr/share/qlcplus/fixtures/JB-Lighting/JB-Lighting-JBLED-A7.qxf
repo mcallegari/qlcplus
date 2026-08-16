@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>BLACKsun</Author>
+ </Creator>
+ <Manufacturer>JB-Lighting</Manufacturer>
+ <Model>JBLED A7</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan (X)" Preset="PositionPan"/>
+ <Channel Name="Pan (X) Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Y)" Preset="PositionTilt"/>
+ <Channel Name="Tilt (Y) Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">Full output power on LED fade out (slow - fast)</Capability>
+  <Capability Min="8" Max="15">Colour balance on RGB (8500K) fade out (slow - fast)</Capability>
+  <Capability Min="16" Max="23">Colour balance on RGB (6500K) fade out (slow - fast)</Capability>
+  <Capability Min="24" Max="31">Colour balance for colour picker function fade out (slow - fast)</Capability>
+  <Capability Min="32" Max="207">Safe</Capability>
+  <Capability Min="208" Max="215">Camera mode 50Hz (after 2 seconds)</Capability>
+  <Capability Min="216" Max="223">Camera mode 60Hz (after 2 seconds)</Capability>
+  <Capability Min="224" Max="231">Camera mode FLEX (after 2 seconds)</Capability>
+  <Capability Min="232" Max="239">Safe</Capability>
+  <Capability Min="240" Max="247" Preset="ResetAll">Reset (after 2 seconds)</Capability>
+  <Capability Min="248" Max="255">Safe</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="95" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="96" Max="110" Preset="PulseFrequency" Res1="10">Pulse opening &gt;10Hz (0.6sec - 4.8sec)</Capability>
+  <Capability Min="111" Max="111" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="112" Max="125" Preset="StrobeSlowToFast">Fade effect with dimmer (slow - fast)</Capability>
+  <Capability Min="126" Max="126" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="127" Max="127" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="128" Max="142" Preset="PulseFrequency" Res1="10">Pulse opening &lt;10Hz (0.6sec - 4.8sec)</Capability>
+  <Capability Min="143" Max="143" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="144" Max="158">Pulse closing (0.6sec - 4.8sec)</Capability>
+  <Capability Min="159" Max="159" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="160" Max="174">Fade 0% (0,6sec - 4,8sec)</Capability>
+  <Capability Min="175" Max="175" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="176" Max="190">Fade 100% (0,6sec - 4,8sec)</Capability>
+  <Capability Min="191" Max="191" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="192" Max="206" Preset="StrobeRandom">Random 100% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="207" Max="207" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="208" Max="222" Preset="StrobeRandom">Random 0% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="223" Max="223" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="224" Max="238" Preset="StrobeRandom">Random fade 0% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="239" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="254" Preset="StrobeRandom">Random fade 100% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Red (8 Bit)" Preset="IntensityRed"/>
+ <Channel Name="Green (8 Bit)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (8 Bit)" Preset="IntensityBlue"/>
+ <Channel Name="CTC" Preset="ColorCTCMixer"/>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="1">Inactive. Colour mixing with RGB</Capability>
+  <Capability Min="2" Max="3" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="4" Max="7" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/red</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="12" Max="15" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red/yellow</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="20" Max="23" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow/magenta</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="28" Max="31" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ff00">Magenta/green</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="36" Max="39" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff8000">Green/orange</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="44" Max="47" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#0000ff">Orange/blue</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="55" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ffff">Blue/cyan</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="60" Max="63" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffffff">Cyan/white</Capability>
+  <Capability Min="64" Max="191" Preset="RotationIndexed">Colour positioning</Capability>
+  <Capability Min="192" Max="222" Preset="RotationClockwiseFastToSlow">Rotating clockwise (fast - slow)</Capability>
+  <Capability Min="223" Max="224" Preset="RotationStop">Rotation stop</Capability>
+  <Capability Min="225" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotating counterclockwise (slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Moves in realtime</Capability>
+  <Capability Min="4" Max="255">Moves delayed (fast - slow)</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Effects in realtime</Capability>
+  <Capability Min="4" Max="255">Effects delayed (fast - slow)</Capability>
+ </Channel>
+ <Channel Name="Blackout Move">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="95">No function</Capability>
+  <Capability Min="96" Max="127">Blackout at pan/tilt move</Capability>
+  <Capability Min="128" Max="159">Blackout at colour changes</Capability>
+  <Capability Min="160" Max="223">No function</Capability>
+  <Capability Min="224" Max="255">Blackout at colour changes and pan/tilt moves</Capability>
+ </Channel>
+ <Channel Name="Red Fine (16 Bit)" Preset="IntensityRedFine"/>
+ <Channel Name="Green Fine (16 Bit)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue Fine (16 Bit)" Preset="IntensityBlueFine"/>
+ <Mode Name="Standard RGB 8 Bit (S8)">
+  <Channel Number="0">Pan (X)</Channel>
+  <Channel Number="1">Pan (X) Fine</Channel>
+  <Channel Number="2">Tilt (Y)</Channel>
+  <Channel Number="3">Tilt (Y) Fine</Channel>
+  <Channel Number="4">Control</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Red (8 Bit)</Channel>
+  <Channel Number="9">Green (8 Bit)</Channel>
+  <Channel Number="10">Blue (8 Bit)</Channel>
+  <Channel Number="11">CTC</Channel>
+  <Channel Number="12">Colour Wheel</Channel>
+  <Channel Number="13">Pan/Tilt Speed</Channel>
+  <Channel Number="14">Effect Speed</Channel>
+  <Channel Number="15">Blackout Move</Channel>
+ </Mode>
+ <Mode Name="Compressed RGB 8 Bit (C8)">
+  <Channel Number="0">Pan (X)</Channel>
+  <Channel Number="1">Pan (X) Fine</Channel>
+  <Channel Number="2">Tilt (Y)</Channel>
+  <Channel Number="3">Tilt (Y) Fine</Channel>
+  <Channel Number="4">Control</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Red (8 Bit)</Channel>
+  <Channel Number="9">Green (8 Bit)</Channel>
+  <Channel Number="10">Blue (8 Bit)</Channel>
+  <Channel Number="11">CTC</Channel>
+ </Mode>
+ <Mode Name="Standard RGB 16 Bit (S16)">
+  <Channel Number="0">Pan (X)</Channel>
+  <Channel Number="1">Pan (X) Fine</Channel>
+  <Channel Number="2">Tilt (Y)</Channel>
+  <Channel Number="3">Tilt (Y) Fine</Channel>
+  <Channel Number="4">Control</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Red (8 Bit)</Channel>
+  <Channel Number="9">Red Fine (16 Bit)</Channel>
+  <Channel Number="10">Green (8 Bit)</Channel>
+  <Channel Number="11">Green Fine (16 Bit)</Channel>
+  <Channel Number="12">Blue (8 Bit)</Channel>
+  <Channel Number="13">Blue Fine (16 Bit)</Channel>
+  <Channel Number="14">CTC</Channel>
+  <Channel Number="15">Colour Wheel</Channel>
+  <Channel Number="16">Pan/Tilt Speed</Channel>
+  <Channel Number="17">Effect Speed</Channel>
+  <Channel Number="18">Blackout Move</Channel>
+ </Mode>
+ <Mode Name="Compressed RGB 16 Bit (C16)">
+  <Channel Number="0">Pan (X)</Channel>
+  <Channel Number="1">Pan (X) Fine</Channel>
+  <Channel Number="2">Tilt (Y)</Channel>
+  <Channel Number="3">Tilt (Y) Fine</Channel>
+  <Channel Number="4">Control</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Red (8 Bit)</Channel>
+  <Channel Number="9">Red Fine (16 Bit)</Channel>
+  <Channel Number="10">Green (8 Bit)</Channel>
+  <Channel Number="11">Green Fine (16 Bit)</Channel>
+  <Channel Number="12">Blue (8 Bit)</Channel>
+  <Channel Number="13">Blue Fine (16 Bit)</Channel>
+  <Channel Number="14">CTC</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.9" Width="318" Height="388" Depth="200"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="36"/>
+  <Focus Type="Head" PanMax="430" TiltMax="300"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

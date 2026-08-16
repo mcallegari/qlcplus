@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>archlinette</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>BAC503</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#ff8c00">Dark Orange</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#adff2f">Green Yellow</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#e4d96f">Straw</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="190" Max="255" Preset="ColorMacro" Res1="#ffffff">Full On</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="19">Auto Program 1</Capability>
+  <Capability Min="20" Max="29">Auto Program 2</Capability>
+  <Capability Min="30" Max="39">Auto Program 3</Capability>
+  <Capability Min="40" Max="49">Auto Program 4</Capability>
+  <Capability Min="50" Max="59">Auto Program 5</Capability>
+  <Capability Min="60" Max="69">Auto Program 6</Capability>
+  <Capability Min="70" Max="79">Auto Program 7</Capability>
+  <Capability Min="80" Max="89">Auto Program 8</Capability>
+  <Capability Min="90" Max="99">Auto Program 9</Capability>
+  <Capability Min="100" Max="109">Sound Program 1</Capability>
+  <Capability Min="110" Max="119">Sound Program 2</Capability>
+  <Capability Min="120" Max="129">Sound Program 3</Capability>
+  <Capability Min="130" Max="139">Sound Program 4</Capability>
+  <Capability Min="140" Max="149">Sound Program 5</Capability>
+  <Capability Min="150" Max="159">Sound Program 6</Capability>
+  <Capability Min="160" Max="169">Sound Program 7</Capability>
+  <Capability Min="170" Max="179">Sound Program 8</Capability>
+  <Capability Min="180" Max="255">Sound Program 9</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto or Sound program speed (Slow-fast)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Macro</Channel>
+  <Channel Number="3">Mode</Channel>
+  <Channel Number="4">Speed</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Macro</Channel>
+  <Channel Number="7">Mode</Channel>
+  <Channel Number="8">Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.3" Width="175" Height="235" Depth="90"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

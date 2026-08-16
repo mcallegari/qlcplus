@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Jászberényi Szabolcs</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Mini Scan 300</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="8" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="9" Max="25" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="26" Max="42" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="43" Max="59" Preset="ColorMacro" Res1="#aa00ff">Violet</Capability>
+  <Capability Min="60" Max="76" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="77" Max="93" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="94" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="127" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="128" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Rainbow (color rotation)</Capability>
+ </Channel>
+ <Channel Name="Gobo change / dimmer / stopper / strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="75">Dimmer</Capability>
+  <Capability Min="76" Max="126" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="127" Max="128" Preset="ShutterOpen">Aperture fixed</Capability>
+  <Capability Min="129" Max="215">Gobo sequence</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Aperture fixed</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Mode Name="Normal">
+  <Channel Number="0">Color wheel</Channel>
+  <Channel Number="1">Gobo change / dimmer / stopper / strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 300W" Lumens="22000" ColourTemperature="6500"/>
+  <Dimensions Weight="10.5" Width="238" Height="582" Depth="280"/>
+  <Lens Name="PC" DegreesMin="9" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="150" TiltMax="110"/>
+  <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

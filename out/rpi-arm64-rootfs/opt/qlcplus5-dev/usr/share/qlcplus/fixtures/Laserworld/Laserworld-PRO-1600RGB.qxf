@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jászberényi Szabolcs</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>PRO-1600RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Laser off</Capability>
+  <Capability Min="10" Max="49">Sound mode</Capability>
+  <Capability Min="50" Max="149">Automatic mode</Capability>
+  <Capability Min="150" Max="199">Static DMX mode</Capability>
+  <Capability Min="200" Max="255">DMX animation</Capability>
+ </Channel>
+ <Channel Name="Pattern selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Pattern selection</Capability>
+ </Channel>
+ <Channel Name="Horizontal movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="125">Manual positioning</Capability>
+  <Capability Min="126" Max="155">Left to right slow to fast</Capability>
+  <Capability Min="156" Max="245">Right to left slow to fast</Capability>
+  <Capability Min="246" Max="255">Automatic positioning</Capability>
+ </Channel>
+ <Channel Name="Y rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128">Manual positioning</Capability>
+  <Capability Min="129" Max="255">Automatic movement</Capability>
+ </Channel>
+ <Channel Name="X rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128">Manual positioning</Capability>
+  <Capability Min="129" Max="255">Automatic movement</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="10">No zoom</Capability>
+  <Capability Min="11" Max="87">Manual zoom</Capability>
+  <Capability Min="88" Max="150">Automatic zoom in with increasing speed</Capability>
+  <Capability Min="151" Max="200">Automatic zoom out with increasing speed</Capability>
+  <Capability Min="201" Max="255">Automatic zoom in and out (in turns)</Capability>
+ </Channel>
+ <Channel Name="Drawing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="74">Manual drawing</Capability>
+  <Capability Min="75" Max="104">Automatic drawing with increasing speed</Capability>
+  <Capability Min="105" Max="144">Automatic reduction with increasing speed</Capability>
+  <Capability Min="145" Max="184">Automatic drawing and reduction with increasing speed</Capability>
+  <Capability Min="185" Max="255">Automatic two-sided reduction</Capability>
+ </Channel>
+ <Channel Name="Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="119" Max="169" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow color mixing (static)</Capability>
+  <Capability Min="170" Max="220" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow color mixing (moving)</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="238" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow color mixing (static)</Capability>
+ </Channel>
+ <Channel Name="Grating">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="49">No grating</Capability>
+  <Capability Min="50" Max="99">Burst grating</Capability>
+  <Capability Min="100" Max="149">Line grating</Capability>
+  <Capability Min="150" Max="199">3D grating</Capability>
+  <Capability Min="200" Max="255">3D line grating</Capability>
+ </Channel>
+ <Channel Name="Cyan color fading">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">Cyan color fading</Capability>
+ </Channel>
+ <Channel Name="Magenta color fading">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">Magenta color fading</Capability>
+ </Channel>
+ <Channel Name="Yellow color fading">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">Yellow color fading</Capability>
+ </Channel>
+ <Channel Name="Z rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="128">Manual positioning</Capability>
+  <Capability Min="129" Max="192">Anticlockwise movement with increasing speed</Capability>
+  <Capability Min="193" Max="255">Clockwise movement with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Y wave">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="69">Small wave effect with increasing speed</Capability>
+  <Capability Min="70" Max="129">Medium wave effect with increasing speed</Capability>
+  <Capability Min="130" Max="189">Large wave effect with increasing speed</Capability>
+  <Capability Min="190" Max="255">Wave effect II</Capability>
+ </Channel>
+ <Channel Name="X wave">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="69">Small wave effect with increasing speed</Capability>
+  <Capability Min="70" Max="129">Medium wave effect with increasing speed</Capability>
+  <Capability Min="130" Max="189">Large wave effect with increasing speed</Capability>
+  <Capability Min="190" Max="255">Wave effect II</Capability>
+ </Channel>
+ <Channel Name="Vertical movement">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="125">Manual positioning</Capability>
+  <Capability Min="126" Max="155">Up to down slow to fast</Capability>
+  <Capability Min="156" Max="245">Down to up slow to fast</Capability>
+  <Capability Min="246" Max="255">Automatic positioning</Capability>
+ </Channel>
+ <Channel Name="Line to points">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Line becomes more and more points</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Increasing strobe effect</Capability>
+ </Channel>
+ <Mode Name="18 channel">
+  <Channel Number="0">Modes</Channel>
+  <Channel Number="1">Pattern selection</Channel>
+  <Channel Number="2">Grating</Channel>
+  <Channel Number="3">Colors</Channel>
+  <Channel Number="4">Cyan color fading</Channel>
+  <Channel Number="5">Magenta color fading</Channel>
+  <Channel Number="6">Yellow color fading</Channel>
+  <Channel Number="7">Horizontal movement</Channel>
+  <Channel Number="8">Vertical movement</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">X rotation</Channel>
+  <Channel Number="11">Y rotation</Channel>
+  <Channel Number="12">Z rotation</Channel>
+  <Channel Number="13">Drawing</Channel>
+  <Channel Number="14">Y wave</Channel>
+  <Channel Number="15">X wave</Channel>
+  <Channel Number="16">Line to points</Channel>
+  <Channel Number="17">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.75" Width="235" Height="205" Depth="165"/>
+  <Lens Name="PC" DegreesMin="1" DegreesMax="1"/>
+  <Focus Type="Mirror" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

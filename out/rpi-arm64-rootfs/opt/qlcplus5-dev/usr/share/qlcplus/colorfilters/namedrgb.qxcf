@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ColorFilters>
+<ColorFilters xmlns="http://www.qlcplus.org/ColorFilters">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.1 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Name>Named RGB</Name>
+ <Color RGB="#FFFAFA" Name="Snow" />
+ <Color RGB="#F8F8FF" Name="Ghost White" />
+ <Color RGB="#F5F5F5" Name="White Smoke" />
+ <Color RGB="#DCDCDC" Name="Gainsboro" />
+ <Color RGB="#FFFAF0" Name="Floral White" />
+ <Color RGB="#FDF5E6" Name="Old Lace" />
+ <Color RGB="#FAF0E6" Name="Linen" />
+ <Color RGB="#FAEBD7" Name="Antique White" />
+ <Color RGB="#FFEFD5" Name="Papaya Whip" />
+ <Color RGB="#FFEBCD" Name="Blanched Almond" />
+ <Color RGB="#FFE4C4" Name="Bisque" />
+ <Color RGB="#FFDAB9" Name="Peach Puff" />
+ <Color RGB="#FFDEAD" Name="Navajo White" />
+ <Color RGB="#FFE4B5" Name="Moccasin" />
+ <Color RGB="#FFF8DC" Name="Cornsilk" />
+ <Color RGB="#FFFFF0" Name="Ivory" />
+ <Color RGB="#FFFACD" Name="Lemon Chiffon" />
+ <Color RGB="#FFF5EE" Name="Seashell" />
+ <Color RGB="#F0FFF0" Name="Honeydew" />
+ <Color RGB="#F5FFFA" Name="Mint Cream" />
+ <Color RGB="#F0FFFF" Name="Azure" />
+ <Color RGB="#F0F8FF" Name="Alice Blue" />
+ <Color RGB="#E6E6FA" Name="Lavender" />
+ <Color RGB="#FFF0F5" Name="Lavender Blush" />
+ <Color RGB="#FFE4E1" Name="Misty Rose" />
+ <Color RGB="#FFFFFF" Name="White" />
+ <Color RGB="#000000" Name="Black" />
+ <Color RGB="#2F4F4F" Name="Dark Slate Gray" />
+ <Color RGB="#696969" Name="Dim Gray" />
+ <Color RGB="#708090" Name="Slate Gray" />
+ <Color RGB="#778899" Name="Light Slate Gray" />
+ <Color RGB="#BEBEBE" Name="Gray" />
+ <Color RGB="#D3D3D3" Name="Light Gray" />
+ <Color RGB="#191970" Name="Midnight Blue" />
+ <Color RGB="#000080" Name="Navy Blue" />
+ <Color RGB="#6495ED" Name="Cornflower Blue" />
+ <Color RGB="#483D8B" Name="Dark Slate Blue" />
+ <Color RGB="#6A5ACD" Name="Slate Blue" />
+ <Color RGB="#7B68EE" Name="Medium Slate Blue" />
+ <Color RGB="#8470FF" Name="Light Slate Blue" />
+ <Color RGB="#0000CD" Name="Medium Blue" />
+ <Color RGB="#4169E1" Name="Royal Blue" />
+ <Color RGB="#0000FF" Name="Blue" />
+ <Color RGB="#1E90FF" Name="Dodger Blue" />
+ <Color RGB="#00BFFF" Name="Deep Sky Blue" />
+ <Color RGB="#87CEEB" Name="Sky Blue" />
+ <Color RGB="#87CEFA" Name="Light Sky Blue" />
+ <Color RGB="#4682B4" Name="Steel Blue" />
+ <Color RGB="#B0C4DE" Name="Light Steel Blue" />
+ <Color RGB="#ADD8E6" Name="Light Blue" />
+ <Color RGB="#B0E0E6" Name="Powder Blue" />
+ <Color RGB="#AFEEEE" Name="Pale Turquoise" />
+ <Color RGB="#00CED1" Name="Dark Turquoise" />
+ <Color RGB="#48D1CC" Name="Medium Turquoise" />
+ <Color RGB="#40E0D0" Name="Turquoise" />
+ <Color RGB="#00FFFF" Name="Cyan" />
+ <Color RGB="#E0FFFF" Name="Light Cyan" />
+ <Color RGB="#5F9EA0" Name="Cadet Blue" />
+ <Color RGB="#66CDAA" Name="Medium Aquamarine" />
+ <Color RGB="#7FFFD4" Name="Aquamarine" />
+ <Color RGB="#006400" Name="Dark Green" />
+ <Color RGB="#556B2F" Name="Dark Olive Green" />
+ <Color RGB="#8FBC8F" Name="Dark Sea Green" />
+ <Color RGB="#2E8B57" Name="Sea Green" />
+ <Color RGB="#3CB371" Name="Medium Sea Green" />
+ <Color RGB="#20B2AA" Name="Light Sea Green" />
+ <Color RGB="#98FB98" Name="Pale Green" />
+ <Color RGB="#00FF7F" Name="Spring Green" />
+ <Color RGB="#7CFC00" Name="Lawn Green" />
+ <Color RGB="#00FF00" Name="Green" />
+ <Color RGB="#7FFF00" Name="Chartreuse" />
+ <Color RGB="#00FA9A" Name="Medium Spring Green" />
+ <Color RGB="#ADFF2F" Name="Green Yellow" />
+ <Color RGB="#32CD32" Name="Lime Green" />
+ <Color RGB="#9ACD32" Name="Yellow Green" />
+ <Color RGB="#228B22" Name="Forest Green" />
+ <Color RGB="#6B8E23" Name="Olive Drab" />
+ <Color RGB="#BDB76B" Name="Dark Khaki" />
+ <Color RGB="#F0E68C" Name="Khaki" />
+ <Color RGB="#EEE8AA" Name="Pale Goldenrod" />
+ <Color RGB="#FAFAD2" Name="Light Goldenrod Yellow" />
+ <Color RGB="#FFFFE0" Name="Light Yellow" />
+ <Color RGB="#FFFF00" Name="Yellow" />
+ <Color RGB="#FFD700" Name="Gold" />
+ <Color RGB="#EEDD82" Name="Light Goldenrod" />
+ <Color RGB="#DAA520" Name="Goldenrod" />
+ <Color RGB="#B8860B" Name="Dark Goldenrod" />
+ <Color RGB="#BC8F8F" Name="Rosy Brown" />
+ <Color RGB="#CD5C5C" Name="Indian Red" />
+ <Color RGB="#8B4513" Name="Saddle Brown" />
+ <Color RGB="#A0522D" Name="Sienna" />
+ <Color RGB="#CD853F" Name="Peru" />
+ <Color RGB="#DEB887" Name="Burlywood" />
+ <Color RGB="#F5F5DC" Name="Beige" />
+ <Color RGB="#F5DEB3" Name="Wheat" />
+ <Color RGB="#F4A460" Name="Sandy Brown" />
+ <Color RGB="#D2B48C" Name="Tan" />
+ <Color RGB="#D2691E" Name="Chocolate" />
+ <Color RGB="#B22222" Name="Firebrick" />
+ <Color RGB="#A52A2A" Name="Brown" />
+ <Color RGB="#E9967A" Name="Dark Salmon" />
+ <Color RGB="#FA8072" Name="Salmon" />
+ <Color RGB="#FFA07A" Name="Light Salmon" />
+ <Color RGB="#FFA500" Name="Orange" />
+ <Color RGB="#FF8C00" Name="Dark Orange" />
+ <Color RGB="#FF7F50" Name="Coral" />
+ <Color RGB="#F08080" Name="Light Coral" />
+ <Color RGB="#FF6347" Name="Tomato" />
+ <Color RGB="#FF4500" Name="Orange Red" />
+ <Color RGB="#FF0000" Name="Red" />
+ <Color RGB="#FF69B4" Name="Hot Pink" />
+ <Color RGB="#FF1493" Name="Deep Pink" />
+ <Color RGB="#FFC0CB" Name="Pink" />
+ <Color RGB="#FFB6C1" Name="Light Pink" />
+ <Color RGB="#DB7093" Name="Pale Violet Red" />
+ <Color RGB="#B03060" Name="Maroon" />
+ <Color RGB="#C71585" Name="Medium Violet Red" />
+ <Color RGB="#D02090" Name="Violet Red" />
+ <Color RGB="#FF00FF" Name="Magenta" />
+ <Color RGB="#EE82EE" Name="Violet" />
+ <Color RGB="#DDA0DD" Name="Plum" />
+ <Color RGB="#DA70D6" Name="Orchid" />
+ <Color RGB="#BA55D3" Name="Medium Orchid" />
+ <Color RGB="#9932CC" Name="Dark Orchid" />
+ <Color RGB="#9400D3" Name="Dark Violet" />
+ <Color RGB="#8A2BE2" Name="Blue Violet" />
+ <Color RGB="#A020F0" Name="Purple" />
+ <Color RGB="#9370DB" Name="Medium Purple" />
+ <Color RGB="#D8BFD8" Name="Thistle" />
+ <Color RGB="#EEE9E9" Name="Snow 2" />
+ <Color RGB="#CDC9C9" Name="Snow 3" />
+ <Color RGB="#8B8989" Name="Snow 4" />
+ <Color RGB="#EEE5DE" Name="Seashell 2" />
+ <Color RGB="#CDC5BF" Name="Seashell 3" />
+ <Color RGB="#8B8682" Name="Seashell 4" />
+ <Color RGB="#FFEFDB" Name="Antique White 1" />
+ <Color RGB="#EEDFCC" Name="Antique White 2" />
+ <Color RGB="#CDC0B0" Name="Antique White 3" />
+ <Color RGB="#8B8378" Name="Antique White 4" />
+ <Color RGB="#EED5B7" Name="Bisque 2" />
+ <Color RGB="#CDB79E" Name="Bisque 3" />
+ <Color RGB="#8B7D6B" Name="Bisque 4" />
+ <Color RGB="#EECBAD" Name="Peach Puff 2" />
+ <Color RGB="#CDAF95" Name="Peach Puff 3" />
+ <Color RGB="#8B7765" Name="Peach Puff 4" />
+ <Color RGB="#EECFA1" Name="Navajo White 2" />
+ <Color RGB="#CDB38B" Name="Navajo White 3" />
+ <Color RGB="#8B795E" Name="Navajo White 4" />
+ <Color RGB="#EEE9BF" Name="Lemon Chiffon 2" />
+ <Color RGB="#CDC9A5" Name="Lemon Chiffon 3" />
+ <Color RGB="#8B8970" Name="Lemon Chiffon 4" />
+ <Color RGB="#EEE8CD" Name="Cornsilk 2" />
+ <Color RGB="#CDC8B1" Name="Cornsilk 3" />
+ <Color RGB="#8B8878" Name="Cornsilk 4" />
+ <Color RGB="#EEEEE0" Name="Ivory 2" />
+ <Color RGB="#CDCDC1" Name="Ivory 3" />
+ <Color RGB="#8B8B83" Name="Ivory 4" />
+ <Color RGB="#E0EEE0" Name="Honeydew 2" />
+ <Color RGB="#C1CDC1" Name="Honeydew 3" />
+ <Color RGB="#838B83" Name="Honeydew 4" />
+ <Color RGB="#EEE0E5" Name="Lavender Blush 2" />
+ <Color RGB="#CDC1C5" Name="Lavender Blush 3" />
+ <Color RGB="#8B8386" Name="Lavender Blush 4" />
+ <Color RGB="#EED5D2" Name="Misty Rose 2" />
+ <Color RGB="#CDB7B5" Name="Misty Rose 3" />
+ <Color RGB="#8B7D7B" Name="Misty Rose 4" />
+ <Color RGB="#E0EEEE" Name="Azure 2" />
+ <Color RGB="#C1CDCD" Name="Azure 3" />
+ <Color RGB="#838B8B" Name="Azure 4" />
+ <Color RGB="#836FFF" Name="Slate Blue 1" />
+ <Color RGB="#7A67EE" Name="Slate Blue 2" />
+ <Color RGB="#6959CD" Name="Slate Blue 3" />
+ <Color RGB="#473C8B" Name="Slate Blue 4" />
+ <Color RGB="#4876FF" Name="Royal Blue 1" />
+ <Color RGB="#436EEE" Name="Royal Blue 2" />
+ <Color RGB="#3A5FCD" Name="Royal Blue 3" />
+ <Color RGB="#27408B" Name="Royal Blue 4" />
+ <Color RGB="#0000EE" Name="Blue 2" />
+ <Color RGB="#1C86EE" Name="Dodger Blue 2" />
+ <Color RGB="#1874CD" Name="Dodger Blue 3" />
+ <Color RGB="#104E8B" Name="Dodger Blue 4" />
+ <Color RGB="#63B8FF" Name="Steel Blue 1" />
+ <Color RGB="#5CACEE" Name="Steel Blue 2" />
+ <Color RGB="#4F94CD" Name="Steel Blue 3" />
+ <Color RGB="#36648B" Name="Steel Blue 4" />
+ <Color RGB="#00B2EE" Name="Deep Sky Blue 2" />
+ <Color RGB="#009ACD" Name="Deep Sky Blue 3" />
+ <Color RGB="#00688B" Name="Deep Sky Blue 4" />
+ <Color RGB="#87CEFF" Name="Sky Blue 1" />
+ <Color RGB="#7EC0EE" Name="Sky Blue 2" />
+ <Color RGB="#6CA6CD" Name="Sky Blue 3" />
+ <Color RGB="#4A708B" Name="Sky Blue 4" />
+ <Color RGB="#B0E2FF" Name="Light Sky Blue 1" />
+ <Color RGB="#A4D3EE" Name="Light Sky Blue 2" />
+ <Color RGB="#8DB6CD" Name="Light Sky Blue 3" />
+ <Color RGB="#607B8B" Name="Light Sky Blue 4" />
+ <Color RGB="#C6E2FF" Name="Slate Gray 1" />
+ <Color RGB="#B9D3EE" Name="Slate Gray 2" />
+ <Color RGB="#9FB6CD" Name="Slate Gray 3" />
+ <Color RGB="#6C7B8B" Name="Slate Gray 4" />
+ <Color RGB="#CAE1FF" Name="Light Steel Blue 1" />
+ <Color RGB="#BCD2EE" Name="Light Steel Blue 2" />
+ <Color RGB="#A2B5CD" Name="Light Steel Blue 3" />
+ <Color RGB="#6E7B8B" Name="Light Steel Blue 4" />
+ <Color RGB="#BFEFFF" Name="Light Blue 1" />
+ <Color RGB="#B2DFEE" Name="Light Blue 2" />
+ <Color RGB="#9AC0CD" Name="Light Blue 3" />
+ <Color RGB="#68838B" Name="Light Blue 4" />
+ <Color RGB="#D1EEEE" Name="Light Cyan 2" />
+ <Color RGB="#B4CDCD" Name="Light Cyan 3" />
+ <Color RGB="#7A8B8B" Name="Light Cyan 4" />
+ <Color RGB="#BBFFFF" Name="Pale Turquoise 1" />
+ <Color RGB="#AEEEEE" Name="Pale Turquoise 2" />
+ <Color RGB="#96CDCD" Name="Pale Turquoise 3" />
+ <Color RGB="#668B8B" Name="Pale Turquoise 4" />
+ <Color RGB="#98F5FF" Name="Cadet Blue 1" />
+ <Color RGB="#8EE5EE" Name="Cadet Blue 2" />
+ <Color RGB="#7AC5CD" Name="Cadet Blue 3" />
+ <Color RGB="#53868B" Name="Cadet Blue 4" />
+ <Color RGB="#00F5FF" Name="Turquoise 1" />
+ <Color RGB="#00E5EE" Name="Turquoise 2" />
+ <Color RGB="#00C5CD" Name="Turquoise 3" />
+ <Color RGB="#00868B" Name="Turquoise 4" />
+ <Color RGB="#00EEEE" Name="Cyan 2" />
+ <Color RGB="#00CDCD" Name="Cyan 3" />
+ <Color RGB="#97FFFF" Name="Dark Slate Gray 1" />
+ <Color RGB="#8DEEEE" Name="Dark Slate Gray 2" />
+ <Color RGB="#79CDCD" Name="Dark Slate Gray 3" />
+ <Color RGB="#528B8B" Name="Dark Slate Gray 4" />
+ <Color RGB="#76EEC6" Name="Aquamarine 2" />
+ <Color RGB="#458B74" Name="Aquamarine 4" />
+ <Color RGB="#C1FFC1" Name="Dark Sea Green 1" />
+ <Color RGB="#B4EEB4" Name="Dark Sea Green 2" />
+ <Color RGB="#9BCD9B" Name="Dark Sea Green 3" />
+ <Color RGB="#698B69" Name="Dark Sea Green 4" />
+ <Color RGB="#54FF9F" Name="Sea Green 1" />
+ <Color RGB="#4EEE94" Name="Sea Green 2" />
+ <Color RGB="#43CD80" Name="Sea Green 3" />
+ <Color RGB="#9AFF9A" Name="Pale Green 1" />
+ <Color RGB="#7CCD7C" Name="Pale Green 3" />
+ <Color RGB="#548B54" Name="Pale Green 4" />
+ <Color RGB="#00EE76" Name="Spring Green 2" />
+ <Color RGB="#00CD66" Name="Spring Green 3" />
+ <Color RGB="#008B45" Name="Spring Green 4" />
+ <Color RGB="#00EE00" Name="Green 2" />
+ <Color RGB="#00CD00" Name="Green 3" />
+ <Color RGB="#008B00" Name="Green 4" />
+ <Color RGB="#76EE00" Name="Chartreuse 2" />
+ <Color RGB="#66CD00" Name="Chartreuse 3" />
+ <Color RGB="#458B00" Name="Chartreuse 4" />
+ <Color RGB="#C0FF3E" Name="Olive Drab 1" />
+ <Color RGB="#B3EE3A" Name="Olive Drab 2" />
+ <Color RGB="#698B22" Name="Olive Drab 4" />
+ <Color RGB="#CAFF70" Name="Dark Olive Green 1" />
+ <Color RGB="#BCEE68" Name="Dark Olive Green 2" />
+ <Color RGB="#A2CD5A" Name="Dark Olive Green 3" />
+ <Color RGB="#6E8B3D" Name="Dark Olive Green 4" />
+ <Color RGB="#FFF68F" Name="Khaki 1" />
+ <Color RGB="#EEE685" Name="Khaki 2" />
+ <Color RGB="#CDC673" Name="Khaki 3" />
+ <Color RGB="#8B864E" Name="Khaki 4" />
+ <Color RGB="#FFEC8B" Name="Light Goldenrod 1" />
+ <Color RGB="#EEDC82" Name="Light Goldenrod 2" />
+ <Color RGB="#CDBE70" Name="Light Goldenrod 3" />
+ <Color RGB="#8B814C" Name="Light Goldenrod 4" />
+ <Color RGB="#EEEED1" Name="Light Yellow 2" />
+ <Color RGB="#CDCDB4" Name="Light Yellow 3" />
+ <Color RGB="#8B8B7A" Name="Light Yellow 4" />
+ <Color RGB="#EEEE00" Name="Yellow 2" />
+ <Color RGB="#CDCD00" Name="Yellow 3" />
+ <Color RGB="#8B8B00" Name="Yellow 4" />
+ <Color RGB="#EEC900" Name="Gold 2" />
+ <Color RGB="#CDAD00" Name="Gold 3" />
+ <Color RGB="#8B7500" Name="Gold 4" />
+ <Color RGB="#FFC125" Name="Goldenrod 1" />
+ <Color RGB="#EEB422" Name="Goldenrod 2" />
+ <Color RGB="#CD9B1D" Name="Goldenrod 3" />
+ <Color RGB="#8B6914" Name="Goldenrod 4" />
+ <Color RGB="#FFB90F" Name="Dark Goldenrod 1" />
+ <Color RGB="#EEAD0E" Name="Dark Goldenrod 2" />
+ <Color RGB="#CD950C" Name="Dark Goldenrod 3" />
+ <Color RGB="#8B6508" Name="Dark Goldenrod 4" />
+ <Color RGB="#FFC1C1" Name="Rosy Brown 1" />
+ <Color RGB="#EEB4B4" Name="Rosy Brown 2" />
+ <Color RGB="#CD9B9B" Name="Rosy Brown 3" />
+ <Color RGB="#8B6969" Name="Rosy Brown 4" />
+ <Color RGB="#FF6A6A" Name="Indian Red 1" />
+ <Color RGB="#EE6363" Name="Indian Red 2" />
+ <Color RGB="#CD5555" Name="Indian Red 3" />
+ <Color RGB="#8B3A3A" Name="Indian Red 4" />
+ <Color RGB="#FF8247" Name="Sienna 1" />
+ <Color RGB="#EE7942" Name="Sienna 2" />
+ <Color RGB="#CD6839" Name="Sienna 3" />
+ <Color RGB="#8B4726" Name="Sienna 4" />
+ <Color RGB="#FFD39B" Name="Burlywood 1" />
+ <Color RGB="#EEC591" Name="Burlywood 2" />
+ <Color RGB="#CDAA7D" Name="Burlywood 3" />
+ <Color RGB="#8B7355" Name="Burlywood 4" />
+ <Color RGB="#FFE7BA" Name="Wheat 1" />
+ <Color RGB="#EED8AE" Name="Wheat 2" />
+ <Color RGB="#CDBA96" Name="Wheat 3" />
+ <Color RGB="#8B7E66" Name="Wheat 4" />
+ <Color RGB="#FFA54F" Name="Tan 1" />
+ <Color RGB="#EE9A49" Name="Tan 2" />
+ <Color RGB="#8B5A2B" Name="Tan 4" />
+ <Color RGB="#FF7F24" Name="Chocolate 1" />
+ <Color RGB="#EE7621" Name="Chocolate 2" />
+ <Color RGB="#CD661D" Name="Chocolate 3" />
+ <Color RGB="#FF3030" Name="Firebrick 1" />
+ <Color RGB="#EE2C2C" Name="Firebrick 2" />
+ <Color RGB="#CD2626" Name="Firebrick 3" />
+ <Color RGB="#8B1A1A" Name="Firebrick 4" />
+ <Color RGB="#FF4040" Name="Brown 1" />
+ <Color RGB="#EE3B3B" Name="Brown 2" />
+ <Color RGB="#CD3333" Name="Brown 3" />
+ <Color RGB="#8B2323" Name="Brown 4" />
+ <Color RGB="#FF8C69" Name="Salmon 1" />
+ <Color RGB="#EE8262" Name="Salmon 2" />
+ <Color RGB="#CD7054" Name="Salmon 3" />
+ <Color RGB="#8B4C39" Name="Salmon 4" />
+ <Color RGB="#EE9572" Name="Light Salmon 2" />
+ <Color RGB="#CD8162" Name="Light Salmon 3" />
+ <Color RGB="#8B5742" Name="Light Salmon 4" />
+ <Color RGB="#EE9A00" Name="Orange 2" />
+ <Color RGB="#CD8500" Name="Orange 3" />
+ <Color RGB="#8B5A00" Name="Orange 4" />
+ <Color RGB="#FF7F00" Name="Dark Orange 1" />
+ <Color RGB="#EE7600" Name="Dark Orange 2" />
+ <Color RGB="#CD6600" Name="Dark Orange 3" />
+ <Color RGB="#8B4500" Name="Dark Orange 4" />
+ <Color RGB="#FF7256" Name="Coral 1" />
+ <Color RGB="#EE6A50" Name="Coral 2" />
+ <Color RGB="#CD5B45" Name="Coral 3" />
+ <Color RGB="#8B3E2F" Name="Coral 4" />
+ <Color RGB="#EE5C42" Name="Tomato 2" />
+ <Color RGB="#CD4F39" Name="Tomato 3" />
+ <Color RGB="#8B3626" Name="Tomato 4" />
+ <Color RGB="#EE4000" Name="Orange Red 2" />
+ <Color RGB="#CD3700" Name="Orange Red 3" />
+ <Color RGB="#8B2500" Name="Orange Red 4" />
+ <Color RGB="#EE0000" Name="Red 2" />
+ <Color RGB="#CD0000" Name="Red 3" />
+ <Color RGB="#D70751" Name="Debian Red" />
+ <Color RGB="#EE1289" Name="Deep Pink 2" />
+ <Color RGB="#CD1076" Name="Deep Pink 3" />
+ <Color RGB="#8B0A50" Name="Deep Pink 4" />
+ <Color RGB="#FF6EB4" Name="Hot Pink 1" />
+ <Color RGB="#EE6AA7" Name="Hot Pink 2" />
+ <Color RGB="#CD6090" Name="Hot Pink 3" />
+ <Color RGB="#8B3A62" Name="Hot Pink 4" />
+ <Color RGB="#FFB5C5" Name="Pink 1" />
+ <Color RGB="#EEA9B8" Name="Pink 2" />
+ <Color RGB="#CD919E" Name="Pink 3" />
+ <Color RGB="#8B636C" Name="Pink 4" />
+ <Color RGB="#FFAEB9" Name="Light Pink 1" />
+ <Color RGB="#EEA2AD" Name="Light Pink 2" />
+ <Color RGB="#CD8C95" Name="Light Pink 3" />
+ <Color RGB="#8B5F65" Name="Light Pink 4" />
+ <Color RGB="#FF82AB" Name="Pale Violet Red 1" />
+ <Color RGB="#EE799F" Name="Pale Violet Red 2" />
+ <Color RGB="#CD6889" Name="Pale Violet Red 3" />
+ <Color RGB="#8B475D" Name="Pale Violet Red 4" />
+ <Color RGB="#FF34B3" Name="Maroon 1" />
+ <Color RGB="#EE30A7" Name="Maroon 2" />
+ <Color RGB="#CD2990" Name="Maroon 3" />
+ <Color RGB="#8B1C62" Name="Maroon 4" />
+ <Color RGB="#FF3E96" Name="Violet Red 1" />
+ <Color RGB="#EE3A8C" Name="Violet Red 2" />
+ <Color RGB="#CD3278" Name="Violet Red 3" />
+ <Color RGB="#8B2252" Name="Violet Red 4" />
+ <Color RGB="#EE00EE" Name="Magenta 2" />
+ <Color RGB="#CD00CD" Name="Magenta 3" />
+ <Color RGB="#FF83FA" Name="Orchid 1" />
+ <Color RGB="#EE7AE9" Name="Orchid 2" />
+ <Color RGB="#CD69C9" Name="Orchid 3" />
+ <Color RGB="#8B4789" Name="Orchid 4" />
+ <Color RGB="#FFBBFF" Name="Plum 1" />
+ <Color RGB="#EEAEEE" Name="Plum 2" />
+ <Color RGB="#CD96CD" Name="Plum 3" />
+ <Color RGB="#8B668B" Name="Plum 4" />
+ <Color RGB="#E066FF" Name="Medium Orchid 1" />
+ <Color RGB="#D15FEE" Name="Medium Orchid 2" />
+ <Color RGB="#B452CD" Name="Medium Orchid 3" />
+ <Color RGB="#7A378B" Name="Medium Orchid 4" />
+ <Color RGB="#BF3EFF" Name="Dark Orchid 1" />
+ <Color RGB="#B23AEE" Name="Dark Orchid 2" />
+ <Color RGB="#9A32CD" Name="Dark Orchid 3" />
+ <Color RGB="#68228B" Name="Dark Orchid 4" />
+ <Color RGB="#9B30FF" Name="Purple 1" />
+ <Color RGB="#912CEE" Name="Purple 2" />
+ <Color RGB="#7D26CD" Name="Purple 3" />
+ <Color RGB="#551A8B" Name="Purple 4" />
+ <Color RGB="#AB82FF" Name="Medium Purple 1" />
+ <Color RGB="#9F79EE" Name="Medium Purple 2" />
+ <Color RGB="#8968CD" Name="Medium Purple 3" />
+ <Color RGB="#5D478B" Name="Medium Purple 4" />
+ <Color RGB="#FFE1FF" Name="Thistle 1" />
+ <Color RGB="#EED2EE" Name="Thistle 2" />
+ <Color RGB="#CDB5CD" Name="Thistle 3" />
+ <Color RGB="#8B7B8B" Name="Thistle 4" />
+ <Color RGB="#030303" Name="Gray 1" />
+ <Color RGB="#050505" Name="Gray 2" />
+ <Color RGB="#080808" Name="Gray 3" />
+ <Color RGB="#0A0A0A" Name="Gray 4" />
+ <Color RGB="#0D0D0D" Name="Gray 5" />
+ <Color RGB="#0F0F0F" Name="Gray 6" />
+ <Color RGB="#121212" Name="Gray 7" />
+ <Color RGB="#141414" Name="Gray 8" />
+ <Color RGB="#171717" Name="Gray 9" />
+ <Color RGB="#1A1A1A" Name="Gray 10" />
+ <Color RGB="#1C1C1C" Name="Gray 11" />
+ <Color RGB="#1F1F1F" Name="Gray 12" />
+ <Color RGB="#212121" Name="Gray 13" />
+ <Color RGB="#242424" Name="Gray 14" />
+ <Color RGB="#262626" Name="Gray 15" />
+ <Color RGB="#292929" Name="Gray 16" />
+ <Color RGB="#2B2B2B" Name="Gray 17" />
+ <Color RGB="#2E2E2E" Name="Gray 18" />
+ <Color RGB="#303030" Name="Gray 19" />
+ <Color RGB="#333333" Name="Gray 20" />
+ <Color RGB="#363636" Name="Gray 21" />
+ <Color RGB="#383838" Name="Gray 22" />
+ <Color RGB="#3B3B3B" Name="Gray 23" />
+ <Color RGB="#3D3D3D" Name="Gray 24" />
+ <Color RGB="#404040" Name="Gray 25" />
+ <Color RGB="#424242" Name="Gray 26" />
+ <Color RGB="#454545" Name="Gray 27" />
+ <Color RGB="#474747" Name="Gray 28" />
+ <Color RGB="#4A4A4A" Name="Gray 29" />
+ <Color RGB="#4D4D4D" Name="Gray 30" />
+ <Color RGB="#4F4F4F" Name="Gray 31" />
+ <Color RGB="#525252" Name="Gray 32" />
+ <Color RGB="#545454" Name="Gray 33" />
+ <Color RGB="#575757" Name="Gray 34" />
+ <Color RGB="#595959" Name="Gray 35" />
+ <Color RGB="#5C5C5C" Name="Gray 36" />
+ <Color RGB="#5E5E5E" Name="Gray 37" />
+ <Color RGB="#616161" Name="Gray 38" />
+ <Color RGB="#636363" Name="Gray 39" />
+ <Color RGB="#666666" Name="Gray 40" />
+ <Color RGB="#6B6B6B" Name="Gray 42" />
+ <Color RGB="#6E6E6E" Name="Gray 43" />
+ <Color RGB="#707070" Name="Gray 44" />
+ <Color RGB="#737373" Name="Gray 45" />
+ <Color RGB="#757575" Name="Gray 46" />
+ <Color RGB="#787878" Name="Gray 47" />
+ <Color RGB="#7A7A7A" Name="Gray 48" />
+ <Color RGB="#7D7D7D" Name="Gray 49" />
+ <Color RGB="#7F7F7F" Name="Gray 50" />
+ <Color RGB="#828282" Name="Gray 51" />
+ <Color RGB="#858585" Name="Gray 52" />
+ <Color RGB="#878787" Name="Gray 53" />
+ <Color RGB="#8A8A8A" Name="Gray 54" />
+ <Color RGB="#8C8C8C" Name="Gray 55" />
+ <Color RGB="#8F8F8F" Name="Gray 56" />
+ <Color RGB="#919191" Name="Gray 57" />
+ <Color RGB="#949494" Name="Gray 58" />
+ <Color RGB="#969696" Name="Gray 59" />
+ <Color RGB="#999999" Name="Gray 60" />
+ <Color RGB="#9C9C9C" Name="Gray 61" />
+ <Color RGB="#9E9E9E" Name="Gray 62" />
+ <Color RGB="#A1A1A1" Name="Gray 63" />
+ <Color RGB="#A3A3A3" Name="Gray 64" />
+ <Color RGB="#A6A6A6" Name="Gray 65" />
+ <Color RGB="#A8A8A8" Name="Gray 66" />
+ <Color RGB="#ABABAB" Name="Gray 67" />
+ <Color RGB="#ADADAD" Name="Gray 68" />
+ <Color RGB="#B0B0B0" Name="Gray 69" />
+ <Color RGB="#B3B3B3" Name="Gray 70" />
+ <Color RGB="#B5B5B5" Name="Gray 71" />
+ <Color RGB="#B8B8B8" Name="Gray 72" />
+ <Color RGB="#BABABA" Name="Gray 73" />
+ <Color RGB="#BDBDBD" Name="Gray 74" />
+ <Color RGB="#BFBFBF" Name="Gray 75" />
+ <Color RGB="#C2C2C2" Name="Gray 76" />
+ <Color RGB="#C4C4C4" Name="Gray 77" />
+ <Color RGB="#C7C7C7" Name="Gray 78" />
+ <Color RGB="#C9C9C9" Name="Gray 79" />
+ <Color RGB="#CCCCCC" Name="Gray 80" />
+ <Color RGB="#CFCFCF" Name="Gray 81" />
+ <Color RGB="#D1D1D1" Name="Gray 82" />
+ <Color RGB="#D4D4D4" Name="Gray 83" />
+ <Color RGB="#D6D6D6" Name="Gray 84" />
+ <Color RGB="#D9D9D9" Name="Gray 85" />
+ <Color RGB="#DBDBDB" Name="Gray 86" />
+ <Color RGB="#DEDEDE" Name="Gray 87" />
+ <Color RGB="#E0E0E0" Name="Gray 88" />
+ <Color RGB="#E3E3E3" Name="Gray 89" />
+ <Color RGB="#E5E5E5" Name="Gray 90" />
+ <Color RGB="#E8E8E8" Name="Gray 91" />
+ <Color RGB="#EBEBEB" Name="Gray 92" />
+ <Color RGB="#EDEDED" Name="Gray 93" />
+ <Color RGB="#F0F0F0" Name="Gray 94" />
+ <Color RGB="#F2F2F2" Name="Gray 95" />
+ <Color RGB="#F7F7F7" Name="Gray 97" />
+ <Color RGB="#FAFAFA" Name="Gray 98" />
+ <Color RGB="#FCFCFC" Name="Gray 99" />
+ <Color RGB="#A9A9A9" Name="Dark Gray" />
+ <Color RGB="#00008B" Name="Dark Blue" />
+ <Color RGB="#008B8B" Name="Dark Cyan" />
+ <Color RGB="#8B008B" Name="Dark Magenta" />
+ <Color RGB="#8B0000" Name="Dark Red" />
+ <Color RGB="#90EE90" Name="Light Green" />
+</ColorFilters>

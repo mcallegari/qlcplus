@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5 GIT</Version>
+  <Author>Christian Hollbjär</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Fog 1500 FT</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog Volume Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Fog Off</Capability>
+  <Capability Min="6" Max="249">Volume 5% - 95%</Capability>
+  <Capability Min="250" Max="255">Max Volume 100%</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Fog Volume Control</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="Fogger" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="15.5" Width="240" Height="190" Depth="646"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

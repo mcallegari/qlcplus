@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Daniel Smith</Author>
+ </Creator>
+ <Manufacturer>Stage Right</Manufacturer>
+ <Model>10Wx9 LED Flat PAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="29">Four color jumping change</Capability>
+  <Capability Min="30" Max="59">Full color jumping change</Capability>
+  <Capability Min="60" Max="89">Full color gradient mode</Capability>
+  <Capability Min="90" Max="119">Variable pulse mode</Capability>
+  <Capability Min="120" Max="149">Jumping change, gradient, and variable pulse modes combined</Capability>
+  <Capability Min="150" Max="179">Gradient fast strobe mode (color change speed)</Capability>
+  <Capability Min="180" Max="199">Save disabled</Capability>
+  <Capability Min="200" Max="229">Strobe follow mode color selections (1-9)</Capability>
+  <Capability Min="230" Max="243">Strobe follow mode effect selection (1-13)</Capability>
+  <Capability Min="244" Max="245">Recycle effect</Capability>
+  <Capability Min="246" Max="250">Sound activated strobe mode (sensitivity)</Capability>
+  <Capability Min="251" Max="255">Sound activated jumping change mode (sensitivity)</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">LED speed slow to fast</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">White Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Macro</Channel>
+  <Channel Number="7">Macro Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.2" Width="250" Height="250" Depth="100"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

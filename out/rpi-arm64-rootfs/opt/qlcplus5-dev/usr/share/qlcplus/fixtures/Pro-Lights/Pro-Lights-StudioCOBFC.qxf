@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Andrea Ugolini</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>StudioCOBFC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Strobe/Speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">Strobe: No function / Speed: Slow to Fast</Capability>
+  <Capability Min="11" Max="255">Strobe: Slow to Fast / Speed: Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Color Macros (overrides CH 1-3)</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">RGB mode</Capability>
+  <Capability Min="11" Max="50">Pulse effect 0-100%</Capability>
+  <Capability Min="51" Max="90">Pulse effect 100-0%</Capability>
+  <Capability Min="91" Max="130">Pulse effect 100-0-100%</Capability>
+  <Capability Min="131" Max="170">Auto fade transition</Capability>
+  <Capability Min="171" Max="210">Auto snap transition (3 colors)</Capability>
+  <Capability Min="211" Max="255">Auto snap transition (7 colors)</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">Dimmer speed mode2 (middle speed)</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode3 (slow speed)</Capability>
+ </Channel>
+ <Mode Name="3 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="5 channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe/Speed</Channel>
+  <Channel Number="5">Color Macros</Channel>
+  <Channel Number="6">Mode</Channel>
+  <Channel Number="7">Dimmer Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="COB CREE LED" Lumens="5000" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="262" Height="190" Depth="371"/>
+  <Lens Name="Dichroic Parabolic" DegreesMin="15" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

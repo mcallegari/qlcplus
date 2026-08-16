@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>GLP</Manufacturer>
+ <Model>Junior-Scan 2</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="16" Max="31" Preset="StrobeRandom">Random shutter</Capability>
+  <Capability Min="32" Max="47">Audio shutter</Capability>
+  <Capability Min="48" Max="239" Preset="StrobeSlowToFast">Strobe, slow -&gt; fast</Capability>
+  <Capability Min="240" Max="254" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="255" Max="255" Preset="LampOn">Lamp on</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="1">Tracking mode</Capability>
+  <Capability Min="2" Max="255">Vector, slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Movement">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No movement</Capability>
+  <Capability Min="1" Max="31">Pan movement</Capability>
+  <Capability Min="32" Max="63">Tilt movement</Capability>
+  <Capability Min="64" Max="95">Pan/tilt movement</Capability>
+  <Capability Min="96" Max="127">Inverse Pan/tilt movement</Capability>
+  <Capability Min="128" Max="159">Circle</Capability>
+  <Capability Min="160" Max="191">Inverse circle</Capability>
+  <Capability Min="192" Max="223">Eight</Capability>
+  <Capability Min="224" Max="255">Random movement</Capability>
+ </Channel>
+ <Channel Name="Laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Laser off</Capability>
+  <Capability Min="16" Max="31">Random flashes</Capability>
+  <Capability Min="32" Max="47">Audio trigger</Capability>
+  <Capability Min="48" Max="127">Laser strobe, slow -&gt; fast</Capability>
+  <Capability Min="128" Max="239">Laser strobe, slow -&gt; fast</Capability>
+  <Capability Min="240" Max="255">Laser on</Capability>
+ </Channel>
+ <Channel Name="Special">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="79">Color chaser 1, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="95">Color chaser 2, slow -&gt; fast</Capability>
+  <Capability Min="96" Max="111">Pan/tilt audio trigger, slow</Capability>
+  <Capability Min="112" Max="127">Pan/tilt audio trigger, fast</Capability>
+  <Capability Min="128" Max="143">Pan/tilt random positions</Capability>
+  <Capability Min="144" Max="229">No function</Capability>
+  <Capability Min="230" Max="249">Lamp off after 3 sec</Capability>
+  <Capability Min="250" Max="255">Reset after 3 sec</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="4" Max="7" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00007f">Half-color 1</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
+  <Capability Min="12" Max="15" Preset="ColorDoubleMacro" Res1="#00007f" Res2="#007f00">Half-color 2</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#007f00">Dark green</Capability>
+  <Capability Min="20" Max="23" Preset="ColorDoubleMacro" Res1="#007f00" Res2="#ffffe0">Half-color 3</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#ffffe0">Light yellow</Capability>
+  <Capability Min="28" Max="31" Preset="ColorDoubleMacro" Res1="#ffffe0" Res2="#7f7fff">Half-color 4</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#7f7fff">Bright blue</Capability>
+  <Capability Min="36" Max="39" Preset="ColorDoubleMacro" Res1="#7f7fff" Res2="#fad2ff">Half-color 5</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#fad2ff">Lavender</Capability>
+  <Capability Min="44" Max="47" Preset="ColorDoubleMacro" Res1="#fad2ff" Res2="#ff00ff">Half-color 6</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="52" Max="55" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#aaaaff">Half-color 7</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#aaaaff">Light blue</Capability>
+  <Capability Min="60" Max="63" Preset="ColorDoubleMacro" Res1="#aaaaff" Res2="#ff3232">Half-color 8</Capability>
+  <Capability Min="64" Max="67" Preset="ColorMacro" Res1="#ff3232">Fire</Capability>
+  <Capability Min="68" Max="71" Preset="ColorDoubleMacro" Res1="#ff3232" Res2="#40e0d0">Half-color 9</Capability>
+  <Capability Min="72" Max="75" Preset="ColorDoubleMacro" Res1="#40e0d0" Res2="#40e0d0">Turquoise</Capability>
+  <Capability Min="76" Max="79" Preset="ColorDoubleMacro" Res1="#40e0d0" Res2="#ffaaff">Half-color 10</Capability>
+  <Capability Min="80" Max="83" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="84" Max="87" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#eef66c">Half-color 11</Capability>
+  <Capability Min="88" Max="91" Preset="ColorMacro" Res1="#eef66c">Canary</Capability>
+  <Capability Min="92" Max="95" Preset="ColorDoubleMacro" Res1="#eef66c" Res2="#ffaf00">Half-color 12</Capability>
+  <Capability Min="96" Max="99" Preset="ColorMacro" Res1="#ffaf00">Golden amber</Capability>
+  <Capability Min="100" Max="103" Preset="ColorDoubleMacro" Res1="#ffaf00" Res2="#ff0000">Half-color 13</Capability>
+  <Capability Min="104" Max="107" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="108" Max="111" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Half-color 14</Capability>
+  <Capability Min="112" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="119" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Half-color 15</Capability>
+  <Capability Min="120" Max="123" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="124" Max="127" Preset="ColorMacro" Res1="#00ff00">Half-color 16</Capability>
+  <Capability Min="128" Max="131">Multicolor 1</Capability>
+  <Capability Min="132" Max="135">Half-color 17</Capability>
+  <Capability Min="136" Max="139">Multicolor 2</Capability>
+  <Capability Min="140" Max="253">Rainbow, slow -&gt; fast</Capability>
+  <Capability Min="254" Max="254">Music color chaser slow</Capability>
+  <Capability Min="255" Max="255">Music color chaser fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="GLP/gobo00006.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="GLP/gobo00003.png">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="GLP/gobo00008.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="GLP/gobo00004.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00036.svg">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="GLP/gobo00012.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Others/gobo00006.svg">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 8</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="SGM/gobo00028.png">Gobo 9</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="ClayPaky/gobo00049.svg">Gobo 10</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="GLP/gobo00005.svg">Gobo 11</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Others/gobo00015.svg">Gobo 12</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Robe/gobo00070.svg">Gobo 13</Capability>
+  <Capability Min="112" Max="119">Gobo 14</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/gobo00012.svg">Gobo 15</Capability>
+  <Capability Min="128" Max="135" Preset="GoboMacro" Res1="Others/gobo00029.svg">Gobo 16</Capability>
+  <Capability Min="136" Max="143" Preset="GoboMacro" Res1="GLP/gobo00026.svg">Gobo 17</Capability>
+  <Capability Min="144" Max="151" Preset="GoboMacro" Res1="SGM/gobo00063.svg">Gobo 18</Capability>
+  <Capability Min="152" Max="159" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Gobo 19</Capability>
+  <Capability Min="160" Max="253">No function</Capability>
+  <Capability Min="254" Max="254">Music gobo chaser slow</Capability>
+  <Capability Min="255" Max="255">Music gobo chaser fast</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Speed</Channel>
+  <Channel Number="6">Movement</Channel>
+  <Channel Number="7">Laser</Channel>
+  <Channel Number="8">Special</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.5" Width="310" Height="540" Depth="220"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="230" TiltMax="110"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

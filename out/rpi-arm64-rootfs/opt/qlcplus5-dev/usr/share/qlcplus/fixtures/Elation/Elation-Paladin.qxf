@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Nicholas Harvey</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>Paladin</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red (All LEDs)" Preset="IntensityRed"/>
+ <Channel Name="Green (All LEDs)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (All LEDs)" Preset="IntensityBlue"/>
+ <Channel Name="White (All LEDs)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel Set #1)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel Set #1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel Set #1)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel Set #1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel Set #2)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel Set #2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel Set #2)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel Set #2)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel Set #3)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel Set #3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel Set #3)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel Set #3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel Set #4)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel Set #4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel Set #4)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel Set #4)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel Set #5)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel Set #5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel Set #5)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel Set #5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel Set #6)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel Set #6)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel Set #6)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel Set #6)" Preset="IntensityWhite"/>
+ <Channel Name="Shutter / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect Slow to Fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Effect in Sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Effect Slow to Fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED On</Capability>
+ </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Intensity Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Program Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Preset="LampOn">LEDs On</Capability>
+  <Capability Min="1" Max="14" Preset="LampOff">LEDs Off</Capability>
+  <Capability Min="15" Max="30">Program Macro 1</Capability>
+  <Capability Min="31" Max="46">Program Macro 2</Capability>
+  <Capability Min="47" Max="62">Program Macro 3</Capability>
+  <Capability Min="63" Max="78">Program Macro 4</Capability>
+  <Capability Min="79" Max="94">Program Macro 5</Capability>
+  <Capability Min="95" Max="110">Program Macro 6</Capability>
+  <Capability Min="111" Max="126">Program Macro 7</Capability>
+  <Capability Min="127" Max="142">Program Macro 8</Capability>
+  <Capability Min="143" Max="158">Program Macro 9</Capability>
+  <Capability Min="159" Max="174">Program Macro 10</Capability>
+  <Capability Min="175" Max="190">Program Macro 11</Capability>
+  <Capability Min="191" Max="206">Program Macro 12</Capability>
+  <Capability Min="207" Max="222">Program Macro 13</Capability>
+  <Capability Min="223" Max="238">Program Macro 14</Capability>
+  <Capability Min="239" Max="255">Program Macro 15</Capability>
+ </Channel>
+ <Channel Name="Program Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Program Macro Speed Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Program Macro Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255" Preset="RampUpSlowToFast">Program Macro Fade Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Color Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="4">Color Preset 1</Capability>
+  <Capability Min="5" Max="8">Color Preset 2</Capability>
+  <Capability Min="9" Max="12">Color Preset 3</Capability>
+  <Capability Min="13" Max="16">Color Preset 4</Capability>
+  <Capability Min="17" Max="20">Color Preset 5</Capability>
+  <Capability Min="21" Max="24">Color Preset 6</Capability>
+  <Capability Min="25" Max="28">Color Preset 7</Capability>
+  <Capability Min="29" Max="32">Color Preset 8</Capability>
+  <Capability Min="33" Max="36">Color Preset 9</Capability>
+  <Capability Min="37" Max="40">Color Preset 10</Capability>
+  <Capability Min="41" Max="44">Color Preset 11</Capability>
+  <Capability Min="45" Max="48">Color Preset 12</Capability>
+  <Capability Min="49" Max="52">Color Preset 13</Capability>
+  <Capability Min="53" Max="56">Color Preset 14</Capability>
+  <Capability Min="57" Max="60">Color Preset 15</Capability>
+  <Capability Min="61" Max="64">Color Preset 16</Capability>
+  <Capability Min="65" Max="68">Color Preset 17</Capability>
+  <Capability Min="69" Max="72">Color Preset 18</Capability>
+  <Capability Min="73" Max="76">Color Preset 19</Capability>
+  <Capability Min="77" Max="80">Color Preset 20</Capability>
+  <Capability Min="81" Max="84">Color Preset 21</Capability>
+  <Capability Min="85" Max="88">Color Preset 22</Capability>
+  <Capability Min="89" Max="92">Color Preset 23</Capability>
+  <Capability Min="93" Max="96">Color Preset 24</Capability>
+  <Capability Min="97" Max="100">Color Preset 25</Capability>
+  <Capability Min="101" Max="104">Color Preset 26</Capability>
+  <Capability Min="105" Max="108">Color Preset 27</Capability>
+  <Capability Min="109" Max="112">Color Preset 28</Capability>
+  <Capability Min="113" Max="116">Color Preset 29</Capability>
+  <Capability Min="117" Max="120">Color Preset 30</Capability>
+  <Capability Min="121" Max="124">Color Preset 31</Capability>
+  <Capability Min="125" Max="128">Color Preset 32</Capability>
+  <Capability Min="129" Max="132">Color Preset 33</Capability>
+  <Capability Min="133" Max="136">Color Preset 34</Capability>
+  <Capability Min="137" Max="140">Color Preset 35</Capability>
+  <Capability Min="141" Max="144">Color Preset 36</Capability>
+  <Capability Min="145" Max="148">Color Preset 37</Capability>
+  <Capability Min="149" Max="152">Color Preset 38</Capability>
+  <Capability Min="153" Max="156">Color Preset 39</Capability>
+  <Capability Min="157" Max="160">Color Preset 40</Capability>
+  <Capability Min="161" Max="164">Color Preset 41</Capability>
+  <Capability Min="165" Max="168">Color Preset 42</Capability>
+  <Capability Min="169" Max="172">Color Preset 43</Capability>
+  <Capability Min="173" Max="176">Color Preset 44</Capability>
+  <Capability Min="177" Max="180">Color Preset 45</Capability>
+  <Capability Min="181" Max="184">Color Preset 46</Capability>
+  <Capability Min="185" Max="188">Color Preset 47</Capability>
+  <Capability Min="189" Max="192">Color Preset 48</Capability>
+  <Capability Min="193" Max="196">Color Preset 49</Capability>
+  <Capability Min="197" Max="200">Color Preset 50</Capability>
+  <Capability Min="201" Max="204">Color Preset 51</Capability>
+  <Capability Min="205" Max="208">Color Preset 52</Capability>
+  <Capability Min="209" Max="212">Color Preset 53</Capability>
+  <Capability Min="213" Max="216">Color Preset 54</Capability>
+  <Capability Min="217" Max="220">Color Preset 55</Capability>
+  <Capability Min="221" Max="224">Color Preset 56</Capability>
+  <Capability Min="225" Max="228">Color Preset 57</Capability>
+  <Capability Min="229" Max="232">Color Preset 58</Capability>
+  <Capability Min="233" Max="236">Color Preset 59</Capability>
+  <Capability Min="237" Max="240">Color Preset 60</Capability>
+  <Capability Min="241" Max="244">Color Preset 61</Capability>
+  <Capability Min="245" Max="248">Color Preset 62</Capability>
+  <Capability Min="249" Max="252">Color Preset 63</Capability>
+  <Capability Min="253" Max="255">Color Preset 64</Capability>
+ </Channel>
+ <Channel Name="Dimming Curve Modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to Unit Setting</Capability>
+ </Channel>
+ <Mode Name="Basic">
+  <Channel Number="0">Red (All LEDs)</Channel>
+  <Channel Number="1">Green (All LEDs)</Channel>
+  <Channel Number="2">Blue (All LEDs)</Channel>
+  <Channel Number="3">White (All LEDs)</Channel>
+  <Channel Number="4">Shutter / Strobe</Channel>
+  <Channel Number="5">Dimmer Intensity</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Program Macros</Channel>
+  <Channel Number="8">Program Macro Speed</Channel>
+  <Channel Number="9">Program Macro Fade</Channel>
+  <Channel Number="10">Color Presets</Channel>
+  <Channel Number="11">Dimming Curve Modes</Channel>
+ </Mode>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20.9" Width="478" Height="233" Depth="407"/>
+   <Lens Name="Other" DegreesMin="6" DegreesMax="32"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="3" Height="1"/>
+   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red (Pixel Set #1)</Channel>
+  <Channel Number="1">Green (Pixel Set #1)</Channel>
+  <Channel Number="2">Blue (Pixel Set #1)</Channel>
+  <Channel Number="3">White (Pixel Set #1)</Channel>
+  <Channel Number="4">Red (Pixel Set #2)</Channel>
+  <Channel Number="5">Green (Pixel Set #2)</Channel>
+  <Channel Number="6">Blue (Pixel Set #2)</Channel>
+  <Channel Number="7">White (Pixel Set #2)</Channel>
+  <Channel Number="8">Red (Pixel Set #3)</Channel>
+  <Channel Number="9">Green (Pixel Set #3)</Channel>
+  <Channel Number="10">Blue (Pixel Set #3)</Channel>
+  <Channel Number="11">White (Pixel Set #3)</Channel>
+  <Channel Number="12">Shutter / Strobe</Channel>
+  <Channel Number="13">Dimmer Intensity</Channel>
+  <Channel Number="14">Dimmer Intensity Fine</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Program Macros</Channel>
+  <Channel Number="17">Program Macro Speed</Channel>
+  <Channel Number="18">Program Macro Fade</Channel>
+  <Channel Number="19">Color Presets</Channel>
+  <Channel Number="20">Dimming Curve Modes</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Extended">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20.9" Width="478" Height="233" Depth="407"/>
+   <Lens Name="Other" DegreesMin="6" DegreesMax="32"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="3" Height="2"/>
+   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red (Pixel Set #1)</Channel>
+  <Channel Number="1">Green (Pixel Set #1)</Channel>
+  <Channel Number="2">Blue (Pixel Set #1)</Channel>
+  <Channel Number="3">White (Pixel Set #1)</Channel>
+  <Channel Number="4">Red (Pixel Set #2)</Channel>
+  <Channel Number="5">Green (Pixel Set #2)</Channel>
+  <Channel Number="6">Blue (Pixel Set #2)</Channel>
+  <Channel Number="7">White (Pixel Set #2)</Channel>
+  <Channel Number="8">Red (Pixel Set #3)</Channel>
+  <Channel Number="9">Green (Pixel Set #3)</Channel>
+  <Channel Number="10">Blue (Pixel Set #3)</Channel>
+  <Channel Number="11">White (Pixel Set #3)</Channel>
+  <Channel Number="12">Red (Pixel Set #4)</Channel>
+  <Channel Number="13">Green (Pixel Set #4)</Channel>
+  <Channel Number="14">Blue (Pixel Set #4)</Channel>
+  <Channel Number="15">White (Pixel Set #4)</Channel>
+  <Channel Number="16">Red (Pixel Set #5)</Channel>
+  <Channel Number="17">Green (Pixel Set #5)</Channel>
+  <Channel Number="18">Blue (Pixel Set #5)</Channel>
+  <Channel Number="19">White (Pixel Set #5)</Channel>
+  <Channel Number="20">Red (Pixel Set #6)</Channel>
+  <Channel Number="21">Green (Pixel Set #6)</Channel>
+  <Channel Number="22">Blue (Pixel Set #6)</Channel>
+  <Channel Number="23">White (Pixel Set #6)</Channel>
+  <Channel Number="24">Shutter / Strobe</Channel>
+  <Channel Number="25">Dimmer Intensity</Channel>
+  <Channel Number="26">Dimmer Intensity Fine</Channel>
+  <Channel Number="27">Zoom</Channel>
+  <Channel Number="28">Program Macros</Channel>
+  <Channel Number="29">Program Macro Speed</Channel>
+  <Channel Number="30">Program Macro Fade</Channel>
+  <Channel Number="31">Color Presets</Channel>
+  <Channel Number="32">Dimming Curve Modes</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="20.9" Width="478" Height="233" Depth="407"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="32"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

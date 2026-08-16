@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Marc Geonet</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Platinum CLS-1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Blackout</Capability>
+  <Capability Min="11" Max="21">ch 2 Master Dimmer (0-255)</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="99" Max="109">Dream</Capability>
+  <Capability Min="110" Max="120">Meteor</Capability>
+  <Capability Min="121" Max="131">Fade</Capability>
+  <Capability Min="132" Max="142">Change</Capability>
+  <Capability Min="143" Max="153">Flow 1</Capability>
+  <Capability Min="154" Max="164">Flow 2</Capability>
+  <Capability Min="165" Max="175">Flow 3</Capability>
+  <Capability Min="176" Max="186">Flow 4</Capability>
+  <Capability Min="187" Max="197">Flow 5</Capability>
+  <Capability Min="198" Max="208">Flow 6</Capability>
+  <Capability Min="209" Max="219">Flow 7</Capability>
+  <Capability Min="220" Max="230">Flow 8</Capability>
+  <Capability Min="231" Max="241">Flow 9</Capability>
+  <Capability Min="242" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="219">No function</Capability>
+  <Capability Min="220" Max="230">Color select</Capability>
+  <Capability Min="231" Max="241">Color select</Capability>
+  <Capability Min="242" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="6 channel">
+  <Channel Number="0">Macro</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+ </Mode>
+ <Mode Name="9 channel">
+  <Channel Number="0">Macro</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 channel">
+  <Channel Number="0">Macro</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="1030" Height="100" Depth="290"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

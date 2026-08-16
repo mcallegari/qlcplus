@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Tom Moeller</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Omega I DMX-155</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Color/Gobo Combo" Default="11">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="">closed</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/open.svg">open</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">combo 01</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Combo 02</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="">Combo 03</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="">Combo 04</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="">Combo 05</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="">Combo 06</Capability>
+  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="">Combo 07</Capability>
+  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="">Combo 08</Capability>
+  <Capability Min="100" Max="109" Preset="GoboMacro" Res1="">Combo 09</Capability>
+  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="">Combo 10</Capability>
+  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="">Combo 11</Capability>
+  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="">Combo 12</Capability>
+  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="">Combo 13</Capability>
+  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="">Combo 14</Capability>
+  <Capability Min="160" Max="249" Preset="RotationClockwise">Combo wheel scroll</Capability>
+  <Capability Min="250" Max="255">Sound activated mode</Capability>
+ </Channel>
+ <Channel Name="Strobe/Gobo Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="45" Preset="StrobeRandom">Strobe speed 1</Capability>
+  <Capability Min="46" Max="115" Preset="StrobeRandom">Strobe speed 2</Capability>
+  <Capability Min="116" Max="150" Preset="StrobeRandom">Strobe speed 3</Capability>
+  <Capability Min="151" Max="185" Preset="StrobeRandom">Strobe speed 4</Capability>
+  <Capability Min="186" Max="220" Preset="StrobeRandom">Strobe speed 5</Capability>
+  <Capability Min="221" Max="255" Preset="StrobeRandom">Strobe speed 6</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Mode Name="Default">
+  <Channel Number="0">Color/Gobo Combo</Channel>
+  <Channel Number="1">Strobe/Gobo Strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="EFR 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.72" Width="356" Height="279" Depth="279"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Barrel" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

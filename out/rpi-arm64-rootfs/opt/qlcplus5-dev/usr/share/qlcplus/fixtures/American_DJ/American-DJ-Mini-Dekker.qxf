@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Chris Davis</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Mini Dekker</Model>
+ <Type>Flower</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Motor Function Control">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Select Postion</Capability>
+  <Capability Min="128" Max="255">Rotation Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Color Selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="84">Color Mixing</Capability>
+  <Capability Min="85" Max="255">Color Fading Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="DMX Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">DMX Control ON</Capability>
+  <Capability Min="10" Max="255">Show Mode</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Motor Function Control</Channel>
+  <Channel Number="7">Color Selection</Channel>
+  <Channel Number="8">DMX Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.7" Width="200" Height="218" Depth="198"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

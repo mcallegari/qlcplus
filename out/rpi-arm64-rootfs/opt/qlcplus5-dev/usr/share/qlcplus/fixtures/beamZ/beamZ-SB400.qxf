@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Dmitry Kolesnikov</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>SB400</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No function</Capability>
+  <Capability Min="51" Max="200">Macro function</Capability>
+  <Capability Min="201" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Macro function speed adjustable</Capability>
+ </Channel>
+ <Channel Name="LED 1" Preset="IntensityDimmer"/>
+ <Channel Name="LED 2" Preset="IntensityDimmer"/>
+ <Channel Name="LED 3" Preset="IntensityDimmer"/>
+ <Channel Name="LED 4" Preset="IntensityDimmer"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Macro</Channel>
+  <Channel Number="3">Macro Speed</Channel>
+  <Channel Number="4">LED 1</Channel>
+  <Channel Number="5">LED 2</Channel>
+  <Channel Number="6">LED 3</Channel>
+  <Channel Number="7">LED 4</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.85" Width="275" Height="275" Depth="125"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

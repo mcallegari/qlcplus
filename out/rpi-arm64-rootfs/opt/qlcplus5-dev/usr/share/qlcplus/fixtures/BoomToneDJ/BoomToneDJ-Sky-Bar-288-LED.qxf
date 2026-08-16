@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Didou</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>Sky bar 288 LED</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">0 &gt; 255</Capability>
+ </Channel>
+ <Channel Name="RGB Mix/Color Fade Speed/Program Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">0 &gt; 255</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="3 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+ </Mode>
+ <Mode Name="4 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="7 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Program</Channel>
+  <Channel Number="4">RGB Mix/Color Fade Speed/Program Speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="10 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Program</Channel>
+  <Channel Number="7">RGB Mix/Color Fade Speed/Program Speed</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Master Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Program</Channel>
+  <Channel Number="13">RGB Mix/Color Fade Speed/Program Speed</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Channel Number="15">Master Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="24 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28 channels">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Channel Number="24">Program</Channel>
+  <Channel Number="25">RGB Mix/Color Fade Speed/Program Speed</Channel>
+  <Channel Number="26">Strobe</Channel>
+  <Channel Number="27">Master Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.4" Width="1050" Height="140" Depth="130"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="31" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

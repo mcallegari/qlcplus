@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>Venue</Manufacturer>
+ <Model>LED PAR64</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">Color 1</Capability>
+  <Capability Min="16" Max="23">Color 2</Capability>
+  <Capability Min="24" Max="31">Color 3</Capability>
+  <Capability Min="32" Max="39">Color 4</Capability>
+  <Capability Min="40" Max="47">Color 5</Capability>
+  <Capability Min="48" Max="55">Color 6</Capability>
+  <Capability Min="56" Max="63">Color 7</Capability>
+  <Capability Min="64" Max="71">Color 8</Capability>
+  <Capability Min="72" Max="79">Color 9</Capability>
+  <Capability Min="80" Max="87">Color 10</Capability>
+  <Capability Min="88" Max="95">Color 11</Capability>
+  <Capability Min="96" Max="103">Color 12</Capability>
+  <Capability Min="104" Max="111">Color 13</Capability>
+  <Capability Min="112" Max="119">Color 14</Capability>
+  <Capability Min="120" Max="127">Color 15</Capability>
+  <Capability Min="128" Max="135">Color 16</Capability>
+  <Capability Min="136" Max="143">Color 17</Capability>
+  <Capability Min="144" Max="151">Color 18</Capability>
+  <Capability Min="152" Max="159">Color 19</Capability>
+  <Capability Min="160" Max="167">Color 20</Capability>
+  <Capability Min="168" Max="175">Color 21</Capability>
+  <Capability Min="176" Max="183">Color 22</Capability>
+  <Capability Min="184" Max="191">Color 23</Capability>
+  <Capability Min="192" Max="199">Color 24</Capability>
+  <Capability Min="200" Max="207">Color 25</Capability>
+  <Capability Min="208" Max="215">Color 26</Capability>
+  <Capability Min="216" Max="223">Color 27</Capability>
+  <Capability Min="224" Max="231">Color 28</Capability>
+  <Capability Min="232" Max="239">Color 29</Capability>
+  <Capability Min="240" Max="247">Color 30</Capability>
+  <Capability Min="248" Max="255">Color 31</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off/Slowest</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Slow to fast Strobe (increments every 16)</Capability>
+ </Channel>
+ <Channel Name="Presets/Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Blink</Capability>
+  <Capability Min="32" Max="63">Fade In</Capability>
+  <Capability Min="64" Max="95">Fade Out</Capability>
+  <Capability Min="96" Max="127">Fade In/Out</Capability>
+  <Capability Min="128" Max="159">Color Fade Cycle</Capability>
+  <Capability Min="160" Max="191">RGB Cycle (Instant Switch)</Capability>
+  <Capability Min="192" Max="223">Color Cycle (Instant Switch)</Capability>
+  <Capability Min="224" Max="255">Sound Active Color Cycle (Instant)</Capability>
+ </Channel>
+ <Mode Name="Venue LED PAR64">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macro</Channel>
+  <Channel Number="4">Strobe Speed</Channel>
+  <Channel Number="5">Presets/Sound</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="400" Height="300" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

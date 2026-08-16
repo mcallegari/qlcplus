@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Yestalgia</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Atomic 3000 LED</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Beam Flash Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Beam flash duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">7→ 650 ms</Capability>
+ </Channel>
+ <Channel Name="Beam flash rate">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0.29" Res2="16.67">Slow (0.289) → fast (16.67 Hz)</Capability>
+ </Channel>
+ <Channel Name="Beam special effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No effect</Capability>
+  <Capability Min="6" Max="42">Ramp up</Capability>
+  <Capability Min="43" Max="85">Ramp down</Capability>
+  <Capability Min="86" Max="128">Ramp up, down</Capability>
+  <Capability Min="129" Max="171">Random</Capability>
+  <Capability Min="172" Max="214">Lightning</Capability>
+  <Capability Min="215" Max="255">Spikes (flash over low light)</Capability>
+ </Channel>
+ <Channel Name="Control / settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Reset entire fixture - 5 sec.</Capability>
+  <Capability Min="15" Max="22">No function</Capability>
+  <Capability Min="23" Max="23">Linear dimming curve - 1 sec. (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="24" Max="24">Square law dimming curve - 1 sec. (menu override, factory default setting, setting unaffected by power off/on)</Capability>
+  <Capability Min="25" Max="25">Inverse square law dimming curve - 1 sec. (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="26" Max="26">S-curve dimming curve - 1 sec. (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="27" Max="35">No function</Capability>
+  <Capability Min="36" Max="36">Enable video tracking</Capability>
+  <Capability Min="37" Max="37">Disable video tracking</Capability>
+  <Capability Min="38" Max="51">No function</Capability>
+  <Capability Min="52" Max="52">Turn on control panel display - 1 sec.</Capability>
+  <Capability Min="53" Max="53">Turn off control panel display - 1 sec.</Capability>
+  <Capability Min="54" Max="54">Regulated fans speed, fixed light output intensity = full (default setting, menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="55" Max="55">Fixed fan speed = full, regulated light output intensity (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="56" Max="56">Fixed fan speed = medium, regulated light output intensity (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="57" Max="57">Fixed fan speed = low, regulated light output intensity (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="58" Max="58">Fixed fan speed = ultra low, regulated light output intensity (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="59" Max="59">Strobe behavior = LED (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="60" Max="60">Strobe behavior = Xenon (menu override, setting unaffected by power off/on)</Capability>
+  <Capability Min="61" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="FX Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="1">Wave (sine wave)</Capability>
+  <Capability Min="2" Max="2">Step (50/50 on/off)</Capability>
+  <Capability Min="3" Max="3">Pulse</Capability>
+  <Capability Min="4" Max="5">No function</Capability>
+  <Capability Min="6" Max="6">Double strobe</Capability>
+  <Capability Min="7" Max="7">Triple strobe</Capability>
+  <Capability Min="8" Max="10">No function</Capability>
+  <Capability Min="11" Max="11">Up, down, flash</Capability>
+  <Capability Min="12" Max="12">Up, flash, down, flash</Capability>
+  <Capability Min="13" Max="13">Random levels</Capability>
+  <Capability Min="14" Max="19">No function</Capability>
+  <Capability Min="20" Max="20">House light</Capability>
+  <Capability Min="21" Max="50">No function</Capability>
+  <Capability Min="51" Max="51">Aura pulse</Capability>
+  <Capability Min="52" Max="53">No function</Capability>
+  <Capability Min="54" Max="54">Aura ramp</Capability>
+  <Capability Min="55" Max="55">No function</Capability>
+  <Capability Min="56" Max="56">Rainbow wave</Capability>
+  <Capability Min="57" Max="57">Rainbow step</Capability>
+  <Capability Min="58" Max="58">Rainbow pulse</Capability>
+  <Capability Min="59" Max="60">No function</Capability>
+  <Capability Min="61" Max="61">RGB wave</Capability>
+  <Capability Min="62" Max="62">RGB step</Capability>
+  <Capability Min="63" Max="63">RGB pulse</Capability>
+  <Capability Min="64" Max="65">No function</Capability>
+  <Capability Min="66" Max="66">CMY wave</Capability>
+  <Capability Min="67" Max="67">CMY step</Capability>
+  <Capability Min="68" Max="68">CMY pulse</Capability>
+  <Capability Min="69" Max="70">No function</Capability>
+  <Capability Min="71" Max="71">Mix to white wave</Capability>
+  <Capability Min="72" Max="72">Mix to white step</Capability>
+  <Capability Min="73" Max="73">Mix to white pulse</Capability>
+  <Capability Min="74" Max="75">No function</Capability>
+  <Capability Min="76" Max="76">Random mix wave</Capability>
+  <Capability Min="77" Max="77">Random mix step</Capability>
+  <Capability Min="78" Max="78">Random mix pulse</Capability>
+  <Capability Min="79" Max="80">No function</Capability>
+  <Capability Min="81" Max="81">Random subtle wave</Capability>
+  <Capability Min="82" Max="83">No function</Capability>
+  <Capability Min="84" Max="84">Red white blue fade</Capability>
+  <Capability Min="85" Max="85">Red white blue snaps</Capability>
+  <Capability Min="86" Max="95">No function</Capability>
+  <Capability Min="96" Max="96">Water</Capability>
+  <Capability Min="97" Max="97">Fire</Capability>
+  <Capability Min="98" Max="98">Ice</Capability>
+  <Capability Min="99" Max="99">Hot and cold</Capability>
+  <Capability Min="100" Max="100">Warm and fuzzy</Capability>
+  <Capability Min="101" Max="101">Silver and gold</Capability>
+  <Capability Min="102" Max="102">Gold and silver</Capability>
+  <Capability Min="103" Max="103">No function</Capability>
+  <Capability Min="104" Max="104">Circular chase slim</Capability>
+  <Capability Min="105" Max="105">Circular chase wide</Capability>
+  <Capability Min="106" Max="107">No function</Capability>
+  <Capability Min="108" Max="108">Double circular chase slim</Capability>
+  <Capability Min="109" Max="109">Double circular chase wide</Capability>
+  <Capability Min="110" Max="111">No function</Capability>
+  <Capability Min="112" Max="112">Vertical scroll</Capability>
+  <Capability Min="113" Max="113">Horizontal scroll (L/R)</Capability>
+  <Capability Min="114" Max="115">No function</Capability>
+  <Capability Min="116" Max="116">Knight Rider slim</Capability>
+  <Capability Min="117" Max="117">Knight Rider wide</Capability>
+  <Capability Min="118" Max="118">Knight Rider slim with CW surface</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
+  <Capability Min="120" Max="120">4 segments scroll</Capability>
+  <Capability Min="121" Max="121">6 segments scroll</Capability>
+  <Capability Min="122" Max="123">No function</Capability>
+  <Capability Min="124" Max="124">Police car 1</Capability>
+  <Capability Min="125" Max="125">Police car 2</Capability>
+  <Capability Min="126" Max="126">Police car 3</Capability>
+  <Capability Min="127" Max="129">No function</Capability>
+  <Capability Min="130" Max="130">Full bumps</Capability>
+  <Capability Min="131" Max="131">Split bumps CW vertical</Capability>
+  <Capability Min="132" Max="132">Split bumps CW horizontal</Capability>
+  <Capability Min="133" Max="133">Random split bumps CW vertical</Capability>
+  <Capability Min="134" Max="134">Random split bumps CW horizontal</Capability>
+  <Capability Min="135" Max="135">Color shaker CW vertical</Capability>
+  <Capability Min="136" Max="136">Color shaker CW horizontal</Capability>
+  <Capability Min="137" Max="137">Color shaker CW vertical and no black frame</Capability>
+  <Capability Min="138" Max="138">Color shaker CW horizontal and no black frame</Capability>
+  <Capability Min="139" Max="143">No function</Capability>
+  <Capability Min="144" Max="144">Swimming pool</Capability>
+  <Capability Min="145" Max="145">Electric arc</Capability>
+  <Capability Min="146" Max="150">No function</Capability>
+  <Capability Min="151" Max="151">Thunderstorm</Capability>
+  <Capability Min="152" Max="152">Welding</Capability>
+  <Capability Min="153" Max="153">3 Step strobe</Capability>
+  <Capability Min="154" Max="154">Tick Tock</Capability>
+  <Capability Min="155" Max="155">Aura ramp beam flash</Capability>
+  <Capability Min="156" Max="156">Beam ramp aura flash</Capability>
+  <Capability Min="157" Max="160">No function</Capability>
+  <Capability Min="161" Max="161">Police Car 4</Capability>
+  <Capability Min="162" Max="162">Police Car 5</Capability>
+  <Capability Min="163" Max="163">Police Car 6</Capability>
+  <Capability Min="164" Max="164">Police Car 7</Capability>
+  <Capability Min="165" Max="165">Police Car 8</Capability>
+  <Capability Min="166" Max="166">Police Car 9</Capability>
+  <Capability Min="167" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="FX Adjustment">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="126">Effect reversed fast → slow</Capability>
+  <Capability Min="127" Max="128">Effect stops</Capability>
+  <Capability Min="129" Max="255">Effect slow → fast</Capability>
+ </Channel>
+ <Channel Name="FX synchronization">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">No sync</Capability>
+  <Capability Min="1" Max="1">Offset shift 10°</Capability>
+  <Capability Min="2" Max="2">Offset shift 20°</Capability>
+  <Capability Min="3" Max="3">Offset shift 30°</Capability>
+  <Capability Min="4" Max="4">Offset shift 40°</Capability>
+  <Capability Min="5" Max="5">Offset shift 50°</Capability>
+  <Capability Min="6" Max="6">Offset shift 60°</Capability>
+  <Capability Min="7" Max="7">Offset shift 70°</Capability>
+  <Capability Min="8" Max="8">Offset shift 80°</Capability>
+  <Capability Min="9" Max="9">Offset shift 90°</Capability>
+  <Capability Min="10" Max="10">Offset shift 100°</Capability>
+  <Capability Min="11" Max="11">Offset shift 110°</Capability>
+  <Capability Min="12" Max="12">Offset shift 120°</Capability>
+  <Capability Min="13" Max="13">Offset shift 130°</Capability>
+  <Capability Min="14" Max="14">Offset shift 140°</Capability>
+  <Capability Min="15" Max="15">Offset shift 150°</Capability>
+  <Capability Min="16" Max="16">Offset shift 160°</Capability>
+  <Capability Min="17" Max="17">Offset shift 170°</Capability>
+  <Capability Min="18" Max="18">Offset shift 180°</Capability>
+  <Capability Min="19" Max="19">Offset shift 190°</Capability>
+  <Capability Min="20" Max="20">Offset shift 200°</Capability>
+  <Capability Min="21" Max="21">Offset shift 210°</Capability>
+  <Capability Min="22" Max="22">Offset shift 220°</Capability>
+  <Capability Min="23" Max="23">Offset shift 230°</Capability>
+  <Capability Min="24" Max="24">Offset shift 240°</Capability>
+  <Capability Min="25" Max="25">Offset shift 250°</Capability>
+  <Capability Min="26" Max="26">Offset shift 260°</Capability>
+  <Capability Min="27" Max="27">Offset shift 270°</Capability>
+  <Capability Min="28" Max="28">Offset shift 280°</Capability>
+  <Capability Min="29" Max="29">Offset shift 290°</Capability>
+  <Capability Min="30" Max="30">Offset shift 300°</Capability>
+  <Capability Min="31" Max="31">Offset shift 310°</Capability>
+  <Capability Min="32" Max="32">Offset shift 320°</Capability>
+  <Capability Min="33" Max="33">Offset shift 330°</Capability>
+  <Capability Min="34" Max="34">Offset shift 340°</Capability>
+  <Capability Min="35" Max="35">Offset shift 350°</Capability>
+  <Capability Min="36" Max="36">Synchronized: all fixtures start FX cycles at same time</Capability>
+  <Capability Min="37" Max="100">No function</Capability>
+  <Capability Min="101" Max="120">Random start</Capability>
+  <Capability Min="121" Max="140">Random duration</Capability>
+  <Capability Min="141" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Aura strobe/shutter effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Shutter closed</Capability>
+  <Capability Min="20" Max="49">Shutter open</Capability>
+  <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe, slow → fast</Capability>
+  <Capability Min="201" Max="210">Shutter open</Capability>
+  <Capability Min="211" Max="255">Random strobe, slow → fast</Capability>
+ </Channel>
+ <Channel Name="Aura dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Aura Red" Preset="IntensityRed"/>
+ <Channel Name="Aura Green" Preset="IntensityGreen"/>
+ <Channel Name="Aura Blue" Preset="IntensityBlue"/>
+ <Channel Name="Aura color presets (‘color wheel’ effect)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Open. RGB Color Mixing Enabled</Capability>
+  <Capability Min="11" Max="15">Color 1 - LEE 790 - Moroccan pink</Capability>
+  <Capability Min="16" Max="20">Color 2- LEE 157 - Pink</Capability>
+  <Capability Min="21" Max="25">Color 3 - LEE 332 - Special rose pink</Capability>
+  <Capability Min="26" Max="30">Color 4 - LEE 328 - Follies pink</Capability>
+  <Capability Min="31" Max="35">Color 5 - LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="36" Max="40">Color 6 - LEE 194 - Surprise pink</Capability>
+  <Capability Min="41" Max="45">Color 7 - LEE 181 - Congo Blue</Capability>
+  <Capability Min="46" Max="50">Color 8 - LEE 071 - Tokyo Blue</Capability>
+  <Capability Min="51" Max="55">Color 9 - LEE 120 - Deep Blue</Capability>
+  <Capability Min="56" Max="60">Color 10 - LEE 079 - Just Blue</Capability>
+  <Capability Min="61" Max="65">Color 11 - LEE 132 - Medium Blue</Capability>
+  <Capability Min="66" Max="70">Color 12 - LEE 200 - Double CT Blue</Capability>
+  <Capability Min="71" Max="75">Color 13 - LEE 161 - Slate Blue</Capability>
+  <Capability Min="76" Max="80">Color 14 - LEE 201 - Full CT Blue</Capability>
+  <Capability Min="81" Max="85">Color 15 - LEE 202 - Half CT Blue</Capability>
+  <Capability Min="86" Max="90">Color 16 - LEE 117 - Steel Blue</Capability>
+  <Capability Min="91" Max="95">Color 17 - LEE 353 - Lighter Blue</Capability>
+  <Capability Min="96" Max="100">Color 18 - LEE 118 - Light Blue</Capability>
+  <Capability Min="101" Max="105">Color 19 - LEE 116 - Medium Blue Green</Capability>
+  <Capability Min="106" Max="110">Color 20 - LEE 124 - Dark Green</Capability>
+  <Capability Min="111" Max="115">Color 21 - LEE 139 - Primary Green</Capability>
+  <Capability Min="116" Max="120">Color 22 - LEE 089 - Moss Green</Capability>
+  <Capability Min="121" Max="125">Color 23 - LEE 122 - Fern Green</Capability>
+  <Capability Min="126" Max="130">Color 24 - LEE 738 - JAS Green</Capability>
+  <Capability Min="131" Max="135">Color 25 - LEE 088 - Lime Green</Capability>
+  <Capability Min="136" Max="140">Color 26 - LEE 100 - Spring Yellow</Capability>
+  <Capability Min="141" Max="145">Color 27 - LEE 104 - Deep Amber</Capability>
+  <Capability Min="146" Max="150">Color 28 - LEE 179 - Chrome Orange</Capability>
+  <Capability Min="151" Max="155">Color 29 - LEE 105 - Orange</Capability>
+  <Capability Min="156" Max="160">Color 30 - LEE 021 - Gold Amber</Capability>
+  <Capability Min="161" Max="165">Color 31 - LEE 778 - Millennium Gold</Capability>
+  <Capability Min="166" Max="170">Color 32 - LEE 135 - Deep Golden Amber</Capability>
+  <Capability Min="171" Max="175">Color 33 - LEE 164 - Flame Red</Capability>
+  <Capability Min="176" Max="180">Color 34 - Magenta</Capability>
+  <Capability Min="181" Max="185">Color 35 - Medium Lavender</Capability>
+  <Capability Min="186" Max="190">Color 36 - White</Capability>
+  <Capability Min="191" Max="214">Aura ‘color wheel rotation’ effect - Clockwise, fast → slow</Capability>
+  <Capability Min="215" Max="219">Aura ‘color wheel rotation’ effect - Stop (this will stop wherever the color is at the time)</Capability>
+  <Capability Min="220" Max="243">Aura ‘color wheel rotation’ effect - Counter-clockwise, slow → fast</Capability>
+  <Capability Min="244" Max="247">Aura random colors - Fast</Capability>
+  <Capability Min="248" Max="251">Aura random colors - Medium</Capability>
+  <Capability Min="252" Max="255">Aura random colors - Slow</Capability>
+ </Channel>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Beam Flash Intensity</Channel>
+  <Channel Number="1">Beam flash duration</Channel>
+  <Channel Number="2">Beam flash rate</Channel>
+ </Mode>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Beam Flash Intensity</Channel>
+  <Channel Number="1">Beam flash duration</Channel>
+  <Channel Number="2">Beam flash rate</Channel>
+  <Channel Number="3">Beam special effects</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Beam Flash Intensity</Channel>
+  <Channel Number="1">Beam flash duration</Channel>
+  <Channel Number="2">Beam flash rate</Channel>
+  <Channel Number="3">Beam special effects</Channel>
+  <Channel Number="4">Control / settings</Channel>
+  <Channel Number="5">FX Select</Channel>
+  <Channel Number="6">FX Adjustment</Channel>
+  <Channel Number="7">FX synchronization</Channel>
+  <Channel Number="8">Aura strobe/shutter effect</Channel>
+  <Channel Number="9">Aura dimmer</Channel>
+  <Channel Number="10">Aura Red</Channel>
+  <Channel Number="11">Aura Green</Channel>
+  <Channel Number="12">Aura Blue</Channel>
+  <Channel Number="13">Aura color presets (‘color wheel’ effect)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="180000" ColourTemperature="0"/>
+  <Dimensions Weight="7.8" Width="425" Height="240" Depth="245"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="740" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

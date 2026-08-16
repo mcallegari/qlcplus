@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Fede79</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>KUB 500 RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Pattern controlling mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="41">Laser light off</Capability>
+  <Capability Min="42" Max="83">DMX control mode</Capability>
+  <Capability Min="84" Max="125">Automatic control mode</Capability>
+  <Capability Min="126" Max="167">Line effect automatic control mode</Capability>
+  <Capability Min="168" Max="209">Animation effect sound control mode</Capability>
+  <Capability Min="210" Max="251">Automatic effect sound control mode</Capability>
+  <Capability Min="252" Max="255">Manual control sound mode</Capability>
+ </Channel>
+ <Channel Name="Pattern selection A">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Pattern group A</Capability>
+ </Channel>
+ <Channel Name="Pattern selection B">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Pattern group B</Capability>
+ </Channel>
+ <Channel Name="Pattern rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Rotation angle adjustment</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rotation clockwise rotation(from slow to fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation anti-clockwise rotation(from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern left and right reverse rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Left and right rotation angle selection</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Left and right reverse rotation speed (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern up and down reverse rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Up and down rotation angle selection</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Up and down reverse rotation speed adjustment(from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern left and right movement">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Left and right moving angle selection</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Left and right moving speed (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern up and down movement">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Up and down moving angle selection</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Up and down moving speed(from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern size">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="63">Size adjustment</Capability>
+  <Capability Min="64" Max="127" Preset="BigToSmall">Size zooming speed (from big to small)</Capability>
+  <Capability Min="128" Max="191" Preset="SmallToBig">Size zooming speed (from small to big)</Capability>
+  <Capability Min="192" Max="255" Preset="SlowToFast">Zooming (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern gradual drawing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Running gradual drawing effect(from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pattern controlling">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Scanning speed adjustment</Capability>
+  <Capability Min="128" Max="255">Running dot effect</Capability>
+ </Channel>
+ <Channel Name="Color selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Laser color selection</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Pattern controlling mode</Channel>
+  <Channel Number="1">Pattern selection A</Channel>
+  <Channel Number="2">Pattern selection B</Channel>
+  <Channel Number="3">Pattern rotation</Channel>
+  <Channel Number="4">Pattern left and right reverse rotation</Channel>
+  <Channel Number="5">Pattern up and down reverse rotation</Channel>
+  <Channel Number="6">Pattern left and right movement</Channel>
+  <Channel Number="7">Pattern up and down movement</Channel>
+  <Channel Number="8">Pattern size</Channel>
+  <Channel Number="9">Pattern gradual drawing</Channel>
+  <Channel Number="10">Pattern controlling</Channel>
+  <Channel Number="11">Color selection</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="193" Height="136" Depth="215"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6</Version>
+  <Author>David Thomas</Author>
+ </Creator>
+ <Manufacturer>ADJ</Manufacturer>
+ <Model>MIDICON-2</Model>
+ <Type>MIDI</Type>
+ <Channel Number="1">
+  <Name>Fader 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Fader 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Fader 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Fader 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Fader 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Fader 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Fader 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Fader 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>MASTER</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="57">
+  <Name>PLAYBACK Next</Name>
+  <Type>Next Page</Type>
+ </Channel>
+ <Channel Number="58">
+  <Name>PLAYBACK Previous</Name>
+  <Type>Previous Page</Type>
+ </Channel>
+ <Channel Number="65">
+  <Name>MATRIX Next</Name>
+  <Type>Next Page</Type>
+ </Channel>
+ <Channel Number="66">
+  <Name>MATRIX Previous</Name>
+  <Type>Previous Page</Type>
+ </Channel>
+ <Channel Number="78">
+  <Name>Wheel 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Wheel 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="82">
+  <Name>Wheel 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="84">
+  <Name>Wheel 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="86">
+  <Name>PLAYBACK Wheel 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="88">
+  <Name>PLAYBACK Wheel 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="90">
+  <Name>PLAYBACK Wheel 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="92">
+  <Name>PLAYBACK Wheel 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="94">
+  <Name>PLAYBACK Wheel 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="96">
+  <Name>PLAYBACK Wheel 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="98">
+  <Name>PLAYBACK Wheel 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="100">
+  <Name>PLAYBACK Wheel 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>MATRIX BUTTON 01</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>MATRIX BUTTON 02</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>MATRIX BUTTON 03</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>MATRIX BUTTON 04</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>MATRIX BUTTON 05</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>MATRIX BUTTON 06</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>MATRIX BUTTON 07</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>MATRIX BUTTON 08</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>MATRIX BUTTON 09</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>MATRIX BUTTON 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>MATRIX BUTTON 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>MATRIX BUTTON 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>MATRIX BUTTON 13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>MATRIX BUTTON 14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>MATRIX BUTTON 15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>MATRIX BUTTON 16</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>MATRIX BUTTON 17</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>MATRIX BUTTON 18</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>MATRIX BUTTON 19</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>MATRIX BUTTON 20</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>MATRIX BUTTON 21</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>MATRIX BUTTON 22</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>MATRIX BUTTON 23</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>MATRIX BUTTON 24</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>MATRIX BUTTON 25</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>MATRIX BUTTON 26</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>MATRIX BUTTON 27</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>MATRIX BUTTON 28</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>MATRIX BUTTON 29</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>MATRIX BUTTON 30</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>MATRIX BUTTON 31</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>MATRIX BUTTON 32</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>SHORTCUT A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>SHORTCUT B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>SHORTCUT C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>SHORTCUT D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>SHORTCUT E</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>SHORTCUT F</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>SHORTCUT G</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="168">
+  <Name>SHORTCUT H</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>Playback 1 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>Playback 2 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>Playback 3 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>Playback 4 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>Playback 5 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Playback 6 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Playback 7 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Playback 8 UP</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Playback 1 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>Playback 2 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Playback 3 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Playback 4 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Playback 5 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Playback 6 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Playback 7 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Playback 8 DOWN</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="187">
+  <Name>SHORTCUT S1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>SHORTCUT S2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>SHORTCUT S3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>SHORTCUT S4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>SHORTCUT S5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>SHORTCUT S6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>BLACKOUT</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

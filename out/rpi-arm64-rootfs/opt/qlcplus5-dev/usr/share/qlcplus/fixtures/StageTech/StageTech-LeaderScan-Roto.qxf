@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Noel Utter</Author>
+ </Creator>
+ <Manufacturer>StageTech</Manufacturer>
+ <Model>LeaderScan Roto</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="21" Max="40" Preset="ShutterOpen">Opened</Capability>
+  <Capability Min="41" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="32" Max="63" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle</Capability>
+  <Capability Min="64" Max="95" Preset="GoboMacro" Res1="Others/gobo00028.svg">Holes</Capability>
+  <Capability Min="96" Max="127" Preset="GoboMacro" Res1="Others/gobo00013.svg">Phone</Capability>
+  <Capability Min="128" Max="159" Preset="GoboMacro" Res1="Robe/gobo00027.svg">Clouds</Capability>
+  <Capability Min="160" Max="191" Preset="GoboMacro" Res1="Others/gobo00046.svg">Turbine</Capability>
+  <Capability Min="192" Max="223" Preset="GoboMacro" Res1="Others/gobo00011.svg">Sun</Capability>
+  <Capability Min="224" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Bar</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="11" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="12" Max="22" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#c53cff">White / Mauve</Capability>
+  <Capability Min="23" Max="33" Preset="ColorMacro" Res1="#c53cff">Mauve</Capability>
+  <Capability Min="34" Max="44" Preset="ColorDoubleMacro" Res1="#c53cff" Res2="#1937ff">Mauve / Dark Cyan</Capability>
+  <Capability Min="45" Max="55" Preset="ColorMacro" Res1="#1937ff">Dark Cyan</Capability>
+  <Capability Min="56" Max="66" Preset="ColorDoubleMacro" Res1="#1937ff" Res2="#10ac6b">Dark Cyan / Green</Capability>
+  <Capability Min="67" Max="77" Preset="ColorMacro" Res1="#10ac6b">Green</Capability>
+  <Capability Min="78" Max="88" Preset="ColorDoubleMacro" Res1="#10ac6b" Res2="#ffce0a">Green / Amber</Capability>
+  <Capability Min="89" Max="99" Preset="ColorMacro" Res1="#ffce0a">Amber</Capability>
+  <Capability Min="100" Max="110" Preset="ColorDoubleMacro" Res1="#ffce0a" Res2="#0000a0">Amber / UV Blue</Capability>
+  <Capability Min="111" Max="121" Preset="ColorMacro" Res1="#0000a0">UV Blue</Capability>
+  <Capability Min="122" Max="133" Preset="ColorDoubleMacro" Res1="#0000a0" Res2="#aa0000">UV Blue / Red</Capability>
+  <Capability Min="134" Max="144" Preset="ColorMacro" Res1="#aa0000">Red</Capability>
+  <Capability Min="145" Max="155" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#ffff00">Red / Yellow</Capability>
+  <Capability Min="156" Max="166" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="167" Max="177" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#40acff">Yellow / Cyan</Capability>
+  <Capability Min="178" Max="188" Preset="ColorMacro" Res1="#40acff">Cyan</Capability>
+  <Capability Min="189" Max="199" Preset="ColorDoubleMacro" Res1="#40acff" Res2="#e251c8">Cyan / Pink</Capability>
+  <Capability Min="200" Max="210" Preset="ColorMacro" Res1="#e251c8">Pink</Capability>
+  <Capability Min="211" Max="221" Preset="ColorDoubleMacro" Res1="#e251c8" Res2="#aaff00">Pink / Light green</Capability>
+  <Capability Min="222" Max="232" Preset="ColorMacro" Res1="#aaff00">Light green</Capability>
+  <Capability Min="233" Max="243" Preset="ColorDoubleMacro" Res1="#aaff00" Res2="#ffa500">Light green / Orange</Capability>
+  <Capability Min="244" Max="250" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="251" Max="253">Rainbow 1</Capability>
+  <Capability Min="254" Max="255">Rainbow 2</Capability>
+ </Channel>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Rotation speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="122">Clockwise</Capability>
+  <Capability Min="123" Max="132">Stationary</Capability>
+  <Capability Min="133" Max="255">Counter clockwise</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Movement Speed</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Rotation speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="6900"/>
+  <Dimensions Weight="12" Width="250" Height="550" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="70"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Bostjan Vodnik</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>LED Par 64 36x3W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="36 Macro colors" Preset="ColorMacro"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Built-in Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">No function</Capability>
+  <Capability Min="36" Max="71">Slow Fade in to Full beam then Out</Capability>
+  <Capability Min="72" Max="107">Full beam to slow Fade out</Capability>
+  <Capability Min="108" Max="143">Slow Fade in to Full beam to Slow Fade Out</Capability>
+  <Capability Min="144" Max="179">Continuous flow of all colors from slow to fast</Capability>
+  <Capability Min="180" Max="251">Color Switching</Capability>
+  <Capability Min="252" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="1-Channel">
+  <Channel Number="0">36 Macro colors</Channel>
+ </Mode>
+ <Mode Name="2-Channel">
+  <Channel Number="0">36 Macro colors</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">36 Macro colors</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Built-in Programs</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.62" Width="140" Height="282" Depth="285"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="105" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Nicholas Fazio</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>4Bar Tri</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">RGB</Capability>
+  <Capability Min="10" Max="29">Automatic 1</Capability>
+  <Capability Min="30" Max="49">Automatic 2</Capability>
+  <Capability Min="50" Max="69">Automatic 3</Capability>
+  <Capability Min="70" Max="89">Automatic 4</Capability>
+  <Capability Min="90" Max="109">Automatic 5</Capability>
+  <Capability Min="110" Max="129">Automatic 6</Capability>
+  <Capability Min="130" Max="149">Automatic 7</Capability>
+  <Capability Min="150" Max="169">Automatic 8</Capability>
+  <Capability Min="170" Max="189">Automatic 9</Capability>
+  <Capability Min="190" Max="209">Automatic 10</Capability>
+  <Capability Min="210" Max="229">Automatic 11</Capability>
+  <Capability Min="230" Max="249">Automatic 12</Capability>
+  <Capability Min="250" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">1-100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">NONE</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe Slow-&gt;Fast</Capability>
+ </Channel>
+ <Channel Name="1Red" Preset="IntensityRed"/>
+ <Channel Name="1Green" Preset="IntensityGreen"/>
+ <Channel Name="1Blue" Preset="IntensityBlue"/>
+ <Channel Name="2Red" Preset="IntensityRed"/>
+ <Channel Name="2Green" Preset="IntensityGreen"/>
+ <Channel Name="2Blue" Preset="IntensityBlue"/>
+ <Channel Name="3Red" Preset="IntensityRed"/>
+ <Channel Name="3Green" Preset="IntensityGreen"/>
+ <Channel Name="3Blue" Preset="IntensityBlue"/>
+ <Channel Name="4Red" Preset="IntensityRed"/>
+ <Channel Name="4Green" Preset="IntensityGreen"/>
+ <Channel Name="4Blue" Preset="IntensityBlue"/>
+ <Mode Name="Main ">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">1Red</Channel>
+  <Channel Number="4">1Green</Channel>
+  <Channel Number="5">1Blue</Channel>
+  <Channel Number="6">2Red</Channel>
+  <Channel Number="7">2Green</Channel>
+  <Channel Number="8">2Blue</Channel>
+  <Channel Number="9">3Red</Channel>
+  <Channel Number="10">3Green</Channel>
+  <Channel Number="11">3Blue</Channel>
+  <Channel Number="12">4Red</Channel>
+  <Channel Number="13">4Green</Channel>
+  <Channel Number="14">4Blue</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="14.1" Width="1219" Height="285" Depth="55"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="115" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

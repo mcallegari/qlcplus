@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>samuelb</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED Matrix Blinder 5x5</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Operating-Mode (28-Channel Mode)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">LEDs off</Capability>
+  <Capability Min="1" Max="9">All LEDs on</Capability>
+  <Capability Min="10" Max="19">Letter display, to be selected with channel 28</Capability>
+  <Capability Min="20" Max="29">Number display, to be selected with channel 28</Capability>
+  <Capability Min="30" Max="39">Preprogrammed automatic show no. 1</Capability>
+  <Capability Min="40" Max="49">Preprogrammed automatic show no. 2</Capability>
+  <Capability Min="50" Max="59">Preprogrammed automatic show no. 3</Capability>
+  <Capability Min="60" Max="69">Preprogrammed automatic show no. 4</Capability>
+  <Capability Min="70" Max="79">Preprogrammed automatic show no. 5</Capability>
+  <Capability Min="80" Max="89">Preprogrammed automatic show no. 6</Capability>
+  <Capability Min="90" Max="99">Preprogrammed automatic show no. 7</Capability>
+  <Capability Min="100" Max="109">Preprogrammed automatic show no. 8</Capability>
+  <Capability Min="110" Max="119">Preprogrammed automatic show no. 9</Capability>
+  <Capability Min="120" Max="129">Preprogrammed automatic show no. 10</Capability>
+  <Capability Min="130" Max="139">Preprogrammed automatic show no. 11</Capability>
+  <Capability Min="140" Max="149">Preprogrammed automatic show no. 12</Capability>
+  <Capability Min="150" Max="159">Preprogrammed automatic show no. 13</Capability>
+  <Capability Min="160" Max="169">Preprogrammed automatic show no. 14</Capability>
+  <Capability Min="170" Max="179">Preprogrammed automatic show no. 15</Capability>
+  <Capability Min="180" Max="189">Preprogrammed automatic show no. 16</Capability>
+  <Capability Min="190" Max="199">Preprogrammed automatic show no. 17</Capability>
+  <Capability Min="200" Max="209">Preprogrammed automatic show no. 18</Capability>
+  <Capability Min="210" Max="219">Preprogrammed automatic show no. 19</Capability>
+  <Capability Min="220" Max="229">Preprogrammed automatic show no. 20</Capability>
+  <Capability Min="230" Max="239">Preprogrammed automatic show no. 21</Capability>
+  <Capability Min="240" Max="255">Sound-controlled show</Capability>
+ </Channel>
+ <Channel Name="Letter/Number/Speed Adjustment (Increasing Speed 0..255)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Letter 'A'/Number '0'</Capability>
+  <Capability Min="10" Max="19">Letter 'B'/Number '0'</Capability>
+  <Capability Min="20" Max="27">Letter 'C'/Number '0'</Capability>
+  <Capability Min="28" Max="29">Letter 'C'/Number '1'</Capability>
+  <Capability Min="30" Max="39">Letter 'D'/Number '1'</Capability>
+  <Capability Min="40" Max="49">Letter 'E'/Number '1'</Capability>
+  <Capability Min="50" Max="55">Letter 'F'/Number '1'</Capability>
+  <Capability Min="56" Max="59">Letter 'F'/Number '2'</Capability>
+  <Capability Min="60" Max="69">Letter 'G'/Number '2'</Capability>
+  <Capability Min="70" Max="79">Letter 'H'/Number '2'</Capability>
+  <Capability Min="80" Max="83">Letter 'I'/Number '2'</Capability>
+  <Capability Min="84" Max="89">Letter 'I'/Number '3'</Capability>
+  <Capability Min="90" Max="99">Letter 'J'/Number '3'</Capability>
+  <Capability Min="100" Max="109">Letter 'K'/Number '3'</Capability>
+  <Capability Min="110" Max="111">Letter 'L'/Number '3'</Capability>
+  <Capability Min="112" Max="119">Letter 'L'/Number '4'</Capability>
+  <Capability Min="120" Max="129">Letter 'M'/Number '4'</Capability>
+  <Capability Min="130" Max="139">Letter 'N'/Number '4'</Capability>
+  <Capability Min="140" Max="149">Letter 'O'/Number '5'</Capability>
+  <Capability Min="150" Max="159">Letter 'P'/Number '5'</Capability>
+  <Capability Min="160" Max="167">Letter 'Q'/Number '5'</Capability>
+  <Capability Min="168" Max="169">Letter 'Q'/Number '6'</Capability>
+  <Capability Min="170" Max="179">Letter 'R'/Number '6'</Capability>
+  <Capability Min="180" Max="189">Letter 'S'/Number '6'</Capability>
+  <Capability Min="190" Max="195">Letter 'T'/Number '6'</Capability>
+  <Capability Min="196" Max="199">Letter 'T'/Number '7'</Capability>
+  <Capability Min="200" Max="209">Letter 'U'/Number '7'</Capability>
+  <Capability Min="210" Max="219">Letter 'V'/Number '7'</Capability>
+  <Capability Min="220" Max="224">Letter 'W'/Number '7'</Capability>
+  <Capability Min="225" Max="229">Letter 'W'/Number '8'</Capability>
+  <Capability Min="230" Max="239">Letter 'X'/Number '8'</Capability>
+  <Capability Min="240" Max="249">Letter 'Y'/Number '8'</Capability>
+  <Capability Min="250" Max="251">Letter 'Z'/Number '8'</Capability>
+  <Capability Min="252" Max="255">Letter 'Z'/Number '9'</Capability>
+ </Channel>
+ <Channel Name="Speed Adjustment (chan 27=30...255)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer for LED No. 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 5" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 6" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 7" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 8" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 9" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 10" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 11" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 12" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 13" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 14" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 15" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 16" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 17" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 18" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 19" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 20" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 21" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 22" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 23" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 24" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 25" Preset="IntensityDimmer"/>
+ <Channel Name="Operating Mode (4-Channel Mode)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="1" Max="11">Preprogrammed automatic show no. 1</Capability>
+  <Capability Min="12" Max="23">Preprogrammed automatic show no. 2</Capability>
+  <Capability Min="24" Max="35">Preprogrammed automatic show no. 3</Capability>
+  <Capability Min="36" Max="47">Preprogrammed automatic show no. 4</Capability>
+  <Capability Min="48" Max="59">Preprogrammed automatic show no. 5</Capability>
+  <Capability Min="60" Max="71">Preprogrammed automatic show no. 6</Capability>
+  <Capability Min="72" Max="83">Preprogrammed automatic show no. 7</Capability>
+  <Capability Min="84" Max="95">Preprogrammed automatic show no. 8</Capability>
+  <Capability Min="96" Max="107">Preprogrammed automatic show no. 9</Capability>
+  <Capability Min="108" Max="119">Preprogrammed automatic show no. 10</Capability>
+  <Capability Min="120" Max="131">Preprogrammed automatic show no. 11</Capability>
+  <Capability Min="132" Max="143">Preprogrammed automatic show no. 12</Capability>
+  <Capability Min="144" Max="155">Preprogrammed automatic show no. 13</Capability>
+  <Capability Min="156" Max="167">Preprogrammed automatic show no. 14</Capability>
+  <Capability Min="168" Max="179">Preprogrammed automatic show no. 15</Capability>
+  <Capability Min="180" Max="191">Preprogrammed automatic show no. 16</Capability>
+  <Capability Min="192" Max="203">Preprogrammed automatic show no. 17</Capability>
+  <Capability Min="204" Max="215">Preprogrammed automatic show no. 18</Capability>
+  <Capability Min="216" Max="227">Preprogrammed automatic show no. 19</Capability>
+  <Capability Min="228" Max="239">Preprogrammed automatic show no. 20</Capability>
+  <Capability Min="240" Max="251">Preprogrammed automatic show no. 21</Capability>
+  <Capability Min="252" Max="255">Sound-controlled show</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing</Capability>
+ </Channel>
+ <Channel Name="Strobe Effect" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="1-Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="26-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer for LED No. 1</Channel>
+  <Channel Number="2">Dimmer for LED No. 2</Channel>
+  <Channel Number="3">Dimmer for LED No. 3</Channel>
+  <Channel Number="4">Dimmer for LED No. 4</Channel>
+  <Channel Number="5">Dimmer for LED No. 5</Channel>
+  <Channel Number="6">Dimmer for LED No. 6</Channel>
+  <Channel Number="7">Dimmer for LED No. 7</Channel>
+  <Channel Number="8">Dimmer for LED No. 8</Channel>
+  <Channel Number="9">Dimmer for LED No. 9</Channel>
+  <Channel Number="10">Dimmer for LED No. 10</Channel>
+  <Channel Number="11">Dimmer for LED No. 11</Channel>
+  <Channel Number="12">Dimmer for LED No. 12</Channel>
+  <Channel Number="13">Dimmer for LED No. 13</Channel>
+  <Channel Number="14">Dimmer for LED No. 14</Channel>
+  <Channel Number="15">Dimmer for LED No. 15</Channel>
+  <Channel Number="16">Dimmer for LED No. 16</Channel>
+  <Channel Number="17">Dimmer for LED No. 17</Channel>
+  <Channel Number="18">Dimmer for LED No. 18</Channel>
+  <Channel Number="19">Dimmer for LED No. 19</Channel>
+  <Channel Number="20">Dimmer for LED No. 20</Channel>
+  <Channel Number="21">Dimmer for LED No. 21</Channel>
+  <Channel Number="22">Dimmer for LED No. 22</Channel>
+  <Channel Number="23">Dimmer for LED No. 23</Channel>
+  <Channel Number="24">Dimmer for LED No. 24</Channel>
+  <Channel Number="25">Dimmer for LED No. 25</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer for LED No. 1</Channel>
+  <Channel Number="2">Dimmer for LED No. 2</Channel>
+  <Channel Number="3">Dimmer for LED No. 3</Channel>
+  <Channel Number="4">Dimmer for LED No. 4</Channel>
+  <Channel Number="5">Dimmer for LED No. 5</Channel>
+  <Channel Number="6">Dimmer for LED No. 6</Channel>
+  <Channel Number="7">Dimmer for LED No. 7</Channel>
+  <Channel Number="8">Dimmer for LED No. 8</Channel>
+  <Channel Number="9">Dimmer for LED No. 9</Channel>
+  <Channel Number="10">Dimmer for LED No. 10</Channel>
+  <Channel Number="11">Dimmer for LED No. 11</Channel>
+  <Channel Number="12">Dimmer for LED No. 12</Channel>
+  <Channel Number="13">Dimmer for LED No. 13</Channel>
+  <Channel Number="14">Dimmer for LED No. 14</Channel>
+  <Channel Number="15">Dimmer for LED No. 15</Channel>
+  <Channel Number="16">Dimmer for LED No. 16</Channel>
+  <Channel Number="17">Dimmer for LED No. 17</Channel>
+  <Channel Number="18">Dimmer for LED No. 18</Channel>
+  <Channel Number="19">Dimmer for LED No. 19</Channel>
+  <Channel Number="20">Dimmer for LED No. 20</Channel>
+  <Channel Number="21">Dimmer for LED No. 21</Channel>
+  <Channel Number="22">Dimmer for LED No. 22</Channel>
+  <Channel Number="23">Dimmer for LED No. 23</Channel>
+  <Channel Number="24">Dimmer for LED No. 24</Channel>
+  <Channel Number="25">Dimmer for LED No. 25</Channel>
+  <Channel Number="26">Operating-Mode (28-Channel Mode)</Channel>
+  <Channel Number="27">Letter/Number/Speed Adjustment (Increasing Speed 0..255)</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Operating Mode (4-Channel Mode)</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Strobe Effect</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="25 × 3 W LEDs (warm white)" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.2" Width="638" Height="664" Depth="114"/>
+  <Lens Name="Other" DegreesMin="55" DegreesMax="55"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="5" Height="5"/>
+  <Technical PowerConsumption="96" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

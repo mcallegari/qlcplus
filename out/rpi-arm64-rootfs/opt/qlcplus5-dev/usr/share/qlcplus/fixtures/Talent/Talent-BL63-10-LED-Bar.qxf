@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>FooSchnickens</Author>
+ </Creator>
+ <Manufacturer>Talent</Manufacturer>
+ <Model>BL63 10&quot; LED Bar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="6" Preset="ShutterOpen">Dimmer mode</Capability>
+  <Capability Min="7" Max="65" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="66" Max="69" Preset="ShutterOpen">None</Capability>
+  <Capability Min="70" Max="128" Preset="PulseSlowToFast">Pulse strobe from slow to fast</Capability>
+  <Capability Min="129" Max="132" Preset="ShutterOpen">None</Capability>
+  <Capability Min="133" Max="191">Strobe fading in from slow to fast</Capability>
+  <Capability Min="192" Max="195" Preset="ShutterOpen">None</Capability>
+  <Capability Min="196" Max="255">Strobe fading out from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Static Color" Preset="ColorMacro"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="59">Dimmer mode</Capability>
+  <Capability Min="60" Max="119">Static color mode</Capability>
+  <Capability Min="120" Max="179">Color jump change mode</Capability>
+  <Capability Min="180" Max="239">Color gradual change mode</Capability>
+  <Capability Min="240" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Strobe/Sound Active Speed/Running Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="6">Dimmer mode/Speed</Capability>
+  <Capability Min="7" Max="65">Strobe from slow to fast/Speed</Capability>
+  <Capability Min="66" Max="69">None/Speed</Capability>
+  <Capability Min="70" Max="128">Pulse strobe from slow to fast/Speed</Capability>
+  <Capability Min="129" Max="132">None/Speed</Capability>
+  <Capability Min="133" Max="191">Strobe fading in from slow to fast/Speed</Capability>
+  <Capability Min="192" Max="195">None/Speed</Capability>
+  <Capability Min="196" Max="255">Strobe fading out from slow to fast/Speed</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobe/Sound Active Speed/Running Speed</Channel>
+  <Channel Number="5">Static Color</Channel>
+  <Channel Number="6">Function</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.25" Width="326" Height="120" Depth="150"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

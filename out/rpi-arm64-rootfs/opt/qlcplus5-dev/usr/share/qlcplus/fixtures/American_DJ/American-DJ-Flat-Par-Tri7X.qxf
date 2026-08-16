@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>BH</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Flat Par Tri7X</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#fece8f">Bastard Amber</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff8b00">Medium Amber</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffc08a">Pale Amber Gold</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffa562">Gallo Gold</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ff7900">Golden Amber</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#b01100">Light Red</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#60000b">Medium Red</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ea8bab">Medium Pink</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#e00561">Broadway Pink</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#af4dad">Follies Pink</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#7782c7">Light Lavender</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#93a4d4">Special Lavender</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#5802a3">Lavender</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#002656">Indigo</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#669efd">Hemsley Blue</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#3494d1">Tipton Blue</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#0186c9">Light Steel Blue</Capability>
+  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#0091d4">Light Sky Blue</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#0079c0">Sky Blue</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#0081b8">Brilliant Blue</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#005373">Light Green Blue</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#0061a6">Bright Blue</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#0164a7">Primary Blue</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#002856">Congo Blue</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#d1dbb6">Pale Yellow Green</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#2aa555">Moss Green</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#002e23">Primary Green</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#4155b8">Double CTB</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#7897cd">Full CTB</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#abbbd4">Half CTB</Capability>
+  <Capability Min="240" Max="247" Preset="ColorMacro" Res1="#00008b">Dark Blue</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">None</Capability>
+  <Capability Min="16" Max="255" Preset="SlowToFast">Slow - fast</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="135">Color dreaming 1</Capability>
+  <Capability Min="136" Max="143">Color dreaming 2</Capability>
+  <Capability Min="144" Max="151">Color dreaming 3</Capability>
+  <Capability Min="152" Max="159">Color dreaming 4</Capability>
+  <Capability Min="160" Max="167">Color dreaming 5</Capability>
+  <Capability Min="168" Max="175">Color dreaming 6</Capability>
+  <Capability Min="176" Max="183">Color dreaming 7</Capability>
+  <Capability Min="184" Max="191">Color dreaming 8</Capability>
+  <Capability Min="192" Max="199">Color change 1</Capability>
+  <Capability Min="200" Max="207">Color change 2</Capability>
+  <Capability Min="208" Max="215">Color change 3</Capability>
+  <Capability Min="216" Max="223">Color change 4</Capability>
+  <Capability Min="224" Max="231">Color change 5</Capability>
+  <Capability Min="232" Max="239">Color change 6</Capability>
+  <Capability Min="240" Max="247">Sound active mode 1</Capability>
+  <Capability Min="248" Max="255">Sound active mode 2</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Color Macros</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Color Macros</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Color Macros</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Strobing</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Strobing</Channel>
+  <Channel Number="5">Programs</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="691" ColourTemperature="0"/>
+  <Dimensions Weight="2.4" Width="272" Height="230" Depth="115"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="27" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

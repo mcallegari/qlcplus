@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Twinscan 20</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Stroboscope speed 1 - 20Hz</Capability>
+ </Channel>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Gobo 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="">Gobo 1 Yellow</Capability>
+  <Capability Min="13" Max="18" Preset="GoboMacro" Res1="">Gobo 2 Green</Capability>
+  <Capability Min="19" Max="25" Preset="GoboMacro" Res1="">Gobo 3 Four color</Capability>
+  <Capability Min="26" Max="31" Preset="GoboMacro" Res1="">Gobo 4 Magenta</Capability>
+  <Capability Min="32" Max="37" Preset="GoboMacro" Res1="">Gobo 5 White</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="">Gobo 6 Blue</Capability>
+  <Capability Min="45" Max="50" Preset="GoboMacro" Res1="">Gobo 7 Orange</Capability>
+  <Capability Min="51" Max="56" Preset="GoboMacro" Res1="">Gobo 8 GreenYellow</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Gobo 9 Blue Green</Capability>
+  <Capability Min="64" Max="70">Spot Shake effect</Capability>
+  <Capability Min="71" Max="127">Shake effects gobo 1..9</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise slow-fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise slow-fast</Capability>
+ </Channel>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Gobo 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="">Gobo 1 Yellow</Capability>
+  <Capability Min="13" Max="18" Preset="GoboMacro" Res1="">Gobo 2 Green</Capability>
+  <Capability Min="19" Max="25" Preset="GoboMacro" Res1="">Gobo 3 Four color</Capability>
+  <Capability Min="26" Max="31" Preset="GoboMacro" Res1="">Gobo 4 Magenta</Capability>
+  <Capability Min="32" Max="37" Preset="GoboMacro" Res1="">Gobo 5 White</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="">Gobo 6 Blue</Capability>
+  <Capability Min="45" Max="50" Preset="GoboMacro" Res1="">Gobo 7 Orange</Capability>
+  <Capability Min="51" Max="56" Preset="GoboMacro" Res1="">Gobo 8 GreenYellow</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Gobo 9 Blue Green</Capability>
+  <Capability Min="64" Max="70">Spot Shake effect</Capability>
+  <Capability Min="71" Max="127">Shake effects gobo 1..9</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise slow-fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise slow-fast</Capability>
+ </Channel>
+ <Channel Name="Tilt-both" Preset="PositionTilt"/>
+ <Channel Name="Gobo-both">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="">Gobo 1 Yellow</Capability>
+  <Capability Min="13" Max="18" Preset="GoboMacro" Res1="">Gobo 2 Green</Capability>
+  <Capability Min="19" Max="25" Preset="GoboMacro" Res1="">Gobo 3 Four color</Capability>
+  <Capability Min="26" Max="31" Preset="GoboMacro" Res1="">Gobo 4 Magenta</Capability>
+  <Capability Min="32" Max="37" Preset="GoboMacro" Res1="">Gobo 5 White</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="">Gobo 6 Blue</Capability>
+  <Capability Min="45" Max="50" Preset="GoboMacro" Res1="">Gobo 7 Orange</Capability>
+  <Capability Min="51" Max="56" Preset="GoboMacro" Res1="">Gobo 8 GreenYellow</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Gobo 9 Blue Green</Capability>
+  <Capability Min="64" Max="70">Spot Shake effect</Capability>
+  <Capability Min="71" Max="127">Shake effects gobo 1..9</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise slow-fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise slow-fast</Capability>
+ </Channel>
+ <Channel Name="Auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="33">AUTO 1</Capability>
+  <Capability Min="34" Max="57">AUTO 2</Capability>
+  <Capability Min="58" Max="81">AUTO 3</Capability>
+  <Capability Min="82" Max="105">AUTO 4</Capability>
+  <Capability Min="106" Max="129">AUTO 5</Capability>
+  <Capability Min="130" Max="153">AUTO 6</Capability>
+  <Capability Min="154" Max="177">AUTO 7</Capability>
+  <Capability Min="178" Max="201">AUTO 8</Capability>
+  <Capability Min="202" Max="225">AUTO 9</Capability>
+  <Capability Min="226" Max="255">Sound control - sensitivity 0-100%</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Auto</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Auto</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Tilt-both</Channel>
+  <Channel Number="3">Gobo-both</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Tilt 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Gobo 1</Channel>
+  <Channel Number="5">Tilt 2</Channel>
+  <Channel Number="6">White 2</Channel>
+  <Channel Number="7">Gobo 2</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="545" Height="151" Depth="180"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="55"/>
+  <Focus Type="Mirror" PanMax="0" TiltMax="55"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

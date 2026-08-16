@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Fredje Gallon</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>Stagepainter 12</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">Color 1</Capability>
+  <Capability Min="16" Max="255">Color 2 - 32</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe S&gt;F</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181">Slow open fast close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231">Fast open slow close</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Red (6chan L1+L2)" Preset="IntensityRed"/>
+ <Channel Name="Green (6chan L1+L2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (6chan L1+L2)" Preset="IntensityBlue"/>
+ <Channel Name="Red (6chan L3+L4)" Preset="IntensityRed"/>
+ <Channel Name="Green (6chan L3+L4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (6chan L3+L4)" Preset="IntensityBlue"/>
+ <Channel Name="Red L1" Preset="IntensityRed"/>
+ <Channel Name="Green L1" Preset="IntensityGreen"/>
+ <Channel Name="Blue L1" Preset="IntensityBlue"/>
+ <Channel Name="Red L2" Preset="IntensityRed"/>
+ <Channel Name="Green L2" Preset="IntensityGreen"/>
+ <Channel Name="Blue L2" Preset="IntensityBlue"/>
+ <Channel Name="Red L3" Preset="IntensityRed"/>
+ <Channel Name="Green L3" Preset="IntensityGreen"/>
+ <Channel Name="Blue L3" Preset="IntensityBlue"/>
+ <Channel Name="Red L4" Preset="IntensityRed"/>
+ <Channel Name="Green L4" Preset="IntensityGreen"/>
+ <Channel Name="Blue L4" Preset="IntensityBlue"/>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="6 Channel 1">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="6 Channel 2">
+  <Channel Number="0">Red (6chan L1+L2)</Channel>
+  <Channel Number="1">Green (6chan L1+L2)</Channel>
+  <Channel Number="2">Blue (6chan L1+L2)</Channel>
+  <Channel Number="3">Red (6chan L3+L4)</Channel>
+  <Channel Number="4">Green (6chan L3+L4)</Channel>
+  <Channel Number="5">Blue (6chan L3+L4)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Red (6chan L1+L2)</Channel>
+  <Channel Number="1">Green (6chan L1+L2)</Channel>
+  <Channel Number="2">Blue (6chan L1+L2)</Channel>
+  <Channel Number="3">Red (6chan L3+L4)</Channel>
+  <Channel Number="4">Green (6chan L3+L4)</Channel>
+  <Channel Number="5">Blue (6chan L3+L4)</Channel>
+  <Channel Number="6">Color</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red L1</Channel>
+  <Channel Number="1">Green L1</Channel>
+  <Channel Number="2">Blue L1</Channel>
+  <Channel Number="3">Red L2</Channel>
+  <Channel Number="4">Green L2</Channel>
+  <Channel Number="5">Blue L2</Channel>
+  <Channel Number="6">Red L3</Channel>
+  <Channel Number="7">Green L3</Channel>
+  <Channel Number="8">Blue L3</Channel>
+  <Channel Number="9">Red L4</Channel>
+  <Channel Number="10">Green L4</Channel>
+  <Channel Number="11">Blue L4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Red L1</Channel>
+  <Channel Number="1">Green L1</Channel>
+  <Channel Number="2">Blue L1</Channel>
+  <Channel Number="3">Red L2</Channel>
+  <Channel Number="4">Green L2</Channel>
+  <Channel Number="5">Blue L2</Channel>
+  <Channel Number="6">Red L3</Channel>
+  <Channel Number="7">Green L3</Channel>
+  <Channel Number="8">Blue L3</Channel>
+  <Channel Number="9">Red L4</Channel>
+  <Channel Number="10">Green L4</Channel>
+  <Channel Number="11">Blue L4</Channel>
+  <Channel Number="12">Color</Channel>
+  <Channel Number="13">Dimmer</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.9" Width="387" Height="95" Depth="207"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>DJScan250</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="18">White</Capability>
+  <Capability Min="19" Max="35">Dark Blue</Capability>
+  <Capability Min="36" Max="53">Pink</Capability>
+  <Capability Min="54" Max="71">Light Green</Capability>
+  <Capability Min="72" Max="89">Orange</Capability>
+  <Capability Min="90" Max="107">Light Blue</Capability>
+  <Capability Min="108" Max="126">Yellow</Capability>
+  <Capability Min="127" Max="127">Cherry Red</Capability>
+  <Capability Min="128" Max="191">Forward Rainbow Speed</Capability>
+  <Capability Min="192" Max="255">Backward Rainbow Speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31">Gobo 1</Capability>
+  <Capability Min="32" Max="47">Gobo 2</Capability>
+  <Capability Min="48" Max="63">Gobo 3</Capability>
+  <Capability Min="64" Max="79">Gobo 4</Capability>
+  <Capability Min="80" Max="95">Gobo 5</Capability>
+  <Capability Min="96" Max="111">Gobo 6</Capability>
+  <Capability Min="112" Max="127">Gobo 7</Capability>
+  <Capability Min="128" Max="191">Forward Gobo Change Speed</Capability>
+  <Capability Min="192" Max="255">Backward Gobo Change Speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">No Rotation</Capability>
+  <Capability Min="16" Max="135">Forward Gobo Rotation Speed</Capability>
+  <Capability Min="136" Max="255">Backward Gobo Rotation Speed</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">Shutter Closed</Capability>
+  <Capability Min="6" Max="128">Dimmer Control</Capability>
+  <Capability Min="129" Max="131">Reset after 3-5 seconds</Capability>
+  <Capability Min="132" Max="139">Shutter Open</Capability>
+  <Capability Min="140" Max="199">Strobe Effect Speed</Capability>
+  <Capability Min="200" Max="249">Random Strobe Speed</Capability>
+  <Capability Min="250" Max="255">Shutter Open</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo Selection</Channel>
+  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="6500" Lumens="0" Type="MSD 250W"/>
+   <Dimensions Width="260" Height="665" Weight="10" Depth="290"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus TiltMax="75" PanMax="180" Type="Mirror"/>
+   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Robin DLX Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed, Pan/Tilt Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
+  <Capability Min="1" Max="255">Speed from max. to min. (vector mode)/Time from 0.1 sec. to 25.5 sec.</Capability>
+ </Channel>
+ <Channel Name="Power/Special Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Reserved</Capability>
+  <Capability Min="10" Max="14">DMX input: Wired DMX</Capability>
+  <Capability Min="15" Max="19">DMX input: Wireless DMX</Capability>
+  <Capability Min="20" Max="24">White point 8000K on</Capability>
+  <Capability Min="25" Max="29">White point 8000K off</Capability>
+  <Capability Min="30" Max="39">RGB colour mixing mode</Capability>
+  <Capability Min="40" Max="49">CMY colour mixing mode</Capability>
+  <Capability Min="50" Max="59">Pan/tilt speed mode</Capability>
+  <Capability Min="60" Max="69">Pan/tilt time mode</Capability>
+  <Capability Min="70" Max="79">Blackout while pan/tilt moving</Capability>
+  <Capability Min="80" Max="89">Disabled blackout while pan/tilt moving</Capability>
+  <Capability Min="90" Max="109">Reserved</Capability>
+  <Capability Min="110" Max="119">Blackout while gobo wheel moving</Capability>
+  <Capability Min="120" Max="129">Disable blackout while gobo wheel moving</Capability>
+  <Capability Min="130" Max="139">Fixture reset (except pan/tilt)</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/tilt reset</Capability>
+  <Capability Min="150" Max="159">Reserved</Capability>
+  <Capability Min="160" Max="169" Preset="ResetGobo">Gobo wheels reset</Capability>
+  <Capability Min="170" Max="179">Reserved</Capability>
+  <Capability Min="180" Max="189">Zoom/focus/frost/prism reset</Capability>
+  <Capability Min="190" Max="199" Preset="ResetIris">Iris reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Total fixture reset</Capability>
+  <Capability Min="210" Max="239">Reserved</Capability>
+  <Capability Min="240" Max="240">Disable 'theatre mode'</Capability>
+  <Capability Min="241" Max="241">'Theatre mode' - automatic control of fan noise</Capability>
+  <Capability Min="242" Max="255">'Theatre mode' - fan noise control from min. to max.</Capability>
+ </Channel>
+ <Channel Name="Virtual Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="2" Preset="ColorMacro" Res1="#ffa957">White 2700K</Capability>
+  <Capability Min="3" Max="3" Preset="ColorMacro" Res1="#ffa957">White 2700K (halogen lamp mode)</Capability>
+  <Capability Min="4" Max="5" Preset="ColorMacro" Res1="#ffbb78">White 3200K</Capability>
+  <Capability Min="6" Max="6" Preset="ColorMacro" Res1="#ffbb78">White 3200K (halogen lamp mode)</Capability>
+  <Capability Min="7" Max="9" Preset="ColorMacro" Res1="#ffd5ad">White 4200K</Capability>
+  <Capability Min="10" Max="12" Preset="ColorMacro" Res1="#ffeee3">White 5600K</Capability>
+  <Capability Min="13" Max="15" Preset="ColorMacro" Res1="#e3e9ff">White 8000K</Capability>
+  <Capability Min="16" Max="16" Preset="ColorMacro" Res1="#0000ff">Blue (blue=full, red+green+white=0)</Capability>
+  <Capability Min="17" Max="55" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ffff">Red=0, green-&gt;up, blue=full, white=0</Capability>
+  <Capability Min="56" Max="56" Preset="ColorMacro" Res1="#00ffff">Light blue (red=0, green=full, blue=full, white=0)</Capability>
+  <Capability Min="57" Max="95" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#00ff00">Red=0, green=full, blue-&gt;down, white=0</Capability>
+  <Capability Min="96" Max="96" Preset="ColorMacro" Res1="#00ff00">Green (red=0, green=full, blue+white=0)</Capability>
+  <Capability Min="97" Max="134" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Red-&gt;up, green=full, blue+white=0</Capability>
+  <Capability Min="135" Max="135" Preset="ColorMacro" Res1="#ffff00">Yellow (red+green=full, blue+white=0)</Capability>
+  <Capability Min="136" Max="174" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff0000">Red=full, green-&gt;down, blue+white=0</Capability>
+  <Capability Min="175" Max="175" Preset="ColorMacro" Res1="#ff0000">Red (Red=full, green+blue+white=0)</Capability>
+  <Capability Min="176" Max="214" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">Red=full, green=0, blue-&gt;up, white=0</Capability>
+  <Capability Min="215" Max="215" Preset="ColorMacro" Res1="#ff00ff">Magenta (red=full, green=0, blue=full, white=0)</Capability>
+  <Capability Min="216" Max="246" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#0000ff">Red&gt;down, green=0, blue=full, white=0</Capability>
+  <Capability Min="247" Max="247" Preset="ColorMacro" Res1="#0000ff">Blue (Red+green=0, blue=full, white=0)</Capability>
+  <Capability Min="248" Max="251" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect (with fade time) from slow-&gt;fast</Capability>
+  <Capability Min="252" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect from slow-&gt;fast</Capability>
+ </Channel>
+ <Channel Name="Red/Cyan (8-Bit)" Preset="IntensityRed"/>
+ <Channel Name="Red/Cyan (16-Bit)" Preset="IntensityRedFine"/>
+ <Channel Name="Green/Magenta (8-Bit)" Preset="IntensityGreen"/>
+ <Channel Name="CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255" Preset="ColorDoubleMacro" Res1="#e3e9ff" Res2="#ffa957">Colour temperature correction</Capability>
+ </Channel>
+ <Channel Name="Speed of Rotating Gobo Selection">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Max. to min. (0-25.5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Static Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0" Preset="GoboMacro" Res1="Others/open.svg">Open/hole</Capability>
+  <Capability Min="1" Max="6">Open/Gobo 2</Capability>
+  <Capability Min="7" Max="7" Preset="GoboMacro" Res1="Robe/gobo00024.svg">Gobo 1</Capability>
+  <Capability Min="8" Max="12">Gobo 1/Gobo 2</Capability>
+  <Capability Min="13" Max="13" Preset="GoboMacro" Res1="Robe/gobo00023.svg">Gobo 2</Capability>
+  <Capability Min="14" Max="18">Gobo 2/Gobo 3</Capability>
+  <Capability Min="19" Max="19" Preset="GoboMacro" Res1="Robe/gobo00022.svg">Gobo 3</Capability>
+  <Capability Min="20" Max="25">Gobo 3/Gobo 4</Capability>
+  <Capability Min="26" Max="26" Preset="GoboMacro" Res1="Robe/gobo00011.svg">Gobo 4</Capability>
+  <Capability Min="27" Max="31">Gobo 4/Gobo 5</Capability>
+  <Capability Min="32" Max="32" Preset="GoboMacro" Res1="Robe/gobo00010.png">Gobo 5</Capability>
+  <Capability Min="33" Max="38">Gobo 5/Gobo 6</Capability>
+  <Capability Min="39" Max="39" Preset="GoboMacro" Res1="Robe/gobo00013.svg">Gobo 6</Capability>
+  <Capability Min="40" Max="44">Gobo 6/Gobo 7</Capability>
+  <Capability Min="45" Max="45" Preset="GoboMacro" Res1="Robe/gobo00020.svg">Gobo 7</Capability>
+  <Capability Min="46" Max="50">Gobo 7/Gobo 8</Capability>
+  <Capability Min="51" Max="51" Preset="GoboMacro" Res1="Robe/gobo00009.svg">Gobo 8</Capability>
+  <Capability Min="52" Max="57">Gobo 8/Gobo 9</Capability>
+  <Capability Min="58" Max="58" Preset="GoboMacro" Res1="Robe/gobo00012.svg">Gobo 9</Capability>
+  <Capability Min="59" Max="63">Gobo 9/Open</Capability>
+  <Capability Min="64" Max="64" Preset="GoboMacro" Res1="Others/open.svg">Open/hole</Capability>
+  <Capability Min="65" Max="69" Preset="GoboMacro" Res1="Robe/gobo00024.svg">Gobo 1 - positioning</Capability>
+  <Capability Min="70" Max="74" Preset="GoboMacro" Res1="Robe/gobo00023.svg">Gobo 2 - positioning</Capability>
+  <Capability Min="75" Max="79" Preset="GoboMacro" Res1="Robe/gobo00022.svg">Gobo 3 - positioning</Capability>
+  <Capability Min="80" Max="84" Preset="GoboMacro" Res1="Robe/gobo00011.svg">Gobo 4 - positioning</Capability>
+  <Capability Min="85" Max="89" Preset="GoboMacro" Res1="Robe/gobo00010.png">Gobo 5 - positioning</Capability>
+  <Capability Min="90" Max="94" Preset="GoboMacro" Res1="Robe/gobo00013.svg">Gobo 6 - positioning</Capability>
+  <Capability Min="95" Max="99" Preset="GoboMacro" Res1="Robe/gobo00020.svg">Gobo 7 - positioning</Capability>
+  <Capability Min="100" Max="104" Preset="GoboMacro" Res1="Robe/gobo00009.svg">Gobo 8 - positioning</Capability>
+  <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00012.svg">Gobo 9 - positioning</Capability>
+  <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00024.svg">Shaking Gobo 1</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00023.svg">Shaking Gobo 2</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00022.svg">Shaking Gobo 3</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00011.svg">Shaking Gobo 4</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00010.png">Shaking Gobo 5</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00013.svg">Shaking Gobo 6</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00020.svg">Shaking Gobo 7</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00009.svg">Shaking Gobo 8</Capability>
+  <Capability Min="190" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00012.svg">Shaking Gobo 9</Capability>
+  <Capability Min="200" Max="201" Preset="GoboMacro" Res1="Others/open.svg">Open/hole</Capability>
+  <Capability Min="202" Max="221">Forwards gobo wheel rotation from fast to slow</Capability>
+  <Capability Min="222" Max="223">No rotation</Capability>
+  <Capability Min="224" Max="243">Backwards gobo wheel rotation from slow to fast</Capability>
+  <Capability Min="244" Max="249">Random gobo by selection audio control</Capability>
+  <Capability Min="250" Max="255">Auto random gobo selection from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Static Gobo Wheel - Fine" Preset="GoboWheelFine"/>
+ <Channel Name="Rotating Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="3" Preset="GoboMacro" Res1="Others/open.svg">Open/hole</Capability>
+  <Capability Min="4" Max="7" Preset="GoboMacro" Res1="Robe/gobo00014.svg">Gobo 1 - index</Capability>
+  <Capability Min="8" Max="11" Preset="GoboMacro" Res1="Robe/gobo00015.svg">Gobo 2 - index</Capability>
+  <Capability Min="12" Max="15" Preset="GoboMacro" Res1="Robe/gobo00016.svg">Gobo 3 - index</Capability>
+  <Capability Min="16" Max="19" Preset="GoboMacro" Res1="Robe/gobo00017.svg">Gobo 4 - index</Capability>
+  <Capability Min="20" Max="23" Preset="GoboMacro" Res1="Robe/gobo00018.svg">Gobo 5 - index</Capability>
+  <Capability Min="24" Max="27" Preset="GoboMacro" Res1="Robe/gobo00019.svg">Gobo 6 - index</Capability>
+  <Capability Min="28" Max="31" Preset="GoboMacro" Res1="Robe/gobo00021.png">Gobo 7 - index</Capability>
+  <Capability Min="32" Max="35" Preset="GoboMacro" Res1="Robe/gobo00014.svg">Gobo 1 - rotation</Capability>
+  <Capability Min="36" Max="39" Preset="GoboMacro" Res1="Robe/gobo00015.svg">Gobo 2 - rotation</Capability>
+  <Capability Min="40" Max="43" Preset="GoboMacro" Res1="Robe/gobo00016.svg">Gobo 3 - rotation</Capability>
+  <Capability Min="44" Max="47" Preset="GoboMacro" Res1="Robe/gobo00017.svg">Gobo 4 - rotation</Capability>
+  <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Robe/gobo00018.svg">Gobo 5 - rotation</Capability>
+  <Capability Min="52" Max="55" Preset="GoboMacro" Res1="Robe/gobo00019.svg">Gobo 6 - rotation</Capability>
+  <Capability Min="56" Max="59" Preset="GoboMacro" Res1="Robe/gobo00021.png">Gobo 7 - rotation</Capability>
+  <Capability Min="60" Max="69" Preset="GoboShakeMacro" Res1="Robe/gobo00014.svg">Shaking Gobo 1 - index</Capability>
+  <Capability Min="70" Max="79" Preset="GoboShakeMacro" Res1="Robe/gobo00015.svg">Shaking Gobo 2 - index</Capability>
+  <Capability Min="80" Max="89" Preset="GoboShakeMacro" Res1="Robe/gobo00016.svg">Shaking Gobo 3 - index</Capability>
+  <Capability Min="90" Max="99" Preset="GoboShakeMacro" Res1="Robe/gobo00017.svg">Shaking Gobo 4 - index</Capability>
+  <Capability Min="100" Max="109" Preset="GoboShakeMacro" Res1="Robe/gobo00018.svg">Shaking Gobo 5 - index</Capability>
+  <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00019.svg">Shaking Gobo 6 - index</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00021.png">Shaking Gobo 7 - index</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00014.svg">Shaking Gobo 1 - rotation</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00015.svg">Shaking Gobo 2 - rotation</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00016.svg">Shaking Gobo 3 - rotation</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00017.svg">Shaking Gobo 4 - rotation</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00018.svg">Shaking Gobo 5 - rotation</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00019.svg">Shaking Gobo 6 - rotation</Capability>
+  <Capability Min="190" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00021.png">Shaking Gobo 7 - rotation</Capability>
+  <Capability Min="200" Max="201" Preset="GoboMacro" Res1="Others/open.svg">Open/hole</Capability>
+  <Capability Min="202" Max="221">Forwards gobo wheel rotation from fast to slow</Capability>
+  <Capability Min="222" Max="223">No rotation</Capability>
+  <Capability Min="224" Max="243">Bacwards gobo wheel rotation from slow to fast</Capability>
+  <Capability Min="244" Max="249">Random gobo selection by audio control</Capability>
+  <Capability Min="250" Max="255">Auto random gobo selection from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo Indexing and Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0">No rotation/Indexing</Capability>
+  <Capability Min="1" Max="127">Forwards gobo rotation from fast to slow/Indexing</Capability>
+  <Capability Min="128" Max="129">No rotation</Capability>
+  <Capability Min="130" Max="255">Backwards gobo rotation from slow to fast/Indexing</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="19">Open position (hole)</Capability>
+  <Capability Min="20" Max="127">3-facet rotating prism</Capability>
+  <Capability Min="128" Max="135">Macro 1</Capability>
+  <Capability Min="136" Max="143">Macro 2</Capability>
+  <Capability Min="144" Max="151">Macro 3</Capability>
+  <Capability Min="152" Max="159">Macro 4</Capability>
+  <Capability Min="160" Max="167">Macro 5</Capability>
+  <Capability Min="168" Max="175">Macro 6</Capability>
+  <Capability Min="176" Max="183">Macro 7</Capability>
+  <Capability Min="184" Max="191">Macro 8</Capability>
+  <Capability Min="192" Max="199">Macro 9</Capability>
+  <Capability Min="200" Max="207">Macro 10</Capability>
+  <Capability Min="208" Max="215">Macro 11</Capability>
+  <Capability Min="216" Max="223">Macro 12</Capability>
+  <Capability Min="224" Max="231">Macro 13</Capability>
+  <Capability Min="232" Max="239">Macro 14</Capability>
+  <Capability Min="240" Max="247">Macro 15</Capability>
+  <Capability Min="248" Max="255">Macro 16</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="0">No rotation</Capability>
+  <Capability Min="1" Max="127">Forwards rotation from fast to slow</Capability>
+  <Capability Min="128" Max="129">No rotation</Capability>
+  <Capability Min="130" Max="255">Backwards rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="179">From max. diameter to min. diameter</Capability>
+  <Capability Min="180" Max="191">Closed</Capability>
+  <Capability Min="192" Max="219">Pulse opening from slow to fast</Capability>
+  <Capability Min="220" Max="247">Pulse closing from fast to slow</Capability>
+  <Capability Min="248" Max="249">Random pulse opening (fast)</Capability>
+  <Capability Min="250" Max="251">Random pulse opening (slow)</Capability>
+  <Capability Min="252" Max="253">Random pulse closing (fast)</Capability>
+  <Capability Min="254" Max="255">Random pulse closing (slow)</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Zoom - Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Fine zooming</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect from slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="143" Preset="RampUpSlowToFast">Opening pulse in sequences from slow to fast</Capability>
+  <Capability Min="144" Max="159" Preset="RampDownFastToSlow">Closing pulse in sequences from fast to slow</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect from slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Intensity - Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="179">Frost from 0% to 100%</Capability>
+  <Capability Min="180" Max="189">100% Frost</Capability>
+  <Capability Min="190" Max="211">Pulse closing from slow to fast</Capability>
+  <Capability Min="212" Max="233">Pulse opening from fast to slow</Capability>
+  <Capability Min="234" Max="255">Ramping from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo Indexing/Rotation Fine" Preset="GoboIndexFine"/>
+ <Channel Name="Iris - Fine" Preset="ShutterIrisFine"/>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Focus - Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Fine focusing</Capability>
+ </Channel>
+ <Channel Name="Green/Magenta (16-Bit)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue/Yellow (8-Bit)" Preset="IntensityBlue"/>
+ <Channel Name="Blue/Yellow (16-Bit)" Preset="IntensityBlueFine"/>
+ <Channel Name="White (8-Bit)" Preset="IntensityWhite"/>
+ <Channel Name="White (16-Bit)" Preset="IntensityWhiteFine"/>
+ <Channel Name="Autofocus (Priority &amp; Distance Selection)">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="1">4m - Hole</Capability>
+  <Capability Min="2" Max="2">4,3m - Hole</Capability>
+  <Capability Min="3" Max="3">4,6m - Hole</Capability>
+  <Capability Min="4" Max="4">4,9m - Hole</Capability>
+  <Capability Min="5" Max="5">5,2m - Hole</Capability>
+  <Capability Min="6" Max="6">5,5m - Hole</Capability>
+  <Capability Min="7" Max="7">5,8m - Hole</Capability>
+  <Capability Min="8" Max="8">6m - Hole</Capability>
+  <Capability Min="9" Max="9">6,25m - Hole</Capability>
+  <Capability Min="10" Max="10">6,5m - Hole</Capability>
+  <Capability Min="11" Max="11">6,75m - Hole</Capability>
+  <Capability Min="12" Max="12">7m - Hole</Capability>
+  <Capability Min="13" Max="13">7,25m - Hole</Capability>
+  <Capability Min="14" Max="14">7,5m - Hole</Capability>
+  <Capability Min="15" Max="15">7,75m - Hole</Capability>
+  <Capability Min="16" Max="16">8m - Hole</Capability>
+  <Capability Min="17" Max="17">8,25m - Hole</Capability>
+  <Capability Min="18" Max="18">8,5m - Hole</Capability>
+  <Capability Min="19" Max="19">8,75m - Hole</Capability>
+  <Capability Min="20" Max="20">9m - Hole</Capability>
+  <Capability Min="21" Max="21">9,25m - Hole</Capability>
+  <Capability Min="22" Max="22">9,5m - Hole</Capability>
+  <Capability Min="23" Max="23">9,75m - Hole</Capability>
+  <Capability Min="24" Max="24">10m - Hole</Capability>
+  <Capability Min="25" Max="25">10,25m - Hole</Capability>
+  <Capability Min="26" Max="26">10,5m - Hole</Capability>
+  <Capability Min="27" Max="27">10,75m - Hole</Capability>
+  <Capability Min="28" Max="28">11m - Hole</Capability>
+  <Capability Min="29" Max="29">11,25m - Hole</Capability>
+  <Capability Min="30" Max="30">11,5m - Hole</Capability>
+  <Capability Min="31" Max="31">11,75m - Hole</Capability>
+  <Capability Min="32" Max="32">12m - Hole</Capability>
+  <Capability Min="33" Max="33">12,25m - Hole</Capability>
+  <Capability Min="34" Max="34">12,5m - Hole</Capability>
+  <Capability Min="35" Max="35">12,75m - Hole</Capability>
+  <Capability Min="36" Max="36">13m - Hole</Capability>
+  <Capability Min="37" Max="37">13,25m - Hole</Capability>
+  <Capability Min="38" Max="38">13,5m - Hole</Capability>
+  <Capability Min="39" Max="39">13,75m - Hole</Capability>
+  <Capability Min="40" Max="40">14m - Hole</Capability>
+  <Capability Min="41" Max="41">14,25m - Hole</Capability>
+  <Capability Min="42" Max="42">14,5m - Hole</Capability>
+  <Capability Min="43" Max="43">14,75m - Hole</Capability>
+  <Capability Min="44" Max="44">15m - Hole</Capability>
+  <Capability Min="45" Max="45">15,25m - Hole</Capability>
+  <Capability Min="46" Max="46">15,5m - Hole</Capability>
+  <Capability Min="47" Max="47">15,75m - Hole</Capability>
+  <Capability Min="48" Max="48">16m - Hole</Capability>
+  <Capability Min="49" Max="49">16,25m - Hole</Capability>
+  <Capability Min="50" Max="50">16,5m - Hole</Capability>
+  <Capability Min="51" Max="51">16,75m - Hole</Capability>
+  <Capability Min="52" Max="52">17m - Hole</Capability>
+  <Capability Min="53" Max="53">17,25m - Hole</Capability>
+  <Capability Min="54" Max="54">17,5m - Hole</Capability>
+  <Capability Min="55" Max="55">17,75m - Hole</Capability>
+  <Capability Min="56" Max="56">18m - Hole</Capability>
+  <Capability Min="57" Max="57">18,25m - Hole</Capability>
+  <Capability Min="58" Max="58">18,5m - Hole</Capability>
+  <Capability Min="59" Max="59">18,75m - Hole</Capability>
+  <Capability Min="60" Max="60">19m - Hole</Capability>
+  <Capability Min="61" Max="61">19,25m - Hole</Capability>
+  <Capability Min="62" Max="62">19,5m - Hole</Capability>
+  <Capability Min="63" Max="63">19,75m - Hole</Capability>
+  <Capability Min="64" Max="64">4m - Static Gobo Wheel</Capability>
+  <Capability Min="65" Max="65">4,25m - Static Gobo Wheel</Capability>
+  <Capability Min="66" Max="66">4,5m - Static Gobo Wheel</Capability>
+  <Capability Min="67" Max="67">4,75m - Static Gobo Wheel</Capability>
+  <Capability Min="68" Max="68">5m - Static Gobo Wheel</Capability>
+  <Capability Min="69" Max="69">5,25m - Static Gobo Wheel</Capability>
+  <Capability Min="70" Max="70">5,5m - Static Gobo Wheel</Capability>
+  <Capability Min="71" Max="71">5,75m - Static Gobo Wheel</Capability>
+  <Capability Min="72" Max="72">6m - Static Gobo Wheel</Capability>
+  <Capability Min="73" Max="73">6,25m - Static Gobo Wheel</Capability>
+  <Capability Min="74" Max="74">6,5m - Static Gobo Wheel</Capability>
+  <Capability Min="75" Max="75">6,75m - Static Gobo Wheel</Capability>
+  <Capability Min="76" Max="76">7m - Static Gobo Wheel</Capability>
+  <Capability Min="77" Max="77">7,25m - Static Gobo Wheel</Capability>
+  <Capability Min="78" Max="78">7,5m - Static Gobo Wheel</Capability>
+  <Capability Min="79" Max="79">7,75m - Static Gobo Wheel</Capability>
+  <Capability Min="80" Max="80">8m - Static Gobo Wheel</Capability>
+  <Capability Min="81" Max="81">8,25m - Static Gobo Wheel</Capability>
+  <Capability Min="82" Max="82">8,5m - Static Gobo Wheel</Capability>
+  <Capability Min="83" Max="83">8,75m - Static Gobo Wheel</Capability>
+  <Capability Min="84" Max="84">9m - Static Gobo Wheel</Capability>
+  <Capability Min="85" Max="85">9,25m - Static Gobo Wheel</Capability>
+  <Capability Min="86" Max="86">9,5m - Static Gobo Wheel</Capability>
+  <Capability Min="87" Max="87">9,75m - Static Gobo Wheel</Capability>
+  <Capability Min="88" Max="88">10m - Static Gobo Wheel</Capability>
+  <Capability Min="89" Max="89">10,25m - Static Gobo Wheel</Capability>
+  <Capability Min="90" Max="90">10,5m - Static Gobo Wheel</Capability>
+  <Capability Min="91" Max="91">10,75m - Static Gobo Wheel</Capability>
+  <Capability Min="92" Max="92">11m - Static Gobo Wheel</Capability>
+  <Capability Min="93" Max="93">11,25m - Static Gobo Wheel</Capability>
+  <Capability Min="94" Max="94">11,5m - Static Gobo Wheel</Capability>
+  <Capability Min="95" Max="95">11,75m - Static Gobo Wheel</Capability>
+  <Capability Min="96" Max="96">12m - Static Gobo Wheel</Capability>
+  <Capability Min="97" Max="97">12,25m - Static Gobo Wheel</Capability>
+  <Capability Min="98" Max="98">12,5m - Static Gobo Wheel</Capability>
+  <Capability Min="99" Max="99">12,75m - Static Gobo Wheel</Capability>
+  <Capability Min="100" Max="100">13m - Static Gobo Wheel</Capability>
+  <Capability Min="101" Max="101">13,25m - Static Gobo Wheel</Capability>
+  <Capability Min="102" Max="102">13,5m - Static Gobo Wheel</Capability>
+  <Capability Min="103" Max="103">13,75m - Static Gobo Wheel</Capability>
+  <Capability Min="104" Max="104">14m - Static Gobo Wheel</Capability>
+  <Capability Min="105" Max="105">14,25m - Static Gobo Wheel</Capability>
+  <Capability Min="106" Max="106">14,5m - Static Gobo Wheel</Capability>
+  <Capability Min="107" Max="107">14,75m - Static Gobo Wheel</Capability>
+  <Capability Min="108" Max="108">15m - Static Gobo Wheel</Capability>
+  <Capability Min="109" Max="109">15,25m - Static Gobo Wheel</Capability>
+  <Capability Min="110" Max="110">15,5m - Static Gobo Wheel</Capability>
+  <Capability Min="111" Max="111">15,75m - Static Gobo Wheel</Capability>
+  <Capability Min="112" Max="112">16m - Static Gobo Wheel</Capability>
+  <Capability Min="113" Max="113">16,25m - Static Gobo Wheel</Capability>
+  <Capability Min="114" Max="114">16,5m - Static Gobo Wheel</Capability>
+  <Capability Min="115" Max="115">16,75m - Static Gobo Wheel</Capability>
+  <Capability Min="116" Max="116">17m - Static Gobo Wheel</Capability>
+  <Capability Min="117" Max="117">17,25m - Static Gobo Wheel</Capability>
+  <Capability Min="118" Max="118">17,5m - Static Gobo Wheel</Capability>
+  <Capability Min="119" Max="119">17,75m - Static Gobo Wheel</Capability>
+  <Capability Min="120" Max="120">18m - Static Gobo Wheel</Capability>
+  <Capability Min="121" Max="121">18,25m - Static Gobo Wheel</Capability>
+  <Capability Min="122" Max="122">18,5m - Static Gobo Wheel</Capability>
+  <Capability Min="123" Max="123">18,75m - Static Gobo Wheel</Capability>
+  <Capability Min="124" Max="124">19m - Static Gobo Wheel</Capability>
+  <Capability Min="125" Max="125">19,25m - Static Gobo Wheel</Capability>
+  <Capability Min="126" Max="126">19,5m - Static Gobo Wheel</Capability>
+  <Capability Min="127" Max="127">19,75m - Static Gobo Wheel</Capability>
+  <Capability Min="128" Max="128">4m - Rotating Gobo Wheel</Capability>
+  <Capability Min="129" Max="129">4,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="130" Max="130">4,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="131" Max="131">4,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="132" Max="132">5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="133" Max="133">5,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="134" Max="134">5,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="135" Max="135">5,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="136" Max="136">6m - Rotating Gobo Wheel</Capability>
+  <Capability Min="137" Max="137">6,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="138" Max="138">6,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="139" Max="139">6,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="140" Max="140">7m - Rotating Gobo Wheel</Capability>
+  <Capability Min="141" Max="141">7,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="142" Max="142">7,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="143" Max="143">7,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="144" Max="144">8m - Rotating Gobo Wheel</Capability>
+  <Capability Min="145" Max="145">8,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="146" Max="146">8,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="147" Max="147">8,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="148" Max="148">9m - Rotating Gobo Wheel</Capability>
+  <Capability Min="149" Max="149">9,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="150" Max="150">9,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="151" Max="151">9,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="152" Max="152">10m - Rotating Gobo Wheel</Capability>
+  <Capability Min="153" Max="153">10,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="154" Max="154">10,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="155" Max="155">10,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="156" Max="156">11m - Rotating Gobo Wheel</Capability>
+  <Capability Min="157" Max="157">11,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="158" Max="158">11,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="159" Max="159">11,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="160" Max="160">12m - Rotating Gobo Wheel</Capability>
+  <Capability Min="161" Max="161">12,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="162" Max="162">12,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="163" Max="163">12,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="164" Max="164">13m - Rotating Gobo Wheel</Capability>
+  <Capability Min="165" Max="165">13,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="166" Max="166">13,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="167" Max="167">13,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="168" Max="168">14m - Rotating Gobo Wheel</Capability>
+  <Capability Min="169" Max="169">14,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="170" Max="170">14,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="171" Max="171">14,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="172" Max="172">15m - Rotating Gobo Wheel</Capability>
+  <Capability Min="173" Max="173">15,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="174" Max="174">15,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="175" Max="175">15,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="176" Max="176">16m - Rotating Gobo Wheel</Capability>
+  <Capability Min="177" Max="177">16,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="178" Max="178">16,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="179" Max="179">16,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="180" Max="180">17m - Rotating Gobo Wheel</Capability>
+  <Capability Min="181" Max="181">17,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="182" Max="182">17,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="183" Max="183">17,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="184" Max="184">18m - Rotating Gobo Wheel</Capability>
+  <Capability Min="185" Max="185">18,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="186" Max="186">18,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="187" Max="187">18,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="188" Max="188">19m - Rotating Gobo Wheel</Capability>
+  <Capability Min="189" Max="189">19,25m - Rotating Gobo Wheel</Capability>
+  <Capability Min="190" Max="190">19,5m - Rotating Gobo Wheel</Capability>
+  <Capability Min="191" Max="191">19,75m - Rotating Gobo Wheel</Capability>
+  <Capability Min="192" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="35-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Power/Special Functions</Channel>
+  <Channel Number="6">Virtual Colour Wheel</Channel>
+  <Channel Number="7">Red/Cyan (8-Bit)</Channel>
+  <Channel Number="8">Red/Cyan (16-Bit)</Channel>
+  <Channel Number="9">Green/Magenta (8-Bit)</Channel>
+  <Channel Number="10">Green/Magenta (16-Bit)</Channel>
+  <Channel Number="11">Blue/Yellow (8-Bit)</Channel>
+  <Channel Number="12">Blue/Yellow (16-Bit)</Channel>
+  <Channel Number="13">White (8-Bit)</Channel>
+  <Channel Number="14">White (16-Bit)</Channel>
+  <Channel Number="15">CTC</Channel>
+  <Channel Number="16">Speed of Rotating Gobo Selection</Channel>
+  <Channel Number="17">Static Gobo Wheel</Channel>
+  <Channel Number="18">Static Gobo Wheel - Fine</Channel>
+  <Channel Number="19">Rotating Gobo Wheel</Channel>
+  <Channel Number="20">Rotating Gobo Indexing and Rotation</Channel>
+  <Channel Number="21">Rotating Gobo Indexing/Rotation Fine</Channel>
+  <Channel Number="22">Prism</Channel>
+  <Channel Number="23">Prism Rotation</Channel>
+  <Channel Number="24">Frost</Channel>
+  <Channel Number="25">Iris</Channel>
+  <Channel Number="26">Iris - Fine</Channel>
+  <Channel Number="27">Zoom</Channel>
+  <Channel Number="28">Zoom - Fine</Channel>
+  <Channel Number="29">Focus</Channel>
+  <Channel Number="30">Focus - Fine</Channel>
+  <Channel Number="31">Autofocus (Priority &amp; Distance Selection)</Channel>
+  <Channel Number="32">Shutter/Strobe</Channel>
+  <Channel Number="33">Dimmer Intensity</Channel>
+  <Channel Number="34">Dimmer Intensity - Fine</Channel>
+ </Mode>
+ <Mode Name="25-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Power/Special Functions</Channel>
+  <Channel Number="6">Virtual Colour Wheel</Channel>
+  <Channel Number="7">Red/Cyan (8-Bit)</Channel>
+  <Channel Number="8">Green/Magenta (8-Bit)</Channel>
+  <Channel Number="9">Blue/Yellow (8-Bit)</Channel>
+  <Channel Number="10">White (8-Bit)</Channel>
+  <Channel Number="11">CTC</Channel>
+  <Channel Number="12">Speed of Rotating Gobo Selection</Channel>
+  <Channel Number="13">Static Gobo Wheel</Channel>
+  <Channel Number="14">Rotating Gobo Wheel</Channel>
+  <Channel Number="15">Rotating Gobo Indexing and Rotation</Channel>
+  <Channel Number="16">Prism</Channel>
+  <Channel Number="17">Prism Rotation</Channel>
+  <Channel Number="18">Frost</Channel>
+  <Channel Number="19">Iris</Channel>
+  <Channel Number="20">Zoom</Channel>
+  <Channel Number="21">Focus</Channel>
+  <Channel Number="22">Autofocus (Priority &amp; Distance Selection)</Channel>
+  <Channel Number="23">Shutter/Strobe</Channel>
+  <Channel Number="24">Dimmer Intensity</Channel>
+ </Mode>
+ <Mode Name="23-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="3">Power/Special Functions</Channel>
+  <Channel Number="4">Virtual Colour Wheel</Channel>
+  <Channel Number="5">Red/Cyan (8-Bit)</Channel>
+  <Channel Number="6">Green/Magenta (8-Bit)</Channel>
+  <Channel Number="7">Blue/Yellow (8-Bit)</Channel>
+  <Channel Number="8">White (8-Bit)</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Speed of Rotating Gobo Selection</Channel>
+  <Channel Number="11">Static Gobo Wheel</Channel>
+  <Channel Number="12">Rotating Gobo Wheel</Channel>
+  <Channel Number="13">Rotating Gobo Indexing and Rotation</Channel>
+  <Channel Number="14">Prism</Channel>
+  <Channel Number="15">Prism Rotation</Channel>
+  <Channel Number="16">Frost</Channel>
+  <Channel Number="17">Iris</Channel>
+  <Channel Number="18">Zoom</Channel>
+  <Channel Number="19">Focus</Channel>
+  <Channel Number="20">Autofocus (Priority &amp; Distance Selection)</Channel>
+  <Channel Number="21">Shutter/Strobe</Channel>
+  <Channel Number="22">Dimmer Intensity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5370" ColourTemperature="0"/>
+  <Dimensions Weight="20.8" Width="433" Height="517" Depth="480"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="45"/>
+  <Focus Type="Head" PanMax="540" TiltMax="280"/>
+  <Technical PowerConsumption="550" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

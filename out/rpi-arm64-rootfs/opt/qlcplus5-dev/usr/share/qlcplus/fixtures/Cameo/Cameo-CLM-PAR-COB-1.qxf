@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Freasy</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>CLM PAR COB 1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Colour Macro 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Colour Macro 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Colour Macro 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Colour Macro 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="147" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="148" Max="184" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="185" Max="221" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="222" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Power Out 1">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="LampOff">Power out 1 OFF</Capability>
+  <Capability Min="128" Max="255" Preset="LampOn">Power out 1 ON</Capability>
+ </Channel>
+ <Channel Name="Power Out 2">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="LampOff">Power out 2 OFF</Capability>
+  <Capability Min="128" Max="255" Preset="LampOn">Power out 2 ON</Capability>
+ </Channel>
+ <Channel Name="Red 1 + 2" Preset="IntensityRed"/>
+ <Channel Name="Green 1 + 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1 + 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3 + 4" Preset="IntensityRed"/>
+ <Channel Name="Green 3 + 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3 + 4" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Music Control / Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Colour setting channel 1 - 3</Capability>
+  <Capability Min="1" Max="128">Music control (sensitivity weak - strong)</Capability>
+  <Capability Min="129" Max="255">Strobe (slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">CH4 - CH6 RGB</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="72" Max="79">Colour 1</Capability>
+  <Capability Min="80" Max="87">Colour 2</Capability>
+  <Capability Min="88" Max="95">Colour 3</Capability>
+  <Capability Min="96" Max="103">Colour 4</Capability>
+  <Capability Min="104" Max="111">Colour 5</Capability>
+  <Capability Min="112" Max="119">Colour 6</Capability>
+  <Capability Min="120" Max="127">Colour 7</Capability>
+  <Capability Min="128" Max="135">Colour 8</Capability>
+  <Capability Min="136" Max="143" Preset="Alias">Dream
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="144" Max="151" Preset="Alias">Meteor
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="152" Max="159" Preset="Alias">Fade
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="160" Max="167" Preset="Alias">Change
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="168" Max="175" Preset="Alias">Flow1
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="176" Max="183" Preset="Alias">Flow2
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="184" Max="191" Preset="Alias">Flow3
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="192" Max="199" Preset="Alias">Flow4
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="200" Max="207" Preset="Alias">Flow5
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="208" Max="215" Preset="Alias">Flow6
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="216" Max="223" Preset="Alias">Flow7
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+  </Capability>
+  <Capability Min="224" Max="231" Preset="Alias">Flow8
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="8-channel" Channel="Red" With="Colour variations 1"/>
+   <Alias Mode="8-channel" Channel="Green" With="Colour variations 2"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Red 1" With="Colour variations 1"/>
+   <Alias Mode="17-channel" Channel="Green 1" With="Colour variations 2"/>
+  </Capability>
+  <Capability Min="232" Max="239" Preset="Alias">Flow9
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="8-channel" Channel="Red" With="Colour variations 1"/>
+   <Alias Mode="8-channel" Channel="Green" With="Colour variations 2"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Speed"/>
+   <Alias Mode="17-channel" Channel="Red 1" With="Colour variations 1"/>
+   <Alias Mode="17-channel" Channel="Green 1" With="Colour variations 2"/>
+  </Capability>
+  <Capability Min="240" Max="255" Preset="Alias">Music Control
+   <Alias Mode="8-channel" Channel="Master Dimmer" With="Sound Sensitivity"/>
+   <Alias Mode="8-channel" Channel="Strobe" With="No function 1"/>
+   <Alias Mode="8-channel" Channel="Red" With="No function 2"/>
+   <Alias Mode="8-channel" Channel="Green" With="No function 3"/>
+   <Alias Mode="17-channel" Channel="Master Dimmer" With="Sound Sensitivity"/>
+   <Alias Mode="17-channel" Channel="Strobe" With="No function 1"/>
+   <Alias Mode="17-channel" Channel="Red 1" With="No function 2"/>
+   <Alias Mode="17-channel" Channel="Green 1" With="No function 3"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe (slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound sensitivity</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="No function 1" Preset="NoFunction"/>
+ <Channel Name="Colour variations 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">8 colour variations</Capability>
+ </Channel>
+ <Channel Name="Colour variations 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">8 colour variations</Capability>
+ </Channel>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="No function 3" Preset="NoFunction"/>
+ <Channel Name="No function 4" Preset="NoFunction"/>
+ <Mode Name="3-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-channel">
+  <Channel Number="0">Colour Macro 1</Channel>
+  <Channel Number="1">Colour Macro 2</Channel>
+  <Channel Number="2">Colour Macro 3</Channel>
+  <Channel Number="3">Colour Macro 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="5-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Power Out 1</Channel>
+  <Channel Number="4">Power Out 2</Channel>
+ </Mode>
+ <Mode Name="6-channel">
+  <Channel Number="0">Red 1 + 2</Channel>
+  <Channel Number="1">Green 1 + 2</Channel>
+  <Channel Number="2">Blue 1 + 2</Channel>
+  <Channel Number="3">Red 3 + 4</Channel>
+  <Channel Number="4">Green 3 + 4</Channel>
+  <Channel Number="5">Blue 3 + 4</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="7-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Music Control / Strobe</Channel>
+  <Channel Number="5">Power Out 1</Channel>
+  <Channel Number="6">Power Out 2</Channel>
+ </Mode>
+ <Mode Name="8-channel">
+  <Channel Number="0">Programs</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Power Out 1</Channel>
+  <Channel Number="7">Power Out 2</Channel>
+ </Mode>
+ <Mode Name="12-channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17-channel">
+  <Channel Number="0">Programs</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">Power Out 1</Channel>
+  <Channel Number="16">Power Out 2</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
+  <Lens Name="Other" DegreesMin="50" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

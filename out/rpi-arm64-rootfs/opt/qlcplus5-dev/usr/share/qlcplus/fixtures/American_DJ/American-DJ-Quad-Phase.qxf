@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>David Kuder</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Quad Phase</Model>
+ <Type>Flower</Type>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">Color 1</Capability>
+  <Capability Min="17" Max="33">Color 2</Capability>
+  <Capability Min="34" Max="50">Color 3</Capability>
+  <Capability Min="51" Max="67">Color 4</Capability>
+  <Capability Min="68" Max="84">Color 5</Capability>
+  <Capability Min="85" Max="101">Color 6</Capability>
+  <Capability Min="102" Max="118">Color 7</Capability>
+  <Capability Min="119" Max="135">Color 8</Capability>
+  <Capability Min="136" Max="152">Color 9</Capability>
+  <Capability Min="153" Max="169">Color 10</Capability>
+  <Capability Min="170" Max="186">Color 11</Capability>
+  <Capability Min="187" Max="203">Color 12</Capability>
+  <Capability Min="204" Max="220">Color 13</Capability>
+  <Capability Min="221" Max="237">Color 14</Capability>
+  <Capability Min="238" Max="255">Color 15</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="120">Clockwise Fast - Slow</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="245">Counter Clockwise Slow - Fast</Capability>
+  <Capability Min="246" Max="249">No Rotation</Capability>
+  <Capability Min="250" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="255">Strobing Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Mode Name="4-CH Mode">
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Rotation</Channel>
+  <Channel Number="2">Strobing</Channel>
+  <Channel Number="3">Shutter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="306" Height="334" Depth="184"/>
+  <Lens Name="Other" DegreesMin="65" DegreesMax="65"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="27" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

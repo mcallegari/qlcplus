@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>EVO90F</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="110" Max="179" Preset="PulseSlowToFast">Lighting Strobe (slow to fast)</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Random Strobe (slow to fast)</Capability>
+ </Channel>
+ <Mode Name="UNO">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="DOS">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="STD.P">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="5600"/>
+  <Dimensions Weight="5.5" Width="325" Height="281" Depth="266"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

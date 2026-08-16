@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Atomic 3000</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Simple">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="249" Preset="StrobeSlowToFast">Flash rate slow to fast</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Blinder</Capability>
+ </Channel>
+ <Channel Name="Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="255">Flash intensity</Capability>
+ </Channel>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0 to 650/530ms</Capability>
+ </Channel>
+ <Channel Name="Rate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">Single flash</Capability>
+  <Capability Min="6" Max="255">0.5 to 25/30Hz</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No effect</Capability>
+  <Capability Min="6" Max="42">Ramp up</Capability>
+  <Capability Min="43" Max="85">Ramp down</Capability>
+  <Capability Min="86" Max="128">Ramp up-down</Capability>
+  <Capability Min="129" Max="171">Random</Capability>
+  <Capability Min="172" Max="214">Lightning</Capability>
+  <Capability Min="215" Max="255">Spikes</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="25">White</Capability>
+  <Capability Min="26" Max="50">Straw</Capability>
+  <Capability Min="51" Max="76">Pale Amber Gold</Capability>
+  <Capability Min="77" Max="104">Orange</Capability>
+  <Capability Min="105" Max="129">Red</Capability>
+  <Capability Min="130" Max="155">Broadway pink</Capability>
+  <Capability Min="156" Max="180">Light lavender</Capability>
+  <Capability Min="181" Max="206">Aquamarine</Capability>
+  <Capability Min="207" Max="229">Green blue</Capability>
+  <Capability Min="230" Max="254">Light green</Capability>
+  <Capability Min="255" Max="255">Blue grass</Capability>
+ </Channel>
+ <Channel Name="Fan">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="61">Fan level 4</Capability>
+  <Capability Min="62" Max="127">Fan level 3</Capability>
+  <Capability Min="128" Max="190">Fan level 2</Capability>
+  <Capability Min="191" Max="255">Fan level 1</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Simple</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Duration</Channel>
+  <Channel Number="2">Rate</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Duration</Channel>
+  <Channel Number="2">Rate</Channel>
+  <Channel Number="3">Effects</Channel>
+ </Mode>
+ <Mode Name="Mode 1 with Colour">
+  <Channel Number="0">Simple</Channel>
+  <Channel Number="1">Colour</Channel>
+ </Mode>
+ <Mode Name="Mode 2 with Colour">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Duration</Channel>
+  <Channel Number="2">Rate</Channel>
+  <Channel Number="3">Colour</Channel>
+ </Mode>
+ <Mode Name="Mode 3 with Colour">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Duration</Channel>
+  <Channel Number="2">Rate</Channel>
+  <Channel Number="3">Effects</Channel>
+  <Channel Number="4">Colour</Channel>
+ </Mode>
+ <Mode Name="Mode 1 with Colour and Fan">
+  <Channel Number="0">Simple</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Fan</Channel>
+ </Mode>
+ <Mode Name="Mode 2 with Colour and Fan">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Duration</Channel>
+  <Channel Number="2">Rate</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Fan</Channel>
+ </Mode>
+ <Mode Name="Mode 3 with Colour and Fan">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Duration</Channel>
+  <Channel Number="2">Rate</Channel>
+  <Channel Number="3">Effects</Channel>
+  <Channel Number="4">Colour</Channel>
+  <Channel Number="5">Fan</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Xenon 3000W" Lumens="0" ColourTemperature="5600"/>
+  <Dimensions Weight="8" Width="425" Height="245" Depth="240"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

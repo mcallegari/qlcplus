@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Anders Thomsen</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>The Winner II</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Stopped</Capability>
+  <Capability Min="10" Max="91" Preset="StrobeSlowToFast">Cycle gobo+color - slow to fast</Capability>
+  <Capability Min="92" Max="173" Preset="StrobeSlowToFast">Cycle color - slow to fast</Capability>
+  <Capability Min="174" Max="255" Preset="StrobeSlowToFast">Cycle gobo - slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="1" Max="7">Blackout --&gt; Open</Capability>
+  <Capability Min="8" Max="8" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="9" Max="15">Open --&gt; Circle</Capability>
+  <Capability Min="16" Max="16" Preset="GoboMacro" Res1="SGM/gobo00063.svg">1 - Circle</Capability>
+  <Capability Min="17" Max="23">Circle --&gt; Square outline</Capability>
+  <Capability Min="24" Max="24" Preset="GoboMacro" Res1="Others/gobo00062.svg">2 - Square outline</Capability>
+  <Capability Min="25" Max="31">Square outline --&gt; Circle outline</Capability>
+  <Capability Min="32" Max="32" Preset="GoboMacro" Res1="Robe/gobo00025.svg">3 - Circle outline</Capability>
+  <Capability Min="33" Max="39">Circle outline --&gt; Circle dotted</Capability>
+  <Capability Min="40" Max="40" Preset="GoboMacro" Res1="Robe/gobo00035.svg">4 - Circle dotted outline</Capability>
+  <Capability Min="41" Max="47">Circle dotted --&gt; Sunrise</Capability>
+  <Capability Min="48" Max="48" Preset="GoboMacro" Res1="SGM/gobo00050.png">5 - Sunrise</Capability>
+  <Capability Min="49" Max="55">Sunrise --&gt; Circle zoom</Capability>
+  <Capability Min="56" Max="56" Preset="GoboMacro" Res1="GLP/gobo00004.svg">6 - Circle zoom</Capability>
+  <Capability Min="57" Max="63">Circle zoom --&gt; Four circles</Capability>
+  <Capability Min="64" Max="64" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">7 - Four circles</Capability>
+  <Capability Min="65" Max="71">Four circles --&gt; Hand</Capability>
+  <Capability Min="72" Max="72" Preset="GoboMacro" Res1="SGM/gobo00249.png">8 - Hand</Capability>
+  <Capability Min="73" Max="79">Hand --&gt; Circle woods</Capability>
+  <Capability Min="80" Max="80" Preset="GoboMacro" Res1="ClayPaky/gobo00044.png">10 - Circle woods texture</Capability>
+  <Capability Min="81" Max="87">Circle woods --&gt; Circle stripes</Capability>
+  <Capability Min="88" Max="88" Preset="GoboMacro" Res1="SGM/gobo00002.svg">11 - Circle stripes</Capability>
+  <Capability Min="89" Max="95">Circle stripes --&gt; Circle tilted</Capability>
+  <Capability Min="96" Max="96" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">11 - Circle tilted</Capability>
+  <Capability Min="97" Max="103">Circle tilted --&gt; Dots</Capability>
+  <Capability Min="104" Max="104" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">12 - Dots</Capability>
+  <Capability Min="105" Max="111">Dots --&gt; Pinwheel</Capability>
+  <Capability Min="112" Max="112" Preset="GoboMacro" Res1="SGM/gobo00032.png">13 - Pinwheel</Capability>
+  <Capability Min="113" Max="119">Pinwheel --&gt; Twirl</Capability>
+  <Capability Min="120" Max="120" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">14 - Twirl</Capability>
+  <Capability Min="121" Max="127">Twirl --&gt; Blackout</Capability>
+  <Capability Min="128" Max="255" Preset="SlowToFast">Cycle slow-fast</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="10" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">White/Green</Capability>
+  <Capability Min="11" Max="11" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="12" Max="21" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green/Orange</Capability>
+  <Capability Min="22" Max="22" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="23" Max="32" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#7f7fff">Orange/Light blue</Capability>
+  <Capability Min="33" Max="33" Preset="ColorMacro" Res1="#7f7fff">Light blue</Capability>
+  <Capability Min="34" Max="43" Preset="ColorDoubleMacro" Res1="#7f7fff" Res2="#ffc000">Light blue/Amber</Capability>
+  <Capability Min="44" Max="44" Preset="ColorMacro" Res1="#ffc000">Amber</Capability>
+  <Capability Min="45" Max="54" Preset="ColorDoubleMacro" Res1="#ffc000" Res2="#ff0000">Amber/Red</Capability>
+  <Capability Min="55" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="65" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#7f00ff">Red/Purple</Capability>
+  <Capability Min="66" Max="66" Preset="ColorMacro" Res1="#7f00ff">Purple</Capability>
+  <Capability Min="67" Max="76" Preset="ColorDoubleMacro" Res1="#7f00ff" Res2="#ffaaff">Purple/Pink</Capability>
+  <Capability Min="77" Max="77" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="78" Max="87" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#7fff7f">Pink/Light green</Capability>
+  <Capability Min="88" Max="88" Preset="ColorMacro" Res1="#7fff7f">Light green</Capability>
+  <Capability Min="89" Max="98" Preset="ColorDoubleMacro" Res1="#7fff7f" Res2="#0000ff">Light green/Blue</Capability>
+  <Capability Min="99" Max="99" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue/Yellow</Capability>
+  <Capability Min="110" Max="110" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="111" Max="120" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow/Magenta</Capability>
+  <Capability Min="121" Max="121" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="122" Max="127" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Magenta/White</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Cycle slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Tilt</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="ELC 250W" Lumens="1800" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="200" Height="155" Depth="500"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

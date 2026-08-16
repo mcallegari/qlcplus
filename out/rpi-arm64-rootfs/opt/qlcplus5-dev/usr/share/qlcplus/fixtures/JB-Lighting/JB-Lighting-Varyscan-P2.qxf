@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
+ </Creator>
+ <Manufacturer>JB-Lighting</Manufacturer>
+ <Model>Varyscan P2</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan coarse" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Lamp/Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="231">Safe</Capability>
+  <Capability Min="232" Max="239" Preset="LampOff">Lamp off after 3 seconds</Capability>
+  <Capability Min="240" Max="247" Preset="ResetAll">Reset after 1 second</Capability>
+  <Capability Min="248" Max="255" Preset="LampOn">Lamp on</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="111" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="112" Max="125" Preset="StrobeSlowToFast">Periodic strobe slow to fast</Capability>
+  <Capability Min="126" Max="126" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="127" Max="127" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="128" Max="142" Preset="PulseSlowToFast">Periodic pulse open fast to slow</Capability>
+  <Capability Min="143" Max="143">Open</Capability>
+  <Capability Min="144" Max="158" Preset="ShutterOpen">Periodic pulse close fast to slow</Capability>
+  <Capability Min="159" Max="159" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="160" Max="174" Preset="FastToSlow">Close fade fast to slow</Capability>
+  <Capability Min="175" Max="175" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="176" Max="190" Preset="FastToSlow">Open fade fast to slow</Capability>
+  <Capability Min="191" Max="191" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="192" Max="206" Preset="StrobeRandomSlowToFast">Random open fast to slow</Capability>
+  <Capability Min="207" Max="207" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="208" Max="222" Preset="StrobeRandomFastToSlow">Random close fast to slow</Capability>
+  <Capability Min="223" Max="223" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="224" Max="238" Preset="StrobeRandomFastToSlow">Random close fast to slow</Capability>
+  <Capability Min="239" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="254" Preset="StrobeRandomFastToSlow">Random open fast to slow</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="No function 6" Preset="NoFunction"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="No function 10" Preset="NoFunction"/>
+ <Channel Name="No function 11" Preset="NoFunction"/>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31">Gobo 1</Capability>
+  <Capability Min="32" Max="47">Gobo 2</Capability>
+  <Capability Min="48" Max="63">Gobo 3</Capability>
+  <Capability Min="64" Max="79">Gobo 4</Capability>
+  <Capability Min="80" Max="127">Gobo 5</Capability>
+  <Capability Min="128" Max="135">Open shake</Capability>
+  <Capability Min="136" Max="143">Gobo 1 shake</Capability>
+  <Capability Min="144" Max="151">Gobo 2 shake</Capability>
+  <Capability Min="152" Max="159">Gobo 3 shake</Capability>
+  <Capability Min="160" Max="175">Gobo 4 shake</Capability>
+  <Capability Min="176" Max="191">Gobo 5 shake</Capability>
+  <Capability Min="192" Max="255">Safe</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="191">Gobo positioning</Capability>
+  <Capability Min="192" Max="222">Rotation CCW fast to slow</Capability>
+  <Capability Min="223" Max="224">No rotation</Capability>
+  <Capability Min="225" Max="255">Rotation CW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3">White</Capability>
+  <Capability Min="4" Max="7">White/Red</Capability>
+  <Capability Min="8" Max="11">Red</Capability>
+  <Capability Min="12" Max="15">Red/Yellow</Capability>
+  <Capability Min="16" Max="19">Yellow</Capability>
+  <Capability Min="20" Max="23">Yellow/Magenta</Capability>
+  <Capability Min="24" Max="27">Magenta</Capability>
+  <Capability Min="28" Max="31">Magenta/Green</Capability>
+  <Capability Min="32" Max="35">Green</Capability>
+  <Capability Min="36" Max="39">Green/Orange</Capability>
+  <Capability Min="40" Max="43">Orange</Capability>
+  <Capability Min="44" Max="47">Orange/Blue</Capability>
+  <Capability Min="48" Max="51">Blue</Capability>
+  <Capability Min="52" Max="55">Blue/Cyan</Capability>
+  <Capability Min="56" Max="59">Cyan</Capability>
+  <Capability Min="60" Max="63">Cyan/White</Capability>
+  <Capability Min="64" Max="191">Colour positioning</Capability>
+  <Capability Min="192" Max="222">Rainbow CW fast to slow</Capability>
+  <Capability Min="223" Max="224">No rotation</Capability>
+  <Capability Min="225" Max="255">Rainbow CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31">CTB daylight filter</Capability>
+  <Capability Min="32" Max="47">CTO artificial light filter</Capability>
+  <Capability Min="48" Max="63">Pink</Capability>
+  <Capability Min="64" Max="79">Cyan</Capability>
+  <Capability Min="80" Max="127">Frost</Capability>
+  <Capability Min="128" Max="255">Colour macros with colour wheel 1</Capability>
+ </Channel>
+ <Channel Name="No function 16" Preset="NoFunction"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="15">Inactive, colour wheel 2 active</Capability>
+  <Capability Min="16" Max="255">Active, colour wheel 2 inactive</Capability>
+ </Channel>
+ <Channel Name="Prism positioning">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="191">Positioning</Capability>
+  <Capability Min="192" Max="222">Rotation CW fast to slow</Capability>
+  <Capability Min="223" Max="224">No rotation</Capability>
+  <Capability Min="225" Max="255">Rotation CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="No function 19" Preset="NoFunction"/>
+ <Channel Name="Movement speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Tracking</Capability>
+  <Capability Min="4" Max="255">Vector speed</Capability>
+ </Channel>
+ <Channel Name="Effect speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Tracking</Capability>
+  <Capability Min="4" Max="255">Vector speed</Capability>
+ </Channel>
+ <Mode Name="16bit">
+  <Channel Number="0">Pan coarse</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt coarse</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Lamp/Reset</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">No function 6</Channel>
+  <Channel Number="8">Focus</Channel>
+  <Channel Number="9">No function 10</Channel>
+  <Channel Number="10">No function 11</Channel>
+  <Channel Number="11">Gobo</Channel>
+  <Channel Number="12">Gobo rotation</Channel>
+  <Channel Number="13">Colour</Channel>
+  <Channel Number="14">Effect</Channel>
+  <Channel Number="15">No function 16</Channel>
+  <Channel Number="16">Prism</Channel>
+  <Channel Number="17">Prism positioning</Channel>
+  <Channel Number="18">No function 19</Channel>
+  <Channel Number="19">Movement speed</Channel>
+  <Channel Number="20">Effect speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="21" Width="389" Height="559" Depth="320"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="480" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

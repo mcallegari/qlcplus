@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Bulle</Author>
+ </Creator>
+ <Manufacturer>Electroconcept</Manufacturer>
+ <Model>SPC029</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 1/4" Preset="IntensityRed"/>
+ <Channel Name="Red 2/4" Preset="IntensityRed"/>
+ <Channel Name="Red 3/4" Preset="IntensityRed"/>
+ <Channel Name="Red 4/4" Preset="IntensityRed"/>
+ <Channel Name="Green 1/4" Preset="IntensityGreen"/>
+ <Channel Name="Green 2/4" Preset="IntensityGreen"/>
+ <Channel Name="Green 3/4" Preset="IntensityGreen"/>
+ <Channel Name="Green 4/4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1/4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2/4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3/4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4/4" Preset="IntensityBlue"/>
+ <Channel Name="Red 1/8" Preset="IntensityRed"/>
+ <Channel Name="Red 2/8" Preset="IntensityRed"/>
+ <Channel Name="Red 3/8" Preset="IntensityRed"/>
+ <Channel Name="Red 4/8" Preset="IntensityRed"/>
+ <Channel Name="Red 5/8" Preset="IntensityRed"/>
+ <Channel Name="Red 6/8" Preset="IntensityRed"/>
+ <Channel Name="Red 7/8" Preset="IntensityRed"/>
+ <Channel Name="Red 8/8" Preset="IntensityRed"/>
+ <Channel Name="Green 1/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 2/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 3/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 4/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 5/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 6/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 7/8" Preset="IntensityGreen"/>
+ <Channel Name="Green 8/8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 6/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 7/8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 8/8" Preset="IntensityBlue"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="80" Max="89">Program 01</Capability>
+  <Capability Min="90" Max="99">Program 02</Capability>
+  <Capability Min="100" Max="109">Program 03</Capability>
+  <Capability Min="110" Max="119">Program 04</Capability>
+  <Capability Min="120" Max="129">Program 05</Capability>
+  <Capability Min="130" Max="139">Program 06</Capability>
+  <Capability Min="140" Max="149">Program 07</Capability>
+  <Capability Min="150" Max="159">Program 08</Capability>
+  <Capability Min="160" Max="169">Program 09</Capability>
+  <Capability Min="170" Max="179">Program 10</Capability>
+  <Capability Min="180" Max="189">Program 11</Capability>
+  <Capability Min="190" Max="199">Program 12</Capability>
+  <Capability Min="200" Max="209">Program 13</Capability>
+  <Capability Min="210" Max="219">Sound Mode 01</Capability>
+  <Capability Min="220" Max="229">Sound Mode 02</Capability>
+  <Capability Min="230" Max="239">Sound Mode 03</Capability>
+  <Capability Min="240" Max="255">Sound Mode 04</Capability>
+ </Channel>
+ <Channel Name="Adjust">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Dimmer (ch1 0~79) / Speed (ch1 80~209) / Sensivity (ch1 210~255)</Capability>
+ </Channel>
+ <Mode Name="d-p1 (4 CHS)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="d-p2 (13 CHS)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red 1/4</Channel>
+  <Channel Number="2">Green 1/4</Channel>
+  <Channel Number="3">Blue 1/4</Channel>
+  <Channel Number="4">Red 2/4</Channel>
+  <Channel Number="5">Green 2/4</Channel>
+  <Channel Number="6">Blue 2/4</Channel>
+  <Channel Number="7">Red 3/4</Channel>
+  <Channel Number="8">Green 3/4</Channel>
+  <Channel Number="9">Blue 3/4</Channel>
+  <Channel Number="10">Red 4/4</Channel>
+  <Channel Number="11">Green 4/4</Channel>
+  <Channel Number="12">Blue 4/4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="d-p3 (25 CHS)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red 1/8</Channel>
+  <Channel Number="2">Red 2/8</Channel>
+  <Channel Number="3">Red 3/8</Channel>
+  <Channel Number="4">Red 4/8</Channel>
+  <Channel Number="5">Red 5/8</Channel>
+  <Channel Number="6">Red 6/8</Channel>
+  <Channel Number="7">Red 7/8</Channel>
+  <Channel Number="8">Red 8/8</Channel>
+  <Channel Number="9">Green 1/8</Channel>
+  <Channel Number="10">Green 2/8</Channel>
+  <Channel Number="11">Green 3/8</Channel>
+  <Channel Number="12">Green 4/8</Channel>
+  <Channel Number="13">Green 5/8</Channel>
+  <Channel Number="14">Green 6/8</Channel>
+  <Channel Number="15">Green 7/8</Channel>
+  <Channel Number="16">Green 8/8</Channel>
+  <Channel Number="17">Blue 1/8</Channel>
+  <Channel Number="18">Blue 2/8</Channel>
+  <Channel Number="19">Blue 3/8</Channel>
+  <Channel Number="20">Blue 4/8</Channel>
+  <Channel Number="21">Blue 5/8</Channel>
+  <Channel Number="22">Blue 6/8</Channel>
+  <Channel Number="23">Blue 7/8</Channel>
+  <Channel Number="24">Blue 8/8</Channel>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>9</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>18</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>19</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>20</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>21</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>22</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>23</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>8</Channel>
+   <Channel>24</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="d-p4 (2 CHS)">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Adjust</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="1000" Height="60" Depth="60"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

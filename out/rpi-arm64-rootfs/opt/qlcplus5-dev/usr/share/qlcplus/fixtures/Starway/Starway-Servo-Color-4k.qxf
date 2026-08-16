@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>miktallerra</Author>
+ </Creator>
+ <Manufacturer>Starway</Manufacturer>
+ <Model>Servo Color 4k</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Slow movement</Capability>
+  <Capability Min="4" Max="255" Preset="FastToSlow">Fast &gt; Slow</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="11" Max="90" Preset="StrobeSlowToFast">Regular strobe from slow to fast</Capability>
+  <Capability Min="91" Max="170" Preset="StrobeRandomSlowToFast">random strobe from slow to fast</Capability>
+  <Capability Min="171" Max="255" Preset="StrobeRandomSlowToFast">Random synchronized strobe from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">RGBW max</Capability>
+  <Capability Min="1" Max="10" Preset="ColorMacro" Res1="#ffffff">White from 10000°K to 2700°K</Capability>
+  <Capability Min="11" Max="50" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red to yellow</Capability>
+  <Capability Min="51" Max="90" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow to green</Capability>
+  <Capability Min="91" Max="170" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green to blue</Capability>
+  <Capability Min="171" Max="210" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Blue to magenta</Capability>
+  <Capability Min="211" Max="251" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Magenta to red</Capability>
+  <Capability Min="252" Max="253" Preset="RotationClockwise">Virtual color wheel rotation CW</Capability>
+  <Capability Min="254" Max="255" Preset="RotationCounterClockwise">Virtual color wheel rotation CCW</Capability>
+ </Channel>
+ <Channel Name="Color time">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Fade time between 2 colors of the virtual wheel from 10 to 0 sec or rotation speed of the virtual color wheel from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">ldle</Capability>
+  <Capability Min="10" Max="19">Led calibration off</Capability>
+  <Capability Min="20" Max="29">Led calibration oN</Capability>
+  <Capability Min="30" Max="39">ldle</Capability>
+  <Capability Min="40" Max="49">Fan mode regulation</Capability>
+  <Capability Min="50" Max="59">Fan silent mode</Capability>
+  <Capability Min="60" Max="69">Idle</Capability>
+  <Capability Min="70" Max="79">For future function</Capability>
+  <Capability Min="80" Max="89">For future function</Capability>
+  <Capability Min="90" Max="99">Idle</Capability>
+  <Capability Min="100" Max="109" Preset="ResetPan">Pan reset</Capability>
+  <Capability Min="110" Max="119" Preset="ResetTilt">Tilt reset</Capability>
+  <Capability Min="120" Max="129" Preset="ResetZoom">Zoom reset</Capability>
+  <Capability Min="130" Max="139">System reset</Capability>
+  <Capability Min="140" Max="149">Idle</Capability>
+  <Capability Min="150" Max="255">Not used</Capability>
+ </Channel>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">Color wheel</Channel>
+  <Channel Number="13">Color time</Channel>
+  <Channel Number="14">Control</Channel>
+ </Mode>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Master dimmer</Channel>
+  <Channel Number="6">Master dimmer fine</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Red fine</Channel>
+  <Channel Number="11">Green</Channel>
+  <Channel Number="12">Green fine</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">Blue fine</Channel>
+  <Channel Number="15">White</Channel>
+  <Channel Number="16">White fine</Channel>
+  <Channel Number="17">Color wheel</Channel>
+  <Channel Number="18">Color time</Channel>
+  <Channel Number="19">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="8766" ColourTemperature="7443"/>
+  <Dimensions Weight="9" Width="220" Height="370" Depth="314"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="48"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

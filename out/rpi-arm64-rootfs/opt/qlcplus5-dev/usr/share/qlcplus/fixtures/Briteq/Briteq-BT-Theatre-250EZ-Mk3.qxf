@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0</Version>
+  <Author>Christoph Müllner</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT Theatre 250EZ Mk3</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="WW" Preset="IntensityWhite"/>
+ <Channel Name="WW fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="125" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="126" Max="135" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="136" Max="255" Preset="StrobeRandomSlowToFast">Random strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="15">Redshift On (hold 3s)</Capability>
+  <Capability Min="16" Max="20">Redshift Off (hold 3s)</Capability>
+  <Capability Min="21" Max="25">Curve: linear (hold 3s)</Capability>
+  <Capability Min="26" Max="30">Curve: square (hold 3s)</Capability>
+  <Capability Min="31" Max="35">Curve: inv. square (hold 3s)</Capability>
+  <Capability Min="36" Max="40">Curve: S-curve (hold 3s)</Capability>
+  <Capability Min="41" Max="60">No function</Capability>
+  <Capability Min="61" Max="65">Dim speed: LED (hold 3s)</Capability>
+  <Capability Min="66" Max="70">Dim speed: menu (hold 3s)</Capability>
+  <Capability Min="71" Max="90">No function</Capability>
+  <Capability Min="91" Max="95">No DMX: hold (hold 3s)</Capability>
+  <Capability Min="96" Max="100">No DMX: blackout (hold 3s)</Capability>
+  <Capability Min="101" Max="105">No DMX: manual (hold 3s)</Capability>
+  <Capability Min="106" Max="125">No function</Capability>
+  <Capability Min="126" Max="130">Display flash on (hold 3s)</Capability>
+  <Capability Min="131" Max="135">Display flash off (hold 3s)</Capability>
+  <Capability Min="136" Max="155">No function</Capability>
+  <Capability Min="156" Max="160">Fan mode: silent (hold 3s)</Capability>
+  <Capability Min="161" Max="165">Fan mode: auto (hold 3s)</Capability>
+  <Capability Min="166" Max="170">Fan mode: high (hold 3s)</Capability>
+  <Capability Min="171" Max="190">No function</Capability>
+  <Capability Min="191" Max="195">PWM 0.6 kHz (hold 3s)</Capability>
+  <Capability Min="196" Max="200">PWM 1.2 kHz (hold 3s)</Capability>
+  <Capability Min="201" Max="205">PWM 1.8 kHz (hold 3s)</Capability>
+  <Capability Min="206" Max="210">PWM 2.4 kHz (hold 3s)</Capability>
+  <Capability Min="211" Max="215">PWM 3.0 kHz (hold 3s)</Capability>
+  <Capability Min="216" Max="220">PWM 3.6 kHz (hold 3s)</Capability>
+  <Capability Min="221" Max="225">PWM 4.2 kHz (hold 3s)</Capability>
+  <Capability Min="226" Max="230">PWM 4.8 kHz (hold 3s)</Capability>
+  <Capability Min="231" Max="240">No function</Capability>
+  <Capability Min="241" Max="243">Zoom reset (hold 3s)</Capability>
+  <Capability Min="244" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="1 Channel Dimmer">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel Dimmer + Strobe">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Channel Dimmer + Strobe + Focus + Control">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Focus</Channel>
+  <Channel Number="3">Control</Channel>
+ </Mode>
+ <Mode Name="2 Channel Dimmer 16 bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="3 Channel Dimmer 16 bit + Strobe">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="5 Channel Dimmer 16 bit + Strobe + Focus + Control">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Focus</Channel>
+  <Channel Number="4">Control</Channel>
+ </Mode>
+ <Mode Name="9 Channel Full">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">WW</Channel>
+  <Channel Number="3">WW fine</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Amber fine</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="14000" ColourTemperature="3200"/>
+  <Dimensions Weight="9" Width="336" Height="297" Depth="458"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

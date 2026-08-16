@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>MEGA-Lite</Manufacturer>
+ <Model>M-Sphere</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Infinity Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="7">No Function</Capability>
+  <Capability Min="8" Max="125">Clockwise Pan Rotation (Fast -&gt; Slow)</Capability>
+  <Capability Min="126" Max="128">Rotation Stop</Capability>
+  <Capability Min="129" Max="255">Counter Clockwise Pan Rotation (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Infinity Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="5">No Function</Capability>
+  <Capability Min="6" Max="125">Clockwise Tilt Rotation (Fast -&gt; Slow)</Capability>
+  <Capability Min="126" Max="128">Rotation Stop</Capability>
+  <Capability Min="129" Max="255">Counter Clockwise Tilt Rotation (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Mirror Ball Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7" Preset="RotationStop">No Function</Capability>
+  <Capability Min="8" Max="127" Preset="RotationClockwiseSlowToFast">Mirror Ball Clockwise Rotation (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="255" Preset="RotationCounterClockwiseSlowToFast">Mirror Ball Counter Clockwise Rotation (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="6" Max="125" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="126" Max="128" Preset="StrobeRandomSlowToFast">Random Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="129" Max="255" Preset="StrobeRandomSlowToFast">Random Strobe Each Pixel (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Ring Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ring Color - Red" Preset="IntensityRed"/>
+ <Channel Name="Ring Color - Green" Preset="IntensityGreen"/>
+ <Channel Name="Ring Color - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Ring Shutter Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="24">Macro Effect 1</Capability>
+  <Capability Min="25" Max="39">Macro Effect 2</Capability>
+  <Capability Min="40" Max="54">Macro Effect 3</Capability>
+  <Capability Min="55" Max="69">Macro Effect 4</Capability>
+  <Capability Min="70" Max="84">Macro Effect 5</Capability>
+  <Capability Min="85" Max="99">Macro Effect 6</Capability>
+  <Capability Min="100" Max="114">Macro Effect 7</Capability>
+  <Capability Min="115" Max="129">Macro Effect 8</Capability>
+  <Capability Min="130" Max="149">Macro Effect 9</Capability>
+  <Capability Min="150" Max="164">Macro Effect 10</Capability>
+  <Capability Min="165" Max="179">Macro Effect 11</Capability>
+  <Capability Min="180" Max="194">Macro Effect 12</Capability>
+  <Capability Min="195" Max="209">Macro Effect 13</Capability>
+  <Capability Min="210" Max="224">Macro Effect 14</Capability>
+  <Capability Min="225" Max="239">Macro Effect 15</Capability>
+  <Capability Min="240" Max="255">Macro Effect 16</Capability>
+ </Channel>
+ <Channel Name="Ring Macro Speed (Shutter)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127" Preset="RotationClockwiseFastToSlow">Macro Forward Speed (Fast -&gt; Slow)</Capability>
+  <Capability Min="128" Max="255" Preset="RotationCounterClockwiseSlowToFast">Macro Reverse Speed (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="240">No Function</Capability>
+  <Capability Min="241" Max="255" Preset="ResetMotors">All Motor Reset (Hold for 5 Seconds)</Capability>
+ </Channel>
+ <Channel Name="Ring Color Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="24">Effect 1</Capability>
+  <Capability Min="25" Max="39">Effect 2</Capability>
+  <Capability Min="40" Max="54">Effect 3</Capability>
+  <Capability Min="55" Max="69">Effect 4</Capability>
+  <Capability Min="70" Max="84">Effect 5</Capability>
+  <Capability Min="85" Max="99">Effect 6</Capability>
+  <Capability Min="100" Max="114">Effect 7</Capability>
+  <Capability Min="115" Max="129">Effect 8</Capability>
+  <Capability Min="130" Max="149">Effect 9</Capability>
+  <Capability Min="150" Max="179">Effect 11</Capability>
+  <Capability Min="180" Max="194">Effect 12</Capability>
+  <Capability Min="195" Max="209">Effect 13</Capability>
+  <Capability Min="210" Max="224">Effect 14</Capability>
+  <Capability Min="225" Max="239">Color Fade</Capability>
+  <Capability Min="240" Max="255">Color Snap</Capability>
+ </Channel>
+ <Channel Name="Ring Macro Speed (Color)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Color Forward Speed (Fast -&gt; Slow)</Capability>
+  <Capability Min="128" Max="255">Color Reverse Speed (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Red Segment 1" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 2" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 3" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 4" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 5" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 6" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 7" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 8" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 9" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 10" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 11" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 12" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 13" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 14" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 15" Preset="IntensityRed"/>
+ <Channel Name="Red Segment 16" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 4" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 5" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 6" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 7" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 8" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 9" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 10" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 11" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 12" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 13" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 14" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 15" Preset="IntensityGreen"/>
+ <Channel Name="Green Segment 16" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 6" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 7" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 8" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 9" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 10" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 11" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 12" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 13" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 14" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 15" Preset="IntensityBlue"/>
+ <Channel Name="Blue Segment 16" Preset="IntensityBlue"/>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Infinity Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Tilt fine</Channel>
+  <Channel Number="5">Infinity Tilt</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Mirror Ball Rotation</Channel>
+  <Channel Number="8">Ring Dimmer</Channel>
+  <Channel Number="9">Ring Color - Red</Channel>
+  <Channel Number="10">Ring Color - Green</Channel>
+  <Channel Number="11">Ring Color - Blue</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Ring Shutter Macro</Channel>
+  <Channel Number="14">Ring Macro Speed (Shutter)</Channel>
+  <Channel Number="15">Ring Color Effect</Channel>
+  <Channel Number="16">Ring Macro Speed (Color)</Channel>
+  <Channel Number="17">Control</Channel>
+ </Mode>
+ <Mode Name="66 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Infinity Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Tilt fine</Channel>
+  <Channel Number="5">Infinity Tilt</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Mirror Ball Rotation</Channel>
+  <Channel Number="8">Ring Dimmer</Channel>
+  <Channel Number="9">Ring Color - Red</Channel>
+  <Channel Number="10">Ring Color - Green</Channel>
+  <Channel Number="11">Ring Color - Blue</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Ring Shutter Macro</Channel>
+  <Channel Number="14">Ring Macro Speed (Shutter)</Channel>
+  <Channel Number="15">Ring Color Effect</Channel>
+  <Channel Number="16">Ring Macro Speed (Color)</Channel>
+  <Channel Number="17">Red Segment 1</Channel>
+  <Channel Number="18">Green Segment 1</Channel>
+  <Channel Number="19">Blue Segment 1</Channel>
+  <Channel Number="20">Red Segment 2</Channel>
+  <Channel Number="21">Green Segment 2</Channel>
+  <Channel Number="22">Blue Segment 2</Channel>
+  <Channel Number="23">Red Segment 3</Channel>
+  <Channel Number="24">Green Segment 3</Channel>
+  <Channel Number="25">Blue Segment 3</Channel>
+  <Channel Number="26">Red Segment 4</Channel>
+  <Channel Number="27">Green Segment 4</Channel>
+  <Channel Number="28">Blue Segment 4</Channel>
+  <Channel Number="29">Red Segment 5</Channel>
+  <Channel Number="30">Green Segment 5</Channel>
+  <Channel Number="31">Blue Segment 5</Channel>
+  <Channel Number="32">Red Segment 6</Channel>
+  <Channel Number="33">Green Segment 6</Channel>
+  <Channel Number="34">Blue Segment 6</Channel>
+  <Channel Number="35">Red Segment 7</Channel>
+  <Channel Number="36">Green Segment 7</Channel>
+  <Channel Number="37">Blue Segment 7</Channel>
+  <Channel Number="38">Red Segment 8</Channel>
+  <Channel Number="39">Green Segment 8</Channel>
+  <Channel Number="40">Blue Segment 8</Channel>
+  <Channel Number="41">Red Segment 9</Channel>
+  <Channel Number="42">Green Segment 9</Channel>
+  <Channel Number="43">Blue Segment 9</Channel>
+  <Channel Number="44">Red Segment 10</Channel>
+  <Channel Number="45">Green Segment 10</Channel>
+  <Channel Number="46">Blue Segment 10</Channel>
+  <Channel Number="47">Red Segment 11</Channel>
+  <Channel Number="48">Green Segment 11</Channel>
+  <Channel Number="49">Blue Segment 11</Channel>
+  <Channel Number="50">Red Segment 12</Channel>
+  <Channel Number="51">Green Segment 12</Channel>
+  <Channel Number="52">Blue Segment 12</Channel>
+  <Channel Number="53">Red Segment 13</Channel>
+  <Channel Number="54">Green Segment 13</Channel>
+  <Channel Number="55">Blue Segment 13</Channel>
+  <Channel Number="56">Red Segment 14</Channel>
+  <Channel Number="57">Green Segment 14</Channel>
+  <Channel Number="58">Blue Segment 14</Channel>
+  <Channel Number="59">Red Segment 15</Channel>
+  <Channel Number="60">Green Segment 15</Channel>
+  <Channel Number="61">Blue Segment 15</Channel>
+  <Channel Number="62">Red Segment 16</Channel>
+  <Channel Number="63">Green Segment 16</Channel>
+  <Channel Number="64">Blue Segment 16</Channel>
+  <Channel Number="65">Control</Channel>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+  </Head>
+  <Head>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="16.78" Width="472" Height="565" Depth="300"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="560" TiltMax="360"/>
+  <Layout Width="4" Height="4"/>
+  <Technical PowerConsumption="26" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

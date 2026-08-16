@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Chris</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Comscan LED</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobing low - fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181">Slow open - fast close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231">Fast 0pen - slow close</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="8" Max="14" Preset="ColorMacro" Res1="#ffff00">Gobo 1</Capability>
+  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#aa0000">Gobo 2</Capability>
+  <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#00aa00">Gobo 3</Capability>
+  <Capability Min="29" Max="35" Preset="ColorMacro" Res1="#00aaff">Gobo 4</Capability>
+  <Capability Min="36" Max="42" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#00aaff">Gobo 5</Capability>
+  <Capability Min="43" Max="49" Preset="ColorMacro" Res1="#ff007f">Gobo 6</Capability>
+  <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#aaffff">Gobo 7</Capability>
+  <Capability Min="57" Max="63" Preset="ColorDoubleMacro" Res1="#ff007f" Res2="#55aaff">Gobo 8</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffffff">Open shake</Capability>
+  <Capability Min="72" Max="78" Preset="ColorMacro" Res1="#ffff00">Gobo 1 Shake</Capability>
+  <Capability Min="79" Max="85" Preset="ColorMacro" Res1="#aa0000">Gobo 2 Shake</Capability>
+  <Capability Min="86" Max="92" Preset="ColorMacro" Res1="#55aa00">Gobo 3 Shake</Capability>
+  <Capability Min="93" Max="99" Preset="ColorMacro" Res1="#00aaff">Gobo 4 Shake</Capability>
+  <Capability Min="100" Max="106" Preset="ColorDoubleMacro" Res1="#aa0000" Res2="#00aa00">Gobo 5 Shake</Capability>
+  <Capability Min="107" Max="113" Preset="ColorMacro" Res1="#ff007f">Gobo 6 Shake</Capability>
+  <Capability Min="114" Max="120" Preset="ColorMacro" Res1="#aaffff">Gobo 7 Shake</Capability>
+  <Capability Min="121" Max="127" Preset="ColorDoubleMacro" Res1="#ff007f" Res2="#00ffff">Gobo 8 Shake</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo wheel rotation slow - fast</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4">Master Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.6" Width="160" Height="200" Depth="344"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Mirror" PanMax="166" TiltMax="54"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

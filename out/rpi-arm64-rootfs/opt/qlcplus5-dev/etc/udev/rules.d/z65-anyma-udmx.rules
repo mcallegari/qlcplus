@@ -1,0 +1,7 @@
+# These rules should work on newer udev architecture as well as the older one.
+# Basically they watch for all "usb" subsystem add/change events, that occur
+# for Anyma's uDMX devices and clones, and
+# set their device nodes' permissions so that ALL users can read and write to
+# them. The devices nodes are found under /dev/bus/usb/xxx/yyy.
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="05dc", MODE="0666"
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="8888", MODE="0666"

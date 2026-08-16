@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Jakob Frank</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>SonicPulse MH Wash 1208</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="127" Preset="StrobeSlowToFast">Linear strobe, increasing speed</Capability>
+  <Capability Min="128" Max="255" Preset="StrobeRandomSlowToFast">Random strobe effect, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Red (All LEDS)" Preset="IntensityRed"/>
+ <Channel Name="Green (All LEDS)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (All LEDS)" Preset="IntensityBlue"/>
+ <Channel Name="White (All LEDs)" Preset="IntensityWhite"/>
+ <Channel Name="Special functions (hold for at least 5 seconds)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Reset if the value is transmitted for at least 5 seconds</Capability>
+  <Capability Min="15" Max="44">No function</Capability>
+  <Capability Min="45" Max="49">Automatic ventilation</Capability>
+  <Capability Min="50" Max="54">Fast ventilation</Capability>
+  <Capability Min="55" Max="59">Slow ventilation</Capability>
+  <Capability Min="60" Max="64">Ventilation off</Capability>
+  <Capability Min="65" Max="69">Linear proportional course (Linear)</Capability>
+  <Capability Min="70" Max="74">Quadratic curve with a flat profile at the beginning and a steep profile at the end (Square Law)</Capability>
+  <Capability Min="75" Max="79">Inverted square curve with a steep course at the beginning and a flat course at the end (inverse square law)</Capability>
+  <Capability Min="80" Max="84">Non-linear curve with a distinctive flat profile at the beginning and end (S-Curve)</Capability>
+  <Capability Min="85" Max="89">Steep gradient</Capability>
+  <Capability Min="90" Max="94">Flat course</Capability>
+  <Capability Min="95" Max="99">Normal rotation</Capability>
+  <Capability Min="100" Max="104">Inverted rotation</Capability>
+  <Capability Min="105" Max="109">Normal tilt</Capability>
+  <Capability Min="110" Max="114">Inverted tilt</Capability>
+  <Capability Min="115" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Colour settings">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24">No function</Capability>
+  <Capability Min="25" Max="31">R: 255; G: 000; B: 000; W: 000</Capability>
+  <Capability Min="32" Max="38">R: 255; G: 000; B: 000; W: 100</Capability>
+  <Capability Min="39" Max="45">R: 255; G: 000; B: 000; W: 200</Capability>
+  <Capability Min="46" Max="52">R: 255; G: 050; B: 000; W: 000</Capability>
+  <Capability Min="53" Max="59">R: 255; G: 150; B: 000; W: 000</Capability>
+  <Capability Min="60" Max="66">R: 255; G: 255; B: 000; W: 000</Capability>
+  <Capability Min="67" Max="73">R: 255; G: 255; B: 000; W: 075</Capability>
+  <Capability Min="74" Max="80">R: 000; G: 255; B: 000; W: 255</Capability>
+  <Capability Min="81" Max="87">R: 000; G: 255; B: 000; W: 150</Capability>
+  <Capability Min="88" Max="94">R: 000; G: 255; B: 000; W: 050</Capability>
+  <Capability Min="95" Max="101">R: 000; G: 255; B: 000; W: 000</Capability>
+  <Capability Min="102" Max="108">R: 000; G: 255; B: 050; W: 000</Capability>
+  <Capability Min="109" Max="115">R: 000; G: 255; B: 150; W: 000</Capability>
+  <Capability Min="116" Max="122">R: 000; G: 255; B: 255; W: 000</Capability>
+  <Capability Min="123" Max="129">R: 000; G: 255; B: 255; W: 075</Capability>
+  <Capability Min="130" Max="136">R: 000; G: 255; B: 255; W: 150</Capability>
+  <Capability Min="137" Max="143">R: 000; G: 100; B: 255; W: 255</Capability>
+  <Capability Min="144" Max="150">R: 000; G: 000; B: 255; W: 100</Capability>
+  <Capability Min="151" Max="157">R: 000; G: 000; B: 255; W: 050</Capability>
+  <Capability Min="158" Max="164">R: 000; G: 000; B: 255; W: 000</Capability>
+  <Capability Min="165" Max="171">R: 075; G: 000; B: 255; W: 000</Capability>
+  <Capability Min="172" Max="178">R: 160; G: 000; B: 255; W: 000</Capability>
+  <Capability Min="179" Max="185">R: 255; G: 000; B: 255; W: 000</Capability>
+  <Capability Min="186" Max="192">R: 255; G: 000; B: 175; W: 000</Capability>
+  <Capability Min="193" Max="199">R: 255; G: 000; B: 100; W: 000</Capability>
+  <Capability Min="200" Max="206">R: 255; G: 000; B: 100; W: 050</Capability>
+  <Capability Min="207" Max="213">R: 255; G: 000; B: 025; W: 050</Capability>
+  <Capability Min="214" Max="220">R: 255; G: 000; B: 025; W: 025</Capability>
+  <Capability Min="221" Max="227">R: 255; G: 000; B: 025; W: 000</Capability>
+  <Capability Min="228" Max="234">R: 000; G: 000; B: 000; W: 255</Capability>
+  <Capability Min="235" Max="241">R: 075; G: 075; B: 000; W: 255</Capability>
+  <Capability Min="242" Max="248">R: 000; G: 000; B: 100; W: 255</Capability>
+  <Capability Min="249" Max="255">R: 255; G: 255; B: 255; W: 255</Capability>
+ </Channel>
+ <Channel Name="Colour change">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17">No function</Capability>
+  <Capability Min="18" Max="34">Colour shift 1</Capability>
+  <Capability Min="35" Max="51">Colour shift 2</Capability>
+  <Capability Min="52" Max="68">Colour shift 3</Capability>
+  <Capability Min="69" Max="85">Colour shift 4</Capability>
+  <Capability Min="86" Max="102">Colour shift 5</Capability>
+  <Capability Min="103" Max="119">Colour shift 6</Capability>
+  <Capability Min="120" Max="136">Colour shift 7</Capability>
+  <Capability Min="137" Max="153">Colour gradient 1</Capability>
+  <Capability Min="154" Max="170">Colour gradient 2</Capability>
+  <Capability Min="171" Max="187">Colour gradient 3</Capability>
+  <Capability Min="188" Max="204">Colour gradient 4</Capability>
+  <Capability Min="205" Max="221">Colour gradient 5</Capability>
+  <Capability Min="222" Max="238">Colour gradient 6</Capability>
+  <Capability Min="239" Max="255">Colour gradient 7</Capability>
+ </Channel>
+ <Channel Name="Red (LED 1)" Preset="IntensityRed"/>
+ <Channel Name="Green (LED 1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (LED 1)" Preset="IntensityBlue"/>
+ <Channel Name="White (LED 1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (LED 2)" Preset="IntensityRed"/>
+ <Channel Name="Green (LED 2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (LED 2)" Preset="IntensityBlue"/>
+ <Channel Name="White (LED 2)" Preset="IntensityWhite"/>
+ <Channel Name="Colour effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Colour effect, increasing speed</Capability>
+ </Channel>
+ <Mode Name="10 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Red (All LEDS)</Channel>
+  <Channel Number="6">Green (All LEDS)</Channel>
+  <Channel Number="7">Blue (All LEDS)</Channel>
+  <Channel Number="8">White (All LEDs)</Channel>
+  <Channel Number="9">Special functions (hold for at least 5 seconds)</Channel>
+ </Mode>
+ <Mode Name="19 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Colour settings</Channel>
+  <Channel Number="8">Colour change</Channel>
+  <Channel Number="9">Colour effect</Channel>
+  <Channel Number="10">Red (LED 1)</Channel>
+  <Channel Number="11">Green (LED 1)</Channel>
+  <Channel Number="12">Blue (LED 1)</Channel>
+  <Channel Number="13">White (LED 1)</Channel>
+  <Channel Number="14">Red (LED 2)</Channel>
+  <Channel Number="15">Green (LED 2)</Channel>
+  <Channel Number="16">Blue (LED 2)</Channel>
+  <Channel Number="17">White (LED 2)</Channel>
+  <Channel Number="18">Special functions (hold for at least 5 seconds)</Channel>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.3" Width="198" Height="271" Depth="159"/>
+  <Lens Name="Other" DegreesMin="9" DegreesMax="9"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="82" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

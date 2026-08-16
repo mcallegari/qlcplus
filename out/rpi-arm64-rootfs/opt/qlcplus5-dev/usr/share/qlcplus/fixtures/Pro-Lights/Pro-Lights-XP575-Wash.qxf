@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Tolmino TC Concerti</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>XP575 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="1" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="63" Preset="StrobeSlowToFast">Shutter Slow-Fast</Capability>
+  <Capability Min="64" Max="71" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="72" Max="127" Preset="RampDownFastToSlow">Fade Out Fast-Slow</Capability>
+  <Capability Min="128" Max="135" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="136" Max="191" Preset="RampUpSlowToFast">Fade In Slow Fast</Capability>
+  <Capability Min="192" Max="199" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="200" Max="253" Preset="StrobeRandomSlowToFast">Random Shutter Slow Fast</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="18" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="51" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="71" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="72" Max="89" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
+  <Capability Min="90" Max="107">5000K</Capability>
+  <Capability Min="108" Max="127">3200K</Capability>
+  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Forward Rotate Fast Slow</Capability>
+  <Capability Min="188" Max="195">Stop</Capability>
+  <Capability Min="196" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backward Rotate Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Macro Off</Capability>
+  <Capability Min="8" Max="15">Macro 1</Capability>
+  <Capability Min="16" Max="23">Macro 2</Capability>
+  <Capability Min="24" Max="31">Macro 3</Capability>
+  <Capability Min="32" Max="39">Macro 4</Capability>
+  <Capability Min="40" Max="47">Macro 5</Capability>
+  <Capability Min="48" Max="55">Macro 6</Capability>
+  <Capability Min="56" Max="63">Macro 7</Capability>
+  <Capability Min="64" Max="71">Macro 8</Capability>
+  <Capability Min="72" Max="79">Macro 9</Capability>
+  <Capability Min="80" Max="87">Macro 10</Capability>
+  <Capability Min="88" Max="95">Macro 11</Capability>
+  <Capability Min="96" Max="103">Macro 12</Capability>
+  <Capability Min="104" Max="111">Macro 13</Capability>
+  <Capability Min="112" Max="119">Macro 14</Capability>
+  <Capability Min="120" Max="127">Macro 15</Capability>
+  <Capability Min="128" Max="135">Macro 16</Capability>
+  <Capability Min="136" Max="143">Macro 17</Capability>
+  <Capability Min="144" Max="151">Macro 18</Capability>
+  <Capability Min="152" Max="159">Macro 19</Capability>
+  <Capability Min="160" Max="167">Macro 20</Capability>
+  <Capability Min="168" Max="175">Macro 21</Capability>
+  <Capability Min="176" Max="183">Macro 22</Capability>
+  <Capability Min="184" Max="191">Macro 23</Capability>
+  <Capability Min="192" Max="199">Macro 24</Capability>
+  <Capability Min="200" Max="207">Macro 25</Capability>
+  <Capability Min="208" Max="215">Macro 26</Capability>
+  <Capability Min="216" Max="223">Macro 27</Capability>
+  <Capability Min="224" Max="231">Macro 28</Capability>
+  <Capability Min="232" Max="239">Macro 29</Capability>
+  <Capability Min="240" Max="247">Macro 30</Capability>
+  <Capability Min="248" Max="255">Macro 31</Capability>
+ </Channel>
+ <Channel Name="Beam">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="63">Full Beam</Capability>
+  <Capability Min="64" Max="127">Frost Filter</Capability>
+  <Capability Min="128" Max="143">Flat-Wide Beam At 0</Capability>
+  <Capability Min="144" Max="255">Flat-Wide Beam At 90</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Controls">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Control</Capability>
+ </Channel>
+ <Channel Name="LampSwitch">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="47">No function</Capability>
+  <Capability Min="48" Max="95">Switch On After 3 Seconds</Capability>
+  <Capability Min="96" Max="159">No function</Capability>
+  <Capability Min="160" Max="207">Switch Off After 3 Seconds</Capability>
+  <Capability Min="208" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="XP575 Wash">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Cyan</Channel>
+  <Channel Number="4">Magenta</Channel>
+  <Channel Number="5">Yellow</Channel>
+  <Channel Number="6">Colour Macro</Channel>
+  <Channel Number="7">Beam</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Pan</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Controls</Channel>
+  <Channel Number="12">LampSwitch</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
+  <Dimensions Weight="28.5" Width="405" Height="550" Depth="395"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="30"/>
+  <Focus Type="Head" PanMax="570" TiltMax="270"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

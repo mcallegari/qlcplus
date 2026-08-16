@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Stimul-Eye</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Fine Pan" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Beam Angle + Lens Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Beam spread (narrow &lt;--&gt; wide)</Capability>
+  <Capability Min="128" Max="190">Clockwise rotation (slow &lt;--&gt; fast)</Capability>
+  <Capability Min="191" Max="255">Counterclockwise rotation (fast &lt;--&gt; slow)</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Rotation">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="LED 1 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="LED 2 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="LED 3 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="LED 4 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="LED 5 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="LED 6 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="LED 7 (Center) Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
+ </Channel>
+ <Channel Name="Built-in Programs (Static &amp; Dynamic Effects)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="7">Static 1</Capability>
+  <Capability Min="8" Max="10">Dynamic 1</Capability>
+  <Capability Min="11" Max="13">Static 2</Capability>
+  <Capability Min="14" Max="16">Dynamic 2</Capability>
+  <Capability Min="17" Max="19">Static 3</Capability>
+  <Capability Min="20" Max="22">Dynamic 3</Capability>
+  <Capability Min="23" Max="25">Static 4</Capability>
+  <Capability Min="26" Max="28">Dynamic 4</Capability>
+  <Capability Min="29" Max="31">Static 5</Capability>
+  <Capability Min="32" Max="34">Dynamic 5</Capability>
+  <Capability Min="35" Max="37">Static 6</Capability>
+  <Capability Min="38" Max="40">Dynamic 6</Capability>
+  <Capability Min="41" Max="43">Static 7</Capability>
+  <Capability Min="44" Max="46">Dynamic 7</Capability>
+  <Capability Min="47" Max="49">Static 8</Capability>
+  <Capability Min="50" Max="52">Dynamic 8</Capability>
+  <Capability Min="53" Max="55">Static 9</Capability>
+  <Capability Min="56" Max="58">Dynamic 9</Capability>
+  <Capability Min="59" Max="61">Static 10</Capability>
+  <Capability Min="62" Max="64">Dynamic 10</Capability>
+  <Capability Min="65" Max="67">Static 11</Capability>
+  <Capability Min="68" Max="70">Dynamic 11</Capability>
+  <Capability Min="71" Max="73">Static 12</Capability>
+  <Capability Min="74" Max="76">Dynamic 12</Capability>
+  <Capability Min="77" Max="79">Static 13</Capability>
+  <Capability Min="80" Max="82">Dynamic 13</Capability>
+  <Capability Min="83" Max="85">Static 14</Capability>
+  <Capability Min="86" Max="88">Dynamic 14</Capability>
+  <Capability Min="89" Max="91">Static 15</Capability>
+  <Capability Min="92" Max="94">Dynamic 15</Capability>
+  <Capability Min="95" Max="97">Static 16</Capability>
+  <Capability Min="98" Max="100">Dynamic 16</Capability>
+  <Capability Min="101" Max="103">Static 17</Capability>
+  <Capability Min="104" Max="106">Dynamic 17</Capability>
+  <Capability Min="107" Max="109">Static 18</Capability>
+  <Capability Min="110" Max="112">Dynamic 18</Capability>
+  <Capability Min="113" Max="115">Static 19</Capability>
+  <Capability Min="116" Max="118">Dynamic 19</Capability>
+  <Capability Min="119" Max="121">Static 20</Capability>
+  <Capability Min="122" Max="124">Dynamic 20</Capability>
+  <Capability Min="125" Max="127">Static 21</Capability>
+  <Capability Min="128" Max="130">Dynamic 21</Capability>
+  <Capability Min="131" Max="133">Static 22</Capability>
+  <Capability Min="134" Max="136">Dynamic 22</Capability>
+  <Capability Min="137" Max="139">Static 23</Capability>
+  <Capability Min="140" Max="142">Dynamic 23</Capability>
+  <Capability Min="143" Max="145">Static 24</Capability>
+  <Capability Min="146" Max="148">Dynamic 24</Capability>
+  <Capability Min="149" Max="151">Static 25</Capability>
+  <Capability Min="152" Max="154">Dynamic 25</Capability>
+  <Capability Min="155" Max="157">Static 26</Capability>
+  <Capability Min="158" Max="160">Dynamic 26</Capability>
+  <Capability Min="161" Max="163">Static 27</Capability>
+  <Capability Min="164" Max="166">Dynamic 27</Capability>
+  <Capability Min="167" Max="169">Static 28</Capability>
+  <Capability Min="170" Max="172">Dynamic 28</Capability>
+  <Capability Min="173" Max="175">Static 29</Capability>
+  <Capability Min="176" Max="178">Dynamic 29</Capability>
+  <Capability Min="179" Max="181">Static 30</Capability>
+  <Capability Min="182" Max="184">Dynamic 30</Capability>
+  <Capability Min="185" Max="187">Static 31</Capability>
+  <Capability Min="188" Max="190">Dynamic 31</Capability>
+  <Capability Min="191" Max="193">Static 32</Capability>
+  <Capability Min="194" Max="196">Dynamic 32</Capability>
+  <Capability Min="197" Max="199">Static 33</Capability>
+  <Capability Min="200" Max="202">Dynamic 33</Capability>
+  <Capability Min="203" Max="205">Static 34</Capability>
+  <Capability Min="206" Max="208">Dynamic 34</Capability>
+  <Capability Min="209" Max="211">Static 35</Capability>
+  <Capability Min="212" Max="214">Dynamic 35</Capability>
+  <Capability Min="215" Max="217">Static 36</Capability>
+  <Capability Min="218" Max="220">Dynamic 36</Capability>
+  <Capability Min="221" Max="223">Static 37</Capability>
+  <Capability Min="224" Max="226">Dynamic 37</Capability>
+  <Capability Min="227" Max="229">Static 38</Capability>
+  <Capability Min="230" Max="232">Dynamic 38</Capability>
+  <Capability Min="233" Max="235">Static 39</Capability>
+  <Capability Min="236" Max="238">Dynamic 39</Capability>
+  <Capability Min="239" Max="241">Static 40</Capability>
+  <Capability Min="242" Max="244">Dynamic 40</Capability>
+  <Capability Min="245" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Built-in Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast &lt;--&gt; slow</Capability>
+ </Channel>
+ <Channel Name="Auto Run + System Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="128">No function</Capability>
+  <Capability Min="129" Max="249">Auto run mode</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset (after 6 seconds)</Capability>
+ </Channel>
+ <Channel Name="LED 1-6 Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity (0% -&gt; 100%)</Capability>
+ </Channel>
+ <Mode Name="19 Channel Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Fine Pan</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Fine Tilt</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Beam Angle + Lens Rotation</Channel>
+  <Channel Number="6">Color Wheel Rotation</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">LED 1 Intensity</Channel>
+  <Channel Number="10">LED 2 Intensity</Channel>
+  <Channel Number="11">LED 3 Intensity</Channel>
+  <Channel Number="12">LED 4 Intensity</Channel>
+  <Channel Number="13">LED 5 Intensity</Channel>
+  <Channel Number="14">LED 6 Intensity</Channel>
+  <Channel Number="15">LED 7 (Center) Intensity</Channel>
+  <Channel Number="16">Built-in Programs (Static &amp; Dynamic Effects)</Channel>
+  <Channel Number="17">Built-in Program Speed</Channel>
+  <Channel Number="18">Auto Run + System Reset</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channel Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Beam Angle + Lens Rotation</Channel>
+  <Channel Number="4">Color Wheel Rotation</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">LED 7 (Center) Intensity</Channel>
+  <Channel Number="8">LED 1-6 Intensity</Channel>
+  <Channel Number="9">Built-in Programs (Static &amp; Dynamic Effects)</Channel>
+  <Channel Number="10">Built-in Program Speed</Channel>
+  <Channel Number="11">Auto Run + System Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="250"/>
+  <Layout Width="7" Height="1"/>
+  <Technical PowerConsumption="52" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

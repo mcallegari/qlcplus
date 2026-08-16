@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.4</Version>
+  <Author>Christoph Müllner</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>HZ-1500 Pro Touring Hazer DMX</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Haze Amount">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">No haze output (1%) to maximum haze output (100%)</Capability>
+ </Channel>
+ <Channel Name="Fan Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Minimum fan speed (0%) to maximum fan speed (100%)</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Haze Amount</Channel>
+  <Channel Number="1">Fan Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="16.45" Width="490" Height="345" Depth="170"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1420" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Nicolas Rasor</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Quad Par Profile RGBW 5x8W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Manual mode</Capability>
+  <Capability Min="1" Max="24">Constant color controlled by Ch. 7</Capability>
+  <Capability Min="25" Max="49">Automatic show 1</Capability>
+  <Capability Min="50" Max="74">Automatic show 2</Capability>
+  <Capability Min="75" Max="99">Automatic show 3</Capability>
+  <Capability Min="100" Max="124">Automatic show 4</Capability>
+  <Capability Min="125" Max="149">Automatic show 5</Capability>
+  <Capability Min="150" Max="174">Automatic show 6</Capability>
+  <Capability Min="175" Max="199">Automatic show 7</Capability>
+  <Capability Min="200" Max="224">Automatic show 8</Capability>
+  <Capability Min="225" Max="249">Automatic show 9</Capability>
+  <Capability Min="250" Max="255">Sound show</Capability>
+ </Channel>
+ <Channel Name="Constant Color/Chasespeed Ch. 6">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#000000">Black</Capability>
+  <Capability Min="19" Max="37" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="38" Max="56" Preset="ColorMacro" Res1="#ff8600">Orange</Capability>
+  <Capability Min="57" Max="75" Preset="ColorMacro" Res1="#ffff14">Yellow</Capability>
+  <Capability Min="76" Max="94" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="95" Max="113" Preset="ColorMacro" Res1="#5ecdff">Light blue</Capability>
+  <Capability Min="114" Max="132" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="133" Max="151" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+  <Capability Min="152" Max="170" Preset="ColorMacro" Res1="#ff3270">Pink</Capability>
+  <Capability Min="171" Max="189" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="190" Max="208" Preset="ColorMacro" Res1="#ffb0b2">Red + white</Capability>
+  <Capability Min="209" Max="227" Preset="ColorMacro" Res1="#9dffa8">Green + white</Capability>
+  <Capability Min="228" Max="246" Preset="ColorMacro" Res1="#85d0ff">Blue + white</Capability>
+  <Capability Min="247" Max="255" Preset="ColorMacro" Res1="#ffffff">Red + green + blue + white</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="4ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="8ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Macro</Channel>
+  <Channel Number="6">Constant Color/Chasespeed Ch. 6</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="9000" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="164" Height="164" Depth="105"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="48" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

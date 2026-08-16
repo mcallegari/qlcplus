@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ChannelModifier>
+<ChannelModifier xmlns="http://www.qlcplus.org/ChannelModifier">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.3 GIT</Version>
+  <Author>Luis García-Tornel</Author>
+ </Creator>
+ <Name>Exponential Shallow</Name>
+ <Handler Modified="0" Original="0"/>
+ <Handler Modified="9" Original="17"/>
+ <Handler Modified="18" Original="33"/>
+ <Handler Modified="27" Original="49"/>
+ <Handler Modified="37" Original="65"/>
+ <Handler Modified="48" Original="80"/>
+ <Handler Modified="59" Original="94"/>
+ <Handler Modified="70" Original="109"/>
+ <Handler Modified="82" Original="122"/>
+ <Handler Modified="94" Original="136"/>
+ <Handler Modified="106" Original="149"/>
+ <Handler Modified="119" Original="161"/>
+ <Handler Modified="133" Original="173"/>
+ <Handler Modified="146" Original="185"/>
+ <Handler Modified="161" Original="196"/>
+ <Handler Modified="175" Original="207"/>
+ <Handler Modified="190" Original="218"/>
+ <Handler Modified="206" Original="228"/>
+ <Handler Modified="222" Original="237"/>
+ <Handler Modified="238" Original="246"/>
+ <Handler Modified="255" Original="255"/>
+</ChannelModifier>

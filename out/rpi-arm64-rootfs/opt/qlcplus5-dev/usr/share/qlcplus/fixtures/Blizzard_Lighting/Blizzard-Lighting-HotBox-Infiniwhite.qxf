@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Chris Gill</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>HotBox Infiniwhite</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Cool White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14" Preset="ShutterOpen">Dimming</Capability>
+  <Capability Min="15" Max="255" Preset="StrobeSlowToFast">Slow &lt;--&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Fade, Color Change, Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="63">Fade in (Ch. 5 controls speed)</Capability>
+  <Capability Min="64" Max="95">Fade out (Ch. 5 controls speed)</Capability>
+  <Capability Min="96" Max="127">Fade in / fade out (Ch. 5 controls speed)</Capability>
+  <Capability Min="128" Max="159">ACW gradual change (Ch. 5 controls speed)</Capability>
+  <Capability Min="160" Max="191">Fade in / fade out, auto run</Capability>
+  <Capability Min="192" Max="223">Color jump (Ch. 5 Controls speed)</Capability>
+  <Capability Min="224" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Color Saturation">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Invalid</Capability>
+  <Capability Min="10" Max="29">A 100%</Capability>
+  <Capability Min="30" Max="39">A85%+(A+C)15%</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">A60%+(A+C)40%</Capability>
+  <Capability Min="50" Max="69">(A+C)100%</Capability>
+  <Capability Min="70" Max="79">(A+C)85%+C15%</Capability>
+  <Capability Min="80" Max="89">(A+C)60%+C40%</Capability>
+  <Capability Min="90" Max="109">C 100%</Capability>
+  <Capability Min="110" Max="119">C85%+W15%</Capability>
+  <Capability Min="120" Max="129">C60%+W40%</Capability>
+  <Capability Min="130" Max="149">W 100%</Capability>
+  <Capability Min="150" Max="159">W85%+(C+W)15%</Capability>
+  <Capability Min="160" Max="169">W60%+(C+W)40%</Capability>
+  <Capability Min="170" Max="189">(C+W)100%</Capability>
+  <Capability Min="190" Max="199">(C+W)50%+(A+W)50%</Capability>
+  <Capability Min="200" Max="219">(A+W)100%</Capability>
+  <Capability Min="220" Max="229">(A+W)50%+(A+C+W)50%</Capability>
+  <Capability Min="230" Max="249">(A+C+W)95%+(A+C)5%</Capability>
+  <Capability Min="250" Max="255">All Colors 100%</Capability>
+ </Channel>
+ <Channel Name="32-Bit Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">As set in the control menu display</Capability>
+  <Capability Min="6" Max="55">Mode 0 = 8-bit, 256 dimming steps</Capability>
+  <Capability Min="56" Max="105">Mode 1 = 32-bit, 0-25% intensity range</Capability>
+  <Capability Min="106" Max="155">Mode 2 = 32-bit, 0-50% intensity range</Capability>
+  <Capability Min="156" Max="205">Mode 3 = 32-bit, 0-75% intensity range</Capability>
+  <Capability Min="206" Max="255">Mode 4 = 32-bit, full intensity dimming</Capability>
+ </Channel>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Amber</Channel>
+  <Channel Number="2">Warm White</Channel>
+  <Channel Number="3">Cool White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fade, Color Change, Sound Active</Channel>
+  <Channel Number="6">Color Saturation</Channel>
+  <Channel Number="7">32-Bit Dimmer</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Amber</Channel>
+  <Channel Number="2">Warm White</Channel>
+  <Channel Number="3">Cool White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fade, Color Change, Sound Active</Channel>
+  <Channel Number="6">Color Saturation</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Amber</Channel>
+  <Channel Number="2">Warm White</Channel>
+  <Channel Number="3">Cool White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fade, Color Change, Sound Active</Channel>
+ </Mode>
+ <Mode Name="3-Channel (ACW)">
+  <Channel Number="0">Amber</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Cool White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="127" Height="127" Depth="102"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="28"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="47" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

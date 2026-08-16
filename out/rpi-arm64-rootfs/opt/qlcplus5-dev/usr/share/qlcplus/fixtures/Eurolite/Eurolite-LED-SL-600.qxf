@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Tim Cullingworth</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SL-600</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="127" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+  <Capability Min="128" Max="159" Preset="RampUpSlowToFast">Opening pulse</Capability>
+  <Capability Min="160" Max="191" Preset="RampDownSlowToFast">Closing pulse</Capability>
+  <Capability Min="192" Max="255" Preset="StrobeRandom">Random</Capability>
+ </Channel>
+ <Channel Name="Iris" Preset="ShutterIrisMinToMax"/>
+ <Channel Name="Color Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="17" Max="33" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="51" Max="67" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="85" Max="101" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green + Magenta</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="119" Max="135" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffff00">Magenta + Yellow</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="153" Max="169" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow + Blue</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="187" Max="203" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffaa00">Blue + Orange</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="221" Max="237" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#aa00ff">Orange + Purple</Capability>
+  <Capability Min="238" Max="255" Preset="ColorMacro" Res1="#aa00ff">Purple</Capability>
+ </Channel>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="63">Cold white</Capability>
+  <Capability Min="64" Max="127">5600K</Capability>
+  <Capability Min="128" Max="191">4500K</Capability>
+  <Capability Min="192" Max="255">3200K</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe Effect</Channel>
+  <Channel Number="2">Iris</Channel>
+  <Channel Number="3">Color Presets</Channel>
+  <Channel Number="4">Color Temperature</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="263000" ColourTemperature="7800"/>
+  <Dimensions Weight="17" Width="230" Height="340" Depth="1050"/>
+  <Lens Name="Other" DegreesMin="7" DegreesMax="13"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="640" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

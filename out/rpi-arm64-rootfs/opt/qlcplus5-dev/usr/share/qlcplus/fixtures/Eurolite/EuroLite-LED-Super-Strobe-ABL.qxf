@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Don Sebastiano</Author>
+ </Creator>
+ <Manufacturer>EuroLite</Manufacturer>
+ <Model>LED Super Strobe ABL</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Dimmer SMD 5730" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe SMD 5730">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed 0-100%</Capability>
+ </Channel>
+ <Channel Name="Dimmer SMD 5050" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe SMD 5050">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed 0-100%</Capability>
+ </Channel>
+ <Channel Name="SMD 5050 Red" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5730 Flash duration">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Flash duration</Capability>
+ </Channel>
+ <Channel Name="Automatic programs 16 effects SMD 5050">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">program 1</Capability>
+  <Capability Min="23" Max="37">program 2</Capability>
+  <Capability Min="38" Max="52">program 3</Capability>
+  <Capability Min="53" Max="82">program 4</Capability>
+  <Capability Min="83" Max="97">program 5</Capability>
+  <Capability Min="98" Max="112">program 6</Capability>
+  <Capability Min="113" Max="127">program 7</Capability>
+  <Capability Min="128" Max="142">program 8</Capability>
+  <Capability Min="143" Max="157">program 9</Capability>
+  <Capability Min="158" Max="172">program 10</Capability>
+  <Capability Min="173" Max="187">program 11</Capability>
+  <Capability Min="188" Max="202">program 12</Capability>
+  <Capability Min="203" Max="217">program 13</Capability>
+  <Capability Min="218" Max="232">program 14</Capability>
+  <Capability Min="233" Max="247">program 15</Capability>
+  <Capability Min="248" Max="255">program 16</Capability>
+ </Channel>
+ <Channel Name="SMD 5050 automatic programs">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Automatic programs with increasing speed</Capability>
+ </Channel>
+ <Channel Name="SMD 5050 Background color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Automatic program</Capability>
+  <Capability Min="16" Max="50">R</Capability>
+  <Capability Min="51" Max="84">G</Capability>
+  <Capability Min="85" Max="118">B</Capability>
+  <Capability Min="119" Max="152">RG</Capability>
+  <Capability Min="153" Max="186">RB</Capability>
+  <Capability Min="187" Max="220">GB</Capability>
+  <Capability Min="221" Max="255">RGB</Capability>
+ </Channel>
+ <Channel Name="SMD 5050 Direction">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Change of direction (down to up)</Capability>
+  <Capability Min="128" Max="255">Change of direction (up to down)</Capability>
+ </Channel>
+ <Channel Name="Color presets SMD 5050 16 automatic programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">program 1</Capability>
+  <Capability Min="23" Max="37">program 2</Capability>
+  <Capability Min="38" Max="52">program 3</Capability>
+  <Capability Min="53" Max="82">program 4</Capability>
+  <Capability Min="83" Max="97">program 5</Capability>
+  <Capability Min="98" Max="112">program 6</Capability>
+  <Capability Min="113" Max="127">program 7</Capability>
+  <Capability Min="128" Max="142">program 8</Capability>
+  <Capability Min="143" Max="157">program 9</Capability>
+  <Capability Min="158" Max="172">program 10</Capability>
+  <Capability Min="173" Max="187">program 11</Capability>
+  <Capability Min="188" Max="202">program 12</Capability>
+  <Capability Min="203" Max="217">program 13</Capability>
+  <Capability Min="218" Max="232">program 14</Capability>
+  <Capability Min="233" Max="247">program 15</Capability>
+  <Capability Min="248" Max="255">program 16</Capability>
+ </Channel>
+ <Channel Name="SMD 5050 Red Segment 1" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Segment 1" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Segment 1" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Segment 2" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Segment 2" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Segment 2" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Segment 3" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Segment 3" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Segment 3" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Segment 4" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Segment 4" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Segment 4" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 1" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 1" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 1" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 2" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 2" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 2" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 3" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 3" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 3" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 4" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 4" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 4" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 5" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 5" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 5" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 6" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 6" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 6" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 7" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 7" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 7" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 8" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 8" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 8" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 9" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 9" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 9" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 10" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 10" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 10" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 11" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 11" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 11" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 12" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 12" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 12" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 13" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 13" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 13" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 14" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 14" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 14" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 15" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 15" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 15" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 16" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 16" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 16" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 17" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 17" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 17" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 18" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 18" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 18" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 19" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 19" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 19" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 20" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 20" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 20" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 21" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 21" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 21" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 22" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 22" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 22" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 23" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 23" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 23" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 24" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 24" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 24" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 25" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 25" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 25" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 26" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 26" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 26" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 27" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 27" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 27" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 28" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 28" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 28" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 29" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 29" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 29" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 30" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 30" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 30" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 31" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 31" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 31" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 32" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 32" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 32" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 33" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 33" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 33" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 34" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 34" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 34" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 35" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 35" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 35" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 36" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 36" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 36" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 37" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 37" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 37" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 38" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 38" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 38" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 39" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 39" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 39" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 40" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 40" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 40" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 41" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 41" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 41" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 42" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 42" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 42" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 43" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 43" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 43" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 44" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 44" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 44" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 45" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 45" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 45" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 46" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 46" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 46" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 47" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 47" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 47" Preset="IntensityBlue"/>
+ <Channel Name="SMD 5050 Red Group 48" Preset="IntensityRed"/>
+ <Channel Name="SMD 5050 Green Group 48" Preset="IntensityGreen"/>
+ <Channel Name="SMD 5050 Blue Group 48" Preset="IntensityBlue"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer SMD 5730</Channel>
+  <Channel Number="1">Strobe SMD 5730</Channel>
+  <Channel Number="2">Dimmer SMD 5050</Channel>
+  <Channel Number="3">Strobe SMD 5050</Channel>
+  <Channel Number="4">SMD 5050 Red</Channel>
+  <Channel Number="5">SMD 5050 Green</Channel>
+  <Channel Number="6">SMD 5050 Blue</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Dimmer SMD 5730</Channel>
+  <Channel Number="1">Strobe SMD 5730</Channel>
+  <Channel Number="2">SMD 5730 Flash duration</Channel>
+  <Channel Number="3">Dimmer SMD 5050</Channel>
+  <Channel Number="4">Strobe SMD 5050</Channel>
+  <Channel Number="5">SMD 5050 Red</Channel>
+  <Channel Number="6">SMD 5050 Green</Channel>
+  <Channel Number="7">SMD 5050 Blue</Channel>
+  <Channel Number="8">Automatic programs 16 effects SMD 5050</Channel>
+  <Channel Number="9">SMD 5050 automatic programs</Channel>
+  <Channel Number="10">Color presets SMD 5050 16 automatic programs</Channel>
+  <Channel Number="11">SMD 5050 Background color</Channel>
+  <Channel Number="12">SMD 5050 Direction</Channel>
+ </Mode>
+ <Mode Name="22 Channel">
+  <Channel Number="0">Dimmer SMD 5730</Channel>
+  <Channel Number="1">Strobe SMD 5730</Channel>
+  <Channel Number="2">SMD 5730 Flash duration</Channel>
+  <Channel Number="3">Dimmer SMD 5050</Channel>
+  <Channel Number="4">Strobe SMD 5050</Channel>
+  <Channel Number="5">SMD 5050 Red Segment 1</Channel>
+  <Channel Number="6">SMD 5050 Green Segment 1</Channel>
+  <Channel Number="7">SMD 5050 Blue Segment 1</Channel>
+  <Channel Number="8">SMD 5050 Red Segment 2</Channel>
+  <Channel Number="9">SMD 5050 Green Segment 2</Channel>
+  <Channel Number="10">SMD 5050 Blue Segment 2</Channel>
+  <Channel Number="11">SMD 5050 Red Segment 3</Channel>
+  <Channel Number="12">SMD 5050 Green Segment 3</Channel>
+  <Channel Number="13">SMD 5050 Blue Segment 3</Channel>
+  <Channel Number="14">SMD 5050 Red Segment 4</Channel>
+  <Channel Number="15">SMD 5050 Green Segment 4</Channel>
+  <Channel Number="16">SMD 5050 Blue Segment 4</Channel>
+  <Channel Number="17">Automatic programs 16 effects SMD 5050</Channel>
+  <Channel Number="18">SMD 5050 automatic programs</Channel>
+  <Channel Number="19">Color presets SMD 5050 16 automatic programs</Channel>
+  <Channel Number="20">SMD 5050 Background color</Channel>
+  <Channel Number="21">SMD 5050 Direction</Channel>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="148 Channel">
+  <Channel Number="0">Dimmer SMD 5730</Channel>
+  <Channel Number="1">Strobe SMD 5730</Channel>
+  <Channel Number="2">Dimmer SMD 5050</Channel>
+  <Channel Number="3">Strobe SMD 5050</Channel>
+  <Channel Number="4">SMD 5050 Red Group 1</Channel>
+  <Channel Number="5">SMD 5050 Green Group 1</Channel>
+  <Channel Number="6">SMD 5050 Blue Group 1</Channel>
+  <Channel Number="7">SMD 5050 Red Group 2</Channel>
+  <Channel Number="8">SMD 5050 Green Group 2</Channel>
+  <Channel Number="9">SMD 5050 Blue Group 2</Channel>
+  <Channel Number="10">SMD 5050 Red Group 3</Channel>
+  <Channel Number="11">SMD 5050 Green Group 3</Channel>
+  <Channel Number="12">SMD 5050 Blue Group 3</Channel>
+  <Channel Number="13">SMD 5050 Red Group 4</Channel>
+  <Channel Number="14">SMD 5050 Green Group 4</Channel>
+  <Channel Number="15">SMD 5050 Blue Group 4</Channel>
+  <Channel Number="16">SMD 5050 Red Group 5</Channel>
+  <Channel Number="17">SMD 5050 Green Group 5</Channel>
+  <Channel Number="18">SMD 5050 Blue Group 5</Channel>
+  <Channel Number="19">SMD 5050 Red Group 6</Channel>
+  <Channel Number="20">SMD 5050 Green Group 6</Channel>
+  <Channel Number="21">SMD 5050 Blue Group 6</Channel>
+  <Channel Number="22">SMD 5050 Red Group 7</Channel>
+  <Channel Number="23">SMD 5050 Green Group 7</Channel>
+  <Channel Number="24">SMD 5050 Blue Group 7</Channel>
+  <Channel Number="25">SMD 5050 Red Group 8</Channel>
+  <Channel Number="26">SMD 5050 Green Group 8</Channel>
+  <Channel Number="27">SMD 5050 Blue Group 8</Channel>
+  <Channel Number="28">SMD 5050 Red Group 9</Channel>
+  <Channel Number="29">SMD 5050 Green Group 9</Channel>
+  <Channel Number="30">SMD 5050 Blue Group 9</Channel>
+  <Channel Number="31">SMD 5050 Red Group 10</Channel>
+  <Channel Number="32">SMD 5050 Green Group 10</Channel>
+  <Channel Number="33">SMD 5050 Blue Group 10</Channel>
+  <Channel Number="34">SMD 5050 Red Group 11</Channel>
+  <Channel Number="35">SMD 5050 Green Group 11</Channel>
+  <Channel Number="36">SMD 5050 Blue Group 11</Channel>
+  <Channel Number="37">SMD 5050 Red Group 12</Channel>
+  <Channel Number="38">SMD 5050 Green Group 12</Channel>
+  <Channel Number="39">SMD 5050 Blue Group 12</Channel>
+  <Channel Number="40">SMD 5050 Red Group 13</Channel>
+  <Channel Number="41">SMD 5050 Green Group 13</Channel>
+  <Channel Number="42">SMD 5050 Blue Group 13</Channel>
+  <Channel Number="43">SMD 5050 Red Group 14</Channel>
+  <Channel Number="44">SMD 5050 Green Group 14</Channel>
+  <Channel Number="45">SMD 5050 Blue Group 14</Channel>
+  <Channel Number="46">SMD 5050 Red Group 15</Channel>
+  <Channel Number="47">SMD 5050 Green Group 15</Channel>
+  <Channel Number="48">SMD 5050 Blue Group 15</Channel>
+  <Channel Number="49">SMD 5050 Red Group 16</Channel>
+  <Channel Number="50">SMD 5050 Green Group 16</Channel>
+  <Channel Number="51">SMD 5050 Blue Group 16</Channel>
+  <Channel Number="52">SMD 5050 Red Group 17</Channel>
+  <Channel Number="53">SMD 5050 Green Group 17</Channel>
+  <Channel Number="54">SMD 5050 Blue Group 17</Channel>
+  <Channel Number="55">SMD 5050 Red Group 18</Channel>
+  <Channel Number="56">SMD 5050 Green Group 18</Channel>
+  <Channel Number="57">SMD 5050 Blue Group 18</Channel>
+  <Channel Number="58">SMD 5050 Red Group 19</Channel>
+  <Channel Number="59">SMD 5050 Green Group 19</Channel>
+  <Channel Number="60">SMD 5050 Blue Group 19</Channel>
+  <Channel Number="61">SMD 5050 Red Group 20</Channel>
+  <Channel Number="62">SMD 5050 Green Group 20</Channel>
+  <Channel Number="63">SMD 5050 Blue Group 20</Channel>
+  <Channel Number="64">SMD 5050 Red Group 21</Channel>
+  <Channel Number="65">SMD 5050 Green Group 21</Channel>
+  <Channel Number="66">SMD 5050 Blue Group 21</Channel>
+  <Channel Number="67">SMD 5050 Red Group 22</Channel>
+  <Channel Number="68">SMD 5050 Green Group 22</Channel>
+  <Channel Number="69">SMD 5050 Blue Group 22</Channel>
+  <Channel Number="70">SMD 5050 Red Group 23</Channel>
+  <Channel Number="71">SMD 5050 Green Group 23</Channel>
+  <Channel Number="72">SMD 5050 Blue Group 23</Channel>
+  <Channel Number="73">SMD 5050 Red Group 24</Channel>
+  <Channel Number="74">SMD 5050 Green Group 24</Channel>
+  <Channel Number="75">SMD 5050 Blue Group 24</Channel>
+  <Channel Number="76">SMD 5050 Red Group 25</Channel>
+  <Channel Number="77">SMD 5050 Green Group 25</Channel>
+  <Channel Number="78">SMD 5050 Blue Group 25</Channel>
+  <Channel Number="79">SMD 5050 Red Group 26</Channel>
+  <Channel Number="80">SMD 5050 Green Group 26</Channel>
+  <Channel Number="81">SMD 5050 Blue Group 26</Channel>
+  <Channel Number="82">SMD 5050 Red Group 27</Channel>
+  <Channel Number="83">SMD 5050 Green Group 27</Channel>
+  <Channel Number="84">SMD 5050 Blue Group 27</Channel>
+  <Channel Number="85">SMD 5050 Red Group 28</Channel>
+  <Channel Number="86">SMD 5050 Green Group 28</Channel>
+  <Channel Number="87">SMD 5050 Blue Group 28</Channel>
+  <Channel Number="88">SMD 5050 Red Group 29</Channel>
+  <Channel Number="89">SMD 5050 Green Group 29</Channel>
+  <Channel Number="90">SMD 5050 Blue Group 29</Channel>
+  <Channel Number="91">SMD 5050 Red Group 30</Channel>
+  <Channel Number="92">SMD 5050 Green Group 30</Channel>
+  <Channel Number="93">SMD 5050 Blue Group 30</Channel>
+  <Channel Number="94">SMD 5050 Red Group 31</Channel>
+  <Channel Number="95">SMD 5050 Green Group 31</Channel>
+  <Channel Number="96">SMD 5050 Blue Group 31</Channel>
+  <Channel Number="97">SMD 5050 Red Group 32</Channel>
+  <Channel Number="98">SMD 5050 Green Group 32</Channel>
+  <Channel Number="99">SMD 5050 Blue Group 32</Channel>
+  <Channel Number="100">SMD 5050 Red Group 33</Channel>
+  <Channel Number="101">SMD 5050 Green Group 33</Channel>
+  <Channel Number="102">SMD 5050 Blue Group 33</Channel>
+  <Channel Number="103">SMD 5050 Red Group 34</Channel>
+  <Channel Number="104">SMD 5050 Green Group 34</Channel>
+  <Channel Number="105">SMD 5050 Blue Group 34</Channel>
+  <Channel Number="106">SMD 5050 Red Group 35</Channel>
+  <Channel Number="107">SMD 5050 Green Group 35</Channel>
+  <Channel Number="108">SMD 5050 Blue Group 35</Channel>
+  <Channel Number="109">SMD 5050 Red Group 36</Channel>
+  <Channel Number="110">SMD 5050 Green Group 36</Channel>
+  <Channel Number="111">SMD 5050 Blue Group 36</Channel>
+  <Channel Number="112">SMD 5050 Red Group 37</Channel>
+  <Channel Number="113">SMD 5050 Green Group 37</Channel>
+  <Channel Number="114">SMD 5050 Blue Group 37</Channel>
+  <Channel Number="115">SMD 5050 Red Group 38</Channel>
+  <Channel Number="116">SMD 5050 Green Group 38</Channel>
+  <Channel Number="117">SMD 5050 Blue Group 38</Channel>
+  <Channel Number="118">SMD 5050 Red Group 39</Channel>
+  <Channel Number="119">SMD 5050 Green Group 39</Channel>
+  <Channel Number="120">SMD 5050 Blue Group 39</Channel>
+  <Channel Number="121">SMD 5050 Red Group 40</Channel>
+  <Channel Number="122">SMD 5050 Green Group 40</Channel>
+  <Channel Number="123">SMD 5050 Blue Group 40</Channel>
+  <Channel Number="124">SMD 5050 Red Group 41</Channel>
+  <Channel Number="125">SMD 5050 Green Group 41</Channel>
+  <Channel Number="126">SMD 5050 Blue Group 41</Channel>
+  <Channel Number="127">SMD 5050 Red Group 42</Channel>
+  <Channel Number="128">SMD 5050 Green Group 42</Channel>
+  <Channel Number="129">SMD 5050 Blue Group 42</Channel>
+  <Channel Number="130">SMD 5050 Red Group 43</Channel>
+  <Channel Number="131">SMD 5050 Green Group 43</Channel>
+  <Channel Number="132">SMD 5050 Blue Group 43</Channel>
+  <Channel Number="133">SMD 5050 Red Group 44</Channel>
+  <Channel Number="134">SMD 5050 Green Group 44</Channel>
+  <Channel Number="135">SMD 5050 Blue Group 44</Channel>
+  <Channel Number="136">SMD 5050 Red Group 45</Channel>
+  <Channel Number="137">SMD 5050 Green Group 45</Channel>
+  <Channel Number="138">SMD 5050 Blue Group 45</Channel>
+  <Channel Number="139">SMD 5050 Red Group 46</Channel>
+  <Channel Number="140">SMD 5050 Green Group 46</Channel>
+  <Channel Number="141">SMD 5050 Blue Group 46</Channel>
+  <Channel Number="142">SMD 5050 Red Group 47</Channel>
+  <Channel Number="143">SMD 5050 Green Group 47</Channel>
+  <Channel Number="144">SMD 5050 Blue Group 47</Channel>
+  <Channel Number="145">SMD 5050 Red Group 48</Channel>
+  <Channel Number="146">SMD 5050 Green Group 48</Channel>
+  <Channel Number="147">SMD 5050 Blue Group 48</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+  </Head>
+  <Head>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+  </Head>
+  <Head>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+  </Head>
+  <Head>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+  </Head>
+  <Head>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+  <Head>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+  </Head>
+  <Head>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+  </Head>
+  <Head>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+  </Head>
+  <Head>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+  </Head>
+  <Head>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+  </Head>
+  <Head>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+  </Head>
+  <Head>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+   <Channel>84</Channel>
+  </Head>
+  <Head>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+  </Head>
+  <Head>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+  </Head>
+  <Head>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+  </Head>
+  <Head>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+   <Channel>96</Channel>
+  </Head>
+  <Head>
+   <Channel>97</Channel>
+   <Channel>98</Channel>
+   <Channel>99</Channel>
+  </Head>
+  <Head>
+   <Channel>100</Channel>
+   <Channel>101</Channel>
+   <Channel>102</Channel>
+  </Head>
+  <Head>
+   <Channel>103</Channel>
+   <Channel>104</Channel>
+   <Channel>105</Channel>
+  </Head>
+  <Head>
+   <Channel>106</Channel>
+   <Channel>107</Channel>
+   <Channel>108</Channel>
+  </Head>
+  <Head>
+   <Channel>109</Channel>
+   <Channel>110</Channel>
+   <Channel>111</Channel>
+  </Head>
+  <Head>
+   <Channel>112</Channel>
+   <Channel>113</Channel>
+   <Channel>114</Channel>
+  </Head>
+  <Head>
+   <Channel>115</Channel>
+   <Channel>116</Channel>
+   <Channel>117</Channel>
+  </Head>
+  <Head>
+   <Channel>118</Channel>
+   <Channel>119</Channel>
+   <Channel>120</Channel>
+  </Head>
+  <Head>
+   <Channel>121</Channel>
+   <Channel>122</Channel>
+   <Channel>123</Channel>
+  </Head>
+  <Head>
+   <Channel>124</Channel>
+   <Channel>125</Channel>
+   <Channel>126</Channel>
+  </Head>
+  <Head>
+   <Channel>127</Channel>
+   <Channel>128</Channel>
+   <Channel>129</Channel>
+  </Head>
+  <Head>
+   <Channel>130</Channel>
+   <Channel>131</Channel>
+   <Channel>132</Channel>
+  </Head>
+  <Head>
+   <Channel>133</Channel>
+   <Channel>134</Channel>
+   <Channel>135</Channel>
+  </Head>
+  <Head>
+   <Channel>136</Channel>
+   <Channel>137</Channel>
+   <Channel>138</Channel>
+  </Head>
+  <Head>
+   <Channel>139</Channel>
+   <Channel>140</Channel>
+   <Channel>141</Channel>
+  </Head>
+  <Head>
+   <Channel>142</Channel>
+   <Channel>143</Channel>
+   <Channel>144</Channel>
+  </Head>
+  <Head>
+   <Channel>145</Channel>
+   <Channel>146</Channel>
+   <Channel>147</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="455" Height="255" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="130" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TSL-100</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color-wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
+  <Capability Min="15" Max="29" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="30" Max="44" Preset="ColorMacro" Res1="#00007f">Blue</Capability>
+  <Capability Min="45" Max="59" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="60" Max="74" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="75" Max="89" Preset="ColorMacro" Res1="#ff007f">Pink</Capability>
+  <Capability Min="90" Max="104" Preset="ColorMacro" Res1="#0055ff">Light Blue</Capability>
+  <Capability Min="105" Max="119" Preset="ColorMacro" Res1="#55ff7f">Light Green</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffff7f">Light Yellow</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo-wheel, gobo shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="14">Gobo 1</Capability>
+  <Capability Min="15" Max="21">Gobo 2</Capability>
+  <Capability Min="22" Max="28">Gobo 3</Capability>
+  <Capability Min="29" Max="35">Gobo 4</Capability>
+  <Capability Min="36" Max="42">Gobo 5</Capability>
+  <Capability Min="43" Max="49">Gobo 6</Capability>
+  <Capability Min="50" Max="56">Gobo 7</Capability>
+  <Capability Min="57" Max="63">Gobo 8</Capability>
+  <Capability Min="64" Max="70" Preset="GoboShakeMacro" Res1="Others/open.svg">Open shake</Capability>
+  <Capability Min="71" Max="77">Gobo 1 shake</Capability>
+  <Capability Min="78" Max="84">Gobo 2 shake</Capability>
+  <Capability Min="85" Max="91">Gobo 3 shake</Capability>
+  <Capability Min="92" Max="98">Gobo 4 shake</Capability>
+  <Capability Min="99" Max="105">Gobo 5 shake</Capability>
+  <Capability Min="106" Max="112">Gobo 6 shake</Capability>
+  <Capability Min="113" Max="119">Gobo 7 shake</Capability>
+  <Capability Min="120" Max="127">Gobo 8 shake</Capability>
+  <Capability Min="128" Max="255">Cont. gobo-wheel rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="140" Max="180" Preset="PulseSlowToFast">Pulse closing with increasing speed</Capability>
+  <Capability Min="181" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="231" Preset="PulseFastToSlow">Pulse closing with decreasing speed</Capability>
+  <Capability Min="232" Max="239" Preset="ResetAll">Reset after 3-5 seconds</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe-effect</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Motion macros">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="25">Motion macro 1</Capability>
+  <Capability Min="26" Max="43">Motion macro 2</Capability>
+  <Capability Min="44" Max="61">Motion macro 3</Capability>
+  <Capability Min="62" Max="79">Motion macro 4</Capability>
+  <Capability Min="80" Max="97">Motion macro 5</Capability>
+  <Capability Min="98" Max="115">Motion macro 6</Capability>
+  <Capability Min="116" Max="133">Motion macro 7</Capability>
+  <Capability Min="134" Max="151">Motion macro 8</Capability>
+  <Capability Min="152" Max="169">Motion macro 9</Capability>
+  <Capability Min="170" Max="187">Motion macro 10</Capability>
+  <Capability Min="188" Max="205">Motion macro 11</Capability>
+  <Capability Min="206" Max="223">Motion macro 12</Capability>
+  <Capability Min="224" Max="241">Motion macro 13</Capability>
+  <Capability Min="242" Max="255">Motion macro 14</Capability>
+ </Channel>
+ <Channel Name="Speed Motion macros">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color-wheel</Channel>
+  <Channel Number="3">Gobo-wheel, gobo shake</Channel>
+  <Channel Number="4">Shutter, strobe</Channel>
+  <Channel Number="5">Dimmer intensity</Channel>
+  <Channel Number="6">Motion macros</Channel>
+  <Channel Number="7">Speed Motion macros</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6" Width="205" Height="300" Depth="390"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

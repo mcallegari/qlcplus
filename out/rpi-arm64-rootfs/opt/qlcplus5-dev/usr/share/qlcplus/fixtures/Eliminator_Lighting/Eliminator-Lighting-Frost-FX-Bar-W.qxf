@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Joseph Brill</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Frost FX Bar W</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="White Main Pixel 1" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 2" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 3" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 4" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 5" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 6" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 7" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 8" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 9" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 10" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 11" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 12" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 13" Preset="IntensityWhite"/>
+ <Channel Name="White Main Pixel 14" Preset="IntensityWhite"/>
+ <Channel Name="Red Background Color 1" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 2" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 3" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 3" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 4" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 4" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 5" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 5" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 6" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 6" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 7" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 7" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 8" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 8" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 9" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 9" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 10" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 10" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 11" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 11" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 12" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 12" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 13" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 13" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 13" Preset="IntensityBlue"/>
+ <Channel Name="Red Background Color 14" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 14" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 14" Preset="IntensityBlue"/>
+ <Channel Name="Background Color 1-14 Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="32" Max="255">2700k - 6000k</Capability>
+ </Channel>
+ <Channel Name="Background Color 1-14 Temperature Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31">No Function</Capability>
+  <Capability Min="32" Max="76">2700k</Capability>
+  <Capability Min="77" Max="121">3200k</Capability>
+  <Capability Min="122" Max="166">4000k</Capability>
+  <Capability Min="167" Max="211">5600k</Capability>
+  <Capability Min="212" Max="255">6000k</Capability>
+ </Channel>
+ <Channel Name="Background Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">R02 Bastard Amber</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#feb199">R04 Medium Amber</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#fec08a">R09 Pale Amber Gold</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fea562">R316 Gallo Gold</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#fe7900">R21 Golden Amber</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#b01100">R26 Light Red</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#60000b">R27 Medium Red</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ea8bab">R36 Medium Pink</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#e00561">R339 Broadway Pink</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#af4dad">R344 Follies Pink</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#7782c7">R52 Light Lavender</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#93a4d4">R54 Special Lavender</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#5802a3">R57 Lavender</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#002656">R59 Indigo</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#008ed0">R361 Hemsley Blue</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#3494d1">R362 Tipton Blue</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#0186c9">R64 Light Steel Blue</Capability>
+  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#0091d4">R67 Light Sky Blue</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#0079c0">R68 Sky Blue</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#0081b8">R69 Brilliant Blue</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#005373">R76 Light Green Blue</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#0061a6">R79 Bright Blue</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#0164a7">R80 Primary Blue</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#0028a7">R382 Congo Blue</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#d1dbb6">R87 Pale Yellow Green</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#2aa555">R89 Moss Green</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#002e23">R91 Primary Green</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#086bde">L200 Double CTB</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#ff0000">Full Red</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#00ff00">Full Green</Capability>
+  <Capability Min="240" Max="247" Preset="ColorMacro" Res1="#0000ff">Full Blue</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="White Pixel 1-14 Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">ShutterClose</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">ShutterOpen</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">StrobeSlowToFast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">ShutterOpen</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">PulseSlowToFast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">ShutterOpen</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">StrobeRandomSlowToFast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">ShutterOpen</Capability>
+ </Channel>
+ <Channel Name="White Pixel 1-14 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Background Color 1-14 Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">ShutterClose</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">ShutterOpen</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">StrobeSlowToFast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">ShutterOpen</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">PulseSlowToFast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">ShutterOpen</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">StrobeRandomSlowToFast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">ShutterOpen</Capability>
+ </Channel>
+ <Channel Name="Background Color 1-14 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="White LED Auto Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">No Function</Capability>
+  <Capability Min="15" Max="29">Auto1</Capability>
+  <Capability Min="30" Max="44">Auto2</Capability>
+  <Capability Min="45" Max="59">Auto3</Capability>
+  <Capability Min="60" Max="73">Auto4</Capability>
+  <Capability Min="74" Max="89">Auto5</Capability>
+  <Capability Min="90" Max="104">Auto6</Capability>
+  <Capability Min="105" Max="119">Auto7</Capability>
+  <Capability Min="120" Max="134">Auto8</Capability>
+  <Capability Min="135" Max="149">Auto9</Capability>
+  <Capability Min="150" Max="164">Auto10</Capability>
+  <Capability Min="165" Max="179">Auto11</Capability>
+  <Capability Min="180" Max="194">Auto12</Capability>
+  <Capability Min="195" Max="209">Auto13</Capability>
+  <Capability Min="210" Max="224">Auto14</Capability>
+  <Capability Min="225" Max="239">Auto15</Capability>
+  <Capability Min="240" Max="255">Sound</Capability>
+ </Channel>
+ <Channel Name="White LED Auto Pattern Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed, Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="White LED Auto Fade">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Fade Amount</Capability>
+ </Channel>
+ <Channel Name="RGB LED Auto Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">No Function</Capability>
+  <Capability Min="15" Max="29">RGB1</Capability>
+  <Capability Min="30" Max="44">RGB2</Capability>
+  <Capability Min="45" Max="59">RGB3</Capability>
+  <Capability Min="60" Max="74">RGB4</Capability>
+  <Capability Min="75" Max="89">RGB5</Capability>
+  <Capability Min="90" Max="104">RGB6</Capability>
+  <Capability Min="105" Max="119">RGB7</Capability>
+  <Capability Min="120" Max="134">RGB8</Capability>
+  <Capability Min="135" Max="149">RGB9</Capability>
+  <Capability Min="150" Max="164">RGB10</Capability>
+  <Capability Min="165" Max="179">RGB11</Capability>
+  <Capability Min="180" Max="194">RGB12</Capability>
+  <Capability Min="195" Max="209">RGB13</Capability>
+  <Capability Min="210" Max="224">RGB14</Capability>
+  <Capability Min="225" Max="239">RGB15</Capability>
+  <Capability Min="240" Max="255">RGB16</Capability>
+ </Channel>
+ <Channel Name="RGB LED Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed, Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="RGB LED Auto Fade">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Fade Amount</Capability>
+ </Channel>
+ <Channel Name="White Main Pixels 1-14" Preset="IntensityWhite"/>
+ <Channel Name="Red Background Color 1-14" Preset="IntensityRed"/>
+ <Channel Name="Green Background Color 1-14" Preset="IntensityGreen"/>
+ <Channel Name="Blue Background Color 1-14" Preset="IntensityBlue"/>
+ <Mode Name="69 Channel">
+  <Channel Number="0">White Main Pixel 1</Channel>
+  <Channel Number="1">White Main Pixel 2</Channel>
+  <Channel Number="2">White Main Pixel 3</Channel>
+  <Channel Number="3">White Main Pixel 4</Channel>
+  <Channel Number="4">White Main Pixel 5</Channel>
+  <Channel Number="5">White Main Pixel 6</Channel>
+  <Channel Number="6">White Main Pixel 7</Channel>
+  <Channel Number="7">White Main Pixel 8</Channel>
+  <Channel Number="8">White Main Pixel 9</Channel>
+  <Channel Number="9">White Main Pixel 10</Channel>
+  <Channel Number="10">White Main Pixel 11</Channel>
+  <Channel Number="11">White Main Pixel 12</Channel>
+  <Channel Number="12">White Main Pixel 13</Channel>
+  <Channel Number="13">White Main Pixel 14</Channel>
+  <Channel Number="14">Red Background Color 1</Channel>
+  <Channel Number="15">Green Background Color 1</Channel>
+  <Channel Number="16">Blue Background Color 1</Channel>
+  <Channel Number="17">Red Background Color 2</Channel>
+  <Channel Number="18">Green Background Color 2</Channel>
+  <Channel Number="19">Blue Background Color 2</Channel>
+  <Channel Number="20">Red Background Color 3</Channel>
+  <Channel Number="21">Green Background Color 3</Channel>
+  <Channel Number="22">Blue Background Color 3</Channel>
+  <Channel Number="23">Red Background Color 4</Channel>
+  <Channel Number="24">Green Background Color 4</Channel>
+  <Channel Number="25">Blue Background Color 4</Channel>
+  <Channel Number="26">Red Background Color 5</Channel>
+  <Channel Number="27">Green Background Color 5</Channel>
+  <Channel Number="28">Blue Background Color 5</Channel>
+  <Channel Number="29">Red Background Color 6</Channel>
+  <Channel Number="30">Green Background Color 6</Channel>
+  <Channel Number="31">Blue Background Color 6</Channel>
+  <Channel Number="32">Red Background Color 7</Channel>
+  <Channel Number="33">Green Background Color 7</Channel>
+  <Channel Number="34">Blue Background Color 7</Channel>
+  <Channel Number="35">Red Background Color 8</Channel>
+  <Channel Number="36">Green Background Color 8</Channel>
+  <Channel Number="37">Blue Background Color 8</Channel>
+  <Channel Number="38">Red Background Color 9</Channel>
+  <Channel Number="39">Green Background Color 9</Channel>
+  <Channel Number="40">Blue Background Color 9</Channel>
+  <Channel Number="41">Red Background Color 10</Channel>
+  <Channel Number="42">Green Background Color 10</Channel>
+  <Channel Number="43">Blue Background Color 10</Channel>
+  <Channel Number="44">Red Background Color 11</Channel>
+  <Channel Number="45">Green Background Color 11</Channel>
+  <Channel Number="46">Blue Background Color 11</Channel>
+  <Channel Number="47">Red Background Color 12</Channel>
+  <Channel Number="48">Green Background Color 12</Channel>
+  <Channel Number="49">Blue Background Color 12</Channel>
+  <Channel Number="50">Red Background Color 13</Channel>
+  <Channel Number="51">Green Background Color 13</Channel>
+  <Channel Number="52">Blue Background Color 13</Channel>
+  <Channel Number="53">Red Background Color 14</Channel>
+  <Channel Number="54">Green Background Color 14</Channel>
+  <Channel Number="55">Blue Background Color 14</Channel>
+  <Channel Number="56">Background Color 1-14 Temperature</Channel>
+  <Channel Number="57">Background Color 1-14 Temperature Presets</Channel>
+  <Channel Number="58">Background Color Macros</Channel>
+  <Channel Number="59">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="60">White Pixel 1-14 Dimmer</Channel>
+  <Channel Number="61">Background Color 1-14 Shutter</Channel>
+  <Channel Number="62">Background Color 1-14 Dimmer</Channel>
+  <Channel Number="63">White LED Auto Patterns</Channel>
+  <Channel Number="64">White LED Auto Pattern Speed</Channel>
+  <Channel Number="65">White LED Auto Fade</Channel>
+  <Channel Number="66">RGB LED Auto Patterns</Channel>
+  <Channel Number="67">RGB LED Auto Speed</Channel>
+  <Channel Number="68">RGB LED Auto Fade</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="60 Channel">
+  <Channel Number="0">White Main Pixel 1</Channel>
+  <Channel Number="1">White Main Pixel 2</Channel>
+  <Channel Number="2">White Main Pixel 3</Channel>
+  <Channel Number="3">White Main Pixel 4</Channel>
+  <Channel Number="4">White Main Pixel 5</Channel>
+  <Channel Number="5">White Main Pixel 6</Channel>
+  <Channel Number="6">White Main Pixel 7</Channel>
+  <Channel Number="7">White Main Pixel 8</Channel>
+  <Channel Number="8">White Main Pixel 9</Channel>
+  <Channel Number="9">White Main Pixel 10</Channel>
+  <Channel Number="10">White Main Pixel 11</Channel>
+  <Channel Number="11">White Main Pixel 12</Channel>
+  <Channel Number="12">White Main Pixel 13</Channel>
+  <Channel Number="13">White Main Pixel 14</Channel>
+  <Channel Number="14">Red Background Color 1</Channel>
+  <Channel Number="15">Green Background Color 1</Channel>
+  <Channel Number="16">Blue Background Color 1</Channel>
+  <Channel Number="17">Red Background Color 2</Channel>
+  <Channel Number="18">Green Background Color 2</Channel>
+  <Channel Number="19">Blue Background Color 2</Channel>
+  <Channel Number="20">Red Background Color 3</Channel>
+  <Channel Number="21">Green Background Color 3</Channel>
+  <Channel Number="22">Blue Background Color 3</Channel>
+  <Channel Number="23">Red Background Color 4</Channel>
+  <Channel Number="24">Green Background Color 4</Channel>
+  <Channel Number="25">Blue Background Color 4</Channel>
+  <Channel Number="26">Red Background Color 5</Channel>
+  <Channel Number="27">Green Background Color 5</Channel>
+  <Channel Number="28">Blue Background Color 5</Channel>
+  <Channel Number="29">Red Background Color 6</Channel>
+  <Channel Number="30">Green Background Color 6</Channel>
+  <Channel Number="31">Blue Background Color 6</Channel>
+  <Channel Number="32">Red Background Color 7</Channel>
+  <Channel Number="33">Green Background Color 7</Channel>
+  <Channel Number="34">Blue Background Color 7</Channel>
+  <Channel Number="35">Red Background Color 8</Channel>
+  <Channel Number="36">Green Background Color 8</Channel>
+  <Channel Number="37">Blue Background Color 8</Channel>
+  <Channel Number="38">Red Background Color 9</Channel>
+  <Channel Number="39">Green Background Color 9</Channel>
+  <Channel Number="40">Blue Background Color 9</Channel>
+  <Channel Number="41">Red Background Color 10</Channel>
+  <Channel Number="42">Green Background Color 10</Channel>
+  <Channel Number="43">Blue Background Color 10</Channel>
+  <Channel Number="44">Red Background Color 11</Channel>
+  <Channel Number="45">Green Background Color 11</Channel>
+  <Channel Number="46">Blue Background Color 11</Channel>
+  <Channel Number="47">Red Background Color 12</Channel>
+  <Channel Number="48">Green Background Color 12</Channel>
+  <Channel Number="49">Blue Background Color 12</Channel>
+  <Channel Number="50">Red Background Color 13</Channel>
+  <Channel Number="51">Green Background Color 13</Channel>
+  <Channel Number="52">Blue Background Color 13</Channel>
+  <Channel Number="53">Red Background Color 14</Channel>
+  <Channel Number="54">Green Background Color 14</Channel>
+  <Channel Number="55">Blue Background Color 14</Channel>
+  <Channel Number="56">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="57">White Pixel 1-14 Dimmer</Channel>
+  <Channel Number="58">Background Color 1-14 Shutter</Channel>
+  <Channel Number="59">Background Color 1-14 Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="56 Channel">
+  <Channel Number="0">White Main Pixel 1</Channel>
+  <Channel Number="1">White Main Pixel 2</Channel>
+  <Channel Number="2">White Main Pixel 3</Channel>
+  <Channel Number="3">White Main Pixel 4</Channel>
+  <Channel Number="4">White Main Pixel 5</Channel>
+  <Channel Number="5">White Main Pixel 6</Channel>
+  <Channel Number="6">White Main Pixel 7</Channel>
+  <Channel Number="7">White Main Pixel 8</Channel>
+  <Channel Number="8">White Main Pixel 9</Channel>
+  <Channel Number="9">White Main Pixel 10</Channel>
+  <Channel Number="10">White Main Pixel 11</Channel>
+  <Channel Number="11">White Main Pixel 12</Channel>
+  <Channel Number="12">White Main Pixel 13</Channel>
+  <Channel Number="13">White Main Pixel 14</Channel>
+  <Channel Number="14">Red Background Color 1</Channel>
+  <Channel Number="15">Green Background Color 1</Channel>
+  <Channel Number="16">Blue Background Color 1</Channel>
+  <Channel Number="17">Red Background Color 2</Channel>
+  <Channel Number="18">Green Background Color 2</Channel>
+  <Channel Number="19">Blue Background Color 2</Channel>
+  <Channel Number="20">Red Background Color 3</Channel>
+  <Channel Number="21">Green Background Color 3</Channel>
+  <Channel Number="22">Blue Background Color 3</Channel>
+  <Channel Number="23">Red Background Color 4</Channel>
+  <Channel Number="24">Green Background Color 4</Channel>
+  <Channel Number="25">Blue Background Color 4</Channel>
+  <Channel Number="26">Red Background Color 5</Channel>
+  <Channel Number="27">Green Background Color 5</Channel>
+  <Channel Number="28">Blue Background Color 5</Channel>
+  <Channel Number="29">Red Background Color 6</Channel>
+  <Channel Number="30">Green Background Color 6</Channel>
+  <Channel Number="31">Blue Background Color 6</Channel>
+  <Channel Number="32">Red Background Color 7</Channel>
+  <Channel Number="33">Green Background Color 7</Channel>
+  <Channel Number="34">Blue Background Color 7</Channel>
+  <Channel Number="35">Red Background Color 8</Channel>
+  <Channel Number="36">Green Background Color 8</Channel>
+  <Channel Number="37">Blue Background Color 8</Channel>
+  <Channel Number="38">Red Background Color 9</Channel>
+  <Channel Number="39">Green Background Color 9</Channel>
+  <Channel Number="40">Blue Background Color 9</Channel>
+  <Channel Number="41">Red Background Color 10</Channel>
+  <Channel Number="42">Green Background Color 10</Channel>
+  <Channel Number="43">Blue Background Color 10</Channel>
+  <Channel Number="44">Red Background Color 11</Channel>
+  <Channel Number="45">Green Background Color 11</Channel>
+  <Channel Number="46">Blue Background Color 11</Channel>
+  <Channel Number="47">Red Background Color 12</Channel>
+  <Channel Number="48">Green Background Color 12</Channel>
+  <Channel Number="49">Blue Background Color 12</Channel>
+  <Channel Number="50">Red Background Color 13</Channel>
+  <Channel Number="51">Green Background Color 13</Channel>
+  <Channel Number="52">Blue Background Color 13</Channel>
+  <Channel Number="53">Red Background Color 14</Channel>
+  <Channel Number="54">Green Background Color 14</Channel>
+  <Channel Number="55">Blue Background Color 14</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="66 Channel">
+  <Channel Number="0">White Main Pixel 1</Channel>
+  <Channel Number="1">White Main Pixel 2</Channel>
+  <Channel Number="2">White Main Pixel 3</Channel>
+  <Channel Number="3">White Main Pixel 4</Channel>
+  <Channel Number="4">White Main Pixel 5</Channel>
+  <Channel Number="5">White Main Pixel 6</Channel>
+  <Channel Number="6">White Main Pixel 7</Channel>
+  <Channel Number="7">White Main Pixel 8</Channel>
+  <Channel Number="8">White Main Pixel 9</Channel>
+  <Channel Number="9">White Main Pixel 10</Channel>
+  <Channel Number="10">White Main Pixel 11</Channel>
+  <Channel Number="11">White Main Pixel 12</Channel>
+  <Channel Number="12">White Main Pixel 13</Channel>
+  <Channel Number="13">White Main Pixel 14</Channel>
+  <Channel Number="14">Red Background Color 1</Channel>
+  <Channel Number="15">Green Background Color 1</Channel>
+  <Channel Number="16">Blue Background Color 1</Channel>
+  <Channel Number="17">Red Background Color 2</Channel>
+  <Channel Number="18">Green Background Color 2</Channel>
+  <Channel Number="19">Blue Background Color 2</Channel>
+  <Channel Number="20">Red Background Color 3</Channel>
+  <Channel Number="21">Green Background Color 3</Channel>
+  <Channel Number="22">Blue Background Color 3</Channel>
+  <Channel Number="23">Red Background Color 4</Channel>
+  <Channel Number="24">Green Background Color 4</Channel>
+  <Channel Number="25">Blue Background Color 4</Channel>
+  <Channel Number="26">Red Background Color 5</Channel>
+  <Channel Number="27">Green Background Color 5</Channel>
+  <Channel Number="28">Blue Background Color 5</Channel>
+  <Channel Number="29">Red Background Color 6</Channel>
+  <Channel Number="30">Green Background Color 6</Channel>
+  <Channel Number="31">Blue Background Color 6</Channel>
+  <Channel Number="32">Red Background Color 7</Channel>
+  <Channel Number="33">Green Background Color 7</Channel>
+  <Channel Number="34">Blue Background Color 7</Channel>
+  <Channel Number="35">Red Background Color 8</Channel>
+  <Channel Number="36">Green Background Color 8</Channel>
+  <Channel Number="37">Blue Background Color 8</Channel>
+  <Channel Number="38">Red Background Color 9</Channel>
+  <Channel Number="39">Green Background Color 9</Channel>
+  <Channel Number="40">Blue Background Color 9</Channel>
+  <Channel Number="41">Red Background Color 10</Channel>
+  <Channel Number="42">Green Background Color 10</Channel>
+  <Channel Number="43">Blue Background Color 10</Channel>
+  <Channel Number="44">Red Background Color 11</Channel>
+  <Channel Number="45">Green Background Color 11</Channel>
+  <Channel Number="46">Blue Background Color 11</Channel>
+  <Channel Number="47">Red Background Color 12</Channel>
+  <Channel Number="48">Green Background Color 12</Channel>
+  <Channel Number="49">Blue Background Color 12</Channel>
+  <Channel Number="50">Red Background Color 13</Channel>
+  <Channel Number="51">Green Background Color 13</Channel>
+  <Channel Number="52">Blue Background Color 13</Channel>
+  <Channel Number="53">Red Background Color 14</Channel>
+  <Channel Number="54">Green Background Color 14</Channel>
+  <Channel Number="55">Blue Background Color 14</Channel>
+  <Channel Number="56">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="57">White Pixel 1-14 Dimmer</Channel>
+  <Channel Number="58">Background Color 1-14 Shutter</Channel>
+  <Channel Number="59">Background Color 1-14 Dimmer</Channel>
+  <Channel Number="60">White LED Auto Patterns</Channel>
+  <Channel Number="61">White LED Auto Pattern Speed</Channel>
+  <Channel Number="62">White LED Auto Fade</Channel>
+  <Channel Number="63">RGB LED Auto Patterns</Channel>
+  <Channel Number="64">RGB LED Auto Speed</Channel>
+  <Channel Number="65">RGB LED Auto Fade</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>43</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">White Main Pixels 1-14</Channel>
+  <Channel Number="1">Red Background Color 1-14</Channel>
+  <Channel Number="2">Green Background Color 1-14</Channel>
+  <Channel Number="3">Blue Background Color 1-14</Channel>
+  <Channel Number="4">Background Color 1-14 Temperature</Channel>
+  <Channel Number="5">Background Color 1-14 Temperature Presets</Channel>
+  <Channel Number="6">Background Color Macros</Channel>
+  <Channel Number="7">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="8">White Pixel 1-14 Dimmer</Channel>
+  <Channel Number="9">Background Color 1-14 Shutter</Channel>
+  <Channel Number="10">Background Color 1-14 Dimmer</Channel>
+  <Channel Number="11">White LED Auto Patterns</Channel>
+  <Channel Number="12">White LED Auto Pattern Speed</Channel>
+  <Channel Number="13">White LED Auto Fade</Channel>
+  <Channel Number="14">RGB LED Auto Patterns</Channel>
+  <Channel Number="15">RGB LED Auto Speed</Channel>
+  <Channel Number="16">RGB LED Auto Fade</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">White Main Pixels 1-14</Channel>
+  <Channel Number="1">Background Color 1-14 Temperature</Channel>
+  <Channel Number="2">Background Color 1-14 Temperature Presets</Channel>
+  <Channel Number="3">Background Color Macros</Channel>
+  <Channel Number="4">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="5">White Pixel 1-14 Dimmer</Channel>
+  <Channel Number="6">Background Color 1-14 Shutter</Channel>
+  <Channel Number="7">Background Color 1-14 Dimmer</Channel>
+  <Channel Number="8">White LED Auto Patterns</Channel>
+  <Channel Number="9">White LED Auto Pattern Speed</Channel>
+  <Channel Number="10">White LED Auto Fade</Channel>
+  <Channel Number="11">RGB LED Auto Patterns</Channel>
+  <Channel Number="12">RGB LED Auto Speed</Channel>
+  <Channel Number="13">RGB LED Auto Fade</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14 Channel2">
+  <Channel Number="0">White Main Pixels 1-14</Channel>
+  <Channel Number="1">Red Background Color 1-14</Channel>
+  <Channel Number="2">Green Background Color 1-14</Channel>
+  <Channel Number="3">Blue Background Color 1-14</Channel>
+  <Channel Number="4">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="5">RGB LED Auto Fade</Channel>
+  <Channel Number="6">RGB LED Auto Speed</Channel>
+  <Channel Number="7">RGB LED Auto Patterns</Channel>
+  <Channel Number="8">White LED Auto Fade</Channel>
+  <Channel Number="9">White LED Auto Pattern Speed</Channel>
+  <Channel Number="10">White LED Auto Patterns</Channel>
+  <Channel Number="11">Background Color 1-14 Dimmer</Channel>
+  <Channel Number="12">Background Color 1-14 Shutter</Channel>
+  <Channel Number="13">White Pixel 1-14 Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">White Main Pixels 1-14</Channel>
+  <Channel Number="1">Blue Background Color 1-14</Channel>
+  <Channel Number="2">Red Background Color 1-14</Channel>
+  <Channel Number="3">Green Background Color 1-14</Channel>
+  <Channel Number="4">White Pixel 1-14 Shutter</Channel>
+  <Channel Number="5">White Pixel 1-14 Dimmer</Channel>
+  <Channel Number="6">Background Color 1-14 Shutter</Channel>
+  <Channel Number="7">Background Color 1-14 Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">White LED Auto Patterns</Channel>
+  <Channel Number="1">White LED Auto Pattern Speed</Channel>
+  <Channel Number="2">White LED Auto Fade</Channel>
+  <Channel Number="3">RGB LED Auto Patterns</Channel>
+  <Channel Number="4">RGB LED Auto Speed</Channel>
+  <Channel Number="5">RGB LED Auto Fade</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="200" ColourTemperature="6500"/>
+  <Dimensions Weight="3.6" Width="1000" Height="70" Depth="121"/>
+  <Lens Name="Fresnel" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="14" Height="2"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

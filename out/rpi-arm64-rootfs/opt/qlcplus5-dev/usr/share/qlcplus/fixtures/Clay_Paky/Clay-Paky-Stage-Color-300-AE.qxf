@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Stage Color 300 AE</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Stopper/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="25" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="26" Max="230" Preset="StrobeSlowToFast">Strobe (Slow to fast)</Capability>
+  <Capability Min="231" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Frost (0 - 100%)</Capability>
+ </Channel>
+ <Mode Name="Option Stnd">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Stopper/Strobe</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Frost</Channel>
+ </Mode>
+ <Mode Name="Option 16 b">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Stopper/Strobe</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan Fine</Channel>
+  <Channel Number="9">Tilt Fine</Channel>
+ </Mode>
+ <Mode Name=" Option Extn">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Stopper/Strobe</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Pan Fine</Channel>
+  <Channel Number="6">Tilt</Channel>
+  <Channel Number="7">Tilt Fine</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Frost</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 300W" Lumens="22000" ColourTemperature="6500"/>
+  <Dimensions Weight="22.4" Width="434" Height="225" Depth="1229"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="360" TiltMax="252"/>
+  <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

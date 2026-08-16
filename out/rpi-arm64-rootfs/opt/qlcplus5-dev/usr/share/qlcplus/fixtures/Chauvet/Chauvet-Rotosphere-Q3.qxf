@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Eric Sherlock, Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Rotosphere Q3</Model>
+ <Type>Flower</Type>
+ <Channel Name="LED Zone 1 Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="LED Zone 1 Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Zone 1 Manual Color Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED Zone 1 Strobe/Sound">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250">Strobe Slow-Fast</Capability>
+  <Capability Min="251" Max="255">Sound-active Strobe</Capability>
+ </Channel>
+ <Channel Name="LED Zone 2 Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="LED Zone 2 Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Zone 2 Manual Color Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED Zone 2 Strobe/Sound">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250">Strobe Slow-Fast</Capability>
+  <Capability Min="251" Max="255">Sound-active Strobe</Capability>
+ </Channel>
+ <Channel Name="LED Zone 3 Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="LED Zone 3 Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Zone 3 Manual Color Blue" Preset="IntensityBlue"/>
+ <Channel Name="LED Zone 3 Strobe/Sound">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250">Strobe Slow-Fast</Capability>
+  <Capability Min="251" Max="255">Sound-active Strobe</Capability>
+ </Channel>
+ <Channel Name="Motor (Zones 1, 2 and 3)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="127">Rotate Left, slow to fast</Capability>
+  <Capability Min="128" Max="128">Stop</Capability>
+  <Capability Min="129" Max="255">Rotate Right, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros and Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="22" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="23" Max="31" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="32" Max="40" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="41" Max="49">Red/Green/Blue</Capability>
+  <Capability Min="50" Max="58">Red/Green/White</Capability>
+  <Capability Min="59" Max="67">Red/Blue/White</Capability>
+  <Capability Min="68" Max="76">Green/Blue/White</Capability>
+  <Capability Min="77" Max="85">Red Green/Red Blue/Red White</Capability>
+  <Capability Min="86" Max="94">Green Red/Green Blue/Green White</Capability>
+  <Capability Min="95" Max="103">Blue Red/Blue Green/Blue White</Capability>
+  <Capability Min="104" Max="112">White Red/White Green/Blue White</Capability>
+  <Capability Min="113" Max="121" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red Green</Capability>
+  <Capability Min="122" Max="130" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red Blue</Capability>
+  <Capability Min="131" Max="139" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red White</Capability>
+  <Capability Min="140" Max="148" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green Blue</Capability>
+  <Capability Min="149" Max="157" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green White</Capability>
+  <Capability Min="158" Max="166" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue White</Capability>
+  <Capability Min="167" Max="175">Red Green Blue</Capability>
+  <Capability Min="176" Max="184">Red Green White</Capability>
+  <Capability Min="185" Max="193">Green Blue White</Capability>
+  <Capability Min="194" Max="202">Red Green Blue/Green Blue White/Red Green White</Capability>
+  <Capability Min="203" Max="211">RGBW</Capability>
+  <Capability Min="212" Max="220">Program 1/Sound 1</Capability>
+  <Capability Min="221" Max="229">Program 2/Sound 2</Capability>
+  <Capability Min="230" Max="238">Program 3/Sound 3</Capability>
+  <Capability Min="239" Max="247">Program 4/Sound 3</Capability>
+  <Capability Min="248" Max="255">Program 5/Sound 3</Capability>
+ </Channel>
+ <Channel Name="Progam Speed / Sound Sensitivity (macro ch. 212-255)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250">Program speed, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active program sensitivity</Capability>
+ </Channel>
+ <Channel Name="Motor Control (Color Macros Channel)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="127">Rotate left, slow to fast</Capability>
+  <Capability Min="128" Max="128">Stop</Capability>
+  <Capability Min="129" Max="255">Rotate right, slow to fast</Capability>
+ </Channel>
+ <Channel Name="LED Zone 1 Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="LED Zone 2 Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="LED Zone 3 Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="All Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="All Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="All Manual Color Blue" Preset="IntensityBlue"/>
+ <Channel Name="All Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="All Strobe/Sound">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sount-active strobe</Capability>
+ </Channel>
+ <Channel Name="Motor">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="127">Rotate left, slow to fast</Capability>
+  <Capability Min="128" Max="128">Stop</Capability>
+  <Capability Min="129" Max="255">Rotate right, slow to fast</Capability>
+ </Channel>
+ <Mode Name="19 channel">
+  <Channel Number="0">LED Zone 1 Manual Color Red</Channel>
+  <Channel Number="1">LED Zone 1 Manual Color Green</Channel>
+  <Channel Number="2">LED Zone 1 Manual Color Blue</Channel>
+  <Channel Number="3">LED Zone 1 Manual Color White</Channel>
+  <Channel Number="4">LED Zone 1 Strobe/Sound</Channel>
+  <Channel Number="5">LED Zone 2 Manual Color Red</Channel>
+  <Channel Number="6">LED Zone 2 Manual Color Green</Channel>
+  <Channel Number="7">LED Zone 2 Manual Color Blue</Channel>
+  <Channel Number="8">LED Zone 2 Manual Color White</Channel>
+  <Channel Number="9">LED Zone 2 Strobe/Sound</Channel>
+  <Channel Number="10">LED Zone 3 Manual Color Red</Channel>
+  <Channel Number="11">LED Zone 3 Manual Color Green</Channel>
+  <Channel Number="12">LED Zone 3 Manual Color Blue</Channel>
+  <Channel Number="13">LED Zone 3 Manual Color White</Channel>
+  <Channel Number="14">LED Zone 3 Strobe/Sound</Channel>
+  <Channel Number="15">Motor (Zones 1, 2 and 3)</Channel>
+  <Channel Number="16">Color Macros and Auto Programs</Channel>
+  <Channel Number="17">Progam Speed / Sound Sensitivity (macro ch. 212-255)</Channel>
+  <Channel Number="18">Motor Control (Color Macros Channel)</Channel>
+ </Mode>
+ <Mode Name="9 channel">
+  <Channel Number="0">All Manual Color Red</Channel>
+  <Channel Number="1">All Manual Color Green</Channel>
+  <Channel Number="2">All Manual Color Blue</Channel>
+  <Channel Number="3">All Manual Color White</Channel>
+  <Channel Number="4">All Strobe/Sound</Channel>
+  <Channel Number="5">Motor</Channel>
+  <Channel Number="6">Color Macros and Auto Programs</Channel>
+  <Channel Number="7">Progam Speed / Sound Sensitivity (macro ch. 212-255)</Channel>
+  <Channel Number="8">Motor Control (Color Macros Channel)</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Color Macros and Auto Programs</Channel>
+  <Channel Number="1">Progam Speed / Sound Sensitivity (macro ch. 212-255)</Channel>
+  <Channel Number="2">Motor</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.9" Width="319" Height="419" Depth="266"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Barrel" PanMax="360" TiltMax="0"/>
+  <Technical PowerConsumption="46" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Greg Perrone</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORado Batten 72x</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Hue 1" Preset="IntensityHue"/>
+ <Channel Name="Fine Hue 1" Preset="IntensityHueFine"/>
+ <Channel Name="Saturation 1" Preset="IntensitySaturation"/>
+ <Channel Name="Strobe 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="110" Max="179" Preset="PulseSlowToFast">Pulse Strobe, slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="35">R:100%, G:0-100%, B:0, A:0%, W:0%</Capability>
+  <Capability Min="36" Max="59">R:100-0%, G:100%, B:0%, A:0%, W:0%</Capability>
+  <Capability Min="60" Max="84">R:0%, G:100%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="85" Max="109">R:0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="110" Max="134">R:0-100%, G:0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="135" Max="159">R:100%, G:0%, B:100-0%, A:0%, W:0%</Capability>
+  <Capability Min="160" Max="184">R:100%, G:100-0%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="185" Max="209">R:100-0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="210" Max="255">R:100%, G:100%, B:100%, A:100%, W:100%</Capability>
+ </Channel>
+ <Channel Name="Color Temperature 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="28">White 1</Capability>
+  <Capability Min="29" Max="46">White 2</Capability>
+  <Capability Min="47" Max="64">White 3</Capability>
+  <Capability Min="65" Max="82">White 4</Capability>
+  <Capability Min="83" Max="100">White 5</Capability>
+  <Capability Min="101" Max="118">White 6</Capability>
+  <Capability Min="119" Max="136">White 7</Capability>
+  <Capability Min="137" Max="154">White 8</Capability>
+  <Capability Min="155" Max="172">White 9</Capability>
+  <Capability Min="173" Max="190">White 10</Capability>
+  <Capability Min="191" Max="208">White 11</Capability>
+  <Capability Min="209" Max="226">White 12</Capability>
+  <Capability Min="227" Max="244">White 13</Capability>
+  <Capability Min="245" Max="255">White 14</Capability>
+ </Channel>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Hue 2" Preset="IntensityHue"/>
+ <Channel Name="Fine Hue 2" Preset="IntensityHueFine"/>
+ <Channel Name="Fine Hue 3" Preset="IntensityHueFine"/>
+ <Channel Name="Hue 3" Preset="IntensityHue"/>
+ <Channel Name="Saturation 2" Preset="IntensitySaturation"/>
+ <Channel Name="Saturation 3" Preset="IntensitySaturation"/>
+ <Channel Name="Strobe 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="110" Max="179" Preset="PulseSlowToFast">Pulse Strobe, slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="110" Max="179" Preset="PulseSlowToFast">Pulse Strobe, slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="35">R:100%, G:0-100%, B:0, A:0%, W:0%</Capability>
+  <Capability Min="36" Max="59">R:100-0%, G:100%, B:0%, A:0%, W:0%</Capability>
+  <Capability Min="60" Max="84">R:0%, G:100%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="85" Max="109">R:0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="110" Max="134">R:0-100%, G:0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="135" Max="159">R:100%, G:0%, B:100-0%, A:0%, W:0%</Capability>
+  <Capability Min="160" Max="184">R:100%, G:100-0%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="185" Max="209">R:100-0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="210" Max="255">R:100%, G:100%, B:100%, A:100%, W:100%</Capability>
+ </Channel>
+ <Channel Name="Color Macros 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="35">R:100%, G:0-100%, B:0, A:0%, W:0%</Capability>
+  <Capability Min="36" Max="59">R:100-0%, G:100%, B:0%, A:0%, W:0%</Capability>
+  <Capability Min="60" Max="84">R:0%, G:100%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="85" Max="109">R:0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="110" Max="134">R:0-100%, G:0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="135" Max="159">R:100%, G:0%, B:100-0%, A:0%, W:0%</Capability>
+  <Capability Min="160" Max="184">R:100%, G:100-0%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="185" Max="209">R:100-0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="210" Max="255">R:100%, G:100%, B:100%, A:100%, W:100%</Capability>
+ </Channel>
+ <Channel Name="Color Temperature 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="28">White 1</Capability>
+  <Capability Min="29" Max="46">White 2</Capability>
+  <Capability Min="47" Max="64">White 3</Capability>
+  <Capability Min="65" Max="82">White 4</Capability>
+  <Capability Min="83" Max="100">White 5</Capability>
+  <Capability Min="101" Max="118">White 6</Capability>
+  <Capability Min="119" Max="136">White 7</Capability>
+  <Capability Min="137" Max="154">White 8</Capability>
+  <Capability Min="155" Max="172">White 9</Capability>
+  <Capability Min="173" Max="190">White 10</Capability>
+  <Capability Min="191" Max="208">White 11</Capability>
+  <Capability Min="209" Max="226">White 12</Capability>
+  <Capability Min="227" Max="244">White 13</Capability>
+  <Capability Min="245" Max="255">White 14</Capability>
+ </Channel>
+ <Channel Name="Color Temperature 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="28">White 1</Capability>
+  <Capability Min="29" Max="46">White 2</Capability>
+  <Capability Min="47" Max="64">White 3</Capability>
+  <Capability Min="65" Max="82">White 4</Capability>
+  <Capability Min="83" Max="100">White 5</Capability>
+  <Capability Min="101" Max="118">White 6</Capability>
+  <Capability Min="119" Max="136">White 7</Capability>
+  <Capability Min="137" Max="154">White 8</Capability>
+  <Capability Min="155" Max="172">White 9</Capability>
+  <Capability Min="173" Max="190">White 10</Capability>
+  <Capability Min="191" Max="208">White 11</Capability>
+  <Capability Min="209" Max="226">White 12</Capability>
+  <Capability Min="227" Max="244">White 13</Capability>
+  <Capability Min="245" Max="255">White 14</Capability>
+ </Channel>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Preset dimmer speed from display menu</Capability>
+  <Capability Min="10" Max="29">Dimmer speed mode off</Capability>
+  <Capability Min="30" Max="69">Dimmer speed mode 1 (fastest)</Capability>
+  <Capability Min="70" Max="129">Dimmer speed mode 2</Capability>
+  <Capability Min="130" Max="189">Dimmer speed mode 3</Capability>
+  <Capability Min="190" Max="255">Dimmer speed mode 4 (slowest)</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Fine Red 1" Preset="IntensityRedFine"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Fine Blue 1" Preset="IntensityBlueFine"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Fine Green 1" Preset="IntensityGreenFine"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="Fine Amber 1" Preset="IntensityAmberFine"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Fine White 1" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Fine Red 2" Preset="IntensityRedFine"/>
+ <Channel Name="Fine Red 3" Preset="IntensityRedFine"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Channel Name="Fine Blue 2" Preset="IntensityBlueFine"/>
+ <Channel Name="Fine Blue 3" Preset="IntensityBlueFine"/>
+ <Channel Name="Fine Green 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Fine Green 3" Preset="IntensityGreenFine"/>
+ <Channel Name="Fine Amber 2" Preset="IntensityAmberFine"/>
+ <Channel Name="Fine Amber 3" Preset="IntensityAmberFine"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Fine White 2" Preset="IntensityWhiteFine"/>
+ <Channel Name="Fine White 3" Preset="IntensityWhiteFine"/>
+ <Channel Name="Strobe All">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="110" Max="179" Preset="PulseSlowToFast">Pulse Strobe, slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Fine Dimmer" Preset="IntensityDimmerFine"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Fine Hue" Preset="IntensityHueFine"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="110" Max="179" Preset="PulseSlowToFast">Pulse Strobe, slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="35">R:100%, G:0-100%, B:0, A:0%, W:0%</Capability>
+  <Capability Min="36" Max="59">R:100-0%, G:100%, B:0%, A:0%, W:0%</Capability>
+  <Capability Min="60" Max="84">R:0%, G:100%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="85" Max="109">R:0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="110" Max="134">R:0-100%, G:0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="135" Max="159">R:100%, G:0%, B:100-0%, A:0%, W:0%</Capability>
+  <Capability Min="160" Max="184">R:100%, G:100-0%, B:0-100%, A:0%, W:0%</Capability>
+  <Capability Min="185" Max="209">R:100-0%, G:100-0%, B:100%, A:0%, W:0%</Capability>
+  <Capability Min="210" Max="255">R:100%, G:100%, B:100%, A:100%, W:100%</Capability>
+ </Channel>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="28">White 1</Capability>
+  <Capability Min="29" Max="46">White 2</Capability>
+  <Capability Min="47" Max="64">White 3</Capability>
+  <Capability Min="65" Max="82">White 4</Capability>
+  <Capability Min="83" Max="100">White 5</Capability>
+  <Capability Min="101" Max="118">White 6</Capability>
+  <Capability Min="119" Max="136">White 7</Capability>
+  <Capability Min="137" Max="154">White 8</Capability>
+  <Capability Min="155" Max="172">White 9</Capability>
+  <Capability Min="173" Max="190">White 10</Capability>
+  <Capability Min="191" Max="208">White 11</Capability>
+  <Capability Min="209" Max="226">White 12</Capability>
+  <Capability Min="227" Max="244">White 13</Capability>
+  <Capability Min="245" Max="255">White 14</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Fine Red" Preset="IntensityRedFine"/>
+ <Channel Name="Fine Green" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Fine Blue" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Fine Amber" Preset="IntensityAmberFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Fine White" Preset="IntensityWhiteFine"/>
+ <Mode Name="3 HSIC">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Hue 1</Channel>
+  <Channel Number="2">Fine Hue 1</Channel>
+  <Channel Number="3">Saturation 1</Channel>
+  <Channel Number="4">Strobe 1</Channel>
+  <Channel Number="5">Color Macros 1</Channel>
+  <Channel Number="6">Color Temperature 1</Channel>
+  <Channel Number="7">Dimmer 2</Channel>
+  <Channel Number="8">Hue 2</Channel>
+  <Channel Number="9">Fine Hue 2</Channel>
+  <Channel Number="10">Saturation 2</Channel>
+  <Channel Number="11">Strobe 2</Channel>
+  <Channel Number="12">Color Macros 2</Channel>
+  <Channel Number="13">Color Temperature 2</Channel>
+  <Channel Number="14">Dimmer 3</Channel>
+  <Channel Number="15">Hue 3</Channel>
+  <Channel Number="16">Fine Hue 3</Channel>
+  <Channel Number="17">Saturation 3</Channel>
+  <Channel Number="18">Strobe 3</Channel>
+  <Channel Number="19">Color Macros 3</Channel>
+  <Channel Number="20">Color Temperature 3</Channel>
+  <Channel Number="21">Dimmer Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGBAW FUL">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Fine Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Fine Green 1</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Fine Blue 1</Channel>
+  <Channel Number="8">Amber 1</Channel>
+  <Channel Number="9">Fine Amber 1</Channel>
+  <Channel Number="10">White 1</Channel>
+  <Channel Number="11">Fine White 1</Channel>
+  <Channel Number="12">Color Macros 1</Channel>
+  <Channel Number="13">Color Temperature 1</Channel>
+  <Channel Number="14">Strobe 1</Channel>
+  <Channel Number="15">Red 2</Channel>
+  <Channel Number="16">Fine Red 2</Channel>
+  <Channel Number="17">Green 2</Channel>
+  <Channel Number="18">Fine Green 2</Channel>
+  <Channel Number="19">Blue 2</Channel>
+  <Channel Number="20">Fine Blue 2</Channel>
+  <Channel Number="21">Amber 2</Channel>
+  <Channel Number="22">Fine Amber 2</Channel>
+  <Channel Number="23">White 2</Channel>
+  <Channel Number="24">Fine White 2</Channel>
+  <Channel Number="25">Color Macros 2</Channel>
+  <Channel Number="26">Color Temperature 2</Channel>
+  <Channel Number="27">Strobe 2</Channel>
+  <Channel Number="28">Red 3</Channel>
+  <Channel Number="29">Fine Red 3</Channel>
+  <Channel Number="30">Green 3</Channel>
+  <Channel Number="31">Fine Green 3</Channel>
+  <Channel Number="32">Blue 3</Channel>
+  <Channel Number="33">Fine Blue 3</Channel>
+  <Channel Number="34">Amber 3</Channel>
+  <Channel Number="35">Fine Amber 3</Channel>
+  <Channel Number="36">White 3</Channel>
+  <Channel Number="37">Fine White 3</Channel>
+  <Channel Number="38">Color Macros 3</Channel>
+  <Channel Number="39">Color Temperature 3</Channel>
+  <Channel Number="40">Strobe 3</Channel>
+  <Channel Number="41">Strobe All</Channel>
+  <Channel Number="42">Dimmer Speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>39</Channel>
+   <Channel>38</Channel>
+   <Channel>37</Channel>
+   <Channel>36</Channel>
+   <Channel>35</Channel>
+   <Channel>34</Channel>
+   <Channel>33</Channel>
+   <Channel>32</Channel>
+   <Channel>31</Channel>
+   <Channel>30</Channel>
+   <Channel>29</Channel>
+   <Channel>28</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGBAW FIN">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Fine Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Fine Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Fine Blue 1</Channel>
+  <Channel Number="6">Amber 1</Channel>
+  <Channel Number="7">Fine Amber 1</Channel>
+  <Channel Number="8">White 1</Channel>
+  <Channel Number="9">Fine White 1</Channel>
+  <Channel Number="10">Red 2</Channel>
+  <Channel Number="11">Fine Red 2</Channel>
+  <Channel Number="12">Green 2</Channel>
+  <Channel Number="13">Fine Green 2</Channel>
+  <Channel Number="14">Blue 2</Channel>
+  <Channel Number="15">Fine Blue 2</Channel>
+  <Channel Number="16">Amber 2</Channel>
+  <Channel Number="17">Fine Amber 2</Channel>
+  <Channel Number="18">White 2</Channel>
+  <Channel Number="19">Fine White 2</Channel>
+  <Channel Number="20">Red 3</Channel>
+  <Channel Number="21">Fine Red 3</Channel>
+  <Channel Number="22">Green 3</Channel>
+  <Channel Number="23">Fine Green 3</Channel>
+  <Channel Number="24">Blue 3</Channel>
+  <Channel Number="25">Fine Blue 3</Channel>
+  <Channel Number="26">Amber 3</Channel>
+  <Channel Number="27">Fine Amber 3</Channel>
+  <Channel Number="28">White 3</Channel>
+  <Channel Number="29">Fine White 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>29</Channel>
+   <Channel>28</Channel>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGBAW EXT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Amber 1</Channel>
+  <Channel Number="6">White 1</Channel>
+  <Channel Number="7">Color Macros 1</Channel>
+  <Channel Number="8">Color Temperature 1</Channel>
+  <Channel Number="9">Strobe 1</Channel>
+  <Channel Number="10">Red 2</Channel>
+  <Channel Number="11">Green 2</Channel>
+  <Channel Number="12">Blue 2</Channel>
+  <Channel Number="13">Amber 2</Channel>
+  <Channel Number="14">White 2</Channel>
+  <Channel Number="15">Color Macros 2</Channel>
+  <Channel Number="16">Color Temperature 2</Channel>
+  <Channel Number="17">Strobe 2</Channel>
+  <Channel Number="18">Red 3</Channel>
+  <Channel Number="19">Green 3</Channel>
+  <Channel Number="20">Blue 3</Channel>
+  <Channel Number="21">Amber 3</Channel>
+  <Channel Number="22">White 3</Channel>
+  <Channel Number="23">Color Macros 3</Channel>
+  <Channel Number="24">Color Temperature 3</Channel>
+  <Channel Number="25">Strobe 3</Channel>
+  <Channel Number="26">Strobe All</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGBAW">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Amber 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">Amber 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGBA EXT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Amber 1</Channel>
+  <Channel Number="6">Color Macros 1</Channel>
+  <Channel Number="7">Color Temperature 1</Channel>
+  <Channel Number="8">Strobe 1</Channel>
+  <Channel Number="9">Red 2</Channel>
+  <Channel Number="10">Green 2</Channel>
+  <Channel Number="11">Blue 2</Channel>
+  <Channel Number="12">Amber 2</Channel>
+  <Channel Number="13">Color Macros 2</Channel>
+  <Channel Number="14">Color Temperature 2</Channel>
+  <Channel Number="15">Strobe 2</Channel>
+  <Channel Number="16">Red 3</Channel>
+  <Channel Number="17">Green 3</Channel>
+  <Channel Number="18">Blue 3</Channel>
+  <Channel Number="19">Amber 3</Channel>
+  <Channel Number="20">Color Macros 3</Channel>
+  <Channel Number="21">Color Temperature 3</Channel>
+  <Channel Number="22">Strobe 3</Channel>
+  <Channel Number="23">Strobe All</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGBA">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Amber 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Amber 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">Amber 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGB EXT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Color Macros 1</Channel>
+  <Channel Number="6">Color Temperature 1</Channel>
+  <Channel Number="7">Strobe 1</Channel>
+  <Channel Number="8">Red 2</Channel>
+  <Channel Number="9">Green 2</Channel>
+  <Channel Number="10">Blue 2</Channel>
+  <Channel Number="11">Color Macros 2</Channel>
+  <Channel Number="12">Color Temperature 2</Channel>
+  <Channel Number="13">Strobe 2</Channel>
+  <Channel Number="14">Red 3</Channel>
+  <Channel Number="15">Green 3</Channel>
+  <Channel Number="16">Blue 3</Channel>
+  <Channel Number="17">Color Macros 3</Channel>
+  <Channel Number="18">Color Temperature 3</Channel>
+  <Channel Number="19">Strobe 3</Channel>
+  <Channel Number="20">Strobe All</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 RGB">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="1 HSIC">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Hue</Channel>
+  <Channel Number="2">Fine Hue</Channel>
+  <Channel Number="3">Saturation</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color Macros</Channel>
+  <Channel Number="6">Color Temperature</Channel>
+  <Channel Number="7">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="1 RGBAW FUL">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Fine Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Fine Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Fine Blue</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Fine Amber</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Fine White</Channel>
+  <Channel Number="12">Color Macros</Channel>
+  <Channel Number="13">Color Temperature</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Channel Number="15">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="1 RGBAW FIN">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Fine Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Fine Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Fine Blue</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">Fine Amber</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Fine White</Channel>
+ </Mode>
+ <Mode Name="1 RGBAW EXT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Color Macros</Channel>
+  <Channel Number="8">Color Temperature</Channel>
+  <Channel Number="9">Strobe</Channel>
+ </Mode>
+ <Mode Name="1 RGBAW">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="1 RGBA EXT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Color Temperature</Channel>
+  <Channel Number="8">Strobe</Channel>
+ </Mode>
+ <Mode Name="1 RGBA">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="1 RGB EXT">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Color Macros</Channel>
+  <Channel Number="6">Color Temperature</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="1 RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3631" ColourTemperature="0"/>
+  <Dimensions Weight="8.4" Width="1000" Height="156" Depth="75"/>
+  <Lens Name="Other" DegreesMin="24" DegreesMax="24"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="1"/>
+  <Technical PowerConsumption="161" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

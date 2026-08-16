@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Pete Mueller</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Scorpion Bar RG</Model>
+ <Type>Laser</Type>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Blackout</Capability>
+  <Capability Min="16" Max="35">Auto show 1</Capability>
+  <Capability Min="36" Max="55">Auto show 2</Capability>
+  <Capability Min="56" Max="75">Auto show 3</Capability>
+  <Capability Min="76" Max="95">Auto show 4</Capability>
+  <Capability Min="96" Max="115">Auto show 5</Capability>
+  <Capability Min="116" Max="135">Auto show 6</Capability>
+  <Capability Min="136" Max="155">Auto show 7</Capability>
+  <Capability Min="156" Max="175">Auto show 8</Capability>
+  <Capability Min="176" Max="195">Auto show 9</Capability>
+  <Capability Min="196" Max="215">Auto show 10</Capability>
+  <Capability Min="216" Max="235">Auto show 11</Capability>
+  <Capability Min="236" Max="255">Auto show 12</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="200">Slow to fast</Capability>
+  <Capability Min="201" Max="255">Sound-active sensitivity</Capability>
+ </Channel>
+ <Channel Name="Laser Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Blackout</Capability>
+  <Capability Min="16" Max="31">R - - -</Capability>
+  <Capability Min="32" Max="47">- G - -</Capability>
+  <Capability Min="48" Max="63">R G - -</Capability>
+  <Capability Min="64" Max="79">- - R -</Capability>
+  <Capability Min="80" Max="95">R - R -</Capability>
+  <Capability Min="96" Max="111">- G R -</Capability>
+  <Capability Min="112" Max="127">R G R -</Capability>
+  <Capability Min="128" Max="143">- - - G</Capability>
+  <Capability Min="144" Max="159">R - - G</Capability>
+  <Capability Min="160" Max="175">- G - G</Capability>
+  <Capability Min="176" Max="191">R G - G</Capability>
+  <Capability Min="192" Max="207">- - R G</Capability>
+  <Capability Min="208" Max="223">R - R G</Capability>
+  <Capability Min="224" Max="239">- G R G</Capability>
+  <Capability Min="240" Max="255">R G R G</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Circle</Capability>
+  <Capability Min="8" Max="15">Dashed Circle</Capability>
+  <Capability Min="16" Max="23">Triangle</Capability>
+  <Capability Min="24" Max="31">Square</Capability>
+  <Capability Min="32" Max="39">Dashed Square</Capability>
+  <Capability Min="40" Max="47">Pulse Square</Capability>
+  <Capability Min="48" Max="55">Cross</Capability>
+  <Capability Min="56" Max="63">Star</Capability>
+  <Capability Min="64" Max="71">&quot;L&quot;</Capability>
+  <Capability Min="72" Max="79">Hourglass</Capability>
+  <Capability Min="80" Max="87">Spiral</Capability>
+  <Capability Min="88" Max="95">Half Circles</Capability>
+  <Capability Min="96" Max="103">Comma</Capability>
+  <Capability Min="104" Max="111">Parens</Capability>
+  <Capability Min="112" Max="119">Bjarken Rune</Capability>
+  <Capability Min="120" Max="127">Zig Zag</Capability>
+  <Capability Min="128" Max="135">Angle</Capability>
+  <Capability Min="136" Max="143">Double Angle (M)</Capability>
+  <Capability Min="144" Max="151">Square Wave</Capability>
+  <Capability Min="152" Max="159">Line</Capability>
+  <Capability Min="160" Max="167">Dashed Line</Capability>
+  <Capability Min="168" Max="175">Line #2</Capability>
+  <Capability Min="176" Max="183">2 Lines</Capability>
+  <Capability Min="184" Max="191">Crossed Lines</Capability>
+  <Capability Min="192" Max="199">Offset Lines (Pong)</Capability>
+  <Capability Min="200" Max="207">Four Corners</Capability>
+  <Capability Min="208" Max="215">Offeset Boxes</Capability>
+  <Capability Min="216" Max="223">Four Boxes</Capability>
+  <Capability Min="224" Max="231">Small Circle</Capability>
+  <Capability Min="232" Max="239">Dotted Line</Capability>
+  <Capability Min="240" Max="247">Dotted Half Circle</Capability>
+  <Capability Min="248" Max="255">2 Dots (Top/Bottom)</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Indexing (100%-5%)</Capability>
+  <Capability Min="128" Max="169">Zoom out (slow to fast)</Capability>
+  <Capability Min="170" Max="209">Zoom in (slow-to fast)</Capability>
+  <Capability Min="210" Max="255">In and out (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Rolling X-axis">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Fixed position (0-359°)</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling (slow to fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise rolling (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Rolling Y-axis">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Fixed position (0-359°)</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling (slow to fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise rolling (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Rolling Z-axis">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Fixed position (0-359°)</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling (slow to fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise rolling (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Moving X-axis">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Fixed position (128 horizontal points)</Capability>
+  <Capability Min="128" Max="191">Clockwise movement (slow to fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise movement (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Moving Y-axis">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Fixed position (128 vertical points)</Capability>
+  <Capability Min="128" Max="191">Clockwise movement (slow to fast)</Capability>
+  <Capability Min="192" Max="255">Counter-clockwise movement (slow to fast)</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1">Program Speed</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Laser Mode</Channel>
+  <Channel Number="3">Pattern</Channel>
+  <Channel Number="4">Zoom</Channel>
+  <Channel Number="5">Rolling X-axis</Channel>
+  <Channel Number="6">Rolling Y-axis</Channel>
+  <Channel Number="7">Rolling Z-axis</Channel>
+  <Channel Number="8">Moving X-axis</Channel>
+  <Channel Number="9">Moving Y-axis</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.4" Width="537" Height="268" Depth="170"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="26" TiltMax="26"/>
+  <Technical PowerConsumption="53" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

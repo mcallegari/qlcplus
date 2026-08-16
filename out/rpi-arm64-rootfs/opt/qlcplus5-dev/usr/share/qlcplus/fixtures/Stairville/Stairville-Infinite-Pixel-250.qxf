@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Fema</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Infinite Pixel 250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="White 10" Preset="IntensityWhite"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="White 11" Preset="IntensityWhite"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="White 12" Preset="IntensityWhite"/>
+ <Channel Name="Red 13" Preset="IntensityRed"/>
+ <Channel Name="Green 13" Preset="IntensityGreen"/>
+ <Channel Name="Blue 13" Preset="IntensityBlue"/>
+ <Channel Name="White 13" Preset="IntensityWhite"/>
+ <Channel Name="Red 14" Preset="IntensityRed"/>
+ <Channel Name="Green 14" Preset="IntensityGreen"/>
+ <Channel Name="Blue 14" Preset="IntensityBlue"/>
+ <Channel Name="White 14" Preset="IntensityWhite"/>
+ <Channel Name="Red 15" Preset="IntensityRed"/>
+ <Channel Name="Green 15" Preset="IntensityGreen"/>
+ <Channel Name="Blue 15" Preset="IntensityBlue"/>
+ <Channel Name="White 15" Preset="IntensityWhite"/>
+ <Channel Name="Red 16" Preset="IntensityRed"/>
+ <Channel Name="Green 16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 16" Preset="IntensityBlue"/>
+ <Channel Name="White 16" Preset="IntensityWhite"/>
+ <Channel Name="Red 17" Preset="IntensityRed"/>
+ <Channel Name="Green 17" Preset="IntensityGreen"/>
+ <Channel Name="Blue 17" Preset="IntensityBlue"/>
+ <Channel Name="White 17" Preset="IntensityWhite"/>
+ <Channel Name="Red 18" Preset="IntensityRed"/>
+ <Channel Name="Green 18" Preset="IntensityGreen"/>
+ <Channel Name="Blue 18" Preset="IntensityBlue"/>
+ <Channel Name="White 18" Preset="IntensityWhite"/>
+ <Channel Name="Red 19" Preset="IntensityRed"/>
+ <Channel Name="Green 19" Preset="IntensityGreen"/>
+ <Channel Name="Blue 19" Preset="IntensityBlue"/>
+ <Channel Name="White 19" Preset="IntensityWhite"/>
+ <Channel Name="Red 20" Preset="IntensityRed"/>
+ <Channel Name="Green 20" Preset="IntensityGreen"/>
+ <Channel Name="Blue 20" Preset="IntensityBlue"/>
+ <Channel Name="White 20" Preset="IntensityWhite"/>
+ <Channel Name="Red 21" Preset="IntensityRed"/>
+ <Channel Name="Green 21" Preset="IntensityGreen"/>
+ <Channel Name="Blue 21" Preset="IntensityBlue"/>
+ <Channel Name="White 21" Preset="IntensityWhite"/>
+ <Channel Name="Red 22" Preset="IntensityRed"/>
+ <Channel Name="Green 22" Preset="IntensityGreen"/>
+ <Channel Name="Blue 22" Preset="IntensityBlue"/>
+ <Channel Name="White 22" Preset="IntensityWhite"/>
+ <Channel Name="Red 23" Preset="IntensityRed"/>
+ <Channel Name="Green 23" Preset="IntensityGreen"/>
+ <Channel Name="Blue 23" Preset="IntensityBlue"/>
+ <Channel Name="White 23" Preset="IntensityWhite"/>
+ <Channel Name="Red 24" Preset="IntensityRed"/>
+ <Channel Name="Green 24" Preset="IntensityGreen"/>
+ <Channel Name="Blue 24" Preset="IntensityBlue"/>
+ <Channel Name="White 24" Preset="IntensityWhite"/>
+ <Channel Name="Red 25" Preset="IntensityRed"/>
+ <Channel Name="Green 25" Preset="IntensityGreen"/>
+ <Channel Name="Blue 25" Preset="IntensityBlue"/>
+ <Channel Name="White 25" Preset="IntensityWhite"/>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program speed - slow ... fast</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="50">Reset, if the value is transmitted for at least 5 seconds</Capability>
+  <Capability Min="51" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Auto-correction of pan and tilt">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Auto-correction of rotation (pan) and inclination (tilt), decreasing speed</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Fixed position (0° to 540°)</Capability>
+  <Capability Min="128" Max="191">Constant clockwise rotation, speed decreasing</Capability>
+  <Capability Min="192" Max="255">Constant anti-clockwise rotation, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Fixed position (0° to 270°)</Capability>
+  <Capability Min="128" Max="191">Constant clockwise inclination, speed decreasing</Capability>
+  <Capability Min="192" Max="255">Constant anti-clockwise inclination, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Continous Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127" Preset="RotationStop">No movement</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Continuous clockwise rotation, speed decreasing</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Continuous anti-clockwise rotation, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Continous Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127" Preset="RotationStop">No movement</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Continuous clockwise rotation, speed decreasing</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Continuous anti-clockwise rotation, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No program</Capability>
+  <Capability Min="8" Max="37">Program 1</Capability>
+  <Capability Min="38" Max="67">Program 2</Capability>
+  <Capability Min="68" Max="97">Program 3</Capability>
+  <Capability Min="98" Max="127">Program 4</Capability>
+  <Capability Min="128" Max="157">Program 5</Capability>
+  <Capability Min="158" Max="255">Program 6</Capability>
+ </Channel>
+ <Channel Name="Preprogrammed automatic show">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="37">Preprogrammed automatic show no. 1</Capability>
+  <Capability Min="38" Max="67">Preprogrammed automatic show no. 2</Capability>
+  <Capability Min="68" Max="97">Preprogrammed automatic show no. 3</Capability>
+  <Capability Min="98" Max="127">Preprogrammed automatic show no. 4</Capability>
+  <Capability Min="128" Max="157">Preprogrammed automatic show no. 5</Capability>
+  <Capability Min="158" Max="255">Preprogrammed automatic show no. 6</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="6" Preset="ShutterOpen">LEDs off</Capability>
+  <Capability Min="7" Max="128" Preset="PulseSlowToFast">Impulse effect, increasing speed</Capability>
+  <Capability Min="129" Max="255" Preset="StrobeSlowToFast">Constant strobe effect, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Colour macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Colour macros 1 to 32</Capability>
+ </Channel>
+ <Channel Name="Text Number">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="77">Numbers from 0 to 9</Capability>
+  <Capability Min="78" Max="255">Letters from A to Z</Capability>
+ </Channel>
+ <Channel Name="Preprogrammed show speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Running speed decreasing</Capability>
+ </Channel>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Auto-correction of pan and tilt</Channel>
+  <Channel Number="5">Continous Pan</Channel>
+  <Channel Number="6">Continous Tilt</Channel>
+  <Channel Number="7">Master Dimmer</Channel>
+  <Channel Number="8">Red 1</Channel>
+  <Channel Number="9">Green 1</Channel>
+  <Channel Number="10">Blue 1</Channel>
+  <Channel Number="11">White 1</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Colour macro</Channel>
+  <Channel Number="14">Text Number</Channel>
+  <Channel Number="15">Programs</Channel>
+  <Channel Number="16">Preprogrammed show speed</Channel>
+  <Channel Number="17">Reset</Channel>
+ </Mode>
+ <Mode Name="108 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Auto-correction of pan and tilt</Channel>
+  <Channel Number="5">Continous Pan</Channel>
+  <Channel Number="6">Continous Tilt</Channel>
+  <Channel Number="7">Reset</Channel>
+  <Channel Number="8">Red 1</Channel>
+  <Channel Number="9">Green 1</Channel>
+  <Channel Number="10">Blue 1</Channel>
+  <Channel Number="11">White 1</Channel>
+  <Channel Number="12">Red 2</Channel>
+  <Channel Number="13">Green 2</Channel>
+  <Channel Number="14">Blue 2</Channel>
+  <Channel Number="15">White 2</Channel>
+  <Channel Number="16">Red 3</Channel>
+  <Channel Number="17">Green 3</Channel>
+  <Channel Number="18">Blue 3</Channel>
+  <Channel Number="19">White 3</Channel>
+  <Channel Number="20">Red 4</Channel>
+  <Channel Number="21">Green 4</Channel>
+  <Channel Number="22">Blue 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Red 5</Channel>
+  <Channel Number="25">Green 5</Channel>
+  <Channel Number="26">Blue 5</Channel>
+  <Channel Number="27">White 5</Channel>
+  <Channel Number="28">Red 6</Channel>
+  <Channel Number="29">Green 6</Channel>
+  <Channel Number="30">Blue 6</Channel>
+  <Channel Number="31">White 6</Channel>
+  <Channel Number="32">Red 7</Channel>
+  <Channel Number="33">Green 7</Channel>
+  <Channel Number="34">Blue 7</Channel>
+  <Channel Number="35">White 7</Channel>
+  <Channel Number="36">Red 8</Channel>
+  <Channel Number="37">Green 8</Channel>
+  <Channel Number="38">Blue 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Red 9</Channel>
+  <Channel Number="41">Green 9</Channel>
+  <Channel Number="42">Blue 9</Channel>
+  <Channel Number="43">White 9</Channel>
+  <Channel Number="44">Red 10</Channel>
+  <Channel Number="45">Green 10</Channel>
+  <Channel Number="46">Blue 10</Channel>
+  <Channel Number="47">White 10</Channel>
+  <Channel Number="48">Red 11</Channel>
+  <Channel Number="49">Green 11</Channel>
+  <Channel Number="50">Blue 11</Channel>
+  <Channel Number="51">White 11</Channel>
+  <Channel Number="52">Red 12</Channel>
+  <Channel Number="53">Green 12</Channel>
+  <Channel Number="54">Blue 12</Channel>
+  <Channel Number="55">White 12</Channel>
+  <Channel Number="56">Red 13</Channel>
+  <Channel Number="57">Green 13</Channel>
+  <Channel Number="58">Blue 13</Channel>
+  <Channel Number="59">White 13</Channel>
+  <Channel Number="60">Red 14</Channel>
+  <Channel Number="61">Green 14</Channel>
+  <Channel Number="62">Blue 14</Channel>
+  <Channel Number="63">White 14</Channel>
+  <Channel Number="64">Red 15</Channel>
+  <Channel Number="65">Green 15</Channel>
+  <Channel Number="66">Blue 15</Channel>
+  <Channel Number="67">White 15</Channel>
+  <Channel Number="68">Red 16</Channel>
+  <Channel Number="69">Green 16</Channel>
+  <Channel Number="70">Blue 16</Channel>
+  <Channel Number="71">White 16</Channel>
+  <Channel Number="72">Red 17</Channel>
+  <Channel Number="73">Green 17</Channel>
+  <Channel Number="74">Blue 17</Channel>
+  <Channel Number="75">White 17</Channel>
+  <Channel Number="76">Red 18</Channel>
+  <Channel Number="77">Green 18</Channel>
+  <Channel Number="78">Blue 18</Channel>
+  <Channel Number="79">White 18</Channel>
+  <Channel Number="80">Red 19</Channel>
+  <Channel Number="81">Green 19</Channel>
+  <Channel Number="82">Blue 19</Channel>
+  <Channel Number="83">White 19</Channel>
+  <Channel Number="84">Red 20</Channel>
+  <Channel Number="85">Green 20</Channel>
+  <Channel Number="86">Blue 20</Channel>
+  <Channel Number="87">White 20</Channel>
+  <Channel Number="88">Red 21</Channel>
+  <Channel Number="89">Green 21</Channel>
+  <Channel Number="90">Blue 21</Channel>
+  <Channel Number="91">White 21</Channel>
+  <Channel Number="92">Red 22</Channel>
+  <Channel Number="93">Green 22</Channel>
+  <Channel Number="94">Blue 22</Channel>
+  <Channel Number="95">White 22</Channel>
+  <Channel Number="96">Red 23</Channel>
+  <Channel Number="97">Green 23</Channel>
+  <Channel Number="98">Blue 23</Channel>
+  <Channel Number="99">White 23</Channel>
+  <Channel Number="100">Red 24</Channel>
+  <Channel Number="101">Green 24</Channel>
+  <Channel Number="102">Blue 24</Channel>
+  <Channel Number="103">White 24</Channel>
+  <Channel Number="104">Red 25</Channel>
+  <Channel Number="105">Green 25</Channel>
+  <Channel Number="106">Blue 25</Channel>
+  <Channel Number="107">White 25</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+  <Head>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+  </Head>
+  <Head>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+  </Head>
+  <Head>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+  <Head>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+  </Head>
+  <Head>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+  </Head>
+  <Head>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+  </Head>
+  <Head>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+  </Head>
+  <Head>
+   <Channel>96</Channel>
+   <Channel>97</Channel>
+   <Channel>98</Channel>
+   <Channel>99</Channel>
+  </Head>
+  <Head>
+   <Channel>100</Channel>
+   <Channel>101</Channel>
+   <Channel>102</Channel>
+   <Channel>103</Channel>
+  </Head>
+  <Head>
+   <Channel>104</Channel>
+   <Channel>105</Channel>
+   <Channel>106</Channel>
+   <Channel>107</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Auto-correction of pan and tilt</Channel>
+  <Channel Number="5">Continous Pan</Channel>
+  <Channel Number="6">Continous Tilt</Channel>
+  <Channel Number="7">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="18.2" Width="517" Height="604" Depth="281"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="280" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

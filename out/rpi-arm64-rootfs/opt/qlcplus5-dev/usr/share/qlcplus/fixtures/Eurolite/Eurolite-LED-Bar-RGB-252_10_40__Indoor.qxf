@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Bar RGB 252/10 40° Indoor</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0" Preset="Alias">Black out</Capability>
+  <Capability Min="1" Max="15" Preset="Alias">Dimmer 1
+   <Alias Mode="Mode 1" Channel="No function 2" With="All dimm"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+   <Alias Mode="Mode 1" Channel="No function 4" With="Red 1"/>
+   <Alias Mode="Mode 1" Channel="No function 5" With="Green 1"/>
+   <Alias Mode="Mode 1" Channel="No function 6" With="Blue 1"/>
+   <Alias Mode="Mode 1" Channel="No function 7" With="Red 2"/>
+   <Alias Mode="Mode 1" Channel="No function 8" With="Green 2"/>
+   <Alias Mode="Mode 1" Channel="No function 9" With="Blue 2"/>
+   <Alias Mode="Mode 1" Channel="No function 10" With="Red 3"/>
+   <Alias Mode="Mode 1" Channel="No function 11" With="Green 3"/>
+   <Alias Mode="Mode 1" Channel="No function 12" With="Blue 3"/>
+  </Capability>
+  <Capability Min="16" Max="31" Preset="Alias">Dimmer 2
+   <Alias Mode="Mode 1" Channel="No function 2" With="All dimm"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+   <Alias Mode="Mode 1" Channel="No function 4" With="All Red"/>
+   <Alias Mode="Mode 1" Channel="No function 5" With="All Green"/>
+   <Alias Mode="Mode 1" Channel="No function 6" With="All Blue"/>
+  </Capability>
+  <Capability Min="32" Max="47" Preset="Alias">Red
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="48" Max="63" Preset="Alias">Green
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="64" Max="79" Preset="Alias">Blue
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="80" Max="95" Preset="Alias">Purple
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="96" Max="111" Preset="Alias">Yellow
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="112" Max="127" Preset="Alias">Cyan
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="128" Max="143" Preset="Alias">White
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="144" Max="159" Preset="Alias">Color change
+   <Alias Mode="Mode 1" Channel="No function 2" With="Speed"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="160" Max="175" Preset="Alias">Color flow
+   <Alias Mode="Mode 1" Channel="No function 2" With="Speed"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="176" Max="191" Preset="Alias">Color dream
+   <Alias Mode="Mode 1" Channel="No function 2" With="Speed"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="192" Max="207" Preset="Alias">Multi flow
+   <Alias Mode="Mode 1" Channel="No function 2" With="Speed"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+  </Capability>
+  <Capability Min="208" Max="223" Preset="Alias">Dream flow
+   <Alias Mode="Mode 1" Channel="No function 2" With="Speed"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+   <Alias Mode="Mode 1" Channel="No function 4" With="Select color"/>
+  </Capability>
+  <Capability Min="224" Max="239" Preset="Alias">Two color flow
+   <Alias Mode="Mode 1" Channel="No function 2" With="Speed"/>
+   <Alias Mode="Mode 1" Channel="No function 3" With="Flash"/>
+   <Alias Mode="Mode 1" Channel="No function 4" With="Select color"/>
+   <Alias Mode="Mode 1" Channel="No function 5" With="Select color 2"/>
+  </Capability>
+  <Capability Min="240" Max="255" Preset="Alias">Sound activity
+   <Alias Mode="Mode 1" Channel="No function 2" With="Sensitivity"/>
+  </Capability>
+ </Channel>
+ <Channel Name="All dimm" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="No function 3" Preset="NoFunction"/>
+ <Channel Name="No function 4" Preset="NoFunction"/>
+ <Channel Name="No function 5" Preset="NoFunction"/>
+ <Channel Name="No function 6" Preset="NoFunction"/>
+ <Channel Name="No function 7" Preset="NoFunction"/>
+ <Channel Name="No function 8" Preset="NoFunction"/>
+ <Channel Name="No function 9" Preset="NoFunction"/>
+ <Channel Name="No function 10" Preset="NoFunction"/>
+ <Channel Name="No function 11" Preset="NoFunction"/>
+ <Channel Name="No function 12" Preset="NoFunction"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound sensitivity</Capability>
+ </Channel>
+ <Channel Name="All Red" Preset="IntensityRed"/>
+ <Channel Name="All Green" Preset="IntensityGreen"/>
+ <Channel Name="All Blue" Preset="IntensityBlue"/>
+ <Channel Name="Select color" Preset="ColorMacro"/>
+ <Channel Name="Select color 2" Preset="ColorMacro"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">No function 2</Channel>
+  <Channel Number="2">No function 3</Channel>
+  <Channel Number="3">No function 4</Channel>
+  <Channel Number="4">No function 5</Channel>
+  <Channel Number="5">No function 6</Channel>
+  <Channel Number="6">No function 7</Channel>
+  <Channel Number="7">No function 8</Channel>
+  <Channel Number="8">No function 9</Channel>
+  <Channel Number="9">No function 10</Channel>
+  <Channel Number="10">No function 11</Channel>
+  <Channel Number="11">No function 12</Channel>
+ </Mode>
+<Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="4500"/>
+  <Dimensions Weight="2.5" Width="1070" Height="90" Depth="65"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

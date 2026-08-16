@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Lukas Jähn</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>PRO Slim PAR-12 MK2 HCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="255" Preset="StrobeSlowToFast">Strobe (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Static colors/Color changes">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">No function</Capability>
+  <Capability Min="51" Max="100">Static colors</Capability>
+  <Capability Min="101" Max="150">Switching colors</Capability>
+  <Capability Min="151" Max="200">Fading colors</Capability>
+  <Capability Min="201" Max="250">Pulsing colors</Capability>
+  <Capability Min="251" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Static colors (CH9 values 51-100)/Sound control (CH9 values 251-255) Speed color changes (CH9 values 101-250)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No color</Capability>
+  <Capability Min="1" Max="10" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="11" Max="21" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#5555ff">UV</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#ffaaff">Rose Pink</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#55ff7f">Evergreen</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#aaffff">Ice Blue</Capability>
+  <Capability Min="99" Max="109" Preset="ColorMacro" Res1="#aaaaff">Pale Lavender</Capability>
+  <Capability Min="110" Max="120" Preset="ColorMacro" Res1="#ffaa7f">Salmon red</Capability>
+  <Capability Min="121" Max="131" Preset="ColorMacro" Res1="#aaff7f">Neon Green</Capability>
+  <Capability Min="132" Max="142" Preset="ColorMacro" Res1="#55ffff">Cyan</Capability>
+  <Capability Min="143" Max="153" Preset="ColorMacro" Res1="#ff55ff">Magenta</Capability>
+  <Capability Min="154" Max="164" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="165" Max="175" Preset="ColorMacro" Res1="#ffaa7f">Peach</Capability>
+  <Capability Min="176" Max="186" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="187" Max="197" Preset="ColorMacro" Res1="#aaff00">Lime Green</Capability>
+  <Capability Min="198" Max="208" Preset="ColorMacro" Res1="#00aaff">Peacock Blue</Capability>
+  <Capability Min="209" Max="219" Preset="ColorMacro" Res1="#aa1618">Mauve</Capability>
+  <Capability Min="220" Max="230" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#5555ff">Red UV</Capability>
+  <Capability Min="231" Max="241" Preset="ColorMacro" Res1="#39d1ff">Steel Blue</Capability>
+  <Capability Min="242" Max="252" Preset="ColorMacro" Res1="#ffffff">Daylight</Capability>
+  <Capability Min="253" Max="255">Full On - for Static colors / 23 static colors - for sound control</Capability>
+ </Channel>
+ <Mode Name="6 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Static colors/Color changes</Channel>
+  <Channel Number="9">Static colors (CH9 values 51-100)/Sound control (CH9 values 251-255) Speed color changes (CH9 values 101-250)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="280" Height="295" Depth="125"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

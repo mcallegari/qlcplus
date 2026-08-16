@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.2 GIT</Version>
+  <Author>e-shock</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Wild Wash 132 LED CW</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Strobe 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">LEDs off (blackout)</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approx. 0 Hz to 30 Hz</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">LEDs on</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">LEDs off (blackout)</Capability>
+  <Capability Min="11" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approx. 0 Hz to 30 Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs on</Capability>
+ </Channel>
+ <Channel Name="Flash impulse">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash impulse duration, increasing from 0 ms to 510 ms</Capability>
+ </Channel>
+ <Channel Name="Strobe 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">LEDs on, brightness controlled by channel 1</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">LEDs off (blackout)</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Random impulses, increasing speed</Capability>
+  <Capability Min="34" Max="56">Randomly increasing brightness, increasing speed</Capability>
+  <Capability Min="57" Max="79">Randomly decreasing brightness, increasing speed</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random Strobe effect, increasing speed</Capability>
+  <Capability Min="103" Max="127">Interrupt effect, 5 s to 1 s</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approx. 0 Hz to 30 Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs on, brightness controlled by channel 1</Capability>
+ </Channel>
+ <Channel Name="Sound control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">Sound control off</Capability>
+  <Capability Min="6" Max="255">Sound control on, increasing sensitivity</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Strobe 1</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Flash impulse</Channel>
+ </Mode>
+ <Mode Name="3 Channel 2">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe 2</Channel>
+  <Channel Number="2">Sound control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.05" Width="310" Height="70" Depth="70"/>
+  <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="44" Height="3"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

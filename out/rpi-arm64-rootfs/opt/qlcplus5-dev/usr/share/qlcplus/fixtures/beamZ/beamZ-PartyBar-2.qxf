@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Joel Solomons</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>PartyBar2</Model>
+ <Type>Effect</Type>
+ <Channel Name="Derby 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Derby 1 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Derby 1 speed</Capability>
+ </Channel>
+ <Channel Name="PARs Red" Preset="IntensityRed"/>
+ <Channel Name="PARs Green" Preset="IntensityGreen"/>
+ <Channel Name="PARs Blue" Preset="IntensityBlue"/>
+ <Channel Name="PARs White" Preset="IntensityWhite"/>
+ <Channel Name="Derby 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Derby 2 Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Derby 2 speed</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dim/Sound programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="49">PAR Dimmer</Capability>
+  <Capability Min="50" Max="89">Derby Dimmer</Capability>
+  <Capability Min="90" Max="129">PAR and Derby dimmer</Capability>
+  <Capability Min="130" Max="169">Sound only PAR</Capability>
+  <Capability Min="170" Max="209">Sound only Derby</Capability>
+  <Capability Min="210" Max="255">PAR and Derby Sound</Capability>
+ </Channel>
+ <Channel Name="Auto/strobe programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="179">Auto program</Capability>
+  <Capability Min="180" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Show mode speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program speed, (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Motor speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Derby 1 Red</Channel>
+  <Channel Number="1">Derby 1 Green</Channel>
+  <Channel Number="2">Derby 1 Blue</Channel>
+  <Channel Number="3">Derby 1 White</Channel>
+  <Channel Number="4">Derby 1 Speed</Channel>
+  <Channel Number="5">PARs Red</Channel>
+  <Channel Number="6">PARs Green</Channel>
+  <Channel Number="7">PARs Blue</Channel>
+  <Channel Number="8">PARs White</Channel>
+  <Channel Number="9">Derby 2 Red</Channel>
+  <Channel Number="10">Derby 2 Green</Channel>
+  <Channel Number="11">Derby 2 Blue</Channel>
+  <Channel Number="12">Derby 2 White</Channel>
+  <Channel Number="13">Derby 2 Speed</Channel>
+  <Channel Number="14">Strobe Speed</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dim/Sound programs</Channel>
+  <Channel Number="1">Auto/strobe programs</Channel>
+  <Channel Number="2">Show mode speed</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.15" Width="920" Height="390" Depth="190"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

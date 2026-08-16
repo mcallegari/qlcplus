@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Xtylos</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Show Setup">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="11">Unused range</Capability>
+  <Capability Min="12" Max="16">Limited Output On</Capability>
+  <Capability Min="17" Max="21">Limited Output Off</Capability>
+  <Capability Min="22" Max="27">SOZ - HD=82ft. 25.0m. (Smart Mode only)</Capability>
+  <Capability Min="28" Max="32">SOZ - HD=70ft. 21.5m. (Smart Mode only)</Capability>
+  <Capability Min="33" Max="37">SOZ - HD=60ft. 18.5m. (Smart Mode only)</Capability>
+  <Capability Min="38" Max="42">SOZ - HD=50ft. 15.0m. (Smart Mode only)</Capability>
+  <Capability Min="43" Max="47">Check start</Capability>
+  <Capability Min="48" Max="52">Check stop</Capability>
+  <Capability Min="53" Max="57">BAZ - Symmetric</Capability>
+  <Capability Min="58" Max="62">BAZ - Pan_180</Capability>
+  <Capability Min="63" Max="67">BAZ - Custom - Tilt 1</Capability>
+  <Capability Min="68" Max="72">BAZ - Custom - Pan 1</Capability>
+  <Capability Min="73" Max="78">BAZ - Custom - Pan 2</Capability>
+  <Capability Min="79" Max="83">BAZ - Custom - Tilt 2</Capability>
+  <Capability Min="84" Max="93">Free</Capability>
+  <Capability Min="94" Max="99">BAZ - Invert Off</Capability>
+  <Capability Min="100" Max="104">BAZ - Invert On</Capability>
+  <Capability Min="105" Max="108">BAZ - Reset</Capability>
+  <Capability Min="109" Max="113">SOZ - Symmetric (Smart Mode only)</Capability>
+  <Capability Min="114" Max="118">SOZ - Pan_180 (Smart Mode only)</Capability>
+  <Capability Min="119" Max="123">SOZ - Custom - Tilt 1 (Smart Mode only)</Capability>
+  <Capability Min="124" Max="129">SOZ - Custom - Pan 1 (Smart Mode only)</Capability>
+  <Capability Min="130" Max="134">SOZ - Custom - Pan 2 (Smart Mode only)</Capability>
+  <Capability Min="135" Max="139">SOZ - Custom - Tilt 2 (Smart Mode only)</Capability>
+  <Capability Min="140" Max="149">Free</Capability>
+  <Capability Min="150" Max="154">SOZ - Invert Off (Smart Mode only)</Capability>
+  <Capability Min="155" Max="159">SOZ - Invert On (Smart Mode only)</Capability>
+  <Capability Min="160" Max="164">SOZ - Reset (Smart Mode only)</Capability>
+  <Capability Min="165" Max="169">Complete channel reset</Capability>
+  <Capability Min="170" Max="255">Free</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Light OFF</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeFreqRange" Res1="1" Res2="12">Variable frenìquancy (1 flash sec) To (12 flash sec)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light ON</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Pulsation slow to fast</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light ON</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandomSlowToFast">Random low</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandomSlowToFast">Random medium</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandomSlowToFast">Random high</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light ON</Capability>
+ </Channel>
+ <Channel Name="Static Gobo Change">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5">Empty position</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="ClayPaky/gobo00006.svg">Gobo 1</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2</Capability>
+  <Capability Min="18" Max="23" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="ClayPaky/gobo00009.svg">Gobo 4</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 5</Capability>
+  <Capability Min="36" Max="41" Preset="GoboMacro" Res1="ClayPaky/gobo00011.svg">Gobo 6</Capability>
+  <Capability Min="42" Max="47" Preset="GoboMacro" Res1="ClayPaky/gobo00091.svg">Gobo 7</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="ClayPaky/gobo00085.svg">Gobo 8</Capability>
+  <Capability Min="54" Max="59" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 9</Capability>
+  <Capability Min="60" Max="65" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 10</Capability>
+  <Capability Min="66" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00011.svg">Gobo 11</Capability>
+  <Capability Min="72" Max="113">Continuous rotation CCW (linear fast to slow)</Capability>
+  <Capability Min="114" Max="117">Stop</Capability>
+  <Capability Min="118" Max="159">Continuous rotation CW (linear fast to slow)</Capability>
+  <Capability Min="160" Max="168" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00006.svg">Gobo 1 shake</Capability>
+  <Capability Min="169" Max="177" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2 shake</Capability>
+  <Capability Min="178" Max="186" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3 shake</Capability>
+  <Capability Min="187" Max="194" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00009.svg">Gobo 4 shake</Capability>
+  <Capability Min="195" Max="203" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Gobo 5 shake</Capability>
+  <Capability Min="204" Max="212" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00011.svg">Gobo 6 shake</Capability>
+  <Capability Min="213" Max="221" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00091.svg">Gobo 7 shake</Capability>
+  <Capability Min="222" Max="229" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00085.svg">Gobo 8 shake</Capability>
+  <Capability Min="230" Max="238" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00012.svg">Gobo 9 shake</Capability>
+  <Capability Min="239" Max="247" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00093.svg">Gobo 10 shake</Capability>
+  <Capability Min="248" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00011.svg">Gobo 11 shake</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo Change">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="16">Empty position</Capability>
+  <Capability Min="17" Max="32" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 1</Capability>
+  <Capability Min="33" Max="48" Preset="GoboMacro" Res1="ClayPaky/gobo00005.svg">Gobo 2</Capability>
+  <Capability Min="49" Max="54" Preset="GoboMacro" Res1="ClayPaky/gobo00019.svg">Gobo 3</Capability>
+  <Capability Min="55" Max="81" Preset="GoboMacro" Res1="ClayPaky/gobo00015.svg">Gobo 4</Capability>
+  <Capability Min="82" Max="97" Preset="GoboMacro" Res1="ClayPaky/gobo00067.svg">Gobo 5</Capability>
+  <Capability Min="98" Max="113" Preset="GoboMacro" Res1="Others/gobo00005.svg">Gobo 6</Capability>
+  <Capability Min="114" Max="129" Preset="GoboMacro" Res1="ClayPaky/gobo00092.svg">Gobo 7</Capability>
+  <Capability Min="130" Max="147" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00012.svg">Gobo 1 shake</Capability>
+  <Capability Min="148" Max="165" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00005.svg">Gobo 2 shake</Capability>
+  <Capability Min="166" Max="183" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00019.svg">Gobo 3 shake</Capability>
+  <Capability Min="184" Max="201" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00015.svg">Gobo 4 shake</Capability>
+  <Capability Min="202" Max="219" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00067.svg">Gobo 5 shake</Capability>
+  <Capability Min="220" Max="237" Preset="GoboShakeMacro" Res1="Others/gobo00005.svg">Gobo 6 shake</Capability>
+  <Capability Min="238" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00092.svg">Gobo 7 shake</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="20" Preset="RotationIndexed">0° to 90°</Capability>
+  <Capability Min="21" Max="41" Preset="RotationIndexed">90° to 180°</Capability>
+  <Capability Min="42" Max="62" Preset="RotationIndexed">180° to 270°</Capability>
+  <Capability Min="63" Max="83" Preset="RotationIndexed">270° to 360°</Capability>
+  <Capability Min="84" Max="104" Preset="RotationIndexed">360° to 450°</Capability>
+  <Capability Min="105" Max="127" Preset="RotationIndexed">450° to 540°</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Continuous CW gobo rotation (linear fast to slow)</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop rotation</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Continuous CCW gobo rotation (linear slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Fine Gobo Rotation">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Fine CW Gobo Indexing</Capability>
+ </Channel>
+ <Channel Name="Prisms Wheel Change">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="25" Preset="PrismEffectOff">Prisms/Frost out of the light beam</Capability>
+  <Capability Min="26" Max="51" Preset="PrismEffectOn" Res1="6">Prism 1 (6 facets)</Capability>
+  <Capability Min="52" Max="77">Prism 2 (Elliptical)</Capability>
+  <Capability Min="78" Max="103">Prism 3 (6 Facets pyramidal)</Capability>
+  <Capability Min="104" Max="129">Frost</Capability>
+  <Capability Min="130" Max="161">Prism 1 shakes at variable speed (slow to fast)</Capability>
+  <Capability Min="162" Max="192">Prism 2 shakes at variable speed (slow to fast)</Capability>
+  <Capability Min="193" Max="224">Prism 3 shakes at variable speed (slow to fast)</Capability>
+  <Capability Min="225" Max="255">Frost shakes at variable speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Prisms Wheel Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="20">Prisms/Frost indexing: 0° to 90° range</Capability>
+  <Capability Min="21" Max="42">Prisms/Frost indexing: 90° to 180° range</Capability>
+  <Capability Min="43" Max="62">Prisms/Frost indexing: 180° to 270° range</Capability>
+  <Capability Min="63" Max="83">Prisms/Frost indexing: 270° to 360° range</Capability>
+  <Capability Min="84" Max="104">Prisms/Frost indexing: 360° to 450° range</Capability>
+  <Capability Min="105" Max="127">Prisms/Frost indexing: 450° to 540° range</Capability>
+  <Capability Min="128" Max="190">Continuous CCW Prisms/Frost rotation (linear fast to slow)</Capability>
+  <Capability Min="191" Max="192">Stop rotation</Capability>
+  <Capability Min="193" Max="255">Continuous CW Prisms/Frost rotation (linear slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Prism insertion">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="PrismEffectOff">Prism out</Capability>
+  <Capability Min="128" Max="255" Preset="PrismEffectOn" Res1="8">Multi facets prism into the light beam</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="20">Prisms indexing: 0° to 90° range</Capability>
+  <Capability Min="21" Max="41">Prisms indexing: 90° to 180° range</Capability>
+  <Capability Min="42" Max="62">Prisms indexing: 180° to 270° range</Capability>
+  <Capability Min="63" Max="83">Prisms indexing: 270° to 360° range</Capability>
+  <Capability Min="84" Max="104">Prisms indexing: 360° to 450° range</Capability>
+  <Capability Min="105" Max="127">Prisms indexing: 450° to 540° range</Capability>
+  <Capability Min="128" Max="190">Continuous CW Prisms/Frost rotation (linear fast to slow)</Capability>
+  <Capability Min="191" Max="192">Stop rotation</Capability>
+  <Capability Min="193" Max="255">Continuous CCW Prisms/Frost rotation (linear slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Smart Fading">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No fade</Capability>
+  <Capability Min="1" Max="255">Linear fading (SOZ only)</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Focus fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Fine Focus Positioning</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="11">Unused range</Capability>
+  <Capability Min="12" Max="24">Fast pan-tilt speed</Capability>
+  <Capability Min="25" Max="37">Normal pan-tilt speed</Capability>
+  <Capability Min="38" Max="50">Conventional dimmer curve</Capability>
+  <Capability Min="51" Max="62">Standrd dimmer curve</Capability>
+  <Capability Min="63" Max="75">CMY shortcut ON</Capability>
+  <Capability Min="76" Max="88">CMY shortcut OFF</Capability>
+  <Capability Min="89" Max="101">Slow blades speed</Capability>
+  <Capability Min="102" Max="113">Fast blade speed</Capability>
+  <Capability Min="114" Max="126">fast rotating gobos change</Capability>
+  <Capability Min="127" Max="139">Normal rotating gobos change</Capability>
+  <Capability Min="140" Max="152">Quadratic dimmer curve</Capability>
+  <Capability Min="153" Max="164">TBD</Capability>
+  <Capability Min="165" Max="177">TBD</Capability>
+  <Capability Min="178" Max="190">TBD</Capability>
+  <Capability Min="191" Max="203">TBD</Capability>
+  <Capability Min="204" Max="215">TBD</Capability>
+  <Capability Min="216" Max="228">Linear dimmer curve</Capability>
+  <Capability Min="229" Max="255">Free</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effects reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
+ </Channel>
+ <Channel Name="Function 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="11">Unused range</Capability>
+  <Capability Min="12" Max="12">Base frequency = 4700Hz</Capability>
+  <Capability Min="13" Max="13">Base frequency = 6000Hz</Capability>
+  <Capability Min="14" Max="14">Base frequency = 7300Hz</Capability>
+  <Capability Min="15" Max="15">Base frequency = 8600Hz</Capability>
+  <Capability Min="16" Max="16">Base frequency = 10000Hz</Capability>
+  <Capability Min="17" Max="17">Base frequency = 12000Hz</Capability>
+  <Capability Min="18" Max="18">Base frequency = 15000Hz</Capability>
+  <Capability Min="19" Max="19">Base frequency = 17578Hz</Capability>
+  <Capability Min="20" Max="20">Base frequency = 20000Hz</Capability>
+  <Capability Min="21" Max="21">Base frequency = 22000Hz</Capability>
+  <Capability Min="22" Max="255">Unused range</Capability>
+ </Channel>
+ <Channel Name="Frequency">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Frequency</Capability>
+ </Channel>
+ <Channel Name="BAZ Fading">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No fade</Capability>
+  <Capability Min="1" Max="255">Linear fading (BAZ only)</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">CTO</Channel>
+  <Channel Number="7">Show Setup</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Dimmer fine</Channel>
+  <Channel Number="10">Strobe</Channel>
+  <Channel Number="11">Static Gobo Change</Channel>
+  <Channel Number="12">Rotating Gobo Change</Channel>
+  <Channel Number="13" ActsOn="13">Gobo Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Fine Gobo Rotation</Channel>
+  <Channel Number="15">Prisms Wheel Change</Channel>
+  <Channel Number="16" ActsOn="15">Prisms Wheel Rotation</Channel>
+  <Channel Number="17">Prism insertion</Channel>
+  <Channel Number="18" ActsOn="17">Prism Rotation</Channel>
+  <Channel Number="19">Smart Fading</Channel>
+  <Channel Number="20">Focus</Channel>
+  <Channel Number="21">Focus fine</Channel>
+  <Channel Number="22">Pan</Channel>
+  <Channel Number="23">Pan fine</Channel>
+  <Channel Number="24">Tilt</Channel>
+  <Channel Number="25">Tilt fine</Channel>
+  <Channel Number="26">Function</Channel>
+  <Channel Number="27">Reset</Channel>
+  <Channel Number="28">Function 2</Channel>
+  <Channel Number="29">Frequency</Channel>
+  <Channel Number="30">BAZ Fading</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="24" Width="388" Height="582" Depth="294"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="7"/>
+  <Focus Type="Head" PanMax="540" TiltMax="250"/>
+  <Technical PowerConsumption="400" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

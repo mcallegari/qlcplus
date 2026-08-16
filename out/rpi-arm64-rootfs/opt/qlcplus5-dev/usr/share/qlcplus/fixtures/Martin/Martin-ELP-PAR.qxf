@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>saimyx</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>ELP PAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Shutter" Default="30">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="50" Max="200" Preset="StrobeSlowToFast">Strobe Slow to Fast</Capability>
+  <Capability Min="201" Max="210" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="211" Max="255" Preset="StrobeRandomSlowToFast">Random strobe, Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="CTC" Default="118">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="34">1800K</Capability>
+  <Capability Min="35" Max="117">1800K to 6000 K</Capability>
+  <Capability Min="118" Max="118">6000K</Capability>
+  <Capability Min="119" Max="127">6000K to 6500K</Capability>
+  <Capability Min="128" Max="128">6500K</Capability>
+  <Capability Min="129" Max="255">6500K to 12850K</Capability>
+ </Channel>
+ <Channel Name="Color wheel effects">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Open (White)</Capability>
+  <Capability Min="11" Max="12">Moroccan Pink (LEE 790)</Capability>
+  <Capability Min="13" Max="14">Pink (LEE 157)</Capability>
+  <Capability Min="15" Max="16">Special Rose Pink (LEE 332)</Capability>
+  <Capability Min="17" Max="18">Follies Pink (LEE 328)</Capability>
+  <Capability Min="19" Max="20">Fuchsia Pink (LEE 345)</Capability>
+  <Capability Min="21" Max="22">Surprise Pink (LEE 194)</Capability>
+  <Capability Min="23" Max="24">Congo Blue (LEE 181)</Capability>
+  <Capability Min="25" Max="26">Tokyo Blue (LEE 071)</Capability>
+  <Capability Min="27" Max="28">Deep Blue (LEE 120)</Capability>
+  <Capability Min="29" Max="30">Just Blue (LEE 079)</Capability>
+  <Capability Min="31" Max="32">Medium Blue (LEE 132)</Capability>
+  <Capability Min="33" Max="34">Double CT Blue (LEE 200)</Capability>
+  <Capability Min="35" Max="36">Slate Blue (LEE 161)</Capability>
+  <Capability Min="37" Max="38">Full CT Blue (LEE 201)</Capability>
+  <Capability Min="39" Max="40">Half CT Blue (LEE 202)</Capability>
+  <Capability Min="41" Max="42">Steel Blue (LEE 117)</Capability>
+  <Capability Min="43" Max="44">Lighter Blue (LEE 353)</Capability>
+  <Capability Min="45" Max="46">Light Blue (LEE 118)</Capability>
+  <Capability Min="47" Max="48">Medium Blue Green (LEE 116)</Capability>
+  <Capability Min="49" Max="50">Dark Green (LEE 124)</Capability>
+  <Capability Min="51" Max="52">Primary Green (LEE 139)</Capability>
+  <Capability Min="53" Max="54">Moss Green (LEE 089)</Capability>
+  <Capability Min="55" Max="56">Fern Green (LEE 122)</Capability>
+  <Capability Min="57" Max="58">Jas Green (LEE 738)</Capability>
+  <Capability Min="59" Max="60">Lime Green (LEE 088)</Capability>
+  <Capability Min="61" Max="62">Spring Yellow (LEE 100)</Capability>
+  <Capability Min="63" Max="64">Deep Amber (LEE 104)</Capability>
+  <Capability Min="65" Max="66">Chrome Orange (LEE 179)</Capability>
+  <Capability Min="67" Max="68">Orange (LEE 105)</Capability>
+  <Capability Min="69" Max="70">Gold Amber (LEE 021)</Capability>
+  <Capability Min="71" Max="72">Millennium Gold (LEE 778)</Capability>
+  <Capability Min="73" Max="74">Deep Golden Amber (LEE 135)</Capability>
+  <Capability Min="75" Max="76">Flame Red (LEE 164)</Capability>
+  <Capability Min="77" Max="78">Red Magenta (LEE 113)</Capability>
+  <Capability Min="79" Max="80">Medium Lavender (LEE 343)</Capability>
+  <Capability Min="81" Max="82">Pure White (Only white LEDs)</Capability>
+  <Capability Min="83" Max="84">Pure Red (Only red LEDs)</Capability>
+  <Capability Min="85" Max="86">Pure Yellow (Red and green LEDs)</Capability>
+  <Capability Min="87" Max="88">Pure Green (Only green LEDs)</Capability>
+  <Capability Min="89" Max="90">Pure Cyan (Green and blue LEDs)</Capability>
+  <Capability Min="91" Max="92">Pure Blue (Only blue LEDs)</Capability>
+  <Capability Min="93" Max="94">Pure Magenta (Red and blue LEDs)</Capability>
+  <Capability Min="95" Max="96">Peacock Blue (LEE 115)</Capability>
+  <Capability Min="97" Max="98">Dark Lavender (LEE 180)</Capability>
+  <Capability Min="99" Max="100">Double CT Orange (LEE 287)</Capability>
+  <Capability Min="101" Max="102">Full CT Orange (LEE 204)</Capability>
+  <Capability Min="103" Max="104">Half CT Orange (LEE 205)</Capability>
+  <Capability Min="105" Max="106">Deep Straw (LEE 015)</Capability>
+  <Capability Min="107" Max="190">No function</Capability>
+  <Capability Min="191" Max="214">Rotation ascending, Fast to Slow</Capability>
+  <Capability Min="215" Max="219">Stop at current position</Capability>
+  <Capability Min="220" Max="243">Rotation descending, Slow to Fast</Capability>
+  <Capability Min="244" Max="247">Random color, fast</Capability>
+  <Capability Min="248" Max="251">Random color, medium</Capability>
+  <Capability Min="252" Max="255">Random color, slow</Capability>
+ </Channel>
+ <Channel Name="Zoom" Default="128" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Zoom fine" Preset="BeamZoomFine"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function (disables calibration), hold 5s</Capability>
+  <Capability Min="10" Max="14">Reset fixture, hold 5s</Capability>
+  <Capability Min="15" Max="16">No function</Capability>
+  <Capability Min="17" Max="17">Reset beam, hold 5s</Capability>
+  <Capability Min="18" Max="22">No function</Capability>
+  <Capability Min="23" Max="23">Linear dimming curve, hold 1s</Capability>
+  <Capability Min="24" Max="24">Square law dimming curve, hold 1s</Capability>
+  <Capability Min="25" Max="25">Inverse square law dimming curve, hold 1s</Capability>
+  <Capability Min="26" Max="26">S-curve dimming curve, hold 1s</Capability>
+  <Capability Min="27" Max="30">No function</Capability>
+  <Capability Min="31" Max="31">Fast dimming speed, hold 1s</Capability>
+  <Capability Min="32" Max="32">Slow dimming speed, hold 1s</Capability>
+  <Capability Min="33" Max="37">No function</Capability>
+  <Capability Min="38" Max="38">Extended color mode, hold 1s</Capability>
+  <Capability Min="39" Max="39">Calibrated color mode, hold 1s</Capability>
+  <Capability Min="40" Max="40">RAW color mode, hold 1s</Capability>
+  <Capability Min="41" Max="51">No function</Capability>
+  <Capability Min="52" Max="52">Display ON, hold 1s</Capability>
+  <Capability Min="53" Max="53">Display OFF, hold 1s</Capability>
+  <Capability Min="54" Max="54">Regulated fan speed, fixed intensity, hold 1s</Capability>
+  <Capability Min="55" Max="55">Full fan speed, regulated intensity, hold 1s</Capability>
+  <Capability Min="56" Max="56">Theater mode, hold 1s</Capability>
+  <Capability Min="57" Max="60">No function</Capability>
+  <Capability Min="61" Max="61">Hibernation mode ON, hold 5s</Capability>
+  <Capability Min="62" Max="62">Hibernation mode OFF, hold 5s</Capability>
+  <Capability Min="63" Max="71">No function</Capability>
+  <Capability Min="72" Max="72">Tungsten emulation ON, hold 1s</Capability>
+  <Capability Min="73" Max="73">Tungsten emulation OFF, hold 1s</Capability>
+  <Capability Min="74" Max="74">Scene catch record, hold 5s</Capability>
+  <Capability Min="75" Max="75">Scene catch playback, hold 5s</Capability>
+  <Capability Min="76" Max="76">Scene catch playback OFF, hold 5s</Capability>
+  <Capability Min="77" Max="99">No function</Capability>
+  <Capability Min="100" Max="100">Enable calibration, hold 5s</Capability>
+  <Capability Min="101" Max="101">No function</Capability>
+  <Capability Min="102" Max="102">Store dimmer calibration, hold 5s</Capability>
+  <Capability Min="103" Max="113">No function</Capability>
+  <Capability Min="114" Max="114">Store zoom calibration, hold 5s</Capability>
+  <Capability Min="115" Max="198">No function</Capability>
+  <Capability Min="199" Max="199">Reset ALL calibration settings to factory defaults, hold 5s</Capability>
+  <Capability Min="200" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="Basic">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+  <Channel Number="2">Master dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Red fine</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Green fine</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Blue fine</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Color wheel effects</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Zoom fine</Channel>
+  <Channel Number="13">Control</Channel>
+ </Mode>
+ <Mode Name="Compact">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Master dimmer</Channel>
+  <Channel Number="2">Master dimmer fine</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">CTC</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Zoom fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3500" ColourTemperature="0"/>
+  <Dimensions Weight="7.8" Width="287" Height="401" Depth="312"/>
+  <Lens Name="Fresnel" DegreesMin="4.2" DegreesMax="35.4"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="320" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

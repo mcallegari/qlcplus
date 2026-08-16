@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jungle Jim</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Cubix 2.0</Model>
+ <Type>Flower</Type>
+ <Channel Name="Side Lens Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="5" Max="28" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="29" Max="56" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="57" Max="84" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="112" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="113" Max="140" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="141" Max="168" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="169" Max="197" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="198" Max="224">3-Color switching</Capability>
+  <Capability Min="225" Max="255">7-Color switching</Capability>
+ </Channel>
+ <Channel Name="Side Lens Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="30">0 to 30 Hz</Capability>
+ </Channel>
+ <Channel Name="Side Lens Motor Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Rotation with indexing</Capability>
+  <Capability Min="128" Max="255">Back and forth with increasing distance</Capability>
+ </Channel>
+ <Channel Name="Middle Lens Auto Programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="15" Max="20">Auto program 1</Capability>
+  <Capability Min="21" Max="26">Auto program 2</Capability>
+  <Capability Min="27" Max="32">Auto program 3</Capability>
+  <Capability Min="33" Max="38">Auto program 4</Capability>
+  <Capability Min="39" Max="44">Auto program 5</Capability>
+  <Capability Min="45" Max="50">Auto program 6</Capability>
+  <Capability Min="51" Max="56">Auto program 7</Capability>
+  <Capability Min="57" Max="62">Auto program 8</Capability>
+  <Capability Min="63" Max="68">Auto program 9</Capability>
+  <Capability Min="69" Max="74">Auto program 10</Capability>
+  <Capability Min="75" Max="80">Auto program 11</Capability>
+  <Capability Min="81" Max="86">Auto program 12</Capability>
+  <Capability Min="87" Max="92">Auto program 13</Capability>
+  <Capability Min="93" Max="98">Auto program 14</Capability>
+  <Capability Min="99" Max="104">Auto program 15</Capability>
+  <Capability Min="105" Max="110">Auto program 16</Capability>
+  <Capability Min="111" Max="116">Auto program 17</Capability>
+  <Capability Min="117" Max="122">Auto program 18</Capability>
+  <Capability Min="123" Max="128">Auto program 19</Capability>
+  <Capability Min="129" Max="134">Auto program 20</Capability>
+  <Capability Min="135" Max="140">Auto program 21</Capability>
+  <Capability Min="141" Max="146">Auto program 22</Capability>
+  <Capability Min="147" Max="152">Auto program 23</Capability>
+  <Capability Min="153" Max="158">Auto program 24</Capability>
+  <Capability Min="159" Max="164">Auto program 25</Capability>
+  <Capability Min="165" Max="170">Auto program 26</Capability>
+  <Capability Min="171" Max="176">Auto program 27</Capability>
+  <Capability Min="177" Max="182">Auto program 28</Capability>
+  <Capability Min="183" Max="188">Auto program 29</Capability>
+  <Capability Min="189" Max="194">Auto program 30</Capability>
+  <Capability Min="195" Max="200">Auto program 31</Capability>
+  <Capability Min="201" Max="206">Auto program 32</Capability>
+  <Capability Min="207" Max="212">Auto program 33</Capability>
+  <Capability Min="213" Max="218">Auto program 34</Capability>
+  <Capability Min="219" Max="224">Auto program 35</Capability>
+  <Capability Min="225" Max="230">Auto program 36</Capability>
+  <Capability Min="231" Max="236">Auto program 37</Capability>
+  <Capability Min="237" Max="242">Auto program 38</Capability>
+  <Capability Min="243" Max="248">Auto program 39</Capability>
+  <Capability Min="249" Max="255">Auto program 40</Capability>
+ </Channel>
+ <Channel Name="Middle Lens Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="16" Max="255">0 to 100% (when Ch.4 is 015 to 255)</Capability>
+ </Channel>
+ <Channel Name="Middle Lens Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="255" Preset="PulseFreqRange" Res1="0" Res2="30">0 to 30 Hz</Capability>
+ </Channel>
+ <Channel Name="All lenses Auto Programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="250" Preset="SlowToFast">Auto Programs (slow-fast)</Capability>
+  <Capability Min="251" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="30">0-30 Hz</Capability>
+ </Channel>
+ <Mode Name="7 channels">
+  <Channel Number="0">Side Lens Colors</Channel>
+  <Channel Number="1">Side Lens Strobe</Channel>
+  <Channel Number="2">Side Lens Motor Rotation</Channel>
+  <Channel Number="3">Middle Lens Auto Programs</Channel>
+  <Channel Number="4">Middle Lens Auto Program Speed</Channel>
+  <Channel Number="5">Middle Lens Strobe</Channel>
+  <Channel Number="6">All lenses Auto Programs</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.7" Width="305" Height="267" Depth="296"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="30" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

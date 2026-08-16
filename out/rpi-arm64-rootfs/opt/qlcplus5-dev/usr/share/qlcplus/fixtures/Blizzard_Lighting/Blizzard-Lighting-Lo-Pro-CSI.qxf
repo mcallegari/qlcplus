@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
+  <Author>Alton Olson</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Lo-Pro CSI</Model>
+ <Type>Effect</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Section 1 UV Intensity" Preset="IntensityUV"/>
+ <Channel Name="Section 2 UV Intensity" Preset="IntensityUV"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="255" Min="0">Colour temperature</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Section 1 UV Intensity</Channel>
+  <Channel Number="3">Section 2 UV Intensity</Channel>
+  <Channel Number="4">Color Temperature</Channel>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Section 1 UV Intensity</Channel>
+  <Channel Number="3">Section 2 UV Intensity</Channel>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Section 1 UV Intensity</Channel>
+  <Channel Number="2">Section 2 UV Intensity</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Section 1 UV Intensity</Channel>
+  <Channel Number="1">Section 2 UV Intensity</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="36 x 3W LED ~365nm" ColourTemperature="0"/>
+   <Dimensions Height="292" Weight="3.45" Width="227" Depth="120"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="34" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jared</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>XS 400</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Continuous Rotation">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="55">No function</Capability>
+  <Capability Min="56" Max="127" Preset="RotationClockwise">Clockwise Rotation</Capability>
+  <Capability Min="128" Max="199" Preset="RotationCounterClockwise">Counter-Clockwise Rotation</Capability>
+  <Capability Min="200" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Tilt Continuous Rotation Speed" Preset="SpeedTiltSlowFast"/>
+ <Channel Name="Red LED" Preset="IntensityRed"/>
+ <Channel Name="Green LED" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED" Preset="IntensityBlue"/>
+ <Channel Name="White LED" Preset="IntensityWhite"/>
+ <Channel Name="Color Macros &amp; Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20">Red</Capability>
+  <Capability Min="21" Max="30">Green</Capability>
+  <Capability Min="31" Max="40">Red &amp; Green</Capability>
+  <Capability Min="41" Max="50">Blue</Capability>
+  <Capability Min="51" Max="60">Red &amp; Blue</Capability>
+  <Capability Min="61" Max="70">Green &amp; Blue</Capability>
+  <Capability Min="71" Max="80">Red &amp; Green &amp; Blue</Capability>
+  <Capability Min="81" Max="123">Single Color Change Slow - Fast</Capability>
+  <Capability Min="124" Max="166">Color Mix Slow - Fast</Capability>
+  <Capability Min="167" Max="209">Color Fade Slow - Fast</Capability>
+  <Capability Min="210" Max="249">Color Change Slow - Fast</Capability>
+  <Capability Min="250" Max="255">Sound Active Color Effect</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="139" Preset="StrobeSlowToFast">Strobing Slow - Fast</Capability>
+  <Capability Min="140" Max="189">Slow open - Fast close</Capability>
+  <Capability Min="190" Max="231">Fast Open - Slow Close</Capability>
+  <Capability Min="232" Max="255" Preset="StrobeRandom">Random Strobe</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Nothing</Capability>
+  <Capability Min="16" Max="40">Program 1</Capability>
+  <Capability Min="41" Max="65">Program 2</Capability>
+  <Capability Min="66" Max="90">Program 3</Capability>
+  <Capability Min="91" Max="115">Program 4</Capability>
+  <Capability Min="116" Max="140">Program 5</Capability>
+  <Capability Min="141" Max="165">Program 6</Capability>
+  <Capability Min="166" Max="190">Program 7</Capability>
+  <Capability Min="191" Max="215">Program 8</Capability>
+  <Capability Min="216" Max="240">Random Program Playing 5 Times Each</Capability>
+  <Capability Min="241" Max="255">Random Program Playing 2 Mins. Each</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Special Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">No function</Capability>
+  <Capability Min="70" Max="79">Blackout With Pan/Tilt Movement</Capability>
+  <Capability Min="80" Max="89">No function</Capability>
+  <Capability Min="90" Max="99">Blackout with RGBW Value Changes</Capability>
+  <Capability Min="100" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Dimmer Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default Dimmer Setting</Capability>
+ </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Tilt Continuous Rotation</Channel>
+  <Channel Number="3">Tilt Continuous Rotation Speed</Channel>
+  <Channel Number="4">Red LED</Channel>
+  <Channel Number="5">Green LED</Channel>
+  <Channel Number="6">Blue LED</Channel>
+  <Channel Number="7">White LED</Channel>
+  <Channel Number="8">Color Macros &amp; Effects</Channel>
+  <Channel Number="9">Strobing</Channel>
+  <Channel Number="10">Master Dimmer</Channel>
+  <Channel Number="11">Programs</Channel>
+  <Channel Number="12">Program Speed</Channel>
+  <Channel Number="13">Pan/Tilt Speed</Channel>
+  <Channel Number="14">Special Functions</Channel>
+  <Channel Number="15">Dimmer Mode</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Tilt Continuous Rotation</Channel>
+  <Channel Number="5">Tilt Continuous Rotation Speed</Channel>
+  <Channel Number="6">Red LED</Channel>
+  <Channel Number="7">Green LED</Channel>
+  <Channel Number="8">Blue LED</Channel>
+  <Channel Number="9">White LED</Channel>
+  <Channel Number="10">Color Macros &amp; Effects</Channel>
+  <Channel Number="11">Strobing</Channel>
+  <Channel Number="12">Master Dimmer</Channel>
+  <Channel Number="13">Programs</Channel>
+  <Channel Number="14">Program Speed</Channel>
+  <Channel Number="15">Pan/Tilt Speed</Channel>
+  <Channel Number="16">Special Functions</Channel>
+  <Channel Number="17">Dimmer Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6" Width="169" Height="284" Depth="123"/>
+  <Lens Name="Fresnel" DegreesMin="5" DegreesMax="5"/>
+  <Focus Type="Head" PanMax="540" TiltMax="999"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>MaBonzo</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Galaxian Gem IR</Model>
+ <Type>Laser</Type>
+ <Channel Name="Laser 1">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="7">Laser Off</Capability>
+  <Capability Min="8" Max="15">Laser On</Capability>
+  <Capability Min="16" Max="150">Laser Strobing Slow</Capability>
+  <Capability Min="151" Max="247">Laser Strobing Fast</Capability>
+  <Capability Min="248" Max="255">Laser On</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="65">Clockwise Slow</Capability>
+  <Capability Min="66" Max="120">Clockwise Fast</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="190">Count-Clockwise Slow</Capability>
+  <Capability Min="191" Max="245">Count-Clockwise Fast</Capability>
+  <Capability Min="246" Max="255">No Rotation</Capability>
+ </Channel>
+ <Channel Name="Led Chase">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="37">Chase 1</Capability>
+  <Capability Min="38" Max="67">Chase 2</Capability>
+  <Capability Min="68" Max="97">Chase 3</Capability>
+  <Capability Min="98" Max="127">Chase 4</Capability>
+  <Capability Min="128" Max="157">Chase 5</Capability>
+  <Capability Min="158" Max="187">Chase 6</Capability>
+  <Capability Min="188" Max="217">Chase 7</Capability>
+  <Capability Min="218" Max="247">Chase 8</Capability>
+  <Capability Min="248" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="LED Chase Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="85">Slow</Capability>
+  <Capability Min="86" Max="170">Medium</Capability>
+  <Capability Min="171" Max="255">Fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="247" Preset="StrobeSlowToFast">Stobing Slow - Fast</Capability>
+  <Capability Min="248" Max="255">Sound Active Strobing</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">Laser 1</Channel>
+  <Channel Number="1">Laser Rotation</Channel>
+  <Channel Number="2">Led Chase</Channel>
+  <Channel Number="3">LED Chase Speed</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="324" Height="201" Depth="808"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="19" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

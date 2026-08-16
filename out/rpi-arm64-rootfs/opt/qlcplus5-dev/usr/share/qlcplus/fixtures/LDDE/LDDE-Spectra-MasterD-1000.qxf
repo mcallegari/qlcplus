@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Edgar Aichinger</Author>
+ </Creator>
+ <Manufacturer>LDDE</Manufacturer>
+ <Model>Spectra MasterD 1000</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Cold Warm fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Intensity</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cold White</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Cold White</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Cold White</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Warm White fine</Channel>
+  <Channel Number="2">Cold White</Channel>
+  <Channel Number="3">Cold Warm fine</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Channel 2">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Warm White fine</Channel>
+  <Channel Number="2">Cold White</Channel>
+  <Channel Number="3">Cold Warm fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5600" ColourTemperature="4500"/>
+  <Dimensions Weight="1.9" Width="1004" Height="62" Depth="35"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="55" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

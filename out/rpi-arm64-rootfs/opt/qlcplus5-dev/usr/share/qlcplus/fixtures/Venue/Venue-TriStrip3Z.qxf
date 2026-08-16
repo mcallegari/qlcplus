@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Flo Edelmann</Author>
+ </Creator>
+ <Manufacturer>Venue</Manufacturer>
+ <Model>TriStrip3Z</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0-20Hz</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode 1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">Dimmer speed mode 2 (medium speed)</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode 3 (slow speed)</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Color macros</Capability>
+ </Channel>
+ <Channel Name="RGB / Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slow - fast</Capability>
+ </Channel>
+ <Channel Name="Sound Sensitivity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="10">Sound sensitivity off</Capability>
+  <Capability Min="11" Max="255">Sound sensitivity control</Capability>
+ </Channel>
+ <Channel Name="RGB / Auto Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="63">Pulse effect 0-100%</Capability>
+  <Capability Min="64" Max="95">Pulse effect 100-0%</Capability>
+  <Capability Min="96" Max="114">Pulse effect 100-0-100%</Capability>
+  <Capability Min="115" Max="122">Auto program 1</Capability>
+  <Capability Min="123" Max="130">Auto program 2</Capability>
+  <Capability Min="131" Max="138">Auto program 3</Capability>
+  <Capability Min="139" Max="146">Auto program 4</Capability>
+  <Capability Min="147" Max="154">Auto program 5</Capability>
+  <Capability Min="155" Max="162">Auto program 6</Capability>
+  <Capability Min="163" Max="170">Auto program 7</Capability>
+  <Capability Min="171" Max="178">Auto program 8</Capability>
+  <Capability Min="179" Max="186">Auto program 9</Capability>
+  <Capability Min="187" Max="194">Auto program 10</Capability>
+  <Capability Min="195" Max="202">Auto program 11</Capability>
+  <Capability Min="203" Max="210">Auto program 12</Capability>
+  <Capability Min="211" Max="218">Auto program 13</Capability>
+  <Capability Min="219" Max="226">Auto program 14</Capability>
+  <Capability Min="227" Max="255">Sound program</Capability>
+ </Channel>
+ <Channel Name="Strobe / Speed / Sound Sensitivity">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0-20Hz</Capability>
+ </Channel>
+ <Channel Name="Red All Zones" Preset="IntensityRed"/>
+ <Channel Name="Green All Zones" Preset="IntensityGreen"/>
+ <Channel Name="Blue All Zones" Preset="IntensityBlue"/>
+ <Channel Name="Red Zone 1" Preset="IntensityRed"/>
+ <Channel Name="Green Zone 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Zone 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Zone 2" Preset="IntensityRed"/>
+ <Channel Name="Green Zone 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Zone 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Zone 3" Preset="IntensityRed"/>
+ <Channel Name="Green Zone 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Zone 3" Preset="IntensityBlue"/>
+ <Mode Name="3-channel">
+  <Channel Number="0">Red All Zones</Channel>
+  <Channel Number="1">Green All Zones</Channel>
+  <Channel Number="2">Blue All Zones</Channel>
+ </Mode>
+ <Mode Name="6-channel">
+  <Channel Number="0">Red All Zones</Channel>
+  <Channel Number="1">Green All Zones</Channel>
+  <Channel Number="2">Blue All Zones</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="8-channel">
+  <Channel Number="0">Red All Zones</Channel>
+  <Channel Number="1">Green All Zones</Channel>
+  <Channel Number="2">Blue All Zones</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Strobe / Speed / Sound Sensitivity</Channel>
+  <Channel Number="5">RGB / Auto Mode</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="9-channel">
+  <Channel Number="0">Red Zone 1</Channel>
+  <Channel Number="1">Green Zone 1</Channel>
+  <Channel Number="2">Blue Zone 1</Channel>
+  <Channel Number="3">Red Zone 2</Channel>
+  <Channel Number="4">Green Zone 2</Channel>
+  <Channel Number="5">Blue Zone 2</Channel>
+  <Channel Number="6">Red Zone 3</Channel>
+  <Channel Number="7">Green Zone 3</Channel>
+  <Channel Number="8">Blue Zone 3</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14-channel">
+  <Channel Number="0">Red Zone 1</Channel>
+  <Channel Number="1">Green Zone 1</Channel>
+  <Channel Number="2">Blue Zone 1</Channel>
+  <Channel Number="3">Red Zone 2</Channel>
+  <Channel Number="4">Green Zone 2</Channel>
+  <Channel Number="5">Blue Zone 2</Channel>
+  <Channel Number="6">Red Zone 3</Channel>
+  <Channel Number="7">Green Zone 3</Channel>
+  <Channel Number="8">Blue Zone 3</Channel>
+  <Channel Number="9">Color Macros</Channel>
+  <Channel Number="10">Strobe / Speed / Sound Sensitivity</Channel>
+  <Channel Number="11">RGB / Auto Mode</Channel>
+  <Channel Number="12">Dimmer</Channel>
+  <Channel Number="13">Dimmer Speed</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="12x 3W RGB LED" Lumens="2062" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="1042" Height="60" Depth="138"/>
+  <Lens Name="Other" DegreesMin="27" DegreesMax="27"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="27" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

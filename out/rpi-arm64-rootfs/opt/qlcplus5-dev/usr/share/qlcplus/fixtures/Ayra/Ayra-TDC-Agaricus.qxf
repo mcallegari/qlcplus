@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Rob Nieuwenhuizen</Author>
+ </Creator>
+ <Manufacturer>Ayra</Manufacturer>
+ <Model>TDC Agaricus</Model>
+ <Type>Effect</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Black out</Capability>
+  <Capability Min="1" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Red Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="0">Black out</Capability>
+  <Capability Min="1" Max="255">Red dimmer</Capability>
+ </Channel>
+ <Channel Name="Green dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="0">Black out</Capability>
+  <Capability Min="1" Max="255">Green dimmer</Capability>
+ </Channel>
+ <Channel Name="Blue dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="0">Black out</Capability>
+  <Capability Min="1" Max="255">Blue dimmer</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">Black out</Capability>
+  <Capability Min="16" Max="255">Strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="RGB color mixation">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Black out</Capability>
+  <Capability Min="1" Max="255">RGB color mixation</Capability>
+ </Channel>
+ <Channel Name="Motor">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="ResetAll">Adjust motor</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Motor move forward and back, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Sound Controlled">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="SilentModeOn">Sound Off</Capability>
+  <Capability Min="128" Max="255" Preset="SilentModeOff">Sound On</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green dimmer</Channel>
+  <Channel Number="3">Blue dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">RGB color mixation</Channel>
+  <Channel Number="6">Motor</Channel>
+  <Channel Number="7">Sound Controlled</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="280" Height="280" Depth="310"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

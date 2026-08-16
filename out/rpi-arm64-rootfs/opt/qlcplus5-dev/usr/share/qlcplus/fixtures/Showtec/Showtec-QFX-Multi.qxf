@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Avolites / Sinedied</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>QFX Multi</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Built-in Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Preset="Alias">Blackout</Capability>
+  <Capability Min="10" Max="31" Preset="Alias">Auto PAR
+   <Alias Mode="3 Channel" Channel="No function 2" With="Auto PAR"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="32" Max="65" Preset="Alias">Auto Laser
+   <Alias Mode="3 Channel" Channel="No function 2" With="Auto Laser"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="66" Max="95" Preset="Alias">Auto Flash LED
+   <Alias Mode="3 Channel" Channel="No function 2" With="Auto Flash LED"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="96" Max="127" Preset="Alias">Auto MIX
+   <Alias Mode="3 Channel" Channel="No function 2" With="Auto MIX"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="128" Max="159" Preset="Alias">Sound PAR
+   <Alias Mode="3 Channel" Channel="No function 2" With="Sound PAR"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="160" Max="191" Preset="Alias">Sound Laser
+   <Alias Mode="3 Channel" Channel="No function 2" With="Sound Laser"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="192" Max="223" Preset="Alias">Sound Flash LED
+   <Alias Mode="3 Channel" Channel="No function 2" With="Sound Flash"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+  <Capability Min="224" Max="255" Preset="Alias">Sound MIX
+   <Alias Mode="3 Channel" Channel="No function 2" With="Sound MIX"/>
+   <Alias Mode="3 Channel" Channel="No function 3" With="Program Speed"/>
+  </Capability>
+ </Channel>
+ <Channel Name="PAR and Derby Red" Preset="IntensityRed"/>
+ <Channel Name="PAR and Derby Green" Preset="IntensityGreen"/>
+ <Channel Name="PAR and Derby Blue" Preset="IntensityBlue"/>
+ <Channel Name="PAR and Derby Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="191">Brightness of all lights</Capability>
+  <Capability Min="192" Max="200">Sound strobe</Capability>
+  <Capability Min="201" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+  <Capability Min="250" Max="255">Full on</Capability>
+ </Channel>
+ <Channel Name="Derby LED Motor rotating speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise (slow to fast)</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate counterclockwise (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Reserved" Preset="NoFunction"/>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe %</Capability>
+ </Channel>
+ <Channel Name="Red Laser Dimmer/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="Green Laser Dimmer/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="4pcs Strobe LED">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="Laser Motor rotating speed">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Derby 1 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red C-Mix</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red C-Mix</Capability>
+ </Channel>
+ <Channel Name="PAR 1 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red C-Mix</Capability>
+ </Channel>
+ <Channel Name="PAR 2 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red C-Mix</Capability>
+ </Channel>
+ <Channel Name="Derby 1 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green C-Mix</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green C-Mix</Capability>
+ </Channel>
+ <Channel Name="PAR 1 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green C-Mix</Capability>
+ </Channel>
+ <Channel Name="PAR 2 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green C-Mix</Capability>
+ </Channel>
+ <Channel Name="Derby 1 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue C-Mix</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue C-Mix</Capability>
+ </Channel>
+ <Channel Name="PAR 1 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue C-Mix</Capability>
+ </Channel>
+ <Channel Name="PAR 2 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue C-Mix</Capability>
+ </Channel>
+ <Channel Name="Derby 1 Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="PAR 1 Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="PAR 2 Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="PAR 1 Reserved" Preset="NoFunction"/>
+ <Channel Name="PAR 2 Reserved" Preset="NoFunction"/>
+ <Channel Name="Derby 1 Motor rotating speed">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Motor rotating speed">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise, from slow to fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate counterclockwise, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="LED Strobe 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="LED Strobe 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="LED Strobe 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="LED Strobe 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="9" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="18">Strobe effect (slow to fast, 0-18Hz)</Capability>
+ </Channel>
+ <Channel Name="Auto PAR">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Blackout</Capability>
+  <Capability Min="1" Max="9">AP01</Capability>
+  <Capability Min="10" Max="19">AP02</Capability>
+  <Capability Min="20" Max="29">AP03</Capability>
+  <Capability Min="30" Max="39">AP04</Capability>
+  <Capability Min="40" Max="49">AP05</Capability>
+  <Capability Min="50" Max="59">AP06</Capability>
+  <Capability Min="60" Max="69">AP07</Capability>
+  <Capability Min="70" Max="79">AP08</Capability>
+  <Capability Min="80" Max="89">AP09</Capability>
+  <Capability Min="90" Max="99">AP10</Capability>
+  <Capability Min="100" Max="109">AP11</Capability>
+  <Capability Min="110" Max="119">AP12</Capability>
+  <Capability Min="120" Max="129">AP13</Capability>
+  <Capability Min="130" Max="139">AP14</Capability>
+  <Capability Min="140" Max="149">AP15</Capability>
+  <Capability Min="150" Max="159">AP16</Capability>
+  <Capability Min="160" Max="169">AP17</Capability>
+  <Capability Min="170" Max="255">AP18</Capability>
+ </Channel>
+ <Channel Name="Auto Laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="39">AL01</Capability>
+  <Capability Min="40" Max="79">AL02</Capability>
+  <Capability Min="80" Max="119">AL03</Capability>
+  <Capability Min="120" Max="139">AL04</Capability>
+  <Capability Min="140" Max="159">AL05</Capability>
+  <Capability Min="160" Max="255">AL06</Capability>
+ </Channel>
+ <Channel Name="Auto Flash LED">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">AF01</Capability>
+  <Capability Min="15" Max="29">AF02</Capability>
+  <Capability Min="30" Max="44">AF03</Capability>
+  <Capability Min="45" Max="59">AF04</Capability>
+  <Capability Min="60" Max="74">AF05</Capability>
+  <Capability Min="75" Max="89">AF06</Capability>
+  <Capability Min="90" Max="104">AF07</Capability>
+  <Capability Min="105" Max="119">AF08</Capability>
+  <Capability Min="120" Max="134">AF09</Capability>
+  <Capability Min="135" Max="255">AF10</Capability>
+ </Channel>
+ <Channel Name="Auto MIX">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">AM01</Capability>
+  <Capability Min="20" Max="39">AM02</Capability>
+  <Capability Min="40" Max="255">AM03</Capability>
+ </Channel>
+ <Channel Name="Sound PAR">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">SP01</Capability>
+  <Capability Min="10" Max="19">SP02</Capability>
+  <Capability Min="20" Max="29">SP03</Capability>
+  <Capability Min="30" Max="39">SP04</Capability>
+  <Capability Min="40" Max="49">SP05</Capability>
+  <Capability Min="50" Max="59">SP06</Capability>
+  <Capability Min="60" Max="69">SP07</Capability>
+  <Capability Min="70" Max="79">SP08</Capability>
+  <Capability Min="80" Max="89">SP09</Capability>
+  <Capability Min="90" Max="99">SP10</Capability>
+  <Capability Min="100" Max="109">SP11</Capability>
+  <Capability Min="110" Max="119">SP12</Capability>
+  <Capability Min="120" Max="129">SP13</Capability>
+  <Capability Min="130" Max="139">SP14</Capability>
+  <Capability Min="140" Max="149">SP15</Capability>
+  <Capability Min="150" Max="159">SP16</Capability>
+  <Capability Min="160" Max="169">SP17</Capability>
+  <Capability Min="170" Max="255">SP18</Capability>
+ </Channel>
+ <Channel Name="Sound Laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="39">SL01</Capability>
+  <Capability Min="40" Max="79">SL02</Capability>
+  <Capability Min="80" Max="119">SL03</Capability>
+  <Capability Min="120" Max="139">SL04</Capability>
+  <Capability Min="140" Max="159">SL05</Capability>
+  <Capability Min="160" Max="255">SL06</Capability>
+ </Channel>
+ <Channel Name="Sound Flash">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">SF01</Capability>
+  <Capability Min="15" Max="29">SF02</Capability>
+  <Capability Min="30" Max="44">SF03</Capability>
+  <Capability Min="45" Max="59">SF04</Capability>
+  <Capability Min="60" Max="74">SF05</Capability>
+  <Capability Min="75" Max="89">SF06</Capability>
+  <Capability Min="90" Max="104">SF07</Capability>
+  <Capability Min="105" Max="119">SF08</Capability>
+  <Capability Min="120" Max="134">SF09</Capability>
+  <Capability Min="135" Max="255">SF10</Capability>
+ </Channel>
+ <Channel Name="Sound MIX">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">SM01</Capability>
+  <Capability Min="20" Max="39">SM02</Capability>
+  <Capability Min="40" Max="255">SM03</Capability>
+ </Channel>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="No function 3" Preset="NoFunction"/>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Built-in Programs</Channel>
+  <Channel Number="1">No function 2</Channel>
+  <Channel Number="2">No function 3</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">PAR and Derby Red</Channel>
+  <Channel Number="1">PAR and Derby Green</Channel>
+  <Channel Number="2">PAR and Derby Blue</Channel>
+  <Channel Number="3">PAR and Derby Dimmer</Channel>
+  <Channel Number="4">Derby LED Motor rotating speed</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">PAR and Derby Red</Channel>
+  <Channel Number="1">PAR and Derby Green</Channel>
+  <Channel Number="2">PAR and Derby Blue</Channel>
+  <Channel Number="3">PAR and Derby Dimmer</Channel>
+  <Channel Number="4">Derby LED Motor rotating speed</Channel>
+  <Channel Number="5">Red Laser Dimmer/Strobe</Channel>
+  <Channel Number="6">Green Laser Dimmer/Strobe</Channel>
+  <Channel Number="7">Laser Motor rotating speed</Channel>
+  <Channel Number="8">4pcs Strobe LED</Channel>
+ </Mode>
+ <Mode Name="27 Channel">
+  <Channel Number="0">Derby 1 Red</Channel>
+  <Channel Number="1">Derby 1 Green</Channel>
+  <Channel Number="2">Derby 1 Blue</Channel>
+  <Channel Number="3">Derby 1 Shutter</Channel>
+  <Channel Number="4">Derby 1 Motor rotating speed</Channel>
+  <Channel Number="5">PAR 1 Red</Channel>
+  <Channel Number="6">PAR 1 Green</Channel>
+  <Channel Number="7">PAR 1 Blue</Channel>
+  <Channel Number="8">PAR 1 Shutter</Channel>
+  <Channel Number="9">PAR 1 Reserved</Channel>
+  <Channel Number="10">PAR 2 Red</Channel>
+  <Channel Number="11">PAR 2 Green</Channel>
+  <Channel Number="12">PAR 2 Blue</Channel>
+  <Channel Number="13">PAR 2 Shutter</Channel>
+  <Channel Number="14">PAR 2 Reserved</Channel>
+  <Channel Number="15">Derby 2 Red</Channel>
+  <Channel Number="16">Derby 2 Green</Channel>
+  <Channel Number="17">Derby 2 Blue</Channel>
+  <Channel Number="18">Derby 2 Shutter</Channel>
+  <Channel Number="19">Derby 2 Motor rotating speed</Channel>
+  <Channel Number="20">Red Laser Dimmer/Strobe</Channel>
+  <Channel Number="21">Green Laser Dimmer/Strobe</Channel>
+  <Channel Number="22">Laser Motor rotating speed</Channel>
+  <Channel Number="23">LED Strobe 1</Channel>
+  <Channel Number="24">LED Strobe 2</Channel>
+  <Channel Number="25">LED Strobe 3</Channel>
+  <Channel Number="26">LED Strobe 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.6" Width="1185" Height="110" Depth="387"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="5" Height="1"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

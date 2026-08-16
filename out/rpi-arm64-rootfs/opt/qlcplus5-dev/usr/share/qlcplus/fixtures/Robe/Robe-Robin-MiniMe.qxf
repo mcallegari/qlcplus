@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Robin MiniMe</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed, Pan/Tilt Time">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Standard mode</Capability>
+  <Capability Min="1" Max="1">Max. speed mode</Capability>
+  <Capability Min="2" Max="255">Speed from max. to min./Time from 0.2s. to 25.5s.</Capability>
+ </Channel>
+ <Channel Name="Special Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Reserved</Capability>
+  <Capability Min="50" Max="59">Pan/tilt speed mode</Capability>
+  <Capability Min="60" Max="69">Pan/tilt time mode</Capability>
+  <Capability Min="70" Max="79">Blackout while pan/tilt moving</Capability>
+  <Capability Min="80" Max="89">Disabled while pan/tilt moving</Capability>
+  <Capability Min="90" Max="94">Ceiling projection on</Capability>
+  <Capability Min="95" Max="99">Ceiling projection off</Capability>
+  <Capability Min="100" Max="104">Rear projection on</Capability>
+  <Capability Min="105" Max="109">Rear projection off</Capability>
+  <Capability Min="110" Max="129">Reserved</Capability>
+  <Capability Min="130" Max="134">Keep aspect ratio on</Capability>
+  <Capability Min="135" Max="139">Keep aspect ratio off</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/tilt reset</Capability>
+  <Capability Min="150" Max="179">Reserved</Capability>
+  <Capability Min="180" Max="189">Focus reset</Capability>
+  <Capability Min="190" Max="199">Graphic engine reset (software update executing)</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Total reset</Capability>
+  <Capability Min="210" Max="219">Internal HDMI</Capability>
+  <Capability Min="220" Max="229">External HDMI</Capability>
+  <Capability Min="230" Max="234">Save AutoKeystoning</Capability>
+  <Capability Min="235" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Digital Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Zoom from min. --&gt; real size</Capability>
+  <Capability Min="128" Max="128">Real size (default)</Capability>
+  <Capability Min="129" Max="255">Zoom from real size --&gt; max.</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Keystoning Vertical">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">128 default</Capability>
+ </Channel>
+ <Channel Name="Keystoning Horizontal">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">128 default</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Virtual Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">White (8000K)</Capability>
+  <Capability Min="16" Max="16" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="17" Max="55" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ffff">Blue --&gt; cyan</Capability>
+  <Capability Min="56" Max="56" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="57" Max="95" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#00ff00">Cyan --&gt; green</Capability>
+  <Capability Min="96" Max="96" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="97" Max="134" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Green --&gt; yellow</Capability>
+  <Capability Min="135" Max="135" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="136" Max="174" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff0000">Yellow --&gt; red</Capability>
+  <Capability Min="175" Max="175" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="176" Max="214" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">Red --&gt; magenta</Capability>
+  <Capability Min="215" Max="215" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="216" Max="246" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#0000ff">Magenta --&gt; blue</Capability>
+  <Capability Min="247" Max="247" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="248" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Colour Effect Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="1">Horizontal linear shade, white --&gt; black</Capability>
+  <Capability Min="2" Max="2">Horizontal linear shade, black --&gt; white</Capability>
+  <Capability Min="3" Max="3">Vertical linear shade, black --&gt; white</Capability>
+  <Capability Min="4" Max="4">Vertical linear shade, white --&gt; black</Capability>
+  <Capability Min="5" Max="5">Diagonal shade, white --&gt; black</Capability>
+  <Capability Min="6" Max="6">Diagonal shade, black --&gt; white</Capability>
+  <Capability Min="7" Max="7">Horizontal linear shade, white --&gt; red</Capability>
+  <Capability Min="8" Max="8">Horizontal linear shade, red --&gt; white</Capability>
+  <Capability Min="9" Max="9">Vertical linear shade, red --&gt; white</Capability>
+  <Capability Min="10" Max="10">Vertical linear shade, white --&gt; red</Capability>
+  <Capability Min="11" Max="11">Diagonal shade, white --&gt; red</Capability>
+  <Capability Min="12" Max="12">Diagonal shade, red --&gt; white</Capability>
+  <Capability Min="13" Max="13">Horizontal linear shade, white --&gt; green</Capability>
+  <Capability Min="14" Max="14">Horizontal linear shade, green --&gt; white</Capability>
+  <Capability Min="15" Max="15">Vertical linear shade, green --&gt; white</Capability>
+  <Capability Min="16" Max="16">Vertical linear shade, white --&gt; green</Capability>
+  <Capability Min="17" Max="17">Diagonal shade, white --&gt; green</Capability>
+  <Capability Min="18" Max="18">Diagonal shade, green --&gt; white</Capability>
+  <Capability Min="19" Max="19">Horizontal linear shade, white --&gt; blue</Capability>
+  <Capability Min="20" Max="20">Horizontal linear shade, blue --&gt; white</Capability>
+  <Capability Min="21" Max="21">Vertical linear shade, blue --&gt; white</Capability>
+  <Capability Min="22" Max="22">Vertical linear shade, white --&gt; blue</Capability>
+  <Capability Min="23" Max="23">Diagonal shade, white --&gt; blue</Capability>
+  <Capability Min="24" Max="24">Diagonal shade, blue --&gt; white</Capability>
+  <Capability Min="25" Max="25">Horizontal linear shade, white --&gt; cyan</Capability>
+  <Capability Min="26" Max="26">Horizontal linear shade, cyan --&gt; white</Capability>
+  <Capability Min="27" Max="27">Vertical linear shade, cyan --&gt; white</Capability>
+  <Capability Min="28" Max="28">Vertical linear shade, white --&gt; cyan</Capability>
+  <Capability Min="29" Max="29">Diagonal shade, white --&gt; cyan</Capability>
+  <Capability Min="30" Max="30">Diagonal shade, cyan --&gt; white</Capability>
+  <Capability Min="31" Max="31">Horizontal linear shade, white --&gt; magenta</Capability>
+  <Capability Min="32" Max="32">Horizontal linear shade, magent --&gt; white</Capability>
+  <Capability Min="33" Max="33">Vertical linear shade, magenta --&gt; white</Capability>
+  <Capability Min="34" Max="34">Vertical linear shade, white --&gt; magenta</Capability>
+  <Capability Min="35" Max="35">Diagonal shade, white --&gt; magenta</Capability>
+  <Capability Min="36" Max="36">Diagonal shade, magenta --&gt; white</Capability>
+  <Capability Min="37" Max="37">Horizontal linear shade, white --&gt; yellow</Capability>
+  <Capability Min="38" Max="38">Horizontal linear shade, yellow --&gt; white</Capability>
+  <Capability Min="39" Max="39">Vertical linear shade, white --&gt; yellow</Capability>
+  <Capability Min="40" Max="40">Vertical linear shade, white --&gt; yellow</Capability>
+  <Capability Min="41" Max="41">Diagonal shade, white --&gt; yellow</Capability>
+  <Capability Min="42" Max="42">Diagonal shade, yellow --&gt; white</Capability>
+  <Capability Min="43" Max="43">RGBW shades</Capability>
+  <Capability Min="44" Max="44">CMYW shades</Capability>
+  <Capability Min="45" Max="45">RGBY shades</Capability>
+  <Capability Min="46" Max="46">RMBG shades</Capability>
+  <Capability Min="47" Max="49">Reserved</Capability>
+  <Capability Min="50" Max="50">Colour changing black --&gt; white, slowly</Capability>
+  <Capability Min="51" Max="51">Colour changing black --&gt; white, fast</Capability>
+  <Capability Min="52" Max="52">Colour changing red --&gt; white, slowly</Capability>
+  <Capability Min="53" Max="53">Colour changing red --&gt; white, fast</Capability>
+  <Capability Min="54" Max="54">Colour changing green --&gt; white, slowly</Capability>
+  <Capability Min="55" Max="55">Colour changing green --&gt; white, fast</Capability>
+  <Capability Min="56" Max="56">Colour changing blue --&gt; white, slowly</Capability>
+  <Capability Min="57" Max="57">Colour changing blue --&gt; white, fast</Capability>
+  <Capability Min="58" Max="58">Colour changing yellow --&gt; white, slowly</Capability>
+  <Capability Min="59" Max="59">Colour changing yellow --&gt; white, fast</Capability>
+  <Capability Min="60" Max="60">Colour changing magenta --&gt; white, slowly</Capability>
+  <Capability Min="61" Max="61">Colour changing magenta --&gt; white, fast</Capability>
+  <Capability Min="62" Max="62">Colour changing cyan --&gt; white, slowly</Capability>
+  <Capability Min="63" Max="63">Colour changing cyan --&gt; white, fast</Capability>
+  <Capability Min="64" Max="64">Colour changing (slow) red --&gt; green --&gt; blue --&gt; yellow</Capability>
+  <Capability Min="65" Max="65">Colour changing (fast) red --&gt; green --&gt; blue --&gt; yellow</Capability>
+  <Capability Min="66" Max="66">Colour changing (fastest) red --&gt; green --&gt; blue --&gt; yellow</Capability>
+  <Capability Min="67" Max="69">Reserved</Capability>
+  <Capability Min="70" Max="70">Horizontal linear shade, white --&gt; black and vice versa, slowly</Capability>
+  <Capability Min="71" Max="71">Horizontal linear shade, white --&gt; black and vice versa, fast</Capability>
+  <Capability Min="72" Max="72">Vertical linear shade, white --&gt; black and vice versa, slowly</Capability>
+  <Capability Min="73" Max="73">Vertical linear shade, white --&gt; black and vice versa, fast</Capability>
+  <Capability Min="74" Max="74">Diagonal shade, white --&gt; black and vice versa, slowly</Capability>
+  <Capability Min="75" Max="75">Diagonal shade, white --&gt; black and vice versa, fast</Capability>
+  <Capability Min="76" Max="76">Shade black --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="77" Max="77">Shade black --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="78" Max="78">Shade black --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="79" Max="79">Shade black --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="80" Max="80">Horizontal linear shade, white --&gt; red and vice versa, slowly</Capability>
+  <Capability Min="81" Max="81">Horizontal linear shade, white --&gt; red and vice versa, fast</Capability>
+  <Capability Min="82" Max="82">Vertical linear shade, white --&gt; red and vice versa, slowly</Capability>
+  <Capability Min="83" Max="83">Vertical linear shade, white --&gt; red and vice versa, fast</Capability>
+  <Capability Min="84" Max="84">Diagonal shade, white --&gt; red and vice versa, slowly</Capability>
+  <Capability Min="85" Max="85">Diagonal shade, white --&gt; red and vice versa, fast</Capability>
+  <Capability Min="86" Max="86">Shade red --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="87" Max="87">Shade red --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="88" Max="88">Shade red --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="89" Max="89">Shade red --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="90" Max="90">Horizontal linear shade, white --&gt; green and vice versa, slowly</Capability>
+  <Capability Min="91" Max="91">Horizontal linear shade, white --&gt; green and vice versa, fast</Capability>
+  <Capability Min="92" Max="92">Vertical linear shade, white --&gt; green and vice versa, slowly</Capability>
+  <Capability Min="93" Max="93">Vertical linear shade, white --&gt; green and vice versa, fast</Capability>
+  <Capability Min="94" Max="94">Diagonal shade, white --&gt; green and vice versa, slowly</Capability>
+  <Capability Min="95" Max="95">Diagonal shade, white --&gt; green and vice versa, fast</Capability>
+  <Capability Min="96" Max="96">Shade green --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="97" Max="97">Shade green --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="98" Max="98">Shade green --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="99" Max="99">Shade green --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="100" Max="100">Horizontal linear shade, white --&gt; blue and vice versa, slowly</Capability>
+  <Capability Min="101" Max="101">Horizontal linear shade, white --&gt; blue and vice versa, fast</Capability>
+  <Capability Min="102" Max="102">Vertical linear shade, white --&gt; blue and vice versa, slowly</Capability>
+  <Capability Min="103" Max="103">Vertical linear shade, white --&gt; blue and vice versa, fast</Capability>
+  <Capability Min="104" Max="104">Diagonal shade, white --&gt; blue and vice versa, slowly</Capability>
+  <Capability Min="105" Max="105">Diagonal shade, white --&gt; blue and vice versa, fast</Capability>
+  <Capability Min="106" Max="106">Shade blue --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="107" Max="107">Shade blue --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="108" Max="108">Shade blue --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="109" Max="109">Shade blue --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="110" Max="110">Horizontal linear shade, white --&gt; cyan and vice versa, slowly</Capability>
+  <Capability Min="111" Max="111">Horizontal linear shade, white --&gt; cyan and vice versa, fast</Capability>
+  <Capability Min="112" Max="112">Vertical linear shade, white --&gt; cyan and vice versa, slowly</Capability>
+  <Capability Min="113" Max="113">Vertical linear shade, white --&gt; cyan and vice versa, fast</Capability>
+  <Capability Min="114" Max="114">Diagonal shade, white --&gt; cyan and vice versa, slowly</Capability>
+  <Capability Min="115" Max="115">Diagonal shade, white --&gt; cyan and vice versa, fast</Capability>
+  <Capability Min="116" Max="116">Shade cyan --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="117" Max="117">Shade cyan --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="118" Max="118">Shade cyan --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="119" Max="119">Shade cyan --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="120" Max="120">Horizontal linear shade, white --&gt; magenta and vice versa, slowly</Capability>
+  <Capability Min="121" Max="121">Horizontal linear shade, white --&gt; magenta and vice versa, fast</Capability>
+  <Capability Min="122" Max="122">Vertical linear shade, white --&gt; magenta and vice versa, slowly</Capability>
+  <Capability Min="123" Max="123">Vertical linear shade, white --&gt; magenta and vice versa, fast</Capability>
+  <Capability Min="124" Max="124">Diagonal shade, white --&gt; magenta and vice versa, slowly</Capability>
+  <Capability Min="125" Max="125">Diagonal shade, white --&gt; magenta and vice versa, fast</Capability>
+  <Capability Min="126" Max="126">Shade magenta --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="127" Max="127">Shade magenta --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="128" Max="128">Shade magenta --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="129" Max="129">Shade magenta --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="130" Max="130">Horizontal linear shade, white --&gt; yellow and vice versa, slowly</Capability>
+  <Capability Min="131" Max="131">Horizontal linear shade, white --&gt; yellow and vice versa, fast</Capability>
+  <Capability Min="132" Max="132">Vertical linear shade, white --&gt; yellow and vice versa, slowly</Capability>
+  <Capability Min="133" Max="133">Vertical linear shade, white --&gt; yellow and vice versa, fast</Capability>
+  <Capability Min="134" Max="134">Diagonal shade, white --&gt; yellow and vice versa, slowly</Capability>
+  <Capability Min="135" Max="135">Diagonal shade, white --&gt; yellow and vice versa, fast</Capability>
+  <Capability Min="136" Max="136">Shade yellow --&gt; white, slow rotation, clockwise</Capability>
+  <Capability Min="137" Max="137">Shade yellow --&gt; white, fast rotation, clockwise</Capability>
+  <Capability Min="138" Max="138">Shade yellow --&gt; white, slow rotation, anticlockwise</Capability>
+  <Capability Min="139" Max="139">Shade yellow --&gt; white, fast rotation, anticlockwise</Capability>
+  <Capability Min="140" Max="140">RGBW shades, slow rotation, clockwise</Capability>
+  <Capability Min="141" Max="141">RGBW shades, fast rotation, clockwise</Capability>
+  <Capability Min="142" Max="142">RGBW shades, slow rotation, anticlockwise</Capability>
+  <Capability Min="143" Max="143">RGBW shades, fast rotation, anticlockwise</Capability>
+  <Capability Min="144" Max="144">Random colours, slowly, black between colours</Capability>
+  <Capability Min="145" Max="145">Random colours, fast, black between colours</Capability>
+  <Capability Min="146" Max="146">Random colours, slowly, white between colours</Capability>
+  <Capability Min="147" Max="147">Random colours, fast, white between colours</Capability>
+  <Capability Min="148" Max="148">Random colours slowly</Capability>
+  <Capability Min="149" Max="149">Random colours fast</Capability>
+  <Capability Min="150" Max="150">Horizontal black shade --&gt; random colour, slowly</Capability>
+  <Capability Min="151" Max="151">Horizontal black shade --&gt; random colour, fast</Capability>
+  <Capability Min="152" Max="152">Vertical black shade --&gt; random colour, slowly</Capability>
+  <Capability Min="153" Max="153">Vertical black shade --&gt; random colour, fast</Capability>
+  <Capability Min="154" Max="154">Diagonal black shade --&gt; random colour, slowly</Capability>
+  <Capability Min="155" Max="155">Diagonal black shade --&gt; random colour, fast</Capability>
+  <Capability Min="156" Max="156">Black shade --&gt; random colour, slow rotation, clockwise</Capability>
+  <Capability Min="157" Max="157">Black shade --&gt; random colour, fast rotation, clockwise</Capability>
+  <Capability Min="158" Max="158">Black shade --&gt; random colour, slow rotation, anticlockwise</Capability>
+  <Capability Min="159" Max="159">Black shade --&gt; random colour, fast rotation, anticlockwise</Capability>
+  <Capability Min="160" Max="160">Random colour in two corners, slow rotation, clockwise</Capability>
+  <Capability Min="161" Max="161">Random colour in two corners, fast rotation, clockwise</Capability>
+  <Capability Min="162" Max="162">Random colour in two corners, slow rotation, anticlockwise</Capability>
+  <Capability Min="163" Max="163">Random colour in two corners, fast rotation, anticlockwise</Capability>
+  <Capability Min="164" Max="164">Random colour in four corners, slow rotation, clockwise</Capability>
+  <Capability Min="165" Max="165">Random colour in four corners, fast rotation, clockwise</Capability>
+  <Capability Min="166" Max="166">Random colour in four corners, slow rotation, anticlockwise</Capability>
+  <Capability Min="167" Max="167">Random colour in four corners, fast rotation, anticlockwise</Capability>
+  <Capability Min="168" Max="168">Horizontal colour transition, slowly, random</Capability>
+  <Capability Min="169" Max="169">Horizontal colour transition, fast, random</Capability>
+  <Capability Min="170" Max="170">Vertical colour transition, slowly, random</Capability>
+  <Capability Min="171" Max="171">Vertical colour transition, fast, random</Capability>
+  <Capability Min="172" Max="172">Diagonal colour transition, slowly</Capability>
+  <Capability Min="173" Max="173">Diagonal colour transition, fast</Capability>
+  <Capability Min="174" Max="174">Horizontal/vertical/diagonal colour transition, slowly</Capability>
+  <Capability Min="175" Max="175">Horizontal/vertical/diagonal colour transition, fast</Capability>
+  <Capability Min="176" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Digital Gobo Wheel Selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Default factory digital gobo wheel</Capability>
+  <Capability Min="32" Max="63">Internal custom digital gobo wheel</Capability>
+  <Capability Min="64" Max="95">External custom digital gobo wheel (USB memory stick)</Capability>
+  <Capability Min="96" Max="255">Reserved (for future functions)</Capability>
+ </Channel>
+ <Channel Name="Digital Gobo Wheel - Gobos/Videos (By One DMX value: 1, 2, 3...250)">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="59">Black and white gobos (by one DMX value: 1, 2, 3...59) - factory gobos only</Capability>
+  <Capability Min="60" Max="202">Colour pictures (by one DMX value: 60, 61, 62...202) - factory pictures only</Capability>
+  <Capability Min="203" Max="216">Animations (by one DMX value: 203, 203, 205...216) - factory animations only</Capability>
+  <Capability Min="217" Max="250">Gobos/videos (by one DMX value: 1, 2, 3...250)</Capability>
+  <Capability Min="251" Max="251">Gobos presentation (gobos selected randomly)</Capability>
+  <Capability Min="252" Max="252">Gobos presentation (gobos selected in alphabetic order)</Capability>
+  <Capability Min="253" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Video Speed Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Original speed</Capability>
+  <Capability Min="1" Max="1">Pause</Capability>
+  <Capability Min="2" Max="127">Speed from min. (1/4 of original speed) to original speed</Capability>
+  <Capability Min="128" Max="255">Speed from original to max. (4x original speed)</Capability>
+ </Channel>
+ <Channel Name="Digital Gobo Indexing and Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Gobo indexing</Capability>
+  <Capability Min="128" Max="191">Forwards gobo rotation from fast to slow</Capability>
+  <Capability Min="192" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255">Backwards gobo rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Digital Gobo Indexing and Rotation Fine" Preset="GoboIndexFine"/>
+ <Channel Name="Effect wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Open position (hole)</Capability>
+  <Capability Min="1" Max="1">Random transition</Capability>
+  <Capability Min="2" Max="2">Transition with blending</Capability>
+  <Capability Min="3" Max="3">Transition from left --&gt; right, horizontally</Capability>
+  <Capability Min="4" Max="4">Transition from right --&gt; left, horizontally</Capability>
+  <Capability Min="5" Max="5">Stripe transition from left --&gt; right, horizontally</Capability>
+  <Capability Min="6" Max="6">Stripe transition from right --&gt; left, horizontally</Capability>
+  <Capability Min="7" Max="7">3-stripe transition from left --&gt; right, horizontally</Capability>
+  <Capability Min="8" Max="8">3-stripe transition from right --&gt; left, horizontally</Capability>
+  <Capability Min="9" Max="9">6-stripe transition from left --&gt; right, horizontally</Capability>
+  <Capability Min="10" Max="10">6-stripe transition from right --&gt; left, horizontally</Capability>
+  <Capability Min="11" Max="11">Transition up --&gt; down, vertically</Capability>
+  <Capability Min="12" Max="12">Transition down --&gt; up, vertically</Capability>
+  <Capability Min="13" Max="13">Stripe transition up --&gt; down, vertically</Capability>
+  <Capability Min="14" Max="14">Stripe transition down --&gt; up, vertically</Capability>
+  <Capability Min="15" Max="15">3-stripe transition up- --&gt; down, vertically</Capability>
+  <Capability Min="16" Max="16">3-stripe transition down --&gt; up, vertically</Capability>
+  <Capability Min="17" Max="17">6-stripe transition up --&gt; down, vertically</Capability>
+  <Capability Min="18" Max="18">6-stripe transition down --&gt; up, vertically</Capability>
+  <Capability Min="19" Max="19">Transition 2 from left --&gt; right, vertically (diffusion edge)</Capability>
+  <Capability Min="20" Max="20">Transition 2 from right --&gt; left, horizontally (diffusion edge)</Capability>
+  <Capability Min="21" Max="21">Transition 2 up --&gt; down, vertically (diffusion edge)</Capability>
+  <Capability Min="22" Max="22">Transition 2 down --&gt; up, vertically (diffusion edge)</Capability>
+  <Capability Min="23" Max="23">Iris transition out --&gt;in</Capability>
+  <Capability Min="24" Max="24">Iris transition in --&gt; out</Capability>
+  <Capability Min="25" Max="25">Iris transition out --&gt; in (diffusion edge)</Capability>
+  <Capability Min="26" Max="26">Iris transition in --&gt; out (diffusion edge)</Capability>
+  <Capability Min="27" Max="27">Iris transition 3 out --&gt; in (more diffusion edge)</Capability>
+  <Capability Min="28" Max="28">Iris transition 3 in --&gt; out (more diffusion edge)</Capability>
+  <Capability Min="29" Max="29">Moving transition from left --&gt; right</Capability>
+  <Capability Min="30" Max="30">Moving transition from right --&gt; left</Capability>
+  <Capability Min="31" Max="31">Moving transition from up --&gt; down</Capability>
+  <Capability Min="32" Max="32">Moving transition from down --&gt; up</Capability>
+  <Capability Min="33" Max="33">Drop transition</Capability>
+  <Capability Min="34" Max="34">Simple transition</Capability>
+  <Capability Min="35" Max="35">Pixel transition</Capability>
+  <Capability Min="36" Max="36">Transition via blending</Capability>
+  <Capability Min="37" Max="37">Transition with white output</Capability>
+  <Capability Min="38" Max="38">Crossing transition</Capability>
+  <Capability Min="39" Max="39">Picture in picture in transition</Capability>
+  <Capability Min="40" Max="40">Direct transition</Capability>
+  <Capability Min="41" Max="41">Transition with vertical rotation</Capability>
+  <Capability Min="42" Max="42">Transition with horizontal rotation</Capability>
+  <Capability Min="43" Max="43">Transition with diagonal rotation</Capability>
+  <Capability Min="44" Max="44">Transition with diagonal rotation-opposite direction</Capability>
+  <Capability Min="45" Max="45">Zoom out transition</Capability>
+  <Capability Min="46" Max="46">Zoom in transition</Capability>
+  <Capability Min="47" Max="47">Zoom transition in horizontal direction</Capability>
+  <Capability Min="48" Max="48">Zoom transition in vertical direction</Capability>
+  <Capability Min="49" Max="79">Reserved</Capability>
+  <Capability Min="80" Max="80">Kaleidoscope 1</Capability>
+  <Capability Min="81" Max="81">Kaleidoscope 2</Capability>
+  <Capability Min="82" Max="82">Kaleidoscope 3</Capability>
+  <Capability Min="83" Max="83">Kaleidoscope 4</Capability>
+  <Capability Min="84" Max="84">Kaleidoscope 5</Capability>
+  <Capability Min="85" Max="85">Sunflower kaleidoscope (coarse)</Capability>
+  <Capability Min="86" Max="86">Sunflower kaleidoscope (soft)</Capability>
+  <Capability Min="87" Max="87">Sunflower kaleidoscope (slow)</Capability>
+  <Capability Min="88" Max="88">Sunflower kaleidoscope (faster)</Capability>
+  <Capability Min="89" Max="89">Sunflower kaleidoscope (fastest)</Capability>
+  <Capability Min="90" Max="99">Reserved</Capability>
+  <Capability Min="100" Max="100">Circle iris in/out</Capability>
+  <Capability Min="101" Max="101">Circle iris in/out (diffusion edge)</Capability>
+  <Capability Min="102" Max="102">Vertical ellipse iris in/out</Capability>
+  <Capability Min="103" Max="103">Horizontal ellipse iris in/out</Capability>
+  <Capability Min="104" Max="104">Reserved</Capability>
+  <Capability Min="105" Max="105">Positive/negative (black and white)</Capability>
+  <Capability Min="106" Max="106">White/negative (black and white)</Capability>
+  <Capability Min="107" Max="107">Positive/negative (coloured)</Capability>
+  <Capability Min="108" Max="108">Pixeling</Capability>
+  <Capability Min="109" Max="179">Reserved</Capability>
+  <Capability Min="180" Max="180">Circular iris</Capability>
+  <Capability Min="181" Max="181">Elliptical iris-vertical</Capability>
+  <Capability Min="182" Max="182">Elliptical iris-horizontal</Capability>
+  <Capability Min="183" Max="183">Black mask</Capability>
+  <Capability Min="184" Max="184">Inverse black mask</Capability>
+  <Capability Min="185" Max="185">White mask</Capability>
+  <Capability Min="186" Max="186">Inverse white mask</Capability>
+  <Capability Min="187" Max="187">Gobo/video movement in horizontal (X) axis</Capability>
+  <Capability Min="188" Max="188">Gobo/video movement in vertical (Y) axis</Capability>
+  <Capability Min="189" Max="189">Reserved</Capability>
+  <Capability Min="190" Max="190">Crossfade</Capability>
+  <Capability Min="191" Max="191">Addition</Capability>
+  <Capability Min="192" Max="192">Subtraction</Capability>
+  <Capability Min="193" Max="193">Multiplication</Capability>
+  <Capability Min="194" Max="194">Minimum</Capability>
+  <Capability Min="195" Max="195">Maximum</Capability>
+  <Capability Min="196" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Effect Speed/Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Presentation/open/continuous effect changing</Capability>
+  <Capability Min="1" Max="255">Speed/time settings depending on type of effect (1-8)</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect from slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="143" Preset="RampDownSlowToFast">Opening pulse in sequences from slow to fast</Capability>
+  <Capability Min="144" Max="159" Preset="RampDownFastToSlow">Closing pulse in sequences from fast to slow</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect from slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="24-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed, Pan/Tilt Time</Channel>
+  <Channel Number="5">Special Functions</Channel>
+  <Channel Number="6">Digital Zoom</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">Keystoning Vertical</Channel>
+  <Channel Number="9">Keystoning Horizontal</Channel>
+  <Channel Number="10">Cyan</Channel>
+  <Channel Number="11">Magenta</Channel>
+  <Channel Number="12">Yellow</Channel>
+  <Channel Number="13">Virtual Colour Wheel</Channel>
+  <Channel Number="14">Colour Effect Wheel</Channel>
+  <Channel Number="15">Digital Gobo Wheel Selection</Channel>
+  <Channel Number="16">Digital Gobo Wheel - Gobos/Videos (By One DMX value: 1, 2, 3...250)</Channel>
+  <Channel Number="17">Video Speed Control</Channel>
+  <Channel Number="18">Digital Gobo Indexing and Rotation</Channel>
+  <Channel Number="19">Digital Gobo Indexing and Rotation Fine</Channel>
+  <Channel Number="20">Effect wheel</Channel>
+  <Channel Number="21">Effect Speed/Time</Channel>
+  <Channel Number="22">Shutter/Strobe</Channel>
+  <Channel Number="23">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.7" Width="250" Height="345" Depth="190"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+  <Focus Type="Fixed" PanMax="450" TiltMax="270"/>
+  <Technical PowerConsumption="100" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Michel Sliepenbeek</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Intimidator Scan LED 100</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe (slow ~ fast)</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Operating Mode">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="29" Preset="GoboMacro" Res1="Others/open.svg">Open (White)</Capability>
+  <Capability Min="30" Max="59" Preset="GoboMacro" Res1="SGM/gobo00225.svg">Gobo 1</Capability>
+  <Capability Min="60" Max="89" Preset="GoboMacro" Res1="Others/gobo00018.svg">Gobo 2</Capability>
+  <Capability Min="90" Max="119" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 3</Capability>
+  <Capability Min="120" Max="149" Preset="GoboMacro" Res1="Others/gobo00080.svg">Gobo 4</Capability>
+  <Capability Min="150" Max="179" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 5</Capability>
+  <Capability Min="180" Max="209" Preset="GoboMacro" Res1="Others/gobo00012.svg">Gobo 6</Capability>
+  <Capability Min="210" Max="239" Preset="GoboMacro" Res1="SGM/gobo00004.svg">Gobo 7</Capability>
+  <Capability Min="240" Max="249" Preset="RotationClockwiseSlowToFast">Gobo Wheel rotate (use CH.6 to control the speed)</Capability>
+  <Capability Min="250" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel Rotate">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="255" Preset="RotationClockwiseSlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Operating Mode</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Wheel Rotate</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="9000" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="172" Height="300" Depth="145"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

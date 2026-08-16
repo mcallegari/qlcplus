@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Lance Lyda</Author>
+ </Creator>
+ <Manufacturer>MARQ</Manufacturer>
+ <Model>Gamut PAR H7</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Amber Dimmer" Preset="IntensityAmber"/>
+ <Channel Name="White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="UV Dimmer" Preset="IntensityUV"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off (no function)</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3">Off (no function)</Capability>
+  <Capability Min="4" Max="7" Preset="ColorMacro" Res1="#ff0000">C-01: R (red)</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#00ff00">C-02: G (green)</Capability>
+  <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#0000ff">C-03: B (blue)</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#ffbf00">C-04: A (amber)</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ffffff">C-05: W (white)</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#7200ff">C-06: UV (ultraviolet)</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#ffff00">C-07: R+G</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#ff00ff">C-08: R+B</Capability>
+  <Capability Min="36" Max="39" Preset="ColorMacro" Res1="#ff6000">C-09: R+A</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#ff8080">C-10: R+W</Capability>
+  <Capability Min="44" Max="47" Preset="ColorMacro" Res1="#ff009a">C-11: R+UV</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#00ffff">C-12: G+B</Capability>
+  <Capability Min="52" Max="55" Preset="ColorMacro" Res1="#92ff00">C-13: G+A</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#80ff80">C-14: G+W</Capability>
+  <Capability Min="60" Max="63" Preset="ColorMacro" Res1="#5effd4">C-15: G+UV</Capability>
+  <Capability Min="64" Max="67" Preset="ColorMacro" Res1="#ffbfff">C-16: B+A</Capability>
+  <Capability Min="68" Max="71" Preset="ColorMacro" Res1="#8080ff">C-17: B+W</Capability>
+  <Capability Min="72" Max="75" Preset="ColorMacro" Res1="#3400ff">C-18: B+UV</Capability>
+  <Capability Min="76" Max="79" Preset="ColorMacro" Res1="#ffdf80">C-19: A+W</Capability>
+  <Capability Min="80" Max="83" Preset="ColorMacro" Res1="#ff8c9a">C-20: A+UV</Capability>
+  <Capability Min="84" Max="87" Preset="ColorMacro" Res1="#bf8bff">C-21: W+UV</Capability>
+  <Capability Min="88" Max="91" Preset="ColorMacro" Res1="#ffffff">C-22: R+G+B</Capability>
+  <Capability Min="92" Max="95" Preset="ColorMacro" Res1="#ffdf00">C-23: R+G+A</Capability>
+  <Capability Min="96" Max="99" Preset="ColorMacro" Res1="#ffff80">C-24: R+G+W</Capability>
+  <Capability Min="100" Max="103" Preset="ColorMacro" Res1="#ffba9a">C-25: R+G+UV</Capability>
+  <Capability Min="104" Max="107" Preset="ColorMacro" Res1="#ff6080">C-26: R+B+A</Capability>
+  <Capability Min="108" Max="111" Preset="ColorMacro" Res1="#ff80ff">C-27: R+B+W</Capability>
+  <Capability Min="112" Max="115" Preset="ColorMacro" Res1="#bf00ff">C-28: R+B+UV</Capability>
+  <Capability Min="116" Max="119" Preset="ColorMacro" Res1="#ff848a">C-29: R+A+W</Capability>
+  <Capability Min="120" Max="123" Preset="ColorMacro" Res1="#ff5159">C-30: R+A+UV</Capability>
+  <Capability Min="124" Max="127" Preset="ColorMacro" Res1="#ff6cc5">C-31: R+W+UV</Capability>
+  <Capability Min="128" Max="131" Preset="ColorMacro" Res1="#92ff92">C-32: G+B+A</Capability>
+  <Capability Min="132" Max="135" Preset="ColorMacro" Res1="#80ffff">C-33: G+B+W</Capability>
+  <Capability Min="136" Max="139" Preset="ColorMacro" Res1="#348bff">C-34: G+B+UV</Capability>
+  <Capability Min="140" Max="143" Preset="ColorMacro" Res1="#afffe9">C-35: G+W+UV</Capability>
+  <Capability Min="144" Max="147" Preset="ColorMacro" Res1="#c8ff79">C-36: G+A+UV</Capability>
+  <Capability Min="148" Max="151" Preset="ColorMacro" Res1="#afffe9">C-37: G+W+UV</Capability>
+  <Capability Min="152" Max="155" Preset="ColorMacro" Res1="#ffdfff">C-38: B+A+W</Capability>
+  <Capability Min="156" Max="159" Preset="ColorMacro" Res1="#bf69ff">C-39: B+A+UV</Capability>
+  <Capability Min="160" Max="163" Preset="ColorMacro" Res1="#7b5aff">C-40: B+W+UV</Capability>
+  <Capability Min="164" Max="167" Preset="ColorMacro" Res1="#ffbcc5">C-41: A+W+UV</Capability>
+  <Capability Min="168" Max="171" Preset="ColorMacro" Res1="#ffdf80">C-42: R+G+B+A</Capability>
+  <Capability Min="172" Max="175" Preset="ColorMacro" Res1="#ffffff">C-43: R+G+B+W</Capability>
+  <Capability Min="176" Max="179" Preset="ColorMacro" Res1="#bf8bff">C-44: R+G+B+UV</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#ffea55">C-45: R+G+A+W</Capability>
+  <Capability Min="184" Max="187" Preset="ColorMacro" Res1="#ffbc59">C-46: R+G+A+UV</Capability>
+  <Capability Min="188" Max="191" Preset="ColorMacro" Res1="#ffd7c5">C-47: R+G+W+UV</Capability>
+  <Capability Min="192" Max="195" Preset="ColorMacro" Res1="#ff95aa">C-48: R+B+A+W</Capability>
+  <Capability Min="196" Max="199" Preset="ColorMacro" Res1="#ff51c5">C-49: R+B+A+UV</Capability>
+  <Capability Min="200" Max="203" Preset="ColorMacro" Res1="#d65aff">C-50: R+B+W+UV</Capability>
+  <Capability Min="204" Max="207" Preset="ColorMacro" Res1="#ff848a">C-51: R+A+W+UV</Capability>
+  <Capability Min="208" Max="211" Preset="ColorMacro" Res1="#b9ffb9">C-52: G+B+A+W</Capability>
+  <Capability Min="212" Max="215" Preset="ColorMacro" Res1="#bff4ff">C-53: G+B+A+UV</Capability>
+  <Capability Min="216" Max="219" Preset="ColorMacro" Res1="#7bb4ff">C-54: G+B+W+UV</Capability>
+  <Capability Min="220" Max="223" Preset="ColorMacro" Res1="#dcffaa">C-55: G+A+W+UV</Capability>
+  <Capability Min="224" Max="227" Preset="ColorMacro" Res1="#d69eff">C-56: B+A+W+UV</Capability>
+  <Capability Min="228" Max="231" Preset="ColorMacro" Res1="#ffeaaa">C-57: R+G+B+A+W</Capability>
+  <Capability Min="232" Max="235" Preset="ColorMacro" Res1="#ffbcc5">C-58: R+G+B+A+UV</Capability>
+  <Capability Min="236" Max="239" Preset="ColorMacro" Res1="#d6b4ff">C-59: R+G+B+W+UV</Capability>
+  <Capability Min="240" Max="243" Preset="ColorMacro" Res1="#ffd08a">C-60: R+G+A+W+UV</Capability>
+  <Capability Min="244" Max="247" Preset="ColorMacro" Res1="#ff84d6">C-61: R+B+A+W+UV</Capability>
+  <Capability Min="248" Max="251" Preset="ColorMacro" Res1="#d6f8ff">C-62: G+B+A+W+UV</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffd0d6">C-63: R+G+B+A+W+UV</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Off (no function)</Capability>
+  <Capability Min="16" Max="35">Snap 1: R &gt; G &gt; B &gt; W</Capability>
+  <Capability Min="36" Max="55">Snap 2: R+G &gt; G+B &gt; B+W &gt; W+R</Capability>
+  <Capability Min="56" Max="75">Snap 3: R+G+B &gt; G+B+W &gt; B+W+R &gt; W+R+G</Capability>
+  <Capability Min="76" Max="95">Snap 4: R+B &gt; B+G &gt; G+W &gt; W+R</Capability>
+  <Capability Min="96" Max="115">Fade 1: R &gt; G &gt; B &gt; W</Capability>
+  <Capability Min="116" Max="135">Fade 2: R+G &gt; G+B &gt; B+W &gt; W+R</Capability>
+  <Capability Min="136" Max="155">Fade 3: R+G+B &gt; G+B+W &gt; B+W+R &gt; W+R+G</Capability>
+  <Capability Min="156" Max="175">Fade 4: R+B &gt; B+G &gt; G+W &gt; W+R</Capability>
+  <Capability Min="176" Max="195">Sound 1: R &gt; G &gt; B &gt; W</Capability>
+  <Capability Min="196" Max="215">Sound 2: R+G &gt; G+B &gt; B+W &gt; W+R</Capability>
+  <Capability Min="216" Max="235">Sound 3: R+G+B &gt; G+B+W &gt; B+W+R &gt; W+R+G</Capability>
+  <Capability Min="236" Max="255">Sound 4: R+B &gt; B+G &gt; G+W &gt; W+R</Capability>
+ </Channel>
+ <Channel Name="Program Speed/Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Program speed (slow to fast)/Sensitivity (low to high)</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">Amber Dimmer</Channel>
+  <Channel Number="5">White Dimmer</Channel>
+  <Channel Number="6">UV Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Color Presets</Channel>
+  <Channel Number="9">Programs</Channel>
+  <Channel Number="10">Program Speed/Sensitivity</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">Amber Dimmer</Channel>
+  <Channel Number="5">White Dimmer</Channel>
+  <Channel Number="6">UV Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">Amber Dimmer</Channel>
+  <Channel Number="4">White Dimmer</Channel>
+  <Channel Number="5">UV Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1598" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="310" Height="255" Depth="121"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="71" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>ETC</Manufacturer>
+ <Model>Source Four LED Series 2 Lustr</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Indigo" Preset="IntensityIndigo"/>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Hue (coarse)" Preset="IntensityHue"/>
+ <Channel Name="Hue (fine)" Preset="IntensityHueFine"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Color Point (CCT)" Default="255">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Color Point 2200K &gt; 6500K</Capability>
+ </Channel>
+ <Channel Name="Tint">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Tint</Capability>
+ </Channel>
+ <Channel Name="Plus 7 Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">Plus 7 Control off (individual color control disabled)</Capability>
+  <Capability Min="128" Max="255">Plus 7 Control on (individual color control enabled)</Capability>
+ </Channel>
+ <Channel Name="Fan Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Fan Control Automatic</Capability>
+  <Capability Min="1" Max="255">Fan Forced Speed Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function (Plus 7)" Preset="NoFunction"/>
+ <Channel Name="Red Additive XF" Preset="IntensityRed"/>
+ <Channel Name="Green Additive XF" Preset="IntensityGreen"/>
+ <Channel Name="Blue Additive XF" Preset="IntensityBlue"/>
+ <Mode Name="Direct">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Lime</Channel>
+  <Channel Number="2">Amber</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Cyan</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Indigo</Channel>
+  <Channel Number="7">Intensity</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Fan Control</Channel>
+ </Mode>
+ <Mode Name="HSI">
+  <Channel Number="0">Hue (coarse)</Channel>
+  <Channel Number="1">Hue (fine)</Channel>
+  <Channel Number="2">Saturation</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+ </Mode>
+ <Mode Name="HSIC">
+  <Channel Number="0">Hue (coarse)</Channel>
+  <Channel Number="1">Hue (fine)</Channel>
+  <Channel Number="2">Saturation</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+  <Channel Number="6">Color Point (CCT)</Channel>
+ </Mode>
+ <Mode Name="RGB">
+  <Channel Number="0">Red Additive XF</Channel>
+  <Channel Number="1">Green Additive XF</Channel>
+  <Channel Number="2">Blue Additive XF</Channel>
+  <Channel Number="3">No function</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+ </Mode>
+ <Mode Name="Studio">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Color Point (CCT)</Channel>
+  <Channel Number="2">Tint</Channel>
+  <Channel Number="3">No function</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+ </Mode>
+ <Mode Name="RGB Plus 7">
+  <Channel Number="0">Red Additive XF</Channel>
+  <Channel Number="1">Green Additive XF</Channel>
+  <Channel Number="2">Blue Additive XF</Channel>
+  <Channel Number="3">No function</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+  <Channel Number="6">No function (Plus 7)</Channel>
+  <Channel Number="7">Plus 7 Control</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">Lime</Channel>
+  <Channel Number="12">Amber</Channel>
+  <Channel Number="13">Cyan</Channel>
+  <Channel Number="14">Indigo</Channel>
+ </Mode>
+ <Mode Name="HSI Plus 7">
+  <Channel Number="0">Hue (coarse)</Channel>
+  <Channel Number="1">Hue (fine)</Channel>
+  <Channel Number="2">Saturation</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+  <Channel Number="6">No function (Plus 7)</Channel>
+  <Channel Number="7">Plus 7 Control</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Lime</Channel>
+  <Channel Number="10">Amber</Channel>
+  <Channel Number="11">Green</Channel>
+  <Channel Number="12">Cyan</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">Indigo</Channel>
+ </Mode>
+ <Mode Name="HSIC Plus 7">
+  <Channel Number="0">Hue (coarse)</Channel>
+  <Channel Number="1">Hue (fine)</Channel>
+  <Channel Number="2">Saturation</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Fan Control</Channel>
+  <Channel Number="6">Color Point (CCT)</Channel>
+  <Channel Number="7">Plus 7 Control</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Lime</Channel>
+  <Channel Number="10">Amber</Channel>
+  <Channel Number="11">Green</Channel>
+  <Channel Number="12">Cyan</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">Indigo</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5800" ColourTemperature="4500"/>
+  <Dimensions Weight="8.5" Width="268" Height="434" Depth="631"/>
+  <Lens Name="PC" DegreesMin="5" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="180" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

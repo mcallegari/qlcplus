@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Dirk J</Author>
+ </Creator>
+ <Manufacturer>Expolite</Manufacturer>
+ <Model>TourStick 72 RGBWA</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="255">1 to 20 Hz</Capability>
+ </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
+ <Channel Name="Block 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Block 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Block 3 White" Preset="IntensityWhite"/>
+ <Channel Name="Block 1 Amber" Preset="IntensityAmber"/>
+ <Channel Name="Block 2 Amber" Preset="IntensityAmber"/>
+ <Channel Name="Block 3 Amber" Preset="IntensityAmber"/>
+ <Mode Name="ARC2+S">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Mode Name="ARC1+D">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="ARC2">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+ </Mode>
+ <Mode Name="ARC2+D">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+ </Mode>
+ <Mode Name="HSV">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Value</Channel>
+ </Mode>
+ <Mode Name="ARC1">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="Block1">
+  <Channel Number="0">Block 1 Red</Channel>
+  <Channel Number="1">Block 1 Green</Channel>
+  <Channel Number="2">Block 1 Blue</Channel>
+  <Channel Number="3">Block 2 Red</Channel>
+  <Channel Number="4">Block 2 Green</Channel>
+  <Channel Number="5">Block 2 Blue</Channel>
+  <Channel Number="6">Block 3 Red</Channel>
+  <Channel Number="7">Block 3 Green</Channel>
+  <Channel Number="8">Block 3 Blue</Channel>
+ </Mode>
+ <Mode Name="Block2">
+  <Channel Number="0">Block 1 Red</Channel>
+  <Channel Number="1">Block 1 Green</Channel>
+  <Channel Number="2">Block 1 Blue</Channel>
+  <Channel Number="3">Block 1 White</Channel>
+  <Channel Number="4">Block 1 Amber</Channel>
+  <Channel Number="5">Block 2 Red</Channel>
+  <Channel Number="6">Block 2 Green</Channel>
+  <Channel Number="7">Block 2 Blue</Channel>
+  <Channel Number="8">Block 2 White</Channel>
+  <Channel Number="9">Block 2 Amber</Channel>
+  <Channel Number="10">Block 3 Red</Channel>
+  <Channel Number="11">Block 3 Green</Channel>
+  <Channel Number="12">Block 3 Blue</Channel>
+  <Channel Number="13">Block 3 White</Channel>
+  <Channel Number="14">Block 3 Amber</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6" Width="990" Height="175" Depth="75"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="87" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

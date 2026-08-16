@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.3 GIT</Version>
+  <Author>Mihai Andrei</Author>
+ </Creator>
+ <Manufacturer>Litecraft</Manufacturer>
+ <Model>LED PAR 64 AT3</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe/Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No strobe</Capability>
+  <Capability Min="16" Max="255">16 speed values</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">No function</Capability>
+  <Capability Min="36" Max="71">Automatic ramp up</Capability>
+  <Capability Min="72" Max="107">Automatic ramp down</Capability>
+  <Capability Min="108" Max="143">Automatic ramp up/down</Capability>
+  <Capability Min="144" Max="179">Automatic color mix mode</Capability>
+  <Capability Min="180" Max="215">Random 3-colors</Capability>
+  <Capability Min="216" Max="251">Random 7-colors</Capability>
+  <Capability Min="252" Max="255">Audio</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color Macro Mode (1/2-Channel Mode)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">35 colors + black</Capability>
+ </Channel>
+ <Channel Name="Color Macro Mode (7-Channel Mode)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13">No macro</Capability>
+  <Capability Min="14" Max="255">Pre-programmed colors</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Color Macro Mode (1/2-Channel Mode)</Channel>
+ </Mode>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Color Macro Mode (1/2-Channel Mode)</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macro Mode (7-Channel Mode)</Channel>
+  <Channel Number="4">Strobe/Speed</Channel>
+  <Channel Number="5">Mode</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="274" Height="268" Depth="433"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="69" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

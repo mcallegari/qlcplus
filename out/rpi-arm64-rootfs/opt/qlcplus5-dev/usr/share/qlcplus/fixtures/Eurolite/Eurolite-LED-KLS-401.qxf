@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED KLS-401</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Preset programs, automatic mode, sound control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="29">Program 1</Capability>
+  <Capability Min="30" Max="49">Program 2</Capability>
+  <Capability Min="50" Max="69">Program 3</Capability>
+  <Capability Min="70" Max="89">Program 4</Capability>
+  <Capability Min="90" Max="109">Program 5</Capability>
+  <Capability Min="110" Max="129">Program 6</Capability>
+  <Capability Min="130" Max="149">Program 7</Capability>
+  <Capability Min="150" Max="169">Program 8</Capability>
+  <Capability Min="170" Max="189">Program 9</Capability>
+  <Capability Min="190" Max="209">Program 10</Capability>
+  <Capability Min="210" Max="229">Program 11</Capability>
+  <Capability Min="230" Max="249">Automatic mode</Capability>
+  <Capability Min="250" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Master control" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe control">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Brightness red or running speed">
+  <Group Byte="0">Effect</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#ff0000">Dimming from 0 - 100%/running speed slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Brightness green or fade time">
+  <Group Byte="0">Effect</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#00ff00">Dimming from 0 - 100%/fade time fast -&gt; slow</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Brightness blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 2: Brightness red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2: Brightness green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2: Brightness blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3: Brightness red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3: Brightness green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3: Brightness blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 4: Brightness red" Preset="IntensityRed"/>
+ <Channel Name="Spot 4: Brightness green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 4: Brightness blue" Preset="IntensityBlue"/>
+ <Mode Name="DMX protocol">
+  <Channel Number="0">Preset programs, automatic mode, sound control</Channel>
+  <Channel Number="1">Master control</Channel>
+  <Channel Number="2">Strobe control</Channel>
+  <Channel Number="3">Spot 1: Brightness red or running speed</Channel>
+  <Channel Number="4">Spot 1: Brightness green or fade time</Channel>
+  <Channel Number="5">Spot 1: Brightness blue</Channel>
+  <Channel Number="6">Spot 2: Brightness red</Channel>
+  <Channel Number="7">Spot 2: Brightness green</Channel>
+  <Channel Number="8">Spot 2: Brightness blue</Channel>
+  <Channel Number="9">Spot 3: Brightness red</Channel>
+  <Channel Number="10">Spot 3: Brightness green</Channel>
+  <Channel Number="11">Spot 3: Brightness blue</Channel>
+  <Channel Number="12">Spot 4: Brightness red</Channel>
+  <Channel Number="13">Spot 4: Brightness green</Channel>
+  <Channel Number="14">Spot 4: Brightness blue</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.5" Width="1200" Height="310" Depth="55"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

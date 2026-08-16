@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>iSolution</Manufacturer>
+ <Model>iMove 250W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt 16 bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Shutter slow to fast</Capability>
+  <Capability Min="132" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247">Audio</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="18" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="19" Max="36" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="37" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="55" Max="72" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="73" Max="90" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="91" Max="108" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="109" Max="127" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Slow to fast anticlockwise rotation</Capability>
+  <Capability Min="188" Max="247" Preset="GoboMacro" Res1="Others/rainbow.png">Fast to slow rotation clockwise</Capability>
+  <Capability Min="248" Max="255">Audio</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CYM Color Mix">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="38" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="39" Max="45">Color1</Capability>
+  <Capability Min="46" Max="52">Color2</Capability>
+  <Capability Min="53" Max="58">Color3</Capability>
+  <Capability Min="59" Max="65">Color4</Capability>
+  <Capability Min="66" Max="72">Color5</Capability>
+  <Capability Min="73" Max="79">Color6</Capability>
+  <Capability Min="80" Max="85">Color7</Capability>
+  <Capability Min="86" Max="92">Color8</Capability>
+  <Capability Min="93" Max="99">Color9</Capability>
+  <Capability Min="100" Max="105">Color10</Capability>
+  <Capability Min="106" Max="112">Color11</Capability>
+  <Capability Min="113" Max="119">Color12</Capability>
+  <Capability Min="120" Max="126">Color13</Capability>
+  <Capability Min="127" Max="132">Color14</Capability>
+  <Capability Min="133" Max="139">Color15</Capability>
+  <Capability Min="140" Max="146">Color16</Capability>
+  <Capability Min="147" Max="153">Color17</Capability>
+  <Capability Min="154" Max="159">Color18</Capability>
+  <Capability Min="160" Max="166">Color19</Capability>
+  <Capability Min="167" Max="173">Color20</Capability>
+  <Capability Min="174" Max="179">Color21</Capability>
+  <Capability Min="180" Max="186">Color22</Capability>
+  <Capability Min="187" Max="193">Color23</Capability>
+  <Capability Min="194" Max="200">Color24</Capability>
+  <Capability Min="201" Max="206">Color25</Capability>
+  <Capability Min="207" Max="213">Color26</Capability>
+  <Capability Min="214" Max="220">Color27</Capability>
+  <Capability Min="221" Max="226">Color28</Capability>
+  <Capability Min="227" Max="233">Color29</Capability>
+  <Capability Min="234" Max="240">Color30</Capability>
+  <Capability Min="241" Max="247">Color31</Capability>
+  <Capability Min="248" Max="255">Audio</Capability>
+ </Channel>
+ <Channel Name="CMY Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to slow</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="32">Beam shape</Capability>
+  <Capability Min="33" Max="239">Beam shape rotation</Capability>
+  <Capability Min="240" Max="255">Frost</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Lamp On/Off/Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255" Preset="ResetAll">Normal to reset</Capability>
+ </Channel>
+ <Mode Name="16 channels">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Color</Channel>
+  <Channel Number="6">Cyan</Channel>
+  <Channel Number="7">Magenta</Channel>
+  <Channel Number="8">Yellow</Channel>
+  <Channel Number="9">CYM Color Mix</Channel>
+  <Channel Number="10">CMY Speed</Channel>
+  <Channel Number="11">Effect Wheel</Channel>
+  <Channel Number="12">No function</Channel>
+  <Channel Number="13">Pan 16 bit</Channel>
+  <Channel Number="14">Tilt 16 bit</Channel>
+  <Channel Number="15">Lamp On/Off/Reset</Channel>
+ </Mode>
+ <Mode Name="8 channels">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter</Channel>
+  <Channel Number="3">Effect Wheel</Channel>
+  <Channel Number="4">Color</Channel>
+  <Channel Number="5">CYM Color Mix</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">CMY Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="24.2" Width="428" Height="481" Depth="369"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="390" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

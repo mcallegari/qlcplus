@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>NiKoyes</Author>
+ </Creator>
+ <Manufacturer>Nicols</Manufacturer>
+ <Model>Strob LED W</Model>
+ <Type>Effect</Type>
+ <Channel Name="Dimmer / Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="190">Dimmer</Capability>
+  <Capability Min="191" Max="200">Strobe</Capability>
+  <Capability Min="201" Max="247">Strobe Slow to Fast</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Mode Name="DMX Mode">
+  <Channel Number="0">Dimmer / Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.84" Width="315" Height="181" Depth="114"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

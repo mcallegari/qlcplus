@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Derby X</Model>
+ <Type>Flower</Type>
+ <Channel Name="Cluster Control 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Cluster Control 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe 0% to 100 %</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="24">Auto 1</Capability>
+  <Capability Min="25" Max="38">Auto 2</Capability>
+  <Capability Min="39" Max="52">Auto 3</Capability>
+  <Capability Min="53" Max="66">Auto 4</Capability>
+  <Capability Min="67" Max="80">Auto 5</Capability>
+  <Capability Min="81" Max="94">Auto 6</Capability>
+  <Capability Min="95" Max="108">Auto 7</Capability>
+  <Capability Min="109" Max="122">Auto 8</Capability>
+  <Capability Min="123" Max="136">Auto 9</Capability>
+  <Capability Min="137" Max="150">Auto 10</Capability>
+  <Capability Min="151" Max="164">Auto 11</Capability>
+  <Capability Min="165" Max="178">Auto 12</Capability>
+  <Capability Min="179" Max="192">Auto 13</Capability>
+  <Capability Min="193" Max="206">Auto 14</Capability>
+  <Capability Min="207" Max="220">Auto 15</Capability>
+  <Capability Min="221" Max="250">Auto 16</Capability>
+  <Capability Min="251" Max="255">Audio Trigger</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Cluster Control 1</Channel>
+  <Channel Number="1">Cluster Control 2</Channel>
+  <Channel Number="2">Cluster Control 3</Channel>
+  <Channel Number="3">Cluster Control 4</Channel>
+  <Channel Number="4">Cluster Control 5</Channel>
+  <Channel Number="5">Cluster Control 6</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Auto Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.8" Width="302" Height="187" Depth="382"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="96"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

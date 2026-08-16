@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>JB-Lighting</Manufacturer>
+ <Model>A12 Tunable White</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Control - Fade Out With Fader (Slow - Fast)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Full output power on LEDs - desk mode 1</Capability>
+  <Capability Min="8" Max="15">Basic adjustment CW/WW - desk mode 1</Capability>
+  <Capability Min="16" Max="23">White balance (same white as fixed colors color 0) - desk mode 1</Capability>
+  <Capability Min="24" Max="31">White balance (linear curve) - desk mode 1</Capability>
+  <Capability Min="32" Max="39">Full output power on LEDs - desk mode 2</Capability>
+  <Capability Min="40" Max="47">Basic adjustment CW/WW - desk mode 2</Capability>
+  <Capability Min="48" Max="55">White balance (same white as fixed colors color 0) - desk mode 2</Capability>
+  <Capability Min="56" Max="63">White balance (linear curve) - desk mode 2</Capability>
+  <Capability Min="64" Max="71">Full output power on LEDs - desk mode 3</Capability>
+  <Capability Min="72" Max="79">Basic adjustment CW/WW - desk mode 3</Capability>
+  <Capability Min="80" Max="87">White balance (same white as fixed colors color 0) - desk mode 3</Capability>
+  <Capability Min="88" Max="95">White balance (linear curve) - desk mode 3</Capability>
+  <Capability Min="96" Max="103">Full output power on LEDs - desk mode 4</Capability>
+  <Capability Min="104" Max="111">Basic adjustment CW/WW - desk mode 4</Capability>
+  <Capability Min="112" Max="119">White balance (same white as fixed colors color 0) - desk mode 4</Capability>
+  <Capability Min="120" Max="127">White balance (linear curve) - desk mode 4</Capability>
+  <Capability Min="128" Max="135">Full output power on LEDs - desk mode 5</Capability>
+  <Capability Min="136" Max="143">Basic adjustment CW/WW - desk mode 5</Capability>
+  <Capability Min="144" Max="151">White balance (same white as fixed colors color 0) - desk mode 5</Capability>
+  <Capability Min="152" Max="159">White balance (linear curve) - desk mode 5</Capability>
+  <Capability Min="160" Max="207">Safe</Capability>
+  <Capability Min="208" Max="215">Camera mode, 50Hz (after 2 seconds)</Capability>
+  <Capability Min="216" Max="223">Camera mode, 60Hz (after 2 seconds)</Capability>
+  <Capability Min="224" Max="231">Camera mode, FLEX (after 2 seconds)</Capability>
+  <Capability Min="232" Max="239">Safe</Capability>
+  <Capability Min="240" Max="247">Reset (after 2 seconds)</Capability>
+  <Capability Min="248" Max="255">Safe</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="16" Max="95" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="96" Max="110" Preset="PulseFrequency" Res1="10">Pulse opening &gt;10Hz (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="111" Max="111" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="112" Max="125" Preset="StrobeFastToSlow">Fade effect with dimmer (slow - fast)</Capability>
+  <Capability Min="126" Max="126" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="127" Max="127" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="128" Max="142" Preset="PulseFrequency" Res1="10">Pulse opening &lt;10Hz (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="143" Max="143" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="144" Max="158">Pulse closing (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="159" Max="159" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="160" Max="174">Fade, 0% (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="175" Max="175" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="176" Max="190">Fade, 100% (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="191" Max="191" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="192" Max="206" Preset="StrobeRandom">Random, 100% (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="207" Max="207" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="208" Max="222" Preset="StrobeRandom">Random, 0% (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="223" Max="223" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="224" Max="238" Preset="StrobeRandom">Random fade, 0% (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="239" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="254" Preset="StrobeRandom">Random fade, 100% (0.6 sec. - 4.8 sec.)</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="15">Pattern 1 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="16" Max="16">Off</Capability>
+  <Capability Min="17" Max="31">Pattern 1 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="32" Max="32">Off</Capability>
+  <Capability Min="33" Max="47">Pattern 2 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="48" Max="48">Off</Capability>
+  <Capability Min="49" Max="63">Pattern 2 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="64" Max="64">Off</Capability>
+  <Capability Min="65" Max="79">Pattern 3 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="80" Max="80">Off</Capability>
+  <Capability Min="81" Max="95">Pattern 3 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="96" Max="96">Off</Capability>
+  <Capability Min="97" Max="111">Pattern 4 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="112" Max="112">Off</Capability>
+  <Capability Min="113" Max="127">Pattern 4 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="128" Max="128">Off</Capability>
+  <Capability Min="129" Max="143">Pattern 5 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="144" Max="144">Off</Capability>
+  <Capability Min="145" Max="159">Pattern 5 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="160" Max="160">Off</Capability>
+  <Capability Min="161" Max="175">Pattern 6 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="176" Max="176">Off</Capability>
+  <Capability Min="177" Max="191">Pattern 6 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="192" Max="192">Off</Capability>
+  <Capability Min="193" Max="207">Pattern 7 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="208" Max="208">Off</Capability>
+  <Capability Min="209" Max="223">Pattern 7 fade (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="224" Max="224">Off</Capability>
+  <Capability Min="225" Max="239">Pattern 8 (0.1 sec. - 5 sec.)</Capability>
+  <Capability Min="240" Max="240">Off</Capability>
+  <Capability Min="241" Max="255">Pattern 8 fade (0.1 sec. - 5 sec.)</Capability>
+ </Channel>
+ <Channel Name="Preprogrammed Color Temperatures/White Tone">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Inactive</Capability>
+  <Capability Min="1" Max="1">White of inner ring is taken to all rings</Capability>
+  <Capability Min="2" Max="3" Preset="ColorMacro" Res1="#ffebdc">Color temperature 1 - 5400°K</Capability>
+  <Capability Min="4" Max="7" Preset="ColorMacro" Res1="#ffdfc2">Color temperature 2 - 4660°K</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#ffcd99">Color temperature 3 - 3830°K</Capability>
+  <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#ffc084">Color temperature 4 - 3350°K</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#ffad5e">Color temperature 5 - 2800°K</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ffce9f">Color temperature 6 - 3870°K</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#ffdfc2">Color temperature 7 - 4680°K</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#ffd3a8">Color temperature 8 - 4050°K</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#ffbb78">Color temperature 9 - 3230°K</Capability>
+  <Capability Min="36" Max="39" Preset="ColorMacro" Res1="#ffe9d9">Color temperature 10 - 5300°K</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#d9e3ff">Color temperature 11 - 8700°K</Capability>
+  <Capability Min="44" Max="47" Preset="ColorMacro" Res1="#f5f3ff">Color temperature 12 - 6950°K</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#fff3ef">Color temperature 13 - 6000°K</Capability>
+  <Capability Min="52" Max="55" Preset="ColorMacro" Res1="#ffe4ce">Color temperature 14 - 4950°K</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#ffd1a3">Color temperature 15 - 4000°K</Capability>
+  <Capability Min="60" Max="63" Preset="ColorMacro" Res1="#ffe1c6">Color temperature 16 - 4780°K</Capability>
+  <Capability Min="64" Max="191">Not used</Capability>
+  <Capability Min="192" Max="222">White change effect (fast - slow)</Capability>
+  <Capability Min="223" Max="224">White change effect stop</Capability>
+  <Capability Min="225" Max="255">White change effect (slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Movement in real time</Capability>
+  <Capability Min="4" Max="255">Movement delayed (fast - slow)</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Effects in real time</Capability>
+  <Capability Min="4" Max="255">Effects delayed (fast - slow)</Capability>
+ </Channel>
+ <Channel Name="Blackout Move">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="95">Not used</Capability>
+  <Capability Min="96" Max="127">Dimmer 0% at movement P/T</Capability>
+  <Capability Min="128" Max="159">Dimmer 0% at change of white tone</Capability>
+  <Capability Min="160" Max="223">Not used</Capability>
+  <Capability Min="224" Max="255">Dimmer 0% at change of white tone and P/T, fade time slow - max.</Capability>
+ </Channel>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Cold White Fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White Fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="CTC" Preset="ColorCTCMixer"/>
+ <Channel Name="Cold White - 1. Ring (LED Middle - A)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 2. Ring (B)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 3. Ring (Upper Half Ring - C)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 3. Ring (Lower Half Ring - D)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 4. Ring (Left Half Ring - E)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 4. Ring (Right Half Ring - F)" Preset="IntensityWhite"/>
+ <Channel Name="Free 10" Preset="NoFunction"/>
+ <Channel Name="Free 1" Preset="NoFunction"/>
+ <Channel Name="Free 2" Preset="NoFunction"/>
+ <Channel Name="Free 3" Preset="NoFunction"/>
+ <Channel Name="Free 4" Preset="NoFunction"/>
+ <Channel Name="Free 5" Preset="NoFunction"/>
+ <Channel Name="Free 6" Preset="NoFunction"/>
+ <Channel Name="Free 7" Preset="NoFunction"/>
+ <Channel Name="Free 8" Preset="NoFunction"/>
+ <Channel Name="Free 9" Preset="NoFunction"/>
+ <Channel Name="Warm White - 1. Ring (LED Middle - A)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 2. Ring (B)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 3. Ring (Upper Half Ring - C)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 3. Ring (Lower Half Ring - D)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 4. Ring (Left Half Ring - E)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 4. Ring (Right Half Ring - F)" Preset="IntensityWhite"/>
+ <Mode Name="Standard 8 Bit (S8)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Control - Fade Out With Fader (Slow - Fast)</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Pattern</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Preprogrammed Color Temperatures/White Tone</Channel>
+  <Channel Number="11">Pan/Tilt Speed</Channel>
+  <Channel Number="12">Effect Speed</Channel>
+  <Channel Number="13">Blackout Move</Channel>
+  <Channel Number="14">Cold White</Channel>
+  <Channel Number="15">Warm White</Channel>
+ </Mode>
+ <Mode Name="Standard 16 Bit (S16)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Control - Fade Out With Fader (Slow - Fast)</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Pattern</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Preprogrammed Color Temperatures/White Tone</Channel>
+  <Channel Number="11">Pan/Tilt Speed</Channel>
+  <Channel Number="12">Effect Speed</Channel>
+  <Channel Number="13">Blackout Move</Channel>
+  <Channel Number="14">Cold White</Channel>
+  <Channel Number="15">Cold White Fine</Channel>
+  <Channel Number="16">Warm White</Channel>
+  <Channel Number="17">Warm White Fine</Channel>
+ </Mode>
+ <Mode Name="Compressed 8 Bit (C8)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Control - Fade Out With Fader (Slow - Fast)</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Pattern</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Preprogrammed Color Temperatures/White Tone</Channel>
+  <Channel Number="11">Cold White</Channel>
+  <Channel Number="12">Warm White</Channel>
+ </Mode>
+ <Mode Name="Compressed 16 Bit (C16)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Control - Fade Out With Fader (Slow - Fast)</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Pattern</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Preprogrammed Color Temperatures/White Tone</Channel>
+  <Channel Number="11">Cold White</Channel>
+  <Channel Number="12">Cold White Fine</Channel>
+  <Channel Number="13">Warm White</Channel>
+  <Channel Number="14">Warm White Fine</Channel>
+ </Mode>
+ <Mode Name="Extended 8 Bit (E8)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Control - Fade Out With Fader (Slow - Fast)</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Pattern</Channel>
+  <Channel Number="9">Preprogrammed Color Temperatures/White Tone</Channel>
+  <Channel Number="10">Pan/Tilt Speed</Channel>
+  <Channel Number="11">Effect Speed</Channel>
+  <Channel Number="12">Blackout Move</Channel>
+  <Channel Number="13">CTC</Channel>
+  <Channel Number="14">Cold White - 1. Ring (LED Middle - A)</Channel>
+  <Channel Number="15">Warm White - 1. Ring (LED Middle - A)</Channel>
+  <Channel Number="16">Free 1</Channel>
+  <Channel Number="17">Free 2</Channel>
+  <Channel Number="18">Cold White - 2. Ring (B)</Channel>
+  <Channel Number="19">Warm White - 2. Ring (B)</Channel>
+  <Channel Number="20">Free 3</Channel>
+  <Channel Number="21">Free 4</Channel>
+  <Channel Number="22">Cold White - 3. Ring (Upper Half Ring - C)</Channel>
+  <Channel Number="23">Warm White - 3. Ring (Upper Half Ring - C)</Channel>
+  <Channel Number="24">Free 5</Channel>
+  <Channel Number="25">Free 6</Channel>
+  <Channel Number="26">Cold White - 3. Ring (Lower Half Ring - D)</Channel>
+  <Channel Number="27">Warm White - 3. Ring (Lower Half Ring - D)</Channel>
+  <Channel Number="28">Free 7</Channel>
+  <Channel Number="29">Free 8</Channel>
+  <Channel Number="30">Cold White - 4. Ring (Left Half Ring - E)</Channel>
+  <Channel Number="31">Warm White - 4. Ring (Left Half Ring - E)</Channel>
+  <Channel Number="32">Free 9</Channel>
+  <Channel Number="33">Free 10</Channel>
+  <Channel Number="34">Cold White - 4. Ring (Right Half Ring - F)</Channel>
+  <Channel Number="35">Warm White - 4. Ring (Right Half Ring - F)</Channel>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>31</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>34</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
+  <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
+  <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="830" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

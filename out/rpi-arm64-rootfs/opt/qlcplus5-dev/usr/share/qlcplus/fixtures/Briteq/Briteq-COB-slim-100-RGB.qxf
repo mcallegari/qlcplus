@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>COB Slim 100-RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="190">Master dimmer 0% - 100% (full open)</Capability>
+  <Capability Min="191" Max="200">Sound Control (7 colors)</Capability>
+  <Capability Min="201" Max="247">Strobe slow to fast</Capability>
+  <Capability Min="248" Max="255">Master dimmer full open</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No strobe (Open)</Capability>
+  <Capability Min="8" Max="37" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="38" Max="67" Preset="StrobeRandom">Sound Strobe</Capability>
+  <Capability Min="68" Max="255" Preset="StrobeSlowToFast">Strobe slow-fast</Capability>
+ </Channel>
+ <Channel Name="Mode 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="247">Color fade effect (very slow to fast)</Capability>
+  <Capability Min="248" Max="255">Sound Chase</Capability>
+ </Channel>
+ <Mode Name="3 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4LC channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Mode</Channel>
+ </Mode>
+ <Mode Name="4+ channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="6 channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Mode 2</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="3.46" Width="245" Height="280" Depth="140"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="70"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Dario Gonzalez</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Miniruby</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="223" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2">Position 1</Capability>
+  <Capability Min="3" Max="5">Position 2</Capability>
+  <Capability Min="6" Max="8">Position 3</Capability>
+  <Capability Min="9" Max="11">Position 4</Capability>
+  <Capability Min="12" Max="14">Position 5</Capability>
+  <Capability Min="15" Max="17">Position 6</Capability>
+  <Capability Min="18" Max="20">Position 7</Capability>
+  <Capability Min="21" Max="23">Position 8</Capability>
+  <Capability Min="24" Max="26">Position 9</Capability>
+  <Capability Min="27" Max="29">Position 10</Capability>
+  <Capability Min="30" Max="32">Position 11</Capability>
+  <Capability Min="33" Max="35">Position 12</Capability>
+  <Capability Min="36" Max="38">Position 13</Capability>
+  <Capability Min="39" Max="41">Position 14</Capability>
+  <Capability Min="42" Max="44">Position 15</Capability>
+  <Capability Min="45" Max="47">Position 16</Capability>
+  <Capability Min="48" Max="50">Position 17</Capability>
+  <Capability Min="51" Max="53">Position 18</Capability>
+  <Capability Min="54" Max="56">Position 19</Capability>
+  <Capability Min="57" Max="66">Indexed with bounce position 1</Capability>
+  <Capability Min="67" Max="223">Indexed With bounce position 2 ~ 17</Capability>
+  <Capability Min="224" Max="239">Forward Wheel Spin Stop to fast</Capability>
+  <Capability Min="240" Max="255">Reverse Wheel Spin Stop to fast</Capability>
+ </Channel>
+ <Channel Name="Prism &amp; Prism rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="3">Prism Open</Capability>
+  <Capability Min="4" Max="127">Forward Spin Stop to fast</Capability>
+  <Capability Min="128" Max="255">Reverse Spin Stop to fast</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">Normal</Capability>
+  <Capability Min="8" Max="15" Preset="ResetAll">Reset All</Capability>
+  <Capability Min="16" Max="23" Preset="ResetPanTilt">Pan &amp; Tilt Reset</Capability>
+  <Capability Min="24" Max="31" Preset="ResetColor">Color Reset</Capability>
+  <Capability Min="32" Max="39">TBD</Capability>
+  <Capability Min="40" Max="47">TBD</Capability>
+  <Capability Min="48" Max="55">Other Reset</Capability>
+  <Capability Min="56" Max="63">Display off</Capability>
+  <Capability Min="64" Max="71">Display on</Capability>
+  <Capability Min="72" Max="79" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="80" Max="87" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="88" Max="95">Hibernation</Capability>
+  <Capability Min="96" Max="255">TBD</Capability>
+ </Channel>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Movement Speed</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Color</Channel>
+  <Channel Number="5">Prism &amp; Prism rotation</Channel>
+  <Channel Number="6">Control</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Color</Channel>
+  <Channel Number="7">Prism &amp; Prism rotation</Channel>
+  <Channel Number="8">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="132 W Osram Sirius HRI" Lumens="5150" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="278" Height="387" Depth="200"/>
+  <Lens Name="Beam" DegreesMin="3.5" DegreesMax="3.5"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="176" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

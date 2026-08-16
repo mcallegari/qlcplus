@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.2.3</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Atlas</Model>
+ <Type>Flower</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="6">Closed</Capability>
+  <Capability Min="7" Max="64">Bands opened progressively (right to left)</Capability>
+  <Capability Min="65" Max="139">Bands obscured progressively (right to left)</Capability>
+  <Capability Min="140" Max="243">Strobe (slow to fast)</Capability>
+  <Capability Min="244" Max="255">Open</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="49000" Type="HTI 575W" ColourTemperature="5600"/>
+   <Dimensions Width="725" Height="400" Weight="27" Depth="600"/>
+   <Lens DegreesMax="1" Name="Other" DegreesMin="1"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="575" DmxConnector="5-pin"/>
+  </Physical>
+</FixtureDefinition>

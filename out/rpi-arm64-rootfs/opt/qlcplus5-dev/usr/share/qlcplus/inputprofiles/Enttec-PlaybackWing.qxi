@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.5 GIT</Version>
+  <Author>Thomas Achtner</Author>
+ </Creator>
+ <Manufacturer>Enttec</Manufacturer>
+ <Model>Playback Wing</Model>
+ <Type>Enttec</Type>
+ <Channel Number="0">
+  <Name>Slider 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="1">
+  <Name>Slider 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Slider 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Slider 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Slider 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Slider 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Slider 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Slider 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Slider 9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Slider 10</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Forward 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="11">
+  <Name>Forward 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12">
+  <Name>Forward 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="13">
+  <Name>Forward 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Forward 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Forward 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>Forward 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>Forward 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Forward 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Forward 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Pause 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Pause 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Pause 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Pause 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Pause 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Pause 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Pause 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Pause 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Pause 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Pause 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Back 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Back 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Back 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Back 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Back 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Back 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Back 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Back 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Back 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Back 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Button 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Button 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Button 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Button 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Button 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Button 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Button 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Button 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Button 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Button 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Go</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Back</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Page Down</Name>
+  <Type>Previous Page</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Page Up</Name>
+  <Type>Next Page</Type>
+ </Channel>
+</InputProfile>

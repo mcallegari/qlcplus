@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>jacques</Author>
+ </Creator>
+ <Manufacturer>Look Solutions</Manufacturer>
+ <Model>Unique 2.1</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Pump">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Pump output</Capability>
+ </Channel>
+ <Channel Name="Fan">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fan speed</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pump</Channel>
+  <Channel Number="1">Fan</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.7" Width="250" Height="250" Depth="470"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

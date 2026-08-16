@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>PeterK</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>FXpar 9</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red zone 1" Preset="IntensityRed"/>
+ <Channel Name="Green zone 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue zone 1" Preset="IntensityBlue"/>
+ <Channel Name="UV zone 1" Preset="IntensityUV"/>
+ <Channel Name="Strobe zone 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="Red zone 2" Preset="IntensityRed"/>
+ <Channel Name="Green zone 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue zone 2" Preset="IntensityBlue"/>
+ <Channel Name="UV zone 2" Preset="IntensityUV"/>
+ <Channel Name="Strobe zone 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="Red zone 3" Preset="IntensityRed"/>
+ <Channel Name="Green zone 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue zone 3" Preset="IntensityBlue"/>
+ <Channel Name="UV zone 3" Preset="IntensityUV"/>
+ <Channel Name="Strobe zone 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="Red zone 4" Preset="IntensityRed"/>
+ <Channel Name="Green zone 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue zone 4" Preset="IntensityBlue"/>
+ <Channel Name="Strobe zone 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="SMD strobes">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="20">ON</Capability>
+  <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active strobe</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="24">Auto program 1</Capability>
+  <Capability Min="25" Max="43">Auto program 2</Capability>
+  <Capability Min="44" Max="62">Auto program 3</Capability>
+  <Capability Min="63" Max="81">Auto program 4</Capability>
+  <Capability Min="82" Max="100">Auto program 5</Capability>
+  <Capability Min="101" Max="119">Auto program 6</Capability>
+  <Capability Min="120" Max="138">Auto program 7</Capability>
+  <Capability Min="139" Max="157">Auto program 8</Capability>
+  <Capability Min="158" Max="176">Auto program 9</Capability>
+  <Capability Min="177" Max="195">Auto program 10</Capability>
+  <Capability Min="196" Max="214">Auto program 11</Capability>
+  <Capability Min="215" Max="233">Auto program 12</Capability>
+  <Capability Min="234" Max="255">Auto program 13</Capability>
+ </Channel>
+ <Channel Name="Program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250">Program speed, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active</Capability>
+ </Channel>
+ <Channel Name="Quad-LED Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="255">0 - 100% (Auto programs channel must be active)</Capability>
+ </Channel>
+ <Mode Name="22 Channel">
+  <Channel Number="0">Red zone 1</Channel>
+  <Channel Number="1">Green zone 1</Channel>
+  <Channel Number="2">Blue zone 1</Channel>
+  <Channel Number="3">UV zone 1</Channel>
+  <Channel Number="4">Strobe zone 1</Channel>
+  <Channel Number="5">Red zone 2</Channel>
+  <Channel Number="6">Green zone 2</Channel>
+  <Channel Number="7">Blue zone 2</Channel>
+  <Channel Number="8">UV zone 2</Channel>
+  <Channel Number="9">Strobe zone 2</Channel>
+  <Channel Number="10">Red zone 3</Channel>
+  <Channel Number="11">Green zone 3</Channel>
+  <Channel Number="12">Blue zone 3</Channel>
+  <Channel Number="13">UV zone 3</Channel>
+  <Channel Number="14">Strobe zone 3</Channel>
+  <Channel Number="15">Red zone 4</Channel>
+  <Channel Number="16">Green zone 4</Channel>
+  <Channel Number="17">Blue zone 4</Channel>
+  <Channel Number="18">Strobe zone 4</Channel>
+  <Channel Number="19">SMD strobes</Channel>
+  <Channel Number="20">Auto programs</Channel>
+  <Channel Number="21">Program speed</Channel>
+  <Channel Number="22">Quad-LED Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Red zone 1</Channel>
+  <Channel Number="1">Green zone 1</Channel>
+  <Channel Number="2">Blue zone 1</Channel>
+  <Channel Number="3">UV zone 1</Channel>
+  <Channel Number="4">Red zone 4</Channel>
+  <Channel Number="5">Green zone 4</Channel>
+  <Channel Number="6">Blue zone 4</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">SMD strobes</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">SMD strobes</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Auto programs</Channel>
+  <Channel Number="1">Program speed</Channel>
+  <Channel Number="2">Quad-LED Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="275" Height="279" Depth="74"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="77" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

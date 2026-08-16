@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Piotr Nowik</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Vintage Blaze</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Tungsten lamp white intensity" Preset="IntensityWhite"/>
+ <Channel Name="Red LED strip" Preset="IntensityRed"/>
+ <Channel Name="Green LED strip" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED strip" Preset="IntensityBlue"/>
+ <Channel Name="Strobe LED strip">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="4" Max="255" Preset="StrobeSlowToFast">Strobe flash frequency, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Red LED center" Preset="IntensityRed"/>
+ <Channel Name="Green LED center" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED center" Preset="IntensityBlue"/>
+ <Channel Name="Strobe LED center">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="4" Max="255" Preset="StrobeSlowToFast">Strobe flash frequency, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Preset colors All LEDs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="11">Color 1</Capability>
+  <Capability Min="12" Max="18">Color 2</Capability>
+  <Capability Min="19" Max="25">Color 3</Capability>
+  <Capability Min="26" Max="32">Color 4</Capability>
+  <Capability Min="33" Max="39">Color 5</Capability>
+  <Capability Min="40" Max="46">Color 6</Capability>
+  <Capability Min="47" Max="53">Color 7</Capability>
+  <Capability Min="54" Max="60">Color 8</Capability>
+  <Capability Min="61" Max="67">Color 9</Capability>
+  <Capability Min="68" Max="74">Color 10</Capability>
+  <Capability Min="75" Max="81">Color 11</Capability>
+  <Capability Min="82" Max="88">Color 12</Capability>
+  <Capability Min="89" Max="95">Color 13</Capability>
+  <Capability Min="96" Max="102">Color 14</Capability>
+  <Capability Min="103" Max="109">Color 15</Capability>
+  <Capability Min="110" Max="116">Color 16</Capability>
+  <Capability Min="117" Max="123">Color 17</Capability>
+  <Capability Min="124" Max="130">Color 18</Capability>
+  <Capability Min="131" Max="137">Color 19</Capability>
+  <Capability Min="138" Max="144">Color 20</Capability>
+  <Capability Min="145" Max="151">Color 21</Capability>
+  <Capability Min="152" Max="158">Color 22</Capability>
+  <Capability Min="159" Max="165">Color 23</Capability>
+  <Capability Min="166" Max="172">Color 24</Capability>
+  <Capability Min="173" Max="179">Color 25</Capability>
+  <Capability Min="180" Max="186">Color 26</Capability>
+  <Capability Min="187" Max="193">Color 27</Capability>
+  <Capability Min="194" Max="200">Color 28</Capability>
+  <Capability Min="201" Max="207">Color 29</Capability>
+  <Capability Min="208" Max="214">Color 30</Capability>
+  <Capability Min="215" Max="221">Color 31</Capability>
+  <Capability Min="222" Max="227">Color 32</Capability>
+  <Capability Min="228" Max="234">Color 33</Capability>
+  <Capability Min="235" Max="241">Color 34</Capability>
+  <Capability Min="242" Max="255">Color 35</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Tungsten lamp white intensity</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Tungsten lamp white intensity</Channel>
+  <Channel Number="1">Preset colors All LEDs</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Tungsten lamp white intensity</Channel>
+  <Channel Number="1">Red LED strip</Channel>
+  <Channel Number="2">Green LED strip</Channel>
+  <Channel Number="3">Blue LED strip</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Tungsten lamp white intensity</Channel>
+  <Channel Number="1">Red LED strip</Channel>
+  <Channel Number="2">Green LED strip</Channel>
+  <Channel Number="3">Blue LED strip</Channel>
+  <Channel Number="4">Strobe LED strip</Channel>
+  <Channel Number="5">Red LED center</Channel>
+  <Channel Number="6">Green LED center</Channel>
+  <Channel Number="7">Blue LED center</Channel>
+  <Channel Number="8">Strobe LED center</Channel>
+  <Channel Number="9">Master dimmer</Channel>
+  <Channel Number="10">Preset colors All LEDs</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9.75" Width="650" Height="435" Depth="505"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="760" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

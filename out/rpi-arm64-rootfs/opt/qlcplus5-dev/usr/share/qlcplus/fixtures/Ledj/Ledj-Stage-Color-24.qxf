@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Paul Wilton</Author>
+ </Creator>
+ <Manufacturer>Ledj</Manufacturer>
+ <Model>Stage Color 24</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour and Programmes">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="21" Preset="GoboMacro" Res1="Others/rainbow.png">RGB mode</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="88" Max="98" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffffff">White</Capability>
+  <Capability Min="99" Max="109" Preset="GoboMacro" Res1="Others/rainbow.png">Dream: Seven colour fade</Capability>
+  <Capability Min="110" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">Meteor: Seven colour flow</Capability>
+  <Capability Min="121" Max="131" Preset="GoboMacro" Res1="Others/rainbow.png">Fade: Seven colour fade in, fade out</Capability>
+  <Capability Min="132" Max="142" Preset="GoboMacro" Res1="Others/rainbow.png">Change: Seven colour change</Capability>
+  <Capability Min="143" Max="153" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 1: Seven colour chase (forward)</Capability>
+  <Capability Min="154" Max="164" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 2: Seven colour chase (forward &amp; reverse)</Capability>
+  <Capability Min="165" Max="175" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 3: Seven colour fade chase in relay pattern (forward)</Capability>
+  <Capability Min="176" Max="186" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 4: Seven colour fade chase in relay pattern (forward &amp; reverse)</Capability>
+  <Capability Min="187" Max="197" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 5: Seven colour chase from sides to centre</Capability>
+  <Capability Min="198" Max="208" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 6: Seven colour chase from centre to sides</Capability>
+  <Capability Min="209" Max="219" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 7: Seven colour rotating chase</Capability>
+  <Capability Min="220" Max="230" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 8: Two colour chase (forward)</Capability>
+  <Capability Min="231" Max="241" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 9: Two colour chase (forward &amp; reverse)</Capability>
+  <Capability Min="242" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Sound active</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer (11&lt;=Ch1&lt;=21) Speed (Ch1&gt;=99)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Master dimmer or speed</Capability>
+ </Channel>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="All Red/Colour Select" Preset="IntensityRed"/>
+ <Channel Name="All Green/Colour Select" Preset="IntensityGreen"/>
+ <Channel Name="All Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Red 1 Top Row" Preset="IntensityRed"/>
+ <Channel Name="Green 1 Top Row" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1 Top Row" Preset="IntensityBlue"/>
+ <Channel Name="Red 2 Bottom Row" Preset="IntensityRed"/>
+ <Channel Name="Green 2 Bottom Row" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2 Bottom Row" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="6 channel">
+  <Channel Number="0">Colour and Programmes</Channel>
+  <Channel Number="1">Master Dimmer (11&lt;=Ch1&lt;=21) Speed (Ch1&gt;=99)</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">All Red/Colour Select</Channel>
+  <Channel Number="4">All Green/Colour Select</Channel>
+  <Channel Number="5">All Blue</Channel>
+ </Mode>
+ <Mode Name="9 channel">
+  <Channel Number="0">Colour and Programmes</Channel>
+  <Channel Number="1">Master Dimmer (11&lt;=Ch1&lt;=21) Speed (Ch1&gt;=99)</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red 1 Top Row</Channel>
+  <Channel Number="4">Green 1 Top Row</Channel>
+  <Channel Number="5">Blue 1 Top Row</Channel>
+  <Channel Number="6">Red 2 Bottom Row</Channel>
+  <Channel Number="7">Green 2 Bottom Row</Channel>
+  <Channel Number="8">Blue 2 Bottom Row</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 channel">
+  <Channel Number="0">Colour and Programmes</Channel>
+  <Channel Number="1">Master Dimmer (11&lt;=Ch1&lt;=21) Speed (Ch1&gt;=99)</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="27 channel">
+  <Channel Number="0">Colour and Programmes</Channel>
+  <Channel Number="1">Master Dimmer (11&lt;=Ch1&lt;=21) Speed (Ch1&gt;=99)</Channel>
+  <Channel Number="2">Flash</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">Red 5</Channel>
+  <Channel Number="16">Green 5</Channel>
+  <Channel Number="17">Blue 5</Channel>
+  <Channel Number="18">Red 6</Channel>
+  <Channel Number="19">Green 6</Channel>
+  <Channel Number="20">Blue 6</Channel>
+  <Channel Number="21">Red 7</Channel>
+  <Channel Number="22">Green 7</Channel>
+  <Channel Number="23">Blue 7</Channel>
+  <Channel Number="24">Red 8</Channel>
+  <Channel Number="25">Green 8</Channel>
+  <Channel Number="26">Blue 8</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="445" Height="179" Depth="144"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Bram Janssen</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>3000mW RGB Laser</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Off / Auto / Sound">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="41" Preset="LampOff">Laser off</Capability>
+  <Capability Min="42" Max="83" Preset="LampOn">Manual Control</Capability>
+  <Capability Min="84" Max="125">Auto run animation effect</Capability>
+  <Capability Min="126" Max="167">Auto run beam effect</Capability>
+  <Capability Min="168" Max="209">Sound active beam effect</Capability>
+  <Capability Min="210" Max="251">Sound active animation effect</Capability>
+  <Capability Min="252" Max="255">Manual Control</Capability>
+ </Channel>
+ <Channel Name="Pattern A 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Capability 1</Capability>
+  <Capability Min="32" Max="63">Capability 2</Capability>
+  <Capability Min="64" Max="95">Capability 3</Capability>
+  <Capability Min="96" Max="127">Capability 4</Capability>
+  <Capability Min="128" Max="159">Capability 5</Capability>
+  <Capability Min="160" Max="191">Capability 6</Capability>
+  <Capability Min="192" Max="223">Capability 7</Capability>
+  <Capability Min="224" Max="255">Capability 8</Capability>
+ </Channel>
+ <Channel Name="Pattern A 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Capability 1</Capability>
+  <Capability Min="16" Max="31">Capability 2</Capability>
+  <Capability Min="32" Max="47">Capability 3</Capability>
+  <Capability Min="48" Max="63">Capability 4</Capability>
+  <Capability Min="64" Max="79">Capability 5</Capability>
+  <Capability Min="80" Max="95">Capability 6</Capability>
+  <Capability Min="96" Max="111">Capability 7</Capability>
+  <Capability Min="112" Max="127">Capability 8</Capability>
+  <Capability Min="128" Max="143">Capability 9</Capability>
+  <Capability Min="144" Max="159">Capability 10</Capability>
+  <Capability Min="160" Max="175">Capability 11</Capability>
+  <Capability Min="176" Max="191">Capability 12</Capability>
+  <Capability Min="192" Max="207">Capability 13</Capability>
+  <Capability Min="208" Max="223">Capability 14</Capability>
+  <Capability Min="224" Max="239">Capability 15</Capability>
+  <Capability Min="240" Max="255">Capability 16</Capability>
+ </Channel>
+ <Channel Name="Pattern A Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Rotate angle</Capability>
+  <Capability Min="128" Max="191">Inverse rotation</Capability>
+  <Capability Min="192" Max="255">Positive phase rotation</Capability>
+ </Channel>
+ <Channel Name="Pattern A Horizontal Flip">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Horizontal flip position</Capability>
+  <Capability Min="128" Max="255">Horizontal flip Rotation speed</Capability>
+ </Channel>
+ <Channel Name="Pattern A Vertical Flip">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Vertical flip position</Capability>
+  <Capability Min="128" Max="255">Vertical flip Rotation speed</Capability>
+ </Channel>
+ <Channel Name="Pattern A Horizontal Move">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Horizontal move position</Capability>
+  <Capability Min="128" Max="255">Horizontal move speed</Capability>
+ </Channel>
+ <Channel Name="Pattern A Vertical Move">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Vertical move position</Capability>
+  <Capability Min="128" Max="255">Vertical move speed</Capability>
+ </Channel>
+ <Channel Name="Pattern A scale" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pattern A Painting">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Painting speed</Capability>
+ </Channel>
+ <Channel Name="Pattern A Scan">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Scan speed</Capability>
+  <Capability Min="128" Max="255">Pattern Lattice</Capability>
+ </Channel>
+ <Channel Name="Pattern A Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No custom color</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="64" Max="127">Color auto change speed</Capability>
+  <Capability Min="128" Max="191">Line Rainbow color speed</Capability>
+  <Capability Min="192" Max="255">Painting speed</Capability>
+ </Channel>
+ <Channel Name="Pattern A maximize">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Set the largest pattern when zooming fromlarge to small</Capability>
+ </Channel>
+ <Channel Name="Pattern B 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Capability 1</Capability>
+  <Capability Min="32" Max="63">Capability 2</Capability>
+  <Capability Min="64" Max="95">Capability 3</Capability>
+  <Capability Min="96" Max="127">Capability 4</Capability>
+  <Capability Min="128" Max="159">Capability 5</Capability>
+  <Capability Min="160" Max="191">Capability 6</Capability>
+  <Capability Min="192" Max="223">Capability 7</Capability>
+  <Capability Min="224" Max="255">Capability 8</Capability>
+ </Channel>
+ <Channel Name="Pattern B 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Capability 1</Capability>
+  <Capability Min="16" Max="31">Capability 2</Capability>
+  <Capability Min="32" Max="47">Capability 3</Capability>
+  <Capability Min="48" Max="63">Capability 4</Capability>
+  <Capability Min="64" Max="79">Capability 5</Capability>
+  <Capability Min="80" Max="95">Capability 6</Capability>
+  <Capability Min="96" Max="111">Capability 7</Capability>
+  <Capability Min="112" Max="127">Capability 8</Capability>
+  <Capability Min="128" Max="143">Capability 9</Capability>
+  <Capability Min="144" Max="159">Capability 10</Capability>
+  <Capability Min="160" Max="175">Capability 11</Capability>
+  <Capability Min="176" Max="191">Capability 12</Capability>
+  <Capability Min="192" Max="207">Capability 13</Capability>
+  <Capability Min="208" Max="223">Capability 14</Capability>
+  <Capability Min="224" Max="239">Capability 15</Capability>
+  <Capability Min="240" Max="255">Capability 16</Capability>
+ </Channel>
+ <Channel Name="Pattern B Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Rotate angle</Capability>
+  <Capability Min="128" Max="191">Inverse rotation</Capability>
+  <Capability Min="192" Max="255">Positive phase rotation</Capability>
+ </Channel>
+ <Channel Name="Pattern B Horizontal Flip">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Horizontal flip position</Capability>
+  <Capability Min="128" Max="255">Horizontal flip Rotation speed</Capability>
+ </Channel>
+ <Channel Name="Pattern B Vertical Flip">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Vertical flip position</Capability>
+  <Capability Min="128" Max="255">Vertical flip Rotation speed</Capability>
+ </Channel>
+ <Channel Name="Pattern B Horizontal Move">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Horizontal move position</Capability>
+  <Capability Min="128" Max="255">Horizontal move speed</Capability>
+ </Channel>
+ <Channel Name="Pattern B Vertical Move">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Vertical move position</Capability>
+  <Capability Min="128" Max="255">Vertical move speed</Capability>
+ </Channel>
+ <Channel Name="Pattern B scale" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pattern B Painting">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Painting speed</Capability>
+ </Channel>
+ <Channel Name="Pattern B Scan">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Scan speed</Capability>
+  <Capability Min="128" Max="255">Pattern Lattice</Capability>
+ </Channel>
+ <Channel Name="Pattern B Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No custom color</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="64" Max="127">Color auto change speed</Capability>
+  <Capability Min="128" Max="191">Line Rainbow color speed</Capability>
+  <Capability Min="192" Max="255">Painting speed</Capability>
+ </Channel>
+ <Channel Name="Pattern B maximize">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Set the largest pattern when zooming fromlarge to small</Capability>
+ </Channel>
+ <Channel Name="Pattern A Group">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31" Preset="Alias">Capability 1
+   <Alias Mode="25 Channel enhanced" Channel="Pattern A 2" With="Pattern group 1"/>
+  </Capability>
+  <Capability Min="32" Max="63" Preset="Alias">Capability 2</Capability>
+  <Capability Min="64" Max="95" Preset="Alias">Capability 3</Capability>
+  <Capability Min="96" Max="127" Preset="Alias">Capability 4</Capability>
+  <Capability Min="128" Max="159" Preset="Alias">Capability 5</Capability>
+  <Capability Min="160" Max="191" Preset="Alias">Capability 6</Capability>
+  <Capability Min="192" Max="223" Preset="Alias">Capability 7</Capability>
+  <Capability Min="224" Max="255" Preset="Alias">Capability 8</Capability>
+ </Channel>
+ <Channel Name="Pattern group 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Circle</Capability>
+  <Capability Min="16" Max="31">6p Circle</Capability>
+  <Capability Min="32" Max="47">4p Circle</Capability>
+  <Capability Min="48" Max="63">3p Circle</Capability>
+  <Capability Min="64" Max="79">2p Circle</Capability>
+  <Capability Min="80" Max="95">Mirrored Circle</Capability>
+  <Capability Min="96" Max="111">12p Circle</Capability>
+  <Capability Min="112" Max="127">Quarter Circle</Capability>
+  <Capability Min="128" Max="143">Circle Part Bottom</Capability>
+  <Capability Min="144" Max="159">Circle Part In Line</Capability>
+  <Capability Min="160" Max="175">Circle Part Fan</Capability>
+  <Capability Min="176" Max="191">Circle Part Standing</Capability>
+  <Capability Min="192" Max="207">Circle Part Top</Capability>
+  <Capability Min="208" Max="223">Circle Part Double</Capability>
+  <Capability Min="224" Max="239">Circle Part Circle</Capability>
+  <Capability Min="240" Max="255">Circle Left Corner</Capability>
+ </Channel>
+ <Mode Name="25 Channel">
+  <Channel Number="0">Off / Auto / Sound</Channel>
+  <Channel Number="1">Pattern A 1</Channel>
+  <Channel Number="2">Pattern A 2</Channel>
+  <Channel Number="3">Pattern A Rotation</Channel>
+  <Channel Number="4">Pattern A Horizontal Flip</Channel>
+  <Channel Number="5">Pattern A Vertical Flip</Channel>
+  <Channel Number="6">Pattern A Horizontal Move</Channel>
+  <Channel Number="7">Pattern A Vertical Move</Channel>
+  <Channel Number="8">Pattern A scale</Channel>
+  <Channel Number="9">Pattern A Painting</Channel>
+  <Channel Number="10">Pattern A Scan</Channel>
+  <Channel Number="11">Pattern A Color</Channel>
+  <Channel Number="12">Pattern A maximize</Channel>
+  <Channel Number="13">Pattern B 1</Channel>
+  <Channel Number="14">Pattern B 2</Channel>
+  <Channel Number="15">Pattern B Rotation</Channel>
+  <Channel Number="16">Pattern B Horizontal Flip</Channel>
+  <Channel Number="17">Pattern B Vertical Flip</Channel>
+  <Channel Number="18">Pattern B Horizontal Move</Channel>
+  <Channel Number="19">Pattern B Vertical Move</Channel>
+  <Channel Number="20">Pattern B scale</Channel>
+  <Channel Number="21">Pattern B Painting</Channel>
+  <Channel Number="22">Pattern B Scan</Channel>
+  <Channel Number="23">Pattern B Color</Channel>
+  <Channel Number="24">Pattern B maximize</Channel>
+ </Mode>
+ <Mode Name="25 Channel enhanced">
+  <Channel Number="0">Off / Auto / Sound</Channel>
+  <Channel Number="1">Pattern A Group</Channel>
+  <Channel Number="2">Pattern A 2</Channel>
+  <Channel Number="3">Pattern A Rotation</Channel>
+  <Channel Number="4">Pattern A Horizontal Flip</Channel>
+  <Channel Number="5">Pattern A Vertical Flip</Channel>
+  <Channel Number="6">Pattern A Horizontal Move</Channel>
+  <Channel Number="7">Pattern A Vertical Move</Channel>
+  <Channel Number="8">Pattern A scale</Channel>
+  <Channel Number="9">Pattern A Painting</Channel>
+  <Channel Number="10">Pattern A Scan</Channel>
+  <Channel Number="11">Pattern A Color</Channel>
+  <Channel Number="12">Pattern A maximize</Channel>
+  <Channel Number="13">Pattern B 1</Channel>
+  <Channel Number="14">Pattern B 2</Channel>
+  <Channel Number="15">Pattern B Rotation</Channel>
+  <Channel Number="16">Pattern B Horizontal Flip</Channel>
+  <Channel Number="17">Pattern B Vertical Flip</Channel>
+  <Channel Number="18">Pattern B Horizontal Move</Channel>
+  <Channel Number="19">Pattern B Vertical Move</Channel>
+  <Channel Number="20">Pattern B scale</Channel>
+  <Channel Number="21">Pattern B Painting</Channel>
+  <Channel Number="22">Pattern B Scan</Channel>
+  <Channel Number="23">Pattern B Color</Channel>
+  <Channel Number="24">Pattern B maximize</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.55" Width="200" Height="180" Depth="236"/>
+  <Lens Name="Other" DegreesMin="1" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="24" TiltMax="24"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

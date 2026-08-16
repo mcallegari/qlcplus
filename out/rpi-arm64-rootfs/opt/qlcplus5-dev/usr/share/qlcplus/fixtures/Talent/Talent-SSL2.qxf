@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Ken Dreyer</Author>
+ </Creator>
+ <Manufacturer>Talent</Manufacturer>
+ <Model>SSL2</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Functions control">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">off</Capability>
+  <Capability Min="8" Max="134">dimming</Capability>
+  <Capability Min="135" Max="239" Preset="StrobeRandom">strobe flash</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">constant on</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="231">231 kinds of color choosing</Capability>
+  <Capability Min="232" Max="255">full color jump</Capability>
+ </Channel>
+ <Channel Name="Color jumping speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Color jumping speed</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">off</Capability>
+  <Capability Min="8" Max="100">fast auto</Capability>
+  <Capability Min="101" Max="200">slow auto</Capability>
+  <Capability Min="201" Max="255">sound active mode</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="149" Preset="ResetAll">Nothing</Capability>
+  <Capability Min="150" Max="255">Reset</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Functions control</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Speed</Channel>
+  <Channel Number="8">Reset</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Functions control</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Color macros</Channel>
+  <Channel Number="11">Color jumping speed</Channel>
+  <Channel Number="12">Auto programs</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.3" Width="175" Height="241" Depth="178"/>
+  <Lens Name="PC" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

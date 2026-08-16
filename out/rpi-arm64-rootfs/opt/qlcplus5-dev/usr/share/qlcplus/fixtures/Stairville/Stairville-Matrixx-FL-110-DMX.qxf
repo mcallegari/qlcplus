@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.1.3</Version>
+  <Author>Heiko Fanieng</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Matrixx FL-110 DMX</Model>
+ <Type>Flower</Type>
+ <Channel Name="Pattern/Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Pattern 01</Capability>
+  <Capability Min="10" Max="19">Pattern 02</Capability>
+  <Capability Min="20" Max="29">Pattern 03</Capability>
+  <Capability Min="30" Max="39">Pattern 04</Capability>
+  <Capability Min="40" Max="49">Pattern 05</Capability>
+  <Capability Min="50" Max="59">Pattern 06</Capability>
+  <Capability Min="60" Max="69">Pattern 07</Capability>
+  <Capability Min="70" Max="79">Pattern 08</Capability>
+  <Capability Min="80" Max="89">Pattern 09</Capability>
+  <Capability Min="90" Max="99">Pattern 10</Capability>
+  <Capability Min="100" Max="109">Pattern 11</Capability>
+  <Capability Min="110" Max="119">Pattern 12</Capability>
+  <Capability Min="120" Max="129">Pattern 13</Capability>
+  <Capability Min="130" Max="139">Pattern 14</Capability>
+  <Capability Min="140" Max="149">Pattern 15</Capability>
+  <Capability Min="150" Max="159">Macro 01</Capability>
+  <Capability Min="160" Max="169">Macro 02</Capability>
+  <Capability Min="170" Max="179">Macro 03</Capability>
+  <Capability Min="180" Max="189">Macro 04</Capability>
+  <Capability Min="190" Max="199">Macro 05</Capability>
+  <Capability Min="200" Max="209">Macro 06</Capability>
+  <Capability Min="210" Max="219">Macro 07</Capability>
+  <Capability Min="220" Max="229">Macro 08</Capability>
+  <Capability Min="230" Max="239">Macro 09</Capability>
+  <Capability Min="240" Max="249">Macro 10</Capability>
+  <Capability Min="250" Max="255">Stand alone</Capability>
+ </Channel>
+ <Channel Name="Strobe/Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pattern Strobe/Macro Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="3 channel">
+  <Channel Number="0">Pattern/Macro</Channel>
+  <Channel Number="1">Strobe/Speed</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="196" Height="139" Weight="2" Depth="225"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.1</Version>
+  <Author>David Kuder</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Accu UFO</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Lens Indexing &amp; Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="3">Lens Indexing</Capability>
+  <Capability Min="4" Max="127">Forward Lens Rotation Fast - Slow</Capability>
+  <Capability Min="128" Max="131">No Rotation</Capability>
+  <Capability Min="132" Max="255">Backward Lens Rotation Slow - Fast</Capability>
+ </Channel>
+ <Channel Name="LED Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Blackout</Capability>
+  <Capability Min="11" Max="20">Red</Capability>
+  <Capability Min="21" Max="30">Green</Capability>
+  <Capability Min="31" Max="40">Blue</Capability>
+  <Capability Min="41" Max="50">White</Capability>
+  <Capability Min="51" Max="60">Red + Green</Capability>
+  <Capability Min="61" Max="70">Red + Blue</Capability>
+  <Capability Min="71" Max="80">Red + White</Capability>
+  <Capability Min="81" Max="90">Green + Blue</Capability>
+  <Capability Min="91" Max="100">Green + White</Capability>
+  <Capability Min="101" Max="110">Blue + White</Capability>
+  <Capability Min="111" Max="120">Red + Green + Blue</Capability>
+  <Capability Min="121" Max="130">Red + Green + White</Capability>
+  <Capability Min="131" Max="140">Red + Blue + White</Capability>
+  <Capability Min="141" Max="150">Green + Blue + White</Capability>
+  <Capability Min="151" Max="160">Red + Green + Blue + White</Capability>
+  <Capability Min="161" Max="170">Auto Program 1</Capability>
+  <Capability Min="171" Max="180">Auto Program 2</Capability>
+  <Capability Min="181" Max="190">Auto Program 3</Capability>
+  <Capability Min="191" Max="200">Auto Program 4</Capability>
+  <Capability Min="201" Max="210">Auto Program 5</Capability>
+  <Capability Min="211" Max="220">Auto Program 6</Capability>
+  <Capability Min="221" Max="230">Auto Program 7</Capability>
+  <Capability Min="231" Max="240">Auto Program 8</Capability>
+  <Capability Min="241" Max="255">Auto Program 9</Capability>
+ </Channel>
+ <Channel Name="LED Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">SLOW - FAST</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="95">Strobing Slow - Fast</Capability>
+  <Capability Min="96" Max="127">No function</Capability>
+  <Capability Min="128" Max="159">Pulse Effect in Sequences</Capability>
+  <Capability Min="160" Max="191">No function</Capability>
+  <Capability Min="192" Max="223">Random Strobing Slow - Fast</Capability>
+  <Capability Min="224" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Reset &amp; Internal Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">Normal Color Change</Capability>
+  <Capability Min="20" Max="79">No function</Capability>
+  <Capability Min="80" Max="84">All Motor Reset</Capability>
+  <Capability Min="85" Max="87">Scanner Motor Reset</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
+  <Capability Min="100" Max="119">Internal Program 1</Capability>
+  <Capability Min="120" Max="139">Internal Program 2</Capability>
+  <Capability Min="140" Max="159">Internal Program 3</Capability>
+  <Capability Min="160" Max="179">Internal Program 4</Capability>
+  <Capability Min="180" Max="199">Internal Program 5</Capability>
+  <Capability Min="200" Max="219">Internal Program 6</Capability>
+  <Capability Min="220" Max="239">Internal Program 7</Capability>
+  <Capability Min="240" Max="255">Sound Active</Capability>
+ </Channel>
+ <Mode Name="10-CH Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Lens Indexing &amp; Rotation</Channel>
+  <Channel Number="6">LED Effects</Channel>
+  <Channel Number="7">LED Speed</Channel>
+  <Channel Number="8">Strobing</Channel>
+  <Channel Number="9">Reset &amp; Internal Programs</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="452" Height="354" Weight="12.2" Depth="415"/>
+   <Lens DegreesMax="24" Name="Other" DegreesMin="24"/>
+   <Focus PanMax="360" Type="Head" TiltMax="265"/>
+   <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

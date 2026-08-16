@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Massimiliano Palmieri</Author>
+ </Creator>
+ <Manufacturer>Talent</Manufacturer>
+ <Model>BL252A</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Modes 2 Channel">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="131">Effect chase #1</Capability>
+  <Capability Min="132" Max="135">Effect chase #2</Capability>
+  <Capability Min="136" Max="139">Effect chase #3</Capability>
+  <Capability Min="140" Max="143">Effect chase #4</Capability>
+  <Capability Min="144" Max="147">Effect chase #5</Capability>
+  <Capability Min="148" Max="151">Effect chase #6</Capability>
+  <Capability Min="152" Max="155">Effect chase #7</Capability>
+  <Capability Min="156" Max="159">Effect chase #8</Capability>
+  <Capability Min="160" Max="163">Effect chase #9</Capability>
+  <Capability Min="164" Max="167">Effect chase #10</Capability>
+  <Capability Min="168" Max="171">Effect chase #11</Capability>
+  <Capability Min="172" Max="175">Effect chase #12</Capability>
+  <Capability Min="176" Max="179">Effect chase #13</Capability>
+  <Capability Min="180" Max="183">Effect chase #14</Capability>
+  <Capability Min="184" Max="187">Effect chase #15</Capability>
+  <Capability Min="188" Max="191">Effect chase #16 (All chases cycle)</Capability>
+  <Capability Min="192" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Modes 7 Channel">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="42">7-Channel mode</Capability>
+  <Capability Min="43" Max="191">No function</Capability>
+  <Capability Min="192" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Modes 10 Channel">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="84">No function</Capability>
+  <Capability Min="85" Max="127">10-Channel mode</Capability>
+  <Capability Min="128" Max="191">No function</Capability>
+  <Capability Min="192" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Modes 31 Channel">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="42">No function</Capability>
+  <Capability Min="43" Max="84">31-Channel mode</Capability>
+  <Capability Min="85" Max="191">No function</Capability>
+  <Capability Min="192" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="1">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobo (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Global Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Global Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Global Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Global White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 1 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 2 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 3 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 4 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 5 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 6 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 7 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 1 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 1 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 1 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 1 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 2 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 2 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 2 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 2 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 3 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 3 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 3 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 3 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 4 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 4 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 4 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 4 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 5 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 5 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 5 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 5 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 6 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 6 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 6 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 6 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 7 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 7 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 7 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 7 White Intensity" Preset="IntensityWhiteFine"/>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Modes 2 Channel</Channel>
+  <Channel Number="1">Speed</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Modes 7 Channel</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Global Red Intensity</Channel>
+  <Channel Number="4">Global Green Intensity</Channel>
+  <Channel Number="5">Global Blue Intensity</Channel>
+  <Channel Number="6">Global White Intensity</Channel>
+ </Mode>
+ <Mode Name="10-Channel">
+  <Channel Number="0">Modes 10 Channel</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Pixel 1 Global Intensity</Channel>
+  <Channel Number="4">Pixel 2 Global Intensity</Channel>
+  <Channel Number="5">Pixel 3 Global Intensity</Channel>
+  <Channel Number="6">Pixel 4 Global Intensity</Channel>
+  <Channel Number="7">Pixel 5 Global Intensity</Channel>
+  <Channel Number="8">Pixel 6 Global Intensity</Channel>
+  <Channel Number="9">Pixel 7 Global Intensity</Channel>
+ </Mode>
+ <Mode Name="31-Channel">
+  <Channel Number="0">Modes 31 Channel</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Pixel 1 Red Intensity</Channel>
+  <Channel Number="4">Pixel 1 Green Intensity</Channel>
+  <Channel Number="5">Pixel 1 Blue Intensity</Channel>
+  <Channel Number="6">Pixel 1 White Intensity</Channel>
+  <Channel Number="7">Pixel 2 Red Intensity</Channel>
+  <Channel Number="8">Pixel 2 Green Intensity</Channel>
+  <Channel Number="9">Pixel 2 Blue Intensity</Channel>
+  <Channel Number="10">Pixel 2 White Intensity</Channel>
+  <Channel Number="11">Pixel 3 Red Intensity</Channel>
+  <Channel Number="12">Pixel 3 Green Intensity</Channel>
+  <Channel Number="13">Pixel 3 Blue Intensity</Channel>
+  <Channel Number="14">Pixel 3 White Intensity</Channel>
+  <Channel Number="15">Pixel 4 Red Intensity</Channel>
+  <Channel Number="16">Pixel 4 Green Intensity</Channel>
+  <Channel Number="17">Pixel 4 Blue Intensity</Channel>
+  <Channel Number="18">Pixel 4 White Intensity</Channel>
+  <Channel Number="19">Pixel 5 Red Intensity</Channel>
+  <Channel Number="20">Pixel 5 Green Intensity</Channel>
+  <Channel Number="21">Pixel 5 Blue Intensity</Channel>
+  <Channel Number="22">Pixel 5 White Intensity</Channel>
+  <Channel Number="23">Pixel 6 Red Intensity</Channel>
+  <Channel Number="24">Pixel 6 Green Intensity</Channel>
+  <Channel Number="25">Pixel 6 Blue Intensity</Channel>
+  <Channel Number="26">Pixel 6 White Intensity</Channel>
+  <Channel Number="27">Pixel 7 Red Intensity</Channel>
+  <Channel Number="28">Pixel 7 Green Intensity</Channel>
+  <Channel Number="29">Pixel 7 Blue Intensity</Channel>
+  <Channel Number="30">Pixel 7 White Intensity</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="7" Height="1"/>
+  <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

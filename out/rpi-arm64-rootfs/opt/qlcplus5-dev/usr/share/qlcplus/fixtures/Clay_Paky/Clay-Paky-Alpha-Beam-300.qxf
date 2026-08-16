@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Alpha Beam 300</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Colour Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="7" Max="13" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White+Red</Capability>
+  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="27" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#89ccb4">Red+CTB</Capability>
+  <Capability Min="28" Max="34" Preset="ColorMacro" Res1="#89ccb4">CTB</Capability>
+  <Capability Min="35" Max="41" Preset="ColorDoubleMacro" Res1="#89ccb4" Res2="#f2d46f">CTB+CTO 3200</Capability>
+  <Capability Min="42" Max="48" Preset="ColorMacro" Res1="#f2d46f">CTO 3200</Capability>
+  <Capability Min="49" Max="55" Preset="ColorDoubleMacro" Res1="#f2d46f" Res2="#f1c236">CTO 3200 + CTO 2500</Capability>
+  <Capability Min="56" Max="62" Preset="ColorMacro" Res1="#f1c236">CTO 2500</Capability>
+  <Capability Min="63" Max="69" Preset="ColorDoubleMacro" Res1="#f1c236" Res2="#08954d">CTO 2500 + Green</Capability>
+  <Capability Min="70" Max="76" Preset="ColorMacro" Res1="#08954d">Green</Capability>
+  <Capability Min="77" Max="83" Preset="ColorDoubleMacro" Res1="#08954d" Res2="#6ac980">Green + Aquamarine</Capability>
+  <Capability Min="84" Max="90" Preset="ColorMacro" Res1="#6ac980">Aquamarine</Capability>
+  <Capability Min="91" Max="97" Preset="ColorDoubleMacro" Res1="#6ac980" Res2="#f47227">Aquamarine + Orange</Capability>
+  <Capability Min="98" Max="104" Preset="ColorMacro" Res1="#f47227">Orange</Capability>
+  <Capability Min="105" Max="111" Preset="ColorDoubleMacro" Res1="#f47227" Res2="#2e51ab">Orange + Blue</Capability>
+  <Capability Min="112" Max="118" Preset="ColorMacro" Res1="#2e51ab">Blue</Capability>
+  <Capability Min="119" Max="127" Preset="ColorDoubleMacro" Res1="#2e51ab" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#89ccb4">CTB</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#f2d46f">CTO 3200</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#f1c236">CTO 2500</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#08954d">Green</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#6ac980">Aquamarine</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#f47227">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#2e51ab">Blue</Capability>
+  <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127" Preset="ColorMacro" Res1="#9bc3ff">White to Blue+White</Capability>
+  <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White+Red</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="42" Max="55" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#89ccb4">Red+CTB</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#89ccb4">CTB</Capability>
+  <Capability Min="70" Max="83" Preset="ColorDoubleMacro" Res1="#89ccb4" Res2="#f2d46f">CTB+CTO 3200</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#f2d46f">CTO 3200</Capability>
+  <Capability Min="98" Max="111" Preset="ColorDoubleMacro" Res1="#f2d46f" Res2="#f1c236">CTO 3200 + CTO 2500</Capability>
+  <Capability Min="112" Max="125" Preset="ColorMacro" Res1="#f1c236">CTO 2500</Capability>
+  <Capability Min="126" Max="139" Preset="ColorDoubleMacro" Res1="#f1c236" Res2="#08954d">CTO 2500 + Green</Capability>
+  <Capability Min="140" Max="153" Preset="ColorMacro" Res1="#08954d">Green</Capability>
+  <Capability Min="154" Max="167" Preset="ColorDoubleMacro" Res1="#08954d" Res2="#6ac980">Green + Aquamarine</Capability>
+  <Capability Min="168" Max="181" Preset="ColorMacro" Res1="#6ac980">Aquamarine</Capability>
+  <Capability Min="182" Max="195" Preset="ColorDoubleMacro" Res1="#6ac980" Res2="#f47227">Aquamarine + Orange</Capability>
+  <Capability Min="196" Max="209" Preset="ColorMacro" Res1="#f47227">Orange</Capability>
+  <Capability Min="210" Max="223" Preset="ColorDoubleMacro" Res1="#f47227" Res2="#2e51ab">Orange + Blue</Capability>
+  <Capability Min="224" Max="237" Preset="ColorMacro" Res1="#2e51ab">Blue</Capability>
+  <Capability Min="238" Max="255" Preset="ColorDoubleMacro" Res1="#2e51ab" Res2="#ffffff">Blue + White</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="27" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="28" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="83" Preset="ColorMacro" Res1="#89ccb4">CTB</Capability>
+  <Capability Min="84" Max="111" Preset="ColorMacro" Res1="#f2d46f">CTO 3200</Capability>
+  <Capability Min="112" Max="139" Preset="ColorMacro" Res1="#f1c236">CTO 2500</Capability>
+  <Capability Min="140" Max="167" Preset="ColorMacro" Res1="#08954d">Green</Capability>
+  <Capability Min="168" Max="195" Preset="ColorMacro" Res1="#6ac980">Aquamarine</Capability>
+  <Capability Min="196" Max="223" Preset="ColorMacro" Res1="#f47227">Orange</Capability>
+  <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#2e51ab">Blue</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#9bc3ff">White to Blue+White</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Pulsation (Slow to Fast)</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random slow strobe</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random medium strobe</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random fast strobe</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Fixed Gobo Change">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="ClayPaky/gobo00011.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="ClayPaky/gobo00009.svg">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="ClayPaky/gobo00018.svg">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00005.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00003.svg">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00004.svg">Gobo 8</Capability>
+  <Capability Min="72" Max="113">Rotation (Fast to Slow)</Capability>
+  <Capability Min="114" Max="117">Stop</Capability>
+  <Capability Min="118" Max="159">Rotation (Slow to Fast)</Capability>
+  <Capability Min="160" Max="175" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Min="176" Max="191" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00009.svg">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Min="192" Max="207" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Min="208" Max="223" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00018.svg">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Min="224" Max="239" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00005.svg">Gobo 6 Shake (Slow to Fast)</Capability>
+  <Capability Min="240" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00003.svg">Gobo 7 Shake (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Frost</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effects reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan / Tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
+ </Channel>
+ <Channel Name="Lamp Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="101" Max="179">Unused</Capability>
+  <Capability Min="180" Max="255" Preset="LampOn">Lamp ON</Capability>
+ </Channel>
+ <Channel Name="Pan - Tilt Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan - Tilt (0 to 310s)</Capability>
+ </Channel>
+ <Channel Name="Colour Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">CMY - Colour Wheel (0 to 310s)</Capability>
+ </Channel>
+ <Channel Name="Beam Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dimmer - Frost (0 to 310s)</Capability>
+ </Channel>
+ <Channel Name="Gobo Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fixed Gobo wheel (0 to 310s)</Capability>
+ </Channel>
+ <Mode Name="Option Stnd 1 - LinC Off, FulC Off, Rain On">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 1</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Option Stnd 2 - LinC Off, FulC On, Rain On">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 2</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Option Stnd 3 - LinC On, Rain On">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 3</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Option Stnd 4 - LinC Off, FulC Off, Rain Off">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 4</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Option Stnd 5 - LinC Off, FulC On, Rain Off">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 5</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Option Stnd 6 - LinC On, Rain Off">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 6</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+ </Mode>
+ <Mode Name="Option Vect">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel 1</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Fixed Gobo Change</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt Fine</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Control</Channel>
+  <Channel Number="14">Pan - Tilt Time</Channel>
+  <Channel Number="15">Colour Time</Channel>
+  <Channel Number="16">Beam Time</Channel>
+  <Channel Number="17">Gobo Time</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+  <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+  <Focus Type="Head" PanMax="540" TiltMax="250"/>
+  <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

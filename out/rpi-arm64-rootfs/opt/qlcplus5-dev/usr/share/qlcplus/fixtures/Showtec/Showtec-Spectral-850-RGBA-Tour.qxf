@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Stefan Krumm, JP</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Spectral 850 RGBA Tour LED Spot</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">Not functional</Capability>
+  <Capability Min="14" Max="18" Preset="ColorMacro" Res1="#ffb4a5">Moroccan pink (790)</Capability>
+  <Capability Min="19" Max="24" Preset="ColorMacro" Res1="#f38c8f">Pink (157)</Capability>
+  <Capability Min="25" Max="30" Preset="ColorMacro" Res1="#df0e89">Special rose pink (332)</Capability>
+  <Capability Min="31" Max="36" Preset="ColorMacro" Res1="#dc559e">Follies pink (328)</Capability>
+  <Capability Min="37" Max="42" Preset="ColorMacro" Res1="#876fb0">Fuchsia pink (345)</Capability>
+  <Capability Min="43" Max="48" Preset="ColorMacro" Res1="#af95c2">Surprise pink (194)</Capability>
+  <Capability Min="49" Max="54" Preset="ColorMacro" Res1="#4c4b8d">Congo blue (181)</Capability>
+  <Capability Min="55" Max="60" Preset="ColorMacro" Res1="#0102b5">Tokyo blue (071)</Capability>
+  <Capability Min="61" Max="66" Preset="ColorMacro" Res1="#005ebe">Deep blue (120)</Capability>
+  <Capability Min="67" Max="72" Preset="ColorMacro" Res1="#3d8dd1">Just blue (079)</Capability>
+  <Capability Min="73" Max="78" Preset="ColorMacro" Res1="#0191d2">Medium blue (132)</Capability>
+  <Capability Min="79" Max="84" Preset="ColorMacro" Res1="#7086c0">Double CT blue (200)</Capability>
+  <Capability Min="85" Max="90" Preset="ColorMacro" Res1="#63abd9">State blue (161)</Capability>
+  <Capability Min="91" Max="96" Preset="ColorMacro" Res1="#b5cfe6">Full CT blue (201)</Capability>
+  <Capability Min="97" Max="102" Preset="ColorMacro" Res1="#d5e8ef">Half CT blue (202)</Capability>
+  <Capability Min="103" Max="108" Preset="ColorMacro" Res1="#b4fbf6">Steel blue (117)</Capability>
+  <Capability Min="109" Max="114" Preset="ColorMacro" Res1="#42b2be">Lighter blue (353)</Capability>
+  <Capability Min="115" Max="120" Preset="ColorMacro" Res1="#02e1ec">Light blue (118)</Capability>
+  <Capability Min="121" Max="126" Preset="ColorMacro" Res1="#00c9b7">Medium blue green (116)</Capability>
+  <Capability Min="127" Max="132" Preset="ColorMacro" Res1="#00dd79">Dark green (124)</Capability>
+  <Capability Min="133" Max="138" Preset="ColorMacro" Res1="#4bc302">Primary green (139)</Capability>
+  <Capability Min="139" Max="144" Preset="ColorMacro" Res1="#29f533">Moss green (089)</Capability>
+  <Capability Min="145" Max="150" Preset="ColorMacro" Res1="#77fb6f">Fern green (122)</Capability>
+  <Capability Min="151" Max="156" Preset="ColorMacro" Res1="#a8ff01">JAS green (738)</Capability>
+  <Capability Min="157" Max="162" Preset="ColorMacro" Res1="#ddff64">Lime green (088)</Capability>
+  <Capability Min="163" Max="169" Preset="ColorMacro" Res1="#f6ff00">Spring yellow (100)</Capability>
+  <Capability Min="170" Max="176" Preset="ColorMacro" Res1="#ffdd00">Deep amber (104)</Capability>
+  <Capability Min="177" Max="183" Preset="ColorMacro" Res1="#f4ae2d">Chrome orange (179)</Capability>
+  <Capability Min="184" Max="190" Preset="ColorMacro" Res1="#ff9f01">Orange (105)</Capability>
+  <Capability Min="191" Max="197" Preset="ColorMacro" Res1="#ff8d34">Gold amber (021)</Capability>
+  <Capability Min="198" Max="204" Preset="ColorMacro" Res1="#f87e26">Millenium gold (778)</Capability>
+  <Capability Min="205" Max="211" Preset="ColorMacro" Res1="#ff6002">Deep golden amber (135)</Capability>
+  <Capability Min="212" Max="218" Preset="ColorMacro" Res1="#de3e30">Flame red (164)</Capability>
+  <Capability Min="219" Max="225" Preset="ColorMacro" Res1="#ffffff">White 1: 2700K</Capability>
+  <Capability Min="226" Max="232" Preset="ColorMacro" Res1="#ffffff">White 2: 4000K</Capability>
+  <Capability Min="233" Max="239" Preset="ColorMacro" Res1="#ffffff">White 3: 5600K</Capability>
+  <Capability Min="240" Max="246" Preset="ColorMacro" Res1="#ffffff">White 4: 6000K</Capability>
+  <Capability Min="247" Max="255" Preset="ColorMacro" Res1="#ffffff">White 5: 7200K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Flash frequency</Capability>
+ </Channel>
+ <Channel Name="Dimming curve">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimming curve</Capability>
+ </Channel>
+ <Channel Name="Fine dimmer intensity " Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Control Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">Manual Mode</Capability>
+  <Capability Min="36" Max="71">Program 1 - fade in</Capability>
+  <Capability Min="72" Max="107">Program 2 – fade out</Capability>
+  <Capability Min="108" Max="143">Program 3 – fade in/out</Capability>
+  <Capability Min="144" Max="179">Program 4 – color flow</Capability>
+  <Capability Min="180" Max="215">Program 5 – 3 color switch</Capability>
+  <Capability Min="216" Max="255">Program 6 – 7 color switch</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program speed adjustment, from slow to fast</Capability>
+ </Channel>
+ <Mode Name="8 channel">
+  <Channel Number="0">Dimmer intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Macros</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Dimming curve</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="15 channel">
+  <Channel Number="0">Dimmer intensity</Channel>
+  <Channel Number="1">Fine dimmer intensity </Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Amber fine</Channel>
+  <Channel Number="10">Macros</Channel>
+  <Channel Number="11">Strobe</Channel>
+  <Channel Number="12">Dimming curve</Channel>
+  <Channel Number="13">Control Modes</Channel>
+  <Channel Number="14">Program Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.7" Width="280" Height="300" Depth="195"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

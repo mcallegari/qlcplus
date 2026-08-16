@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ChannelModifier>
+<ChannelModifier xmlns="http://www.qlcplus.org/ChannelModifier">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.3 GIT</Version>
+  <Author>Massimo,,,</Author>
+ </Creator>
+ <Name>Threshold</Name>
+ <Handler Modified="0" Original="0"/>
+ <Handler Modified="0" Original="128"/>
+ <Handler Modified="255" Original="128"/>
+ <Handler Modified="255" Original="255"/>
+</ChannelModifier>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>John R Houston</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Thrill Mini Profile</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Electronic Shutter Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe 1 (slow to fast)</Capability>
+  <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Pulse 1 (fast close - slow open)</Capability>
+  <Capability Min="168" Max="203" Preset="RampDownFastToSlow">Pulse 2 (fast open - slow close)</Capability>
+  <Capability Min="204" Max="239" Preset="PulseSlowToFast">Pulse 3 (open - close)</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Fixture Control Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
+  <Capability Min="15" Max="19">No function</Capability>
+  <Capability Min="20" Max="24" Preset="ResetColor">Reset Color</Capability>
+  <Capability Min="25" Max="29">No function</Capability>
+  <Capability Min="30" Max="34" Preset="ResetPanTilt">Reset Pan and Tilt</Capability>
+  <Capability Min="35" Max="54">No function</Capability>
+  <Capability Min="55" Max="59">Enable Calibration</Capability>
+  <Capability Min="60" Max="64">Linear Dimmer Curve</Capability>
+  <Capability Min="65" Max="69">Square Law Dimmer Curve</Capability>
+  <Capability Min="70" Max="74">Inverse Square Law Dimmer Curve</Capability>
+  <Capability Min="75" Max="79">S-Curve Dimmer Curve</Capability>
+  <Capability Min="80" Max="84">Pan Tilt Speed (Normal)</Capability>
+  <Capability Min="85" Max="89">Pan Tilt Speed (Fast - Default)</Capability>
+  <Capability Min="90" Max="94">Pan Tilt Speed (Slow)</Capability>
+  <Capability Min="95" Max="99">Parameter Shortcuts (On - Default)</Capability>
+  <Capability Min="100" Max="104">Parameter Shortcuts (Off)</Capability>
+  <Capability Min="105" Max="144">No function</Capability>
+  <Capability Min="145" Max="149">Auto-Blackout (On)</Capability>
+  <Capability Min="150" Max="154">Auto-Blackout (Off - Default)</Capability>
+  <Capability Min="155" Max="159">Illuminate Display</Capability>
+  <Capability Min="160" Max="164">Turn Off Display</Capability>
+  <Capability Min="165" Max="169">Store Pan Tilt Calibration</Capability>
+  <Capability Min="170" Max="209">No function</Capability>
+  <Capability Min="210" Max="214">Store Gobo Wheel Calibration</Capability>
+  <Capability Min="215" Max="234">No function</Capability>
+  <Capability Min="235" Max="239">Store Pan Calibration</Capability>
+  <Capability Min="240" Max="244">Store Tilt Calibration</Capability>
+  <Capability Min="245" Max="249">Reset All Calibrations to Factory Default</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="14">White -&gt; Red</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#ff3301">Red</Capability>
+  <Capability Min="16" Max="29">Red -&gt; Orange</Capability>
+  <Capability Min="30" Max="30" Preset="ColorMacro" Res1="#fea000">Orange</Capability>
+  <Capability Min="31" Max="44">Orange -&gt; Yellow</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#f5ff00">Yellow</Capability>
+  <Capability Min="46" Max="59">Yellow -&gt; Light Green</Capability>
+  <Capability Min="60" Max="60" Preset="ColorMacro" Res1="#4bc301">Light Green</Capability>
+  <Capability Min="61" Max="74">Light Green -&gt; Dark Blue</Capability>
+  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#015fbf">Dark Blue</Capability>
+  <Capability Min="76" Max="89">Dark Blue -&gt; Magenta</Capability>
+  <Capability Min="90" Max="90" Preset="ColorMacro" Res1="#ff0bf3">Magenta</Capability>
+  <Capability Min="91" Max="104">Magenta -&gt; Light Blue</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#00e2eb">Light Blue</Capability>
+  <Capability Min="106" Max="119">Light Blue -&gt; Pink</Capability>
+  <Capability Min="120" Max="120" Preset="ColorMacro" Res1="#ffb4a6">Pink</Capability>
+  <Capability Min="121" Max="134">Pink -&gt; White</Capability>
+  <Capability Min="135" Max="160" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="161" Max="163" Preset="ColorMacro" Res1="#ff3301">Red</Capability>
+  <Capability Min="164" Max="166" Preset="ColorMacro" Res1="#fea000">Orange</Capability>
+  <Capability Min="167" Max="169" Preset="ColorMacro" Res1="#f5ff00">Yellow</Capability>
+  <Capability Min="170" Max="172" Preset="ColorMacro" Res1="#4bc301">Light Green</Capability>
+  <Capability Min="173" Max="175" Preset="ColorMacro" Res1="#015fbf">Dark Blue</Capability>
+  <Capability Min="176" Max="178" Preset="ColorMacro" Res1="#ff0bf3">Magenta</Capability>
+  <Capability Min="179" Max="181" Preset="ColorMacro" Res1="#00e2eb">Light Blue</Capability>
+  <Capability Min="182" Max="184" Preset="ColorMacro" Res1="#ffb4a6">Pink</Capability>
+  <Capability Min="185" Max="192">White</Capability>
+  <Capability Min="193" Max="214">CW, Fast -&gt; Slow</Capability>
+  <Capability Min="215" Max="221">Stop</Capability>
+  <Capability Min="222" Max="243">CW, Slow -&gt; Fast</Capability>
+  <Capability Min="244" Max="247">Random, Fast</Capability>
+  <Capability Min="248" Max="251">Random, Medium</Capability>
+  <Capability Min="252" Max="255">Random, Slow</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="1" Max="14">Open -&gt; Gobo 1</Capability>
+  <Capability Min="15" Max="15" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="29">Gobo 1 -&gt; Gobo 2</Capability>
+  <Capability Min="30" Max="30" Preset="GoboMacro" Res1="Others/gobo00064.svg">Gobo 2</Capability>
+  <Capability Min="31" Max="44">Gobo 2 -&gt; Gobo 3</Capability>
+  <Capability Min="45" Max="45" Preset="GoboMacro" Res1="Others/gobo00078.svg">Gobo 3</Capability>
+  <Capability Min="46" Max="59">Gobo 3 -&gt; Gobo 4</Capability>
+  <Capability Min="60" Max="60" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 4</Capability>
+  <Capability Min="61" Max="74">Gobo 4 -&gt; Gobo 5</Capability>
+  <Capability Min="75" Max="75" Preset="GoboMacro" Res1="Others/gobo00079.svg">Gobo 5</Capability>
+  <Capability Min="76" Max="89">Gobo 5 -&gt; Gobo 6</Capability>
+  <Capability Min="90" Max="90" Preset="GoboMacro" Res1="Others/gobo00080.svg">Gobo 6</Capability>
+  <Capability Min="91" Max="104">Gobo 6 -&gt; Gobo 7</Capability>
+  <Capability Min="105" Max="105" Preset="GoboMacro" Res1="Others/gobo00081.svg">Gobo 7</Capability>
+  <Capability Min="106" Max="119">Gobo 7 -&gt; Gobo 8</Capability>
+  <Capability Min="120" Max="120" Preset="GoboMacro" Res1="Others/gobo00082.svg">Gobo 8</Capability>
+  <Capability Min="121" Max="134">Gobo 8 -&gt; Open</Capability>
+  <Capability Min="135" Max="160" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="161" Max="163" Preset="GoboMacro" Res1="Others/gobo00046.svg">Gobo 1</Capability>
+  <Capability Min="164" Max="166" Preset="GoboMacro" Res1="Others/gobo00064.svg">Gobo 2</Capability>
+  <Capability Min="167" Max="169" Preset="GoboMacro" Res1="Others/gobo00078.svg">Gobo 3</Capability>
+  <Capability Min="170" Max="172" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Gobo 4</Capability>
+  <Capability Min="173" Max="175" Preset="GoboMacro" Res1="Others/gobo00079.svg">Gobo 5</Capability>
+  <Capability Min="176" Max="178" Preset="GoboMacro" Res1="Others/gobo00080.svg">Gobo 6</Capability>
+  <Capability Min="179" Max="181" Preset="GoboMacro" Res1="Others/gobo00081.svg">Gobo 7</Capability>
+  <Capability Min="182" Max="184" Preset="GoboMacro" Res1="Others/gobo00082.svg">Gobo 8</Capability>
+  <Capability Min="185" Max="192" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="193" Max="214" Preset="RotationClockwiseFastToSlow">CW, Fast -&gt;Slow</Capability>
+  <Capability Min="215" Max="221" Preset="RotationStop">Stop</Capability>
+  <Capability Min="222" Max="243" Preset="RotationCounterClockwiseSlowToFast">CCW, Slow -&gt; Fast</Capability>
+  <Capability Min="244" Max="247">Random, Fast</Capability>
+  <Capability Min="248" Max="251">Random, Medium</Capability>
+  <Capability Min="252" Max="255">Random, Slow</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer Fine</Channel>
+  <Channel Number="2">Color Wheel Effect</Channel>
+  <Channel Number="3">Electronic Shutter Effect</Channel>
+  <Channel Number="4">Gobo Wheel</Channel>
+  <Channel Number="5">Pan</Channel>
+  <Channel Number="6">Pan Fine</Channel>
+  <Channel Number="7">Tilt</Channel>
+  <Channel Number="8">Tilt Fine</Channel>
+  <Channel Number="9">Fixture Control Settings</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="18 W White LED" Lumens="800" ColourTemperature="0"/>
+  <Dimensions Weight="4.3" Width="155" Height="338" Depth="237"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="125" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

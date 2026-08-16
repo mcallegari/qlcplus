@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-ORBIT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeFastToSlow">Strobe 1 (fast -&gt; slow)</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="70" Max="84" Preset="PulseFastToSlow">Strobe 2: opening pulse (fast -&gt; slow)</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="90" Max="104" Preset="PulseFastToSlow">Strobe 3: closing pulse (fast -&gt; slow)</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe 4: random strobe (fast -&gt; slow)</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Strobe 5: random opening pulse (fast -&gt; slow)</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Strobe 6: random closing pulse (fast -&gt; slow)</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseFastToSlow">Strobe 7: burst pulse (fast -&gt; slow)</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="204" Preset="StrobeRandomFastToSlow">Strobe 8: random burst pulse (fast -&gt; slow)</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeFastToSlow">Strobe 9: sine wave (fast -&gt; slow)</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="230" Max="244" Preset="StrobeFastToSlow">Strobe 10: burst (fast -&gt; slow)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">RGB Colour Mixing</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffb4a5">Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ff92a3">Pink</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff3787">Special rose pink</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff64c8">Follies pink</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#cd6ed7">Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#be8cf0">Surprise pink</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#5000aa">Congo blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0202b4">Tokyo blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#005fbe">Deep blue</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#3c8cd2">Just blue</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#00a0dc">Medium blue</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#91bef5">Double CT blue</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#7dd2f5">Slate blue</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#c3e1fa">Full CT blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#d7f0ff">Half CT blue</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#b4faf5">Steel blue</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#61e8e3">Lighter blue</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#00e1eb">Light blue</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#00c8b9">Medium blue green</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#00dc78">Dark green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#4bc300">Primary green</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#5adc5a">Moss green</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#78fa6e">Fern green</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#aaff00">JAS green</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#dcff64">Lime green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#f5ff00">Spring yellow</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#ffdc00">Deep amber</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#ffbe00">Chrome orange</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#ffa000">Orange</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#ff8c32">Gold amber</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#ff7600">Millennium gold</Capability>
+  <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#ff5f00">Deep golden amber</Capability>
+  <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ff3200">Flame red</Capability>
+  <Capability Min="175" Max="179">Open</Capability>
+  <Capability Min="180" Max="201" Preset="RotationClockwiseFastToSlow">Rotation clockwise (Fast -&gt; Slow)</Capability>
+  <Capability Min="202" Max="207" Preset="RotationStop">Rotation stop (wherever the color was)</Capability>
+  <Capability Min="208" Max="229" Preset="RotationCounterClockwiseSlowToFast">Rotation counter-clockwise (Slow -&gt; Fast)</Capability>
+  <Capability Min="230" Max="234">Open</Capability>
+  <Capability Min="235" Max="239">Random color fast</Capability>
+  <Capability Min="240" Max="244">Random color medium</Capability>
+  <Capability Min="245" Max="249">Random color slow</Capability>
+  <Capability Min="250" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Control Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset all (3s delay)</Capability>
+  <Capability Min="15" Max="39" Preset="ResetAll">No function</Capability>
+  <Capability Min="40" Max="44">Pan Tilt speed NORM</Capability>
+  <Capability Min="45" Max="49">Pan Tilt speed FAST</Capability>
+  <Capability Min="50" Max="54">Pan Tilt speed SLOW</Capability>
+  <Capability Min="55" Max="79">No function</Capability>
+  <Capability Min="80" Max="84">Fast Dimming</Capability>
+  <Capability Min="85" Max="89">No function</Capability>
+  <Capability Min="90" Max="94">Smooth Dimming</Capability>
+  <Capability Min="95" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Switch display backlight on</Capability>
+ </Channel>
+ <Channel Name="Ring 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Ring 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Ring 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Ring 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Ring 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Ring 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Ring 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Ring 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Ring 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Ring 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Ring 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Ring 3 White" Preset="IntensityWhite"/>
+ <Channel Name="CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">CTC not active</Capability>
+  <Capability Min="20" Max="255">CTC from 10000K to 2500K</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">All leds</Capability>
+  <Capability Min="8" Max="22">Dot</Capability>
+  <Capability Min="23" Max="37">Ring 1</Capability>
+  <Capability Min="38" Max="52">Ring 2</Capability>
+  <Capability Min="53" Max="67">Dot + Ring 1</Capability>
+  <Capability Min="68" Max="82">Dot + Ring 2</Capability>
+  <Capability Min="83" Max="97">Ring 1 + Ring 2</Capability>
+  <Capability Min="98" Max="112">All leds</Capability>
+  <Capability Min="113" Max="127">Macro 1</Capability>
+  <Capability Min="128" Max="142">Macro 2</Capability>
+  <Capability Min="143" Max="157">Macro 3</Capability>
+  <Capability Min="158" Max="172">Macro 4</Capability>
+  <Capability Min="173" Max="187">Macro 5</Capability>
+  <Capability Min="188" Max="202">Macro 6</Capability>
+  <Capability Min="203" Max="217">Macro 7</Capability>
+  <Capability Min="218" Max="232">Macro 8</Capability>
+  <Capability Min="233" Max="247">Macro 9</Capability>
+  <Capability Min="248" Max="255">Macro 10</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Macro (Fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Ring 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ring 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ring 3 Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Control Settings</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">Color Wheel Effect</Channel>
+  <Channel Number="13">Zoom</Channel>
+ </Mode>
+ <Mode Name="27 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Control Settings</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Ring 1 Red</Channel>
+  <Channel Number="9">Ring 1 Green</Channel>
+  <Channel Number="10">Ring 1 Blue</Channel>
+  <Channel Number="11">Ring 1 White</Channel>
+  <Channel Number="12">Ring 1 Dimmer</Channel>
+  <Channel Number="13">Ring 2 Red</Channel>
+  <Channel Number="14">Ring 2 Green</Channel>
+  <Channel Number="15">Ring 2 Blue</Channel>
+  <Channel Number="16">Ring 2 White</Channel>
+  <Channel Number="17">Ring 2 Dimmer</Channel>
+  <Channel Number="18">Ring 3 Red</Channel>
+  <Channel Number="19">Ring 3 Green</Channel>
+  <Channel Number="20">Ring 3 Blue</Channel>
+  <Channel Number="21">Ring 3 White</Channel>
+  <Channel Number="22">Ring 3 Dimmer</Channel>
+  <Channel Number="23">Color Wheel Effect</Channel>
+  <Channel Number="24">Macro</Channel>
+  <Channel Number="25">Macro Speed</Channel>
+  <Channel Number="26">Zoom</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14+ Channel">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Pan Fine</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Tilt Fine</Channel>
+  <Channel Number="7">Control Settings</Channel>
+  <Channel Number="8">Color Wheel Effect</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Blue</Channel>
+  <Channel Number="12">White</Channel>
+  <Channel Number="13">CTC</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="325" Height="396" Depth="223"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="290" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

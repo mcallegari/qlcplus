@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Theatre 36x3W CW/WW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter / Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Nothing</Capability>
+  <Capability Min="1" Max="15">Color temperature 1</Capability>
+  <Capability Min="16" Max="30">Color temperature 2</Capability>
+  <Capability Min="31" Max="45">Color temperature 3</Capability>
+  <Capability Min="46" Max="60">Color temperature 4</Capability>
+  <Capability Min="61" Max="75">Color temperature 5</Capability>
+  <Capability Min="76" Max="90">Color temperature 6</Capability>
+  <Capability Min="91" Max="105">Color temperature 7</Capability>
+  <Capability Min="106" Max="120">Color temperature 8</Capability>
+  <Capability Min="121" Max="135">Color temperature 9</Capability>
+  <Capability Min="136" Max="150">Color temperature 10</Capability>
+  <Capability Min="151" Max="165">Color temperature 11</Capability>
+  <Capability Min="166" Max="180">Color temperature 12</Capability>
+  <Capability Min="181" Max="195">Color temperature 13</Capability>
+  <Capability Min="196" Max="210">Color temperature 14</Capability>
+  <Capability Min="211" Max="225">Color temperature 15</Capability>
+  <Capability Min="226" Max="240">Color temperature 16</Capability>
+  <Capability Min="241" Max="255">Color temperature 17</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Cold White</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Shutter / Strobe</Channel>
+  <Channel Number="4">Color temperature</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Height="340" Weight="6" Width="180" Depth="305"/>
+   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="130" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

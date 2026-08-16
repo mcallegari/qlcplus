@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Nicolas Rasor</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DDS 405</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Ch 1" Preset="IntensityDimmer"/>
+ <Channel Name="Ch 2" Preset="IntensityDimmer"/>
+ <Channel Name="Ch 3" Preset="IntensityDimmer"/>
+ <Channel Name="Ch 4" Preset="IntensityDimmer"/>
+ <Mode Name="Mode1">
+  <Channel Number="0">Ch 1</Channel>
+  <Channel Number="1">Ch 2</Channel>
+  <Channel Number="2">Ch 3</Channel>
+  <Channel Number="3">Ch 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.85" Width="170" Height="205" Depth="650"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="3500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

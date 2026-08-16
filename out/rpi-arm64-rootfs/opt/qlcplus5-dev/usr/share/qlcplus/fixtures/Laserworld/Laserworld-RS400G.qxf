@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>RS400G</Model>
+ <Type>Laser</Type>
+ <Channel Name="Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Auto-music mode (ch 1 &amp; 2 valid)</Capability>
+  <Capability Min="64" Max="127">Auto-mode (ch 1 &amp; 2 valid)</Capability>
+  <Capability Min="128" Max="191">Music-edit mode (all channels valid)</Capability>
+  <Capability Min="192" Max="255">Manual mode (all channels valid)</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="63">No beam</Capability>
+  <Capability Min="64" Max="127">Single colour: Strobe, Multicolour: Colours</Capability>
+  <Capability Min="128" Max="192">Single colour: Fluxion blanking, Multicolour: Colour change</Capability>
+  <Capability Min="193" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Pattern group">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="42">Pattern group 1</Capability>
+  <Capability Min="43" Max="85">Pattern group 2</Capability>
+  <Capability Min="86" Max="128">Pattern group 3</Capability>
+  <Capability Min="129" Max="171">Pattern group 4</Capability>
+  <Capability Min="172" Max="214">Pattern group 5</Capability>
+  <Capability Min="215" Max="255">Pattern group 6</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">32 patterns</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="127">Rotate horizontally</Capability>
+  <Capability Min="128" Max="191">Rotate vertically</Capability>
+  <Capability Min="192" Max="255">Rotate h. &amp; v.</Capability>
+ </Channel>
+ <Channel Name="Dot rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="127">Rotating</Capability>
+  <Capability Min="128" Max="191">No function</Capability>
+  <Capability Min="192" Max="255">Rotating &amp; dotting</Capability>
+ </Channel>
+ <Channel Name="Move">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="127">Move horizontally</Capability>
+  <Capability Min="128" Max="191">Move vertically</Capability>
+  <Capability Min="192" Max="255">Move h. &amp; v.</Capability>
+ </Channel>
+ <Channel Name="Extend">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="127">Extend horizontally</Capability>
+  <Capability Min="128" Max="191">Extend vertically</Capability>
+  <Capability Min="192" Max="255">Extend h. &amp; v.</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="85">No function</Capability>
+  <Capability Min="86" Max="169">Small to large</Capability>
+  <Capability Min="170" Max="255">Large to small</Capability>
+ </Channel>
+ <Channel Name="Drawing Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Scan speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Size">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Original size</Capability>
+  <Capability Min="1" Max="255">Small to large (120 = original)</Capability>
+ </Channel>
+ <Mode Name="Laserworld RS400G">
+  <Channel Number="0">Control</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Pattern group</Channel>
+  <Channel Number="3">Pattern</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Rotation</Channel>
+  <Channel Number="6">Dot rotation</Channel>
+  <Channel Number="7">Move</Channel>
+  <Channel Number="8">Extend</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Drawing Speed</Channel>
+  <Channel Number="11">Scan speed</Channel>
+  <Channel Number="12">Colour Speed</Channel>
+  <Channel Number="13">Size</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="15" Width="550" Depth="320" Height="310"/>
+   <Lens DegreesMin="40" DegreesMax="60" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="120"/>
+  </Physical>
+</FixtureDefinition>

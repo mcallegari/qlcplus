@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Nathan Durnan</Author>
+ </Creator>
+ <Manufacturer>XStatic</Manufacturer>
+ <Model>X-240Bar RGB</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Speed/Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">No use (ch. 5 in color mode)/speed (ch. 5 in program mode)/sensitivity (ch. 5 in sound mode)</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">OFF/Color</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/rainbow.png">Program 02</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Others/rainbow.png">Program 03</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="Others/rainbow.png">Program 04</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Others/rainbow.png">Program 05</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Others/rainbow.png">Program 06</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Others/rainbow.png">Program 07</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#ffffff">Program 08</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/rainbow.png">Program 09</Capability>
+  <Capability Min="128" Max="135" Preset="GoboMacro" Res1="Others/rainbow.png">Program 10</Capability>
+  <Capability Min="136" Max="143" Preset="GoboMacro" Res1="Others/rainbow.png">Program 11</Capability>
+  <Capability Min="144" Max="151" Preset="GoboMacro" Res1="Others/rainbow.png">Program 12</Capability>
+  <Capability Min="152" Max="159" Preset="GoboMacro" Res1="Others/rainbow.png">Program 13</Capability>
+  <Capability Min="160" Max="167" Preset="GoboMacro" Res1="Others/rainbow.png">Program 14</Capability>
+  <Capability Min="168" Max="175" Preset="GoboMacro" Res1="Others/rainbow.png">Program 15</Capability>
+  <Capability Min="176" Max="183" Preset="GoboMacro" Res1="Others/rainbow.png">Program 16</Capability>
+  <Capability Min="184" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Program 17</Capability>
+  <Capability Min="192" Max="199" Preset="GoboMacro" Res1="Others/rainbow.png">Program 18</Capability>
+  <Capability Min="200" Max="207" Preset="GoboMacro" Res1="Others/rainbow.png">Program 19</Capability>
+  <Capability Min="208" Max="215" Preset="GoboMacro" Res1="Others/rainbow.png">Program 20</Capability>
+  <Capability Min="216" Max="223" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Program 21</Capability>
+  <Capability Min="224" Max="231" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Program 22</Capability>
+  <Capability Min="232" Max="255" Preset="GoboMacro" Res1="Others/gobo00069.svg">Sound Mode</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Speed/Sensitivity</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Function</Channel>
+  <Channel Number="5">Speed/Sensitivity</Channel>
+  <Channel Number="6">Flash</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Red 3</Channel>
+  <Channel Number="8">Green 3</Channel>
+  <Channel Number="9">Blue 3</Channel>
+  <Channel Number="10">Red 4</Channel>
+  <Channel Number="11">Green 4</Channel>
+  <Channel Number="12">Blue 4</Channel>
+  <Channel Number="13">Flash</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="26 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Red 3</Channel>
+  <Channel Number="8">Green 3</Channel>
+  <Channel Number="9">Blue 3</Channel>
+  <Channel Number="10">Red 4</Channel>
+  <Channel Number="11">Green 4</Channel>
+  <Channel Number="12">Blue 4</Channel>
+  <Channel Number="13">Red 5</Channel>
+  <Channel Number="14">Green 5</Channel>
+  <Channel Number="15">Blue 5</Channel>
+  <Channel Number="16">Red 6</Channel>
+  <Channel Number="17">Green 6</Channel>
+  <Channel Number="18">Blue 6</Channel>
+  <Channel Number="19">Red 7</Channel>
+  <Channel Number="20">Green 7</Channel>
+  <Channel Number="21">Blue 7</Channel>
+  <Channel Number="22">Red 8</Channel>
+  <Channel Number="23">Green 8</Channel>
+  <Channel Number="24">Blue 8</Channel>
+  <Channel Number="25">Flash</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="740" ColourTemperature="0"/>
+  <Dimensions Weight="2.6" Width="1064" Height="65" Depth="88"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

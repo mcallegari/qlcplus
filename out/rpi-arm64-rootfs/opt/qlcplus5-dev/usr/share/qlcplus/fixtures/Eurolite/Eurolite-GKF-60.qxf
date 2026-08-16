@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Flox Garden</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>GKF-60</Model>
+ <Type>Flower</Type>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Home</Capability>
+  <Capability Min="8" Max="8">Index-Position 1</Capability>
+  <Capability Min="9" Max="9">Index-Position 2</Capability>
+  <Capability Min="10" Max="10">Index-Position 3</Capability>
+  <Capability Min="11" Max="11">Index-Position 4</Capability>
+  <Capability Min="12" Max="12">Index-Position 5</Capability>
+  <Capability Min="13" Max="13">Index-Position 6</Capability>
+  <Capability Min="14" Max="14">Index-Position 7</Capability>
+  <Capability Min="15" Max="15">Index-Position 8</Capability>
+  <Capability Min="16" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="7">Stop</Capability>
+  <Capability Min="8" Max="127">Forward rotation with increasing speed</Capability>
+  <Capability Min="128" Max="135">Stop</Capability>
+  <Capability Min="136" Max="255">Backward rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe-Effect with increasing speed</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="140" Max="180" Preset="StrobeFastToSlow">Pulse opening with decreasing speed</Capability>
+  <Capability Min="181" Max="189" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="190" Max="231" Preset="PulseFastToSlow">Pulse closing with decreasing speed</Capability>
+  <Capability Min="232" Max="239" Preset="ResetAll">Reset after 3-5 seconds</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe-effect</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Gobo</Channel>
+  <Channel Number="1">Effect Wheel</Channel>
+  <Channel Number="2">Shutter/Strobe</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="235" Height="210" Depth="370"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="82" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

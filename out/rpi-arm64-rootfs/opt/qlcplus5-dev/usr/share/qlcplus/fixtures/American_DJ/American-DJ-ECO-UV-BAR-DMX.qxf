@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>Rob G.</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>ECO UV BAR DMX</Model>
+ <Type>Other</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobing" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer curve">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="20">No dimmer curve</Capability>
+  <Capability Min="21" Max="40">Dimmer curve 1</Capability>
+  <Capability Min="41" Max="60">Dimmer curve 2</Capability>
+  <Capability Min="61" Max="80">Dimmer curve 3</Capability>
+  <Capability Min="81" Max="100">Dimmer curve 4</Capability>
+  <Capability Min="101" Max="255">Delay mode control</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobing</Channel>
+  <Channel Number="2">Dimmer curve</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="2.3" Width="1000" Depth="60" Height="115"/>
+   <Lens DegreesMin="120" DegreesMax="120" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="52"/>
+  </Physical>
+</FixtureDefinition>

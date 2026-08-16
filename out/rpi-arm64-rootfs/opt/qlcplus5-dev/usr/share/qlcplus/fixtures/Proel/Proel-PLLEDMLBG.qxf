@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Andrea Ugolini</Author>
+ </Creator>
+ <Manufacturer>Proel</Manufacturer>
+ <Model>PLLEDMLBG LED Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Auto">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="254">255 preset color chases</Capability>
+  <Capability Min="255" Max="255">Continuous color scrolling</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Adjust color scrolling speed</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Mode Name="8-Bit Movement">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Auto</Channel>
+  <Channel Number="5">Speed</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Tilt</Channel>
+ </Mode>
+ <Mode Name="16-Bit Movement">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Auto</Channel>
+  <Channel Number="5">Speed</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Tilt</Channel>
+  <Channel Number="8">Pan Fine</Channel>
+  <Channel Number="9">Tilt Fine</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6" Width="300" Height="280" Depth="350"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
+  <Author>David PILATO</Author>
+ </Creator>
+ <Manufacturer>Ghost</Manufacturer>
+ <Model>Green 30</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="63">Laser source switch</Capability>
+  <Capability Min="64" Max="127">DMX-512 control mode</Capability>
+  <Capability Min="128" Max="191">Automatic mode</Capability>
+  <Capability Min="192" Max="255">Audio mode</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">H-Line</Capability>
+  <Capability Min="10" Max="19">Pattern 2</Capability>
+  <Capability Min="20" Max="29">V-Line</Capability>
+  <Capability Min="30" Max="39">Open half H Circle</Capability>
+  <Capability Min="40" Max="49">Open half V Circle</Capability>
+  <Capability Min="50" Max="59">Dot + H Line</Capability>
+  <Capability Min="60" Max="69">Pattern 7</Capability>
+  <Capability Min="70" Max="79">Rotating line</Capability>
+  <Capability Min="80" Max="89">Rectangle</Capability>
+  <Capability Min="90" Max="99">H dash</Capability>
+  <Capability Min="100" Max="109">Double triangle</Capability>
+  <Capability Min="110" Max="119">Dots in rectangle</Capability>
+  <Capability Min="120" Max="129">Closed half H circle</Capability>
+  <Capability Min="130" Max="139">3 circles</Capability>
+  <Capability Min="140" Max="149">Closed half H circle</Capability>
+  <Capability Min="150" Max="159">Closed half V Right circle</Capability>
+  <Capability Min="160" Max="169">3 circles</Capability>
+  <Capability Min="170" Max="179">Closed moving half H circle</Capability>
+  <Capability Min="180" Max="189">Closed half V Left circle</Capability>
+  <Capability Min="190" Max="199">Cross</Capability>
+  <Capability Min="200" Max="209">Double lines</Capability>
+  <Capability Min="210" Max="219">Pattern 22</Capability>
+  <Capability Min="220" Max="229">3 H lines</Capability>
+  <Capability Min="230" Max="239">3 V lines</Capability>
+  <Capability Min="240" Max="249">3 moving circles</Capability>
+  <Capability Min="250" Max="255">3 moving circles</Capability>
+ </Channel>
+ <Channel Name="Pattern Left/Right turning">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Left/Right turning</Capability>
+  <Capability Min="128" Max="255">Special effects</Capability>
+ </Channel>
+ <Channel Name="Pattern Up/down turning">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Up/Down turning</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Pattern Left/Right turning</Channel>
+  <Channel Number="3">Pattern Up/down turning</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="" Lumens="0"/>
+   <Dimensions Height="85" Width="260" Weight="3" Depth="330"/>
+   <Lens DegreesMin="30" DegreesMax="30" Name="Other"/>
+   <Focus PanMax="90" Type="Fixed" TiltMax="90"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

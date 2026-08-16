@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>Vision 250</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed of pan/tilt movement">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
+  <Capability Min="1" Max="249">Min speed</Capability>
+  <Capability Min="250" Max="255">Max speed, vector mode, black-out while any change</Capability>
+ </Channel>
+ <Channel Name="Lamp on/off, reset, fan speed control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">From max to min fan speed</Capability>
+  <Capability Min="128" Max="139" Preset="LampOn">Lamp on, reset</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp off after 3 sec</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#ffffff">Open, white</Capability>
+  <Capability Min="10" Max="20" Preset="ColorMacro" Res1="#55ffff">Turquoise</Capability>
+  <Capability Min="21" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="41" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="42" Max="52" Preset="ColorMacro" Res1="#aaff7f">Light green</Capability>
+  <Capability Min="53" Max="63" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="73" Preset="ColorMacro" Res1="#aaaaff">Light blue</Capability>
+  <Capability Min="74" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="95" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="96" Max="105" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="106" Max="116" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="117" Max="127" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Frost, correction filters, 3-facet prism, Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="95">Open position (hole)</Capability>
+  <Capability Min="96" Max="103">Frost filter</Capability>
+  <Capability Min="104" Max="135">3-facet prism</Capability>
+  <Capability Min="136" Max="143">3200 K correction filter</Capability>
+  <Capability Min="144" Max="151">5600 K correction filter</Capability>
+  <Capability Min="152" Max="159">UV filter</Capability>
+  <Capability Min="160" Max="167">Macro 1</Capability>
+  <Capability Min="168" Max="175">Macro 2</Capability>
+  <Capability Min="176" Max="183">Macro 3</Capability>
+  <Capability Min="184" Max="191">Macro 4</Capability>
+  <Capability Min="192" Max="199">Macro 5</Capability>
+  <Capability Min="200" Max="207">Macro 6</Capability>
+  <Capability Min="208" Max="215">Macro 7</Capability>
+  <Capability Min="216" Max="223">Macro 8</Capability>
+  <Capability Min="224" Max="231">Macro 9</Capability>
+  <Capability Min="232" Max="239">Macro 10</Capability>
+  <Capability Min="240" Max="247">Macro 11</Capability>
+  <Capability Min="248" Max="255">Macro 12</Capability>
+ </Channel>
+ <Channel Name="3-facet prism rotation control">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="0">No rotation</Capability>
+  <Capability Min="1" Max="126">Forwards rotation from fast to slow</Capability>
+  <Capability Min="127" Max="128">No rotation</Capability>
+  <Capability Min="129" Max="255">Backwards rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotating gobos; continuous rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Open</Capability>
+  <Capability Min="32" Max="63">Rotation gobo 1 (dichroic)</Capability>
+  <Capability Min="64" Max="95">Rotation gobo 2 (glass)</Capability>
+  <Capability Min="96" Max="127">Rotation gobo 3 (metal)</Capability>
+  <Capability Min="128" Max="159">Rotation gobo 4 (metal)</Capability>
+  <Capability Min="160" Max="191">Rotation gobo 5 (metal)</Capability>
+  <Capability Min="192" Max="223">Rotation gobo 6 (metal)</Capability>
+  <Capability Min="224" Max="255">Rotation gobo wheel, cont. rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotating gobo indexing, rotating gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Gobo indexing</Capability>
+  <Capability Min="128" Max="191">Forwards gobo rotation from fast to slow</Capability>
+  <Capability Min="192" Max="192">No rotation</Capability>
+  <Capability Min="193" Max="255">Backwards gobo rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function, shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect from slow to fast (max. 10 flashes/sec)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function, shutter open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse effect in sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect from slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed of pan/tilt movement</Channel>
+  <Channel Number="5">Lamp on/off, reset, fan speed control</Channel>
+  <Channel Number="6">Colours</Channel>
+  <Channel Number="7">No function</Channel>
+  <Channel Number="8">Frost, correction filters, 3-facet prism, Macros</Channel>
+  <Channel Number="9">3-facet prism rotation control</Channel>
+  <Channel Number="10">Rotating gobos; continuous rotation</Channel>
+  <Channel Number="11">Rotating gobo indexing, rotating gobo rotation</Channel>
+  <Channel Number="12">No function 2</Channel>
+  <Channel Number="13">Focus</Channel>
+  <Channel Number="14">Shutter, strobe</Channel>
+  <Channel Number="15">Dimmer intensity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+  <Dimensions Weight="19" Width="306" Height="215" Depth="629"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+  <Focus Type="Mirror" PanMax="170" TiltMax="85"/>
+  <Technical PowerConsumption="400" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Collin Ong/Dave Vecchio</Author>
+ </Creator>
+ <Manufacturer>Stage Right</Manufacturer>
+ <Model>Stage Wash 18Wx18 LED PAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Flash/Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Built-in Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No Effect</Capability>
+  <Capability Min="51" Max="100">Jumping color change mode</Capability>
+  <Capability Min="101" Max="150">Gradient color change mode</Capability>
+  <Capability Min="151" Max="200">Clock color change mode</Capability>
+  <Capability Min="201" Max="255">Sound activated color jumping mode</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed of execution of built-in programs</Capability>
+ </Channel>
+ <Channel Name="Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="White Dimming" Preset="IntensityWhite"/>
+ <Channel Name="Amber Dimming" Preset="IntensityAmber"/>
+ <Channel Name="Ultraviolet Dimming" Preset="IntensityUV"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Mode Name="10-Channel">
+  <Channel Number="0">Master Dimming</Channel>
+  <Channel Number="1">Flash/Strobe</Channel>
+  <Channel Number="2">Built-in Programs</Channel>
+  <Channel Number="3">Program Speed</Channel>
+  <Channel Number="4">Red Dimming</Channel>
+  <Channel Number="5">Green Dimming</Channel>
+  <Channel Number="6">Blue Dimming</Channel>
+  <Channel Number="7">White Dimming</Channel>
+  <Channel Number="8">Amber Dimming</Channel>
+  <Channel Number="9">Ultraviolet Dimming</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Red Dimming</Channel>
+  <Channel Number="1">Green Dimming</Channel>
+  <Channel Number="2">Blue Dimming</Channel>
+  <Channel Number="3">White Dimming</Channel>
+  <Channel Number="4">Amber Dimming</Channel>
+  <Channel Number="5">Ultraviolet Dimming</Channel>
+ </Mode>
+ <Mode Name="11-Channel">
+  <Channel Number="0">Master Dimming</Channel>
+  <Channel Number="1">Flash/Strobe</Channel>
+  <Channel Number="2">Built-in Programs</Channel>
+  <Channel Number="3">Program Speed</Channel>
+  <Channel Number="4">Red Dimming</Channel>
+  <Channel Number="5">Green Dimming</Channel>
+  <Channel Number="6">Blue Dimming</Channel>
+  <Channel Number="7">White Dimming</Channel>
+  <Channel Number="8">Amber Dimming</Channel>
+  <Channel Number="9">Ultraviolet Dimming</Channel>
+  <Channel Number="10">Zoom</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Red Dimming</Channel>
+  <Channel Number="1">Green Dimming</Channel>
+  <Channel Number="2">Blue Dimming</Channel>
+  <Channel Number="3">White Dimming</Channel>
+  <Channel Number="4">Amber Dimming</Channel>
+  <Channel Number="5">Ultraviolet Dimming</Channel>
+  <Channel Number="6">Zoom</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.4" Width="216" Height="292" Depth="304"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="335" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

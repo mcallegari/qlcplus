@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Daniel</Author>
+ </Creator>
+ <Manufacturer>Lixada</Manufacturer>
+ <Model>Mini Gobo Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">Color Selection</Capability>
+  <Capability Min="128" Max="189">Color Rotation Fast to Slow</Capability>
+  <Capability Min="190" Max="193">Rotation Stop</Capability>
+  <Capability Min="194" Max="255">Color Rotation Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Selection">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="63">Gobo Selection</Capability>
+  <Capability Min="64" Max="127">Gobo Jitter</Capability>
+  <Capability Min="128" Max="189">Gobo Rotation Fast to Slow</Capability>
+  <Capability Min="190" Max="193">Gobo Rotation Stop</Capability>
+  <Capability Min="194" Max="255">Gobo Rotation Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Lamp Control">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="7">Lamp Off</Capability>
+  <Capability Min="8" Max="15">Lamp On</Capability>
+  <Capability Min="16" Max="131">Lamp Strobe Speed - Slow to Fast</Capability>
+  <Capability Min="132" Max="139">Lamp On</Capability>
+  <Capability Min="140" Max="181">Fade On Fast, Fade Off Slow</Capability>
+  <Capability Min="182" Max="189">Lamp On</Capability>
+  <Capability Min="190" Max="231">Lamp on Fast, Lamp off Slow</Capability>
+  <Capability Min="232" Max="239">Lamp On</Capability>
+  <Capability Min="240" Max="247">Random Strobe Control</Capability>
+  <Capability Min="248" Max="255">Lamp On</Capability>
+ </Channel>
+ <Channel Name="Master dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Function Controls">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="69" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="70" Max="79" Preset="ShutterClose">Lamp Off During X/Y Rotation</Capability>
+  <Capability Min="80" Max="89" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="90" Max="99" Preset="ShutterClose">Lamp Off During Color Wheel Rotation</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="110" Max="119" Preset="ShutterClose">Lamp Off During Gobo Rotation</Capability>
+  <Capability Min="120" Max="199" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
+  <Capability Min="210" Max="249" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="250" Max="255" Preset="SilentModeOn">Sound Mode On/Off</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard Lighting Effects</Capability>
+  <Capability Min="21" Max="40">Stage Lighting Effects</Capability>
+  <Capability Min="41" Max="60">TV Lighting Effects</Capability>
+  <Capability Min="61" Max="80">Architectural Lighting Effects</Capability>
+  <Capability Min="81" Max="100">Theater Lighting Effects</Capability>
+  <Capability Min="101" Max="255">Default Lamp Effect</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Color Control</Channel>
+  <Channel Number="5">Gobo Selection</Channel>
+  <Channel Number="6">Lamp Control</Channel>
+  <Channel Number="7">Master dimmer fine</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">Function Controls</Channel>
+  <Channel Number="10">Effects</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Control</Channel>
+  <Channel Number="3">Gobo Selection</Channel>
+  <Channel Number="4">Lamp Control</Channel>
+  <Channel Number="5">Master dimmer fine</Channel>
+  <Channel Number="6">Pan/Tilt speed</Channel>
+  <Channel Number="7">Function Controls</Channel>
+  <Channel Number="8">Effects</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.4" Width="210" Height="260" Depth="280"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

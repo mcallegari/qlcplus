@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Vari-Lite</Manufacturer>
+ <Model>VL3000 Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Edge" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="CTO Mixer" Preset="ColorCTOMixer"/>
+ <Channel Name="Cyan Mixer" Preset="IntensityCyan"/>
+ <Channel Name="Yellow Mixer" Preset="IntensityYellow"/>
+ <Channel Name="Magenta Mixer" Preset="IntensityMagenta"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="15" Max="30" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#1d2c7f">Open/Blue</Capability>
+  <Capability Min="31" Max="47" Preset="ColorMacro" Res1="#1d2c7f">Congo Blue</Capability>
+  <Capability Min="48" Max="61" Preset="ColorDoubleMacro" Res1="#1d2c7f" Res2="#fd6500">Blue/Orange</Capability>
+  <Capability Min="62" Max="76" Preset="ColorMacro" Res1="#fd6500">Orange</Capability>
+  <Capability Min="77" Max="92" Preset="ColorDoubleMacro" Res1="#fd6500" Res2="#018637">Orange/Green</Capability>
+  <Capability Min="93" Max="108" Preset="ColorMacro" Res1="#018637">Kelly Green</Capability>
+  <Capability Min="109" Max="123" Preset="ColorDoubleMacro" Res1="#018637" Res2="#97017f">Green/Fuchsia</Capability>
+  <Capability Min="124" Max="139" Preset="ColorMacro" Res1="#97017f">Dark Fuchsia</Capability>
+  <Capability Min="140" Max="154" Preset="ColorDoubleMacro" Res1="#97017f" Res2="#ee027e">Fuchsia/Mag</Capability>
+  <Capability Min="155" Max="170" Preset="ColorMacro" Res1="#ee027e">Magenta</Capability>
+  <Capability Min="171" Max="185" Preset="ColorDoubleMacro" Res1="#ee027e" Res2="#d60000">Magenta/Red</Capability>
+  <Capability Min="186" Max="200" Preset="ColorMacro" Res1="#d60000">Deep Red</Capability>
+  <Capability Min="201" Max="216" Preset="ColorDoubleMacro" Res1="#d60000" Res2="#ffffff">Red/Open</Capability>
+  <Capability Min="217" Max="235" Preset="GoboMacro" Res1="Others/rainbow.png">Scroll CCW</Capability>
+  <Capability Min="236" Max="236">Stop</Capability>
+  <Capability Min="237" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Scroll CW</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="25" Preset="GoboMacro" Res1="ClayPaky/gobo00042.svg">Alpha Rays</Capability>
+  <Capability Min="26" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Night Sky</Capability>
+  <Capability Min="45" Max="63" Preset="GoboMacro" Res1="Others/gobo00055.png">Tribal Break-up</Capability>
+  <Capability Min="64" Max="82" Preset="GoboMacro" Res1="GLP/gobo00009.png">Pebbles</Capability>
+  <Capability Min="83" Max="99" Preset="GoboMacro" Res1="Robe/gobo00050.png">Glacier Gag</Capability>
+  <Capability Min="100" Max="116" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="117" Max="134" Preset="GoboMacro" Res1="ClayPaky/gobo00042.svg">Alpha Rays</Capability>
+  <Capability Min="135" Max="153" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Night Sky</Capability>
+  <Capability Min="154" Max="172" Preset="GoboMacro" Res1="Others/gobo00055.png">Tribal Break-up</Capability>
+  <Capability Min="173" Max="191" Preset="GoboMacro" Res1="GLP/gobo00009.png">Pebbles</Capability>
+  <Capability Min="192" Max="209" Preset="GoboMacro" Res1="Robe/gobo00050.png">Glacier Gag</Capability>
+  <Capability Min="210" Max="216">No function</Capability>
+  <Capability Min="217" Max="236">Scroll CCW</Capability>
+  <Capability Min="237" Max="255">Scroll CW</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 Index/Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 1 Fine Index/Rotation" Preset="GoboIndexFine"/>
+ <Channel Name="Gobo Wheel 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="25" Preset="GoboMacro" Res1="GLP/gobo00031.png">Palm Leaves</Capability>
+  <Capability Min="26" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Shock Break-up</Capability>
+  <Capability Min="45" Max="63" Preset="GoboMacro" Res1="SGM/gobo00021.png">Uneven Bars</Capability>
+  <Capability Min="64" Max="82" Preset="GoboMacro" Res1="Others/gobo00034.png">Ice Blocks Gag</Capability>
+  <Capability Min="83" Max="99" Preset="GoboMacro" Res1="Others/gobo00058.png">Droplets Gag</Capability>
+  <Capability Min="100" Max="116" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="117" Max="134" Preset="GoboMacro" Res1="GLP/gobo00031.png">Palm Leaves</Capability>
+  <Capability Min="135" Max="153" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Shock Break-up</Capability>
+  <Capability Min="154" Max="172" Preset="GoboMacro" Res1="SGM/gobo00021.png">Uneven Bars</Capability>
+  <Capability Min="173" Max="191" Preset="GoboMacro" Res1="Others/gobo00034.png">Ice Blocks Gag</Capability>
+  <Capability Min="192" Max="209" Preset="GoboMacro" Res1="Others/gobo00058.png">Droplets Gag</Capability>
+  <Capability Min="210" Max="216">No function</Capability>
+  <Capability Min="217" Max="236">Scroll CCW</Capability>
+  <Capability Min="237" Max="255">Scroll CW</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 Index/Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 2 Fine Index/Rotation" Preset="GoboIndexFine"/>
+ <Channel Name="Gobo Wheel 3">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="11" Max="33" Preset="GoboMacro" Res1="ClayPaky/gobo00074.png">3-Side Prism</Capability>
+  <Capability Min="34" Max="54" Preset="GoboMacro" Res1="ClayPaky/gobo00081.png">Color Gobo</Capability>
+  <Capability Min="55" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00007.svg">Triangle Break-up</Capability>
+  <Capability Min="76" Max="97" Preset="GoboMacro" Res1="SGM/gobo00092.png">Circle of Ovals</Capability>
+  <Capability Min="98" Max="119" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="120" Max="141" Preset="GoboMacro" Res1="ClayPaky/gobo00074.png">3-Side Prism</Capability>
+  <Capability Min="142" Max="163" Preset="GoboMacro" Res1="ClayPaky/gobo00081.png">Color Gobo</Capability>
+  <Capability Min="164" Max="184" Preset="GoboMacro" Res1="Chauvet/gobo00007.svg">Triangle Break-up</Capability>
+  <Capability Min="185" Max="206" Preset="GoboMacro" Res1="SGM/gobo00092.png">Circle of Ovals</Capability>
+  <Capability Min="207" Max="216">No function</Capability>
+  <Capability Min="217" Max="236">Scroll CCW</Capability>
+  <Capability Min="237" Max="255">Scroll CW</Capability>
+ </Channel>
+ <Channel Name="Gobo 3 Index/Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 3 Fine Index/Rotation" Preset="GoboIndexFine"/>
+ <Channel Name="Beam Iris" Preset="ShutterIrisMaxToMin"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="2" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="3" Max="5" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="6" Max="7" Preset="StrobeRandom">Slow Random</Capability>
+  <Capability Min="8" Max="12" Preset="StrobeRandom">Med Random</Capability>
+  <Capability Min="13" Max="255">Speed Range</Capability>
+ </Channel>
+ <Channel Name="Focus Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Fullspeed</Capability>
+  <Capability Min="1" Max="1">0.2s</Capability>
+  <Capability Min="2" Max="2">0.4s</Capability>
+  <Capability Min="3" Max="3">0.6s</Capability>
+  <Capability Min="4" Max="4">0.8s</Capability>
+  <Capability Min="5" Max="5">1s</Capability>
+  <Capability Min="6" Max="6">1.2s</Capability>
+  <Capability Min="7" Max="7">1.4s</Capability>
+  <Capability Min="8" Max="8">1.6s</Capability>
+  <Capability Min="9" Max="9">1.8s</Capability>
+  <Capability Min="10" Max="10">2s</Capability>
+  <Capability Min="11" Max="11">2.2s</Capability>
+  <Capability Min="12" Max="12">2.4s</Capability>
+  <Capability Min="13" Max="13">2.6s</Capability>
+  <Capability Min="14" Max="14">2.8s</Capability>
+  <Capability Min="15" Max="15">3s</Capability>
+  <Capability Min="16" Max="16">3.2s</Capability>
+  <Capability Min="17" Max="17">3.4s</Capability>
+  <Capability Min="18" Max="18">3.6s</Capability>
+  <Capability Min="19" Max="19">3.8s</Capability>
+  <Capability Min="20" Max="20">4s</Capability>
+  <Capability Min="21" Max="21">4.2s</Capability>
+  <Capability Min="22" Max="22">4.4s</Capability>
+  <Capability Min="23" Max="23">4.6s</Capability>
+  <Capability Min="24" Max="24">4.8s</Capability>
+  <Capability Min="25" Max="25">5s</Capability>
+  <Capability Min="26" Max="26">5.2s</Capability>
+  <Capability Min="27" Max="27">5.4s</Capability>
+  <Capability Min="28" Max="28">5.6s</Capability>
+  <Capability Min="29" Max="29">5.8s</Capability>
+  <Capability Min="30" Max="30">6s</Capability>
+  <Capability Min="31" Max="31">6.2s</Capability>
+  <Capability Min="32" Max="32">6.4s</Capability>
+  <Capability Min="33" Max="33">6.6s</Capability>
+  <Capability Min="34" Max="34">6.8s</Capability>
+  <Capability Min="35" Max="35">7s</Capability>
+  <Capability Min="36" Max="36">7.2s</Capability>
+  <Capability Min="37" Max="37">7.4s</Capability>
+  <Capability Min="38" Max="38">7.6s</Capability>
+  <Capability Min="39" Max="39">7.8s</Capability>
+  <Capability Min="40" Max="40">8s</Capability>
+  <Capability Min="41" Max="41">8.2s</Capability>
+  <Capability Min="42" Max="42">8.4s</Capability>
+  <Capability Min="43" Max="43">8.6s</Capability>
+  <Capability Min="44" Max="44">8.8s</Capability>
+  <Capability Min="45" Max="45">9s</Capability>
+  <Capability Min="46" Max="46">9.2s</Capability>
+  <Capability Min="47" Max="47">9.4s</Capability>
+  <Capability Min="48" Max="48">9.6s</Capability>
+  <Capability Min="49" Max="49">9.8s</Capability>
+  <Capability Min="50" Max="50">10s</Capability>
+  <Capability Min="51" Max="51">10.2s</Capability>
+  <Capability Min="52" Max="52">10.4s</Capability>
+  <Capability Min="53" Max="53">10.6s</Capability>
+  <Capability Min="54" Max="55">11s</Capability>
+  <Capability Min="56" Max="57">12s</Capability>
+  <Capability Min="58" Max="59">13s</Capability>
+  <Capability Min="60" Max="62">14s</Capability>
+  <Capability Min="63" Max="64">15s</Capability>
+  <Capability Min="65" Max="67">16s</Capability>
+  <Capability Min="68" Max="69">17s</Capability>
+  <Capability Min="70" Max="72">18s</Capability>
+  <Capability Min="73" Max="74">19s</Capability>
+  <Capability Min="75" Max="77">20s</Capability>
+  <Capability Min="78" Max="80">21s</Capability>
+  <Capability Min="81" Max="82">22s</Capability>
+  <Capability Min="83" Max="85">23s</Capability>
+  <Capability Min="86" Max="87">24s</Capability>
+  <Capability Min="88" Max="90">25s</Capability>
+  <Capability Min="91" Max="92">26s</Capability>
+  <Capability Min="93" Max="95">27s</Capability>
+  <Capability Min="96" Max="97">28s</Capability>
+  <Capability Min="98" Max="100">29s</Capability>
+  <Capability Min="101" Max="103">30s</Capability>
+  <Capability Min="104" Max="105">31s</Capability>
+  <Capability Min="106" Max="108">32s</Capability>
+  <Capability Min="109" Max="110">33s</Capability>
+  <Capability Min="111" Max="113">34s</Capability>
+  <Capability Min="114" Max="115">35s</Capability>
+  <Capability Min="116" Max="118">36s</Capability>
+  <Capability Min="119" Max="120">37s</Capability>
+  <Capability Min="121" Max="123">38s</Capability>
+  <Capability Min="124" Max="126">39s</Capability>
+  <Capability Min="127" Max="128">40s</Capability>
+  <Capability Min="129" Max="131">41s</Capability>
+  <Capability Min="132" Max="133">42s</Capability>
+  <Capability Min="134" Max="136">43s</Capability>
+  <Capability Min="137" Max="138">44s</Capability>
+  <Capability Min="139" Max="141">45s</Capability>
+  <Capability Min="142" Max="143">46s</Capability>
+  <Capability Min="144" Max="146">47s</Capability>
+  <Capability Min="147" Max="148">48s</Capability>
+  <Capability Min="149" Max="151">49s</Capability>
+  <Capability Min="152" Max="154">50s</Capability>
+  <Capability Min="155" Max="156">51s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
+  <Capability Min="160" Max="161">53s</Capability>
+  <Capability Min="162" Max="164">54s</Capability>
+  <Capability Min="165" Max="166">55s</Capability>
+  <Capability Min="167" Max="169">56s</Capability>
+  <Capability Min="170" Max="171">57s</Capability>
+  <Capability Min="172" Max="174">58s</Capability>
+  <Capability Min="175" Max="177">59s</Capability>
+  <Capability Min="178" Max="179">60s</Capability>
+  <Capability Min="180" Max="182">65s</Capability>
+  <Capability Min="183" Max="184">70s</Capability>
+  <Capability Min="185" Max="187">75s</Capability>
+  <Capability Min="188" Max="189">80s</Capability>
+  <Capability Min="190" Max="192">85s</Capability>
+  <Capability Min="193" Max="194">90s</Capability>
+  <Capability Min="195" Max="197">95s</Capability>
+  <Capability Min="198" Max="199">100s</Capability>
+  <Capability Min="200" Max="202">110s</Capability>
+  <Capability Min="203" Max="205">120s</Capability>
+  <Capability Min="206" Max="207">130s</Capability>
+  <Capability Min="208" Max="210">140s</Capability>
+  <Capability Min="211" Max="212">150s</Capability>
+  <Capability Min="213" Max="215">160s</Capability>
+  <Capability Min="216" Max="217">170s</Capability>
+  <Capability Min="218" Max="220">180s</Capability>
+  <Capability Min="221" Max="222">190s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
+  <Capability Min="226" Max="228">210s</Capability>
+  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="231" Max="233">230s</Capability>
+  <Capability Min="234" Max="235">240s</Capability>
+  <Capability Min="236" Max="238">250s</Capability>
+  <Capability Min="239" Max="240">260s</Capability>
+  <Capability Min="241" Max="243">270s</Capability>
+  <Capability Min="244" Max="245">280s</Capability>
+  <Capability Min="246" Max="248">290s</Capability>
+  <Capability Min="249" Max="250">300s</Capability>
+  <Capability Min="251" Max="254">310s</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
+ </Channel>
+ <Channel Name="Color Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Fullspeed</Capability>
+  <Capability Min="1" Max="1">0.2s</Capability>
+  <Capability Min="2" Max="2">0.4s</Capability>
+  <Capability Min="3" Max="3">0.6s</Capability>
+  <Capability Min="4" Max="4">0.8s</Capability>
+  <Capability Min="5" Max="5">1s</Capability>
+  <Capability Min="6" Max="6">1.2s</Capability>
+  <Capability Min="7" Max="7">1.4s</Capability>
+  <Capability Min="8" Max="8">1.6s</Capability>
+  <Capability Min="9" Max="9">1.8s</Capability>
+  <Capability Min="10" Max="10">2s</Capability>
+  <Capability Min="11" Max="11">2.2s</Capability>
+  <Capability Min="12" Max="12">2.4s</Capability>
+  <Capability Min="13" Max="13">2.6s</Capability>
+  <Capability Min="14" Max="14">2.8s</Capability>
+  <Capability Min="15" Max="15">3s</Capability>
+  <Capability Min="16" Max="16">3.2s</Capability>
+  <Capability Min="17" Max="17">3.4s</Capability>
+  <Capability Min="18" Max="18">3.6s</Capability>
+  <Capability Min="19" Max="19">3.8s</Capability>
+  <Capability Min="20" Max="20">4s</Capability>
+  <Capability Min="21" Max="21">4.2s</Capability>
+  <Capability Min="22" Max="22">4.4s</Capability>
+  <Capability Min="23" Max="23">4.6s</Capability>
+  <Capability Min="24" Max="24">4.8s</Capability>
+  <Capability Min="25" Max="25">5s</Capability>
+  <Capability Min="26" Max="26">5.2s</Capability>
+  <Capability Min="27" Max="27">5.4s</Capability>
+  <Capability Min="28" Max="28">5.6s</Capability>
+  <Capability Min="29" Max="29">5.8s</Capability>
+  <Capability Min="30" Max="30">6s</Capability>
+  <Capability Min="31" Max="31">6.2s</Capability>
+  <Capability Min="32" Max="32">6.4s</Capability>
+  <Capability Min="33" Max="33">6.6s</Capability>
+  <Capability Min="34" Max="34">6.8s</Capability>
+  <Capability Min="35" Max="35">7s</Capability>
+  <Capability Min="36" Max="36">7.2s</Capability>
+  <Capability Min="37" Max="37">7.4s</Capability>
+  <Capability Min="38" Max="38">7.6s</Capability>
+  <Capability Min="39" Max="39">7.8s</Capability>
+  <Capability Min="40" Max="40">8s</Capability>
+  <Capability Min="41" Max="41">8.2s</Capability>
+  <Capability Min="42" Max="42">8.4s</Capability>
+  <Capability Min="43" Max="43">8.6s</Capability>
+  <Capability Min="44" Max="44">8.8s</Capability>
+  <Capability Min="45" Max="45">9s</Capability>
+  <Capability Min="46" Max="46">9.2s</Capability>
+  <Capability Min="47" Max="47">9.4s</Capability>
+  <Capability Min="48" Max="48">9.6s</Capability>
+  <Capability Min="49" Max="49">9.8s</Capability>
+  <Capability Min="50" Max="50">10s</Capability>
+  <Capability Min="51" Max="51">10.2s</Capability>
+  <Capability Min="52" Max="52">10.4s</Capability>
+  <Capability Min="53" Max="53">10.6s</Capability>
+  <Capability Min="54" Max="55">11s</Capability>
+  <Capability Min="56" Max="57">12s</Capability>
+  <Capability Min="58" Max="59">13s</Capability>
+  <Capability Min="60" Max="62">14s</Capability>
+  <Capability Min="63" Max="64">15s</Capability>
+  <Capability Min="65" Max="67">16s</Capability>
+  <Capability Min="68" Max="69">17s</Capability>
+  <Capability Min="70" Max="72">18s</Capability>
+  <Capability Min="73" Max="74">19s</Capability>
+  <Capability Min="75" Max="77">20s</Capability>
+  <Capability Min="78" Max="80">21s</Capability>
+  <Capability Min="81" Max="82">22s</Capability>
+  <Capability Min="83" Max="85">23s</Capability>
+  <Capability Min="86" Max="87">24s</Capability>
+  <Capability Min="88" Max="90">25s</Capability>
+  <Capability Min="91" Max="92">26s</Capability>
+  <Capability Min="93" Max="95">27s</Capability>
+  <Capability Min="96" Max="97">28s</Capability>
+  <Capability Min="98" Max="100">29s</Capability>
+  <Capability Min="101" Max="103">30s</Capability>
+  <Capability Min="104" Max="105">31s</Capability>
+  <Capability Min="106" Max="108">32s</Capability>
+  <Capability Min="109" Max="110">33s</Capability>
+  <Capability Min="111" Max="113">34s</Capability>
+  <Capability Min="114" Max="115">35s</Capability>
+  <Capability Min="116" Max="118">36s</Capability>
+  <Capability Min="119" Max="120">37s</Capability>
+  <Capability Min="121" Max="123">38s</Capability>
+  <Capability Min="124" Max="126">39s</Capability>
+  <Capability Min="127" Max="128">40s</Capability>
+  <Capability Min="129" Max="131">41s</Capability>
+  <Capability Min="132" Max="133">42s</Capability>
+  <Capability Min="134" Max="136">43s</Capability>
+  <Capability Min="137" Max="138">44s</Capability>
+  <Capability Min="139" Max="141">45s</Capability>
+  <Capability Min="142" Max="143">46s</Capability>
+  <Capability Min="144" Max="146">47s</Capability>
+  <Capability Min="147" Max="148">48s</Capability>
+  <Capability Min="149" Max="151">49s</Capability>
+  <Capability Min="152" Max="154">50s</Capability>
+  <Capability Min="155" Max="156">51s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
+  <Capability Min="160" Max="161">53s</Capability>
+  <Capability Min="162" Max="164">54s</Capability>
+  <Capability Min="165" Max="166">55s</Capability>
+  <Capability Min="167" Max="169">56s</Capability>
+  <Capability Min="170" Max="171">57s</Capability>
+  <Capability Min="172" Max="174">58s</Capability>
+  <Capability Min="175" Max="177">59s</Capability>
+  <Capability Min="178" Max="179">60s</Capability>
+  <Capability Min="180" Max="182">65s</Capability>
+  <Capability Min="183" Max="184">70s</Capability>
+  <Capability Min="185" Max="187">75s</Capability>
+  <Capability Min="188" Max="189">80s</Capability>
+  <Capability Min="190" Max="192">85s</Capability>
+  <Capability Min="193" Max="194">90s</Capability>
+  <Capability Min="195" Max="197">95s</Capability>
+  <Capability Min="198" Max="199">100s</Capability>
+  <Capability Min="200" Max="202">110s</Capability>
+  <Capability Min="203" Max="205">120s</Capability>
+  <Capability Min="206" Max="207">130s</Capability>
+  <Capability Min="208" Max="210">140s</Capability>
+  <Capability Min="211" Max="212">150s</Capability>
+  <Capability Min="213" Max="215">160s</Capability>
+  <Capability Min="216" Max="217">170s</Capability>
+  <Capability Min="218" Max="220">180s</Capability>
+  <Capability Min="221" Max="222">190s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
+  <Capability Min="226" Max="228">210s</Capability>
+  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="231" Max="233">230s</Capability>
+  <Capability Min="234" Max="235">240s</Capability>
+  <Capability Min="236" Max="238">250s</Capability>
+  <Capability Min="239" Max="240">260s</Capability>
+  <Capability Min="241" Max="243">270s</Capability>
+  <Capability Min="244" Max="245">280s</Capability>
+  <Capability Min="246" Max="248">290s</Capability>
+  <Capability Min="249" Max="250">300s</Capability>
+  <Capability Min="251" Max="254">310s</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
+ </Channel>
+ <Channel Name="Beam Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Fullspeed</Capability>
+  <Capability Min="1" Max="1">0.2s</Capability>
+  <Capability Min="2" Max="2">0.4s</Capability>
+  <Capability Min="3" Max="3">0.6s</Capability>
+  <Capability Min="4" Max="4">0.8s</Capability>
+  <Capability Min="5" Max="5">1s</Capability>
+  <Capability Min="6" Max="6">1.2s</Capability>
+  <Capability Min="7" Max="7">1.4s</Capability>
+  <Capability Min="8" Max="8">1.6s</Capability>
+  <Capability Min="9" Max="9">1.8s</Capability>
+  <Capability Min="10" Max="10">2s</Capability>
+  <Capability Min="11" Max="11">2.2s</Capability>
+  <Capability Min="12" Max="12">2.4s</Capability>
+  <Capability Min="13" Max="13">2.6s</Capability>
+  <Capability Min="14" Max="14">2.8s</Capability>
+  <Capability Min="15" Max="15">3s</Capability>
+  <Capability Min="16" Max="16">3.2s</Capability>
+  <Capability Min="17" Max="17">3.4s</Capability>
+  <Capability Min="18" Max="18">3.6s</Capability>
+  <Capability Min="19" Max="19">3.8s</Capability>
+  <Capability Min="20" Max="20">4s</Capability>
+  <Capability Min="21" Max="21">4.2s</Capability>
+  <Capability Min="22" Max="22">4.4s</Capability>
+  <Capability Min="23" Max="23">4.6s</Capability>
+  <Capability Min="24" Max="24">4.8s</Capability>
+  <Capability Min="25" Max="25">5s</Capability>
+  <Capability Min="26" Max="26">5.2s</Capability>
+  <Capability Min="27" Max="27">5.4s</Capability>
+  <Capability Min="28" Max="28">5.6s</Capability>
+  <Capability Min="29" Max="29">5.8s</Capability>
+  <Capability Min="30" Max="30">6s</Capability>
+  <Capability Min="31" Max="31">6.2s</Capability>
+  <Capability Min="32" Max="32">6.4s</Capability>
+  <Capability Min="33" Max="33">6.6s</Capability>
+  <Capability Min="34" Max="34">6.8s</Capability>
+  <Capability Min="35" Max="35">7s</Capability>
+  <Capability Min="36" Max="36">7.2s</Capability>
+  <Capability Min="37" Max="37">7.4s</Capability>
+  <Capability Min="38" Max="38">7.6s</Capability>
+  <Capability Min="39" Max="39">7.8s</Capability>
+  <Capability Min="40" Max="40">8s</Capability>
+  <Capability Min="41" Max="41">8.2s</Capability>
+  <Capability Min="42" Max="42">8.4s</Capability>
+  <Capability Min="43" Max="43">8.6s</Capability>
+  <Capability Min="44" Max="44">8.8s</Capability>
+  <Capability Min="45" Max="45">9s</Capability>
+  <Capability Min="46" Max="46">9.2s</Capability>
+  <Capability Min="47" Max="47">9.4s</Capability>
+  <Capability Min="48" Max="48">9.6s</Capability>
+  <Capability Min="49" Max="49">9.8s</Capability>
+  <Capability Min="50" Max="50">10s</Capability>
+  <Capability Min="51" Max="51">10.2s</Capability>
+  <Capability Min="52" Max="52">10.4s</Capability>
+  <Capability Min="53" Max="53">10.6s</Capability>
+  <Capability Min="54" Max="55">11s</Capability>
+  <Capability Min="56" Max="57">12s</Capability>
+  <Capability Min="58" Max="59">13s</Capability>
+  <Capability Min="60" Max="62">14s</Capability>
+  <Capability Min="63" Max="64">15s</Capability>
+  <Capability Min="65" Max="67">16s</Capability>
+  <Capability Min="68" Max="69">17s</Capability>
+  <Capability Min="70" Max="72">18s</Capability>
+  <Capability Min="73" Max="74">19s</Capability>
+  <Capability Min="75" Max="77">20s</Capability>
+  <Capability Min="78" Max="80">21s</Capability>
+  <Capability Min="81" Max="82">22s</Capability>
+  <Capability Min="83" Max="85">23s</Capability>
+  <Capability Min="86" Max="87">24s</Capability>
+  <Capability Min="88" Max="90">25s</Capability>
+  <Capability Min="91" Max="92">26s</Capability>
+  <Capability Min="93" Max="95">27s</Capability>
+  <Capability Min="96" Max="97">28s</Capability>
+  <Capability Min="98" Max="100">29s</Capability>
+  <Capability Min="101" Max="103">30s</Capability>
+  <Capability Min="104" Max="105">31s</Capability>
+  <Capability Min="106" Max="108">32s</Capability>
+  <Capability Min="109" Max="110">33s</Capability>
+  <Capability Min="111" Max="113">34s</Capability>
+  <Capability Min="114" Max="115">35s</Capability>
+  <Capability Min="116" Max="118">36s</Capability>
+  <Capability Min="119" Max="120">37s</Capability>
+  <Capability Min="121" Max="123">38s</Capability>
+  <Capability Min="124" Max="126">39s</Capability>
+  <Capability Min="127" Max="128">40s</Capability>
+  <Capability Min="129" Max="131">41s</Capability>
+  <Capability Min="132" Max="133">42s</Capability>
+  <Capability Min="134" Max="136">43s</Capability>
+  <Capability Min="137" Max="138">44s</Capability>
+  <Capability Min="139" Max="141">45s</Capability>
+  <Capability Min="142" Max="143">46s</Capability>
+  <Capability Min="144" Max="146">47s</Capability>
+  <Capability Min="147" Max="148">48s</Capability>
+  <Capability Min="149" Max="151">49s</Capability>
+  <Capability Min="152" Max="154">50s</Capability>
+  <Capability Min="155" Max="156">51s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
+  <Capability Min="160" Max="161">53s</Capability>
+  <Capability Min="162" Max="164">54s</Capability>
+  <Capability Min="165" Max="166">55s</Capability>
+  <Capability Min="167" Max="169">56s</Capability>
+  <Capability Min="170" Max="171">57s</Capability>
+  <Capability Min="172" Max="174">58s</Capability>
+  <Capability Min="175" Max="177">59s</Capability>
+  <Capability Min="178" Max="179">60s</Capability>
+  <Capability Min="180" Max="182">65s</Capability>
+  <Capability Min="183" Max="184">70s</Capability>
+  <Capability Min="185" Max="187">75s</Capability>
+  <Capability Min="188" Max="189">80s</Capability>
+  <Capability Min="190" Max="192">85s</Capability>
+  <Capability Min="193" Max="194">90s</Capability>
+  <Capability Min="195" Max="197">95s</Capability>
+  <Capability Min="198" Max="199">100s</Capability>
+  <Capability Min="200" Max="202">110s</Capability>
+  <Capability Min="203" Max="205">120s</Capability>
+  <Capability Min="206" Max="207">130s</Capability>
+  <Capability Min="208" Max="210">140s</Capability>
+  <Capability Min="211" Max="212">150s</Capability>
+  <Capability Min="213" Max="215">160s</Capability>
+  <Capability Min="216" Max="217">170s</Capability>
+  <Capability Min="218" Max="220">180s</Capability>
+  <Capability Min="221" Max="222">190s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
+  <Capability Min="226" Max="228">210s</Capability>
+  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="231" Max="233">230s</Capability>
+  <Capability Min="234" Max="235">240s</Capability>
+  <Capability Min="236" Max="238">250s</Capability>
+  <Capability Min="239" Max="240">260s</Capability>
+  <Capability Min="241" Max="243">270s</Capability>
+  <Capability Min="244" Max="245">280s</Capability>
+  <Capability Min="246" Max="248">290s</Capability>
+  <Capability Min="249" Max="250">300s</Capability>
+  <Capability Min="251" Max="254">310s</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
+ </Channel>
+ <Channel Name="Gobo Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Fullspeed</Capability>
+  <Capability Min="1" Max="1">0.2s</Capability>
+  <Capability Min="2" Max="2">0.4s</Capability>
+  <Capability Min="3" Max="3">0.6s</Capability>
+  <Capability Min="4" Max="4">0.8s</Capability>
+  <Capability Min="5" Max="5">1s</Capability>
+  <Capability Min="6" Max="6">1.2s</Capability>
+  <Capability Min="7" Max="7">1.4s</Capability>
+  <Capability Min="8" Max="8">1.6s</Capability>
+  <Capability Min="9" Max="9">1.8s</Capability>
+  <Capability Min="10" Max="10">2s</Capability>
+  <Capability Min="11" Max="11">2.2s</Capability>
+  <Capability Min="12" Max="12">2.4s</Capability>
+  <Capability Min="13" Max="13">2.6s</Capability>
+  <Capability Min="14" Max="14">2.8s</Capability>
+  <Capability Min="15" Max="15">3s</Capability>
+  <Capability Min="16" Max="16">3.2s</Capability>
+  <Capability Min="17" Max="17">3.4s</Capability>
+  <Capability Min="18" Max="18">3.6s</Capability>
+  <Capability Min="19" Max="19">3.8s</Capability>
+  <Capability Min="20" Max="20">4s</Capability>
+  <Capability Min="21" Max="21">4.2s</Capability>
+  <Capability Min="22" Max="22">4.4s</Capability>
+  <Capability Min="23" Max="23">4.6s</Capability>
+  <Capability Min="24" Max="24">4.8s</Capability>
+  <Capability Min="25" Max="25">5s</Capability>
+  <Capability Min="26" Max="26">5.2s</Capability>
+  <Capability Min="27" Max="27">5.4s</Capability>
+  <Capability Min="28" Max="28">5.6s</Capability>
+  <Capability Min="29" Max="29">5.8s</Capability>
+  <Capability Min="30" Max="30">6s</Capability>
+  <Capability Min="31" Max="31">6.2s</Capability>
+  <Capability Min="32" Max="32">6.4s</Capability>
+  <Capability Min="33" Max="33">6.6s</Capability>
+  <Capability Min="34" Max="34">6.8s</Capability>
+  <Capability Min="35" Max="35">7s</Capability>
+  <Capability Min="36" Max="36">7.2s</Capability>
+  <Capability Min="37" Max="37">7.4s</Capability>
+  <Capability Min="38" Max="38">7.6s</Capability>
+  <Capability Min="39" Max="39">7.8s</Capability>
+  <Capability Min="40" Max="40">8s</Capability>
+  <Capability Min="41" Max="41">8.2s</Capability>
+  <Capability Min="42" Max="42">8.4s</Capability>
+  <Capability Min="43" Max="43">8.6s</Capability>
+  <Capability Min="44" Max="44">8.8s</Capability>
+  <Capability Min="45" Max="45">9s</Capability>
+  <Capability Min="46" Max="46">9.2s</Capability>
+  <Capability Min="47" Max="47">9.4s</Capability>
+  <Capability Min="48" Max="48">9.6s</Capability>
+  <Capability Min="49" Max="49">9.8s</Capability>
+  <Capability Min="50" Max="50">10s</Capability>
+  <Capability Min="51" Max="51">10.2s</Capability>
+  <Capability Min="52" Max="52">10.4s</Capability>
+  <Capability Min="53" Max="53">10.6s</Capability>
+  <Capability Min="54" Max="55">11s</Capability>
+  <Capability Min="56" Max="57">12s</Capability>
+  <Capability Min="58" Max="59">13s</Capability>
+  <Capability Min="60" Max="62">14s</Capability>
+  <Capability Min="63" Max="64">15s</Capability>
+  <Capability Min="65" Max="67">16s</Capability>
+  <Capability Min="68" Max="69">17s</Capability>
+  <Capability Min="70" Max="72">18s</Capability>
+  <Capability Min="73" Max="74">19s</Capability>
+  <Capability Min="75" Max="77">20s</Capability>
+  <Capability Min="78" Max="80">21s</Capability>
+  <Capability Min="81" Max="82">22s</Capability>
+  <Capability Min="83" Max="85">23s</Capability>
+  <Capability Min="86" Max="87">24s</Capability>
+  <Capability Min="88" Max="90">25s</Capability>
+  <Capability Min="91" Max="92">26s</Capability>
+  <Capability Min="93" Max="95">27s</Capability>
+  <Capability Min="96" Max="97">28s</Capability>
+  <Capability Min="98" Max="100">29s</Capability>
+  <Capability Min="101" Max="103">30s</Capability>
+  <Capability Min="104" Max="105">31s</Capability>
+  <Capability Min="106" Max="108">32s</Capability>
+  <Capability Min="109" Max="110">33s</Capability>
+  <Capability Min="111" Max="113">34s</Capability>
+  <Capability Min="114" Max="115">35s</Capability>
+  <Capability Min="116" Max="118">36s</Capability>
+  <Capability Min="119" Max="120">37s</Capability>
+  <Capability Min="121" Max="123">38s</Capability>
+  <Capability Min="124" Max="126">39s</Capability>
+  <Capability Min="127" Max="128">40s</Capability>
+  <Capability Min="129" Max="131">41s</Capability>
+  <Capability Min="132" Max="133">42s</Capability>
+  <Capability Min="134" Max="136">43s</Capability>
+  <Capability Min="137" Max="138">44s</Capability>
+  <Capability Min="139" Max="141">45s</Capability>
+  <Capability Min="142" Max="143">46s</Capability>
+  <Capability Min="144" Max="146">47s</Capability>
+  <Capability Min="147" Max="148">48s</Capability>
+  <Capability Min="149" Max="151">49s</Capability>
+  <Capability Min="152" Max="154">50s</Capability>
+  <Capability Min="155" Max="156">51s</Capability>
+  <Capability Min="157" Max="159">52s</Capability>
+  <Capability Min="160" Max="161">53s</Capability>
+  <Capability Min="162" Max="164">54s</Capability>
+  <Capability Min="165" Max="166">55s</Capability>
+  <Capability Min="167" Max="169">56s</Capability>
+  <Capability Min="170" Max="171">57s</Capability>
+  <Capability Min="172" Max="174">58s</Capability>
+  <Capability Min="175" Max="177">59s</Capability>
+  <Capability Min="178" Max="179">60s</Capability>
+  <Capability Min="180" Max="182">65s</Capability>
+  <Capability Min="183" Max="184">70s</Capability>
+  <Capability Min="185" Max="187">75s</Capability>
+  <Capability Min="188" Max="189">80s</Capability>
+  <Capability Min="190" Max="192">85s</Capability>
+  <Capability Min="193" Max="194">90s</Capability>
+  <Capability Min="195" Max="197">95s</Capability>
+  <Capability Min="198" Max="199">100s</Capability>
+  <Capability Min="200" Max="202">110s</Capability>
+  <Capability Min="203" Max="205">120s</Capability>
+  <Capability Min="206" Max="207">130s</Capability>
+  <Capability Min="208" Max="210">140s</Capability>
+  <Capability Min="211" Max="212">150s</Capability>
+  <Capability Min="213" Max="215">160s</Capability>
+  <Capability Min="216" Max="217">170s</Capability>
+  <Capability Min="218" Max="220">180s</Capability>
+  <Capability Min="221" Max="222">190s</Capability>
+  <Capability Min="223" Max="225">200s</Capability>
+  <Capability Min="226" Max="228">210s</Capability>
+  <Capability Min="229" Max="230">220s</Capability>
+  <Capability Min="231" Max="233">230s</Capability>
+  <Capability Min="234" Max="235">240s</Capability>
+  <Capability Min="236" Max="238">250s</Capability>
+  <Capability Min="239" Max="240">260s</Capability>
+  <Capability Min="241" Max="243">270s</Capability>
+  <Capability Min="244" Max="245">280s</Capability>
+  <Capability Min="246" Max="248">290s</Capability>
+  <Capability Min="249" Max="250">300s</Capability>
+  <Capability Min="251" Max="254">310s</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="80">No function</Capability>
+  <Capability Min="81" Max="87">Luminaire Reset</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
+  <Capability Min="100" Max="104">Recalibration Color</Capability>
+  <Capability Min="105" Max="111">No function</Capability>
+  <Capability Min="112" Max="116">Recalibration Gobo</Capability>
+  <Capability Min="117" Max="125">No function</Capability>
+  <Capability Min="126" Max="130">Recalibration Edge/Zoom/Iris</Capability>
+  <Capability Min="131" Max="137">No function</Capability>
+  <Capability Min="138" Max="142">Recalibration Dimmer/Strobe</Capability>
+  <Capability Min="143" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Pan</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Tilt Fine</Channel>
+  <Channel Number="5">Edge</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">CTO Mixer</Channel>
+  <Channel Number="8">Cyan Mixer</Channel>
+  <Channel Number="9">Yellow Mixer</Channel>
+  <Channel Number="10">Magenta Mixer</Channel>
+  <Channel Number="11">Color Wheel</Channel>
+  <Channel Number="12">Gobo Wheel 1</Channel>
+  <Channel Number="13">Gobo 1 Index/Rotation</Channel>
+  <Channel Number="14">Gobo 1 Fine Index/Rotation</Channel>
+  <Channel Number="15">Gobo Wheel 2</Channel>
+  <Channel Number="16">Gobo 2 Index/Rotation</Channel>
+  <Channel Number="17">Gobo 2 Fine Index/Rotation</Channel>
+  <Channel Number="18">Gobo Wheel 3</Channel>
+  <Channel Number="19">Gobo 3 Index/Rotation</Channel>
+  <Channel Number="20">Gobo 3 Fine Index/Rotation</Channel>
+  <Channel Number="21">Beam Iris</Channel>
+  <Channel Number="22">Strobe</Channel>
+  <Channel Number="23">Focus Time</Channel>
+  <Channel Number="24">Color Time</Channel>
+  <Channel Number="25">Beam Time</Channel>
+  <Channel Number="26">Gobo Time</Channel>
+  <Channel Number="27">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 1200W" Lumens="24000" ColourTemperature="6000"/>
+  <Dimensions Weight="41" Width="457" Height="802" Depth="368"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Flurry 5</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="10">Closed</Capability>
+  <Capability Min="11" Max="255">0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="18">Color Macro 1</Capability>
+  <Capability Min="19" Max="26">Color Macro 2</Capability>
+  <Capability Min="27" Max="34">Color Macro 3</Capability>
+  <Capability Min="35" Max="42">Color Macro 4</Capability>
+  <Capability Min="43" Max="50">Color Macro 5</Capability>
+  <Capability Min="51" Max="58">Color Macro 6</Capability>
+  <Capability Min="59" Max="66">Color Macro 7</Capability>
+  <Capability Min="67" Max="74">Color Macro 8</Capability>
+  <Capability Min="75" Max="82">Color Macro 9</Capability>
+  <Capability Min="83" Max="90">Color Macro 10</Capability>
+  <Capability Min="91" Max="98">Color Macro 11</Capability>
+  <Capability Min="99" Max="106">Color Macro 12</Capability>
+  <Capability Min="107" Max="114">Color Macro 13</Capability>
+  <Capability Min="115" Max="122">Color Macro 14</Capability>
+  <Capability Min="123" Max="130">Color Macro 15</Capability>
+  <Capability Min="131" Max="138">Color Macro 16</Capability>
+  <Capability Min="139" Max="146">Color Macro 17</Capability>
+  <Capability Min="147" Max="154">Color Macro 18</Capability>
+  <Capability Min="155" Max="162">Color Macro 19</Capability>
+  <Capability Min="163" Max="170">Color Macro 20</Capability>
+  <Capability Min="171" Max="178">Color Macro 21</Capability>
+  <Capability Min="179" Max="186">Color Macro 22</Capability>
+  <Capability Min="187" Max="194">Color Macro 23</Capability>
+  <Capability Min="195" Max="202">Color Macro 24</Capability>
+  <Capability Min="203" Max="210">Color Macro 25</Capability>
+  <Capability Min="211" Max="218">Color Macro 26</Capability>
+  <Capability Min="219" Max="226">Color Macro 27</Capability>
+  <Capability Min="227" Max="234">Color Macro 28</Capability>
+  <Capability Min="235" Max="242">Color Macro 29</Capability>
+  <Capability Min="243" Max="255">Color Macro 30</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Sound Active">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="255" Preset="SilentModeOff">Sound Active</Capability>
+ </Channel>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Color Macros</Channel>
+  <Channel Number="11">Strobe</Channel>
+  <Channel Number="12">Sound Active</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="173" Height="249" Depth="173"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

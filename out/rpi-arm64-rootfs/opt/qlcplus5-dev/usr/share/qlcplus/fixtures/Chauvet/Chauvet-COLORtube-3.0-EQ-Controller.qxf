@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Fede79</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORtube 3.0 EQ Controller</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5" Preset="Alias">Dimmer</Capability>
+  <Capability Min="6" Max="11" Preset="Alias">Red
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="12" Max="17" Preset="Alias">Green
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="18" Max="23" Preset="Alias">Blue
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="24" Max="29" Preset="Alias">Yellow
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="30" Max="35" Preset="Alias">Cyan
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="36" Max="41" Preset="Alias">Purple
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="42" Max="47" Preset="Alias">White
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+  </Capability>
+  <Capability Min="48" Max="71" Preset="Alias">Mode 1-4
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+   <Alias Mode="6 Channel" Channel="No function" With="Run speed"/>
+  </Capability>
+  <Capability Min="72" Max="173" Preset="Alias">Mode 5-21
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+   <Alias Mode="6 Channel" Channel="No function" With="Run speed"/>
+   <Alias Mode="6 Channel" Channel="Strobe" With="No function 4"/>
+  </Capability>
+  <Capability Min="174" Max="249" Preset="Alias">Mode 22-34
+   <Alias Mode="6 Channel" Channel="Red" With="No function 1"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+   <Alias Mode="6 Channel" Channel="No function" With="Run speed"/>
+  </Capability>
+  <Capability Min="250" Max="255" Preset="Alias">Sound
+   <Alias Mode="6 Channel" Channel="Red" With="Sound Activity Color Change"/>
+   <Alias Mode="6 Channel" Channel="Green" With="No function 2"/>
+   <Alias Mode="6 Channel" Channel="Blue" With="No function 3"/>
+   <Alias Mode="6 Channel" Channel="Strobe" With="No function 4"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function 1" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="No function 3" Preset="NoFunction"/>
+ <Channel Name="No function 4" Preset="NoFunction"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No strobe</Capability>
+  <Capability Min="6" Max="255">Strobe</Capability>
+ </Channel>
+ <Channel Name="Run speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Run speed</Capability>
+ </Channel>
+ <Channel Name="Sound Activity Color Change">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6">No Function</Capability>
+  <Capability Min="7" Max="13" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Back: R Active: G</Capability>
+  <Capability Min="14" Max="20" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Back: R Active: B</Capability>
+  <Capability Min="21" Max="27" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ffff">Back: R Active: GB</Capability>
+  <Capability Min="28" Max="34" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Back: R Active: RG</Capability>
+  <Capability Min="35" Max="41" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">Back: R Active: RB</Capability>
+  <Capability Min="42" Max="48" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Back: R Active: W</Capability>
+  <Capability Min="49" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Back: G Active: R</Capability>
+  <Capability Min="56" Max="62" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Back: G Active: B</Capability>
+  <Capability Min="63" Max="69" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Back: G Active: RG</Capability>
+  <Capability Min="70" Max="76" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Back: G Active: RB</Capability>
+  <Capability Min="77" Max="83" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Back: G Active: W</Capability>
+  <Capability Min="84" Max="90" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Back: B Active: R</Capability>
+  <Capability Min="91" Max="97" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Back: B Active: G</Capability>
+  <Capability Min="98" Max="104" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Back: B Active: RG</Capability>
+  <Capability Min="105" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Back: B Active: RB</Capability>
+  <Capability Min="112" Max="118" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Back: B Active: W</Capability>
+  <Capability Min="119" Max="125" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Back: W Active: R</Capability>
+  <Capability Min="126" Max="132" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">Back: W Active: G</Capability>
+  <Capability Min="133" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Back: W Active: B</Capability>
+  <Capability Min="140" Max="146" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">Back: W Active: RG</Capability>
+  <Capability Min="147" Max="153" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff00ff">Back: W Active: RB</Capability>
+  <Capability Min="154" Max="160" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ffff">Back: W Active: GB</Capability>
+  <Capability Min="161" Max="167" Preset="ColorDoubleMacro" Res1="#000000" Res2="#ff0000">Back: N Active: R</Capability>
+  <Capability Min="168" Max="174" Preset="ColorDoubleMacro" Res1="#000000" Res2="#00ff00">Back: N Active: G</Capability>
+  <Capability Min="175" Max="181" Preset="ColorDoubleMacro" Res1="#000000" Res2="#0000ff">Back: N Active: B</Capability>
+  <Capability Min="182" Max="188" Preset="ColorDoubleMacro" Res1="#000000" Res2="#ff00ff">Back: N Active: RB</Capability>
+  <Capability Min="189" Max="195" Preset="ColorDoubleMacro" Res1="#000000" Res2="#ffff00">Back: N Active: RG</Capability>
+  <Capability Min="196" Max="202" Preset="ColorDoubleMacro" Res1="#000000" Res2="#ffffff">Back: N Active: W</Capability>
+  <Capability Min="203" Max="209">G &amp; Dot</Capability>
+  <Capability Min="210" Max="216">GB &amp; Dot</Capability>
+  <Capability Min="217" Max="223">B &amp; Dot</Capability>
+  <Capability Min="224" Max="230">Sync Colors</Capability>
+  <Capability Min="231" Max="237">Sync &amp; Dot</Capability>
+  <Capability Min="238" Max="244">Sync Cross</Capability>
+  <Capability Min="245" Max="251">Cycle Colors</Capability>
+  <Capability Min="252" Max="255">Auto Motion</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">No function</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.8" Width="995" Height="114" Depth="75"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="48" Height="1"/>
+  <Technical PowerConsumption="22" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

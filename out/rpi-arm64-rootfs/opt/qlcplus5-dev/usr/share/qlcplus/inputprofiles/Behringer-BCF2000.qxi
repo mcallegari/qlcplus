@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.3 GIT</Version>
+  <Author>Heikki Junnila, Lorenzo Andreani, Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Behringer</Manufacturer>
+ <Model>BCF2000</Model>
+ <Type>MIDI</Type>
+ <Channel Number="1">
+  <Name>Encoder 1 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Encoder 2 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Encoder 3 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Encoder 4 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Encoder 5 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Encoder 6 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Encoder 7 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Encoder 8 - Group A</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Encoder 1 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Encoder 2 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="11">
+  <Name>Encoder 3 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12">
+  <Name>Encoder 4 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="13">
+  <Name>Encoder 5 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Encoder 6 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Encoder 7 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>Encoder 8 - Group B</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>Encoder 1 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Encoder 2 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Encoder 3 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Encoder 4 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Encoder 5 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Encoder 6 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Encoder 7 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Encoder 8 - Group C</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Encoder 1 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Encoder 2 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Encoder 3 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Encoder 4 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Encoder 5 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Encoder 6 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Encoder 7 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Encoder 8 - Group D</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Encoder Push 1 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Encoder Push 2 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Encoder Push 3 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Encoder Push 4 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Encoder Push 5 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Encoder Push 6 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Encoder Push 7 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Encoder Push 8 - Group A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Encoder Push 1 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Encoder Push 2 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Encoder Push 3 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Encoder Push 4 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Encoder Push 5 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Encoder Push 6 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Encoder Push 7 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Encoder Push 8 - Group B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Encoder Push 1 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Encoder Push 2 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Encoder Push 3 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Encoder Push 4 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Encoder Push 5 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Encoder Push 6 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Encoder Push 7 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>Encoder Push 8 - Group C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57">
+  <Name>Encoder Push 1 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="58">
+  <Name>Encoder Push 2 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Encoder Push 3 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60">
+  <Name>Encoder Push 4 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61">
+  <Name>Encoder Push 5 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="62">
+  <Name>Encoder Push 6 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63">
+  <Name>Encoder Push 7 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="64">
+  <Name>Encoder Push 8 - Group D</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="65">
+  <Name>Button 1 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="66">
+  <Name>Button 2 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="67">
+  <Name>Button 3 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="68">
+  <Name>Button 4 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="69">
+  <Name>Button 5 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="70">
+  <Name>Button 6 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="71">
+  <Name>Button 7 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="72">
+  <Name>Button 8 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="73">
+  <Name>Button 1 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="74">
+  <Name>Button 2 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="75">
+  <Name>Button 3 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="76">
+  <Name>Button 4 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="77">
+  <Name>Button 5 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="78">
+  <Name>Button 6 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="79">
+  <Name>Button 7 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Button 8 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="81">
+  <Name>Slider 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="82">
+  <Name>Slider 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="83">
+  <Name>Slider 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="84">
+  <Name>Slider 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="85">
+  <Name>Slider 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="86">
+  <Name>Slider 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="87">
+  <Name>Slider 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="88">
+  <Name>Slider 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="89">
+  <Name>Button 9 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="90">
+  <Name>Button 10 Top</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="91">
+  <Name>Button 9 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="92">
+  <Name>Button 10 Bottom</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="93">
+  <Name>Foot Switch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="94">
+  <Name>Foot Controller</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

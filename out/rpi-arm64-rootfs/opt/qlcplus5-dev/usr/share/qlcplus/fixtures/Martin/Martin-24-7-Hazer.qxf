@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.2 GIT</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>ZR24/7 Hazer</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Haze Density">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Zero output (dead-band)</Capability>
+  <Capability Min="20" Max="29">Output (level 1)</Capability>
+  <Capability Min="30" Max="39">Output (level 2)</Capability>
+  <Capability Min="40" Max="49">Output (level 3)</Capability>
+  <Capability Min="50" Max="59">Output (level 4)</Capability>
+  <Capability Min="60" Max="69">Output (level 5)</Capability>
+  <Capability Min="70" Max="79">Output (level 6)</Capability>
+  <Capability Min="80" Max="89">Output (level 7)</Capability>
+  <Capability Min="90" Max="99">Output (level 8)</Capability>
+  <Capability Min="100" Max="109">Output (level 9)</Capability>
+  <Capability Min="110" Max="119">Output (level 10)</Capability>
+  <Capability Min="120" Max="129">Output (level 11)</Capability>
+  <Capability Min="130" Max="139">Output (level 12)</Capability>
+  <Capability Min="140" Max="149">Output (level 13)</Capability>
+  <Capability Min="150" Max="159">Output (level 14)</Capability>
+  <Capability Min="160" Max="169">Output (level 15)</Capability>
+  <Capability Min="170" Max="179">Output (level 16)</Capability>
+  <Capability Min="180" Max="189">Output (level 17)</Capability>
+  <Capability Min="190" Max="199">Output (level 18)</Capability>
+  <Capability Min="200" Max="209">Output (level 19)</Capability>
+  <Capability Min="210" Max="219">Output (level 20)</Capability>
+  <Capability Min="220" Max="230">Prime function</Capability>
+  <Capability Min="231" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Fan Speed Setting">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Fan off</Capability>
+  <Capability Min="20" Max="29">Speed (level 1)</Capability>
+  <Capability Min="30" Max="39">Speed (level 2)</Capability>
+  <Capability Min="40" Max="49">Speed (level 3)</Capability>
+  <Capability Min="50" Max="59">Speed (level 4)</Capability>
+  <Capability Min="60" Max="69">Speed (level 5)</Capability>
+  <Capability Min="70" Max="79">Speed (level 6)</Capability>
+  <Capability Min="80" Max="89">Speed (level 7)</Capability>
+  <Capability Min="90" Max="99">Speed (level 8)</Capability>
+  <Capability Min="100" Max="109">Speed (level 9)</Capability>
+  <Capability Min="110" Max="119">Speed (level 10)</Capability>
+  <Capability Min="120" Max="129">Speed (level 11)</Capability>
+  <Capability Min="130" Max="139">Speed (level 12)</Capability>
+  <Capability Min="140" Max="149">Speed (level 13)</Capability>
+  <Capability Min="150" Max="159">Speed (level 14)</Capability>
+  <Capability Min="160" Max="169">Speed (level 15)</Capability>
+  <Capability Min="170" Max="179">Speed (level 16)</Capability>
+  <Capability Min="180" Max="189">Speed (level 17)</Capability>
+  <Capability Min="190" Max="199">Speed (level 18)</Capability>
+  <Capability Min="200" Max="209">Speed (level 19)</Capability>
+  <Capability Min="210" Max="219">Speed (level 20)</Capability>
+  <Capability Min="220" Max="230">Auto fan mode</Capability>
+  <Capability Min="231" Max="244">No function</Capability>
+  <Capability Min="245" Max="255">Fan off, fog off, heater off</Capability>
+ </Channel>
+ <Mode Name="Main">
+  <Channel Number="0">Haze Density</Channel>
+  <Channel Number="1">Fan Speed Setting</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="None" Lumens="0"/>
+   <Dimensions Width="246" Height="350" Weight="25" Depth="419"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="975" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+</FixtureDefinition>

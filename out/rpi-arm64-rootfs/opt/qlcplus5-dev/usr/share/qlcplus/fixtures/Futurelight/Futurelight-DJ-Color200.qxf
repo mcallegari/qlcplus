@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>2.6.1</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>DJ-Color200</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">White</Capability>
+  <Capability Min="11" Max="21">Light blue</Capability>
+  <Capability Min="22" Max="32">Light green</Capability>
+  <Capability Min="33" Max="43">Orange</Capability>
+  <Capability Min="44" Max="54">Green</Capability>
+  <Capability Min="55" Max="65">Sky blue</Capability>
+  <Capability Min="66" Max="76">Pink</Capability>
+  <Capability Min="77" Max="87">Red</Capability>
+  <Capability Min="88" Max="98">Yellow</Capability>
+  <Capability Min="99" Max="109">Dark blue</Capability>
+  <Capability Min="110" Max="120">Dark green</Capability>
+  <Capability Min="121" Max="127">Peach</Capability>
+  <Capability Min="128" Max="191">Forwards rainbow speed</Capability>
+  <Capability Min="192" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Circle 1</Capability>
+  <Capability Min="21" Max="42">3200K correction filter</Capability>
+  <Capability Min="43" Max="63">6500K correction filter</Capability>
+  <Capability Min="64" Max="84">Magenta</Capability>
+  <Capability Min="85" Max="106">Cyan</Capability>
+  <Capability Min="107" Max="127">Yellow</Capability>
+  <Capability Min="128" Max="148">UV like</Capability>
+  <Capability Min="149" Max="170">Gobo 2</Capability>
+  <Capability Min="171" Max="191">Gobo 1</Capability>
+  <Capability Min="192" Max="212">Circle 4</Capability>
+  <Capability Min="213" Max="234">Circle 3</Capability>
+  <Capability Min="235" Max="255">Circle 2</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Shutter closed</Capability>
+  <Capability Min="1" Max="139">Shutter open</Capability>
+  <Capability Min="140" Max="149">Reset after 3 seconds</Capability>
+  <Capability Min="150" Max="219">Strobe speed</Capability>
+  <Capability Min="220" Max="229">Shutter open</Capability>
+  <Capability Min="230" Max="239">Random strobe</Capability>
+  <Capability Min="240" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Blackout</Capability>
+  <Capability Min="1" Max="128">Spot intensity 0 to 100</Capability>
+  <Capability Min="129" Max="186">Spot intensity 100 to 0</Capability>
+  <Capability Min="187" Max="194">Blackout</Capability>
+  <Capability Min="195" Max="255">Wash intensity 0 to 100</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Effect</Channel>
+  <Channel Number="2">Shutter, strobe</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W"/>
+   <Dimensions Width="300" Height="390" Weight="11" Depth="290"/>
+   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

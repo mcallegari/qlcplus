@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>James Elliott</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>Weather System</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow-&gt;fast</Capability>
+ </Channel>
+ <Channel Name="Red All" Preset="IntensityRed"/>
+ <Channel Name="Green All" Preset="IntensityGreen"/>
+ <Channel Name="Blue All" Preset="IntensityBlue"/>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">RGB</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="64" Max="71">Program 1</Capability>
+  <Capability Min="72" Max="79">Program 2</Capability>
+  <Capability Min="80" Max="87">Program 3</Capability>
+  <Capability Min="88" Max="95">Program 4</Capability>
+  <Capability Min="96" Max="103">Program 5</Capability>
+  <Capability Min="104" Max="111">Program 6</Capability>
+  <Capability Min="112" Max="119">Program 7</Capability>
+  <Capability Min="120" Max="127">Program 8</Capability>
+  <Capability Min="128" Max="135">Program 9</Capability>
+  <Capability Min="136" Max="143">Program 10</Capability>
+  <Capability Min="144" Max="151">Program 11</Capability>
+  <Capability Min="152" Max="159">Program 12</Capability>
+  <Capability Min="160" Max="167">Program 13</Capability>
+  <Capability Min="168" Max="175">Program 14</Capability>
+  <Capability Min="176" Max="183">Program 15</Capability>
+  <Capability Min="184" Max="191">Program 16</Capability>
+  <Capability Min="192" Max="199">Program 17</Capability>
+  <Capability Min="200" Max="207">Program 18</Capability>
+  <Capability Min="208" Max="215">Program 19</Capability>
+  <Capability Min="216" Max="223">Program 20</Capability>
+  <Capability Min="224" Max="231">Program 21</Capability>
+  <Capability Min="232" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Speed or Mic">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="63">Stop, or Low-&gt;Med sensitivity in Sound Active</Capability>
+  <Capability Min="64" Max="255">Slow-&gt;Fast, or Med-&gt;High sensitivity in Sound Active</Capability>
+ </Channel>
+ <Mode Name="26 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">Red 3</Channel>
+  <Channel Number="8">Green 3</Channel>
+  <Channel Number="9">Blue 3</Channel>
+  <Channel Number="10">Red 4</Channel>
+  <Channel Number="11">Green 4</Channel>
+  <Channel Number="12">Blue 4</Channel>
+  <Channel Number="13">Red 5</Channel>
+  <Channel Number="14">Green 5</Channel>
+  <Channel Number="15">Blue 5</Channel>
+  <Channel Number="16">Red 6</Channel>
+  <Channel Number="17">Green 6</Channel>
+  <Channel Number="18">Blue 6</Channel>
+  <Channel Number="19">Red 7</Channel>
+  <Channel Number="20">Green 7</Channel>
+  <Channel Number="21">Blue 7</Channel>
+  <Channel Number="22">Red 8</Channel>
+  <Channel Number="23">Green 8</Channel>
+  <Channel Number="24">Blue 8</Channel>
+  <Channel Number="25">Strobe</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red All</Channel>
+  <Channel Number="2">Green All</Channel>
+  <Channel Number="3">Blue All</Channel>
+  <Channel Number="4">Mode</Channel>
+  <Channel Number="5">Speed or Mic</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.25" Width="900" Height="113" Depth="60"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="87" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

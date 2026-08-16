@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Hero Wash 640FX</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Default="127" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Default="127" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Default="127" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter" Default="255">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">Shutter close</Capability>
+  <Capability Min="11" Max="80" Preset="RampUpSlowToFast">Costant ramp up - slow to fast rate</Capability>
+  <Capability Min="81" Max="140" Preset="RampDownSlowToFast">Costant ramp down - slow to fast rate</Capability>
+  <Capability Min="141" Max="200" Preset="PulseSlowToFast">Pulse effect - slow to fast rate</Capability>
+  <Capability Min="201" Max="250" Preset="StrobeFreqRange" Res1="0.5" Res2="10">Strobe regular - 0.5&gt;10 Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="235" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Colour macros - 1 to 46</Capability>
+  <Capability Min="236" Max="245">Colour change (cut) slow to fast</Capability>
+  <Capability Min="246" Max="255">Colour change (fade) slow to fast</Capability>
+ </Channel>
+ <Channel Name="Auto Pan-Tilt">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="32">Pan-Tilt auto prog 1</Capability>
+  <Capability Min="33" Max="58">Pan-Tilt auto prog 2</Capability>
+  <Capability Min="59" Max="84">Pan-Tilt auto prog 3</Capability>
+  <Capability Min="85" Max="110">Pan-Tilt auto prog 4</Capability>
+  <Capability Min="111" Max="136">Pan-Tilt auto prog 5</Capability>
+  <Capability Min="137" Max="162">Pan-Tilt auto prog 6</Capability>
+  <Capability Min="163" Max="188">Pan-Tilt auto prog 7</Capability>
+  <Capability Min="189" Max="214">Pan-Tilt auto prog 8</Capability>
+  <Capability Min="215" Max="240">Pan-Tilt auto prog 9</Capability>
+  <Capability Min="241" Max="255">Sound control Pan-Tilt</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Beam deflection">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="99">Static rotating lens position - 0&gt;60°</Capability>
+  <Capability Min="100" Max="133">FX pulse deflection - small to wide</Capability>
+  <Capability Min="134" Max="194">CW rotation - fast to slow</Capability>
+  <Capability Min="195" Max="255">Counter-CW - slow to fast</Capability>
+ </Channel>
+ <Channel Name="Auto zoom">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Auto zoom program - fast to slow</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="189">No function</Capability>
+  <Capability Min="190" Max="210">Reset after 10 sec</Capability>
+  <Capability Min="211" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red segment 1" Preset="IntensityRed"/>
+ <Channel Name="Green segment 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue segment 1" Preset="IntensityBlue"/>
+ <Channel Name="White segment 1" Preset="IntensityWhite"/>
+ <Channel Name="Red segment 2" Preset="IntensityRed"/>
+ <Channel Name="Green segment 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue segment 2" Preset="IntensityBlue"/>
+ <Channel Name="White segment 2" Preset="IntensityWhite"/>
+ <Channel Name="Red segment 3" Preset="IntensityRed"/>
+ <Channel Name="Green segment 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue segment 3" Preset="IntensityBlue"/>
+ <Channel Name="White segment 3" Preset="IntensityWhite"/>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Beam deflection</Channel>
+  <Channel Number="10">Color macros</Channel>
+  <Channel Number="11">Auto zoom</Channel>
+  <Channel Number="12">Auto Pan-Tilt</Channel>
+ </Mode>
+ <Mode Name="25 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Red segment 1</Channel>
+  <Channel Number="8">Green segment 1</Channel>
+  <Channel Number="9">Blue segment 1</Channel>
+  <Channel Number="10">White segment 1</Channel>
+  <Channel Number="11">Red segment 2</Channel>
+  <Channel Number="12">Green segment 2</Channel>
+  <Channel Number="13">Blue segment 2</Channel>
+  <Channel Number="14">White segment 2</Channel>
+  <Channel Number="15">Red segment 3</Channel>
+  <Channel Number="16">Green segment 3</Channel>
+  <Channel Number="17">Blue segment 3</Channel>
+  <Channel Number="18">White segment 3</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Beam deflection</Channel>
+  <Channel Number="21">Color macros</Channel>
+  <Channel Number="22">Auto zoom</Channel>
+  <Channel Number="23">Auto Pan-Tilt</Channel>
+  <Channel Number="24">Reset</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2000" ColourTemperature="7000"/>
+  <Dimensions Weight="11" Width="303" Height="425" Depth="188"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="240" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

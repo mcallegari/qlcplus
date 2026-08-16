@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Frank Albert</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Stage Zoom 1200</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Prism Change">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="51" Preset="PrismEffectOff">Open</Capability>
+  <Capability Min="52" Max="103" Preset="PrismEffectOn" Res1="4">4 Face</Capability>
+  <Capability Min="104" Max="155" Preset="PrismEffectOn" Res1="5">5 Face</Capability>
+  <Capability Min="156" Max="207" Preset="PrismEffectOn" Res1="2">2 Face</Capability>
+  <Capability Min="208" Max="255" Preset="PrismEffectOn" Res1="5">5 Face</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="20">0°</Capability>
+  <Capability Min="21" Max="41">90°</Capability>
+  <Capability Min="42" Max="62">270°</Capability>
+  <Capability Min="63" Max="84">360°</Capability>
+  <Capability Min="85" Max="105">450°</Capability>
+  <Capability Min="106" Max="126">540°</Capability>
+  <Capability Min="127" Max="190" Preset="RotationClockwiseFastToSlow">Fast to Slow</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Fixed Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="47">Open</Capability>
+  <Capability Min="48" Max="99">Gobo1</Capability>
+  <Capability Min="100" Max="151">Gobo2</Capability>
+  <Capability Min="152" Max="203">Gobo3</Capability>
+  <Capability Min="204" Max="255">Gobo4</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="51">Open</Capability>
+  <Capability Min="52" Max="103">Gobo1</Capability>
+  <Capability Min="104" Max="156">Gobo2</Capability>
+  <Capability Min="157" Max="207">Gobo3</Capability>
+  <Capability Min="208" Max="255">Gobo4</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="20">0°</Capability>
+  <Capability Min="21" Max="41">90°</Capability>
+  <Capability Min="42" Max="62">180°</Capability>
+  <Capability Min="63" Max="83">270°</Capability>
+  <Capability Min="84" Max="104">360°</Capability>
+  <Capability Min="105" Max="125">450°</Capability>
+  <Capability Min="126" Max="127">540°</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Fast to Slow</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Stop</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Iris" Preset="ShutterIrisMinToMax"/>
+ <Channel Name="Color Effects">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">White</Capability>
+  <Capability Min="8" Max="15">White+Warm</Capability>
+  <Capability Min="16" Max="23">Warm</Capability>
+  <Capability Min="24" Max="31">Warm+Cold</Capability>
+  <Capability Min="32" Max="39">Cold</Capability>
+  <Capability Min="40" Max="47">Cold+Blue Hole</Capability>
+  <Capability Min="48" Max="55">Blue+White Hole</Capability>
+  <Capability Min="56" Max="63">Blue Hole + Yellow Hole</Capability>
+  <Capability Min="64" Max="71">Yellow Hole</Capability>
+  <Capability Min="72" Max="79">Yellow Hole + Red</Capability>
+  <Capability Min="80" Max="87">Red</Capability>
+  <Capability Min="88" Max="95">Red + 4 Colours</Capability>
+  <Capability Min="96" Max="103">4 Colours</Capability>
+  <Capability Min="104" Max="111">4 Colours + UV</Capability>
+  <Capability Min="112" Max="119">UV</Capability>
+  <Capability Min="120" Max="127">UV + White</Capability>
+  <Capability Min="128" Max="255">Rotation (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">0 to 100%</Capability>
+ </Channel>
+ <Channel Name="Dim+Strb">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Dimmer</Capability>
+  <Capability Min="128" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="243" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="244" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Lamp Cntl">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="128" Max="255" Preset="LampOn">Lamp On</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Iris</Channel>
+  <Channel Number="1">Color Effects</Channel>
+  <Channel Number="2">Frost</Channel>
+  <Channel Number="3">Dim+Strb</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">Prism Change</Channel>
+  <Channel Number="9" ActsOn="8">Prism Rotation</Channel>
+  <Channel Number="10">Fixed Gobo</Channel>
+  <Channel Number="11">Rotating Gobo</Channel>
+  <Channel Number="12">Gobo Rotation</Channel>
+  <Channel Number="13">Cyan</Channel>
+  <Channel Number="14">Magenta</Channel>
+  <Channel Number="15">Yellow</Channel>
+  <Channel Number="16">Lamp Cntl</Channel>
+  <Channel Number="17">Pan fine</Channel>
+  <Channel Number="18">Tilt fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HMI 1200W" Lumens="110000" ColourTemperature="6000"/>
+  <Dimensions Weight="41.5" Width="590" Height="710" Depth="390"/>
+  <Lens Name="Fresnel" DegreesMin="15.9" DegreesMax="23.7"/>
+  <Focus Type="Head" PanMax="450" TiltMax="252"/>
+  <Technical PowerConsumption="2200" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

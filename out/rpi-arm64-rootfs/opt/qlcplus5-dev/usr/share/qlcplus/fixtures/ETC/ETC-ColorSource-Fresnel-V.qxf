@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Edgar Aichinger</Author>
+ </Creator>
+ <Manufacturer>ETC</Manufacturer>
+ <Model>ColorSource Fresnel V</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Indigo" Preset="IntensityIndigo"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="1" Max="40" Preset="StrobeSlowToFast">Dark Strobe</Capability>
+  <Capability Min="41" Max="80" Preset="StrobeSlowToFast">Bright Strobe</Capability>
+  <Capability Min="81" Max="120" Preset="PulseSlowToFast">Pulse Strobe</Capability>
+  <Capability Min="121" Max="160" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="161" Max="200">Flicker Effect</Capability>
+  <Capability Min="201" Max="240" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="241" Max="254" Preset="ShutterClose">LEDs Off</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">No Strobe</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Fan">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Auto</Capability>
+  <Capability Min="10" Max="19">Off</Capability>
+  <Capability Min="20" Max="20">Slow</Capability>
+  <Capability Min="21" Max="248">Linear Increase of Speed</Capability>
+  <Capability Min="249" Max="249">Fast</Capability>
+  <Capability Min="250" Max="255">Auto</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Fan</Channel>
+ </Mode>
+ <Mode Name="Direct">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Indigo</Channel>
+  <Channel Number="5">Lime</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Fan</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Intensity</Channel>
+ </Mode>
+ <Mode Name="RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Zoom</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5330" ColourTemperature="0"/>
+  <Dimensions Weight="5.24" Width="321" Height="339" Depth="311"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="44"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="147" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

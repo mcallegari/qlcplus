@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.0</Version>
+  <Author>LorenzoTRE</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Strobo 1500DMX</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Stopped</Capability>
+  <Capability Min="16" Max="31">Speed 1</Capability>
+  <Capability Min="32" Max="47">Speed 2</Capability>
+  <Capability Min="48" Max="63">Speed 3</Capability>
+  <Capability Min="64" Max="79">Speed 4</Capability>
+  <Capability Min="80" Max="95">Speed 5</Capability>
+  <Capability Min="96" Max="111">Speed 6</Capability>
+  <Capability Min="112" Max="127">Speed 7</Capability>
+  <Capability Min="128" Max="143">Speed 8</Capability>
+  <Capability Min="144" Max="159">Speed 9</Capability>
+  <Capability Min="160" Max="175">Speed 10</Capability>
+  <Capability Min="176" Max="191">Speed 11</Capability>
+  <Capability Min="192" Max="207">Speed 12</Capability>
+  <Capability Min="208" Max="223">Speed 13</Capability>
+  <Capability Min="224" Max="239">Speed 14</Capability>
+  <Capability Min="240" Max="255">Speed 15</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="15">Blackout</Capability>
+  <Capability Min="16" Max="31">Dimmer 1</Capability>
+  <Capability Min="32" Max="47">Dimmer 2</Capability>
+  <Capability Min="48" Max="63">Dimmer 3</Capability>
+  <Capability Min="64" Max="79">Dimmer 4</Capability>
+  <Capability Min="80" Max="95">Dimmer 5</Capability>
+  <Capability Min="96" Max="111">Dimmer 6</Capability>
+  <Capability Min="112" Max="127">Dimmer 7</Capability>
+  <Capability Min="128" Max="143">Dimmer 8</Capability>
+  <Capability Min="144" Max="159">Dimmer 9</Capability>
+  <Capability Min="160" Max="175">Dimmer 10</Capability>
+  <Capability Min="176" Max="191">Dimmer 11</Capability>
+  <Capability Min="192" Max="207">Dimmer 12</Capability>
+  <Capability Min="208" Max="223">Dimmer 13</Capability>
+  <Capability Min="224" Max="239">Dimmer 14</Capability>
+  <Capability Min="240" Max="255">Dimmer 15</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Strobe Speed</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="452" Height="116" Weight="3.2" Depth="1475"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

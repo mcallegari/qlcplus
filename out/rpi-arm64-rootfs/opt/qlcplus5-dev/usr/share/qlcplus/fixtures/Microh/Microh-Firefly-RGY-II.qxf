@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Christopher Enoch</Author>
+ </Creator>
+ <Manufacturer>Microh</Manufacturer>
+ <Model>Firefly RGY II</Model>
+ <Type>Laser</Type>
+ <Channel Name="Control mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Sound Control</Capability>
+  <Capability Min="50" Max="99">Auto-beam</Capability>
+  <Capability Min="100" Max="149">Auto-animation</Capability>
+  <Capability Min="150" Max="255">Manual</Capability>
+ </Channel>
+ <Channel Name="Color select">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Laser off</Capability>
+  <Capability Min="1" Max="255">Green, Red, Yellow</Capability>
+ </Channel>
+ <Channel Name="Pattern Select">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Patterns</Capability>
+ </Channel>
+ <Channel Name="Vertical Move">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Manual</Capability>
+  <Capability Min="128" Max="191">Down to Up (fast)</Capability>
+  <Capability Min="192" Max="255">Up to Down (fast)</Capability>
+ </Channel>
+ <Channel Name="Horizontal Move">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Manual</Capability>
+  <Capability Min="128" Max="191">Right to Left</Capability>
+  <Capability Min="192" Max="255">Left to Right</Capability>
+ </Channel>
+ <Channel Name="Vertical Rotate">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Horizontal Rotate">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Rotate">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual</Capability>
+  <Capability Min="128" Max="191">CCW Rotate</Capability>
+  <Capability Min="192" Max="255">CW Rotate</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Static</Capability>
+  <Capability Min="1" Max="85">Zoom In</Capability>
+  <Capability Min="86" Max="170">Zoom Out</Capability>
+  <Capability Min="171" Max="255">Auto Zoom</Capability>
+ </Channel>
+ <Channel Name="Pattern Size">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Normal Size</Capability>
+  <Capability Min="1" Max="255">Small to Large</Capability>
+ </Channel>
+ <Channel Name="Spot and Line">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Line to Spot</Capability>
+ </Channel>
+ <Channel Name="Twinkle Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Mode Name="Generic">
+  <Channel Number="0">Control mode</Channel>
+  <Channel Number="1">Color select</Channel>
+  <Channel Number="2">Pattern Select</Channel>
+  <Channel Number="3">Vertical Move</Channel>
+  <Channel Number="4">Horizontal Move</Channel>
+  <Channel Number="5">Vertical Rotate</Channel>
+  <Channel Number="6">Horizontal Rotate</Channel>
+  <Channel Number="7">Rotate</Channel>
+  <Channel Number="8">Zoom</Channel>
+  <Channel Number="9">Pattern Size</Channel>
+  <Channel Number="10">Spot and Line</Channel>
+  <Channel Number="11">Twinkle Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="240" Height="163" Depth="365"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

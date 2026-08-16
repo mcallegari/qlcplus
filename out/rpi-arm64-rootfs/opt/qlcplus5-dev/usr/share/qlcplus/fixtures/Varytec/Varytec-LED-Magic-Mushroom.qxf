@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Jan-Hendrik Nolte</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Magic Mushroom</Model>
+ <Type>Effect</Type>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Stroboscope rate">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">0 Hz - 20 Hz</Capability>
+ </Channel>
+ <Mode Name="4-Channel Mode">
+  <Channel Number="0">Blue</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Stroboscope rate</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="406" Height="279" Depth="279"/>
+  <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

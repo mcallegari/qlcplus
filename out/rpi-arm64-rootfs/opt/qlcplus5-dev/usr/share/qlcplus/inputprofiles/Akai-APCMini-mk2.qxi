@@ -1,0 +1,601 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6</Version>
+  <Author>Michael Mertens</Author>
+ </Creator>
+ <Manufacturer>Akai</Manufacturer>
+ <Model>APC Mini mk2</Model>
+ <Type>MIDI</Type>
+ <Channel Number="48">
+  <Name>Slider 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Slider 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Slider 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Slider 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Slider 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Slider 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Slider 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Slider 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>Slider 9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="128">
+  <Name>Button 1-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="129">
+  <Name>Button 2-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="130">
+  <Name>Button 3-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="131">
+  <Name>Button 4-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="132">
+  <Name>Button 5-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="133">
+  <Name>Button 6-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="134">
+  <Name>Button 7-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="135">
+  <Name>Button 8-8</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="136">
+  <Name>Button 1-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="137">
+  <Name>Button 2-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="138">
+  <Name>Button 3-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="139">
+  <Name>Button 4-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="140">
+  <Name>Button 5-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="141">
+  <Name>Button 6-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="142">
+  <Name>Button 7-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="143">
+  <Name>Button 8-7</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="144">
+  <Name>Button 1-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="145">
+  <Name>Button 2-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="146">
+  <Name>Button 3-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="147">
+  <Name>Button 4-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="148">
+  <Name>Button 5-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="149">
+  <Name>Button 6-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="150">
+  <Name>Button 7-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="151">
+  <Name>Button 8-6</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="152">
+  <Name>Button 1-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="153">
+  <Name>Button 2-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="154">
+  <Name>Button 3-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="155">
+  <Name>Button 4-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="156">
+  <Name>Button 5-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="157">
+  <Name>Button 6-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="158">
+  <Name>Button 7-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="159">
+  <Name>Button 8-5</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="160">
+  <Name>Button 1-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="161">
+  <Name>Button 2-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="162">
+  <Name>Button 3-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="163">
+  <Name>Button 4-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="164">
+  <Name>Button 5-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="165">
+  <Name>Button 6-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="166">
+  <Name>Button 7-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="167">
+  <Name>Button 8-4</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="168">
+  <Name>Button 1-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="169">
+  <Name>Button 2-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="170">
+  <Name>Button 3-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="171">
+  <Name>Button 4-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="172">
+  <Name>Button 5-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="173">
+  <Name>Button 6-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="174">
+  <Name>Button 7-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="175">
+  <Name>Button 8-3</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="176">
+  <Name>Button 1-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="177">
+  <Name>Button 2-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="178">
+  <Name>Button 3-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="179">
+  <Name>Button 4-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="180">
+  <Name>Button 5-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="181">
+  <Name>Button 6-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="182">
+  <Name>Button 7-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="183">
+  <Name>Button 8-2</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="184">
+  <Name>Button 1-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="185">
+  <Name>Button 2-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="186">
+  <Name>Button 3-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="187">
+  <Name>Button 4-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="188">
+  <Name>Button 5-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="189">
+  <Name>Button 6-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="190">
+  <Name>Button 7-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="191">
+  <Name>Button 8-1</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="26" MidiChannel="6"/>
+ </Channel>
+ <Channel Number="228">
+  <Name>Volume Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="229">
+  <Name>Pan Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="230">
+  <Name>Send Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="231">
+  <Name>Device Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="232">
+  <Name>Up Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="233">
+  <Name>Down Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="234">
+  <Name>Left Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="235">
+  <Name>Right Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="240">
+  <Name>Clip stop Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="241">
+  <Name>Solo Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="242">
+  <Name>Mute Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="243">
+  <Name>Rec arm Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="244">
+  <Name>Select Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="245">
+  <Name>Drum Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="246">
+  <Name>Note Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="247">
+  <Name>Stop all clips Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <Channel Number="250">
+  <Name>Shift Button</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="1" UpperValue="3"/>
+ </Channel>
+ <ColorTable>
+  <Color Value="0" Label="Off" RGB="#000000"/>
+  <Color Value="2" Label="Dark Gray" RGB="#1e1e1e"/>
+  <Color Value="4" Label="Light Gray" RGB="#7f7f7f"/>
+  <Color Value="6" Label="White" RGB="#ffffff"/>
+  <Color Value="8" Label="Light red" RGB="#ff4c4c"/>
+  <Color Value="10" Label="Red" RGB="#ff0000"/>
+  <Color Value="12" Label="Medium red" RGB="#590000"/>
+  <Color Value="14" Label="Dark red" RGB="#190000"/>
+  <Color Value="16" Label="Peach" RGB="#ffbd6c"/>
+  <Color Value="18" Label="Orange" RGB="#ff5400"/>
+  <Color Value="20" Label="Medium orange" RGB="#591d00"/>
+  <Color Value="22" Label="Dark orange" RGB="#271b00"/>
+  <Color Value="24" Label="Yellow" RGB="#ffff4c"/>
+  <Color Value="26" Label="Yellow 2" RGB="#ffff00"/>
+  <Color Value="28" Label="Medium yellow" RGB="#595900"/>
+  <Color Value="30" Label="Dark yellow" RGB="#191900"/>
+  <Color Value="32" Label="Light green 2" RGB="#88ff4c"/>
+  <Color Value="34" Label="Green 2" RGB="#54ff00"/>
+  <Color Value="36" Label="Medium green 2" RGB="#1d5900"/>
+  <Color Value="38" Label="Dark green 2" RGB="#142b00"/>
+  <Color Value="40" Label="Light green" RGB="#4cff4c"/>
+  <Color Value="42" Label="Green" RGB="#00ff00"/>
+  <Color Value="44" Label="Medium green" RGB="#005900"/>
+  <Color Value="46" Label="Dark green" RGB="#001900"/>
+  <Color Value="48" Label="Light green 3" RGB="#4cff5e"/>
+  <Color Value="50" Label="Green 3" RGB="#00ff19"/>
+  <Color Value="52" Label="Medium green 3" RGB="#00590d"/>
+  <Color Value="54" Label="Dark green 3" RGB="#001902"/>
+  <Color Value="56" Label="Light green 4" RGB="#4cff88"/>
+  <Color Value="58" Label="Green 4" RGB="#00ff55"/>
+  <Color Value="60" Label="Medium green 4" RGB="#00591d"/>
+  <Color Value="62" Label="Dark green 4" RGB="#001f12"/>
+  <Color Value="64" Label="Light green 5" RGB="#4cffb7"/>
+  <Color Value="66" Label="Green 5" RGB="#00ff99"/>
+  <Color Value="68" Label="Medium green 5" RGB="#005935"/>
+  <Color Value="70" Label="Dark green 5" RGB="#001912"/>
+  <Color Value="72" Label="Light blue 1" RGB="#4cc3ff"/>
+  <Color Value="74" Label="Blue 1" RGB="#00a9ff"/>
+  <Color Value="76" Label="Medium blue 1" RGB="#004152"/>
+  <Color Value="78" Label="Dark blue 1" RGB="#001019"/>
+  <Color Value="80" Label="Light blue 2" RGB="#4c88ff"/>
+  <Color Value="82" Label="Blue 2" RGB="#0055ff"/>
+  <Color Value="84" Label="Medium blue 2" RGB="#001d59"/>
+  <Color Value="86" Label="Dark blue 2" RGB="#000819"/>
+  <Color Value="88" Label="Light blue 3" RGB="#4c4cff"/>
+  <Color Value="90" Label="Blue 3" RGB="#0000ff"/>
+  <Color Value="92" Label="Medium blue 3" RGB="#000059"/>
+  <Color Value="94" Label="Dark blue 3" RGB="#000019"/>
+  <Color Value="96" Label="Light blue 4" RGB="#874cff"/>
+  <Color Value="98" Label="Blue 4" RGB="#5400ff"/>
+  <Color Value="100" Label="Medium blue 4" RGB="#190064"/>
+  <Color Value="102" Label="Dark blue 4" RGB="#0f0030"/>
+  <Color Value="104" Label="Light magenta 1" RGB="#ff4cff"/>
+  <Color Value="106" Label="Magenta 1" RGB="#ff00ff"/>
+  <Color Value="108" Label="Medium magenta 1" RGB="#590059"/>
+  <Color Value="110" Label="Dark magenta 1" RGB="#190019"/>
+  <Color Value="112" Label="Light pink" RGB="#ff4c87"/>
+  <Color Value="114" Label="Red 2" RGB="#ff0054"/>
+  <Color Value="116" Label="Medium red 2" RGB="#59001d"/>
+  <Color Value="118" Label="Dark red 2" RGB="#220013"/>
+  <Color Value="120" Label="Light red 3" RGB="#ff1500"/>
+  <Color Value="122" Label="Brown 1" RGB="#993500"/>
+  <Color Value="124" Label="Brown 2" RGB="#795100"/>
+  <Color Value="126" Label="Green 6" RGB="#436400"/>
+  <Color Value="128" Label="Medium green 6" RGB="#033900"/>
+  <Color Value="130" Label="Green 7" RGB="#005735"/>
+  <Color Value="132" Label="Blue 5" RGB="#00547f"/>
+  <Color Value="134" Label="Blue 6" RGB="#0000ff"/>
+  <Color Value="136" Label="Medium blue 6" RGB="#00454f"/>
+  <Color Value="138" Label="Blue 7" RGB="#2500cc"/>
+  <Color Value="140" Label="White 50%" RGB="#7f7f7f"/>
+  <Color Value="142" Label="White 10%" RGB="#202020"/>
+  <Color Value="144" Label="Red" RGB="#ff0000"/>
+  <Color Value="146" Label="Lime" RGB="#bdff2d"/>
+  <Color Value="148" Label="Medium lime" RGB="#afed06"/>
+  <Color Value="150" Label="Green 8" RGB="#64ff09"/>
+  <Color Value="152" Label="Medium green 8" RGB="#108b00"/>
+  <Color Value="154" Label="Light green 9" RGB="#00ff87"/>
+  <Color Value="156" Label="Light blue 8" RGB="#00a9ff"/>
+  <Color Value="158" Label="Blue 8" RGB="#002aff"/>
+  <Color Value="160" Label="Blue 9" RGB="#3f00ff"/>
+  <Color Value="162" Label="Purple" RGB="#7a00ff"/>
+  <Color Value="164" Label="Red 3" RGB="#b21a7d"/>
+  <Color Value="166" Label="Dark red 3" RGB="#402100"/>
+  <Color Value="168" Label="Orange" RGB="#ff4a00"/>
+  <Color Value="170" Label="Lime 2" RGB="#88e106"/>
+  <Color Value="172" Label="Green 9" RGB="#72ff15"/>
+  <Color Value="174" Label="Green" RGB="#00ff00"/>
+  <Color Value="176" Label="Green 10" RGB="#3bff26"/>
+  <Color Value="178" Label="Light green 10" RGB="#59ff71"/>
+  <Color Value="180" Label="Cyan 2" RGB="#38ffcc"/>
+  <Color Value="182" Label="Light blue 10" RGB="#5b8aff"/>
+  <Color Value="184" Label="Blue 10" RGB="#3151c6"/>
+  <Color Value="186" Label="Light blue 11" RGB="#877fe9"/>
+  <Color Value="188" Label="Magenta 2" RGB="#d31dff"/>
+  <Color Value="190" Label="Red 4" RGB="#ff005d"/>
+  <Color Value="192" Label="Orange 2" RGB="#ff7f00"/>
+  <Color Value="194" Label="Dark yellow" RGB="#b9b000"/>
+  <Color Value="196" Label="Lime 3" RGB="#90ff00"/>
+  <Color Value="198" Label="Brown" RGB="#835d07"/>
+  <Color Value="200" Label="Dark brown" RGB="#392b00"/>
+  <Color Value="202" Label="Dark green 11" RGB="#144c10"/>
+  <Color Value="204" Label="Dark green 12" RGB="#0d5038"/>
+  <Color Value="206" Label="Dark blue 11" RGB="#15152a"/>
+  <Color Value="208" Label="Dark blue 12" RGB="#16205a"/>
+  <Color Value="210" Label="Dark orange" RGB="#693c1c"/>
+  <Color Value="212" Label="Red 5" RGB="#a8000a"/>
+  <Color Value="214" Label="Light red 5" RGB="#de513d"/>
+  <Color Value="216" Label="Orange 3" RGB="#d86a1c"/>
+  <Color Value="218" Label="Light yellow 2" RGB="#ffe126"/>
+  <Color Value="220" Label="Lime 4" RGB="#9ee12f"/>
+  <Color Value="222" Label="Green 11" RGB="#67b50f"/>
+  <Color Value="224" Label="Dark blue 13" RGB="#1e1e30"/>
+  <Color Value="226" Label="Light yellow 3" RGB="#dcff6b"/>
+  <Color Value="228" Label="Light green 13" RGB="#80ffbd"/>
+  <Color Value="230" Label="Light blue 13" RGB="#9a99ff"/>
+  <Color Value="232" Label="Blue 13" RGB="#8e66ff"/>
+  <Color Value="234" Label="White 25%" RGB="#404040"/>
+  <Color Value="236" Label="White 40%" RGB="#757575"/>
+  <Color Value="238" Label="Cold white" RGB="#e0ffff"/>
+  <Color Value="240" Label="Red 6" RGB="#a00000"/>
+  <Color Value="242" Label="Dark red 6" RGB="#350000"/>
+  <Color Value="244" Label="Green 14" RGB="#1ad000"/>
+  <Color Value="246" Label="Dark green 14" RGB="#074200"/>
+  <Color Value="248" Label="Yellow 4" RGB="#b9b000"/>
+  <Color Value="250" Label="Dark orange 2" RGB="#3f3100"/>
+  <Color Value="252" Label="Orange 4" RGB="#b35f00"/>
+  <Color Value="255" Label="Dark red 7" RGB="#4b1502"/>
+ </ColorTable>
+ <MidiChannelTable>
+  <Channel Value="0" Label="On 10% brightness"/>
+  <Channel Value="1" Label="On 25% brightness"/>
+  <Channel Value="2" Label="On 50% brightness"/>
+  <Channel Value="3" Label="On 65% brightness"/>
+  <Channel Value="4" Label="On 75% brightness"/>
+  <Channel Value="5" Label="On 90% brightness"/>
+  <Channel Value="6" Label="On 100% brightness"/>
+  <Channel Value="7" Label="Pulsing 1/16"/>
+  <Channel Value="8" Label="Pulsing 1/8"/>
+  <Channel Value="9" Label="Pulsing 1/4"/>
+  <Channel Value="10" Label="Pulsing 1/2"/>
+  <Channel Value="11" Label="Blinking 1/24"/>
+  <Channel Value="12" Label="Blinking 1/16"/>
+  <Channel Value="13" Label="Blinking 1/8"/>
+  <Channel Value="14" Label="Blinking 1/4"/>
+  <Channel Value="15" Label="Blinking 1/2"/>
+ </MidiChannelTable>
+</InputProfile>

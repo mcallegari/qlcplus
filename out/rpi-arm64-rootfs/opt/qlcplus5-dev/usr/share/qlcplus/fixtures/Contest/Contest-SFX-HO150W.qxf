@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>SFX-HO150W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect at increasing speed</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse effects sequence</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect at increasing speed</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED On</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="6.2" Width="295" Height="315" Depth="377"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="155" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

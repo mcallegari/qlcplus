@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Administrator</Author>
+ </Creator>
+ <Manufacturer>iSolution</Manufacturer>
+ <Model>iMove 5 Series</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Shutter / Shake">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="15">Open</Capability>
+  <Capability Min="16" Max="131">Shutter Speed</Capability>
+  <Capability Min="132" Max="247">Shake</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="8" Preset="GoboMacro" Res1="SGM/gobo00062.svg">Spot</Capability>
+  <Capability Min="9" Max="17" Preset="GoboMacro" Res1="SGM/gobo00004.svg">Spot Ring</Capability>
+  <Capability Min="18" Max="25" Preset="GoboMacro" Res1="Others/gobo00037.svg">Taurus</Capability>
+  <Capability Min="26" Max="34" Preset="GoboMacro" Res1="Others/gobo00039.svg">Bio Hazard</Capability>
+  <Capability Min="35" Max="43" Preset="GoboMacro" Res1="SGM/gobo00174.svg">Web</Capability>
+  <Capability Min="44" Max="51" Preset="GoboMacro" Res1="GLP/gobo00014.svg">3 Comas</Capability>
+  <Capability Min="52" Max="59" Preset="GoboMacro" Res1="ClayPaky/gobo00032.png">Honeycomb</Capability>
+  <Capability Min="60" Max="68" Preset="GoboMacro" Res1="Others/gobo00030.svg">Square</Capability>
+  <Capability Min="69" Max="76" Preset="GoboMacro" Res1="Others/gobo00018.svg">Radiation</Capability>
+  <Capability Min="77" Max="85">Batman</Capability>
+  <Capability Min="86" Max="93" Preset="GoboMacro" Res1="SGM/gobo00123.svg">Star</Capability>
+  <Capability Min="94" Max="102" Preset="GoboMacro" Res1="Others/gobo00029.svg">Dotted Line</Capability>
+  <Capability Min="103" Max="110" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Circle</Capability>
+  <Capability Min="111" Max="119" Preset="GoboMacro" Res1="SGM/gobo00279.png">Energy</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="SGM/gobo00348.png">Cross Stamp</Capability>
+  <Capability Min="128" Max="255">Gobo Change Speed</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="11" Max="21" Preset="ColorMacro" Res1="#55aa00">Green</Capability>
+  <Capability Min="22" Max="31" Preset="ColorMacro" Res1="#ff55ff">Magenta</Capability>
+  <Capability Min="32" Max="42" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="43" Max="53" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="54" Max="63" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="64" Max="74" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="75" Max="85" Preset="ColorMacro" Res1="#6c0aff">UV Purple</Capability>
+  <Capability Min="86" Max="95" Preset="ColorMacro" Res1="#55ff7f">Light Green</Capability>
+  <Capability Min="96" Max="106" Preset="ColorMacro" Res1="#ff9318">Orange</Capability>
+  <Capability Min="107" Max="117" Preset="ColorMacro" Res1="#f5f500">Yellow</Capability>
+  <Capability Min="118" Max="127" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="128" Max="255">Rainbow Effect Speed</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="No function2" Preset="NoFunction"/>
+ <Mode Name="iMove 5S">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter / Shake</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Colour</Channel>
+ </Mode>
+ <Mode Name="iMove 5W">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter / Shake</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">No function</Channel>
+  <Channel Number="5">No function2</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="ELC 24V 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12" Width="290" Height="380" Depth="330"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

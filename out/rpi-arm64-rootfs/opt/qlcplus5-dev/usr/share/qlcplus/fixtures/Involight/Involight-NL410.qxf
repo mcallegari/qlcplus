@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Vorona</Author>
+ </Creator>
+ <Manufacturer>Involight</Manufacturer>
+ <Model>NL410</Model>
+ <Type>Flower</Type>
+ <Channel Name="LED Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="20">Red</Capability>
+  <Capability Min="21" Max="41">Green</Capability>
+  <Capability Min="42" Max="62">Blue</Capability>
+  <Capability Min="63" Max="83">White</Capability>
+  <Capability Min="84" Max="104">Yellow</Capability>
+  <Capability Min="105" Max="125">Red-Green</Capability>
+  <Capability Min="126" Max="146">Green-Blue</Capability>
+  <Capability Min="147" Max="167">Blue-Yellow</Capability>
+  <Capability Min="168" Max="188">Yellow-White</Capability>
+  <Capability Min="189" Max="209">Red-Green-Blue</Capability>
+  <Capability Min="210" Max="230">Red-Green-Blue-White</Capability>
+  <Capability Min="231" Max="251">Red-Green-Blue-White-Yellow</Capability>
+  <Capability Min="252" Max="255" Preset="Alias">Sound mode
+   <Alias Mode="4Ch" Channel="Strobe" With="Sound sensitive"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Motor running speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="ResetEffects">Motor running speed (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Motor retention time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Motor retention time (Fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Sound sensitive">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Sound sensitive</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="15">Program 1</Capability>
+  <Capability Min="16" Max="31">Program 2</Capability>
+  <Capability Min="32" Max="47">Program 3</Capability>
+  <Capability Min="48" Max="63">Program 4</Capability>
+  <Capability Min="64" Max="79">Program 5</Capability>
+  <Capability Min="80" Max="95">Program 6</Capability>
+  <Capability Min="96" Max="111">Program 7</Capability>
+  <Capability Min="112" Max="127">Program 8</Capability>
+  <Capability Min="128" Max="143">Program 9</Capability>
+  <Capability Min="144" Max="159">Program 10</Capability>
+  <Capability Min="160" Max="175">Program 11</Capability>
+  <Capability Min="176" Max="191">Program 12</Capability>
+  <Capability Min="192" Max="207">Program 13</Capability>
+  <Capability Min="208" Max="223">Program 14</Capability>
+  <Capability Min="224" Max="255" Preset="Alias">Sound mode
+   <Alias Mode="5Ch" Channel="Program Speed" With="Sound sensitive"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="ResetEffects">Program Speed (Slow to fast)</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">LED Programs</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Motor running speed</Channel>
+  <Channel Number="3">Motor retention time</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Programs</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Motor running speed</Channel>
+  <Channel Number="4">Motor retention time</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="325" Height="110" Depth="250"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

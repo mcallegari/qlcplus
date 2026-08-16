@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Stuart Brown+Kevin Wimmer</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>CL Superfly HP</Model>
+ <Type>Flower</Type>
+ <Channel Name="Mode Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Music control</Capability>
+  <Capability Min="128" Max="255">Auto mode</Capability>
+ </Channel>
+ <Channel Name="Mode Options">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sensitivity/Speed</Capability>
+ </Channel>
+ <Channel Name="Colour Selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55ff00">Red/Green</Capability>
+  <Capability Min="48" Max="55" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="64" Max="71" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red/Amber</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="80" Max="87" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#ffffff">Green/White</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#ffbf00">Green/Amber</Capability>
+  <Capability Min="96" Max="103" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue/White</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffbf00">Blue/Amber</Capability>
+  <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55ff00">Red/Green/Blue</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55ff00">Red/Green/White</Capability>
+  <Capability Min="128" Max="135" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55ff00">Red/Green/Amber</Capability>
+  <Capability Min="136" Max="143" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue/White</Capability>
+  <Capability Min="144" Max="151" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue/Amber</Capability>
+  <Capability Min="152" Max="159" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White/Amber</Capability>
+  <Capability Min="160" Max="167" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue/White/Amber</Capability>
+  <Capability Min="168" Max="175" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#0000ff">Green/Blue/White</Capability>
+  <Capability Min="176" Max="183" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#0000ff">Green/Blue/Amber</Capability>
+  <Capability Min="184" Max="191" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#ffffff">Green/White/Amber</Capability>
+  <Capability Min="192" Max="199" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55ff00">Red/Green/Blue/White</Capability>
+  <Capability Min="200" Max="207" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red/Blue/White/Amber</Capability>
+  <Capability Min="208" Max="215" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red/Green/White/Amber</Capability>
+  <Capability Min="216" Max="223" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Green/Blue/Amber</Capability>
+  <Capability Min="224" Max="231" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Green/Blue/White/Amber</Capability>
+  <Capability Min="232" Max="239" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red/Green/White/Amber</Capability>
+  <Capability Min="240" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Automatic colour change</Capability>
+ </Channel>
+ <Channel Name="Mirror Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="9">No movement</Capability>
+  <Capability Min="10" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Stroboscope">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="1" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="2" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour Change Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Mode Selection</Channel>
+  <Channel Number="1">Mode Options</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Colour Selection</Channel>
+  <Channel Number="1">Mirror Rotation</Channel>
+  <Channel Number="2">Stroboscope</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Colour Change Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.1" Width="360" Height="225" Depth="300"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="145"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

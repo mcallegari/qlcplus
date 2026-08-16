@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Freasy</Author>
+ </Creator>
+ <Manufacturer>High End Systems</Manufacturer>
+ <Model>Studio Beam</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dim" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter (Normal/Lamp Assisted)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="23" Preset="ShutterClose">Closed/Closed</Capability>
+  <Capability Min="24" Max="49" Preset="StrobeRandom">Periodic strobe/Periodic lamp strobe</Capability>
+  <Capability Min="50" Max="75" Preset="StrobeRandom">Random strobe/Random lamp strobes</Capability>
+  <Capability Min="76" Max="101" Preset="StrobeRandom">Synchronous random strobe/Synchronous random lamp pulses</Capability>
+  <Capability Min="102" Max="105" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp 1.0 second, black</Capability>
+  <Capability Min="106" Max="109" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .75 second, black</Capability>
+  <Capability Min="110" Max="113" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .66 second, black</Capability>
+  <Capability Min="114" Max="117" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .5 second, black</Capability>
+  <Capability Min="118" Max="121" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .33 second, black</Capability>
+  <Capability Min="122" Max="127" Preset="RampUpSlowToFast">Ramp open, snap shut/Boost lamp .25 second, black</Capability>
+  <Capability Min="128" Max="131" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp 1.0 second, white</Capability>
+  <Capability Min="132" Max="135" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .75 second, white</Capability>
+  <Capability Min="136" Max="139" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .66 second, white</Capability>
+  <Capability Min="140" Max="143" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .5 second, white</Capability>
+  <Capability Min="144" Max="147" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .33 second, white</Capability>
+  <Capability Min="148" Max="153" Preset="RampUpSlowToFast">Snap open, ramp shut/Boost lamp .25 second, white</Capability>
+  <Capability Min="154" Max="157" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 1</Capability>
+  <Capability Min="158" Max="161" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 2</Capability>
+  <Capability Min="162" Max="165" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 3</Capability>
+  <Capability Min="166" Max="169" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 4</Capability>
+  <Capability Min="170" Max="173" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 5</Capability>
+  <Capability Min="174" Max="179" Preset="RampUpSlowToFast">Ramp open, ramp shut/Lightning strike 6</Capability>
+  <Capability Min="180" Max="205" Preset="RampUpSlowToFast">Random ramp open, snap shut/To be determined</Capability>
+  <Capability Min="206" Max="231" Preset="RampUpSlowToFast">Random snap open, ramp shut/To be determined</Capability>
+  <Capability Min="232" Max="255" Preset="ShutterOpen">Open/Open</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="0">Open white</Capability>
+  <Capability Min="1" Max="128">Cyan (0% to 100% saturation)</Capability>
+  <Capability Min="129" Max="129">Discrete color (deep red position)</Capability>
+  <Capability Min="130" Max="130">Open white</Capability>
+  <Capability Min="131" Max="172">Media scan</Capability>
+  <Capability Min="173" Max="213">Reverse spin (fast to slow)</Capability>
+  <Capability Min="214" Max="214">Spin stop</Capability>
+  <Capability Min="215" Max="255">Forward spin (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="0">Open white</Capability>
+  <Capability Min="1" Max="128">Magenta (0% to 100% saturation)</Capability>
+  <Capability Min="129" Max="129">Discrete color (CTO position)</Capability>
+  <Capability Min="130" Max="130">Open white</Capability>
+  <Capability Min="131" Max="172">Media scan</Capability>
+  <Capability Min="173" Max="213">Reverse spin (fast to slow)</Capability>
+  <Capability Min="214" Max="214">Spin stop</Capability>
+  <Capability Min="215" Max="255">Forward spin (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="0">Open white</Capability>
+  <Capability Min="1" Max="128">Yellow (0% to 100% saturation)</Capability>
+  <Capability Min="129" Max="129">Discrete color (deep blue position)</Capability>
+  <Capability Min="130" Max="130">Open white</Capability>
+  <Capability Min="131" Max="172">Media scan</Capability>
+  <Capability Min="173" Max="213">Reverse spin (fast to slow)</Capability>
+  <Capability Min="214" Max="214">Spin stop</Capability>
+  <Capability Min="215" Max="255">Forward spin (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Color Function Flat">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Safe (disables all control settings)</Capability>
+  <Capability Min="1" Max="1">Blink (continuous to discrete)</Capability>
+  <Capability Min="2" Max="65">Color cycle (uses only the color mixing portion of all color wheels to cycle factory determined colors at variable speeds (slow to fast)</Capability>
+  <Capability Min="66" Max="129">Random (uses only the color mixing portion of all color wheels to cycle facotry determined colors at variable speeds (slow to fast)</Capability>
+  <Capability Min="130" Max="255">To be determined, defaults to safe</Capability>
+ </Channel>
+ <Channel Name="Beam Shaping Standard (Default/Audio Modulation Mode)">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="7">Continuous positioning/Forward, slow decay</Capability>
+  <Capability Min="8" Max="15">Continuous positioning/Forward, medium decay</Capability>
+  <Capability Min="16" Max="23">Continuous positioning/Forward, fast decay</Capability>
+  <Capability Min="24" Max="31">Continuous positionng/Reverse, fast decay</Capability>
+  <Capability Min="32" Max="39">Continuous positioning/Reverse, medium decay</Capability>
+  <Capability Min="40" Max="47">Continuous positioning/Reverse, slow decay</Capability>
+  <Capability Min="48" Max="79">Continuous positioning/Forward</Capability>
+  <Capability Min="80" Max="111">Continuous positioning/Reverse</Capability>
+  <Capability Min="112" Max="127">Continuous positioning/To de determined</Capability>
+  <Capability Min="128" Max="187">Spin reverse (fastest to slowest)/To be determined</Capability>
+  <Capability Min="188" Max="195">Spin stop/To be determined</Capability>
+  <Capability Min="196" Max="255">Spin forward (slowest to fastest)/To be determined</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Frost Standard (Default/Audio Modulation Mode)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Continuous positioning (open to closed/No frost to frost, slow decay</Capability>
+  <Capability Min="8" Max="15">Continuous positioning (open to closed/No frost to frost, medium decay</Capability>
+  <Capability Min="16" Max="23">Continuous positioning (open to closed/No frost to frost, fast decay</Capability>
+  <Capability Min="24" Max="31">Continuous positioning (open to closed/Frost to no frost, fast decay</Capability>
+  <Capability Min="32" Max="39">Continuous positioning (open to closed/Frost to no frost, medium decay</Capability>
+  <Capability Min="40" Max="47">Continuous positioning (open to closed/Frost to no frost, slow decay</Capability>
+  <Capability Min="48" Max="79">Continuous positioning (open to closed/No frost to frost. No movement to full movement</Capability>
+  <Capability Min="80" Max="111">Continuous positioning (open to closed/Frost to no frost. Full movement to no movement</Capability>
+  <Capability Min="112" Max="127">Continuous positioning (open to closed)/To be determined</Capability>
+  <Capability Min="128" Max="135">Closed/To be determined</Capability>
+  <Capability Min="136" Max="151">Periodic strobe/To be determined</Capability>
+  <Capability Min="152" Max="167">Random strobe/To be determined</Capability>
+  <Capability Min="168" Max="183">Ramp open, snap shut/To be determined</Capability>
+  <Capability Min="184" Max="199">Snap open, ramp shut/To be determined</Capability>
+  <Capability Min="200" Max="215">Ramp open, ramp shut/To be determined</Capability>
+  <Capability Min="216" Max="231">Random ramp open, snap shut/To be determined</Capability>
+  <Capability Min="232" Max="247">Random snap open, ramp shut/To be determined</Capability>
+  <Capability Min="248" Max="255">Open/To be determined</Capability>
+ </Channel>
+ <Channel Name="Control Flat">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Safe</Capability>
+  <Capability Min="10" Max="19">No function</Capability>
+  <Capability Min="20" Max="28">Display off</Capability>
+  <Capability Min="29" Max="29">No function</Capability>
+  <Capability Min="30" Max="38">Display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
+  <Capability Min="40" Max="48">Display bright</Capability>
+  <Capability Min="49" Max="59">No function</Capability>
+  <Capability Min="60" Max="68">Home</Capability>
+  <Capability Min="69" Max="79">No function</Capability>
+  <Capability Min="80" Max="88" Preset="PrismEffectOff">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
+  <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="99" Max="109">No function</Capability>
+  <Capability Min="110" Max="118">Lock</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
+  <Capability Min="120" Max="130">Fixture shutdown</Capability>
+  <Capability Min="131" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Function Standard">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Full Speed Control - Continuous</Capability>
+  <Capability Min="16" Max="31">Full Speed Control - Indexed</Capability>
+  <Capability Min="32" Max="47">Full Speed Control - Pure mix</Capability>
+  <Capability Min="48" Max="63">Full Speed Control - Spin</Capability>
+  <Capability Min="64" Max="79">Full Speed Control - Cycle (speed is set by the cyan channel)</Capability>
+  <Capability Min="80" Max="95">Full Speed Control - Color scan (speed or fixed position set individually on cyan, magenta, and yellow channels)</Capability>
+  <Capability Min="96" Max="111">Full Speed Control - Random (speed is set by the cyan channel)</Capability>
+  <Capability Min="112" Max="127">Full Speed Control - Blink continuous</Capability>
+  <Capability Min="128" Max="143">MSpeed Controlled - Continuous</Capability>
+  <Capability Min="144" Max="159">MSpeed Controlled - Indexed</Capability>
+  <Capability Min="160" Max="175">MSpeed Controlled - Pure mix</Capability>
+  <Capability Min="176" Max="191">MSpeed Controlled - Spin</Capability>
+  <Capability Min="192" Max="207">MSpeed Controlled - Cycle (speed is set by the cyan channel)</Capability>
+  <Capability Min="208" Max="223">MSpeed Controlled - Color scan (speed or fixed position set individually on cyan, magenta, and yellow channels)</Capability>
+  <Capability Min="224" Max="239">MSpeed Controlled - Random (speed is set by the cyan channel)</Capability>
+  <Capability Min="240" Max="255">MSpeed Controlled - Blink continuous</Capability>
+ </Channel>
+ <Channel Name="Cyan Color Wheel">
+  <Group Byte="0">Effect</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">See manual</Capability>
+ </Channel>
+ <Channel Name="Magenta Color Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">See manual</Capability>
+ </Channel>
+ <Channel Name="Yellow Color Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">See manual</Capability>
+ </Channel>
+ <Channel Name="MSpeed">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="3">Disable</Capability>
+  <Capability Min="4" Max="255">Longest (252.7 sec.) to shortest (0.15 sec.)</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Macro off</Capability>
+  <Capability Min="6" Max="62">Pan sweep, small to large angle</Capability>
+  <Capability Min="63" Max="65">Macro off</Capability>
+  <Capability Min="66" Max="122">Tilt sweep, small to large angle</Capability>
+  <Capability Min="123" Max="125">Macro off</Capability>
+  <Capability Min="126" Max="160">Clockwise circle, small to large</Capability>
+  <Capability Min="161" Max="163">Macro off</Capability>
+  <Capability Min="164" Max="198">Counterclockwise circle, small to large</Capability>
+  <Capability Min="199" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Control Standard">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Safe (disables all control settings)</Capability>
+  <Capability Min="10" Max="19">Pan &amp; Tilt MSpeed off</Capability>
+  <Capability Min="20" Max="28">Display off</Capability>
+  <Capability Min="29" Max="29">No function</Capability>
+  <Capability Min="30" Max="38">Display dim</Capability>
+  <Capability Min="39" Max="39">No function</Capability>
+  <Capability Min="40" Max="48">Display bright</Capability>
+  <Capability Min="49" Max="59">No function</Capability>
+  <Capability Min="60" Max="68">Home</Capability>
+  <Capability Min="69" Max="79">No function</Capability>
+  <Capability Min="80" Max="88" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
+  <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="99" Max="109">No function</Capability>
+  <Capability Min="110" Max="118">Lock (send for 5 seconds)</Capability>
+  <Capability Min="119" Max="119">No function</Capability>
+  <Capability Min="120" Max="130">Shutdown (send for 5 seconds)</Capability>
+  <Capability Min="131" Max="133">No function</Capability>
+  <Capability Min="134" Max="137">Lamp assisted strobes (periodic and random strobe functions are lamp assisted, ramp functions are not lamp assisted)</Capability>
+  <Capability Min="138" Max="141">Lamp functions (modifies the shutter channel)</Capability>
+  <Capability Min="142" Max="145">Lamp/mechanical dimmings (lamp output will vary from a minimum to 700 Watts as the mechanical dimming ranges from 0-100%)</Capability>
+  <Capability Min="146" Max="149">Lamp only dimming (electronic dimming only from a minimum to 700 Watts)</Capability>
+  <Capability Min="150" Max="169">To be determined</Capability>
+  <Capability Min="170" Max="173">Cyan modulation</Capability>
+  <Capability Min="174" Max="177">Magenta modulation</Capability>
+  <Capability Min="178" Max="181">Yellow modulation</Capability>
+  <Capability Min="182" Max="185">Cyan &amp; yagenta modulation</Capability>
+  <Capability Min="186" Max="189">Cyan &amp; yellow modulation</Capability>
+  <Capability Min="190" Max="193">Magenta &amp; yellow modulation</Capability>
+  <Capability Min="194" Max="197">Modulate all colors</Capability>
+  <Capability Min="198" Max="201">Frost modulation</Capability>
+  <Capability Min="202" Max="205">Beam shaping modulation</Capability>
+  <Capability Min="206" Max="209">Dim modulation</Capability>
+  <Capability Min="210" Max="213">Lamp and dim modulation</Capability>
+  <Capability Min="214" Max="217">Lamp modulation (long sustain)</Capability>
+  <Capability Min="218" Max="221">Lamp modulation (medium sustain)</Capability>
+  <Capability Min="222" Max="225">Lamp modulation (short sustain)</Capability>
+  <Capability Min="226" Max="255">To be determined</Capability>
+ </Channel>
+ <Channel Name="Shutter Flat">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="1" Max="26" Preset="StrobeRandom">Periodic</Capability>
+  <Capability Min="27" Max="52" Preset="StrobeRandom">Random/Random</Capability>
+  <Capability Min="53" Max="78" Preset="StrobeRandom">Random/Synchronous</Capability>
+  <Capability Min="79" Max="104" Preset="RampUpSlowToFast">Ramp open, ramp shut</Capability>
+  <Capability Min="105" Max="120" Preset="RampDownSlowToFast">Snap open, ramp shut</Capability>
+  <Capability Min="121" Max="146" Preset="RampUpSlowToFast">Ramp open, ramp shut</Capability>
+  <Capability Min="147" Max="172" Preset="RampUpSlowToFast">Random ramp open, snap shut</Capability>
+  <Capability Min="173" Max="198" Preset="RampUpSlowToFast">Random snap open, ramp shut</Capability>
+  <Capability Min="199" Max="250">To be determined, defaults open</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterClose">Closed</Capability>
+ </Channel>
+ <Channel Name="Lamp Control Flat">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Lamp full power</Capability>
+  <Capability Min="1" Max="128">Lamp dim (full to dim)</Capability>
+  <Capability Min="129" Max="129">Lamp assists shutter strobes</Capability>
+  <Capability Min="130" Max="130">Lamp/mechanical dimming</Capability>
+  <Capability Min="131" Max="156">Periodic lamp strobe</Capability>
+  <Capability Min="157" Max="172">Random lamp strobe</Capability>
+  <Capability Min="173" Max="198">Synchronous random strobe</Capability>
+  <Capability Min="199" Max="199">Boost lamp 1.0 second, black</Capability>
+  <Capability Min="200" Max="200">Boost lamp .75 second, black</Capability>
+  <Capability Min="201" Max="201">Boost lamp .66 second, black</Capability>
+  <Capability Min="202" Max="202">Boost lamp .5 second, black</Capability>
+  <Capability Min="203" Max="203">Boost lamp .33 second, black</Capability>
+  <Capability Min="204" Max="204">Boost lamp .25 second, black</Capability>
+  <Capability Min="205" Max="205">Boost lamp 1.0 second, white</Capability>
+  <Capability Min="206" Max="206">Boost lamp .75 second, white</Capability>
+  <Capability Min="207" Max="207">Boost lamp .66 second, white</Capability>
+  <Capability Min="208" Max="208">Boost lamp .5 second, white</Capability>
+  <Capability Min="209" Max="209">Boost lamp .33 second, white</Capability>
+  <Capability Min="210" Max="210">Boost lamp .25 second, white</Capability>
+  <Capability Min="211" Max="211">Lightning strike 1</Capability>
+  <Capability Min="212" Max="212">Lightning strike 2</Capability>
+  <Capability Min="213" Max="213">Lightning strike 3</Capability>
+  <Capability Min="214" Max="214">Lightning strike 4</Capability>
+  <Capability Min="215" Max="215">Lightning strike 5</Capability>
+  <Capability Min="216" Max="216">Lightning strike 6</Capability>
+  <Capability Min="217" Max="255">To be determined</Capability>
+ </Channel>
+ <Channel Name="Beam Shaping Flat">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="127">Continuous positioning</Capability>
+  <Capability Min="128" Max="191">Reverse spin (fast to slow)</Capability>
+  <Capability Min="192" Max="192">Spin stop</Capability>
+  <Capability Min="193" Max="255">Forward spin (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Frost Flat">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Closed</Capability>
+  <Capability Min="1" Max="127">Continuous positioning (closed to open)</Capability>
+  <Capability Min="128" Max="143">Periodic strobe</Capability>
+  <Capability Min="144" Max="159">Random strobe</Capability>
+  <Capability Min="160" Max="175">Ramp open, snap shut</Capability>
+  <Capability Min="176" Max="191">Snap open, ramp shut</Capability>
+  <Capability Min="192" Max="207">Ramp open, ramp shut</Capability>
+  <Capability Min="208" Max="223">Random ramp open, snap shut</Capability>
+  <Capability Min="224" Max="239">Random snap open, ramp shut</Capability>
+  <Capability Min="240" Max="255">Open</Capability>
+ </Channel>
+ <Mode Name="Flat Protocol">
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Dim</Channel>
+  <Channel Number="5">Shutter Flat</Channel>
+  <Channel Number="6">Lamp Control Flat</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Yellow</Channel>
+  <Channel Number="10">Color Function Flat</Channel>
+  <Channel Number="11">Beam Shaping Flat</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Frost Flat</Channel>
+  <Channel Number="14">Control Flat</Channel>
+ </Mode>
+ <Mode Name="Standard Protocol">
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Color Function Standard</Channel>
+  <Channel Number="5">Cyan Color Wheel</Channel>
+  <Channel Number="6">Magenta Color Wheel</Channel>
+  <Channel Number="7">Yellow Color Wheel</Channel>
+  <Channel Number="8">Beam Shaping Standard (Default/Audio Modulation Mode)</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Frost Standard (Default/Audio Modulation Mode)</Channel>
+  <Channel Number="11">Shutter (Normal/Lamp Assisted)</Channel>
+  <Channel Number="12">Dim</Channel>
+  <Channel Number="13">MSpeed</Channel>
+  <Channel Number="14">Macro</Channel>
+  <Channel Number="15">Control Standard</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="18000" ColourTemperature="0"/>
+  <Dimensions Weight="21" Width="485" Height="600" Depth="295"/>
+  <Lens Name="PC" DegreesMin="15" DegreesMax="26"/>
+  <Focus Type="Aspheric" PanMax="540" TiltMax="256"/>
+  <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

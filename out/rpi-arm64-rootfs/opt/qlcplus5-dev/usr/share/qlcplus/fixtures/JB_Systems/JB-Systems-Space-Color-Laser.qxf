@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Ricardo Mendes</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Space Color Laser</Model>
+ <Type>Laser</Type>
+ <Channel Name="Config">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="200">Stepper Motor scanning Speed (from fast to slow)</Capability>
+  <Capability Min="201" Max="254">Stand-Alone</Capability>
+  <Capability Min="255" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Channel Name="Globo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="14">Pattern 1</Capability>
+  <Capability Min="15" Max="20">Pattern 2</Capability>
+  <Capability Min="21" Max="27">Pattern 3</Capability>
+  <Capability Min="28" Max="34">Pattern 4</Capability>
+  <Capability Min="35" Max="41">Pattern 5</Capability>
+  <Capability Min="42" Max="48">Pattern 6</Capability>
+  <Capability Min="49" Max="55">Pattern 7</Capability>
+  <Capability Min="56" Max="62">Pattern 8</Capability>
+  <Capability Min="63" Max="70">Pattern 9</Capability>
+  <Capability Min="71" Max="76">Pattern 10</Capability>
+  <Capability Min="77" Max="83">Pattern 11</Capability>
+  <Capability Min="84" Max="90">Pattern 12</Capability>
+  <Capability Min="91" Max="97">Pattern 13</Capability>
+  <Capability Min="98" Max="104">Pattern 14</Capability>
+  <Capability Min="105" Max="111">Pattern 15</Capability>
+  <Capability Min="112" Max="118">Pattern 16</Capability>
+  <Capability Min="119" Max="125">Pattern 17</Capability>
+  <Capability Min="126" Max="132">Pattern 18</Capability>
+  <Capability Min="133" Max="140">Pattern 19</Capability>
+  <Capability Min="141" Max="153">Pattern 20</Capability>
+  <Capability Min="154" Max="160">Pattern 21</Capability>
+  <Capability Min="161" Max="167">Pattern 22</Capability>
+  <Capability Min="168" Max="174">Pattern 23</Capability>
+  <Capability Min="175" Max="181">Pattern 24</Capability>
+  <Capability Min="182" Max="188">Pattern 25</Capability>
+  <Capability Min="189" Max="195">Pattern 26</Capability>
+  <Capability Min="196" Max="202">Pattern 27</Capability>
+  <Capability Min="203" Max="210">Pattern 28</Capability>
+  <Capability Min="211" Max="216">Pattern 29</Capability>
+  <Capability Min="217" Max="223">Pattern 30</Capability>
+  <Capability Min="224" Max="230">Pattern 31</Capability>
+  <Capability Min="231" Max="251">Pattern 32</Capability>
+  <Capability Min="252" Max="255">Pattern 33</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="255">Rotation</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Strobo">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="1" Max="254" Preset="StrobeSlowToFast">Blanking Frequency (from low to high)</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">No Blanking</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="83" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="84" Max="254" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; Green</Capability>
+  <Capability Min="255" Max="255">Original Pattern Color</Capability>
+ </Channel>
+ <Mode Name="8 channel">
+  <Channel Number="0">Config</Channel>
+  <Channel Number="1">Globo</Channel>
+  <Channel Number="2">Rotation</Channel>
+  <Channel Number="3">Zoom</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Strobo</Channel>
+  <Channel Number="7">Color</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="300" Height="100" Depth="300"/>
+  <Lens Name="PC" DegreesMin="30" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

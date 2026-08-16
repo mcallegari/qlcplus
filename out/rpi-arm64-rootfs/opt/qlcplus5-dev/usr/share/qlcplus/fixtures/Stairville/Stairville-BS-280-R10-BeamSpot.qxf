@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Andres Robles</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>BS-280 R10 BeamSpot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Special functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">Unused</Capability>
+  <Capability Min="70" Max="79">Blackout during Pan or Tilt movement</Capability>
+  <Capability Min="80" Max="89">Disabled blackout while pan/tilt moving</Capability>
+  <Capability Min="90" Max="99">Blackout during colour wheel movement</Capability>
+  <Capability Min="100" Max="109">Disabled blackout while colour wheel moving</Capability>
+  <Capability Min="110" Max="119">Blackout during gobo wheel movement</Capability>
+  <Capability Min="120" Max="129">Disabled blackout while gobo wheel moving</Capability>
+  <Capability Min="130" Max="139">Switch lamp on</Capability>
+  <Capability Min="140" Max="149">Pan and Tilt reset</Capability>
+  <Capability Min="150" Max="159">Colour wheel reset</Capability>
+  <Capability Min="160" Max="169">Gobo wheel reset</Capability>
+  <Capability Min="170" Max="179">Shutter reset</Capability>
+  <Capability Min="180" Max="189">Unused</Capability>
+  <Capability Min="190" Max="199">Prism wheel, focus, zoom and frost filter reset</Capability>
+  <Capability Min="200" Max="209">Reset all settings</Capability>
+  <Capability Min="210" Max="219">Blackout during pan or tilt movement or rotation of the gobo wheel or colour wheel</Capability>
+  <Capability Min="220" Max="229">No blackout during pan or tilt movement or rotation of the gobo wheel or colour wheel</Capability>
+  <Capability Min="230" Max="239">Switch lamp off</Capability>
+  <Capability Min="240" Max="255">Unused</Capability>
+ </Channel>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2">White</Capability>
+  <Capability Min="3" Max="4" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0829">Colour 1 (white/red)</Capability>
+  <Capability Min="5" Max="6" Preset="ColorMacro" Res1="#ff0000">Colour 2 (red)</Capability>
+  <Capability Min="7" Max="9" Preset="ColorDoubleMacro" Res1="#ff0004" Res2="#ff5500">Colour 3 (red/orange)</Capability>
+  <Capability Min="10" Max="11" Preset="ColorMacro" Res1="#ff5500">Colour 4 (orange)</Capability>
+  <Capability Min="12" Max="13" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#55ffff">Colour 5 (orange/cyan)</Capability>
+  <Capability Min="14" Max="15" Preset="ColorMacro" Res1="#55ffff">Colour 6 (cyan)</Capability>
+  <Capability Min="16" Max="18" Preset="ColorDoubleMacro" Res1="#55ffff" Res2="#00ff00">Colour 7 (cyan/green)</Capability>
+  <Capability Min="19" Max="20" Preset="ColorMacro" Res1="#00ff00">Colour 8 (green)</Capability>
+  <Capability Min="21" Max="22" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00aa00">Colour 9 (green/mint green)</Capability>
+  <Capability Min="23" Max="24" Preset="ColorMacro" Res1="#00aa00">Colour 10 (mint green)</Capability>
+  <Capability Min="25" Max="27" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#aa55ff">Colour 11 (mint green/lavender)</Capability>
+  <Capability Min="28" Max="31" Preset="ColorDoubleMacro" Res1="#aa55ff" Res2="#ffaaff">Colour 13 (lavender/rose)</Capability>
+  <Capability Min="32" Max="33" Preset="ColorMacro" Res1="#ffaaff">Colour 14 (rose)</Capability>
+  <Capability Min="34" Max="36" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#ffff00">Colour 15 (rose/yellow)</Capability>
+  <Capability Min="37" Max="38" Preset="ColorDoubleMacro" Res1="#ffff7f" Res2="#ffff7f">Colour 16 (yellow)</Capability>
+  <Capability Min="39" Max="40">Colour 17 (yellow/magenta)</Capability>
+  <Capability Min="41" Max="42" Preset="ColorMacro" Res1="#f814ff">Colour 18 (magenta)</Capability>
+  <Capability Min="43" Max="45" Preset="ColorDoubleMacro" Res1="#ff4ffd" Res2="#454eff">Colour 19 (magenta/blue)</Capability>
+  <Capability Min="46" Max="47" Preset="ColorMacro" Res1="#4027ff">Colour 20 (blue)</Capability>
+  <Capability Min="48" Max="49" Preset="ColorDoubleMacro" Res1="#2a38ff" Res2="#ffc745">Colour 21 (blue/CTO 2700K)</Capability>
+  <Capability Min="50" Max="54" Preset="ColorDoubleMacro" Res1="#ffb650" Res2="#ffe5a2">Colour 23 (CTO 2700K/CTO 3000K)</Capability>
+  <Capability Min="55" Max="56" Preset="ColorMacro" Res1="#ffe4a5">Colour 24 (CTO 3000K)</Capability>
+  <Capability Min="57" Max="60" Preset="ColorMacro" Res1="#35006a">Colour 26 (UV)</Capability>
+  <Capability Min="61" Max="63" Preset="ColorDoubleMacro" Res1="#44027e" Res2="#ffffff">Colour 27 (UV/white)</Capability>
+  <Capability Min="64" Max="127">Index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Rotation, decreasing speed</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Rotation stopped</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Rotation, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4">Gobo 1</Capability>
+  <Capability Min="5" Max="8">Gobo 2</Capability>
+  <Capability Min="9" Max="12">Gobo 3</Capability>
+  <Capability Min="13" Max="16">Gobo 4</Capability>
+  <Capability Min="17" Max="20">Gobo 5</Capability>
+  <Capability Min="21" Max="24">Gobo 6</Capability>
+  <Capability Min="25" Max="28">Gobo 7</Capability>
+  <Capability Min="29" Max="32">Gobo 8</Capability>
+  <Capability Min="33" Max="36">Gobo 9</Capability>
+  <Capability Min="37" Max="40">Gobo 10</Capability>
+  <Capability Min="41" Max="44">Gobo 11</Capability>
+  <Capability Min="45" Max="48">Gobo 12</Capability>
+  <Capability Min="49" Max="52">Gobo 13</Capability>
+  <Capability Min="53" Max="57">Gobo 14</Capability>
+  <Capability Min="58" Max="62">Gobo 1 shake</Capability>
+  <Capability Min="63" Max="67">Gobo 2 shake</Capability>
+  <Capability Min="68" Max="72">Gobo 3 shake</Capability>
+  <Capability Min="73" Max="77">Gobo 4 shake</Capability>
+  <Capability Min="78" Max="82">Gobo 5 shake</Capability>
+  <Capability Min="83" Max="87">Gobo 6 shake</Capability>
+  <Capability Min="88" Max="92">Gobo 7 shake</Capability>
+  <Capability Min="93" Max="97">Gobo 8 shake</Capability>
+  <Capability Min="98" Max="102">Gobo 9 shake</Capability>
+  <Capability Min="103" Max="107">Gobo 10 shake</Capability>
+  <Capability Min="108" Max="112">Gobo 11 shake</Capability>
+  <Capability Min="113" Max="117">Gobo 12 shake</Capability>
+  <Capability Min="118" Max="122">Gobo 13 shake</Capability>
+  <Capability Min="123" Max="127">Gobo 14 shake</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Rotation, decreasing speed</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Rotation stopped</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Rotation of the gobo in gobo wheel 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Index position (0° to 360°)</Capability>
+  <Capability Min="128" Max="189">Rotation, decreasing speed</Capability>
+  <Capability Min="190" Max="193">Rotation stopped</Capability>
+  <Capability Min="194" Max="255">Rotation, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="7" Preset="PrismEffectOff">White, no prism</Capability>
+  <Capability Min="8" Max="63" Preset="PrismEffectOn" Res1="8">Prism effect 1</Capability>
+  <Capability Min="64" Max="255" Preset="PrismEffectOn" Res1="5">Prism effect 2</Capability>
+ </Channel>
+ <Channel Name="Prism rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Index position (0° to 360°)</Capability>
+  <Capability Min="128" Max="190" Preset="RotationClockwiseFastToSlow">Rotation, decreasing speed</Capability>
+  <Capability Min="191" Max="192" Preset="RotationStop">Rotation stopped</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Frost effect from 0 to 100 %), if channel 6 = 0... 6</Capability>
+ </Channel>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed (blackout)</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Shutter, increasing speed</Capability>
+  <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Shutter closes quickly and opens slowly</Capability>
+  <Capability Min="168" Max="203" Preset="RampDownSlowToFast">Shutter closes slowly and opens quickly</Capability>
+  <Capability Min="204" Max="239" Preset="StrobeSlowToFast">Shutter, increasing speed</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandomSlowToFast">Shutter, random speed</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Gobo wheel 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="Others/gobo00007.svg">Gobo 1</Capability>
+  <Capability Min="13" Max="19" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo 2</Capability>
+  <Capability Min="20" Max="25" Preset="GoboMacro" Res1="Others/gobo00029.svg">Gobo 3</Capability>
+  <Capability Min="26" Max="32" Preset="GoboMacro" Res1="ClayPaky/gobo00059.svg">Gobo 4</Capability>
+  <Capability Min="33" Max="38">Gobo 5</Capability>
+  <Capability Min="39" Max="44">Gobo 6</Capability>
+  <Capability Min="45" Max="51">Gobo 7</Capability>
+  <Capability Min="52" Max="57">Gobo 8</Capability>
+  <Capability Min="58" Max="64" Preset="GoboMacro" Res1="Others/gobo00090.svg">Gobo 9</Capability>
+  <Capability Min="65" Max="71" Preset="GoboShakeMacro" Res1="Others/gobo00007.svg">Gobo 1 shake</Capability>
+  <Capability Min="72" Max="78" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Gobo 2 shake</Capability>
+  <Capability Min="79" Max="85" Preset="GoboShakeMacro" Res1="Others/gobo00029.svg">Gobo 3 shake</Capability>
+  <Capability Min="86" Max="92" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00059.svg">Gobo 4 shake</Capability>
+  <Capability Min="93" Max="99">Gobo 5 shake</Capability>
+  <Capability Min="100" Max="106">Gobo 6 shake</Capability>
+  <Capability Min="107" Max="113">Gobo 7 shake</Capability>
+  <Capability Min="114" Max="120">Gobo 8 shake</Capability>
+  <Capability Min="121" Max="127" Preset="GoboShakeMacro" Res1="Others/gobo00090.svg">Gobo 9 shake</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Rotation, decreasing speed</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Rotation stopped</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Fine adjustment for rotation (pan)" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment for inclination (tilt)" Preset="PositionTiltFine"/>
+ <Channel Name="Movement macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Switched off</Capability>
+  <Capability Min="8" Max="15">Macro 1</Capability>
+  <Capability Min="16" Max="23">Macro 2</Capability>
+  <Capability Min="24" Max="31">Macro 3</Capability>
+  <Capability Min="32" Max="39">Macro 4</Capability>
+  <Capability Min="40" Max="47">Macro 5</Capability>
+  <Capability Min="48" Max="55">Macro 6</Capability>
+  <Capability Min="56" Max="63">Macro 7</Capability>
+  <Capability Min="64" Max="71">Macro 8</Capability>
+  <Capability Min="72" Max="79">Macro 9</Capability>
+  <Capability Min="80" Max="87">Macro 10</Capability>
+  <Capability Min="88" Max="95">Macro 11</Capability>
+  <Capability Min="96" Max="103">Macro 12</Capability>
+  <Capability Min="104" Max="111">Macro 13</Capability>
+  <Capability Min="112" Max="119">Macro 14</Capability>
+  <Capability Min="120" Max="127">Macro 15</Capability>
+  <Capability Min="128" Max="135">Macro 16</Capability>
+  <Capability Min="136" Max="143">Macro 17</Capability>
+  <Capability Min="144" Max="151">Macro 18</Capability>
+  <Capability Min="152" Max="159">Macro 19</Capability>
+  <Capability Min="160" Max="167">Macro 20</Capability>
+  <Capability Min="168" Max="175">Macro 21</Capability>
+  <Capability Min="176" Max="183">Macro 22</Capability>
+  <Capability Min="184" Max="191">Macro 23</Capability>
+  <Capability Min="192" Max="199">Macro 24</Capability>
+  <Capability Min="200" Max="207">Macro 25</Capability>
+  <Capability Min="208" Max="215">Macro 26</Capability>
+  <Capability Min="216" Max="223">Macro 27</Capability>
+  <Capability Min="224" Max="239">Macro 29</Capability>
+  <Capability Min="240" Max="247">Macro 30</Capability>
+  <Capability Min="248" Max="255">Macro 31</Capability>
+ </Channel>
+ <Channel Name="Speed of the movement macro">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed of the movement macro, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fine adjustment of the zoom" Preset="BeamZoomFine"/>
+ <Channel Name="Fine adjustment of the focus" Preset="BeamFocusFine"/>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Special functions</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Gobo wheel 1</Channel>
+  <Channel Number="6">Gobo wheel 2</Channel>
+  <Channel Number="7">Rotation of the gobo in gobo wheel 2</Channel>
+  <Channel Number="8">Prism</Channel>
+  <Channel Number="9">Prism rotation</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Focus</Channel>
+  <Channel Number="12">Frost</Channel>
+  <Channel Number="13">Strobe effect</Channel>
+  <Channel Number="14">Dimmer</Channel>
+ </Mode>
+ <Mode Name="21 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Fine adjustment for rotation (pan)</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Fine adjustment for inclination (tilt)</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Special functions</Channel>
+  <Channel Number="6">Movement macros</Channel>
+  <Channel Number="7">Speed of the movement macro</Channel>
+  <Channel Number="8">Colour wheel</Channel>
+  <Channel Number="9">Gobo wheel 1</Channel>
+  <Channel Number="10">Gobo wheel 2</Channel>
+  <Channel Number="11">Rotation of the gobo in gobo wheel 2</Channel>
+  <Channel Number="12">Prism</Channel>
+  <Channel Number="13">Prism rotation</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Fine adjustment of the zoom</Channel>
+  <Channel Number="16">Focus</Channel>
+  <Channel Number="17">Fine adjustment of the focus</Channel>
+  <Channel Number="18">Frost</Channel>
+  <Channel Number="19">Strobe effect</Channel>
+  <Channel Number="20">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HRI 280W" Lumens="11000" ColourTemperature="7800"/>
+  <Dimensions Weight="17" Width="365" Height="574" Depth="256"/>
+  <Lens Name="PC" DegreesMin="3" DegreesMax="25"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="347" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

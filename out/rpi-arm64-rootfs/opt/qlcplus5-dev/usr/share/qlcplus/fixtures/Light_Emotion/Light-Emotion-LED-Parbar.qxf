@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Administrator</Author>
+ </Creator>
+ <Manufacturer>Light Emotion</Manufacturer>
+ <Model>LED Parbar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Internal Programs, Auto Mode and Sound Controlled Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="29">Program 1</Capability>
+  <Capability Min="30" Max="49">Program 2</Capability>
+  <Capability Min="50" Max="69">Program 3</Capability>
+  <Capability Min="70" Max="89">Program 4</Capability>
+  <Capability Min="90" Max="109">Program 5</Capability>
+  <Capability Min="110" Max="129">Program 6</Capability>
+  <Capability Min="130" Max="149">Program 7</Capability>
+  <Capability Min="150" Max="169">Program 8</Capability>
+  <Capability Min="170" Max="189">Program 9</Capability>
+  <Capability Min="190" Max="209">Program 10</Capability>
+  <Capability Min="210" Max="229">Program 11</Capability>
+  <Capability Min="230" Max="249">Auto Mode: Internal Programs</Capability>
+  <Capability Min="250" Max="255">Sound Controlled Mode</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="255">Dimming from 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Flash, with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Spot 1: red" Preset="IntensityRed"/>
+ <Channel Name="Spot 1: green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 1: blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 2: red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2: green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2: blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3: red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3: green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3: blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 4: red" Preset="IntensityRed"/>
+ <Channel Name="Spot 4: green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 4: blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 1&amp;2: red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3&amp;4: red" Preset="IntensityRed"/>
+ <Channel Name="Spot 1&amp;2: green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3&amp;4: green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 1&amp;2: blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3&amp;4: blue" Preset="IntensityBlue"/>
+ <Channel Name="red" Preset="IntensityRed"/>
+ <Channel Name="green" Preset="IntensityGreen"/>
+ <Channel Name="blue" Preset="IntensityBlue"/>
+ <Mode Name="15Ch mode">
+  <Channel Number="0">Internal Programs, Auto Mode and Sound Controlled Mode</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Spot 1: red</Channel>
+  <Channel Number="4">Spot 1: green</Channel>
+  <Channel Number="5">Spot 1: blue</Channel>
+  <Channel Number="6">Spot 2: red</Channel>
+  <Channel Number="7">Spot 2: green</Channel>
+  <Channel Number="8">Spot 2: blue</Channel>
+  <Channel Number="9">Spot 3: red</Channel>
+  <Channel Number="10">Spot 3: green</Channel>
+  <Channel Number="11">Spot 3: blue</Channel>
+  <Channel Number="12">Spot 4: red</Channel>
+  <Channel Number="13">Spot 4: green</Channel>
+  <Channel Number="14">Spot 4: blue</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9Ch mode">
+  <Channel Number="0">Internal Programs, Auto Mode and Sound Controlled Mode</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Spot 1&amp;2: red</Channel>
+  <Channel Number="4">Spot 1&amp;2: green</Channel>
+  <Channel Number="5">Spot 1&amp;2: blue</Channel>
+  <Channel Number="6">Spot 3&amp;4: red</Channel>
+  <Channel Number="7">Spot 3&amp;4: green</Channel>
+  <Channel Number="8">Spot 3&amp;4: blue</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6Ch mode">
+  <Channel Number="0">Internal Programs, Auto Mode and Sound Controlled Mode</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">red</Channel>
+  <Channel Number="4">green</Channel>
+  <Channel Number="5">blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8" Width="1110" Height="295" Depth="55"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

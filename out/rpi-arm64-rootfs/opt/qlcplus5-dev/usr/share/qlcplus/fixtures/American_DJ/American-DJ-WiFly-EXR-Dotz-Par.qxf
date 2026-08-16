@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>WiFly EXR Dotz Par</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Min="1" Max="7" Preset="ColorMacro" Res1="#ffce8f">1</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#feb199">2</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#fec08a">3</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#fea562">4</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#fe7900">5</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#b01100">6</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#60000b">7</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ea8bab">8</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#e00561">9</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#af4dad">10</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#7782c7">11</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#93a4d4">12</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#5802a3">13</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#002656">14</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#008ed0">15</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#3494d1">16</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#0186c9">17</Capability>
+  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#0091d4">18</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#0079c0">19</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#0081b8">20</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#005373">21</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#0061a6">22</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#0164a7">23</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#002856">24</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#d1dbb6">25</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#2aa555">26</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#002e23">27</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#086bde">28</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#ff0000">29</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#00fc00">30</Capability>
+  <Capability Min="240" Max="247" Preset="ColorMacro" Res1="#0000ff">31</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#ffffff">32</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="32" Max="95" Preset="StrobeSlowToFast">Slow - fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="StrobeRandom">Pulse strobe</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to unit setting</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="20">Color fade/change</Capability>
+  <Capability Min="21" Max="40">7 color change</Capability>
+  <Capability Min="41" Max="60">7 color fade</Capability>
+  <Capability Min="61" Max="80">3 color change</Capability>
+  <Capability Min="81" Max="100">3 color fade</Capability>
+  <Capability Min="101" Max="120">Sound active color fade</Capability>
+  <Capability Min="121" Max="140">Sound active color change</Capability>
+  <Capability Min="141" Max="255">Nothing</Capability>
+ </Channel>
+ <Channel Name="Program speed/Sound Sensitive">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow - fast/Least sensitive - most sensitive</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="5(d) Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Dimmer Curves</Channel>
+ </Mode>
+ <Mode Name="5(s) Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Strobing</Channel>
+  <Channel Number="4">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Color Macros</Channel>
+  <Channel Number="5">Programs</Channel>
+  <Channel Number="6">Program speed/Sound Sensitive</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Dimmer Curves</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1093" ColourTemperature="0"/>
+  <Dimensions Weight="5.5" Width="200" Height="250" Depth="210"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="66"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="38" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

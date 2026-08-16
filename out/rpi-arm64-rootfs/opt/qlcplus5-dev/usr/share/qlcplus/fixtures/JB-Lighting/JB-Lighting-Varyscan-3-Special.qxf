@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.4</Version>
+  <Author/>
+ </Creator>
+ <Manufacturer>JB-Lighting</Manufacturer>
+ <Model>Varyscan 3 Special</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Gobo &amp; effect">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="3">Gobo 1 no effect</Capability>
+  <Capability Min="4" Max="7">Gobo 1 conversion filter</Capability>
+  <Capability Min="8" Max="11">Gobo 1 daylight filter</Capability>
+  <Capability Min="12" Max="15">Gobo 1 prism</Capability>
+  <Capability Min="16" Max="19">Gobo 1 floodfilter</Capability>
+  <Capability Min="20" Max="23">Gobo 2 no effect</Capability>
+  <Capability Min="24" Max="27">Gobo 2 conversion filter</Capability>
+  <Capability Min="28" Max="31">Gobo 2 daylight filter</Capability>
+  <Capability Min="32" Max="35">Gobo 2 prism</Capability>
+  <Capability Min="36" Max="39">Gobo 3 no effect</Capability>
+  <Capability Min="40" Max="43">Gobo 3 conversion filter</Capability>
+  <Capability Min="44" Max="47">Gobo 3 daylight filter</Capability>
+  <Capability Min="48" Max="51">Gobo 3 prism</Capability>
+  <Capability Min="52" Max="55">Gobo 4 no effect</Capability>
+  <Capability Min="56" Max="59">Gobo 4 conversion filter</Capability>
+  <Capability Min="60" Max="63">Gobo 4 daylight filter</Capability>
+  <Capability Min="64" Max="67">Gobo 4 prism</Capability>
+  <Capability Min="68" Max="71">Gobo 5 no effect</Capability>
+  <Capability Min="72" Max="75">Gobo 5 conversion filter</Capability>
+  <Capability Min="76" Max="79">Gobo 5 daylight filter</Capability>
+  <Capability Min="80" Max="83">Gobo 5 prism</Capability>
+  <Capability Min="84" Max="87">Gobo 6 no effect</Capability>
+  <Capability Min="88" Max="91">Gobo 6 conversion filter</Capability>
+  <Capability Min="92" Max="95">Gobo 6 daylight filter</Capability>
+  <Capability Min="96" Max="99">Gobo 6 prism</Capability>
+  <Capability Min="100" Max="103">Gobo 7 no effect</Capability>
+  <Capability Min="104" Max="107">Gobo 7 conversion filter</Capability>
+  <Capability Min="108" Max="111">Gobo 7 daylight filter</Capability>
+  <Capability Min="112" Max="115">Gobo 7 prism</Capability>
+  <Capability Min="116" Max="119">Gobo 8 no effect</Capability>
+  <Capability Min="120" Max="123">Gobo 8 conversion filter</Capability>
+  <Capability Min="124" Max="127">Gobo 8 daylight filter</Capability>
+  <Capability Min="128" Max="131">Gobo 8 prism</Capability>
+  <Capability Min="132" Max="135">Gobo 9 no effect</Capability>
+  <Capability Min="136" Max="139">Gobo 9 conversion filter</Capability>
+  <Capability Min="140" Max="143">Gobo 9 daylight filter</Capability>
+  <Capability Min="144" Max="147">Gobo 9 prism</Capability>
+  <Capability Min="148" Max="151">Gobo 10 no effect</Capability>
+  <Capability Min="152" Max="155">Gobo 10 conversion filter</Capability>
+  <Capability Min="156" Max="159">Gobo 10 daylight filter</Capability>
+  <Capability Min="160" Max="163">Gobo 10 prism</Capability>
+  <Capability Min="164" Max="167">Gobo 11 no effect</Capability>
+  <Capability Min="168" Max="171">Gobo 11 conversion filter</Capability>
+  <Capability Min="172" Max="175">Gobo 11 daylight filter</Capability>
+  <Capability Min="176" Max="179">Gobo 11 prism</Capability>
+  <Capability Min="180" Max="183">Gobo 12 no effect</Capability>
+  <Capability Min="184" Max="187">Gobo 12 conversion filter</Capability>
+  <Capability Min="188" Max="191">Gobo 12 daylight filter</Capability>
+  <Capability Min="192" Max="254">Gobo 12 prism</Capability>
+  <Capability Min="255" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">White</Capability>
+  <Capability Min="16" Max="23">Yellow</Capability>
+  <Capability Min="24" Max="31">Dark pink</Capability>
+  <Capability Min="32" Max="39">Light blue</Capability>
+  <Capability Min="40" Max="47">Green</Capability>
+  <Capability Min="48" Max="55">Blue</Capability>
+  <Capability Min="56" Max="63">Red</Capability>
+  <Capability Min="64" Max="71">Cyan</Capability>
+  <Capability Min="72" Max="79">Light pink</Capability>
+  <Capability Min="80" Max="87">Amber</Capability>
+  <Capability Min="88" Max="95">Magenta</Capability>
+  <Capability Min="96" Max="111">4 colours</Capability>
+  <Capability Min="112" Max="119">Magenta</Capability>
+  <Capability Min="120" Max="127">Amber</Capability>
+  <Capability Min="128" Max="135">Light pink</Capability>
+  <Capability Min="136" Max="143">Cyan</Capability>
+  <Capability Min="144" Max="151">Red</Capability>
+  <Capability Min="152" Max="159">Blue</Capability>
+  <Capability Min="160" Max="167">Green</Capability>
+  <Capability Min="168" Max="175">Light blue</Capability>
+  <Capability Min="176" Max="183">Dark pink</Capability>
+  <Capability Min="184" Max="191">Yellow</Capability>
+  <Capability Min="192" Max="199">White</Capability>
+  <Capability Min="200" Max="200">No function</Capability>
+  <Capability Min="201" Max="255">Rainbow</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Shutter">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Dimmer intensity</Capability>
+  <Capability Min="128" Max="139">Open</Capability>
+  <Capability Min="140" Max="243">Strobe slow to fast</Capability>
+  <Capability Min="244" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="191">Position 0-360 degrees</Capability>
+  <Capability Min="192" Max="222">Rotation speed CCW</Capability>
+  <Capability Min="223" Max="224">No rotation</Capability>
+  <Capability Min="225" Max="255">Rotation speed CW</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="31">Gobo 2</Capability>
+  <Capability Min="32" Max="47">Gobo 3</Capability>
+  <Capability Min="48" Max="63">Gobo 4</Capability>
+  <Capability Min="64" Max="79">Gobo 5</Capability>
+  <Capability Min="80" Max="95">Gobo 6</Capability>
+  <Capability Min="96" Max="111">Gobo 7</Capability>
+  <Capability Min="112" Max="127">Gobo 8</Capability>
+  <Capability Min="128" Max="143">Gobo 9</Capability>
+  <Capability Min="144" Max="159">Gobo 10</Capability>
+  <Capability Min="160" Max="175">Gobo 11</Capability>
+  <Capability Min="176" Max="254">Gobo 12</Capability>
+  <Capability Min="255" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Open</Capability>
+  <Capability Min="32" Max="63">Conversion filter</Capability>
+  <Capability Min="64" Max="95">Daylight filter</Capability>
+  <Capability Min="96" Max="111">Prism</Capability>
+  <Capability Min="112" Max="127">Prism swing</Capability>
+  <Capability Min="128" Max="255">Flood filter</Capability>
+ </Channel>
+ <Channel Name="No function 6" Preset="NoFunction"/>
+ <Channel Name="No function 7" Preset="NoFunction"/>
+ <Mode Name="Simple">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Gobo &amp; effect</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Dimmer/Shutter</Channel>
+ </Mode>
+ <Mode Name="Advanced">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Dimmer/Shutter</Channel>
+  <Channel Number="5">No function 6</Channel>
+  <Channel Number="6">No function 7</Channel>
+  <Channel Number="7">Effect</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
+   <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

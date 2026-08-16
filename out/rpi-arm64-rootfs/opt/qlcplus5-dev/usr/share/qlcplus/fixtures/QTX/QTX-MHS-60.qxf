@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Nerijus Mongirdas</Author>
+ </Creator>
+ <Manufacturer>QTX</Manufacturer>
+ <Model>MHS-60</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#ff0000">Fire red</Capability>
+  <Capability Min="34" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="66" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="67" Max="83" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
+  <Capability Min="84" Max="100" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="101" Max="106" Preset="ColorMacro" Res1="#ff007f">Purple</Capability>
+  <Capability Min="107" Max="126" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
+  <Capability Min="127" Max="192" Preset="GoboMacro" Res1="Others/rainbow.png">Scrolling colour wheel, fast to slow</Capability>
+  <Capability Min="193" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse scrolling colour wheel, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="19" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="20" Max="41">Gobo 1</Capability>
+  <Capability Min="42" Max="61">Gobo 2</Capability>
+  <Capability Min="62" Max="82">Gobo 3</Capability>
+  <Capability Min="83" Max="104">Gobo 4</Capability>
+  <Capability Min="105" Max="125">Gobo 5</Capability>
+  <Capability Min="126" Max="139">Gobo 6</Capability>
+  <Capability Min="140" Max="204">Gobo scroll from 1 to 6, fast to slow</Capability>
+  <Capability Min="205" Max="255">Gobo scroll from 6 to 1, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="130">Forward gobo rotation, fast to slow</Capability>
+  <Capability Min="131" Max="131">Gobo stop rotating</Capability>
+  <Capability Min="132" Max="255">Reverse gobo rotation, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="28" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="29" Max="249" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127">Single spot</Capability>
+  <Capability Min="128" Max="255">3-facet prism</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="149">No action</Capability>
+  <Capability Min="150" Max="200">Reset when held for 3 seconds</Capability>
+  <Capability Min="201" Max="255">No action</Capability>
+ </Channel>
+ <Channel Name="Pan Scan" Preset="PositionPan"/>
+ <Channel Name="Tilt Scan" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan &amp; Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Pan Scan</Channel>
+  <Channel Number="1">Tilt Scan</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan &amp; Tilt Speed</Channel>
+  <Channel Number="5">Colour Wheel</Channel>
+  <Channel Number="6">Gobo</Channel>
+  <Channel Number="7">Gobo Rotation</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Prism</Channel>
+  <Channel Number="11">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
+  <Dimensions Weight="8" Width="260" Height="260" Depth="300"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Peter Chave</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>MB DMX II</Model>
+ <Type>Other</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Lamp Off</Capability>
+  <Capability Min="128" Max="255">Lamp On</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="127">CW Speed 5rpm (1) - 0.5rpm (127)</Capability>
+  <Capability Min="128" Max="128">Stop</Capability>
+  <Capability Min="129" Max="255">CCW Speed 0.5rpm (129) - 5rpm (255)</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.81" Width="286" Height="318" Depth="216"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="10" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

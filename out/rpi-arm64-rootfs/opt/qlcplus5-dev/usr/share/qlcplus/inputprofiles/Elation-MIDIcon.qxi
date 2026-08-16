@@ -1,0 +1,404 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.5 GIT</Version>
+  <Author>Jano Svitok</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>MIDIcon</Model>
+ <Type>MIDI</Type>
+ <Channel Number="0">
+  <Name>Playback Fader 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="1">
+  <Name>Playback Fader 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>PlaybackFader 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Playback Fader 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Playback Fader 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Playback Fader 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Playback Fader 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Playback Fader 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Grand Master Fader</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="85">
+  <Name>Playback Page Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="128">
+  <Name>Touchpad 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>Touchpad 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Touchpad 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Touchpad 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Touchpad 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Touchpad 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Touchpad 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Touchpad 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Touchpad 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Touchpad 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Touchpad 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Touchpad 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Wheel 1 Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Wheel 1 Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Wheel 1 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Wheel 2 Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Wheel 2 Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Wheel 2 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Wheel 3 Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Wheel 3 Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Wheel 3 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>S1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>S2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>S3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>S4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>S5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>S6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>S7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Playback 1 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>Playback 1 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>Playback 1 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Playback 2 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Playback 2 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Playback 2 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Playback 3 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Playback 3 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Playback 3 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Playback 4 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Playback 4 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>Playback 4 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="168">
+  <Name>Playback 5 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>Playback 5 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>Playback 5 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>Playback 6 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>Playback 6 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>Playback 6 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Playback 7 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Playback 7 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Playback 7 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="177">
+  <Name>Playback 8 Button A</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="178">
+  <Name>Playback 8 Button B</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Playback 8 Button C</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Memory 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Memory 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Memory 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Memory 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Memory 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>Memory 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>Memory 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="187">
+  <Name>Memory 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="188">
+  <Name>Memory 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>Memory 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>Memory 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>Memory 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>Memory 13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>Memory 14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>Memory 15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>Memory 16</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>Memory 17</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="197">
+  <Name>Memory 18</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="198">
+  <Name>Memory 19</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>Memory 20</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>Memory 21</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>Memory 22</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>Memory 23</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>Memory 24</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>Memory 25</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="205">
+  <Name>Memory 26</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="206">
+  <Name>Memory 27</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="207">
+  <Name>Memory 28</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="208">
+  <Name>Memory 29</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Memory 30</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Memory 31</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Memory 32</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Playback Page Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Memory Page Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>Memory Page Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>Blackout</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

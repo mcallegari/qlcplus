@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>susnux</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Giga Bar Pix 8 UV</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="UV1" Preset="IntensityUV"/>
+ <Channel Name="UV2" Preset="IntensityUV"/>
+ <Channel Name="UV3" Preset="IntensityUV"/>
+ <Channel Name="UV4" Preset="IntensityUV"/>
+ <Channel Name="UV5" Preset="IntensityUV"/>
+ <Channel Name="UV6" Preset="IntensityUV"/>
+ <Channel Name="UV7" Preset="IntensityUV"/>
+ <Channel Name="UV8" Preset="IntensityUV"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">UV1</Channel>
+  <Channel Number="1">UV2</Channel>
+  <Channel Number="2">UV3</Channel>
+  <Channel Number="3">UV4</Channel>
+  <Channel Number="4">UV5</Channel>
+  <Channel Number="5">UV6</Channel>
+  <Channel Number="6">UV7</Channel>
+  <Channel Number="7">UV8</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">UV1</Channel>
+  <Channel Number="2">UV2</Channel>
+  <Channel Number="3">UV3</Channel>
+  <Channel Number="4">UV4</Channel>
+  <Channel Number="5">UV5</Channel>
+  <Channel Number="6">UV6</Channel>
+  <Channel Number="7">UV7</Channel>
+  <Channel Number="8">UV8</Channel>
+  <Channel Number="9">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="1020" Height="80" Depth="65"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Torsten Caninenberg</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Space-4 Laser</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Laser Bock Out</Capability>
+  <Capability Min="64" Max="127">AUTO SHOW</Capability>
+  <Capability Min="128" Max="191">SOUND ACTIVATED SHOW (MUSIC)</Capability>
+  <Capability Min="192" Max="255">DMX MODE (Other channels activated)</Capability>
+ </Channel>
+ <Channel Name="Pattern">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">32 Patterns as shown in PATTERN LIST</Capability>
+ </Channel>
+ <Channel Name="Zooming">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">100%-5% Size</Capability>
+  <Capability Min="128" Max="169">Zooming In</Capability>
+  <Capability Min="170" Max="209">Zooming Out</Capability>
+  <Capability Min="210" Max="255">Zooming In &amp; Out</Capability>
+ </Channel>
+ <Channel Name="Y Axis Roll">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">0-359 degree fixed Y axis rolled</Capability>
+  <Capability Min="128" Max="209">Clockwise rolling</Capability>
+  <Capability Min="210" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="X Axis Roll">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">0-359 degree fixed X axis rolled</Capability>
+  <Capability Min="128" Max="209">Clockwise rolling</Capability>
+  <Capability Min="210" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Z Axis Roll">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree fixed Z axis rolled</Capability>
+  <Capability Min="128" Max="209">Clockwise rolling</Capability>
+  <Capability Min="210" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="X Axis Move">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">128 different fixed position on X</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="Y Axis Move">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">128 different fixed position on Y</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="1 Ch-Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="29">Laser output off</Capability>
+  <Capability Min="30" Max="149">Automatic show</Capability>
+  <Capability Min="150" Max="255">Sound activated show</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">1 Ch-Mode</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Zooming</Channel>
+  <Channel Number="3">Y Axis Roll</Channel>
+  <Channel Number="4">X Axis Roll</Channel>
+  <Channel Number="5">Z Axis Roll</Channel>
+  <Channel Number="6">X Axis Move</Channel>
+  <Channel Number="7">Y Axis Move</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.48" Width="145" Height="80" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Jimmy Traylor</Author>
+ </Creator>
+ <Manufacturer>Stellar Labs</Manufacturer>
+ <Model>ECO LED PAR56</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">RGB control, ch2=red, ch3=green, ch4=blue</Capability>
+  <Capability Min="64" Max="127">7 colour fade, ch5=speed control</Capability>
+  <Capability Min="128" Max="191">7 colour change, ch5=speed control</Capability>
+  <Capability Min="192" Max="255">3 colour change, ch5=speed control</Capability>
+ </Channel>
+ <Channel Name="Red Colour" Preset="IntensityRed"/>
+ <Channel Name="Green Colour" Preset="IntensityGreen"/>
+ <Channel Name="Blue Colour" Preset="IntensityBlue"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">No function - no speed</Capability>
+  <Capability Min="11" Max="100">Fast to slow</Capability>
+  <Capability Min="101" Max="150">No function - no speed</Capability>
+  <Capability Min="151" Max="255">Speed control by unit, by music or potentiometer</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Red Colour</Channel>
+  <Channel Number="2">Green Colour</Channel>
+  <Channel Number="3">Blue Colour</Channel>
+  <Channel Number="4">Speed</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red Colour</Channel>
+  <Channel Number="1">Green Colour</Channel>
+  <Channel Number="2">Blue Colour</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="201" Height="201" Depth="266"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

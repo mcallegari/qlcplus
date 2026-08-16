@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Dave Wilson</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Kinta FX</Model>
+ <Type>Flower</Type>
+ <Channel Name="Auto Program">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="44">Beams/Laser/Strobe</Capability>
+  <Capability Min="45" Max="79">Beams/Strobe</Capability>
+  <Capability Min="80" Max="114">Beams/Laser</Capability>
+  <Capability Min="115" Max="149">Laser/Strobe</Capability>
+  <Capability Min="150" Max="184">Beams Only</Capability>
+  <Capability Min="185" Max="219">Strobe Only</Capability>
+  <Capability Min="220" Max="255">Laser Only</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250">Auto Program Speed (Slow to Fast)</Capability>
+  <Capability Min="251" Max="255">Sound Active Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Manual LED Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="36" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="65" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="66" Max="80" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/Green</Capability>
+  <Capability Min="81" Max="95" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="96" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="111" Max="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="126" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green/White</Capability>
+  <Capability Min="141" Max="155" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue/White</Capability>
+  <Capability Min="156" Max="170">Red/Green/Blue</Capability>
+  <Capability Min="171" Max="185">Red/Green/White</Capability>
+  <Capability Min="186" Max="200">Green/Blue/White</Capability>
+  <Capability Min="201" Max="215">Red/Green/White</Capability>
+  <Capability Min="216" Max="230">Automatic 4 Colour Chase</Capability>
+  <Capability Min="231" Max="255">Automatic 7 Colour Chase</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Motor">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127" Preset="RotationIndexed">Indexing</Capability>
+  <Capability Min="128" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Pattern Options">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Pattern 1 Speed (Slow - Fast)</Capability>
+  <Capability Min="20" Max="29">Pattern 2 Speed (Slow - Fast)</Capability>
+  <Capability Min="30" Max="39">Pattern 3 Speed (Slow - Fast)</Capability>
+  <Capability Min="40" Max="49">Pattern 4 Speed (Slow - Fast)</Capability>
+  <Capability Min="50" Max="59">Pattern 5 Speed (Slow - Fast)</Capability>
+  <Capability Min="60" Max="69">Pattern 6 Speed (Slow - Fast)</Capability>
+  <Capability Min="70" Max="79">Pattern 7 Speed (Slow - Fast)</Capability>
+  <Capability Min="80" Max="89">Pattern 8 Speed (Slow - Fast)</Capability>
+  <Capability Min="90" Max="99">Pattern 9 Speed (Slow - Fast)</Capability>
+  <Capability Min="100" Max="109">Pattern 10 Speed (Slow - Fast)</Capability>
+  <Capability Min="110" Max="119">Pattern 11 Speed (Slow - Fast)</Capability>
+  <Capability Min="120" Max="129">Pattern 12 Speed (Slow - Fast)</Capability>
+  <Capability Min="130" Max="139">Pattern 13 Speed (Slow - Fast)</Capability>
+  <Capability Min="140" Max="149">Pattern 14 Speed (Slow - Fast)</Capability>
+  <Capability Min="150" Max="159">Pattern 15 Speed (Slow - Fast)</Capability>
+  <Capability Min="160" Max="169">Pattern 16 Speed (Slow - Fast)</Capability>
+  <Capability Min="170" Max="179">Pattern 17 Speed (Slow - Fast)</Capability>
+  <Capability Min="180" Max="255">Pattern 18 Speed (Slow - Fast) Solid On</Capability>
+ </Channel>
+ <Channel Name="Laser Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="49" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="50" Max="89" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="90" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/Green</Capability>
+  <Capability Min="130" Max="169">Red On/Green Strobe</Capability>
+  <Capability Min="170" Max="209">Green On/Red Strobe</Capability>
+  <Capability Min="210" Max="255">Red &amp; Green Alternating Strobe</Capability>
+ </Channel>
+ <Channel Name="Laser Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="254">Strobe Speed (Slow - Fast: 0-30Hz)</Capability>
+  <Capability Min="255" Max="255">Sound Strobe</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation" Default="130">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate Clockwise (Fast - Slow)</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate Anti-Clockwise (Slow - Fast)</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Manual LED Colour</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Motor</Channel>
+  <Channel Number="5">Pattern Options</Channel>
+  <Channel Number="6">Laser Colours</Channel>
+  <Channel Number="7">Laser Strobe</Channel>
+  <Channel Number="8">Laser Rotation</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1">Program Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.7" Width="262" Height="187" Depth="187"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

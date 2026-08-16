@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>chritoep</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED Blinder 2 COB 2x65W</Model>
+ <Type>Strobe</Type>
+ <Channel Name="LED Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="LED 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="LED 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="123" Preset="StrobeSlowToFast">Strobe effect, increasing frequency</Capability>
+  <Capability Min="124" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="185">Strobe effect, random frequency, LED 1 and 2 synchronous</Capability>
+  <Capability Min="186" Max="190" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="191" Max="249">Strobe effect, random frequency, LED 1 and 2 asynchronous</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">LED Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel (2A)">
+  <Channel Number="0">LED 1 Dimmer</Channel>
+  <Channel Number="1">LED 2 Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel (2B)">
+  <Channel Number="0">LED Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">LED 1 Dimmer</Channel>
+  <Channel Number="1">LED 2 Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="2700"/>
+  <Dimensions Weight="4.5" Width="530" Height="330" Depth="150"/>
+  <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

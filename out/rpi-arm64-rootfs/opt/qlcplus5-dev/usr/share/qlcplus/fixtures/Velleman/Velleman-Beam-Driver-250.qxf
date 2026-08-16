@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Rob Nieuwenhuizen</Author>
+ </Creator>
+ <Manufacturer>Velleman</Manufacturer>
+ <Model>Beam Driver 250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#1b7fd4">UV Blue</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="65" Max="72" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="73" Max="80" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="81" Max="88" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="89" Max="96" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="97" Max="104" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="105" Max="111" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="112" Max="120" Preset="ColorMacro" Res1="#1b7fd4">UV Blue</Capability>
+  <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="128" Max="191">Slow-fast rotation up</Capability>
+  <Capability Min="192" Max="255">Slow-fast rotation down</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open gobo</Capability>
+  <Capability Min="16" Max="31">Gobo 1</Capability>
+  <Capability Min="32" Max="47">Gobo 2</Capability>
+  <Capability Min="48" Max="63">Gobo 3</Capability>
+  <Capability Min="64" Max="79">Gobo 4</Capability>
+  <Capability Min="80" Max="95">Gobo 5</Capability>
+  <Capability Min="96" Max="111">Gobo 6</Capability>
+  <Capability Min="112" Max="127">Gobo 7 - Mag.</Capability>
+  <Capability Min="128" Max="191">Rot. gobo up</Capability>
+  <Capability Min="192" Max="255">Rot. gobo down</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="135">Slow-fast rotation up</Capability>
+  <Capability Min="136" Max="255">Slow-fast rotation down</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="133" Preset="ShutterOpen">Open shutter</Capability>
+  <Capability Min="134" Max="244" Preset="StrobeFastToSlow">Fast-slow shutter</Capability>
+  <Capability Min="245" Max="249">Reset</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open shutter</Capability>
+ </Channel>
+ <Channel Name="Pan - movement" Preset="PositionPan"/>
+ <Channel Name="Tilt - movement" Preset="PositionTilt"/>
+ <Channel Name="Effect wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">SI-fast 3-facet prism</Capability>
+ </Channel>
+ <Mode Name="VDP250MH7">
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Gobo rotation</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Pan - movement</Channel>
+  <Channel Number="5">Tilt - movement</Channel>
+  <Channel Number="6">Effect wheel</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="0"/>
+  <Dimensions Weight="17.2" Width="300" Height="480" Depth="300"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="360" TiltMax="270"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

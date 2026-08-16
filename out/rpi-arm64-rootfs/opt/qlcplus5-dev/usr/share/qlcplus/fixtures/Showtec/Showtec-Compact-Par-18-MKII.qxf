@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Nicolò Zanon</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Compact Par 18 MKII</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red/Fade Speed" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No effect</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobo effect</Capability>
+ </Channel>
+ <Channel Name="Color program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">29 static color program Mode via Channel 2</Capability>
+  <Capability Min="25" Max="49">Program 2 (7-color, gradual change) R, RG, G, GB, B, RB, RGB</Capability>
+  <Capability Min="50" Max="74">Program 3 (3-color, gradual change) R, G, B</Capability>
+  <Capability Min="75" Max="99">Program 4 (7-color, color switch) R, RG, G, GB, B, RB, RGB</Capability>
+  <Capability Min="100" Max="124">Program 5 (3-color, color switch) R, G, B</Capability>
+  <Capability Min="125" Max="149">Program 6 (fantasy change 1)</Capability>
+  <Capability Min="150" Max="174">Program 7 (fantasy change 2)</Capability>
+  <Capability Min="175" Max="199">Program 8 (red gradual change)</Capability>
+  <Capability Min="200" Max="224">Program 9 (green gradual change)</Capability>
+  <Capability Min="225" Max="249">Program 10 (blue gradual change)</Capability>
+  <Capability Min="250" Max="255">Sound controller</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="23" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="68" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="69" Max="91" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="92" Max="114" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="115" Max="137" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="138" Max="160" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="161" Max="183" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="184" Max="206" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="207" Max="229" Preset="ColorMacro" Res1="#aaff7f">Light Green</Capability>
+  <Capability Min="230" Max="252" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#fff9e0">Warm White</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red/Fade Speed</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe Effect</Channel>
+  <Channel Number="5">Color program</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red/Fade Speed</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red/Fade Speed</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Color Macros</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+  <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
+  <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

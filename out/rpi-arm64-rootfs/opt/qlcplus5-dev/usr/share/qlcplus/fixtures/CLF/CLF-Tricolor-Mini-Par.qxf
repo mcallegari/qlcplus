@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Jaron Blazer</Author>
+ </Creator>
+ <Manufacturer>CLF</Manufacturer>
+ <Model>Tricolor Mini Par</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimming" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Macro color control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Macro color control</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe (0-20Hz)</Capability>
+ </Channel>
+ <Channel Name="Auto &amp; Custom program">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19">Out1 AUTO1</Capability>
+  <Capability Min="20" Max="29">Out2 AUTO2</Capability>
+  <Capability Min="30" Max="39">Out3 AUTO3</Capability>
+  <Capability Min="40" Max="49">Out4 AUTO4</Capability>
+  <Capability Min="50" Max="59">Out5 AUTO5</Capability>
+  <Capability Min="60" Max="69">Out6 AUTO6</Capability>
+  <Capability Min="70" Max="79">Out7 AUTO7</Capability>
+  <Capability Min="80" Max="89">Out8 AUTO8</Capability>
+  <Capability Min="90" Max="99">Out9 AUTO9</Capability>
+  <Capability Min="100" Max="109">Out10 AUTO10</Capability>
+  <Capability Min="110" Max="119">cust1 custom program1</Capability>
+  <Capability Min="120" Max="129">cust2 custom program2</Capability>
+  <Capability Min="130" Max="139">cust3 custom program3</Capability>
+  <Capability Min="140" Max="149">cust4 custom program4</Capability>
+  <Capability Min="150" Max="159">cust5 custom program5</Capability>
+  <Capability Min="160" Max="169">cust6 custom program6</Capability>
+  <Capability Min="170" Max="179">cust7 custom program7</Capability>
+  <Capability Min="180" Max="189">cust8 custom program8</Capability>
+  <Capability Min="190" Max="199">cust9 custom program9</Capability>
+  <Capability Min="200" Max="209">cust10 custom program10</Capability>
+  <Capability Min="210" Max="219">choose 01 program of sound controlling</Capability>
+  <Capability Min="220" Max="229">choose 02 program of sound controlling</Capability>
+  <Capability Min="230" Max="255">choose 03 program of sound controlling</Capability>
+ </Channel>
+ <Channel Name="Auto speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100% (only when using ch. 7)</Capability>
+ </Channel>
+ <Channel Name="Dimming speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Dimming speed</Capability>
+ </Channel>
+ <Channel Name="ID">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">ID address selection</Capability>
+ </Channel>
+ <Mode Name="3 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Dimming</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Dimming</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Macro color control</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Auto &amp; Custom program</Channel>
+  <Channel Number="7">Auto speed</Channel>
+  <Channel Number="8">Dimming speed</Channel>
+  <Channel Number="9">ID</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="200" Height="240" Depth="178"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

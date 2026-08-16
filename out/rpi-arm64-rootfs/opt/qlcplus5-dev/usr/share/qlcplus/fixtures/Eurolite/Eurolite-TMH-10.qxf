@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Ex</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TMH-10</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt-speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open/white</Capability>
+  <Capability Min="8" Max="15" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#a020f0">White/Purple</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="24" Max="31" Preset="ColorDoubleMacro" Res1="#a020f0" Res2="#00ff00">Purple/green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#add8e6">Green/light blue</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ffff00">Light blue/yellow</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#005500">Yellow/dark green</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#005500">Dark green</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#005500" Res2="#0055ff">Dark green/dark blue</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#0055ff">Dark blue</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#0055ff" Res2="#ffaa00">Dark blue/orange</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffffff">Orange/white</Capability>
+  <Capability Min="128" Max="192">Forwards rainbow effect with decreasing speed</Capability>
+  <Capability Min="193" Max="255">Backwards rainbow effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Rotating gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="17">Open</Capability>
+  <Capability Min="18" Max="36">Gobo 1</Capability>
+  <Capability Min="37" Max="55">Gobo 2</Capability>
+  <Capability Min="56" Max="74">Gobo 3</Capability>
+  <Capability Min="75" Max="93">Gobo 4</Capability>
+  <Capability Min="94" Max="112">Gobo 5</Capability>
+  <Capability Min="113" Max="127">Gobo 6</Capability>
+  <Capability Min="128" Max="192">Forwards gobo-wheel rotation with decreasing speed</Capability>
+  <Capability Min="193" Max="255">Backwards gobo-wheel rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0">No rotation</Capability>
+  <Capability Min="1" Max="127">Forwards gobo rotation with decreasing speed</Capability>
+  <Capability Min="128" Max="255">Backwards gobo rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">3-facet prism</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="149">No function</Capability>
+  <Capability Min="150" Max="200" Preset="ResetAll">Reset</Capability>
+  <Capability Min="201" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Pan 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16 bit" Preset="PositionTiltFine"/>
+ <Mode Name="default">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt-speed</Channel>
+  <Channel Number="3">Colour wheel</Channel>
+  <Channel Number="4">Rotating gobo wheel</Channel>
+  <Channel Number="5">Gobo rotation</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Dimmer intensity</Channel>
+  <Channel Number="8">Prism</Channel>
+  <Channel Number="9">Reset</Channel>
+  <Channel Number="10">Pan 16 bit</Channel>
+  <Channel Number="11">Tilt 16 bit</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.5" Width="250" Height="320" Depth="280"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="585" TiltMax="270"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

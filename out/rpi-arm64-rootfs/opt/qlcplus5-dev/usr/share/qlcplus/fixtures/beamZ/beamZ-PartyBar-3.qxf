@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Joel Solomons</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>PartyBar 3</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Macro Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="50">Static colour</Capability>
+  <Capability Min="51" Max="100">Colour jump</Capability>
+  <Capability Min="101" Max="150">Colour fade</Capability>
+  <Capability Min="151" Max="200">Sound mode</Capability>
+  <Capability Min="201" Max="255">Strobe all colours</Capability>
+ </Channel>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No colour macro / use RGB channels</Capability>
+  <Capability Min="1" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="16" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="106" Max="120">Amber</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#ff69b4">Hot pink</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="166" Max="180">Lime</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#87ceeb">Sky blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffffff">Warm white approximation</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ffffff">Cool white approximation</Capability>
+  <Capability Min="226" Max="240">Pastel colour macro</Capability>
+  <Capability Min="241" Max="255">Full colour macro / rainbow</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Stopped / no speed</Capability>
+  <Capability Min="1" Max="63">Slow speed</Capability>
+  <Capability Min="64" Max="127">Medium speed</Capability>
+  <Capability Min="128" Max="191">Fast speed</Capability>
+  <Capability Min="192" Max="255">Very fast speed</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White (Magic ball)" Preset="IntensityWhite"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Macro Select</Channel>
+  <Channel Number="1">Colour Macro</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White (Magic ball)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.3" Width="735" Height="210" Depth="90"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

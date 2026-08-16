@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Mihai</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>CLHB400RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Master Control - Pan" Preset="PositionPan"/>
+ <Channel Name="Fine Control - Pan" Preset="PositionPanFine"/>
+ <Channel Name="Master Control - Tilt" Preset="PositionTilt"/>
+ <Channel Name="Fine Control - Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="First Head - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Sound Mode/Reset">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="210" Max="240">No function</Capability>
+  <Capability Min="241" Max="255">Sound control mode</Capability>
+ </Channel>
+ <Channel Name="Second Head - Pan" Preset="PositionPan"/>
+ <Channel Name="Second Head - Tilt" Preset="PositionTilt"/>
+ <Channel Name="Second Head - Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Second Head - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Third Head - Pan" Preset="PositionPan"/>
+ <Channel Name="Third Head - Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Third Head - Tilt" Preset="PositionTilt"/>
+ <Channel Name="Third Head - Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Head Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Third Head - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Fourth Head - Pan" Preset="PositionPan"/>
+ <Channel Name="Fourth Head - Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Fourth Head - Tilt" Preset="PositionTilt"/>
+ <Channel Name="Fourth Head - Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Light Control - Automatic Colour Change Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Light Control - Automatic Colour Change/Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30" Preset="GoboMacro" Res1="Others/rainbow.png">Automatic colour change</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Show Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No movement</Capability>
+  <Capability Min="8" Max="22">Show mode 1</Capability>
+  <Capability Min="23" Max="37">Show mode 2</Capability>
+  <Capability Min="38" Max="52">Show mode 3</Capability>
+  <Capability Min="53" Max="67">Show mode 4</Capability>
+  <Capability Min="68" Max="82">Show mode 5</Capability>
+  <Capability Min="83" Max="97">Show mode 6</Capability>
+  <Capability Min="98" Max="112">Show mode 7</Capability>
+  <Capability Min="113" Max="127">Show mode 8</Capability>
+  <Capability Min="128" Max="142">Show mode 9</Capability>
+  <Capability Min="143" Max="157">Show mode 10</Capability>
+  <Capability Min="158" Max="172">Show mode 11</Capability>
+  <Capability Min="173" Max="187">Show mode 12</Capability>
+  <Capability Min="188" Max="202">Show mode 13</Capability>
+  <Capability Min="203" Max="217">Show mode 14</Capability>
+  <Capability Min="218" Max="232">Show mode 15</Capability>
+  <Capability Min="233" Max="247">Show mode 16</Capability>
+  <Capability Min="248" Max="255">Sound control mode</Capability>
+ </Channel>
+ <Channel Name="Show Mode Speed/Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow to fast/Low to high</Capability>
+ </Channel>
+ <Channel Name="Master Control - Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Colour Control - Red" Preset="IntensityRed"/>
+ <Channel Name="Colour Control - Green" Preset="IntensityGreen"/>
+ <Channel Name="Colour Control - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Colour Control - White" Preset="IntensityWhite"/>
+ <Channel Name="First Head - Pan" Preset="PositionPan"/>
+ <Channel Name="First Head - Tilt" Preset="PositionTilt"/>
+ <Channel Name="First Head - Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="First Head - Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="First Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Second Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Third Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="First Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Second Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Third Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Preset="ColorMacro" Res1="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Preset="ColorMacro" Res1="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Preset="ColorMacro" Res1="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Preset="ColorMacro" Res1="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Preset="ColorMacro" Res1="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Preset="ColorMacro" Res1="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Preset="ColorMacro" Res1="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Preset="ColorMacro" Res1="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Preset="ColorMacro" Res1="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Preset="ColorMacro" Res1="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Preset="ColorMacro" Res1="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Second Head - Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Master Colour Selection - Red" Preset="IntensityRed"/>
+ <Channel Name="Master Colour Selection - Green" Preset="IntensityGreen"/>
+ <Channel Name="Master Colour Selection - Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Colour Selection - White" Preset="IntensityWhite"/>
+ <Channel Name="Sound Sensitivity in Sound Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound sensitivity</Capability>
+ </Channel>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Show Mode</Channel>
+  <Channel Number="3">Show Mode Speed/Sound Sensitivity</Channel>
+  <Channel Number="4">Light Control - Automatic Colour Change/Colour Macro</Channel>
+  <Channel Number="5">Light Control - Automatic Colour Change Speed</Channel>
+ </Mode>
+ <Mode Name="10-Channel">
+  <Channel Number="0">Master Control - Pan</Channel>
+  <Channel Number="1">Master Control - Tilt</Channel>
+  <Channel Number="2">Master Control - Master Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Show Mode</Channel>
+  <Channel Number="5">Show Mode Speed/Sound Sensitivity</Channel>
+  <Channel Number="6">Light Control - Automatic Colour Change/Colour Macro</Channel>
+  <Channel Number="7">Light Control - Automatic Colour Change Speed</Channel>
+  <Channel Number="8">Fine Control - Pan</Channel>
+  <Channel Number="9">Fine Control - Tilt</Channel>
+ </Mode>
+ <Mode Name="19-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Colour Control - Red</Channel>
+  <Channel Number="3">Colour Control - Green</Channel>
+  <Channel Number="4">Colour Control - Blue</Channel>
+  <Channel Number="5">Colour Control - White</Channel>
+  <Channel Number="6">First Head - Pan</Channel>
+  <Channel Number="7">First Head - Tilt</Channel>
+  <Channel Number="8">First Head - Dimmer</Channel>
+  <Channel Number="9">Second Head - Pan</Channel>
+  <Channel Number="10">Second Head - Tilt</Channel>
+  <Channel Number="11">Second Head - Dimmer</Channel>
+  <Channel Number="12">Third Head - Pan</Channel>
+  <Channel Number="13">Third Head - Tilt</Channel>
+  <Channel Number="14">Third Head - Dimmer</Channel>
+  <Channel Number="15">Fourth Head - Pan</Channel>
+  <Channel Number="16">Fourth Head - Tilt</Channel>
+  <Channel Number="17">Fourth Head - Dimmer</Channel>
+  <Channel Number="18">Head Speed</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="32-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">First Head - Pan</Channel>
+  <Channel Number="3">First Head - Pan Fine</Channel>
+  <Channel Number="4">First Head - Tilt</Channel>
+  <Channel Number="5">First Head - Tilt Fine</Channel>
+  <Channel Number="6">First Head - Speed</Channel>
+  <Channel Number="7">First Head - Light Control</Channel>
+  <Channel Number="8">Second Head - Pan</Channel>
+  <Channel Number="9">Second Head - Pan Fine</Channel>
+  <Channel Number="10">Second Head - Tilt</Channel>
+  <Channel Number="11">Second Head - Tilt Fine</Channel>
+  <Channel Number="12">Second Head - Speed</Channel>
+  <Channel Number="13">Second Head - Light Control</Channel>
+  <Channel Number="14">Third Head - Pan</Channel>
+  <Channel Number="15">Third Head - Pan Fine</Channel>
+  <Channel Number="16">Third Head - Tilt</Channel>
+  <Channel Number="17">Third Head - Tilt Fine</Channel>
+  <Channel Number="18">Third Head - Speed</Channel>
+  <Channel Number="19">Third Head - Light Control</Channel>
+  <Channel Number="20">Fourth Head - Pan</Channel>
+  <Channel Number="21">Fourth Head - Pan Fine</Channel>
+  <Channel Number="22">Fourth Head - Tilt</Channel>
+  <Channel Number="23">Fourth Head - Tilt Fine</Channel>
+  <Channel Number="24">Fourth Head - Speed</Channel>
+  <Channel Number="25">Fourth Head - Light Control</Channel>
+  <Channel Number="26">Sound Mode/Reset</Channel>
+  <Channel Number="27">Sound Sensitivity in Sound Mode</Channel>
+  <Channel Number="28">Master Colour Selection - Red</Channel>
+  <Channel Number="29">Master Colour Selection - Green</Channel>
+  <Channel Number="30">Master Colour Selection - Blue</Channel>
+  <Channel Number="31">Master Colour Selection - White</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+  <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

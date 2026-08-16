@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5 GIT</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Accu Fog 1000</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Speed of Pan/Tilt Movement">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Fast to slow</Capability>
+  <Capability Min="226" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Pump Duration (Fog) Time">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Off</Capability>
+  <Capability Min="21" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Auto program - 5 Channel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="39">No function</Capability>
+  <Capability Min="40" Max="59">Heater on</Capability>
+  <Capability Min="60" Max="79">Heater switch off</Capability>
+  <Capability Min="80" Max="99">Motor reset</Capability>
+  <Capability Min="100" Max="119">Internal program 1</Capability>
+  <Capability Min="120" Max="139">Internal program 2</Capability>
+  <Capability Min="140" Max="159">Internal program 3</Capability>
+  <Capability Min="160" Max="179">Internal program 4</Capability>
+  <Capability Min="180" Max="199">Internal program 5</Capability>
+  <Capability Min="200" Max="219">Internal program 6</Capability>
+  <Capability Min="220" Max="239">Internal program 7</Capability>
+  <Capability Min="240" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Auto program - 7 Channel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="39">Normal control</Capability>
+  <Capability Min="40" Max="59">Heater on</Capability>
+  <Capability Min="60" Max="79">Heater switch off</Capability>
+  <Capability Min="80" Max="84">All motor reset</Capability>
+  <Capability Min="85" Max="87">Scan motor reset</Capability>
+  <Capability Min="88" Max="99">No function</Capability>
+  <Capability Min="100" Max="119">Internal program 1</Capability>
+  <Capability Min="120" Max="139">Internal program 2</Capability>
+  <Capability Min="140" Max="159">Internal program 3</Capability>
+  <Capability Min="160" Max="179">Internal program 4</Capability>
+  <Capability Min="180" Max="199">Internal program 5</Capability>
+  <Capability Min="200" Max="219">Internal program 6</Capability>
+  <Capability Min="220" Max="239">Internal program 7</Capability>
+  <Capability Min="240" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Pump Interval (Pause) Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Normal</Capability>
+  <Capability Min="4" Max="10">10 seconds</Capability>
+  <Capability Min="11" Max="255">11 seconds to 255 seconds</Capability>
+ </Channel>
+ <Channel Name="Fog Duration Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">0 seconds</Capability>
+  <Capability Min="4" Max="59">1 seconds</Capability>
+  <Capability Min="60" Max="119">5 seconds</Capability>
+  <Capability Min="120" Max="179">10 seconds</Capability>
+  <Capability Min="180" Max="239">15 seconds</Capability>
+  <Capability Min="240" Max="255">20 seconds</Capability>
+ </Channel>
+ <Channel Name="Pump On/Off">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Off</Capability>
+  <Capability Min="21" Max="254">On</Capability>
+  <Capability Min="255" Max="255">Smoke continuously</Capability>
+ </Channel>
+ <Mode Name="5 Channel DMX Traits">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
+  <Channel Number="3">Pump Duration (Fog) Time</Channel>
+  <Channel Number="4">Auto program - 5 Channel</Channel>
+ </Mode>
+ <Mode Name="7 Channel DMX Traits">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
+  <Channel Number="3">Pump On/Off</Channel>
+  <Channel Number="4">Auto program - 7 Channel</Channel>
+  <Channel Number="5">Pump Interval (Pause) Time</Channel>
+  <Channel Number="6">Fog Duration Time</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="442" Height="345" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="265"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

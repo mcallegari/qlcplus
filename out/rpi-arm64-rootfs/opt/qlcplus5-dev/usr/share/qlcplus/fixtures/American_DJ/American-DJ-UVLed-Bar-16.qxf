@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Frédéric Combe</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>UVLed Bar 16</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="30">Dimming</Capability>
+  <Capability Min="31" Max="61">Strobe</Capability>
+  <Capability Min="62" Max="92">Increasing Intensity</Capability>
+  <Capability Min="93" Max="123">Decreasing Intensity</Capability>
+  <Capability Min="124" Max="154">increase - Decrease intensity</Capability>
+  <Capability Min="155" Max="185">Three Flash</Capability>
+  <Capability Min="186" Max="216">One and 2 Flash</Capability>
+  <Capability Min="217" Max="247">Flash</Capability>
+  <Capability Min="248" Max="255">Sound Active</Capability>
+ </Channel>
+ <Mode Name="3 Channels">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="320" Height="61" Depth="175"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Julien Poilvilain</Author>
+ </Creator>
+ <Manufacturer>Mac Mah</Manufacturer>
+ <Model>Mac Follow 1200</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="25" Max="49" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="75" Max="99" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="100" Max="124" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="150" Max="174" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="175" Max="203" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="204" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow (slow&gt;fast)</Capability>
+ </Channel>
+ <Channel Name="Colour Temperature">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="80">5600°K</Capability>
+  <Capability Min="81" Max="160">3200°K</Capability>
+  <Capability Min="161" Max="255">6000°K</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Iris (small&gt;large)</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="11" Preset="ShutterClose">Close</Capability>
+  <Capability Min="12" Max="84">Dimmer 0&gt;100%</Capability>
+  <Capability Min="85" Max="254" Preset="StrobeSlowToFast">Strobe (slow&gt;fast)</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Colour Temperature</Channel>
+  <Channel Number="2">Iris</Channel>
+  <Channel Number="3">Shutter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HMI 1200W" Lumens="0" ColourTemperature="5500"/>
+  <Dimensions Weight="40" Width="330" Height="500" Depth="1250"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="12"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1400" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

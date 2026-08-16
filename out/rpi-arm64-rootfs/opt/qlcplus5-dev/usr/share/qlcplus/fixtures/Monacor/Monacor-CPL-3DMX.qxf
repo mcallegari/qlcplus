@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>marcus</Author>
+ </Creator>
+ <Manufacturer>Monacor</Manufacturer>
+ <Model>CPL-3DMX</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Proportion of red" Preset="IntensityRed"/>
+ <Channel Name="Proportion of green" Preset="IntensityGreen"/>
+ <Channel Name="Proportion of blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer / music control / stroboscope">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">light off</Capability>
+  <Capability Min="8" Max="190">dimmer: dark → bright</Capability>
+  <Capability Min="191" Max="200">music-controlled change of colour via integrated microphone</Capability>
+  <Capability Min="201" Max="247">stroboscope: slow → fast</Capability>
+  <Capability Min="248" Max="255">maximum brightness</Capability>
+ </Channel>
+ <Mode Name="Default mode">
+  <Channel Number="0">Proportion of red</Channel>
+  <Channel Number="1">Proportion of green</Channel>
+  <Channel Number="2">Proportion of blue</Channel>
+  <Channel Number="3">Dimmer / music control / stroboscope</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.46" Width="193" Height="40" Depth="72"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="108" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

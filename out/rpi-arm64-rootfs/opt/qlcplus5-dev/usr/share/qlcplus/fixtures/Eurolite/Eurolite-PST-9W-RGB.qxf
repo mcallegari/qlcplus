@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Joa Palmer</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PST-9W RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">On</Capability>
+  <Capability Min="1" Max="5" Preset="ShutterClose">Off</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">On</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeRandom">Strobe</Capability>
+ </Channel>
+ <Mode Name="5 ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Shutter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.5" Width="135" Height="165" Depth="170"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="6"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="26" DmxConnector="3.5 mm stereo jack"/>
+ </Physical>
+</FixtureDefinition>

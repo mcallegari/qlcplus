@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Frédéric Combe - Joshua</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Shocker 90 IRC
+QRG</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Zone 1">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="249">Strobe rate (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Continuous on (blinder effect)</Capability>
+ </Channel>
+ <Channel Name="Zone 2">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="249">Strobe rate (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Continuous on (blinder effect)</Capability>
+ </Channel>
+ <Channel Name="Zone 3">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="249">Strobe rate (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Continuous on (blinder effect)</Capability>
+ </Channel>
+ <Channel Name="Zone 4">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="249">Strobe rate (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Continuous on (blinder effect)</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound-Active Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="40">Auto program 0</Capability>
+  <Capability Min="41" Max="60">Auto program 1</Capability>
+  <Capability Min="61" Max="80">Auto program 2</Capability>
+  <Capability Min="81" Max="100">Auto program 3</Capability>
+  <Capability Min="101" Max="120">Auto program 4</Capability>
+  <Capability Min="121" Max="140">Auto program 5</Capability>
+  <Capability Min="141" Max="160">Auto program 6</Capability>
+  <Capability Min="161" Max="180">Auto program 7</Capability>
+  <Capability Min="181" Max="225">Sound-active mode 1</Capability>
+  <Capability Min="226" Max="255">Sound-active mode 2</Capability>
+ </Channel>
+ <Channel Name="Auto Speed / Sound Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Auto program speed (Slow to fast) - No function when ch5 &gt;&gt; 181-255</Capability>
+  <Capability Min="11" Max="255">Auto program speed (Slow to fast) - Sound Sensitivity when ch5 &gt;&gt; 181-255</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe All Zones">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="255">Strobe Rate (Slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer (5ch mode)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed (5ch mode)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="255">Strobe Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Shutter (5ch mode) - When ch2 &gt;&gt; 006-255">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="255" Preset="PulseSlowToFast">Pulse speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe Effects (5ch mode) - When ch2 &gt;&gt; 006-255">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="42">Ramp up</Capability>
+  <Capability Min="43" Max="85">Ramp down</Capability>
+  <Capability Min="86" Max="128">Ramp up - ramp down</Capability>
+  <Capability Min="129" Max="171">Random</Capability>
+  <Capability Min="172" Max="214">Lightning</Capability>
+  <Capability Min="215" Max="255">Spikes</Capability>
+ </Channel>
+ <Channel Name="Zone Strobe Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="42">Macro 1 (slow to fast)</Capability>
+  <Capability Min="43" Max="85">Macro 2 (slow to fast)</Capability>
+  <Capability Min="86" Max="128">Macro 3 (slow to fast)</Capability>
+  <Capability Min="129" Max="171">Macro 4 (slow to fast)</Capability>
+  <Capability Min="172" Max="214">Macro 5 (slow to fast)</Capability>
+  <Capability Min="215" Max="255">Macro 6 (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed (2ch mode)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="1">No function</Capability>
+  <Capability Min="2" Max="249">Strobe speed (slow to fast)</Capability>
+  <Capability Min="250" Max="255">Continuous on (blinder effect)</Capability>
+ </Channel>
+ <Mode Name="8 Channel mode">
+  <Channel Number="0">Zone 1</Channel>
+  <Channel Number="1">Zone 2</Channel>
+  <Channel Number="2">Zone 3</Channel>
+  <Channel Number="3">Zone 4</Channel>
+  <Channel Number="4">Auto/Sound-Active Programs</Channel>
+  <Channel Number="5">Auto Speed / Sound Sensitivity</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Strobe All Zones</Channel>
+ </Mode>
+ <Mode Name="5 Channel mode">
+  <Channel Number="0">Dimmer (5ch mode)</Channel>
+  <Channel Number="1">Strobe Speed (5ch mode)</Channel>
+  <Channel Number="2">Shutter (5ch mode) - When ch2 &gt;&gt; 006-255</Channel>
+  <Channel Number="3">Strobe Effects (5ch mode) - When ch2 &gt;&gt; 006-255</Channel>
+  <Channel Number="4">Zone Strobe Macros</Channel>
+ </Mode>
+ <Mode Name="2 Channel mode">
+  <Channel Number="0">Strobe Speed (2ch mode)</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="194" Height="170" Depth="84"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="44" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

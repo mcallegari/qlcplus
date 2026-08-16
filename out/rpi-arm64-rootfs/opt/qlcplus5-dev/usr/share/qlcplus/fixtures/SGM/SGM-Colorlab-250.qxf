@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>Colorlab 250</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="13" Max="24" Preset="ColorMacro" Res1="#ffc000">Amber</Capability>
+  <Capability Min="25" Max="36" Preset="ColorMacro" Res1="#98fb98">Pale green</Capability>
+  <Capability Min="37" Max="48" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="49" Max="60" Preset="ColorMacro" Res1="#add8e6">Light blue</Capability>
+  <Capability Min="61" Max="72" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="73" Max="84" Preset="ColorMacro" Res1="#f8e6f0">Pale lavender</Capability>
+  <Capability Min="85" Max="96" Preset="ColorMacro" Res1="#ff3200">Fire red</Capability>
+  <Capability Min="97" Max="109" Preset="ColorMacro" Res1="#ffff00">Medium yellow</Capability>
+  <Capability Min="110" Max="120" Preset="ColorMacro" Res1="#b4ff64">Lee green</Capability>
+  <Capability Min="121" Max="132" Preset="ColorMacro" Res1="#9c2a00">Flame red</Capability>
+  <Capability Min="133" Max="144" Preset="ColorMacro" Res1="#007f00">Dark green</Capability>
+  <Capability Min="145" Max="156" Preset="ColorMacro" Res1="#ffa500">Deep golden amber</Capability>
+  <Capability Min="157" Max="169" Preset="ColorMacro" Res1="#7f0000">Dark red</Capability>
+  <Capability Min="170" Max="180" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="181" Max="192" Preset="ColorMacro" Res1="#507642">Fern green</Capability>
+  <Capability Min="193" Max="204" Preset="ColorMacro" Res1="#00ff00">Brilliant green</Capability>
+  <Capability Min="205" Max="216" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="217" Max="228" Preset="ColorMacro" Res1="#03b4cc">True blue</Capability>
+  <Capability Min="229" Max="255" Preset="ColorMacro" Res1="#ee82ee">Violet</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="20" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="21" Max="40" Preset="GoboMacro" Res1="SGM/gobo00061.svg">Gobo 1</Capability>
+  <Capability Min="41" Max="60" Preset="GoboMacro" Res1="SGM/gobo00062.svg">Gobo 2</Capability>
+  <Capability Min="61" Max="80" Preset="GoboMacro" Res1="SGM/gobo00064.svg">Gobo 3</Capability>
+  <Capability Min="81" Max="100" Preset="GoboMacro" Res1="SGM/gobo00063.svg">Gobo 4</Capability>
+  <Capability Min="101" Max="120" Preset="GoboMacro" Res1="SGM/gobo00065.svg">Gobo 5</Capability>
+  <Capability Min="121" Max="140" Preset="GoboMacro" Res1="SGM/gobo00066.svg">Gobo 6</Capability>
+  <Capability Min="141" Max="160" Preset="GoboMacro" Res1="SGM/gobo00067.svg">Gobo 7</Capability>
+  <Capability Min="161" Max="177">Rotagobo - speed 1</Capability>
+  <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>
+  <Capability Min="195" Max="212">Rotagobo - speed 3</Capability>
+  <Capability Min="213" Max="229">Rotagobo - speed 4</Capability>
+  <Capability Min="230" Max="255">Music hard change</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="10" Max="19" Preset="StrobeFrequency" Res1="1">Strobe 1.00 Hz</Capability>
+  <Capability Min="20" Max="29" Preset="StrobeFrequency" Res1="1.39">Strobe 1.39 Hz</Capability>
+  <Capability Min="30" Max="39" Preset="StrobeFrequency" Res1="1.65">Strobe 1.65 Hz</Capability>
+  <Capability Min="40" Max="49" Preset="StrobeFrequency" Res1="1.94">Strobe 1.94 Hz</Capability>
+  <Capability Min="50" Max="59" Preset="StrobeFrequency" Res1="2.34">Strobe 2.34 Hz</Capability>
+  <Capability Min="60" Max="69" Preset="StrobeFrequency" Res1="2.78">Strobe 2.78 Hz</Capability>
+  <Capability Min="70" Max="79" Preset="StrobeFrequency" Res1="3.29">Strobe 3.29 Hz</Capability>
+  <Capability Min="80" Max="89" Preset="StrobeFrequency" Res1="3.91">Strobe 3.91 Hz</Capability>
+  <Capability Min="90" Max="99" Preset="StrobeFrequency" Res1="4.56">Strobe 4.56 Hz</Capability>
+  <Capability Min="100" Max="109" Preset="PulseFrequency" Res1="5.45">Strobe 5.45 Hz</Capability>
+  <Capability Min="110" Max="119" Preset="StrobeFrequency" Res1="5.98">Strobe 5.98 Hz</Capability>
+  <Capability Min="120" Max="129" Preset="StrobeFrequency" Res1="6.98">Strobe 6.98 Hz</Capability>
+  <Capability Min="130" Max="139" Preset="StrobeFrequency" Res1="7.85">Strobe 7.85 Hz</Capability>
+  <Capability Min="140" Max="149" Preset="StrobeFrequency" Res1="9">Strobe 9.00 Hz</Capability>
+  <Capability Min="150" Max="159">Shutter sync: audio low freq</Capability>
+  <Capability Min="160" Max="172">Flash sync: audio low freq</Capability>
+  <Capability Min="173" Max="185">Flash sync: audio high freq</Capability>
+  <Capability Min="186" Max="198">Open, auto shade gobos</Capability>
+  <Capability Min="199" Max="211">Open, auto shade colours</Capability>
+  <Capability Min="212" Max="224">Open, auto shade gobos and colours</Capability>
+  <Capability Min="225" Max="237">Open, slow gobo change</Capability>
+  <Capability Min="238" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Palette">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Off</Capability>
+  <Capability Min="64" Max="127">Colour conversion filter</Capability>
+  <Capability Min="128" Max="191">Frost filter</Capability>
+  <Capability Min="192" Max="255">Colour conversion and frost filter</Capability>
+ </Channel>
+ <Channel Name="Colour mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="42">Colour Hard</Capability>
+  <Capability Min="43" Max="85">Colour soft</Capability>
+  <Capability Min="86" Max="127">Colour soft cyan</Capability>
+  <Capability Min="128" Max="170">Colour soft yellow</Capability>
+  <Capability Min="171" Max="213">Rainbow effect</Capability>
+  <Capability Min="214" Max="255">Music hard change</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3">Shutter</Channel>
+  <Channel Number="4">Palette</Channel>
+  <Channel Number="5">Colour mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="250W 24V-EVC" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="13.3" Width="350" Height="460" Depth="180"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

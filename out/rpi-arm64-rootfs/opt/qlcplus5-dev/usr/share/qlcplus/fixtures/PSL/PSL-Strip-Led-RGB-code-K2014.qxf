@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>PSL</Manufacturer>
+ <Model>Strip Led RGB code K2014</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Strobe/Chaser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="3" Preset="ColorMacro" Res1="#000000">Light off</Capability>
+  <Capability Min="4" Max="9">Light on</Capability>
+  <Capability Min="10" Max="39">Strobe (from slow to fast)</Capability>
+  <Capability Min="40" Max="69">Fade in/out (from slow to fast)</Capability>
+  <Capability Min="70" Max="99">Auto colour change</Capability>
+  <Capability Min="100" Max="110">Chase 1</Capability>
+  <Capability Min="111" Max="121">Chase 2</Capability>
+  <Capability Min="122" Max="132">Chase 3</Capability>
+  <Capability Min="133" Max="143">Chase 4</Capability>
+  <Capability Min="144" Max="154">Chase 5</Capability>
+  <Capability Min="155" Max="165">Chase 6</Capability>
+  <Capability Min="166" Max="176">Chase 7</Capability>
+  <Capability Min="177" Max="187">Chase 8</Capability>
+  <Capability Min="188" Max="198">Chase 9</Capability>
+  <Capability Min="199" Max="209">Chase 10</Capability>
+  <Capability Min="210" Max="220">Chase 11</Capability>
+  <Capability Min="221" Max="231">Chase 12</Capability>
+  <Capability Min="232" Max="255">Chase 13</Capability>
+ </Channel>
+ <Channel Name="Main Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 1st Segment" Preset="IntensityRed"/>
+ <Channel Name="Green 1st Segment" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1st Segment" Preset="IntensityBlue"/>
+ <Channel Name="Red 2nd Segment" Preset="IntensityRed"/>
+ <Channel Name="Green 2nd Segment" Preset="IntensityGreen"/>
+ <Channel Name="Green 3rd Segment" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2nd Segment" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3rd Segment" Preset="IntensityBlue"/>
+ <Channel Name="Green 4th Segment" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4th Segment" Preset="IntensityBlue"/>
+ <Channel Name="Red 4th Segment" Preset="IntensityRed"/>
+ <Channel Name="Red 3rd Segment" Preset="IntensityRed"/>
+ <Channel Name="Red 1st Half Bar" Preset="IntensityRed"/>
+ <Channel Name="Green 1st Half Bar" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1st Half Bar" Preset="IntensityBlue"/>
+ <Channel Name="Red 2nd Half Bar" Preset="IntensityRed"/>
+ <Channel Name="Green 2nd Half Bar" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2nd Half Bar" Preset="IntensityBlue"/>
+ <Mode Name="5Ch F Mode">
+  <Channel Number="0">Strobe/Chaser</Channel>
+  <Channel Number="1">Main Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+ </Mode>
+ <Mode Name="8Ch P Mode (2 Section)">
+  <Channel Number="0">Strobe/Chaser</Channel>
+  <Channel Number="1">Main Dimmer</Channel>
+  <Channel Number="2">Red 1st Half Bar</Channel>
+  <Channel Number="3">Green 1st Half Bar</Channel>
+  <Channel Number="4">Blue 1st Half Bar</Channel>
+  <Channel Number="5">Red 2nd Half Bar</Channel>
+  <Channel Number="6">Green 2nd Half Bar</Channel>
+  <Channel Number="7">Blue 2nd Half Bar</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="14Ch A Mode (4 Section)">
+  <Channel Number="0">Strobe/Chaser</Channel>
+  <Channel Number="1">Main Dimmer</Channel>
+  <Channel Number="2">Red 1st Segment</Channel>
+  <Channel Number="3">Green 1st Segment</Channel>
+  <Channel Number="4">Blue 1st Segment</Channel>
+  <Channel Number="5">Red 2nd Segment</Channel>
+  <Channel Number="6">Green 2nd Segment</Channel>
+  <Channel Number="7">Blue 2nd Segment</Channel>
+  <Channel Number="8">Red 3rd Segment</Channel>
+  <Channel Number="9">Green 3rd Segment</Channel>
+  <Channel Number="10">Blue 3rd Segment</Channel>
+  <Channel Number="11">Red 4th Segment</Channel>
+  <Channel Number="12">Green 4th Segment</Channel>
+  <Channel Number="13">Blue 4th Segment</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="1080" Height="120" Depth="115"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="Other"/>
+ </Physical>
+</FixtureDefinition>

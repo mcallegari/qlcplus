@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jakob Frank</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH-46</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="249" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Motion Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="44">Internal program 1</Capability>
+  <Capability Min="45" Max="74">Internal program 2</Capability>
+  <Capability Min="75" Max="104">Internal program 3</Capability>
+  <Capability Min="105" Max="128">Internal program 4</Capability>
+  <Capability Min="129" Max="157">Sound controlled internal program 1</Capability>
+  <Capability Min="158" Max="187">Sound controlled internal program 2</Capability>
+  <Capability Min="188" Max="217">Sound controlled internal program 3</Capability>
+  <Capability Min="218" Max="255">Sound controlled internal program 4</Capability>
+ </Channel>
+ <Channel Name="Motion Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Decreasing speed</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="7">Color fade</Capability>
+  <Capability Min="8" Max="39">Internal program 1</Capability>
+  <Capability Min="40" Max="72">Internal program 2</Capability>
+  <Capability Min="73" Max="105">Internal program 3</Capability>
+  <Capability Min="106" Max="138">Internal program 4</Capability>
+  <Capability Min="139" Max="140">Internal program 5</Capability>
+  <Capability Min="141" Max="167">Sound controlled internal program 1</Capability>
+  <Capability Min="168" Max="195">Sound controlled internal program 2</Capability>
+  <Capability Min="196" Max="223">Sound controlled internal program 3</Capability>
+  <Capability Min="224" Max="251">Sound controlled internal program 4</Capability>
+  <Capability Min="252" Max="255">Sound controlled internal program 5</Capability>
+ </Channel>
+ <Channel Name="Color Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No function</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Amber</Channel>
+  <Channel Number="10">UV</Channel>
+  <Channel Number="11">Motion Macros</Channel>
+  <Channel Number="12">Motion Macro Speed</Channel>
+  <Channel Number="13">Color Macros</Channel>
+  <Channel Number="14">Color Macro Speed</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Amber</Channel>
+  <Channel Number="12">UV</Channel>
+  <Channel Number="13">Motion Macros</Channel>
+  <Channel Number="14">Motion Macro Speed</Channel>
+  <Channel Number="15">Color Macros</Channel>
+  <Channel Number="16">Color Macro Speed</Channel>
+  <Channel Number="17">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="145" Height="180" Depth="140"/>
+  <Lens Name="Other" DegreesMin="24" DegreesMax="24"/>
+  <Focus Type="Head" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

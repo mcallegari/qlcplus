@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Nicholas Fazio</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>6 Spot</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Pod 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="186" Max="220" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe Slow-&gt;Fast</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Pod Control</Capability>
+  <Capability Min="11" Max="47">Automatic 1</Capability>
+  <Capability Min="48" Max="95">Automatic 2</Capability>
+  <Capability Min="96" Max="119">Automatic 3</Capability>
+  <Capability Min="120" Max="144">Automatic 4</Capability>
+  <Capability Min="145" Max="167">Automatic 5</Capability>
+  <Capability Min="168" Max="191">Automatic 6</Capability>
+  <Capability Min="192" Max="239">Automatic 7</Capability>
+  <Capability Min="240" Max="255">Sound</Capability>
+ </Channel>
+ <Channel Name="Pod 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="186" Max="220" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Pod 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="186" Max="220" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Pod 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="186" Max="220" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Pod 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="186" Max="220" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Pod 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="186" Max="220" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pod 1</Channel>
+  <Channel Number="1">Pod 2</Channel>
+  <Channel Number="2">Pod 3</Channel>
+  <Channel Number="3">Pod 4</Channel>
+  <Channel Number="4">Pod 5</Channel>
+  <Channel Number="5">Pod 6</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Mode</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.6" Width="902" Height="165" Depth="56"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="6" Height="1"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

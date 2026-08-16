@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>Rob G.</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Strobe PRO DMX</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Flash-rate" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Brightness" Preset="IntensityDimmer"/>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Flash-rate</Channel>
+  <Channel Number="1">Brightness</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="1.8" Width="380" Depth="180" Height="120"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="80"/>
+  </Physical>
+</FixtureDefinition>

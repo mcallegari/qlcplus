@@ -1,0 +1,4510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Astera</Manufacturer>
+ <Model>Titan Tube FP1</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="White 10" Preset="IntensityWhite"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="White 11" Preset="IntensityWhite"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="White 12" Preset="IntensityWhite"/>
+ <Channel Name="Red 13" Preset="IntensityRed"/>
+ <Channel Name="Green 13" Preset="IntensityGreen"/>
+ <Channel Name="Blue 13" Preset="IntensityBlue"/>
+ <Channel Name="White 13" Preset="IntensityWhite"/>
+ <Channel Name="Red 14" Preset="IntensityRed"/>
+ <Channel Name="Green 14" Preset="IntensityGreen"/>
+ <Channel Name="Blue 14" Preset="IntensityBlue"/>
+ <Channel Name="White 14" Preset="IntensityWhite"/>
+ <Channel Name="Red 15" Preset="IntensityRed"/>
+ <Channel Name="Green 15" Preset="IntensityGreen"/>
+ <Channel Name="Blue 15" Preset="IntensityBlue"/>
+ <Channel Name="White 15" Preset="IntensityWhite"/>
+ <Channel Name="Red 16" Preset="IntensityRed"/>
+ <Channel Name="Green 16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 16" Preset="IntensityBlue"/>
+ <Channel Name="White 16" Preset="IntensityWhite"/>
+ <Channel Name="Strobe for all Pixels">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="4" Max="4" Preset="StrobeRandom">Random Fast</Capability>
+  <Capability Min="5" Max="5" Preset="StrobeRandom">Random Medium</Capability>
+  <Capability Min="6" Max="6" Preset="StrobeRandom">Random Slow</Capability>
+  <Capability Min="7" Max="255" Preset="StrobeFreqRange" Res1="0.4" Res2="25">Variable Strobe (0.4Hz to 25Hz)</Capability>
+ </Channel>
+ <Channel Name="No effect" Preset="NoFunction"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="No effect 1" Preset="NoFunction"/>
+ <Channel Name="No effect 2" Preset="NoFunction"/>
+ <Channel Name="No effect 3" Preset="NoFunction"/>
+ <Channel Name="No effect 4" Preset="NoFunction"/>
+ <Channel Name="No effect 5" Preset="NoFunction"/>
+ <Channel Name="No effect 6" Preset="NoFunction"/>
+ <Channel Name="No effect 7" Preset="NoFunction"/>
+ <Channel Name="No effect 8" Preset="NoFunction"/>
+ <Channel Name="No effect 9" Preset="NoFunction"/>
+ <Channel Name="No effect 10" Preset="NoFunction"/>
+ <Channel Name="No effect 11" Preset="NoFunction"/>
+ <Channel Name="No effect 12" Preset="NoFunction"/>
+ <Channel Name="No effect 13" Preset="NoFunction"/>
+ <Channel Name="No effect 14" Preset="NoFunction"/>
+ <Channel Name="No effect 15" Preset="NoFunction"/>
+ <Channel Name="No effect 16" Preset="NoFunction"/>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 5" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 6" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 7" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 8" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 9" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 10" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 11" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 12" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 13" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 14" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 15" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 16" Preset="IntensityDimmer"/>
+ <Mode Name="1: RGB (Pixel = 1, Strobe = off)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="2: RGBW (Pixel = 1, Strobe = off)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="3: RGBAW (Pixel = 1, Strobe = off)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">No effect</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="4: DIM RGB (Pixel = 1, Strobe = off)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="5: DIM RGBW (Pixel = 1, Strobe = off)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="6: DIM RGBAW (Pixel = 1, Strobe = off)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">No effect</Channel>
+  <Channel Number="5">White</Channel>
+ </Mode>
+ <Mode Name="8: RGBS (Pixel = 1, Strobe = on)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Strobe for all Pixels</Channel>
+ </Mode>
+ <Mode Name="9: RGBWS (Pixel = 1, Strobe = on)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Strobe for all Pixels</Channel>
+ </Mode>
+ <Mode Name="10: RGBAWS (Pixel = 1, Strobe = on)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">No effect</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe for all Pixels</Channel>
+ </Mode>
+ <Mode Name="11: DIM RGBS (Pixel = 1, Strobe = on)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe for all Pixels</Channel>
+ </Mode>
+ <Mode Name="12: DIM RGBWS (Pixel = 1, Strobe = on)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe for all Pixels</Channel>
+ </Mode>
+ <Mode Name="13: DIM RGBAWS (Pixel = 1, Strobe = on)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">No effect</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Strobe for all Pixels</Channel>
+ </Mode>
+ <Mode Name="17: RGB.RGB. (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">No effect 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">No effect 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="18: RGB RGB (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="19: RGBW RGBW (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="20: RGBAW RGBAW (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">No effect 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">No effect 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">No effect 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="21: DIM RGB DIM RGB (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Dimmer 2</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Dimmer 4</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="22: DIM RGBW DIM RGBW (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">Red 4</Channel>
+  <Channel Number="17">Green 4</Channel>
+  <Channel Number="18">Blue 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="23: DIM RGBAW DIM RGBAW (Pixel = 4, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">No effect 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">No effect 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Dimmer 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">No effect 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">No effect 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="25: RGB.RGBS (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Strobe for all Pixels</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">No effect 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">No effect 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="26: RGB RGB..S (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="27: RGBW RGBW..S (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="28: RGBAW RGBAW..S (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">No effect 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">No effect 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">No effect 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="29: DIM RGB DIM RGB..S (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Dimmer 2</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Dimmer 4</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Channel Number="16">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="30: DIM RGBW DIM RGBW..S (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">Red 4</Channel>
+  <Channel Number="17">Green 4</Channel>
+  <Channel Number="18">Blue 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="31: DIM RGBAW DIM RGBAW..S (Pixel = 4, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">No effect 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">No effect 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Dimmer 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">No effect 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">No effect 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="41: RGB.RGB. (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">No effect 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">No effect 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">No effect 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">No effect 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">No effect 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">No effect 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">No effect 8</Channel>
+  <Channel Number="32">Red 9</Channel>
+  <Channel Number="33">Green 9</Channel>
+  <Channel Number="34">Blue 9</Channel>
+  <Channel Number="35">No effect 9</Channel>
+  <Channel Number="36">Red 10</Channel>
+  <Channel Number="37">Green 10</Channel>
+  <Channel Number="38">Blue 10</Channel>
+  <Channel Number="39">No effect 10</Channel>
+  <Channel Number="40">Red 11</Channel>
+  <Channel Number="41">Green 11</Channel>
+  <Channel Number="42">Blue 11</Channel>
+  <Channel Number="43">No effect 11</Channel>
+  <Channel Number="44">Red 12</Channel>
+  <Channel Number="45">Green 12</Channel>
+  <Channel Number="46">Blue 12</Channel>
+  <Channel Number="47">No effect 12</Channel>
+  <Channel Number="48">Red 13</Channel>
+  <Channel Number="49">Green 13</Channel>
+  <Channel Number="50">Blue 13</Channel>
+  <Channel Number="51">No effect 13</Channel>
+  <Channel Number="52">Red 14</Channel>
+  <Channel Number="53">Green 14</Channel>
+  <Channel Number="54">Blue 14</Channel>
+  <Channel Number="55">No effect 14</Channel>
+  <Channel Number="56">Red 15</Channel>
+  <Channel Number="57">Green 15</Channel>
+  <Channel Number="58">Blue 15</Channel>
+  <Channel Number="59">No effect 15</Channel>
+  <Channel Number="60">Red 16</Channel>
+  <Channel Number="61">Green 16</Channel>
+  <Channel Number="62">Blue 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="42: RGB RGB (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Channel Number="24">Red 9</Channel>
+  <Channel Number="25">Green 9</Channel>
+  <Channel Number="26">Blue 9</Channel>
+  <Channel Number="27">Red 10</Channel>
+  <Channel Number="28">Green 10</Channel>
+  <Channel Number="29">Blue 10</Channel>
+  <Channel Number="30">Red 11</Channel>
+  <Channel Number="31">Green 11</Channel>
+  <Channel Number="32">Blue 11</Channel>
+  <Channel Number="33">Red 12</Channel>
+  <Channel Number="34">Green 12</Channel>
+  <Channel Number="35">Blue 12</Channel>
+  <Channel Number="36">Red 13</Channel>
+  <Channel Number="37">Green 13</Channel>
+  <Channel Number="38">Blue 13</Channel>
+  <Channel Number="39">Red 14</Channel>
+  <Channel Number="40">Green 14</Channel>
+  <Channel Number="41">Blue 14</Channel>
+  <Channel Number="42">Red 15</Channel>
+  <Channel Number="43">Green 15</Channel>
+  <Channel Number="44">Blue 15</Channel>
+  <Channel Number="45">Red 16</Channel>
+  <Channel Number="46">Green 16</Channel>
+  <Channel Number="47">Blue 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="43: RGBW RGBW (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">White 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">White 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">White 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">White 8</Channel>
+  <Channel Number="32">Red 9</Channel>
+  <Channel Number="33">Green 9</Channel>
+  <Channel Number="34">Blue 9</Channel>
+  <Channel Number="35">White 9</Channel>
+  <Channel Number="36">Red 10</Channel>
+  <Channel Number="37">Green 10</Channel>
+  <Channel Number="38">Blue 10</Channel>
+  <Channel Number="39">White 10</Channel>
+  <Channel Number="40">Red 11</Channel>
+  <Channel Number="41">Green 11</Channel>
+  <Channel Number="42">Blue 11</Channel>
+  <Channel Number="43">White 11</Channel>
+  <Channel Number="44">Red 12</Channel>
+  <Channel Number="45">Green 12</Channel>
+  <Channel Number="46">Blue 12</Channel>
+  <Channel Number="47">White 12</Channel>
+  <Channel Number="48">Red 13</Channel>
+  <Channel Number="49">Green 13</Channel>
+  <Channel Number="50">Blue 13</Channel>
+  <Channel Number="51">White 13</Channel>
+  <Channel Number="52">Red 14</Channel>
+  <Channel Number="53">Green 14</Channel>
+  <Channel Number="54">Blue 14</Channel>
+  <Channel Number="55">White 14</Channel>
+  <Channel Number="56">Red 15</Channel>
+  <Channel Number="57">Green 15</Channel>
+  <Channel Number="58">Blue 15</Channel>
+  <Channel Number="59">White 15</Channel>
+  <Channel Number="60">Red 16</Channel>
+  <Channel Number="61">Green 16</Channel>
+  <Channel Number="62">Blue 16</Channel>
+  <Channel Number="63">White 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="44: RGBAW RGBAW (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">No effect 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">No effect 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">No effect 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Red 5</Channel>
+  <Channel Number="21">Green 5</Channel>
+  <Channel Number="22">Blue 5</Channel>
+  <Channel Number="23">No effect 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Red 6</Channel>
+  <Channel Number="26">Green 6</Channel>
+  <Channel Number="27">Blue 6</Channel>
+  <Channel Number="28">No effect 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Red 7</Channel>
+  <Channel Number="31">Green 7</Channel>
+  <Channel Number="32">Blue 7</Channel>
+  <Channel Number="33">No effect 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Red 8</Channel>
+  <Channel Number="36">Green 8</Channel>
+  <Channel Number="37">Blue 8</Channel>
+  <Channel Number="38">No effect 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Red 9</Channel>
+  <Channel Number="41">Green 9</Channel>
+  <Channel Number="42">Blue 9</Channel>
+  <Channel Number="43">No effect 9</Channel>
+  <Channel Number="44">White 9</Channel>
+  <Channel Number="45">Red 10</Channel>
+  <Channel Number="46">Green 10</Channel>
+  <Channel Number="47">Blue 10</Channel>
+  <Channel Number="48">No effect 10</Channel>
+  <Channel Number="49">White 10</Channel>
+  <Channel Number="50">Red 11</Channel>
+  <Channel Number="51">Green 11</Channel>
+  <Channel Number="52">Blue 11</Channel>
+  <Channel Number="53">No effect 11</Channel>
+  <Channel Number="54">White 11</Channel>
+  <Channel Number="55">Red 12</Channel>
+  <Channel Number="56">Green 12</Channel>
+  <Channel Number="57">Blue 12</Channel>
+  <Channel Number="58">No effect 12</Channel>
+  <Channel Number="59">White 12</Channel>
+  <Channel Number="60">Red 13</Channel>
+  <Channel Number="61">Green 13</Channel>
+  <Channel Number="62">Blue 13</Channel>
+  <Channel Number="63">No effect 13</Channel>
+  <Channel Number="64">White 13</Channel>
+  <Channel Number="65">Red 14</Channel>
+  <Channel Number="66">Green 14</Channel>
+  <Channel Number="67">Blue 14</Channel>
+  <Channel Number="68">No effect 14</Channel>
+  <Channel Number="69">White 14</Channel>
+  <Channel Number="70">Red 15</Channel>
+  <Channel Number="71">Green 15</Channel>
+  <Channel Number="72">Blue 15</Channel>
+  <Channel Number="73">No effect 15</Channel>
+  <Channel Number="74">White 15</Channel>
+  <Channel Number="75">Red 16</Channel>
+  <Channel Number="76">Green 16</Channel>
+  <Channel Number="77">Blue 16</Channel>
+  <Channel Number="78">No effect 16</Channel>
+  <Channel Number="79">White 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+  </Head>
+  <Head>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="45: DIM RGB DIM RGB (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Dimmer 2</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Dimmer 4</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Channel Number="16">Dimmer 5</Channel>
+  <Channel Number="17">Red 5</Channel>
+  <Channel Number="18">Green 5</Channel>
+  <Channel Number="19">Blue 5</Channel>
+  <Channel Number="20">Dimmer 6</Channel>
+  <Channel Number="21">Red 6</Channel>
+  <Channel Number="22">Green 6</Channel>
+  <Channel Number="23">Blue 6</Channel>
+  <Channel Number="24">Dimmer 7</Channel>
+  <Channel Number="25">Red 7</Channel>
+  <Channel Number="26">Green 7</Channel>
+  <Channel Number="27">Blue 7</Channel>
+  <Channel Number="28">Dimmer 8</Channel>
+  <Channel Number="29">Red 8</Channel>
+  <Channel Number="30">Green 8</Channel>
+  <Channel Number="31">Blue 8</Channel>
+  <Channel Number="32">Dimmer 9</Channel>
+  <Channel Number="33">Red 9</Channel>
+  <Channel Number="34">Green 9</Channel>
+  <Channel Number="35">Blue 9</Channel>
+  <Channel Number="36">Dimmer 10</Channel>
+  <Channel Number="37">Red 10</Channel>
+  <Channel Number="38">Green 10</Channel>
+  <Channel Number="39">Blue 10</Channel>
+  <Channel Number="40">Dimmer 11</Channel>
+  <Channel Number="41">Red 11</Channel>
+  <Channel Number="42">Green 11</Channel>
+  <Channel Number="43">Blue 11</Channel>
+  <Channel Number="44">Dimmer 12</Channel>
+  <Channel Number="45">Red 12</Channel>
+  <Channel Number="46">Green 12</Channel>
+  <Channel Number="47">Blue 12</Channel>
+  <Channel Number="48">Dimmer 13</Channel>
+  <Channel Number="49">Red 13</Channel>
+  <Channel Number="50">Green 13</Channel>
+  <Channel Number="51">Blue 13</Channel>
+  <Channel Number="52">Dimmer 14</Channel>
+  <Channel Number="53">Red 14</Channel>
+  <Channel Number="54">Green 14</Channel>
+  <Channel Number="55">Blue 14</Channel>
+  <Channel Number="56">Dimmer 15</Channel>
+  <Channel Number="57">Red 15</Channel>
+  <Channel Number="58">Green 15</Channel>
+  <Channel Number="59">Blue 15</Channel>
+  <Channel Number="60">Dimmer 16</Channel>
+  <Channel Number="61">Red 16</Channel>
+  <Channel Number="62">Green 16</Channel>
+  <Channel Number="63">Blue 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="46: DIM RGBW DIM RGBW (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">Red 4</Channel>
+  <Channel Number="17">Green 4</Channel>
+  <Channel Number="18">Blue 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Dimmer 5</Channel>
+  <Channel Number="21">Red 5</Channel>
+  <Channel Number="22">Green 5</Channel>
+  <Channel Number="23">Blue 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Dimmer 6</Channel>
+  <Channel Number="26">Red 6</Channel>
+  <Channel Number="27">Green 6</Channel>
+  <Channel Number="28">Blue 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Dimmer 7</Channel>
+  <Channel Number="31">Red 7</Channel>
+  <Channel Number="32">Green 7</Channel>
+  <Channel Number="33">Blue 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Dimmer 8</Channel>
+  <Channel Number="36">Red 8</Channel>
+  <Channel Number="37">Green 8</Channel>
+  <Channel Number="38">Blue 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Dimmer 9</Channel>
+  <Channel Number="41">Red 9</Channel>
+  <Channel Number="42">Green 9</Channel>
+  <Channel Number="43">Blue 9</Channel>
+  <Channel Number="44">White 9</Channel>
+  <Channel Number="45">Dimmer 10</Channel>
+  <Channel Number="46">Red 10</Channel>
+  <Channel Number="47">Green 10</Channel>
+  <Channel Number="48">Blue 10</Channel>
+  <Channel Number="49">White 10</Channel>
+  <Channel Number="50">Dimmer 11</Channel>
+  <Channel Number="51">Red 11</Channel>
+  <Channel Number="52">Green 11</Channel>
+  <Channel Number="53">Blue 11</Channel>
+  <Channel Number="54">White 11</Channel>
+  <Channel Number="55">Dimmer 12</Channel>
+  <Channel Number="56">Red 12</Channel>
+  <Channel Number="57">Green 12</Channel>
+  <Channel Number="58">Blue 12</Channel>
+  <Channel Number="59">White 12</Channel>
+  <Channel Number="60">Dimmer 13</Channel>
+  <Channel Number="61">Red 13</Channel>
+  <Channel Number="62">Green 13</Channel>
+  <Channel Number="63">Blue 13</Channel>
+  <Channel Number="64">White 13</Channel>
+  <Channel Number="65">Dimmer 14</Channel>
+  <Channel Number="66">Red 14</Channel>
+  <Channel Number="67">Green 14</Channel>
+  <Channel Number="68">Blue 14</Channel>
+  <Channel Number="69">White 14</Channel>
+  <Channel Number="70">Dimmer 15</Channel>
+  <Channel Number="71">Red 15</Channel>
+  <Channel Number="72">Green 15</Channel>
+  <Channel Number="73">Blue 15</Channel>
+  <Channel Number="74">White 15</Channel>
+  <Channel Number="75">Dimmer 16</Channel>
+  <Channel Number="76">Red 16</Channel>
+  <Channel Number="77">Green 16</Channel>
+  <Channel Number="78">Blue 16</Channel>
+  <Channel Number="79">White 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+  </Head>
+  <Head>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="47: DIM RGBAW DIM RGBAW (Pixel = 16, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">No effect 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">No effect 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Dimmer 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">No effect 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">No effect 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Dimmer 5</Channel>
+  <Channel Number="25">Red 5</Channel>
+  <Channel Number="26">Green 5</Channel>
+  <Channel Number="27">Blue 5</Channel>
+  <Channel Number="28">No effect 5</Channel>
+  <Channel Number="29">White 5</Channel>
+  <Channel Number="30">Dimmer 6</Channel>
+  <Channel Number="31">Red 6</Channel>
+  <Channel Number="32">Green 6</Channel>
+  <Channel Number="33">Blue 6</Channel>
+  <Channel Number="34">No effect 6</Channel>
+  <Channel Number="35">White 6</Channel>
+  <Channel Number="36">Dimmer 7</Channel>
+  <Channel Number="37">Red 7</Channel>
+  <Channel Number="38">Green 7</Channel>
+  <Channel Number="39">Blue 7</Channel>
+  <Channel Number="40">No effect 7</Channel>
+  <Channel Number="41">White 7</Channel>
+  <Channel Number="42">Dimmer 8</Channel>
+  <Channel Number="43">Red 8</Channel>
+  <Channel Number="44">Green 8</Channel>
+  <Channel Number="45">Blue 8</Channel>
+  <Channel Number="46">No effect 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Channel Number="48">Dimmer 9</Channel>
+  <Channel Number="49">Red 9</Channel>
+  <Channel Number="50">Green 9</Channel>
+  <Channel Number="51">Blue 9</Channel>
+  <Channel Number="52">No effect 9</Channel>
+  <Channel Number="53">White 9</Channel>
+  <Channel Number="54">Dimmer 10</Channel>
+  <Channel Number="55">Red 10</Channel>
+  <Channel Number="56">Green 10</Channel>
+  <Channel Number="57">Blue 10</Channel>
+  <Channel Number="58">No effect 10</Channel>
+  <Channel Number="59">White 10</Channel>
+  <Channel Number="60">Dimmer 11</Channel>
+  <Channel Number="61">Red 11</Channel>
+  <Channel Number="62">Green 11</Channel>
+  <Channel Number="63">Blue 11</Channel>
+  <Channel Number="64">No effect 11</Channel>
+  <Channel Number="65">White 11</Channel>
+  <Channel Number="66">Dimmer 12</Channel>
+  <Channel Number="67">Red 12</Channel>
+  <Channel Number="68">Green 12</Channel>
+  <Channel Number="69">Blue 12</Channel>
+  <Channel Number="70">No effect 12</Channel>
+  <Channel Number="71">White 12</Channel>
+  <Channel Number="72">Dimmer 13</Channel>
+  <Channel Number="73">Red 13</Channel>
+  <Channel Number="74">Green 13</Channel>
+  <Channel Number="75">Blue 13</Channel>
+  <Channel Number="76">No effect 13</Channel>
+  <Channel Number="77">White 13</Channel>
+  <Channel Number="78">Dimmer 14</Channel>
+  <Channel Number="79">Red 14</Channel>
+  <Channel Number="80">Green 14</Channel>
+  <Channel Number="81">Blue 14</Channel>
+  <Channel Number="82">No effect 14</Channel>
+  <Channel Number="83">White 14</Channel>
+  <Channel Number="84">Dimmer 15</Channel>
+  <Channel Number="85">Red 15</Channel>
+  <Channel Number="86">Green 15</Channel>
+  <Channel Number="87">Blue 15</Channel>
+  <Channel Number="88">No effect 15</Channel>
+  <Channel Number="89">White 15</Channel>
+  <Channel Number="90">Dimmer 16</Channel>
+  <Channel Number="91">Red 16</Channel>
+  <Channel Number="92">Green 16</Channel>
+  <Channel Number="93">Blue 16</Channel>
+  <Channel Number="94">No effect 16</Channel>
+  <Channel Number="95">White 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+  </Head>
+  <Head>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+  </Head>
+  <Head>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+  </Head>
+  <Head>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+  </Head>
+  <Head>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="49: RGB.RGBS (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Strobe for all Pixels</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">No effect 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">No effect 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">No effect 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">No effect 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">No effect 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">No effect 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">No effect 8</Channel>
+  <Channel Number="32">Red 9</Channel>
+  <Channel Number="33">Green 9</Channel>
+  <Channel Number="34">Blue 9</Channel>
+  <Channel Number="35">No effect 9</Channel>
+  <Channel Number="36">Red 10</Channel>
+  <Channel Number="37">Green 10</Channel>
+  <Channel Number="38">Blue 10</Channel>
+  <Channel Number="39">No effect 10</Channel>
+  <Channel Number="40">Red 11</Channel>
+  <Channel Number="41">Green 11</Channel>
+  <Channel Number="42">Blue 11</Channel>
+  <Channel Number="43">No effect 11</Channel>
+  <Channel Number="44">Red 12</Channel>
+  <Channel Number="45">Green 12</Channel>
+  <Channel Number="46">Blue 12</Channel>
+  <Channel Number="47">No effect 12</Channel>
+  <Channel Number="48">Red 13</Channel>
+  <Channel Number="49">Green 13</Channel>
+  <Channel Number="50">Blue 13</Channel>
+  <Channel Number="51">No effect 13</Channel>
+  <Channel Number="52">Red 14</Channel>
+  <Channel Number="53">Green 14</Channel>
+  <Channel Number="54">Blue 14</Channel>
+  <Channel Number="55">No effect 14</Channel>
+  <Channel Number="56">Red 15</Channel>
+  <Channel Number="57">Green 15</Channel>
+  <Channel Number="58">Blue 15</Channel>
+  <Channel Number="59">No effect 15</Channel>
+  <Channel Number="60">Red 16</Channel>
+  <Channel Number="61">Green 16</Channel>
+  <Channel Number="62">Blue 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="50: RGB RGB..S (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Channel Number="24">Red 9</Channel>
+  <Channel Number="25">Green 9</Channel>
+  <Channel Number="26">Blue 9</Channel>
+  <Channel Number="27">Red 10</Channel>
+  <Channel Number="28">Green 10</Channel>
+  <Channel Number="29">Blue 10</Channel>
+  <Channel Number="30">Red 11</Channel>
+  <Channel Number="31">Green 11</Channel>
+  <Channel Number="32">Blue 11</Channel>
+  <Channel Number="33">Red 12</Channel>
+  <Channel Number="34">Green 12</Channel>
+  <Channel Number="35">Blue 12</Channel>
+  <Channel Number="36">Red 13</Channel>
+  <Channel Number="37">Green 13</Channel>
+  <Channel Number="38">Blue 13</Channel>
+  <Channel Number="39">Red 14</Channel>
+  <Channel Number="40">Green 14</Channel>
+  <Channel Number="41">Blue 14</Channel>
+  <Channel Number="42">Red 15</Channel>
+  <Channel Number="43">Green 15</Channel>
+  <Channel Number="44">Blue 15</Channel>
+  <Channel Number="45">Red 16</Channel>
+  <Channel Number="46">Green 16</Channel>
+  <Channel Number="47">Blue 16</Channel>
+  <Channel Number="48">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="51: RGBW RGBW..S (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">White 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">White 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">White 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">White 8</Channel>
+  <Channel Number="32">Red 9</Channel>
+  <Channel Number="33">Green 9</Channel>
+  <Channel Number="34">Blue 9</Channel>
+  <Channel Number="35">White 9</Channel>
+  <Channel Number="36">Red 10</Channel>
+  <Channel Number="37">Green 10</Channel>
+  <Channel Number="38">Blue 10</Channel>
+  <Channel Number="39">White 10</Channel>
+  <Channel Number="40">Red 11</Channel>
+  <Channel Number="41">Green 11</Channel>
+  <Channel Number="42">Blue 11</Channel>
+  <Channel Number="43">White 11</Channel>
+  <Channel Number="44">Red 12</Channel>
+  <Channel Number="45">Green 12</Channel>
+  <Channel Number="46">Blue 12</Channel>
+  <Channel Number="47">White 12</Channel>
+  <Channel Number="48">Red 13</Channel>
+  <Channel Number="49">Green 13</Channel>
+  <Channel Number="50">Blue 13</Channel>
+  <Channel Number="51">White 13</Channel>
+  <Channel Number="52">Red 14</Channel>
+  <Channel Number="53">Green 14</Channel>
+  <Channel Number="54">Blue 14</Channel>
+  <Channel Number="55">White 14</Channel>
+  <Channel Number="56">Red 15</Channel>
+  <Channel Number="57">Green 15</Channel>
+  <Channel Number="58">Blue 15</Channel>
+  <Channel Number="59">White 15</Channel>
+  <Channel Number="60">Red 16</Channel>
+  <Channel Number="61">Green 16</Channel>
+  <Channel Number="62">Blue 16</Channel>
+  <Channel Number="63">White 16</Channel>
+  <Channel Number="64">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="52: RGBAW RGBAW (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">No effect 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">No effect 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">No effect 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Red 5</Channel>
+  <Channel Number="21">Green 5</Channel>
+  <Channel Number="22">Blue 5</Channel>
+  <Channel Number="23">No effect 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Red 6</Channel>
+  <Channel Number="26">Green 6</Channel>
+  <Channel Number="27">Blue 6</Channel>
+  <Channel Number="28">No effect 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Red 7</Channel>
+  <Channel Number="31">Green 7</Channel>
+  <Channel Number="32">Blue 7</Channel>
+  <Channel Number="33">No effect 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Red 8</Channel>
+  <Channel Number="36">Green 8</Channel>
+  <Channel Number="37">Blue 8</Channel>
+  <Channel Number="38">No effect 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Red 9</Channel>
+  <Channel Number="41">Green 9</Channel>
+  <Channel Number="42">Blue 9</Channel>
+  <Channel Number="43">No effect 9</Channel>
+  <Channel Number="44">White 9</Channel>
+  <Channel Number="45">Red 10</Channel>
+  <Channel Number="46">Green 10</Channel>
+  <Channel Number="47">Blue 10</Channel>
+  <Channel Number="48">No effect 10</Channel>
+  <Channel Number="49">White 10</Channel>
+  <Channel Number="50">Red 11</Channel>
+  <Channel Number="51">Green 11</Channel>
+  <Channel Number="52">Blue 11</Channel>
+  <Channel Number="53">No effect 11</Channel>
+  <Channel Number="54">White 11</Channel>
+  <Channel Number="55">Red 12</Channel>
+  <Channel Number="56">Green 12</Channel>
+  <Channel Number="57">Blue 12</Channel>
+  <Channel Number="58">No effect 12</Channel>
+  <Channel Number="59">White 12</Channel>
+  <Channel Number="60">Red 13</Channel>
+  <Channel Number="61">Green 13</Channel>
+  <Channel Number="62">Blue 13</Channel>
+  <Channel Number="63">No effect 13</Channel>
+  <Channel Number="64">White 13</Channel>
+  <Channel Number="65">Red 14</Channel>
+  <Channel Number="66">Green 14</Channel>
+  <Channel Number="67">Blue 14</Channel>
+  <Channel Number="68">No effect 14</Channel>
+  <Channel Number="69">White 14</Channel>
+  <Channel Number="70">Red 15</Channel>
+  <Channel Number="71">Green 15</Channel>
+  <Channel Number="72">Blue 15</Channel>
+  <Channel Number="73">No effect 15</Channel>
+  <Channel Number="74">White 15</Channel>
+  <Channel Number="75">Red 16</Channel>
+  <Channel Number="76">Green 16</Channel>
+  <Channel Number="77">Blue 16</Channel>
+  <Channel Number="78">No effect 16</Channel>
+  <Channel Number="79">White 16</Channel>
+  <Channel Number="80">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+  </Head>
+  <Head>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="53: DIM RGB DIM RGB..S (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Dimmer 2</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Dimmer 4</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Channel Number="16">Dimmer 5</Channel>
+  <Channel Number="17">Red 5</Channel>
+  <Channel Number="18">Green 5</Channel>
+  <Channel Number="19">Blue 5</Channel>
+  <Channel Number="20">Dimmer 6</Channel>
+  <Channel Number="21">Red 6</Channel>
+  <Channel Number="22">Green 6</Channel>
+  <Channel Number="23">Blue 6</Channel>
+  <Channel Number="24">Dimmer 7</Channel>
+  <Channel Number="25">Red 7</Channel>
+  <Channel Number="26">Green 7</Channel>
+  <Channel Number="27">Blue 7</Channel>
+  <Channel Number="28">Dimmer 8</Channel>
+  <Channel Number="29">Red 8</Channel>
+  <Channel Number="30">Green 8</Channel>
+  <Channel Number="31">Blue 8</Channel>
+  <Channel Number="32">Dimmer 9</Channel>
+  <Channel Number="33">Red 9</Channel>
+  <Channel Number="34">Green 9</Channel>
+  <Channel Number="35">Blue 9</Channel>
+  <Channel Number="36">Dimmer 10</Channel>
+  <Channel Number="37">Red 10</Channel>
+  <Channel Number="38">Green 10</Channel>
+  <Channel Number="39">Blue 10</Channel>
+  <Channel Number="40">Dimmer 11</Channel>
+  <Channel Number="41">Red 11</Channel>
+  <Channel Number="42">Green 11</Channel>
+  <Channel Number="43">Blue 11</Channel>
+  <Channel Number="44">Dimmer 12</Channel>
+  <Channel Number="45">Red 12</Channel>
+  <Channel Number="46">Green 12</Channel>
+  <Channel Number="47">Blue 12</Channel>
+  <Channel Number="48">Dimmer 13</Channel>
+  <Channel Number="49">Red 13</Channel>
+  <Channel Number="50">Green 13</Channel>
+  <Channel Number="51">Blue 13</Channel>
+  <Channel Number="52">Dimmer 14</Channel>
+  <Channel Number="53">Red 14</Channel>
+  <Channel Number="54">Green 14</Channel>
+  <Channel Number="55">Blue 14</Channel>
+  <Channel Number="56">Dimmer 15</Channel>
+  <Channel Number="57">Red 15</Channel>
+  <Channel Number="58">Green 15</Channel>
+  <Channel Number="59">Blue 15</Channel>
+  <Channel Number="60">Dimmer 16</Channel>
+  <Channel Number="61">Red 16</Channel>
+  <Channel Number="62">Green 16</Channel>
+  <Channel Number="63">Blue 16</Channel>
+  <Channel Number="64">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="54: DIM RGBW DIM RGBW..S (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">Red 4</Channel>
+  <Channel Number="17">Green 4</Channel>
+  <Channel Number="18">Blue 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Dimmer 5</Channel>
+  <Channel Number="21">Red 5</Channel>
+  <Channel Number="22">Green 5</Channel>
+  <Channel Number="23">Blue 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Dimmer 6</Channel>
+  <Channel Number="26">Red 6</Channel>
+  <Channel Number="27">Green 6</Channel>
+  <Channel Number="28">Blue 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Dimmer 7</Channel>
+  <Channel Number="31">Red 7</Channel>
+  <Channel Number="32">Green 7</Channel>
+  <Channel Number="33">Blue 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Dimmer 8</Channel>
+  <Channel Number="36">Red 8</Channel>
+  <Channel Number="37">Green 8</Channel>
+  <Channel Number="38">Blue 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Dimmer 9</Channel>
+  <Channel Number="41">Red 9</Channel>
+  <Channel Number="42">Green 9</Channel>
+  <Channel Number="43">Blue 9</Channel>
+  <Channel Number="44">White 9</Channel>
+  <Channel Number="45">Dimmer 10</Channel>
+  <Channel Number="46">Red 10</Channel>
+  <Channel Number="47">Green 10</Channel>
+  <Channel Number="48">Blue 10</Channel>
+  <Channel Number="49">White 10</Channel>
+  <Channel Number="50">Dimmer 11</Channel>
+  <Channel Number="51">Red 11</Channel>
+  <Channel Number="52">Green 11</Channel>
+  <Channel Number="53">Blue 11</Channel>
+  <Channel Number="54">White 11</Channel>
+  <Channel Number="55">Dimmer 12</Channel>
+  <Channel Number="56">Red 12</Channel>
+  <Channel Number="57">Green 12</Channel>
+  <Channel Number="58">Blue 12</Channel>
+  <Channel Number="59">White 12</Channel>
+  <Channel Number="60">Dimmer 13</Channel>
+  <Channel Number="61">Red 13</Channel>
+  <Channel Number="62">Green 13</Channel>
+  <Channel Number="63">Blue 13</Channel>
+  <Channel Number="64">White 13</Channel>
+  <Channel Number="65">Dimmer 14</Channel>
+  <Channel Number="66">Red 14</Channel>
+  <Channel Number="67">Green 14</Channel>
+  <Channel Number="68">Blue 14</Channel>
+  <Channel Number="69">White 14</Channel>
+  <Channel Number="70">Dimmer 15</Channel>
+  <Channel Number="71">Red 15</Channel>
+  <Channel Number="72">Green 15</Channel>
+  <Channel Number="73">Blue 15</Channel>
+  <Channel Number="74">White 15</Channel>
+  <Channel Number="75">Dimmer 16</Channel>
+  <Channel Number="76">Red 16</Channel>
+  <Channel Number="77">Green 16</Channel>
+  <Channel Number="78">Blue 16</Channel>
+  <Channel Number="79">White 16</Channel>
+  <Channel Number="80">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+  </Head>
+  <Head>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="55: DIM RGBAW DIM RGBAW..S (Pixel = 16, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">No effect 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">No effect 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Dimmer 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">No effect 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">No effect 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Dimmer 5</Channel>
+  <Channel Number="25">Red 5</Channel>
+  <Channel Number="26">Green 5</Channel>
+  <Channel Number="27">Blue 5</Channel>
+  <Channel Number="28">No effect 5</Channel>
+  <Channel Number="29">White 5</Channel>
+  <Channel Number="30">Dimmer 6</Channel>
+  <Channel Number="31">Red 6</Channel>
+  <Channel Number="32">Green 6</Channel>
+  <Channel Number="33">Blue 6</Channel>
+  <Channel Number="34">No effect 6</Channel>
+  <Channel Number="35">White 6</Channel>
+  <Channel Number="36">Dimmer 7</Channel>
+  <Channel Number="37">Red 7</Channel>
+  <Channel Number="38">Green 7</Channel>
+  <Channel Number="39">Blue 7</Channel>
+  <Channel Number="40">No effect 7</Channel>
+  <Channel Number="41">White 7</Channel>
+  <Channel Number="42">Dimmer 8</Channel>
+  <Channel Number="43">Red 8</Channel>
+  <Channel Number="44">Green 8</Channel>
+  <Channel Number="45">Blue 8</Channel>
+  <Channel Number="46">No effect 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Channel Number="48">Dimmer 9</Channel>
+  <Channel Number="49">Red 9</Channel>
+  <Channel Number="50">Green 9</Channel>
+  <Channel Number="51">Blue 9</Channel>
+  <Channel Number="52">No effect 9</Channel>
+  <Channel Number="53">White 9</Channel>
+  <Channel Number="54">Dimmer 10</Channel>
+  <Channel Number="55">Red 10</Channel>
+  <Channel Number="56">Green 10</Channel>
+  <Channel Number="57">Blue 10</Channel>
+  <Channel Number="58">No effect 10</Channel>
+  <Channel Number="59">White 10</Channel>
+  <Channel Number="60">Dimmer 11</Channel>
+  <Channel Number="61">Red 11</Channel>
+  <Channel Number="62">Green 11</Channel>
+  <Channel Number="63">Blue 11</Channel>
+  <Channel Number="64">No effect 11</Channel>
+  <Channel Number="65">White 11</Channel>
+  <Channel Number="66">Dimmer 12</Channel>
+  <Channel Number="67">Red 12</Channel>
+  <Channel Number="68">Green 12</Channel>
+  <Channel Number="69">Blue 12</Channel>
+  <Channel Number="70">No effect 12</Channel>
+  <Channel Number="71">White 12</Channel>
+  <Channel Number="72">Dimmer 13</Channel>
+  <Channel Number="73">Red 13</Channel>
+  <Channel Number="74">Green 13</Channel>
+  <Channel Number="75">Blue 13</Channel>
+  <Channel Number="76">No effect 13</Channel>
+  <Channel Number="77">White 13</Channel>
+  <Channel Number="78">Dimmer 14</Channel>
+  <Channel Number="79">Red 14</Channel>
+  <Channel Number="80">Green 14</Channel>
+  <Channel Number="81">Blue 14</Channel>
+  <Channel Number="82">No effect 14</Channel>
+  <Channel Number="83">White 14</Channel>
+  <Channel Number="84">Dimmer 15</Channel>
+  <Channel Number="85">Red 15</Channel>
+  <Channel Number="86">Green 15</Channel>
+  <Channel Number="87">Blue 15</Channel>
+  <Channel Number="88">No effect 15</Channel>
+  <Channel Number="89">White 15</Channel>
+  <Channel Number="90">Dimmer 16</Channel>
+  <Channel Number="91">Red 16</Channel>
+  <Channel Number="92">Green 16</Channel>
+  <Channel Number="93">Blue 16</Channel>
+  <Channel Number="94">No effect 16</Channel>
+  <Channel Number="95">White 16</Channel>
+  <Channel Number="96">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+  </Head>
+  <Head>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+  </Head>
+  <Head>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+  </Head>
+  <Head>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+  </Head>
+  <Head>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="65: RGB.RGB. (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">No effect 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">No effect 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">No effect 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">No effect 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">No effect 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">No effect 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="66: RGB RGB (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="67: RGBW RGBW (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">White 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">White 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">White 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="68: RGBAW RGBAW (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">No effect 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">No effect 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">No effect 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Red 5</Channel>
+  <Channel Number="21">Green 5</Channel>
+  <Channel Number="22">Blue 5</Channel>
+  <Channel Number="23">No effect 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Red 6</Channel>
+  <Channel Number="26">Green 6</Channel>
+  <Channel Number="27">Blue 6</Channel>
+  <Channel Number="28">No effect 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Red 7</Channel>
+  <Channel Number="31">Green 7</Channel>
+  <Channel Number="32">Blue 7</Channel>
+  <Channel Number="33">No effect 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Red 8</Channel>
+  <Channel Number="36">Green 8</Channel>
+  <Channel Number="37">Blue 8</Channel>
+  <Channel Number="38">No effect 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="69: DIM RGB DIM RGB (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Dimmer 2</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Dimmer 4</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Channel Number="16">Dimmer 5</Channel>
+  <Channel Number="17">Red 5</Channel>
+  <Channel Number="18">Green 5</Channel>
+  <Channel Number="19">Blue 5</Channel>
+  <Channel Number="20">Dimmer 6</Channel>
+  <Channel Number="21">Red 6</Channel>
+  <Channel Number="22">Green 6</Channel>
+  <Channel Number="23">Blue 6</Channel>
+  <Channel Number="24">Dimmer 7</Channel>
+  <Channel Number="25">Red 7</Channel>
+  <Channel Number="26">Green 7</Channel>
+  <Channel Number="27">Blue 7</Channel>
+  <Channel Number="28">Dimmer 8</Channel>
+  <Channel Number="29">Red 8</Channel>
+  <Channel Number="30">Green 8</Channel>
+  <Channel Number="31">Blue 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="70: DIM RGBW DIM RGBW (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">Red 4</Channel>
+  <Channel Number="17">Green 4</Channel>
+  <Channel Number="18">Blue 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Dimmer 5</Channel>
+  <Channel Number="21">Red 5</Channel>
+  <Channel Number="22">Green 5</Channel>
+  <Channel Number="23">Blue 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Dimmer 6</Channel>
+  <Channel Number="26">Red 6</Channel>
+  <Channel Number="27">Green 6</Channel>
+  <Channel Number="28">Blue 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Dimmer 7</Channel>
+  <Channel Number="31">Red 7</Channel>
+  <Channel Number="32">Green 7</Channel>
+  <Channel Number="33">Blue 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Dimmer 8</Channel>
+  <Channel Number="36">Red 8</Channel>
+  <Channel Number="37">Green 8</Channel>
+  <Channel Number="38">Blue 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="71: DIM RGBAW DIM RGBAW (Pixel = 8, Strobe = off)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">No effect 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">No effect 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Dimmer 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">No effect 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">No effect 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Dimmer 5</Channel>
+  <Channel Number="25">Red 5</Channel>
+  <Channel Number="26">Green 5</Channel>
+  <Channel Number="27">Blue 5</Channel>
+  <Channel Number="28">No effect 5</Channel>
+  <Channel Number="29">White 5</Channel>
+  <Channel Number="30">Dimmer 6</Channel>
+  <Channel Number="31">Red 6</Channel>
+  <Channel Number="32">Green 6</Channel>
+  <Channel Number="33">Blue 6</Channel>
+  <Channel Number="34">No effect 6</Channel>
+  <Channel Number="35">White 6</Channel>
+  <Channel Number="36">Dimmer 7</Channel>
+  <Channel Number="37">Red 7</Channel>
+  <Channel Number="38">Green 7</Channel>
+  <Channel Number="39">Blue 7</Channel>
+  <Channel Number="40">No effect 7</Channel>
+  <Channel Number="41">White 7</Channel>
+  <Channel Number="42">Dimmer 8</Channel>
+  <Channel Number="43">Red 8</Channel>
+  <Channel Number="44">Green 8</Channel>
+  <Channel Number="45">Blue 8</Channel>
+  <Channel Number="46">No effect 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="73: RGB.RGBS (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Strobe for all Pixels</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">No effect 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">No effect 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">No effect 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">No effect 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">No effect 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">No effect 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="74: RGB RGB..S (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Red 5</Channel>
+  <Channel Number="13">Green 5</Channel>
+  <Channel Number="14">Blue 5</Channel>
+  <Channel Number="15">Red 6</Channel>
+  <Channel Number="16">Green 6</Channel>
+  <Channel Number="17">Blue 6</Channel>
+  <Channel Number="18">Red 7</Channel>
+  <Channel Number="19">Green 7</Channel>
+  <Channel Number="20">Blue 7</Channel>
+  <Channel Number="21">Red 8</Channel>
+  <Channel Number="22">Green 8</Channel>
+  <Channel Number="23">Blue 8</Channel>
+  <Channel Number="24">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="75: RGBW RGBW..S (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">White 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">White 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">White 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">White 8</Channel>
+  <Channel Number="32">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="76: RGBAW RGBAW..S (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">No effect 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">No effect 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">No effect 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">No effect 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Red 5</Channel>
+  <Channel Number="21">Green 5</Channel>
+  <Channel Number="22">Blue 5</Channel>
+  <Channel Number="23">No effect 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Red 6</Channel>
+  <Channel Number="26">Green 6</Channel>
+  <Channel Number="27">Blue 6</Channel>
+  <Channel Number="28">No effect 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Red 7</Channel>
+  <Channel Number="31">Green 7</Channel>
+  <Channel Number="32">Blue 7</Channel>
+  <Channel Number="33">No effect 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Red 8</Channel>
+  <Channel Number="36">Green 8</Channel>
+  <Channel Number="37">Blue 8</Channel>
+  <Channel Number="38">No effect 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="77: DIM RGB DIM RGB..S (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">Dimmer 2</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 3</Channel>
+  <Channel Number="9">Red 3</Channel>
+  <Channel Number="10">Green 3</Channel>
+  <Channel Number="11">Blue 3</Channel>
+  <Channel Number="12">Dimmer 4</Channel>
+  <Channel Number="13">Red 4</Channel>
+  <Channel Number="14">Green 4</Channel>
+  <Channel Number="15">Blue 4</Channel>
+  <Channel Number="16">Dimmer 5</Channel>
+  <Channel Number="17">Red 5</Channel>
+  <Channel Number="18">Green 5</Channel>
+  <Channel Number="19">Blue 5</Channel>
+  <Channel Number="20">Dimmer 6</Channel>
+  <Channel Number="21">Red 6</Channel>
+  <Channel Number="22">Green 6</Channel>
+  <Channel Number="23">Blue 6</Channel>
+  <Channel Number="24">Dimmer 7</Channel>
+  <Channel Number="25">Red 7</Channel>
+  <Channel Number="26">Green 7</Channel>
+  <Channel Number="27">Blue 7</Channel>
+  <Channel Number="28">Dimmer 8</Channel>
+  <Channel Number="29">Red 8</Channel>
+  <Channel Number="30">Green 8</Channel>
+  <Channel Number="31">Blue 8</Channel>
+  <Channel Number="32">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="78: DIM RGBW DIM RGBW..S (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">Red 2</Channel>
+  <Channel Number="7">Green 2</Channel>
+  <Channel Number="8">Blue 2</Channel>
+  <Channel Number="9">White 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">Red 3</Channel>
+  <Channel Number="12">Green 3</Channel>
+  <Channel Number="13">Blue 3</Channel>
+  <Channel Number="14">White 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">Red 4</Channel>
+  <Channel Number="17">Green 4</Channel>
+  <Channel Number="18">Blue 4</Channel>
+  <Channel Number="19">White 4</Channel>
+  <Channel Number="20">Dimmer 5</Channel>
+  <Channel Number="21">Red 5</Channel>
+  <Channel Number="22">Green 5</Channel>
+  <Channel Number="23">Blue 5</Channel>
+  <Channel Number="24">White 5</Channel>
+  <Channel Number="25">Dimmer 6</Channel>
+  <Channel Number="26">Red 6</Channel>
+  <Channel Number="27">Green 6</Channel>
+  <Channel Number="28">Blue 6</Channel>
+  <Channel Number="29">White 6</Channel>
+  <Channel Number="30">Dimmer 7</Channel>
+  <Channel Number="31">Red 7</Channel>
+  <Channel Number="32">Green 7</Channel>
+  <Channel Number="33">Blue 7</Channel>
+  <Channel Number="34">White 7</Channel>
+  <Channel Number="35">Dimmer 8</Channel>
+  <Channel Number="36">Red 8</Channel>
+  <Channel Number="37">Green 8</Channel>
+  <Channel Number="38">Blue 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="79: DIM RGBAW DIM RGBAW..S (Pixel = 8, Strobe = single)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">No effect 1</Channel>
+  <Channel Number="5">White 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">No effect 2</Channel>
+  <Channel Number="11">White 2</Channel>
+  <Channel Number="12">Dimmer 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">No effect 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Red 4</Channel>
+  <Channel Number="20">Green 4</Channel>
+  <Channel Number="21">Blue 4</Channel>
+  <Channel Number="22">No effect 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Dimmer 5</Channel>
+  <Channel Number="25">Red 5</Channel>
+  <Channel Number="26">Green 5</Channel>
+  <Channel Number="27">Blue 5</Channel>
+  <Channel Number="28">No effect 5</Channel>
+  <Channel Number="29">White 5</Channel>
+  <Channel Number="30">Dimmer 6</Channel>
+  <Channel Number="31">Red 6</Channel>
+  <Channel Number="32">Green 6</Channel>
+  <Channel Number="33">Blue 6</Channel>
+  <Channel Number="34">No effect 6</Channel>
+  <Channel Number="35">White 6</Channel>
+  <Channel Number="36">Dimmer 7</Channel>
+  <Channel Number="37">Red 7</Channel>
+  <Channel Number="38">Green 7</Channel>
+  <Channel Number="39">Blue 7</Channel>
+  <Channel Number="40">No effect 7</Channel>
+  <Channel Number="41">White 7</Channel>
+  <Channel Number="42">Dimmer 8</Channel>
+  <Channel Number="43">Red 8</Channel>
+  <Channel Number="44">Green 8</Channel>
+  <Channel Number="45">Blue 8</Channel>
+  <Channel Number="46">No effect 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Channel Number="48">Strobe for all Pixels</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2900" ColourTemperature="0"/>
+  <Dimensions Weight="1.35" Width="1035" Height="43" Depth="43"/>
+  <Lens Name="Other" DegreesMin="115" DegreesMax="135"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
+  <Technical PowerConsumption="48" DmxConnector="Other"/>
+ </Physical>
+</FixtureDefinition>

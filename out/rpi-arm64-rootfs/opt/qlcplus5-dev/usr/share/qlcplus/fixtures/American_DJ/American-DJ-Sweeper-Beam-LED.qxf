@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>George Qualley IV</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Sweeper Beam LED</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="22">Show 1</Capability>
+  <Capability Min="23" Max="37">Show 2</Capability>
+  <Capability Min="38" Max="52">Show 3</Capability>
+  <Capability Min="53" Max="67">Show 4</Capability>
+  <Capability Min="68" Max="82">Show 5</Capability>
+  <Capability Min="83" Max="97">Show 6</Capability>
+  <Capability Min="98" Max="112">Show 7</Capability>
+  <Capability Min="113" Max="127">Show 8</Capability>
+  <Capability Min="128" Max="142">Show 9</Capability>
+  <Capability Min="143" Max="157">Show 10</Capability>
+  <Capability Min="158" Max="172">Show 11</Capability>
+  <Capability Min="173" Max="187">Show 12</Capability>
+  <Capability Min="188" Max="202">Show 13</Capability>
+  <Capability Min="203" Max="217">Show 14</Capability>
+  <Capability Min="218" Max="232">Show 15</Capability>
+  <Capability Min="233" Max="247">Show 16</Capability>
+  <Capability Min="248" Max="255">Random Show</Capability>
+ </Channel>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Movement Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="43">60º - 120º</Capability>
+  <Capability Min="44" Max="79">45º - 135º</Capability>
+  <Capability Min="80" Max="115">30º - 150º</Capability>
+  <Capability Min="116" Max="151">0º - 180º</Capability>
+  <Capability Min="152" Max="187">-30º - 210º</Capability>
+  <Capability Min="188" Max="223">0º - 90º</Capability>
+  <Capability Min="224" Max="255">90º - 180º</Capability>
+ </Channel>
+ <Channel Name="Tilt Movement Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Chases">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="22">Chase 1</Capability>
+  <Capability Min="23" Max="37">Chase 2</Capability>
+  <Capability Min="38" Max="52">Chase 3</Capability>
+  <Capability Min="53" Max="67">Chase 4</Capability>
+  <Capability Min="68" Max="82">Chase 5</Capability>
+  <Capability Min="83" Max="97">Chase 6</Capability>
+  <Capability Min="98" Max="112">Chase 7</Capability>
+  <Capability Min="113" Max="127">Chase 8</Capability>
+  <Capability Min="128" Max="142">Chase 9</Capability>
+  <Capability Min="143" Max="157">Chase 10</Capability>
+  <Capability Min="158" Max="172">Chase 11</Capability>
+  <Capability Min="173" Max="187">Chase 12</Capability>
+  <Capability Min="188" Max="202">Chase 13</Capability>
+  <Capability Min="203" Max="217">Chase 14</Capability>
+  <Capability Min="218" Max="232">Chase 15</Capability>
+  <Capability Min="233" Max="247">Chase 16</Capability>
+  <Capability Min="248" Max="255">Full On</Capability>
+ </Channel>
+ <Channel Name="Chase Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobing (Slow -&gt; Fast)</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="140" Max="181">Slow Open - Fast Close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="190" Max="231">Slow Close - Fast Open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random Strobing</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Dimmer (Lens 1)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 2)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 3)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 4)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 5)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 6)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 7)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Lens 8)" Preset="IntensityDimmer"/>
+ <Mode Name="1 Channel Mode">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+ <Mode Name="6 Channel Mode">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Movement Macro</Channel>
+  <Channel Number="2">Tilt Movement Macro Speed</Channel>
+  <Channel Number="3">Chases</Channel>
+  <Channel Number="4">Chase Speed</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="11 Channel Mode">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobing</Channel>
+  <Channel Number="3">Dimmer (Lens 1)</Channel>
+  <Channel Number="4">Dimmer (Lens 2)</Channel>
+  <Channel Number="5">Dimmer (Lens 3)</Channel>
+  <Channel Number="6">Dimmer (Lens 4)</Channel>
+  <Channel Number="7">Dimmer (Lens 5)</Channel>
+  <Channel Number="8">Dimmer (Lens 6)</Channel>
+  <Channel Number="9">Dimmer (Lens 7)</Channel>
+  <Channel Number="10">Dimmer (Lens 8)</Channel>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 Channel Mode">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt Movement Macro</Channel>
+  <Channel Number="2">Tilt Movement Macro Speed</Channel>
+  <Channel Number="3">Chases</Channel>
+  <Channel Number="4">Chase Speed</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+  <Channel Number="6">Strobing</Channel>
+  <Channel Number="7">Dimmer (Lens 1)</Channel>
+  <Channel Number="8">Dimmer (Lens 2)</Channel>
+  <Channel Number="9">Dimmer (Lens 3)</Channel>
+  <Channel Number="10">Dimmer (Lens 4)</Channel>
+  <Channel Number="11">Dimmer (Lens 5)</Channel>
+  <Channel Number="12">Dimmer (Lens 6)</Channel>
+  <Channel Number="13">Dimmer (Lens 7)</Channel>
+  <Channel Number="14">Dimmer (Lens 8)</Channel>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+  <Lens Name="Other" DegreesMin="3.5" DegreesMax="3.5"/>
+  <Focus Type="Head" PanMax="0" TiltMax="210"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="47" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

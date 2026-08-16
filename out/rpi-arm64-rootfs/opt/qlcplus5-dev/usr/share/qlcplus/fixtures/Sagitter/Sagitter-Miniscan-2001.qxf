@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Stefan Schürmann</Author>
+ </Creator>
+ <Manufacturer>Sagitter</Manufacturer>
+ <Model>Miniscan 2001</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">White</Capability>
+  <Capability Min="8" Max="15">Greenish</Capability>
+  <Capability Min="16" Max="23">Red</Capability>
+  <Capability Min="24" Max="31">Blueish</Capability>
+  <Capability Min="32" Max="39">Green</Capability>
+  <Capability Min="40" Max="47">Purple</Capability>
+  <Capability Min="48" Max="55">Blue</Capability>
+  <Capability Min="56" Max="63">Yellow</Capability>
+  <Capability Min="64" Max="71">Dark Green</Capability>
+  <Capability Min="72" Max="79">Pink</Capability>
+  <Capability Min="80" Max="87">Dark Blue</Capability>
+  <Capability Min="88" Max="95">Orange</Capability>
+  <Capability Min="96" Max="103">Dark Purple</Capability>
+  <Capability Min="104" Max="111">Red/Blue</Capability>
+  <Capability Min="112" Max="119">Yellow/Green</Capability>
+  <Capability Min="120" Max="127">Blue/Pink</Capability>
+  <Capability Min="128" Max="191">Rainbow Forward</Capability>
+  <Capability Min="192" Max="255">Rainbow Backward</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="23">Blank</Capability>
+  <Capability Min="24" Max="47">Crosslines</Capability>
+  <Capability Min="48" Max="79">Flower</Capability>
+  <Capability Min="80" Max="103">Starcircles</Capability>
+  <Capability Min="104" Max="127">Bubbles</Capability>
+  <Capability Min="128" Max="151">Sun</Capability>
+  <Capability Min="152" Max="175">Ring of Spots</Capability>
+  <Capability Min="176" Max="207">Fine Sun</Capability>
+  <Capability Min="208" Max="231">Stars</Capability>
+  <Capability Min="232" Max="255">Spiral</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Rotation 0-360</Capability>
+  <Capability Min="128" Max="191">Rotation Forward Fast -&gt; Slow</Capability>
+  <Capability Min="192" Max="255">Rotation Backward slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="95">Shutter Closed -&gt; Open</Capability>
+  <Capability Min="96" Max="127" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="128" Max="159">No function</Capability>
+  <Capability Min="160" Max="191">Pulse fast -&gt; Slow -&gt; Fast</Capability>
+  <Capability Min="192" Max="223">Strobe Patterns</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Full</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="6500" ColourTemperature="1700"/>
+  <Dimensions Weight="9.5" Width="244" Height="163" Depth="483"/>
+  <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+  <Focus Type="Mirror" PanMax="147" TiltMax="115"/>
+  <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>MH-360</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Special">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">No function</Capability>
+  <Capability Min="70" Max="79">Enable BlackOut while Pan or Tilt move</Capability>
+  <Capability Min="80" Max="89">Disable BlackOut while Pan or Tilt move</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
+  <Capability Min="210" Max="239">No function</Capability>
+  <Capability Min="240" Max="255">Stand-Alone</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeFastToSlow">Fast strobe -&gt; Slow strobe</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpFrequency">Fast close -&gt; Slow open</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownFrequency">Slow close -&gt; Fast open</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color/Chase/Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="11">Color 1</Capability>
+  <Capability Min="12" Max="15">Color 2</Capability>
+  <Capability Min="16" Max="18">Color 3</Capability>
+  <Capability Min="19" Max="22">Color 4</Capability>
+  <Capability Min="23" Max="26">Color 5</Capability>
+  <Capability Min="27" Max="30">Color 6</Capability>
+  <Capability Min="31" Max="33">Color 7</Capability>
+  <Capability Min="34" Max="37">Color 8</Capability>
+  <Capability Min="38" Max="41">Color 9</Capability>
+  <Capability Min="42" Max="45">Color 10</Capability>
+  <Capability Min="46" Max="48">Color 11</Capability>
+  <Capability Min="49" Max="52">Color 12</Capability>
+  <Capability Min="53" Max="56">Color 13</Capability>
+  <Capability Min="57" Max="60">Color 14</Capability>
+  <Capability Min="61" Max="63">Color 15</Capability>
+  <Capability Min="64" Max="67">Color 16</Capability>
+  <Capability Min="68" Max="71">Color 17</Capability>
+  <Capability Min="72" Max="75">Color 18</Capability>
+  <Capability Min="76" Max="78">Color 19</Capability>
+  <Capability Min="79" Max="82">Color 20</Capability>
+  <Capability Min="83" Max="86">Color 21</Capability>
+  <Capability Min="87" Max="90">Color 22</Capability>
+  <Capability Min="91" Max="93">Color 23</Capability>
+  <Capability Min="94" Max="97">Color 24</Capability>
+  <Capability Min="98" Max="101">Color 25</Capability>
+  <Capability Min="102" Max="105">Color 26</Capability>
+  <Capability Min="106" Max="108">Color 27</Capability>
+  <Capability Min="109" Max="112">Color 28</Capability>
+  <Capability Min="113" Max="116">Color 29</Capability>
+  <Capability Min="117" Max="120">Color 30</Capability>
+  <Capability Min="121" Max="123">Color 31</Capability>
+  <Capability Min="124" Max="127">Color 32</Capability>
+  <Capability Min="128" Max="131">Color Chase 1</Capability>
+  <Capability Min="132" Max="135">Color Chase 2</Capability>
+  <Capability Min="136" Max="139">Color Chase 3</Capability>
+  <Capability Min="140" Max="143">Color Chase 4</Capability>
+  <Capability Min="144" Max="147">Color Chase 5</Capability>
+  <Capability Min="148" Max="151">Color Chase 6</Capability>
+  <Capability Min="152" Max="155">Color Chase 7</Capability>
+  <Capability Min="156" Max="159">Color Chase 8</Capability>
+  <Capability Min="160" Max="163">Color Chase 9</Capability>
+  <Capability Min="164" Max="167">Color Chase 10</Capability>
+  <Capability Min="168" Max="171">Color Chase 11</Capability>
+  <Capability Min="172" Max="175">Color Chase 12</Capability>
+  <Capability Min="176" Max="179">Color Chase 13</Capability>
+  <Capability Min="180" Max="183">Color Chase 14</Capability>
+  <Capability Min="184" Max="187">Color Chase 15</Capability>
+  <Capability Min="188" Max="191">Color Chase 16</Capability>
+  <Capability Min="192" Max="195">Color Fade 1</Capability>
+  <Capability Min="196" Max="199">Color Fade 2</Capability>
+  <Capability Min="200" Max="203">Color Fade 3</Capability>
+  <Capability Min="204" Max="207">Color Fade 4</Capability>
+  <Capability Min="208" Max="211">Color Fade 5</Capability>
+  <Capability Min="212" Max="215">Color Fade 6</Capability>
+  <Capability Min="216" Max="219">Color Fade 7</Capability>
+  <Capability Min="220" Max="223">Color Fade 8</Capability>
+  <Capability Min="224" Max="227">Color Fade 9</Capability>
+  <Capability Min="228" Max="231">Color Fade 10</Capability>
+  <Capability Min="232" Max="235">Color Fade 11</Capability>
+  <Capability Min="236" Max="239">Color Fade 12</Capability>
+  <Capability Min="240" Max="243">Color Fade 13</Capability>
+  <Capability Min="244" Max="247">Color Fade 14</Capability>
+  <Capability Min="248" Max="251">Color Fade 15</Capability>
+  <Capability Min="252" Max="255">Color Fade 16</Capability>
+ </Channel>
+ <Channel Name="Chase/Fade Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slow -&gt; fast</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Special</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">Color/Chase/Fade</Channel>
+  <Channel Number="12">Chase/Fade Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="800" ColourTemperature="3200"/>
+  <Dimensions Weight="9" Width="260" Height="285" Depth="317"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Roboscan 218</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="6" Max="80" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="81" Max="208" Preset="StrobeFastToSlow">Strobe speed fast-slow</Capability>
+  <Capability Min="209" Max="230">Remote stand-alone auto trig</Capability>
+  <Capability Min="231" Max="252">Remote stand-alone music trig</Capability>
+  <Capability Min="253" Max="255" Preset="ResetAll">Reset fixture</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">White -&gt; Flame red</Capability>
+  <Capability Min="11" Max="21">Flame red -&gt; Light blue</Capability>
+  <Capability Min="22" Max="32">Light blue -&gt; Fern green</Capability>
+  <Capability Min="33" Max="43">Fern green -&gt; Yellow</Capability>
+  <Capability Min="44" Max="54">Yellow -&gt; Primary green</Capability>
+  <Capability Min="55" Max="65">Primary green -&gt; Mauve</Capability>
+  <Capability Min="66" Max="76">Mauve -&gt; Dark blue</Capability>
+  <Capability Min="77" Max="87">Dark blue -&gt; Cyan blue</Capability>
+  <Capability Min="88" Max="98">Cyan blue -&gt; Primary red</Capability>
+  <Capability Min="99" Max="109">Primary red -&gt; Light orange</Capability>
+  <Capability Min="110" Max="120">Light orange -&gt; Light green</Capability>
+  <Capability Min="121" Max="131">Light green -&gt; Amber</Capability>
+  <Capability Min="132" Max="142">Amber -&gt; Pink</Capability>
+  <Capability Min="143" Max="153">Pink -&gt; Dark lavender</Capability>
+  <Capability Min="154" Max="164">Dark lavender -&gt; Dark orange</Capability>
+  <Capability Min="165" Max="175">Dark orange -&gt; Multicolor 1</Capability>
+  <Capability Min="176" Max="186">Multicolor 1 -&gt; Multicolor 2</Capability>
+  <Capability Min="187" Max="190">Multicolor 2</Capability>
+  <Capability Min="191" Max="193">Multicolor 1</Capability>
+  <Capability Min="194" Max="196">Dark orange</Capability>
+  <Capability Min="197" Max="199">Dark lavender</Capability>
+  <Capability Min="200" Max="202">Pink</Capability>
+  <Capability Min="203" Max="205">Amber</Capability>
+  <Capability Min="206" Max="208">Light green</Capability>
+  <Capability Min="209" Max="211">Light orange</Capability>
+  <Capability Min="212" Max="214">Primary red</Capability>
+  <Capability Min="215" Max="217">Cyan blue</Capability>
+  <Capability Min="218" Max="220">Dark blue</Capability>
+  <Capability Min="221" Max="223">Mauve</Capability>
+  <Capability Min="224" Max="226">Primary green</Capability>
+  <Capability Min="227" Max="229">Yellow</Capability>
+  <Capability Min="230" Max="232">Fern green</Capability>
+  <Capability Min="233" Max="235">Light blue</Capability>
+  <Capability Min="236" Max="238">Flame red</Capability>
+  <Capability Min="239" Max="255">White</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10">Open -&gt; Half</Capability>
+  <Capability Min="11" Max="21">Half -&gt; Dot</Capability>
+  <Capability Min="22" Max="32">Dot -&gt; Pin</Capability>
+  <Capability Min="33" Max="43">Pin -&gt; Vertical bar</Capability>
+  <Capability Min="44" Max="54">Vertical bar -&gt; Horizontal bar</Capability>
+  <Capability Min="55" Max="65">Horizontal bar -&gt; Cross</Capability>
+  <Capability Min="66" Max="76">Cross -&gt; Arrow</Capability>
+  <Capability Min="77" Max="87">Arrow -&gt; Triangles</Capability>
+  <Capability Min="88" Max="98">Triangles -&gt; Star</Capability>
+  <Capability Min="99" Max="109">Star -&gt; Holes</Capability>
+  <Capability Min="110" Max="120">Holes -&gt; Bells</Capability>
+  <Capability Min="121" Max="131">Bells -&gt; Cone</Capability>
+  <Capability Min="132" Max="142">Cone -&gt; Cones</Capability>
+  <Capability Min="143" Max="153">Cones -&gt; Phone</Capability>
+  <Capability Min="154" Max="164">Phone -&gt; Thin bars</Capability>
+  <Capability Min="165" Max="175">Thin bars -&gt; Window</Capability>
+  <Capability Min="176" Max="186">Window -&gt; Turbine</Capability>
+  <Capability Min="187" Max="190">Turbine</Capability>
+  <Capability Min="191" Max="193">Window</Capability>
+  <Capability Min="194" Max="196">Thin bars</Capability>
+  <Capability Min="197" Max="199">Phone</Capability>
+  <Capability Min="200" Max="202">Cones</Capability>
+  <Capability Min="203" Max="205">Cone</Capability>
+  <Capability Min="206" Max="208">Bells</Capability>
+  <Capability Min="209" Max="211">Holes</Capability>
+  <Capability Min="212" Max="214">Star</Capability>
+  <Capability Min="215" Max="217">Triangles</Capability>
+  <Capability Min="218" Max="220">Arrow</Capability>
+  <Capability Min="221" Max="223">Cross</Capability>
+  <Capability Min="224" Max="226">Horizontal bar</Capability>
+  <Capability Min="227" Max="229">Vertical bar</Capability>
+  <Capability Min="230" Max="232">Pin</Capability>
+  <Capability Min="233" Max="235">Dot</Capability>
+  <Capability Min="236" Max="238">Half</Capability>
+  <Capability Min="239" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Movement speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking</Capability>
+  <Capability Min="1" Max="251">Speed fast -&gt; slow</Capability>
+  <Capability Min="252" Max="255">Blackout while changing</Capability>
+ </Channel>
+ <Channel Name="Colour/Gobo/Dimmer speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="251">Speed fast -&gt; slow</Capability>
+  <Capability Min="252" Max="255">Blackout while colour/gobo change, fast dimmer</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Shutter/Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Shutter/Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Movement speed</Channel>
+  <Channel Number="7">Colour/Gobo/Dimmer speed</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Channel Number="0">Shutter/Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Pan fine</Channel>
+  <Channel Number="6">Tilt</Channel>
+  <Channel Number="7">Tilt fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 200W" Lumens="1250" ColourTemperature="5600"/>
+  <Dimensions Weight="14" Width="280" Height="533" Depth="184"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Mirror" PanMax="175" TiltMax="85"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>AxelOtl</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>XS-1W Mini Moving Beam</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe effect, from slow to fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Fast Close to slow Open, from slow to fast</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Slow Close to Fast Open, slow Open, from slow to fast</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandomFastToSlow">Random shutters are on or off, from long to short intervals</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Channel Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">Not used</Capability>
+  <Capability Min="70" Max="79">Enable Pan/tilt blackout (after 5 seconds)</Capability>
+  <Capability Min="80" Max="89">Disable Pan/tilt blackout (after 5 seconds)</Capability>
+  <Capability Min="90" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset All (after 5 seconds)</Capability>
+  <Capability Min="210" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Pan fine 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine 16 bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan/Tilt Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Not used</Capability>
+  <Capability Min="16" Max="35">Pan/Tilt Macro 1</Capability>
+  <Capability Min="36" Max="55">Pan/Tilt Macro 2</Capability>
+  <Capability Min="56" Max="75">Pan/Tilt Macro 3</Capability>
+  <Capability Min="76" Max="95">Pan/Tilt Macro 4</Capability>
+  <Capability Min="96" Max="115">Pan/Tilt Macro 5</Capability>
+  <Capability Min="116" Max="135">Pan/Tilt Macro 6</Capability>
+  <Capability Min="136" Max="155">Pan/Tilt Macro 7</Capability>
+  <Capability Min="156" Max="175">Pan/Tilt Macro 8</Capability>
+  <Capability Min="176" Max="195">Pan/Tilt Macro 9</Capability>
+  <Capability Min="196" Max="215">Pan/Tilt Macro 10</Capability>
+  <Capability Min="216" Max="235">Pan/Tilt Macro 11</Capability>
+  <Capability Min="236" Max="255">Pan/Tilt Macro 12</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Macro Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Shutter/Strobe</Channel>
+  <Channel Number="4">Channel Functions</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine 16 bit</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine 16 bit</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Pan/Tilt Macro</Channel>
+  <Channel Number="6">Pan/Tilt Macro Speed</Channel>
+  <Channel Number="7">Channel Functions</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Shutter/Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="7000"/>
+  <Dimensions Weight="2" Width="125" Height="236" Depth="125"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

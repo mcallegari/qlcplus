@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Henrik Bauer, Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Litecraft</Manufacturer>
+ <Model>WashX.36</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Strobe functions">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeSlowToFast">Strobe, slow -&gt; fast</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="70" Max="84" Preset="PulseSlowToFast">Pulsating opening, slow -&gt; fast</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="90" Max="104" Preset="PulseSlowToFast">Pulsating closing, slow -&gt; fast</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomSlowToFast">Strobe random, slow -&gt; fast</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="130" Max="144" Preset="StrobeRandomSlowToFast">Strobe random opening, slow -&gt; fast</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="150" Max="164" Preset="StrobeRandom">Strobe random closing, slow -&gt; fast</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="170" Max="184" Preset="StrobeSlowToFast">Strobe exploding, slow -&gt; fast</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="204" Preset="StrobeSlowToFast">Strobe exploding random, slow -&gt; fast</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeSlowToFast">Strobe sine wave, slow -&gt; fast</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="230" Max="244" Preset="StrobeSlowToFast">Strobe sine wave pulsating, slow -&gt; fast</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="89">No function</Capability>
+  <Capability Min="90" Max="94">White balance: Automatic (Hold 3s)</Capability>
+  <Capability Min="95" Max="99">White balance: Manual</Capability>
+  <Capability Min="100" Max="104">White balance: Deactivate (Hold 3s)</Capability>
+  <Capability Min="105" Max="109">No function</Capability>
+  <Capability Min="110" Max="114">Dimming: Standard (Hold 3s)</Capability>
+  <Capability Min="115" Max="119">No function</Capability>
+  <Capability Min="120" Max="124">Dimming: Homogeneous (Hold 3s)</Capability>
+  <Capability Min="125" Max="129">No function</Capability>
+  <Capability Min="130" Max="134">PWM frequency: 600Hz</Capability>
+  <Capability Min="135" Max="139">PWM frequency: 1200Hz</Capability>
+  <Capability Min="140" Max="144">PWM frequency: 2400Hz</Capability>
+  <Capability Min="145" Max="149">PWM frequency: 4800Hz</Capability>
+  <Capability Min="150" Max="154">No function</Capability>
+  <Capability Min="155" Max="159">WDMX: Activate (Hold 3s)</Capability>
+  <Capability Min="160" Max="164">No function</Capability>
+  <Capability Min="165" Max="169">WDMX: Deactivate (Hold 3s)</Capability>
+  <Capability Min="170" Max="174">No function</Capability>
+  <Capability Min="175" Max="179">WDMX: Reset</Capability>
+  <Capability Min="180" Max="239">No function</Capability>
+  <Capability Min="240" Max="244">White balance: Manual (Hold 3s)</Capability>
+  <Capability Min="245" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Switch on display</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Colour change</Capability>
+ </Channel>
+ <Channel Name="Colour temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Colour temperature 2500K to 10000K</Capability>
+ </Channel>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="40">Automatic program 1</Capability>
+  <Capability Min="41" Max="70">Automatic program 2</Capability>
+  <Capability Min="71" Max="100">Automatic program 3</Capability>
+  <Capability Min="101" Max="130">Automatic program 4</Capability>
+  <Capability Min="131" Max="160">Automatic program 5</Capability>
+  <Capability Min="161" Max="190">Automatic program 6</Capability>
+  <Capability Min="191" Max="220">Automatic program 7</Capability>
+  <Capability Min="221" Max="255">Cycle automatic programs</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="255">Dimmer Speed</Capability>
+ </Channel>
+ <Channel Name="Select Device ID">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">All IDs</Capability>
+  <Capability Min="10" Max="19">ID 01</Capability>
+  <Capability Min="20" Max="29">ID 02</Capability>
+  <Capability Min="30" Max="39">ID 03</Capability>
+  <Capability Min="40" Max="49">ID 04</Capability>
+  <Capability Min="50" Max="59">ID 05</Capability>
+  <Capability Min="60" Max="69">ID 06</Capability>
+  <Capability Min="70" Max="79">ID 07</Capability>
+  <Capability Min="80" Max="89">ID 08</Capability>
+  <Capability Min="90" Max="99">ID 09</Capability>
+  <Capability Min="100" Max="109">ID 10</Capability>
+  <Capability Min="110" Max="119">ID 11</Capability>
+  <Capability Min="120" Max="129">ID 12</Capability>
+  <Capability Min="130" Max="139">ID 13</Capability>
+  <Capability Min="140" Max="149">ID 14</Capability>
+  <Capability Min="150" Max="159">ID 15</Capability>
+  <Capability Min="160" Max="169">ID 16</Capability>
+  <Capability Min="170" Max="179">ID 17</Capability>
+  <Capability Min="180" Max="189">ID 18</Capability>
+  <Capability Min="190" Max="199">ID 19</Capability>
+  <Capability Min="200" Max="209">ID 20</Capability>
+  <Capability Min="210" Max="210">ID 21</Capability>
+  <Capability Min="211" Max="211">ID 22</Capability>
+  <Capability Min="212" Max="212">ID 23</Capability>
+  <Capability Min="213" Max="213">ID 24</Capability>
+  <Capability Min="214" Max="214">ID 25</Capability>
+  <Capability Min="215" Max="215">ID 26</Capability>
+  <Capability Min="216" Max="216">ID 27</Capability>
+  <Capability Min="217" Max="217">ID 28</Capability>
+  <Capability Min="218" Max="218">ID 29</Capability>
+  <Capability Min="219" Max="219">ID 30</Capability>
+  <Capability Min="220" Max="220">ID 31</Capability>
+  <Capability Min="221" Max="221">ID 32</Capability>
+  <Capability Min="222" Max="222">ID 33</Capability>
+  <Capability Min="223" Max="223">ID 34</Capability>
+  <Capability Min="224" Max="224">ID 35</Capability>
+  <Capability Min="225" Max="225">ID 36</Capability>
+  <Capability Min="226" Max="226">ID 37</Capability>
+  <Capability Min="227" Max="227">ID 38</Capability>
+  <Capability Min="228" Max="228">ID 39</Capability>
+  <Capability Min="229" Max="229">ID 40</Capability>
+  <Capability Min="230" Max="230">ID 41</Capability>
+  <Capability Min="231" Max="231">ID 42</Capability>
+  <Capability Min="232" Max="232">ID 43</Capability>
+  <Capability Min="233" Max="233">ID 44</Capability>
+  <Capability Min="234" Max="234">ID 45</Capability>
+  <Capability Min="235" Max="235">ID 46</Capability>
+  <Capability Min="236" Max="236">ID 47</Capability>
+  <Capability Min="237" Max="237">ID 48</Capability>
+  <Capability Min="238" Max="238">ID 49</Capability>
+  <Capability Min="239" Max="239">ID 50</Capability>
+  <Capability Min="240" Max="240">ID 51</Capability>
+  <Capability Min="241" Max="241">ID 52</Capability>
+  <Capability Min="242" Max="242">ID 53</Capability>
+  <Capability Min="243" Max="243">ID 54</Capability>
+  <Capability Min="244" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="Color Mode">
+  <Channel Number="0">Strobe functions</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Control</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+ </Mode>
+ <Mode Name="Col. M Mode">
+  <Channel Number="0">Strobe functions</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Control</Channel>
+  <Channel Number="3">Colour Macros</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Colour temperature</Channel>
+ </Mode>
+ <Mode Name="Stage Mode">
+  <Channel Number="0">Strobe functions</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Control</Channel>
+  <Channel Number="3">Colour Macros</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Colour temperature</Channel>
+  <Channel Number="9">Internal programs</Channel>
+  <Channel Number="10">Dimmer Speed</Channel>
+  <Channel Number="11">Select Device ID</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11.8" Width="488" Height="326" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="322" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

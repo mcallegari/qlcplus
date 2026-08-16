@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Jasper Zevering</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Dragon F-350</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Mode Name="Normal">
+  <Channel Number="0">Intensity</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="none" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="300" Weight="7.9" Depth="490" Height="190"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="none"/>
+   <Focus Type="none" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="1000"/>
+  </Physical>
+</FixtureDefinition>

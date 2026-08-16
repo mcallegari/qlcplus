@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.0</Version>
+  <Author>Kurt Malkames</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORdash Batten</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0 - 100% (or STEP TIME when Custom 1-10 is activated)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0 - 100% (or FADE TIME when Custom 1-10 is activated)</Capability>
+ </Channel>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macro + White Balance">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="35">Red 100% - Green Up - Blue 0%</Capability>
+  <Capability Min="36" Max="60">Red Down - Green 100% - Blue 0%</Capability>
+  <Capability Min="61" Max="85">Red 0% - Green 100% - Blue Up</Capability>
+  <Capability Min="86" Max="110">Red 0% - Green Down - Blue 100%</Capability>
+  <Capability Min="111" Max="135">Red Up - Green 0% - Blue 100%</Capability>
+  <Capability Min="136" Max="160">Red 100% - Green 0% - Blue Down</Capability>
+  <Capability Min="161" Max="185">Red 100% - Green Up - Blue Up</Capability>
+  <Capability Min="186" Max="210">Red Down - Green Down - Blue 100%</Capability>
+  <Capability Min="211" Max="215">White 1: 3200K</Capability>
+  <Capability Min="216" Max="220">White 2: 3400K</Capability>
+  <Capability Min="221" Max="225">White 3: 4200K</Capability>
+  <Capability Min="226" Max="230">White 4: 4900K</Capability>
+  <Capability Min="231" Max="235">White 5: 5600K</Capability>
+  <Capability Min="236" Max="240">White 6: 5900K</Capability>
+  <Capability Min="241" Max="245">White 7: 6500K</Capability>
+  <Capability Min="246" Max="250">White 8: 7200K</Capability>
+  <Capability Min="251" Max="255">White 9: 8500K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255">0 - 20Hz</Capability>
+ </Channel>
+ <Channel Name="Auto + Custom Programs + Fan Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Reset to display fan setting</Capability>
+  <Capability Min="11" Max="20">Fans Off (Hold for 3sec)</Capability>
+  <Capability Min="21" Max="30">Fans Low (Hold for 3sec)</Capability>
+  <Capability Min="31" Max="40">Fans Normal (Hold for 3sec)</Capability>
+  <Capability Min="41" Max="50">Fans High (Hold for 3sec)</Capability>
+  <Capability Min="51" Max="60">Fans Auto (Hold for 3sec)</Capability>
+  <Capability Min="61" Max="70">Auto 1</Capability>
+  <Capability Min="71" Max="80">Auto 2</Capability>
+  <Capability Min="81" Max="90">Auto 3</Capability>
+  <Capability Min="91" Max="100">Auto 4</Capability>
+  <Capability Min="101" Max="110">Auto 5</Capability>
+  <Capability Min="111" Max="120">Auto 6</Capability>
+  <Capability Min="121" Max="130">Auto 7</Capability>
+  <Capability Min="131" Max="140">Auto 8</Capability>
+  <Capability Min="141" Max="150">Auto 9</Capability>
+  <Capability Min="151" Max="160">Auto 10</Capability>
+  <Capability Min="161" Max="170">Custom 1</Capability>
+  <Capability Min="171" Max="180">Custom 2</Capability>
+  <Capability Min="181" Max="190">Custom 3</Capability>
+  <Capability Min="191" Max="200">Custom 4</Capability>
+  <Capability Min="201" Max="210">Custom 5</Capability>
+  <Capability Min="211" Max="220">Custom 6</Capability>
+  <Capability Min="221" Max="230">Custom 7</Capability>
+  <Capability Min="231" Max="240">Custom 8</Capability>
+  <Capability Min="241" Max="250">Custom 9</Capability>
+  <Capability Min="251" Max="255">Custom 10</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0 - 100% (only when CH 7 is between 61-255)</Capability>
+ </Channel>
+ <Channel Name="Block">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="9">Block 1,2,3,4</Capability>
+  <Capability Min="10" Max="29">Block 1</Capability>
+  <Capability Min="30" Max="49">Block 2</Capability>
+  <Capability Min="50" Max="69">Block 3</Capability>
+  <Capability Min="70" Max="89">Block 4</Capability>
+  <Capability Min="90" Max="109">Block 1,2</Capability>
+  <Capability Min="110" Max="129">Block 3,4</Capability>
+  <Capability Min="130" Max="149">Block 1,4</Capability>
+  <Capability Min="150" Max="169">Block 2,3</Capability>
+  <Capability Min="170" Max="189">Block 1,2,3</Capability>
+  <Capability Min="190" Max="209">Block 2,3,4</Capability>
+  <Capability Min="210" Max="229">Block 1,3,4</Capability>
+  <Capability Min="230" Max="255">Block 1,2,4</Capability>
+ </Channel>
+ <Channel Name="ID Addressing">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">All IDs</Capability>
+  <Capability Min="10" Max="255">ID 1 - 66</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Mode Name="STAGE 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Color Macro + White Balance</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Auto + Custom Programs + Fan Control</Channel>
+  <Channel Number="7">Auto Speed</Channel>
+  <Channel Number="8">ID Addressing</Channel>
+  <Channel Number="9">Block</Channel>
+ </Mode>
+ <Mode Name="ARC 1">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="ARC 1 + D">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="BLOCK">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="470" Height="191" Weight="3.6" Depth="84"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="58" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Morgan McNeely</Author>
+ </Creator>
+ <Manufacturer>Nicols</Manufacturer>
+ <Model>Galaxy Laser LD-488</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Closed / Beam Off</Capability>
+  <Capability Min="50" Max="99">Static Patterns</Capability>
+  <Capability Min="100" Max="149">Dynamic Patterns</Capability>
+  <Capability Min="150" Max="199">Sound Mode</Capability>
+  <Capability Min="200" Max="255">Auto Mode</Capability>
+ </Channel>
+ <Channel Name="Pattern: Static / Dynamic">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="4">Circle / Circle to Big</Capability>
+  <Capability Min="5" Max="9">Dot Circle 1 / Dot Circle to Big</Capability>
+  <Capability Min="10" Max="14">Dot Circle 1 / Scan Circle to Big</Capability>
+  <Capability Min="15" Max="19">Scan Circle / Circle Flash</Capability>
+  <Capability Min="20" Max="24">Horizontal Line / Dot Circle Flash</Capability>
+  <Capability Min="25" Max="29">Horizontal Dot Line / Circle Roll</Capability>
+  <Capability Min="30" Max="34">Vertical Line / Dot Circle Roll</Capability>
+  <Capability Min="35" Max="39">Vertical Dot Line / Circle Turn</Capability>
+  <Capability Min="40" Max="44">45° Diagonal / Dot Circle Turn</Capability>
+  <Capability Min="45" Max="49">Dot Diagonal / Dot Circle to Add</Capability>
+  <Capability Min="50" Max="54">135° Diagonal / Scan Circle Extend</Capability>
+  <Capability Min="55" Max="59">Dot Diagonal / Circle Jump</Capability>
+  <Capability Min="60" Max="64">Vertical Line 1 / Dot Circle Jump</Capability>
+  <Capability Min="65" Max="69">Vertical Dot Line 1 / Horizontal Line Jump</Capability>
+  <Capability Min="70" Max="74">Vertical Line 2 / Horizontal Dot Line Jump</Capability>
+  <Capability Min="75" Max="79">Vertical Dot Line 2 / Vertical Line Jump</Capability>
+  <Capability Min="80" Max="84">Triangle 1 / Vertical Dot Line Lump</Capability>
+  <Capability Min="85" Max="89">Dot Triangle 1 / Diagonal Jump</Capability>
+  <Capability Min="90" Max="94">Triangle 2 / Dot Diagonal Jump</Capability>
+  <Capability Min="95" Max="99">Dot Triangle 2 / Short Sector Round 1</Capability>
+  <Capability Min="100" Max="104">Square / Short Sector Round 2</Capability>
+  <Capability Min="105" Max="109">Dot Square / Long Sector Round 1</Capability>
+  <Capability Min="110" Max="114">Rectangle 1 / Long Sector Round 2</Capability>
+  <Capability Min="115" Max="119">Dot Rectangle 1 / Line Scan</Capability>
+  <Capability Min="120" Max="124">Rectangle 2 / Dot Line Scan</Capability>
+  <Capability Min="125" Max="129">Dot Rectangle 2 / 45° Diagonal Move</Capability>
+  <Capability Min="130" Max="134">Christ Cross / Dot Diagonal Move</Capability>
+  <Capability Min="135" Max="139">Chiasma Line / Horizontal Line Flex</Capability>
+  <Capability Min="140" Max="144">Horizontal Extend Line / Horizontal Dot Line Flex</Capability>
+  <Capability Min="145" Max="149">Horizontal Shrink Line / Horizontal Line Move</Capability>
+  <Capability Min="150" Max="154">Horizontal Flex Line / Horizontal Dot Line Move</Capability>
+  <Capability Min="155" Max="159">Horizontal Flex Dot Line / Vertical Line Move</Capability>
+  <Capability Min="160" Max="164">Green Extend Line / Vertical Dot Line Move</Capability>
+  <Capability Min="165" Max="169">Green Shrink Line / Rectangle Extend</Capability>
+  <Capability Min="170" Max="174">Green Flex Line / Dot Rectangle Extend</Capability>
+  <Capability Min="175" Max="179">Vertical Flex Dot Line / Square Extend</Capability>
+  <Capability Min="180" Max="184">Ladder Line 1 / Dot Square Extend</Capability>
+  <Capability Min="185" Max="189">Ladder Line 2 / Rectangle Turn</Capability>
+  <Capability Min="190" Max="194">Ladder Line 3 / Dot Rectangle Turn</Capability>
+  <Capability Min="195" Max="199">Ladder Line 4 / Square Turn</Capability>
+  <Capability Min="200" Max="204">Tetragon 1 / Dot Square Turn</Capability>
+  <Capability Min="205" Max="209">Tetragon 2 / Pentagon Turn</Capability>
+  <Capability Min="210" Max="214">Pentagon 1 / Dot Pentagon Turn</Capability>
+  <Capability Min="215" Max="219">Pentagon 2 / Tetragon Turn</Capability>
+  <Capability Min="220" Max="224">Pentagon 3 / Pentagon Star Turn</Capability>
+  <Capability Min="225" Max="229">Pentagon 4 / Bird Fly</Capability>
+  <Capability Min="230" Max="234">Wave Line / Dot Bird Fly</Capability>
+  <Capability Min="235" Max="239">Wave Dot Line / Wave Flowing</Capability>
+  <Capability Min="240" Max="244">Spirality Line / Dot Wave Flowing</Capability>
+  <Capability Min="245" Max="249">Many Dot 1 / Many Dot Jump 1</Capability>
+  <Capability Min="250" Max="254">Many Dot 2 / Square Dot Jump</Capability>
+  <Capability Min="255" Max="255">Square Dot / Many Dot Jump 2</Capability>
+ </Channel>
+ <Channel Name="Position X" Preset="PositionXAxis"/>
+ <Channel Name="Position Y" Preset="PositionYAxis"/>
+ <Channel Name="Scanning Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Speed Patterns" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pattern Size" Preset="BeamZoomSmallBig"/>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern: Static / Dynamic</Channel>
+  <Channel Number="2">Position X</Channel>
+  <Channel Number="3">Position Y</Channel>
+  <Channel Number="4">Scanning Speed</Channel>
+  <Channel Number="5">Speed Patterns</Channel>
+  <Channel Number="6">Pattern Size</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="600" Height="150" Depth="180"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="120" TiltMax="120"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

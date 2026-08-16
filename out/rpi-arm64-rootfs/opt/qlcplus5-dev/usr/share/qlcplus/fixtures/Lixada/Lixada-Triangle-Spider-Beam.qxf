@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Daniel</Author>
+ </Creator>
+ <Manufacturer>Lixada</Manufacturer>
+ <Model>Triangle Spider Beam</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="X Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="X Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Head 1 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Head 2 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Head 3 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt/Pan Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeFastSlow"/>
+ <Channel Name="Effects">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="7">Slow Effect</Capability>
+  <Capability Min="8" Max="140">Auto Effect</Capability>
+  <Capability Min="141" Max="255">Sound Effect</Capability>
+ </Channel>
+ <Channel Name="10 Auto/Sound Control">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="15">No Effect</Capability>
+  <Capability Min="16" Max="44">Auto Effect 0</Capability>
+  <Capability Min="45" Max="74">Auto Effect 1</Capability>
+  <Capability Min="75" Max="104">Auto Effect 2</Capability>
+  <Capability Min="105" Max="128">Auto Effect 3</Capability>
+  <Capability Min="129" Max="157">Sound Effect 0</Capability>
+  <Capability Min="158" Max="187">Sound Effect 1</Capability>
+  <Capability Min="188" Max="217">Sound Effect 2</Capability>
+  <Capability Min="218" Max="255">Sound Effect 3</Capability>
+ </Channel>
+ <Channel Name="Sound Speed">
+  <Group Byte="1">Speed</Group>
+  <Capability Min="0" Max="255">Speed / Sound</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="250" Preset="ResetAll">Reset</Capability>
+  <Capability Min="251" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="48 Channel">
+  <Channel Number="0">X Pan Fine</Channel>
+  <Channel Number="1">X Pan Coarse</Channel>
+  <Channel Number="2">Head 1 Tilt</Channel>
+  <Channel Number="3">Head 2 Tilt</Channel>
+  <Channel Number="4">Head 3 Tilt</Channel>
+  <Channel Number="5">Tilt/Pan Speed</Channel>
+  <Channel Number="6">Dimming</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Effects</Channel>
+  <Channel Number="9">10 Auto/Sound Control</Channel>
+  <Channel Number="10">Sound Speed</Channel>
+  <Channel Number="11">Red</Channel>
+  <Channel Number="12">Green</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">White</Channel>
+  <Channel Number="15">Red 2</Channel>
+  <Channel Number="16">Green 2</Channel>
+  <Channel Number="17">Blue 2</Channel>
+  <Channel Number="18">White 2</Channel>
+  <Channel Number="19">Red 3</Channel>
+  <Channel Number="20">Green 3</Channel>
+  <Channel Number="21">Blue 3</Channel>
+  <Channel Number="22">White 3</Channel>
+  <Channel Number="23">Red 4</Channel>
+  <Channel Number="24">Green 4</Channel>
+  <Channel Number="25">Blue 4</Channel>
+  <Channel Number="26">White 4</Channel>
+  <Channel Number="27">Red 5</Channel>
+  <Channel Number="28">Green 5</Channel>
+  <Channel Number="29">Blue 5</Channel>
+  <Channel Number="30">White 5</Channel>
+  <Channel Number="31">Red 6</Channel>
+  <Channel Number="32">Green 6</Channel>
+  <Channel Number="33">Blue 6</Channel>
+  <Channel Number="34">White 6</Channel>
+  <Channel Number="35">Red 7</Channel>
+  <Channel Number="36">Green 7</Channel>
+  <Channel Number="37">Blue 7</Channel>
+  <Channel Number="38">White 7</Channel>
+  <Channel Number="39">Red 8</Channel>
+  <Channel Number="40">Green 8</Channel>
+  <Channel Number="41">Blue 8</Channel>
+  <Channel Number="42">White 8</Channel>
+  <Channel Number="43">Red 9</Channel>
+  <Channel Number="44">Green 9</Channel>
+  <Channel Number="45">Blue 9</Channel>
+  <Channel Number="46">White 9</Channel>
+  <Channel Number="47">Reset</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">X Pan Fine</Channel>
+  <Channel Number="1">X Pan Coarse</Channel>
+  <Channel Number="2">Head 1 Tilt</Channel>
+  <Channel Number="3">Head 2 Tilt</Channel>
+  <Channel Number="4">Head 3 Tilt</Channel>
+  <Channel Number="5">Tilt/Pan Speed</Channel>
+  <Channel Number="6">Dimming</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Effects</Channel>
+  <Channel Number="9">10 Auto/Sound Control</Channel>
+  <Channel Number="10">Sound Speed</Channel>
+  <Channel Number="11">Red</Channel>
+  <Channel Number="12">Green</Channel>
+  <Channel Number="13">Blue</Channel>
+  <Channel Number="14">White</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.5" Width="305" Height="190" Depth="290"/>
+  <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="110"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

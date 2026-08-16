@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.1</Version>
+  <Author>jacques</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>LedColor</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="29">RGB &amp; B &amp; F (ch2=Red, ch3=green, ch4=blue, ch5=strobe)</Capability>
+  <Capability Min="30" Max="94">Auto</Capability>
+  <Capability Min="95" Max="159">Sound impulsions</Capability>
+  <Capability Min="160" Max="184">Snake</Capability>
+  <Capability Min="185" Max="209">Sequencer</Capability>
+  <Capability Min="210" Max="234">Automatic sequencer (40 colours)</Capability>
+  <Capability Min="235" Max="255">Automatic sequencer time synchronized (40 colours)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Colour</Capability>
+ </Channel>
+ <Channel Name="Flash">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash speed</Capability>
+ </Channel>
+ <Channel Name="Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Fade</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe speed</Capability>
+ </Channel>
+ <Mode Name="C &amp; B">
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="RGB &amp; B">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+ <Mode Name="RGB &amp; B &amp; F">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Fade</Channel>
+  <Channel Number="3">Flash</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="420" Height="366" Weight="5.7" Depth="255"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="63" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

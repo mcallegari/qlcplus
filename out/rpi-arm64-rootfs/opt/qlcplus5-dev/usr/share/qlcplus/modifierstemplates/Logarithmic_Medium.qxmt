@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ChannelModifier>
+<ChannelModifier xmlns="http://www.qlcplus.org/ChannelModifier">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.3 GIT</Version>
+  <Author>Luis García-Tornel</Author>
+ </Creator>
+ <Name>Logarithmic Medium</Name>
+ <Handler Modified="0" Original="0"/>
+ <Handler Modified="21" Original="5"/>
+ <Handler Modified="41" Original="10"/>
+ <Handler Modified="60" Original="17"/>
+ <Handler Modified="78" Original="24"/>
+ <Handler Modified="96" Original="32"/>
+ <Handler Modified="112" Original="41"/>
+ <Handler Modified="128" Original="51"/>
+ <Handler Modified="143" Original="61"/>
+ <Handler Modified="157" Original="73"/>
+ <Handler Modified="170" Original="85"/>
+ <Handler Modified="182" Original="98"/>
+ <Handler Modified="194" Original="112"/>
+ <Handler Modified="204" Original="127"/>
+ <Handler Modified="214" Original="143"/>
+ <Handler Modified="223" Original="159"/>
+ <Handler Modified="231" Original="177"/>
+ <Handler Modified="238" Original="195"/>
+ <Handler Modified="245" Original="214"/>
+ <Handler Modified="250" Original="234"/>
+ <Handler Modified="255" Original="255"/>
+</ChannelModifier>

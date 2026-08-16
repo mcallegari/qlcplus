@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Mike S</Author>
+ </Creator>
+ <Manufacturer>UKing</Manufacturer>
+ <Model>Mini RGBW Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="XY Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="134">Master Dimmer</Capability>
+  <Capability Min="135" Max="239">Strobe from slow to fast</Capability>
+  <Capability Min="240" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Mix color depends on ch7-10</Capability>
+  <Capability Min="8" Max="231">Macro Color</Capability>
+  <Capability Min="232" Max="255">Color Jumping</Capability>
+ </Channel>
+ <Channel Name="Colour Jumping Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Colour Jumping Speed</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Control depends on ch1-12</Capability>
+  <Capability Min="8" Max="63">Fast running</Capability>
+  <Capability Min="64" Max="127">Slow running</Capability>
+  <Capability Min="128" Max="191">Sound 1</Capability>
+  <Capability Min="192" Max="255">Sound 2</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="149">Do nothing</Capability>
+  <Capability Min="150" Max="200" Preset="ResetAll">Reset</Capability>
+  <Capability Min="201" Max="255">Do nothing</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">XY Speed</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Colour</Channel>
+  <Channel Number="11">Colour Jumping Speed</Channel>
+  <Channel Number="12">Mode</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">XY Speed</Channel>
+  <Channel Number="8">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4000" ColourTemperature="0"/>
+  <Dimensions Weight="0.45" Width="180" Height="240" Depth="180"/>
+  <Lens Name="PC" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

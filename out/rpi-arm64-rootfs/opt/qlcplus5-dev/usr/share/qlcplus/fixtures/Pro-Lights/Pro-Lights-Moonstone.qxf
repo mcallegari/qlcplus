@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Moonstone</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Movement Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="15">Normal</Capability>
+  <Capability Min="16" Max="31">Movement with backout</Capability>
+  <Capability Min="32" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Shutter Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="15">Normal shutter functions</Capability>
+  <Capability Min="16" Max="31">Pulse effect forward</Capability>
+  <Capability Min="32" Max="47">Pulse effect reverse</Capability>
+  <Capability Min="48" Max="63">Random strobe</Capability>
+  <Capability Min="64" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Shutter (14/16 channel)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect (slow to fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="128" Max="159">Pulse effect in sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect (slow to fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
+ </Channel>
+ <Channel Name="Shutter (21/24 Channel)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="223" Preset="StrobeSlowToFast">Strobe rate (slow to fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Indexed with backout</Capability>
+  <Capability Min="32" Max="47">Forward spin</Capability>
+  <Capability Min="48" Max="63">Reverse spin</Capability>
+  <Capability Min="64" Max="79">Continuous</Capability>
+  <Capability Min="80" Max="111">Color bounce</Capability>
+  <Capability Min="112" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Color (14/16 Channel)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed</Capability>
+  <Capability Min="3" Max="5" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Position 2 (half open plus half red) - indexed</Capability>
+  <Capability Min="6" Max="8" Preset="ColorMacro" Res1="#ff0000">Position 3 (red) - indexed</Capability>
+  <Capability Min="9" Max="11" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Position 4 (half red plus half blue) - indexed</Capability>
+  <Capability Min="12" Max="14" Preset="ColorMacro" Res1="#0000ff">Position 5 (blue) - indexed</Capability>
+  <Capability Min="15" Max="17" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Position 6 (half blue plus half green) - indexed</Capability>
+  <Capability Min="18" Max="20" Preset="ColorMacro" Res1="#00ff00">Position 7 (green) - indexed</Capability>
+  <Capability Min="21" Max="23" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Position 8 (half green plus half yellow) - indexed</Capability>
+  <Capability Min="24" Max="26">Position 9 (yellow) - indexed</Capability>
+  <Capability Min="27" Max="29" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffaaff">Position 10 (half yellow plus half pink) - indexed</Capability>
+  <Capability Min="30" Max="32" Preset="ColorMacro" Res1="#ffaaff">Position 11 (pink) - indexed</Capability>
+  <Capability Min="33" Max="35" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#87ceeb">Position 12 (half pink plus half sky blue) - indexed</Capability>
+  <Capability Min="36" Max="38" Preset="ColorMacro" Res1="#87ceeb">Position 13 (sky blue) - indexed</Capability>
+  <Capability Min="39" Max="41" Preset="ColorDoubleMacro" Res1="#87ceeb" Res2="#ff8000">Position 14 (half sky blue plus half orange) - indexed</Capability>
+  <Capability Min="42" Max="44" Preset="ColorMacro" Res1="#ff8000">Position 15 (orange) - indexed</Capability>
+  <Capability Min="45" Max="47" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ff00ff">Position 16 (half orange plus half magenta) - indexed</Capability>
+  <Capability Min="48" Max="50" Preset="ColorMacro" Res1="#ff00ff">Position 17 (magenta) - indexed</Capability>
+  <Capability Min="51" Max="53" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Position 18 (half magenta plus half open) - indexed</Capability>
+  <Capability Min="54" Max="56" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (Open) - indexed with backout</Capability>
+  <Capability Min="57" Max="59" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Position 2 (half open plus half red) - indexed with backout</Capability>
+  <Capability Min="60" Max="62" Preset="ColorMacro" Res1="#ff0000">Position 3 (red) - indexed with backout</Capability>
+  <Capability Min="63" Max="65" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Position 4 (half red plus half blue) - indexed with backout</Capability>
+  <Capability Min="66" Max="68" Preset="ColorMacro" Res1="#0000ff">Position 5 (blue) - indexed with backout</Capability>
+  <Capability Min="69" Max="71" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Position 6 (half blue plus half green) - indexed with backout</Capability>
+  <Capability Min="72" Max="74" Preset="ColorMacro" Res1="#00ff00">Position 7 (green) - indexed with backout</Capability>
+  <Capability Min="75" Max="77" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Position 8 (half green plus half yellow) - indexed with backout</Capability>
+  <Capability Min="78" Max="80" Preset="ColorMacro" Res1="#ffff00">Position 9 (yellow) - indexed with backout</Capability>
+  <Capability Min="81" Max="83" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffaaff">Position 10 (half yellow plus half pink) - indexed with backout</Capability>
+  <Capability Min="84" Max="86" Preset="ColorMacro" Res1="#ffaaff">Position 11 (pink) - indexed with backout</Capability>
+  <Capability Min="87" Max="89" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#87ceeb">Position 12 (half pink plus half sky blue) - indexed with backout</Capability>
+  <Capability Min="90" Max="92" Preset="ColorMacro" Res1="#87ceeb">Position 13 (sky blue) - indexed with backout</Capability>
+  <Capability Min="93" Max="95" Preset="ColorDoubleMacro" Res1="#87ceeb" Res2="#ff8000">Position 14 (half sky blue plus half orange) - indexed with backout</Capability>
+  <Capability Min="96" Max="98" Preset="ColorMacro" Res1="#ff8000">Position 15 (orange) - indexed with backout</Capability>
+  <Capability Min="99" Max="101" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ff00ff">Position 16 (half orange plus half magenta) - indexed with backout</Capability>
+  <Capability Min="102" Max="104" Preset="ColorMacro" Res1="#ff00ff">Position 17 (magenta) - indexed with backout</Capability>
+  <Capability Min="105" Max="106" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Position 18 (half magenta plus half open) - indexed with backout</Capability>
+  <Capability Min="107" Max="119" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed with bounce</Capability>
+  <Capability Min="120" Max="132" Preset="ColorMacro" Res1="#ff0000">Position 2 (red) - indexed with bounce</Capability>
+  <Capability Min="133" Max="145" Preset="ColorMacro" Res1="#0000ff">Position 3 (blue) - indexed with bounce</Capability>
+  <Capability Min="146" Max="158" Preset="ColorMacro" Res1="#00ff00">Position 4 (green) - indexed with bounce</Capability>
+  <Capability Min="159" Max="171" Preset="ColorMacro" Res1="#ffff00">Position 5 (yellow) - indexed with bounce</Capability>
+  <Capability Min="172" Max="184" Preset="ColorMacro" Res1="#ffaaff">Position 6 (pink) - indexed with bounce</Capability>
+  <Capability Min="185" Max="197" Preset="ColorMacro" Res1="#87ceeb">Position 7 (sky blue) - indexed with bounce</Capability>
+  <Capability Min="198" Max="210" Preset="ColorMacro" Res1="#ff8000">Position 8 (orange) - indexed with bounce</Capability>
+  <Capability Min="211" Max="223" Preset="ColorMacro" Res1="#ff00ff">Position 9 (magenta) - indexed with bounce</Capability>
+  <Capability Min="224" Max="239">Forward wheel spin (stop to fastest)</Capability>
+  <Capability Min="240" Max="255">Reverse wheel spin (stop to fastest)</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Indexed with backout</Capability>
+  <Capability Min="32" Max="47">Forward spin</Capability>
+  <Capability Min="48" Max="63">Reverse spin</Capability>
+  <Capability Min="64" Max="79">Continuous</Capability>
+  <Capability Min="80" Max="95">Shake</Capability>
+  <Capability Min="96" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo/Stop to Fastest Spin/Continuous Position (21/24 Channel)">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open)</Capability>
+  <Capability Min="32" Max="63" Preset="GoboMacro" Res1="Others/gobo00003.png">Position 2</Capability>
+  <Capability Min="64" Max="95" Preset="GoboMacro" Res1="SGM-Color/gobo00373.png">Position 3</Capability>
+  <Capability Min="96" Max="127" Preset="GoboMacro" Res1="SGM/gobo00026.png">Position 4</Capability>
+  <Capability Min="128" Max="159" Preset="GoboMacro" Res1="SGM/gobo00033.png">Position 5</Capability>
+  <Capability Min="160" Max="191" Preset="GoboMacro" Res1="Others/gobo00045.svg">Position 6</Capability>
+  <Capability Min="192" Max="223" Preset="GoboMacro" Res1="Others/gobo00072.svg">Position 7</Capability>
+  <Capability Min="224" Max="255" Preset="GoboMacro" Res1="Others/gobo00006.svg">Position 8</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo/Stop to Fastest Spin/Continuous Position (14/16 Channel)">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Others/gobo00003.png">Position 2 - indexed</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="SGM-Color/gobo00373.png">Position 3 - indexed</Capability>
+  <Capability Min="18" Max="23" Preset="GoboMacro" Res1="SGM/gobo00026.png">Position 4 - indexed</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="SGM/gobo00033.png">Position 5 - indexed</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Others/gobo00045.svg">Position 6 - indexed</Capability>
+  <Capability Min="36" Max="41" Preset="GoboMacro" Res1="Others/gobo00072.svg">Position 7 - indexed</Capability>
+  <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Others/gobo00006.svg">Position 8 - indexed</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed with backout</Capability>
+  <Capability Min="54" Max="59" Preset="GoboMacro" Res1="Others/gobo00003.png">Position 2 - indexed with backout</Capability>
+  <Capability Min="60" Max="65" Preset="GoboMacro" Res1="SGM-Color/gobo00373.png">Position 3 - indexed with backout</Capability>
+  <Capability Min="66" Max="71" Preset="GoboMacro" Res1="SGM/gobo00026.png">Position 4 - indexed with backout</Capability>
+  <Capability Min="72" Max="77" Preset="GoboMacro" Res1="SGM/gobo00033.png">Position 5 - indexed with backout</Capability>
+  <Capability Min="78" Max="83" Preset="GoboMacro" Res1="Others/gobo00045.svg">Position 6 - indexed with backout</Capability>
+  <Capability Min="84" Max="89" Preset="GoboMacro" Res1="Others/gobo00072.svg">Position 7 - indexed with backout</Capability>
+  <Capability Min="90" Max="97" Preset="GoboMacro" Res1="Others/gobo00006.svg">Position 8 - indexed with backout</Capability>
+  <Capability Min="98" Max="115" Preset="GoboShakeMacro" Res1="Others/gobo00003.png">Position 2 - indexed with shake</Capability>
+  <Capability Min="116" Max="133" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00373.png">Position 3 - indexed with shake</Capability>
+  <Capability Min="134" Max="151" Preset="GoboShakeMacro" Res1="SGM/gobo00026.png">Position 4 - indexed with shake</Capability>
+  <Capability Min="152" Max="169" Preset="GoboShakeMacro" Res1="SGM/gobo00033.png">Position 5 - indexed with shake</Capability>
+  <Capability Min="170" Max="187" Preset="GoboShakeMacro" Res1="Others/gobo00045.svg">Position 6 - indexed with shake</Capability>
+  <Capability Min="188" Max="205" Preset="GoboShakeMacro" Res1="Others/gobo00072.svg">Position 7 - indexed with shake</Capability>
+  <Capability Min="206" Max="223" Preset="GoboShakeMacro" Res1="Others/gobo00006.svg">Position 8 - indexed with shake</Capability>
+  <Capability Min="224" Max="239">Forward wheel spin (stop to fastest)</Capability>
+  <Capability Min="240" Max="255">Reverse wheel spin (stop to fastest)</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotating Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Continuous</Capability>
+  <Capability Min="16" Max="31">Forward spin</Capability>
+  <Capability Min="32" Max="47">Reverse spin</Capability>
+  <Capability Min="48" Max="63">Forward animate rotate</Capability>
+  <Capability Min="64" Max="79">Forward animate rotate with backout</Capability>
+  <Capability Min="80" Max="95">Reverse animate rotate</Capability>
+  <Capability Min="96" Max="111">Reverse animate rotate with backout</Capability>
+  <Capability Min="112" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotating - Continuous/Forward/Reverse Spin/Forward/Reverse Animate Rotate with Backout">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">0-360°/Stop to fastest</Capability>
+ </Channel>
+ <Channel Name="Fixed Gobo (14/16 Channel)">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed</Capability>
+  <Capability Min="6" Max="11" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Position 2 - indexed</Capability>
+  <Capability Min="12" Max="17" Preset="GoboMacro" Res1="Robe/gobo00039.png">Position 3 - indexed</Capability>
+  <Capability Min="18" Max="23" Preset="GoboMacro" Res1="SGM/gobo00002.svg">Position 4 - indexed</Capability>
+  <Capability Min="24" Max="29" Preset="GoboMacro" Res1="Robe/gobo00044.png">Position 5 - indexed</Capability>
+  <Capability Min="30" Max="35" Preset="GoboMacro" Res1="Robe/gobo00040.png">Position 6 - indexed</Capability>
+  <Capability Min="36" Max="41" Preset="GoboMacro" Res1="SGM/gobo00012.png">Position 7 - indexed</Capability>
+  <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Position 8 - indexed</Capability>
+  <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed with backout</Capability>
+  <Capability Min="54" Max="59" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Position 2 - indexed with backout</Capability>
+  <Capability Min="60" Max="65" Preset="GoboMacro" Res1="Robe/gobo00039.png">Position 3 - indexed with backout</Capability>
+  <Capability Min="66" Max="71" Preset="GoboMacro" Res1="SGM/gobo00002.svg">Position 4 - indexed with backout</Capability>
+  <Capability Min="72" Max="77" Preset="GoboMacro" Res1="Robe/gobo00044.png">Position 5 - indexed with backout</Capability>
+  <Capability Min="78" Max="83" Preset="GoboMacro" Res1="Robe/gobo00040.png">Position 6 - indexed with backout</Capability>
+  <Capability Min="84" Max="89" Preset="GoboMacro" Res1="SGM/gobo00012.png">Position 7 - indexed with backout</Capability>
+  <Capability Min="90" Max="97" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Position 8 - indexed with backout</Capability>
+  <Capability Min="98" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00018.svg">Position 2 - indexed with shake</Capability>
+  <Capability Min="116" Max="133" Preset="GoboShakeMacro" Res1="Robe/gobo00039.png">Position 3 - indexed with shake</Capability>
+  <Capability Min="134" Max="151" Preset="GoboShakeMacro" Res1="SGM/gobo00002.svg">Position 4 - indexed with shake</Capability>
+  <Capability Min="152" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00044.png">Position 5 - indexed with shake</Capability>
+  <Capability Min="170" Max="187" Preset="GoboShakeMacro" Res1="Robe/gobo00040.png">Position 6 - indexed with shake</Capability>
+  <Capability Min="188" Max="205" Preset="GoboShakeMacro" Res1="SGM/gobo00012.png">Position 7 - indexed with shake</Capability>
+  <Capability Min="206" Max="223" Preset="GoboShakeMacro" Res1="Chauvet/gobo00034.svg">Position 8 - indexed with shake</Capability>
+  <Capability Min="224" Max="239">Forward wheel spin - stop to fastest</Capability>
+  <Capability Min="240" Max="255">Reverse wheel spin - stop to fastest</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="63">Position 1 (open)</Capability>
+  <Capability Min="64" Max="127">3 facet prism</Capability>
+  <Capability Min="128" Max="191">8 facet prism</Capability>
+  <Capability Min="192" Max="255">Frost</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">Normal</Capability>
+  <Capability Min="8" Max="15" Preset="ResetAll">Reset all</Capability>
+  <Capability Min="16" Max="23" Preset="ResetPanTilt">Pan &amp; tilt reset</Capability>
+  <Capability Min="24" Max="31" Preset="ResetColor">Color reset</Capability>
+  <Capability Min="32" Max="39" Preset="ResetGobo">Gobo reset</Capability>
+  <Capability Min="40" Max="47">TBD</Capability>
+  <Capability Min="48" Max="55">Other reset</Capability>
+  <Capability Min="56" Max="63">Display off</Capability>
+  <Capability Min="64" Max="71">Display on</Capability>
+  <Capability Min="72" Max="79">TBD</Capability>
+  <Capability Min="80" Max="87">TBD</Capability>
+  <Capability Min="88" Max="95">Hibernation</Capability>
+  <Capability Min="96" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="191">Indexed</Capability>
+  <Capability Min="192" Max="207">Pulse opening with forward backout</Capability>
+  <Capability Min="208" Max="223">Pulse opening with reverse backout</Capability>
+  <Capability Min="224" Max="239">Pulse closing with forward backout</Capability>
+  <Capability Min="240" Max="255">Pulse closing with reverse backout</Capability>
+ </Channel>
+ <Channel Name="Iris - Indexed/Pulse Opening with Reverse Backout">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Max. to min. diameter/Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Iris Function">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Pulse opening with forward backout</Capability>
+  <Capability Min="32" Max="47">Pulse opening with reverse backout</Capability>
+  <Capability Min="48" Max="63">Pulse closing with forward backout</Capability>
+  <Capability Min="64" Max="95">Pulse closing with reverse backout</Capability>
+  <Capability Min="96" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Focus - Continuous/Autofocus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">In to out/In to out fine</Capability>
+ </Channel>
+ <Channel Name="Focus Function">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="15">Continuous</Capability>
+  <Capability Min="16" Max="31">5m autofocus</Capability>
+  <Capability Min="32" Max="47">7.5m autofocus</Capability>
+  <Capability Min="48" Max="63">10m autofocus</Capability>
+  <Capability Min="64" Max="95">15m autofocus</Capability>
+  <Capability Min="96" Max="127">&gt;20m autofocus</Capability>
+  <Capability Min="128" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="3">Stop</Capability>
+  <Capability Min="4" Max="127">Forward slow to fastest</Capability>
+  <Capability Min="128" Max="131">Stop</Capability>
+  <Capability Min="132" Max="255">Backward slow to fastest</Capability>
+ </Channel>
+ <Channel Name="Fixed Gobo (21/24 Channel) - Indexed/Forward/Reverse/Continuous Position">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31">Position 1 (open)/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="32" Max="63">Position 2/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="64" Max="95">Position 3/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="96" Max="127">Position 4/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="128" Max="159">Position 5/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="160" Max="191">Position 6/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="192" Max="223">Position 7/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+  <Capability Min="224" Max="255">Position 8/Stop to fastest/Stop to fastest/0-360 degrees</Capability>
+ </Channel>
+ <Channel Name="Color (21/24 Channel)/Forward/Reverse Spin - Stop to Fastest">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="GoboMacro" Res1="Others/open.svg">Position 1 (open) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="14" Max="27" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Position 2 (half open plus half red) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#ff0000">Position 3 (red) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="42" Max="55" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Position 4 (half red plus half blue) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#0000ff">Position 5 (blue) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="70" Max="83" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Position 6 (half blue plus half green) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#00ff00">Position 7 (green) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="98" Max="111" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">Position 8 (half green plus half yellow) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="112" Max="125">Position 9 (yellow) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="126" Max="139" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffaaff">Position 10 (half yellow plus half pink) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="140" Max="153" Preset="ColorMacro" Res1="#ffaaff">Position 11 (pink) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="154" Max="167" Preset="ColorDoubleMacro" Res1="#ffaaff" Res2="#87ceeb">Position 12 (half pink plus half sky blue) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="168" Max="181" Preset="ColorMacro" Res1="#87ceeb">Position 13 (sky blue) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="182" Max="195" Preset="ColorDoubleMacro" Res1="#87ceeb" Res2="#ff8000">Position 14 (half sky blue plus half orange) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="196" Max="209" Preset="ColorMacro" Res1="#ff8000">Position 15 (orange) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="210" Max="223" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ff00ff">Position 16 (half orange plus half magenta) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="224" Max="237" Preset="ColorMacro" Res1="#ff00ff">Position 17 (magenta) - indexed, indexed with backout and bounce</Capability>
+  <Capability Min="238" Max="255" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Position 18 (half magenta plus half open) - indexed, indexed with backout and bounce</Capability>
+ </Channel>
+ <Channel Name="Fixed Gobo Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Indexed with backout</Capability>
+  <Capability Min="32" Max="47">Forward spin</Capability>
+  <Capability Min="48" Max="63">Reverse spin</Capability>
+  <Capability Min="64" Max="79">Continuous</Capability>
+  <Capability Min="80" Max="95">Shake</Capability>
+  <Capability Min="96" Max="255">TBD</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Movement Speed</Channel>
+  <Channel Number="3">Shutter (14/16 channel)</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Color (14/16 Channel)</Channel>
+  <Channel Number="6">Rotating Gobo/Stop to Fastest Spin/Continuous Position (14/16 Channel)</Channel>
+  <Channel Number="7">Gobo Rotating - Continuous/Forward/Reverse Spin/Forward/Reverse Animate Rotate with Backout</Channel>
+  <Channel Number="8">Fixed Gobo (14/16 Channel)</Channel>
+  <Channel Number="9">Prism</Channel>
+  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="11">Focus - Continuous/Autofocus</Channel>
+  <Channel Number="12">Iris</Channel>
+  <Channel Number="13">Control</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Shutter (14/16 channel)</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Color (14/16 Channel)</Channel>
+  <Channel Number="8">Rotating Gobo/Stop to Fastest Spin/Continuous Position (14/16 Channel)</Channel>
+  <Channel Number="9">Gobo Rotating - Continuous/Forward/Reverse Spin/Forward/Reverse Animate Rotate with Backout</Channel>
+  <Channel Number="10">Fixed Gobo (14/16 Channel)</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="13">Focus - Continuous/Autofocus</Channel>
+  <Channel Number="14">Iris</Channel>
+  <Channel Number="15">Control</Channel>
+ </Mode>
+ <Mode Name="21 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Movement Speed</Channel>
+  <Channel Number="3">Shutter Function</Channel>
+  <Channel Number="4">Shutter (21/24 Channel)</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Color Function</Channel>
+  <Channel Number="7">Color (21/24 Channel)/Forward/Reverse Spin - Stop to Fastest</Channel>
+  <Channel Number="8">Rotating Gobo Function</Channel>
+  <Channel Number="9">Rotating Gobo/Stop to Fastest Spin/Continuous Position (21/24 Channel)</Channel>
+  <Channel Number="10">Gobo Rotating Function</Channel>
+  <Channel Number="11">Gobo Rotating - Continuous/Forward/Reverse Spin/Forward/Reverse Animate Rotate with Backout</Channel>
+  <Channel Number="12">Fixed Gobo Function</Channel>
+  <Channel Number="13">Fixed Gobo (21/24 Channel) - Indexed/Forward/Reverse/Continuous Position</Channel>
+  <Channel Number="14">Prism</Channel>
+  <Channel Number="15">Prism Rotation</Channel>
+  <Channel Number="16">Focus Function</Channel>
+  <Channel Number="17">Focus - Continuous/Autofocus</Channel>
+  <Channel Number="18">Iris Function</Channel>
+  <Channel Number="19">Iris - Indexed/Pulse Opening with Reverse Backout</Channel>
+  <Channel Number="20">Control</Channel>
+ </Mode>
+ <Mode Name="24 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Movement Function</Channel>
+  <Channel Number="6">Shutter Function</Channel>
+  <Channel Number="7">Shutter (21/24 Channel)</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Color Function</Channel>
+  <Channel Number="10">Color (21/24 Channel)/Forward/Reverse Spin - Stop to Fastest</Channel>
+  <Channel Number="11">Rotating Gobo Function</Channel>
+  <Channel Number="12">Rotating Gobo/Stop to Fastest Spin/Continuous Position (21/24 Channel)</Channel>
+  <Channel Number="13">Gobo Rotating Function</Channel>
+  <Channel Number="14">Gobo Rotating - Continuous/Forward/Reverse Spin/Forward/Reverse Animate Rotate with Backout</Channel>
+  <Channel Number="15">Fixed Gobo Function</Channel>
+  <Channel Number="16">Fixed Gobo (21/24 Channel) - Indexed/Forward/Reverse/Continuous Position</Channel>
+  <Channel Number="17">Prism</Channel>
+  <Channel Number="18">Prism Rotation</Channel>
+  <Channel Number="19">Focus Function</Channel>
+  <Channel Number="20">Focus - Continuous/Autofocus</Channel>
+  <Channel Number="21">Iris Function</Channel>
+  <Channel Number="22">Iris</Channel>
+  <Channel Number="23">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
+  <Dimensions Weight="13" Width="338" Height="472" Depth="235"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Head" PanMax="630" TiltMax="265"/>
+  <Technical PowerConsumption="210" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

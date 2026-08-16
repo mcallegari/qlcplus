@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>12P Hex IP</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">LED Off</Capability>
+  <Capability Min="32" Max="63">LED On</Capability>
+  <Capability Min="64" Max="95">Strobe Slow - Fast</Capability>
+  <Capability Min="96" Max="127">LED On</Capability>
+  <Capability Min="128" Max="159">Strobe Pulse Slow - Fast</Capability>
+  <Capability Min="160" Max="191">LED On</Capability>
+  <Capability Min="192" Max="223">Random Strobe</Capability>
+  <Capability Min="224" Max="255">LED On</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer Modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to unit setting</Capability>
+ </Channel>
+ <Channel Name="Auto Program Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
+ </Channel>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="39">Program 1</Capability>
+  <Capability Min="40" Max="59">Program 2</Capability>
+  <Capability Min="60" Max="79">Program 3</Capability>
+  <Capability Min="80" Max="99">Program 4</Capability>
+  <Capability Min="100" Max="119">Program 5</Capability>
+  <Capability Min="120" Max="139">Program 6</Capability>
+  <Capability Min="140" Max="159">Program 7</Capability>
+  <Capability Min="160" Max="179">Program 8</Capability>
+  <Capability Min="180" Max="199">Program 9</Capability>
+  <Capability Min="200" Max="219">Program 10</Capability>
+  <Capability Min="220" Max="239">Program 11</Capability>
+  <Capability Min="240" Max="255">Program 12</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="4">Color 1</Capability>
+  <Capability Min="5" Max="8">Color 2</Capability>
+  <Capability Min="9" Max="12">Color 3</Capability>
+  <Capability Min="13" Max="16">Color 4</Capability>
+  <Capability Min="17" Max="20">Color 5</Capability>
+  <Capability Min="21" Max="24">Color 6</Capability>
+  <Capability Min="25" Max="28">Color 7</Capability>
+  <Capability Min="29" Max="32">Color 8</Capability>
+  <Capability Min="33" Max="36">Color 9</Capability>
+  <Capability Min="37" Max="40">Color 10</Capability>
+  <Capability Min="41" Max="44">Color 11</Capability>
+  <Capability Min="45" Max="48">Color 12</Capability>
+  <Capability Min="49" Max="52">Color 13</Capability>
+  <Capability Min="53" Max="56">Color 14</Capability>
+  <Capability Min="57" Max="60">Color 15</Capability>
+  <Capability Min="61" Max="64">Color 16</Capability>
+  <Capability Min="65" Max="68">Color 17</Capability>
+  <Capability Min="69" Max="72">Color 18</Capability>
+  <Capability Min="73" Max="76">Color 19</Capability>
+  <Capability Min="77" Max="80">Color 20</Capability>
+  <Capability Min="81" Max="84">Color 21</Capability>
+  <Capability Min="85" Max="88">Color 22</Capability>
+  <Capability Min="89" Max="92">Color 23</Capability>
+  <Capability Min="93" Max="96">Color 24</Capability>
+  <Capability Min="97" Max="100">Color 25</Capability>
+  <Capability Min="101" Max="104">Color 26</Capability>
+  <Capability Min="105" Max="108">Color 27</Capability>
+  <Capability Min="109" Max="112">Color 28</Capability>
+  <Capability Min="113" Max="116">Color 29</Capability>
+  <Capability Min="117" Max="120">Color 30</Capability>
+  <Capability Min="121" Max="124">Color 31</Capability>
+  <Capability Min="125" Max="128">Color 32</Capability>
+  <Capability Min="129" Max="132">Color 33</Capability>
+  <Capability Min="133" Max="136">Color 34</Capability>
+  <Capability Min="137" Max="140">Color 35</Capability>
+  <Capability Min="141" Max="144">Color 36</Capability>
+  <Capability Min="145" Max="148">Color 37</Capability>
+  <Capability Min="149" Max="152">Color 38</Capability>
+  <Capability Min="153" Max="156">Color 39</Capability>
+  <Capability Min="157" Max="160">Color 40</Capability>
+  <Capability Min="161" Max="164">Color 41</Capability>
+  <Capability Min="165" Max="168">Color 42</Capability>
+  <Capability Min="169" Max="172">Color 43</Capability>
+  <Capability Min="173" Max="176">Color 44</Capability>
+  <Capability Min="177" Max="180">Color 45</Capability>
+  <Capability Min="181" Max="184">Color 46</Capability>
+  <Capability Min="185" Max="188">Color 47</Capability>
+  <Capability Min="189" Max="192">Color 48</Capability>
+  <Capability Min="193" Max="196">Color 49</Capability>
+  <Capability Min="197" Max="200">Color 50</Capability>
+  <Capability Min="201" Max="204">Color 51</Capability>
+  <Capability Min="205" Max="208">Color 52</Capability>
+  <Capability Min="209" Max="212">Color 53</Capability>
+  <Capability Min="213" Max="216">Color 54</Capability>
+  <Capability Min="217" Max="220">Color 55</Capability>
+  <Capability Min="221" Max="224">Color 56</Capability>
+  <Capability Min="225" Max="228">Color 57</Capability>
+  <Capability Min="229" Max="232">Color 58</Capability>
+  <Capability Min="233" Max="236">Red</Capability>
+  <Capability Min="237" Max="240">Green</Capability>
+  <Capability Min="241" Max="244">Blue</Capability>
+  <Capability Min="245" Max="248">White</Capability>
+  <Capability Min="249" Max="252">Amber</Capability>
+  <Capability Min="253" Max="255">UV</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">Auto Programs</Channel>
+  <Channel Number="10">Auto Program Speed</Channel>
+  <Channel Number="11">Auto Program Fade</Channel>
+  <Channel Number="12">Dimmer Modes</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+  <Dimensions Weight="4.75" Width="298" Height="200" Depth="264"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="105" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

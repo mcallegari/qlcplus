@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Kevin Zepp</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>SlimPar HEX 3</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Ultraviolet" Preset="IntensityUV"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Color Macros</Capability>
+ </Channel>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="50">Auto Program 1</Capability>
+  <Capability Min="51" Max="100">Auto Program 2</Capability>
+  <Capability Min="101" Max="150">Auto Program 3</Capability>
+  <Capability Min="151" Max="200">Auto Program 4</Capability>
+  <Capability Min="201" Max="225">Sound-Active (6-color)</Capability>
+  <Capability Min="226" Max="255">Sound-Active (63-color)</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto program speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Dim Mode">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="51">Dimmer mode manual</Capability>
+  <Capability Min="52" Max="101">Dimmer mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer mode 1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">Dimmer mode 2 (medium speed)</Capability>
+  <Capability Min="204" Max="255">Dimmer mode 3 (slow speed)</Capability>
+ </Channel>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Ultraviolet</Channel>
+ </Mode>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Ultraviolet</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="12-Channel">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Ultraviolet</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Color</Channel>
+  <Channel Number="9">Auto Programs</Channel>
+  <Channel Number="10">Speed</Channel>
+  <Channel Number="11">Dim Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.7" Width="187" Height="108" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="44" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

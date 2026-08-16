@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Jan Willem</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>MEGA HEX L PAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Default="1" Preset="IntensityRed"/>
+ <Channel Name="Green" Default="2" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Default="3" Preset="IntensityBlue"/>
+ <Channel Name="Lime" Default="4" Preset="IntensityLime"/>
+ <Channel Name="Amber" Default="5" Preset="IntensityAmber"/>
+ <Channel Name="Ultra Violet" Default="6" Preset="IntensityUV"/>
+ <Channel Name="Color Macros" Default="7">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Color Macros</Capability>
+ </Channel>
+ <Channel Name="Color Temperature" Default="8">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Color Temperature</Capability>
+ </Channel>
+ <Channel Name="White color presets" Default="9">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="22">Open</Capability>
+  <Capability Min="23" Max="23">2300K</Capability>
+  <Capability Min="24" Max="24">2400K</Capability>
+  <Capability Min="25" Max="25">2500K</Capability>
+  <Capability Min="26" Max="26">2600K</Capability>
+  <Capability Min="27" Max="27">2700K</Capability>
+  <Capability Min="28" Max="28">2800K</Capability>
+  <Capability Min="29" Max="29">2900K</Capability>
+  <Capability Min="30" Max="30">3000K</Capability>
+  <Capability Min="31" Max="31">3100K</Capability>
+  <Capability Min="32" Max="32">3200K</Capability>
+  <Capability Min="33" Max="33">3300K</Capability>
+  <Capability Min="34" Max="34">3400K</Capability>
+  <Capability Min="35" Max="35">3500K</Capability>
+  <Capability Min="36" Max="36">3600K</Capability>
+  <Capability Min="37" Max="37">3700K</Capability>
+  <Capability Min="38" Max="38">3800K</Capability>
+  <Capability Min="39" Max="39">3900K</Capability>
+  <Capability Min="40" Max="40">4000K</Capability>
+  <Capability Min="41" Max="41">4100K</Capability>
+  <Capability Min="42" Max="42">4200K</Capability>
+  <Capability Min="43" Max="43">4300K</Capability>
+  <Capability Min="44" Max="44">4400K</Capability>
+  <Capability Min="45" Max="45">4500K</Capability>
+  <Capability Min="46" Max="46">4600K</Capability>
+  <Capability Min="47" Max="47">4700K</Capability>
+  <Capability Min="48" Max="48">4800K</Capability>
+  <Capability Min="49" Max="49">4900K</Capability>
+  <Capability Min="50" Max="50">5000K</Capability>
+  <Capability Min="51" Max="51">5100K</Capability>
+  <Capability Min="52" Max="52">5200K</Capability>
+  <Capability Min="53" Max="53">5300K</Capability>
+  <Capability Min="54" Max="54">5400K</Capability>
+  <Capability Min="55" Max="55">5500K</Capability>
+  <Capability Min="56" Max="56">5600K</Capability>
+  <Capability Min="57" Max="57">5700K</Capability>
+  <Capability Min="58" Max="58">5800K</Capability>
+  <Capability Min="59" Max="59">5900K</Capability>
+  <Capability Min="60" Max="60">6000K</Capability>
+  <Capability Min="61" Max="61">6100K</Capability>
+  <Capability Min="62" Max="62">6200K</Capability>
+  <Capability Min="63" Max="63">6300K</Capability>
+  <Capability Min="64" Max="64">6400K</Capability>
+  <Capability Min="65" Max="65">6500K</Capability>
+  <Capability Min="66" Max="66">6600K</Capability>
+  <Capability Min="67" Max="67">6700K</Capability>
+  <Capability Min="68" Max="68">6800K</Capability>
+  <Capability Min="69" Max="69">6900K</Capability>
+  <Capability Min="70" Max="70">7000K</Capability>
+  <Capability Min="71" Max="71">7100K</Capability>
+  <Capability Min="72" Max="72">7200K</Capability>
+  <Capability Min="73" Max="73">7300K</Capability>
+  <Capability Min="74" Max="74">7400K</Capability>
+  <Capability Min="75" Max="75">7500K</Capability>
+  <Capability Min="76" Max="76">7600K</Capability>
+  <Capability Min="77" Max="77">7700K</Capability>
+  <Capability Min="78" Max="78">7800K</Capability>
+  <Capability Min="79" Max="79">7900K</Capability>
+  <Capability Min="80" Max="80">8000K</Capability>
+  <Capability Min="81" Max="81">8100K</Capability>
+  <Capability Min="82" Max="82">8200K</Capability>
+  <Capability Min="83" Max="83">8300K</Capability>
+  <Capability Min="84" Max="84">8400K</Capability>
+  <Capability Min="85" Max="85">8500K</Capability>
+  <Capability Min="86" Max="86">8600K</Capability>
+  <Capability Min="87" Max="87">8700K</Capability>
+  <Capability Min="88" Max="88">8800K</Capability>
+  <Capability Min="89" Max="89">8900K</Capability>
+  <Capability Min="90" Max="90">9000K</Capability>
+  <Capability Min="91" Max="91">9100K</Capability>
+  <Capability Min="92" Max="92">9200K</Capability>
+  <Capability Min="93" Max="93">9300K</Capability>
+  <Capability Min="94" Max="94">9400K</Capability>
+  <Capability Min="95" Max="95">9500K</Capability>
+  <Capability Min="96" Max="96">9600K</Capability>
+  <Capability Min="97" Max="97">9700K</Capability>
+  <Capability Min="98" Max="98">9800K</Capability>
+  <Capability Min="99" Max="99">9900K</Capability>
+  <Capability Min="100" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe" Default="10">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LEDs Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LEDs On</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect, Slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LEDs On</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Effect in Sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LEDs on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Effect, Slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LEDs On</Capability>
+ </Channel>
+ <Channel Name="Dimmer Intensity " Default="11" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Default="12" Preset="IntensityDimmerFine"/>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Off</Capability>
+  <Capability Min="11" Max="26">Auto Program 1</Capability>
+  <Capability Min="27" Max="43">Auto Program 2</Capability>
+  <Capability Min="44" Max="60">Auto Program 3</Capability>
+  <Capability Min="61" Max="76">Auto Program 4</Capability>
+  <Capability Min="77" Max="93">Auto Program 5</Capability>
+  <Capability Min="94" Max="110">Auto Program 6</Capability>
+  <Capability Min="111" Max="126">Auto Program 7</Capability>
+  <Capability Min="127" Max="143">Auto Program 8</Capability>
+  <Capability Min="144" Max="160">Auto Program 9</Capability>
+  <Capability Min="161" Max="176">Auto Program 10</Capability>
+  <Capability Min="177" Max="193">Auto Program 11</Capability>
+  <Capability Min="194" Max="210">Auto Program 12</Capability>
+  <Capability Min="211" Max="226">Auto Program 13</Capability>
+  <Capability Min="227" Max="255">No Function</Capability>
+ </Channel>
+ <Channel Name="Auto Programs Speed" Default="14">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto Programs Speed</Capability>
+ </Channel>
+ <Channel Name="Auto Programs Fade" Default="15">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Auto Programs Fade</Capability>
+ </Channel>
+ <Channel Name="Dim Mode" Default="16">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="20">Default to unit setting</Capability>
+  <Capability Min="21" Max="40">Standard</Capability>
+  <Capability Min="41" Max="60">Stage</Capability>
+  <Capability Min="61" Max="80">TV</Capability>
+  <Capability Min="81" Max="100">Architectural</Capability>
+  <Capability Min="101" Max="120">Theatre</Capability>
+  <Capability Min="121" Max="140">Stage 2</Capability>
+  <Capability Min="141" Max="141">0,1s</Capability>
+  <Capability Min="142" Max="142">0,2s</Capability>
+  <Capability Min="143" Max="143">0,3s</Capability>
+  <Capability Min="144" Max="144">0,4s</Capability>
+  <Capability Min="145" Max="145">0,5s</Capability>
+  <Capability Min="146" Max="146">0,6s</Capability>
+  <Capability Min="147" Max="147">0,7s</Capability>
+  <Capability Min="148" Max="148">0,8s</Capability>
+  <Capability Min="149" Max="149">0,9s</Capability>
+  <Capability Min="150" Max="150">1,0s</Capability>
+  <Capability Min="151" Max="151">1,5s</Capability>
+  <Capability Min="152" Max="152">2,0s</Capability>
+  <Capability Min="153" Max="153">3,0s</Capability>
+  <Capability Min="154" Max="154">4,0s</Capability>
+  <Capability Min="155" Max="155">5,0s</Capability>
+  <Capability Min="156" Max="156">6,0s</Capability>
+  <Capability Min="157" Max="157">7,0s</Capability>
+  <Capability Min="158" Max="158">8,0s</Capability>
+  <Capability Min="159" Max="159">9,0s</Capability>
+  <Capability Min="160" Max="160">10,0s</Capability>
+  <Capability Min="161" Max="255">Default to unit setting</Capability>
+ </Channel>
+ <Channel Name="Dim Curves" Default="17">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="20">Square</Capability>
+  <Capability Min="21" Max="40">Linear</Capability>
+  <Capability Min="41" Max="60">Inverted Square</Capability>
+  <Capability Min="61" Max="80">S. Curve</Capability>
+  <Capability Min="81" Max="255">No Function</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Shutter, Strobe</Channel>
+  <Channel Number="7">Dimmer Intensity </Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Shutter, Strobe</Channel>
+  <Channel Number="7">Dimmer Intensity </Channel>
+  <Channel Number="8">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Color Temperature</Channel>
+  <Channel Number="8">White color presets</Channel>
+  <Channel Number="9">Shutter, Strobe</Channel>
+  <Channel Number="10">Dimmer Intensity </Channel>
+  <Channel Number="11">Dimmer fine</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Shutter, Strobe</Channel>
+  <Channel Number="7">Dimmer Intensity </Channel>
+  <Channel Number="8">Dimmer fine</Channel>
+  <Channel Number="9">Auto Programs</Channel>
+  <Channel Number="10">Auto Programs Speed</Channel>
+  <Channel Number="11">Auto Programs Fade</Channel>
+  <Channel Number="12">Dim Mode</Channel>
+  <Channel Number="13">Dim Curves</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Color Temperature</Channel>
+  <Channel Number="8">White color presets</Channel>
+  <Channel Number="9">Shutter, Strobe</Channel>
+  <Channel Number="10">Dimmer Intensity </Channel>
+  <Channel Number="11">Dimmer fine</Channel>
+  <Channel Number="12">Auto Programs</Channel>
+  <Channel Number="13">Auto Programs Speed</Channel>
+  <Channel Number="14">Auto Programs Fade</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Ultra Violet</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Color Temperature</Channel>
+  <Channel Number="8">White color presets</Channel>
+  <Channel Number="9">Shutter, Strobe</Channel>
+  <Channel Number="10">Dimmer Intensity </Channel>
+  <Channel Number="11">Dimmer fine</Channel>
+  <Channel Number="12">Auto Programs</Channel>
+  <Channel Number="13">Auto Programs Speed</Channel>
+  <Channel Number="14">Auto Programs Fade</Channel>
+  <Channel Number="15">Dim Mode</Channel>
+  <Channel Number="16">Dim Curves</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1100" ColourTemperature="0"/>
+  <Dimensions Weight="1.87" Width="260" Height="261" Depth="110"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

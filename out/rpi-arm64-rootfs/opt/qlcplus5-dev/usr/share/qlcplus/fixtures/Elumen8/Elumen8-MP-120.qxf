@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Keith Baker</Author>
+ </Creator>
+ <Manufacturer>Elumen8</Manufacturer>
+ <Model>MP 120</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Fine Dimmer" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="Standard">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5100" ColourTemperature="3000"/>
+  <Dimensions Weight="8.6" Width="301" Height="371" Depth="318"/>
+  <Lens Name="Fresnel" DegreesMin="19" DegreesMax="37"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="136" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Ray Console - cd</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>OPTI TRI 30</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimming" Preset="IntensityDimmer"/>
+ <Channel Name="Red " Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color Macro" Preset="ColorMacro"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Nothing</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobing/macro Speed</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="31">RGB using channels 1,2,3</Capability>
+  <Capability Min="32" Max="63">Dim - bright</Capability>
+  <Capability Min="64" Max="95">Bright -dim</Capability>
+  <Capability Min="96" Max="127">Dim - bright - dim</Capability>
+  <Capability Min="128" Max="159">color mixing</Capability>
+  <Capability Min="160" Max="191">3 color change</Capability>
+  <Capability Min="192" Max="223">7 color change</Capability>
+  <Capability Min="224" Max="255">Sound active</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Color Macro</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Color Macro</Channel>
+  <Channel Number="1">Dimming</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red </Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red </Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red </Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macro</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red </Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macro</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Mode</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="325" ColourTemperature="2800"/>
+  <Dimensions Weight="2.4" Width="191" Height="140" Depth="254"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="10"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

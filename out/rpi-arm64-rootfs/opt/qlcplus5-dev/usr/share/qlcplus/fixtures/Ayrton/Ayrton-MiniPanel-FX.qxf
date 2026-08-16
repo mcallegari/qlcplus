@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Ayrton</Manufacturer>
+ <Model>MiniPanel FX</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Movement" Preset="PositionPan"/>
+ <Channel Name="Tilt Movement" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed Pan/Tilt" Default="255">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">max to min speed</Capability>
+  <Capability Min="226" Max="235">blackout by movement</Capability>
+  <Capability Min="236" Max="255">no function</Capability>
+ </Channel>
+ <Channel Name="Pan Motor continuous rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">no function</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forwards Pan rotation from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards Pan rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Tilt Motor continuous rotation">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">no function</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Forwards Tilt rotation from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards Tilt rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Red LED - all arrays" Preset="IntensityRed"/>
+ <Channel Name="Green LED - all arrays" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED - all arrays" Preset="IntensityBlue"/>
+ <Channel Name="White LED - all arrays" Preset="IntensityWhite"/>
+ <Channel Name="Shutter, strobe" Default="44">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Led turn off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Led turn on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Led turn on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse-effect in sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Led turn on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Led turn on</Capability>
+ </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="39" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">red to yellow</Capability>
+  <Capability Min="40" Max="71" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">yellow to green</Capability>
+  <Capability Min="72" Max="103" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">green to cyan</Capability>
+  <Capability Min="104" Max="135" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">cyan to blue</Capability>
+  <Capability Min="136" Max="167" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">blue to magenta</Capability>
+  <Capability Min="168" Max="199" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">magenta to red</Capability>
+  <Capability Min="200" Max="231" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">red to white</Capability>
+  <Capability Min="232" Max="255">Crossfading colours from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="9">White 2700k</Capability>
+  <Capability Min="10" Max="14">White 3200k</Capability>
+  <Capability Min="15" Max="19">White 4200k</Capability>
+  <Capability Min="20" Max="24">White 5600k</Capability>
+  <Capability Min="25" Max="29">White 6500k</Capability>
+  <Capability Min="30" Max="34">White 8000k</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#fa8072">Salmon</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#90ee90">Light Green</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#4682b4">Steel Blue</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#e3e300">Straw</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#aaaaff">Pale Lavander</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="110" Max="114">Rainbow1</Capability>
+  <Capability Min="115" Max="119">Rainbow2</Capability>
+  <Capability Min="120" Max="124">Rainbow3</Capability>
+  <Capability Min="125" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Color Preset Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Chase Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Led Turn off</Capability>
+  <Capability Min="10" Max="14">Chase 1</Capability>
+  <Capability Min="15" Max="19">Chase 2</Capability>
+  <Capability Min="20" Max="24">Chase 3</Capability>
+  <Capability Min="25" Max="29">Chase 4</Capability>
+  <Capability Min="30" Max="34">Chase 5</Capability>
+  <Capability Min="35" Max="39">Chase 6</Capability>
+  <Capability Min="40" Max="44">Chase 7</Capability>
+  <Capability Min="45" Max="49">Chase 8</Capability>
+  <Capability Min="50" Max="54">Chase 9</Capability>
+  <Capability Min="55" Max="59">Chase 10</Capability>
+  <Capability Min="60" Max="64">Chase 11</Capability>
+  <Capability Min="65" Max="69">Chase 12</Capability>
+  <Capability Min="70" Max="74">Chase 13</Capability>
+  <Capability Min="75" Max="79">Chase 14</Capability>
+  <Capability Min="80" Max="84">Chase 15</Capability>
+  <Capability Min="85" Max="89">Chase 16</Capability>
+  <Capability Min="90" Max="94">Chase 17</Capability>
+  <Capability Min="95" Max="99">Chase 18</Capability>
+  <Capability Min="100" Max="104">Chase 19</Capability>
+  <Capability Min="105" Max="109">Chase 20</Capability>
+  <Capability Min="110" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Chase Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="125">Fast to Slow Backward</Capability>
+  <Capability Min="126" Max="130">Stop</Capability>
+  <Capability Min="131" Max="255">Slow to Fast Forward</Capability>
+ </Channel>
+ <Channel Name="Chase Fade">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Fade Chase</Capability>
+ </Channel>
+ <Channel Name="Reset, Internal programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="79">Normal</Capability>
+  <Capability Min="80" Max="84">All motor reset</Capability>
+  <Capability Min="85" Max="87">Scan motor reset</Capability>
+  <Capability Min="88" Max="90">no function</Capability>
+  <Capability Min="91" Max="93">no function</Capability>
+  <Capability Min="94" Max="96">no function</Capability>
+  <Capability Min="97" Max="99">Others motor reset</Capability>
+  <Capability Min="100" Max="119">Internal Program 1</Capability>
+  <Capability Min="120" Max="139">Internal Program 2</Capability>
+  <Capability Min="140" Max="159">Internal Program 3</Capability>
+  <Capability Min="160" Max="179">Internal Program 4</Capability>
+  <Capability Min="180" Max="199">Internal Program 5</Capability>
+  <Capability Min="200" Max="219">Internal Program 6</Capability>
+  <Capability Min="220" Max="239">Internal Program 7</Capability>
+  <Capability Min="240" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Red LED-array 1" Preset="IntensityRed"/>
+ <Channel Name="Green LED-array 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED-array 1" Preset="IntensityBlue"/>
+ <Channel Name="White LED-array 1" Preset="IntensityWhite"/>
+ <Channel Name="Red LED-array 2" Preset="IntensityRed"/>
+ <Channel Name="Green LED-array 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED-array 2" Preset="IntensityBlue"/>
+ <Channel Name="White LED-array 2" Preset="IntensityWhite"/>
+ <Channel Name="Red LED-array 3" Preset="IntensityRed"/>
+ <Channel Name="Green LED-array 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED-array 3" Preset="IntensityBlue"/>
+ <Channel Name="White LED-array 3" Preset="IntensityWhite"/>
+ <Channel Name="Red LED-array 4" Preset="IntensityRed"/>
+ <Channel Name="Green LED-array 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED-array 4" Preset="IntensityBlue"/>
+ <Channel Name="White LED-array 4" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Zoom fine" Preset="BeamZoomFine"/>
+ <Mode Name="Standard 22 Channel">
+  <Channel Number="0">Pan Movement</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Movement</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Speed Pan/Tilt</Channel>
+  <Channel Number="5">Pan Motor continuous rotation</Channel>
+  <Channel Number="6">Tilt Motor continuous rotation</Channel>
+  <Channel Number="7">Red LED - all arrays</Channel>
+  <Channel Number="8">Green LED - all arrays</Channel>
+  <Channel Number="9">Blue LED - all arrays</Channel>
+  <Channel Number="10">White LED - all arrays</Channel>
+  <Channel Number="11">Shutter, strobe</Channel>
+  <Channel Number="12">Dimmer Intensity</Channel>
+  <Channel Number="13">Color Macro</Channel>
+  <Channel Number="14">Color Presets</Channel>
+  <Channel Number="15" ActsOn="14">Color Preset Dimmer</Channel>
+  <Channel Number="16">Chase Patterns</Channel>
+  <Channel Number="17">Chase Speed</Channel>
+  <Channel Number="18">Chase Fade</Channel>
+  <Channel Number="19">Zoom</Channel>
+  <Channel Number="20">Zoom fine</Channel>
+  <Channel Number="21">Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Basic 19 Channel">
+  <Channel Number="0">Pan Movement</Channel>
+  <Channel Number="1">Tilt Movement</Channel>
+  <Channel Number="2">Speed Pan/Tilt</Channel>
+  <Channel Number="3">Pan Motor continuous rotation</Channel>
+  <Channel Number="4">Tilt Motor continuous rotation</Channel>
+  <Channel Number="5">Red LED - all arrays</Channel>
+  <Channel Number="6">Green LED - all arrays</Channel>
+  <Channel Number="7">Blue LED - all arrays</Channel>
+  <Channel Number="8">White LED - all arrays</Channel>
+  <Channel Number="9">Shutter, strobe</Channel>
+  <Channel Number="10">Dimmer Intensity</Channel>
+  <Channel Number="11">Color Macro</Channel>
+  <Channel Number="12">Color Presets</Channel>
+  <Channel Number="13" ActsOn="12">Color Preset Dimmer</Channel>
+  <Channel Number="14">Chase Patterns</Channel>
+  <Channel Number="15">Chase Speed</Channel>
+  <Channel Number="16">Chase Fade</Channel>
+  <Channel Number="17">Zoom</Channel>
+  <Channel Number="18">Reset, Internal programs</Channel>
+ </Mode>
+ <Mode Name="Extended 34 Channel">
+  <Channel Number="0">Pan Movement</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Movement</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Speed Pan/Tilt</Channel>
+  <Channel Number="5">Pan Motor continuous rotation</Channel>
+  <Channel Number="6">Tilt Motor continuous rotation</Channel>
+  <Channel Number="7">Shutter, strobe</Channel>
+  <Channel Number="8">Dimmer Intensity</Channel>
+  <Channel Number="9">Color Macro</Channel>
+  <Channel Number="10">Color Presets</Channel>
+  <Channel Number="11" ActsOn="10">Color Preset Dimmer</Channel>
+  <Channel Number="12">Chase Patterns</Channel>
+  <Channel Number="13">Chase Speed</Channel>
+  <Channel Number="14">Chase Fade</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Zoom fine</Channel>
+  <Channel Number="17">Reset, Internal programs</Channel>
+  <Channel Number="18">Red LED-array 1</Channel>
+  <Channel Number="19">Green LED-array 1</Channel>
+  <Channel Number="20">Blue LED-array 1</Channel>
+  <Channel Number="21">White LED-array 1</Channel>
+  <Channel Number="22">Red LED-array 2</Channel>
+  <Channel Number="23">Green LED-array 2</Channel>
+  <Channel Number="24">Blue LED-array 2</Channel>
+  <Channel Number="25">White LED-array 2</Channel>
+  <Channel Number="26">Red LED-array 3</Channel>
+  <Channel Number="27">Green LED-array 3</Channel>
+  <Channel Number="28">Blue LED-array 3</Channel>
+  <Channel Number="29">White LED-array 3</Channel>
+  <Channel Number="30">Red LED-array 4</Channel>
+  <Channel Number="31">Green LED-array 4</Channel>
+  <Channel Number="32">Blue LED-array 4</Channel>
+  <Channel Number="33">White LED-array 4</Channel>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2400" ColourTemperature="8000"/>
+  <Dimensions Weight="8.9" Width="285" Height="397" Depth="220"/>
+  <Lens Name="Other" DegreesMin="3.6" DegreesMax="53"/>
+  <Focus Type="Head" PanMax="720" TiltMax="360"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="220" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

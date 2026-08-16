@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.4</Version>
+  <Author>VagSag</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED RGB PAR64 18x3W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="RED" Preset="IntensityRed"/>
+ <Channel Name="GREEN" Preset="IntensityGreen"/>
+ <Channel Name="BLUE" Preset="IntensityBlue"/>
+ <Channel Name="Color Change">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="84">Color micro</Capability>
+  <Capability Min="85" Max="169">Color jump</Capability>
+  <Capability Min="170" Max="255">Color fade</Capability>
+ </Channel>
+ <Mode Name="6-Channel Mode">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">RED</Channel>
+  <Channel Number="2">GREEN</Channel>
+  <Channel Number="3">BLUE</Channel>
+  <Channel Number="4">Color Change</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="270" Height="263" Weight="2.3" Width="270"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="60"/>
+  </Physical>
+</FixtureDefinition>

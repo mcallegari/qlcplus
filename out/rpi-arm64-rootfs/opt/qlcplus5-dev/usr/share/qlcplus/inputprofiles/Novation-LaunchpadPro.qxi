@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2</Version>
+  <Author>Nate Doyon</Author>
+ </Creator>
+ <Manufacturer>Novation</Manufacturer>
+ <Model>Launchpad Pro</Model>
+ <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
+ <Channel Number="1">
+  <Name>Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Track Select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Volume</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Pan</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Sends</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Stop Clip</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Row 1 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Double</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Row 2 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Duplicate</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Row 3 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Quantise</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Row 4 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Delete</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Row 5 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60">
+  <Name>Undo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="69">
+  <Name>Row 6 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="70">
+  <Name>Click</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="79">
+  <Name>Row 7 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Shift</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="89">
+  <Name>Row 8 Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="91">
+  <Name>Up Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="92">
+  <Name>Down Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="93">
+  <Name>Left Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="94">
+  <Name>Right Arrow</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="95">
+  <Name>Session</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="96">
+  <Name>Note</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="97">
+  <Name>Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="98">
+  <Name>User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Pad 1-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Pad 1-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Pad 1-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Pad 1-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Pad 1-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Pad 1-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Pad 1-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Pad 1-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Pad 2-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Pad 2-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Pad 2-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Pad 2-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Pad 2-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Pad 2-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Pad 2-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Pad 2-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Pad 3-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Pad 3-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Pad 3-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Pad 3-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Pad 3-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Pad 3-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Pad 3-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Pad 3-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>Pad 4-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>Pad 4-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>Pad 4-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>Pad 4-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>Pad 4-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Pad 4-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Pad 4-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Pad 4-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Pad 5-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Pad 5-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Pad 5-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Pad 5-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Pad 5-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Pad 5-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>Pad 5-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>Pad 5-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>Pad 6-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>Pad 6-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>Pad 6-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>Pad 6-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>Pad 6-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>Pad 6-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>Pad 6-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>Pad 6-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>Pad 7-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>Pad 7-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>Pad 7-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>Pad 7-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>Pad 7-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>Pad 7-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="205">
+  <Name>Pad 7-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="206">
+  <Name>Pad 7-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Pad 8-1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Pad 8-2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Pad 8-3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Pad 8-4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>Pad 8-5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Pad 8-6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>Pad 8-7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>Pad 8-8</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

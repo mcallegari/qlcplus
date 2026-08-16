@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Jon Rosen</Author>
+ </Creator>
+ <Manufacturer>ETC</Manufacturer>
+ <Model>ColorSource PAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Intensity of preset 1" Preset="IntensityDimmer"/>
+ <Mode Name="5-channel">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="6-channel (direct)">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Lime</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="1-channel">
+  <Channel Number="0">Intensity of preset 1</Channel>
+ </Mode>
+ <Mode Name="3-channel (RGB)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.77" Width="203" Height="310" Depth="240"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
+</FixtureDefinition>

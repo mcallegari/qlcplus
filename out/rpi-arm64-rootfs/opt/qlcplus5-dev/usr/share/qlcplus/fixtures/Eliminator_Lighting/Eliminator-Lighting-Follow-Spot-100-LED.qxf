@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Chris Yarger</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Follow Spot 100 LED</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="32" Max="63" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="64" Max="95" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="96" Max="127" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="128" Max="159" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="160" Max="191" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="192" Max="223" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="224" Max="255" Preset="ColorMacro" Res1="#aaaaff">Lavender</Capability>
+ </Channel>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Mode Name="Default">
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Intensity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="7500" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="590" Height="290" Depth="260"/>
+  <Lens Name="Other" DegreesMin="9" DegreesMax="14"/>
+  <Focus Type="Barrel" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

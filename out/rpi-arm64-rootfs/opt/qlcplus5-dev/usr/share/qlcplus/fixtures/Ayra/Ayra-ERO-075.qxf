@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Jan van Rumph</Author>
+ </Creator>
+ <Manufacturer>Ayra</Manufacturer>
+ <Model>ERO 075</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="PulseSlowToFast">Pulse strobe, slow-fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Gradually open strobe, slow-fast</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Gradually close strobe, slow-fast</Capability>
+  <Capability Min="232" Max="247" Preset="StrobeRandomSlowToFast">Random Strobe, slow-fast</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31">Colour 1</Capability>
+  <Capability Min="32" Max="47">Colour 2</Capability>
+  <Capability Min="48" Max="63">Colour 3</Capability>
+  <Capability Min="64" Max="79">Colour 4</Capability>
+  <Capability Min="80" Max="95">Colour 5</Capability>
+  <Capability Min="96" Max="111">Colour 6</Capability>
+  <Capability Min="112" Max="127">Colour 7</Capability>
+  <Capability Min="128" Max="191">Rainbow effect clockwise fast-slow</Capability>
+  <Capability Min="192" Max="255">Rainbow effect counter-clockwise slow-fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="32">Gobo 3</Capability>
+  <Capability Min="33" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="63">Gobo 6</Capability>
+  <Capability Min="64" Max="73">Gobo 1 shake, slow-fast</Capability>
+  <Capability Min="74" Max="82">Gobo 2 shake, slow-fast</Capability>
+  <Capability Min="83" Max="91">Gobo 3 shake, slow-fast</Capability>
+  <Capability Min="92" Max="100">Gobo 4 shake, slow-fast</Capability>
+  <Capability Min="101" Max="109">Gobo 5 shake, slow-fast</Capability>
+  <Capability Min="110" Max="127">Gobo 6 shake, slow-fast</Capability>
+  <Capability Min="128" Max="129">Gobo scroll effect, clockwise, fast-slow</Capability>
+  <Capability Min="130" Max="189">No function</Capability>
+  <Capability Min="190" Max="193">Stop</Capability>
+  <Capability Min="194" Max="255">Gobo scroll effect, anti-clockwise, slow-fast</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Rotation clockwise, fast-slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotation anti-clockwise, slow-fast</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127" Preset="PrismEffectOff">No function</Capability>
+  <Capability Min="128" Max="255" Preset="PrismEffectOn" Res1="3">Prism on</Capability>
+ </Channel>
+ <Channel Name="Auto mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Auto mode</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">No function</Capability>
+  <Capability Min="26" Max="76" Preset="ResetMotors">hold 3 seconds for effect motor reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">hold 4 seconds for pan/tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">hold 5 seconds for all reset</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter/Strobe</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Gobo</Channel>
+  <Channel Number="9">Gobo rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Auto mode</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="7" ColourTemperature="0"/>
+  <Dimensions Weight="4.65" Width="217" Height="340" Depth="148"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="105" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Ian Stewart</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>PRO-730RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Sound Mode</Capability>
+  <Capability Min="64" Max="127">Auto Mode</Capability>
+  <Capability Min="128" Max="191">Manual Sound Mode</Capability>
+  <Capability Min="192" Max="255">Manual Auto Mode</Capability>
+ </Channel>
+ <Channel Name="Effect Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Blanking</Capability>
+  <Capability Min="50" Max="99">Pattern Multiplication</Capability>
+  <Capability Min="100" Max="149">Multi-Pattern Effect</Capability>
+  <Capability Min="150" Max="199">3D- Effect</Capability>
+  <Capability Min="200" Max="255">Pattern without 3D Effect</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="40">Manual Colour Selection</Capability>
+  <Capability Min="41" Max="110">Automatic Colour selection with speed increase</Capability>
+  <Capability Min="111" Max="180">Automatic Colour mix with speed increase</Capability>
+  <Capability Min="181" Max="250">Running Colour Mix</Capability>
+  <Capability Min="251" Max="255">Static Colour Mix</Capability>
+ </Channel>
+ <Channel Name="Pattern Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Pattern Selection</Capability>
+ </Channel>
+ <Channel Name="Y-Movement">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Manual Up-Down Movement</Capability>
+  <Capability Min="128" Max="255">Automatic Up-Down Movement with speed increase</Capability>
+ </Channel>
+ <Channel Name="X-Movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Manual Right-Left Movement</Capability>
+  <Capability Min="128" Max="255">Automatic Right-Left movement with speed increase</Capability>
+ </Channel>
+ <Channel Name="X-Axis-Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual Rotation</Capability>
+  <Capability Min="128" Max="255">Automatic Rotation</Capability>
+ </Channel>
+ <Channel Name="Y-Axis-Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual Rotation</Capability>
+  <Capability Min="128" Max="255">Automatic Rotation</Capability>
+ </Channel>
+ <Channel Name="Circle Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual Rotation</Capability>
+  <Capability Min="128" Max="191">Automatic Clockwise with speed increase</Capability>
+  <Capability Min="192" Max="255">Automatic Anti-Clockwise with speed increase</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="85">Positive Auto Zoom with Speed Increase</Capability>
+  <Capability Min="86" Max="170">Negative Auto Zoom with Speed Increase</Capability>
+  <Capability Min="171" Max="255">Positive/Negative Auto Zoom with Speed Increase</Capability>
+ </Channel>
+ <Channel Name="Pattern Size/Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Pattern Size/Zoom</Capability>
+ </Channel>
+ <Channel Name="Dot Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Auto Dot Effect with Speed Increase</Capability>
+ </Channel>
+ <Channel Name="Drawing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Auto Draw Mode 1 with Speed Increase</Capability>
+  <Capability Min="128" Max="255">Auto Draw Mode 2 with Speed Increase</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">Modes</Channel>
+  <Channel Number="1">Effect Modes</Channel>
+  <Channel Number="2">Colours</Channel>
+  <Channel Number="3">Pattern Selection</Channel>
+  <Channel Number="4">Y-Movement</Channel>
+  <Channel Number="5">X-Movement</Channel>
+  <Channel Number="6">X-Axis-Rotation</Channel>
+  <Channel Number="7">Y-Axis-Rotation</Channel>
+  <Channel Number="8">Circle Rotation</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Pattern Size/Zoom</Channel>
+  <Channel Number="11">Dot Effect</Channel>
+  <Channel Number="12">Drawing</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.3" Width="190" Height="160" Depth="270"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

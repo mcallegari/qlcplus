@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Xoneoo</Author>
+ </Creator>
+ <Manufacturer>Elation</Manufacturer>
+ <Model>ELED B48</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimming" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing/Speed Control">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Static</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobing slow --&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Auto Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No effect</Capability>
+  <Capability Min="8" Max="15">Auto color mix</Capability>
+  <Capability Min="16" Max="47">Auto mix using channel 1, 2, &amp; 3</Capability>
+  <Capability Min="48" Max="245">24 Auto mode programs</Capability>
+  <Capability Min="246" Max="251">Suond active flash</Capability>
+  <Capability Min="252" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="13">Nothing</Capability>
+  <Capability Min="14" Max="255">Color macro</Capability>
+ </Channel>
+ <Channel Name="RED 1" Preset="IntensityRed"/>
+ <Channel Name="RED 2" Preset="IntensityRed"/>
+ <Channel Name="RED 3" Preset="IntensityRed"/>
+ <Channel Name="RED 4" Preset="IntensityRed"/>
+ <Channel Name="GREEN 1" Preset="IntensityGreen"/>
+ <Channel Name="GREEN 2" Preset="IntensityGreen"/>
+ <Channel Name="GREEN 3" Preset="IntensityGreen"/>
+ <Channel Name="GREEN 4" Preset="IntensityGreen"/>
+ <Channel Name="BLUE 1" Preset="IntensityBlue"/>
+ <Channel Name="BLUE 2" Preset="IntensityBlue"/>
+ <Channel Name="BLUE 3" Preset="IntensityBlue"/>
+ <Channel Name="BLUE 4" Preset="IntensityBlue"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Macro</Channel>
+  <Channel Number="4">Strobing/Speed Control</Channel>
+  <Channel Number="5">Auto Mode</Channel>
+  <Channel Number="6">Dimming</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">RED 1</Channel>
+  <Channel Number="1">GREEN 1</Channel>
+  <Channel Number="2">BLUE 1</Channel>
+  <Channel Number="3">RED 2</Channel>
+  <Channel Number="4">GREEN 2</Channel>
+  <Channel Number="5">BLUE 2</Channel>
+  <Channel Number="6">RED 3</Channel>
+  <Channel Number="7">GREEN 3</Channel>
+  <Channel Number="8">BLUE 3</Channel>
+  <Channel Number="9">RED 4</Channel>
+  <Channel Number="10">GREEN 4</Channel>
+  <Channel Number="11">BLUE 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="852" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="540" Height="578" Depth="197"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

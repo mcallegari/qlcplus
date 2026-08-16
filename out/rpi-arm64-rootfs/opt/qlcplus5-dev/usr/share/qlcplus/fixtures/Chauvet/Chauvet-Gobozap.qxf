@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Federico</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Gobozap</Model>
+ <Type>Effect</Type>
+ <Channel Name="Function Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Nothing</Capability>
+  <Capability Min="1" Max="127" Preset="Alias">Auto Mode</Capability>
+  <Capability Min="128" Max="255" Preset="Alias">Sound Mode
+   <Alias Mode="2Ch" Channel="Auto Speed" With="Sound Sensitivity"/>
+   <Alias Mode="7Ch" Channel="Auto Speed" With="Sound Sensitivity"/>
+   <Alias Mode="11Ch" Channel="Auto Speed" With="Sound Sensitivity"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Sound Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Sensitivity 0 to 100</Capability>
+ </Channel>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter 1" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Shutter 2" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Colour Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#32cd32">Lime Green</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#3e0694">UV</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#e75480">Dark Pink</Capability>
+  <Capability Min="70" Max="74" Preset="ColorDoubleMacro" Res1="#e75480" Res2="#ffffff">Dark Pink + White</Capability>
+  <Capability Min="75" Max="79" Preset="ColorDoubleMacro" Res1="#3e0694" Res2="#e75480">UV + Dark Pink</Capability>
+  <Capability Min="80" Max="84" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#3e0694">Orange + UV</Capability>
+  <Capability Min="85" Max="89" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffa500">Cyan + Orange</Capability>
+  <Capability Min="90" Max="94" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ffff">Magenta + Cyan</Capability>
+  <Capability Min="95" Max="99" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ff00ff">Light Blue + Magenta</Capability>
+  <Capability Min="100" Max="104" Preset="ColorDoubleMacro" Res1="#32cd32" Res2="#add8e6">Lime Green + Light BLue</Capability>
+  <Capability Min="105" Max="109" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#32cd32">Pink + Lime Green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffc0cb">Amber + Pink</Capability>
+  <Capability Min="115" Max="119" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffbf00">Yellow + Amber</Capability>
+  <Capability Min="120" Max="124" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue + Yellow</Capability>
+  <Capability Min="125" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="130" Max="134" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
+  <Capability Min="140" Max="197" Preset="RotationClockwiseFastToSlow">Clockwise scroll, fast to slow</Capability>
+  <Capability Min="198" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise scroll, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#32cd32">Lime Green</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#add8e6">Light Blue</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#3e0694">UV</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#e75480">Dark Pink</Capability>
+  <Capability Min="70" Max="74" Preset="ColorDoubleMacro" Res1="#e75480" Res2="#ffffff">Dark Pink + White</Capability>
+  <Capability Min="75" Max="79" Preset="ColorDoubleMacro" Res1="#3e0694" Res2="#e75480">UV + Dark Pink</Capability>
+  <Capability Min="80" Max="84" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#3e0694">Orange + UV</Capability>
+  <Capability Min="85" Max="89" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffa500">Cyan + Orange</Capability>
+  <Capability Min="90" Max="94" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ffff">Magenta + Cyan</Capability>
+  <Capability Min="95" Max="99" Preset="ColorDoubleMacro" Res1="#add8e6" Res2="#ff00ff">Light Blue + Magenta</Capability>
+  <Capability Min="100" Max="104" Preset="ColorDoubleMacro" Res1="#32cd32" Res2="#add8e6">Lime Green + Light BLue</Capability>
+  <Capability Min="105" Max="109" Preset="ColorDoubleMacro" Res1="#ffc0cb" Res2="#32cd32">Pink + Lime Green</Capability>
+  <Capability Min="110" Max="114" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffc0cb">Amber + Pink</Capability>
+  <Capability Min="115" Max="119" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffbf00">Yellow + Amber</Capability>
+  <Capability Min="120" Max="124" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue + Yellow</Capability>
+  <Capability Min="125" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="130" Max="134" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="135" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
+  <Capability Min="140" Max="197" Preset="RotationClockwiseFastToSlow">Clockwise scroll, fast to slow</Capability>
+  <Capability Min="198" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise scroll, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Chauvet/gobo00097.svg">Gobo 1</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 2</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00099.svg">Gobo 3</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00100.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Chauvet/gobo00101.svg">Gobo 5</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Chauvet/gobo00102.svg">Gobo 6</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00103.svg">Gobo 7</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00104.svg">Gobo 8</Capability>
+  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="Chauvet/gobo00105.svg">Gobo 9</Capability>
+  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 10</Capability>
+  <Capability Min="100" Max="109" Preset="GoboMacro" Res1="Chauvet/gobo00106.svg">Gobo 11</Capability>
+  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Chauvet/gobo00107.svg">Gobo 12</Capability>
+  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Chauvet/gobo00108.svg">Gobo 13</Capability>
+  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Chauvet/gobo00109.svg">Gobo 14</Capability>
+  <Capability Min="140" Max="197" Preset="RotationClockwiseFastToSlow">Clockwise scroll, fast to slow</Capability>
+  <Capability Min="198" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise scroll, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Chauvet/gobo00097.svg">Gobo 1</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Chauvet/gobo00098.svg">Gobo 2</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Chauvet/gobo00099.svg">Gobo 3</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00100.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Chauvet/gobo00101.svg">Gobo 5</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Chauvet/gobo00102.svg">Gobo 6</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00103.svg">Gobo 7</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00104.svg">Gobo 8</Capability>
+  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="Chauvet/gobo00105.svg">Gobo 9</Capability>
+  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 10</Capability>
+  <Capability Min="100" Max="109" Preset="GoboMacro" Res1="Chauvet/gobo00106.svg">Gobo 11</Capability>
+  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Chauvet/gobo00107.svg">Gobo 12</Capability>
+  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Chauvet/gobo00108.svg">Gobo 13</Capability>
+  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Chauvet/gobo00109.svg">Gobo 14</Capability>
+  <Capability Min="140" Max="197" Preset="RotationClockwiseFastToSlow">Clockwise scroll, fast to slow</Capability>
+  <Capability Min="198" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise scroll, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Barrel Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="42" Preset="RotationStop">Stop</Capability>
+  <Capability Min="43" Max="86" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise rotation, slow to fast</Capability>
+  <Capability Min="87" Max="129" Preset="RotationStop">Stop</Capability>
+  <Capability Min="130" Max="173" Preset="RotationClockwiseSlowToFast">Clockwise rotation, slow to fast</Capability>
+  <Capability Min="174" Max="217" Preset="RotationStop">Stop</Capability>
+  <Capability Min="218" Max="255">Alternating clockwise-counterclockwise rotation, slow to fast</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Function Mode</Channel>
+  <Channel Number="1">Auto Speed</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Function Mode</Channel>
+  <Channel Number="1">Auto Speed</Channel>
+  <Channel Number="2">Dimmer 1</Channel>
+  <Channel Number="3">Shutter 1</Channel>
+  <Channel Number="4">Colour Wheel 1</Channel>
+  <Channel Number="5">Gobo Wheel 1</Channel>
+  <Channel Number="6">Barrel Rotation</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Function Mode</Channel>
+  <Channel Number="1">Auto Speed</Channel>
+  <Channel Number="2">Dimmer 1</Channel>
+  <Channel Number="3">Dimmer 2</Channel>
+  <Channel Number="4">Shutter 1</Channel>
+  <Channel Number="5">Shutter 2</Channel>
+  <Channel Number="6">Colour Wheel 1</Channel>
+  <Channel Number="7">Colour Wheel 2</Channel>
+  <Channel Number="8">Gobo Wheel 1</Channel>
+  <Channel Number="9">Gobo Wheel 2</Channel>
+  <Channel Number="10">Barrel Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="6" Width="485" Height="155" Depth="130"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Barrel" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="176" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

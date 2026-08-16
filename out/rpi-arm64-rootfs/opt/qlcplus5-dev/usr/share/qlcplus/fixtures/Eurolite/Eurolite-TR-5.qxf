@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.0</Version>
+  <Author/>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TR-5</Model>
+ <Type>Flower</Type>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="39">Strobe</Capability>
+  <Capability Min="40" Max="45">Open</Capability>
+  <Capability Min="46" Max="51">Gobo 1</Capability>
+  <Capability Min="52" Max="57">Gobo 2</Capability>
+  <Capability Min="58" Max="63">Gobo 3</Capability>
+  <Capability Min="64" Max="69">Gobo 4</Capability>
+  <Capability Min="70" Max="75">Gobo 5</Capability>
+  <Capability Min="76" Max="81">Gobo 6</Capability>
+  <Capability Min="82" Max="87">Gobo 7</Capability>
+  <Capability Min="88" Max="93">Gobo 8</Capability>
+  <Capability Min="94" Max="99">Gobo 9</Capability>
+  <Capability Min="100" Max="105">Gobo 10</Capability>
+  <Capability Min="106" Max="111">Gobo 11</Capability>
+  <Capability Min="112" Max="117">Gobo 12</Capability>
+  <Capability Min="118" Max="123">Gobo 13</Capability>
+  <Capability Min="124" Max="129">Open</Capability>
+  <Capability Min="130" Max="135">Gobo 1 shake slow to fast</Capability>
+  <Capability Min="136" Max="141">Gobo 2 shake slow to fast</Capability>
+  <Capability Min="142" Max="147">Gobo 3 shake slow to fast</Capability>
+  <Capability Min="148" Max="153">Gobo 4 shake slow to fast</Capability>
+  <Capability Min="154" Max="159">Gobo 5 shake slow to fast</Capability>
+  <Capability Min="160" Max="165">Gobo 6 shake slow to fast</Capability>
+  <Capability Min="166" Max="171">Gobo 7 shake slow to fast</Capability>
+  <Capability Min="172" Max="177">Gobo 8 shake slow to fast</Capability>
+  <Capability Min="178" Max="183">Gobo 9 shake slow to fast</Capability>
+  <Capability Min="184" Max="189">Gobo 10 shake slow to fast</Capability>
+  <Capability Min="190" Max="195">Gobo 11 shake slow to fast</Capability>
+  <Capability Min="196" Max="201">Gobo 12 shake slow to fast</Capability>
+  <Capability Min="202" Max="207">Gobo 13 shake slow to fast</Capability>
+  <Capability Min="208" Max="225">Stop</Capability>
+  <Capability Min="226" Max="255">Rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="26">STOP</Capability>
+  <Capability Min="27" Max="130">CW rotation slow to fast</Capability>
+  <Capability Min="131" Max="149">STOP</Capability>
+  <Capability Min="150" Max="255">CCW rotation fast to slow</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">Gobo</Channel>
+  <Channel Number="1">Rotation</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="5000" Type="ELC 250W" ColourTemperature="3200"/>
+   <Dimensions Width="280" Height="250" Weight="8" Depth="360"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

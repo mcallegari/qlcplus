@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>ralph</Author>
+ </Creator>
+ <Manufacturer>High End Systems</Manufacturer>
+ <Model>Technobeam</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color Function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Forward Spin</Capability>
+  <Capability Min="32" Max="47">Reverse Spin</Capability>
+  <Capability Min="48" Max="63">Continuous</Capability>
+  <Capability Min="64" Max="79">Slow Scan</Capability>
+  <Capability Min="80" Max="95">Fast Scan</Capability>
+  <Capability Min="96" Max="111">Random</Capability>
+  <Capability Min="112" Max="127">Blink Indexed</Capability>
+  <Capability Min="128" Max="143">MSpeed Control indexed</Capability>
+  <Capability Min="144" Max="159">MSpeed Control Forward Spin</Capability>
+  <Capability Min="160" Max="175">MSpeed Control Reverse Spin</Capability>
+  <Capability Min="176" Max="191">MSpeed Control Continuous</Capability>
+  <Capability Min="192" Max="207">MSpeed Control slow scan</Capability>
+  <Capability Min="208" Max="223">MSpeed Control Fast Scan</Capability>
+  <Capability Min="224" Max="239">MSpeed Control Random</Capability>
+  <Capability Min="240" Max="255">MSpeed Control Blink-Indexed</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Position">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="23" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffc0c0">Pink</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#c0ffc0">Light green</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#0000c0">UV blue</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#c05800">Dark orange</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#c0c0ff">Light blue</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ffffff">Soft white</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffc0c0">White / Pink</Capability>
+  <Capability Min="144" Max="151" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#00ff00">Pink / Green</Capability>
+  <Capability Min="152" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green / Magenta</Capability>
+  <Capability Min="160" Max="167" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#c0ffc0">Magenta / Light green</Capability>
+  <Capability Min="168" Max="175" Preset="ColorDoubleMacro" Res1="#c0ffc0" Res2="#ff8000">Light green / Orange</Capability>
+  <Capability Min="176" Max="183" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ffff00">Orange / Yellow</Capability>
+  <Capability Min="184" Max="191" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow / Blue</Capability>
+  <Capability Min="192" Max="199" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue / Red</Capability>
+  <Capability Min="200" Max="207" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000c0">Red / UV blue</Capability>
+  <Capability Min="208" Max="215" Preset="ColorDoubleMacro" Res1="#0000c0" Res2="#c05800">UV blue / Dark orange</Capability>
+  <Capability Min="216" Max="223" Preset="ColorDoubleMacro" Res1="#c05800" Res2="#c0c0ff">Dark orange / Light blue</Capability>
+  <Capability Min="224" Max="231" Preset="ColorDoubleMacro" Res1="#c0c0ff" Res2="#ffffff">Light blue / Soft white</Capability>
+  <Capability Min="232" Max="247" Preset="ColorMacro" Res1="#ffffff">Soft white / White</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#ffffff">Bright white</Capability>
+ </Channel>
+ <Channel Name="Litho Wheel Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">indexed</Capability>
+  <Capability Min="16" Max="31">forward rotate</Capability>
+  <Capability Min="32" Max="47">reverse rotate</Capability>
+  <Capability Min="48" Max="63">scan</Capability>
+  <Capability Min="64" Max="79">blink</Capability>
+  <Capability Min="80" Max="95">random</Capability>
+  <Capability Min="96" Max="111">RFU</Capability>
+  <Capability Min="112" Max="127">wheel spin</Capability>
+  <Capability Min="128" Max="143">MSpeed Controlled indexed</Capability>
+  <Capability Min="144" Max="159">Mspeed Controlled frwd rotate</Capability>
+  <Capability Min="160" Max="175">Mspeed Controlled rev rotate</Capability>
+  <Capability Min="176" Max="191">Mspeed Controlled scan</Capability>
+  <Capability Min="192" Max="207">Mspeed Controlled blink</Capability>
+  <Capability Min="208" Max="223">Mspeed Controlled random</Capability>
+  <Capability Min="224" Max="239">Mspeed Controlled RFU</Capability>
+  <Capability Min="240" Max="255">Mspeed Controlled wheel spin</Capability>
+ </Channel>
+ <Channel Name="Litho Wheel Position">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">position 0 (open)</Capability>
+  <Capability Min="16" Max="47">Position 1</Capability>
+  <Capability Min="48" Max="79">Position 2</Capability>
+  <Capability Min="80" Max="111">Position 3</Capability>
+  <Capability Min="112" Max="143">Position 4</Capability>
+  <Capability Min="144" Max="175">Position 5</Capability>
+  <Capability Min="176" Max="207">Position 6</Capability>
+  <Capability Min="208" Max="239">Position 7</Capability>
+  <Capability Min="240" Max="255">Position 0 (open)</Capability>
+ </Channel>
+ <Channel Name="Litho Wheel Rotation (H) indexed">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">indexale positions</Capability>
+ </Channel>
+ <Channel Name="Litho Wheel 1 Rotation">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Low Byte</Capability>
+ </Channel>
+ <Channel Name="Effects Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="25">Position 0 (open)</Capability>
+  <Capability Min="26" Max="51">Position 1</Capability>
+  <Capability Min="52" Max="76">Position 2</Capability>
+  <Capability Min="77" Max="102">Position 3</Capability>
+  <Capability Min="103" Max="127">Position 4</Capability>
+  <Capability Min="128" Max="153">MSpeed Controlled Position 0</Capability>
+  <Capability Min="154" Max="178">MSpeed Controlled Position 1</Capability>
+  <Capability Min="179" Max="204">MSpeed Controlled Position 2</Capability>
+  <Capability Min="205" Max="229">MSpeed Controlled Position 3</Capability>
+  <Capability Min="230" Max="255">MSpeed Controlled Position 4</Capability>
+ </Channel>
+ <Channel Name="Effects Rotate Variable">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="120">reverse rotate speed</Capability>
+  <Capability Min="121" Max="134">rotate stop</Capability>
+  <Capability Min="135" Max="255">forward rotate speed</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">close</Capability>
+  <Capability Min="8" Max="67" Preset="StrobeFrequency">periodic strobe</Capability>
+  <Capability Min="68" Max="127" Preset="StrobeRandom">random strobe</Capability>
+  <Capability Min="128" Max="187" Preset="RampUpSlowToFast">ramp open/snap shut</Capability>
+  <Capability Min="188" Max="247" Preset="RampDownSlowToFast">snap open/ramp shut</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Mspeed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">controller Crossfade</Capability>
+  <Capability Min="4" Max="255">longest sec. - short sec.</Capability>
+ </Channel>
+ <Channel Name="Macros / LAD">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">no macro / LAD off</Capability>
+  <Capability Min="8" Max="11">Macro 1</Capability>
+  <Capability Min="12" Max="15">Macro 2</Capability>
+  <Capability Min="16" Max="19">Macro 3</Capability>
+  <Capability Min="20" Max="23">Macro 4</Capability>
+  <Capability Min="24" Max="27">Macro 5</Capability>
+  <Capability Min="28" Max="31">Macro 6</Capability>
+  <Capability Min="32" Max="35">Macro 7</Capability>
+  <Capability Min="36" Max="39">Macro 8</Capability>
+  <Capability Min="40" Max="43">Macro 9</Capability>
+  <Capability Min="44" Max="47">Macro 10</Capability>
+  <Capability Min="48" Max="51">Macro 11</Capability>
+  <Capability Min="52" Max="55">Macro 12</Capability>
+  <Capability Min="56" Max="59">Macro 13</Capability>
+  <Capability Min="60" Max="63">Macro 14</Capability>
+  <Capability Min="64" Max="67">Macro 15</Capability>
+  <Capability Min="68" Max="71">Macro 16</Capability>
+  <Capability Min="72" Max="75">Macro 17</Capability>
+  <Capability Min="76" Max="79">Macro 18</Capability>
+  <Capability Min="80" Max="83">Macro 19</Capability>
+  <Capability Min="84" Max="87">Macro 20</Capability>
+  <Capability Min="88" Max="91">Macro 21</Capability>
+  <Capability Min="92" Max="95">Macro 22</Capability>
+  <Capability Min="96" Max="99">Macro 23</Capability>
+  <Capability Min="100" Max="103">Macro 24</Capability>
+  <Capability Min="104" Max="107">Macro 25</Capability>
+  <Capability Min="108" Max="111">Macro 26</Capability>
+  <Capability Min="112" Max="115">Macro 27</Capability>
+  <Capability Min="116" Max="119">Macro 28</Capability>
+  <Capability Min="120" Max="127">LAD Off /No Macros</Capability>
+  <Capability Min="128" Max="247">LAD Modulate</Capability>
+  <Capability Min="248" Max="255">LAD On</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">Safe</Capability>
+  <Capability Min="8" Max="23">No function</Capability>
+  <Capability Min="24" Max="26">Display off</Capability>
+  <Capability Min="27" Max="31">No function</Capability>
+  <Capability Min="32" Max="34">Display dim</Capability>
+  <Capability Min="35" Max="39">No function</Capability>
+  <Capability Min="40" Max="42">Display bright</Capability>
+  <Capability Min="43" Max="63">No function</Capability>
+  <Capability Min="64" Max="66">Home</Capability>
+  <Capability Min="67" Max="79">No function</Capability>
+  <Capability Min="80" Max="82" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="83" Max="95">No function</Capability>
+  <Capability Min="96" Max="96" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="97" Max="127">No function</Capability>
+  <Capability Min="128" Max="130">Shutdown</Capability>
+  <Capability Min="131" Max="255">Reserved</Capability>
+ </Channel>
+ <Mode Name="Technobeam 18 channel indexed mode">
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Color Function</Channel>
+  <Channel Number="5">Color Wheel Position</Channel>
+  <Channel Number="6">Litho Wheel Function</Channel>
+  <Channel Number="7">Litho Wheel Position</Channel>
+  <Channel Number="8">Litho Wheel Rotation (H) indexed</Channel>
+  <Channel Number="9">Litho Wheel 1 Rotation</Channel>
+  <Channel Number="10">Effects Wheel</Channel>
+  <Channel Number="11">Effects Rotate Variable</Channel>
+  <Channel Number="12">Focus</Channel>
+  <Channel Number="13">Shutter</Channel>
+  <Channel Number="14">Dimmer</Channel>
+  <Channel Number="15">Mspeed</Channel>
+  <Channel Number="16">Macros / LAD</Channel>
+  <Channel Number="17">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="6500"/>
+  <Dimensions Weight="16" Width="322" Height="241" Depth="825"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="95"/>
+  <Technical PowerConsumption="375" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

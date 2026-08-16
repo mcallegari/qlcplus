@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Klaus Muth</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TMH FE-600</Model>
+ <Type>Flower</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Decreasing Speed</Capability>
+  <Capability Min="226" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe - Increasing Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="49">Speed 1</Capability>
+  <Capability Min="50" Max="99">Speed 2</Capability>
+  <Capability Min="100" Max="149">Speed 3</Capability>
+  <Capability Min="150" Max="255">Speed 4</Capability>
+ </Channel>
+ <Channel Name="Lens Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">0° to 60°</Capability>
+  <Capability Min="128" Max="190">Rotate Reverse decreasing Speed</Capability>
+  <Capability Min="191" Max="192">Stop</Capability>
+  <Capability Min="193" Max="255">Rotate increasing Speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Colour Preset">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="30" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="79" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="80" Max="104" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="105" Max="129">Preset 1</Capability>
+  <Capability Min="130" Max="154">Preset 2</Capability>
+  <Capability Min="155" Max="174">Preset 3</Capability>
+  <Capability Min="175" Max="179">Preset 4</Capability>
+  <Capability Min="180" Max="184">Preset 5</Capability>
+  <Capability Min="185" Max="189">Preset 6</Capability>
+  <Capability Min="190" Max="194">Preset 7</Capability>
+  <Capability Min="195" Max="199">Preset 8</Capability>
+  <Capability Min="200" Max="204">Preset 9</Capability>
+  <Capability Min="205" Max="209">Preset 10</Capability>
+  <Capability Min="210" Max="210">No function</Capability>
+  <Capability Min="211" Max="255">Color Fade</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="79">No function</Capability>
+  <Capability Min="80" Max="99" Preset="ResetAll">Reset All</Capability>
+  <Capability Min="100" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="15-Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer Speed</Channel>
+  <Channel Number="8">Lens Rotation</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Blue</Channel>
+  <Channel Number="12">White</Channel>
+  <Channel Number="13">Colour Preset</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8300"/>
+  <Dimensions Weight="5" Width="190" Height="330" Depth="245"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="190"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

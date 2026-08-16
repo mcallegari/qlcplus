@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Louis Gutenschwager</Author>
+ </Creator>
+ <Manufacturer>High End Systems</Manufacturer>
+ <Model>Trackspot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="14">Forward Color Spin 8</Capability>
+  <Capability Min="15" Max="21">Forward Color Spin 7</Capability>
+  <Capability Min="22" Max="29">Forward Color Spin 6</Capability>
+  <Capability Min="30" Max="35">Forward Color Spin 5</Capability>
+  <Capability Min="36" Max="42">Forward Color Spin 4</Capability>
+  <Capability Min="43" Max="50">Forward Color Spin 3</Capability>
+  <Capability Min="51" Max="58">Forward Color Spin 2</Capability>
+  <Capability Min="59" Max="63">Forward Color Spin 1</Capability>
+  <Capability Min="64" Max="70">Reverse Color Spin 8</Capability>
+  <Capability Min="71" Max="78">Reverse Color Spin 7</Capability>
+  <Capability Min="79" Max="86">Reverse Color Spin 6</Capability>
+  <Capability Min="87" Max="93">Reverse Color Spin 5</Capability>
+  <Capability Min="94" Max="98">Reverse Color Spin 4</Capability>
+  <Capability Min="99" Max="106">Reverse Color Spin 3</Capability>
+  <Capability Min="107" Max="111">Reverse Color Spin 2</Capability>
+  <Capability Min="112" Max="119">Reverse Color Spin 1</Capability>
+  <Capability Min="120" Max="127">half color 2</Capability>
+  <Capability Min="128" Max="132">color 2</Capability>
+  <Capability Min="133" Max="139">half color 3</Capability>
+  <Capability Min="140" Max="147">color 3</Capability>
+  <Capability Min="148" Max="155">half color 4</Capability>
+  <Capability Min="156" Max="162">color 4</Capability>
+  <Capability Min="163" Max="167">half color 5</Capability>
+  <Capability Min="168" Max="175">color 5</Capability>
+  <Capability Min="176" Max="183">half color 6</Capability>
+  <Capability Min="184" Max="190">color 6</Capability>
+  <Capability Min="191" Max="195">half color 7</Capability>
+  <Capability Min="196" Max="203">color 7</Capability>
+  <Capability Min="204" Max="211">half color 8</Capability>
+  <Capability Min="212" Max="218">color 8</Capability>
+  <Capability Min="219" Max="223">half color 9</Capability>
+  <Capability Min="224" Max="231">color 9</Capability>
+  <Capability Min="232" Max="239">half color 10</Capability>
+  <Capability Min="240" Max="246">color 10</Capability>
+  <Capability Min="247" Max="251">half color 1</Capability>
+  <Capability Min="252" Max="255">open</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">open</Capability>
+  <Capability Min="10" Max="17">forward gobo spin 7</Capability>
+  <Capability Min="18" Max="27">forward gobo spin 6</Capability>
+  <Capability Min="28" Max="37">forward gobo spin 5</Capability>
+  <Capability Min="38" Max="45">forward gobo spin 4</Capability>
+  <Capability Min="46" Max="55">forward gobo spin 3</Capability>
+  <Capability Min="56" Max="63">forward gobo spin 2</Capability>
+  <Capability Min="64" Max="81">forward gobo spin 1</Capability>
+  <Capability Min="82" Max="91">Reverse gobo spin 7</Capability>
+  <Capability Min="92" Max="98">Reverse gobo spin 6</Capability>
+  <Capability Min="99" Max="109">Reverse gobo spin 5</Capability>
+  <Capability Min="110" Max="116">Reverse gobo spin 4</Capability>
+  <Capability Min="117" Max="127">Reverse gobo spin 3</Capability>
+  <Capability Min="128" Max="134">Reverse gobo spin 2</Capability>
+  <Capability Min="135" Max="154">Reverse gobo spin 1</Capability>
+  <Capability Min="155" Max="178">gobo 2</Capability>
+  <Capability Min="179" Max="190">gobo 3</Capability>
+  <Capability Min="191" Max="200">gobo 4</Capability>
+  <Capability Min="201" Max="208">gobo 5</Capability>
+  <Capability Min="209" Max="216">gobo 6</Capability>
+  <Capability Min="217" Max="226">gobo 7</Capability>
+  <Capability Min="227" Max="234">gobo 8</Capability>
+  <Capability Min="235" Max="244">gobo 9</Capability>
+  <Capability Min="245" Max="251">gobo 10</Capability>
+  <Capability Min="252" Max="255">gobo open</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="25" Preset="ShutterClose">closed</Capability>
+  <Capability Min="26" Max="50" Preset="ShutterOpen">open</Capability>
+  <Capability Min="51" Max="76" Preset="StrobeRandom">strobe 1</Capability>
+  <Capability Min="77" Max="101" Preset="StrobeRandom">strobe 2</Capability>
+  <Capability Min="102" Max="127" Preset="StrobeRandom">strobe 3</Capability>
+  <Capability Min="128" Max="152" Preset="StrobeRandom">strobe 4</Capability>
+  <Capability Min="153" Max="178" Preset="StrobeRandom">strobe 5</Capability>
+  <Capability Min="179" Max="203" Preset="StrobeRandom">strobe 6</Capability>
+  <Capability Min="204" Max="229" Preset="StrobeRandom">strobe 7</Capability>
+  <Capability Min="230" Max="241" Preset="ShutterClose">closed</Capability>
+  <Capability Min="242" Max="255" Preset="ShutterOpen">open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="MSpeed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">slowest-fastest</Capability>
+ </Channel>
+ <Mode Name="High Resolution Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color Wheel</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">MSpeed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="QT 8500" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11" Width="650" Height="178" Depth="221"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

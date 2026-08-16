@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>JL Griffin</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Spherion Tri LED</Model>
+ <Type>Effect</Type>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="47">Show 1</Capability>
+  <Capability Min="48" Max="87">Show 2</Capability>
+  <Capability Min="88" Max="127">Show 3</Capability>
+  <Capability Min="128" Max="167">Show 4</Capability>
+  <Capability Min="168" Max="207">Show 5</Capability>
+  <Capability Min="208" Max="247">Show 6</Capability>
+  <Capability Min="248" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Stop</Capability>
+  <Capability Min="10" Max="113">Clockwise [Fast &gt; Slow]</Capability>
+  <Capability Min="114" Max="141">Stop</Capability>
+  <Capability Min="142" Max="245">Counter Clockwise [Fast &gt; Slow]</Capability>
+  <Capability Min="246" Max="247">Stop</Capability>
+  <Capability Min="248" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="199">Dimmer [0% &gt; 100%]</Capability>
+  <Capability Min="200" Max="247">Strobe [Fast &gt; Slow]</Capability>
+  <Capability Min="248" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="46">Color 1</Capability>
+  <Capability Min="47" Max="85">Color 2</Capability>
+  <Capability Min="86" Max="124">Color 3</Capability>
+  <Capability Min="125" Max="163">Color 4</Capability>
+  <Capability Min="164" Max="202">Color 5</Capability>
+  <Capability Min="203" Max="240">Color 6</Capability>
+  <Capability Min="241" Max="255">Color 7</Capability>
+ </Channel>
+ <Mode Name="1 Ch. [Default]">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+ <Mode Name="3 Ch">
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Color Macros</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="190" Height="422" Depth="320"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="27" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

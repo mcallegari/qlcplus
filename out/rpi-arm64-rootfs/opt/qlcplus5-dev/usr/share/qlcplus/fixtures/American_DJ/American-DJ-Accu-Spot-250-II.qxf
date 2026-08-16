@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Lime Lounge</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Accu Spot 250 II</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="52" Max="64" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="77" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="78" Max="90" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="91" Max="103" Preset="ColorMacro" Res1="#8000ff">Purple</Capability>
+  <Capability Min="104" Max="116" Preset="ColorMacro" Res1="#ff66ff">Pink</Capability>
+  <Capability Min="117" Max="127" Preset="ColorMacro" Res1="#66ccff">Light Blue</Capability>
+  <Capability Min="128" Max="187" Preset="GoboMacro" Res1="Others/rainbow.png">Forward Rainbow Effect (Fast -&gt; Slow)</Capability>
+  <Capability Min="188" Max="193">No Rotation</Capability>
+  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backward Rainbow Effect (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00036.svg">Star Circle (Metal)</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00023.svg">Cross (Metal)</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric)</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00034.png">Textured Glass (Glass)</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00037.svg">Donut (Metal)</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle (Metal)</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Others/gobo00029.svg">Dot Line (Metal)</Capability>
+  <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Star Circle (Metal) Shake</Capability>
+  <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Cross (Metal) Shake</Capability>
+  <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric) Shake</Capability>
+  <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="Others/gobo00034.png">Textured Glass (Glass) Shake</Capability>
+  <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00037.svg">Donut (Metal) Shake</Capability>
+  <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Triangle (Metal) Shake</Capability>
+  <Capability Min="200" Max="219" Preset="GoboShakeMacro" Res1="Others/gobo00029.svg">Dot Line (Metal) Shake</Capability>
+  <Capability Min="220" Max="255" Preset="RotationClockwiseSlowToFast">Rotating Gobo Wheel (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="8" Max="127" Preset="RotationClockwiseFastToSlow">Forward Gobo Rotation (Fast -&gt; Slow)</Capability>
+  <Capability Min="128" Max="135" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="136" Max="255" Preset="RotationCounterClockwiseFastToSlow">Backward Gobo Rotation (Fast -&gt; Slow)</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="4" Max="63" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="128" Max="159">Pulse Effect</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe (Slow -&gt; Fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Lamp On/Off/Reset/Internal Programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">Color Change Normal</Capability>
+  <Capability Min="20" Max="39">Color Change To Any Position</Capability>
+  <Capability Min="40" Max="59">Lamp On</Capability>
+  <Capability Min="60" Max="79">Lamp Switch Off</Capability>
+  <Capability Min="80" Max="84">All Motor Reset</Capability>
+  <Capability Min="85" Max="87">Scanner Motor Reset</Capability>
+  <Capability Min="88" Max="90">Color Wheel Motor Reset</Capability>
+  <Capability Min="91" Max="93">Gobo Wheel Motor Reset</Capability>
+  <Capability Min="94" Max="96">Shutter/Dimmer Motor Reset</Capability>
+  <Capability Min="97" Max="99">No function</Capability>
+  <Capability Min="100" Max="119">Internal Program 1</Capability>
+  <Capability Min="120" Max="139">Internal Program 2</Capability>
+  <Capability Min="140" Max="159">Internal Program 3</Capability>
+  <Capability Min="160" Max="179">Internal Program 4</Capability>
+  <Capability Min="180" Max="199">Internal Program 5</Capability>
+  <Capability Min="200" Max="219">Internal Program 6</Capability>
+  <Capability Min="220" Max="239">Internal Program 7</Capability>
+  <Capability Min="240" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Max -&gt; Min</Capability>
+  <Capability Min="226" Max="235">Blackout By Movement</Capability>
+  <Capability Min="236" Max="245">Blackout By Wheel Movement</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="8 Channel Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter/Strobe</Channel>
+  <Channel Number="6">Lamp On/Off/Reset/Internal Programs</Channel>
+  <Channel Number="7">Movement Speed</Channel>
+ </Mode>
+ <Mode Name="9 Channel Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter/Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Lamp On/Off/Reset/Internal Programs</Channel>
+  <Channel Number="8">Movement Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="18" Width="295" Height="451" Depth="373"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="360" TiltMax="265"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

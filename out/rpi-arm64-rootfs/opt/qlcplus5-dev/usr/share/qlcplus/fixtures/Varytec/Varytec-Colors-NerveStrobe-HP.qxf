@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Giacomo &amp; Michel</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>Colors NerveStrobe HP</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="White Bar Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="White Bar Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">LEDs On</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">LEDs Off</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Impulses, increasing speed</Capability>
+  <Capability Min="34" Max="56">Randomly increasing brightness, increasing speed</Capability>
+  <Capability Min="57" Max="79">Randomly decreasing brightness, increasing speed</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandomSlowToFast">Random Strobe effect, increasing speed</Capability>
+  <Capability Min="103" Max="127">Burst strobe, 5 s to 1 s</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe effect, increasing speed, from 1 Hz to 20 Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs on</Capability>
+ </Channel>
+ <Channel Name="White Bar Constant Strobe Pulse">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="PulseSlowToFast">Strobe impulse duration, increasing from 7 ms to 650 ms</Capability>
+ </Channel>
+ <Channel Name="Wash Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Wash Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Wash Dimmer Segment 1" Preset="IntensityDimmer"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 2" Preset="IntensityDimmer"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 3" Preset="IntensityDimmer"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 4" Preset="IntensityDimmer"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 5" Preset="IntensityDimmer"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 6" Preset="IntensityDimmer"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 7" Preset="IntensityDimmer"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 8" Preset="IntensityDimmer"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 9" Preset="IntensityDimmer"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 10" Preset="IntensityDimmer"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="White 10" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 11" Preset="IntensityDimmer"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="White 11" Preset="IntensityWhite"/>
+ <Channel Name="Wash Dimmer Segment 12" Preset="IntensityDimmer"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="White 12" Preset="IntensityWhite"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">LEDs off (blackout)</Capability>
+  <Capability Min="6" Max="13">Red</Capability>
+  <Capability Min="14" Max="21">Amber</Capability>
+  <Capability Min="22" Max="29">Warm yellow</Capability>
+  <Capability Min="30" Max="37">Yellow</Capability>
+  <Capability Min="38" Max="45">Green</Capability>
+  <Capability Min="46" Max="53">Turquoise</Capability>
+  <Capability Min="54" Max="61">Cyan</Capability>
+  <Capability Min="62" Max="69">Blue</Capability>
+  <Capability Min="70" Max="77">Lavender</Capability>
+  <Capability Min="78" Max="85">Mauve</Capability>
+  <Capability Min="86" Max="93">Magenta</Capability>
+  <Capability Min="94" Max="101">Pink</Capability>
+  <Capability Min="102" Max="109">Warm white</Capability>
+  <Capability Min="110" Max="117">White</Capability>
+  <Capability Min="118" Max="125">Cold white</Capability>
+  <Capability Min="126" Max="127">Colour Change</Capability>
+  <Capability Min="128" Max="192">Colour change from colour 1 to colour 12, speed increasing</Capability>
+  <Capability Min="193" Max="255">Gradual colour change from colour 1 to colour 12, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Wash Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="25">Pattern 1</Capability>
+  <Capability Min="26" Max="40">Pattern 2</Capability>
+  <Capability Min="41" Max="55">Pattern 3</Capability>
+  <Capability Min="56" Max="70">Pattern 4</Capability>
+  <Capability Min="71" Max="85">Pattern 5</Capability>
+  <Capability Min="86" Max="100">Pattern 6</Capability>
+  <Capability Min="101" Max="115">Pattern 7</Capability>
+  <Capability Min="116" Max="130">Pattern 8</Capability>
+  <Capability Min="131" Max="145">Pattern 9</Capability>
+  <Capability Min="146" Max="160">Pattern 10</Capability>
+  <Capability Min="161" Max="175">Pattern 11</Capability>
+  <Capability Min="176" Max="190">Pattern 12</Capability>
+  <Capability Min="191" Max="205">Pattern 13</Capability>
+  <Capability Min="206" Max="220">Pattern 14</Capability>
+  <Capability Min="221" Max="235">Pattern 15</Capability>
+  <Capability Min="236" Max="250">Pattern 16</Capability>
+  <Capability Min="251" Max="255">No Function</Capability>
+ </Channel>
+ <Channel Name="Pattern Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pattern Speed (Increasing)</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">White Bar Dimmer</Channel>
+  <Channel Number="1">White Bar Strobe</Channel>
+  <Channel Number="2">Color Macro</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">White Bar Dimmer</Channel>
+  <Channel Number="1">White Bar Strobe</Channel>
+  <Channel Number="2">Wash Dimmer</Channel>
+  <Channel Number="3">Color Macro</Channel>
+  <Channel Number="4">Wash Patterns</Channel>
+  <Channel Number="5" ActsOn="4">Pattern Speed</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">White Bar Dimmer</Channel>
+  <Channel Number="1">White Bar Strobe</Channel>
+  <Channel Number="2" ActsOn="1">White Bar Constant Strobe Pulse</Channel>
+  <Channel Number="3">Wash Dimmer</Channel>
+  <Channel Number="4">Wash Strobe</Channel>
+  <Channel Number="5">Red 1</Channel>
+  <Channel Number="6">Green 1</Channel>
+  <Channel Number="7">Blue 1</Channel>
+  <Channel Number="8">White 1</Channel>
+  <Channel Number="9">Color Macro</Channel>
+  <Channel Number="10">Wash Patterns</Channel>
+  <Channel Number="11" ActsOn="10">Pattern Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">White Bar Dimmer</Channel>
+  <Channel Number="1">White Bar Strobe</Channel>
+  <Channel Number="2" ActsOn="1">White Bar Constant Strobe Pulse</Channel>
+  <Channel Number="3">Wash Dimmer</Channel>
+  <Channel Number="4">Wash Strobe</Channel>
+  <Channel Number="5">Red 1</Channel>
+  <Channel Number="6">Green 1</Channel>
+  <Channel Number="7">Blue 1</Channel>
+  <Channel Number="8">White 1</Channel>
+  <Channel Number="9">Red 2</Channel>
+  <Channel Number="10">Green 2</Channel>
+  <Channel Number="11">Blue 2</Channel>
+  <Channel Number="12">White 2</Channel>
+  <Channel Number="13">Color Macro</Channel>
+  <Channel Number="14">Wash Patterns</Channel>
+  <Channel Number="15" ActsOn="14">Pattern Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="56 Channel">
+  <Channel Number="0">White Bar Dimmer</Channel>
+  <Channel Number="1">White Bar Strobe</Channel>
+  <Channel Number="2" ActsOn="1">White Bar Constant Strobe Pulse</Channel>
+  <Channel Number="3">Wash Dimmer</Channel>
+  <Channel Number="4">Wash Strobe</Channel>
+  <Channel Number="5">Color Macro</Channel>
+  <Channel Number="6">Wash Patterns</Channel>
+  <Channel Number="7" ActsOn="6">Pattern Speed</Channel>
+  <Channel Number="8">Red 1</Channel>
+  <Channel Number="9">Green 1</Channel>
+  <Channel Number="10">Blue 1</Channel>
+  <Channel Number="11">White 1</Channel>
+  <Channel Number="12">Red 2</Channel>
+  <Channel Number="13">Green 2</Channel>
+  <Channel Number="14">Blue 2</Channel>
+  <Channel Number="15">White 2</Channel>
+  <Channel Number="16">Red 3</Channel>
+  <Channel Number="17">Green 3</Channel>
+  <Channel Number="18">Blue 3</Channel>
+  <Channel Number="19">White 3</Channel>
+  <Channel Number="20">Red 4</Channel>
+  <Channel Number="21">Green 4</Channel>
+  <Channel Number="22">Blue 4</Channel>
+  <Channel Number="23">White 4</Channel>
+  <Channel Number="24">Red 5</Channel>
+  <Channel Number="25">Green 5</Channel>
+  <Channel Number="26">Blue 5</Channel>
+  <Channel Number="27">White 5</Channel>
+  <Channel Number="28">Red 6</Channel>
+  <Channel Number="29">Green 6</Channel>
+  <Channel Number="30">Blue 6</Channel>
+  <Channel Number="31">White 6</Channel>
+  <Channel Number="32">Red 7</Channel>
+  <Channel Number="33">Green 7</Channel>
+  <Channel Number="34">Blue 7</Channel>
+  <Channel Number="35">White 7</Channel>
+  <Channel Number="36">Red 8</Channel>
+  <Channel Number="37">Green 8</Channel>
+  <Channel Number="38">Blue 8</Channel>
+  <Channel Number="39">White 8</Channel>
+  <Channel Number="40">Red 9</Channel>
+  <Channel Number="41">Green 9</Channel>
+  <Channel Number="42">Blue 9</Channel>
+  <Channel Number="43">White 9</Channel>
+  <Channel Number="44">Red 10</Channel>
+  <Channel Number="45">Green 10</Channel>
+  <Channel Number="46">Blue 10</Channel>
+  <Channel Number="47">White 10</Channel>
+  <Channel Number="48">Red 11</Channel>
+  <Channel Number="49">Green 11</Channel>
+  <Channel Number="50">Blue 11</Channel>
+  <Channel Number="51">White 11</Channel>
+  <Channel Number="52">Red 12</Channel>
+  <Channel Number="53">Green 12</Channel>
+  <Channel Number="54">Blue 12</Channel>
+  <Channel Number="55">White 12</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="68 Channel">
+  <Channel Number="0">White Bar Dimmer</Channel>
+  <Channel Number="1">White Bar Strobe</Channel>
+  <Channel Number="2" ActsOn="1">White Bar Constant Strobe Pulse</Channel>
+  <Channel Number="3">Wash Dimmer</Channel>
+  <Channel Number="4">Wash Strobe</Channel>
+  <Channel Number="5">Color Macro</Channel>
+  <Channel Number="6">Wash Patterns</Channel>
+  <Channel Number="7" ActsOn="6">Pattern Speed</Channel>
+  <Channel Number="8">Wash Dimmer Segment 1</Channel>
+  <Channel Number="9">Red 1</Channel>
+  <Channel Number="10">Green 1</Channel>
+  <Channel Number="11">Blue 1</Channel>
+  <Channel Number="12">White 1</Channel>
+  <Channel Number="13">Wash Dimmer Segment 2</Channel>
+  <Channel Number="14">Red 2</Channel>
+  <Channel Number="15">Green 2</Channel>
+  <Channel Number="16">Blue 2</Channel>
+  <Channel Number="17">White 2</Channel>
+  <Channel Number="18">Wash Dimmer Segment 3</Channel>
+  <Channel Number="19">Red 3</Channel>
+  <Channel Number="20">Green 3</Channel>
+  <Channel Number="21">Blue 3</Channel>
+  <Channel Number="22">White 3</Channel>
+  <Channel Number="23">Wash Dimmer Segment 4</Channel>
+  <Channel Number="24">Red 4</Channel>
+  <Channel Number="25">Green 4</Channel>
+  <Channel Number="26">Blue 4</Channel>
+  <Channel Number="27">White 4</Channel>
+  <Channel Number="28">Wash Dimmer Segment 5</Channel>
+  <Channel Number="29">Red 5</Channel>
+  <Channel Number="30">Green 5</Channel>
+  <Channel Number="31">Blue 5</Channel>
+  <Channel Number="32">White 5</Channel>
+  <Channel Number="33">Wash Dimmer Segment 6</Channel>
+  <Channel Number="34">Red 6</Channel>
+  <Channel Number="35">Green 6</Channel>
+  <Channel Number="36">Blue 6</Channel>
+  <Channel Number="37">White 6</Channel>
+  <Channel Number="38">Wash Dimmer Segment 7</Channel>
+  <Channel Number="39">Red 7</Channel>
+  <Channel Number="40">Green 7</Channel>
+  <Channel Number="41">Blue 7</Channel>
+  <Channel Number="42">White 7</Channel>
+  <Channel Number="43">Wash Dimmer Segment 8</Channel>
+  <Channel Number="44">Red 8</Channel>
+  <Channel Number="45">Green 8</Channel>
+  <Channel Number="46">Blue 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Channel Number="48">Wash Dimmer Segment 9</Channel>
+  <Channel Number="49">Red 9</Channel>
+  <Channel Number="50">Green 9</Channel>
+  <Channel Number="51">Blue 9</Channel>
+  <Channel Number="52">White 9</Channel>
+  <Channel Number="53">Wash Dimmer Segment 10</Channel>
+  <Channel Number="54">Red 10</Channel>
+  <Channel Number="55">Green 10</Channel>
+  <Channel Number="56">Blue 10</Channel>
+  <Channel Number="57">White 10</Channel>
+  <Channel Number="58">Wash Dimmer Segment 11</Channel>
+  <Channel Number="59">Red 11</Channel>
+  <Channel Number="60">Green 11</Channel>
+  <Channel Number="61">Blue 11</Channel>
+  <Channel Number="62">White 11</Channel>
+  <Channel Number="63">Wash Dimmer Segment 12</Channel>
+  <Channel Number="64">Red 12</Channel>
+  <Channel Number="65">Green 12</Channel>
+  <Channel Number="66">Blue 12</Channel>
+  <Channel Number="67">White 12</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+  </Head>
+  <Head>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+   <Channel>56</Channel>
+   <Channel>55</Channel>
+   <Channel>54</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+  <Head>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
+  <Dimensions Weight="5.5" Width="446" Height="248" Depth="100"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="6" Height="1"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

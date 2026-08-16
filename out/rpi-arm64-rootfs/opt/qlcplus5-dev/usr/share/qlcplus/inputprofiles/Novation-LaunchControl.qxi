@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Novation</Manufacturer>
+ <Model>Launch Control</Model>
+ <Type>MIDI</Type>
+ <Channel Number="21">
+  <Name>Knob 1A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Knob 2A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Knob 3A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Knob 4A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Knob 5A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Knob 6A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Knob 7A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Knob 8A User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Knob 1B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Knob 2B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Knob 3B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Knob 4B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Knob 5B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Knob 6B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Knob 7B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Knob 8B User</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="114">
+  <Name>Button UP User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="115">
+  <Name>Button DOWN User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="116">
+  <Name>Button LEFT User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="117">
+  <Name>Button RIGHT User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Button 1 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Button 2 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Button 3 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Button 4 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Button 5 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Button 6 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Button 7 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Button 8 User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32789">
+  <Name>Knob 1A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32790">
+  <Name>Knob 2A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32791">
+  <Name>Knob 3A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32792">
+  <Name>Knob 4A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32793">
+  <Name>Knob 5A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32794">
+  <Name>Knob 6A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32795">
+  <Name>Knob 7A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32796">
+  <Name>Knob 8A Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32809">
+  <Name>Knob 1B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32810">
+  <Name>Knob 2B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32811">
+  <Name>Knob 3B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32812">
+  <Name>Knob 4B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32813">
+  <Name>Knob 5B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32814">
+  <Name>Knob 6B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32815">
+  <Name>Knob 7B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32816">
+  <Name>Knob 8B Factory</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32882">
+  <Name>Button UP Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32883">
+  <Name>Button DOWN Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32884">
+  <Name>Button LEFT Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32885">
+  <Name>Button RIGHT Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32905">
+  <Name>Button 1 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32906">
+  <Name>Button 2 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32907">
+  <Name>Button 3 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32908">
+  <Name>Button 4 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32921">
+  <Name>Button 5 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32922">
+  <Name>Button 6 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32923">
+  <Name>Button 7 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32924">
+  <Name>Button 8 Factory</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>

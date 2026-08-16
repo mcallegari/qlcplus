@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Fede79</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Microbar Multi System</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="49" Preset="Alias">Par auto
+   <Alias Mode="3 Channel" Channel="No Function" With="Par auto"/>
+  </Capability>
+  <Capability Min="50" Max="89" Preset="Alias">Effect auto
+   <Alias Mode="3 Channel" Channel="No Function" With="Effect auto"/>
+  </Capability>
+  <Capability Min="90" Max="129" Preset="Alias">Par &amp; Effect auto
+   <Alias Mode="3 Channel" Channel="No Function" With="Par &amp; Effect auto"/>
+  </Capability>
+  <Capability Min="130" Max="169" Preset="Alias">Par sound active
+   <Alias Mode="3 Channel" Channel="No Function" With="Par sound active"/>
+  </Capability>
+  <Capability Min="170" Max="209" Preset="Alias">Effect sound active
+   <Alias Mode="3 Channel" Channel="No Function" With="Effect sound active"/>
+  </Capability>
+  <Capability Min="210" Max="255" Preset="Alias">Par &amp; Effect sound active
+   <Alias Mode="3 Channel" Channel="No Function" With="Par &amp; Effect sound active"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Par auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">AP01</Capability>
+  <Capability Min="20" Max="39">AP02</Capability>
+  <Capability Min="40" Max="59">AP03</Capability>
+  <Capability Min="60" Max="79">AP04</Capability>
+  <Capability Min="80" Max="99">AP05</Capability>
+  <Capability Min="100" Max="119">AP06</Capability>
+  <Capability Min="120" Max="139">AP07</Capability>
+  <Capability Min="140" Max="159">AP08</Capability>
+  <Capability Min="160" Max="179">AP09</Capability>
+  <Capability Min="180" Max="199">AP10</Capability>
+  <Capability Min="200" Max="219">AP11</Capability>
+  <Capability Min="220" Max="239">AP12</Capability>
+  <Capability Min="240" Max="255">AP13</Capability>
+ </Channel>
+ <Channel Name="Effect auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">AF01</Capability>
+  <Capability Min="20" Max="39">AF02</Capability>
+  <Capability Min="40" Max="59">AF03</Capability>
+  <Capability Min="60" Max="79">AF04</Capability>
+  <Capability Min="80" Max="99">AF05</Capability>
+  <Capability Min="100" Max="119">AF06</Capability>
+  <Capability Min="120" Max="255">AF07</Capability>
+ </Channel>
+ <Channel Name="Par &amp; Effect auto">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">AN01</Capability>
+  <Capability Min="20" Max="39">AN02</Capability>
+  <Capability Min="40" Max="59">AN03</Capability>
+  <Capability Min="60" Max="79">AN04</Capability>
+  <Capability Min="80" Max="99">AN05</Capability>
+  <Capability Min="100" Max="119">AN06</Capability>
+  <Capability Min="120" Max="139">AN07</Capability>
+  <Capability Min="140" Max="159">AN08</Capability>
+  <Capability Min="160" Max="179">AN09</Capability>
+  <Capability Min="180" Max="255">AN10</Capability>
+ </Channel>
+ <Channel Name="Par sound active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">SP01</Capability>
+  <Capability Min="20" Max="39">SP02</Capability>
+  <Capability Min="40" Max="59">SP03</Capability>
+  <Capability Min="60" Max="79">SP04</Capability>
+  <Capability Min="80" Max="99">SP05</Capability>
+  <Capability Min="100" Max="119">SP06</Capability>
+  <Capability Min="120" Max="139">SP07</Capability>
+  <Capability Min="140" Max="159">SP08</Capability>
+  <Capability Min="160" Max="179">SP09</Capability>
+  <Capability Min="180" Max="199">SP10</Capability>
+  <Capability Min="200" Max="219">SP11</Capability>
+  <Capability Min="220" Max="239">SP12</Capability>
+  <Capability Min="240" Max="255">SP13</Capability>
+ </Channel>
+ <Channel Name="Effect sound active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">SF01</Capability>
+  <Capability Min="20" Max="39">SF02</Capability>
+  <Capability Min="40" Max="59">SF03</Capability>
+  <Capability Min="60" Max="79">SF04</Capability>
+  <Capability Min="80" Max="99">SF05</Capability>
+  <Capability Min="100" Max="119">SF06</Capability>
+  <Capability Min="120" Max="255">SF07</Capability>
+ </Channel>
+ <Channel Name="Par &amp; Effect sound active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">SN01</Capability>
+  <Capability Min="20" Max="39">SN02</Capability>
+  <Capability Min="40" Max="59">SN03</Capability>
+  <Capability Min="60" Max="79">SN04</Capability>
+  <Capability Min="80" Max="99">SN05</Capability>
+  <Capability Min="100" Max="119">SN06</Capability>
+  <Capability Min="120" Max="139">SN07</Capability>
+  <Capability Min="140" Max="159">SN08</Capability>
+  <Capability Min="160" Max="179">SN09</Capability>
+  <Capability Min="180" Max="255">SN10</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Speed adjustment</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Motor speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Motor speed</Capability>
+ </Channel>
+ <Channel Name="Red Derby" Preset="IntensityRed"/>
+ <Channel Name="Green Derby" Preset="IntensityGreen"/>
+ <Channel Name="Blue Derby" Preset="IntensityBlue"/>
+ <Channel Name="White Derby" Preset="IntensityWhite"/>
+ <Channel Name="Motor speed Derby">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Motor speed</Capability>
+ </Channel>
+ <Channel Name="Red Pars 1 &amp; 2" Preset="IntensityRed"/>
+ <Channel Name="Green Pars 1 &amp; 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Pars 1 &amp; 2" Preset="IntensityBlue"/>
+ <Channel Name="White Pars 1 &amp; 2" Preset="IntensityWhite"/>
+ <Channel Name="Red Moonflower" Preset="IntensityRed"/>
+ <Channel Name="Green Moonflower" Preset="IntensityGreen"/>
+ <Channel Name="Blue Moonflower" Preset="IntensityBlue"/>
+ <Channel Name="White Moonflower" Preset="IntensityWhite"/>
+ <Channel Name="Motor speed Moonflower">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Motor speed</Capability>
+ </Channel>
+ <Channel Name="No Function">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">No Function</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">No Function</Channel>
+  <Channel Number="2">Speed</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Motor speed</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.7" Width="750" Height="200" Depth="165"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="3" Height="1"/>
+   <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red Derby</Channel>
+  <Channel Number="1">Green Derby</Channel>
+  <Channel Number="2">Blue Derby</Channel>
+  <Channel Number="3">White Derby</Channel>
+  <Channel Number="4">Motor speed Derby</Channel>
+  <Channel Number="5">Red Pars 1 &amp; 2</Channel>
+  <Channel Number="6">Green Pars 1 &amp; 2</Channel>
+  <Channel Number="7">Blue Pars 1 &amp; 2</Channel>
+  <Channel Number="8">White Pars 1 &amp; 2</Channel>
+  <Channel Number="9">Red Moonflower</Channel>
+  <Channel Number="10">Green Moonflower</Channel>
+  <Channel Number="11">Blue Moonflower</Channel>
+  <Channel Number="12">White Moonflower</Channel>
+  <Channel Number="13">Motor speed Moonflower</Channel>
+  <Channel Number="14">Strobe</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.7" Width="750" Height="200" Depth="165"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

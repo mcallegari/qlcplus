@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>ADB</Manufacturer>
+ <Model>ALC4</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="CT Preset">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="76">RGB Mode</Capability>
+  <Capability Min="77" Max="101">White 2700K</Capability>
+  <Capability Min="102" Max="127">White 3000K</Capability>
+  <Capability Min="128" Max="152">White 3200K</Capability>
+  <Capability Min="153" Max="178">White 4200K</Capability>
+  <Capability Min="179" Max="203">White 5600K</Capability>
+  <Capability Min="204" Max="229">White 6000K</Capability>
+  <Capability Min="230" Max="255">White 6500K</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="CT Linear">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">RGB Mode</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Preset 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="76">RGB Mode</Capability>
+  <Capability Min="77" Max="101">White 2700K</Capability>
+  <Capability Min="102" Max="127">White 3000K</Capability>
+  <Capability Min="128" Max="152">White 3200K</Capability>
+  <Capability Min="153" Max="178">White 4200K</Capability>
+  <Capability Min="179" Max="203">White 5600K</Capability>
+  <Capability Min="204" Max="229">White 6000K</Capability>
+  <Capability Min="230" Max="255">White 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Preset 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="76">RGB Mode</Capability>
+  <Capability Min="77" Max="101">White 2700K</Capability>
+  <Capability Min="102" Max="127">White 3000K</Capability>
+  <Capability Min="128" Max="152">White 3200K</Capability>
+  <Capability Min="153" Max="178">White 4200K</Capability>
+  <Capability Min="179" Max="203">White 5600K</Capability>
+  <Capability Min="204" Max="229">White 6000K</Capability>
+  <Capability Min="230" Max="255">White 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Preset 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="76">RGB Mode</Capability>
+  <Capability Min="77" Max="101">White 2700K</Capability>
+  <Capability Min="102" Max="127">White 3000K</Capability>
+  <Capability Min="128" Max="152">White 3200K</Capability>
+  <Capability Min="153" Max="178">White 4200K</Capability>
+  <Capability Min="179" Max="203">White 5600K</Capability>
+  <Capability Min="204" Max="229">White 6000K</Capability>
+  <Capability Min="230" Max="255">White 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Preset 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="76">RGB Mode</Capability>
+  <Capability Min="77" Max="101">White 2700K</Capability>
+  <Capability Min="102" Max="127">White 3000K</Capability>
+  <Capability Min="128" Max="152">White 3200K</Capability>
+  <Capability Min="153" Max="178">White 4200K</Capability>
+  <Capability Min="179" Max="203">White 5600K</Capability>
+  <Capability Min="204" Max="229">White 6000K</Capability>
+  <Capability Min="230" Max="255">White 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Linear 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">RGB Mode</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Linear 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">RGB Mode</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Linear 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">RGB Mode</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
+ </Channel>
+ <Channel Name="CT Linear 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="50">RGB Mode</Capability>
+  <Capability Min="51" Max="255">White 2700K -&gt; 6500K</Capability>
+ </Channel>
+ <Mode Name="Standard 5 Channels (CT 7 Preset)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">CT Preset</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+ </Mode>
+ <Mode Name="Matrix 20 Channels (CT 7 Preset)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">CT Preset 1</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">CT Preset 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">CT Preset 3</Channel>
+  <Channel Number="12">Red 3</Channel>
+  <Channel Number="13">Green 3</Channel>
+  <Channel Number="14">Blue 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">CT Preset 4</Channel>
+  <Channel Number="17">Red 4</Channel>
+  <Channel Number="18">Green 4</Channel>
+  <Channel Number="19">Blue 4</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>5</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Extended 21 Channels (CT 7 Preset)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Dimmer 1</Channel>
+  <Channel Number="2">CT Preset 1</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">CT Preset 2</Channel>
+  <Channel Number="8">Red 2</Channel>
+  <Channel Number="9">Green 2</Channel>
+  <Channel Number="10">Blue 2</Channel>
+  <Channel Number="11">Dimmer 3</Channel>
+  <Channel Number="12">CT Preset 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">Dimmer 4</Channel>
+  <Channel Number="17">CT Preset 4</Channel>
+  <Channel Number="18">Red 4</Channel>
+  <Channel Number="19">Green 4</Channel>
+  <Channel Number="20">Blue 4</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Standard 5 Channels (CT Linear)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">CT Linear</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+ </Mode>
+ <Mode Name="Matrix 20 Channels (CT Linear)">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">CT Linear 1</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Green 1</Channel>
+  <Channel Number="4">Blue 1</Channel>
+  <Channel Number="5">Dimmer 2</Channel>
+  <Channel Number="6">CT Linear 2</Channel>
+  <Channel Number="7">Red 2</Channel>
+  <Channel Number="8">Green 2</Channel>
+  <Channel Number="9">Blue 2</Channel>
+  <Channel Number="10">Dimmer 3</Channel>
+  <Channel Number="11">CT Linear 3</Channel>
+  <Channel Number="12">Red 3</Channel>
+  <Channel Number="13">Green 3</Channel>
+  <Channel Number="14">Blue 3</Channel>
+  <Channel Number="15">Dimmer 4</Channel>
+  <Channel Number="16">CT Linear 4</Channel>
+  <Channel Number="17">Red 4</Channel>
+  <Channel Number="18">Green 4</Channel>
+  <Channel Number="19">Blue 4</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>5</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Extended 21 Channels (CT Linear)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Dimmer 1</Channel>
+  <Channel Number="2">CT Linear 1</Channel>
+  <Channel Number="3">Red 1</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Blue 1</Channel>
+  <Channel Number="6">Dimmer 2</Channel>
+  <Channel Number="7">CT Linear 2</Channel>
+  <Channel Number="8">Red 2</Channel>
+  <Channel Number="9">Green 2</Channel>
+  <Channel Number="10">Blue 2</Channel>
+  <Channel Number="11">Dimmer 3</Channel>
+  <Channel Number="12">CT Linear 3</Channel>
+  <Channel Number="13">Red 3</Channel>
+  <Channel Number="14">Green 3</Channel>
+  <Channel Number="15">Blue 3</Channel>
+  <Channel Number="16">Dimmer 4</Channel>
+  <Channel Number="17">CT Linear 4</Channel>
+  <Channel Number="18">Red 4</Channel>
+  <Channel Number="19">Green 4</Channel>
+  <Channel Number="20">Blue 4</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

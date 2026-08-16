@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>JL Griffin</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Slim Par Pro VW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Cool White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20Hz, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">No function</Capability>
+  <Capability Min="52" Max="101">1</Capability>
+  <Capability Min="102" Max="152">2</Capability>
+  <Capability Min="153" Max="203">3</Capability>
+  <Capability Min="204" Max="254">4</Capability>
+  <Capability Min="255" Max="255">5</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100%, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimming Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Default</Capability>
+  <Capability Min="52" Max="101">Linear</Capability>
+  <Capability Min="102" Max="152">Non-linear 1</Capability>
+  <Capability Min="153" Max="203">Non-linear 2</Capability>
+  <Capability Min="204" Max="255">Non-linear 3</Capability>
+ </Channel>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cool White</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Cool White</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Cool White</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Auto Program</Channel>
+  <Channel Number="5">Auto Program Speed</Channel>
+  <Channel Number="6">Dimming Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="256" Height="285" Depth="87"/>
+  <Lens Name="Other" DegreesMin="21" DegreesMax="21"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="83" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

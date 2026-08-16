@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Veljko Stankov</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>SF-1500</Model>
+ <Type>Smoke</Type>
+ <Channel Name="On-Off">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="13" Preset="ShutterClose">Off</Capability>
+  <Capability Min="14" Max="127">Continuos CH2</Capability>
+  <Capability Min="128" Max="231">Timer-Controlled CH2,3,4</Capability>
+  <Capability Min="232" Max="255">Continuos to MAX</Capability>
+ </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Fog Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Duration 1s</Capability>
+  <Capability Min="5" Max="29">Duration 13s</Capability>
+  <Capability Min="30" Max="54">Duration 33s</Capability>
+  <Capability Min="55" Max="79">Duration 53s</Capability>
+  <Capability Min="80" Max="104">Duration 73s</Capability>
+  <Capability Min="105" Max="129">Duration 92s</Capability>
+  <Capability Min="130" Max="154">Duration 112s</Capability>
+  <Capability Min="155" Max="179">Duration 131s</Capability>
+  <Capability Min="180" Max="204">Duration 151s</Capability>
+  <Capability Min="205" Max="229">Duration 107s</Capability>
+  <Capability Min="230" Max="254">Duration 190s</Capability>
+  <Capability Min="255" Max="255">Duration 200s</Capability>
+ </Channel>
+ <Channel Name="Time interval">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Interval 1s</Capability>
+  <Capability Min="5" Max="29">Interval 13s</Capability>
+  <Capability Min="30" Max="54">Interval33s</Capability>
+  <Capability Min="55" Max="79">Interval 53s</Capability>
+  <Capability Min="80" Max="104">Interval 73s</Capability>
+  <Capability Min="105" Max="129">Interval 92s</Capability>
+  <Capability Min="130" Max="154">Interval 112s</Capability>
+  <Capability Min="155" Max="179">Interval 131s</Capability>
+  <Capability Min="180" Max="204">Interval 151s</Capability>
+  <Capability Min="205" Max="229">Interval 107s</Capability>
+  <Capability Min="230" Max="254">Interval 190s</Capability>
+  <Capability Min="255" Max="255">Interval 200s</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">On-Off</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">Fog Duration</Channel>
+  <Channel Number="3">Time interval</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="15" Width="300" Height="210" Depth="620"/>
+  <Lens Name="None" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="None" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

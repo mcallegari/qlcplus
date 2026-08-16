@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>raymorris</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>DJ Spot 300</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="14" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="15" Max="21" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red/yellow</Capability>
+  <Capability Min="22" Max="28" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="29" Max="35" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Yellow/blue</Capability>
+  <Capability Min="36" Max="42" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="43" Max="49" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Blue/green</Capability>
+  <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="57" Max="63" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#a020f0">Green/purple</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="72" Max="77" Preset="ColorDoubleMacro" Res1="#a020f0" Res2="#ff8000">Purple/orange</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="86" Max="92" Preset="ColorDoubleMacro" Res1="#ff8000" Res2="#ffc0ff">Orange/pink</Capability>
+  <Capability Min="93" Max="99" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
+  <Capability Min="100" Max="106" Preset="ColorDoubleMacro" Res1="#ffc0ff" Res2="#c0c0ff">Pink/light blue</Capability>
+  <Capability Min="107" Max="113" Preset="ColorMacro" Res1="#c0c0ff">Light blue</Capability>
+  <Capability Min="114" Max="120" Preset="ColorDoubleMacro" Res1="#c0c0ff" Res2="#c0ffc0">Lightblue/light green</Capability>
+  <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#c0ffc0">Light green</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo scroll</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="85" Preset="RotationClockwiseFastToSlow">Fast -&gt; slow</Capability>
+  <Capability Min="86" Max="170" Preset="RotationClockwiseSlowToFast">Slow -&gt; fast</Capability>
+  <Capability Min="171" Max="178" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="179" Max="255">Random rotation</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="130" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="131" Max="253" Preset="StrobeRandom">Strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Gobo shake / reset">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="190">Gobo shake</Capability>
+  <Capability Min="191" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Pan / tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="normal">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter</Channel>
+  <Channel Number="6">Gobo shake / reset</Channel>
+  <Channel Number="7">Pan / tilt speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="6500"/>
+  <Dimensions Weight="8.8" Width="368" Height="305" Depth="457"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

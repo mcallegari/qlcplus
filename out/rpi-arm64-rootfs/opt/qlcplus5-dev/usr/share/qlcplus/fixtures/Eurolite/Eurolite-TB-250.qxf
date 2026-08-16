@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Ovidijus Cepukas</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TB-250</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Mirrored cylinder movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Gradual adjustment of the mirrored cylinder position from left to right</Capability>
+ </Channel>
+ <Channel Name="Mirrored cylinder rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="120">Forwards rotation with increasing speed</Capability>
+  <Capability Min="121" Max="139">No rotation</Capability>
+  <Capability Min="140" Max="255">Backwards rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Colour-wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#ffffff">Open / white</Capability>
+  <Capability Min="18" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="53" Preset="ColorMacro" Res1="#e2e200">Yellow</Capability>
+  <Capability Min="54" Max="71" Preset="ColorMacro" Res1="#b10d74">Violet</Capability>
+  <Capability Min="72" Max="89" Preset="ColorMacro" Res1="#3aa91b">Green</Capability>
+  <Capability Min="90" Max="107" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="108" Max="125" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="126" Max="143" Preset="ColorMacro" Res1="#ff5fef">Pink</Capability>
+  <Capability Min="144" Max="161" Preset="ColorMacro" Res1="#2aff2e">Light green</Capability>
+  <Capability Min="162" Max="179" Preset="ColorMacro" Res1="#46aeff">Light blue</Capability>
+  <Capability Min="180" Max="197" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ffffe0">Light yellow</Capability>
+  <Capability Min="216" Max="233" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="234" Max="251" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/blue</Capability>
+  <Capability Min="252" Max="255" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/green</Capability>
+ </Channel>
+ <Channel Name="Gobo-wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="17" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="18" Max="35">Gobo 1</Capability>
+  <Capability Min="36" Max="53">Gobo 2</Capability>
+  <Capability Min="54" Max="71">Gobo 3</Capability>
+  <Capability Min="72" Max="89">Gobo 4</Capability>
+  <Capability Min="90" Max="107">Gobo 5</Capability>
+  <Capability Min="108" Max="125">Gobo 6</Capability>
+  <Capability Min="126" Max="143">Gobo 7</Capability>
+  <Capability Min="144" Max="161">Gobo 8</Capability>
+  <Capability Min="162" Max="179">Gobo 9</Capability>
+  <Capability Min="180" Max="197">Gobo 10</Capability>
+  <Capability Min="198" Max="215">Gobo 11</Capability>
+  <Capability Min="216" Max="233">Gobo 12</Capability>
+  <Capability Min="234" Max="251">Gobo 13</Capability>
+  <Capability Min="252" Max="255">Gobo 14</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="15" Max="29" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="30" Max="250" Preset="StrobeSlowToFast">Strobe-effect with increasing speed (max. 7 flashes/sec.)</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
+ </Channel>
+ <Mode Name="Protocol">
+  <Channel Number="0">Mirrored cylinder movement</Channel>
+  <Channel Number="1">Mirrored cylinder rotation</Channel>
+  <Channel Number="2">Colour-wheel</Channel>
+  <Channel Number="3">Gobo-wheel</Channel>
+  <Channel Number="4">Shutter, strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.5" Width="270" Height="555" Depth="285"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="120" TiltMax="0"/>
+  <Technical PowerConsumption="450" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

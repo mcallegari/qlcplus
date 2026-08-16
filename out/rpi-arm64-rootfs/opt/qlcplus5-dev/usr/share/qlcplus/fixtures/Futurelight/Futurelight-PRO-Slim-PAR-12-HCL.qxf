@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Lukas Jähn</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>PRO Slim PAR-12 HCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Purple" Preset="IntensityMagenta"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe_8ch">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="5">Sound Control</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">slow to fast (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Strobe_12ch">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">slow to fast (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Color presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30">RED 100% / GREEN increasing / BLUE 0%</Capability>
+  <Capability Min="31" Max="50">RED decreasing / GREEN 100% / BLUE 0%</Capability>
+  <Capability Min="51" Max="70">RED 0% / GREEN 100% / BLUE increasing</Capability>
+  <Capability Min="71" Max="90">RED 0% / GREEN decreasing / BLUE 100%</Capability>
+  <Capability Min="91" Max="110">RED increasing/ GREEN 0% / BLUE 100%</Capability>
+  <Capability Min="111" Max="130">RED 100% / GREEN 0% / BLUE decreasing</Capability>
+  <Capability Min="131" Max="150">RED 100% / GREEN increasing / BLUE increasing</Capability>
+  <Capability Min="151" Max="170">RED decreasing / GREEN decreasing / BLUE 100%</Capability>
+  <Capability Min="171" Max="200">RED 100% / GREEN 100% / BLUE 100% / WHITE 100%</Capability>
+  <Capability Min="201" Max="205">WHITE 1: 3200 K</Capability>
+  <Capability Min="206" Max="210">WHITE 2: 3400 K</Capability>
+  <Capability Min="211" Max="215">WHITE 3: 4200 K</Capability>
+  <Capability Min="216" Max="220">WHITE 4: 4900 K</Capability>
+  <Capability Min="221" Max="225">WHITE 5: 5600 K</Capability>
+  <Capability Min="226" Max="230">WHITE 6: 5900 K</Capability>
+  <Capability Min="231" Max="235">WHITE 7: 6500 K</Capability>
+  <Capability Min="236" Max="240">WHITE 8: 7200 K</Capability>
+  <Capability Min="241" Max="245">WHITE 9: 8000 K</Capability>
+  <Capability Min="246" Max="250">WHITE 10: 8500 K</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#ffffff">WHITE 11: 10000 K</Capability>
+ </Channel>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="60">Internal program 1</Capability>
+  <Capability Min="61" Max="120">Internal program 2</Capability>
+  <Capability Min="121" Max="180">Internal program 3</Capability>
+  <Capability Min="181" Max="240">Internal program 4</Capability>
+  <Capability Min="241" Max="250">Internal program 5</Capability>
+  <Capability Min="251" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Speed internal programs/microphone sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing Speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Control Board setting dimer speed</Capability>
+  <Capability Min="52" Max="101">Neutral</Capability>
+  <Capability Min="102" Max="152">Dimmer speed 1</Capability>
+  <Capability Min="153" Max="203">Dimmer speed 2</Capability>
+  <Capability Min="204" Max="255">Dimmer speed 1</Capability>
+ </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value (brightness)" Preset="IntensityValue"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Mode Name="6 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Purple</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Purple</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Strobe_8ch</Channel>
+ </Mode>
+ <Mode Name="12 channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Purple</Channel>
+  <Channel Number="7">Strobe_12ch</Channel>
+  <Channel Number="8">Color presets</Channel>
+  <Channel Number="9">Internal programs</Channel>
+  <Channel Number="10">Speed internal programs/microphone sensitivity</Channel>
+  <Channel Number="11">Dimmer speed</Channel>
+ </Mode>
+ <Mode Name="HSV">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Value (brightness)</Channel>
+ </Mode>
+ <Mode Name="HSI">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Intensity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="298" Height="323" Depth="112"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="95" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.0 GIT</Version>
+  <Author>Jano Svitok</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Atmos F-350</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Mode Name="Default">
+  <Channel Number="0">Intensity</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Depth="200" Height="200" Weight="6" Width="565"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1</Version>
+  <Author>vidschofelix+Jan Fries</Author>
+ </Creator>
+ <Manufacturer>Novation</Manufacturer>
+ <Model>Launchpad Mini MK3</Model>
+ <Type>MIDI</Type>
+ <Channel Number="19">
+  <Name>Stop Solo Mute</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="29">
+  <Name>Row 2 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="39">
+  <Name>Row 3 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="49">
+  <Name>Row 4 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="59">
+  <Name>Row 5 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="69">
+  <Name>Row 6 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="79">
+  <Name>Row 7 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="89">
+  <Name>Row 8 Arrow</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="91">
+  <Name>Up</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="92">
+  <Name>Down</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="93">
+  <Name>Left</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="94">
+  <Name>Right</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="95">
+  <Name>Session</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="96">
+  <Name>Drums</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="97">
+  <Name>Keys</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="98">
+  <Name>User</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="99">
+  <Name>Logo</Name>
+  <Type>Button</Type>
+  <Feedback LowerValue="100"/>
+ </Channel>
+ <Channel Number="139">
+  <Name>Pad 1-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="140">
+  <Name>Pad 1-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="141">
+  <Name>Pad 1-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="142">
+  <Name>Pad 1-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="143">
+  <Name>Pad 1-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="144">
+  <Name>Pad 1-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="145">
+  <Name>Pad 1-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="146">
+  <Name>Pad 1-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="149">
+  <Name>Pad 2-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="150">
+  <Name>Pad 2-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="151">
+  <Name>Pad 2-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="152">
+  <Name>Pad 2-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="153">
+  <Name>Pad 2-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="154">
+  <Name>Pad 2-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="155">
+  <Name>Pad 2-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="156">
+  <Name>Pad 2-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="159">
+  <Name>Pad 3-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="160">
+  <Name>Pad 3-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="161">
+  <Name>Pad 3-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="162">
+  <Name>Pad 3-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="163">
+  <Name>Pad 3-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="164">
+  <Name>Pad 3-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="165">
+  <Name>Pad 3-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="166">
+  <Name>Pad 3-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="169">
+  <Name>Pad 4-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="170">
+  <Name>Pad 4-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="171">
+  <Name>Pad 4-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="172">
+  <Name>Pad 4-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="173">
+  <Name>Pad 4-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="174">
+  <Name>Pad 4-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="175">
+  <Name>Pad 4-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="176">
+  <Name>Pad 4-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="179">
+  <Name>Pad 5-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="180">
+  <Name>Pad 5-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="181">
+  <Name>Pad 5-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="182">
+  <Name>Pad 5-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="183">
+  <Name>Pad 5-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="184">
+  <Name>Pad 5-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="185">
+  <Name>Pad 5-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="186">
+  <Name>Pad 5-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="189">
+  <Name>Pad 6-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="190">
+  <Name>Pad 6-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="191">
+  <Name>Pad 6-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="192">
+  <Name>Pad 6-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="193">
+  <Name>Pad 6-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="194">
+  <Name>Pad 6-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="195">
+  <Name>Pad 6-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="196">
+  <Name>Pad 6-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="199">
+  <Name>Pad 7-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="200">
+  <Name>Pad 7-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="201">
+  <Name>Pad 7-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="202">
+  <Name>Pad 7-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="203">
+  <Name>Pad 7-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="204">
+  <Name>Pad 7-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="205">
+  <Name>Pad 7-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="206">
+  <Name>Pad 7-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="209">
+  <Name>Pad 8-1</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="210">
+  <Name>Pad 8-2</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="211">
+  <Name>Pad 8-3</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="212">
+  <Name>Pad 8-4</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="213">
+  <Name>Pad 8-5</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="214">
+  <Name>Pad 8-6</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="215">
+  <Name>Pad 8-7</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <Channel Number="216">
+  <Name>Pad 8-8</Name>
+  <Type>Button</Type>
+  <Feedback UpperValue="6"/>
+ </Channel>
+ <ColorTable>
+  <Color Value="0" Label="Off" RGB="#000000"/>
+  <Color Value="2" Label="White 30%" RGB="#b3b3b3"/>
+  <Color Value="4" Label="White 60%" RGB="#dddddd"/>
+  <Color Value="6" Label="White" RGB="#ffffff"/>
+  <Color Value="8" Label="Bright Red" RGB="#ffb3b3"/>
+  <Color Value="10" Label="Red 100%" RGB="#ff6161"/>
+  <Color Value="12" Label="Red 60%" RGB="#dd6161"/>
+  <Color Value="14" Label="Red 30%" RGB="#b36161"/>
+  <Color Value="16" Label="Bright Orange" RGB="#fff3d5"/>
+  <Color Value="18" Label="Orange 100%" RGB="#ffb361"/>
+  <Color Value="20" Label="Orange 60%" RGB="#dd8c61"/>
+  <Color Value="22" Label="Orange 30%" RGB="#b37661"/>
+  <Color Value="24" Label="Bright Yellow" RGB="#ffeea1"/>
+  <Color Value="26" Label="Yellow 100%" RGB="#ffff61"/>
+  <Color Value="28" Label="Yellow 60%" RGB="#dddd61"/>
+  <Color Value="30" Label="Yellow 30%" RGB="#b3b361"/>
+  <Color Value="32" Label="Bright Yellow Green" RGB="#ddffa1"/>
+  <Color Value="34" Label="Yellow Green 100%" RGB="#c2ff61"/>
+  <Color Value="36" Label="Yellow Green 60%" RGB="#a1dd61"/>
+  <Color Value="38" Label="Yellow Green 30%" RGB="#81b361"/>
+  <Color Value="40" Label="Bright Green" RGB="#c2ffb3"/>
+  <Color Value="42" Label="Green 100%" RGB="#61ff61"/>
+  <Color Value="44" Label="Green 60%" RGB="#61dd61"/>
+  <Color Value="46" Label="Green 30%" RGB="#61b361"/>
+  <Color Value="48" Label="Bright Sea Green" RGB="#c2ffc2"/>
+  <Color Value="50" Label="Sea Green 100%" RGB="#61ff8c"/>
+  <Color Value="52" Label="Sea Green 60%" RGB="#61dd76"/>
+  <Color Value="54" Label="Sea Green 30%" RGB="#61b36b"/>
+  <Color Value="56" Label="Bright Green Blue" RGB="#c2ffcc"/>
+  <Color Value="58" Label="Green Blue 100%" RGB="#61ffcc"/>
+  <Color Value="60" Label="Green Blue 60%" RGB="#61dda1"/>
+  <Color Value="62" Label="Green Blue 30%" RGB="#61b381"/>
+  <Color Value="64" Label="Bright Blue Green" RGB="#c2fff3"/>
+  <Color Value="66" Label="Blue Green 100%" RGB="#61ffe9"/>
+  <Color Value="68" Label="Blue Green 60%" RGB="#61ddc2"/>
+  <Color Value="70" Label="Blue Green 30%" RGB="#61b396"/>
+  <Color Value="72" Label="Bright Cyan" RGB="#c2f3ff"/>
+  <Color Value="74" Label="Cyan 100%" RGB="#61eeff"/>
+  <Color Value="76" Label="Cyan 60%" RGB="#61c7dd"/>
+  <Color Value="78" Label="Cyan 30%" RGB="#61a1b3"/>
+  <Color Value="80" Label="Bright Blue" RGB="#c2ddff"/>
+  <Color Value="82" Label="Blue 100%" RGB="#61c7ff"/>
+  <Color Value="84" Label="Blue 60%" RGB="#61a1dd"/>
+  <Color Value="86" Label="Blue 30%" RGB="#6181b3"/>
+  <Color Value="88" Label="Bright Dark Blue" RGB="#a18cff"/>
+  <Color Value="90" Label="Dark Blue 100%" RGB="#6161ff"/>
+  <Color Value="92" Label="Dark Blue 60%" RGB="#6161dd"/>
+  <Color Value="94" Label="Dark Blue 30%" RGB="#6161b3"/>
+  <Color Value="96" Label="Bright Purple" RGB="#ccb3ff"/>
+  <Color Value="98" Label="Purple 100%" RGB="#a161ff"/>
+  <Color Value="100" Label="Purple 60%" RGB="#8161dd"/>
+  <Color Value="102" Label="Purple 30%" RGB="#7661b3"/>
+  <Color Value="104" Label="Bright Magenta" RGB="#ffb3ff"/>
+  <Color Value="106" Label="Magenta 100%" RGB="#ff61ff"/>
+  <Color Value="108" Label="Magenta 60%" RGB="#dd61dd"/>
+  <Color Value="110" Label="Magenta 30%" RGB="#b361b3"/>
+  <Color Value="112" Label="Bright Pink" RGB="#ffb3d5"/>
+  <Color Value="114" Label="Pink 100%" RGB="#ff61c2"/>
+  <Color Value="116" Label="Pink 60%" RGB="#dd61a1"/>
+  <Color Value="118" Label="Pink 30%" RGB="#b3618c"/>
+  <Color Value="120" Label="Fire Red" RGB="#ff7661"/>
+  <Color Value="122" Label="Sand 100%" RGB="#e9b361"/>
+  <Color Value="124" Label="Sand 60%" RGB="#ddc261"/>
+  <Color Value="126" Label="Sand 30%" RGB="#a1a161"/>
+  <Color Value="128" Label="#61b361" RGB="#61b361"/>
+  <Color Value="130" Label="#61b38c" RGB="#61b38c"/>
+  <Color Value="132" Label="#618cd5" RGB="#618cd5"/>
+  <Color Value="134" Label="#6161ff" RGB="#6161ff"/>
+  <Color Value="136" Label="#61b3b3" RGB="#61b3b3"/>
+  <Color Value="138" Label="#8c61f3" RGB="#8c61f3"/>
+  <Color Value="140" Label="#ccb3c2" RGB="#ccb3c2"/>
+  <Color Value="142" Label="#8c7681" RGB="#8c7681"/>
+  <Color Value="144" Label="#ff6161" RGB="#ff6161"/>
+  <Color Value="146" Label="#f3ffa1" RGB="#f3ffa1"/>
+  <Color Value="148" Label="#eefc61" RGB="#eefc61"/>
+  <Color Value="150" Label="#ccff61" RGB="#ccff61"/>
+  <Color Value="152" Label="#76dd61" RGB="#76dd61"/>
+  <Color Value="154" Label="#61ffcc" RGB="#61ffcc"/>
+  <Color Value="156" Label="#61e9ff" RGB="#61e9ff"/>
+  <Color Value="158" Label="#61a1ff" RGB="#61a1ff"/>
+  <Color Value="160" Label="#8c61ff" RGB="#8c61ff"/>
+  <Color Value="162" Label="#cc61fc" RGB="#cc61fc"/>
+  <Color Value="164" Label="#ee8cdd" RGB="#ee8cdd"/>
+  <Color Value="166" Label="#a17661" RGB="#a17661"/>
+  <Color Value="168" Label="#ffa161" RGB="#ffa161"/>
+  <Color Value="170" Label="#ddf961" RGB="#ddf961"/>
+  <Color Value="172" Label="#d5ff8c" RGB="#d5ff8c"/>
+  <Color Value="174" Label="#61ff61" RGB="#61ff61"/>
+  <Color Value="176" Label="#b3ffa1" RGB="#b3ffa1"/>
+  <Color Value="178" Label="#ccfcd5" RGB="#ccfcd5"/>
+  <Color Value="180" Label="#b3fff6" RGB="#b3fff6"/>
+  <Color Value="182" Label="#cce4ff" RGB="#cce4ff"/>
+  <Color Value="184" Label="#a1c2f6" RGB="#a1c2f6"/>
+  <Color Value="186" Label="#d5c2f9" RGB="#d5c2f9"/>
+  <Color Value="188" Label="#f98cff" RGB="#f98cff"/>
+  <Color Value="190" Label="#ff61cc" RGB="#ff61cc"/>
+  <Color Value="192" Label="#ffc261" RGB="#ffc261"/>
+  <Color Value="194" Label="#f3ee61" RGB="#f3ee61"/>
+  <Color Value="196" Label="#e4ff61" RGB="#e4ff61"/>
+  <Color Value="198" Label="#ddcc61" RGB="#ddcc61"/>
+  <Color Value="200" Label="#b3a161" RGB="#b3a161"/>
+  <Color Value="202" Label="#61ba76" RGB="#61ba76"/>
+  <Color Value="204" Label="#76c28c" RGB="#76c28c"/>
+  <Color Value="206" Label="#8181a1" RGB="#8181a1"/>
+  <Color Value="208" Label="#818ccc" RGB="#818ccc"/>
+  <Color Value="210" Label="#ccaa81" RGB="#ccaa81"/>
+  <Color Value="212" Label="#dd6161" RGB="#dd6161"/>
+  <Color Value="214" Label="#f9b3a1" RGB="#f9b3a1"/>
+  <Color Value="216" Label="#f9ba76" RGB="#f9ba76"/>
+  <Color Value="218" Label="#fff38c" RGB="#fff38c"/>
+  <Color Value="220" Label="#e9f9a1" RGB="#e9f9a1"/>
+  <Color Value="222" Label="#d5ee76" RGB="#d5ee76"/>
+  <Color Value="224" Label="#8181a1" RGB="#8181a1"/>
+  <Color Value="226" Label="#f9f9d5" RGB="#f9f9d5"/>
+  <Color Value="228" Label="#ddfce4" RGB="#ddfce4"/>
+  <Color Value="230" Label="#e9e9ff" RGB="#e9e9ff"/>
+  <Color Value="232" Label="#e4d5ff" RGB="#e4d5ff"/>
+  <Color Value="234" Label="#b3b3b3" RGB="#b3b3b3"/>
+  <Color Value="236" Label="#d5d5d5" RGB="#d5d5d5"/>
+  <Color Value="238" Label="#f9ffff" RGB="#f9ffff"/>
+  <Color Value="240" Label="#e96161" RGB="#e96161"/>
+  <Color Value="242" Label="#aa6161" RGB="#aa6161"/>
+  <Color Value="244" Label="#81f661" RGB="#81f661"/>
+  <Color Value="246" Label="#61b361" RGB="#61b361"/>
+  <Color Value="248" Label="#f3ee61" RGB="#f3ee61"/>
+  <Color Value="250" Label="#b3a161" RGB="#b3a161"/>
+  <Color Value="252" Label="#eec261" RGB="#eec261"/>
+  <Color Value="254" Label="#c27661" RGB="#c27661"/>
+ </ColorTable>
+ <MidiChannelTable>
+  <Channel Value="0" Label="Static colour"/>
+  <Channel Value="1" Label="Flashing colour"/>
+  <Channel Value="2" Label="Pulsing colour"/>
+ </MidiChannelTable>
+</InputProfile>

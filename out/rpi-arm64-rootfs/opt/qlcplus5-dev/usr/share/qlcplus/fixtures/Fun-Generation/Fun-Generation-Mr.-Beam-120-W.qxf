@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Mariano</Author>
+ </Creator>
+ <Manufacturer>Fun-Generation</Manufacturer>
+ <Model>Mr. Beam 120 W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Increasing motor speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Intensity Prism" Preset="PrismRotationSlowFast"/>
+ <Channel Name="Colour macro" Preset="ColorMacro"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Movement Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="69">Pattern 1</Capability>
+  <Capability Min="70" Max="129">Pattern 2</Capability>
+  <Capability Min="130" Max="189">Pattern 3</Capability>
+  <Capability Min="190" Max="255">Pattern 4</Capability>
+ </Channel>
+ <Channel Name="Increasing running speed movement pattern">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing running speed movement pattern</Capability>
+ </Channel>
+ <Channel Name="Colour Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No Function</Capability>
+  <Capability Min="10" Max="24">Colour Effect 1</Capability>
+  <Capability Min="25" Max="39">Colour Effect 2</Capability>
+  <Capability Min="40" Max="54">Colour Effect 3</Capability>
+  <Capability Min="55" Max="69">Colour Effect 4</Capability>
+  <Capability Min="70" Max="84">Colour Effect 5</Capability>
+  <Capability Min="85" Max="99">Colour Effect 6</Capability>
+  <Capability Min="100" Max="114">Colour Effect 7</Capability>
+  <Capability Min="115" Max="129">Colour Effect 8</Capability>
+  <Capability Min="130" Max="144">Colour Effect 9</Capability>
+  <Capability Min="145" Max="159">Colour Effect 10</Capability>
+  <Capability Min="160" Max="174">Colour Effect 11</Capability>
+  <Capability Min="175" Max="189">Colour Effect 12</Capability>
+  <Capability Min="190" Max="204">Colour Effect 13</Capability>
+  <Capability Min="205" Max="219">Colour Effect 14</Capability>
+  <Capability Min="220" Max="255">No Function</Capability>
+ </Channel>
+ <Channel Name="Increasing running speed colour effect">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing running speed colour effect</Capability>
+ </Channel>
+ <Channel Name="Fine adjustment rotation (pan)" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment inclination (tilt)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan Head 1" Preset="PositionPan"/>
+ <Channel Name="Pan Head 2" Preset="PositionPan"/>
+ <Channel Name="Pan Head 3" Preset="PositionPan"/>
+ <Channel Name="Pan Head 4" Preset="PositionPan"/>
+ <Channel Name="Tilt Head 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt Head 2" Preset="PositionTilt"/>
+ <Channel Name="Tilt Head 3" Preset="PositionTilt"/>
+ <Channel Name="Tilt Head 4" Preset="PositionTilt"/>
+ <Channel Name="Intensity Prism Head 1" Preset="PrismRotationSlowFast"/>
+ <Channel Name="Intensity Prism Head 2" Preset="PrismRotationSlowFast"/>
+ <Channel Name="Intensity Prism Head 3" Preset="PrismRotationSlowFast"/>
+ <Channel Name="Intensity Prism Head 4" Preset="PrismRotationSlowFast"/>
+ <Channel Name="Colour macro Head 1" Preset="ColorMacro"/>
+ <Channel Name="Colour macro Head 2" Preset="ColorMacro"/>
+ <Channel Name="Colour macro Head 3" Preset="ColorMacro"/>
+ <Channel Name="Colour macro Head 4" Preset="ColorMacro"/>
+ <Channel Name="Increasing speed Head 1" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Increasing speed Head 2" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Increasing speed Head 3" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Increasing speed Head 4" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Fine adjustment rotation (pan) Head 1" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment rotation (pan) Head 2" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment rotation (pan) Head 3" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment rotation (pan) Head 4" Preset="PositionPanFine"/>
+ <Channel Name="Fine adjustment inclination (tilt) Head 1" Preset="PositionTiltFine"/>
+ <Channel Name="Fine adjustment inclination (tilt) Head 2" Preset="PositionTiltFine"/>
+ <Channel Name="Fine adjustment inclination (tilt) Head 3" Preset="PositionTiltFine"/>
+ <Channel Name="Fine adjustment inclination (tilt) Head 4" Preset="PositionTiltFine"/>
+ <Channel Name="Red Head 1" Preset="IntensityRed"/>
+ <Channel Name="Red Head 2" Preset="IntensityRed"/>
+ <Channel Name="Red Head 3" Preset="IntensityRed"/>
+ <Channel Name="Red Head 4" Preset="IntensityRed"/>
+ <Channel Name="Green Head 1" Preset="IntensityGreen"/>
+ <Channel Name="Green Head 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Head 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Head 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Head 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue Head 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Head 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Head 4" Preset="IntensityBlue"/>
+ <Channel Name="White Head 1" Preset="IntensityWhite"/>
+ <Channel Name="White Head 2" Preset="IntensityWhite"/>
+ <Channel Name="White Head 3" Preset="IntensityWhite"/>
+ <Channel Name="White Head 4" Preset="IntensityWhite"/>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Increasing motor speed</Channel>
+  <Channel Number="5">Intensity Prism</Channel>
+  <Channel Number="6">Colour macro</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Movement Pattern</Channel>
+  <Channel Number="12">Increasing running speed movement pattern</Channel>
+  <Channel Number="13">Colour Effect</Channel>
+  <Channel Number="14">Increasing running speed colour effect</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Fine adjustment rotation (pan)</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Fine adjustment inclination (tilt)</Channel>
+  <Channel Number="6">Increasing motor speed</Channel>
+  <Channel Number="7">Intensity Prism</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+  <Channel Number="12">Movement Pattern</Channel>
+  <Channel Number="13">Increasing running speed movement pattern</Channel>
+  <Channel Number="14">Colour Effect</Channel>
+  <Channel Number="15">Increasing running speed colour effect</Channel>
+ </Mode>
+ <Mode Name="26 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan Head 1</Channel>
+  <Channel Number="3">Tilt Head 1</Channel>
+  <Channel Number="4">Increasing speed Head 1</Channel>
+  <Channel Number="5">Intensity Prism Head 1</Channel>
+  <Channel Number="6">Colour macro Head 1</Channel>
+  <Channel Number="7">Pan Head 2</Channel>
+  <Channel Number="8">Tilt Head 2</Channel>
+  <Channel Number="9">Increasing speed Head 2</Channel>
+  <Channel Number="10">Intensity Prism Head 2</Channel>
+  <Channel Number="11">Colour macro Head 2</Channel>
+  <Channel Number="12">Pan Head 3</Channel>
+  <Channel Number="13">Tilt Head 3</Channel>
+  <Channel Number="14">Increasing speed Head 3</Channel>
+  <Channel Number="15">Intensity Prism Head 3</Channel>
+  <Channel Number="16">Colour macro Head 3</Channel>
+  <Channel Number="17">Pan Head 4</Channel>
+  <Channel Number="18">Tilt Head 4</Channel>
+  <Channel Number="19">Increasing speed Head 4</Channel>
+  <Channel Number="20">Intensity Prism Head 4</Channel>
+  <Channel Number="21">Colour macro Head 4</Channel>
+  <Channel Number="22">Movement Pattern</Channel>
+  <Channel Number="23">Increasing running speed movement pattern</Channel>
+  <Channel Number="24">Colour Effect</Channel>
+  <Channel Number="25">Increasing running speed colour effect</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="46 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Pan Head 1</Channel>
+  <Channel Number="3">Fine adjustment rotation (pan) Head 1</Channel>
+  <Channel Number="4">Tilt Head 1</Channel>
+  <Channel Number="5">Fine adjustment inclination (tilt) Head 1</Channel>
+  <Channel Number="6">Increasing speed Head 1</Channel>
+  <Channel Number="7">Intensity Prism Head 1</Channel>
+  <Channel Number="8">Red Head 1</Channel>
+  <Channel Number="9">Green Head 1</Channel>
+  <Channel Number="10">Blue Head 1</Channel>
+  <Channel Number="11">White Head 1</Channel>
+  <Channel Number="12">Pan Head 2</Channel>
+  <Channel Number="13">Fine adjustment rotation (pan) Head 2</Channel>
+  <Channel Number="14">Tilt Head 2</Channel>
+  <Channel Number="15">Fine adjustment inclination (tilt) Head 2</Channel>
+  <Channel Number="16">Increasing speed Head 2</Channel>
+  <Channel Number="17">Intensity Prism Head 2</Channel>
+  <Channel Number="18">Red Head 2</Channel>
+  <Channel Number="19">Green Head 2</Channel>
+  <Channel Number="20">Blue Head 2</Channel>
+  <Channel Number="21">White Head 2</Channel>
+  <Channel Number="22">Pan Head 3</Channel>
+  <Channel Number="23">Fine adjustment rotation (pan) Head 3</Channel>
+  <Channel Number="24">Tilt Head 3</Channel>
+  <Channel Number="25">Fine adjustment inclination (tilt) Head 3</Channel>
+  <Channel Number="26">Increasing speed Head 3</Channel>
+  <Channel Number="27">Intensity Prism Head 3</Channel>
+  <Channel Number="28">Red Head 3</Channel>
+  <Channel Number="29">Green Head 3</Channel>
+  <Channel Number="30">Blue Head 3</Channel>
+  <Channel Number="31">White Head 3</Channel>
+  <Channel Number="32">Pan Head 4</Channel>
+  <Channel Number="33">Fine adjustment rotation (pan) Head 4</Channel>
+  <Channel Number="34">Tilt Head 4</Channel>
+  <Channel Number="35">Fine adjustment inclination (tilt) Head 4</Channel>
+  <Channel Number="36">Increasing speed Head 4</Channel>
+  <Channel Number="37">Intensity Prism Head 4</Channel>
+  <Channel Number="38">Red Head 4</Channel>
+  <Channel Number="39">Green Head 4</Channel>
+  <Channel Number="40">Blue Head 4</Channel>
+  <Channel Number="41">White Head 4</Channel>
+  <Channel Number="42">Movement Pattern</Channel>
+  <Channel Number="43">Increasing running speed movement pattern</Channel>
+  <Channel Number="44">Colour Effect</Channel>
+  <Channel Number="45">Increasing running speed colour effect</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11.8" Width="1015" Height="310" Depth="85"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Mikko Wuokko</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>MHL75 Hybrid Moving Head</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="RGBW Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="White Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Colourwheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="16" Max="23" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White / Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="39" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="71" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue / Yellow</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="87" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow / Magenta</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="96" Max="103" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffa500">Magenta / Orange</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="112" Max="127" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffffff">Orange / White</Capability>
+  <Capability Min="128" Max="255">Colour rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="31">Gobo 1</Capability>
+  <Capability Min="32" Max="47">Gobo 2</Capability>
+  <Capability Min="48" Max="63">Gobo 3</Capability>
+  <Capability Min="64" Max="79">Gobo 4</Capability>
+  <Capability Min="80" Max="95">Gobo 5</Capability>
+  <Capability Min="96" Max="111">Gobo 6</Capability>
+  <Capability Min="112" Max="127">Gobo 7</Capability>
+  <Capability Min="128" Max="255">Rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Wash Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Special">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="199">XY Auto</Capability>
+  <Capability Min="200" Max="239">No function</Capability>
+  <Capability Min="240" Max="255">Auto program</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">RGBW Dimmer</Channel>
+  <Channel Number="6">White Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Colourwheel</Channel>
+  <Channel Number="9">Gobo</Channel>
+  <Channel Number="10">Red</Channel>
+  <Channel Number="11">Green</Channel>
+  <Channel Number="12">Blue</Channel>
+  <Channel Number="13">White</Channel>
+  <Channel Number="14">Wash Strobe</Channel>
+  <Channel Number="15">Special</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2500" ColourTemperature="0"/>
+  <Dimensions Weight="2.25" Width="160" Height="230" Depth="150"/>
+  <Lens Name="PC" DegreesMin="13" DegreesMax="18"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Daniel Nyström</Author>
+ </Creator>
+ <Manufacturer>HQ Power</Manufacturer>
+ <Model>Power Space 250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Colour 1</Capability>
+  <Capability Min="16" Max="31">Colour 2</Capability>
+  <Capability Min="32" Max="47">Colour 3</Capability>
+  <Capability Min="48" Max="63">Colour 4</Capability>
+  <Capability Min="64" Max="79">Colour 5</Capability>
+  <Capability Min="80" Max="95">Colour 6</Capability>
+  <Capability Min="96" Max="111">Colour 7</Capability>
+  <Capability Min="112" Max="127">Colour 8</Capability>
+  <Capability Min="128" Max="143">Colour 9</Capability>
+  <Capability Min="144" Max="159">Colour 10</Capability>
+  <Capability Min="160" Max="175">Colour 11</Capability>
+  <Capability Min="176" Max="191">Colour 12</Capability>
+  <Capability Min="192" Max="207">Colour 13</Capability>
+  <Capability Min="208" Max="223">Colour 14</Capability>
+  <Capability Min="224" Max="239">Colour 15</Capability>
+  <Capability Min="240" Max="255">Colour 16</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">No gobo</Capability>
+  <Capability Min="16" Max="31">Gobo 2</Capability>
+  <Capability Min="32" Max="47">Gobo 3</Capability>
+  <Capability Min="48" Max="63">Gobo 4</Capability>
+  <Capability Min="64" Max="79">Gobo 5</Capability>
+  <Capability Min="80" Max="95">Gobo 6</Capability>
+  <Capability Min="96" Max="111">Gobo 7</Capability>
+  <Capability Min="112" Max="127">Gobo 8</Capability>
+  <Capability Min="128" Max="143">Gobo 9</Capability>
+  <Capability Min="144" Max="159">Gobo 10</Capability>
+  <Capability Min="160" Max="175">Gobo 11</Capability>
+  <Capability Min="176" Max="191">Gobo 12</Capability>
+  <Capability Min="192" Max="207">Gobo 13</Capability>
+  <Capability Min="208" Max="223">Gobo 14</Capability>
+  <Capability Min="224" Max="239">Gobo 15</Capability>
+  <Capability Min="240" Max="255">Gobo 16</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Mode Name="Main mode">
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Pan</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Intensity</Channel>
+ </Mode>
+ <Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="270" Height="160" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="175" TiltMax="80"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

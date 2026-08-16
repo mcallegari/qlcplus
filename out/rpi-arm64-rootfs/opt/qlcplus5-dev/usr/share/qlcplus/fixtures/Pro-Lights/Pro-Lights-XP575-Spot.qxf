@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Tolmino Muccitelli</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>XP575 Spot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="8" Max="255" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#007dc2">Steel Blue</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#e87845">Orange</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#85c226">Green Blue</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#bab3d6">Bright Blue</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#f09ca1">Bright Pink</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#d9261c">Red</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#291770">Deep Blue</Capability>
+  <Capability Min="112" Max="125" Preset="ColorMacro" Res1="#fff500">Yellow</Capability>
+  <Capability Min="126" Max="139" Preset="ColorMacro" Res1="#964578">Dark Pink</Capability>
+  <Capability Min="140" Max="153" Preset="ColorMacro" Res1="#009140">Moss Green</Capability>
+  <Capability Min="154" Max="167" Preset="ColorMacro" Res1="#75c4f0">Light Blue</Capability>
+  <Capability Min="168" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Roation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#75c4f0">Steel Blue</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#f09ca1">Rose Pink</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#fff500">Yellow</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#b5dec7">Pale Blue</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#fffa9c">Central Orange</Capability>
+  <Capability Min="84" Max="97" Preset="ColorDoubleMacro" Res1="#b5dec7" Res2="#fffa9c">Pale Blue - Central Orange</Capability>
+  <Capability Min="98" Max="111" Preset="ColorDoubleMacro" Res1="#75c4f0" Res2="#e87817">Steel Blue - Orange</Capability>
+  <Capability Min="112" Max="125" Preset="ColorDoubleMacro" Res1="#009140" Res2="#fff500">Green - Yellow</Capability>
+  <Capability Min="126" Max="139" Preset="ColorDoubleMacro" Res1="#f09ca1" Res2="#85c226">Rose Pink - Moss Green</Capability>
+  <Capability Min="140" Max="153">Rose Pink- Yellow - Steel Blue - Green</Capability>
+  <Capability Min="154" Max="167">Yellow - Moss Green - Orange - Steel Blue</Capability>
+  <Capability Min="168" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fixed Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">No Gobo</Capability>
+  <Capability Min="16" Max="31">Gobo 1</Capability>
+  <Capability Min="32" Max="47">Gobo 2</Capability>
+  <Capability Min="48" Max="63">Gobo 3</Capability>
+  <Capability Min="64" Max="79">Gobo 4</Capability>
+  <Capability Min="80" Max="95">Gobo 5</Capability>
+  <Capability Min="96" Max="111">Gobo 6</Capability>
+  <Capability Min="112" Max="127">Gobo 7</Capability>
+  <Capability Min="128" Max="143">Gobo 8</Capability>
+  <Capability Min="144" Max="159">Gobo 9</Capability>
+  <Capability Min="160" Max="255">Change Gobos</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="23" Preset="GoboMacro" Res1="Others/open.svg">No Gobo</Capability>
+  <Capability Min="24" Max="47" Preset="GoboMacro" Res1="SGM-Color/gobo00522.png">Gobo1 (Colours)</Capability>
+  <Capability Min="48" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo2 (Bars)</Capability>
+  <Capability Min="72" Max="95" Preset="GoboMacro" Res1="Robe/gobo00036.svg">Gobo3 (Atomic)</Capability>
+  <Capability Min="96" Max="119" Preset="GoboMacro" Res1="Robe/gobo00018.svg">Gobo4 (Ring)</Capability>
+  <Capability Min="120" Max="143" Preset="GoboMacro" Res1="SGM-Color/gobo00555.png">Gobo5 (Moon)</Capability>
+  <Capability Min="144" Max="167" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo6 (Sun)</Capability>
+  <Capability Min="168" Max="255">Gobo Rotation</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Gobo Angle</Capability>
+  <Capability Min="128" Max="191">Rotate Right - Slow To Fast</Capability>
+  <Capability Min="192" Max="255">Rotate Left - Fast To Slow</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="1">Open</Capability>
+  <Capability Min="2" Max="7">Static</Capability>
+  <Capability Min="8" Max="132" Preset="RotationClockwiseFastToSlow">Forward Rotation, fast to slow</Capability>
+  <Capability Min="133" Max="253" Preset="RotationCounterClockwiseSlowToFast">Backward Rotation, slow to fast</Capability>
+  <Capability Min="254" Max="255">Static</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Closed</Capability>
+  <Capability Min="1" Max="159">Min. To Max. Diameter</Capability>
+  <Capability Min="160" Max="207">Iris-In Slow To Fast</Capability>
+  <Capability Min="208" Max="253">Iris-Out Fast To Slow</Capability>
+  <Capability Min="254" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Normal State</Capability>
+  <Capability Min="128" Max="255">Mechanical Reset &amp; Re-Start After 3 Seconds</Capability>
+ </Channel>
+ <Channel Name="Lamp Switch">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="47">Standby</Capability>
+  <Capability Min="48" Max="95">Lamp On 3 Seconds Later</Capability>
+  <Capability Min="96" Max="159">Standby</Capability>
+  <Capability Min="160" Max="207">Lamp Off 3 Seconds Later</Capability>
+  <Capability Min="208" Max="255">Standby</Capability>
+ </Channel>
+ <Mode Name="XP575-Spot">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Colour 1</Channel>
+  <Channel Number="3">Colour 2</Channel>
+  <Channel Number="4">Fixed Gobo</Channel>
+  <Channel Number="5">Gobo</Channel>
+  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="7">Prism</Channel>
+  <Channel Number="8">Iris</Channel>
+  <Channel Number="9">Focus</Channel>
+  <Channel Number="10">Pan</Channel>
+  <Channel Number="11">Tilt</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Lamp Switch</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
+  <Dimensions Weight="28.5" Width="400" Height="540" Depth="380"/>
+  <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="570" TiltMax="270"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Giacomo Gorini</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT-250 EZ</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="6" Max="125" Preset="StrobeSlowToFast">Strobe slow &gt; fast</Capability>
+  <Capability Min="126" Max="135" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="136" Max="255" Preset="StrobeRandomSlowToFast">Random Strobe slow &gt; fast</Capability>
+ </Channel>
+ <Channel Name="Zoom" Default="255" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="3 Channel 8bit">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Zoom</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer fine</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 Channel 16bit">
+  <Channel Number="0">Dimmer fine</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Zoom</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer fine</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3000" ColourTemperature="3200"/>
+  <Dimensions Weight="9" Width="336" Height="399" Depth="458"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="260" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

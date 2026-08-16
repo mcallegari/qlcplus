@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>Felix Edelmann</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Auto Spot 150</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="SGM/gobo00007.png">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Others/gobo00005.svg">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="Others/gobo00044.svg">Gobo 5</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Gobo 6</Capability>
+  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="SGM/gobo00027.svg">Gobo 7</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Rotating slow-fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
+  <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Rotation CW fast-slow</Capability>
+  <Capability Min="121" Max="134" Preset="RotationStop">Stop</Capability>
+  <Capability Min="135" Max="245" Preset="RotationCounterClockwiseSlowToFast">Rotation CCW slow-fast</Capability>
+  <Capability Min="246" Max="255" Preset="RotationStop">Stop</Capability>
+ </Channel>
+ <Channel Name="Split Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="7" Max="13" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">White-Blue</Capability>
+  <Capability Min="14" Max="20" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="21" Max="26" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue-Yellow</Capability>
+  <Capability Min="27" Max="33" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="34" Max="40" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow-Green</Capability>
+  <Capability Min="41" Max="46" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="47" Max="53" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#aaddff">Green-Lightblue</Capability>
+  <Capability Min="54" Max="60" Preset="ColorMacro" Res1="#aaddff">Lightblue</Capability>
+  <Capability Min="61" Max="66" Preset="ColorDoubleMacro" Res1="#aaddff" Res2="#ffa500">Lightblue-Orange</Capability>
+  <Capability Min="67" Max="73" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="74" Max="80" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#ffaaaa">Orange-Pink</Capability>
+  <Capability Min="81" Max="87" Preset="ColorMacro" Res1="#ffaaaa">Pink</Capability>
+  <Capability Min="88" Max="93" Preset="ColorDoubleMacro" Res1="#ffaaaa" Res2="#ff00ff">Pink-Magenta</Capability>
+  <Capability Min="94" Max="100" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="101" Max="107" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffbf00">Magenta-Amber</Capability>
+  <Capability Min="108" Max="113" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="114" Max="120" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#aaffaa">Amber-Lightgreen</Capability>
+  <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#aaffaa">Lightgreen</Capability>
+  <Capability Min="128" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Rotating slow-fast</Capability>
+ </Channel>
+ <Channel Name="Shutter / Dimmer">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="131">Dimmer 0-100%</Capability>
+  <Capability Min="132" Max="252" Preset="StrobeSlowToFast">Strobe slow-fast</Capability>
+  <Capability Min="253" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Full Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="52" Max="63" Preset="ColorMacro" Res1="#aaddff">Lightblue</Capability>
+  <Capability Min="64" Max="76" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="77" Max="89" Preset="ColorMacro" Res1="#ffaaaa">Pink</Capability>
+  <Capability Min="90" Max="102" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="103" Max="115" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="116" Max="127" Preset="ColorMacro" Res1="#aaffaa">Lightgreen</Capability>
+  <Capability Min="128" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Rotating slow-fast</Capability>
+ </Channel>
+ <Mode Name="Full Color">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3" ActsOn="2">Gobo Rotation</Channel>
+  <Channel Number="4">Full Colors</Channel>
+  <Channel Number="5">Shutter / Dimmer</Channel>
+ </Mode>
+ <Mode Name="Split Color">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Gobo</Channel>
+  <Channel Number="3" ActsOn="2">Gobo Rotation</Channel>
+  <Channel Number="4">Split Colors</Channel>
+  <Channel Number="5">Shutter / Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LL-HTI150 discharge lamp" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="13" Width="295" Height="451" Depth="373"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

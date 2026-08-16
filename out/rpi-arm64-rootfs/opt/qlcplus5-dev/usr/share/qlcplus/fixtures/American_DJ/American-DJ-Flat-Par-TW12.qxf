@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Flat Par TW12</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Cool White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Led Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Led On</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing Slow-Fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Led On</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Strobing Slow-Fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Led On</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobing Slow-Fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Led On</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="7">Color 1</Capability>
+  <Capability Min="8" Max="14">Color 2</Capability>
+  <Capability Min="15" Max="21">Color 3</Capability>
+  <Capability Min="22" Max="28">Color 4</Capability>
+  <Capability Min="29" Max="35">Color 5</Capability>
+  <Capability Min="36" Max="42">Color 6</Capability>
+  <Capability Min="43" Max="49">Color 7</Capability>
+  <Capability Min="50" Max="56">Color 8</Capability>
+  <Capability Min="57" Max="63">Color 9</Capability>
+  <Capability Min="64" Max="71">Color 10</Capability>
+  <Capability Min="72" Max="79">Color 11</Capability>
+  <Capability Min="80" Max="87">Color 12</Capability>
+  <Capability Min="88" Max="95">Color 13</Capability>
+  <Capability Min="96" Max="103">Color 14</Capability>
+  <Capability Min="104" Max="111">Color 15</Capability>
+  <Capability Min="112" Max="119">Color 16</Capability>
+  <Capability Min="120" Max="127">Color 17</Capability>
+  <Capability Min="128" Max="135">Color 18</Capability>
+  <Capability Min="136" Max="143">Color 19</Capability>
+  <Capability Min="144" Max="151">Color 20</Capability>
+  <Capability Min="152" Max="159">Color 21</Capability>
+  <Capability Min="160" Max="167">Color 22</Capability>
+  <Capability Min="168" Max="175">Color 23</Capability>
+  <Capability Min="176" Max="183">Color 24</Capability>
+  <Capability Min="184" Max="191">Color 25</Capability>
+  <Capability Min="192" Max="199">Color 26</Capability>
+  <Capability Min="200" Max="207">Color 27</Capability>
+  <Capability Min="208" Max="215">Color 28</Capability>
+  <Capability Min="216" Max="223">Color 29</Capability>
+  <Capability Min="224" Max="231">Color 30</Capability>
+  <Capability Min="232" Max="239">Color 31</Capability>
+  <Capability Min="240" Max="247">Color 32</Capability>
+  <Capability Min="248" Max="255">Color 33</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">No Program</Capability>
+  <Capability Min="128" Max="135">Color Fade 1</Capability>
+  <Capability Min="136" Max="143">Color Fade 2</Capability>
+  <Capability Min="144" Max="151">Color Fade 3</Capability>
+  <Capability Min="152" Max="159">Color Fade 4</Capability>
+  <Capability Min="160" Max="167">Color Fade 5</Capability>
+  <Capability Min="168" Max="175">Color Fade 6</Capability>
+  <Capability Min="176" Max="183">Color Fade 7</Capability>
+  <Capability Min="184" Max="191">Color Fade 8</Capability>
+  <Capability Min="192" Max="199">Color Change 1</Capability>
+  <Capability Min="200" Max="207">Color Change 2</Capability>
+  <Capability Min="208" Max="215">Color Change 3</Capability>
+  <Capability Min="216" Max="223">Color Change 4</Capability>
+  <Capability Min="224" Max="231">Color Change 5</Capability>
+  <Capability Min="232" Max="239">Color Change 6</Capability>
+  <Capability Min="240" Max="247">Sound Active Mode 1</Capability>
+  <Capability Min="248" Max="255">Sound Active Mode 2</Capability>
+ </Channel>
+ <Channel Name="Program Speed / Sound Sensitive">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Min - Max</Capability>
+ </Channel>
+ <Channel Name="Dimmer Curves">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theartre</Capability>
+  <Capability Min="101" Max="255">Defaut to unit curve setting</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Color Macros</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cool White</Channel>
+  <Channel Number="2">Amber</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cool White</Channel>
+  <Channel Number="2">Amber</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cool White</Channel>
+  <Channel Number="2">Amber</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobing</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cool White</Channel>
+  <Channel Number="2">Amber</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobing</Channel>
+  <Channel Number="5">Color Macros</Channel>
+  <Channel Number="6">Programs</Channel>
+  <Channel Number="7">Program Speed / Sound Sensitive</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Warm White</Channel>
+  <Channel Number="1">Cool White</Channel>
+  <Channel Number="2">Amber</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Strobing</Channel>
+  <Channel Number="5">Color Macros</Channel>
+  <Channel Number="6">Programs</Channel>
+  <Channel Number="7">Program Speed / Sound Sensitive</Channel>
+  <Channel Number="8">Dimmer Curves</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.25" Width="328" Height="280" Depth="105"/>
+  <Lens Name="" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="61" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

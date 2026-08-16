@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1</Version>
+  <Author>Christoph Wieser</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED TSL-1000 Scan MK2</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Default="128" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Default="128" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#ffffff">White (open)</Capability>
+  <Capability Min="5" Max="12" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffff00">White / Yellow</Capability>
+  <Capability Min="13" Max="20" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="21" Max="28" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow / Magenta</Capability>
+  <Capability Min="29" Max="36" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="37" Max="44" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#008f00">Magenta / Kelly-green</Capability>
+  <Capability Min="45" Max="52" Preset="ColorMacro" Res1="#008f00">Kelly-green</Capability>
+  <Capability Min="53" Max="60" Preset="ColorDoubleMacro" Res1="#008f00" Res2="#ff0000">Kelly-green / Red</Capability>
+  <Capability Min="61" Max="68" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="69" Max="76" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="77" Max="84" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="92" Preset="ColorDoubleMacro" Res1="#00fdff" Res2="#00ff00">Blue / Green</Capability>
+  <Capability Min="93" Max="100" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="101" Max="108" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffa500">Green / Orange</Capability>
+  <Capability Min="109" Max="116" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="117" Max="124" Preset="ColorDoubleMacro" Res1="#ffa500" Res2="#00008b">Orange / Dark blue</Capability>
+  <Capability Min="125" Max="132" Preset="ColorMacro" Res1="#00008b">Dark blue</Capability>
+  <Capability Min="133" Max="139" Preset="ColorMacro" Res1="#ffffff">White (open)</Capability>
+  <Capability Min="140" Max="195" Preset="GoboMacro" Res1="Others/rainbow.png">Forward rainbow effect with decreasing speed</Capability>
+  <Capability Min="196" Max="199" Preset="GoboMacro" Res1="Others/rainbow.png">Stop</Capability>
+  <Capability Min="200" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Backward rainbow effict with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Rotating gobo-wheel, gobo shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">White (open)</Capability>
+  <Capability Min="8" Max="19" Preset="GoboMacro" Res1="ClayPaky/gobo00109.svg">Gobo 1</Capability>
+  <Capability Min="20" Max="31" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 2</Capability>
+  <Capability Min="32" Max="43" Preset="GoboMacro" Res1="ClayPaky/gobo00097.svg">Gobo 3</Capability>
+  <Capability Min="44" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 4</Capability>
+  <Capability Min="56" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00023.svg">Gobo 5</Capability>
+  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 6</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Others/gobo00013.svg">Gobo 7</Capability>
+  <Capability Min="80" Max="88" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00109.svg">Gobo 1 shake with increasing speed</Capability>
+  <Capability Min="89" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 2 shake with increasing speed</Capability>
+  <Capability Min="98" Max="106" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00097.svg">Gobo 3 shake with increasing speed</Capability>
+  <Capability Min="107" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00040.svg">Gobo 4 shake with increasing speed</Capability>
+  <Capability Min="116" Max="124" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00023.svg">Gobo 5 shake with increasing speed</Capability>
+  <Capability Min="125" Max="129" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00093.svg">Gobo 6 shake with increasing speed</Capability>
+  <Capability Min="130" Max="133" Preset="GoboShakeMacro" Res1="Others/gobo00013.svg">Gobo 7 shake with increasing speed</Capability>
+  <Capability Min="134" Max="194">Forwards gobo rotation with decreasing speed</Capability>
+  <Capability Min="195" Max="255">Backwards gobo rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation" Default="132">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">no rotation</Capability>
+  <Capability Min="10" Max="129">Forward rotation with decreasing speed</Capability>
+  <Capability Min="130" Max="134">Stop</Capability>
+  <Capability Min="135" Max="255">Backward rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Focus" Default="128" Preset="BeamFocusFarNear"/>
+ <Channel Name="3-facet Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="8">Open</Capability>
+  <Capability Min="9" Max="255">3-facet prism</Capability>
+ </Channel>
+ <Channel Name="LED Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Empty</Capability>
+  <Capability Min="11" Max="20">Auto 1</Capability>
+  <Capability Min="21" Max="40">Auto 2</Capability>
+  <Capability Min="41" Max="50">Auto 3</Capability>
+  <Capability Min="51" Max="70">Auto 4</Capability>
+  <Capability Min="71" Max="80">Auto 5</Capability>
+  <Capability Min="81" Max="100">Auto 6</Capability>
+  <Capability Min="101" Max="110">Auto 7</Capability>
+  <Capability Min="111" Max="130">Auto 8</Capability>
+  <Capability Min="131" Max="150">Auto 9</Capability>
+  <Capability Min="151" Max="160">Auto 10</Capability>
+  <Capability Min="161" Max="170">Auto 11</Capability>
+  <Capability Min="171" Max="180">Auto 12</Capability>
+  <Capability Min="181" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="XY Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">No function</Capability>
+  <Capability Min="21" Max="30">X/Y Auto 1</Capability>
+  <Capability Min="31" Max="40">X/Y Auto 2</Capability>
+  <Capability Min="41" Max="50">X/Y Auto 3</Capability>
+  <Capability Min="51" Max="60">X/Y Auto 4</Capability>
+  <Capability Min="61" Max="70">X/Y Auto 5</Capability>
+  <Capability Min="71" Max="80">X/Y Auto 6</Capability>
+  <Capability Min="81" Max="90">X/Y Auto 7</Capability>
+  <Capability Min="91" Max="100">X/Y Auto 8</Capability>
+  <Capability Min="101" Max="110">X/Y Auto 9</Capability>
+  <Capability Min="111" Max="120">X/Y Auto 10</Capability>
+  <Capability Min="121" Max="130">X/Y Auto 11</Capability>
+  <Capability Min="131" Max="140">X/Y Auto 12</Capability>
+  <Capability Min="141" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">Reset (6S)</Capability>
+ </Channel>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Color Wheel</Channel>
+  <Channel Number="5">Rotating gobo-wheel, gobo shake</Channel>
+  <Channel Number="6">Gobo rotation</Channel>
+  <Channel Number="7">Focus</Channel>
+  <Channel Number="8">3-facet Prism</Channel>
+  <Channel Number="9">Reset</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Color Wheel</Channel>
+  <Channel Number="8">Rotating gobo-wheel, gobo shake</Channel>
+  <Channel Number="9">Gobo rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">3-facet Prism</Channel>
+  <Channel Number="12">LED Macros</Channel>
+  <Channel Number="13">XY Macros</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1000" ColourTemperature="8000"/>
+  <Dimensions Weight="5.8" Width="251" Height="377" Depth="141"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="160" TiltMax="50"/>
+  <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

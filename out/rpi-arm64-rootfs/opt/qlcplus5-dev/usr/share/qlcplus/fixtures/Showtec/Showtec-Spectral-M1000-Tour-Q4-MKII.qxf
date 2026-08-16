@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Michel Sliepenbeek</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Spectral M1000 Tour Q4 MKII</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Fine Dimmer" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 1 Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 1 Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 1 Fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="White 1 Fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 2 Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 2 Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2 Fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White 2 Fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">Not functional</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ff00">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="171" Max="200">Red 100% / Green 100% / Blue 100% / White 100%</Capability>
+  <Capability Min="201" Max="205">White 1: 3200K</Capability>
+  <Capability Min="206" Max="210">White 2: 3400K</Capability>
+  <Capability Min="211" Max="215">White 3: 4200K</Capability>
+  <Capability Min="216" Max="220">White 4: 4900K</Capability>
+  <Capability Min="221" Max="225">White 5: 5600K</Capability>
+  <Capability Min="226" Max="230">White 6: 5900K</Capability>
+  <Capability Min="231" Max="235">White 7: 6500K</Capability>
+  <Capability Min="236" Max="240">White 8: 7200K</Capability>
+  <Capability Min="241" Max="245">White 9: 8000K</Capability>
+  <Capability Min="246" Max="250">White 10: 8500K</Capability>
+  <Capability Min="251" Max="255">White 11: 10000K</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">Not functional</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe flash frequency, From Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Built-in programs/Custom programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="40">Not functional</Capability>
+  <Capability Min="41" Max="50">Auto 1</Capability>
+  <Capability Min="51" Max="60">Auto 2</Capability>
+  <Capability Min="61" Max="70">Auto 3</Capability>
+  <Capability Min="71" Max="80">Auto 4</Capability>
+  <Capability Min="81" Max="90">Auto 5</Capability>
+  <Capability Min="91" Max="100">Auto 6</Capability>
+  <Capability Min="101" Max="110">Auto 7</Capability>
+  <Capability Min="111" Max="120">Auto 8</Capability>
+  <Capability Min="121" Max="130">Auto 9</Capability>
+  <Capability Min="131" Max="140">Auto 10</Capability>
+  <Capability Min="141" Max="150">PR.01</Capability>
+  <Capability Min="151" Max="160">PR.02</Capability>
+  <Capability Min="161" Max="170">PR.03</Capability>
+  <Capability Min="171" Max="180">PR.04</Capability>
+  <Capability Min="181" Max="190">PR.05</Capability>
+  <Capability Min="191" Max="200">PR.06</Capability>
+  <Capability Min="201" Max="210">PR.07</Capability>
+  <Capability Min="211" Max="220">PR.08</Capability>
+  <Capability Min="221" Max="230">PR.09</Capability>
+  <Capability Min="231" Max="255">PR.10</Capability>
+ </Channel>
+ <Channel Name="Program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed adjustment, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">Preset dimmer speed from the device’s menu</Capability>
+  <Capability Min="10" Max="29">Linear dimmer</Capability>
+  <Capability Min="30" Max="69">Non-linear dimmer 1 (fastest)</Capability>
+  <Capability Min="70" Max="129">Non-linear dimmer 2</Capability>
+  <Capability Min="130" Max="189">Non-linear dimmer 3</Capability>
+  <Capability Min="190" Max="255">Non-linear dimmer 4 (slowest)</Capability>
+ </Channel>
+ <Channel Name="Hue (colour variations)" Preset="IntensityHue"/>
+ <Channel Name="Colour Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Built-in programs/Static Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">All LEDs</Capability>
+  <Capability Min="10" Max="54">Center LED</Capability>
+  <Capability Min="55" Max="99">Outer Circle LEDs</Capability>
+  <Capability Min="100" Max="119">Effect 1</Capability>
+  <Capability Min="120" Max="139">Effect 2</Capability>
+  <Capability Min="140" Max="159">Effect 3</Capability>
+  <Capability Min="160" Max="179">Effect 4</Capability>
+  <Capability Min="180" Max="184">Static Program 1</Capability>
+  <Capability Min="185" Max="189">Static Program 2</Capability>
+  <Capability Min="190" Max="194">Static Program 3</Capability>
+  <Capability Min="195" Max="199">Static Program 4</Capability>
+  <Capability Min="200" Max="204">Static Program 5</Capability>
+  <Capability Min="205" Max="209">Static Program 6</Capability>
+  <Capability Min="210" Max="214">Static Program 7</Capability>
+  <Capability Min="215" Max="219">Static Program 8</Capability>
+  <Capability Min="220" Max="224">Static Program 9</Capability>
+  <Capability Min="225" Max="229">Static Program 10</Capability>
+  <Capability Min="230" Max="234">Static Program 11</Capability>
+  <Capability Min="235" Max="239">Static Program 12</Capability>
+  <Capability Min="240" Max="244">Static Program 13</Capability>
+  <Capability Min="245" Max="249">Static Program 14</Capability>
+  <Capability Min="250" Max="255">Static Program 15</Capability>
+ </Channel>
+ <Mode Name="10 Channels (TOUR)">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Colour Macros</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Built-in programs/Custom programs</Channel>
+  <Channel Number="8" ActsOn="7">Program speed</Channel>
+  <Channel Number="9">Dimmer speed</Channel>
+ </Mode>
+ <Mode Name="3 Channels (ARC1)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+ </Mode>
+ <Mode Name="4 Channels (ARH.D)">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+ </Mode>
+ <Mode Name="4 Channels (ARC.2)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+ </Mode>
+ <Mode Name="5 Channels (AR2.D)">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+ </Mode>
+ <Mode Name="6 Channels (AR2.S)">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Red 1</Channel>
+  <Channel Number="2">Green 1</Channel>
+  <Channel Number="3">Blue 1</Channel>
+  <Channel Number="4">White 1</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channels (HSV)">
+  <Channel Number="0">Hue (colour variations)</Channel>
+  <Channel Number="1">Colour Saturation</Channel>
+  <Channel Number="2">Dimmer Intensity</Channel>
+ </Mode>
+ <Mode Name="23 Channels (FULL)">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Red 1 Fine</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Green 1 Fine</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Blue 1 Fine</Channel>
+  <Channel Number="8">White 1</Channel>
+  <Channel Number="9">White 1 Fine</Channel>
+  <Channel Number="10">Red 2</Channel>
+  <Channel Number="11">Red 2 Fine</Channel>
+  <Channel Number="12">Green 2</Channel>
+  <Channel Number="13">Green 2 Fine</Channel>
+  <Channel Number="14">Blue 2</Channel>
+  <Channel Number="15">Blue 2 Fine</Channel>
+  <Channel Number="16">White 2</Channel>
+  <Channel Number="17">White 2 Fine</Channel>
+  <Channel Number="18">Colour Macros</Channel>
+  <Channel Number="19">Strobe</Channel>
+  <Channel Number="20">Built-in programs/Static Effects</Channel>
+  <Channel Number="21" ActsOn="20">Program speed</Channel>
+  <Channel Number="22">Dimmer speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 Channels (TR 16)">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Red 1</Channel>
+  <Channel Number="3">Red 1 Fine</Channel>
+  <Channel Number="4">Green 1</Channel>
+  <Channel Number="5">Green 1 Fine</Channel>
+  <Channel Number="6">Blue 1</Channel>
+  <Channel Number="7">Blue 1 Fine</Channel>
+  <Channel Number="8">White 1</Channel>
+  <Channel Number="9">White 1 Fine</Channel>
+  <Channel Number="10">Colour Macros</Channel>
+  <Channel Number="11">Strobe</Channel>
+  <Channel Number="12">Built-in programs/Custom programs</Channel>
+  <Channel Number="13" ActsOn="12">Program speed</Channel>
+  <Channel Number="14">Dimmer speed</Channel>
+ </Mode>
+ <Mode Name="6 Channels (PIX 1)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="8 Channels (PIX 2)">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+  <Dimensions Weight="5.7" Width="230" Height="370" Depth="235"/>
+  <Lens Name="Other" DegreesMin="11.5" DegreesMax="11.5"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Movitec</Manufacturer>
+ <Model>WL-250</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed of movement">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking mode</Capability>
+  <Capability Min="1" Max="249">Vector mode speed</Capability>
+  <Capability Min="250" Max="255">Tracking, BO when moved</Capability>
+ </Channel>
+ <Channel Name="Lamp On/Off, reset, fan">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Fan speed</Capability>
+  <Capability Min="128" Max="139" Preset="LampOn">Lamp ON</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp OFF in 3sec</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17">White</Capability>
+  <Capability Min="18" Max="35">Red</Capability>
+  <Capability Min="36" Max="53">Blue</Capability>
+  <Capability Min="54" Max="72">Green</Capability>
+  <Capability Min="73" Max="90">CTF 3200K</Capability>
+  <Capability Min="91" Max="108">CTF 5600K</Capability>
+  <Capability Min="109" Max="127">UV Filter</Capability>
+  <Capability Min="128" Max="190">Forwards rainbow speed</Capability>
+  <Capability Min="191" Max="192">No rotation</Capability>
+  <Capability Min="193" Max="255">Backwards rainbow speed</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Speed of CMY and Dimmer">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed of CMY and Dimmer</Capability>
+ </Channel>
+ <Channel Name="Colour macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">Macro 1</Capability>
+  <Capability Min="16" Max="23">Macro 2</Capability>
+  <Capability Min="24" Max="31">Macro 3</Capability>
+  <Capability Min="32" Max="39">Macro 4</Capability>
+  <Capability Min="40" Max="47">Macro 5</Capability>
+  <Capability Min="48" Max="55">Macro 6</Capability>
+  <Capability Min="56" Max="63">Macro 7</Capability>
+  <Capability Min="64" Max="71">Macro 8</Capability>
+  <Capability Min="72" Max="79">Macro 9</Capability>
+  <Capability Min="80" Max="87">Macro 10</Capability>
+  <Capability Min="88" Max="95">Macro 11</Capability>
+  <Capability Min="96" Max="103">Macro 12</Capability>
+  <Capability Min="104" Max="111">Macro 13</Capability>
+  <Capability Min="112" Max="119">Macro 14</Capability>
+  <Capability Min="120" Max="127">Macro 15</Capability>
+  <Capability Min="128" Max="135">Macro 16</Capability>
+  <Capability Min="136" Max="143">Macro 17</Capability>
+  <Capability Min="144" Max="151">Macro 18</Capability>
+  <Capability Min="152" Max="159">Macro 19</Capability>
+  <Capability Min="160" Max="167">Macro 20</Capability>
+  <Capability Min="168" Max="175">Macro 21</Capability>
+  <Capability Min="176" Max="183">Macro 22</Capability>
+  <Capability Min="184" Max="191">Macro 23</Capability>
+  <Capability Min="192" Max="199">Macro 24</Capability>
+  <Capability Min="200" Max="207">Macro 25</Capability>
+  <Capability Min="208" Max="215">Macro 26</Capability>
+  <Capability Min="216" Max="223">Macro 27</Capability>
+  <Capability Min="224" Max="231">Macro 28</Capability>
+  <Capability Min="232" Max="239">Macro 29</Capability>
+  <Capability Min="240" Max="247">Macro 30</Capability>
+  <Capability Min="248" Max="255">Macro 31</Capability>
+ </Channel>
+ <Channel Name="Effect wheel">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="70">Full beam</Capability>
+  <Capability Min="71" Max="230">Beam shaper</Capability>
+  <Capability Min="231" Max="255">Frost filter</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe speed</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse effect</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe speed</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Mode Name="16bit">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Speed of movement</Channel>
+  <Channel Number="5">Lamp On/Off, reset, fan</Channel>
+  <Channel Number="6">Colour wheel</Channel>
+  <Channel Number="7">Cyan</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Yellow</Channel>
+  <Channel Number="10">Speed of CMY and Dimmer</Channel>
+  <Channel Number="11">Colour macros</Channel>
+  <Channel Number="12">Effect wheel</Channel>
+  <Channel Number="13">Shutter, strobe</Channel>
+  <Channel Number="14">Dimmer intensity</Channel>
+ </Mode>
+ <Mode Name="8bit">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed of movement</Channel>
+  <Channel Number="3">Lamp On/Off, reset, fan</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Speed of CMY and Dimmer</Channel>
+  <Channel Number="9">Colour macros</Channel>
+  <Channel Number="10">Effect wheel</Channel>
+  <Channel Number="11">Shutter, strobe</Channel>
+  <Channel Number="12">Dimmer intensity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="4500" ColourTemperature="6500"/>
+  <Dimensions Weight="16" Width="426" Height="500" Depth="372"/>
+  <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+  <Focus Type="Head" PanMax="530" TiltMax="280"/>
+  <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

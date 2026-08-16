@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
+  <Author>Clem</Author>
+ </Creator>
+ <Manufacturer>Rosco</Manufacturer>
+ <Model>I-Cue</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan - coarse" Preset="PositionPan"/>
+ <Channel Name="Pan - fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt - coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt - fine" Preset="PositionTiltFine"/>
+ <Mode Name="2 channel">
+  <Channel Number="0">Pan - coarse</Channel>
+  <Channel Number="1">Tilt - coarse</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Pan - coarse</Channel>
+  <Channel Number="1">Pan - fine</Channel>
+  <Channel Number="2">Tilt - coarse</Channel>
+  <Channel Number="3">Tilt - fine</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="160" Height="260" Weight="1.6" Depth="265"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="230" Type="Fixed" TiltMax="57"/>
+   <Technical PowerConsumption="17" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

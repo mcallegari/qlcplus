@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Daniel Schauder</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED Giga Bar 4 MKII</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer 1-16" Preset="IntensityDimmer"/>
+ <Channel Name="LED Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="15">Auto mode 1</Capability>
+  <Capability Min="16" Max="23">Auto mode 2</Capability>
+  <Capability Min="24" Max="31">Auto mode 3</Capability>
+  <Capability Min="32" Max="39">Auto mode 4</Capability>
+  <Capability Min="40" Max="47">Auto mode 5</Capability>
+  <Capability Min="48" Max="55">Auto mode 6</Capability>
+  <Capability Min="56" Max="63">Auto mode 7</Capability>
+  <Capability Min="64" Max="71">Auto mode 8</Capability>
+  <Capability Min="72" Max="79">Auto mode 9</Capability>
+  <Capability Min="80" Max="87">Auto mode 10</Capability>
+  <Capability Min="88" Max="95">Auto mode 11</Capability>
+  <Capability Min="96" Max="103">Auto mode 12</Capability>
+  <Capability Min="104" Max="111">Auto mode 13</Capability>
+  <Capability Min="112" Max="119">Auto mode 14</Capability>
+  <Capability Min="120" Max="127">Auto mode 15</Capability>
+  <Capability Min="128" Max="135">Auto mode 16</Capability>
+  <Capability Min="136" Max="143">Auto mode 17</Capability>
+  <Capability Min="144" Max="151">Auto mode 18</Capability>
+  <Capability Min="152" Max="159">Auto mode 19</Capability>
+  <Capability Min="160" Max="167">Auto mode 20</Capability>
+  <Capability Min="168" Max="175">Auto mode 21</Capability>
+  <Capability Min="176" Max="183">Auto mode 22</Capability>
+  <Capability Min="184" Max="191">Auto mode 23</Capability>
+  <Capability Min="192" Max="199">Auto mode 24</Capability>
+  <Capability Min="200" Max="207">Auto mode 25</Capability>
+  <Capability Min="208" Max="215">Auto mode 26</Capability>
+  <Capability Min="216" Max="223">Auto mode 27</Capability>
+  <Capability Min="224" Max="231">Auto mode 28</Capability>
+  <Capability Min="232" Max="239">Sound mode 1</Capability>
+  <Capability Min="240" Max="247">Sound mode 2</Capability>
+  <Capability Min="248" Max="255">Sound mode 3</Capability>
+ </Channel>
+ <Channel Name="Function Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-16" Preset="IntensityWhite"/>
+ <Channel Name="Red 1-8" Preset="IntensityRed"/>
+ <Channel Name="Red 8-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-8" Preset="IntensityGreen"/>
+ <Channel Name="Green 8-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 8-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-8" Preset="IntensityWhite"/>
+ <Channel Name="White 8-16" Preset="IntensityWhite"/>
+ <Channel Name="Red 1-4" Preset="IntensityRed"/>
+ <Channel Name="Red 5-8" Preset="IntensityRed"/>
+ <Channel Name="Red 9-12" Preset="IntensityRed"/>
+ <Channel Name="Red 13-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-4" Preset="IntensityGreen"/>
+ <Channel Name="Green 5-8" Preset="IntensityGreen"/>
+ <Channel Name="Green 9-12" Preset="IntensityGreen"/>
+ <Channel Name="Green 13-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5-8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 9-12" Preset="IntensityBlue"/>
+ <Channel Name="Blue 13-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-4" Preset="IntensityWhite"/>
+ <Channel Name="White 5-8" Preset="IntensityWhite"/>
+ <Channel Name="White 9-12" Preset="IntensityWhite"/>
+ <Channel Name="White 13-16" Preset="IntensityWhite"/>
+ <Channel Name="Red 1-2" Preset="IntensityRed"/>
+ <Channel Name="Red 3-4" Preset="IntensityRed"/>
+ <Channel Name="Red 5-6" Preset="IntensityRed"/>
+ <Channel Name="Red 7-8" Preset="IntensityRed"/>
+ <Channel Name="Red 9-10" Preset="IntensityRed"/>
+ <Channel Name="Red 11-12" Preset="IntensityRed"/>
+ <Channel Name="Red 13-14" Preset="IntensityRed"/>
+ <Channel Name="Red 15-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3-4" Preset="IntensityGreen"/>
+ <Channel Name="Green 5-6" Preset="IntensityGreen"/>
+ <Channel Name="Green 7-8" Preset="IntensityGreen"/>
+ <Channel Name="Green 9-10" Preset="IntensityGreen"/>
+ <Channel Name="Green 11-12" Preset="IntensityGreen"/>
+ <Channel Name="Green 13-14" Preset="IntensityGreen"/>
+ <Channel Name="Green 15-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3-4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5-6" Preset="IntensityBlue"/>
+ <Channel Name="Blue 7-8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 9-10" Preset="IntensityBlue"/>
+ <Channel Name="Blue 11-12" Preset="IntensityBlue"/>
+ <Channel Name="Blue 13-14" Preset="IntensityBlue"/>
+ <Channel Name="Blue 15-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-2" Preset="IntensityWhite"/>
+ <Channel Name="White 3-4" Preset="IntensityWhite"/>
+ <Channel Name="White 5-6" Preset="IntensityWhite"/>
+ <Channel Name="White 7-8" Preset="IntensityWhite"/>
+ <Channel Name="White 9-10" Preset="IntensityWhite"/>
+ <Channel Name="White 11-12" Preset="IntensityWhite"/>
+ <Channel Name="White 13-14" Preset="IntensityWhite"/>
+ <Channel Name="White 15-16" Preset="IntensityWhite"/>
+ <Mode Name="Mode 1 - 4 Channels">
+  <Channel Number="0">Red 1-16</Channel>
+  <Channel Number="1">Green 1-16</Channel>
+  <Channel Number="2">Blue 1-16</Channel>
+  <Channel Number="3">White 1-16</Channel>
+ </Mode>
+ <Mode Name="Mode 2 - 8 Channels">
+  <Channel Number="0">Dimmer 1-16</Channel>
+  <Channel Number="1">LED Functions</Channel>
+  <Channel Number="2">Function Speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red 1-16</Channel>
+  <Channel Number="5">Green 1-16</Channel>
+  <Channel Number="6">Blue 1-16</Channel>
+  <Channel Number="7">White 1-16</Channel>
+ </Mode>
+ <Mode Name="Mode 3 - 12 Channels">
+  <Channel Number="0">Dimmer 1-16</Channel>
+  <Channel Number="1">LED Functions</Channel>
+  <Channel Number="2">Function Speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red 1-8</Channel>
+  <Channel Number="5">Green 1-8</Channel>
+  <Channel Number="6">Blue 1-8</Channel>
+  <Channel Number="7">White 1-8</Channel>
+  <Channel Number="8">Red 8-16</Channel>
+  <Channel Number="9">Green 8-16</Channel>
+  <Channel Number="10">Blue 8-16</Channel>
+  <Channel Number="11">White 8-16</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 4 - 20 Channels">
+  <Channel Number="0">Dimmer 1-16</Channel>
+  <Channel Number="1">LED Functions</Channel>
+  <Channel Number="2">Function Speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red 1-4</Channel>
+  <Channel Number="5">Green 1-4</Channel>
+  <Channel Number="6">Blue 1-4</Channel>
+  <Channel Number="7">White 1-4</Channel>
+  <Channel Number="8">White 5-8</Channel>
+  <Channel Number="9">Blue 5-8</Channel>
+  <Channel Number="10">Green 5-8</Channel>
+  <Channel Number="11">Red 5-8</Channel>
+  <Channel Number="12">Red 9-12</Channel>
+  <Channel Number="13">Green 9-12</Channel>
+  <Channel Number="14">Blue 9-12</Channel>
+  <Channel Number="15">White 9-12</Channel>
+  <Channel Number="16">Red 13-16</Channel>
+  <Channel Number="17">Green 13-16</Channel>
+  <Channel Number="18">Blue 13-16</Channel>
+  <Channel Number="19">White 13-16</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 5 - 32 Channels">
+  <Channel Number="0">Red 1-2</Channel>
+  <Channel Number="1">Green 1-2</Channel>
+  <Channel Number="2">Blue 1-2</Channel>
+  <Channel Number="3">White 1-2</Channel>
+  <Channel Number="4">Red 3-4</Channel>
+  <Channel Number="5">Green 3-4</Channel>
+  <Channel Number="6">Blue 3-4</Channel>
+  <Channel Number="7">White 3-4</Channel>
+  <Channel Number="8">Red 5-6</Channel>
+  <Channel Number="9">Green 5-6</Channel>
+  <Channel Number="10">Blue 5-6</Channel>
+  <Channel Number="11">White 5-6</Channel>
+  <Channel Number="12">Red 7-8</Channel>
+  <Channel Number="13">Green 7-8</Channel>
+  <Channel Number="14">Blue 7-8</Channel>
+  <Channel Number="15">White 7-8</Channel>
+  <Channel Number="16">Red 9-10</Channel>
+  <Channel Number="17">Green 9-10</Channel>
+  <Channel Number="18">Blue 9-10</Channel>
+  <Channel Number="19">White 9-10</Channel>
+  <Channel Number="20">Red 11-12</Channel>
+  <Channel Number="21">Green 11-12</Channel>
+  <Channel Number="22">Blue 11-12</Channel>
+  <Channel Number="23">White 11-12</Channel>
+  <Channel Number="24">Red 13-14</Channel>
+  <Channel Number="25">Green 13-14</Channel>
+  <Channel Number="26">Blue 13-14</Channel>
+  <Channel Number="27">White 13-14</Channel>
+  <Channel Number="28">Red 15-16</Channel>
+  <Channel Number="29">Green 15-16</Channel>
+  <Channel Number="30">Blue 15-16</Channel>
+  <Channel Number="31">White 15-16</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 6 - 36 Channels">
+  <Channel Number="0">Dimmer 1-16</Channel>
+  <Channel Number="1">LED Functions</Channel>
+  <Channel Number="2">Function Speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red 1-2</Channel>
+  <Channel Number="5">Green 1-2</Channel>
+  <Channel Number="6">Blue 1-2</Channel>
+  <Channel Number="7">White 1-2</Channel>
+  <Channel Number="8">Red 3-4</Channel>
+  <Channel Number="9">Green 3-4</Channel>
+  <Channel Number="10">Blue 3-4</Channel>
+  <Channel Number="11">White 3-4</Channel>
+  <Channel Number="12">Red 5-6</Channel>
+  <Channel Number="13">Green 5-6</Channel>
+  <Channel Number="14">Blue 5-6</Channel>
+  <Channel Number="15">White 5-6</Channel>
+  <Channel Number="16">Red 7-8</Channel>
+  <Channel Number="17">Green 7-8</Channel>
+  <Channel Number="18">Blue 7-8</Channel>
+  <Channel Number="19">White 7-8</Channel>
+  <Channel Number="20">Red 9-10</Channel>
+  <Channel Number="21">Green 9-10</Channel>
+  <Channel Number="22">Blue 9-10</Channel>
+  <Channel Number="23">White 9-10</Channel>
+  <Channel Number="24">Red 11-12</Channel>
+  <Channel Number="25">Green 11-12</Channel>
+  <Channel Number="26">Blue 11-12</Channel>
+  <Channel Number="27">White 11-12</Channel>
+  <Channel Number="28">Red 13-14</Channel>
+  <Channel Number="29">Green 13-14</Channel>
+  <Channel Number="30">Blue 13-14</Channel>
+  <Channel Number="31">White 13-14</Channel>
+  <Channel Number="32">Red 15-16</Channel>
+  <Channel Number="33">Green 15-16</Channel>
+  <Channel Number="34">Blue 15-16</Channel>
+  <Channel Number="35">White 15-16</Channel>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

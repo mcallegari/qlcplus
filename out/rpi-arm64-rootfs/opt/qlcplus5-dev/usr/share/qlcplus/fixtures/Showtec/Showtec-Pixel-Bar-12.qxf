@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Henk de Gunst</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Pixel Bar 12</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Built-in Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="6">No function</Capability>
+  <Capability Min="7" Max="13">1</Capability>
+  <Capability Min="14" Max="20">2</Capability>
+  <Capability Min="21" Max="27">3</Capability>
+  <Capability Min="28" Max="34">4</Capability>
+  <Capability Min="35" Max="41">5</Capability>
+  <Capability Min="42" Max="48">6</Capability>
+  <Capability Min="49" Max="55">7</Capability>
+  <Capability Min="56" Max="62">8</Capability>
+  <Capability Min="63" Max="69">9</Capability>
+  <Capability Min="70" Max="76">10</Capability>
+  <Capability Min="77" Max="83">11</Capability>
+  <Capability Min="84" Max="90">12</Capability>
+  <Capability Min="91" Max="97">13</Capability>
+  <Capability Min="98" Max="104">14</Capability>
+  <Capability Min="105" Max="111">15</Capability>
+  <Capability Min="112" Max="118">16</Capability>
+  <Capability Min="119" Max="125">17</Capability>
+  <Capability Min="126" Max="132">18</Capability>
+  <Capability Min="133" Max="139">19</Capability>
+  <Capability Min="140" Max="146">20</Capability>
+  <Capability Min="147" Max="153">21</Capability>
+  <Capability Min="154" Max="160">22</Capability>
+  <Capability Min="161" Max="167">23</Capability>
+  <Capability Min="168" Max="174">24</Capability>
+  <Capability Min="175" Max="181">25</Capability>
+  <Capability Min="182" Max="188">26</Capability>
+  <Capability Min="189" Max="195">27</Capability>
+  <Capability Min="196" Max="202">28</Capability>
+  <Capability Min="203" Max="209">29</Capability>
+  <Capability Min="210" Max="216">30</Capability>
+  <Capability Min="217" Max="223">31</Capability>
+  <Capability Min="224" Max="230">32</Capability>
+  <Capability Min="231" Max="237">33</Capability>
+  <Capability Min="238" Max="244">34</Capability>
+  <Capability Min="245" Max="251">35</Capability>
+  <Capability Min="252" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Sound Mode/Blackout">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="169">Sound mode S1</Capability>
+  <Capability Min="170" Max="255">Blackout</Capability>
+ </Channel>
+ <Channel Name="Red Section 1" Preset="IntensityRed"/>
+ <Channel Name="Red Section 2" Preset="IntensityRed"/>
+ <Channel Name="Green Section 1" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Section 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 6" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 7" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 8" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 9" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 10" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 11" Preset="IntensityBlue"/>
+ <Channel Name="Blue Section 12" Preset="IntensityBlue"/>
+ <Channel Name="Green Section 3" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 4" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 5" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 6" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 7" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 8" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 9" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 10" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 11" Preset="IntensityGreen"/>
+ <Channel Name="Green Section 12" Preset="IntensityGreen"/>
+ <Channel Name="Red Section 3" Preset="IntensityRed"/>
+ <Channel Name="Red Section 4" Preset="IntensityRed"/>
+ <Channel Name="Red Section 5" Preset="IntensityRed"/>
+ <Channel Name="Red Section 6" Preset="IntensityRed"/>
+ <Channel Name="Red Section 7" Preset="IntensityRed"/>
+ <Channel Name="Red Section 8" Preset="IntensityRed"/>
+ <Channel Name="Red Section 9" Preset="IntensityRed"/>
+ <Channel Name="Red Section 10" Preset="IntensityRed"/>
+ <Channel Name="Red Section 11" Preset="IntensityRed"/>
+ <Channel Name="Red Section 12" Preset="IntensityRed"/>
+ <Channel Name="Speed/Audio Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From slow to fast/From less sensitive to highly sensitive</Capability>
+ </Channel>
+ <Mode Name="7 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Built-in Programs</Channel>
+  <Channel Number="5">Speed/Audio Sensitivity</Channel>
+  <Channel Number="6">Sound Mode/Blackout</Channel>
+ </Mode>
+ <Mode Name="3 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="6 Channels">
+  <Channel Number="0">Red Section 1</Channel>
+  <Channel Number="1">Green Section 1</Channel>
+  <Channel Number="2">Blue Section 1</Channel>
+  <Channel Number="3">Red Section 2</Channel>
+  <Channel Number="4">Green Section 2</Channel>
+  <Channel Number="5">Blue Section 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9 Channels">
+  <Channel Number="0">Red Section 1</Channel>
+  <Channel Number="1">Green Section 1</Channel>
+  <Channel Number="2">Blue Section 1</Channel>
+  <Channel Number="3">Red Section 2</Channel>
+  <Channel Number="4">Green Section 2</Channel>
+  <Channel Number="5">Blue Section 2</Channel>
+  <Channel Number="6">Red Section 3</Channel>
+  <Channel Number="7">Blue Section 3</Channel>
+  <Channel Number="8">Green Section 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="12 Channels">
+  <Channel Number="0">Red Section 1</Channel>
+  <Channel Number="1">Green Section 1</Channel>
+  <Channel Number="2">Blue Section 1</Channel>
+  <Channel Number="3">Red Section 2</Channel>
+  <Channel Number="4">Green Section 2</Channel>
+  <Channel Number="5">Blue Section 2</Channel>
+  <Channel Number="6">Red Section 3</Channel>
+  <Channel Number="7">Green Section 3</Channel>
+  <Channel Number="8">Blue Section 3</Channel>
+  <Channel Number="9">Red Section 4</Channel>
+  <Channel Number="10">Green Section 4</Channel>
+  <Channel Number="11">Blue Section 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="18 Channels">
+  <Channel Number="0">Red Section 1</Channel>
+  <Channel Number="1">Green Section 1</Channel>
+  <Channel Number="2">Blue Section 1</Channel>
+  <Channel Number="3">Red Section 2</Channel>
+  <Channel Number="4">Green Section 2</Channel>
+  <Channel Number="5">Blue Section 2</Channel>
+  <Channel Number="6">Red Section 3</Channel>
+  <Channel Number="7">Green Section 3</Channel>
+  <Channel Number="8">Blue Section 3</Channel>
+  <Channel Number="9">Red Section 4</Channel>
+  <Channel Number="10">Green Section 4</Channel>
+  <Channel Number="11">Blue Section 4</Channel>
+  <Channel Number="12">Red Section 5</Channel>
+  <Channel Number="13">Green Section 5</Channel>
+  <Channel Number="14">Blue Section 5</Channel>
+  <Channel Number="15">Red Section 6</Channel>
+  <Channel Number="16">Green Section 6</Channel>
+  <Channel Number="17">Blue Section 6</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="36 Channels">
+  <Channel Number="0">Red Section 1</Channel>
+  <Channel Number="1">Green Section 1</Channel>
+  <Channel Number="2">Blue Section 1</Channel>
+  <Channel Number="3">Red Section 2</Channel>
+  <Channel Number="4">Green Section 2</Channel>
+  <Channel Number="5">Blue Section 2</Channel>
+  <Channel Number="6">Red Section 3</Channel>
+  <Channel Number="7">Green Section 3</Channel>
+  <Channel Number="8">Blue Section 3</Channel>
+  <Channel Number="9">Red Section 4</Channel>
+  <Channel Number="10">Green Section 4</Channel>
+  <Channel Number="11">Blue Section 4</Channel>
+  <Channel Number="12">Red Section 5</Channel>
+  <Channel Number="13">Green Section 5</Channel>
+  <Channel Number="14">Blue Section 5</Channel>
+  <Channel Number="15">Red Section 6</Channel>
+  <Channel Number="16">Green Section 6</Channel>
+  <Channel Number="17">Blue Section 6</Channel>
+  <Channel Number="18">Red Section 7</Channel>
+  <Channel Number="19">Green Section 7</Channel>
+  <Channel Number="20">Blue Section 7</Channel>
+  <Channel Number="21">Red Section 8</Channel>
+  <Channel Number="22">Green Section 8</Channel>
+  <Channel Number="23">Blue Section 8</Channel>
+  <Channel Number="24">Red Section 9</Channel>
+  <Channel Number="25">Green Section 9</Channel>
+  <Channel Number="26">Blue Section 9</Channel>
+  <Channel Number="27">Red Section 10</Channel>
+  <Channel Number="28">Green Section 10</Channel>
+  <Channel Number="29">Blue Section 10</Channel>
+  <Channel Number="30">Red Section 11</Channel>
+  <Channel Number="31">Green Section 11</Channel>
+  <Channel Number="32">Blue Section 11</Channel>
+  <Channel Number="33">Red Section 12</Channel>
+  <Channel Number="34">Green Section 12</Channel>
+  <Channel Number="35">Blue Section 12</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1380" ColourTemperature="0"/>
+  <Dimensions Weight="4.28" Width="1015" Height="74" Depth="72"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>Evolight</Manufacturer>
+ <Model>Colours SL3</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed: Fast &gt; Slow</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="11" Max="128" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="129" Max="150" Preset="ShutterOpen">Shutter Open</Capability>
+  <Capability Min="151" Max="200" Preset="StrobeRandom">Strobe Random</Capability>
+  <Capability Min="201" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
+ </Channel>
+ <Channel Name="Special Function (Reset / DMX Record)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="119">No function</Capability>
+  <Capability Min="120" Max="130" Preset="ResetAll">RESET (After 6 sec.)</Capability>
+  <Capability Min="131" Max="250">No function</Capability>
+  <Capability Min="251" Max="255">DMX Record (After 6 sec.)</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Special Function (Reset / DMX Record)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="5500"/>
+  <Dimensions Weight="2.1" Width="190" Height="230" Depth="145"/>
+  <Lens Name="Other" DegreesMin="7" DegreesMax="12"/>
+  <Focus Type="Head" PanMax="350" TiltMax="105"/>
+  <Technical PowerConsumption="20" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

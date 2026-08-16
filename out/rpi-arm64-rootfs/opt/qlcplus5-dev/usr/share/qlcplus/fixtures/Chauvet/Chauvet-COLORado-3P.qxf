@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Kevin Zepp</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORado 3P</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#ff0000">0-100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#00ff00">0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#ffffff">0-100%</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#ffff00">0-100%</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#00ffff">0-100%</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#5555ff">0-100%</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="255" Preset="ColorMacro" Res1="#ffffff">0-100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">0 to 20Hz</Capability>
+ </Channel>
+ <Channel Name="Mode Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="34">Color-cycle mode 1</Capability>
+  <Capability Min="35" Max="64">Color-cycle mode 2</Capability>
+  <Capability Min="65" Max="94">Color-cycle mode 3</Capability>
+  <Capability Min="95" Max="124">Color-cycle mode 4</Capability>
+  <Capability Min="125" Max="154">Color-cycle mode 5</Capability>
+  <Capability Min="155" Max="184">Color-cycle mode 6</Capability>
+  <Capability Min="185" Max="214">Color-cycle mode 7</Capability>
+  <Capability Min="215" Max="244">Color-cycle mode 8</Capability>
+  <Capability Min="245" Max="255">DMX Mode 2</Capability>
+ </Channel>
+ <Channel Name="ID Address Selection">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">All IDs</Capability>
+  <Capability Min="10" Max="19">ID 1</Capability>
+  <Capability Min="20" Max="29">ID 2</Capability>
+  <Capability Min="30" Max="39">ID 3</Capability>
+  <Capability Min="40" Max="49">ID 4</Capability>
+  <Capability Min="50" Max="59">ID 5</Capability>
+  <Capability Min="60" Max="69">ID 6</Capability>
+  <Capability Min="70" Max="79">ID 7</Capability>
+  <Capability Min="80" Max="89">ID 8</Capability>
+  <Capability Min="90" Max="99">ID 9</Capability>
+  <Capability Min="100" Max="109">ID 10</Capability>
+  <Capability Min="110" Max="119">ID 11</Capability>
+  <Capability Min="120" Max="129">ID 12</Capability>
+  <Capability Min="130" Max="139">ID 13</Capability>
+  <Capability Min="140" Max="149">ID 14</Capability>
+  <Capability Min="150" Max="159">ID 15</Capability>
+  <Capability Min="160" Max="169">ID 16</Capability>
+  <Capability Min="170" Max="179">ID 17</Capability>
+  <Capability Min="180" Max="189">ID 18</Capability>
+  <Capability Min="190" Max="199">ID 19</Capability>
+  <Capability Min="200" Max="209">ID 20</Capability>
+  <Capability Min="210" Max="210">ID 21</Capability>
+  <Capability Min="211" Max="211">ID 22</Capability>
+  <Capability Min="212" Max="212">ID 23</Capability>
+  <Capability Min="213" Max="213">ID 24</Capability>
+  <Capability Min="214" Max="214">ID 25</Capability>
+  <Capability Min="215" Max="215">ID 26</Capability>
+  <Capability Min="216" Max="216">ID 27</Capability>
+  <Capability Min="217" Max="217">ID 28</Capability>
+  <Capability Min="218" Max="218">ID 29</Capability>
+  <Capability Min="219" Max="219">ID 30</Capability>
+  <Capability Min="220" Max="220">ID 31</Capability>
+  <Capability Min="221" Max="221">ID 32</Capability>
+  <Capability Min="222" Max="222">ID 33</Capability>
+  <Capability Min="223" Max="223">ID 34</Capability>
+  <Capability Min="224" Max="224">ID 35</Capability>
+  <Capability Min="225" Max="225">ID 36</Capability>
+  <Capability Min="226" Max="226">ID 37</Capability>
+  <Capability Min="227" Max="227">ID 38</Capability>
+  <Capability Min="228" Max="228">ID 39</Capability>
+  <Capability Min="229" Max="229">ID 40</Capability>
+  <Capability Min="230" Max="230">ID 41</Capability>
+  <Capability Min="231" Max="231">ID 42</Capability>
+  <Capability Min="232" Max="232">ID 43</Capability>
+  <Capability Min="233" Max="233">ID 44</Capability>
+  <Capability Min="234" Max="234">ID 45</Capability>
+  <Capability Min="235" Max="235">ID 46</Capability>
+  <Capability Min="236" Max="236">ID 47</Capability>
+  <Capability Min="237" Max="237">ID 48</Capability>
+  <Capability Min="238" Max="238">ID 49</Capability>
+  <Capability Min="239" Max="239">ID 50</Capability>
+  <Capability Min="240" Max="240">ID 51</Capability>
+  <Capability Min="241" Max="241">ID 52</Capability>
+  <Capability Min="242" Max="242">ID 53</Capability>
+  <Capability Min="243" Max="243">ID 54</Capability>
+  <Capability Min="244" Max="244">ID 55</Capability>
+  <Capability Min="245" Max="245">ID 56</Capability>
+  <Capability Min="246" Max="246">ID 57</Capability>
+  <Capability Min="247" Max="247">ID 58</Capability>
+  <Capability Min="248" Max="248">ID 59</Capability>
+  <Capability Min="249" Max="249">ID 60</Capability>
+  <Capability Min="250" Max="250">ID 61</Capability>
+  <Capability Min="251" Max="251">ID 62</Capability>
+  <Capability Min="252" Max="252">ID 63</Capability>
+  <Capability Min="253" Max="253">ID 64</Capability>
+  <Capability Min="254" Max="254">ID 65</Capability>
+  <Capability Min="255" Max="255">ID 66</Capability>
+ </Channel>
+ <Channel Name="Module Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">All modules on</Capability>
+  <Capability Min="5" Max="34">Module 1 on</Capability>
+  <Capability Min="35" Max="64">Module 2 on</Capability>
+  <Capability Min="65" Max="94">Module 3 on</Capability>
+  <Capability Min="95" Max="124">Module 1,2 on</Capability>
+  <Capability Min="125" Max="154">Module 2,3 on</Capability>
+  <Capability Min="155" Max="184">Module 1,3 on</Capability>
+  <Capability Min="185" Max="214">All modules on</Capability>
+  <Capability Min="215" Max="255">All modules off</Capability>
+ </Channel>
+ <Channel Name="Effect Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="8">Macro 1</Capability>
+  <Capability Min="9" Max="13">Macro 2</Capability>
+  <Capability Min="14" Max="18">Macro 3</Capability>
+  <Capability Min="19" Max="23">Macro 4</Capability>
+  <Capability Min="24" Max="28">Macro 5</Capability>
+  <Capability Min="29" Max="33">Macro 6</Capability>
+  <Capability Min="34" Max="38">Macro 7</Capability>
+  <Capability Min="39" Max="43">Macro 8</Capability>
+  <Capability Min="44" Max="48">Macro 9</Capability>
+  <Capability Min="49" Max="53">Macro 10</Capability>
+  <Capability Min="54" Max="58">Macro 11</Capability>
+  <Capability Min="59" Max="63">Macro 12</Capability>
+  <Capability Min="64" Max="68">Macro 13</Capability>
+  <Capability Min="69" Max="73">Macro 14</Capability>
+  <Capability Min="74" Max="78">Macro 15</Capability>
+  <Capability Min="79" Max="83">Macro 16</Capability>
+  <Capability Min="84" Max="88">Macro 17</Capability>
+  <Capability Min="89" Max="93">Macro 18</Capability>
+  <Capability Min="94" Max="98">Macro 19</Capability>
+  <Capability Min="99" Max="103">Macro 20</Capability>
+  <Capability Min="104" Max="108">Macro 21</Capability>
+  <Capability Min="109" Max="113">Macro 22</Capability>
+  <Capability Min="114" Max="118">Macro 23</Capability>
+  <Capability Min="119" Max="123">Macro 24</Capability>
+  <Capability Min="124" Max="128">Macro 25</Capability>
+  <Capability Min="129" Max="133">Macro 26</Capability>
+  <Capability Min="134" Max="138">Macro 27</Capability>
+  <Capability Min="139" Max="143">Macro 28</Capability>
+  <Capability Min="144" Max="148">Macro 29</Capability>
+  <Capability Min="149" Max="153">Macro 30</Capability>
+  <Capability Min="154" Max="158">Macro 31</Capability>
+  <Capability Min="159" Max="163">Macro 32</Capability>
+  <Capability Min="164" Max="168">Macro 33</Capability>
+  <Capability Min="169" Max="173">Macro 34</Capability>
+  <Capability Min="174" Max="178">Macro 35</Capability>
+  <Capability Min="179" Max="183">Macro 36</Capability>
+  <Capability Min="184" Max="188">Macro 37</Capability>
+  <Capability Min="189" Max="193">Macro 38</Capability>
+  <Capability Min="194" Max="198">Macro 39</Capability>
+  <Capability Min="199" Max="203">Macro 40</Capability>
+  <Capability Min="204" Max="208">Macro 41</Capability>
+  <Capability Min="209" Max="213">Macro 42</Capability>
+  <Capability Min="214" Max="218">Macro 43</Capability>
+  <Capability Min="219" Max="223">Macro 44</Capability>
+  <Capability Min="224" Max="228">Macro 45</Capability>
+  <Capability Min="229" Max="233">Macro 46</Capability>
+  <Capability Min="234" Max="238">Macro 47</Capability>
+  <Capability Min="239" Max="243">Macro 48</Capability>
+  <Capability Min="244" Max="248">Macro 49</Capability>
+  <Capability Min="249" Max="255">Macro 50</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="29" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="30" Max="39">Red 85%, Yellow 15%</Capability>
+  <Capability Min="40" Max="49">Red 60%, Yellow 40%</Capability>
+  <Capability Min="50" Max="69" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="70" Max="79">Yellow 85%, Green 15%</Capability>
+  <Capability Min="80" Max="89">Yellow 60%, Green 40%</Capability>
+  <Capability Min="90" Max="109" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="110" Max="119">Green 85%, Blue 15%</Capability>
+  <Capability Min="120" Max="129">Green 60%, Blue 40%</Capability>
+  <Capability Min="130" Max="149" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="150" Max="159">Blue 85%, Cyan 15%</Capability>
+  <Capability Min="160" Max="169">Blue 60%, Cyan 40%</Capability>
+  <Capability Min="170" Max="189" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="190" Max="199">Cyan 50%, Purple 50%</Capability>
+  <Capability Min="200" Max="219" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="220" Max="229">Purple 50%, White 50%</Capability>
+  <Capability Min="230" Max="239">White 95%, Yellow 5%</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Block 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 3 Blue" Preset="IntensityBlue"/>
+ <Mode Name="Stage 1 (DMX mode 1)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Yellow</Channel>
+  <Channel Number="4">Cyan</Channel>
+  <Channel Number="5">Magenta</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Mode Selection</Channel>
+  <Channel Number="9">ID Address Selection</Channel>
+  <Channel Number="10">Module Selection</Channel>
+  <Channel Number="11">Effect Macro</Channel>
+ </Mode>
+ <Mode Name="Stage 2 (DMX mode 1)">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Color Macros</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Mode Selection</Channel>
+  <Channel Number="7">ID Address Selection</Channel>
+  <Channel Number="8">Module Selection</Channel>
+  <Channel Number="9">Effect Macro</Channel>
+ </Mode>
+ <Mode Name="Pixel">
+  <Channel Number="0">Block 1 Red</Channel>
+  <Channel Number="1">Block 1 Green</Channel>
+  <Channel Number="2">Block 1 Blue</Channel>
+  <Channel Number="3">Block 2 Red</Channel>
+  <Channel Number="4">Block 2 Green</Channel>
+  <Channel Number="5">Block 2 Blue</Channel>
+  <Channel Number="6">Block 3 Red</Channel>
+  <Channel Number="7">Block 3 Green</Channel>
+  <Channel Number="8">Block 3 Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="ARC 1">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="ARC 1 + D">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="7270" ColourTemperature="0"/>
+  <Dimensions Weight="8.2" Width="190" Height="210" Depth="570"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

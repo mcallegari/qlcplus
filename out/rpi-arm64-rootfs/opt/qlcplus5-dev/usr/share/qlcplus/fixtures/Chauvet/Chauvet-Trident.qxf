@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Francois Blanchette</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Trident</Model>
+ <Type>Flower</Type>
+ <Channel Name="Color Selection (no dimming)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="5" Max="28" Preset="ColorMacro" Res1="#fc0107">Red</Capability>
+  <Capability Min="29" Max="56" Preset="ColorMacro" Res1="#21ff06">Green</Capability>
+  <Capability Min="57" Max="84" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="112" Preset="ColorDoubleMacro" Res1="#21ff06" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="113" Max="140" Preset="ColorDoubleMacro" Res1="#fc0107" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="141" Max="168" Preset="ColorDoubleMacro" Res1="#fc0107" Res2="#21ff06">Red/Green</Capability>
+  <Capability Min="169" Max="197" Preset="ColorMacro" Res1="#ffffff">Red/Green/Blue</Capability>
+  <Capability Min="198" Max="224">3-color chase</Capability>
+  <Capability Min="225" Max="255">7-color chase</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="255" Preset="StrobeSlowToFast">Strobe (slow &lt;=&gt; fast)</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="255">Rotate (fast to slow)</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Color Selection (no dimming)</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.6" Width="308" Height="348" Depth="269"/>
+  <Lens Name="Other" DegreesMin="155" DegreesMax="155"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="16" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

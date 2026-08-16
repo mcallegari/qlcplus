@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>boxr</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Alpha Wash 700</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="14" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + red</Capability>
+  <Capability Min="15" Max="21" Preset="ColorMacro" Res1="#f62a2d">Red</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#f62a2d">Red + CTB</Capability>
+  <Capability Min="30" Max="36" Preset="ColorMacro" Res1="#9acdbe">CTB</Capability>
+  <Capability Min="37" Max="44" Preset="ColorDoubleMacro" Res1="#9acdbe" Res2="#03853f">CTB + green</Capability>
+  <Capability Min="45" Max="51" Preset="ColorMacro" Res1="#01883c">Green</Capability>
+  <Capability Min="52" Max="59" Preset="ColorDoubleMacro" Res1="#00873b" Res2="#a0c635">Green + light green</Capability>
+  <Capability Min="60" Max="66" Preset="ColorMacro" Res1="#a0c635">Light green</Capability>
+  <Capability Min="67" Max="74" Preset="ColorDoubleMacro" Res1="#a0c635" Res2="#8873b4">Light green + lavender</Capability>
+  <Capability Min="75" Max="81" Preset="ColorMacro" Res1="#8873b4">Lavender</Capability>
+  <Capability Min="82" Max="89" Preset="ColorDoubleMacro" Res1="#e6e6fa" Res2="#7cbf89">Lavender + aquamarine</Capability>
+  <Capability Min="90" Max="96" Preset="ColorMacro" Res1="#7cbf89">Aquamarine</Capability>
+  <Capability Min="97" Max="104" Preset="ColorDoubleMacro" Res1="#00ffbf" Res2="#ff7f00">Aquamarine + orange</Capability>
+  <Capability Min="105" Max="111" Preset="ColorMacro" Res1="#e3651b">Orange</Capability>
+  <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#e3651b" Res2="#22378a">Orange + blue</Capability>
+  <Capability Min="120" Max="126" Preset="ColorMacro" Res1="#22378a">Blue</Capability>
+  <Capability Min="127" Max="127" Preset="ColorMacro" Res1="#22378a">Blue + white</Capability>
+  <Capability Min="128" Max="255" Preset="ColorMacro" Res1="#ffffff">Slow rotation (0.2 rpm) - Fast rotation (160 rpm)</Capability>
+ </Channel>
+ <Channel Name="Stop/strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Slow strobe (1 flash/s) - fast strobe (12 flash/s)</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Slow pulsation - fast pulsation</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random slow strobe</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random medium strobe</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random fast strobe</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Beam shaper insertion">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="84">White</Capability>
+  <Capability Min="85" Max="169">Shaper 1</Capability>
+  <Capability Min="170" Max="255">Shaper 2</Capability>
+ </Channel>
+ <Channel Name="Beam shaper rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Position (0 - 540°)</Capability>
+  <Capability Min="128" Max="190">Fast rotation (120 rpm) - slow rotation (3 rph)</Capability>
+  <Capability Min="191" Max="192">Stop</Capability>
+  <Capability Min="193" Max="255">Slow rotation (3 rph) - fast rotation (120 rpm)</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="12">Unused range</Capability>
+  <Capability Min="13" Max="25">Fast speed (default) pan-tilt function</Capability>
+  <Capability Min="26" Max="38">Normal speed pan-tilt function</Capability>
+  <Capability Min="39" Max="50">Conventional dimmer curve function</Capability>
+  <Capability Min="51" Max="51">Linear (default) dimmer curve function</Capability>
+  <Capability Min="52" Max="255">Unused range</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effects reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/tilt reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete reset</Capability>
+ </Channel>
+ <Channel Name="Lamp control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused range</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="101" Max="179" Preset="LampOn">Lamp on (half power)</Capability>
+  <Capability Min="180" Max="255" Preset="LampOn">Lamp on (full power)</Capability>
+ </Channel>
+ <Channel Name="Pan - tilt time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Full</Capability>
+  <Capability Min="1" Max="254">0.2s - 310s</Capability>
+  <Capability Min="255" Max="255">Follow data cue</Capability>
+ </Channel>
+ <Channel Name="Colour time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Full</Capability>
+  <Capability Min="1" Max="254">0.2s - 310s</Capability>
+  <Capability Min="255" Max="255">Follow cue data</Capability>
+ </Channel>
+ <Channel Name="Beam time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Full</Capability>
+  <Capability Min="1" Max="254">0.2s - 310s</Capability>
+  <Capability Min="255" Max="255">Follow cue data</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Mode Name="Standard - CMY">
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">CTO</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Stop/strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Beam shaper insertion</Channel>
+  <Channel Number="9">Beam shaper rotation</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt fine</Channel>
+  <Channel Number="15">Function</Channel>
+  <Channel Number="16">Reset</Channel>
+  <Channel Number="17">Lamp control</Channel>
+ </Mode>
+ <Mode Name="Vector - CMY">
+  <Physical>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
+   <Technical PowerConsumption="800" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">CTO</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Stop/strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Beam shaper insertion</Channel>
+  <Channel Number="9">Beam shaper rotation</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt fine</Channel>
+  <Channel Number="15">Function</Channel>
+  <Channel Number="16">Reset</Channel>
+  <Channel Number="17">Lamp control</Channel>
+  <Channel Number="18">Pan - tilt time</Channel>
+  <Channel Number="19">Colour time</Channel>
+  <Channel Number="20">Beam time</Channel>
+ </Mode>
+ <Mode Name="Standard - RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">CTO</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Stop/strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Beam shaper insertion</Channel>
+  <Channel Number="9">Beam shaper rotation</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt fine</Channel>
+  <Channel Number="15">Function</Channel>
+  <Channel Number="16">Reset</Channel>
+  <Channel Number="17">Lamp control</Channel>
+ </Mode>
+ <Mode Name="Vector - RGB">
+  <Physical>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
+   <Technical PowerConsumption="800" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">CTO</Channel>
+  <Channel Number="4">Colour wheel</Channel>
+  <Channel Number="5">Stop/strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer fine</Channel>
+  <Channel Number="8">Beam shaper insertion</Channel>
+  <Channel Number="9">Beam shaper rotation</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt fine</Channel>
+  <Channel Number="15">Function</Channel>
+  <Channel Number="16">Reset</Channel>
+  <Channel Number="17">Lamp control</Channel>
+  <Channel Number="18">Pan - tilt time</Channel>
+  <Channel Number="19">Colour time</Channel>
+  <Channel Number="20">Beam time</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+  <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+  <Lens Name="Fresnel" DegreesMin="9" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
+  <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

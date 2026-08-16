@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>franky</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Blade Sting 8 RGBW Beam Mover</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Upper Tilt" Preset="PositionTilt"/>
+ <Channel Name="Upper Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Lower Tilt" Preset="PositionTilt"/>
+ <Channel Name="Lower Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Rotation Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Movement speed rotation and tilting movement, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="129" Preset="ColorMacro" Res1="#ff0000">No function</Capability>
+  <Capability Min="130" Max="192" Preset="RotationClockwiseSlowToFast">Clockwise rotation movement, speed increasing</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation movement, speed increasing</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Intensity red LED1" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED1" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED1" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED1" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED2" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED2" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED2" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED2" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED3" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED3" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED3" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED3" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED4" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED4" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED4" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED4" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED5" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED5" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED5" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED5" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED6" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED6" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED6" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED6" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED7" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED7" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED7" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED7" Preset="IntensityWhite"/>
+ <Channel Name="Intensity red LED8" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED8" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED8" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED8" Preset="IntensityWhite"/>
+ <Channel Name="Auto mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19">Auto operation</Capability>
+  <Capability Min="20" Max="29">Preprogrammed automatic show no. 01</Capability>
+  <Capability Min="30" Max="39">Preprogrammed automatic show no. 02</Capability>
+  <Capability Min="40" Max="49">Preprogrammed automatic show no. 03</Capability>
+  <Capability Min="50" Max="59">Preprogrammed automatic show no. 04</Capability>
+  <Capability Min="60" Max="69">Preprogrammed automatic show no. 05</Capability>
+  <Capability Min="70" Max="79">Preprogrammed automatic show no. 06</Capability>
+  <Capability Min="80" Max="129">No function</Capability>
+  <Capability Min="130" Max="255">Sound-controlled operation, increasing sensitivity</Capability>
+ </Channel>
+ <Channel Name="Chaser light speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Chaser light speed</Capability>
+ </Channel>
+ <Channel Name="Flash frequency">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="255">Flash frequency auto operation</Capability>
+ </Channel>
+ <Channel Name="Intensity red LED" Preset="IntensityRed"/>
+ <Channel Name="Intensity green LED" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue LED" Preset="IntensityBlue"/>
+ <Channel Name="Intensity white LED" Preset="IntensityWhite"/>
+ <Mode Name="44 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Upper Tilt</Channel>
+  <Channel Number="3">Upper Tilt Fine</Channel>
+  <Channel Number="4">Lower Tilt</Channel>
+  <Channel Number="5">Lower Tilt Fine</Channel>
+  <Channel Number="6">Rotation Speed</Channel>
+  <Channel Number="7">Pan/Tilt Rotation</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Intensity red LED1</Channel>
+  <Channel Number="10">Intensity green LED1</Channel>
+  <Channel Number="11">Intensity blue LED1</Channel>
+  <Channel Number="12">Intensity white LED1</Channel>
+  <Channel Number="13">Intensity red LED2</Channel>
+  <Channel Number="14">Intensity green LED2</Channel>
+  <Channel Number="15">Intensity blue LED2</Channel>
+  <Channel Number="16">Intensity white LED2</Channel>
+  <Channel Number="17">Intensity red LED3</Channel>
+  <Channel Number="18">Intensity green LED3</Channel>
+  <Channel Number="19">Intensity blue LED3</Channel>
+  <Channel Number="20">Intensity white LED3</Channel>
+  <Channel Number="21">Intensity red LED4</Channel>
+  <Channel Number="22">Intensity green LED4</Channel>
+  <Channel Number="23">Intensity blue LED4</Channel>
+  <Channel Number="24">Intensity white LED4</Channel>
+  <Channel Number="25">Intensity red LED5</Channel>
+  <Channel Number="26">Intensity green LED5</Channel>
+  <Channel Number="27">Intensity blue LED5</Channel>
+  <Channel Number="28">Intensity white LED5</Channel>
+  <Channel Number="29">Intensity red LED6</Channel>
+  <Channel Number="30">Intensity green LED6</Channel>
+  <Channel Number="31">Intensity blue LED6</Channel>
+  <Channel Number="32">Intensity white LED6</Channel>
+  <Channel Number="33">Intensity red LED7</Channel>
+  <Channel Number="34">Intensity green LED7</Channel>
+  <Channel Number="35">Intensity blue LED7</Channel>
+  <Channel Number="36">Intensity white LED7</Channel>
+  <Channel Number="37">Intensity red LED8</Channel>
+  <Channel Number="38">Intensity green LED8</Channel>
+  <Channel Number="39">Intensity blue LED8</Channel>
+  <Channel Number="40">Intensity white LED8</Channel>
+  <Channel Number="41">Auto mode</Channel>
+  <Channel Number="42">Chaser light speed</Channel>
+  <Channel Number="43">Flash frequency</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="40 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Upper Tilt</Channel>
+  <Channel Number="3">Upper Tilt Fine</Channel>
+  <Channel Number="4">Lower Tilt</Channel>
+  <Channel Number="5">Lower Tilt Fine</Channel>
+  <Channel Number="6">Rotation Speed</Channel>
+  <Channel Number="7">Pan/Tilt Rotation</Channel>
+  <Channel Number="8">Intensity red LED1</Channel>
+  <Channel Number="9">Intensity green LED1</Channel>
+  <Channel Number="10">Intensity blue LED1</Channel>
+  <Channel Number="11">Intensity white LED1</Channel>
+  <Channel Number="12">Intensity red LED2</Channel>
+  <Channel Number="13">Intensity green LED2</Channel>
+  <Channel Number="14">Intensity blue LED2</Channel>
+  <Channel Number="15">Intensity white LED2</Channel>
+  <Channel Number="16">Intensity red LED3</Channel>
+  <Channel Number="17">Intensity green LED3</Channel>
+  <Channel Number="18">Intensity blue LED3</Channel>
+  <Channel Number="19">Intensity white LED3</Channel>
+  <Channel Number="20">Intensity red LED4</Channel>
+  <Channel Number="21">Intensity green LED4</Channel>
+  <Channel Number="22">Intensity blue LED4</Channel>
+  <Channel Number="23">Intensity white LED4</Channel>
+  <Channel Number="24">Intensity red LED5</Channel>
+  <Channel Number="25">Intensity green LED5</Channel>
+  <Channel Number="26">Intensity blue LED5</Channel>
+  <Channel Number="27">Intensity white LED5</Channel>
+  <Channel Number="28">Intensity red LED6</Channel>
+  <Channel Number="29">Intensity green LED6</Channel>
+  <Channel Number="30">Intensity blue LED6</Channel>
+  <Channel Number="31">Intensity white LED6</Channel>
+  <Channel Number="32">Intensity red LED7</Channel>
+  <Channel Number="33">Intensity green LED7</Channel>
+  <Channel Number="34">Intensity blue LED7</Channel>
+  <Channel Number="35">Intensity white LED7</Channel>
+  <Channel Number="36">Intensity red LED8</Channel>
+  <Channel Number="37">Intensity green LED8</Channel>
+  <Channel Number="38">Intensity blue LED8</Channel>
+  <Channel Number="39">Intensity white LED8</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Upper Tilt</Channel>
+  <Channel Number="3">Upper Tilt Fine</Channel>
+  <Channel Number="4">Lower Tilt</Channel>
+  <Channel Number="5">Lower Tilt Fine</Channel>
+  <Channel Number="6">Rotation Speed</Channel>
+  <Channel Number="7">Pan/Tilt Rotation</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Intensity red LED</Channel>
+  <Channel Number="10">Intensity green LED</Channel>
+  <Channel Number="11">Intensity blue LED</Channel>
+  <Channel Number="12">Intensity white LED</Channel>
+  <Channel Number="13">Auto mode</Channel>
+  <Channel Number="14">Chaser light speed</Channel>
+  <Channel Number="15">Flash frequency</Channel>
+ </Mode>
+ <Mode Name="12 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Upper Tilt</Channel>
+  <Channel Number="3">Upper Tilt Fine</Channel>
+  <Channel Number="4">Lower Tilt</Channel>
+  <Channel Number="5">Lower Tilt Fine</Channel>
+  <Channel Number="6">Rotation Speed</Channel>
+  <Channel Number="7">Pan/Tilt Rotation</Channel>
+  <Channel Number="8">Intensity red LED</Channel>
+  <Channel Number="9">Intensity green LED</Channel>
+  <Channel Number="10">Intensity blue LED</Channel>
+  <Channel Number="11">Intensity white LED</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="405" Height="378" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="104" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Mats Lourenco</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Shark Beam FX One</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Strobe/Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="250" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="41" Max="50" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="51" Max="60" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="61" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="71" Max="80" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="81" Max="90" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="91" Max="100" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="101" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="111" Max="120" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue</Capability>
+  <Capability Min="121" Max="130" Preset="ColorMacro" Res1="#00ffff">Green + Blue + White</Capability>
+  <Capability Min="131" Max="140" Preset="ColorMacro" Res1="#ff00ff">Red + Blue + White</Capability>
+  <Capability Min="141" Max="150" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue + White</Capability>
+  <Capability Min="151" Max="200">Switch, Slow to Fast</Capability>
+  <Capability Min="201" Max="255">Flow, Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Beam">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="100">Effect, Closed to Open</Capability>
+  <Capability Min="101" Max="133">Bounce. Slow to Fast</Capability>
+  <Capability Min="134" Max="194">CCW, Fast to Slow</Capability>
+  <Capability Min="195" Max="255">CW, Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Not functional</Capability>
+  <Capability Min="11" Max="20">Built-in program 1</Capability>
+  <Capability Min="21" Max="30">Built-in program 2</Capability>
+  <Capability Min="31" Max="40">Built-in program 3</Capability>
+  <Capability Min="41" Max="50">Built-in program 4</Capability>
+  <Capability Min="51" Max="60">Built-in program 5</Capability>
+  <Capability Min="61" Max="70">Built-in program 6</Capability>
+  <Capability Min="71" Max="80">Built-in program 7</Capability>
+  <Capability Min="81" Max="90">Built-in program 8</Capability>
+  <Capability Min="91" Max="230">Sound-controlled Off to High</Capability>
+  <Capability Min="231" Max="240">Reset after 3 seconds</Capability>
+  <Capability Min="241" Max="255">Not Functional</Capability>
+ </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#fffb80">Color temperature</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe/Shutter</Channel>
+  <Channel Number="4">Color Macros</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Beam</Channel>
+  <Channel Number="7">Functions</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe/Shutter</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Color Temperature</Channel>
+  <Channel Number="12">Color Macros</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Beam</Channel>
+  <Channel Number="15">Functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.8" Width="175" Height="355" Depth="255"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

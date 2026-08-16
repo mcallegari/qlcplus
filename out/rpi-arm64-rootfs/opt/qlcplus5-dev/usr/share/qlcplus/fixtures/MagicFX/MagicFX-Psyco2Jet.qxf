@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7</Version>
+  <Author>Liam Clark</Author>
+ </Creator>
+ <Manufacturer>MagicFX</Manufacturer>
+ <Model>Psyco2Jet</Model>
+ <Type>Effect</Type>
+ <Channel Name="Safety">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="99">Device disabled</Capability>
+  <Capability Min="100" Max="155">Device enabled</Capability>
+  <Capability Min="156" Max="255">Device Test Mode</Capability>
+ </Channel>
+ <Channel Name="Angle">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="126">-90° to -0.7°</Capability>
+  <Capability Min="127" Max="128">Center</Capability>
+  <Capability Min="129" Max="255">+0.7° to +90°</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">min speed -&gt; full speed</Capability>
+ </Channel>
+ <Channel Name="Output">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">CO2 valve closed</Capability>
+  <Capability Min="200" Max="255">CO2 valve open</Capability>
+ </Channel>
+ <Channel Name="Preset">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">Single pulse; straight up</Capability>
+  <Capability Min="25" Max="49">2 pulses; -45°, 45°</Capability>
+  <Capability Min="50" Max="74">3 pulses; -90°, 0, 90°</Capability>
+  <Capability Min="75" Max="99">4 pulses; -90°, -30°, 30°, 90°</Capability>
+  <Capability Min="100" Max="124">5 pulses; -90°, -45°, 0°, 45°, 90°</Capability>
+  <Capability Min="125" Max="149">Random pulses</Capability>
+  <Capability Min="150" Max="174">2 pulse + sweep back</Capability>
+  <Capability Min="175" Max="199">3 sweeps</Capability>
+  <Capability Min="200" Max="224">Multiple pulses</Capability>
+  <Capability Min="225" Max="255">Full sweep</Capability>
+ </Channel>
+ <Channel Name="Direction">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">Left</Capability>
+  <Capability Min="64" Max="127">Left,  bounce</Capability>
+  <Capability Min="128" Max="191">Right,  bounce</Capability>
+  <Capability Min="192" Max="255">Right</Capability>
+ </Channel>
+ <Channel Name="GO">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">OFF</Capability>
+  <Capability Min="200" Max="249">Continous</Capability>
+  <Capability Min="250" Max="255">Step in preset</Capability>
+ </Channel>
+ <Mode Name="RAW">
+  <Channel Number="0">Safety</Channel>
+  <Channel Number="1">Angle</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Output</Channel>
+ </Mode>
+ <Mode Name="Preset">
+  <Channel Number="0">Safety</Channel>
+  <Channel Number="1">Preset</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Direction</Channel>
+  <Channel Number="4">GO</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.2" Width="350" Height="270" Depth="480"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="0" TiltMax="180"/>
+  <Technical PowerConsumption="35" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

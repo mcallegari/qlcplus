@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>Andrew Pavlin</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>SlimPAR T12BT</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="55">Program 1</Capability>
+  <Capability Min="56" Max="106">Program 2</Capability>
+  <Capability Min="107" Max="157">Program 3</Capability>
+  <Capability Min="158" Max="208">Program 4</Capability>
+  <Capability Min="209" Max="255">Program 5</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Auto Program</Channel>
+  <Channel Number="5">Auto Program Speed</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2850" ColourTemperature="0"/>
+  <Dimensions Weight="1.2" Width="214" Height="77" Depth="264"/>
+  <Lens Name="Other" DegreesMin="21" DegreesMax="21"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="43" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

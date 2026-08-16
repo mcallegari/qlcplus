@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Administrator</Author>
+ </Creator>
+ <Manufacturer>Lanta</Manufacturer>
+ <Model>Fireball P64s Slimline LED Parcan</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Preset Colours [1C]">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Min="1" Max="22" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="23" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="68" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="69" Max="91" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="92" Max="114" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="115" Max="137" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="138" Max="160" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
+  <Capability Min="161" Max="183" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="184" Max="206" Preset="ColorMacro" Res1="#0000c0">Dark Blue</Capability>
+  <Capability Min="207" Max="229" Preset="ColorMacro" Res1="#c0ffc0">Light Green</Capability>
+  <Capability Min="230" Max="252" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#ffffc0">Warm White</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe [Slow - Fast]</Capability>
+ </Channel>
+ <Channel Name="Preset Colours [6C]">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="8">R[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="9" Max="17">R[255] G[50] (CH6 @ 0-24)</Capability>
+  <Capability Min="18" Max="26">R[255] G[150] (CH6 @ 0-24)</Capability>
+  <Capability Min="27" Max="35">R[255] G[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="36" Max="44">R[200] G[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="45" Max="53">R[100] G[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="54" Max="62">R[40] G[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="63" Max="71">G[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="72" Max="80">G[255] B[50] (CH6 @ 0-24)</Capability>
+  <Capability Min="81" Max="89">G[255] B[150] (CH6 @ 0-24)</Capability>
+  <Capability Min="90" Max="98">G[255] B[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="99" Max="107">G[150] B[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="108" Max="116">G[50] B[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="117" Max="125">B[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="126" Max="134">R[50] B[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="135" Max="143">R[150] B[250] (CH6 @ 0-24)</Capability>
+  <Capability Min="144" Max="152">R[255] B[255] (CH6 @ 0-24)</Capability>
+  <Capability Min="153" Max="161">R[200] B[50] (CH6 @ 0-24)</Capability>
+  <Capability Min="162" Max="170">R[150] G[50] B[100] (CH6 @ 0-24)</Capability>
+  <Capability Min="171" Max="179">R[50] G[180] B[220] (CH6 @ 0-24)</Capability>
+  <Capability Min="180" Max="188">R[50] G[220] B[100] (CH6 @ 0-24)</Capability>
+  <Capability Min="189" Max="197">R[150] G[220] (CH6 @ 0-24)</Capability>
+  <Capability Min="198" Max="206">R[150] B[220] (CH6 @ 0-24)</Capability>
+  <Capability Min="207" Max="215">G[180] B[220] (CH6 @ 0-24)</Capability>
+  <Capability Min="216" Max="224">G[100] B[50] (CH6 @ 0-24)</Capability>
+  <Capability Min="225" Max="233">R[220] G[100] B[50] (CH6 @ 0-24)</Capability>
+  <Capability Min="234" Max="242">R[220] G[200] B[100] (CH6 @ 0-24)</Capability>
+  <Capability Min="243" Max="251">R[255] G[200] B[150] (CH6 @ 0-24)</Capability>
+  <Capability Min="252" Max="255">R[255] G[255] B[255] (CH6 @ 0-24)</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed Adjustment</Capability>
+ </Channel>
+ <Channel Name="Sensitivity">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">Sound Active Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">Auto 1 - CH2 Static Colours</Capability>
+  <Capability Min="25" Max="49">Auto 2 - 7 Colours Gradual Change</Capability>
+  <Capability Min="50" Max="74">Auto 3 - 3 Colours Gradual Change</Capability>
+  <Capability Min="75" Max="99">Auto 4 -7 Colours Step Change</Capability>
+  <Capability Min="100" Max="124">Auto 5 -3 Colours Step Change</Capability>
+  <Capability Min="125" Max="149">Auto 6 - Illusion 1</Capability>
+  <Capability Min="150" Max="174">Auto 7 - Illusion 2</Capability>
+  <Capability Min="175" Max="199">Auto 8 - Red Gradual Change</Capability>
+  <Capability Min="200" Max="224">Auto 9 - Green Gradual Change</Capability>
+  <Capability Min="225" Max="249">Auto 10 - Blue Gradual Change</Capability>
+  <Capability Min="250" Max="255">Sound Activated</Capability>
+ </Channel>
+ <Mode Name="DMX Mode 1 [1C] Preset Colours">
+  <Channel Number="0">Preset Colours [1C]</Channel>
+ </Mode>
+ <Mode Name="DMX Mode 2 [3C] RGB Only">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="DMX Mode 3 [4C] RGB + Dimmer">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="DMX Mode 4 [6C] Preset Colours">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Preset Colours [6C]</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Effects</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="290" Height="10" Depth="295"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>John Yiannikakis</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>SilentPAR 12x10w 6in1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue dimmer" Preset="IntensityBlue"/>
+ <Channel Name="White dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Amber dimmer" Preset="IntensityAmber"/>
+ <Channel Name="UV dimmer" Preset="IntensityUV"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Strobe off</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe speed</Capability>
+ </Channel>
+ <Channel Name="Program scrolling speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program scrolling speed</Capability>
+ </Channel>
+ <Channel Name="Automatic modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="59">DMX operated mode</Capability>
+  <Capability Min="60" Max="119">color static mode</Capability>
+  <Capability Min="120" Max="179">color changing mode</Capability>
+  <Capability Min="180" Max="239">fading color mode</Capability>
+  <Capability Min="240" Max="255">Music Detection Mode</Capability>
+ </Channel>
+ <Mode Name="6 channel">
+  <Channel Number="0">Red dimmer</Channel>
+  <Channel Number="1">Green dimmer</Channel>
+  <Channel Number="2">Blue dimmer</Channel>
+  <Channel Number="3">White dimmer</Channel>
+  <Channel Number="4">Amber dimmer</Channel>
+  <Channel Number="5">UV dimmer</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red dimmer</Channel>
+  <Channel Number="2">Green dimmer</Channel>
+  <Channel Number="3">Blue dimmer</Channel>
+  <Channel Number="4">White dimmer</Channel>
+  <Channel Number="5">Amber dimmer</Channel>
+  <Channel Number="6">UV dimmer</Channel>
+  <Channel Number="7">Strobe speed</Channel>
+  <Channel Number="8">Program scrolling speed</Channel>
+  <Channel Number="9">Automatic modes</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="270" Height="252" Depth="90"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

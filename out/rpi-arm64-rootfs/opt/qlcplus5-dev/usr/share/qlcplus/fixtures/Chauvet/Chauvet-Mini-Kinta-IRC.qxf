@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>Jason Willett</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Mini Kinta IRC</Model>
+ <Type>Flower</Type>
+ <Channel Name="Control/Operating Mode">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="36" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="65">White</Capability>
+  <Capability Min="66" Max="80" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/Green</Capability>
+  <Capability Min="81" Max="95" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="96" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="111" Max="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="126" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green/White</Capability>
+  <Capability Min="141" Max="155" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue/White</Capability>
+  <Capability Min="156" Max="170">Red/Green/Blue</Capability>
+  <Capability Min="171" Max="185">Red/Green/White</Capability>
+  <Capability Min="186" Max="200">Green/Blue/White</Capability>
+  <Capability Min="201" Max="215">Red/Green/Blue/White</Capability>
+  <Capability Min="216" Max="230" Preset="GoboMacro" Res1="Others/rainbow.png">Automatic (4 color chase)</Capability>
+  <Capability Min="231" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Automatic (7 color chase)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Motor Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="127">Motor indexing</Capability>
+  <Capability Min="128" Max="255">Motor speed (bi-directional)</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="200">Auto mode (slow to fast)</Capability>
+  <Capability Min="201" Max="255">Sound mode</Capability>
+ </Channel>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Motor Rotation</Channel>
+  <Channel Number="3">Auto/Sound Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="258" Height="182" Depth="190"/>
+  <Lens Name="Other" DegreesMin="135" DegreesMax="135"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="35" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

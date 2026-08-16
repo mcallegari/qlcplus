@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.5 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Pin Scan</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer/ Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Close</Capability>
+  <Capability Min="128" Max="139">Open</Capability>
+  <Capability Min="140" Max="243">Strobe Slow &lt; Fast</Capability>
+  <Capability Min="244" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Mode Name="Standard">
+  <Channel Number="0">Dimmer/ Strobe</Channel>
+  <Channel Number="1">Pan</Channel>
+  <Channel Number="2">Tilt</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="EFR 100W" ColourTemperature="0"/>
+   <Dimensions Width="230" Height="230" Weight="5.8" Depth="325"/>
+   <Lens DegreesMax="2.5" Name="" DegreesMin="2.5"/>
+   <Focus PanMax="360" Type="Head" TiltMax="227"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

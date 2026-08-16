@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 3</Version>
+  <Author>Cédric Monféfoul</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>LED PAR 7X10W 5in1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Auto Show">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Auto Show</Capability>
+ </Channel>
+ <Channel Name="Speed Auto Show">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed Auto Show</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Auto Show</Channel>
+  <Channel Number="8">Speed Auto Show</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="205" Height="150" Depth="205"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

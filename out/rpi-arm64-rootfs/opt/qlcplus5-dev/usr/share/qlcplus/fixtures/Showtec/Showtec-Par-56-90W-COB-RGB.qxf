@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>David Gouronc</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Par 56 90W COB RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Strobe, Audio Sensitivity">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="20" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Sound Active with Built-in Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">No function</Capability>
+  <Capability Min="25" Max="49">Pr1</Capability>
+  <Capability Min="50" Max="74">Pr2</Capability>
+  <Capability Min="75" Max="99">Pr3</Capability>
+  <Capability Min="100" Max="124">Pr4</Capability>
+  <Capability Min="125" Max="149">Pr5</Capability>
+  <Capability Min="150" Max="174">Pr6</Capability>
+  <Capability Min="175" Max="199">Pr7</Capability>
+  <Capability Min="200" Max="255">Sound-controlled</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Speed from slow to fast</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Sound Active</Channel>
+  <Channel Number="5">Strobe, Audio Sensitivity</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Sound Active with Built-in Program</Channel>
+  <Channel Number="5">Program Speed</Channel>
+  <Channel Number="6">Strobe, Audio Sensitivity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.4" Width="260" Height="345" Depth="250"/>
+  <Lens Name="Other" DegreesMin="70" DegreesMax="90"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="98" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

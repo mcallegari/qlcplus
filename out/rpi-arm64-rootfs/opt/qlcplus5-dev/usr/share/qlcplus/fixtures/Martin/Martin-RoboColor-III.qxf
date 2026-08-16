@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Boudewijn</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>RoboColor III</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="74">No function</Capability>
+  <Capability Min="75" Max="138" Preset="StrobeFastToSlow">Strobe (fast -&gt; slow)</Capability>
+  <Capability Min="139" Max="170">Remote Stand-alone auto-trigger</Capability>
+  <Capability Min="171" Max="202">Remote Stand-alone music trigger</Capability>
+  <Capability Min="203" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Channel Name="Color Head 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">Blackout -&gt; White</Capability>
+  <Capability Min="16" Max="30" Preset="ColorMacro" Res1="#ffffff">White -&gt; Color 1</Capability>
+  <Capability Min="31" Max="45">Color 1 -&gt; Color 2</Capability>
+  <Capability Min="46" Max="60">Color 2 -&gt; Color 3</Capability>
+  <Capability Min="61" Max="75">Color 3 -&gt; Color 4</Capability>
+  <Capability Min="76" Max="90">Color 4 -&gt; Color 5</Capability>
+  <Capability Min="91" Max="105">Color 5 -&gt; Color 6</Capability>
+  <Capability Min="106" Max="120">Color 6 -&gt; Color 7</Capability>
+  <Capability Min="121" Max="135">Color 7 -&gt; Color 8</Capability>
+  <Capability Min="136" Max="150">Color 8 -&gt; Color 9</Capability>
+  <Capability Min="151" Max="165">Color 9 -&gt; Color 10</Capability>
+  <Capability Min="166" Max="180">Color 10 -&gt; Color 11</Capability>
+  <Capability Min="181" Max="184">Color 11</Capability>
+  <Capability Min="185" Max="189">Color 10</Capability>
+  <Capability Min="190" Max="194">Color 9</Capability>
+  <Capability Min="195" Max="199">Color 8</Capability>
+  <Capability Min="200" Max="204">Color 7</Capability>
+  <Capability Min="205" Max="209">Color 6</Capability>
+  <Capability Min="210" Max="214">Color 5</Capability>
+  <Capability Min="215" Max="219">Color 4</Capability>
+  <Capability Min="220" Max="224">Color 3</Capability>
+  <Capability Min="225" Max="229">Color 2</Capability>
+  <Capability Min="230" Max="234">Color 1</Capability>
+  <Capability Min="235" Max="239" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+ </Channel>
+ <Channel Name="Color Head 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">Blackout -&gt; White</Capability>
+  <Capability Min="16" Max="30" Preset="ColorMacro" Res1="#ffffff">White -&gt; Color 1</Capability>
+  <Capability Min="31" Max="45">Color 1 -&gt; Color 2</Capability>
+  <Capability Min="46" Max="60">Color 2 -&gt; Color 3</Capability>
+  <Capability Min="61" Max="75">Color 3 -&gt; Color 4</Capability>
+  <Capability Min="76" Max="90">Color 4 -&gt; Color 5</Capability>
+  <Capability Min="91" Max="105">Color 5 -&gt; Color 6</Capability>
+  <Capability Min="106" Max="120">Color 6 -&gt; Color 7</Capability>
+  <Capability Min="121" Max="135">Color 7 -&gt; Color 8</Capability>
+  <Capability Min="136" Max="150">Color 8 -&gt; Color 9</Capability>
+  <Capability Min="151" Max="165">Color 9 -&gt; Color 10</Capability>
+  <Capability Min="166" Max="180">Color 10 -&gt; Color 11</Capability>
+  <Capability Min="181" Max="184">Color 11</Capability>
+  <Capability Min="185" Max="189">Color 10</Capability>
+  <Capability Min="190" Max="194">Color 9</Capability>
+  <Capability Min="195" Max="199">Color 8</Capability>
+  <Capability Min="200" Max="204">Color 7</Capability>
+  <Capability Min="205" Max="209">Color 6</Capability>
+  <Capability Min="210" Max="214">Color 5</Capability>
+  <Capability Min="215" Max="219">Color 4</Capability>
+  <Capability Min="220" Max="224">Color 3</Capability>
+  <Capability Min="225" Max="229">Color 2</Capability>
+  <Capability Min="230" Max="234">Color 1</Capability>
+  <Capability Min="235" Max="239" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+ </Channel>
+ <Channel Name="Color Head 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">Blackout -&gt; White</Capability>
+  <Capability Min="16" Max="30" Preset="ColorMacro" Res1="#ffffff">White -&gt; Color 1</Capability>
+  <Capability Min="31" Max="45">Color 1 -&gt; Color 2</Capability>
+  <Capability Min="46" Max="60">Color 2 -&gt; Color 3</Capability>
+  <Capability Min="61" Max="75">Color 3 -&gt; Color 4</Capability>
+  <Capability Min="76" Max="90">Color 4 -&gt; Color 5</Capability>
+  <Capability Min="91" Max="105">Color 5 -&gt; Color 6</Capability>
+  <Capability Min="106" Max="120">Color 6 -&gt; Color 7</Capability>
+  <Capability Min="121" Max="135">Color 7 -&gt; Color 8</Capability>
+  <Capability Min="136" Max="150">Color 8 -&gt; Color 9</Capability>
+  <Capability Min="151" Max="165">Color 9 -&gt; Color 10</Capability>
+  <Capability Min="166" Max="180">Color 10 -&gt; Color 11</Capability>
+  <Capability Min="181" Max="184">Color 11</Capability>
+  <Capability Min="185" Max="189">Color 10</Capability>
+  <Capability Min="190" Max="194">Color 9</Capability>
+  <Capability Min="195" Max="199">Color 8</Capability>
+  <Capability Min="200" Max="204">Color 7</Capability>
+  <Capability Min="205" Max="209">Color 6</Capability>
+  <Capability Min="210" Max="214">Color 5</Capability>
+  <Capability Min="215" Max="219">Color 4</Capability>
+  <Capability Min="220" Max="224">Color 3</Capability>
+  <Capability Min="225" Max="229">Color 2</Capability>
+  <Capability Min="230" Max="234">Color 1</Capability>
+  <Capability Min="235" Max="239" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+ </Channel>
+ <Channel Name="Color Head 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">Blackout -&gt; White</Capability>
+  <Capability Min="16" Max="30" Preset="ColorMacro" Res1="#ffffff">White -&gt; Color 1</Capability>
+  <Capability Min="31" Max="45">Color 1 -&gt; Color 2</Capability>
+  <Capability Min="46" Max="60">Color 2 -&gt; Color 3</Capability>
+  <Capability Min="61" Max="75">Color 3 -&gt; Color 4</Capability>
+  <Capability Min="76" Max="90">Color 4 -&gt; Color 5</Capability>
+  <Capability Min="91" Max="105">Color 5 -&gt; Color 6</Capability>
+  <Capability Min="106" Max="120">Color 6 -&gt; Color 7</Capability>
+  <Capability Min="121" Max="135">Color 7 -&gt; Color 8</Capability>
+  <Capability Min="136" Max="150">Color 8 -&gt; Color 9</Capability>
+  <Capability Min="151" Max="165">Color 9 -&gt; Color 10</Capability>
+  <Capability Min="166" Max="180">Color 10 -&gt; Color 11</Capability>
+  <Capability Min="181" Max="184">Color 11</Capability>
+  <Capability Min="185" Max="189">Color 10</Capability>
+  <Capability Min="190" Max="194">Color 9</Capability>
+  <Capability Min="195" Max="199">Color 8</Capability>
+  <Capability Min="200" Max="204">Color 7</Capability>
+  <Capability Min="205" Max="209">Color 6</Capability>
+  <Capability Min="210" Max="214">Color 5</Capability>
+  <Capability Min="215" Max="219">Color 4</Capability>
+  <Capability Min="220" Max="224">Color 3</Capability>
+  <Capability Min="225" Max="229">Color 2</Capability>
+  <Capability Min="230" Max="234">Color 1</Capability>
+  <Capability Min="235" Max="239" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="240" Max="255" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+ </Channel>
+ <Channel Name="Color Speed">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="0">Tracking</Capability>
+  <Capability Min="1" Max="255">Speed (fast -&gt; slow)</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Color Head 1</Channel>
+  <Channel Number="2">Color Head 2</Channel>
+  <Channel Number="3">Color Head 3</Channel>
+  <Channel Number="4">Color Head 4</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Color Head 1</Channel>
+  <Channel Number="2">Color Head 2</Channel>
+  <Channel Number="3">Color Head 3</Channel>
+  <Channel Number="4">Color Head 4</Channel>
+  <Channel Number="5">Color Speed</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 150W" Lumens="900" ColourTemperature="5000"/>
+  <Dimensions Weight="6.5" Width="300" Height="267" Depth="208"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

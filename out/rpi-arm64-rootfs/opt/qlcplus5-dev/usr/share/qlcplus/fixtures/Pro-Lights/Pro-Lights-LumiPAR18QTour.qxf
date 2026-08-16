@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Oscar Cervesato</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>LumiPAR18QTour</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30">R:100%/G:100%/B:0%</Capability>
+  <Capability Min="31" Max="50">R:0-100%/G:100%/B:0%</Capability>
+  <Capability Min="51" Max="70">R:0%/G:100%/B:0-100%</Capability>
+  <Capability Min="71" Max="90">R:0%/G:100-0%/B:100%</Capability>
+  <Capability Min="91" Max="110">R:0-100%/G:0%/B:100%</Capability>
+  <Capability Min="111" Max="130">R:100%/G:0%/B:100-0%</Capability>
+  <Capability Min="131" Max="150">R:100%/G:0-100%/B:0-100%</Capability>
+  <Capability Min="151" Max="170">R:100-0%/G:100-0%/B:100%</Capability>
+  <Capability Min="171" Max="200">R:100%/G:100%/B:100%/W:100%</Capability>
+  <Capability Min="201" Max="205">White 1</Capability>
+  <Capability Min="206" Max="210">White 2</Capability>
+  <Capability Min="211" Max="215">White 3</Capability>
+  <Capability Min="216" Max="220">White 4</Capability>
+  <Capability Min="221" Max="225">White 5</Capability>
+  <Capability Min="226" Max="230">White 6</Capability>
+  <Capability Min="231" Max="235">White 7</Capability>
+  <Capability Min="236" Max="240">White 8</Capability>
+  <Capability Min="241" Max="245">White 9</Capability>
+  <Capability Min="246" Max="250">White 10</Capability>
+  <Capability Min="251" Max="255">White 11</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">1~20hz</Capability>
+ </Channel>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="51">No function</Capability>
+  <Capability Min="52" Max="101">Auto Program 1</Capability>
+  <Capability Min="102" Max="152">Auto Program 2</Capability>
+  <Capability Min="153" Max="203">Auto Program 3</Capability>
+  <Capability Min="204" Max="254">Auto Program 4</Capability>
+  <Capability Min="255" Max="255">Auto Program 5</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed frmo display menu</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode 1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">Dimmer speed mode 2 (middle speed)</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode (slow speed)</Capability>
+ </Channel>
+ <Mode Name="10 Ch Mode">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color Macro</Channel>
+  <Channel Number="7">Auto Program</Channel>
+  <Channel Number="8">Auto Speed</Channel>
+  <Channel Number="9">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="6 Ch Mode">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="4 Ch Mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="5562" ColourTemperature="0"/>
+  <Dimensions Weight="5.66" Width="349" Height="280" Depth="278"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="23"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="161" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

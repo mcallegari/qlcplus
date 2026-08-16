@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>charles.oldham</Author>
+ </Creator>
+ <Manufacturer>Abstract</Manufacturer>
+ <Model>Twister 4</Model>
+ <Type>Flower</Type>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="11">Stop</Capability>
+  <Capability Min="12" Max="111">Fastest speed clockwise</Capability>
+  <Capability Min="112" Max="127">Slowest speed clockwise</Capability>
+  <Capability Min="128" Max="140">Stop</Capability>
+  <Capability Min="141" Max="243">Slowest speed a.clockwise</Capability>
+  <Capability Min="244" Max="254">Fastest speed a.clockwise</Capability>
+  <Capability Min="255" Max="255">Stop</Capability>
+ </Channel>
+ <Channel Name="Gobo/Colour">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="25" Preset="ColorMacro" Res1="#ffffff">White [Open]</Capability>
+  <Capability Min="26" Max="42" Preset="ColorMacro" Res1="#ff0000">Red [Dot Tunnel]</Capability>
+  <Capability Min="43" Max="58" Preset="ColorMacro" Res1="#0000ff">Blue [Slash]</Capability>
+  <Capability Min="59" Max="74" Preset="ColorMacro" Res1="#00ff00">Green [Segment]</Capability>
+  <Capability Min="75" Max="90" Preset="ColorMacro" Res1="#ffff00">Yellow [Triangle]</Capability>
+  <Capability Min="91" Max="107" Preset="ColorMacro" Res1="#00ffff">Cyan [Tunnel]</Capability>
+  <Capability Min="108" Max="123" Preset="ColorMacro" Res1="#ffaa00">Orange [Bubbles]</Capability>
+  <Capability Min="124" Max="139" Preset="ColorMacro" Res1="#ff557f">Pink [Stars]</Capability>
+  <Capability Min="140" Max="155">Multi Colour [Quadrant]</Capability>
+  <Capability Min="156" Max="172" Preset="ColorMacro" Res1="#ffaa00">Orange [Bubbles]</Capability>
+  <Capability Min="173" Max="188" Preset="ColorMacro" Res1="#00ffff">Cyan [Tunnel]</Capability>
+  <Capability Min="189" Max="220" Preset="ColorMacro" Res1="#ffff00">Yellow [Triangle]</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#0000ff">Blue [Slash]</Capability>
+  <Capability Min="238" Max="253" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">Slow Strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">Fast Strobe</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="23" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="24" Max="225" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="226" Max="229" Preset="StrobeRandom">Slow Strobe</Capability>
+  <Capability Min="230" Max="233" Preset="StrobeRandom">Strobe 2</Capability>
+  <Capability Min="234" Max="237" Preset="StrobeRandom">Strobe 3</Capability>
+  <Capability Min="238" Max="241" Preset="StrobeRandom">Strobe 4</Capability>
+  <Capability Min="242" Max="245" Preset="StrobeRandom">Strobe 5</Capability>
+  <Capability Min="246" Max="249" Preset="StrobeRandom">Strobe 6</Capability>
+  <Capability Min="250" Max="253" Preset="StrobeRandom">Strobe 7</Capability>
+  <Capability Min="254" Max="255" Preset="StrobeRandom">Fast Strobe</Capability>
+ </Channel>
+ <Mode Name="1 CE (2 Channels)">
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">Gobo/Colour</Channel>
+ </Mode>
+ <Mode Name="HP (3 Channels)">
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">Gobo/Colour</Channel>
+  <Channel Number="2">Shutter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="A1/259" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="200" Height="200" Depth="400"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

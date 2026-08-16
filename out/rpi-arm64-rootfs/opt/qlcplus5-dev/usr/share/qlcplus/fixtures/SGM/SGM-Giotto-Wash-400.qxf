@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>Giotto Wash 400</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="20" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="21" Max="40" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="41" Max="60" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="81" Max="100" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="101" Max="120" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="121" Max="140" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="141" Max="160" Preset="ColorMacro" Res1="#ebffc8">Wood/UV filter</Capability>
+  <Capability Min="161" Max="166">Rainbow speed 1</Capability>
+  <Capability Min="167" Max="172">Rainbow speed 2</Capability>
+  <Capability Min="173" Max="178">Rainbow speed 3</Capability>
+  <Capability Min="179" Max="184">Rainbow speed 4</Capability>
+  <Capability Min="185" Max="190">Rainbow speed 5</Capability>
+  <Capability Min="191" Max="196">Rainbow speed 6</Capability>
+  <Capability Min="197" Max="202">Rainbow speed 7</Capability>
+  <Capability Min="203" Max="208">Rainbow speed 8</Capability>
+  <Capability Min="209" Max="214">Rainbow speed 9</Capability>
+  <Capability Min="215" Max="220">Rainbow speed 10</Capability>
+  <Capability Min="221" Max="226">Rainbow speed 11</Capability>
+  <Capability Min="227" Max="232">Rainbow speed 12</Capability>
+  <Capability Min="233" Max="238">Rainbow speed 13</Capability>
+  <Capability Min="239" Max="244">Rainbow speed 14</Capability>
+  <Capability Min="245" Max="250">Rainbow speed 15</Capability>
+  <Capability Min="251" Max="255">Rainbow speed 16</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="17" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="18" Max="36" Preset="StrobeFrequency" Res1="1.8">Strobe 1.80 Hz</Capability>
+  <Capability Min="37" Max="54" Preset="StrobeFrequency" Res1="2">Strobe 2.00 Hz</Capability>
+  <Capability Min="55" Max="73" Preset="StrobeFrequency" Res1="2.42">Strobe 2.42 Hz</Capability>
+  <Capability Min="74" Max="91" Preset="StrobeFrequency" Res1="2.9">Strobe 2.90 Hz</Capability>
+  <Capability Min="92" Max="110" Preset="StrobeFrequency" Res1="3.46">Strobe 3.46 Hz</Capability>
+  <Capability Min="111" Max="128" Preset="StrobeFrequency" Res1="4.15">Strobe 4.15 Hz</Capability>
+  <Capability Min="129" Max="147" Preset="StrobeFrequency" Res1="4.89">Strobe 4.89 Hz</Capability>
+  <Capability Min="148" Max="165" Preset="StrobeFrequency" Res1="5.93">Strobe 5.93 Hz</Capability>
+  <Capability Min="166" Max="183" Preset="StrobeFrequency" Res1="6.91">Strobe 6.91 Hz</Capability>
+  <Capability Min="184" Max="202" Preset="StrobeFrequency" Res1="8.29">Strobe 8.29 Hz</Capability>
+  <Capability Min="203" Max="220" Preset="StrobeFrequency" Res1="9.95">Strobe 9.95 Hz</Capability>
+  <Capability Min="221" Max="238" Preset="StrobeFrequency" Res1="11.83">Strobe 11.83 Hz</Capability>
+  <Capability Min="239" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Movement speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Tracking mode</Capability>
+  <Capability Min="4" Max="255">Speed, slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="60">Off</Capability>
+  <Capability Min="61" Max="129">Hysteresis</Capability>
+  <Capability Min="130" Max="179">On</Capability>
+  <Capability Min="180" Max="239">Hysteresis</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Channel Name="Linear CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Colour Map">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Colour map</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No macro</Capability>
+  <Capability Min="8" Max="15">Macro 1, dimmer, shutter</Capability>
+  <Capability Min="16" Max="23">Macro 2, dimmer, shutter</Capability>
+  <Capability Min="24" Max="31">Macro 3, dimmer, shutter</Capability>
+  <Capability Min="32" Max="39">Macro 4, dimmer, shutter</Capability>
+  <Capability Min="40" Max="47">Macro 5, dimmer, shutter</Capability>
+  <Capability Min="48" Max="55">Macro 6, iris</Capability>
+  <Capability Min="56" Max="63">Macro 7, iris</Capability>
+  <Capability Min="64" Max="71">Macro 8, iris</Capability>
+  <Capability Min="72" Max="79">Macro 9, iris</Capability>
+  <Capability Min="80" Max="87">Macro 10, iris</Capability>
+  <Capability Min="88" Max="95">Macro 11, iris</Capability>
+  <Capability Min="96" Max="103">Macro 11, iris</Capability>
+  <Capability Min="104" Max="111">Macro 12, shutter</Capability>
+  <Capability Min="112" Max="119">Macro 13, frost</Capability>
+  <Capability Min="120" Max="127">Macro 14, frost</Capability>
+  <Capability Min="128" Max="135">Macro 15, frost</Capability>
+  <Capability Min="136" Max="255">Reserved</Capability>
+ </Channel>
+ <Channel Name="Beam shaper">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">White/open - fully inserted</Capability>
+ </Channel>
+ <Channel Name="Beam shaper indexing">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">0° - 180° position</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Color</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Shutter</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Movement speed</Channel>
+  <Channel Number="12">Reset</Channel>
+  <Channel Number="13">Linear CTO</Channel>
+  <Channel Number="14">Colour Map</Channel>
+  <Channel Number="15">Macro</Channel>
+  <Channel Number="16">Beam shaper</Channel>
+  <Channel Number="17">Beam shaper indexing</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 400" Lumens="32000" ColourTemperature="6000"/>
+  <Dimensions Weight="24.8" Width="360" Height="681" Depth="412"/>
+  <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="520" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

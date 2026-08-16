@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.5.1</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Explo 3000D</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Flash Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="255">Flash Intensity Min. &gt; Max.</Capability>
+ </Channel>
+ <Channel Name="Flash Duration (0-650 ms @ 50Hz or 0-530 ms @ 60Hz)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Flash Duration 1</Capability>
+  <Capability Min="16" Max="31">Flash Duration 2</Capability>
+  <Capability Min="32" Max="47">Flash Duration 3</Capability>
+  <Capability Min="48" Max="63">Flash Duration 4</Capability>
+  <Capability Min="64" Max="79">Flash Duration 5</Capability>
+  <Capability Min="80" Max="95">Flash Duration 6</Capability>
+  <Capability Min="96" Max="111">Flash Duration 7</Capability>
+  <Capability Min="112" Max="127">Flash Duration 8</Capability>
+  <Capability Min="128" Max="143">Flash Duration 9</Capability>
+  <Capability Min="144" Max="159">Flash Duration 10</Capability>
+  <Capability Min="160" Max="175">Flash Duration 11</Capability>
+  <Capability Min="176" Max="191">Flash Duration 12</Capability>
+  <Capability Min="192" Max="207">Flash Duration 13</Capability>
+  <Capability Min="208" Max="223">Flash Duration 14</Capability>
+  <Capability Min="224" Max="239">Flash Duration 15</Capability>
+  <Capability Min="240" Max="255">Flash Duration 16</Capability>
+ </Channel>
+ <Channel Name="Flash Rate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No flash (single flash with ch.1)</Capability>
+  <Capability Min="6" Max="255">Flash Rate (0,5-17 Hz @ 50 Hz or 0,6-20 Hz @ 60 Hz)</Capability>
+ </Channel>
+ <Channel Name="Build-In Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No effect</Capability>
+  <Capability Min="6" Max="42">Ramp Up</Capability>
+  <Capability Min="43" Max="85">Ramp Down</Capability>
+  <Capability Min="86" Max="128">Ramp Up-Down</Capability>
+  <Capability Min="129" Max="171">Lightning</Capability>
+  <Capability Min="172" Max="214">Random</Capability>
+  <Capability Min="215" Max="250">No function</Capability>
+  <Capability Min="251" Max="255">Spikes</Capability>
+ </Channel>
+ <Mode Name="Ch3 Mode">
+  <Channel Number="0">Flash Intensity</Channel>
+  <Channel Number="1">Flash Duration (0-650 ms @ 50Hz or 0-530 ms @ 60Hz)</Channel>
+  <Channel Number="2">Flash Rate</Channel>
+ </Mode>
+ <Mode Name="Ch4 Mode">
+  <Channel Number="0">Flash Intensity</Channel>
+  <Channel Number="1">Flash Duration (0-650 ms @ 50Hz or 0-530 ms @ 60Hz)</Channel>
+  <Channel Number="2">Flash Rate</Channel>
+  <Channel Number="3">Build-In Effect</Channel>
+ </Mode>
+ <Mode Name="Ch1 Mode">
+  <Channel Number="0">Flash Rate</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
+   <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

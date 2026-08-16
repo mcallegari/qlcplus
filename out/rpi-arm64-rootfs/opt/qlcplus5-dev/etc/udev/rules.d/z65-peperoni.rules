@@ -1,0 +1,6 @@
+# These rules should work on newer udev architecture as well as the older one.
+# Basically they watch for all "usb" subsystem add/change events, that occur
+# for devices with VID==0ce1 (meaning any Peperoni/Lighting Solutions device),
+# and sets their device nodes' permissions so that ALL users can read and write
+# to/from them. The device nodes are found under /dev/bus/usb/xxx/yyy.
+SUBSYSTEM=="usb*", ACTION=="add|change", ATTRS{idVendor}=="0ce1", MODE="0666"

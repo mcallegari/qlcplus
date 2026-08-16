@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0</Version>
+  <Author>Davey D</Author>
+ </Creator>
+ <Manufacturer>AGPtek</Manufacturer>
+ <Model>RGB 6ch crystal ball</Model>
+ <Type>Flower</Type>
+ <Channel Name="strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="250">Strobe Speed</Capability>
+  <Capability Min="251" Max="255">Full On</Capability>
+ </Channel>
+ <Channel Name="red/white" Preset="IntensityRed"/>
+ <Channel Name="green/orange" Preset="IntensityGreen"/>
+ <Channel Name="blue" Preset="IntensityBlue"/>
+ <Channel Name="movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Manual Operation</Capability>
+  <Capability Min="128" Max="255">Auto Speed Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="55">Red / White Auto Speed Slow to Fast</Capability>
+  <Capability Min="56" Max="105">Green / Orange Auto Speed Slow to Fast</Capability>
+  <Capability Min="106" Max="155">Blue Auto Speed Slow to Fast</Capability>
+  <Capability Min="156" Max="205">Program 1 Auto Speed Slow To Fast</Capability>
+  <Capability Min="206" Max="250">Program 2 Auto Speed Slow to Fast</Capability>
+  <Capability Min="251" Max="255">Program 3 Audio </Capability>
+ </Channel>
+ <Mode Name="6 channel">
+  <Channel Number="0">strobe</Channel>
+  <Channel Number="1">red/white</Channel>
+  <Channel Number="2">green/orange</Channel>
+  <Channel Number="3">blue</Channel>
+  <Channel Number="4">movement</Channel>
+  <Channel Number="5">program</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="5" Type="LED" ColourTemperature="2000"/>
+   <Dimensions Width="123" Height="123" Weight="1.3" Depth="134"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="360" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

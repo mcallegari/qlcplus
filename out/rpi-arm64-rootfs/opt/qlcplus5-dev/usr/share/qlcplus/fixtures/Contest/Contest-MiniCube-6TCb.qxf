@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>MiniCube-6TCb</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Colour macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Min="11" Max="20" Preset="ColorMacro" Res1="#ff0000">Red: R255 - G000 - B000</Capability>
+  <Capability Min="21" Max="30" Preset="ColorMacro" Res1="#ff4600">Orange: R255 - G070 - B000</Capability>
+  <Capability Min="31" Max="40" Preset="ColorMacro" Res1="#ffff00">Yellow: R255 - G255 - B000</Capability>
+  <Capability Min="41" Max="51" Preset="ColorMacro" Res1="#00ff00">Green: R000 - G255 - B000</Capability>
+  <Capability Min="52" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan: R000 - G255 - B255</Capability>
+  <Capability Min="62" Max="71" Preset="ColorMacro" Res1="#0000ff">Blue: R000 - G000 - B255</Capability>
+  <Capability Min="72" Max="81" Preset="ColorMacro" Res1="#ff0064">Pink: R255 - G000 - B100</Capability>
+  <Capability Min="82" Max="92" Preset="ColorMacro" Res1="#ff00ff">Magenta: R255 - G000 - B255</Capability>
+  <Capability Min="93" Max="102" Preset="ColorMacro" Res1="#ffffff">Cool white: R255 - G255 - B255</Capability>
+  <Capability Min="103" Max="112" Preset="ColorMacro" Res1="#ffffc8">Warm white: R255 - G255 - B200</Capability>
+  <Capability Min="113" Max="122">Colour macro 1</Capability>
+  <Capability Min="123" Max="133">Colour macro 2</Capability>
+  <Capability Min="134" Max="143">Colour macro 3</Capability>
+  <Capability Min="144" Max="153">Colour macro 4</Capability>
+  <Capability Min="154" Max="163">Colour macro 5</Capability>
+  <Capability Min="164" Max="174">Colour macro 6</Capability>
+  <Capability Min="175" Max="184">Colour macro 7</Capability>
+  <Capability Min="185" Max="194">Colour macro 8</Capability>
+  <Capability Min="195" Max="204">Colour macro 9</Capability>
+  <Capability Min="205" Max="215">Colour macro 10</Capability>
+  <Capability Min="216" Max="225">Colour macro 11</Capability>
+  <Capability Min="226" Max="235">Colour macro 12</Capability>
+  <Capability Min="236" Max="245">Colour macro 13</Capability>
+  <Capability Min="246" Max="255">Auto mode: 4 times each macro</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Speed/Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">000 - 255 Dimmer/speed (music-sensitive mode when channel 1 Auto)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer/Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="1" Max="189">Dimmer</Capability>
+  <Capability Min="190" Max="250">Strobe at increasing speed</Capability>
+  <Capability Min="251" Max="255">Full on</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe at increasing speed</Capability>
+ </Channel>
+ <Mode Name="2-channel mode">
+  <Channel Number="0">Colour macros</Channel>
+  <Channel Number="1">Dimmer/Speed/Mode</Channel>
+ </Mode>
+ <Mode Name="3-channel mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-channel mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer/Strobe</Channel>
+ </Mode>
+ <Mode Name="5-channel mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="6-channel mode (channel 6 overrides 1-4)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Colour macros</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.35" Width="166" Height="180" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

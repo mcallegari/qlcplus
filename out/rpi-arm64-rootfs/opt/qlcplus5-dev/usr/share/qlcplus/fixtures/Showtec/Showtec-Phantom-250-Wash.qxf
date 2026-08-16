@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Veljko Stankov</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Phantom 250 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan 16bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16bit" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CMY Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Preset Colors</Capability>
+ </Channel>
+ <Channel Name="CMY Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Gradual adjustment color change speed (fast to slow)</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14" Preset="ShutterClose">Shutter closed / Blackout</Capability>
+  <Capability Min="15" Max="85">Dimmer 0-100%</Capability>
+  <Capability Min="86" Max="99" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="100" Max="140" Preset="StrobeSlowToFast">Strobe, slow-fast</Capability>
+  <Capability Min="141" Max="151" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="152" Max="195" Preset="PulseSlowToFast">Pulse, slow-fast</Capability>
+  <Capability Min="196" Max="203" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="204" Max="244" Preset="StrobeRandomSlowToFast">Random strobe, slow-fast</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Lamp Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">no function</Capability>
+  <Capability Min="10" Max="19">moving blackout</Capability>
+  <Capability Min="20" Max="99">no function</Capability>
+  <Capability Min="100" Max="109">reset</Capability>
+  <Capability Min="110" Max="129">no function</Capability>
+  <Capability Min="130" Max="145">Auto Program 1</Capability>
+  <Capability Min="146" Max="161">Auto Program 2</Capability>
+  <Capability Min="162" Max="177">Auto Program 3</Capability>
+  <Capability Min="178" Max="193">Auto Program 4</Capability>
+  <Capability Min="194" Max="209">sound control 1</Capability>
+  <Capability Min="210" Max="225">sound control 2</Capability>
+  <Capability Min="226" Max="241">sound control 3</Capability>
+  <Capability Min="242" Max="255">sound contorl 4</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">no function</Capability>
+  <Capability Min="10" Max="19">effect1</Capability>
+  <Capability Min="20" Max="29">effect2</Capability>
+  <Capability Min="30" Max="39">effect3</Capability>
+  <Capability Min="40" Max="49">effect4</Capability>
+  <Capability Min="50" Max="59">effect5</Capability>
+  <Capability Min="60" Max="69">effect6</Capability>
+  <Capability Min="70" Max="79">effect7</Capability>
+  <Capability Min="80" Max="89">effect8</Capability>
+  <Capability Min="90" Max="99">effect9</Capability>
+  <Capability Min="100" Max="109">effect10</Capability>
+  <Capability Min="110" Max="119">effect11</Capability>
+  <Capability Min="120" Max="129">effect12</Capability>
+  <Capability Min="130" Max="139">effect13</Capability>
+  <Capability Min="140" Max="149">effect14</Capability>
+  <Capability Min="150" Max="159">effect15</Capability>
+  <Capability Min="160" Max="169">effect16</Capability>
+  <Capability Min="170" Max="179">effect17</Capability>
+  <Capability Min="180" Max="189">effect18</Capability>
+  <Capability Min="190" Max="199">effect19</Capability>
+  <Capability Min="200" Max="209">effect20</Capability>
+  <Capability Min="210" Max="219">effect21</Capability>
+  <Capability Min="220" Max="229">effect22</Capability>
+  <Capability Min="230" Max="239">effect23</Capability>
+  <Capability Min="240" Max="249">effect24</Capability>
+  <Capability Min="250" Max="255">effect25</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan 16bit</Channel>
+  <Channel Number="3">Tilt 16bit</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">CMY Macro</Channel>
+  <Channel Number="9">CMY Speed</Channel>
+  <Channel Number="10">Shutter/Strobe</Channel>
+  <Channel Number="11">Lamp Effect</Channel>
+  <Channel Number="12">Effect</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="8000" ColourTemperature="5500"/>
+  <Dimensions Weight="19.2" Width="420" Height="420" Depth="410"/>
+  <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

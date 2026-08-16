@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>arnardo</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Octagon Theater</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="35">strobe 1</Capability>
+  <Capability Min="36" Max="55">strobe 2</Capability>
+  <Capability Min="56" Max="75">strobe 3</Capability>
+  <Capability Min="76" Max="95">strobe 4</Capability>
+  <Capability Min="96" Max="115">strobe 5</Capability>
+  <Capability Min="116" Max="135">strobe 6</Capability>
+  <Capability Min="136" Max="155">strobe 7</Capability>
+  <Capability Min="156" Max="175">strobe 8</Capability>
+  <Capability Min="176" Max="195">strobe 9</Capability>
+  <Capability Min="196" Max="215">strobe 10</Capability>
+  <Capability Min="216" Max="235">strobe 11</Capability>
+  <Capability Min="236" Max="255">strobe 12</Capability>
+ </Channel>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="23">macro 1</Capability>
+  <Capability Min="24" Max="31">macro 2</Capability>
+  <Capability Min="32" Max="39">macro 3</Capability>
+  <Capability Min="40" Max="47">macro 4</Capability>
+  <Capability Min="48" Max="55">macro 5</Capability>
+  <Capability Min="56" Max="63">macro 6</Capability>
+  <Capability Min="64" Max="71">macro 7</Capability>
+  <Capability Min="72" Max="79">macro 8</Capability>
+  <Capability Min="80" Max="87">macro 9</Capability>
+  <Capability Min="88" Max="95">macro 10</Capability>
+  <Capability Min="96" Max="103">macro 11</Capability>
+  <Capability Min="104" Max="111">macro 12</Capability>
+  <Capability Min="112" Max="119">macro 13</Capability>
+  <Capability Min="120" Max="127">macro 14</Capability>
+  <Capability Min="128" Max="135">macro 15</Capability>
+  <Capability Min="136" Max="143">macro 16</Capability>
+  <Capability Min="144" Max="151">macro 17</Capability>
+  <Capability Min="152" Max="159">macro 18</Capability>
+  <Capability Min="160" Max="167">macro 19</Capability>
+  <Capability Min="168" Max="175">macro 20</Capability>
+  <Capability Min="176" Max="183">macro 21</Capability>
+  <Capability Min="184" Max="191">macro 22</Capability>
+  <Capability Min="192" Max="199">macro 23</Capability>
+  <Capability Min="200" Max="207">macro 24</Capability>
+  <Capability Min="208" Max="215">macro 25</Capability>
+  <Capability Min="216" Max="223">macro 26</Capability>
+  <Capability Min="224" Max="231">macro 27</Capability>
+  <Capability Min="232" Max="239">macro 28</Capability>
+  <Capability Min="240" Max="247">macro 29</Capability>
+  <Capability Min="248" Max="255">macro 30</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="5 channels">
+  <Channel Number="0">Cold White</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Colour Macros</Channel>
+  <Channel Number="4">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="2.3" Width="301" Height="215" Depth="248"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="42" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

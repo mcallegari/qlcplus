@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>PR Lighting</Manufacturer>
+ <Model>XL 700 Wash (PR-2705)</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">Black</Capability>
+  <Capability Min="11" Max="25" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="26" Max="225" Preset="StrobeSlowToFast">Strobe speed from slow to fast</Capability>
+  <Capability Min="226" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Black</Capability>
+  <Capability Min="8" Max="255">Dimming from dark to light (0-100%)</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="48">Reserved</Capability>
+  <Capability Min="49" Max="80" Preset="ResetAll">Reset</Capability>
+  <Capability Min="81" Max="112">Reserved</Capability>
+  <Capability Min="113" Max="144" Preset="LampOff">Lamp off (stop in DMX value for 10s)</Capability>
+  <Capability Min="145" Max="168">Reserved</Capability>
+  <Capability Min="169" Max="200" Preset="LampOn">Lamp power reduced to 50%</Capability>
+  <Capability Min="201" Max="223">Reserved</Capability>
+  <Capability Min="224" Max="255" Preset="LampOn">Lamp on</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Zoom Fine" Preset="BeamZoomFine"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan and Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="CYM Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="17" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="55" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="92" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="93" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="128" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="129" Max="255">CYM colour mixing from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Fine" Preset="IntensityCyanFine"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Yellow Fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta Fine" Preset="IntensityMagentaFine"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="CTO Fine">
+  <Group Byte="1">Colour</Group>
+  <Capability Min="0" Max="255">CTO in 16 Bit precision</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">White</Capability>
+  <Capability Min="17" Max="24">White/colour 1</Capability>
+  <Capability Min="25" Max="32">Colour 1</Capability>
+  <Capability Min="33" Max="40">Colour 1/colour 2</Capability>
+  <Capability Min="41" Max="48">Colour 2</Capability>
+  <Capability Min="49" Max="56">Colour 2/colour 3</Capability>
+  <Capability Min="57" Max="64">Colour 3</Capability>
+  <Capability Min="65" Max="72">Colour 3/colour 4</Capability>
+  <Capability Min="73" Max="80">Colour 4</Capability>
+  <Capability Min="81" Max="88">Colour 4/colour 5</Capability>
+  <Capability Min="89" Max="96">Colour 5</Capability>
+  <Capability Min="97" Max="104">Colour 5/colour 6</Capability>
+  <Capability Min="105" Max="112">Colour 6</Capability>
+  <Capability Min="113" Max="120">Colour 6/colour 7</Capability>
+  <Capability Min="121" Max="127">white</Capability>
+  <Capability Min="128" Max="133">Rainbow rotation speed 1 (slowest)</Capability>
+  <Capability Min="134" Max="139">Rainbow rotation speed 2</Capability>
+  <Capability Min="140" Max="145">Rainbow rotation speed 3</Capability>
+  <Capability Min="146" Max="151">Rainbow rotation speed 4</Capability>
+  <Capability Min="152" Max="157">Rainbow rotation speed 5</Capability>
+  <Capability Min="158" Max="163">Rainbow rotation speed 6</Capability>
+  <Capability Min="164" Max="169">Rainbow rotation speed 7</Capability>
+  <Capability Min="170" Max="175">Rainbow rotation speed 8</Capability>
+  <Capability Min="176" Max="181">Rainbow rotation speed 9</Capability>
+  <Capability Min="182" Max="187">Rainbow rotation speed 10</Capability>
+  <Capability Min="188" Max="195">Stop in current position</Capability>
+  <Capability Min="196" Max="201">Rainbow reverse rotation speed 1(slowest)</Capability>
+  <Capability Min="202" Max="207">Rainbow reverse rotation speed 2</Capability>
+  <Capability Min="208" Max="213">Rainbow reverse rotation speed 3</Capability>
+  <Capability Min="214" Max="219">Rainbow reverse rotation speed 4</Capability>
+  <Capability Min="220" Max="225">Rainbow reverse rotation speed 5</Capability>
+  <Capability Min="226" Max="231">Rainbow reverse rotation speed 6</Capability>
+  <Capability Min="232" Max="237">Rainbow reverse rotation speed 7</Capability>
+  <Capability Min="238" Max="243">Rainbow reverse rotation speed 8</Capability>
+  <Capability Min="244" Max="249">Rainbow reverse rotation speed 9</Capability>
+  <Capability Min="250" Max="255">Rainbow reverse rotation speed 10</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">White</Capability>
+  <Capability Min="17" Max="24">White/colour 1</Capability>
+  <Capability Min="25" Max="32">Colour 1</Capability>
+  <Capability Min="33" Max="40">Colour 1/colour 2</Capability>
+  <Capability Min="41" Max="48">Colour 2</Capability>
+  <Capability Min="49" Max="56">Colour 2/colour 3</Capability>
+  <Capability Min="57" Max="64">Colour 3</Capability>
+  <Capability Min="65" Max="72">Colour 3/colour 4</Capability>
+  <Capability Min="73" Max="80">Colour 4</Capability>
+  <Capability Min="81" Max="88">Colour 4/colour 5</Capability>
+  <Capability Min="89" Max="96">Colour 5</Capability>
+  <Capability Min="97" Max="104">Colour 5/colour 6</Capability>
+  <Capability Min="105" Max="112">Colour 6</Capability>
+  <Capability Min="113" Max="120">Colour 6/colour 7</Capability>
+  <Capability Min="121" Max="127">white</Capability>
+  <Capability Min="128" Max="133">Rainbow rotation speed 1 (slowest)</Capability>
+  <Capability Min="134" Max="139">Rainbow rotation speed 2</Capability>
+  <Capability Min="140" Max="145">Rainbow rotation speed 3</Capability>
+  <Capability Min="146" Max="151">Rainbow rotation speed 4</Capability>
+  <Capability Min="152" Max="157">Rainbow rotation speed 5</Capability>
+  <Capability Min="158" Max="163">Rainbow rotation speed 6</Capability>
+  <Capability Min="164" Max="169">Rainbow rotation speed 7</Capability>
+  <Capability Min="170" Max="175">Rainbow rotation speed 8</Capability>
+  <Capability Min="176" Max="181">Rainbow rotation speed 9</Capability>
+  <Capability Min="182" Max="187">Rainbow rotation speed 10</Capability>
+  <Capability Min="188" Max="195">Stop in current position</Capability>
+  <Capability Min="196" Max="201">Rainbow reverse rotation speed 1(slowest)</Capability>
+  <Capability Min="202" Max="207">Rainbow reverse rotation speed 2</Capability>
+  <Capability Min="208" Max="213">Rainbow reverse rotation speed 3</Capability>
+  <Capability Min="214" Max="219">Rainbow reverse rotation speed 4</Capability>
+  <Capability Min="220" Max="225">Rainbow reverse rotation speed 5</Capability>
+  <Capability Min="226" Max="231">Rainbow reverse rotation speed 6</Capability>
+  <Capability Min="232" Max="237">Rainbow reverse rotation speed 7</Capability>
+  <Capability Min="238" Max="243">Rainbow reverse rotation speed 8</Capability>
+  <Capability Min="244" Max="249">Rainbow reverse rotation speed 9</Capability>
+  <Capability Min="250" Max="255">Rainbow reverse rotation speed 10</Capability>
+ </Channel>
+ <Channel Name="Narrow Angle">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Open the inside Fresnel lens, change beam angle to 10°</Capability>
+ </Channel>
+ <Mode Name="Short">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">CYM Macro</Channel>
+  <Channel Number="3">Cyan</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Magenta</Channel>
+  <Channel Number="6">CTO</Channel>
+  <Channel Number="7">Colour Wheel 1</Channel>
+  <Channel Number="8">Colour Wheel 2</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Narrow Angle</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Tilt</Channel>
+  <Channel Number="13">Control</Channel>
+ </Mode>
+ <Mode Name="Standard">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">CYM Macro</Channel>
+  <Channel Number="3">Cyan</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Magenta</Channel>
+  <Channel Number="6">CTO</Channel>
+  <Channel Number="7">Colour Wheel 1</Channel>
+  <Channel Number="8">Colour Wheel 2</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Narrow Angle</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan Fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt Fine</Channel>
+  <Channel Number="15">Pan and Tilt Speed</Channel>
+  <Channel Number="16">Control</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer Fine</Channel>
+  <Channel Number="3">CYM Macro</Channel>
+  <Channel Number="4">Cyan</Channel>
+  <Channel Number="5">Cyan Fine</Channel>
+  <Channel Number="6">Yellow</Channel>
+  <Channel Number="7">Yellow Fine</Channel>
+  <Channel Number="8">Magenta</Channel>
+  <Channel Number="9">Magenta Fine</Channel>
+  <Channel Number="10">CTO</Channel>
+  <Channel Number="11">CTO Fine</Channel>
+  <Channel Number="12">Colour Wheel 1</Channel>
+  <Channel Number="13">Colour Wheel 2</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Zoom Fine</Channel>
+  <Channel Number="16">Narrow Angle</Channel>
+  <Channel Number="17">Pan</Channel>
+  <Channel Number="18">Pan Fine</Channel>
+  <Channel Number="19">Tilt</Channel>
+  <Channel Number="20">Tilt Fine</Channel>
+  <Channel Number="21">Pan and Tilt Speed</Channel>
+  <Channel Number="22">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="29" Width="480" Height="708" Depth="424"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="42"/>
+  <Focus Type="Head" PanMax="450" TiltMax="270"/>
+  <Technical PowerConsumption="820" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

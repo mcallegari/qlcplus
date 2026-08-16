@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7</Version>
+  <Author>Liam Clark</Author>
+ </Creator>
+ <Manufacturer>MagicFX</Manufacturer>
+ <Model>StadiumBlaster</Model>
+ <Type>Effect</Type>
+ <Channel Name="Safety">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="99">disabled</Capability>
+  <Capability Min="100" Max="255">enable</Capability>
+ </Channel>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">Valve closed</Capability>
+  <Capability Min="200" Max="255">Valve open</Capability>
+ </Channel>
+ <Mode Name="DMX">
+  <Channel Number="0">Safety</Channel>
+  <Channel Number="1">Effect</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="79" Width="600" Height="1100" Depth="800"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

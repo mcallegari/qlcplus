@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Andrea Ugolini</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>LumiPIX 12Q</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30">Chase 1</Capability>
+  <Capability Min="31" Max="50">Chase 2</Capability>
+  <Capability Min="51" Max="70">Chase 3</Capability>
+  <Capability Min="71" Max="90">Chase 4</Capability>
+  <Capability Min="91" Max="110">Chase 5</Capability>
+  <Capability Min="111" Max="130">Chase 6</Capability>
+  <Capability Min="131" Max="150">Chase 7</Capability>
+  <Capability Min="151" Max="170">Chase 8</Capability>
+  <Capability Min="171" Max="190">Chase 9</Capability>
+  <Capability Min="191" Max="210">Chase 10</Capability>
+  <Capability Min="211" Max="230">Chase 11</Capability>
+  <Capability Min="231" Max="250">Chase 12</Capability>
+  <Capability Min="251" Max="255">Random auto show</Capability>
+ </Channel>
+ <Channel Name="Shutter 8-Channel">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter 6-Channel">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="5">Random auto show</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="White 10" Preset="IntensityWhite"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="White 11" Preset="IntensityWhite"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="White 12" Preset="IntensityWhite"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Shutter 6-Channel</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Shutter 8-Channel</Channel>
+  <Channel Number="5">Chase</Channel>
+  <Channel Number="6">Speed</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="48 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Red 2</Channel>
+  <Channel Number="5">Green 2</Channel>
+  <Channel Number="6">Blue 2</Channel>
+  <Channel Number="7">White 2</Channel>
+  <Channel Number="8">Red 3</Channel>
+  <Channel Number="9">Green 3</Channel>
+  <Channel Number="10">Blue 3</Channel>
+  <Channel Number="11">White 3</Channel>
+  <Channel Number="12">Red 4</Channel>
+  <Channel Number="13">Green 4</Channel>
+  <Channel Number="14">Blue 4</Channel>
+  <Channel Number="15">White 4</Channel>
+  <Channel Number="16">Red 5</Channel>
+  <Channel Number="17">Green 5</Channel>
+  <Channel Number="18">Blue 5</Channel>
+  <Channel Number="19">White 5</Channel>
+  <Channel Number="20">Red 6</Channel>
+  <Channel Number="21">Green 6</Channel>
+  <Channel Number="22">Blue 6</Channel>
+  <Channel Number="23">White 6</Channel>
+  <Channel Number="24">Red 7</Channel>
+  <Channel Number="25">Green 7</Channel>
+  <Channel Number="26">Blue 7</Channel>
+  <Channel Number="27">White 7</Channel>
+  <Channel Number="28">Red 8</Channel>
+  <Channel Number="29">Green 8</Channel>
+  <Channel Number="30">Blue 8</Channel>
+  <Channel Number="31">White 8</Channel>
+  <Channel Number="32">Red 9</Channel>
+  <Channel Number="33">Green 9</Channel>
+  <Channel Number="34">Blue 9</Channel>
+  <Channel Number="35">White 9</Channel>
+  <Channel Number="36">Red 10</Channel>
+  <Channel Number="37">Green 10</Channel>
+  <Channel Number="38">Blue 10</Channel>
+  <Channel Number="39">White 10</Channel>
+  <Channel Number="40">Red 11</Channel>
+  <Channel Number="41">Green 11</Channel>
+  <Channel Number="42">Blue 11</Channel>
+  <Channel Number="43">White 11</Channel>
+  <Channel Number="44">Red 12</Channel>
+  <Channel Number="45">Green 12</Channel>
+  <Channel Number="46">Blue 12</Channel>
+  <Channel Number="47">White 12</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>31</Channel>
+   <Channel>30</Channel>
+   <Channel>29</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>34</Channel>
+   <Channel>33</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>38</Channel>
+   <Channel>37</Channel>
+   <Channel>36</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>43</Channel>
+   <Channel>42</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>46</Channel>
+   <Channel>45</Channel>
+   <Channel>44</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+  <Dimensions Weight="4.3" Width="1055" Height="82" Depth="164"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="33"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

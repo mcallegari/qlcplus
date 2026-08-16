@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.2 GIT</Version>
+  <Author>Lukas Hanisch</Author>
+ </Creator>
+ <Manufacturer>Shehds</Manufacturer>
+ <Model>LED Beam 12x12W RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="RGB mixer" Preset="ColorRGBMixer"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Channel Name="Default">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Default Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="RGB Mixer Speed Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">RGB mixer</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Master dimmer</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Pan/Tilt speed</Channel>
+  <Channel Number="9">RGB mixer</Channel>
+  <Channel Number="10">RGB Mixer Speed Control</Channel>
+  <Channel Number="11">Default</Channel>
+  <Channel Number="12">Default Speed</Channel>
+  <Channel Number="13">Pan fine</Channel>
+  <Channel Number="14">Tilt fine</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="10000" ColourTemperature="7000"/>
+  <Dimensions Weight="4.6" Width="250" Height="150" Depth="310"/>
+  <Lens Name="Fresnel" DegreesMin="8" DegreesMax="8"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="144" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Florian Faber</Author>
+ </Creator>
+ <Manufacturer>AFX</Manufacturer>
+ <Model>CLUB-MIX3 19x10W RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse-effect in sequences slow to fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Macro Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="80" Max="95" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="96" Max="111" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="112" Max="127" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="128" Max="143" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="144" Max="159" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="160" Max="175" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="176" Max="191">R + G + B</Capability>
+  <Capability Min="192" Max="207">R + G + B + W</Capability>
+  <Capability Min="208" Max="212">2700K</Capability>
+  <Capability Min="213" Max="217">3200K</Capability>
+  <Capability Min="218" Max="222">3500K</Capability>
+  <Capability Min="223" Max="227">5000K</Capability>
+  <Capability Min="228" Max="232">5500K</Capability>
+  <Capability Min="233" Max="237">6000K</Capability>
+  <Capability Min="238" Max="242">6500K</Capability>
+  <Capability Min="243" Max="247">7000K</Capability>
+  <Capability Min="248" Max="255">8000K</Capability>
+ </Channel>
+ <Channel Name="Color Temp">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="16" Max="45">Below 3200K</Capability>
+  <Capability Min="46" Max="75">3200K-3500K</Capability>
+  <Capability Min="76" Max="105">3500K-5000K</Capability>
+  <Capability Min="106" Max="135">5000K-5500K</Capability>
+  <Capability Min="136" Max="165">5500K-6000K</Capability>
+  <Capability Min="166" Max="195">6000K-6500K</Capability>
+  <Capability Min="196" Max="225">6500K-7000K</Capability>
+  <Capability Min="226" Max="255">7000K-8000K</Capability>
+ </Channel>
+ <Channel Name="Macro Run">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No Function</Capability>
+  <Capability Min="16" Max="31">Macro Run 1</Capability>
+  <Capability Min="32" Max="47">Macro Run 2</Capability>
+  <Capability Min="48" Max="63">Macro Run 3</Capability>
+  <Capability Min="64" Max="79">Macro Run 4</Capability>
+  <Capability Min="80" Max="95">Macro Run 5</Capability>
+  <Capability Min="96" Max="111">Macro Run 6</Capability>
+  <Capability Min="112" Max="127">Macro Run 7</Capability>
+  <Capability Min="128" Max="143">Macro Run 8</Capability>
+  <Capability Min="144" Max="159">Macro Sound 1</Capability>
+  <Capability Min="160" Max="175">Macro Sound 2</Capability>
+  <Capability Min="176" Max="191">Macro Sound 3</Capability>
+  <Capability Min="192" Max="207">Macro Sound 4</Capability>
+  <Capability Min="208" Max="223">Macro Sound 5</Capability>
+  <Capability Min="224" Max="255">Macro Sound 7</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Macro Speed from Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Macro Color</Channel>
+  <Channel Number="7">Color Temp</Channel>
+  <Channel Number="8">Macro Run</Channel>
+  <Channel Number="9">Macro Speed</Channel>
+ </Mode>
+ <Mode Name="22 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">Red 1</Channel>
+  <Channel Number="7">Green 1</Channel>
+  <Channel Number="8">Blue 1</Channel>
+  <Channel Number="9">White 1</Channel>
+  <Channel Number="10">Red 2</Channel>
+  <Channel Number="11">Green 2</Channel>
+  <Channel Number="12">Blue 2</Channel>
+  <Channel Number="13">White 2</Channel>
+  <Channel Number="14">Red 3</Channel>
+  <Channel Number="15">Green 3</Channel>
+  <Channel Number="16">Blue 3</Channel>
+  <Channel Number="17">White 3</Channel>
+  <Channel Number="18">Macro Color</Channel>
+  <Channel Number="19">Color Temp</Channel>
+  <Channel Number="20">Macro Run</Channel>
+  <Channel Number="21">Macro Speed</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.18" Width="265" Height="214" Depth="113"/>
+  <Lens Name="Other" DegreesMin="26" DegreesMax="26"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

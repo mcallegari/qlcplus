@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Richard</Author>
+ </Creator>
+ <Manufacturer>ETC</Manufacturer>
+ <Model>Desire D40 Vivid</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Orange" Preset="IntensityAmber"/>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255" Preset="ColorMacro" Res1="#ff8000">Amber</Capability>
+ </Channel>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Indigo" Preset="IntensityIndigo"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Full on</Capability>
+  <Capability Min="1" Max="254" Preset="StrobeSlowToFast">Variable rate from slow to fast</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">Full on</Capability>
+ </Channel>
+ <Channel Name="Hue (coarse)" Preset="IntensityHue"/>
+ <Channel Name="Hue (fine)" Preset="IntensityHueFine"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Color Point">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Color Point</Capability>
+ </Channel>
+ <Channel Name="Plus 7 Control on/off">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="130">Plus 7 off</Capability>
+  <Capability Min="131" Max="255">Plus 7 on</Capability>
+ </Channel>
+ <Channel Name="Tint">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Tint</Capability>
+ </Channel>
+ <Channel Name="Not Used (RGB Mode)" Preset="NoFunction"/>
+ <Channel Name="Not Used 6 (plus 7 mode)" Preset="NoFunction"/>
+ <Mode Name="Mode 1 Direct">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Orange</Channel>
+  <Channel Number="2">Amber</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Cyan</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Indigo</Channel>
+  <Channel Number="7">Intensity</Channel>
+  <Channel Number="8">Strobe</Channel>
+ </Mode>
+ <Mode Name="Mode 2 Stage">
+  <Channel Number="0">Hue (coarse)</Channel>
+  <Channel Number="1">Hue (fine)</Channel>
+  <Channel Number="2">Saturation</Channel>
+  <Channel Number="3">Intensity</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Not Used 6 (plus 7 mode)</Channel>
+  <Channel Number="6">Plus 7 Control on/off</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Orange</Channel>
+  <Channel Number="9">Amber</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Cyan</Channel>
+  <Channel Number="12">Blue</Channel>
+  <Channel Number="13">Indigo</Channel>
+ </Mode>
+ <Mode Name="Mode 3 XT Arch">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Hue (coarse)</Channel>
+  <Channel Number="3">Hue (fine)</Channel>
+  <Channel Number="4">Saturation</Channel>
+ </Mode>
+ <Mode Name="Mode 4 RGB">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Not Used (RGB Mode)</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="Mode 5 Studio">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Color Point</Channel>
+  <Channel Number="2">Tint</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="6.8" Width="270" Height="338" Depth="305"/>
+  <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="115" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

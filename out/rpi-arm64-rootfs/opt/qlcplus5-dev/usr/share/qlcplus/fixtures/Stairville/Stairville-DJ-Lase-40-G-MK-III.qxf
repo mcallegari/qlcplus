@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.0 GIT</Version>
+  <Author>Jan Fries</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DJ Lase 40-G MK-III</Model>
+ <Type>Laser</Type>
+ <Channel Name="Operating Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">Laser off</Capability>
+  <Capability Min="64" Max="127">Automatic show in random order</Capability>
+  <Capability Min="128" Max="191">Sound controlled automatic show in random order</Capability>
+  <Capability Min="192" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Pattern Selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="">Circle</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="">Dotted Circle</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="">Triangle</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Square</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="">Broken Square</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="">Square in Square</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="">Hollow Cross</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="">Star</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="">Inverse L</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="">Bowtie</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="">Spiral</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="">Mirrored C</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="">Fishing Rod</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="">1/8 Circle</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="">Sunglasses</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="">Waves</Capability>
+  <Capability Min="128" Max="135" Preset="GoboMacro" Res1="">V</Capability>
+  <Capability Min="136" Max="143" Preset="GoboMacro" Res1="">M</Capability>
+  <Capability Min="144" Max="151" Preset="GoboMacro" Res1="">Radiator</Capability>
+  <Capability Min="152" Max="159" Preset="GoboMacro" Res1="">Line</Capability>
+  <Capability Min="160" Max="167" Preset="GoboMacro" Res1="">Broken Line</Capability>
+  <Capability Min="168" Max="175" Preset="GoboMacro" Res1="">Broad Line</Capability>
+  <Capability Min="176" Max="183" Preset="GoboMacro" Res1="">Parallel Lines</Capability>
+  <Capability Min="184" Max="191" Preset="GoboMacro" Res1="">Cross</Capability>
+  <Capability Min="192" Max="199" Preset="GoboMacro" Res1="">Offset Lines</Capability>
+  <Capability Min="200" Max="207" Preset="GoboMacro" Res1="">Broken Rhomb</Capability>
+  <Capability Min="208" Max="215" Preset="GoboMacro" Res1="">2 Edge Boxes</Capability>
+  <Capability Min="216" Max="223" Preset="GoboMacro" Res1="">4 Edge Boxes</Capability>
+  <Capability Min="224" Max="231" Preset="GoboMacro" Res1="">Small Circle</Capability>
+  <Capability Min="232" Max="239" Preset="GoboMacro" Res1="">Dotted Line</Capability>
+  <Capability Min="240" Max="247" Preset="GoboMacro" Res1="">Dotted Half Circle</Capability>
+  <Capability Min="248" Max="255" Preset="GoboMacro" Res1="">Fog</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127" Preset="BigToSmall">Fixed zoom (100% - 5%)</Capability>
+  <Capability Min="128" Max="169" Preset="SlowToFast">Zooming in Effect (Slow to Fast)</Capability>
+  <Capability Min="170" Max="209" Preset="SlowToFast">Zooming out Effect (Slow to Fast)</Capability>
+  <Capability Min="210" Max="255" Preset="SlowToFast">Alternating Zoom Effect (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Y Axis Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position of Y-axis (0 - 359°)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">CW rotating effect (Slow to Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW rotating effect (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="X Axis Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position of X-axis (0 - 359°)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">CW rotating effect (Slow to Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW rotating effect (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Z Axis Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Fixed position of Z-axis (0 - 359°)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">CW rotating effect (Slow to Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW rotating effect (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="X-Axis Moving">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Fixed positions on X-axis</Capability>
+  <Capability Min="128" Max="191" Preset="SlowToFast">CW moving effect (Slow to Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="SlowToFast">CCW moving effect (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Y-Axis Moving">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Fixed positions on Y-axis</Capability>
+  <Capability Min="128" Max="191" Preset="SlowToFast">CW moving effect (Slow to Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="SlowToFast">CCW moving effect (Slow to Fast)</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Operating Mode</Channel>
+  <Channel Number="1">Pattern Selection</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Y Axis Rotation</Channel>
+  <Channel Number="4">X Axis Rotation</Channel>
+  <Channel Number="5">Z Axis Rotation</Channel>
+  <Channel Number="6">X-Axis Moving</Channel>
+  <Channel Number="7">Y-Axis Moving</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.26" Width="155" Height="85" Depth="145"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Barrel" PanMax="360" TiltMax="360"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

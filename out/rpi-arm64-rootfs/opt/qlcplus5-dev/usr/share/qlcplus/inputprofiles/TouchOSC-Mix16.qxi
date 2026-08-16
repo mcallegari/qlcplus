@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>dragon</Author>
+ </Creator>
+ <Manufacturer>Touch OSC</Manufacturer>
+ <Model>Mix 16</Model>
+ <Type>OSC</Type>
+ <Channel Number="944">
+  <Name>/1/toggle3</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="1601">
+  <Name>/4/multifader1/4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2936">
+  <Name>/2/fader5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4665">
+  <Name>/1/toggle2</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="6088">
+  <Name>/4/multifader1/5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6897">
+  <Name>/2/fader4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8354">
+  <Name>/1/toggle1</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="9033">
+  <Name>/4/multifader2/8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9555">
+  <Name>/4/multifader1/6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9881">
+  <Name>/3/toggle8</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="10346">
+  <Name>/2/fader7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12992">
+  <Name>/4/multifader2/9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="13530">
+  <Name>/4/multifader1/7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="14819">
+  <Name>/2/fader6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="17741">
+  <Name>/4/multifader2/18</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="19804">
+  <Name>/2/fader1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20770">
+  <Name>/3/fader8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20972">
+  <Name>/4/multifader1/1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="21700">
+  <Name>/4/multifader2/19</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="24704">
+  <Name>/4/multifader1/18</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25463">
+  <Name>/4/multifader1/2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="27492">
+  <Name>/2/toggle8</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="28238">
+  <Name>/2/fader3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="28937">
+  <Name>/4/multifader1/19</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29438">
+  <Name>/4/multifader1/3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32711">
+  <Name>/2/fader2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="32900">
+  <Name>/4/multifader1/24</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="33306">
+  <Name>/2/toggle6</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="33310">
+  <Name>/1/push2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35267">
+  <Name>/3/toggle2</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="35326">
+  <Name>/4/multifader1/16</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="35527">
+  <Name>/3/fader5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="35859">
+  <Name>/4/multifader2/2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36641">
+  <Name>/4/multifader2/14</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36897">
+  <Name>/1/fader4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="37779">
+  <Name>/2/toggle7</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="37783">
+  <Name>/1/push3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38986">
+  <Name>/3/toggle3</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="39031">
+  <Name>/4/multifader1/17</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="39758">
+  <Name>/3/fader4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="40346">
+  <Name>/4/multifader2/3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="40616">
+  <Name>/4/multifader2/15</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41224">
+  <Name>/2/toggle4</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="42313">
+  <Name>/4/multifader2/24</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="43477">
+  <Name>/3/fader7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="43756">
+  <Name>/4/multifader1/14</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="44083">
+  <Name>/4/multifader2/16</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="44196">
+  <Name>/3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45185">
+  <Name>/2/toggle5</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="45189">
+  <Name>/1/push1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47196">
+  <Name>/3/fader6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="47960">
+  <Name>/3/toggle1</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="47973">
+  <Name>/4/multifader1/15</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="48570">
+  <Name>/4/multifader2/17</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="48776">
+  <Name>/4/multifader2/1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="49279">
+  <Name>/4/multifader2/22</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="50238">
+  <Name>/2/toggle2</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="50848">
+  <Name>/4/multifader1/20</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="51084">
+  <Name>/1/fader1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="51461">
+  <Name>/4/multifader2/10</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="51767">
+  <Name>/4/multifader2/6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="52269">
+  <Name>/4/multifader1/8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="52451">
+  <Name>/3/fader1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53210">
+  <Name>/4/multifader1/12</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53223">
+  <Name>/3/toggle6</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="53405">
+  <Name>/2/fader8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="53750">
+  <Name>/4/multifader2/23</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="54711">
+  <Name>/2/toggle3</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="55081">
+  <Name>/4/multifader1/21</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="55323">
+  <Name>/4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="55436">
+  <Name>/4/multifader2/11</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56254">
+  <Name>/4/multifader2/7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56740">
+  <Name>/4/multifader1/9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56915">
+  <Name>/4/multifader1/13</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56942">
+  <Name>/3/toggle7</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="58221">
+  <Name>/4/multifader2/20</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="58526">
+  <Name>/1/fader3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="58802">
+  <Name>/4/multifader1/22</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="59176">
+  <Name>/1/push4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59685">
+  <Name>/4/multifader2/4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="59927">
+  <Name>/4/multifader2/12</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="60616">
+  <Name>/4/multifader1/10</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="60661">
+  <Name>/3/toggle4</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="60671">
+  <Name>/1/xy_1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61425">
+  <Name>/3/fader3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="62180">
+  <Name>/4/multifader2/21</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="62523">
+  <Name>/4/multifader1/23</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="62743">
+  <Name>/1/fader2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="63137">
+  <Name>/1/push5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63141">
+  <Name>/2/toggle1</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="63660">
+  <Name>/4/multifader2/5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64414">
+  <Name>/4/multifader2/13</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64833">
+  <Name>/4/multifader1/11</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64886">
+  <Name>/1/xy_0</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64892">
+  <Name>/3/toggle5</Name>
+  <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="65144">
+  <Name>/3/fader2</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

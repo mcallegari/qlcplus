@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>OFL – https://open-fixture-library.org/glp/jdc1</Name>
+  <Version>1.3.0</Version>
+  <Author>Flo Edelmann</Author>
+ </Creator>
+ <Manufacturer>GLP</Manufacturer>
+ <Model>JDC1</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Tilt" Default="127" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Default="255" Preset="PositionTiltFine"/>
+ <Channel Name="Beam Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Beam Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe duration 7…650ms</Capability>
+ </Channel>
+ <Channel Name="Beam Rate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Strobe speed 0.289…16.67Hz</Capability>
+ </Channel>
+ <Channel Name="Beam FX Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="36">No function</Capability>
+  <Capability Min="37" Max="40">Ramp up strobe</Capability>
+  <Capability Min="41" Max="44">Random ramp up strobe</Capability>
+  <Capability Min="45" Max="48">Ramp down strobe</Capability>
+  <Capability Min="49" Max="52">Random ramp down strobe</Capability>
+  <Capability Min="53" Max="56">Ramp up and down strobe</Capability>
+  <Capability Min="57" Max="60">Random ramp up and down strobe</Capability>
+  <Capability Min="61" Max="64" Preset="StrobeRandom">Random strobe (Random white beam)</Capability>
+  <Capability Min="65" Max="68" Preset="StrobeRandom">Random strobe (Random single pixel of the white beam)</Capability>
+  <Capability Min="69" Max="72">Lightning strobe effect</Capability>
+  <Capability Min="73" Max="76">Spikes strobe effect (flash over low light)</Capability>
+  <Capability Min="77" Max="80">Strobe (White beam, left to right)</Capability>
+  <Capability Min="81" Max="84">Strobe (White beam, left to right, random)</Capability>
+  <Capability Min="85" Max="88">Strobe (White beam, right to left)</Capability>
+  <Capability Min="89" Max="92">Strobe (White beam, right to left, random)</Capability>
+  <Capability Min="93" Max="96">Strobe (White beam, left to right, bounce)</Capability>
+  <Capability Min="97" Max="100">Strobe (White beam, left to right, bounce, random)</Capability>
+  <Capability Min="101" Max="104">Strobe (White beam, right to left, bounce)</Capability>
+  <Capability Min="105" Max="108">Strobe (White beam, right to left, bounce, random)</Capability>
+  <Capability Min="109" Max="112">Strobe (Zig, 6 steps)</Capability>
+  <Capability Min="113" Max="116">Strobe (Zig, 6 steps, random)</Capability>
+  <Capability Min="117" Max="120">Strobe (Zig, 6 steps, outer to center pixel)</Capability>
+  <Capability Min="121" Max="124">Strobe (Zig, 6 steps, outer to center pixel, random)</Capability>
+  <Capability Min="125" Max="128">Strobe (Zigzag, 10 steps)</Capability>
+  <Capability Min="129" Max="132">Strobe (Zigzag, 10 steps, random)</Capability>
+  <Capability Min="133" Max="179">No function</Capability>
+  <Capability Min="180" Max="183">Strobe (Double flash)</Capability>
+  <Capability Min="184" Max="187">Strobe (Double flash, random)</Capability>
+  <Capability Min="188" Max="191">Strobe (Double flash, beam-color)</Capability>
+  <Capability Min="192" Max="195">Strobe (Double flash, beam-color, random)</Capability>
+  <Capability Min="196" Max="199">Strobe (Double flash, color-beam)</Capability>
+  <Capability Min="200" Max="203">Strobe (Double flash, color-beam, random)</Capability>
+  <Capability Min="204" Max="207">Strobe (Triple flash)</Capability>
+  <Capability Min="208" Max="211">Strobe (Triple flash, random)</Capability>
+  <Capability Min="212" Max="215">Strobe (Triple flash, beam-color-beam)</Capability>
+  <Capability Min="216" Max="219">Strobe (Triple flash, beam-color-beam, random)</Capability>
+  <Capability Min="220" Max="223">Strobe (Triple flash, color-beam-color)</Capability>
+  <Capability Min="224" Max="227">Strobe (Triple flash, color-beam-color, random)</Capability>
+  <Capability Min="228" Max="231">Strobe (Quad flash)</Capability>
+  <Capability Min="232" Max="235">Strobe (Quad flash, random)</Capability>
+  <Capability Min="236" Max="239">Strobe (Quad flash, beam-color-beam-color)</Capability>
+  <Capability Min="240" Max="243">Strobe (Quad flash, beam-color-beam-color, random)</Capability>
+  <Capability Min="244" Max="247">Strobe (Quad flash, color-beam-color-beam)</Capability>
+  <Capability Min="248" Max="251">Strobe (Quad flash, color-beam-color-beam, random)</Capability>
+  <Capability Min="252" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Special / Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="1">Channel 4-6 Offset 10°</Capability>
+  <Capability Min="2" Max="2">Channel 4-6 Offset 20°</Capability>
+  <Capability Min="3" Max="3">Channel 4-6 Offset 30°</Capability>
+  <Capability Min="4" Max="4">Channel 4-6 Offset 40°</Capability>
+  <Capability Min="5" Max="5">Channel 4-6 Offset 50°</Capability>
+  <Capability Min="6" Max="6">Channel 4-6 Offset 60°</Capability>
+  <Capability Min="7" Max="7">Channel 4-6 Offset 70°</Capability>
+  <Capability Min="8" Max="8">Channel 4-6 Offset 80°</Capability>
+  <Capability Min="9" Max="9">Channel 4-6 Offset 90°</Capability>
+  <Capability Min="10" Max="10">Channel 4-6 Offset 100°</Capability>
+  <Capability Min="11" Max="11">Channel 4-6 Offset 110°</Capability>
+  <Capability Min="12" Max="12">Channel 4-6 Offset 120°</Capability>
+  <Capability Min="13" Max="13">Channel 4-6 Offset 130°</Capability>
+  <Capability Min="14" Max="14">Channel 4-6 Offset 140°</Capability>
+  <Capability Min="15" Max="15">Channel 4-6 Offset 150°</Capability>
+  <Capability Min="16" Max="16">Channel 4-6 Offset 160°</Capability>
+  <Capability Min="17" Max="17">Channel 4-6 Offset 170°</Capability>
+  <Capability Min="18" Max="18">Channel 4-6 Offset 180°</Capability>
+  <Capability Min="19" Max="19">Channel 4-6 Offset 190°</Capability>
+  <Capability Min="20" Max="20">Channel 4-6 Offset 200°</Capability>
+  <Capability Min="21" Max="21">Channel 4-6 Offset 210°</Capability>
+  <Capability Min="22" Max="22">Channel 4-6 Offset 220°</Capability>
+  <Capability Min="23" Max="23">Channel 4-6 Offset 230°</Capability>
+  <Capability Min="24" Max="24">Channel 4-6 Offset 240°</Capability>
+  <Capability Min="25" Max="25">Channel 4-6 Offset 250°</Capability>
+  <Capability Min="26" Max="26">Channel 4-6 Offset 260°</Capability>
+  <Capability Min="27" Max="27">Channel 4-6 Offset 270°</Capability>
+  <Capability Min="28" Max="28">Channel 4-6 Offset 280°</Capability>
+  <Capability Min="29" Max="29">Channel 4-6 Offset 290°</Capability>
+  <Capability Min="30" Max="30">Channel 4-6 Offset 300°</Capability>
+  <Capability Min="31" Max="31">Channel 4-6 Offset 310°</Capability>
+  <Capability Min="32" Max="32">Channel 4-6 Offset 320°</Capability>
+  <Capability Min="33" Max="33">Channel 4-6 Offset 330°</Capability>
+  <Capability Min="34" Max="34">Channel 4-6 Offset 340°</Capability>
+  <Capability Min="35" Max="35">Channel 4-6 Offset 350°</Capability>
+  <Capability Min="36" Max="36">Channel 4-6 Offset 360°</Capability>
+  <Capability Min="37" Max="39">No function</Capability>
+  <Capability Min="40" Max="44">Position Feedback On</Capability>
+  <Capability Min="45" Max="49">Position Feedback Off</Capability>
+  <Capability Min="50" Max="54">FX/Pattern Color Priority On (hold 3s)</Capability>
+  <Capability Min="55" Max="59">FX/Pattern Control Priority Off (hold 3s)</Capability>
+  <Capability Min="60" Max="64">Pixel H</Capability>
+  <Capability Min="65" Max="69">Pixel V</Capability>
+  <Capability Min="70" Max="74">Normal Tilt Control</Capability>
+  <Capability Min="75" Max="79">Inverse Tilt Control</Capability>
+  <Capability Min="80" Max="84">Normal Pixel Orientation</Capability>
+  <Capability Min="85" Max="89">Inverse Pixel Orientation</Capability>
+  <Capability Min="90" Max="94">Normal Orientation, 2nd Pixel Line</Capability>
+  <Capability Min="95" Max="99">Inverse Orientation, 2nd Pixel Line</Capability>
+  <Capability Min="100" Max="102">PWM Frequency 582Hz</Capability>
+  <Capability Min="103" Max="105">PWM Frequency 583Hz</Capability>
+  <Capability Min="106" Max="107">PWM Frequency 584Hz</Capability>
+  <Capability Min="108" Max="110">PWM Frequency 585Hz</Capability>
+  <Capability Min="111" Max="112">PWM Frequency 586Hz</Capability>
+  <Capability Min="113" Max="115">PWM Frequency 587Hz</Capability>
+  <Capability Min="116" Max="118">PWM Frequency 588Hz</Capability>
+  <Capability Min="119" Max="120">PWM Frequency 589Hz</Capability>
+  <Capability Min="121" Max="123">PWM Frequency 590Hz</Capability>
+  <Capability Min="124" Max="125">PWM Frequency 591Hz</Capability>
+  <Capability Min="126" Max="128">PWM Frequency 592Hz</Capability>
+  <Capability Min="129" Max="131">PWM Frequency 593Hz</Capability>
+  <Capability Min="132" Max="133">PWM Frequency 594Hz</Capability>
+  <Capability Min="134" Max="136">PWM Frequency 595Hz</Capability>
+  <Capability Min="137" Max="138">PWM Frequency 596Hz</Capability>
+  <Capability Min="139" Max="141">PWM Frequency 597Hz</Capability>
+  <Capability Min="142" Max="144">PWM Frequency 598Hz</Capability>
+  <Capability Min="145" Max="146">PWM Frequency 599Hz</Capability>
+  <Capability Min="147" Max="149">PWM Frequency 600Hz</Capability>
+  <Capability Min="150" Max="151">PWM Frequency 601Hz</Capability>
+  <Capability Min="152" Max="154">PWM Frequency 602Hz</Capability>
+  <Capability Min="155" Max="157">PWM Frequency 603Hz</Capability>
+  <Capability Min="158" Max="159">PWM Frequency 604Hz</Capability>
+  <Capability Min="160" Max="162">PWM Frequency 605Hz</Capability>
+  <Capability Min="163" Max="164">PWM Frequency 606Hz</Capability>
+  <Capability Min="165" Max="167">PWM Frequency 607Hz</Capability>
+  <Capability Min="168" Max="170">PWM Frequency 608Hz</Capability>
+  <Capability Min="171" Max="172">PWM Frequency 609Hz</Capability>
+  <Capability Min="173" Max="175">PWM Frequency 610Hz</Capability>
+  <Capability Min="176" Max="177">PWM Frequency 611Hz</Capability>
+  <Capability Min="178" Max="180">PWM Frequency 612Hz</Capability>
+  <Capability Min="181" Max="183">PWM Frequency 613Hz</Capability>
+  <Capability Min="184" Max="185">PWM Frequency 614Hz</Capability>
+  <Capability Min="186" Max="188">PWM Frequency 615Hz</Capability>
+  <Capability Min="189" Max="190">PWM Frequency 616Hz</Capability>
+  <Capability Min="191" Max="193">PWM Frequency 617Hz</Capability>
+  <Capability Min="194" Max="194">PWM Frequency 618Hz</Capability>
+  <Capability Min="195" Max="197">PWM Frequency 1200Hz</Capability>
+  <Capability Min="198" Max="200">PWM Frequency 2400Hz</Capability>
+  <Capability Min="201" Max="209">No function</Capability>
+  <Capability Min="210" Max="214">Duration Percentage Mode On</Capability>
+  <Capability Min="215" Max="219">Duration Percentage Mode Off</Capability>
+  <Capability Min="220" Max="224">Dimmer Flash On</Capability>
+  <Capability Min="225" Max="229">Dimmer Flash Off</Capability>
+  <Capability Min="230" Max="234">FX/Plate Color Priority On</Capability>
+  <Capability Min="235" Max="239">FX/Plate Color Priority Off</Capability>
+  <Capability Min="240" Max="247">No function</Capability>
+  <Capability Min="248" Max="255">Reset (hold 5s)</Capability>
+ </Channel>
+ <Channel Name="Color Plate Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Color Flash Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Strobe duration 7…650ms</Capability>
+ </Channel>
+ <Channel Name="Color Flash Rate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Strobe speed 0.289…16.67Hz</Capability>
+ </Channel>
+ <Channel Name="Color FX Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="1">Color Plate Offset 10°</Capability>
+  <Capability Min="2" Max="2">Color Plate Offset 20°</Capability>
+  <Capability Min="3" Max="3">Color Plate Offset 30°</Capability>
+  <Capability Min="4" Max="4">Color Plate Offset 40°</Capability>
+  <Capability Min="5" Max="5">Color Plate Offset 50°</Capability>
+  <Capability Min="6" Max="6">Color Plate Offset 60°</Capability>
+  <Capability Min="7" Max="7">Color Plate Offset 70°</Capability>
+  <Capability Min="8" Max="8">Color Plate Offset 80°</Capability>
+  <Capability Min="9" Max="9">Color Plate Offset 90°</Capability>
+  <Capability Min="10" Max="10">Color Plate Offset 100°</Capability>
+  <Capability Min="11" Max="11">Color Plate Offset 110°</Capability>
+  <Capability Min="12" Max="12">Color Plate Offset 120°</Capability>
+  <Capability Min="13" Max="13">Color Plate Offset 130°</Capability>
+  <Capability Min="14" Max="14">Color Plate Offset 140°</Capability>
+  <Capability Min="15" Max="15">Color Plate Offset 150°</Capability>
+  <Capability Min="16" Max="16">Color Plate Offset 160°</Capability>
+  <Capability Min="17" Max="17">Color Plate Offset 170°</Capability>
+  <Capability Min="18" Max="18">Color Plate Offset 180°</Capability>
+  <Capability Min="19" Max="19">Color Plate Offset 190°</Capability>
+  <Capability Min="20" Max="20">Color Plate Offset 200°</Capability>
+  <Capability Min="21" Max="21">Color Plate Offset 210°</Capability>
+  <Capability Min="22" Max="22">Color Plate Offset 220°</Capability>
+  <Capability Min="23" Max="23">Color Plate Offset 230°</Capability>
+  <Capability Min="24" Max="24">Color Plate Offset 240°</Capability>
+  <Capability Min="25" Max="25">Color Plate Offset 250°</Capability>
+  <Capability Min="26" Max="26">Color Plate Offset 260°</Capability>
+  <Capability Min="27" Max="27">Color Plate Offset 270°</Capability>
+  <Capability Min="28" Max="28">Color Plate Offset 280°</Capability>
+  <Capability Min="29" Max="29">Color Plate Offset 290°</Capability>
+  <Capability Min="30" Max="30">Color Plate Offset 300°</Capability>
+  <Capability Min="31" Max="31">Color Plate Offset 310°</Capability>
+  <Capability Min="32" Max="32">Color Plate Offset 320°</Capability>
+  <Capability Min="33" Max="33">Color Plate Offset 330°</Capability>
+  <Capability Min="34" Max="34">Color Plate Offset 340°</Capability>
+  <Capability Min="35" Max="35">Color Plate Offset 350°</Capability>
+  <Capability Min="36" Max="36">Color Plate Offset 360°</Capability>
+  <Capability Min="37" Max="40">Ramp up strobe</Capability>
+  <Capability Min="41" Max="44">Random ramp up strobe</Capability>
+  <Capability Min="45" Max="48">Ramp down strobe</Capability>
+  <Capability Min="49" Max="52">Random ramp down strobe</Capability>
+  <Capability Min="53" Max="56">Ramp up and down strobe</Capability>
+  <Capability Min="57" Max="60">Random ramp up and down strobe</Capability>
+  <Capability Min="61" Max="64">Strobe (Random white beam)</Capability>
+  <Capability Min="65" Max="68">Strobe (Random single pixel of the white beam)</Capability>
+  <Capability Min="69" Max="72">Lightning strobe effect</Capability>
+  <Capability Min="73" Max="76">Spikes strobe effect (flash over low light)</Capability>
+  <Capability Min="77" Max="179">No function</Capability>
+  <Capability Min="180" Max="191">Strobe (Double flash)</Capability>
+  <Capability Min="192" Max="203">Strobe (Double flash, random)</Capability>
+  <Capability Min="204" Max="215">Strobe (Trriple flash)</Capability>
+  <Capability Min="216" Max="227">Strobe (Trriple flash, random)</Capability>
+  <Capability Min="228" Max="239">Strobe (Quad flash)</Capability>
+  <Capability Min="240" Max="251">Strobe (Quad flash, random)</Capability>
+  <Capability Min="252" Max="255">No effect</Capability>
+ </Channel>
+ <Channel Name="Plate Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Plate Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Plate Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Plate White Intensity" Preset="IntensityWhite"/>
+ <Channel Name="Color Set 2 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Color Set 2 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Color Set 2 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="FX Crossfade">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Generic</Colour>
+  <Capability Min="0" Max="255">Generic</Capability>
+ </Channel>
+ <Channel Name="Pattern Color Movement">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Generic</Colour>
+  <Capability Min="0" Max="255">Generic</Capability>
+ </Channel>
+ <Channel Name="Pattern Select Color">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Generic</Colour>
+  <Capability Min="0" Max="255">Generic</Capability>
+ </Channel>
+ <Channel Name="Pattern Beam Movement">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Generic</Colour>
+  <Capability Min="0" Max="255">Generic</Capability>
+ </Channel>
+ <Channel Name="Pattern Select Beam">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Generic</Colour>
+  <Capability Min="0" Max="255">Generic</Capability>
+ </Channel>
+ <Channel Name="Color Set 2 Master Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master Pix Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pixel 1 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 2 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 3 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 4 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 5 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 6 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 7 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 8 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 9 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 10 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 11 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 12 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 2 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 3 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 4 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 5 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 6 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 7 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 8 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 9 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 10 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 11 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 12 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 2 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 3 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 4 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 5 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 6 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 7 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 8 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 9 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 10 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 11 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 12 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="White 1 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 2 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 3 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 4 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 5 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 6 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 7 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 8 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 9 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 10 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 11 Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="White 12 Intensity" Preset="IntensityDimmer"/>
+ <Mode Name="Compressed Pro 14-channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt fine</Channel>
+  <Channel Number="2">Beam Intensity</Channel>
+  <Channel Number="3">Beam Duration</Channel>
+  <Channel Number="4">Beam Rate</Channel>
+  <Channel Number="5">Beam FX Shutter</Channel>
+  <Channel Number="6">Special / Control</Channel>
+  <Channel Number="7">Color Plate Intensity</Channel>
+  <Channel Number="8">Color Flash Duration</Channel>
+  <Channel Number="9">Color Flash Rate</Channel>
+  <Channel Number="10">Color FX Shutter</Channel>
+  <Channel Number="11">Plate Red Intensity</Channel>
+  <Channel Number="12">Plate Green Intensity</Channel>
+  <Channel Number="13">Plate Blue Intensity</Channel>
+ </Mode>
+ <Mode Name="Normal 23-channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt fine</Channel>
+  <Channel Number="2">Beam Intensity</Channel>
+  <Channel Number="3">Beam Duration</Channel>
+  <Channel Number="4">Beam Rate</Channel>
+  <Channel Number="5">Beam FX Shutter</Channel>
+  <Channel Number="6">Special / Control</Channel>
+  <Channel Number="7">Color Plate Intensity</Channel>
+  <Channel Number="8">Color Flash Duration</Channel>
+  <Channel Number="9">Color Flash Rate</Channel>
+  <Channel Number="10">Color FX Shutter</Channel>
+  <Channel Number="11">Plate Red Intensity</Channel>
+  <Channel Number="12">Plate Green Intensity</Channel>
+  <Channel Number="13">Plate Blue Intensity</Channel>
+  <Channel Number="14">FX Crossfade</Channel>
+  <Channel Number="15">Pattern Color Movement</Channel>
+  <Channel Number="16">Pattern Select Color</Channel>
+  <Channel Number="17">Pattern Beam Movement</Channel>
+  <Channel Number="18">Pattern Select Beam</Channel>
+  <Channel Number="19">Color Set 2 Master Intensity</Channel>
+  <Channel Number="20">Color Set 2 Red Intensity</Channel>
+  <Channel Number="21">Color Set 2 Green Intensity</Channel>
+  <Channel Number="22">Color Set 2 Blue Intensity</Channel>
+ </Mode>
+ <Mode Name="SPix 68-channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt fine</Channel>
+  <Channel Number="2">Beam Intensity</Channel>
+  <Channel Number="3">Beam Duration</Channel>
+  <Channel Number="4">Beam Rate</Channel>
+  <Channel Number="5">Beam FX Shutter</Channel>
+  <Channel Number="6">Special / Control</Channel>
+  <Channel Number="7">Color Plate Intensity</Channel>
+  <Channel Number="8">Color Flash Duration</Channel>
+  <Channel Number="9">Color Flash Rate</Channel>
+  <Channel Number="10">Color FX Shutter</Channel>
+  <Channel Number="11">Plate Red Intensity</Channel>
+  <Channel Number="12">Plate Green Intensity</Channel>
+  <Channel Number="13">Plate Blue Intensity</Channel>
+  <Channel Number="14">FX Crossfade</Channel>
+  <Channel Number="15">Pattern Color Movement</Channel>
+  <Channel Number="16">Pattern Select Color</Channel>
+  <Channel Number="17">Pattern Beam Movement</Channel>
+  <Channel Number="18">Pattern Select Beam</Channel>
+  <Channel Number="19">Master Pix Intensity</Channel>
+  <Channel Number="20">Pixel 1 Red Intensity</Channel>
+  <Channel Number="21">Pixel 1 Green Intensity</Channel>
+  <Channel Number="22">Pixel 1 Blue Intensity</Channel>
+  <Channel Number="23">Pixel 2 Red Intensity</Channel>
+  <Channel Number="24">Pixel 2 Green Intensity</Channel>
+  <Channel Number="25">Pixel 2 Blue Intensity</Channel>
+  <Channel Number="26">Pixel 3 Red Intensity</Channel>
+  <Channel Number="27">Pixel 3 Green Intensity</Channel>
+  <Channel Number="28">Pixel 3 Blue Intensity</Channel>
+  <Channel Number="29">Pixel 4 Red Intensity</Channel>
+  <Channel Number="30">Pixel 4 Green Intensity</Channel>
+  <Channel Number="31">Pixel 4 Blue Intensity</Channel>
+  <Channel Number="32">Pixel 5 Red Intensity</Channel>
+  <Channel Number="33">Pixel 5 Green Intensity</Channel>
+  <Channel Number="34">Pixel 5 Blue Intensity</Channel>
+  <Channel Number="35">Pixel 6 Red Intensity</Channel>
+  <Channel Number="36">Pixel 6 Green Intensity</Channel>
+  <Channel Number="37">Pixel 6 Blue Intensity</Channel>
+  <Channel Number="38">Pixel 7 Red Intensity</Channel>
+  <Channel Number="39">Pixel 7 Green Intensity</Channel>
+  <Channel Number="40">Pixel 7 Blue Intensity</Channel>
+  <Channel Number="41">Pixel 8 Red Intensity</Channel>
+  <Channel Number="42">Pixel 8 Green Intensity</Channel>
+  <Channel Number="43">Pixel 8 Blue Intensity</Channel>
+  <Channel Number="44">Pixel 9 Red Intensity</Channel>
+  <Channel Number="45">Pixel 9 Green Intensity</Channel>
+  <Channel Number="46">Pixel 9 Blue Intensity</Channel>
+  <Channel Number="47">Pixel 10 Red Intensity</Channel>
+  <Channel Number="48">Pixel 10 Green Intensity</Channel>
+  <Channel Number="49">Pixel 10 Blue Intensity</Channel>
+  <Channel Number="50">Pixel 11 Red Intensity</Channel>
+  <Channel Number="51">Pixel 11 Green Intensity</Channel>
+  <Channel Number="52">Pixel 11 Blue Intensity</Channel>
+  <Channel Number="53">Pixel 12 Red Intensity</Channel>
+  <Channel Number="54">Pixel 12 Green Intensity</Channel>
+  <Channel Number="55">Pixel 12 Blue Intensity</Channel>
+  <Channel Number="56">White 1 Intensity</Channel>
+  <Channel Number="57">White 2 Intensity</Channel>
+  <Channel Number="58">White 3 Intensity</Channel>
+  <Channel Number="59">White 4 Intensity</Channel>
+  <Channel Number="60">White 5 Intensity</Channel>
+  <Channel Number="61">White 6 Intensity</Channel>
+  <Channel Number="62">White 7 Intensity</Channel>
+  <Channel Number="63">White 8 Intensity</Channel>
+  <Channel Number="64">White 9 Intensity</Channel>
+  <Channel Number="65">White 10 Intensity</Channel>
+  <Channel Number="66">White 11 Intensity</Channel>
+  <Channel Number="67">White 12 Intensity</Channel>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+  </Head>
+  <Head>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+  </Head>
+  <Head>
+   <Channel>61</Channel>
+  </Head>
+  <Head>
+   <Channel>62</Channel>
+  </Head>
+  <Head>
+   <Channel>63</Channel>
+  </Head>
+  <Head>
+   <Channel>64</Channel>
+  </Head>
+  <Head>
+   <Channel>65</Channel>
+  </Head>
+  <Head>
+   <Channel>66</Channel>
+  </Head>
+  <Head>
+   <Channel>67</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="SPix Pro 62-channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt fine</Channel>
+  <Channel Number="2">Beam Intensity</Channel>
+  <Channel Number="3">Beam Duration</Channel>
+  <Channel Number="4">Beam Rate</Channel>
+  <Channel Number="5">Beam FX Shutter</Channel>
+  <Channel Number="6">Special / Control</Channel>
+  <Channel Number="7">Color Plate Intensity</Channel>
+  <Channel Number="8">Color Flash Duration</Channel>
+  <Channel Number="9">Color Flash Rate</Channel>
+  <Channel Number="10">Color FX Shutter</Channel>
+  <Channel Number="11">Plate Red Intensity</Channel>
+  <Channel Number="12">Plate Green Intensity</Channel>
+  <Channel Number="13">Plate Blue Intensity</Channel>
+  <Channel Number="14">Pixel 1 Red Intensity</Channel>
+  <Channel Number="15">Pixel 1 Green Intensity</Channel>
+  <Channel Number="16">Pixel 1 Blue Intensity</Channel>
+  <Channel Number="17">Pixel 2 Red Intensity</Channel>
+  <Channel Number="18">Pixel 2 Green Intensity</Channel>
+  <Channel Number="19">Pixel 2 Blue Intensity</Channel>
+  <Channel Number="20">Pixel 3 Red Intensity</Channel>
+  <Channel Number="21">Pixel 3 Green Intensity</Channel>
+  <Channel Number="22">Pixel 3 Blue Intensity</Channel>
+  <Channel Number="23">Pixel 4 Red Intensity</Channel>
+  <Channel Number="24">Pixel 4 Green Intensity</Channel>
+  <Channel Number="25">Pixel 4 Blue Intensity</Channel>
+  <Channel Number="26">Pixel 5 Red Intensity</Channel>
+  <Channel Number="27">Pixel 5 Green Intensity</Channel>
+  <Channel Number="28">Pixel 5 Blue Intensity</Channel>
+  <Channel Number="29">Pixel 6 Red Intensity</Channel>
+  <Channel Number="30">Pixel 6 Green Intensity</Channel>
+  <Channel Number="31">Pixel 6 Blue Intensity</Channel>
+  <Channel Number="32">Pixel 7 Red Intensity</Channel>
+  <Channel Number="33">Pixel 7 Green Intensity</Channel>
+  <Channel Number="34">Pixel 7 Blue Intensity</Channel>
+  <Channel Number="35">Pixel 8 Red Intensity</Channel>
+  <Channel Number="36">Pixel 8 Green Intensity</Channel>
+  <Channel Number="37">Pixel 8 Blue Intensity</Channel>
+  <Channel Number="38">Pixel 9 Red Intensity</Channel>
+  <Channel Number="39">Pixel 9 Green Intensity</Channel>
+  <Channel Number="40">Pixel 9 Blue Intensity</Channel>
+  <Channel Number="41">Pixel 10 Red Intensity</Channel>
+  <Channel Number="42">Pixel 10 Green Intensity</Channel>
+  <Channel Number="43">Pixel 10 Blue Intensity</Channel>
+  <Channel Number="44">Pixel 11 Red Intensity</Channel>
+  <Channel Number="45">Pixel 11 Green Intensity</Channel>
+  <Channel Number="46">Pixel 11 Blue Intensity</Channel>
+  <Channel Number="47">Pixel 12 Red Intensity</Channel>
+  <Channel Number="48">Pixel 12 Green Intensity</Channel>
+  <Channel Number="49">Pixel 12 Blue Intensity</Channel>
+  <Channel Number="50">White 1 Intensity</Channel>
+  <Channel Number="51">White 2 Intensity</Channel>
+  <Channel Number="52">White 3 Intensity</Channel>
+  <Channel Number="53">White 4 Intensity</Channel>
+  <Channel Number="54">White 5 Intensity</Channel>
+  <Channel Number="55">White 6 Intensity</Channel>
+  <Channel Number="56">White 7 Intensity</Channel>
+  <Channel Number="57">White 8 Intensity</Channel>
+  <Channel Number="58">White 9 Intensity</Channel>
+  <Channel Number="59">White 10 Intensity</Channel>
+  <Channel Number="60">White 11 Intensity</Channel>
+  <Channel Number="61">White 12 Intensity</Channel>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+  </Head>
+  <Head>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+  </Head>
+  <Head>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+  </Head>
+  <Head>
+   <Channel>58</Channel>
+  </Head>
+  <Head>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+  </Head>
+  <Head>
+   <Channel>61</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>35</Channel>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+  <Head>
+   <Channel>47</Channel>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="1Pix Pro 17-channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt fine</Channel>
+  <Channel Number="2">Beam Intensity</Channel>
+  <Channel Number="3">Beam Duration</Channel>
+  <Channel Number="4">Beam Rate</Channel>
+  <Channel Number="5">Beam FX Shutter</Channel>
+  <Channel Number="6">Special / Control</Channel>
+  <Channel Number="7">Color Plate Intensity</Channel>
+  <Channel Number="8">Color Flash Duration</Channel>
+  <Channel Number="9">Color Flash Rate</Channel>
+  <Channel Number="10">Color FX Shutter</Channel>
+  <Channel Number="11">Plate Red Intensity</Channel>
+  <Channel Number="12">Plate Green Intensity</Channel>
+  <Channel Number="13">Plate Blue Intensity</Channel>
+  <Channel Number="14">Color Set 2 Red Intensity</Channel>
+  <Channel Number="15">Color Set 2 Green Intensity</Channel>
+  <Channel Number="16">Color Set 2 Blue Intensity</Channel>
+ </Mode>
+ <Mode Name="Easy 11-channel">
+  <Channel Number="0">Tilt</Channel>
+  <Channel Number="1">Tilt fine</Channel>
+  <Channel Number="2">Beam Intensity</Channel>
+  <Channel Number="3">Beam Duration</Channel>
+  <Channel Number="4">Beam Rate</Channel>
+  <Channel Number="5">Beam FX Shutter</Channel>
+  <Channel Number="6">Special / Control</Channel>
+  <Channel Number="7">Plate Red Intensity</Channel>
+  <Channel Number="8">Plate Green Intensity</Channel>
+  <Channel Number="9">Plate Blue Intensity</Channel>
+  <Channel Number="10">Plate White Intensity</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="1320x Osram LRTB GVTG RGB LEDs, 216x CREE XP L LEDs" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12" Width="390" Height="284" Depth="154"/>
+  <Lens Name="Other" DegreesMin="86" DegreesMax="148"/>
+  <Focus Type="Head" PanMax="0" TiltMax="185"/>
+  <Layout Width="12" Height="3"/>
+  <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+ </Physical>
+</FixtureDefinition>

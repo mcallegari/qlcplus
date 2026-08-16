@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.5 GIT</Version>
+  <Author>David Dale</Author>
+ </Creator>
+ <Manufacturer>Equinox</Manufacturer>
+ <Model>Fusion 50 MkII</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanSlowFast"/>
+ <Channel Name="Master Dimmer 0-100% / Strobe/Strobe Speed">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="134">Master Dimmer (0 - 90%)</Capability>
+  <Capability Min="135" Max="239">Strobe/Strobe Speed</Capability>
+  <Capability Min="240" Max="255">Master Dimmer (90-100%)</Capability>
+ </Channel>
+ <Channel Name="Red 0-100%" Preset="IntensityRed"/>
+ <Channel Name="Green 0-100%" Preset="IntensityGreen"/>
+ <Channel Name="Blue 0-100%" Preset="IntensityBlue"/>
+ <Channel Name="White 0-100%" Preset="IntensityWhite"/>
+ <Channel Name="Colour Change">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="231">Manual Preset Colour Change</Capability>
+  <Capability Min="232" Max="255">Auto Colour Preset Change</Capability>
+ </Channel>
+ <Channel Name="Colour Change Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Colour Change Speed</Capability>
+ </Channel>
+ <Channel Name="Auto/Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="155">Auto</Capability>
+  <Capability Min="156" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Master Dimmer 0-100% / Strobe/Strobe Speed</Channel>
+  <Channel Number="3">Red 0-100%</Channel>
+  <Channel Number="4">Green 0-100%</Channel>
+  <Channel Number="5">Blue 0-100%</Channel>
+  <Channel Number="6">White 0-100%</Channel>
+  <Channel Number="7">Pan/Tilt Speed</Channel>
+  <Channel Number="8">Reset</Channel>
+ </Mode>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Master Dimmer 0-100% / Strobe/Strobe Speed</Channel>
+  <Channel Number="6">Red 0-100%</Channel>
+  <Channel Number="7">Green 0-100%</Channel>
+  <Channel Number="8">Blue 0-100%</Channel>
+  <Channel Number="9">White 0-100%</Channel>
+  <Channel Number="10">Colour Change</Channel>
+  <Channel Number="11">Colour Change Speed</Channel>
+  <Channel Number="12">Auto/Sound Active</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="175" Height="245" Depth="180"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

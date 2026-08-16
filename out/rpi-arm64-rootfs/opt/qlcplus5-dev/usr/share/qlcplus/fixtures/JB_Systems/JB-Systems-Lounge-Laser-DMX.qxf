@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>Lounge Laser DMX</Model>
+ <Type>Laser</Type>
+ <Channel Name="1-Channel Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Laser off (blackout)</Capability>
+  <Capability Min="8" Max="100">ArA, automatic random play</Capability>
+  <Capability Min="101" Max="170">SrA, slow random play</Capability>
+  <Capability Min="171" Max="255">Sou, sound activated random play</Capability>
+ </Channel>
+ <Channel Name="Mode Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51" Preset="ColorMacro" Res1="#000000">Laser off (blackout)</Capability>
+  <Capability Min="52" Max="102">ArA, automatic random play</Capability>
+  <Capability Min="103" Max="154">SrA, slow random play</Capability>
+  <Capability Min="155" Max="206">Sou, sound activated random play</Capability>
+  <Capability Min="207" Max="255">Laser in DMX mode</Capability>
+ </Channel>
+ <Channel Name="Red Laser Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="127" Preset="ShutterOpen">Laser on</Capability>
+  <Capability Min="128" Max="254" Preset="StrobeSlowToFast">Frequency from fast to slow</Capability>
+  <Capability Min="255" Max="255">Sound controlled</Capability>
+ </Channel>
+ <Channel Name="Green Laser Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="127" Preset="ShutterOpen">Laser on</Capability>
+  <Capability Min="128" Max="254" Preset="StrobeSlowToFast">Frequency from fast to slow</Capability>
+  <Capability Min="255" Max="255">Sound controlled</Capability>
+ </Channel>
+ <Channel Name="Rotation Laser Dots">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No</Capability>
+  <Capability Min="5" Max="127">Clockwise from slow to fast</Capability>
+  <Capability Min="128" Max="133">No</Capability>
+  <Capability Min="134" Max="255">Counterclockwise from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotation LED Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No</Capability>
+  <Capability Min="5" Max="127">Clockwise from slow to fast</Capability>
+  <Capability Min="128" Max="133">No</Capability>
+  <Capability Min="134" Max="255">Counterclockwise from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer LED">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="255">Level from low to high</Capability>
+ </Channel>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="254" Preset="StrobeSlowToFast">Frequency from fast to slow</Capability>
+  <Capability Min="255" Max="255">Sound controlled</Capability>
+ </Channel>
+ <Mode Name="1-Channel">
+  <Channel Number="0">1-Channel Mode</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Mode Select</Channel>
+  <Channel Number="1">Red Laser Strobe</Channel>
+  <Channel Number="2">Green Laser Strobe</Channel>
+  <Channel Number="3">Rotation Laser Dots</Channel>
+  <Channel Number="4">Rotation LED Effect</Channel>
+  <Channel Number="5">Dimmer LED</Channel>
+  <Channel Number="6">LED Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser/LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="233" Height="86" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

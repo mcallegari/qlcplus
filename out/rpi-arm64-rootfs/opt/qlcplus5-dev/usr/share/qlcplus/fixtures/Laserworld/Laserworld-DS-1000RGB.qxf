@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.2 GIT</Version>
+  <Author>Nils Hitschke</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>DS-1000RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Blackout (000.ild must not exist)</Capability>
+  <Capability Min="1" Max="255">Display patterns from SD card</Capability>
+ </Channel>
+ <Channel Name="Pattern speed (Framerate)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">Standard speed: 50 fps</Capability>
+  <Capability Min="16" Max="255">Increasing speed from 0 fps to 100 fps</Capability>
+ </Channel>
+ <Channel Name="Size">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Decreasing size X + Y-axis</Capability>
+  <Capability Min="128" Max="191">Decreasing size X-axis</Capability>
+  <Capability Min="192" Max="255">Decreasing size Y-axis</Capability>
+ </Channel>
+ <Channel Name="Automatic size">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="63">Full size</Capability>
+  <Capability Min="64" Max="127">Changing size automatically X + Y-axis (increasing speed)</Capability>
+  <Capability Min="128" Max="191">Changing size automatically X-axis (increasing speed)</Capability>
+  <Capability Min="192" Max="255">Changing size automatically Y-axis (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Rotate">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="192">Manual rotation</Capability>
+  <Capability Min="193" Max="224">Automatic rotation anti-clockwise (increasing speed)</Capability>
+  <Capability Min="225" Max="255">Automatic rotation clockwise (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Position X-axis coarse" Preset="PositionXAxis"/>
+ <Channel Name="Position X-axis fine" Preset="PositionPanFine"/>
+ <Channel Name="Position Y-axis coarse" Preset="PositionYAxis"/>
+ <Channel Name="Position Y-axis fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color effects">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Show pattern in original colors</Capability>
+  <Capability Min="16" Max="79">Show pattern in different colors (monochrome)</Capability>
+  <Capability Min="80" Max="143">Re-color effects: Original colors are replaced by new colors</Capability>
+  <Capability Min="144" Max="255">Automatic change of re-color effects (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Color effects extended">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">Smooth color fade effect to the re-color effect Value of channel 11 must be &gt;15!</Capability>
+  <Capability Min="128" Max="192">Blocking color effect to the re-color effect Value of channel 11 must be &gt;15!</Capability>
+  <Capability Min="193" Max="255">Automatic change of color fade effects (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">None</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Increasing strobe effect</Capability>
+ </Channel>
+ <Channel Name="Operation mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19">DMX</Capability>
+  <Capability Min="20" Max="83">Automatic position X &amp; Y-axis</Capability>
+  <Capability Min="84" Max="147">Automatic position X-axis</Capability>
+  <Capability Min="148" Max="211">Automatic position Y-axis</Capability>
+  <Capability Min="212" Max="233">Demonstration mode</Capability>
+  <Capability Min="234" Max="255">Sound-to-light</Capability>
+ </Channel>
+ <Channel Name="Scan speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="31">Default</Capability>
+  <Capability Min="32" Max="255">Increasing scan speed (from 5 kpps to 30 kpps) ATTENTION: Make sure not to overload the scanners! If you‘re unsure about the maximum scan speed, stay with the default setting!</Capability>
+ </Channel>
+ <Channel Name="Safety zone intensity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No reduction</Capability>
+  <Capability Min="1" Max="128">Decrease brightness up to half brightness</Capability>
+  <Capability Min="129" Max="255">Decrease brightness up to blackout</Capability>
+ </Channel>
+ <Channel Name="Blanking">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="192">Manual select how much of the laser pattern shall be blanked</Capability>
+  <Capability Min="193" Max="255">Automatic blanking (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Blankshift">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="192">Manual select the pattern part the blanking of channel 18 shall be applied to</Capability>
+  <Capability Min="193" Max="255">Automatic blank shift (increasing speed)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color balancing red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">From max intensity (0) to no intensity (255) Master to channel 14</Capability>
+ </Channel>
+ <Channel Name="Color balancing green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">From max intensity (0) to no intensity (255) Master to channel 15</Capability>
+ </Channel>
+ <Channel Name="Color balancing blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">From max intensity (0) to no intensity (255) Master to channel 16</Capability>
+ </Channel>
+ <Channel Name="Safety zone size">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Size of horizontal safety zone Safety zone is the bottom side</Capability>
+  <Capability Min="64" Max="127">Size of horizontal safety zone Safety zone is the upper side</Capability>
+  <Capability Min="128" Max="191">Size of vertical safety zone Safety zone is the left side</Capability>
+  <Capability Min="192" Max="255">Size of the vertical safety zone Safety zone is the right side</Capability>
+ </Channel>
+ <Channel Name="Rotate coarse">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Rotate; 0° = 128</Capability>
+ </Channel>
+ <Channel Name="Rotation fine">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="255">Rotation fine</Capability>
+ </Channel>
+ <Channel Name="Size X-axis">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From maximum (0) to minimum (255)</Capability>
+ </Channel>
+ <Channel Name="Size Y-axis">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">From maximum (0) to minimum (255)</Capability>
+ </Channel>
+ <Channel Name="Inversion">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">None</Capability>
+  <Capability Min="64" Max="127">Invert X-axis</Capability>
+  <Capability Min="128" Max="191">Invert Y-axis</Capability>
+  <Capability Min="192" Max="255">Invert X + Y-axis</Capability>
+ </Channel>
+ <Mode Name="DJ">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Pattern speed (Framerate)</Channel>
+  <Channel Number="3">Size</Channel>
+  <Channel Number="4">Automatic size</Channel>
+  <Channel Number="5">Rotate</Channel>
+  <Channel Number="6">Position X-axis coarse</Channel>
+  <Channel Number="7">Position X-axis fine</Channel>
+  <Channel Number="8">Position Y-axis coarse</Channel>
+  <Channel Number="9">Position Y-axis fine</Channel>
+  <Channel Number="10">Color effects</Channel>
+  <Channel Number="11">Color effects extended</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Operation mode</Channel>
+  <Channel Number="14">Scan speed</Channel>
+  <Channel Number="15">Safety zone size</Channel>
+  <Channel Number="16">Safety zone intensity</Channel>
+  <Channel Number="17">Blanking</Channel>
+  <Channel Number="18">Blankshift</Channel>
+ </Mode>
+ <Mode Name="Professional">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Pattern speed (Framerate)</Channel>
+  <Channel Number="3">Position X-axis coarse</Channel>
+  <Channel Number="4">Position X-axis fine</Channel>
+  <Channel Number="5">Position Y-axis coarse</Channel>
+  <Channel Number="6">Position Y-axis fine</Channel>
+  <Channel Number="7">Rotate coarse</Channel>
+  <Channel Number="8">Rotation fine</Channel>
+  <Channel Number="9">Size X-axis</Channel>
+  <Channel Number="10">Size Y-axis</Channel>
+  <Channel Number="11">Inversion</Channel>
+  <Channel Number="12">Color effects</Channel>
+  <Channel Number="13">Red</Channel>
+  <Channel Number="14">Green</Channel>
+  <Channel Number="15">Blue</Channel>
+  <Channel Number="16">Strobe</Channel>
+  <Channel Number="17">Scan speed</Channel>
+  <Channel Number="18">Safety zone size</Channel>
+  <Channel Number="19">Safety zone intensity</Channel>
+  <Channel Number="20">Color balancing red</Channel>
+  <Channel Number="21">Color balancing green</Channel>
+  <Channel Number="22">Color balancing blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="200" Height="110" Depth="140"/>
+  <Lens Name="Other" DegreesMin="3" DegreesMax="45"/>
+  <Focus Type="Mirror" PanMax="45" TiltMax="45"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

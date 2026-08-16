@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.2.2 GIT</Version>
+  <Author>Michael</Author>
+ </Creator>
+ <Manufacturer>Betopper</Manufacturer>
+ <Model>LPC-1218</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Function Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">Open DMX</Capability>
+  <Capability Min="20" Max="35">CT Open (CH10 Color Selection)</Capability>
+  <Capability Min="36" Max="149">Color Selection</Capability>
+  <Capability Min="150" Max="200">Jump</Capability>
+  <Capability Min="201" Max="249">Pulse Change</Capability>
+  <Capability Min="250" Max="255">Music Mode 2</Capability>
+ </Channel>
+ <Channel Name="Function Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed or Color Selection when CH9=20-35</Capability>
+ </Channel>
+ <Mode Name="6 Channel (d001)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Lime</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="10 Channel (A001)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Lime</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Function Select</Channel>
+  <Channel Number="9">Function Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="204" Height="292" Depth="79"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="216" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

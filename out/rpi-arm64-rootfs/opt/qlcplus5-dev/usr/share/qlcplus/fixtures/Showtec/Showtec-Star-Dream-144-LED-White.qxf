@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.7 GIT</Version>
+  <Author>David Gouronc</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Star Dream 144 LED White</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">Not functional</Capability>
+  <Capability Min="10" Max="255" Preset="SlowToFast">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Programs" Default="255">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49" Preset="Alias">Manual mode ON
+   <Alias Mode="5" Channel="No function" With="LED group 1-8"/>
+   <Alias Mode="5" Channel="No function 1-8" With="LED group 1-8"/>
+   <Alias Mode="12" Channel="No function 1" With="LED group 1-8"/>
+   <Alias Mode="12" Channel="No function 2" With="Led Group 2"/>
+   <Alias Mode="12" Channel="No function 3" With="Led Group 3"/>
+   <Alias Mode="12" Channel="No function 4" With="Led Group 4"/>
+   <Alias Mode="12" Channel="No function 5" With="Led Group 5"/>
+   <Alias Mode="12" Channel="No function 6" With="Led Group 6"/>
+   <Alias Mode="12" Channel="No function 7" With="Led Group 7"/>
+   <Alias Mode="12" Channel="No function 8" With="Led Group 8"/>
+  </Capability>
+  <Capability Min="50" Max="59">Manual mode OFF</Capability>
+  <Capability Min="60" Max="129">White</Capability>
+  <Capability Min="130" Max="139">Program 1</Capability>
+  <Capability Min="140" Max="149">Program 2</Capability>
+  <Capability Min="150" Max="159">Program 3</Capability>
+  <Capability Min="160" Max="169">Program 4</Capability>
+  <Capability Min="170" Max="179">Program 5</Capability>
+  <Capability Min="180" Max="189">Program 6</Capability>
+  <Capability Min="190" Max="199">Program 7</Capability>
+  <Capability Min="200" Max="209">Program 8</Capability>
+  <Capability Min="210" Max="219">Program 9</Capability>
+  <Capability Min="220" Max="229">Program 10</Capability>
+  <Capability Min="230" Max="239">Auto macro</Capability>
+  <Capability Min="240" Max="249" Preset="Alias">Sound-controlled mode
+   <Alias Mode="5" Channel="Program speed" With="Sound sensitivity"/>
+   <Alias Mode="12" Channel="Program speed" With="Sound sensitivity"/>
+  </Capability>
+  <Capability Min="250" Max="255" Preset="Alias">Not functional
+   <Alias Mode="5" Channel="Program speed" With="No function"/>
+   <Alias Mode="12" Channel="Program speed" With="No function"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Sound sensitivity">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">OFF to high sound sensitivity</Capability>
+ </Channel>
+ <Channel Name="LED group 1-8" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 1" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 2" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 3" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 4" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 5" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 6" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 7" Preset="IntensityDimmer"/>
+ <Channel Name="Led Group 8" Preset="IntensityDimmer"/>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function 1" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="No function 3" Preset="NoFunction"/>
+ <Channel Name="No function 4" Preset="NoFunction"/>
+ <Channel Name="No function 5" Preset="NoFunction"/>
+ <Channel Name="No function 6" Preset="NoFunction"/>
+ <Channel Name="No function 7" Preset="NoFunction"/>
+ <Channel Name="No function 8" Preset="NoFunction"/>
+ <Channel Name="No function 1-8" Preset="NoFunction"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Programs</Channel>
+  <Channel Number="3">Program speed</Channel>
+  <Channel Number="4">No function 1-8</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Programs</Channel>
+  <Channel Number="3">Program speed</Channel>
+  <Channel Number="4">No function 1</Channel>
+  <Channel Number="5">No function 2</Channel>
+  <Channel Number="6">No function 3</Channel>
+  <Channel Number="7">No function 4</Channel>
+  <Channel Number="8">No function 5</Channel>
+  <Channel Number="9">No function 6</Channel>
+  <Channel Number="10">No function 7</Channel>
+  <Channel Number="11">No function 8</Channel>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="12.5" Width="6000" Height="3000" Depth="50"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

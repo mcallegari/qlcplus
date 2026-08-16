@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.0.7</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Vue 3.1</Model>
+ <Type>Effect</Type>
+ <Channel Name="Control / Operating Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Blackout</Capability>
+  <Capability Min="11" Max="239">Auto programs speed (all clusters)</Capability>
+  <Capability Min="240" Max="249">Auto mode</Capability>
+  <Capability Min="250" Max="255">Sound mode</Capability>
+ </Channel>
+ <Channel Name="Cluster 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Cluster 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Cluster 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Cluster 4">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Cluster 5">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Cluster 6">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Cluster 7">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Red 1</Capability>
+  <Capability Min="20" Max="29">Green 1</Capability>
+  <Capability Min="30" Max="39">Red 2</Capability>
+  <Capability Min="40" Max="49">Blue 3</Capability>
+  <Capability Min="50" Max="59">Red 3</Capability>
+  <Capability Min="60" Max="69">Blue 1, Red 3</Capability>
+  <Capability Min="70" Max="79">Red 2, Red 3</Capability>
+  <Capability Min="80" Max="89">Green 1, Red 3</Capability>
+  <Capability Min="90" Max="99">Red 2, Blue 1</Capability>
+  <Capability Min="100" Max="109">Blue 1, Green 1</Capability>
+  <Capability Min="110" Max="119">Green 1, Red 2</Capability>
+  <Capability Min="120" Max="129">Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="130" Max="139">Green 1, Blue 1, Red 3</Capability>
+  <Capability Min="140" Max="149">Green 1, Red 2, Blue 1</Capability>
+  <Capability Min="150" Max="159">Red 1, Red 3</Capability>
+  <Capability Min="160" Max="169">Red 1, Green 1, Red 2, Blue 1, Red 3</Capability>
+  <Capability Min="170" Max="179">Auto mode 1</Capability>
+  <Capability Min="180" Max="189">Auto mode 2</Capability>
+  <Capability Min="190" Max="199">Auto mode 3</Capability>
+  <Capability Min="200" Max="209">Auto mode 4</Capability>
+  <Capability Min="210" Max="219">Auto mode 5</Capability>
+  <Capability Min="220" Max="255">Auto mode 6</Capability>
+ </Channel>
+ <Channel Name="Run / Strobe Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="1">Off</Capability>
+  <Capability Min="2" Max="255">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Mode Name="DMX Mode">
+  <Channel Number="0">Control / Operating Mode</Channel>
+  <Channel Number="1">Cluster 1</Channel>
+  <Channel Number="2">Cluster 2</Channel>
+  <Channel Number="3">Cluster 3</Channel>
+  <Channel Number="4">Cluster 4</Channel>
+  <Channel Number="5">Cluster 5</Channel>
+  <Channel Number="6">Cluster 6</Channel>
+  <Channel Number="7">Cluster 7</Channel>
+  <Channel Number="8">Run / Strobe Speed</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="273" Height="271" Weight="4" Depth="312"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

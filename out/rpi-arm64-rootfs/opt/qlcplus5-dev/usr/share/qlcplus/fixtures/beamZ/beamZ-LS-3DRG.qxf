@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0 GIT</Version>
+  <Author>julbre</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>LS-3DRG</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="103">Sound Active Mode</Capability>
+  <Capability Min="104" Max="155">Auto-Animation Mode</Capability>
+  <Capability Min="156" Max="255">Static Patterns (selection with CH3)</Capability>
+ </Channel>
+ <Channel Name="Color Select">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Laser OFF</Capability>
+  <Capability Min="1" Max="255">Color selection</Capability>
+ </Channel>
+ <Channel Name="Pattern select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Selecting patters</Capability>
+ </Channel>
+ <Channel Name="Y axis moving">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Manual up to down moving</Capability>
+  <Capability Min="128" Max="191">Auto down moving (under dunamic pattern)</Capability>
+  <Capability Min="192" Max="255">Auto up moving (under dynamic pattern)</Capability>
+ </Channel>
+ <Channel Name="X axis moving">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Manual left to right moving</Capability>
+  <Capability Min="128" Max="191">Auto right moving (under dynamic pattern)</Capability>
+  <Capability Min="192" Max="255">Auto left moving (under dynamic pattern)</Capability>
+ </Channel>
+ <Channel Name="X axis rolling">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Manual rolling</Capability>
+  <Capability Min="128" Max="255">Auto rolling (under dynamic pattern)</Capability>
+ </Channel>
+ <Channel Name="Y axis rolling">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Manual rolling</Capability>
+  <Capability Min="128" Max="255">Auto rolling (under dynamic pattern)</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127">Manual rotation</Capability>
+  <Capability Min="128" Max="191">Auto clockwise rotation (under dynamic pattern)</Capability>
+  <Capability Min="192" Max="255">Auto counter-clockwise rotation (under dynamic pattern)</Capability>
+ </Channel>
+ <Channel Name="Zooming">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="85">Auto zooming (+)</Capability>
+  <Capability Min="86" Max="170">Auto zooming (-)</Capability>
+  <Capability Min="171" Max="255">Manual zooming (+/-)</Capability>
+ </Channel>
+ <Channel Name="Pattern Size">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Normal size</Capability>
+  <Capability Min="1" Max="255">1 is smallest, 255 is biggest</Capability>
+ </Channel>
+ <Channel Name="Display dot">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Normal display</Capability>
+  <Capability Min="1" Max="255">display dot, 255 is best brightness</Capability>
+ </Channel>
+ <Channel Name="Drawing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No drawing</Capability>
+  <Capability Min="6" Max="127">Auto drawing mode 1 (under dynamic pattern)</Capability>
+  <Capability Min="128" Max="255">Auto drawing mode 2 (under dynamic pattern)</Capability>
+ </Channel>
+ <Channel Name="Stretch">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">X/Y/Z stretch</Capability>
+ </Channel>
+ <Channel Name="Shake Effect">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Combination with channel 13</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Mode Select</Channel>
+  <Channel Number="1">Color Select</Channel>
+  <Channel Number="2">Pattern select</Channel>
+  <Channel Number="3">Y axis moving</Channel>
+  <Channel Number="4">X axis moving</Channel>
+  <Channel Number="5">X axis rolling</Channel>
+  <Channel Number="6">Y axis rolling</Channel>
+  <Channel Number="7">Rotation</Channel>
+  <Channel Number="8">Zooming</Channel>
+  <Channel Number="9">Pattern Size</Channel>
+  <Channel Number="10">Display dot</Channel>
+  <Channel Number="11">Drawing</Channel>
+  <Channel Number="12">Stretch</Channel>
+  <Channel Number="13">Shake Effect</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="290" Height="200" Weight="4" Depth="370"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="90" Type="Fixed" TiltMax="90"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

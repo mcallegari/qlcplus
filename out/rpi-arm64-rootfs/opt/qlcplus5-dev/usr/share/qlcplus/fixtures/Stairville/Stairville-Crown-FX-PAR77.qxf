@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Andres Robles</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Crown FX PAR77</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">all LEDs off</Capability>
+  <Capability Min="6" Max="19">Auto program 1, if channel 2 = 0 ... 250 Sound program 1, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="20" Max="34">Auto program 2, if channel 2 = 0 ... 250 Sound program 2, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="35" Max="48">Auto program 3, if channel 2 = 0 ... 250 Sound program 3, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="49" Max="63">Auto program 4, if channel 2 = 0 ... 250 Sound program 4, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="64" Max="77">Auto program 5, if channel 2 = 0 ... 250 Sound program 5, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="78" Max="92">Auto program 6, if channel 2 = 0 ... 250 Sound program 6, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="93" Max="106">Auto program 7, if channel 2 = 0 ... 250 Sound program 7, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="107" Max="121">Auto program 8, if channel 2 = 0 ... 250 Sound program 8, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="122" Max="135">Auto program 9, if channel 2 = 0 ... 250 Sound program 9, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="136" Max="150">Auto program 10, if channel 2 = 0 ... 250 Sound program 10, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="151" Max="164">Auto program 11, if channel 2 = 0 ... 250 Sound program 11, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="165" Max="179">Auto program 12, if channel 2 = 0 ... 250 Sound program 12, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="180" Max="193">Auto program 13, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="194" Max="208">Auto program 14, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="209" Max="222">Auto program 15, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="223" Max="237">Auto program 16, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+  <Capability Min="238" Max="255">Auto program 17, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255</Capability>
+ </Channel>
+ <Channel Name="Program mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="250">Program speed increasing</Capability>
+  <Capability Min="251" Max="255">Sound-controlled mode, specifies the auto program / sound program setting for channel 1.</Capability>
+ </Channel>
+ <Channel Name="Intensity red" Preset="IntensityRed"/>
+ <Channel Name="Intensity green" Preset="IntensityGreen"/>
+ <Channel Name="Intensity UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe effect off</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, all colour LEDs</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, all colour LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe function">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="20" Preset="ShutterOpen">Strobe LED ring constantly on</Capability>
+  <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
+ </Channel>
+ <Channel Name="Intensity red PAR LEDs" Preset="IntensityRed"/>
+ <Channel Name="Intensity green PAR LEDs" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue PAR LEDs" Preset="IntensityBlue"/>
+ <Channel Name="Intensity UV (0 % to 100 %), PAR LEDs" Preset="IntensityUV"/>
+ <Channel Name="Intensity red COB LED" Preset="IntensityRed"/>
+ <Channel Name="Intensity COB LED" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue COB LED" Preset="IntensityBlue"/>
+ <Channel Name="Strobe effect2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe effect off</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, all colour LEDs</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, all colour LEDs</Capability>
+ </Channel>
+ <Channel Name="Strobe function2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="20" Preset="ShutterOpen">Strobe LED ring constantly on</Capability>
+  <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
+ </Channel>
+ <Channel Name="Intensity red PAR LEDs zone 1" Preset="IntensityRed"/>
+ <Channel Name="Intensity green PAR LEDs zone 1" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue PAR LEDs zone 1" Preset="IntensityBlue"/>
+ <Channel Name="Intensity UV PAR LEDs zone 1" Preset="IntensityUV"/>
+ <Channel Name="Strobe effect zone 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe effect off, zone 1</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, zone 1</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, zone 1</Capability>
+ </Channel>
+ <Channel Name="Intensity red PAR LEDs zone 2" Preset="IntensityRed"/>
+ <Channel Name="Intensity green PAR LEDs zone 2" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue PAR LEDs zone 2" Preset="IntensityBlue"/>
+ <Channel Name="Intensity UV PAR LEDs zone 2" Preset="IntensityUV"/>
+ <Channel Name="Strobe effect zone 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5">Strobe effect off, zone 2</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, zone 2</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, zone 2</Capability>
+ </Channel>
+ <Channel Name="Intensity red PAR LEDs zone 3" Preset="IntensityRed"/>
+ <Channel Name="Intensity green PAR LEDs zone 3" Preset="IntensityGreen"/>
+ <Channel Name="Intensity blue PAR LEDs zone 3" Preset="IntensityBlue"/>
+ <Channel Name="Intensity UV PAR LEDs zone 3" Preset="IntensityUV"/>
+ <Channel Name="Strobe effect zone 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe effect off, zone 3</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, zone 3</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, zone 3</Capability>
+ </Channel>
+ <Channel Name="Strobe effect COB LED">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe effect off</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, COB LED</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, COB LED</Capability>
+ </Channel>
+ <Channel Name="Strobe LED ring">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="6" Max="20" Preset="ShutterOpen">Strobe LED ring constantly on</Capability>
+  <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
+  <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
+ </Channel>
+ <Channel Name="Auto programs, Sound programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">all LEDs off</Capability>
+  <Capability Min="6" Max="19">Auto program 1, if channel 22 = 0 ... 250 Sound program 1, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="20" Max="34">Auto program 2, if channel 22 = 0 ... 250 Sound program 2, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="35" Max="48">Auto program 3, if channel 22 = 0 ... 250 Sound program 3, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="49" Max="63">Auto program 4, if channel 22 = 0 ... 250 Sound program 4, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="64" Max="77">Auto program 5, if channel 22 = 0 ... 250 Sound program 5, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="78" Max="92">Auto program 6, if channel 22 = 0 ... 250 Sound program 6, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="93" Max="106">Auto program 7, if channel 22 = 0 ... 250 Sound program 7, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="107" Max="121">Auto program 8, if channel 22 = 0 ... 250 Sound program 8, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="122" Max="135">Auto program 9, if channel 22 = 0 ... 250 Sound program 9, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="136" Max="150">Auto program 10, if channel 22 = 0 ... 250 Sound program 10, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="151" Max="164">Auto program 11, if channel 22 = 0 ... 250 Sound program 11, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="165" Max="179">Auto program 12, if channel 22 = 0 ... 250 Sound program 12, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="180" Max="193">Auto program 13, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="194" Max="208">Auto program 14, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="209" Max="222">Auto program 15, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="223" Max="237">Auto program 16, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+  <Capability Min="238" Max="255">Auto program 17, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255</Capability>
+ </Channel>
+ <Channel Name="Program mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="250">Program speed increasing</Capability>
+  <Capability Min="251" Max="255">Sound-controlled mode, specifies the auto program / sound program setting for channel 21.</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Program</Channel>
+  <Channel Number="1">Program mode</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Intensity red</Channel>
+  <Channel Number="1">Intensity green</Channel>
+  <Channel Number="2">Intensity blue</Channel>
+  <Channel Number="3">Intensity UV</Channel>
+  <Channel Number="4">Strobe effect</Channel>
+  <Channel Number="5">Strobe function</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Intensity red PAR LEDs</Channel>
+  <Channel Number="1">Intensity green PAR LEDs</Channel>
+  <Channel Number="2">Intensity blue PAR LEDs</Channel>
+  <Channel Number="3">Intensity UV (0 % to 100 %), PAR LEDs</Channel>
+  <Channel Number="4">Intensity red COB LED</Channel>
+  <Channel Number="5">Intensity COB LED</Channel>
+  <Channel Number="6">Intensity blue COB LED</Channel>
+  <Channel Number="7">Strobe effect2</Channel>
+  <Channel Number="8">Strobe function2</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="22 Channel">
+  <Channel Number="0">Intensity red PAR LEDs zone 1</Channel>
+  <Channel Number="1">Intensity green PAR LEDs zone 1</Channel>
+  <Channel Number="2">Intensity blue PAR LEDs zone 1</Channel>
+  <Channel Number="3">Intensity UV PAR LEDs zone 1</Channel>
+  <Channel Number="4">Strobe effect zone 1</Channel>
+  <Channel Number="5">Intensity red PAR LEDs zone 2</Channel>
+  <Channel Number="6">Intensity green PAR LEDs zone 2</Channel>
+  <Channel Number="7">Intensity blue PAR LEDs zone 2</Channel>
+  <Channel Number="8">Intensity UV PAR LEDs zone 2</Channel>
+  <Channel Number="9">Strobe effect zone 2</Channel>
+  <Channel Number="10">Intensity red PAR LEDs zone 3</Channel>
+  <Channel Number="11">Intensity green PAR LEDs zone 3</Channel>
+  <Channel Number="12">Intensity blue PAR LEDs zone 3</Channel>
+  <Channel Number="13">Intensity UV PAR LEDs zone 3</Channel>
+  <Channel Number="14">Strobe effect zone 3</Channel>
+  <Channel Number="15">Intensity red COB LED</Channel>
+  <Channel Number="16">Intensity COB LED</Channel>
+  <Channel Number="17">Intensity blue COB LED</Channel>
+  <Channel Number="18">Strobe effect COB LED</Channel>
+  <Channel Number="19">Strobe LED ring</Channel>
+  <Channel Number="20">Auto programs, Sound programs</Channel>
+  <Channel Number="21">Program mode</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.7" Width="275" Height="280" Depth="76"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="78" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

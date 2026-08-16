@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.0</Version>
+  <Author>LorenzoTRE</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>LedPar 64363 RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">1 - Color Fading</Capability>
+  <Capability Min="36" Max="71">2 - Color Jump</Capability>
+  <Capability Min="72" Max="107">3 - Color Dreaming</Capability>
+  <Capability Min="108" Max="143">4 - Red Fading</Capability>
+  <Capability Min="144" Max="179">5 - Green Fading</Capability>
+  <Capability Min="180" Max="215">6 - Blue Fading</Capability>
+  <Capability Min="216" Max="255">Sound Active Mode</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed Control / Sound Sensitivity</Capability>
+ </Channel>
+ <Mode Name="Mode 2 (5ch)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="Mode 1 (3ch)">
+  <Channel Number="0">Auto Programs</Channel>
+  <Channel Number="1">Program Speed</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="310" Height="230" Weight="3" Depth="230"/>
+   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="125" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

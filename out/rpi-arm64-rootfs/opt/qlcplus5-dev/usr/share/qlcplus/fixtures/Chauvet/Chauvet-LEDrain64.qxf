@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Public</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>LEDrain64</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Macro Colors (By LED Levels)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#ff3300">Red: 100% green: 20% blue: </Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff6600">Red: 100% green: 40% blue: </Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ff9900">Red: 100% green: 60% blue: </Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#ffcc00">Red: 100% green: 80% blue: </Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffff00">Red: 100% green: 100% blue: </Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00ff00">Red:  green: 100% blue: </Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#00ff33">Red:  green: 100% blue: 20%</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#00ff66">Red:  green: 100% blue: 40%</Capability>
+  <Capability Min="72" Max="79" Preset="ColorMacro" Res1="#00ff99">Red:  green: 100% blue: 60%</Capability>
+  <Capability Min="80" Max="87" Preset="ColorMacro" Res1="#00ffcc">Red:  green: 100% blue: 80%</Capability>
+  <Capability Min="88" Max="95" Preset="ColorMacro" Res1="#00ffff">Red:  green: 100% blue: 100%</Capability>
+  <Capability Min="96" Max="103" Preset="ColorMacro" Res1="#0000ff">Red:  green:  blue: 100%</Capability>
+  <Capability Min="104" Max="111" Preset="ColorMacro" Res1="#3300ff">Red: 20% green:  blue: 100%</Capability>
+  <Capability Min="112" Max="119" Preset="ColorMacro" Res1="#6600ff">Red: 40% green:  blue: 100%</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#9900ff">Red: 60% green:  blue: 100%</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#cc00ff">Red: 80% green:  blue: 100%</Capability>
+  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#ff00ff">Red: 100% green:  blue: 100%</Capability>
+  <Capability Min="144" Max="151" Preset="ColorMacro" Res1="#ff3fff">Red: 100% green: 25% blue: 100%</Capability>
+  <Capability Min="152" Max="159" Preset="ColorMacro" Res1="#ff7fff">Red: 100% green: 50% blue: 100%</Capability>
+  <Capability Min="160" Max="167" Preset="ColorMacro" Res1="#ffbfff">Red: 100% green: 75% blue: 100%</Capability>
+  <Capability Min="168" Max="175" Preset="ColorMacro" Res1="#ffffff">Red: 100% green: 100% blue: 100%</Capability>
+  <Capability Min="176" Max="183" Preset="ColorMacro" Res1="#ffff3f">Red: 100% green: 100% blue: 25%</Capability>
+  <Capability Min="184" Max="191" Preset="ColorMacro" Res1="#ffff7f">Red: 100% green: 100% blue: 50%</Capability>
+  <Capability Min="192" Max="199" Preset="ColorMacro" Res1="#ffffbf">Red: 100% green: 100% blue: 75%</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#ffffff">Red: 100% green: 100% blue: 100%</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#33ffff">Red: 20% green: 100% blue: 100%</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#66ffff">Red: 40% green: 100% blue: 100%</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#99ffff">Red: 60% green: 100% blue: 100%</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#ccffff">Red: 80% green: 100% blue: 100%</Capability>
+  <Capability Min="240" Max="247" Preset="ColorMacro" Res1="#ffffff">Red: 100% green: 100% blue: 100%</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#7f7f7f">Red: 50% green: 50% blue: 50%</Capability>
+ </Channel>
+ <Channel Name="Strobe or Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">0% ~ 100%</Capability>
+ </Channel>
+ <Channel Name="Preset Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="159">Fade program: Use ch 5 to adjust speed</Capability>
+  <Capability Min="160" Max="223">Colour chase: Use ch 5 to adjust speed</Capability>
+  <Capability Min="224" Max="255">Colour chase: Use rotary knob to adjust speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="Default">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Macro Colors (By LED Levels)</Channel>
+  <Channel Number="4">Strobe or Speed</Channel>
+  <Channel Number="5">Preset Programs</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Depth="216" Weight="1.8" Width="254" Height="279"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Konni</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Superfly XS</Model>
+ <Type>Flower</Type>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Backout</Capability>
+  <Capability Min="10" Max="50">Auto Mix</Capability>
+  <Capability Min="51" Max="91">Auto Derby</Capability>
+  <Capability Min="92" Max="132">Auto Strobe</Capability>
+  <Capability Min="133" Max="173">Sound Mix</Capability>
+  <Capability Min="174" Max="214">Sound Derby</Capability>
+  <Capability Min="215" Max="255">Sound Strobe</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="LED Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="6" Max="20" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="21" Max="35" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="36" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="65" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="66" Max="80" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red Green</Capability>
+  <Capability Min="81" Max="95" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red Blue</Capability>
+  <Capability Min="96" Max="110" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red White</Capability>
+  <Capability Min="111" Max="125" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green Blue</Capability>
+  <Capability Min="126" Max="140" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green White</Capability>
+  <Capability Min="141" Max="155" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue White</Capability>
+  <Capability Min="156" Max="170">Red Green Blue</Capability>
+  <Capability Min="171" Max="185">Red Green White</Capability>
+  <Capability Min="186" Max="200">Green Blue White</Capability>
+  <Capability Min="201" Max="215">Red Green Blue White</Capability>
+  <Capability Min="216" Max="230" Preset="GoboMacro" Res1="Others/rainbow.png">Auto (single colour) Speed slow - fast</Capability>
+  <Capability Min="231" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Auto (all colour) Speed slow - fast</Capability>
+ </Channel>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 1 Hz - 20 Hz</Capability>
+ </Channel>
+ <Channel Name="LED Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="127">Motor indexing</Capability>
+  <Capability Min="128" Max="255">Motor rotation (slow - fast)</Capability>
+ </Channel>
+ <Channel Name="Strobe Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Program 1 (slow - fast)</Capability>
+  <Capability Min="20" Max="29">Program 2 (slow - fast)</Capability>
+  <Capability Min="30" Max="39">Program 3 (slow - fast)</Capability>
+  <Capability Min="40" Max="49">Program 4 (slow - fast)</Capability>
+  <Capability Min="50" Max="59">Program 5 (slow - fast)</Capability>
+  <Capability Min="60" Max="69">Program 6 (slow - fast)</Capability>
+  <Capability Min="70" Max="79">Program 7 (slow - fast)</Capability>
+  <Capability Min="80" Max="89">Program 8 (slow - fast)</Capability>
+  <Capability Min="90" Max="99">Program 9 (slow - fast)</Capability>
+  <Capability Min="100" Max="109">Program 10 (slow - fast)</Capability>
+  <Capability Min="110" Max="119">Program 11 (slow - fast)</Capability>
+  <Capability Min="120" Max="129">Program 12 (slow - fast)</Capability>
+  <Capability Min="130" Max="139">Program 13 (slow - fast)</Capability>
+  <Capability Min="140" Max="149">Program 14 (slow - fast)</Capability>
+  <Capability Min="150" Max="159">Program 15 (slow - fast)</Capability>
+  <Capability Min="160" Max="169">Program 16 (slow - fast)</Capability>
+  <Capability Min="170" Max="179">Program 17 (slow - fast)</Capability>
+  <Capability Min="180" Max="255">ON</Capability>
+ </Channel>
+ <Mode Name="1-Channel">
+  <Channel Number="0">Auto Programs</Channel>
+ </Mode>
+ <Mode Name="5-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">LED Colour</Channel>
+  <Channel Number="2">LED Strobe</Channel>
+  <Channel Number="3">LED Rotation</Channel>
+  <Channel Number="4">Strobe Programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="203" Height="158" Depth="168"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

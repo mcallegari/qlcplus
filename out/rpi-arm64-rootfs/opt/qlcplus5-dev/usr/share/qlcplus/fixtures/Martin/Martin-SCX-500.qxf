@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>SCX-500</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Strobe, macros">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="68" Preset="StrobeSlowToFast">Strobe fast to slow</Capability>
+  <Capability Min="69" Max="100">Remote stand-alone, auto trigger</Capability>
+  <Capability Min="101" Max="112">Macro 1</Capability>
+  <Capability Min="113" Max="124">Macro 2</Capability>
+  <Capability Min="125" Max="136">Macro 3</Capability>
+  <Capability Min="137" Max="148">Macro 4</Capability>
+  <Capability Min="149" Max="160">Macro 5</Capability>
+  <Capability Min="161" Max="172">Macro 6</Capability>
+  <Capability Min="173" Max="184">Macro 7</Capability>
+  <Capability Min="185" Max="196">Macro 8</Capability>
+  <Capability Min="197" Max="208">Macro 9</Capability>
+  <Capability Min="209" Max="220">Macro 10</Capability>
+  <Capability Min="221" Max="232">Macro 11</Capability>
+  <Capability Min="233" Max="249">Macro 12</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">RESET (5sec)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">White</Capability>
+  <Capability Min="6" Max="11">White / Blue B04</Capability>
+  <Capability Min="12" Max="17">Blue B04</Capability>
+  <Capability Min="18" Max="23">Blue B04 / Orange B09</Capability>
+  <Capability Min="24" Max="29">Orange B09</Capability>
+  <Capability Min="30" Max="35">Orange B09 / Red B01</Capability>
+  <Capability Min="36" Max="41">Red B01</Capability>
+  <Capability Min="42" Max="47">Red B01 / Light Yellow B03</Capability>
+  <Capability Min="48" Max="53">Light Yellow B03</Capability>
+  <Capability Min="54" Max="59">Light Yellow B03 / Pink B12</Capability>
+  <Capability Min="60" Max="65">Pink B12</Capability>
+  <Capability Min="66" Max="71">Pink B12 / Medium Blue B13</Capability>
+  <Capability Min="72" Max="77">Medium Blue B13</Capability>
+  <Capability Min="78" Max="83">Medium Blue B13 / Light Red B19</Capability>
+  <Capability Min="84" Max="89">Light Red B19</Capability>
+  <Capability Min="90" Max="95">Light Red B19 / Light Green B08</Capability>
+  <Capability Min="96" Max="101">Light Green B08</Capability>
+  <Capability Min="102" Max="107">Light Green B08 / Blue B05</Capability>
+  <Capability Min="108" Max="113">Blue B05</Capability>
+  <Capability Min="114" Max="119">Blue B05 / Pink B11</Capability>
+  <Capability Min="120" Max="125">Pink B11</Capability>
+  <Capability Min="126" Max="131">Pink B11 / Light Blue B06</Capability>
+  <Capability Min="132" Max="137">Light Blue B06</Capability>
+  <Capability Min="138" Max="143">Light Blue B06 / Yellow B02</Capability>
+  <Capability Min="144" Max="149">Yellow B02</Capability>
+  <Capability Min="150" Max="155">Yellow B02 / Primary Red B14</Capability>
+  <Capability Min="156" Max="161">Primary Red B14</Capability>
+  <Capability Min="162" Max="167">Primary Red B14 / Green B07</Capability>
+  <Capability Min="168" Max="173">Green B07</Capability>
+  <Capability Min="174" Max="179">Mix 1</Capability>
+  <Capability Min="180" Max="185">Mix 2</Capability>
+  <Capability Min="186" Max="191">Mix 3</Capability>
+  <Capability Min="192" Max="197">Mix 4</Capability>
+  <Capability Min="198" Max="203">Mix 5</Capability>
+  <Capability Min="204" Max="229">CW rotation fast to slow</Capability>
+  <Capability Min="230" Max="255">CCW rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="11">Open</Capability>
+  <Capability Min="12" Max="23">Dune</Capability>
+  <Capability Min="24" Max="35">Sunburst</Capability>
+  <Capability Min="36" Max="47">Gemini</Capability>
+  <Capability Min="48" Max="59">Mr. Spok</Capability>
+  <Capability Min="60" Max="71">Triptych</Capability>
+  <Capability Min="72" Max="83">Space lice</Capability>
+  <Capability Min="84" Max="95">Nova</Capability>
+  <Capability Min="96" Max="107">Circular saw</Capability>
+  <Capability Min="108" Max="119">Racer</Capability>
+  <Capability Min="120" Max="131">Black hole</Capability>
+  <Capability Min="132" Max="143">Bat</Capability>
+  <Capability Min="144" Max="155">Beep</Capability>
+  <Capability Min="156" Max="167">Fame</Capability>
+  <Capability Min="168" Max="179">Thatch</Capability>
+  <Capability Min="180" Max="191">Blackout</Capability>
+  <Capability Min="192" Max="223">CW rotation fast to slow</Capability>
+  <Capability Min="224" Max="255">CCW rotation slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Movement speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking</Capability>
+  <Capability Min="3" Max="255">Vector speed fast to slow</Capability>
+ </Channel>
+ <Channel Name="Color &amp; gobo speed">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="2">Tracking</Capability>
+  <Capability Min="3" Max="255">Vector speed fast to slow</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Strobe, macros</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Strobe, macros</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Movement speed</Channel>
+  <Channel Number="7">Color &amp; gobo speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="EFR 150W" Lumens="0" ColourTemperature="3100"/>
+  <Dimensions Weight="7" Width="204" Height="445" Depth="178"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="72"/>
+  <Technical PowerConsumption="173" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>John Yiannikakis</Author>
+ </Creator>
+ <Manufacturer>MARQ</Manufacturer>
+ <Model>Gesture Beam/Wash 102</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan Continuous Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Forward pan rotation, slow (128) to fast (189)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward pan rotation, slow (194) to fast (255)</Capability>
+ </Channel>
+ <Channel Name="Tilt Continuous Rotation">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Forward tilt rotation, slow (128) to fast (189)</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward tilt rotation, slow (194) to fast (255)</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer, all colors, A &amp; B sides, dark (000) to bright (255)</Capability>
+ </Channel>
+ <Channel Name="Shutter A&amp;B">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">open</Capability>
+  <Capability Min="8" Max="76" Preset="ShutterClose">Strobe, slow (008) to fast (076)</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse, slow (077) to fast (145)</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe, slow (146) to fast (215)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="A Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="A Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="A Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="A White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="B Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="B Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="B White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Color Presets- Overrides Ch. 10–17">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="29">No function</Capability>
+  <Capability Min="30" Max="44">R</Capability>
+  <Capability Min="45" Max="59">G</Capability>
+  <Capability Min="60" Max="74">B</Capability>
+  <Capability Min="75" Max="89">W</Capability>
+  <Capability Min="90" Max="104">R G</Capability>
+  <Capability Min="105" Max="119">R B</Capability>
+  <Capability Min="120" Max="134">R W</Capability>
+  <Capability Min="135" Max="149">G B</Capability>
+  <Capability Min="150" Max="164">G W</Capability>
+  <Capability Min="165" Max="179">B W</Capability>
+  <Capability Min="180" Max="194">R G B</Capability>
+  <Capability Min="195" Max="209">R G W</Capability>
+  <Capability Min="210" Max="224">R B W</Capability>
+  <Capability Min="225" Max="239">G B W</Capability>
+  <Capability Min="240" Max="255">R G B W</Capability>
+ </Channel>
+ <Channel Name="Color Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">NO FUNCT</Capability>
+  <Capability Min="8" Max="39">Program 1 (snap)</Capability>
+  <Capability Min="40" Max="71">Program 2 (snap)</Capability>
+  <Capability Min="72" Max="103">Program 3 (snap)</Capability>
+  <Capability Min="104" Max="135">Program 4 (fade)</Capability>
+  <Capability Min="136" Max="167">Program 5 (fade)</Capability>
+  <Capability Min="168" Max="199">Program 6 (fade)</Capability>
+  <Capability Min="200" Max="231">Sound-active colors (snap)</Capability>
+  <Capability Min="232" Max="255">Sound-active colors (fade)</Capability>
+ </Channel>
+ <Channel Name="Program Speed / Microphone Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Color change rate (slow to fast) / Microphone sensitivity</Capability>
+ </Channel>
+ <Channel Name="Macro Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="39">Automatic movement 1</Capability>
+  <Capability Min="40" Max="71">Automatic movement 2</Capability>
+  <Capability Min="72" Max="103">Automatic movement 3</Capability>
+  <Capability Min="104" Max="135">Automatic movement 4</Capability>
+  <Capability Min="136" Max="167">Sound-active movement 1</Capability>
+  <Capability Min="168" Max="199">Sound-active movement 2</Capability>
+  <Capability Min="200" Max="231">Sound-active movement 3</Capability>
+  <Capability Min="232" Max="255">Sound-active movement 4</Capability>
+ </Channel>
+ <Channel Name="Control Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">No function</Capability>
+  <Capability Min="70" Max="79">Blackout during pan/tilt</Capability>
+  <Capability Min="80" Max="89">Disable blackout during pan/tilt</Capability>
+  <Capability Min="90" Max="139">No function</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Reset pan/tilt</Capability>
+  <Capability Min="150" Max="169" Preset="ResetColor">Reset color/gobo</Capability>
+  <Capability Min="170" Max="199">No function</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
+  <Capability Min="210" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="B Green Dimmer 1" Preset="IntensityGreen"/>
+ <Channel Name="A Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer, A side, all colors, dark (000) to bright (255)</Capability>
+ </Channel>
+ <Channel Name="B Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master dimmer, B side, all colors, dark (000) to bright (255)</Capability>
+ </Channel>
+ <Channel Name="Red Dimmer A&amp;B" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer A&amp;B" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer A&amp;B" Preset="IntensityBlue"/>
+ <Channel Name="White Dimmer A&amp;B" Preset="IntensityWhite"/>
+ <Mode Name="22 channel (Beam)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Pan Continuous Rotation</Channel>
+  <Channel Number="6">Tilt Continuous Rotation</Channel>
+  <Channel Number="7">Master Dimmer</Channel>
+  <Channel Number="8">Shutter A&amp;B</Channel>
+  <Channel Number="9">A Red Dimmer</Channel>
+  <Channel Number="10">A Green Dimmer</Channel>
+  <Channel Number="11">A Blue Dimmer</Channel>
+  <Channel Number="12">A White Dimmer</Channel>
+  <Channel Number="13">B Red Dimmer</Channel>
+  <Channel Number="14">B Green Dimmer 1</Channel>
+  <Channel Number="15">B Blue Dimmer</Channel>
+  <Channel Number="16">B White Dimmer</Channel>
+  <Channel Number="17">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="18">Color Programs</Channel>
+  <Channel Number="19">Program Speed / Microphone Sensitivity</Channel>
+  <Channel Number="20">Macro Functions</Channel>
+  <Channel Number="21">Control Functions</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="22 channel (Wash)">
+  <Physical>
+   <Bulb Type="LED" Lumens="5600" ColourTemperature="6500"/>
+   <Dimensions Weight="2.55" Width="190" Height="150" Depth="230"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="38.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Pan Continuous Rotation</Channel>
+  <Channel Number="6">Tilt Continuous Rotation</Channel>
+  <Channel Number="7">Master Dimmer</Channel>
+  <Channel Number="8">Shutter A&amp;B</Channel>
+  <Channel Number="9">A Red Dimmer</Channel>
+  <Channel Number="10">A Green Dimmer</Channel>
+  <Channel Number="11">A Blue Dimmer</Channel>
+  <Channel Number="12">A White Dimmer</Channel>
+  <Channel Number="13">B Red Dimmer</Channel>
+  <Channel Number="14">B Green Dimmer 1</Channel>
+  <Channel Number="15">B Blue Dimmer</Channel>
+  <Channel Number="16">B White Dimmer</Channel>
+  <Channel Number="17">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="18">Color Programs</Channel>
+  <Channel Number="19">Program Speed / Microphone Sensitivity</Channel>
+  <Channel Number="20">Macro Functions</Channel>
+  <Channel Number="21">Control Functions</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="15 channel (Beam)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Continuous Rotation</Channel>
+  <Channel Number="3">Tilt Continuous Rotation</Channel>
+  <Channel Number="4">A Master Dimmer</Channel>
+  <Channel Number="5">B Master Dimmer</Channel>
+  <Channel Number="6">Shutter A&amp;B</Channel>
+  <Channel Number="7">Red Dimmer A&amp;B</Channel>
+  <Channel Number="8">Green Dimmer A&amp;B</Channel>
+  <Channel Number="9">Blue Dimmer A&amp;B</Channel>
+  <Channel Number="10">White Dimmer A&amp;B</Channel>
+  <Channel Number="11">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="12">Color Programs</Channel>
+  <Channel Number="13">Program Speed / Microphone Sensitivity</Channel>
+  <Channel Number="14">Macro Functions</Channel>
+ </Mode>
+ <Mode Name="15 channel (Wash)">
+  <Physical>
+   <Bulb Type="LED" Lumens="5600" ColourTemperature="6500"/>
+   <Dimensions Weight="2.55" Width="190" Height="150" Depth="230"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="38.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Continuous Rotation</Channel>
+  <Channel Number="3">Tilt Continuous Rotation</Channel>
+  <Channel Number="4">A Master Dimmer</Channel>
+  <Channel Number="5">B Master Dimmer</Channel>
+  <Channel Number="6">Shutter A&amp;B</Channel>
+  <Channel Number="7">Red Dimmer A&amp;B</Channel>
+  <Channel Number="8">Green Dimmer A&amp;B</Channel>
+  <Channel Number="9">Blue Dimmer A&amp;B</Channel>
+  <Channel Number="10">White Dimmer A&amp;B</Channel>
+  <Channel Number="11">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="12">Color Programs</Channel>
+  <Channel Number="13">Program Speed / Microphone Sensitivity</Channel>
+  <Channel Number="14">Macro Functions</Channel>
+ </Mode>
+ <Mode Name="7 channel (Beam)">
+  <Channel Number="0">A Master Dimmer</Channel>
+  <Channel Number="1">B Master Dimmer</Channel>
+  <Channel Number="2">Shutter A&amp;B</Channel>
+  <Channel Number="3">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="4">Color Programs</Channel>
+  <Channel Number="5">Program Speed / Microphone Sensitivity</Channel>
+  <Channel Number="6">Macro Functions</Channel>
+ </Mode>
+ <Mode Name="7 channel (Wash)">
+  <Physical>
+   <Bulb Type="LED" Lumens="5600" ColourTemperature="6500"/>
+   <Dimensions Weight="2.55" Width="190" Height="150" Depth="230"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="38.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">A Master Dimmer</Channel>
+  <Channel Number="1">B Master Dimmer</Channel>
+  <Channel Number="2">Shutter A&amp;B</Channel>
+  <Channel Number="3">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="4">Color Programs</Channel>
+  <Channel Number="5">Program Speed / Microphone Sensitivity</Channel>
+  <Channel Number="6">Macro Functions</Channel>
+ </Mode>
+ <Mode Name="3 channel (Beam)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="2">Macro Functions</Channel>
+ </Mode>
+ <Mode Name="3 channel (Wash)">
+  <Physical>
+   <Bulb Type="LED" Lumens="5600" ColourTemperature="6500"/>
+   <Dimensions Weight="2.55" Width="190" Height="150" Depth="230"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="38.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Color Presets- Overrides Ch. 10–17</Channel>
+  <Channel Number="2">Macro Functions</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="24400" ColourTemperature="6500"/>
+  <Dimensions Weight="2.4" Width="190" Height="150" Depth="230"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="3.4"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

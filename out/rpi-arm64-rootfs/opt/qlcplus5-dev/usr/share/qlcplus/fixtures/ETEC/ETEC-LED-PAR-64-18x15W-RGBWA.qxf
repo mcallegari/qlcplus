@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Simon Orlob</Author>
+ </Creator>
+ <Manufacturer>ETEC</Manufacturer>
+ <Model>LED PAR 64 18x15W RGBWA Zoom</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Colour Macros</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Strobe Speed</Capability>
+ </Channel>
+ <Channel Name="HSV">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="99">HSV Effect</Capability>
+  <Capability Min="100" Max="119">3 colors, pure color</Capability>
+  <Capability Min="120" Max="139">7 colors, pure color</Capability>
+  <Capability Min="140" Max="159">7 colors, diffuse color</Capability>
+  <Capability Min="160" Max="179">DMX control, vanishing strobe colors</Capability>
+  <Capability Min="180" Max="199">7 color strobe</Capability>
+  <Capability Min="200" Max="219">7 additional color strobe</Capability>
+  <Capability Min="220" Max="239">7 water course colors</Capability>
+  <Capability Min="240" Max="255">Sound to light mode</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">adjusting speed for AUTO programs</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">increasing speed of dimmer</Capability>
+ </Channel>
+ <Channel Name="ID">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">Whole ID address controlled</Capability>
+  <Capability Min="1" Max="255">Same ID address controlled</Capability>
+ </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Brightness" Preset="IntensityLightness"/>
+ <Mode Name="STAGE">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Strobe Speed</Channel>
+  <Channel Number="9">HSV</Channel>
+  <Channel Number="10">Auto Speed</Channel>
+  <Channel Number="11">Dimmer Speed</Channel>
+  <Channel Number="12">ID</Channel>
+ </Mode>
+ <Mode Name="ARC.1">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Zoom</Channel>
+ </Mode>
+ <Mode Name="ARC1.D">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Zoom</Channel>
+ </Mode>
+ <Mode Name="ARC.2">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Dimmer Speed</Channel>
+  <Channel Number="6">Zoom</Channel>
+ </Mode>
+ <Mode Name="ARC2.D">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Dimmer Speed</Channel>
+  <Channel Number="7">Zoom</Channel>
+ </Mode>
+ <Mode Name="ARC2.S">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Strobe Speed</Channel>
+  <Channel Number="7">Zoom</Channel>
+ </Mode>
+ <Mode Name="HSV">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Brightness</Channel>
+  <Channel Number="3">Dimmer Speed</Channel>
+  <Channel Number="4">Zoom</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="270" Depth="300"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+   <Focus Type="Fixed" PanMax="10" TiltMax="0"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

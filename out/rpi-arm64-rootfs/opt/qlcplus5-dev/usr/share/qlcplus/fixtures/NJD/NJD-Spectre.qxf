@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>charles.oldham</Author>
+ </Creator>
+ <Manufacturer>NJD</Manufacturer>
+ <Model>Spectre</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Brightness" Preset="IntensityDimmer"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="42" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="43" Max="85" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="86" Max="127" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="128" Max="170" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="171" Max="213" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="214" Max="254" Preset="ColorMacro" Res1="#aa007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+ </Channel>
+ <Channel Name="Saturation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Full Colour [0] -&gt; White [255]</Capability>
+ </Channel>
+ <Channel Name="X-position (pan) or dish rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">X-position (pan) or dish rotation</Capability>
+ </Channel>
+ <Channel Name="Y-position (tilt)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Y-position (tilt)</Capability>
+ </Channel>
+ <Channel Name="Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Gobo or Colour Saturation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Gobo or Colour Saturation</Capability>
+ </Channel>
+ <Channel Name="Strobe/Blackout">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="10">Off [0] -&gt; 10Hz [255]</Capability>
+ </Channel>
+ <Channel Name="Colour + Colour Scrolling">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="42" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="43" Max="85" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="86" Max="127" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="128" Max="170" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="171" Max="213" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="214" Max="254" Preset="ColorMacro" Res1="#aa007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+ </Channel>
+ <Mode Name="DMX 3-channel">
+  <Channel Number="0">Brightness</Channel>
+  <Channel Number="1">Colour</Channel>
+  <Channel Number="2">Saturation</Channel>
+ </Mode>
+ <Mode Name="MX90">
+  <Channel Number="0">X-position (pan) or dish rotation</Channel>
+  <Channel Number="1">Y-position (tilt)</Channel>
+  <Channel Number="2">Colour + Colour Scrolling</Channel>
+  <Channel Number="3">Gobo or Colour Saturation</Channel>
+  <Channel Number="4">Speed</Channel>
+  <Channel Number="5">Strobe/Blackout</Channel>
+  <Channel Number="6">Brightness</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="250" Height="250" Depth="245"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>João Gonçalves</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>Vega Arc Pro II MkII</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="2">Nothing</Capability>
+  <Capability Min="3" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#aa00ff">UV</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="98" Max="100" Preset="ColorMacro" Res1="#f7ffdc">Warm White</Capability>
+  <Capability Min="101" Max="150">Color Fade</Capability>
+  <Capability Min="151" Max="200">Color Change/Strobe</Capability>
+  <Capability Min="201" Max="250">Color Fade/Strobe</Capability>
+  <Capability Min="251" Max="255">Sound Mode</Capability>
+ </Channel>
+ <Channel Name="Color Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Color Macro Speed (Slow to Fast)</Capability>
+ </Channel>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">Color Macro Speed</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.5" Width="260" Height="275" Depth="260"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="280" DmxConnector="3-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

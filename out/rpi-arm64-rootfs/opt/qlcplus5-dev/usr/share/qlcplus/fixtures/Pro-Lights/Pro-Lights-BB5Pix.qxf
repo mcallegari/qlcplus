@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>BB5 Pix</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer 1" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer 2" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer 3" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer 4" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer 5" Preset="IntensityWhite"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe Slow &gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30">Chase 1</Capability>
+  <Capability Min="31" Max="50">Chase 2</Capability>
+  <Capability Min="51" Max="70">Chase 3</Capability>
+  <Capability Min="71" Max="90">Chase 4</Capability>
+  <Capability Min="91" Max="110">Chase 5</Capability>
+  <Capability Min="111" Max="130">Chase 6</Capability>
+  <Capability Min="131" Max="150">Chase 7</Capability>
+  <Capability Min="151" Max="170">Chase 8</Capability>
+  <Capability Min="171" Max="190">Chase 9</Capability>
+  <Capability Min="191" Max="210">Chase 10</Capability>
+  <Capability Min="211" Max="230">Chase 11</Capability>
+  <Capability Min="231" Max="250">Chase 12</Capability>
+  <Capability Min="251" Max="255">Sound</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed Slow &gt; Fast</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Shutter</Channel>
+  <Channel Number="2">Chase</Channel>
+  <Channel Number="3">Speed</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="500" Height="98" Depth="217"/>
+  <Lens Name="Fresnel" DegreesMin="2" DegreesMax="2"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="5" Height="1"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

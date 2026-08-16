@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Starway</Manufacturer>
+ <Model>UrbanKolor</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="151" Preset="StrobeSlowToFast">Strobe min to max</Capability>
+  <Capability Min="152" Max="159">Open Pulse Slow</Capability>
+  <Capability Min="160" Max="167">Open Pulse Med</Capability>
+  <Capability Min="168" Max="175">Open Pulse Fast</Capability>
+  <Capability Min="176" Max="183">Close Pulse Slow</Capability>
+  <Capability Min="184" Max="190">Close Pulse Med</Capability>
+  <Capability Min="191" Max="199">Close Pulse Fast</Capability>
+  <Capability Min="200" Max="207" Preset="StrobeRandom">Random Strobe Slow</Capability>
+  <Capability Min="208" Max="215" Preset="StrobeRandom">Random Strobe Med</Capability>
+  <Capability Min="216" Max="223" Preset="StrobeRandom">Random Strobe Fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">Off</Capability>
+  <Capability Min="20" Max="255">CTO Cold +2000°K to Hot -2000°K</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Nothing</Capability>
+  <Capability Min="8" Max="15">Rainbow Slow - 5s</Capability>
+  <Capability Min="16" Max="23">Rainbow Med - 5s</Capability>
+  <Capability Min="24" Max="31">Rainbow Fast - 5s</Capability>
+  <Capability Min="32" Max="39">Rainbow Slow</Capability>
+  <Capability Min="40" Max="47">Rainbow Med</Capability>
+  <Capability Min="48" Max="55">Rainbow Fast</Capability>
+  <Capability Min="56" Max="63">Rainbow very slow</Capability>
+  <Capability Min="64" Max="70">Rainbow Random</Capability>
+  <Capability Min="71" Max="71">Register Colours</Capability>
+  <Capability Min="72" Max="79">Random medium</Capability>
+  <Capability Min="80" Max="87">Random Fast</Capability>
+  <Capability Min="88" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="White Balance">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">White Balance Disabled</Capability>
+  <Capability Min="64" Max="189">White Balance Enabled</Capability>
+  <Capability Min="190" Max="250">White Balance Disabled</Capability>
+  <Capability Min="251" Max="255">Store White Balance</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Color temperature</Channel>
+  <Channel Number="6">Macro</Channel>
+  <Channel Number="7">White Balance</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="13.5" Width="367" Height="432" Depth="232"/>
+  <Lens Name="" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Francois Blanchette</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Scorpion Storm RGX</Model>
+ <Type>Laser</Type>
+ <Channel Name="Control Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">DMX Mode</Capability>
+  <Capability Min="20" Max="39">Automatic fast (red)</Capability>
+  <Capability Min="40" Max="59">Automatic slow (red)</Capability>
+  <Capability Min="60" Max="79">Automatic fast (green)</Capability>
+  <Capability Min="80" Max="99">Automatic slow (green)</Capability>
+  <Capability Min="100" Max="119">Automatic fast (red &amp; green)</Capability>
+  <Capability Min="120" Max="139">Automatic slow (red &amp; green)</Capability>
+  <Capability Min="140" Max="159">Sound (red)</Capability>
+  <Capability Min="160" Max="179">Sound (green)</Capability>
+  <Capability Min="180" Max="199">Sound (red &amp; green)</Capability>
+  <Capability Min="200" Max="255">Random</Capability>
+ </Channel>
+ <Channel Name="Color selection">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="28">Red</Capability>
+  <Capability Min="29" Max="56">Green</Capability>
+  <Capability Min="57" Max="84">Red &amp; Green</Capability>
+  <Capability Min="85" Max="112">Green strobing</Capability>
+  <Capability Min="113" Max="140">Red strobing</Capability>
+  <Capability Min="141" Max="168">Red on &amp; Green strobing</Capability>
+  <Capability Min="169" Max="197">Green on &amp; Red strobing</Capability>
+  <Capability Min="198" Max="224">Red &amp; Green strobing</Capability>
+  <Capability Min="225" Max="255">Red &amp; green (alternate strobing)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeSlowToFast">Strobe (slow &lt;=&gt; fast)</Capability>
+  <Capability Min="255" Max="255">Strobe to sound</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="4">No Rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise rotation (slow &lt;=&gt; fast)</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Counterclockwise rotation (slow &lt;=&gt; fast)</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Control Mode</Channel>
+  <Channel Number="1">Color selection</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="235" Height="216" Depth="276"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="11" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Rob Nieuwenhuizen</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>CS-1000RGB</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="63">Laser off</Capability>
+  <Capability Min="64" Max="127">Music mode</Capability>
+  <Capability Min="128" Max="191">Automatic mode</Capability>
+  <Capability Min="192" Max="255">DMX Mode</Capability>
+ </Channel>
+ <Channel Name="Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Patterns</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Horizontal movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">No effect</Capability>
+  <Capability Min="1" Max="167">(fixed) Movement</Capability>
+  <Capability Min="168" Max="188">Animated left to right with increasing speed</Capability>
+  <Capability Min="189" Max="209">dto. Right to Left</Capability>
+  <Capability Min="210" Max="255">dto. Left to Right and back</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="104">Increasing size</Capability>
+  <Capability Min="105" Max="154">growing with increasing speed</Capability>
+  <Capability Min="155" Max="204">dto. shrinking</Capability>
+  <Capability Min="205" Max="255">dto. growing / shrinking</Capability>
+ </Channel>
+ <Channel Name="Width (rotation over Y)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="150" Preset="RotationIndexed">Fixed rotation</Capability>
+  <Capability Min="151" Max="255" Preset="RotationClockwiseSlowToFast">automatic rotation with increased speed</Capability>
+ </Channel>
+ <Channel Name="Width (rotation over X)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">Height (rotation over X): analogous to width</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="180">Fixed rotation</Capability>
+  <Capability Min="181" Max="217">automatic with increased speed clockwise</Capability>
+  <Capability Min="218" Max="255">do. counter clockwise</Capability>
+ </Channel>
+ <Channel Name="Blanking">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="70">no effect</Capability>
+  <Capability Min="71" Max="139">points are brighter</Capability>
+  <Capability Min="140" Max="209">dashed lines</Capability>
+  <Capability Min="210" Max="255">points only</Capability>
+ </Channel>
+ <Channel Name="Wave">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Wave</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">colour</Capability>
+ </Channel>
+ <Channel Name="Image format">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">image format</Capability>
+ </Channel>
+ <Channel Name="Horizontal / vertical movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Vertical movement: analogus to horizontal movement</Capability>
+ </Channel>
+ <Mode Name="CS-1000RGB">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Patterns</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Horizontal movement</Channel>
+  <Channel Number="4">Horizontal / vertical movement</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Width (rotation over Y)</Channel>
+  <Channel Number="7">Width (rotation over X)</Channel>
+  <Channel Number="8">Rotation</Channel>
+  <Channel Number="9">Blanking</Channel>
+  <Channel Number="10">Wave</Channel>
+  <Channel Number="11">Colour</Channel>
+  <Channel Number="12">Image format</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="330" Height="170" Depth="310"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.qlcplus.QLCPlus.dmxusb</id>
+  <extends>org.qlcplus.QLCPlus</extends>
+  <name>DMXUSB</name>
+  <summary>DMX USB plugin for QLC+</summary>
+  <url type="homepage">https://www.qlcplus.org/</url>
+  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[DMXUSB]:</url>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+  <provides>
+    <modalias>usb:v0403p6001d*</modalias>
+    <modalias>usb:v0403pC850d*</modalias>
+    <modalias>usb:v03EBp2018d*</modalias>
+    <modalias>usb:v04D8pFA63d*</modalias>
+  </provides>
+</component>

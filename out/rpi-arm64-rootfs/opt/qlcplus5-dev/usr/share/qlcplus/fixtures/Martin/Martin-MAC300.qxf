@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC300</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter, strobe, reset, lamp">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="72" Preset="StrobeSlowToFast">Strobe, fast -&gt; slow</Capability>
+  <Capability Min="73" Max="79" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="80" Max="99" Preset="PulseFastToSlow">Opening pulse, fast -&gt; slow</Capability>
+  <Capability Min="100" Max="119" Preset="PulseFastToSlow">Closing pulse, fast -&gt; slow</Capability>
+  <Capability Min="120" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="187" Preset="StrobeRandomFastToSlow">Random strobe, fast -&gt; slow</Capability>
+  <Capability Min="188" Max="190" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="191" Max="193" Preset="StrobeRandom">Random opening pulse, fast</Capability>
+  <Capability Min="194" Max="196" Preset="StrobeRandom">Random opening pulse, slow</Capability>
+  <Capability Min="197" Max="199" Preset="StrobeRandom">Random closing pulse, fast</Capability>
+  <Capability Min="200" Max="202" Preset="StrobeRandom">Random closing pulse, slow</Capability>
+  <Capability Min="203" Max="207" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="238" Max="247" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp off</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="25" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffffff">White/CTC 5500-2900</Capability>
+  <Capability Min="26" Max="26">CTC 5500-2900</Capability>
+  <Capability Min="27" Max="51" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffc0c0">CTC 5500-2900/Pink 312</Capability>
+  <Capability Min="52" Max="52" Preset="ColorMacro" Res1="#ffc0c0">Pink 312</Capability>
+  <Capability Min="53" Max="77" Preset="ColorDoubleMacro" Res1="#ffc0c0" Res2="#400080">Pink 312/UV</Capability>
+  <Capability Min="78" Max="78" Preset="ColorMacro" Res1="#400080">UV</Capability>
+  <Capability Min="79" Max="103" Preset="ColorDoubleMacro" Res1="#400080" Res2="#ff0000">UV/Red 308</Capability>
+  <Capability Min="104" Max="104" Preset="ColorMacro" Res1="#ff0000">Red 308</Capability>
+  <Capability Min="105" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red 308/Green 206</Capability>
+  <Capability Min="130" Max="130" Preset="ColorMacro" Res1="#00ff00">Green 206</Capability>
+  <Capability Min="131" Max="155" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green 206/Blue 108</Capability>
+  <Capability Min="156" Max="156" Preset="ColorMacro" Res1="#0000ff">Blue 108</Capability>
+  <Capability Min="157" Max="179" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#0000ff">Blue 108</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#0000ff">Blue 108</Capability>
+  <Capability Min="184" Max="187" Preset="ColorMacro" Res1="#00ff00">Green 206</Capability>
+  <Capability Min="188" Max="191" Preset="ColorMacro" Res1="#ff0000">Red 308</Capability>
+  <Capability Min="192" Max="195" Preset="ColorMacro" Res1="#400080">UV</Capability>
+  <Capability Min="196" Max="199" Preset="ColorMacro" Res1="#ffc0c0">Pink 312</Capability>
+  <Capability Min="200" Max="203">CTC 5500-2900</Capability>
+  <Capability Min="204" Max="207" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="208" Max="226">CW fast to slow</Capability>
+  <Capability Min="227" Max="245">CCW slow to fast</Capability>
+  <Capability Min="246" Max="248">Random CMY fast</Capability>
+  <Capability Min="249" Max="251">Random CMY medium</Capability>
+  <Capability Min="252" Max="255">Random CMY slow</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Open to full</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
+  <Capability Min="246" Max="248">Tracking, PTSP NORM</Capability>
+  <Capability Min="249" Max="251">Tracking, PTSP FAST</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="Effect speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
+  <Capability Min="246" Max="248">Tracking, SCUT OFF</Capability>
+  <Capability Min="249" Max="251">Tracking, SCUT ON</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Frost</Channel>
+  <Channel Number="7">Pan</Channel>
+  <Channel Number="8">Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Frost</Channel>
+  <Channel Number="7">Pan</Channel>
+  <Channel Number="8">Pan fine</Channel>
+  <Channel Number="9">Tilt</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Frost</Channel>
+  <Channel Number="7">Pan</Channel>
+  <Channel Number="8">Tilt</Channel>
+  <Channel Number="9">Pan/tilt speed</Channel>
+  <Channel Number="10">Effect speed</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Frost</Channel>
+  <Channel Number="7">Pan</Channel>
+  <Channel Number="8">Pan fine</Channel>
+  <Channel Number="9">Tilt</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+  <Channel Number="11">Pan/tilt speed</Channel>
+  <Channel Number="12">Effect speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="4765" ColourTemperature="6500"/>
+  <Dimensions Weight="21" Width="384" Height="536" Depth="330"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+  <Focus Type="Head" PanMax="270" TiltMax="265"/>
+  <Technical PowerConsumption="350" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

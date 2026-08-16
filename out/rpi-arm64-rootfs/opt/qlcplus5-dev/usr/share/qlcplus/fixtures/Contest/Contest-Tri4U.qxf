@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>nicolas</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>Tri4U</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="10">LED Off</Capability>
+  <Capability Min="11" Max="20">Red: R255 - G00 - B00</Capability>
+  <Capability Min="21" Max="30">Orange: R255 - G070 - B000</Capability>
+  <Capability Min="31" Max="40">Yellow: R255 - G155 - B000</Capability>
+  <Capability Min="41" Max="51">Green: R000 - G255 - B000</Capability>
+  <Capability Min="52" Max="61">Cyan: R000 - G255 - B255</Capability>
+  <Capability Min="62" Max="71">Blue: R000 - G000 - B255</Capability>
+  <Capability Min="72" Max="81">Pink: R255 - G000 - B255</Capability>
+  <Capability Min="82" Max="92">Magenta: R255 - G000 - B100</Capability>
+  <Capability Min="93" Max="102">Cold White: R255 - G255 - B255</Capability>
+  <Capability Min="103" Max="112">Hot White: R255 - B200</Capability>
+  <Capability Min="113" Max="122">Color macro 1</Capability>
+  <Capability Min="123" Max="133">Color macro 2</Capability>
+  <Capability Min="134" Max="143">Color macro 3</Capability>
+  <Capability Min="144" Max="153">Color macro 4</Capability>
+  <Capability Min="154" Max="163">Color macro 5</Capability>
+  <Capability Min="164" Max="174">Pattern 1</Capability>
+  <Capability Min="175" Max="184">Pattern 2</Capability>
+  <Capability Min="185" Max="194">Pattern 3</Capability>
+  <Capability Min="195" Max="204">Pattern 4</Capability>
+  <Capability Min="205" Max="215">Pattern 5</Capability>
+  <Capability Min="216" Max="225">Pattern 6</Capability>
+  <Capability Min="226" Max="235">Pattern 7</Capability>
+  <Capability Min="236" Max="245">Pattern 8</Capability>
+  <Capability Min="246" Max="255">Auto mode: Macros then patterns 10 times each</Capability>
+ </Channel>
+ <Channel Name="Dimmer / Speed / Audio">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (Mode &lt; 113) / Speed (113&lt;Mode&lt;245) / Audio (Mode &gt;245)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer &amp; Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Black-out</Capability>
+  <Capability Min="1" Max="189">Dimmer</Capability>
+  <Capability Min="190" Max="250">Strobe (slow to fast)</Capability>
+  <Capability Min="251" Max="255">Full-on</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 &gt; 10)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer or Dimmer speed</Capability>
+ </Channel>
+ <Channel Name="Red (ch 6 &lt; 11)">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red intensity</Capability>
+ </Channel>
+ <Channel Name="Green (ch 6 &lt; 11)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (ch 6 &lt; 11)" Preset="IntensityBlue"/>
+ <Channel Name="Strobe (6 ch)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="24">No strobe</Capability>
+  <Capability Min="25" Max="255">Strobe</Capability>
+ </Channel>
+ <Channel Name="Red #1" Preset="IntensityRed"/>
+ <Channel Name="Green #1" Preset="IntensityGreen"/>
+ <Channel Name="Blue #1" Preset="IntensityBlue"/>
+ <Channel Name="Red #2" Preset="IntensityRed"/>
+ <Channel Name="Green #2" Preset="IntensityGreen"/>
+ <Channel Name="Blue #2" Preset="IntensityBlue"/>
+ <Channel Name="Red #3" Preset="IntensityRed"/>
+ <Channel Name="Green #3" Preset="IntensityGreen"/>
+ <Channel Name="Blue #3" Preset="IntensityBlue"/>
+ <Channel Name="Red #4" Preset="IntensityRed"/>
+ <Channel Name="Green #4" Preset="IntensityGreen"/>
+ <Channel Name="Blue #4" Preset="IntensityBlue"/>
+ <Channel Name="Speed / Audio">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="200">Speed</Capability>
+  <Capability Min="201" Max="255">Audio</Capability>
+ </Channel>
+ <Channel Name="Dimmer &amp; Strobe #1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Black-out</Capability>
+  <Capability Min="1" Max="189">Dimmer</Capability>
+  <Capability Min="190" Max="250">Strobe (slow to fast)</Capability>
+  <Capability Min="251" Max="255">Full-on</Capability>
+ </Channel>
+ <Channel Name="Dimmer &amp; Strobe #2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Black-out</Capability>
+  <Capability Min="1" Max="189">Dimmer</Capability>
+  <Capability Min="190" Max="250">Strobe (slow to fast)</Capability>
+  <Capability Min="251" Max="255">Full-on</Capability>
+ </Channel>
+ <Channel Name="Dimmer &amp; Strobe #3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Black-out</Capability>
+  <Capability Min="1" Max="189">Dimmer</Capability>
+  <Capability Min="190" Max="250">Strobe (slow to fast)</Capability>
+  <Capability Min="251" Max="255">Full-on</Capability>
+ </Channel>
+ <Channel Name="Dimmer &amp; Strobe #4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="0">Black-out</Capability>
+  <Capability Min="1" Max="189">Dimmer</Capability>
+  <Capability Min="190" Max="250">Strobe (slow to fast)</Capability>
+  <Capability Min="251" Max="255">Full-on</Capability>
+ </Channel>
+ <Mode Name="2 Ch Mode">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Dimmer / Speed / Audio</Channel>
+ </Mode>
+ <Mode Name="3 Ch Mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Ch mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer &amp; Strobe</Channel>
+ </Mode>
+ <Mode Name="5 Ch mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="6 Ch mode">
+  <Channel Number="0">Red (ch 6 &lt; 11)</Channel>
+  <Channel Number="1">Green (ch 6 &lt; 11)</Channel>
+  <Channel Number="2">Blue (ch 6 &lt; 11)</Channel>
+  <Channel Number="3">Dim (ch 6 &lt;= 10) / Dim &amp; Speed (ch 6 &gt; 10)</Channel>
+  <Channel Number="4">Strobe (6 ch)</Channel>
+  <Channel Number="5">Mode</Channel>
+ </Mode>
+ <Mode Name="12 Ch mode">
+  <Channel Number="0">Red #1</Channel>
+  <Channel Number="1">Green #1</Channel>
+  <Channel Number="2">Blue #1</Channel>
+  <Channel Number="3">Red #2</Channel>
+  <Channel Number="4">Green #2</Channel>
+  <Channel Number="5">Blue #2</Channel>
+  <Channel Number="6">Red #3</Channel>
+  <Channel Number="7">Green #3</Channel>
+  <Channel Number="8">Blue #3</Channel>
+  <Channel Number="9">Red #4</Channel>
+  <Channel Number="10">Green #4</Channel>
+  <Channel Number="11">Blue #4</Channel>
+ </Mode>
+ <Mode Name="15 Ch mode">
+  <Channel Number="0">Red #1</Channel>
+  <Channel Number="1">Green #1</Channel>
+  <Channel Number="2">Blue #1</Channel>
+  <Channel Number="3">Red #2</Channel>
+  <Channel Number="4">Green #2</Channel>
+  <Channel Number="5">Blue #2</Channel>
+  <Channel Number="6">Red #3</Channel>
+  <Channel Number="7">Green #3</Channel>
+  <Channel Number="8">Blue #3</Channel>
+  <Channel Number="9">Red #4</Channel>
+  <Channel Number="10">Green #4</Channel>
+  <Channel Number="11">Blue #4</Channel>
+  <Channel Number="12">Dimmer &amp; Strobe</Channel>
+  <Channel Number="13">Mode</Channel>
+  <Channel Number="14">Speed / Audio</Channel>
+ </Mode>
+ <Mode Name="16 Ch mode">
+  <Channel Number="0">Red #1</Channel>
+  <Channel Number="1">Green #1</Channel>
+  <Channel Number="2">Blue #1</Channel>
+  <Channel Number="3">Dimmer &amp; Strobe #1</Channel>
+  <Channel Number="4">Red #2</Channel>
+  <Channel Number="5">Green #2</Channel>
+  <Channel Number="6">Blue #2</Channel>
+  <Channel Number="7">Dimmer &amp; Strobe #2</Channel>
+  <Channel Number="8">Red #3</Channel>
+  <Channel Number="9">Green #3</Channel>
+  <Channel Number="10">Blue #3</Channel>
+  <Channel Number="11">Dimmer &amp; Strobe #3</Channel>
+  <Channel Number="12">Red #4</Channel>
+  <Channel Number="13">Green #4</Channel>
+  <Channel Number="14">Blue #4</Channel>
+  <Channel Number="15">Dimmer &amp; Strobe #4</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="375" Height="160" Depth="60"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

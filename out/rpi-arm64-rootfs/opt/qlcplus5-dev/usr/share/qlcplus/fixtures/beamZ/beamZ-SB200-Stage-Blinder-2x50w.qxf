@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6 GIT</Version>
+  <Author>Tolmino Muccitelli</Author>
+ </Creator>
+ <Manufacturer>beamZ</Manufacturer>
+ <Model>SB200 Stage Blinder 2x50W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="1" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="2" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1">No function</Capability>
+  <Capability Min="2" Max="255">Macro Function</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Macro Function Speed adjustable</Capability>
+ </Channel>
+ <Channel Name="LED 1 dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="LED 2 dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Macro</Channel>
+  <Channel Number="3">Macro Speed</Channel>
+  <Channel Number="4">LED 1 dimmer</Channel>
+  <Channel Number="5">LED 2 dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.85" Width="275" Height="275" Depth="125"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

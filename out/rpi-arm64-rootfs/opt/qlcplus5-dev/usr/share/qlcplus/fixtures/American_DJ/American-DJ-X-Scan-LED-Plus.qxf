@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4 GIT</Version>
+  <Author>DjProWings</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>X-Scan LED Plus</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="15" Max="29" Preset="ColorMacro" Res1="#ff5500">Orange</Capability>
+  <Capability Min="30" Max="44" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="45" Max="59" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="60" Max="74" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="75" Max="89" Preset="ColorMacro" Res1="#ff007f">Pink</Capability>
+  <Capability Min="90" Max="104" Preset="ColorMacro" Res1="#55aaff">Light blue</Capability>
+  <Capability Min="105" Max="119" Preset="ColorMacro" Res1="#55ff7f">Light green</Capability>
+  <Capability Min="120" Max="127" Preset="ColorMacro" Res1="#ffff7f">Light yellow</Capability>
+  <Capability Min="128" Max="254" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow effect slow - fast</Capability>
+  <Capability Min="255" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="14" Preset="GoboMacro" Res1="Others/gobo00038.svg">Gobo 1</Capability>
+  <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 2</Capability>
+  <Capability Min="22" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 3</Capability>
+  <Capability Min="29" Max="36" Preset="GoboMacro" Res1="Chauvet/gobo00008.svg">Gobo 4</Capability>
+  <Capability Min="37" Max="43" Preset="GoboMacro" Res1="Chauvet/gobo00009.svg">Gobo 5</Capability>
+  <Capability Min="44" Max="50" Preset="GoboMacro" Res1="SGM/gobo00001.svg">Gobo 6</Capability>
+  <Capability Min="51" Max="57" Preset="GoboMacro" Res1="SGM/gobo00019.png">Gobo 7</Capability>
+  <Capability Min="58" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00005.svg">Gobo 8</Capability>
+  <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="Others/open.svg">Open shake</Capability>
+  <Capability Min="72" Max="78" Preset="GoboShakeMacro" Res1="Others/gobo00038.svg">Gobo 1 shake</Capability>
+  <Capability Min="79" Max="85" Preset="GoboShakeMacro" Res1="Others/gobo00039.svg">Gobo 2 shake</Capability>
+  <Capability Min="86" Max="92" Preset="GoboShakeMacro" Res1="Chauvet/gobo00040.svg">Gobo 3 shake</Capability>
+  <Capability Min="93" Max="100" Preset="GoboShakeMacro" Res1="Chauvet/gobo00008.svg">Gobo 4 shake</Capability>
+  <Capability Min="101" Max="107" Preset="GoboShakeMacro" Res1="Chauvet/gobo00009.svg">Gobo 5 shake</Capability>
+  <Capability Min="108" Max="114" Preset="GoboShakeMacro" Res1="SGM/gobo00001.svg">Gobo 6 shake</Capability>
+  <Capability Min="115" Max="121" Preset="GoboShakeMacro" Res1="SGM/gobo00019.png">Gobo 7 shake</Capability>
+  <Capability Min="122" Max="127" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00005.svg">Gobo 8 shake</Capability>
+  <Capability Min="128" Max="254" Preset="RotationClockwiseSlowToFast">Rotation slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Shutter/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe slow - fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="140" Max="180">Shutter slow open - fast close</Capability>
+  <Capability Min="181" Max="189" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="190" Max="231">Shutter fast open - slow close</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Moving Head Movement">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="28">Movement 1</Capability>
+  <Capability Min="29" Max="49">Movement 2</Capability>
+  <Capability Min="50" Max="70">Movement 3</Capability>
+  <Capability Min="71" Max="91">Movement 4</Capability>
+  <Capability Min="92" Max="112">Movement 5</Capability>
+  <Capability Min="113" Max="133">Movement 6</Capability>
+  <Capability Min="134" Max="154">Movement 7</Capability>
+  <Capability Min="155" Max="175">Movement 8</Capability>
+  <Capability Min="176" Max="196">Movement 9</Capability>
+  <Capability Min="197" Max="217">Movement 10</Capability>
+  <Capability Min="218" Max="238">Movement 11</Capability>
+  <Capability Min="239" Max="255">Movement 12</Capability>
+ </Channel>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colors</Channel>
+  <Channel Number="3">Gobo Wheel</Channel>
+  <Channel Number="4">Shutter/Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Moving Head Movement</Channel>
+  <Channel Number="7">Movement Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="150" Height="386" Depth="200"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Fixed" PanMax="180" TiltMax="70"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

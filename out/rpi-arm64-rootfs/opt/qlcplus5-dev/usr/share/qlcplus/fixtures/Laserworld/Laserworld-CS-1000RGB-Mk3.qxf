@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Federico</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>CS-1000RGB Mk3</Model>
+ <Type>Laser</Type>
+ <Channel Name="Operation Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Laser off</Capability>
+  <Capability Min="50" Max="99">Music mode</Capability>
+  <Capability Min="100" Max="149">Automatic mode</Capability>
+  <Capability Min="150" Max="255">Patterns/DMX</Capability>
+ </Channel>
+ <Channel Name="Pattern Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Patterns Selection</Capability>
+ </Channel>
+ <Channel Name="Z Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="191">CCW slow to fast</Capability>
+  <Capability Min="192" Max="255">CW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Y Rotation">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="255">Automatic Rotation</Capability>
+ </Channel>
+ <Channel Name="X Rotation">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="255">Automatic Rotation</Capability>
+ </Channel>
+ <Channel Name="Offset X">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Offset X step</Capability>
+  <Capability Min="128" Max="255">Movement X automatic</Capability>
+ </Channel>
+ <Channel Name="Offset Y">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Offset Y step</Capability>
+  <Capability Min="128" Max="255">Movement Y automatic</Capability>
+ </Channel>
+ <Channel Name="Drawing effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Drawing Speed</Capability>
+ </Channel>
+ <Channel Name="Scan speed / Points">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Scan speed</Capability>
+  <Capability Min="128" Max="255">Point speed</Capability>
+ </Channel>
+ <Channel Name="Color Change">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24">Pattern color (original)</Capability>
+  <Capability Min="25" Max="49" Preset="ColorMacro" Res1="#a020f0">Purple</Capability>
+  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="75" Max="99" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="100" Max="124" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="150" Max="174" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="175" Max="199" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="200" Max="224">Automatic color change effect</Capability>
+  <Capability Min="225" Max="255">Multi color step through</Capability>
+ </Channel>
+ <Channel Name="Size X">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255" Preset="BigToSmall">Size X from big to small</Capability>
+ </Channel>
+ <Channel Name="Size Y">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255" Preset="BigToSmall">Size Y from big to small</Capability>
+ </Channel>
+ <Channel Name="Color speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed adjustment for automatic color change effect and multi color step through</Capability>
+ </Channel>
+ <Mode Name="13 channel">
+  <Channel Number="0">Operation Mode</Channel>
+  <Channel Number="1">Pattern Select</Channel>
+  <Channel Number="2">Z Rotation</Channel>
+  <Channel Number="3">X Rotation</Channel>
+  <Channel Number="4">Y Rotation</Channel>
+  <Channel Number="5">Offset X</Channel>
+  <Channel Number="6">Offset Y</Channel>
+  <Channel Number="7">Size X</Channel>
+  <Channel Number="8">Size Y</Channel>
+  <Channel Number="9">Drawing effect</Channel>
+  <Channel Number="10">Scan speed / Points</Channel>
+  <Channel Number="11">Color Change</Channel>
+  <Channel Number="12">Color speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="200" Height="150" Depth="116"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

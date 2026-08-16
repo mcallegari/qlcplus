@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>sonozikloc</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Compact Par 7 Tri</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0-20 Hz</Capability>
+ </Channel>
+ <Channel Name="Color programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="24" Preset="Alias">29 static color prog via channel 2
+   <Alias Mode="8  Channel" Channel="Red" With="RGB Macro"/>
+  </Capability>
+  <Capability Min="25" Max="49" Preset="Alias">Program 2 (7 color change)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="50" Max="74" Preset="Alias">Program 3 (3 color change)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="75" Max="99" Preset="Alias">Program 4 (7 color switch)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="100" Max="124" Preset="Alias">Program 5 (3 color switch)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="125" Max="149" Preset="Alias">Program 6 (fantasy change 1)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="150" Max="174" Preset="Alias">Program 7 (fantasy change 2)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="175" Max="199" Preset="Alias">Program 8 (Red gradual change)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="200" Max="224" Preset="Alias">Program 9 (Green gradual change)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="225" Max="249" Preset="Alias">Program 10 (Blue gradual change)
+   <Alias Mode="8  Channel" Channel="Red" With="Program speed"/>
+  </Capability>
+  <Capability Min="250" Max="255" Preset="Alias">Sound-controlled
+   <Alias Mode="8  Channel" Channel="Red" With="Audio sensitivity"/>
+  </Capability>
+ </Channel>
+ <Channel Name="RGB Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="8">R(255)</Capability>
+  <Capability Min="9" Max="17">R(255),G(50)</Capability>
+  <Capability Min="18" Max="26">R(255),G(150)</Capability>
+  <Capability Min="27" Max="35">R(255),G(255)</Capability>
+  <Capability Min="36" Max="44">R(200),G(255)</Capability>
+  <Capability Min="45" Max="53">R(100),G(255)</Capability>
+  <Capability Min="54" Max="62">R(40),G(255)</Capability>
+  <Capability Min="63" Max="71">G(255)</Capability>
+  <Capability Min="72" Max="80">G(255),B(50)</Capability>
+  <Capability Min="81" Max="89">G(255),B(150)</Capability>
+  <Capability Min="90" Max="98">G(255),B(255)</Capability>
+  <Capability Min="99" Max="107">G(150),B(255)</Capability>
+  <Capability Min="108" Max="116">G(50),B(255)</Capability>
+  <Capability Min="117" Max="125">B(255)</Capability>
+  <Capability Min="126" Max="134">R(50),B(255)</Capability>
+  <Capability Min="135" Max="143">R(150),B(250)</Capability>
+  <Capability Min="144" Max="152">R(255),B(255)</Capability>
+  <Capability Min="153" Max="161">R(220),B(50)</Capability>
+  <Capability Min="162" Max="170">R(150),G(50),B(100)</Capability>
+  <Capability Min="171" Max="179">R(50),G(180),B(220)</Capability>
+  <Capability Min="180" Max="188">R(50),G(220),B(100)</Capability>
+  <Capability Min="189" Max="197">R(150),G(220)</Capability>
+  <Capability Min="198" Max="206">R(150),B(220)</Capability>
+  <Capability Min="207" Max="215">G(180),B(220)</Capability>
+  <Capability Min="216" Max="224">G(220),B(50)</Capability>
+  <Capability Min="225" Max="233">R(220),G(100),B(50)</Capability>
+  <Capability Min="234" Max="242">R(220),G(200),B(100)</Capability>
+  <Capability Min="243" Max="251">R(255),G(200),B(150)</Capability>
+  <Capability Min="252" Max="255">R(255),G(255),B(255)</Capability>
+ </Channel>
+ <Channel Name="ID Adress">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">ID 1-66</Capability>
+  <Capability Min="10" Max="19">ID 1</Capability>
+  <Capability Min="20" Max="29">ID 2</Capability>
+  <Capability Min="30" Max="39">ID 3</Capability>
+  <Capability Min="40" Max="49">ID 4</Capability>
+  <Capability Min="50" Max="59">ID 5</Capability>
+  <Capability Min="60" Max="69">ID 6</Capability>
+  <Capability Min="70" Max="79">ID 7</Capability>
+  <Capability Min="80" Max="89">ID 8</Capability>
+  <Capability Min="90" Max="99">ID 9</Capability>
+  <Capability Min="100" Max="109">ID 10</Capability>
+  <Capability Min="110" Max="119">ID 11</Capability>
+  <Capability Min="120" Max="129">ID 12</Capability>
+  <Capability Min="130" Max="139">ID 13</Capability>
+  <Capability Min="140" Max="149">ID 14</Capability>
+  <Capability Min="150" Max="159">ID 15</Capability>
+  <Capability Min="160" Max="169">ID 16</Capability>
+  <Capability Min="170" Max="179">ID 17</Capability>
+  <Capability Min="180" Max="189">ID 18</Capability>
+  <Capability Min="190" Max="199">ID 19</Capability>
+  <Capability Min="200" Max="209">ID 20</Capability>
+  <Capability Min="210" Max="210">ID 21</Capability>
+  <Capability Min="211" Max="211">ID 22</Capability>
+  <Capability Min="212" Max="212">ID 23</Capability>
+  <Capability Min="213" Max="250">ID 63</Capability>
+  <Capability Min="251" Max="251">ID 62</Capability>
+  <Capability Min="252" Max="252">ID 63</Capability>
+  <Capability Min="253" Max="253">ID 64</Capability>
+  <Capability Min="254" Max="254">ID 65</Capability>
+  <Capability Min="255" Max="255">ID 66</Capability>
+ </Channel>
+ <Channel Name="Fader response">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="250">CH1-CH4 instant fader response</Capability>
+  <Capability Min="251" Max="255">CH1-CH4 delayed fader response</Capability>
+ </Channel>
+ <Channel Name="Program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Audio sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Audio sensitivity from less sensitive to highly sensitive</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="8  Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color programs</Channel>
+  <Channel Number="6">ID Adress</Channel>
+  <Channel Number="7">Fader response</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="681" ColourTemperature="4000"/>
+  <Dimensions Weight="2.14" Width="260" Height="92" Depth="272"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

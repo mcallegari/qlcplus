@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Dávid Czirók</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED PAR 64 RGB 36x1W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Adjustment">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="16">no function</Capability>
+  <Capability Min="17" Max="255">Strobe/Speed Adjust/Sound Sensitivity Adjust</Capability>
+ </Channel>
+ <Channel Name="Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="95">Colour mixing</Capability>
+  <Capability Min="96" Max="159">RGB colour change</Capability>
+  <Capability Min="160" Max="233">7 colour change</Capability>
+  <Capability Min="234" Max="255">Sound activation</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">Adjustment</Channel>
+  <Channel Number="5">Settings</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.7" Width="260" Height="280" Depth="300"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

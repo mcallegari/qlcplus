@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jean-Daniel Garcia</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Legend 412Z</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red Quadrant 1" Preset="IntensityRed"/>
+ <Channel Name="Green Quadrant 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Quadrant 1" Preset="IntensityBlue"/>
+ <Channel Name="White Quadrant 1" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer Quadrant 1" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe Quadrant 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red Quadrant 2" Preset="IntensityRed"/>
+ <Channel Name="Green Quadrant 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Quadrant 2" Preset="IntensityBlue"/>
+ <Channel Name="White Quadrant 2" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer Quadrant 2" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe Quadrant 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red Quadrant 3" Preset="IntensityRed"/>
+ <Channel Name="Green Quadrant 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Quadrant 3" Preset="IntensityBlue"/>
+ <Channel Name="White Quadrant 3" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer Quadrant 3" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe Quadrant 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red Quadrant 4" Preset="IntensityRed"/>
+ <Channel Name="Green Quadrant 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Quadrant 4" Preset="IntensityBlue"/>
+ <Channel Name="White Quadrant 4" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer Quadrant 4" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe Quadrant 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="19">No function</Capability>
+  <Capability Min="20" Max="29">Macro 1</Capability>
+  <Capability Min="30" Max="39">Macro 2</Capability>
+  <Capability Min="40" Max="49">Macro 3</Capability>
+  <Capability Min="50" Max="59">Macro 4</Capability>
+  <Capability Min="60" Max="69">Macro 5</Capability>
+  <Capability Min="70" Max="79">Macro 6</Capability>
+  <Capability Min="80" Max="89">Macro 7</Capability>
+  <Capability Min="90" Max="99">Macro 8</Capability>
+  <Capability Min="100" Max="109">Macro 9</Capability>
+  <Capability Min="110" Max="119">Macro 10</Capability>
+  <Capability Min="120" Max="129">Macro 11</Capability>
+  <Capability Min="130" Max="139">Macro 12</Capability>
+  <Capability Min="140" Max="149">Macro 13</Capability>
+  <Capability Min="150" Max="159">Macro 14</Capability>
+  <Capability Min="160" Max="169">Macro 15</Capability>
+  <Capability Min="170" Max="179">Macro 16</Capability>
+  <Capability Min="180" Max="189">Macro 17</Capability>
+  <Capability Min="190" Max="199">Macro 18</Capability>
+  <Capability Min="200" Max="209">Macro 19</Capability>
+  <Capability Min="210" Max="219">Macro 20</Capability>
+  <Capability Min="220" Max="229">Macro 21</Capability>
+  <Capability Min="230" Max="239">Macro 22</Capability>
+  <Capability Min="240" Max="255">Macro 23</Capability>
+ </Channel>
+ <Channel Name="Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="69" Preset="ResetPanTilt">Pan/Tilt</Capability>
+  <Capability Min="70" Max="129" Preset="ResetAll">All</Capability>
+  <Capability Min="130" Max="190">Pan/Tilt/Mov/Blackout</Capability>
+  <Capability Min="191" Max="205" Preset="ResetZoom">Zoom preset</Capability>
+  <Capability Min="206" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="20" Max="39" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20Hz</Capability>
+  <Capability Min="40" Max="59">Strobe Macro 1</Capability>
+  <Capability Min="60" Max="79">Strobe Macro 2</Capability>
+  <Capability Min="80" Max="99">Strobe Macro 3</Capability>
+  <Capability Min="100" Max="119">Strobe Macro 4</Capability>
+  <Capability Min="120" Max="139">Strobe Macro 5</Capability>
+  <Capability Min="140" Max="159">Strobe Macro 6</Capability>
+  <Capability Min="160" Max="179">Strobe Macro 7</Capability>
+  <Capability Min="180" Max="199">Strobe Macro 8</Capability>
+  <Capability Min="200" Max="219">Strobe Macro 9</Capability>
+  <Capability Min="220" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Mode Name="15-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red</Channel>
+  <Channel Number="8">Green</Channel>
+  <Channel Number="9">Blue</Channel>
+  <Channel Number="10">White</Channel>
+  <Channel Number="11">Color Macro</Channel>
+  <Channel Number="12">Macro Speed</Channel>
+  <Channel Number="13">Zoom</Channel>
+  <Channel Number="14">Reset</Channel>
+ </Mode>
+ <Mode Name="27-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red Quadrant 1</Channel>
+  <Channel Number="8">Green Quadrant 1</Channel>
+  <Channel Number="9">Blue Quadrant 1</Channel>
+  <Channel Number="10">White Quadrant 1</Channel>
+  <Channel Number="11">Red Quadrant 2</Channel>
+  <Channel Number="12">Green Quadrant 2</Channel>
+  <Channel Number="13">Blue Quadrant 2</Channel>
+  <Channel Number="14">White Quadrant 2</Channel>
+  <Channel Number="15">Red Quadrant 3</Channel>
+  <Channel Number="16">Green Quadrant 3</Channel>
+  <Channel Number="17">Blue Quadrant 3</Channel>
+  <Channel Number="18">White Quadrant 3</Channel>
+  <Channel Number="19">Red Quadrant 4</Channel>
+  <Channel Number="20">Green Quadrant 4</Channel>
+  <Channel Number="21">Blue Quadrant 4</Channel>
+  <Channel Number="22">White Quadrant 4</Channel>
+  <Channel Number="23">Color Macro</Channel>
+  <Channel Number="24">Macro Speed</Channel>
+  <Channel Number="25">Zoom</Channel>
+  <Channel Number="26">Reset</Channel>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="31-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Red Quadrant 1</Channel>
+  <Channel Number="8">Green Quadrant 1</Channel>
+  <Channel Number="9">Blue Quadrant 1</Channel>
+  <Channel Number="10">White Quadrant 1</Channel>
+  <Channel Number="11">Dimmer Quadrant 1</Channel>
+  <Channel Number="12">Red Quadrant 2</Channel>
+  <Channel Number="13">Green Quadrant 2</Channel>
+  <Channel Number="14">Blue Quadrant 2</Channel>
+  <Channel Number="15">White Quadrant 2</Channel>
+  <Channel Number="16">Dimmer Quadrant 2</Channel>
+  <Channel Number="17">Red Quadrant 3</Channel>
+  <Channel Number="18">Green Quadrant 3</Channel>
+  <Channel Number="19">Blue Quadrant 3</Channel>
+  <Channel Number="20">White Quadrant 3</Channel>
+  <Channel Number="21">Dimmer Quadrant 3</Channel>
+  <Channel Number="22">Red Quadrant 4</Channel>
+  <Channel Number="23">Green Quadrant 4</Channel>
+  <Channel Number="24">Blue Quadrant 4</Channel>
+  <Channel Number="25">White Quadrant 4</Channel>
+  <Channel Number="26">Dimmer Quadrant 4</Channel>
+  <Channel Number="27">Color Macro</Channel>
+  <Channel Number="28">Macro Speed</Channel>
+  <Channel Number="29">Zoom</Channel>
+  <Channel Number="30">Reset</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="34-channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Red Quadrant 1</Channel>
+  <Channel Number="7">Green Quadrant 1</Channel>
+  <Channel Number="8">Blue Quadrant 1</Channel>
+  <Channel Number="9">White Quadrant 1</Channel>
+  <Channel Number="10">Dimmer Quadrant 1</Channel>
+  <Channel Number="11">Strobe Quadrant 1</Channel>
+  <Channel Number="12">Red Quadrant 2</Channel>
+  <Channel Number="13">Green Quadrant 2</Channel>
+  <Channel Number="14">Blue Quadrant 2</Channel>
+  <Channel Number="15">White Quadrant 2</Channel>
+  <Channel Number="16">Dimmer Quadrant 2</Channel>
+  <Channel Number="17">Strobe Quadrant 2</Channel>
+  <Channel Number="18">Red Quadrant 3</Channel>
+  <Channel Number="19">Green Quadrant 3</Channel>
+  <Channel Number="20">Blue Quadrant 3</Channel>
+  <Channel Number="21">White Quadrant 3</Channel>
+  <Channel Number="22">Dimmer Quadrant 3</Channel>
+  <Channel Number="23">Strobe Quadrant 3</Channel>
+  <Channel Number="24">Red Quadrant 4</Channel>
+  <Channel Number="25">Green Quadrant 4</Channel>
+  <Channel Number="26">Blue Quadrant 4</Channel>
+  <Channel Number="27">White Quadrant 4</Channel>
+  <Channel Number="28">Dimmer Quadrant 4</Channel>
+  <Channel Number="29">Strobe Quadrant 4</Channel>
+  <Channel Number="30">Color Macro</Channel>
+  <Channel Number="31">Macro Speed</Channel>
+  <Channel Number="32">Zoom</Channel>
+  <Channel Number="33">Reset</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+   <Channel>29</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="330" ColourTemperature="0"/>
+  <Dimensions Weight="7.5" Width="271" Height="355" Depth="183"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="33"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="188" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

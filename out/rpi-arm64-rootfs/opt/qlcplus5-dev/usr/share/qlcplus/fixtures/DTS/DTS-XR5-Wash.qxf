@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Johannes Felber</Author>
+ </Creator>
+ <Manufacturer>DTS</Manufacturer>
+ <Model>XR5 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Standard</Capability>
+  <Capability Min="11" Max="25">Fast movement</Capability>
+  <Capability Min="26" Max="127">Vector mode from fast to slow</Capability>
+  <Capability Min="128" Max="247">Variable time reaction to DMX signal (fast to slow)</Capability>
+  <Capability Min="248" Max="255">Slow reaction time to DMX signal</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="10" Max="23">Strobe speed 1 min.</Capability>
+  <Capability Min="24" Max="37">Strobe speed 2</Capability>
+  <Capability Min="38" Max="51">Strobe speed 3</Capability>
+  <Capability Min="52" Max="65">Strobe speed 4</Capability>
+  <Capability Min="66" Max="79">Strobe speed 5</Capability>
+  <Capability Min="80" Max="93">Strobe speed 6 max.</Capability>
+  <Capability Min="94" Max="107">Flash open speed 1 min.</Capability>
+  <Capability Min="108" Max="121">Flash open speed 2</Capability>
+  <Capability Min="122" Max="135">Flash open speed 3</Capability>
+  <Capability Min="136" Max="149">Flash open speed 4 max.</Capability>
+  <Capability Min="150" Max="163">Flash closed speed 1 min.</Capability>
+  <Capability Min="164" Max="177">Flash closed speed 2</Capability>
+  <Capability Min="178" Max="191">Flash closed speed 3</Capability>
+  <Capability Min="192" Max="205">Flash closed speed 4 max.</Capability>
+  <Capability Min="206" Max="219">Colours / Macros in black-out</Capability>
+  <Capability Min="220" Max="233">Pan / Tilt in black-out</Capability>
+  <Capability Min="234" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#ffd95e">Colour 1 (3200 K)</Capability>
+  <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#d1ffff">Colour 2 (5600 K)</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#7038ab">Colour 3</Capability>
+  <Capability Min="52" Max="64" Preset="ColorDoubleMacro" Res1="#7038ab" Res2="#ff7000">Bicolour 3/4</Capability>
+  <Capability Min="65" Max="77" Preset="ColorMacro" Res1="#ff7000">Colour 4</Capability>
+  <Capability Min="78" Max="90" Preset="ColorDoubleMacro" Res1="#ff7000" Res2="#00c729">Bicolour 4/5</Capability>
+  <Capability Min="91" Max="103" Preset="ColorMacro" Res1="#00c729">Colour 5</Capability>
+  <Capability Min="104" Max="116" Preset="ColorDoubleMacro" Res1="#00c729" Res2="#f5001c">Bicolour 5/6</Capability>
+  <Capability Min="117" Max="129" Preset="ColorMacro" Res1="#f5001c">Colour 6</Capability>
+  <Capability Min="130" Max="142" Preset="ColorDoubleMacro" Res1="#f5001c" Res2="#660adb">Bicolour 6/7</Capability>
+  <Capability Min="143" Max="155" Preset="ColorMacro" Res1="#660adb">Colour 7</Capability>
+  <Capability Min="156" Max="168" Preset="ColorDoubleMacro" Res1="#660adb" Res2="#faa80f">Bicolour 7/8</Capability>
+  <Capability Min="169" Max="181" Preset="ColorMacro" Res1="#faa80f">Colour 8</Capability>
+  <Capability Min="182" Max="197" Preset="ColorDoubleMacro" Res1="#faa80f" Res2="#ffffff">Bicolour 8/white</Capability>
+  <Capability Min="198" Max="200" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 1 max.</Capability>
+  <Capability Min="201" Max="203" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 2</Capability>
+  <Capability Min="204" Max="206" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 3</Capability>
+  <Capability Min="207" Max="209" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 4</Capability>
+  <Capability Min="210" Max="212" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 5</Capability>
+  <Capability Min="213" Max="215" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 6</Capability>
+  <Capability Min="216" Max="218" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 7</Capability>
+  <Capability Min="219" Max="221" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 8</Capability>
+  <Capability Min="222" Max="224" Preset="GoboMacro" Res1="Others/rainbow.png">Right rotation speed 9 min.</Capability>
+  <Capability Min="225" Max="228">Stop</Capability>
+  <Capability Min="229" Max="231" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 1 min.</Capability>
+  <Capability Min="232" Max="234" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 2</Capability>
+  <Capability Min="235" Max="237" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 3</Capability>
+  <Capability Min="238" Max="240" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 4</Capability>
+  <Capability Min="241" Max="243" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 5</Capability>
+  <Capability Min="244" Max="246" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 6</Capability>
+  <Capability Min="247" Max="249" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 7</Capability>
+  <Capability Min="250" Max="252" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 8</Capability>
+  <Capability Min="253" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Left rotation speed 9 max.</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Speed CMY/Dimmer">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="255">Variable speed from max to min</Capability>
+ </Channel>
+ <Channel Name="Macro CMY/Colour">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Macro 1</Capability>
+  <Capability Min="15" Max="19">Macro 2</Capability>
+  <Capability Min="20" Max="24">Macro 3</Capability>
+  <Capability Min="25" Max="29">Macro 4</Capability>
+  <Capability Min="30" Max="34">Macro 5</Capability>
+  <Capability Min="35" Max="39">Macro 6</Capability>
+  <Capability Min="40" Max="44">Macro 7</Capability>
+  <Capability Min="45" Max="49">Macro 8</Capability>
+  <Capability Min="50" Max="54">Macro 9</Capability>
+  <Capability Min="55" Max="59">Macro 10</Capability>
+  <Capability Min="60" Max="64">Macro 11</Capability>
+  <Capability Min="65" Max="69">Macro 12</Capability>
+  <Capability Min="70" Max="74">Macro 13</Capability>
+  <Capability Min="75" Max="79">Macro 14</Capability>
+  <Capability Min="80" Max="84">Macro 15</Capability>
+  <Capability Min="85" Max="89">Macro 16</Capability>
+  <Capability Min="90" Max="94">Macro 17</Capability>
+  <Capability Min="95" Max="99">Macro 18</Capability>
+  <Capability Min="100" Max="104">Macro 19</Capability>
+  <Capability Min="105" Max="109">Macro 20</Capability>
+  <Capability Min="110" Max="114">Macro 21</Capability>
+  <Capability Min="115" Max="121">Macros rainbow wait = 1</Capability>
+  <Capability Min="122" Max="128">Macros rainbow wait = 2</Capability>
+  <Capability Min="129" Max="135">Macros rainbow wait = 3</Capability>
+  <Capability Min="136" Max="142">Macros rainbow wait = 4</Capability>
+  <Capability Min="143" Max="149">Macros rainbow wait = 5</Capability>
+  <Capability Min="150" Max="156">Macros rainbow wait = 6</Capability>
+  <Capability Min="157" Max="163">Macros rainbow wait = 7</Capability>
+  <Capability Min="164" Max="170">Macros rainbow wait = 8</Capability>
+  <Capability Min="171" Max="177">Macros rainbow wait = 9</Capability>
+  <Capability Min="178" Max="184">Macros rainbow wait = 10</Capability>
+  <Capability Min="185" Max="191">Full colours rainbow wait = 1</Capability>
+  <Capability Min="192" Max="198">Full colours rainbow wait = 2</Capability>
+  <Capability Min="199" Max="205">Full colours rainbow wait = 3</Capability>
+  <Capability Min="206" Max="212">Full colours rainbow wait = 4</Capability>
+  <Capability Min="213" Max="219">Full colours rainbow wait = 5</Capability>
+  <Capability Min="220" Max="226">Full colours rainbow wait = 6</Capability>
+  <Capability Min="227" Max="233">Full colours rainbow wait = 7</Capability>
+  <Capability Min="234" Max="240">Full colours rainbow wait = 8</Capability>
+  <Capability Min="241" Max="247">Full colours rainbow wait = 9</Capability>
+  <Capability Min="248" Max="255">Full colours rainbow wait = 10</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">No effect</Capability>
+  <Capability Min="20" Max="39">Frost</Capability>
+  <Capability Min="40" Max="255">Beam Shape</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Lamp/Reset XR 5">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No Effect</Capability>
+  <Capability Min="10" Max="60" Preset="LampOff">Lamp OFF (Active after 3 seconds)</Capability>
+  <Capability Min="61" Max="129">No Effect</Capability>
+  <Capability Min="130" Max="179" Preset="LampOn">Lamp ON (Active after 3 seconds)</Capability>
+  <Capability Min="180" Max="200">No Effect</Capability>
+  <Capability Min="201" Max="239" Preset="ResetMotors">Internal Motors Reset</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Total Reset</Capability>
+ </Channel>
+ <Channel Name="Lamp/Reset XR 250 Wash">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="29">No Effect</Capability>
+  <Capability Min="30" Max="85" Preset="LampOff">Lamp OFF (active after 3 seconds)</Capability>
+  <Capability Min="86" Max="170" Preset="ResetMotors">Internal motor Reset</Capability>
+  <Capability Min="171" Max="235" Preset="ResetAll">Total Reset</Capability>
+  <Capability Min="236" Max="255" Preset="LampOn">Lamp ON (active after 3 seconds)</Capability>
+ </Channel>
+ <Channel Name="Macro CMY/Colour 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Macro 1</Capability>
+  <Capability Min="15" Max="19">Macro 2</Capability>
+  <Capability Min="20" Max="24">Macro 3</Capability>
+  <Capability Min="25" Max="29">Macro 4</Capability>
+  <Capability Min="30" Max="34">Macro 5</Capability>
+  <Capability Min="35" Max="39">Macro 6</Capability>
+  <Capability Min="40" Max="44">Macro 7</Capability>
+  <Capability Min="45" Max="49">Macro 8</Capability>
+  <Capability Min="50" Max="54">Macro 9</Capability>
+  <Capability Min="55" Max="59">Macro 10</Capability>
+  <Capability Min="60" Max="64">Macro 11</Capability>
+  <Capability Min="65" Max="69">Macro 12</Capability>
+  <Capability Min="70" Max="74">Macro 13</Capability>
+  <Capability Min="75" Max="79">Macro 14</Capability>
+  <Capability Min="80" Max="84">Macro 15</Capability>
+  <Capability Min="85" Max="89">Macro 16</Capability>
+  <Capability Min="90" Max="94">Macro 17</Capability>
+  <Capability Min="95" Max="99">Macro 18</Capability>
+  <Capability Min="100" Max="104">Macro 19</Capability>
+  <Capability Min="105" Max="109">Macro 20</Capability>
+  <Capability Min="110" Max="114">Macro 21</Capability>
+  <Capability Min="115" Max="121">Macros rainbow wait = 1</Capability>
+  <Capability Min="122" Max="128">Macros rainbow wait = 2</Capability>
+  <Capability Min="129" Max="135">Macros rainbow wait = 3</Capability>
+  <Capability Min="136" Max="142">Macros rainbow wait = 4</Capability>
+  <Capability Min="143" Max="149">Macros rainbow wait = 5</Capability>
+  <Capability Min="150" Max="156">Macros rainbow wait = 6</Capability>
+  <Capability Min="157" Max="163">Macros rainbow wait = 7</Capability>
+  <Capability Min="164" Max="170">Macros rainbow wait = 8</Capability>
+  <Capability Min="171" Max="177">Macros rainbow wait = 9</Capability>
+  <Capability Min="178" Max="184">Macros rainbow wait = 10</Capability>
+  <Capability Min="185" Max="191">Full colours rainbow wait = 1</Capability>
+  <Capability Min="192" Max="198">Full colours rainbow wait = 2</Capability>
+  <Capability Min="199" Max="205">Full colours rainbow wait = 3</Capability>
+  <Capability Min="206" Max="212">Full colours rainbow wait = 4</Capability>
+  <Capability Min="213" Max="219">Full colours rainbow wait = 5</Capability>
+  <Capability Min="220" Max="226">Full colours rainbow wait = 6</Capability>
+  <Capability Min="227" Max="233">Full colours rainbow wait = 7</Capability>
+  <Capability Min="234" Max="240">Full colours rainbow wait = 8</Capability>
+  <Capability Min="241" Max="247">Full colours rainbow wait = 9</Capability>
+  <Capability Min="248" Max="255">Full colours rainbow wait = 10</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Cyan</Channel>
+  <Channel Number="9">Magenta</Channel>
+  <Channel Number="10">Yellow</Channel>
+  <Channel Number="11">Speed CMY/Dimmer</Channel>
+  <Channel Number="12">Macro CMY/Colour</Channel>
+  <Channel Number="13">Effects</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Lamp/Reset XR 5</Channel>
+ </Mode>
+ <Mode Name="Same as XR 250 Wash">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Colour</Channel>
+  <Channel Number="8">Cyan</Channel>
+  <Channel Number="9">Magenta</Channel>
+  <Channel Number="10">Yellow</Channel>
+  <Channel Number="11">Speed CMY/Dimmer</Channel>
+  <Channel Number="12">Macro CMY/Colour</Channel>
+  <Channel Number="13">Effects</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Lamp/Reset XR 250 Wash</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8500"/>
+  <Dimensions Weight="20" Width="480" Height="550" Depth="415"/>
+  <Lens Name="PC" DegreesMin="13" DegreesMax="23"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

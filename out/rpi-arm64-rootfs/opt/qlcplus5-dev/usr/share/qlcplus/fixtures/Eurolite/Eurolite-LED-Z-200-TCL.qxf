@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.2</Version>
+  <Author>Heiko Fanieng</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED Z-200 TCL</Model>
+ <Type>Flower</Type>
+ <Channel Name="Motor Rotation">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="20">No rotation</Capability>
+  <Capability Min="21" Max="170">Step by step counter clockwise rotation</Capability>
+  <Capability Min="171" Max="255">Clockwise and counter clockwise rotation</Capability>
+ </Channel>
+ <Channel Name="LED effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">All LEDs on</Capability>
+  <Capability Min="36" Max="70">Strobe-effect</Capability>
+  <Capability Min="71" Max="105">Fade</Capability>
+  <Capability Min="106" Max="140">Color-change</Capability>
+  <Capability Min="141" Max="175">Color-change + strobe</Capability>
+  <Capability Min="176" Max="210">Cross-fade</Capability>
+  <Capability Min="211" Max="255">Cross-fade + strobe</Capability>
+ </Channel>
+ <Channel Name="Speed settings for control channel 2">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Mode Name="6-channel">
+  <Channel Number="0">Motor Rotation</Channel>
+  <Channel Number="1">LED effects</Channel>
+  <Channel Number="2">Speed settings for control channel 2</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="280" Height="300" Weight="3" Depth="360"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

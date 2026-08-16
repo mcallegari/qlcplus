@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Santiago Benejam Torres</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Ovation F-915FC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber fine" Preset="IntensityAmberFine"/>
+ <Channel Name="Lime" Preset="IntensityLime"/>
+ <Channel Name="Lime fine" Preset="IntensityLimeFine"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Virtual color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">--</Capability>
+  <Capability Min="6" Max="13">C3050 - Md Yellow</Capability>
+  <Capability Min="14" Max="21">C3040 - Lt Yellow</Capability>
+  <Capability Min="22" Max="28">C3240 - Amb Yellow</Capability>
+  <Capability Min="29" Max="35">C2340 - VLt Amber</Capability>
+  <Capability Min="36" Max="43">C2040 - Lt Amber</Capability>
+  <Capability Min="44" Max="51">C2050 - Md Amber</Capability>
+  <Capability Min="52" Max="59">C2060 - Dk Amber</Capability>
+  <Capability Min="60" Max="67">C1050 - Lt Red</Capability>
+  <Capability Min="68" Max="75">C1080 - Md Red</Capability>
+  <Capability Min="76" Max="83">C1020 - NC Pink</Capability>
+  <Capability Min="84" Max="91">C1030 - Md Pink</Capability>
+  <Capability Min="92" Max="99">C1630 - Dk Pink</Capability>
+  <Capability Min="100" Max="107">C1250 - Md Red Amber</Capability>
+  <Capability Min="108" Max="115">C1250 - Md Red Amber</Capability>
+  <Capability Min="116" Max="121">C1650 - Magenta</Capability>
+  <Capability Min="122" Max="130">C6170 - Dk Magenta</Capability>
+  <Capability Min="131" Max="138">C6020 - Lt Lavender</Capability>
+  <Capability Min="139" Max="146">C5030 - Lt Blue</Capability>
+  <Capability Min="147" Max="154">C5020 - VLt Blue</Capability>
+  <Capability Min="155" Max="162">C5430 - Lt Blue 2</Capability>
+  <Capability Min="163" Max="170">C5070 - Blue</Capability>
+  <Capability Min="171" Max="178">C5050 - Md Blue</Capability>
+  <Capability Min="179" Max="186">C5060 - Dk Blue</Capability>
+  <Capability Min="187" Max="194">C5690 - Indigo</Capability>
+  <Capability Min="195" Max="202">C5080 - VDk Blue</Capability>
+  <Capability Min="203" Max="210">C5081 - VDk Blue2</Capability>
+  <Capability Min="211" Max="218">C4370 - Yel Green</Capability>
+  <Capability Min="219" Max="226">C4070 - Green</Capability>
+  <Capability Min="227" Max="234">C4550 - Turquoise</Capability>
+  <Capability Min="235" Max="242">C4560 - Aqua</Capability>
+  <Capability Min="243" Max="250">C4570 - Blue Green</Capability>
+  <Capability Min="251" Max="255">--</Capability>
+ </Channel>
+ <Channel Name="Color temperature">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="5">--</Capability>
+  <Capability Min="6" Max="25">2800K</Capability>
+  <Capability Min="26" Max="50">3000K</Capability>
+  <Capability Min="51" Max="75">3200K</Capability>
+  <Capability Min="76" Max="100">3500K</Capability>
+  <Capability Min="101" Max="125">4000K</Capability>
+  <Capability Min="126" Max="150">4500K</Capability>
+  <Capability Min="151" Max="175">5000K</Capability>
+  <Capability Min="176" Max="200">5600K</Capability>
+  <Capability Min="201" Max="225">6000K</Capability>
+  <Capability Min="226" Max="250">6500K</Capability>
+  <Capability Min="251" Max="255">--</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Motor Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="200">No func</Capability>
+  <Capability Min="201" Max="220">Motor Reset</Capability>
+  <Capability Min="221" Max="255">No func</Capability>
+ </Channel>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="15">Dimmer Reset</Capability>
+  <Capability Min="16" Max="23">Red shift on</Capability>
+  <Capability Min="24" Max="31">Red shift off</Capability>
+  <Capability Min="32" Max="39">Dimmer: S-Curve</Capability>
+  <Capability Min="40" Max="47">Dimmer: linear</Capability>
+  <Capability Min="48" Max="55">Dimmer: square</Capability>
+  <Capability Min="56" Max="63">Dimmer: inverse square</Capability>
+  <Capability Min="64" Max="71">Dimmer: speed mode off</Capability>
+  <Capability Min="72" Max="79">Dimmer: speed mode 1</Capability>
+  <Capability Min="80" Max="87">Dimmer: speed mode 2</Capability>
+  <Capability Min="88" Max="95">Dimmer: speed mode 3</Capability>
+  <Capability Min="96" Max="103">Fan auto</Capability>
+  <Capability Min="104" Max="111">Fan on</Capability>
+  <Capability Min="112" Max="119">Fan off</Capability>
+  <Capability Min="120" Max="127">Fan silent</Capability>
+  <Capability Min="128" Max="255">No function (reserved)</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="60">Auto program 1</Capability>
+  <Capability Min="61" Max="110">Auto program 2</Capability>
+  <Capability Min="111" Max="160">Auto program 3</Capability>
+  <Capability Min="161" Max="210">Auto program 4</Capability>
+  <Capability Min="211" Max="255">Auto program 5</Capability>
+ </Channel>
+ <Channel Name="Auto speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
+ <Channel Name="Dimmer speed mode">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">No function</Capability>
+  <Capability Min="52" Max="101">Dimmer speed mode off</Capability>
+  <Capability Min="102" Max="152">Dimmer speed mode 1</Capability>
+  <Capability Min="153" Max="203">Dimmer speed mode 2</Capability>
+  <Capability Min="204" Max="255">Dimmer speed mode 3</Capability>
+ </Channel>
+ <Mode Name="18ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Amber fine</Channel>
+  <Channel Number="10">Lime</Channel>
+  <Channel Number="11">Lime fine</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Virtual color wheel</Channel>
+  <Channel Number="14">Color temperature</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Motor Reset</Channel>
+  <Channel Number="17">Control</Channel>
+ </Mode>
+ <Mode Name="1Ch">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3Ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Virtual color wheel</Channel>
+  <Channel Number="2">Color temperature</Channel>
+ </Mode>
+ <Mode Name="5Ch">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Lime</Channel>
+ </Mode>
+ <Mode Name="7Ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Lime</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Mode Name="11Ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Lime</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Virtual color wheel</Channel>
+  <Channel Number="9">Color temperature</Channel>
+  <Channel Number="10">Zoom</Channel>
+ </Mode>
+ <Mode Name="13Ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Amber fine</Channel>
+  <Channel Number="10">Lime</Channel>
+  <Channel Number="11">Lime fine</Channel>
+  <Channel Number="12">Strobe</Channel>
+ </Mode>
+ <Mode Name="14Ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Lime</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Virtual color wheel</Channel>
+  <Channel Number="8">Color temperature</Channel>
+  <Channel Number="9">Auto programs</Channel>
+  <Channel Number="10">Auto speed</Channel>
+  <Channel Number="11">Dimmer speed mode</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Motor Reset</Channel>
+ </Mode>
+ <Mode Name="HSV">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Value</Channel>
+ </Mode>
+ <Mode Name="17Ch">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">Amber</Channel>
+  <Channel Number="9">Amber fine</Channel>
+  <Channel Number="10">Lime</Channel>
+  <Channel Number="11">Lime fine</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Virtual color wheel</Channel>
+  <Channel Number="14">Color temperature</Channel>
+  <Channel Number="15">Zoom</Channel>
+  <Channel Number="16">Motor Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="6661" ColourTemperature="3200"/>
+  <Dimensions Weight="8.6" Width="275" Height="320" Depth="569"/>
+  <Lens Name="Fresnel" DegreesMin="30" DegreesMax="73"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="260" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

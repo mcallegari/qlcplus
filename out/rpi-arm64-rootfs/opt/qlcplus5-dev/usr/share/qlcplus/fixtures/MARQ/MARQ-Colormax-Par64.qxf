@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Klaus Muth</Author>
+ </Creator>
+ <Manufacturer>MARQ</Manufacturer>
+ <Model>Colormax Par64</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe effect, slow (016) to fast (255)</Capability>
+ </Channel>
+ <Channel Name="Color Presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function (overrides Ch. 2–4)</Capability>
+  <Capability Min="16" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="95" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="96" Max="115" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="116" Max="135" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="136" Max="155" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="156" Max="175" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="176" Max="195" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="196" Max="215" Preset="ColorMacro" Res1="#aaffff">Light Cyan</Capability>
+  <Capability Min="216" Max="235" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="236" Max="255" Preset="ColorMacro" Res1="#fffdd8">Warm White</Capability>
+ </Channel>
+ <Channel Name="Color Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No function (overrides Ch. 2–4 &amp; Ch. 6)</Capability>
+  <Capability Min="16" Max="35">Color Program 1 (3-color snap)</Capability>
+  <Capability Min="36" Max="55">Color Program 2 (7-color snap)</Capability>
+  <Capability Min="56" Max="75">Color Program 3 (3-color fade)</Capability>
+  <Capability Min="76" Max="95">Color Program 4 (7-color fade)</Capability>
+  <Capability Min="96" Max="115">Color Program 5 (3-color crossfade)</Capability>
+  <Capability Min="116" Max="135">Color Program 6 (7-color crossfade)</Capability>
+  <Capability Min="136" Max="155">Color Program 7 (red pulse)</Capability>
+  <Capability Min="156" Max="175">Color Program 8 (green pulse)</Capability>
+  <Capability Min="176" Max="195">Color Program 9 (blue pulse)</Capability>
+  <Capability Min="196" Max="255">Sound-active colors</Capability>
+ </Channel>
+ <Channel Name="Speed/Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program Speed (when Ch. 7 is set to 016–195)/Microphone Sensitivity (when Ch. 7 is set to 196–255)</Capability>
+ </Channel>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color Presets</Channel>
+  <Channel Number="6">Color Programs</Channel>
+  <Channel Number="7">Speed/Sensitivity</Channel>
+ </Mode>
+ <Mode Name="5-Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.8" Width="289" Height="299" Depth="89"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

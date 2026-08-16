@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Dingezz</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>ES-600B</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="69">Laser off</Capability>
+  <Capability Min="70" Max="139">Sound mode</Capability>
+  <Capability Min="140" Max="209">Automatic mode</Capability>
+  <Capability Min="210" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Patterns/Animations">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Patterns/Animations</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Point Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Point Speed</Capability>
+ </Channel>
+ <Channel Name="Movement X">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="160">Manual</Capability>
+  <Capability Min="161" Max="189">Auto right to left</Capability>
+  <Capability Min="190" Max="219">Auto left to right</Capability>
+  <Capability Min="220" Max="255">Auto changing</Capability>
+ </Channel>
+ <Channel Name="Movement Y">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="160">Manual</Capability>
+  <Capability Min="161" Max="189">Auto top to bottom</Capability>
+  <Capability Min="190" Max="219">Auto bottom to top</Capability>
+  <Capability Min="220" Max="255">Auto changing</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="92">Increasing size</Capability>
+  <Capability Min="93" Max="146">Automatic small to large</Capability>
+  <Capability Min="147" Max="200">Automatic large to small</Capability>
+  <Capability Min="201" Max="255">Automatic small to large to small...</Capability>
+ </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="199">no function</Capability>
+  <Capability Min="200" Max="255" Preset="ResetAll">Reset over 200</Capability>
+ </Channel>
+ <Channel Name="Rotation Y (Height)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="150">manual</Capability>
+  <Capability Min="151" Max="255">auto</Capability>
+ </Channel>
+ <Channel Name="Rotation Z">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="180">manual</Capability>
+  <Capability Min="181" Max="217">auto CW</Capability>
+  <Capability Min="218" Max="255">auto CCW</Capability>
+ </Channel>
+ <Channel Name="Rotation X (Width)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="150">Static rotation</Capability>
+  <Capability Min="151" Max="255">Automatic rotation</Capability>
+ </Channel>
+ <Mode Name="std">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Patterns/Animations</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Point Speed</Channel>
+  <Channel Number="4">Movement X</Channel>
+  <Channel Number="5">Movement Y</Channel>
+  <Channel Number="6">Zoom</Channel>
+  <Channel Number="7">No function</Channel>
+  <Channel Number="8">Reset</Channel>
+  <Channel Number="9">Rotation X (Width)</Channel>
+  <Channel Number="10">Rotation Y (Height)</Channel>
+  <Channel Number="11">Rotation Z</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.5" Width="270" Height="160" Depth="230"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

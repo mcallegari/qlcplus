@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6 GIT</Version>
+  <Author>Federico</Author>
+ </Creator>
+ <Manufacturer>DTS</Manufacturer>
+ <Model>Katana</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Green Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="White Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="29" Preset="ShutterClose">Black-out</Capability>
+  <Capability Min="30" Max="119" Preset="StrobeSlowToFast">Strobe (from 3,27 s to 30 ms)</Capability>
+  <Capability Min="120" Max="149" Preset="RampUpSlowToFast">Pulse up (from 42,6 s to 120 ms)</Capability>
+  <Capability Min="150" Max="179" Preset="RampDownSlowToFast">Pulse down (from 42,6 s to 120 ms)</Capability>
+  <Capability Min="180" Max="204" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="205" Max="229" Preset="StrobeRandom">Full independent random strobe</Capability>
+  <Capability Min="230" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Linear CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Linear control temperature correction (whites from 2700K to 8000K)</Capability>
+ </Channel>
+ <Channel Name="Macro Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="24" Preset="ColorMacro" Res1="#ff0000">Color 1</Capability>
+  <Capability Min="25" Max="34" Preset="ColorMacro" Res1="#ff5500">Color 2</Capability>
+  <Capability Min="35" Max="44" Preset="ColorMacro" Res1="#ffaa00">Color 3</Capability>
+  <Capability Min="45" Max="54" Preset="ColorMacro" Res1="#ffff00">Color 4</Capability>
+  <Capability Min="55" Max="64" Preset="ColorMacro" Res1="#aaff00">Color 5</Capability>
+  <Capability Min="65" Max="74" Preset="ColorMacro" Res1="#55ff00">Color 6</Capability>
+  <Capability Min="75" Max="84" Preset="ColorMacro" Res1="#00ff00">Color 7</Capability>
+  <Capability Min="85" Max="94" Preset="ColorMacro" Res1="#00ff55">Color 8</Capability>
+  <Capability Min="95" Max="104" Preset="ColorMacro" Res1="#00ffaa">Color 9</Capability>
+  <Capability Min="105" Max="114" Preset="ColorMacro" Res1="#00ffff">Color 10</Capability>
+  <Capability Min="115" Max="124" Preset="ColorMacro" Res1="#00aaff">Color 11</Capability>
+  <Capability Min="125" Max="134" Preset="ColorMacro" Res1="#0055ff">Color 12</Capability>
+  <Capability Min="135" Max="144" Preset="ColorMacro" Res1="#0000ff">Color 13</Capability>
+  <Capability Min="145" Max="154" Preset="ColorMacro" Res1="#5500ff">Color 14</Capability>
+  <Capability Min="155" Max="164" Preset="ColorMacro" Res1="#aa00ff">Color 15</Capability>
+  <Capability Min="165" Max="174" Preset="ColorMacro" Res1="#ff00ff">Color 16</Capability>
+  <Capability Min="175" Max="184">Rainbow: a new colour every 6 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="185" Max="194">Rainbow: a new colour every 15 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="195" Max="204">Rainbow: a new colour every 30 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="205" Max="214">Rainbow: a new colour every 45 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="215" Max="224">Rainbow: a new colour every 60 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="225" Max="234">Rainbow: a new colour every 120 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="235" Max="244">Rainbow: a new colour every 150 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+  <Capability Min="245" Max="255">Rainbow: a new colour every 180 s (RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA, WHITE)</Capability>
+ </Channel>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Standard</Capability>
+  <Capability Min="11" Max="25">Maximum speed</Capability>
+  <Capability Min="26" Max="127" Preset="FastToSlow">From maximum to minimum speed</Capability>
+  <Capability Min="128" Max="247" Preset="FastToSlow">Variable reaction to DMX signal (fast to slow)</Capability>
+  <Capability Min="248" Max="255">Slow reaction time to DMX signal</Capability>
+ </Channel>
+ <Channel Name="Service">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="244">Reserved</Capability>
+  <Capability Min="245" Max="255">Activating &quot;FUNCTIONS&quot; channel</Capability>
+ </Channel>
+ <Channel Name="Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="24">SMOOTH OFF (DEFAULT)</Capability>
+  <Capability Min="25" Max="26">SMOOTH 1</Capability>
+  <Capability Min="27" Max="28">SMOOTH 2</Capability>
+  <Capability Min="29" Max="30">SMOOTH 3</Capability>
+  <Capability Min="31" Max="32">SMOOTH 4</Capability>
+  <Capability Min="33" Max="34">SMOOTH 5</Capability>
+  <Capability Min="35" Max="36">SMOOTH 6</Capability>
+  <Capability Min="37" Max="38">SMOOTH 7</Capability>
+  <Capability Min="39" Max="40">SMOOTH 8</Capability>
+  <Capability Min="41" Max="42">SMOOTH 9</Capability>
+  <Capability Min="43" Max="44">SMOOTH 10</Capability>
+  <Capability Min="45" Max="46">SMOOTH 11</Capability>
+  <Capability Min="47" Max="48">SMOOTH 12</Capability>
+  <Capability Min="49" Max="50">SMOOTH 13</Capability>
+  <Capability Min="51" Max="52">SMOOTH 14</Capability>
+  <Capability Min="53" Max="54">SMOOTH 15</Capability>
+  <Capability Min="55" Max="56">SMOOTH 16</Capability>
+  <Capability Min="57" Max="58">SMOOTH 17</Capability>
+  <Capability Min="59" Max="60">SMOOTH 18</Capability>
+  <Capability Min="61" Max="62">SMOOTH 19</Capability>
+  <Capability Min="63" Max="64">SMOOTH 20</Capability>
+  <Capability Min="65" Max="74">GAMMA CORRECTION QUADRATIC (DEFAULT)</Capability>
+  <Capability Min="75" Max="84">GAMMA CORRECTION LINEAR</Capability>
+  <Capability Min="85" Max="104">Ouput Frequency 610 Hz (DEFAULT)</Capability>
+  <Capability Min="105" Max="105">Output Frequency 800 Hz</Capability>
+  <Capability Min="106" Max="106">Output Frequency 1000Hz</Capability>
+  <Capability Min="107" Max="107">Output Frequency 1500Hz</Capability>
+  <Capability Min="108" Max="108">Output Frequency 2000Hz</Capability>
+  <Capability Min="109" Max="109">Output Frequency 2500Hz</Capability>
+  <Capability Min="110" Max="110">Output Frequency 3000Hz</Capability>
+  <Capability Min="111" Max="111">Output Frequency 3500Hz</Capability>
+  <Capability Min="112" Max="112">Output Frequency 4000Hz</Capability>
+  <Capability Min="113" Max="113">Output Frequency 4500Hz</Capability>
+  <Capability Min="114" Max="114">Output Frequency 5000Hz</Capability>
+  <Capability Min="115" Max="115">Output Frequency 5500Hz</Capability>
+  <Capability Min="116" Max="116">Output Frequency 6000Hz</Capability>
+  <Capability Min="117" Max="117">Output Frequency 6500Hz</Capability>
+  <Capability Min="118" Max="118">Output Frequency 7000Hz</Capability>
+  <Capability Min="119" Max="119">Output Frequency 7500Hz</Capability>
+  <Capability Min="120" Max="120">Output Frequency 8000Hz</Capability>
+  <Capability Min="121" Max="121">Output Frequency 8500Hz</Capability>
+  <Capability Min="122" Max="122">Output Frequency 9000Hz</Capability>
+  <Capability Min="123" Max="123">Output Frequency 9500Hz</Capability>
+  <Capability Min="124" Max="124">Output Frequency 10000Hz</Capability>
+  <Capability Min="125" Max="125">Output Frequency 11000Hz</Capability>
+  <Capability Min="126" Max="126">Output Frequency 12000Hz</Capability>
+  <Capability Min="127" Max="127">Output Frequency 13000Hz</Capability>
+  <Capability Min="128" Max="128">Output Frequency 14000Hz</Capability>
+  <Capability Min="129" Max="129">Output Frequency 15000Hz</Capability>
+  <Capability Min="130" Max="130">Output Frequency 16000Hz</Capability>
+  <Capability Min="131" Max="131">Output Frequency 17000Hz</Capability>
+  <Capability Min="132" Max="132">Output Frequency 18000Hz</Capability>
+  <Capability Min="133" Max="133">Output Frequency 19000Hz</Capability>
+  <Capability Min="134" Max="134">Output Frequency 20000Hz</Capability>
+  <Capability Min="135" Max="144">Boost ON (DEFAULT)</Capability>
+  <Capability Min="145" Max="154">Boost OFF</Capability>
+  <Capability Min="155" Max="164">Reserved</Capability>
+  <Capability Min="165" Max="174">Reserved</Capability>
+  <Capability Min="175" Max="184">Reserved</Capability>
+  <Capability Min="185" Max="194">Reserved</Capability>
+  <Capability Min="195" Max="204">Reserved</Capability>
+  <Capability Min="205" Max="214">Tilt Normal (Default)</Capability>
+  <Capability Min="215" Max="224">Tilt Reverse</Capability>
+  <Capability Min="225" Max="234">Reserved</Capability>
+  <Capability Min="235" Max="244">Fan Speed Studio Mode</Capability>
+  <Capability Min="245" Max="255">Fan Speed Live Mode (Default)</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="75" Preset="ResetTilt">Tilt Reset</Capability>
+  <Capability Min="76" Max="239" Preset="ResetZoom">Zoom Reset</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Total Reset</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Red 9" Preset="IntensityRed"/>
+ <Channel Name="Red 10" Preset="IntensityRed"/>
+ <Channel Name="Red 11" Preset="IntensityRed"/>
+ <Channel Name="Red 12" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Green 9" Preset="IntensityGreen"/>
+ <Channel Name="Green 10" Preset="IntensityGreen"/>
+ <Channel Name="Green 11" Preset="IntensityGreen"/>
+ <Channel Name="Green 12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 9" Preset="IntensityBlue"/>
+ <Channel Name="Blue 10" Preset="IntensityBlue"/>
+ <Channel Name="Blue 11" Preset="IntensityBlue"/>
+ <Channel Name="Blue 12" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="White 5" Preset="IntensityWhite"/>
+ <Channel Name="White 6" Preset="IntensityWhite"/>
+ <Channel Name="White 7" Preset="IntensityWhite"/>
+ <Channel Name="White 8" Preset="IntensityWhite"/>
+ <Channel Name="White 9" Preset="IntensityWhite"/>
+ <Channel Name="White 10" Preset="IntensityWhite"/>
+ <Channel Name="White 11" Preset="IntensityWhite"/>
+ <Channel Name="White 12" Preset="IntensityWhite"/>
+ <Channel Name="Chase 1 Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="47">No Effect</Capability>
+  <Capability Min="48" Max="63">Background</Capability>
+  <Capability Min="64" Max="79">Hystogram Left</Capability>
+  <Capability Min="80" Max="95">Hystogram Right</Capability>
+  <Capability Min="96" Max="111">Hystogram Multicolour Left</Capability>
+  <Capability Min="112" Max="127">Hystogram Multicolour Right</Capability>
+  <Capability Min="128" Max="143">Continous Shift Right</Capability>
+  <Capability Min="144" Max="159">Continous Shift Left</Capability>
+  <Capability Min="160" Max="175">Wave Right</Capability>
+  <Capability Min="176" Max="191">Wave Left</Capability>
+  <Capability Min="192" Max="207">Random Strobe</Capability>
+  <Capability Min="208" Max="223">Random Strobe Random Colour</Capability>
+  <Capability Min="224" Max="239">Pulse</Capability>
+  <Capability Min="240" Max="255">Random Pick</Capability>
+ </Channel>
+ <Channel Name="Chase 1 Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Chase colour selection</Capability>
+ </Channel>
+ <Channel Name="Chase 1 Size/Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Chase speed size tuning</Capability>
+ </Channel>
+ <Channel Name="Chase 1 Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Chase Level</Capability>
+ </Channel>
+ <Channel Name="Chase 2 Select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="47">No Effect</Capability>
+  <Capability Min="48" Max="63">Background</Capability>
+  <Capability Min="64" Max="79">Hystogram Left</Capability>
+  <Capability Min="80" Max="95">Hystogram Right</Capability>
+  <Capability Min="96" Max="111">Hystogram Multicolour Left</Capability>
+  <Capability Min="112" Max="127">Hystogram Multicolour Right</Capability>
+  <Capability Min="128" Max="143">Continous Shift Right</Capability>
+  <Capability Min="144" Max="159">Continous Shift Left</Capability>
+  <Capability Min="160" Max="175">Wave Right</Capability>
+  <Capability Min="176" Max="191">Wave Left</Capability>
+  <Capability Min="192" Max="207">Random Strobe</Capability>
+  <Capability Min="208" Max="223">Random Strobe Random Colour</Capability>
+  <Capability Min="224" Max="239">Pulse</Capability>
+  <Capability Min="240" Max="255">Random Pick</Capability>
+ </Channel>
+ <Channel Name="Chase 2 Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="255">Chase colour selection</Capability>
+ </Channel>
+ <Channel Name="Chase 2 Size/Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Chase speed size tuning</Capability>
+ </Channel>
+ <Channel Name="Chase 2 Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Chase Level</Capability>
+ </Channel>
+ <Mode Name="Chase">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">White Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Linear CTO</Channel>
+  <Channel Number="8">Macro Color</Channel>
+  <Channel Number="9">Tilt</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+  <Channel Number="11">Tilt speed</Channel>
+  <Channel Number="12">Service</Channel>
+  <Channel Number="13">Functions</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Reset</Channel>
+  <Channel Number="16">Chase 1 Select</Channel>
+  <Channel Number="17">Chase 1 Colour</Channel>
+  <Channel Number="18">Chase 1 Size/Speed</Channel>
+  <Channel Number="19">Chase 1 Dimmer</Channel>
+  <Channel Number="20">Chase 2 Select</Channel>
+  <Channel Number="21">Chase 2 Colour</Channel>
+  <Channel Number="22">Chase 2 Size/Speed</Channel>
+  <Channel Number="23">Chase 2 Dimmer</Channel>
+ </Mode>
+ <Mode Name="Standard">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">White Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Linear CTO</Channel>
+  <Channel Number="8">Macro Color</Channel>
+  <Channel Number="9">Tilt</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+  <Channel Number="11">Tilt speed</Channel>
+  <Channel Number="12">Service</Channel>
+  <Channel Number="13">Functions</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+  <Channel Number="3">White Dimmer</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer fine</Channel>
+  <Channel Number="7">Linear CTO</Channel>
+  <Channel Number="8">Macro Color</Channel>
+  <Channel Number="9">Tilt</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+  <Channel Number="11">Tilt speed</Channel>
+  <Channel Number="12">Service</Channel>
+  <Channel Number="13">Functions</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">Reset</Channel>
+  <Channel Number="16">Red 1</Channel>
+  <Channel Number="17">Green 1</Channel>
+  <Channel Number="18">Blue 1</Channel>
+  <Channel Number="19">White 1</Channel>
+  <Channel Number="20">Red 2</Channel>
+  <Channel Number="21">Green 2</Channel>
+  <Channel Number="22">Blue 2</Channel>
+  <Channel Number="23">White 2</Channel>
+  <Channel Number="24">Red 3</Channel>
+  <Channel Number="25">Green 3</Channel>
+  <Channel Number="26">Blue 3</Channel>
+  <Channel Number="27">White 3</Channel>
+  <Channel Number="28">Red 4</Channel>
+  <Channel Number="29">Green 4</Channel>
+  <Channel Number="30">Blue 4</Channel>
+  <Channel Number="31">White 4</Channel>
+  <Channel Number="32">Red 5</Channel>
+  <Channel Number="33">Green 5</Channel>
+  <Channel Number="34">Blue 5</Channel>
+  <Channel Number="35">White 5</Channel>
+  <Channel Number="36">Red 6</Channel>
+  <Channel Number="37">Green 6</Channel>
+  <Channel Number="38">Blue 6</Channel>
+  <Channel Number="39">White 6</Channel>
+  <Channel Number="40">Red 7</Channel>
+  <Channel Number="41">Green 7</Channel>
+  <Channel Number="42">Blue 7</Channel>
+  <Channel Number="43">White 7</Channel>
+  <Channel Number="44">Red 8</Channel>
+  <Channel Number="45">Green 8</Channel>
+  <Channel Number="46">Blue 8</Channel>
+  <Channel Number="47">White 8</Channel>
+  <Channel Number="48">Red 9</Channel>
+  <Channel Number="49">Green 9</Channel>
+  <Channel Number="50">Blue 9</Channel>
+  <Channel Number="51">White 9</Channel>
+  <Channel Number="52">Red 10</Channel>
+  <Channel Number="53">Green 10</Channel>
+  <Channel Number="54">Blue 10</Channel>
+  <Channel Number="55">White 10</Channel>
+  <Channel Number="56">Red 11</Channel>
+  <Channel Number="57">Green 11</Channel>
+  <Channel Number="58">Blue 11</Channel>
+  <Channel Number="59">White 11</Channel>
+  <Channel Number="60">Red 12</Channel>
+  <Channel Number="61">Green 12</Channel>
+  <Channel Number="62">Blue 12</Channel>
+  <Channel Number="63">White 12</Channel>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+  <Dimensions Weight="19.5" Width="1118" Height="310" Depth="204"/>
+  <Lens Name="Other" DegreesMin="3.5" DegreesMax="30"/>
+  <Focus Type="Barrel" PanMax="0" TiltMax="184"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

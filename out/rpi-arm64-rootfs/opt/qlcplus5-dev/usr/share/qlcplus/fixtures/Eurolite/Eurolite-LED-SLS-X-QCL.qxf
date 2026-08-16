@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Michael Krebs / Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SLS-* QCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Function / Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Default</Capability>
+  <Capability Min="1" Max="10">Sound controlled</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (Slow -&gt; Fast)</Capability>
+ </Channel>
+ <Channel Name="Mode select">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Default</Capability>
+  <Capability Min="6" Max="10">Color 1</Capability>
+  <Capability Min="11" Max="15">Color 2</Capability>
+  <Capability Min="16" Max="20">Color 3</Capability>
+  <Capability Min="21" Max="26">Color 4</Capability>
+  <Capability Min="27" Max="31">Color 5</Capability>
+  <Capability Min="32" Max="36">Color 6</Capability>
+  <Capability Min="37" Max="41">Color 7</Capability>
+  <Capability Min="42" Max="46">Color 8</Capability>
+  <Capability Min="47" Max="51">Color 9</Capability>
+  <Capability Min="52" Max="56">Color 10</Capability>
+  <Capability Min="57" Max="61">Color 11</Capability>
+  <Capability Min="62" Max="66">Color 12</Capability>
+  <Capability Min="67" Max="71">Color 13</Capability>
+  <Capability Min="72" Max="77">Color 14</Capability>
+  <Capability Min="78" Max="82">Color 15</Capability>
+  <Capability Min="83" Max="87">Color fade 1</Capability>
+  <Capability Min="88" Max="92">Color fade 2</Capability>
+  <Capability Min="93" Max="97">Color fade 3</Capability>
+  <Capability Min="98" Max="102">Color fade 4</Capability>
+  <Capability Min="103" Max="107">Color fade 5</Capability>
+  <Capability Min="108" Max="112">Color fade 6</Capability>
+  <Capability Min="113" Max="117">Color fade 7</Capability>
+  <Capability Min="118" Max="122">Color fade 8</Capability>
+  <Capability Min="123" Max="127">Color fade 9</Capability>
+  <Capability Min="128" Max="133">Color fade 10</Capability>
+  <Capability Min="134" Max="138">Color fade 11</Capability>
+  <Capability Min="139" Max="143">Color fade 12</Capability>
+  <Capability Min="144" Max="148">Color fade 13</Capability>
+  <Capability Min="149" Max="153">Color fade 14</Capability>
+  <Capability Min="154" Max="158">Color fade 15</Capability>
+  <Capability Min="159" Max="163">Color fade 16</Capability>
+  <Capability Min="164" Max="168">Color change 1</Capability>
+  <Capability Min="169" Max="173">Color change 2</Capability>
+  <Capability Min="174" Max="179">Color change 3</Capability>
+  <Capability Min="180" Max="184">Color change 4</Capability>
+  <Capability Min="185" Max="189">Color change 5</Capability>
+  <Capability Min="190" Max="194">Color change 6</Capability>
+  <Capability Min="195" Max="200">Color change 7</Capability>
+  <Capability Min="201" Max="205">Color change 8</Capability>
+  <Capability Min="206" Max="209">Color change 9</Capability>
+  <Capability Min="210" Max="214">Color change 10</Capability>
+  <Capability Min="215" Max="219">Color change 11</Capability>
+  <Capability Min="220" Max="224">Color change 12</Capability>
+  <Capability Min="225" Max="230">Color change 13</Capability>
+  <Capability Min="231" Max="235">Color change 14</Capability>
+  <Capability Min="236" Max="240">Color change 15</Capability>
+  <Capability Min="241" Max="245">Color change 16</Capability>
+  <Capability Min="246" Max="255">Sound controlled</Capability>
+ </Channel>
+ <Channel Name="Shutter / Speed / Sensitivity">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Shutter / Speed / Sensitivity (increasing)</Capability>
+ </Channel>
+ <Mode Name="4-channel mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6-channel mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Function / Shutter</Channel>
+ </Mode>
+ <Mode Name="7-channel mode">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Shutter / Speed / Sensitivity</Channel>
+  <Channel Number="6">Mode select</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.5" Width="270" Height="310" Depth="110"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

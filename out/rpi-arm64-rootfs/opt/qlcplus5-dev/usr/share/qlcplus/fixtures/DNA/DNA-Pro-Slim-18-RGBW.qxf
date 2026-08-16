@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>DNA</Manufacturer>
+ <Model>PRO SLIM 18 RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="1" Preset="ShutterOpen">Strobe off</Capability>
+  <Capability Min="2" Max="196" Preset="StrobeRandomSlowToFast">Strobe speed</Capability>
+  <Capability Min="197" Max="255" Preset="StrobeRandom">Random strobe</Capability>
+ </Channel>
+ <Channel Name="Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="1" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="2" Max="19" Preset="ColorMacro" Res1="#ffee9e">RGB Colour Fade</Capability>
+  <Capability Min="20" Max="39">Colour changing</Capability>
+  <Capability Min="40" Max="59">Random colour changing</Capability>
+  <Capability Min="60" Max="79" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="99" Preset="ColorMacro" Res1="#7f00ff">Purple</Capability>
+  <Capability Min="100" Max="119" Preset="ColorMacro" Res1="#7fff7f">Light green</Capability>
+  <Capability Min="120" Max="139" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="140" Max="159" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#000000">Red on/off (10 sec)</Capability>
+  <Capability Min="160" Max="179" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#000000">Green on/off (10 sec)</Capability>
+  <Capability Min="180" Max="199" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#000000">Blue on/off (10 sec)</Capability>
+  <Capability Min="200" Max="219" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#000000">Yellow on/off (10 sec)</Capability>
+  <Capability Min="220" Max="229" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#000000">Cyan on/off (10 sec)</Capability>
+  <Capability Min="230" Max="249" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#000000">White on/off (10 sec)</Capability>
+  <Capability Min="250" Max="255" Preset="ColorMacro" Res1="#ffffff">Full on</Capability>
+ </Channel>
+ <Mode Name="7 Channels">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="5 Channels">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+ </Mode>
+ <Mode Name="4 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.6" Width="242" Height="242" Depth="113"/>
+  <Lens Name="Led" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Mark Sy</Author>
+ </Creator>
+ <Manufacturer>AVE</Manufacturer>
+ <Model>Cobra Wash 200</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color-Jump 5ch">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Ch4 effectivity?</Capability>
+  <Capability Min="1" Max="223">Colours</Capability>
+  <Capability Min="224" Max="235">Gradual Change mode</Capability>
+  <Capability Min="236" Max="255">Jump Change mode</Capability>
+ </Channel>
+ <Channel Name="Pan-Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Color-Jump 13ch">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Ch7~Ch10 dimmer mode</Capability>
+  <Capability Min="1" Max="223">Colours</Capability>
+  <Capability Min="224" Max="235">Gradual Change mode</Capability>
+  <Capability Min="236" Max="255">Jump Change mode</Capability>
+ </Channel>
+ <Channel Name="Machine Restoration">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255" Preset="ResetAll">Machine Restoration</Capability>
+ </Channel>
+ <Channel Name="Auto Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="2">None</Capability>
+  <Capability Min="3" Max="84">Slow running in Auto</Capability>
+  <Capability Min="85" Max="169">Fast running in Auto</Capability>
+  <Capability Min="170" Max="255">Sound Mode</Capability>
+ </Channel>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer-Strobe 5ch">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">None</Capability>
+  <Capability Min="8" Max="134">RGB Dimmer</Capability>
+  <Capability Min="135" Max="239">Strobe</Capability>
+  <Capability Min="240" Max="255">None</Capability>
+ </Channel>
+ <Channel Name="Dimmer-Strobe 13ch">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">RGBW off</Capability>
+  <Capability Min="8" Max="8">RGBW On-Needs to be set here for RGB operation</Capability>
+  <Capability Min="9" Max="134">Adds White Dimmer</Capability>
+  <Capability Min="135" Max="239">Strobe</Capability>
+  <Capability Min="240" Max="254">Ch7~C10 effectivity</Capability>
+  <Capability Min="255" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan-Tilt Speed</Channel>
+  <Channel Number="3">Dimmer-Strobe 5ch</Channel>
+  <Channel Number="4">Color-Jump 5ch</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan-Tilt Speed</Channel>
+  <Channel Number="5">Dimmer-Strobe 13ch</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">White</Channel>
+  <Channel Number="10">Color-Jump 13ch</Channel>
+  <Channel Number="11">Auto Modes</Channel>
+  <Channel Number="12">Machine Restoration</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="177" Height="240" Depth="177"/>
+  <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

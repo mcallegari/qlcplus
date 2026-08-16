@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Scott</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fusion FX Bar 1</Model>
+ <Type>Effect</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer/Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="190">Master Dimmer 0 &gt; 100% (Off - On)</Capability>
+  <Capability Min="191" Max="200">Sound Active</Capability>
+  <Capability Min="201" Max="247" Preset="StrobeSlowToFast">Strobing (Slow - Fast)</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Full On</Capability>
+ </Channel>
+ <Channel Name="Moon Flower Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="120">Clockwise Rotation (Fast - Slow)</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="245">Counter-Clockwise Rotation (Slow - Fast)</Capability>
+  <Capability Min="246" Max="255">No Rotation</Capability>
+ </Channel>
+ <Mode Name="5 Channel (Default)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer/Strobe</Channel>
+  <Channel Number="4">Moon Flower Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.7" Width="538" Height="263" Depth="143"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.1 GIT</Version>
+  <Author>Cédric Monféfoul</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>Maxi Spot 60</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="8" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="9" Max="17" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
+  <Capability Min="18" Max="26" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="27" Max="35" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="36" Max="44" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="45" Max="53" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="54" Max="62" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="63" Max="71" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Blue + Yellow</Capability>
+  <Capability Min="72" Max="80" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="81" Max="89" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff00ff">Yellow + Magenta</Capability>
+  <Capability Min="90" Max="98" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="99" Max="107" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#00ffff">Magenta + Cyan</Capability>
+  <Capability Min="108" Max="116" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="117" Max="125" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffa500">Cyan + Orange</Capability>
+  <Capability Min="126" Max="127" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Rotating rainbow effect From slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="31">Gobo 3</Capability>
+  <Capability Min="32" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="55">Gobo 6</Capability>
+  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="64" Max="127">Gobo Wheel auto rotate from slow to fast</Capability>
+  <Capability Min="128" Max="143">Open</Capability>
+  <Capability Min="144" Max="156">White Shake</Capability>
+  <Capability Min="157" Max="169">Gobo 1 Shake</Capability>
+  <Capability Min="170" Max="182">Gobo 2 Shake</Capability>
+  <Capability Min="183" Max="195">Gobo 3 Shake</Capability>
+  <Capability Min="196" Max="208">Gobo 4 Shake</Capability>
+  <Capability Min="209" Max="221">Gobo 5 Shake</Capability>
+  <Capability Min="222" Max="234">Gobo 6 Shake</Capability>
+  <Capability Min="235" Max="255">Gobo 7 Shake</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="127" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
+  <Capability Min="128" Max="255" Preset="StrobeRandomSlowToFast">Random mode and pulse</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="31">Blackout while Pan/Tilt Move</Capability>
+  <Capability Min="32" Max="47">Blackout while Color Change</Capability>
+  <Capability Min="48" Max="63">Blackout while Gobo change</Capability>
+  <Capability Min="64" Max="79">Blackout while Pan/Tilt, Color, Gobo move</Capability>
+  <Capability Min="80" Max="95" Preset="ResetAll">Reset</Capability>
+  <Capability Min="96" Max="255">Sound Mode</Capability>
+ </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan / Tilt Speed</Channel>
+  <Channel Number="3">Colors</Channel>
+  <Channel Number="4">Gobos</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Function</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan / Tilt Speed</Channel>
+  <Channel Number="5">Colors</Channel>
+  <Channel Number="6">Gobos</Channel>
+  <Channel Number="7">Dimmer</Channel>
+  <Channel Number="8">Shutter</Channel>
+  <Channel Number="9">Function</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4800" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="159" Height="280" Depth="147"/>
+  <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+  <Focus Type="Head" PanMax="540" TiltMax="540"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

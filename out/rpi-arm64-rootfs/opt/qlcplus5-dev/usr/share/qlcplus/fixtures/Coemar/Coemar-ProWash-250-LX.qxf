@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Goran</Author>
+ </Creator>
+ <Manufacturer>Coemar</Manufacturer>
+ <Model>ProWash 250 LX</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Standard (fast)</Capability>
+  <Capability Min="11" Max="25">Ultra fast (best for programming position)</Capability>
+  <Capability Min="26" Max="127">Vector mode from fast to slow</Capability>
+  <Capability Min="128" Max="247">Tracking mode (fast to slow)</Capability>
+  <Capability Min="248" Max="255">Tracking mode (slow)</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="8" Max="255">Dimmer</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="10" Max="66" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+  <Capability Min="67" Max="68" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="69" Max="125" Preset="PulseSlowToFast">Pulse out (slow to fast)</Capability>
+  <Capability Min="126" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="184" Preset="PulseFastToSlow">Pulse in (fast to slow)</Capability>
+  <Capability Min="185" Max="187" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="188" Max="244" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Black-out while moving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="249">No effect</Capability>
+  <Capability Min="250" Max="255">Blackout while moving or color changes</Capability>
+ </Channel>
+ <Channel Name="Beam">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="9">Zoom</Capability>
+  <Capability Min="10" Max="230">Shaped beam angle (0° - 180°)</Capability>
+  <Capability Min="231" Max="255">Wide angle</Capability>
+ </Channel>
+ <Channel Name="Colour wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="6" Max="14" Preset="ColorMacro" Res1="#e67701">CTO</Capability>
+  <Capability Min="15" Max="23" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="24" Max="32" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="33" Max="41" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="42" Max="50" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="51" Max="60" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="61" Max="127">Colour wheel angle (0° - 360°)</Capability>
+  <Capability Min="128" Max="190">Forwards rotation (fast to slow)</Capability>
+  <Capability Min="191" Max="192">No rotation</Capability>
+  <Capability Min="193" Max="255">Backwards rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="9">White/clear</Capability>
+  <Capability Min="10" Max="255">Cyan</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="9">White/clear</Capability>
+  <Capability Min="10" Max="255">Magenta</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="9">White/clear</Capability>
+  <Capability Min="10" Max="255">Yellow</Capability>
+ </Channel>
+ <Channel Name="Lamp/Reset (at DMX change hold for 6 sec)">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="19" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="20" Max="100">No function</Capability>
+  <Capability Min="101" Max="170" Preset="ResetEffects">Effects reset (only once)</Capability>
+  <Capability Min="171" Max="200" Preset="ResetAll">All motor reset</Capability>
+  <Capability Min="201" Max="240">Silent fans</Capability>
+  <Capability Min="241" Max="255" Preset="LampOn">Lamp ON</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Shutter</Channel>
+  <Channel Number="7">Black-out while moving</Channel>
+  <Channel Number="8">Beam</Channel>
+  <Channel Number="9">Colour wheel</Channel>
+  <Channel Number="10">Cyan</Channel>
+  <Channel Number="11">Magenta</Channel>
+  <Channel Number="12">Yellow</Channel>
+  <Channel Number="13">Lamp/Reset (at DMX change hold for 6 sec)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+  <Dimensions Weight="23.5" Width="377" Height="535" Depth="350"/>
+  <Lens Name="Other" DegreesMin="6" DegreesMax="31"/>
+  <Focus Type="Head" PanMax="530" TiltMax="284"/>
+  <Technical PowerConsumption="460" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

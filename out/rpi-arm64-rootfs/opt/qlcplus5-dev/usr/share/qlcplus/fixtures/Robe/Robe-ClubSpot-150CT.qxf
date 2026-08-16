@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>ClubSpot 150 CT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Tracking</Capability>
+  <Capability Min="1" Max="249">Speed</Capability>
+  <Capability Min="250" Max="252">BO during Col/Gobo</Capability>
+  <Capability Min="253" Max="255">BO during Col/Gobo/Pan/Tilt</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="1" Max="9" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#55ffff">White/Turquoise</Capability>
+  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#55ffff">Turquoise</Capability>
+  <Capability Min="11" Max="20" Preset="ColorDoubleMacro" Res1="#55ffff" Res2="#ff0000">Turquoise/Red</Capability>
+  <Capability Min="21" Max="21" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="22" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#6fcbdc">Red/Cyan</Capability>
+  <Capability Min="32" Max="32" Preset="ColorMacro" Res1="#6fcbdc">Cyan</Capability>
+  <Capability Min="33" Max="41" Preset="ColorDoubleMacro" Res1="#6fcbdc" Res2="#a8ff9b">Cyan/Light Green</Capability>
+  <Capability Min="42" Max="42" Preset="ColorMacro" Res1="#a8ff9b">Light Green</Capability>
+  <Capability Min="43" Max="52" Preset="ColorDoubleMacro" Res1="#a8ff9b" Res2="#ff00ff">Light Green/Magenta</Capability>
+  <Capability Min="53" Max="53" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="54" Max="63" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#66ccff">Magenta/Light Blue</Capability>
+  <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#66ccff">Light Blue</Capability>
+  <Capability Min="65" Max="73" Preset="ColorDoubleMacro" Res1="#66ccff" Res2="#ffff00">Light Blue/Yellow</Capability>
+  <Capability Min="74" Max="74" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="75" Max="84" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow/Green</Capability>
+  <Capability Min="85" Max="85" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="86" Max="95" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ee63e6">Green/Pink</Capability>
+  <Capability Min="96" Max="96" Preset="ColorMacro" Res1="#ee63e6">Pink</Capability>
+  <Capability Min="97" Max="105" Preset="ColorDoubleMacro" Res1="#ee63e6" Res2="#0000ff">Pink/Blue</Capability>
+  <Capability Min="106" Max="106" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="107" Max="116" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff7a00">Blue/Orange</Capability>
+  <Capability Min="117" Max="117" Preset="ColorMacro" Res1="#ff7a00">Orange</Capability>
+  <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ff7a00" Res2="#ffffff">Orange/White</Capability>
+  <Capability Min="128" Max="189">Scroll CW</Capability>
+  <Capability Min="190" Max="193">No Scroll</Capability>
+  <Capability Min="194" Max="255">Scroll CCW</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Open</Capability>
+  <Capability Min="8" Max="15">Gobo 1</Capability>
+  <Capability Min="16" Max="23">Gobo 2</Capability>
+  <Capability Min="24" Max="31">Gobo 3</Capability>
+  <Capability Min="32" Max="39">Gobo 4</Capability>
+  <Capability Min="40" Max="47">Gobo 5</Capability>
+  <Capability Min="48" Max="55">Gobo 6</Capability>
+  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="64" Max="71">Gobo 8</Capability>
+  <Capability Min="72" Max="79">Gobo 9</Capability>
+  <Capability Min="80" Max="87">Gobo 10</Capability>
+  <Capability Min="88" Max="95">Gobo 11</Capability>
+  <Capability Min="96" Max="107">Gobo 1r</Capability>
+  <Capability Min="108" Max="119">Gobo 2r</Capability>
+  <Capability Min="120" Max="131">Gobo 3r</Capability>
+  <Capability Min="132" Max="143">Gobo 4r</Capability>
+  <Capability Min="144" Max="155">Gobo 5r</Capability>
+  <Capability Min="156" Max="167">Gobo 6r</Capability>
+  <Capability Min="168" Max="179">Gobo 7r</Capability>
+  <Capability Min="180" Max="191">Gobo 8r</Capability>
+  <Capability Min="192" Max="203">Gobo 9r</Capability>
+  <Capability Min="204" Max="215">Gobo 10r</Capability>
+  <Capability Min="216" Max="227">Gobo 11r</Capability>
+  <Capability Min="228" Max="255">Scroll CW</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="1" Max="63">Dimmer</Capability>
+  <Capability Min="64" Max="95" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="96" Max="127">Strobe Speed</Capability>
+  <Capability Min="128" Max="139">Reset</Capability>
+  <Capability Min="140" Max="159" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="160" Max="175">Open Pulse</Capability>
+  <Capability Min="176" Max="191">Close Pulse</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Reserved" Preset="NoFunction"/>
+ <Mode Name="16bit">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Colour</Channel>
+  <Channel Number="6">Gobo</Channel>
+  <Channel Number="7">Shutter</Channel>
+ </Mode>
+ <Mode Name="8bit">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Gobo</Channel>
+  <Channel Number="5">Shutter</Channel>
+ </Mode>
+ <Mode Name="8bit Tracking">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Reserved</Channel>
+  <Channel Number="5">Shutter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="530" TiltMax="280"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Martin Vlcek</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>STUDIOCOBPLUSFC</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="30" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="31" Max="100" Preset="StrobeSlowToFast">Strobe slow to Fast</Capability>
+  <Capability Min="101" Max="130" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="131" Max="200" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="201" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Color function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10" Preset="Alias">No presets</Capability>
+  <Capability Min="11" Max="85" Preset="Alias">Color function
+   <Alias Mode="10 channels" Channel="No presets" With="Color presets"/>
+  </Capability>
+  <Capability Min="86" Max="170" Preset="Alias">White presets
+   <Alias Mode="10 channels" Channel="No presets" With="White presets"/>
+  </Capability>
+  <Capability Min="171" Max="255" Preset="Alias">Color macro
+   <Alias Mode="10 channels" Channel="No presets" With="Color macro"/>
+  </Capability>
+ </Channel>
+ <Channel Name="Color presets">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="28" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">RGB 100%, 0 - 100%, 0%</Capability>
+  <Capability Min="29" Max="56" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffff00">RGB 0 - 100%, 100%, 0%</Capability>
+  <Capability Min="57" Max="84" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#bf4040">RGB 0%, 100%, 0 - 100%</Capability>
+  <Capability Min="85" Max="112" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ffff">RGB 0%, 0 - 100%, 100%</Capability>
+  <Capability Min="113" Max="140" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">RGB 0 - 100%, 0%, 100%</Capability>
+  <Capability Min="141" Max="168" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ff00ff">RGB 100%, 0%, 0 - 100%</Capability>
+  <Capability Min="169" Max="196" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">RGB 100%, 0 - 100%, 0 - 100%</Capability>
+  <Capability Min="197" Max="224" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">RGB 0 - 100%, 0 - 100%, 100%</Capability>
+  <Capability Min="225" Max="255" Preset="ColorMacro" Res1="#ffffff">RGB 0 - 100%, 0 - 100%, 0 - 100%</Capability>
+ </Channel>
+ <Channel Name="White presets">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#f57900">RGB W 2000K</Capability>
+  <Capability Min="1" Max="40" Preset="ColorMacro" Res1="#c17d11">RGB W 2000K ~ 3000K</Capability>
+  <Capability Min="41" Max="70" Preset="ColorMacro" Res1="#e9b96e">RGB W 3000K ~ 4000K</Capability>
+  <Capability Min="71" Max="100" Preset="ColorMacro" Res1="#ffe1b4">RGB W 4000K ~ 5000K</Capability>
+  <Capability Min="101" Max="130" Preset="ColorMacro" Res1="#fffac4">RGB W 5000K ~ 6000K</Capability>
+  <Capability Min="131" Max="160" Preset="ColorMacro" Res1="#fffabd">RGB W 6000K ~ 7000K</Capability>
+  <Capability Min="161" Max="190" Preset="ColorMacro" Res1="#ffffff">RGB W 7000K ~ 8000K</Capability>
+  <Capability Min="191" Max="220" Preset="ColorMacro" Res1="#cbfff9">RGB W 8000K ~ 9000K</Capability>
+  <Capability Min="221" Max="255" Preset="ColorMacro" Res1="#aefff6">RGB W 9000K ~ 10000K</Capability>
+ </Channel>
+ <Channel Name="Color macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="60">Auto program 1</Capability>
+  <Capability Min="61" Max="110">Auto Program 2</Capability>
+  <Capability Min="111" Max="160">Auto Program 3</Capability>
+  <Capability Min="161" Max="210">Auto Program 4</Capability>
+  <Capability Min="211" Max="255">Auto Program 5</Capability>
+ </Channel>
+ <Channel Name="Color Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Color macro speed Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer fade">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="FastToSlow">Dimmer fade from fast to slow</Capability>
+ </Channel>
+ <Channel Name="No presets" Preset="NoFunction"/>
+ <Mode Name="4 channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 channels">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="10 channels">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color function</Channel>
+  <Channel Number="7">No presets</Channel>
+  <Channel Number="8">Color Macro Speed</Channel>
+  <Channel Number="9">Dimmer fade</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="4261" ColourTemperature="0"/>
+  <Dimensions Weight="4.83" Width="259" Height="187" Depth="370"/>
+  <Lens Name="Fresnel" DegreesMin="18" DegreesMax="38"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="135" DmxConnector="5-pin IP65"/>
+ </Physical>
+</FixtureDefinition>

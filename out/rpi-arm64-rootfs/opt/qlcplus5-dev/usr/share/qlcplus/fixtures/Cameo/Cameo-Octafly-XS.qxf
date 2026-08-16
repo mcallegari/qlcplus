@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.1.0 GIT</Version>
+  <Author>Scox</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Octafly XS</Model>
+ <Type>Flower</Type>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Slow to fast (1 - 20 Hz)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Auto / Sound Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Auto Programs</Capability>
+  <Capability Min="128" Max="255">Sound Programs</Capability>
+ </Channel>
+ <Channel Name="Sound sensitivity / Auto-Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Low - High</Capability>
+ </Channel>
+ <Channel Name="Tilt fine 1" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt fine 2" Preset="PositionTiltFine"/>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash Duration (0 to 510 ms)</Capability>
+ </Channel>
+ <Channel Name="Red (Pixel 1)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel 2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel 3)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel 4)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Pixel 5)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pixel 6)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pixel 7)" Preset="IntensityBlue"/>
+ <Channel Name="White (Pixel 8)" Preset="IntensityWhite"/>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt 2</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Auto / Sound Program</Channel>
+  <Channel Number="9">Sound sensitivity / Auto-Speed</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Auto / Sound Program</Channel>
+  <Channel Number="3">Sound sensitivity / Auto-Speed</Channel>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Tilt 1</Channel>
+  <Channel Number="1">Tilt fine 1</Channel>
+  <Channel Number="2">Tilt 2</Channel>
+  <Channel Number="3">Tilt fine 2</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Duration</Channel>
+  <Channel Number="7">Red (Pixel 1)</Channel>
+  <Channel Number="8">Green (Pixel 2)</Channel>
+  <Channel Number="9">Blue (Pixel 3)</Channel>
+  <Channel Number="10">White (Pixel 4)</Channel>
+  <Channel Number="11">Red (Pixel 5)</Channel>
+  <Channel Number="12">Green (Pixel 6)</Channel>
+  <Channel Number="13">Blue (Pixel 7)</Channel>
+  <Channel Number="14">White (Pixel 8)</Channel>
+  <Channel Number="15">Auto / Sound Program</Channel>
+  <Channel Number="16">Sound sensitivity / Auto-Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="30" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="280" Height="145" Depth="150"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Barrel" PanMax="0" TiltMax="170"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

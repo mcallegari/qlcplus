@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>i-Pix</Manufacturer>
+ <Model>BB4</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red all cells" Preset="IntensityRed"/>
+ <Channel Name="Green all cells" Preset="IntensityGreen"/>
+ <Channel Name="Blue all cells" Preset="IntensityBlue"/>
+ <Channel Name="Red high byte all cells" Preset="IntensityRed"/>
+ <Channel Name="Red low byte all cells" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte all cells" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte all cells" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte all cells" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte all cells" Preset="IntensityBlueFine"/>
+ <Channel Name="Master intensity all cells" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe all cells">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
+ </Channel>
+ <Channel Name="Master intensity high byte all cells" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte all cells" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red cell 1" Preset="IntensityRed"/>
+ <Channel Name="Green cell 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue cell 1" Preset="IntensityBlue"/>
+ <Channel Name="Red cell 2" Preset="IntensityRed"/>
+ <Channel Name="Red cell 3" Preset="IntensityRed"/>
+ <Channel Name="Red cell 4" Preset="IntensityRed"/>
+ <Channel Name="Green cell 2" Preset="IntensityGreen"/>
+ <Channel Name="Green cell 3" Preset="IntensityGreen"/>
+ <Channel Name="Green cell 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue cell 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue cell 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue cell 4" Preset="IntensityBlue"/>
+ <Channel Name="Red high byte cell 1" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 1" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 1" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 1" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 1" Preset="IntensityBlueFine"/>
+ <Channel Name="Red high byte cell 2" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 2" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 2" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 2" Preset="IntensityBlueFine"/>
+ <Channel Name="Red high byte cell 3" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 3" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 3" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 3" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 3" Preset="IntensityBlueFine"/>
+ <Channel Name="Red high byte cell 4" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 4" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 4" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 4" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 4" Preset="IntensityBlueFine"/>
+ <Channel Name="Master intensity cell 1" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity cell 2" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity cell 3" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity cell 4" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe cell 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
+ </Channel>
+ <Channel Name="Strobe cell 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="PulseFrequency" Res1="33">Strobe 33Hz</Capability>
+ </Channel>
+ <Channel Name="Strobe cell 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
+ </Channel>
+ <Channel Name="Strobe cell 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="20" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="21" Max="50" Preset="StrobeFrequency" Res1="2.7">Strobe 2.7Hz</Capability>
+  <Capability Min="51" Max="60" Preset="StrobeFrequency" Res1="4.8">Strobe 4.8Hz</Capability>
+  <Capability Min="61" Max="80" Preset="StrobeFrequency" Res1="6.4">Strobe 6.4Hz</Capability>
+  <Capability Min="81" Max="100" Preset="StrobeFrequency" Res1="7">Strobe 7Hz</Capability>
+  <Capability Min="101" Max="120" Preset="StrobeFrequency" Res1="7.7">Strobe 7.7Hz</Capability>
+  <Capability Min="121" Max="140" Preset="StrobeFrequency" Res1="9.6">Strobe 9.6Hz</Capability>
+  <Capability Min="141" Max="160" Preset="StrobeFrequency" Res1="10.6">Strobe 10.6Hz</Capability>
+  <Capability Min="161" Max="180" Preset="StrobeFrequency" Res1="14.7">Strobe 14.7Hz</Capability>
+  <Capability Min="181" Max="200" Preset="StrobeFrequency" Res1="20.8">Strobe 20.8Hz</Capability>
+  <Capability Min="201" Max="220" Preset="StrobeFrequency" Res1="23.8">Strobe 23.8Hz</Capability>
+  <Capability Min="221" Max="240" Preset="StrobeFrequency" Res1="26.3">Strobe 26.3Hz</Capability>
+  <Capability Min="241" Max="255" Preset="StrobeFrequency" Res1="33">Strobe 33Hz</Capability>
+ </Channel>
+ <Channel Name="Master intensity high byte cell 1" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 1" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Master intensity high byte cell 2" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 2" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Master intensity high byte cell 3" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 3" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Master intensity high byte cell 4" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 4" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Red all cells</Channel>
+  <Channel Number="1">Green all cells</Channel>
+  <Channel Number="2">Blue all cells</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Red high byte all cells</Channel>
+  <Channel Number="1">Red low byte all cells</Channel>
+  <Channel Number="2">Green high byte all cells</Channel>
+  <Channel Number="3">Green low byte all cells</Channel>
+  <Channel Number="4">Blue high byte all cells</Channel>
+  <Channel Number="5">Blue low byte all cells</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Channel Number="0">Master intensity all cells</Channel>
+  <Channel Number="1">Strobe all cells</Channel>
+  <Channel Number="2">Red all cells</Channel>
+  <Channel Number="3">Green all cells</Channel>
+  <Channel Number="4">Blue all cells</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Channel Number="0">Master intensity high byte all cells</Channel>
+  <Channel Number="1">Master intensity low byte all cells</Channel>
+  <Channel Number="2">Strobe all cells</Channel>
+  <Channel Number="3">Red high byte all cells</Channel>
+  <Channel Number="4">Red low byte all cells</Channel>
+  <Channel Number="5">Green high byte all cells</Channel>
+  <Channel Number="6">Green low byte all cells</Channel>
+  <Channel Number="7">Blue high byte all cells</Channel>
+  <Channel Number="8">Blue low byte all cells</Channel>
+ </Mode>
+ <Mode Name="Mode 5">
+  <Channel Number="0">Red cell 1</Channel>
+  <Channel Number="1">Green cell 1</Channel>
+  <Channel Number="2">Blue cell 1</Channel>
+  <Channel Number="3">Red cell 2</Channel>
+  <Channel Number="4">Green cell 2</Channel>
+  <Channel Number="5">Blue cell 2</Channel>
+  <Channel Number="6">Red cell 3</Channel>
+  <Channel Number="7">Green cell 3</Channel>
+  <Channel Number="8">Blue cell 3</Channel>
+  <Channel Number="9">Red cell 4</Channel>
+  <Channel Number="10">Green cell 4</Channel>
+  <Channel Number="11">Blue cell 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 6">
+  <Channel Number="0">Red high byte cell 1</Channel>
+  <Channel Number="1">Red low byte cell 1</Channel>
+  <Channel Number="2">Green high byte cell 1</Channel>
+  <Channel Number="3">Green low byte cell 1</Channel>
+  <Channel Number="4">Blue high byte cell 1</Channel>
+  <Channel Number="5">Blue low byte cell 1</Channel>
+  <Channel Number="6">Red high byte cell 2</Channel>
+  <Channel Number="7">Red low byte cell 2</Channel>
+  <Channel Number="8">Green high byte cell 2</Channel>
+  <Channel Number="9">Green low byte cell 2</Channel>
+  <Channel Number="10">Blue high byte cell 2</Channel>
+  <Channel Number="11">Blue low byte cell 2</Channel>
+  <Channel Number="12">Red high byte cell 3</Channel>
+  <Channel Number="13">Red low byte cell 3</Channel>
+  <Channel Number="14">Green high byte cell 3</Channel>
+  <Channel Number="15">Green low byte cell 3</Channel>
+  <Channel Number="16">Blue high byte cell 3</Channel>
+  <Channel Number="17">Blue low byte cell 3</Channel>
+  <Channel Number="18">Red high byte cell 4</Channel>
+  <Channel Number="19">Red low byte cell 4</Channel>
+  <Channel Number="20">Green high byte cell 4</Channel>
+  <Channel Number="21">Green low byte cell 4</Channel>
+  <Channel Number="22">Blue high byte cell 4</Channel>
+  <Channel Number="23">Blue low byte cell 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 7">
+  <Channel Number="0">Master intensity all cells</Channel>
+  <Channel Number="1">Strobe all cells</Channel>
+  <Channel Number="2">Red cell 1</Channel>
+  <Channel Number="3">Green cell 1</Channel>
+  <Channel Number="4">Blue cell 1</Channel>
+  <Channel Number="5">Red cell 2</Channel>
+  <Channel Number="6">Green cell 2</Channel>
+  <Channel Number="7">Blue cell 2</Channel>
+  <Channel Number="8">Red cell 3</Channel>
+  <Channel Number="9">Green cell 3</Channel>
+  <Channel Number="10">Blue cell 3</Channel>
+  <Channel Number="11">Red cell 4</Channel>
+  <Channel Number="12">Green cell 4</Channel>
+  <Channel Number="13">Blue cell 4</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 8">
+  <Channel Number="0">Master intensity high byte all cells</Channel>
+  <Channel Number="1">Master intensity low byte all cells</Channel>
+  <Channel Number="2">Strobe all cells</Channel>
+  <Channel Number="3">Red high byte cell 1</Channel>
+  <Channel Number="4">Red low byte cell 1</Channel>
+  <Channel Number="5">Green high byte cell 1</Channel>
+  <Channel Number="6">Green low byte cell 1</Channel>
+  <Channel Number="7">Blue high byte cell 1</Channel>
+  <Channel Number="8">Blue low byte cell 1</Channel>
+  <Channel Number="9">Red high byte cell 2</Channel>
+  <Channel Number="10">Red low byte cell 2</Channel>
+  <Channel Number="11">Green high byte cell 2</Channel>
+  <Channel Number="12">Green low byte cell 2</Channel>
+  <Channel Number="13">Blue high byte cell 2</Channel>
+  <Channel Number="14">Blue low byte cell 2</Channel>
+  <Channel Number="15">Red high byte cell 3</Channel>
+  <Channel Number="16">Red low byte cell 3</Channel>
+  <Channel Number="17">Green high byte cell 3</Channel>
+  <Channel Number="18">Green low byte cell 3</Channel>
+  <Channel Number="19">Blue high byte cell 3</Channel>
+  <Channel Number="20">Blue low byte cell 3</Channel>
+  <Channel Number="21">Red high byte cell 4</Channel>
+  <Channel Number="22">Red low byte cell 4</Channel>
+  <Channel Number="23">Green high byte cell 4</Channel>
+  <Channel Number="24">Green low byte cell 4</Channel>
+  <Channel Number="25">Blue high byte cell 4</Channel>
+  <Channel Number="26">Blue low byte cell 4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 9">
+  <Channel Number="0">Master intensity cell 1</Channel>
+  <Channel Number="1">Strobe cell 1</Channel>
+  <Channel Number="2">Red cell 1</Channel>
+  <Channel Number="3">Green cell 1</Channel>
+  <Channel Number="4">Blue cell 1</Channel>
+  <Channel Number="5">Master intensity cell 2</Channel>
+  <Channel Number="6">Strobe cell 2</Channel>
+  <Channel Number="7">Red cell 2</Channel>
+  <Channel Number="8">Green cell 2</Channel>
+  <Channel Number="9">Blue cell 2</Channel>
+  <Channel Number="10">Master intensity cell 3</Channel>
+  <Channel Number="11">Strobe cell 3</Channel>
+  <Channel Number="12">Red cell 3</Channel>
+  <Channel Number="13">Green cell 3</Channel>
+  <Channel Number="14">Blue cell 3</Channel>
+  <Channel Number="15">Master intensity cell 4</Channel>
+  <Channel Number="16">Strobe cell 4</Channel>
+  <Channel Number="17">Red cell 4</Channel>
+  <Channel Number="18">Green cell 4</Channel>
+  <Channel Number="19">Blue cell 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Mode 10">
+  <Channel Number="0">Master intensity high byte cell 1</Channel>
+  <Channel Number="1">Master intensity low byte cell 1</Channel>
+  <Channel Number="2">Strobe cell 1</Channel>
+  <Channel Number="3">Red high byte cell 1</Channel>
+  <Channel Number="4">Red low byte cell 1</Channel>
+  <Channel Number="5">Green high byte cell 1</Channel>
+  <Channel Number="6">Green low byte cell 1</Channel>
+  <Channel Number="7">Blue high byte cell 1</Channel>
+  <Channel Number="8">Blue low byte cell 1</Channel>
+  <Channel Number="9">Master intensity high byte cell 2</Channel>
+  <Channel Number="10">Master intensity low byte cell 2</Channel>
+  <Channel Number="11">Strobe cell 2</Channel>
+  <Channel Number="12">Red high byte cell 2</Channel>
+  <Channel Number="13">Red low byte cell 2</Channel>
+  <Channel Number="14">Green high byte cell 2</Channel>
+  <Channel Number="15">Green low byte cell 2</Channel>
+  <Channel Number="16">Blue high byte cell 2</Channel>
+  <Channel Number="17">Blue low byte cell 2</Channel>
+  <Channel Number="18">Master intensity high byte cell 3</Channel>
+  <Channel Number="19">Master intensity low byte cell 3</Channel>
+  <Channel Number="20">Strobe cell 3</Channel>
+  <Channel Number="21">Red high byte cell 3</Channel>
+  <Channel Number="22">Red low byte cell 3</Channel>
+  <Channel Number="23">Green high byte cell 3</Channel>
+  <Channel Number="24">Green low byte cell 3</Channel>
+  <Channel Number="25">Blue high byte cell 3</Channel>
+  <Channel Number="26">Blue low byte cell 3</Channel>
+  <Channel Number="27">Master intensity high byte cell 4</Channel>
+  <Channel Number="28">Master intensity low byte cell 4</Channel>
+  <Channel Number="29">Strobe cell 4</Channel>
+  <Channel Number="30">Red high byte cell 4</Channel>
+  <Channel Number="31">Red low byte cell 4</Channel>
+  <Channel Number="32">Green high byte cell 4</Channel>
+  <Channel Number="33">Green low byte cell 4</Channel>
+  <Channel Number="34">Blue high byte cell 4</Channel>
+  <Channel Number="35">Blue low byte cell 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+  <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+  <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

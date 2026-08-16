@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Rhavin</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Ultra Hex Bar 12</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3" Preset="ColorMacro" Res1="#000000">Black</Capability>
+  <Capability Min="4" Max="7" Preset="ColorMacro" Res1="#ff0000">R: Red</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#00ff00">G: Green</Capability>
+  <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#0000ff">B: Blue</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#eeeedd">W: Warmwhite</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ffbf00">A: Amber</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#100050">V: Violett</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#dddd11">RG: Yellow</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#ee00cc">RB: Magenta</Capability>
+  <Capability Min="36" Max="39" Preset="ColorMacro" Res1="#ff8888">RW: Rose</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#ff8f00">RA: Orange</Capability>
+  <Capability Min="44" Max="47" Preset="ColorMacro" Res1="#ff0020">RV: Pink</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#00ffff">GB: Cyan</Capability>
+  <Capability Min="52" Max="55" Preset="ColorMacro" Res1="#88ffff">GW: Light Green</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#8fff00">GA: Lime</Capability>
+  <Capability Min="60" Max="63" Preset="ColorMacro" Res1="#00ff10">GV: Neon Green</Capability>
+  <Capability Min="64" Max="67" Preset="ColorMacro" Res1="#8888ff">BW: Light Blue</Capability>
+  <Capability Min="68" Max="71" Preset="ColorMacro" Res1="#ffbfff">BA: Sky White</Capability>
+  <Capability Min="72" Max="75" Preset="ColorMacro" Res1="#1100ff">BV: Indigo</Capability>
+  <Capability Min="76" Max="79" Preset="ColorMacro" Res1="#ffffee">WA: Warm White</Capability>
+  <Capability Min="80" Max="83" Preset="ColorMacro" Res1="#eeeeff">WV: Cold White</Capability>
+  <Capability Min="84" Max="87" Preset="ColorMacro" Res1="#ffddee">AV: Strange White</Capability>
+  <Capability Min="88" Max="91" Preset="ColorMacro" Res1="#eeeeee">RGB White</Capability>
+  <Capability Min="92" Max="95" Preset="ColorMacro" Res1="#ffff88">RGW: Light Yellow</Capability>
+  <Capability Min="96" Max="99" Preset="ColorMacro" Res1="#ffff00">RGA: Pure Yellow</Capability>
+  <Capability Min="100" Max="103" Preset="ColorMacro" Res1="#ffff33">RGV: Sky Yellow</Capability>
+  <Capability Min="104" Max="107" Preset="ColorMacro" Res1="#ff88ff">RBW: Light Magenta</Capability>
+  <Capability Min="108" Max="111" Preset="ColorMacro" Res1="#ff22ee">RBA:</Capability>
+  <Capability Min="112" Max="115" Preset="ColorMacro" Res1="#ff00ff">RBV: Pure Magenta</Capability>
+  <Capability Min="116" Max="119" Preset="ColorMacro" Res1="#ff8f88">RWA: Light Orange</Capability>
+  <Capability Min="120" Max="123" Preset="ColorMacro" Res1="#ff8888">RWV: Light Pink</Capability>
+  <Capability Min="124" Max="127" Preset="ColorMacro" Res1="#ff8f33">RAV: Neon Orange</Capability>
+  <Capability Min="128" Max="131">G+B+W</Capability>
+  <Capability Min="132" Max="135">G+B+A</Capability>
+  <Capability Min="136" Max="139">G+B+UV</Capability>
+  <Capability Min="140" Max="143">G+W+A</Capability>
+  <Capability Min="144" Max="147">G+W+UV</Capability>
+  <Capability Min="148" Max="151">G+A+UV</Capability>
+  <Capability Min="152" Max="155">B+W+UV</Capability>
+  <Capability Min="156" Max="159">B+W+UV</Capability>
+  <Capability Min="160" Max="163">B+A+UV</Capability>
+  <Capability Min="164" Max="167">W+A+UV</Capability>
+  <Capability Min="168" Max="171">R+G+B+W</Capability>
+  <Capability Min="172" Max="175">R+G+B+A</Capability>
+  <Capability Min="176" Max="179">R+G+B+UV</Capability>
+  <Capability Min="180" Max="183">R+G+W+A</Capability>
+  <Capability Min="184" Max="187">R+G+W+UV</Capability>
+  <Capability Min="188" Max="191">R+G+A+UV</Capability>
+  <Capability Min="192" Max="195">R+B+W+A</Capability>
+  <Capability Min="196" Max="199">R+B+W+UV</Capability>
+  <Capability Min="200" Max="203">R+B+A+UV</Capability>
+  <Capability Min="204" Max="207">R+W+A+UV</Capability>
+  <Capability Min="208" Max="211">G+B+W+A</Capability>
+  <Capability Min="212" Max="215">G+B+W+UV</Capability>
+  <Capability Min="216" Max="219">G+B+A+UV</Capability>
+  <Capability Min="220" Max="223">G+W+A+UV</Capability>
+  <Capability Min="224" Max="227">B+W+A+UV</Capability>
+  <Capability Min="228" Max="231">R+G+B+W+A</Capability>
+  <Capability Min="232" Max="235">R+G+B+W+UV</Capability>
+  <Capability Min="236" Max="239">R+G+B+A+UV</Capability>
+  <Capability Min="240" Max="243">R+B+W+A+UV</Capability>
+  <Capability Min="244" Max="247">G+B+W+A+UV</Capability>
+  <Capability Min="248" Max="251">R+G+B+W+A+UV</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffffff">Bright White</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing (slow to fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Strobing Pulse (slow to fast)</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandom">Random Strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default Dimmer Setting</Capability>
+ </Channel>
+ <Channel Name="Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sensitivity (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">OFF</Capability>
+  <Capability Min="1" Max="24">Program 1</Capability>
+  <Capability Min="25" Max="35">Program 2</Capability>
+  <Capability Min="36" Max="46">Program 3</Capability>
+  <Capability Min="47" Max="57">Program 4</Capability>
+  <Capability Min="58" Max="68">Program 5</Capability>
+  <Capability Min="69" Max="79">Program 6</Capability>
+  <Capability Min="80" Max="90">Program 7</Capability>
+  <Capability Min="91" Max="101">Program 8</Capability>
+  <Capability Min="102" Max="112">Program 9</Capability>
+  <Capability Min="113" Max="123">Program 10</Capability>
+  <Capability Min="124" Max="134">Program 11</Capability>
+  <Capability Min="135" Max="145">Program 12</Capability>
+  <Capability Min="146" Max="156">Program 13</Capability>
+  <Capability Min="157" Max="167">Program 14</Capability>
+  <Capability Min="168" Max="178">Program 15</Capability>
+  <Capability Min="179" Max="189">Program 16</Capability>
+  <Capability Min="190" Max="200">Program 17</Capability>
+  <Capability Min="201" Max="211">Program 18</Capability>
+  <Capability Min="212" Max="222">Program 19</Capability>
+  <Capability Min="223" Max="233">Program 20</Capability>
+  <Capability Min="234" Max="255">Sound Active Programs</Capability>
+ </Channel>
+ <Channel Name="Red 1+2" Preset="IntensityRed"/>
+ <Channel Name="Green 1+2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1+2" Preset="IntensityBlue"/>
+ <Channel Name="White 1+2" Preset="IntensityWhite"/>
+ <Channel Name="Amber 1+2" Preset="IntensityAmber"/>
+ <Channel Name="UV 1+2" Preset="IntensityUV"/>
+ <Channel Name="Red 3+4" Preset="IntensityRed"/>
+ <Channel Name="Green 3+4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3+4" Preset="IntensityBlue"/>
+ <Channel Name="White 3+4" Preset="IntensityWhite"/>
+ <Channel Name="Amber 3+4" Preset="IntensityAmber"/>
+ <Channel Name="UV 3+4" Preset="IntensityUV"/>
+ <Channel Name="Red 5+6" Preset="IntensityRed"/>
+ <Channel Name="Green 5+6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5+6" Preset="IntensityBlue"/>
+ <Channel Name="White 5+6" Preset="IntensityWhite"/>
+ <Channel Name="Amber 5+6" Preset="IntensityAmber"/>
+ <Channel Name="UV 5+6" Preset="IntensityUV"/>
+ <Channel Name="Red 7+8" Preset="IntensityRed"/>
+ <Channel Name="Green 7+8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7+8" Preset="IntensityBlue"/>
+ <Channel Name="White 7+8" Preset="IntensityWhite"/>
+ <Channel Name="Amber 7+8" Preset="IntensityAmber"/>
+ <Channel Name="UV 7+8" Preset="IntensityUV"/>
+ <Channel Name="Red 9+10" Preset="IntensityRed"/>
+ <Channel Name="Green 9+10" Preset="IntensityGreen"/>
+ <Channel Name="Blue 9+10" Preset="IntensityBlue"/>
+ <Channel Name="White 9+10" Preset="IntensityWhite"/>
+ <Channel Name="Amber 9+10" Preset="IntensityAmber"/>
+ <Channel Name="UV 9+10" Preset="IntensityUV"/>
+ <Channel Name="Red 11+12" Preset="IntensityRed"/>
+ <Channel Name="Green 11+12" Preset="IntensityGreen"/>
+ <Channel Name="Blue 11+12" Preset="IntensityBlue"/>
+ <Channel Name="White 11+12" Preset="IntensityWhite"/>
+ <Channel Name="Amber 11+12" Preset="IntensityAmber"/>
+ <Channel Name="UV 11+12" Preset="IntensityUV"/>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Strobing</Channel>
+  <Channel Number="7">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Master Dimmer</Channel>
+  <Channel Number="9">Programs</Channel>
+  <Channel Number="10">Sensitivity</Channel>
+  <Channel Number="11">Dimmer Mode</Channel>
+ </Mode>
+ <Mode Name="36 Channel">
+  <Channel Number="0">Red 1+2</Channel>
+  <Channel Number="1">Green 1+2</Channel>
+  <Channel Number="2">Blue 1+2</Channel>
+  <Channel Number="3">White 1+2</Channel>
+  <Channel Number="4">Amber 1+2</Channel>
+  <Channel Number="5">UV 1+2</Channel>
+  <Channel Number="6">Red 3+4</Channel>
+  <Channel Number="7">Green 3+4</Channel>
+  <Channel Number="8">Blue 3+4</Channel>
+  <Channel Number="9">White 3+4</Channel>
+  <Channel Number="10">Amber 3+4</Channel>
+  <Channel Number="11">UV 3+4</Channel>
+  <Channel Number="12">Red 5+6</Channel>
+  <Channel Number="13">Green 5+6</Channel>
+  <Channel Number="14">Blue 5+6</Channel>
+  <Channel Number="15">White 5+6</Channel>
+  <Channel Number="16">Amber 5+6</Channel>
+  <Channel Number="17">UV 5+6</Channel>
+  <Channel Number="18">Red 7+8</Channel>
+  <Channel Number="19">Green 7+8</Channel>
+  <Channel Number="20">Blue 7+8</Channel>
+  <Channel Number="21">White 7+8</Channel>
+  <Channel Number="22">Amber 7+8</Channel>
+  <Channel Number="23">UV 7+8</Channel>
+  <Channel Number="24">Red 9+10</Channel>
+  <Channel Number="25">Green 9+10</Channel>
+  <Channel Number="26">Blue 9+10</Channel>
+  <Channel Number="27">White 9+10</Channel>
+  <Channel Number="28">Amber 9+10</Channel>
+  <Channel Number="29">UV 9+10</Channel>
+  <Channel Number="30">Red 11+12</Channel>
+  <Channel Number="31">Green 11+12</Channel>
+  <Channel Number="32">Blue 11+12</Channel>
+  <Channel Number="33">White 11+12</Channel>
+  <Channel Number="34">Amber 11+12</Channel>
+  <Channel Number="35">UV 11+12</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.74" Width="1020" Height="70" Depth="122"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

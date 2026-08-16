@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.13.0 GIT</Version>
+  <Author>Michael Tosatto</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORdash Par-Quad 18</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Color Macro + White Balance">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="30">R: 100% G: 0-100% B: 0</Capability>
+  <Capability Min="31" Max="50">R: 100%-0 G:100% B: 0</Capability>
+  <Capability Min="51" Max="70">R: 0 G: 100% B: 0-100%</Capability>
+  <Capability Min="71" Max="90">R: 0 G: 100%-0 B: 100%</Capability>
+  <Capability Min="91" Max="110">R: 0-100% G: 0 B: 100%</Capability>
+  <Capability Min="111" Max="130">R: 100% G: 0 B: 100%-0</Capability>
+  <Capability Min="131" Max="150">R: 100% G: 0-100% B: 0-100%</Capability>
+  <Capability Min="151" Max="170">R: 100%-0 G: 100%-0 B: 100%</Capability>
+  <Capability Min="171" Max="200">R: 100% G: 100% B: 100% A: 100%</Capability>
+  <Capability Min="201" Max="205">White 1</Capability>
+  <Capability Min="206" Max="210">White 2</Capability>
+  <Capability Min="211" Max="215">White 3</Capability>
+  <Capability Min="216" Max="220">White 4</Capability>
+  <Capability Min="221" Max="225">White 5</Capability>
+  <Capability Min="226" Max="230">White 6</Capability>
+  <Capability Min="231" Max="235">White 7</Capability>
+  <Capability Min="236" Max="240">White 8</Capability>
+  <Capability Min="241" Max="245">White 9</Capability>
+  <Capability Min="246" Max="250">White 10</Capability>
+  <Capability Min="251" Max="255">White 11</Capability>
+ </Channel>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">No Function</Capability>
+  <Capability Min="52" Max="101">Auto 1</Capability>
+  <Capability Min="102" Max="152">Auto 2</Capability>
+  <Capability Min="153" Max="203">Auto 3</Capability>
+  <Capability Min="204" Max="254">Auto 4</Capability>
+  <Capability Min="255" Max="255">Auto 5</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset Dimmer</Capability>
+  <Capability Min="52" Max="101">Linear Dimmer</Capability>
+  <Capability Min="102" Max="152">Nonlinear Dimming Curve 1 (Fastest)</Capability>
+  <Capability Min="153" Max="203">Nonlinear Dimming Curve 2</Capability>
+  <Capability Min="204" Max="255">Nonlinear Dimming Curve 3 (Slowest)</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color Macro + White Balance</Channel>
+  <Channel Number="7">Auto Program</Channel>
+  <Channel Number="8">Auto Speed</Channel>
+  <Channel Number="9">Dimmer Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2340" ColourTemperature="0"/>
+  <Dimensions Weight="4.6" Width="323" Height="298" Depth="106"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="118" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

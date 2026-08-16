@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Double Derby X</Model>
+ <Type>Flower</Type>
+ <Channel Name="Control/Operating Mode">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="14">No function</Capability>
+  <Capability Min="15" Max="100">LEDs on</Capability>
+  <Capability Min="101" Max="255">Auto</Capability>
+ </Channel>
+ <Channel Name="Motor Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Nothing</Capability>
+  <Capability Min="1" Max="85">Counter-clockwise motor rotation (Slow ~ Fast)</Capability>
+  <Capability Min="86" Max="170">Clockwise motor rotation (Slow ~ Fast)</Capability>
+  <Capability Min="171" Max="255">Motor rotation right-to-left-to-right (Slow ~ Fast)</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Motor Rotation</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="2.7" Width="283" Depth="297" Height="264"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+  </Physical>
+</FixtureDefinition>

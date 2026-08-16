@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Christian Hollbjär</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED SLS 5 BCL</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Sound / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="CH5 Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="28">No function</Capability>
+  <Capability Min="29" Max="57">White</Capability>
+  <Capability Min="58" Max="82">Amber</Capability>
+  <Capability Min="83" Max="87">Color Dreaming 1</Capability>
+  <Capability Min="88" Max="92">Color Dreaming 2</Capability>
+  <Capability Min="93" Max="97">Color Dreaming 3</Capability>
+  <Capability Min="98" Max="163">No function</Capability>
+  <Capability Min="164" Max="168">Color Change</Capability>
+  <Capability Min="169" Max="245">No function</Capability>
+  <Capability Min="246" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Strobe/Speed/Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Strobe, Color speed, Sound sensitivity (depends on CH5)</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">White</Channel>
+  <Channel Number="1">Amber</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">White</Channel>
+  <Channel Number="1">Amber</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">White</Channel>
+  <Channel Number="1">Amber</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Sound / Strobe</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">White</Channel>
+  <Channel Number="1">Amber</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe/Speed/Sensitivity</Channel>
+  <Channel Number="4">CH5 Modes</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

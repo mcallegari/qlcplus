@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Dean Clough</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fog Fury Jett</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog &amp; Random Colour Change">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Off</Capability>
+  <Capability Min="32" Max="255">Max Fog &amp; Color Change</Capability>
+ </Channel>
+ <Channel Name="Fog">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Fog Off</Capability>
+  <Capability Min="32" Max="255">Max Fog</Capability>
+ </Channel>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#000000">Color1(off)</Capability>
+  <Capability Min="1" Max="4" Preset="ColorMacro" Res1="#509e75">Color2</Capability>
+  <Capability Min="5" Max="8" Preset="ColorMacro" Res1="#509e52">Color3</Capability>
+  <Capability Min="9" Max="12" Preset="ColorMacro" Res1="#4d9c38">Color4</Capability>
+  <Capability Min="13" Max="16" Preset="ColorMacro" Res1="#649f2a">Color5</Capability>
+  <Capability Min="17" Max="20" Preset="ColorMacro" Res1="#779c27">Color6</Capability>
+  <Capability Min="21" Max="24" Preset="ColorMacro" Res1="#999f2a">Color7</Capability>
+  <Capability Min="25" Max="28" Preset="ColorMacro" Res1="#a69627">Color8</Capability>
+  <Capability Min="29" Max="32" Preset="ColorMacro" Res1="#a58025">Color9</Capability>
+  <Capability Min="33" Max="36" Preset="ColorMacro" Res1="#a67027">Color10</Capability>
+  <Capability Min="37" Max="40" Preset="ColorMacro" Res1="#a55a25">Color11</Capability>
+  <Capability Min="41" Max="44" Preset="ColorMacro" Res1="#a54c27">Color12</Capability>
+  <Capability Min="45" Max="48" Preset="ColorMacro" Res1="#a33e27">Color13</Capability>
+  <Capability Min="49" Max="52" Preset="ColorMacro" Res1="#a94943">Color14</Capability>
+  <Capability Min="53" Max="56" Preset="ColorMacro" Res1="#ae515b">Color15</Capability>
+  <Capability Min="57" Max="60" Preset="ColorMacro" Res1="#b05476">Color16</Capability>
+  <Capability Min="61" Max="64" Preset="ColorMacro" Res1="#a65180">Color17</Capability>
+  <Capability Min="65" Max="68" Preset="ColorMacro" Res1="#8e4c80">Color18</Capability>
+  <Capability Min="69" Max="72" Preset="ColorMacro" Res1="#784f80">Color19</Capability>
+  <Capability Min="73" Max="76" Preset="ColorMacro" Res1="#594480">Color20</Capability>
+  <Capability Min="77" Max="80" Preset="ColorMacro" Res1="#4d4f80">Color21</Capability>
+  <Capability Min="81" Max="84" Preset="ColorMacro" Res1="#436380">Color22</Capability>
+  <Capability Min="85" Max="88" Preset="ColorMacro" Res1="#4d7e80">Color23</Capability>
+  <Capability Min="89" Max="92" Preset="ColorMacro" Res1="#4d9280">Color24</Capability>
+  <Capability Min="93" Max="96" Preset="ColorMacro" Res1="#97b648">Color25</Capability>
+  <Capability Min="97" Max="100" Preset="ColorMacro" Res1="#ccb74d">Color26</Capability>
+  <Capability Min="101" Max="104" Preset="ColorMacro" Res1="#c98f4a">Color27</Capability>
+  <Capability Min="105" Max="108" Preset="ColorMacro" Res1="#c5795d">Color28</Capability>
+  <Capability Min="109" Max="112" Preset="ColorMacro" Res1="#c9817e">Color29</Capability>
+  <Capability Min="113" Max="116" Preset="ColorMacro" Res1="#917980">Color30</Capability>
+  <Capability Min="117" Max="120" Preset="ColorMacro" Res1="#917980">Color31</Capability>
+  <Capability Min="121" Max="124" Preset="ColorMacro" Res1="#8a8880">Color32</Capability>
+  <Capability Min="125" Max="128" Preset="ColorMacro" Res1="#1e1049">Color33</Capability>
+  <Capability Min="129" Max="132" Preset="ColorMacro" Res1="#806748">Color34</Capability>
+  <Capability Min="133" Max="136" Preset="ColorMacro" Res1="#7f594d">Color35</Capability>
+  <Capability Min="137" Max="140" Preset="ColorMacro" Res1="#7f6045">Color36</Capability>
+  <Capability Min="141" Max="144" Preset="ColorMacro" Res1="#7f5331">Color37</Capability>
+  <Capability Min="145" Max="148" Preset="ColorMacro" Res1="#7f3d00">Color38</Capability>
+  <Capability Min="149" Max="152" Preset="ColorMacro" Res1="#580900">Color39</Capability>
+  <Capability Min="153" Max="156" Preset="ColorMacro" Res1="#300006">Color40</Capability>
+  <Capability Min="157" Max="160" Preset="ColorMacro" Res1="#754656">Color41</Capability>
+  <Capability Min="161" Max="164" Preset="ColorMacro" Res1="#701909">Color42</Capability>
+  <Capability Min="165" Max="168" Preset="ColorMacro" Res1="#582757">Color43</Capability>
+  <Capability Min="169" Max="172" Preset="ColorMacro" Res1="#3c4164">Color44</Capability>
+  <Capability Min="173" Max="176" Preset="ColorMacro" Res1="#4a526a">Color45</Capability>
+  <Capability Min="177" Max="180" Preset="ColorMacro" Res1="#2c0152">Color46</Capability>
+  <Capability Min="181" Max="184" Preset="ColorMacro" Res1="#00132b">Color47</Capability>
+  <Capability Min="185" Max="188" Preset="ColorMacro" Res1="#004768">Color48</Capability>
+  <Capability Min="189" Max="192" Preset="ColorMacro" Res1="#1a4b69">Color49</Capability>
+  <Capability Min="193" Max="196" Preset="ColorMacro" Res1="#014365">Color50</Capability>
+  <Capability Min="197" Max="200" Preset="ColorMacro" Res1="#00496a">Color51</Capability>
+  <Capability Min="201" Max="204" Preset="ColorMacro" Res1="#003d60">Color52</Capability>
+  <Capability Min="205" Max="208" Preset="ColorMacro" Res1="#00415c">Color53</Capability>
+  <Capability Min="209" Max="212" Preset="ColorMacro" Res1="#002a3a">Color54</Capability>
+  <Capability Min="213" Max="216" Preset="ColorMacro" Res1="#04366f">Color55</Capability>
+  <Capability Min="217" Max="220" Preset="ColorMacro" Res1="#364e74">Color56</Capability>
+  <Capability Min="221" Max="224" Preset="ColorMacro" Res1="#53637c">Color57</Capability>
+  <Capability Min="225" Max="228" Preset="ColorMacro" Res1="#696e5b">Color58</Capability>
+  <Capability Min="229" Max="232" Preset="ColorMacro" Res1="#15532b">Color59</Capability>
+  <Capability Min="233" Max="236" Preset="ColorMacro" Res1="#001712">Color60</Capability>
+  <Capability Min="237" Max="240" Preset="ColorMacro" Res1="#800000">Color61</Capability>
+  <Capability Min="241" Max="244" Preset="ColorMacro" Res1="#008000">Color62</Capability>
+  <Capability Min="245" Max="248" Preset="ColorMacro" Res1="#000080">Color63</Capability>
+  <Capability Min="249" Max="252" Preset="ColorMacro" Res1="#806000">Color64</Capability>
+  <Capability Min="253" Max="255" Preset="ColorMacro" Res1="#ffdf80">Color65</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="32" Max="95" Preset="StrobeSlowToFast">Strobing Slow-Fast</Capability>
+  <Capability Min="96" Max="159" Preset="PulseFrequency">Pulse Effect</Capability>
+  <Capability Min="160" Max="255" Preset="StrobeRandomSlowToFast">Random Strobe Slow-Fast</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Fog &amp; Random Colour Change</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Colour Macros</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Colour Macros</Channel>
+  <Channel Number="2">Strobing</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Strobing</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.1" Width="397" Height="191" Depth="302"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

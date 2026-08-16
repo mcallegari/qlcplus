@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Santiago Benejam Torres</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Club Par 12-6 RGBWAUV</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="12" Preset="ShutterOpen">Closed</Capability>
+  <Capability Min="13" Max="255" Preset="StrobeSlowToFast">Strobe flash frequancy, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Built-in Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Not Functional</Capability>
+  <Capability Min="10" Max="19">Program 1</Capability>
+  <Capability Min="20" Max="29">Program 2</Capability>
+  <Capability Min="30" Max="39">Program 3</Capability>
+  <Capability Min="40" Max="49">Program 4</Capability>
+  <Capability Min="50" Max="59">Program 5</Capability>
+  <Capability Min="60" Max="69">Program 6</Capability>
+  <Capability Min="70" Max="79">Program 7</Capability>
+  <Capability Min="80" Max="89">Program 8</Capability>
+  <Capability Min="90" Max="99">Program 9</Capability>
+  <Capability Min="100" Max="109">Program 10</Capability>
+  <Capability Min="110" Max="119">Program 11</Capability>
+  <Capability Min="120" Max="129">Program 12</Capability>
+  <Capability Min="130" Max="139">Program 13</Capability>
+  <Capability Min="140" Max="255">Sound Controlled</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Gradual speed adjustment, from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fade Time">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="FastToSlow">Gradual speed adjustment, from color jump to color fade</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Dimmer Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Built-in Programs</Channel>
+  <Channel Number="9">Speed</Channel>
+  <Channel Number="10">Fade Time</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3250" ColourTemperature="0"/>
+  <Dimensions Weight="2.3" Width="290" Height="270" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

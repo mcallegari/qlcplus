@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 Beta 1</Version>
+  <Author>Aurelien</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Multi FX Bar</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Derby 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 1 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Derby 1 Rotate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise slow -&gt; fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate anticlockwise slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Derby 2 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Derby 2 Rotate">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise slow -&gt; fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate anticlockwise slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Par 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 1 UV" Preset="IntensityUV"/>
+ <Channel Name="Par 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Par 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Par 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Par 2 UV" Preset="IntensityUV"/>
+ <Channel Name="Laser Red Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Laser Green Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise slow -&gt; fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate anticlockwise slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Flash Light 1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Flash Light 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Flash Light 3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Flash Light 4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="10">Auto Mix 1</Capability>
+  <Capability Min="11" Max="15">Auto Mix 2</Capability>
+  <Capability Min="16" Max="20">Auto Mix 3</Capability>
+  <Capability Min="21" Max="25">Auto Mix 4</Capability>
+  <Capability Min="26" Max="30">Auto Mix 5</Capability>
+  <Capability Min="31" Max="35">Auto Mix 6</Capability>
+  <Capability Min="36" Max="40">Auto Mix 7</Capability>
+  <Capability Min="41" Max="45">Auto Mix 8</Capability>
+  <Capability Min="46" Max="50">Auto Mix 9</Capability>
+  <Capability Min="51" Max="55">Auto Mix 10</Capability>
+  <Capability Min="56" Max="60">Auto Par 1</Capability>
+  <Capability Min="61" Max="65">Auto Par 2</Capability>
+  <Capability Min="66" Max="70">Auto Par 3</Capability>
+  <Capability Min="71" Max="75">Auto Par 4</Capability>
+  <Capability Min="76" Max="80">Auto Par 5</Capability>
+  <Capability Min="81" Max="85">Auto Derby 1</Capability>
+  <Capability Min="86" Max="90">Auto Derby 2</Capability>
+  <Capability Min="91" Max="95">Auto Derby 3</Capability>
+  <Capability Min="96" Max="100">Auto Derby 4</Capability>
+  <Capability Min="101" Max="105">Auto Derby 5</Capability>
+  <Capability Min="106" Max="110">Auto Par &amp; Derby 1</Capability>
+  <Capability Min="111" Max="115">Auto Par &amp; Derby 2</Capability>
+  <Capability Min="116" Max="120">Auto Par &amp; Derby 3</Capability>
+  <Capability Min="121" Max="125">Auto Par &amp; Derby 4</Capability>
+  <Capability Min="126" Max="130">Auto Par &amp; Derby 5</Capability>
+  <Capability Min="131" Max="135">Auto Par &amp; Derby 6</Capability>
+  <Capability Min="136" Max="140">Auto Par &amp; Derby 7</Capability>
+  <Capability Min="141" Max="145">Auto Par &amp; Derby 8</Capability>
+  <Capability Min="146" Max="150">Auto Par &amp; Derby 9</Capability>
+  <Capability Min="151" Max="155">Auto Par &amp; Derby 10</Capability>
+  <Capability Min="156" Max="160">Auto Flash Lights 1</Capability>
+  <Capability Min="161" Max="165">Auto Flash Lights 2</Capability>
+  <Capability Min="166" Max="170">Auto Flash Lights 3</Capability>
+  <Capability Min="171" Max="175">Auto Flash Lights 4</Capability>
+  <Capability Min="176" Max="180">Auto Flash Lights 5</Capability>
+  <Capability Min="181" Max="185">Auto Flash Lights 6</Capability>
+  <Capability Min="186" Max="190">Auto Flash Lights 7</Capability>
+  <Capability Min="191" Max="195">Auto Flash Lights 8</Capability>
+  <Capability Min="196" Max="200">Auto Flash Lights 9</Capability>
+  <Capability Min="201" Max="205">Auto Flash Lights 10</Capability>
+  <Capability Min="206" Max="210">Auto Laser 1</Capability>
+  <Capability Min="211" Max="215">Auto Laser 2</Capability>
+  <Capability Min="216" Max="220">Auto Laser 3</Capability>
+  <Capability Min="221" Max="225">Auto Laser 4</Capability>
+  <Capability Min="226" Max="230">Auto Laser 5</Capability>
+  <Capability Min="231" Max="255">Auto Laser 6</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed/Sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Program Speed slow -&gt; fast</Capability>
+  <Capability Min="128" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Par 1 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Par 2 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe speed slow-&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Auto Program LED Par">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="56">Auto Par 1</Capability>
+  <Capability Min="57" Max="107">Auto Par 2</Capability>
+  <Capability Min="108" Max="158">Auto Par 3</Capability>
+  <Capability Min="159" Max="209">Auto Par 4</Capability>
+  <Capability Min="210" Max="255">Auto Par 5</Capability>
+ </Channel>
+ <Channel Name="Auto Program Derby">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="56">Auto Derby 1</Capability>
+  <Capability Min="57" Max="107">Auto Derby 2</Capability>
+  <Capability Min="108" Max="158">Auto Derby 3</Capability>
+  <Capability Min="159" Max="209">Auto Derby 4</Capability>
+  <Capability Min="210" Max="255">Auto Derby 5</Capability>
+ </Channel>
+ <Channel Name="Auto Program Flash Lights">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="25">Auto Flash Lights 1</Capability>
+  <Capability Min="26" Max="50">Auto Flash Lights 2</Capability>
+  <Capability Min="51" Max="75">Auto Flash Lights 3</Capability>
+  <Capability Min="76" Max="100">Auto Flash Lights 4</Capability>
+  <Capability Min="101" Max="125">Auto Flash Lights 5</Capability>
+  <Capability Min="126" Max="175">Auto Flash Lights 7</Capability>
+  <Capability Min="176" Max="200">Auto Flash Lights 8</Capability>
+  <Capability Min="201" Max="225">Auto Flash Lights 9</Capability>
+  <Capability Min="226" Max="255">Auto Flash Lights 10</Capability>
+ </Channel>
+ <Channel Name="Auto Program Laser">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="46">Auto Laser 1</Capability>
+  <Capability Min="47" Max="80">Auto Laser 2</Capability>
+  <Capability Min="81" Max="120">Auto Laser 3</Capability>
+  <Capability Min="121" Max="140">Auto Laser 4</Capability>
+  <Capability Min="141" Max="180">Auto Laser 5</Capability>
+  <Capability Min="181" Max="255">Auto Laser 6</Capability>
+ </Channel>
+ <Mode Name="29 Channel">
+  <Channel Number="0">Derby 1 Red</Channel>
+  <Channel Number="1">Derby 1 Green</Channel>
+  <Channel Number="2">Derby 1 Blue</Channel>
+  <Channel Number="3">Derby 1 Strobe</Channel>
+  <Channel Number="4">Derby 1 Rotate</Channel>
+  <Channel Number="5">Derby 2 Red</Channel>
+  <Channel Number="6">Derby 2 Green</Channel>
+  <Channel Number="7">Derby 2 Blue</Channel>
+  <Channel Number="8">Derby 2 Strobe</Channel>
+  <Channel Number="9">Derby 2 Rotate</Channel>
+  <Channel Number="10">Par 1 Red</Channel>
+  <Channel Number="11">Par 1 Green</Channel>
+  <Channel Number="12">Par 1 Blue</Channel>
+  <Channel Number="13">Par 1 UV</Channel>
+  <Channel Number="14">Par 1 Strobe</Channel>
+  <Channel Number="15">Par 2 Red</Channel>
+  <Channel Number="16">Par 2 Green</Channel>
+  <Channel Number="17">Par 2 Blue</Channel>
+  <Channel Number="18">Par 2 UV</Channel>
+  <Channel Number="19">Par 2 Strobe</Channel>
+  <Channel Number="20">Laser Red Strobe</Channel>
+  <Channel Number="21">Laser Green Strobe</Channel>
+  <Channel Number="22">Laser Rotation</Channel>
+  <Channel Number="23">Flash Light 1</Channel>
+  <Channel Number="24">Flash Light 2</Channel>
+  <Channel Number="25">Flash Light 3</Channel>
+  <Channel Number="26">Flash Light 4</Channel>
+  <Channel Number="27">Auto Program</Channel>
+  <Channel Number="28">Auto Program Speed/Sound</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+  </Head>
+  <Head>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+  </Head>
+  <Head>
+   <Channel>25</Channel>
+  </Head>
+  <Head>
+   <Channel>26</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Auto Program LED Par</Channel>
+  <Channel Number="1">Auto Program Derby</Channel>
+  <Channel Number="2">Auto Program Flash Lights</Channel>
+  <Channel Number="3">Auto Program Laser</Channel>
+  <Channel Number="4">Auto Program Speed/Sound</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Auto Program</Channel>
+  <Channel Number="1">Auto Program Speed/Sound</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED RGB+UV + Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.6" Width="1111" Height="270" Depth="60"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="130" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

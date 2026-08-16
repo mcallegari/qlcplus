@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Smoke Factory</Manufacturer>
+ <Model>Tour-Hazer II</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Pump" Preset="IntensityDimmer"/>
+ <Channel Name="Fan">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Min to Max</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Channel Number="0">Pump</Channel>
+  <Channel Number="1">Fan</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="18" Width="533" Height="248" Depth="442"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

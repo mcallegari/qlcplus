@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Vincent</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>Delirium</Model>
+ <Type>Flower</Type>
+ <Channel Name="Functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="129">Synchronous show</Capability>
+  <Capability Min="130" Max="249">Asynchronous show</Capability>
+  <Capability Min="250" Max="255">Musical Mode</Capability>
+ </Channel>
+ <Channel Name="Combos">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="21">Combo 1</Capability>
+  <Capability Min="22" Max="42">Combo 2</Capability>
+  <Capability Min="43" Max="63">Combo 3</Capability>
+  <Capability Min="64" Max="85">Combo 4</Capability>
+  <Capability Min="86" Max="106">Combo 5</Capability>
+  <Capability Min="107" Max="127">Combo 6</Capability>
+  <Capability Min="128" Max="149">Combo 7</Capability>
+  <Capability Min="150" Max="170">Combo 8</Capability>
+  <Capability Min="171" Max="191">Combo 9</Capability>
+  <Capability Min="192" Max="213">Combo 10</Capability>
+  <Capability Min="214" Max="234">Combo 11</Capability>
+  <Capability Min="235" Max="255">Combo 12</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">From slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">On</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">From slow to fast</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Functions</Channel>
+  <Channel Number="1">Combos</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.8" Width="310" Height="205" Depth="310"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

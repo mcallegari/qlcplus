@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Jan F</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>EASY Wash 5IVE LED</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Dimmer &amp; Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="9">Closed</Capability>
+  <Capability Min="10" Max="134">Dimmer</Capability>
+  <Capability Min="135" Max="239">Strobe from 0Hz to 40Hz</Capability>
+  <Capability Min="240" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color Mixed and Changed">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="223">Color mixed</Capability>
+  <Capability Min="224" Max="240">Color gradient from slow to fast</Capability>
+  <Capability Min="241" Max="255">Color jump from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Movement (Auto and Sound Effect)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="3">DMX control</Capability>
+  <Capability Min="4" Max="102">Auto 1</Capability>
+  <Capability Min="103" Max="152">Auto 2</Capability>
+  <Capability Min="153" Max="203">Auto 3</Capability>
+  <Capability Min="204" Max="255">Sound</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="254" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="255" Max="255" Preset="ResetAll">Reset</Capability>
+ </Channel>
+ <Mode Name="9 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer &amp; Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Amber</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
+ </Mode>
+ <Mode Name="14 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Dimmer &amp; Strobe</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Amber</Channel>
+  <Channel Number="10">Pan/Tilt Speed</Channel>
+  <Channel Number="11">Color Mixed and Changed</Channel>
+  <Channel Number="12">Movement (Auto and Sound Effect)</Channel>
+  <Channel Number="13">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="225" Height="270" Depth="225"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

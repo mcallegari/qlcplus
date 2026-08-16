@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>chivey</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Circus</Model>
+ <Type>Flower</Type>
+ <Channel Name="Program Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Auto 1</Capability>
+  <Capability Min="6" Max="11">Auto 2</Capability>
+  <Capability Min="12" Max="17">Auto 3</Capability>
+  <Capability Min="18" Max="23">Auto 4</Capability>
+  <Capability Min="24" Max="29">Auto 5</Capability>
+  <Capability Min="30" Max="35">Auto 6</Capability>
+  <Capability Min="36" Max="41">Auto 7</Capability>
+  <Capability Min="42" Max="47">Auto 8</Capability>
+  <Capability Min="48" Max="53">Auto 9</Capability>
+  <Capability Min="54" Max="59">Auto 10</Capability>
+  <Capability Min="60" Max="65">Auto 11</Capability>
+  <Capability Min="66" Max="71">Auto 12</Capability>
+  <Capability Min="72" Max="77">Auto 13</Capability>
+  <Capability Min="78" Max="83">Auto 14</Capability>
+  <Capability Min="84" Max="89">Auto 15</Capability>
+  <Capability Min="90" Max="95">Auto 16</Capability>
+  <Capability Min="96" Max="101">Auto 17</Capability>
+  <Capability Min="102" Max="107">Auto 18</Capability>
+  <Capability Min="108" Max="113">Auto 19</Capability>
+  <Capability Min="114" Max="119">Auto 20</Capability>
+  <Capability Min="120" Max="125">Auto 21</Capability>
+  <Capability Min="126" Max="131">Auto 22</Capability>
+  <Capability Min="132" Max="137">Auto 23</Capability>
+  <Capability Min="138" Max="143">Auto 24</Capability>
+  <Capability Min="144" Max="149">Auto 25</Capability>
+  <Capability Min="150" Max="155">Auto 26</Capability>
+  <Capability Min="156" Max="161">Auto 27</Capability>
+  <Capability Min="162" Max="167">Auto 28</Capability>
+  <Capability Min="168" Max="173">Auto 29</Capability>
+  <Capability Min="174" Max="179">Auto 30</Capability>
+  <Capability Min="180" Max="185">Auto 31</Capability>
+  <Capability Min="186" Max="191">Auto 32</Capability>
+  <Capability Min="192" Max="197">Auto 33</Capability>
+  <Capability Min="198" Max="203">Auto 34</Capability>
+  <Capability Min="204" Max="209">Auto 35</Capability>
+  <Capability Min="210" Max="215">Auto 36</Capability>
+  <Capability Min="216" Max="221">Auto 37</Capability>
+  <Capability Min="222" Max="227">Auto 38</Capability>
+  <Capability Min="228" Max="233">Auto 39</Capability>
+  <Capability Min="234" Max="239">Auto 40</Capability>
+  <Capability Min="240" Max="245">Auto 41</Capability>
+  <Capability Min="246" Max="251">Auto 42</Capability>
+  <Capability Min="252" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Run Speed / Sound Sensitivity (0-100%)</Capability>
+ </Channel>
+ <Channel Name="Strobe Speed" Preset="ShutterStrobeSlowFast"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Program Mode</Channel>
+  <Channel Number="1">Speed</Channel>
+  <Channel Number="2">Strobe Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.7" Width="231" Height="330" Depth="300"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="27" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

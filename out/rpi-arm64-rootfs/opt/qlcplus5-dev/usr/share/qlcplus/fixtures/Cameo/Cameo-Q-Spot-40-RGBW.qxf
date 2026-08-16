@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.8 GIT</Version>
+  <Author>Jochen Becker</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Q-Spot 40 RGBW</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">Colour off</Capability>
+  <Capability Min="6" Max="13" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="14" Max="21" Preset="ColorMacro" Res1="#ff6400">Amber</Capability>
+  <Capability Min="22" Max="29" Preset="ColorMacro" Res1="#ffaf00">Yellow warm</Capability>
+  <Capability Min="30" Max="37" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="46" Max="53" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="54" Max="61" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="62" Max="69" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="77" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="78" Max="85" Preset="ColorMacro" Res1="#af00ff">Mauve</Capability>
+  <Capability Min="86" Max="93" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="94" Max="101" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="102" Max="109" Preset="ColorMacro" Res1="#ffc380">Warm White</Capability>
+  <Capability Min="110" Max="117" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="118" Max="125" Preset="ColorMacro" Res1="#85c9ff">Cold White</Capability>
+  <Capability Min="126" Max="127">Colour Jumping Stop</Capability>
+  <Capability Min="128" Max="191">Colour Jumping Speed slow -&gt; fast /Colour 1 -&gt; 12</Capability>
+  <Capability Min="192" Max="255">Colour Fading Speed slow -&gt; fast /Colour 1 -&gt; 12</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20 Hz</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Strobe functions">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe open</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Strobe closed</Capability>
+  <Capability Min="11" Max="33" Preset="PulseSlowToFast">Pulse Random, slow -&gt; fast</Capability>
+  <Capability Min="34" Max="56" Preset="RampUpSlowToFast">Ramp up Random, slow -&gt; fast</Capability>
+  <Capability Min="57" Max="79" Preset="RampDownSlowToFast">Ramp down Random, slow -&gt; fast</Capability>
+  <Capability Min="80" Max="102" Preset="StrobeRandom">Random Strobe Effect, slow -&gt; fast</Capability>
+  <Capability Min="103" Max="127">Strobe Break Effect, 5s.....1s (Short burst with break)</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe slow -&gt; fast &lt;1Hz - 20Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Strobe open</Capability>
+ </Channel>
+ <Channel Name="Colour Temperature (affects RGB)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">off</Capability>
+  <Capability Min="6" Max="255">cold - warm @ Full on affects colours too</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="3 Channel 1">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="3 Channel 2">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Dimmer fine</Channel>
+  <Channel Number="2">Strobe functions</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">Colour Macro</Channel>
+  <Channel Number="8">Colour Temperature (affects RGB)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="780" ColourTemperature="0"/>
+  <Dimensions Weight="2.75" Width="151" Height="130" Depth="168"/>
+  <Lens Name="Other" DegreesMin="4.5" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

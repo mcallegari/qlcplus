@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Edgar Aichinger</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MAC 600 E</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter, strobe, reset, lamp">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="112" Preset="StrobeFastToSlow">Strobe on (fast-&gt;slow)</Capability>
+  <Capability Min="113" Max="115" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="116" Max="122" Preset="ShutterOpen">Shutter open (Reduced lamp power w/electronic ballast)</Capability>
+  <Capability Min="123" Max="127" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="128" Max="147" Preset="StrobeRandomFastToSlow">Random strobe, fast</Capability>
+  <Capability Min="148" Max="167" Preset="StrobeRandom">Random strobe, medium</Capability>
+  <Capability Min="168" Max="187" Preset="StrobeRandomSlowToFast">Random strobe, slow</Capability>
+  <Capability Min="188" Max="207" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset fixture</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp power on</Capability>
+  <Capability Min="238" Max="247" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp power off Note: T ≥ 5 seconds</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="40">White &gt; Color 1 (Continuous scroll)</Capability>
+  <Capability Min="41" Max="80">Color 1 &gt; Color 2 (Continuous scroll)</Capability>
+  <Capability Min="81" Max="120">Color 2 &gt; Color 3 (Continuous scroll)</Capability>
+  <Capability Min="121" Max="160">Color 3 &gt; Color 4 (Continuous scroll)</Capability>
+  <Capability Min="161" Max="165">Color 4 (Stepped scroll)</Capability>
+  <Capability Min="166" Max="170">Color 3 (Stepped scroll)</Capability>
+  <Capability Min="171" Max="175">Color 2 (Stepped scroll)</Capability>
+  <Capability Min="176" Max="180">Color 1 (Stepped scroll)</Capability>
+  <Capability Min="181" Max="185" Preset="ColorMacro" Res1="#ffffff">White (Stepped scroll)</Capability>
+  <Capability Min="186" Max="214">CW, fast &gt; slow (Continuous rotation)</Capability>
+  <Capability Min="215" Max="243">CCW, slow &lt; fast (Continuous rotation)</Capability>
+  <Capability Min="244" Max="247">Random color, fast (Random CMY color)</Capability>
+  <Capability Min="248" Max="251">Random color, medium (Random CMY color)</Capability>
+  <Capability Min="252" Max="255">Random color, slow (Random CMY color)</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="2">Open</Capability>
+  <Capability Min="3" Max="170">Beam Shaper left -&gt; right</Capability>
+  <Capability Min="171" Max="255">No Frost &gt; Full Frost</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
+  <Capability Min="246" Max="248">Tracking, PTSP NORM</Capability>
+  <Capability Min="249" Max="251">Tracking, PTSP FAST</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="Effect speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
+  <Capability Min="246" Max="248">Tracking, SCUT OFF</Capability>
+  <Capability Min="249" Max="251">Tracking, SCUT ON</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="Beam Shaper">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">Open</Capability>
+  <Capability Min="1" Max="255">Beam shaper left &gt; right</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Beam Shaper</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Beam Shaper</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Beam Shaper</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Tilt</Channel>
+  <Channel Number="10">Pan/tilt speed</Channel>
+  <Channel Number="11">Effect speed</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Cyan</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Yellow</Channel>
+  <Channel Number="5">Color Wheel</Channel>
+  <Channel Number="6">Beam Shaper</Channel>
+  <Channel Number="7">Frost</Channel>
+  <Channel Number="8">Pan</Channel>
+  <Channel Number="9">Pan fine</Channel>
+  <Channel Number="10">Tilt</Channel>
+  <Channel Number="11">Tilt fine</Channel>
+  <Channel Number="12">Pan/tilt speed</Channel>
+  <Channel Number="13">Effect speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+  <Dimensions Weight="31" Width="481" Height="356" Depth="652"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+  <Focus Type="Head" PanMax="270" TiltMax="265"/>
+  <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

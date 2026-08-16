@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Thorben / Fredje</Author>
+ </Creator>
+ <Manufacturer>Litecraft</Manufacturer>
+ <Model>PowerBar AT10.sx</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Colour Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="13">No macro</Capability>
+  <Capability Min="14" Max="255">preprogrammed colours</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="13" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="14" Max="255" Preset="StrobeFrequency">Strobe 16 speeds</Capability>
+ </Channel>
+ <Channel Name="Mode selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">No function</Capability>
+  <Capability Min="25" Max="49">Automatic dimming upwards</Capability>
+  <Capability Min="50" Max="74">Automatic dimming downwards</Capability>
+  <Capability Min="75" Max="99">Automatic dimming up/downwards</Capability>
+  <Capability Min="100" Max="124">Automatic color mix mode</Capability>
+  <Capability Min="125" Max="149">Random playback, 3 colours</Capability>
+  <Capability Min="150" Max="174">Random playback, 7 colours</Capability>
+  <Capability Min="175" Max="199">Program 1</Capability>
+  <Capability Min="200" Max="224">Program 2</Capability>
+  <Capability Min="225" Max="250">Program 3</Capability>
+  <Capability Min="251" Max="255">Audio Mode</Capability>
+ </Channel>
+ <Channel Name="H01 red" Preset="IntensityRed"/>
+ <Channel Name="H01 Green" Preset="IntensityGreen"/>
+ <Channel Name="H01 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H01 white" Preset="IntensityWhite"/>
+ <Channel Name="H02 red" Preset="IntensityRed"/>
+ <Channel Name="H02 Green" Preset="IntensityGreen"/>
+ <Channel Name="H02 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H02 white" Preset="IntensityWhite"/>
+ <Channel Name="H03 red" Preset="IntensityRed"/>
+ <Channel Name="H03 Green" Preset="IntensityGreen"/>
+ <Channel Name="H03 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H03 white" Preset="IntensityWhite"/>
+ <Channel Name="H04 red" Preset="IntensityRed"/>
+ <Channel Name="H04 Green" Preset="IntensityGreen"/>
+ <Channel Name="H04 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H04 white" Preset="IntensityWhite"/>
+ <Channel Name="H05 red" Preset="IntensityRed"/>
+ <Channel Name="H05 Green" Preset="IntensityGreen"/>
+ <Channel Name="H05 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H05 white" Preset="IntensityWhite"/>
+ <Channel Name="H06 red" Preset="IntensityRed"/>
+ <Channel Name="H06 Green" Preset="IntensityGreen"/>
+ <Channel Name="H06 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H06 white" Preset="IntensityWhite"/>
+ <Channel Name="H07 red" Preset="IntensityRed"/>
+ <Channel Name="H07 Green" Preset="IntensityGreen"/>
+ <Channel Name="H07 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H07 white" Preset="IntensityWhite"/>
+ <Channel Name="H08 red" Preset="IntensityRed"/>
+ <Channel Name="H08 Green" Preset="IntensityGreen"/>
+ <Channel Name="H08 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H08 white" Preset="IntensityWhite"/>
+ <Channel Name="H09 red" Preset="IntensityRed"/>
+ <Channel Name="H09 Green" Preset="IntensityGreen"/>
+ <Channel Name="H09 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H09 white" Preset="IntensityWhite"/>
+ <Channel Name="H10 red" Preset="IntensityRed"/>
+ <Channel Name="H10 Green" Preset="IntensityGreen"/>
+ <Channel Name="H10 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H10 white" Preset="IntensityWhite"/>
+ <Channel Name="H11 red" Preset="IntensityRed"/>
+ <Channel Name="H11 Green" Preset="IntensityGreen"/>
+ <Channel Name="H11 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H11 white" Preset="IntensityWhite"/>
+ <Channel Name="H12 red" Preset="IntensityRed"/>
+ <Channel Name="H12 Green" Preset="IntensityGreen"/>
+ <Channel Name="H12 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H12 white" Preset="IntensityWhite"/>
+ <Channel Name="H13 red" Preset="IntensityRed"/>
+ <Channel Name="H13 Green" Preset="IntensityGreen"/>
+ <Channel Name="H13 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H13 white" Preset="IntensityWhite"/>
+ <Channel Name="H14 red" Preset="IntensityRed"/>
+ <Channel Name="H14 Green" Preset="IntensityGreen"/>
+ <Channel Name="H14 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H14 white" Preset="IntensityWhite"/>
+ <Channel Name="H15 red" Preset="IntensityRed"/>
+ <Channel Name="H15 Green" Preset="IntensityGreen"/>
+ <Channel Name="H15 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H15 white" Preset="IntensityWhite"/>
+ <Channel Name="H16 red" Preset="IntensityRed"/>
+ <Channel Name="H16 Green" Preset="IntensityGreen"/>
+ <Channel Name="H16 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H16 white" Preset="IntensityWhite"/>
+ <Channel Name="H17 red" Preset="IntensityRed"/>
+ <Channel Name="H17 Green" Preset="IntensityGreen"/>
+ <Channel Name="H17 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H17 white" Preset="IntensityWhite"/>
+ <Channel Name="H18 red" Preset="IntensityRed"/>
+ <Channel Name="H18 Green" Preset="IntensityGreen"/>
+ <Channel Name="H18 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H18 white" Preset="IntensityWhite"/>
+ <Mode Name="1 channel">
+  <Channel Number="0">Colour Macro</Channel>
+ </Mode>
+ <Mode Name="2 channel">
+  <Channel Number="0">Colour Macro</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Colour Macro</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Mode selection</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="72 channel">
+  <Channel Number="0">H01 red</Channel>
+  <Channel Number="1">H01 Green</Channel>
+  <Channel Number="2">H01 Blue</Channel>
+  <Channel Number="3">H01 white</Channel>
+  <Channel Number="4">H02 red</Channel>
+  <Channel Number="5">H02 Green</Channel>
+  <Channel Number="6">H02 Blue</Channel>
+  <Channel Number="7">H02 white</Channel>
+  <Channel Number="8">H03 red</Channel>
+  <Channel Number="9">H03 Green</Channel>
+  <Channel Number="10">H03 Blue</Channel>
+  <Channel Number="11">H03 white</Channel>
+  <Channel Number="12">H04 red</Channel>
+  <Channel Number="13">H04 Green</Channel>
+  <Channel Number="14">H04 Blue</Channel>
+  <Channel Number="15">H04 white</Channel>
+  <Channel Number="16">H05 red</Channel>
+  <Channel Number="17">H05 Green</Channel>
+  <Channel Number="18">H05 Blue</Channel>
+  <Channel Number="19">H05 white</Channel>
+  <Channel Number="20">H06 red</Channel>
+  <Channel Number="21">H06 Green</Channel>
+  <Channel Number="22">H06 Blue</Channel>
+  <Channel Number="23">H06 white</Channel>
+  <Channel Number="24">H07 red</Channel>
+  <Channel Number="25">H07 Green</Channel>
+  <Channel Number="26">H07 Blue</Channel>
+  <Channel Number="27">H07 white</Channel>
+  <Channel Number="28">H08 red</Channel>
+  <Channel Number="29">H08 Green</Channel>
+  <Channel Number="30">H08 Blue</Channel>
+  <Channel Number="31">H08 white</Channel>
+  <Channel Number="32">H09 red</Channel>
+  <Channel Number="33">H09 Green</Channel>
+  <Channel Number="34">H09 Blue</Channel>
+  <Channel Number="35">H09 white</Channel>
+  <Channel Number="36">H10 red</Channel>
+  <Channel Number="37">H10 Green</Channel>
+  <Channel Number="38">H10 Blue</Channel>
+  <Channel Number="39">H10 white</Channel>
+  <Channel Number="40">H11 red</Channel>
+  <Channel Number="41">H11 Green</Channel>
+  <Channel Number="42">H11 Blue</Channel>
+  <Channel Number="43">H11 white</Channel>
+  <Channel Number="44">H12 red</Channel>
+  <Channel Number="45">H12 Green</Channel>
+  <Channel Number="46">H12 Blue</Channel>
+  <Channel Number="47">H12 white</Channel>
+  <Channel Number="48">H13 red</Channel>
+  <Channel Number="49">H13 Green</Channel>
+  <Channel Number="50">H13 Blue</Channel>
+  <Channel Number="51">H13 white</Channel>
+  <Channel Number="52">H14 red</Channel>
+  <Channel Number="53">H14 Green</Channel>
+  <Channel Number="54">H14 Blue</Channel>
+  <Channel Number="55">H14 white</Channel>
+  <Channel Number="56">H15 red</Channel>
+  <Channel Number="57">H15 Green</Channel>
+  <Channel Number="58">H15 Blue</Channel>
+  <Channel Number="59">H15 white</Channel>
+  <Channel Number="60">H16 red</Channel>
+  <Channel Number="61">H16 Green</Channel>
+  <Channel Number="62">H16 Blue</Channel>
+  <Channel Number="63">H16 white</Channel>
+  <Channel Number="64">H17 red</Channel>
+  <Channel Number="65">H17 Green</Channel>
+  <Channel Number="66">H17 Blue</Channel>
+  <Channel Number="67">H17 white</Channel>
+  <Channel Number="68">H18 red</Channel>
+  <Channel Number="69">H18 Green</Channel>
+  <Channel Number="70">H18 Blue</Channel>
+  <Channel Number="71">H18 white</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+   <Channel>27</Channel>
+  </Head>
+  <Head>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+  </Head>
+  <Head>
+   <Channel>32</Channel>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+   <Channel>39</Channel>
+  </Head>
+  <Head>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+  </Head>
+  <Head>
+   <Channel>44</Channel>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+   <Channel>51</Channel>
+  </Head>
+  <Head>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+  </Head>
+  <Head>
+   <Channel>56</Channel>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+   <Channel>63</Channel>
+  </Head>
+  <Head>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+  </Head>
+  <Head>
+   <Channel>68</Channel>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.8" Width="1000" Height="210" Depth="210"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="18" Height="1"/>
+  <Technical PowerConsumption="138" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

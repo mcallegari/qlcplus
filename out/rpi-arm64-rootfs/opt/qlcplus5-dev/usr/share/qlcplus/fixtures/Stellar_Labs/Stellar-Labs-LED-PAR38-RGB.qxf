@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.2</Version>
+  <Author>X</Author>
+ </Creator>
+ <Manufacturer>Stellar Labs</Manufacturer>
+ <Model>LED PAR38 RGB (555-11410)</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Modes">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">RGB</Capability>
+  <Capability Min="64" Max="127">7 Color Fade</Capability>
+  <Capability Min="128" Max="191">7 Color Change</Capability>
+  <Capability Min="192" Max="255">3 Color Change</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="100">Fast &gt; Slow</Capability>
+  <Capability Min="101" Max="150">No function</Capability>
+  <Capability Min="151" Max="255">Speed set by unit - Mic (sw4=1), Pot (sw4=0)</Capability>
+ </Channel>
+ <Mode Name="5 Channel - 4 way dip switch set to 011">
+  <Channel Number="0">Modes</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Speed</Channel>
+ </Mode>
+ <Mode Name="3 Channel - 4 way dip switch set to 101">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="200" Height="170" Weight="1" Depth="295"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

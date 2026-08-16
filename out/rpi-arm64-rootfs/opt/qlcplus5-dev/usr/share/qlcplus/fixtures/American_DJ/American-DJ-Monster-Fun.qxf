@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>007ghg7</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Monster Fun</Model>
+ <Type>Flower</Type>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="27">Show 1</Capability>
+  <Capability Min="28" Max="47">Show 2</Capability>
+  <Capability Min="48" Max="67">Show 3</Capability>
+  <Capability Min="68" Max="87">Show 4</Capability>
+  <Capability Min="88" Max="107">Show 5</Capability>
+  <Capability Min="108" Max="127">Show 6</Capability>
+  <Capability Min="128" Max="147">Show 7</Capability>
+  <Capability Min="148" Max="167">Show 8</Capability>
+  <Capability Min="168" Max="187">Show 9</Capability>
+  <Capability Min="188" Max="207">Show 10</Capability>
+  <Capability Min="208" Max="227">Show 11</Capability>
+  <Capability Min="228" Max="247">Show 12</Capability>
+  <Capability Min="248" Max="255">Sound Active</Capability>
+ </Channel>
+ <Mode Name="1 channel">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Height="338" Width="241" Depth="338" Weight="4.2"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
+  </Physical>
+</FixtureDefinition>
