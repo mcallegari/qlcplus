@@ -129,6 +129,10 @@ int main(int argc, char *argv[])
                                       "Enable the native remote server");
     parser.addOption(remoteOption);
 
+    QCommandLineOption allowAllNativeOption(QStringList() << "allow-all-native",
+        "Automatically grant full access to every native TCP client (unsafe on untrusted networks)");
+    parser.addOption(allowAllNativeOption);
+
     parser.process(app);
 
     bool enableWebAccess = parser.isSet(webAccessOption)
@@ -138,7 +142,8 @@ int main(int argc, char *argv[])
     bool enableWebAuth = parser.isSet(webAuthOption);
     int webAccessPort = parser.value(webPortOption).toInt();
     QString webAccessPasswordFile = parser.value(webAuthFileOption);
-    bool enableNativeServer = parser.isSet(remoteOption);
+    bool allowAllNative = parser.isSet(allowAllNativeOption);
+    bool enableNativeServer = parser.isSet(remoteOption) || allowAllNative;
 
 #if !defined Q_OS_ANDROID
     // 3D enablement
@@ -225,6 +230,12 @@ int main(int argc, char *argv[])
     if ((enableWebAccess || enableNativeServer) && qlcplusApp.networkManager() != nullptr)
     {
         NetworkManager *netMgr = qlcplusApp.networkManager();
+        netMgr->setAllowAllNative(allowAllNative);
+        if (allowAllNative)
+        {
+            qCritical().noquote()
+                << "WARNING: --allow-all-native grants full QLC+ control to every native client, including LAN clients. Keep TCP port 9998 firewalled or use only a trusted network.";
+        }
         int forcedTypes = NetworkManager::NoServer;
 
         if (enableWebAccess)

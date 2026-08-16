@@ -30,6 +30,7 @@
 #include <QThread>
 #include <QHash>
 #include <QPointer>
+#include <QStringList>
 
 #include "tardis.h"
 
@@ -42,13 +43,23 @@ class WebAccessQml;
 
 typedef struct
 {
-    /** Flag to recognize a host authenticated to the QLC+ network */
+    QString sessionId;
     bool isAuthenticated;
-    /** The unique host name in the QLC+ network */
+    int accessMask;
     QString hostName;
-    /** The TCP socket for unicast client/server communication */
-    QTcpSocket *tcpSocket;
+    QHostAddress peerAddress;
+    quint16 peerPort;
+    QPointer<QTcpSocket> tcpSocket;
 } NetworkHost;
+
+typedef struct
+{
+    QString sessionId;
+    QString clientName;
+    QHostAddress peerAddress;
+    quint16 peerPort = 0;
+    QPointer<QTcpSocket> socket;
+} NativeAccessRequest;
 
 class NetworkManager final : public QObject
 {
@@ -122,6 +133,8 @@ public:
      *  regardless of the workspace network settings.
      *  This is used by the command line options */
     void setForcedServerTypes(int typeMask);
+    void setAllowAllNative(bool allow);
+    bool allowAllNative() const;
 
     int connectionsCount() const;
 
@@ -218,8 +231,8 @@ public:
     Q_INVOKABLE bool startServerType(int type);
     Q_INVOKABLE bool stopServerType(int type);
 
-    Q_INVOKABLE bool setClientAccess(QString hostName, bool allow, int accessMask);
-    Q_INVOKABLE bool sendWorkspaceToClient(QString hostName, QString filename);
+    Q_INVOKABLE bool setClientAccess(QString sessionId, bool allow, int accessMask);
+    Q_INVOKABLE bool sendWorkspaceToClient(QString sessionId, QString filename);
 
     /** Return true if at least one server instance is running */
     bool serverStarted() const;
@@ -229,14 +242,20 @@ public:
     bool webServerStarted() const;
 
 protected:
-    QHostAddress getHostFromName(QString name) const;
+    NetworkHost *hostForSocket(const QTcpSocket *socket) const;
+    int requiredAccessMask(int actionCode) const;
+    void queueAccessRequest(NetworkHost *host);
+    void showNextAccessRequest();
 
     /** Update the mask of the running servers and notify the changes */
     void setServerStartedMask(int mask);
 
 signals:
     void serverStartedChanged(bool serverStarted);
-    void clientAccessRequest(QString hostName);
+    void clientAccessRequest(QString sessionId, QString hostName,
+                             QString peerAddress, quint16 peerPort);
+    void clientAccessRequestCancelled(QString sessionId);
+    void clientAutoAuthorized(QString sessionId);
 
 protected slots:
     /** Event raised when an incoming connection is requested on
@@ -251,8 +270,11 @@ private:
     /** Mask of the server types currently running */
     int m_serverStartedMask;
 
-    /** Map of the QLC+ hosts detected on the network */
-    QHash<QHostAddress, NetworkHost *> m_hostsMap;
+    /** One entry per TCP connection. Peer address and name are metadata only. */
+    QHash<QString, NetworkHost *> m_hostsMap;
+    QList<NativeAccessRequest> m_pendingAccessRequests;
+    NativeAccessRequest m_activeAccessRequest;
+    bool m_allowAllNative = false;
     /** Socket currently being processed on server RX path (used to avoid echoing back) */
     QTcpSocket *m_currentRxSocket = nullptr;
     /** Tracks the source socket of recently received actions, to suppress delayed echo */

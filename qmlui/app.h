@@ -201,7 +201,9 @@ protected slots:
     void slotSceneGraphInitialized();
     void slotScreenChanged(QScreen *screen);
     void slotClosing();
-    void slotClientAccessRequest(QString name);
+    void slotClientAccessRequest(QString sessionId, QString name,
+                                 QString peerAddress, quint16 peerPort);
+    void slotClientAccessRequestCancelled(QString sessionId);
     void slotAccessMaskChanged(int mask);
     void slotDocAutosave();
 

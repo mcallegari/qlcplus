@@ -181,3 +181,7 @@ Licensed under the **Apache 2.0** License.  See [COPYING](COPYING) for details.
   <img src="https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white" alt="CMake badge" />
   <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript badge" />
 </p>
+
+### Native network security
+
+The native QLC+ server listens on TCP port 9998. Its protocol encryption is not a strong security boundary, so keep this port firewalled from untrusted hosts or use it only on a trusted network. Native clients require manual authorization by default. The runtime-only `--allow-all-native` option starts the native server and automatically grants every valid native client full access; it is intentionally not stored in workspaces or settings.
