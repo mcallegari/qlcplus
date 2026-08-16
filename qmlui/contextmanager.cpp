@@ -506,6 +506,22 @@ void ContextManager::resetContexts()
     /** TODO: nothing to do on the other contexts ? */
 }
 
+void ContextManager::resetViewItems()
+{
+    m_channelsMap.clear();
+
+    // iterate on a copy: setFixtureSelection() removes entries from m_selectedFixtures
+    const QList<quint32> selected = m_selectedFixtures;
+    for (const quint32 &itemID : selected)
+        setFixtureSelection(itemID, -1, false);
+    m_selectedFixtures.clear();
+
+    if (m_2DView->isEnabled())
+        m_2DView->resetItems();
+    if (m_3DView->isEnabled())
+        m_3DView->resetItems();
+}
+
 void ContextManager::handleKeyPress(QKeyEvent *e)
 {
     int key = e->key();

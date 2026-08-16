@@ -135,6 +135,11 @@ public slots:
     /** Resets the data structures and update the currently enabled views */
     void resetContexts();
 
+    /** Destroys the items of the currently enabled preview views, without
+     *  recreating them. To be called before the Doc contents are cleared,
+     *  since the view items reference Doc fixtures */
+    void resetViewItems();
+
     /** Handle a key press from a QQuickView context */
     void handleKeyPress(QKeyEvent *e);
 

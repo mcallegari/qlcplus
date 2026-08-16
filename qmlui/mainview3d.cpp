@@ -41,6 +41,7 @@
 
 #include "doc.h"
 #include "tardis.h"
+#include "universe.h"
 #include "qlcfile.h"
 #include "qlcconfig.h"
 #include "listmodel.h"
@@ -81,6 +82,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_spotlightConeComponent(nullptr)
     , m_fillGBufferLayer(nullptr)
     , m_createItemCount(0)
+    , m_sceneGeneration(0)
     , m_frameAction(nullptr)
     , m_frameCount(0)
     , m_minFrameCount(0)
@@ -206,6 +208,11 @@ void MainView3D::resetItems()
 {
     qDebug() << "Resetting 3D items...";
 
+    // Invalidate every pending asynchronous mesh load: entities deleted below
+    // may still have a SceneLoader job in flight, whose completion callback
+    // would otherwise operate on freed memory
+    m_sceneGeneration++;
+
     if (m_scene3D)
         QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, false));
 
@@ -215,7 +222,14 @@ void MainView3D::resetItems()
         it.next();
         SceneItem *e = it.value();
         if (e->m_rootItem)
+        {
             QMetaObject::invokeMethod(e->m_rootItem, "cleanupScattering");
+            // Invalidate the item ID so that a SceneLoader callback still in
+            // flight cannot match a live entry in m_entitiesMap: item IDs are
+            // derived from fixture/head/linked index, so loading a new project
+            // regenerates the very same IDs
+            e->m_rootItem->setProperty("itemID", QVariant::fromValue(-1));
+        }
         if (e->m_goboTexture)
             e->m_goboTexture->deleteLater();
         if (e->m_selectionBox)
@@ -243,9 +257,11 @@ void MainView3D::resetItems()
         SceneItem *e = it2.value();
         if (e->m_rootItem)
         {
+            e->m_rootItem->setProperty("itemID", QVariant::fromValue(-1));
             e->m_rootItem->setParent(static_cast<Qt3DCore::QNode *>(nullptr));
             e->m_rootItem->deleteLater();
         }
+        delete e;
     }
     m_genericMap.clear();
     m_genericItemsList->clear();
@@ -350,16 +366,13 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
         if (flags & MonitorProperties::HiddenFlag)
             continue;
 
-        if (universeFilter == Universe::invalid() || fixture->universe() == (quint32)universeFilter)
-        {
-            meshRef->m_rootItem->setProperty("enabled", true);
-            meshRef->m_selectionBox->setProperty("enabled", true);
-        }
-        else
-        {
-            meshRef->m_rootItem->setProperty("enabled", false);
-            meshRef->m_selectionBox->setProperty("enabled", false);
-        }
+        bool visible = (universeFilter == Universe::invalid() ||
+                        fixture->universe() == (quint32)universeFilter);
+
+        meshRef->m_rootItem->setProperty("enabled", visible);
+        // the selection box is created later than the root item, in initializeFixture()
+        if (meshRef->m_selectionBox != nullptr)
+            meshRef->m_selectionBox->setProperty("enabled", visible);
     }
 }
 
@@ -682,6 +695,8 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_armItem = nullptr;
     mesh->m_headItem = nullptr;
     mesh->m_selectionBox = nullptr;
+    mesh->m_goboTexture = nullptr;
+    mesh->m_generation = m_sceneGeneration;
     m_createItemCount++;
 
     if (fixture->type() == QLCFixtureDef::LEDBarBeams)
@@ -696,6 +711,9 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         if (newItem == nullptr)
         {
             qDebug() << "Fixture 3D item creation failed !!";
+            delete mesh->m_goboTexture;
+            delete mesh;
+            m_createItemCount--;
             return;
         }
         newItem->setProperty("headsNumber", fixture->heads());
@@ -724,6 +742,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         {
             qDebug() << "Fixture 3D item creation failed !!";
             delete mesh;
+            m_createItemCount--;
             return;
         }
         newItem->setProperty("headsNumber", fixture->heads());
@@ -743,7 +762,9 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         if (newItem == nullptr)
         {
             qDebug() << "Fixture 3D item creation failed !!";
+            delete mesh->m_goboTexture;
             delete mesh;
+            m_createItemCount--;
             return;
         }
     }
@@ -801,8 +822,14 @@ void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
     if (meshRef == nullptr)
         return;
 
+    // the item entities exist only once the asynchronous mesh load completed
+    // in initializeFixture(), so they may legitimately be null here
+    if (meshRef->m_rootItem == nullptr)
+        return;
+
     meshRef->m_rootItem->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
-    meshRef->m_selectionBox->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
+    if (meshRef->m_selectionBox != nullptr)
+        meshRef->m_selectionBox->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
 
     meshRef->m_rootItem->setProperty("invertedPan", (flags & MonitorProperties::InvertedPanFlag) ? true : false);
     meshRef->m_rootItem->setProperty("invertedTilt", (flags & MonitorProperties::InvertedTiltFlag) ? true : false);
@@ -1061,8 +1088,30 @@ void MainView3D::walkNode(QNode *e, int depth) const
 
 void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSceneLoader *loader)
 {
-    if (m_entitiesMap.contains(itemID) == false)
+    if (isEnabled() == false || m_sceneRootEntity == nullptr)
         return;
+
+    SceneItem *pendingRef = m_entitiesMap.value(itemID, nullptr);
+    if (pendingRef == nullptr)
+        return;
+
+    // Mesh loading is asynchronous: this callback may belong to a scene that
+    // has been reset in the meantime (project load). Since item IDs are
+    // reproducible across projects, the map lookup alone is not enough to tell
+    // the two apart, so compare the generation the item was created in
+    if (pendingRef->m_generation != m_sceneGeneration)
+    {
+        qDebug() << "[MainView3D] discarding stale mesh callback for item" << itemID;
+        return;
+    }
+
+    // the entity that completed loading must be the one currently registered,
+    // otherwise it is a leftover from a previous scene
+    if (pendingRef->m_rootItem != nullptr && pendingRef->m_rootItem != fxEntity)
+    {
+        qDebug() << "[MainView3D] discarding orphaned mesh callback for item" << itemID;
+        return;
+    }
 
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
     quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
@@ -1133,9 +1182,16 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
 
     if (meshRef->m_goboTexture != nullptr)
     {
+        // m_goboTexture is the C++ texture image, while this is the Texture2D
+        // declared by the QML item: one does not imply the other. Item types
+        // such as Strobe3DItem don't declare it at all, and the property is
+        // also unavailable if the QML component hasn't fully resolved yet
         QTexture2D *tex = fxEntity->property("goboTexture").value<QTexture2D *>();
         //tex->setFormat(Qt3DRender::QAbstractTexture::RGBA8U);
-        tex->addTextureImage(meshRef->m_goboTexture);
+        if (tex != nullptr)
+            tex->addTextureImage(meshRef->m_goboTexture);
+        else
+            qWarning() << "[MainView3D] no goboTexture on item" << itemID << "- skipping gobo setup";
     }
 
     // If this model has been already loaded, re-use the cached bounding volume
@@ -1243,7 +1299,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
         meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
     }
 
-    if (meshRef->m_rootTransform != nullptr)
+    if (meshRef->m_rootTransform != nullptr && meshRef->m_selectionBox != nullptr)
     {
         QMetaObject::invokeMethod(meshRef->m_selectionBox, "bindItemTransform",
                 Q_ARG(QVariant, itemID),
@@ -1253,7 +1309,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
     bool isEnabled = !(itemFlags & MonitorProperties::HiddenFlag) &&
                      (m_universeFilter == Universe::invalid() || fixture->universe() == m_universeFilter);
     meshRef->m_rootItem->setProperty("enabled", isEnabled);
-    meshRef->m_selectionBox->setProperty("enabled", isEnabled);
+    if (meshRef->m_selectionBox != nullptr)
+        meshRef->m_selectionBox->setProperty("enabled", isEnabled);
 
     if (itemFlags & MonitorProperties::InvertedPanFlag)
         meshRef->m_rootItem->setProperty("invertedPan", true);
@@ -1261,7 +1318,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
     if (itemFlags & MonitorProperties::InvertedTiltFlag)
         meshRef->m_rootItem->setProperty("invertedTilt", true);
 
-    m_createItemCount--;
+    if (m_createItemCount > 0)
+        m_createItemCount--;
 
     // Update the Scene Graph only when the last fixture has been added to the Scene
     if (m_createItemCount == 0)
@@ -1535,16 +1593,10 @@ void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
         if (meshRef == nullptr || meshRef->m_rootItem == nullptr)
             return;
 
-        if (fixtures.contains(fxID))
-        {
-            meshRef->m_rootItem->setProperty("isSelected", true);
-            meshRef->m_selectionBox->setProperty("isSelected", true);
-        }
-        else
-        {
-            meshRef->m_rootItem->setProperty("isSelected", false);
-            meshRef->m_selectionBox->setProperty("isSelected", false);
-        }
+        bool selected = fixtures.contains(fxID);
+        meshRef->m_rootItem->setProperty("isSelected", selected);
+        if (meshRef->m_selectionBox != nullptr)
+            meshRef->m_selectionBox->setProperty("isSelected", selected);
     }
 }
 
@@ -1556,7 +1608,8 @@ void MainView3D::updateFixtureSelection(quint32 itemID, bool enable)
     if (meshRef && meshRef->m_rootItem)
     {
         meshRef->m_rootItem->setProperty("isSelected", enable);
-        meshRef->m_selectionBox->setProperty("isSelected", enable);
+        if (meshRef->m_selectionBox != nullptr)
+            meshRef->m_selectionBox->setProperty("isSelected", enable);
     }
 }
 
@@ -2006,8 +2059,15 @@ void MainView3D::createGenericItem(QString filename, int itemID)
     mesh->m_headItem = nullptr;
     mesh->m_selectionBox = nullptr;
     mesh->m_goboTexture = nullptr;
+    mesh->m_generation = m_sceneGeneration;
 
     QEntity *newItem = qobject_cast<QEntity *>(m_genericComponent->create());
+    if (newItem == nullptr)
+    {
+        qDebug() << "Generic 3D item creation failed !!";
+        delete mesh;
+        return;
+    }
     newItem->setParent(m_sceneRootEntity);
 
     newItem->setProperty("itemID", m_latestGenericID);
@@ -2021,8 +2081,26 @@ void MainView3D::createGenericItem(QString filename, int itemID)
 
 void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *loader)
 {
-    if (m_genericMap.contains(itemID) == false)
+    if (isEnabled() == false || m_sceneRootEntity == nullptr || loader == nullptr)
         return;
+
+    SceneItem *pendingRef = m_genericMap.value(itemID, nullptr);
+    if (pendingRef == nullptr)
+        return;
+
+    // discard asynchronous mesh callbacks belonging to a scene that has
+    // already been reset (see initializeFixture)
+    if (pendingRef->m_generation != m_sceneGeneration)
+    {
+        qDebug() << "[MainView3D] discarding stale mesh callback for generic item" << itemID;
+        return;
+    }
+
+    if (pendingRef->m_rootItem != nullptr && pendingRef->m_rootItem != itemEntity)
+    {
+        qDebug() << "[MainView3D] discarding orphaned mesh callback for generic item" << itemID;
+        return;
+    }
 
     // The QSceneLoader instance is a component of an entity. The loaded scene
     // tree is added under this entity.

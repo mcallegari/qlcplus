@@ -600,6 +600,10 @@ void App::clearDocument()
     m_showManager->resetContents();
     m_virtualConsole->resetContents();
 
+    // Drop the preview items *before* the Doc is emptied: they hold references
+    // to fixtures that clearContents() is about to delete
+    m_contextManager->resetViewItems();
+
     m_doc->masterTimer()->stop();
     m_doc->clearContents();
 

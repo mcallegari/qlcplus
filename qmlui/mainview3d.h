@@ -87,6 +87,12 @@ typedef struct
     /** Reference to the texture used to render the
      *  currently selected gobo picture */
     GoboTextureImage *m_goboTexture;
+    /** The scene generation this item was created in. Mesh loading is
+     *  asynchronous, so a SceneLoader callback can arrive after the scene
+     *  has been reset (e.g. on project load). Callbacks carrying a stale
+     *  generation must be discarded, otherwise they would resurrect
+     *  already deleted entities */
+    quint32 m_generation;
 } SceneItem;
 
 class MainView3D final : public PreviewContext
@@ -175,6 +181,10 @@ private:
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
+
+    /** Incremented on every scene reset. Used to detect and drop
+     *  asynchronous mesh loading callbacks belonging to a previous scene */
+    quint32 m_sceneGeneration;
 
     QVector3D m_cameraPosition;
     QVector3D m_cameraUpVector;
