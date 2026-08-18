@@ -226,10 +226,10 @@ void QLCFixtureEditor::closeEvent(QCloseEvent *e)
     }
 }
 
-bool QLCFixtureEditor::checkManufacturerModel()
+bool QLCFixtureEditor::checkFixtureDefinition()
 {
-    /* Check that the fixture has a manufacturer and a model for
-       unique identification */
+    /* Check that the fixture has a manufacturer, a model and at least one
+       mode for unique identification and loading */
     if (m_fixtureDef->manufacturer().length() == 0)
     {
         QMessageBox::warning(this,
@@ -250,13 +250,23 @@ bool QLCFixtureEditor::checkManufacturerModel()
         m_modelEdit->setFocus();
         return false;
     }
+    else if (m_fixtureDef->modes().isEmpty() == true)
+    {
+        QMessageBox::warning(this,
+                             tr("Missing important information"),
+                             tr("Missing fixture mode.\n"
+                                "Unable to save fixture."));
+        m_tab->setCurrentIndex(3);
+        m_addModeButton->setFocus();
+        return false;
+    }
 
     return true;
 }
 
 bool QLCFixtureEditor::save()
 {
-    if (checkManufacturerModel() == false)
+    if (checkFixtureDefinition() == false)
         return false;
 
     if (m_fileName.simplified().isEmpty() == true)
@@ -284,8 +294,8 @@ bool QLCFixtureEditor::save()
 
 bool QLCFixtureEditor::saveAs()
 {
-    /* Bail out if there is no manufacturer or model */
-    if (checkManufacturerModel() == false)
+    /* Bail out if the fixture definition is incomplete */
+    if (checkFixtureDefinition() == false)
         return false;
 
     /* Create a file save dialog */
