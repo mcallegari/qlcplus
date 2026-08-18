@@ -52,14 +52,14 @@ typedef struct
     QPointer<QTcpSocket> tcpSocket;
 } NetworkHost;
 
-typedef struct
+struct NativeAccessRequest
 {
     QString sessionId;
     QString clientName;
     QHostAddress peerAddress;
     quint16 peerPort = 0;
     QPointer<QTcpSocket> socket;
-} NativeAccessRequest;
+};
 
 class NetworkManager final : public QObject
 {
