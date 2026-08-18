@@ -267,7 +267,10 @@ public:
         NetAuthenticationReply,
         NetPoll,
         NetPollReply,
-        NetProjectTransfer
+        NetProjectTransfer,
+        NetProjectChanging,
+        NetProjectLoaded,
+        NetProjectRequest
     };
 
     Q_ENUM(ActionCodes)
@@ -306,8 +309,10 @@ public:
     /** @reimp */
     void run() override; // thread run function
 
+    /** Return the symbolic name of an action code, for logging purposes */
+    static QString actionToString(int action);
+
 protected:
-    QString actionToString(int action);
     bool processBufferedAction(int action, quint32 objID, QVariant &value);
 
 protected slots:

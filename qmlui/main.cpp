@@ -125,8 +125,8 @@ int main(int argc, char *argv[])
                                       "file", "");
     parser.addOption(webAuthFileOption);
 
-    QCommandLineOption remoteOption(QStringList() << "r" << "remote",
-                                      "Enable the native remote server");
+    QCommandLineOption remoteOption(QStringList() << "s" << "server",
+                                      "Enable the native network server");
     parser.addOption(remoteOption);
 
     QCommandLineOption allowAllNativeOption(QStringList() << "sa" << "server-allow-all",

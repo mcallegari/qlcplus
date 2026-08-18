@@ -658,6 +658,65 @@ bool NetworkManager::setClientAccess(QString sessionId, bool allow, int accessMa
     return sent;
 }
 
+void NetworkManager::notifyProjectChanging()
+{
+    if (m_hostType != ServerHostType || m_hostsMap.isEmpty())
+    {
+        qDebug() << "[TCP] Not notifying project change. Host type:" << m_hostType
+                 << "hosts:" << m_hostsMap.count();
+        return;
+    }
+
+    QByteArray packet;
+    m_packetizer->initializePacket(packet, Tardis::NetProjectChanging);
+
+    for (NetworkHost *host : std::as_const(m_hostsMap))
+    {
+        if (host == nullptr || host->tcpSocket.isNull() || !host->isAuthenticated)
+            continue;
+
+        qDebug() << "[TCP] Notifying project change to" << host->hostName;
+        sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
+    }
+}
+
+void NetworkManager::notifyProjectLoaded()
+{
+    if (m_hostType != ServerHostType || m_hostsMap.isEmpty())
+    {
+        qDebug() << "[TCP] Not notifying project loaded. Host type:" << m_hostType
+                 << "hosts:" << m_hostsMap.count();
+        return;
+    }
+
+    QByteArray packet;
+    m_packetizer->initializePacket(packet, Tardis::NetProjectLoaded);
+
+    for (NetworkHost *host : std::as_const(m_hostsMap))
+    {
+        if (host == nullptr || host->tcpSocket.isNull() || !host->isAuthenticated)
+            continue;
+
+        qDebug() << "[TCP] Notifying project loaded to" << host->hostName;
+        sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
+    }
+}
+
+bool NetworkManager::requestProjectFromServer()
+{
+    if (m_hostType != ClientHostType || m_tcpSocket == nullptr)
+        return false;
+
+    qDebug() << "[TCP] Requesting project to the server";
+
+    QByteArray packet;
+    m_packetizer->initializePacket(packet, Tardis::NetProjectRequest);
+
+    setClientStatus(DownloadingProject);
+
+    return sendTCPPacket(m_tcpSocket, packet, m_encryptPackets);
+}
+
 bool NetworkManager::sendWorkspaceToClient(QString sessionId, QString filename)
 {
     QByteArray packet;
@@ -666,10 +725,15 @@ bool NetworkManager::sendWorkspaceToClient(QString sessionId, QString filename)
     NetworkHost *host = m_hostsMap.value(sessionId, nullptr);
 
     if (host == nullptr || host->tcpSocket.isNull() || !host->isAuthenticated)
+    {
+        qWarning() << "[TCP] Cannot send workspace: session" << sessionId
+                   << "not found or not authenticated";
         return false;
+    }
 
     if (!workspace.exists())
     {
+        qWarning() << "[TCP] Cannot send workspace:" << filename << "does not exist";
         m_packetizer->initializePacket(packet, Tardis::NetProjectTransfer);
         m_packetizer->addSection(packet, QVariant(0));
         m_packetizer->addSection(packet, QVariant(0));
@@ -677,7 +741,13 @@ bool NetworkManager::sendWorkspaceToClient(QString sessionId, QString filename)
         return false;
     }
     if (!workspace.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "[TCP] Cannot open workspace" << filename << ":" << workspace.errorString();
         return false;
+    }
+
+    qDebug() << "[TCP] Sending workspace" << filename << "(" << workspace.size()
+             << "bytes ) to session" << sessionId << "client" << host->hostName;
 
     while (!workspace.atEnd())
     {
@@ -794,6 +864,7 @@ bool NetworkManager::initializeClient()
     {
         m_udpSocket->close();
         delete m_udpSocket;
+        m_udpSocket = nullptr;
     }
 
     m_udpSocket = new QUdpSocket(this);
@@ -838,8 +909,10 @@ bool NetworkManager::connectClient(QString ipAddress)
 
     if (m_tcpSocket != nullptr)
     {
+        m_rxBuffers.remove(m_tcpSocket);
         m_tcpSocket->close();
         delete m_tcpSocket;
+        m_tcpSocket = nullptr;
     }
 
     m_tcpSocket = new QTcpSocket();
@@ -871,7 +944,22 @@ bool NetworkManager::disconnectClient()
     {
         m_udpSocket->close();
         delete m_udpSocket;
+        m_udpSocket = nullptr;
     }
+
+    /* Tear down the connection to the server as well, otherwise the socket
+     * would keep signalling on a session the user has just terminated */
+    if (m_tcpSocket != nullptr)
+    {
+        m_rxBuffers.remove(m_tcpSocket);
+        m_tcpSocket->disconnect(this);
+        m_tcpSocket->close();
+        m_tcpSocket->deleteLater();
+        m_tcpSocket = nullptr;
+    }
+
+    m_serverList.clear();
+    emit serverListChanged();
 
     setClientStatus(Disconnected);
 
@@ -968,36 +1056,41 @@ void NetworkManager::slotProcessTCPPackets()
     QHostAddress senderAddress = socket->peerAddress();
     NetworkHost *session = hostForSocket(socket);
     qint64 bytesProcessed = 0;
-    qint64 bytesAvailable = 0;
-    QByteArray wholeData;
 
+    /* Append to whatever was left over from the previous reads on this
+     * socket: a single packet may well be split across several of them */
+    QByteArray &wholeData = m_rxBuffers[socket];
     wholeData.append(socket->readAll());
-    bytesAvailable = wholeData.length();
 
-    qDebug() << "[TCP] Received" << bytesAvailable << "bytes from" << senderAddress.toString();
+    qDebug() << "[TCP] Received" << wholeData.length() << "bytes from" << senderAddress.toString();
 
-    while (bytesAvailable)
+    while (bytesProcessed < wholeData.length())
     {
         int actionCode = 0;
         QVariantList paramsList;
         QByteArray datagram = wholeData.mid(bytesProcessed);
         int read = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
 
-        qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params" << paramsList.count();
-
+        /* Incomplete packet: keep the remainder and wait for the next read */
         if (read < 0)
         {
-            /* if more data is needed, get it from the socket */
-            QByteArray moreData = socket->readAll();
-            if (moreData.length() == 0)
-                return;
-            wholeData.append(moreData);
-            bytesAvailable = wholeData.length();
-            continue;
+            qDebug() << "[TCP] Incomplete packet:" << (wholeData.length() - bytesProcessed)
+                     << "bytes buffered, waiting for more data";
+            break;
         }
 
+        /* Undecodable data: there's no way to resync, drop the whole buffer */
         if (read == 0)
+        {
+            qWarning() << "[TCP] Undecodable data. Dropping"
+                       << (wholeData.length() - bytesProcessed) << "bytes";
+            bytesProcessed = wholeData.length();
             break;
+        }
+
+        qDebug() << "[TCP] Action" << Tardis::actionToString(actionCode)
+                 << QString("(0x%1)").arg(actionCode, 4, 16, QChar('0'))
+                 << "params:" << paramsList.count() << "packet bytes:" << read;
 
         switch (actionCode)
         {
@@ -1062,6 +1155,51 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
+            case Tardis::NetProjectChanging:
+            {
+                if (m_hostType != ClientHostType)
+                    break;
+
+                qDebug() << "[TCP] Server is changing project. Clearing contents";
+
+                /* Drop any partially received project as well: what is being
+                 * transferred now belongs to the workspace being replaced */
+                m_projectData.clear();
+                m_projectSize = 0;
+                setClientStatus(DownloadingProject);
+
+                emit requestProjectClear();
+            }
+            break;
+            case Tardis::NetProjectLoaded:
+            {
+                if (m_hostType != ClientHostType)
+                    break;
+
+                qDebug() << "[TCP] Server finished loading a project. Requesting it";
+                requestProjectFromServer();
+            }
+            break;
+            case Tardis::NetProjectRequest:
+            {
+                if (m_hostType != ServerHostType)
+                    break;
+
+                /* The requester is identified by the socket it is talking on,
+                 * so a session cannot ask for the project on behalf of another */
+                if (session == nullptr || !session->isAuthenticated)
+                {
+                    qWarning() << "[TCP] Dropping project request from an"
+                               << "unauthenticated native session";
+                    break;
+                }
+
+                qDebug() << "[TCP] Project requested by session" << session->sessionId
+                         << "client" << session->hostName;
+
+                emit clientProjectRequest(session->sessionId);
+            }
+            break;
             case Tardis::NetProjectTransfer:
             {
                 if (m_hostType != ClientHostType || paramsList.count() < 2)
@@ -1088,6 +1226,20 @@ void NetworkManager::slotProcessTCPPackets()
 
                 if (seqType == 2 || m_projectData.length() == m_projectSize)
                 {
+                    /* Never load a partial project: doing so silently drops
+                     * whole sections (Monitor, Virtual Console, ...) and looks
+                     * like data corruption to the user */
+                    if (m_projectData.length() != m_projectSize)
+                    {
+                        qWarning() << "[TCP] Incomplete project transfer:"
+                                   << m_projectData.length() << "of" << m_projectSize
+                                   << "bytes received. Project discarded";
+                        m_projectData.clear();
+                        setClientStatus(Connected);
+                        emit connectionsCountChanged();
+                        break;
+                    }
+
                     emit requestProjectLoad(m_projectData);
                     m_projectData.clear();
                     setClientStatus(Connected);
@@ -1138,8 +1290,16 @@ void NetworkManager::slotProcessTCPPackets()
         }
 
         bytesProcessed += read;
-        bytesAvailable -= read;
+
+        /* Handling a packet may tear the connection down (and with it this
+         * socket's buffer): stop touching it as soon as that happens */
+        if (m_rxBuffers.contains(socket) == false)
+            return;
     }
+
+    /* Drop what has been consumed, keep any partial packet for the next read */
+    if (bytesProcessed > 0)
+        m_rxBuffers[socket].remove(0, bytesProcessed);
 }
 
 void NetworkManager::slotDocLoaded()
@@ -1163,10 +1323,16 @@ void NetworkManager::slotDocLoaded()
     // NOTE: the encryption key is deliberately not taken from the project.
     // It is a machine-wide setting stored in the global QLC+ configuration
 
-    QString name = ioMap->networkServerName();
-    if (name.isEmpty())
-        name = defaultName();
-    setHostName(name);
+    /* A client identifies itself to the server with its host name: keep the
+     * local one, or loading a project received over the network would rename
+     * this instance after the server and break any further request */
+    if (m_hostType != ClientHostType)
+    {
+        QString name = ioMap->networkServerName();
+        if (name.isEmpty())
+            name = defaultName();
+        setHostName(name);
+    }
 
     if (m_hostType != ClientHostType &&
         (m_startAutomatically || m_forcedServerTypes != NoServer))
@@ -1201,6 +1367,17 @@ void NetworkManager::slotHostDisconnected()
     QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
     if (socket == nullptr)
         return;
+
+    m_rxBuffers.remove(socket);
+
+    /* On a client, m_hostsMap holds the servers discovered on the network:
+     * losing the connection must not remove them from the list */
+    if (m_hostType == ClientHostType)
+    {
+        setClientStatus(Disconnected);
+        return;
+    }
+
     NetworkHost *host = hostForSocket(socket);
     if (host != nullptr)
     {

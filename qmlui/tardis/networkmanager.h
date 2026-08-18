@@ -234,6 +234,16 @@ public:
     Q_INVOKABLE bool setClientAccess(QString sessionId, bool allow, int accessMask);
     Q_INVOKABLE bool sendWorkspaceToClient(QString sessionId, QString filename);
 
+    /** Tell every connected client that this server is about to replace its
+     *  workspace, so they can clear their contents before the new project
+     *  data (or a stream of actions on it) starts to arrive */
+    void notifyProjectChanging();
+
+    /** Tell every connected client that a new workspace is fully loaded and
+     *  can be requested. The project is not pushed: each client asks for it
+     *  when ready, so a busy or detached client is not forced to reload */
+    void notifyProjectLoaded();
+
     /** Return true if at least one server instance is running */
     bool serverStarted() const;
 
@@ -257,6 +267,10 @@ signals:
     void clientAccessRequestCancelled(QString sessionId);
     void clientAutoAuthorized(QString sessionId);
 
+    /** Emitted on a server when a client asks for the current workspace.
+     *  The App answers it, since it owns the project file name */
+    void clientProjectRequest(QString sessionId);
+
 protected slots:
     /** Event raised when an incoming connection is requested on
      *  the TCP socket server side */
@@ -275,6 +289,10 @@ private:
     QList<NativeAccessRequest> m_pendingAccessRequests;
     NativeAccessRequest m_activeAccessRequest;
     bool m_allowAllNative = false;
+    /** Incoming TCP data not yet forming a complete packet, per socket.
+     *  TCP is a stream: a packet can be split across several readyRead
+     *  signals, so the leftover must be kept until the rest arrives */
+    QHash<QTcpSocket *, QByteArray> m_rxBuffers;
     /** Socket currently being processed on server RX path (used to avoid echoing back) */
     QTcpSocket *m_currentRxSocket = nullptr;
     /** Tracks the source socket of recently received actions, to suppress delayed echo */
@@ -300,6 +318,9 @@ public:
     Q_INVOKABLE bool connectClient(QString ipAddress);
     Q_INVOKABLE bool disconnectClient();
 
+    /** Ask the connected server to send its current workspace */
+    Q_INVOKABLE bool requestProjectFromServer();
+
     QVariant serverList() const;
 
     /** Get/Set the connection status of a QLC+ client instance */
@@ -312,6 +333,10 @@ signals:
     void accessMaskChanged(int mask);
     void requestProjectLoad(QByteArray &data);
     void storeAutostartProject(QString fileName);
+
+    /** Emitted on a client when the server announces it is replacing its
+     *  workspace. The client is expected to clear its own contents */
+    void requestProjectClear();
 
 private:
     /** The socket used to send/receive unicast TCP packets */

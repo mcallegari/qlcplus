@@ -204,6 +204,10 @@ protected slots:
     void slotClientAccessRequest(QString sessionId, QString name,
                                  QString peerAddress, quint16 peerPort);
     void slotClientAccessRequestCancelled(QString sessionId);
+
+    /** Serve the current workspace to a client that requested it */
+    void slotClientProjectRequest(QString sessionId);
+
     void slotAccessMaskChanged(int mask);
     void slotDocAutosave();
 
@@ -374,6 +378,11 @@ signals:
 
 public slots:
     void slotLoadDocFromMemory(QByteArray &xmlData);
+
+    /** Clear the whole workspace on request of the connected server, which
+     *  is about to replace its own project */
+    void slotClearDocFromNetwork();
+
     void slotSaveAutostart(QString fileName);
 
 private:
