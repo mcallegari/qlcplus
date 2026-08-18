@@ -256,7 +256,7 @@ bool QLCFixtureEditor::checkFixtureDefinition()
                              tr("Missing important information"),
                              tr("Missing fixture mode.\n"
                                 "Unable to save fixture."));
-        m_tab->setCurrentIndex(3);
+        m_tab->setCurrentWidget(Modes);
         m_addModeButton->setFocus();
         return false;
     }
