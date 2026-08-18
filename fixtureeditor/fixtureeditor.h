@@ -78,7 +78,7 @@ protected slots:
     void slotTypeActivated(int index);
 
 protected:
-    bool checkManufacturerModel();
+    bool checkFixtureDefinition();
     void setCaption();
     void ensureNewExtension();
     bool newExtensionReminder();
