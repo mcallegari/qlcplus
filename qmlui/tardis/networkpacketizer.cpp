@@ -302,7 +302,10 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
         QByteArray payload = packet.mid(bytes_read, sections_length);
         //qDebug() << "section length:" << sections_length << "payload len:" << payload.length();
         ba = decrypter->decryptToByteArray(payload);
-        if (ba.length() == 0)
+
+        /* An empty result is legitimate for a packet carrying no section, so
+         * the error flag is the only reliable way to detect a failure */
+        if (decrypter->lastError() != SimpleCrypt::ErrorNoError)
         {
             qWarning() << "[Packetizer] Decryption error:" << decrypter->lastError()
                        << "opCode:" << QString::number(opCode, 16)

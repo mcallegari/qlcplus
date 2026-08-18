@@ -135,7 +135,11 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
 QString Tardis::actionToString(int action)
 {
     int index = staticMetaObject.indexOfEnumerator("ActionCodes");
-    return staticMetaObject.enumerator(index).valueToKey(action);
+    const char *key = staticMetaObject.enumerator(index).valueToKey(action);
+
+    /* valueToKey returns null on an unknown code, which would build a null
+     * QString and hide the actual value */
+    return key ? QString(key) : QString("Unknown");
 }
 
 void Tardis::undoAction()
@@ -637,6 +641,20 @@ void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
 int Tardis::processAction(TardisAction &action, bool undo)
 {
     QVariant *value = undo ? &action.m_oldValue : &action.m_newValue;
+
+    /* Actions on a Virtual Console widget are dispatched straight onto the
+     * looked up pointer, so a widget that no longer exists would crash the
+     * whole application. This happens routinely over the network: actions
+     * created before a project change can be delivered after the local
+     * contents have been cleared */
+    if (((action.m_action > VCWidgetDelete && action.m_action < LIVE_ACTIONS_START_CODE) ||
+         action.m_action >= VCButtonSetPressed) &&
+        m_virtualConsole->widget(action.m_objID) == nullptr)
+    {
+        qWarning() << "[Tardis] Widget" << action.m_objID << "not found. Skipping action"
+                   << actionToString(action.m_action);
+        return action.m_action;
+    }
 
     switch(action.m_action)
     {

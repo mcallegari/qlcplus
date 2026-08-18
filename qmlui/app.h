@@ -202,6 +202,10 @@ protected slots:
     void slotScreenChanged(QScreen *screen);
     void slotClosing();
     void slotClientAccessRequest(QString name);
+
+    /** Serve the current workspace to a client that requested it */
+    void slotClientProjectRequest(QString name);
+
     void slotAccessMaskChanged(int mask);
     void slotDocAutosave();
 
@@ -372,6 +376,11 @@ signals:
 
 public slots:
     void slotLoadDocFromMemory(QByteArray &xmlData);
+
+    /** Clear the whole workspace on request of the connected server, which
+     *  is about to replace its own project */
+    void slotClearDocFromNetwork();
+
     void slotSaveAutostart(QString fileName);
 
 private:
