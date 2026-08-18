@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
                                       "Enable the native remote server");
     parser.addOption(remoteOption);
 
-    QCommandLineOption allowAllNativeOption(QStringList() << "allow-all-native",
+    QCommandLineOption allowAllNativeOption(QStringList() << "sa" << "server-allow-all",
         "Automatically grant full access to every native TCP client (unsafe on untrusted networks)");
     parser.addOption(allowAllNativeOption);
 
@@ -234,7 +234,7 @@ int main(int argc, char *argv[])
         if (allowAllNative)
         {
             qCritical().noquote()
-                << "WARNING: --allow-all-native grants full QLC+ control to every native client, including LAN clients. Keep TCP port 9998 firewalled or use only a trusted network.";
+                << "WARNING: --server-allow-all grants full QLC+ control to every native client, including LAN clients. Keep TCP port 9998 firewalled or use only a trusted network.";
         }
         int forcedTypes = NetworkManager::NoServer;
 
