@@ -880,6 +880,8 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
     if (xmlData.isEmpty())
         return;
 
+    m_contextManager->resetContexts();
+
     /* Clear existing document data */
     clearDocument();
     setDocLoaded(false);
@@ -910,10 +912,14 @@ void App::slotLoadDocFromMemory(QByteArray &xmlData)
 
     if (doc.dtdName() == KXMLQLCWorkspace)
     {
-        loadXML(doc, true, true);
+        /* Do not force the Virtual Console: honour the context saved in the
+         * received project. Clients restricted to VC control only are still
+         * switched to it by loadXML itself */
+        loadXML(doc, false, true);
         setDocLoaded(true);
         m_doc->resetModified();
         m_doc->inputOutputMap()->startUniverses();
+        m_contextManager->resetContexts();
     }
     else
         qDebug() << "XML doesn't have a Workspace tag";

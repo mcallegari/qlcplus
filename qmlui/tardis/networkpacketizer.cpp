@@ -270,13 +270,19 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
     QByteArray ba;
     sections.clear();
 
-    /* A packet header must be at least 4 bytes long */
+    /* Not enough data for a full header: ask the caller for more, otherwise
+     * the stream would be silently desynchronized one byte at a time */
     if (packet.length() < HEADER_LENGTH)
-        return 1;
+        return -1;
 
-    /* Check the protocol ID presence */
+    /* Check the protocol ID presence. There's no way to tell where the next
+     * packet begins, so give up on the whole buffer instead of resyncing
+     * byte by byte on data that will never be valid */
     if (packet.at(0) != (char)0xE6 || packet.at(1) != (char)0x86)
-        return 1;
+    {
+        qWarning() << "[Packetizer] Invalid protocol ID. Discarding" << packet.length() << "bytes";
+        return 0;
+    }
 
     bytes_read += 2;
 
@@ -294,12 +300,16 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
     if (decrypter)
     {
         QByteArray payload = packet.mid(bytes_read, sections_length);
-        qDebug() << "section length:" << sections_length << "payload len:" << payload.length();
+        //qDebug() << "section length:" << sections_length << "payload len:" << payload.length();
         ba = decrypter->decryptToByteArray(payload);
         if (ba.length() == 0)
         {
-            qDebug() << "decryption error:" << decrypter->lastError();
-            return bytes_read + sections_length;
+            qWarning() << "[Packetizer] Decryption error:" << decrypter->lastError()
+                       << "opCode:" << QString::number(opCode, 16)
+                       << "payload len:" << payload.length()
+                       << "- packet dropped";
+            opCode = -1;
+            return HEADER_LENGTH + sections_length;
         }
         bytes_read = 0;
     }

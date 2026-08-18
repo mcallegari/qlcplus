@@ -253,6 +253,10 @@ private:
 
     /** Map of the QLC+ hosts detected on the network */
     QHash<QHostAddress, NetworkHost *> m_hostsMap;
+    /** Incoming TCP data not yet forming a complete packet, per socket.
+     *  TCP is a stream: a packet can be split across several readyRead
+     *  signals, so the leftover must be kept until the rest arrives */
+    QHash<QTcpSocket *, QByteArray> m_rxBuffers;
     /** Socket currently being processed on server RX path (used to avoid echoing back) */
     QTcpSocket *m_currentRxSocket = nullptr;
     /** Tracks the source socket of recently received actions, to suppress delayed echo */

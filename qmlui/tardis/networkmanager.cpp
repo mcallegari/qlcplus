@@ -913,15 +913,15 @@ void NetworkManager::slotProcessTCPPackets()
 
     QHostAddress senderAddress = socket->peerAddress();
     qint64 bytesProcessed = 0;
-    qint64 bytesAvailable = 0;
-    QByteArray wholeData;
 
+    /* Append to whatever was left over from the previous reads on this
+     * socket: a single packet may well be split across several of them */
+    QByteArray &wholeData = m_rxBuffers[socket];
     wholeData.append(socket->readAll());
-    bytesAvailable = wholeData.length();
 
-    qDebug() << "[TCP] Received" << bytesAvailable << "bytes from" << senderAddress.toString();
+    qDebug() << "[TCP] Received" << wholeData.length() << "bytes from" << senderAddress.toString();
 
-    while (bytesAvailable)
+    while (bytesProcessed < wholeData.length())
     {
         int actionCode = 0;
         QVariantList paramsList;
@@ -930,19 +930,16 @@ void NetworkManager::slotProcessTCPPackets()
 
         qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params" << paramsList.count();
 
+        /* Incomplete packet: keep the remainder and wait for the next read */
         if (read < 0)
-        {
-            /* if more data is needed, get it from the socket */
-            QByteArray moreData = socket->readAll();
-            if (moreData.length() == 0)
-                return;
-            wholeData.append(moreData);
-            bytesAvailable = wholeData.length();
-            continue;
-        }
-
-        if (read == 0)
             break;
+
+        /* Undecodable data: there's no way to resync, drop the whole buffer */
+        if (read == 0)
+        {
+            bytesProcessed = wholeData.length();
+            break;
+        }
 
         switch (actionCode)
         {
@@ -1018,6 +1015,20 @@ void NetworkManager::slotProcessTCPPackets()
 
                 if (seqType == 2 || m_projectData.length() == m_projectSize)
                 {
+                    /* Never load a partial project: doing so silently drops
+                     * whole sections (Monitor, Virtual Console, ...) and looks
+                     * like data corruption to the user */
+                    if (m_projectData.length() != m_projectSize)
+                    {
+                        qWarning() << "[TCP] Incomplete project transfer:"
+                                   << m_projectData.length() << "of" << m_projectSize
+                                   << "bytes received. Project discarded";
+                        m_projectData.clear();
+                        setClientStatus(Connected);
+                        emit connectionsCountChanged();
+                        break;
+                    }
+
                     emit requestProjectLoad(m_projectData);
                     m_projectData.clear();
                     setClientStatus(Connected);
@@ -1053,8 +1064,11 @@ void NetworkManager::slotProcessTCPPackets()
         }
 
         bytesProcessed += read;
-        bytesAvailable -= read;
     }
+
+    /* Drop what has been consumed, keep any partial packet for the next read */
+    if (bytesProcessed > 0)
+        wholeData.remove(0, bytesProcessed);
 }
 
 void NetworkManager::slotDocLoaded()
@@ -1113,6 +1127,8 @@ void NetworkManager::slotProcessNewTCPConnection()
     }
     connect(clientConnection, SIGNAL(readyRead()),
             this, SLOT(slotProcessTCPPackets()));
+    connect(clientConnection, &QTcpSocket::disconnected,
+            this, &NetworkManager::slotHostDisconnected);
 }
 
 void NetworkManager::slotHostDisconnected()
@@ -1120,6 +1136,8 @@ void NetworkManager::slotHostDisconnected()
     QTcpSocket *socket = (QTcpSocket *)sender();
     QHostAddress senderAddress = socket->peerAddress();
     qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
+
+    m_rxBuffers.remove(socket);
 
     if (m_hostsMap.contains(senderAddress) == true)
     {
