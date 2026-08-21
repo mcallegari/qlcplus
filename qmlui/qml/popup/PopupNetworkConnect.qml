@@ -29,7 +29,17 @@ CustomPopupDialog
     width: mainView.width / 3
     title: qsTr("Client access request")
 
+    property string sessionId: ""
     property string clientName: ""
+    property string peerAddress: ""
+    property int peerPort: 0
+    property bool deciding: false
+
+    onClosed:
+    {
+        if (!deciding && sessionId !== "")
+            networkManager.setClientAccess(sessionId, false, 0)
+    }
 
     contentItem:
         GridLayout
@@ -44,9 +54,12 @@ CustomPopupDialog
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 //wrapText: true
-                height: UISettings.listItemHeight * 3
-                label: qsTr("A client with name <") + clientName +
-                       qsTr(">\nis requesting access to this session.\nAccess level:")
+                height: UISettings.listItemHeight * 5
+                label: qsTr("A client is requesting access to this session.") +
+                       "\n" + qsTr("Name: ") + clientName +
+                       "\n" + qsTr("Peer: ") + peerAddress + ":" + peerPort +
+                       "\n" + qsTr("Session ID: ") + sessionId +
+                       "\n" + qsTr("Access level:")
             }
 
             // row 2
@@ -190,8 +203,10 @@ CustomPopupDialog
                     label: qsTr("Deny")
                     onClicked:
                     {
-                        networkManager.setClientAccess(clientName, false, 0)
+                        var deniedSession = sessionId
+                        deciding = true
                         popupRoot.close()
+                        networkManager.setClientAccess(deniedSession, false, 0)
                     }
                 }
 
@@ -217,9 +232,11 @@ CustomPopupDialog
                         if (ioCheck.checked)
                             access |= App.AC_InputOutput
 
-                        networkManager.setClientAccess(clientName, true, access)
-                        networkManager.sendWorkspaceToClient(clientName, qlcplus.fileName())
+                        var allowedSession = sessionId
+                        deciding = true
                         popupRoot.close()
+                        if (networkManager.setClientAccess(allowedSession, true, access))
+                            networkManager.sendWorkspaceToClient(allowedSession, qlcplus.fileName())
                     }
                 }
             }

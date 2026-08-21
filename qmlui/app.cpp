@@ -201,6 +201,13 @@ void App::startup()
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
     connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
+    connect(m_networkManager, &NetworkManager::clientAccessRequestCancelled,
+            this, &App::slotClientAccessRequestCancelled);
+    connect(m_networkManager, &NetworkManager::clientAutoAuthorized, this,
+            [this](const QString &sessionId)
+    {
+        m_networkManager->sendWorkspaceToClient(sessionId, fileName());
+    });
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
     connect(m_networkManager, &NetworkManager::requestProjectClear, this, &App::slotClearDocFromNetwork);
@@ -483,13 +490,21 @@ void App::slotClosing()
     //QTimer::singleShot(2000, []() { QCoreApplication::exit(0); });
 }
 
-void App::slotClientAccessRequest(QString name)
+void App::slotClientAccessRequest(QString sessionId, QString name,
+                                  QString peerAddress, quint16 peerPort)
 {
     QMetaObject::invokeMethod(rootObject(), "openAccessRequest",
-                              Q_ARG(QVariant, name));
+                              Q_ARG(QVariant, sessionId), Q_ARG(QVariant, name),
+                              Q_ARG(QVariant, peerAddress), Q_ARG(QVariant, peerPort));
 }
 
-void App::slotClientProjectRequest(QString name)
+void App::slotClientAccessRequestCancelled(QString sessionId)
+{
+    QMetaObject::invokeMethod(rootObject(), "closeAccessRequest",
+                              Q_ARG(QVariant, sessionId));
+}
+
+void App::slotClientProjectRequest(QString sessionId)
 {
     /* The workspace is served from a file. If the current project has never
      * been saved, or has pending changes, dump it to a temporary file first,
@@ -501,15 +516,15 @@ void App::slotClientProjectRequest(QString name)
         fileName = QString("%1/%2").arg(QDir::tempPath()).arg("qlcplus_netproject.qxw");
         if (saveXML(fileName, true) != QFile::NoError)
         {
-            qWarning() << Q_FUNC_INFO << "Unable to serve the project to" << name;
+            qWarning() << Q_FUNC_INFO << "Unable to serve the project to" << sessionId;
             return;
         }
     }
 
-    qDebug() << Q_FUNC_INFO << "Serving" << fileName << "to" << name;
+    qDebug() << Q_FUNC_INFO << "Serving" << fileName << "to session" << sessionId;
 
-    if (m_networkManager->sendWorkspaceToClient(name, fileName) == false)
-        qWarning() << Q_FUNC_INFO << "Failed to send the workspace to" << name;
+    if (m_networkManager->sendWorkspaceToClient(sessionId, fileName) == false)
+        qWarning() << Q_FUNC_INFO << "Failed to send the workspace to session" << sessionId;
 }
 
 void App::slotAccessMaskChanged(int mask)
