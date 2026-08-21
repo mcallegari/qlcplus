@@ -259,6 +259,14 @@ bool QLCFixtureEditor::save()
     if (checkManufacturerModel() == false)
         return false;
 
+    if (m_fixtureDef->modes().isEmpty() == true)
+    {
+        QMessageBox::warning(this,
+                             tr("Missing important information"),
+                             tr("Invalid definition: no modes provided.\n"
+                                "Without modes, this fixture will not appear in the list!"));
+    }
+
     if (m_fileName.simplified().isEmpty() == true)
     {
         return saveAs();
