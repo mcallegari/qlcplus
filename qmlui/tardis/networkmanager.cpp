@@ -28,6 +28,7 @@
 #include <QDateTime>
 
 #include "networkmanager.h"
+#include "app.h"
 #include "networkpacketizer.h"
 #include "simplecrypt.h"
 #include "tardis.h"
@@ -805,15 +806,38 @@ NetworkHost *NetworkManager::hostForSocket(const QTcpSocket *socket) const
 
 int NetworkManager::requiredAccessMask(int actionCode) const
 {
-    if (actionCode >= 0x0100 && actionCode < 0x0200) return 1 << 6;
-    if ((actionCode >= 0x0000 && actionCode < 0x0100) ||
-        (actionCode >= 0x0200 && actionCode < 0x1000)) return 1 << 0;
-    if (actionCode >= 0x1000 && actionCode < 0xB000) return 1 << 1;
-    if (actionCode >= 0xB000 && actionCode < 0xC000) return 1 << 5;
-    if (actionCode >= 0xC000 && actionCode < 0xE000) return 1 << 4;
-    if (actionCode >= 0xE000 && actionCode < LIVE_ACTIONS_START_CODE) return 1 << 3;
-    if (actionCode >= LIVE_ACTIONS_START_CODE && actionCode < 0xF100) return 1 << 4;
-    if (actionCode >= 0xF100 && actionCode < 0xFF00) return 1 << 2;
+    /* Tardis action codes are grouped by editing area, each group starting
+     * at a known enum value. Map every group to the access right the client
+     * must hold to be allowed to perform it */
+    if (actionCode >= Tardis::IOAddUniverse && actionCode < Tardis::FixtureCreate)
+        return App::AC_InputOutput;
+
+    /* Preview settings, fixtures and fixture groups */
+    if ((actionCode >= Tardis::EnvironmentSetSize && actionCode < Tardis::IOAddUniverse) ||
+        (actionCode >= Tardis::FixtureCreate && actionCode < Tardis::FunctionCreate))
+        return App::AC_FixtureEditing;
+
+    /* Every function type: scenes, chasers, EFX, collections, matrices, ... */
+    if (actionCode >= Tardis::FunctionCreate && actionCode < Tardis::ShowManagerAddTrack)
+        return App::AC_FunctionEditing;
+
+    if (actionCode >= Tardis::ShowManagerAddTrack && actionCode < Tardis::SimpleDeskSetChannel)
+        return App::AC_ShowManager;
+
+    if (actionCode >= Tardis::SimpleDeskSetChannel && actionCode < Tardis::VCWidgetCreate)
+        return App::AC_SimpleDesk;
+
+    if (actionCode >= Tardis::VCWidgetCreate && actionCode < LIVE_ACTIONS_START_CODE)
+        return App::AC_VCEditing;
+
+    /* Live actions: dumping values to Simple Desk, then everything that
+     * controls a running show from the Virtual Console */
+    if (actionCode >= Tardis::FixtureSetDumpValue && actionCode < Tardis::FunctionStart)
+        return App::AC_SimpleDesk;
+
+    if (actionCode >= Tardis::FunctionStart && actionCode < Tardis::NetAnnounce)
+        return App::AC_VCControl;
+
     return 0;
 }
 
