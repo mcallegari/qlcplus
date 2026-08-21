@@ -160,10 +160,33 @@ bool QLCFixtureDefCache::reloadFixtureDef(QLCFixtureDef *fixtureDef)
 
     QLCFixtureDef *def = m_defs.takeAt(idx);
     QString absPath = def->definitionSourceFile();
+    bool isUser = def->isUser();
     delete def;
 
     QLCFixtureDef *origDef = new QLCFixtureDef();
-    origDef->loadXML(absPath);
+    QFile::FileError error = origDef->loadXML(absPath);
+    if (error != QFile::NoError)
+    {
+        qWarning() << Q_FUNC_INFO << "Fixture definition loading from"
+                   << absPath << "failed:" << QLCFile::errorString(error);
+        delete origDef;
+        return false;
+    }
+
+    /* A definition with no modes cannot be used to patch a fixture,
+       so don't add it back to the cache. Note that fixture editors load
+       definitions directly, so they can still handle incomplete ones */
+    if (origDef->modes().isEmpty())
+    {
+        qWarning() << Q_FUNC_INFO << "Fixture definition" << absPath
+                   << "has no modes. Skipping.";
+        delete origDef;
+        return false;
+    }
+
+    origDef->setIsUser(isUser);
+    origDef->setDefinitionSourceFile(absPath);
+    origDef->setLoaded(true);
     m_defs << origDef;
 
     return true;
@@ -423,6 +446,17 @@ bool QLCFixtureDefCache::loadQXF(const QString& path, bool isUser)
     QFile::FileError error = fxi->loadXML(path);
     if (error == QFile::NoError)
     {
+        /* A definition with no modes cannot be used to patch a fixture,
+           so don't add it to the cache. Note that fixture editors load
+           definitions directly, so they can still handle incomplete ones */
+        if (fxi->modes().isEmpty())
+        {
+            qWarning() << Q_FUNC_INFO << "Fixture definition" << path
+                       << "has no modes. Skipping.";
+            delete fxi;
+            return false;
+        }
+
         fxi->setIsUser(isUser);
         fxi->setDefinitionSourceFile(path);
         fxi->setLoaded(true);
