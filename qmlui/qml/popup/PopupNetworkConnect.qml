@@ -44,22 +44,22 @@ CustomPopupDialog
     contentItem:
         GridLayout
         {
-            columns: 2
+            columns: 4
             rowSpacing: 5
             columnSpacing: 5
 
             // row 1
             RobotoText
             {
-                Layout.columnSpan: 2
+                Layout.columnSpan: 4
                 Layout.fillWidth: true
                 //wrapText: true
                 height: UISettings.listItemHeight * 5
                 label: qsTr("A client is requesting access to this session.") +
-                       "\n" + qsTr("Name: ") + clientName +
-                       "\n" + qsTr("Peer: ") + peerAddress + ":" + peerPort +
-                       "\n" + qsTr("Session ID: ") + sessionId +
-                       "\n" + qsTr("Access level:")
+                       "<br><b>" + qsTr("Name: ") + "</b>" + clientName +
+                       "<br><b>" + qsTr("Address: ") + "</b>" + peerAddress + ":" + peerPort +
+                       "<br><b>" + qsTr("Session ID: ") + "</b>" + sessionId +
+                       "<br><br>" + qsTr("Access level:")
             }
 
             // row 2
@@ -75,11 +75,9 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Fixture/Group editing")
             }
 
-            // row 3
             CustomCheckBox
             {
                 id: funcEditCheck
@@ -91,11 +89,10 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Function editing")
             }
 
-            // row 4
+            // row 3
             CustomCheckBox
             {
                 id: vcControlCheck
@@ -107,11 +104,9 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Virtual console control")
             }
 
-            // row 5
             CustomCheckBox
             {
                 id: vcEditCheck
@@ -123,11 +118,10 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Virtual console editing")
             }
 
-            // row 6
+            // row 4
             CustomCheckBox
             {
                 id: sdeskCheck
@@ -139,11 +133,9 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Simple Desk")
             }
 
-            // row 7
             CustomCheckBox
             {
                 id: showMgrCheck
@@ -155,11 +147,10 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Show Manager")
             }
 
-            // row 8
+            // row 5
             CustomCheckBox
             {
                 id: ioCheck
@@ -170,12 +161,12 @@ CustomPopupDialog
             }
             RobotoText
             {
+                Layout.columnSpan: 3
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Input/Output")
             }
 
-            // row 9
+            // row 6
             CustomCheckBox
             {
                 id: alwaysCheck
@@ -184,14 +175,15 @@ CustomPopupDialog
                 checked: true
                 autoExclusive: false
             }
+
             RobotoText
             {
+                Layout.columnSpan: 3
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Always allow this client")
             }
 
-            // row 10
+            // row 7
             Row
             {
                 Layout.columnSpan: 2
@@ -235,7 +227,7 @@ CustomPopupDialog
                         var allowedSession = sessionId
                         deciding = true
                         popupRoot.close()
-                        if (networkManager.setClientAccess(allowedSession, true, access))
+                        if (networkManager.setClientAccess(allowedSession, true, access, alwaysCheck.checked))
                             networkManager.sendWorkspaceToClient(allowedSession, qlcplus.fileName())
                     }
                 }

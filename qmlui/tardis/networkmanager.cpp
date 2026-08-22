@@ -633,13 +633,21 @@ bool NetworkManager::stopServerType(int type)
     return true;
 }
 
-bool NetworkManager::setClientAccess(QString sessionId, bool allow, int accessMask)
+bool NetworkManager::setClientAccess(QString sessionId, bool allow, int accessMask, bool remember)
 {
     NetworkHost *host = m_hostsMap.value(sessionId, nullptr);
     if (host == nullptr || host->tcpSocket.isNull())
         return false;
     if (!m_allowAllNative && m_activeAccessRequest.sessionId != sessionId)
         return false;
+
+    /* Remember the user decision for the whole QLC+ lifetime, so this
+     * client doesn't have to be authorized again on every connection */
+    const QString key = allowListKey(host);
+    if (remember && allow)
+        m_allowedClients.insert(key, accessMask);
+    else if (!allow)
+        m_allowedClients.remove(key);
 
     host->isAuthenticated = allow;
     host->accessMask = allow ? accessMask : 0;
@@ -841,6 +849,48 @@ int NetworkManager::requiredAccessMask(int actionCode) const
     return 0;
 }
 
+QString NetworkManager::allowListKey(const NetworkHost *host) const
+{
+    if (host == nullptr)
+        return QString();
+
+    /* The session ID changes on every connection, so the client is
+     * identified by its name and the address it connects from */
+    return QString("%1@%2").arg(host->hostName)
+                           .arg(host->peerAddress.toString());
+}
+
+bool NetworkManager::autoAuthorizeHost(NetworkHost *host, int accessMask)
+{
+    if (host == nullptr)
+        return false;
+
+    /* setClientAccess only accepts the session being asked about, unless
+     * every client is allowed. Make this one active to bypass the check */
+    const NativeAccessRequest previousRequest = m_activeAccessRequest;
+    if (!m_allowAllNative)
+    {
+        m_activeAccessRequest = NativeAccessRequest();
+        m_activeAccessRequest.sessionId = host->sessionId;
+    }
+
+    bool sent = setClientAccess(host->sessionId, true, accessMask);
+
+    if (!m_allowAllNative && !previousRequest.sessionId.isEmpty())
+        m_activeAccessRequest = previousRequest;
+
+    if (sent)
+    {
+        qDebug().noquote() << "Automatically authorized native session"
+            << host->sessionId << "client" << host->hostName
+            << "peer" << QString("%1:%2").arg(host->peerAddress.toString()).arg(host->peerPort)
+            << "access mask" << QString("0x%1").arg(accessMask, 0, 16);
+        emit clientAutoAuthorized(host->sessionId);
+    }
+
+    return sent;
+}
+
 void NetworkManager::queueAccessRequest(NetworkHost *host)
 {
     if (host == nullptr || host->tcpSocket.isNull() ||
@@ -870,8 +920,10 @@ void NetworkManager::showNextAccessRequest()
         if (host == nullptr || request.socket.isNull() || host->tcpSocket != request.socket)
             continue;
         m_activeAccessRequest = request;
+        QString ipAddr = QHostAddress(request.peerAddress.toIPv4Address()).toString();
+
         emit clientAccessRequest(request.sessionId, request.clientName,
-                                 request.peerAddress.toString(), request.peerPort);
+                                 ipAddr, request.peerPort);
         return;
     }
 }
@@ -1143,14 +1195,13 @@ void NetworkManager::slotProcessTCPPackets()
                     if (m_allowAllNative)
                     {
                         constexpr int fullAccessMask = 0x7f;
-                        if (setClientAccess(host->sessionId, true, fullAccessMask))
-                        {
-                            qWarning().noquote() << "Automatically authorized native session"
-                                << host->sessionId << "client" << host->hostName
-                                << "peer" << QString("%1:%2").arg(host->peerAddress.toString()).arg(host->peerPort)
-                                << "access mask" << QString("0x%1").arg(fullAccessMask, 0, 16);
-                            emit clientAutoAuthorized(host->sessionId);
-                        }
+                        autoAuthorizeHost(host, fullAccessMask);
+                    }
+                    else if (m_allowedClients.contains(allowListKey(host)))
+                    {
+                        /* the user chose to always allow this client:
+                         * grant the same access as the first time */
+                        autoAuthorizeHost(host, m_allowedClients.value(allowListKey(host)));
                     }
                     else
                         queueAccessRequest(host);

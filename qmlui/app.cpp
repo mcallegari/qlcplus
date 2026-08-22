@@ -200,7 +200,8 @@ void App::startup()
     m_networkManager = new NetworkManager(this, m_doc, m_virtualConsole, m_simpleDesk);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
-    connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
+    connect(m_networkManager, &NetworkManager::clientAccessRequest, 
+            this, &App::slotClientAccessRequest);
     connect(m_networkManager, &NetworkManager::clientAccessRequestCancelled,
             this, &App::slotClientAccessRequestCancelled);
     connect(m_networkManager, &NetworkManager::clientAutoAuthorized, this,

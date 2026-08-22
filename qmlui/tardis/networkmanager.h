@@ -231,7 +231,12 @@ public:
     Q_INVOKABLE bool startServerType(int type);
     Q_INVOKABLE bool stopServerType(int type);
 
-    Q_INVOKABLE bool setClientAccess(QString sessionId, bool allow, int accessMask);
+    /** Grant or deny access to the client identified by $sessionId.
+     *  If $remember is true, the client is added to the session allow list,
+     *  so it is granted $accessMask automatically on the next connections,
+     *  with no user interaction, until QLC+ is closed */
+    Q_INVOKABLE bool setClientAccess(QString sessionId, bool allow, int accessMask,
+                                     bool remember = false);
     Q_INVOKABLE bool sendWorkspaceToClient(QString sessionId, QString filename);
 
     /** Tell every connected client that this server is about to replace its
@@ -255,6 +260,14 @@ protected:
     NetworkHost *hostForSocket(const QTcpSocket *socket) const;
     int requiredAccessMask(int actionCode) const;
     void queueAccessRequest(NetworkHost *host);
+
+    /** Return the key identifying $host in the session allow list */
+    QString allowListKey(const NetworkHost *host) const;
+
+    /** Authorize $host with $accessMask without asking the user.
+     *  Return true if the authentication reply has been sent */
+    bool autoAuthorizeHost(NetworkHost *host, int accessMask);
+
     void showNextAccessRequest();
 
     /** Update the mask of the running servers and notify the changes */
@@ -289,6 +302,10 @@ private:
     QList<NativeAccessRequest> m_pendingAccessRequests;
     NativeAccessRequest m_activeAccessRequest;
     bool m_allowAllNative = false;
+    /** Clients the user chose to always allow, mapped to the granted access
+     *  mask. Keys are built by allowListKey(). This is deliberately not
+     *  persisted: it lives as long as this QLC+ instance */
+    QHash<QString, int> m_allowedClients;
     /** Incoming TCP data not yet forming a complete packet, per socket.
      *  TCP is a stream: a packet can be split across several readyRead
      *  signals, so the leftover must be kept until the rest arrives */

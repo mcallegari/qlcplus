@@ -29,7 +29,7 @@ Rectangle
     color: "transparent"
     clip: true
 
-    property string label: ""
+    property alias label: textBox.text
     property color labelColor: UISettings.fgMain
     property real fontSize: UISettings.textSizeDefault
     property bool fontBold: false
