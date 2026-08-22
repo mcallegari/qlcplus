@@ -235,6 +235,7 @@ public:
         VCCueListNextClicked,
         VCCueListPreviousClicked,
         VCCueListSetIndex,
+        VCCueListSideFaderLevel,
 
         VCSpeedDialSetTime = LIVE_ACTIONS_START_CODE + 0x500,
         VCSpeedDialSetFactor,

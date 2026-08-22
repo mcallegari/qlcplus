@@ -1528,6 +1528,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 cueList->setPlaybackIndex(value->toInt());
         }
         break;
+        case VCCueListSideFaderLevel:
+        {
+            VCCueList *cueList = qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID));
+            if (cueList)
+                cueList->setSideFaderLevel(value->toInt());
+        }
+        break;
         case VCSpeedDialSetTime:
         {
             VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(m_virtualConsole->widget(action.m_objID));

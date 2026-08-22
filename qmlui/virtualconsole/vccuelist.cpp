@@ -252,6 +252,8 @@ void VCCueList::setSideFaderLevel(int level)
     if (level == m_sideFaderLevel)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::VCCueListSideFaderLevel, id(), m_sideFaderLevel, level);
+
     m_sideFaderLevel = level;
 
     if (sideFaderMode() == Steps)
