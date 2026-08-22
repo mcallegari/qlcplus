@@ -168,9 +168,12 @@ void PreviewContext::setDetached(bool detached)
         m_view->setSource(QUrl("qrc:/WindowLoader.qml"));
         if (m_view->rootObject())
         {
-            m_view->rootObject()->setProperty("detachedViewSource", contextResource());
+            /** Note: the view source must be set last, since it triggers
+             *  the synchronous loading of the context, which needs
+             *  the other properties to be already in place */
             m_view->rootObject()->setProperty("detachedContextName", name());
             m_view->rootObject()->setProperty("detachedContextPage", contextPage());
+            m_view->rootObject()->setProperty("detachedViewSource", contextResource());
         }
 
         m_view->setTitle(contextTitle());

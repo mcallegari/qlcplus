@@ -49,6 +49,6 @@ Rectangle
         id: wLoader
         anchors.fill: parent
         source: detachedViewSource
-        onLoaded: if (item.page) item.page = detachedContextPage
+        onLoaded: if (item.page !== undefined) item.page = detachedContextPage
     }
 }
