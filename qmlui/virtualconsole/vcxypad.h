@@ -21,6 +21,7 @@
 #define VCXYPAD_H
 
 #include <QVector3D>
+#include <QPointer>
 #include <QHash>
 
 #include "vcwidget.h"
@@ -31,6 +32,7 @@
 
 class ListModel;
 class TreeModel;
+class EFX;
 
 class VCXYPad : public VCWidget, public DMXSource
 {
@@ -335,10 +337,40 @@ private:
     void deactivatePreset(VCXYPadPreset *preset);
     void setActivePresetId(int presetId);
 
+    /** Request the attribute overrides used to squeeze a running EFX preset
+     *  into the pad range window. Does nothing if $function is not an EFX */
+    void attachEFX(class Function *function);
+
+    /** Release the attribute overrides acquired by attachEFX */
+    void detachEFX();
+
+    /** Return the range window as a normalized (0-255) rectangle */
+    QRectF efxGeometry() const;
+
+    /** Resize/reposition the running EFX preset, if any, so that it fits
+     *  the current range window */
+    void updateEFXGeometry();
+
+private slots:
+    /** Forget the EFX reference when the pattern is stopped from elsewhere */
+    void slotEFXStopped(quint32 fid);
+
 private:
     quint8 m_lastAssignedPresetId;
     QList<class VCXYPadPreset*> m_presets;
     int m_activePresetId;
+
+    /** Reference to the EFX started by the active preset, if any. It is used
+     *  to resize the pattern when the range window is changed. Guarded, so
+     *  that deleting the Function while the pad is alive doesn't leave a
+     *  dangling pointer behind */
+    QPointer<EFX> m_efx;
+
+    /** IDs of the EFX attribute overrides owned by this pad */
+    int m_efxStartXOverrideId;
+    int m_efxStartYOverrideId;
+    int m_efxWidthOverrideId;
+    int m_efxHeightOverrideId;
 
     /*********************************************************************
      * DMXSource

@@ -39,6 +39,7 @@
 #include "universe.h"
 #include "tardis.h"
 #include "scene.h"
+#include "efx.h"
 #include "doc.h"
 
 /** ************** XML Tags and Attributes ************** */
@@ -108,6 +109,10 @@ VCXYPad::VCXYPad(Doc *doc, QObject *parent)
     , m_searchFilter(QString())
     , m_lastAssignedPresetId(15)
     , m_activePresetId(-1)
+    , m_efxStartXOverrideId(Function::invalidAttributeId())
+    , m_efxStartYOverrideId(Function::invalidAttributeId())
+    , m_efxWidthOverrideId(Function::invalidAttributeId())
+    , m_efxHeightOverrideId(Function::invalidAttributeId())
 {
     setType(VCWidget::XYPadWidget);
 
@@ -144,6 +149,7 @@ VCXYPad::~VCXYPad()
     }
     m_fadersMap.clear();
 
+    detachEFX();
     clearPresets();
 
     if (m_item)
@@ -406,6 +412,9 @@ void VCXYPad::setHorizontalRange(QPointF newHorizontalRange)
     if (m_floorControl)
         setFloorPosition(m_floorPosition);
 
+    // squeeze a running EFX preset into the new window
+    updateEFXGeometry();
+
     QRectF newGeometry(m_horizontalRange.x(), m_verticalRange.x(),
                        m_horizontalRange.y(), m_verticalRange.y());
     Tardis::instance()->enqueueAction(Tardis::VCXYPadSetGeometry, id(), oldGeometry, newGeometry);
@@ -433,6 +442,9 @@ void VCXYPad::setVerticalRange(QPointF newVerticalRange)
     // pull the floor target back inside the window if it just moved out
     if (m_floorControl)
         setFloorPosition(m_floorPosition);
+
+    // squeeze a running EFX preset into the new window
+    updateEFXGeometry();
 
     QRectF newGeometry(m_horizontalRange.x(), m_verticalRange.x(),
                        m_horizontalRange.y(), m_verticalRange.y());
@@ -1335,6 +1347,12 @@ bool VCXYPad::activatePreset(VCXYPadPreset *preset)
             return false;
 
         adjustFunctionIntensity(function, intensity());
+
+        // an EFX gets its geometry bound to the range window, so that the
+        // pattern can be resized/moved while it is running
+        if (preset->m_type == VCXYPadPreset::EFX)
+            attachEFX(function);
+
         function->start(m_doc->masterTimer(), functionParent());
         emit functionStarting(this, function->id(), intensity());
         return true;
@@ -1380,6 +1398,9 @@ void VCXYPad::deactivatePreset(VCXYPadPreset *preset)
         Function *function = m_doc->function(preset->m_funcID);
         if (function != nullptr && function->isRunning())
             function->stop(functionParent());
+
+        if (preset->m_type == VCXYPadPreset::EFX)
+            detachEFX();
         return;
     }
 
@@ -1392,6 +1413,85 @@ void VCXYPad::deactivatePreset(VCXYPadPreset *preset)
         emit fixturePositionsChanged();
         m_positionChanged = true;
     }
+}
+
+void VCXYPad::attachEFX(Function *function)
+{
+    detachEFX();
+
+    if (function == nullptr || function->type() != Function::EFXType)
+        return;
+
+    m_efx = qobject_cast<EFX*>(function);
+    if (m_efx.isNull())
+        return;
+
+    QRectF rect = efxGeometry();
+    if (rect.isValid() == false)
+        return;
+
+    m_efxStartXOverrideId = m_efx->requestAttributeOverride(EFX::XOffset, rect.center().x());
+    m_efxStartYOverrideId = m_efx->requestAttributeOverride(EFX::YOffset, rect.center().y());
+    m_efxWidthOverrideId = m_efx->requestAttributeOverride(EFX::Width, rect.width() / 2);
+    m_efxHeightOverrideId = m_efx->requestAttributeOverride(EFX::Height, rect.height() / 2);
+
+    // the EFX can also be stopped from outside this pad: drop the
+    // references as soon as that happens
+    connect(m_efx, SIGNAL(stopped(quint32)), this, SLOT(slotEFXStopped(quint32)));
+}
+
+void VCXYPad::slotEFXStopped(quint32 fid)
+{
+    if (m_efx.isNull() == false && m_efx->id() == fid)
+        detachEFX();
+}
+
+void VCXYPad::detachEFX()
+{
+    if (m_efx.isNull() == false)
+    {
+        disconnect(m_efx, SIGNAL(stopped(quint32)), this, SLOT(slotEFXStopped(quint32)));
+
+        if (m_efxStartXOverrideId != Function::invalidAttributeId())
+            m_efx->releaseAttributeOverride(m_efxStartXOverrideId);
+        if (m_efxStartYOverrideId != Function::invalidAttributeId())
+            m_efx->releaseAttributeOverride(m_efxStartYOverrideId);
+        if (m_efxWidthOverrideId != Function::invalidAttributeId())
+            m_efx->releaseAttributeOverride(m_efxWidthOverrideId);
+        if (m_efxHeightOverrideId != Function::invalidAttributeId())
+            m_efx->releaseAttributeOverride(m_efxHeightOverrideId);
+    }
+
+    m_efx = nullptr;
+    m_efxStartXOverrideId = Function::invalidAttributeId();
+    m_efxStartYOverrideId = Function::invalidAttributeId();
+    m_efxWidthOverrideId = Function::invalidAttributeId();
+    m_efxHeightOverrideId = Function::invalidAttributeId();
+}
+
+QRectF VCXYPad::efxGeometry() const
+{
+    qreal xMin = qMin(m_horizontalRange.x(), m_horizontalRange.y());
+    qreal xMax = qMax(m_horizontalRange.x(), m_horizontalRange.y());
+    qreal yMin = qMin(m_verticalRange.x(), m_verticalRange.y());
+    qreal yMax = qMax(m_verticalRange.x(), m_verticalRange.y());
+
+    return QRectF(QPointF(xMin, yMin), QPointF(xMax, yMax));
+}
+
+void VCXYPad::updateEFXGeometry()
+{
+    if (m_efx.isNull() || m_efx->isRunning() == false)
+        return;
+
+    QRectF rect = efxGeometry();
+    if (rect.isValid() == false)
+        return;
+
+    m_efx->adjustAttribute(rect.center().x(), m_efxStartXOverrideId);
+    m_efx->adjustAttribute(rect.center().y(), m_efxStartYOverrideId);
+    m_efx->adjustAttribute(rect.width() / 2, m_efxWidthOverrideId);
+    m_efx->adjustAttribute(rect.height() / 2, m_efxHeightOverrideId);
 }
 
 void VCXYPad::setActivePresetId(int presetId)
@@ -2097,8 +2197,12 @@ void VCXYPad::slotInputValueChanged(quint8 id, uchar value)
             setCurrentPosition(QPointF(m_currentPosition.x(), u16ToPos(m_y16)));
         break;
         case INPUT_WIDTH_ID:
+            // resize the range window (and with it a running EFX preset)
+            // by moving the horizontal upper limit
+            setHorizontalRange(QPointF(m_horizontalRange.x(), value));
         break;
         case INPUT_HEIGHT_ID:
+            setVerticalRange(QPointF(m_verticalRange.x(), value));
         break;
     }
 
