@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
  <Model>BT Theatre 250EZ Mk3</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
  <Channel Name="WW" Preset="IntensityWhite"/>
