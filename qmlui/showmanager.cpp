@@ -649,6 +649,13 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         dstTrack = new Track(Function::invalidId(), m_currentShow);
         dstTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
         m_currentShow->addTrack(dstTrack);
+
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddTrack, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddTrack, m_currentShow->id(), dstTrack->id()));
+
+        // the item is going to be moved on the newly created Track
+        newTrackIdx = m_currentShow->tracks().count() - 1;
         emit tracksChanged();
     }
     else
@@ -683,9 +690,39 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         Track *srcTrack = m_currentShow->tracks().at(originalTrackIdx);
         srcTrack->removeShowFunction(sf, false);
         dstTrack->addShowFunction(sf);
+
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetTrack, sf->id(),
+                                          originalTrackIdx, newTrackIdx);
     }
 
     m_doc->setModified();
+
+    return true;
+}
+
+bool ShowManager::moveShowItemToTrack(ShowFunction *sf, int trackIdx)
+{
+    if (m_currentShow == nullptr || sf == nullptr)
+        return false;
+
+    if (trackIdx < 0 || trackIdx >= m_currentShow->tracks().count())
+        return false;
+
+    Track *dstTrack = m_currentShow->tracks().at(trackIdx);
+    Track *srcTrack = m_currentShow->getTrackFromShowFunctionID(sf->id());
+
+    if (dstTrack == nullptr || srcTrack == dstTrack)
+        return false;
+
+    if (srcTrack != nullptr)
+        srcTrack->removeShowFunction(sf, false);
+
+    dstTrack->addShowFunction(sf);
+
+    m_doc->setModified();
+
+    // the item didn't move through the UI, so the view has to be rebuilt
+    refreshView();
 
     return true;
 }

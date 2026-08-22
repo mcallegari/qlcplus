@@ -288,6 +288,11 @@ public:
                                       int newTrackIdx, int newStartTime,
                                       bool itemSnapped = false);
 
+    /** Move a ShowFunction item to the Track at $trackIdx.
+     *  This is used to apply a track change coming from an undo/redo or
+     *  from a connected network peer, where the UI didn't move the item */
+    bool moveShowItemToTrack(ShowFunction *sf, int trackIdx);
+
     /** Set the start time of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemStartTime(ShowFunction *sf, int startTime);
 

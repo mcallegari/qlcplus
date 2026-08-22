@@ -321,7 +321,10 @@ void NetworkManager::sendAction(int code, TardisAction action)
     m_packetizer->initializePacket(packet, code);
     m_packetizer->addSection(packet, action.m_objID);
 
-    switch (action.m_action)
+    /* Note: the switch must use @a code and not action.m_action: when an action is
+     * undone, Tardis reverses the code (e.g. FunctionCreate -> FunctionDelete)
+     * and the payload to transmit has to follow the transmitted code */
+    switch (code)
     {
         case Tardis::FixtureCreate:
         case Tardis::FixtureGroupCreate:
