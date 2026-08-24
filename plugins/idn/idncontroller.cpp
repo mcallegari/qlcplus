@@ -94,7 +94,7 @@ void IdnController::handleDmx(const quint32 universe, const QByteArray &data)
     while (client.hasNext()) 
     {
         client.next();
-        if (client.value().universe - 1 == universe && client.value().iface == m_ipAddr) 
+        if (client.value().universe == universe + 1 && client.value().iface == m_ipAddr) 
         {
             client.value().client->sendDmx(data);
             t_packetSend += client.value().client->getPacketSentNumber();
@@ -167,7 +167,7 @@ bool IdnController::closeByUniverse(quint32 universe)
     while (clients.hasNext()) 
     {
         clients.next();
-        if (clients.value().universe - 1 == universe) 
+        if (clients.value().universe == universe + 1) 
         {
             delete clients.value().client;
             clients.remove();

@@ -5,6 +5,9 @@
 #include <QSet>
 #include <QPair>
 #include <QByteArray>
+#include <cstring>
+
+#define IDN_ZERO_HOLD_FRAMES 5
 
 
 class IdnOptimizer
@@ -27,11 +30,11 @@ public:
     };
     PacketInformation optimize(const QByteArray& data, const bool checkNullValues, int rangeBegin, int rangeEnd);
 private:
-    QList<int> changedValues(QByteArray oldData, QByteArray newData,  int rangeBegin, int rangeEnd);
+    QList<int> changedValues(const QByteArray& oldData, const QByteArray& newData,  int rangeBegin, int rangeEnd);
     PacketInformation getRanges(QList<int> changed);
     QSet<int> changed;
     QByteArray oldData;
-    QList<int> nullChannelBuffer;
+    quint16 zeroFrames[512];
 };
 
 #endif

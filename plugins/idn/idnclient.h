@@ -73,8 +73,6 @@ private:
     bool config;
     int blackCounter;
 
-    /** if data does not change the old data will be send */
-    QByteArray oldData;
     /** old packetinformation */
     IdnOptimizer::PacketInformation oldpi;
     /** Timestamp to check whether a config packet is necessary */
@@ -91,6 +89,7 @@ private:
 
     QByteArray optimizedMode(const QByteArray &data);
     QByteArray rangeMode(const QByteArray &data);
+    bool isBlackout(const QByteArray &data) const;
 private slots:
     void sendClosePacket();
 };

@@ -88,7 +88,14 @@ void IdnPacketizer::setupIdnDmx(QByteArray& data, const quint8 &mode, const quin
         }
         for (int i = 0; i < ranges.length(); i++) 
         {
-            addServiceModeConfigChunk(&packet, ranges[i].first + 1, ranges[i].second - ranges[i].first + 1);
+            int first = ranges[i].first;
+            const int last = ranges[i].second;
+            while(first <= last)
+            {
+                const int chunk = qMin(255, last - first + 1);
+                addServiceModeConfigChunk(&packet, first + 1, chunk);
+                first += chunk;
+            }
         }
     }
     buildDimmerLevelHeader(&packet, IDNVAL_DL_VOID);

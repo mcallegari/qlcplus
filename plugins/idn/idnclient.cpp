@@ -20,8 +20,6 @@
 #include "idnclient.h"
 #include "idn.h"
 
-QTextStream out32(stdout);
-
 IdnClient::IdnClient(QHostAddress const &clientAddress, QSharedPointer<QUdpSocket> const& udpSocket,
                      QSharedPointer<QMutex> const& socketMutex,
                      int const& port, int const& rangeBegin, int const& rangeEnd, int const& mode, int const& channelID,
@@ -89,7 +87,7 @@ void IdnClient::sendClosePacket()
 QByteArray IdnClient::optimizedMode(const QByteArray &data)
 {
     // Detect blackout: all 512 channels are zero — send a null packet
-    if (data.count((char)0x0) == 512) 
+    if (isBlackout(data)) 
     {
         QByteArray blackoutpacket;
         m_packetizer->generateNullPacket(blackoutpacket, *m_seqnum, m_mode, m_channelID, m_serviceID);
@@ -155,22 +153,13 @@ QByteArray IdnClient::optimizedMode(const QByteArray &data)
     }
     if (!newConfig) 
     {
-        config = false;
-        if (configTime) 
-        {
-            config = true;
-        } 
-        else 
-        {
-            config = false;
-        }
+        config = configTime;
     } 
     else 
     {
         config = true;
     }
 
-    oldData = justifiedData;
     oldpi = pi;
 
     m_packetizer->setupIdnDmx(dmxPacket, m_mode, m_channelID, justifiedData, pi.ranges, *m_seqnum, config, m_serviceID);
@@ -184,10 +173,8 @@ QByteArray IdnClient::rangeMode(const QByteArray &data)
 {
     QByteArray dmxPacket;
 
-    QByteArray universeRange(m_rangeEnd, (char)0x0);
-
-    universeRange.replace(0, data.length(), data);
-    QByteArray justifiedData = universeRange.right(m_rangeEnd - m_rangeBegin + 1);
+    QByteArray universeRange = data.leftJustified(m_rangeEnd, 0x00, true);
+    QByteArray justifiedData = universeRange.mid(m_rangeBegin -1 , m_rangeEnd - m_rangeBegin + 1);
 
     if ((QDateTime::currentMSecsSinceEpoch() - timestamp) > IDN_CONFIG_INTERVAL || m_packetSent == 0) 
     {
@@ -243,12 +230,20 @@ void IdnClient::sendDmx(const QByteArray &data)
 
 
     //count the 512 Byte long data chunks. The first packet is allowed to pass the throttle because the chunk can be a blackout chunk
-    data.count((char)0x0) == 512 ? blackCounter++ : blackCounter = 0;
+    if(isBlackout(data)) 
+    {
+        blackCounter++;
+    } 
+    else 
+    {
+        blackCounter = 0;
+    }
 
     if (m_mode == 5 || m_mode == 7) 
     {
         // Throttle: minimum gap = (overhead + slot_time * numChannels) converted from µs to ms
-        const int minGapMs = (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US * m_rangeEnd) / 1000;
+        const int chCount  = m_rangeEnd - m_rangeBegin + 1;
+        const int minGapMs = qMax(1, (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US * chCount + 999) / 1000);
         if ((QDateTime::currentMSecsSinceEpoch() - lastsend) > minGapMs || blackCounter == 1) 
         {
             QMutexLocker socketLocker(m_socketMutex.data());
@@ -274,8 +269,8 @@ void IdnClient::sendDmx(const QByteArray &data)
         }
     } else {
         // Throttle: minimum gap based on actual channel range
-        const int minGapMs = (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US *
-                              (m_rangeEnd - m_rangeBegin)) / 1000;
+        const int chCount  = m_rangeEnd - m_rangeBegin + 1;
+        const int minGapMs = qMax(1, (IDN_PACKET_OVERHEAD_US + IDN_DMX_SLOT_TIME_US * chCount + 999) / 1000);
         if ((QDateTime::currentMSecsSinceEpoch() - lastsend) > minGapMs || blackCounter == 1) 
         {
             QMutexLocker socketLocker(m_socketMutex.data());
@@ -300,7 +295,7 @@ void IdnClient::sendDmx(const QByteArray &data)
             }
         }
     }
-    if (data.count((char)0x0) == 512) 
+    if (isBlackout(data)) 
     {
         //start Blackouttimer
         closeTimer->start();
@@ -310,4 +305,17 @@ void IdnClient::sendDmx(const QByteArray &data)
 quint64 IdnClient::getPacketSentNumber()
 {
     return m_packetSent;
+}
+
+bool IdnClient::isBlackout(const QByteArray &data) const
+{
+    const int end = qMin<int>(m_rangeEnd, int(data.size()));
+    for (int i = m_rangeBegin - 1; i < end; i++) 
+    {
+        if (data.at(i) != 0x00) 
+        {
+            return false;
+        }
+    }
+    return true;
 }
