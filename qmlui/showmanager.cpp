@@ -402,12 +402,11 @@ void ShowManager::deleteSelectedTrack()
         Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteTrack, m_currentShow->id(), track->id()),
         QVariant());
 
+    // removeTrack() destroys the track ShowFunctions too, so drop every
+    // reference to them (items, selection, clipboard) beforehand
     QList <ShowFunction *> sfList = track->showFunctions();
     for (ShowFunction *sf : sfList)
-    {
-        QQuickItem *item = m_itemsMap.take(sf->id());
-        delete item;
-    }
+        deleteShowItem(sf);
 
     m_currentShow->removeTrack(selectedTrackId());
     m_doc->setModified();
@@ -579,16 +578,23 @@ void ShowManager::deleteShowItems(QVariantList data)
         quint32 trackIndex = ssi.m_trackIndex;
         qDebug() << "Selected item has track index:" << trackIndex;
 
+        ShowFunction *showFunc = ssi.m_showFunc.data();
+        if (showFunc == nullptr)
+            continue;
+
         // drop any clipboard reference to the item being deleted to
         // avoid dangling pointers when pasting later
         for (int i = m_clipboard.count() - 1; i >= 0; i--)
         {
-            if (m_clipboard.at(i).m_showFunc == ssi.m_showFunc)
+            if (m_clipboard.at(i).m_showFunc == showFunc)
                 m_clipboard.removeAt(i);
         }
 
+        if (trackIndex >= quint32(m_currentShow->tracks().count()))
+            continue;
+
         Track *track = m_currentShow->tracks().at(trackIndex);
-        quint32 sfId = ssi.m_showFunc->id();
+        quint32 sfId = showFunc->id();
 
         // serialize the item before removing it, as the undo action
         // needs to restore it from its XML representation
@@ -597,12 +603,10 @@ void ShowManager::deleteShowItems(QVariantList data)
             Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteFunction, m_currentShow->id(), sfId),
             QVariant());
 
-        track->removeShowFunction(ssi.m_showFunc, true);
+        track->removeShowFunction(showFunc, true);
+        m_itemsMap.remove(sfId);
         if (ssi.m_item != nullptr)
-        {
-            m_itemsMap.remove(sfId);
-            delete ssi.m_item;
-        }
+            delete ssi.m_item.data();
     }
 
     m_selectedItems.clear();
@@ -624,6 +628,29 @@ void ShowManager::refreshView()
 
 void ShowManager::deleteShowItem(ShowFunction *sf)
 {
+    if (sf == nullptr)
+        return;
+
+    // the caller deletes the ShowFunction right after this, so drop
+    // every reference to it before it becomes dangling
+    int selectedCount = m_selectedItems.count();
+    for (int i = m_selectedItems.count() - 1; i >= 0; i--)
+    {
+        if (m_selectedItems.at(i).m_showFunc == sf)
+            m_selectedItems.removeAt(i);
+    }
+    if (m_selectedItems.count() != selectedCount)
+        emit selectedItemsCountChanged(m_selectedItems.count());
+
+    int clipboardCount = m_clipboard.count();
+    for (int i = m_clipboard.count() - 1; i >= 0; i--)
+    {
+        if (m_clipboard.at(i).m_showFunc == sf)
+            m_clipboard.removeAt(i);
+    }
+    if (m_clipboard.count() != clipboardCount)
+        emit clipboardItemsCountChanged(m_clipboard.count());
+
     quint32 sfId = sf->id();
     QQuickItem *item = m_itemsMap.value(sfId, nullptr);
     if (item != nullptr)
@@ -1287,6 +1314,7 @@ void ShowManager::resetContents()
 
     // the clipboard holds ShowFunction pointers belonging to the show
     // being closed, so drop them to avoid dangling references
+    // (the selection is already cleared by resetView() above)
     if (m_clipboard.isEmpty() == false)
     {
         m_clipboard.clear();
@@ -1300,6 +1328,14 @@ void ShowManager::resetContents()
 
 void ShowManager::resetView()
 {
+    // the selection references the items about to be destroyed,
+    // so clear it before deleting anything
+    if (m_selectedItems.isEmpty() == false)
+    {
+        m_selectedItems.clear();
+        emit selectedItemsCountChanged(0);
+    }
+
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while (it.hasNext())
     {
@@ -1536,7 +1572,7 @@ QVariantList ShowManager::selectedItemRefs() const
     foreach (SelectedShowItem si, m_selectedItems)
     {
         if (si.m_showFunc != nullptr)
-            list.append(QVariant::fromValue(si.m_showFunc));
+            list.append(QVariant::fromValue(si.m_showFunc.data()));
     }
     return list;
 }
@@ -1546,6 +1582,9 @@ QStringList ShowManager::selectedItemNames() const
     QStringList names;
     foreach (SelectedShowItem si, m_selectedItems)
     {
+        if (si.m_showFunc == nullptr)
+            continue;
+
         Function *func = m_doc->function(si.m_showFunc->functionID());
         if (func != nullptr)
             names.append(func->name());
@@ -1718,6 +1757,9 @@ void ShowManager::pasteFromClipboard()
     // pre-parse copied items to find the one with lowest start time
     for (SelectedShowItem item : m_clipboard)
     {
+        if (item.m_showFunc == nullptr)
+            continue;
+
         if (item.m_showFunc->startTime() < lowerTime)
             lowerTime = item.m_showFunc->startTime();
     }
@@ -1726,6 +1768,9 @@ void ShowManager::pasteFromClipboard()
     // while keeping the delta time of the original items
     for (SelectedShowItem item : m_clipboard)
     {
+        if (item.m_showFunc == nullptr)
+            continue;
+
         Track *track = m_currentShow->tracks().at(item.m_trackIndex);
 
         if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
@@ -1747,6 +1792,6 @@ void ShowManager::pasteFromClipboard()
 
         addItems(contextItem(), item.m_trackIndex,
                  m_currentTime + item.m_showFunc->startTime() - lowerTime,
-                 QVariantList() << func->id(), item.m_showFunc);
+                 QVariantList() << func->id(), item.m_showFunc.data());
     }
 }
