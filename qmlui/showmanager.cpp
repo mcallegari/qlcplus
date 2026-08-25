@@ -58,6 +58,11 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     view->engine()->addImageProvider(QLatin1String("waveform"), m_waveformProvider);
     view->rootContext()->setContextProperty("waveformProvider", m_waveformProvider);
 
+    /* Relay Function changes to the UI, so Show Items can update
+       their preview lines when the referenced Function is edited */
+    connect(m_doc, SIGNAL(functionChanged(quint32)),
+            this, SIGNAL(functionChanged(quint32)));
+
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
 }
@@ -254,21 +259,29 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
     if (division == m_currentShow->timeDivisionType())
         return;
 
+    /* Set the division type first: setTimeScale needs it to
+       calculate the tick size against the new time division */
+    m_currentShow->setTimeDivisionType(division);
+
+    /* Notify the new beats division before any geometry-related signal.
+       setTimeScale emits tickSizeChanged/timeScaleChanged, which make the
+       UI recalculate the items geometry right away. If the beats division
+       is still the previous one, beat sizes are computed with a stale
+       (possibly zero) divider, messing up the whole timeline preview */
+    if (division != Show::Time)
+        emit beatsDivisionChanged(m_currentShow->beatsDivision());
+
     if (division == Show::Time)
     {
-        setTimeScale(5.0);
         m_currentShow->setTempoType(Function::Time);
+        setTimeScale(5.0);
     }
     else
     {
-        setTimeScale(1.0);
         m_currentShow->setTempoType(Function::Beats);
+        setTimeScale(1.0);
     }
-    m_currentShow->setTimeDivisionType(division);
     emit timeDivisionChanged(division);
-
-    if (division != Show::Time)
-        emit beatsDivisionChanged(m_currentShow->beatsDivision());
 }
 
 int ShowManager::beatsDivision() const

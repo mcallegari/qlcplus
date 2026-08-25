@@ -390,6 +390,10 @@ signals:
     void clipboardItemsCountChanged(int count);
     void multipleSelectionChanged();
 
+    /** Notify the UI that the Function with the given $fid has been modified,
+     *  so Show Items referencing it can repaint their preview lines */
+    void functionChanged(quint32 fid);
+
 private:
     /** The background color for Show Items */
     QColor m_itemsColor;
