@@ -1925,7 +1925,7 @@ cap a aquesta àrea</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="155"/>
         <source>Universe View</source>
-        <translation>Vist Univers</translation>
+        <translation>Vista Univers</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="175"/>
@@ -3728,12 +3728,12 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="66"/>
         <source>Fixture/Group editing</source>
-        <translation>Modifica un Fixture/Grup</translation>
+        <translation>Edició de Fixture/Grup</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="82"/>
         <source>Function editing</source>
-        <translation>Modifica la funció</translation>
+        <translation>Edició de funcions</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="98"/>
@@ -3743,7 +3743,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="114"/>
         <source>Virtual console editing</source>
-        <translation>Modifica la consola virtual</translation>
+        <translation>Edició de la consola virtual</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="130"/>
@@ -3781,7 +3781,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="31"/>
         <source>QLC+ server setup</source>
-        <translation>Configuració servidor QLC+</translation>
+        <translation>Configuració de servidor QLC+</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="47"/>
@@ -3929,13 +3929,13 @@ Nivell d&apos;accés:</translation>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="384"/>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="431"/>
         <source>Snap to the previous value</source>
-        <translation>Salta al valor anterior</translation>
+        <translation>Ajusta al valor anterior</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="397"/>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="450"/>
         <source>Snap to the next value</source>
-        <translation>Salta al pròxim valor</translation>
+        <translation>Ajusta al pròxim valor</translation>
     </message>
 </context>
 <context>
@@ -3993,7 +3993,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="235"/>
         <source>Blend mode</source>
-        <translation>Mode de barreja</translation>
+        <translation>Mode de Barreja</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="249"/>
@@ -4058,22 +4058,22 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="371"/>
         <source>Reset color 2</source>
-        <translation>Restableix el color 2</translation>
+        <translation>Restableix color 2</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="429"/>
         <source>Reset color 3</source>
-        <translation>Restableix el color 3</translation>
+        <translation>Restableix color 3</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="468"/>
         <source>Reset color 4</source>
-        <translation>Restableix el color 4</translation>
+        <translation>Restableix color 4</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="526"/>
         <source>Reset color 5</source>
-        <translation>Restableix el color 5</translation>
+        <translation>Restableix color 5</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="543"/>
@@ -4093,7 +4093,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="610"/>
         <source>Steps hold</source>
-        <translation>Manteniment del pas</translation>
+        <translation>Espera del pas</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="647"/>
@@ -4138,7 +4138,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="734"/>
         <source>Run Order</source>
-        <translation>Ordre d&apos;execució</translation>
+        <translation>Ordre d&apos;Execució</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="741"/>
@@ -4193,7 +4193,7 @@ Nivell d&apos;accés:</translation>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="863"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="1008"/>
         <source>Offset</source>
-        <translation>Offset</translation>
+        <translation>Desplaçament</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="879"/>
@@ -4238,7 +4238,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="74"/>
         <source>RGB panel properties</source>
-        <translation>Propietats del npanell RGB</translation>
+        <translation>Propietats del panell RGB</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="94"/>
@@ -4273,27 +4273,27 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="231"/>
         <source>Start corner</source>
-        <translation>Punt de partida</translation>
+        <translation>Cantonada Inicial</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="241"/>
         <source>Top-Left</source>
-        <translation>Dalt a l&apos;esquerra</translation>
+        <translation>Dalt a l&apos;Esquerra</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="242"/>
         <source>Top-Right</source>
-        <translation>Dalt a la dreta</translation>
+        <translation>Dalt a la Dreta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="243"/>
         <source>Bottom-Left</source>
-        <translation>Baix a l&apos;esquerra</translation>
+        <translation>Baix a l&apos;Esquerra</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="244"/>
         <source>Bottom-Right</source>
-        <translation>Baix a la dreta</translation>
+        <translation>Baix a la Dreta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="252"/>
@@ -4375,12 +4375,12 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="214"/>
         <source>Function Manager</source>
-        <translation>Gestos de Funcions</translation>
+        <translation>Gestor de Funcions</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="237"/>
         <source>Timing Settings</source>
-        <translation>Paràmetres de temps</translation>
+        <translation>Configuració de Temps</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="257"/>
@@ -4432,7 +4432,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="354"/>
         <source>Clone the selected functions</source>
-        <translation>Duplica les funcions seleccionades</translation>
+        <translation>Clona les funcions seleccionades</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="366"/>
@@ -4442,7 +4442,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="382"/>
         <source>Set/Unset autostart function</source>
-        <translation>Configura/Desconfigura una funció d&apos;inici automàtic</translation>
+        <translation>Assigna/Desassigna la funció d&apos;inici automàtic</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="400"/>
@@ -4457,7 +4457,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="437"/>
         <source>Reset dump channels</source>
-        <translation>Reinicia valors dels canals</translation>
+        <translation>Reinicia bolcat dels canals</translation>
     </message>
 </context>
 <context>
@@ -4670,17 +4670,17 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="232"/>
         <source>Right side view</source>
-        <translation>Vista costat dret</translation>
+        <translation>Vista costat Dret</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="233"/>
         <source>Left side view</source>
-        <translation>Vista costat esquerra</translation>
+        <translation>Vista costat Esquerra</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="248"/>
         <source>Custom Background</source>
-        <translation>Fons personalitzat</translation>
+        <translation>Fons Personalitzat</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="259"/>
@@ -4778,7 +4778,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="202"/>
         <source>Rendering</source>
-        <translation>Renderizat</translation>
+        <translation>Renderització</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="218"/>
@@ -4913,7 +4913,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="106"/>
         <source>Show items color</source>
-        <translation>Mostra els ítems de color</translation>
+        <translation>Mostra el color dels elements</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="141"/>
@@ -5005,7 +5005,7 @@ Si us plau, proporcioneu un nom diferent.</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="384"/>
         <source>Move the selected track up</source>
-        <translation>Mou la pista seleccionada cap amunt</translation>
+        <translation type="unfinished">jMou la pista seleccionada cap amunt</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="400"/>
@@ -5117,7 +5117,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="479"/>
         <source>Start time</source>
-        <translation>Temps d&apos;inici</translation>
+        <translation>Temps d&apos;Inici</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="496"/>
@@ -5142,12 +5142,12 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="581"/>
         <source>Insert time</source>
-        <translation>Temps d&apos;inserció</translation>
+        <translation>Temps d&apos;Inserció</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TimingUtils.qml" line="593"/>
         <source>Cut time</source>
-        <translation>Temps de retallada</translation>
+        <translation>Temps de Tall</translation>
     </message>
 </context>
 <context>
@@ -5155,7 +5155,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="qml/showmanager/TrackDelegate.qml" line="76"/>
         <source>Solo this track</source>
-        <translation>Només aquesta pista</translation>
+        <translation>Solo aquesta pista</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TrackDelegate.qml" line="103"/>
@@ -5174,7 +5174,7 @@ arrossega una funció a la línia de temps</translation>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="154"/>
         <source>Scaling factor</source>
-        <translation>Factor d&apos;escala</translation>
+        <translation>Factor d&apos;Escala</translation>
     </message>
     <message>
         <location filename="qml/UISettingsEditor.qml" line="202"/>
@@ -5837,7 +5837,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="160"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation>Di</translation>
+        <translation>Dl</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="161"/>
@@ -5942,7 +5942,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="288"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation>Di</translation>
+        <translation>Dl</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="301"/>
@@ -6195,12 +6195,12 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="137"/>
         <source>Previous page</source>
-        <translation>Pàgina anterior</translation>
+        <translation>Pàgina Anterior</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="165"/>
         <source>Next page</source>
-        <translation>Pàgina següent</translation>
+        <translation>Pàgina Següent</translation>
     </message>
 </context>
 <context>
@@ -6223,7 +6223,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="90"/>
         <source>Solo Frame Options</source>
-        <translation>Opcions de Marc Exclusiu</translation>
+        <translation>Opcions de Marc Solo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="105"/>
@@ -6571,7 +6571,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="449"/>
         <source>Grand Master mode</source>
-        <translation>Mode del Gran Master</translation>
+        <translation>Mode Gran Master</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="476"/>
@@ -6599,7 +6599,7 @@ No hi ha prou espai o l&apos;univers de destinació no és vàlid</translation>
     <message>
         <location filename="virtualconsole/vcsoloframe.cpp" line="36"/>
         <source>Solo Frame %1</source>
-        <translation>Marc exclusiu %1</translation>
+        <translation>Marc Solo %1</translation>
     </message>
 </context>
 <context>
@@ -6924,7 +6924,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="209"/>
         <source>Solo Frame</source>
-        <translation>Marc exclusiu</translation>
+        <translation>Marc Solo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="210"/>
@@ -6949,7 +6949,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="214"/>
         <source>Audio Triggers</source>
-        <translation>Disparadors d&apos;audio</translation>
+        <translation>Disparadors d&apos;Audio</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="215"/>
@@ -7352,12 +7352,12 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="174"/>
         <source>Video Codec</source>
-        <translation>Còdec de vídeo</translation>
+        <translation>Còdec de Vídeo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="184"/>
         <source>Audio Codec</source>
-        <translation>Còdec d&apos;àudio</translation>
+        <translation>Còdec d&apos;Àudio</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="194"/>
@@ -7372,17 +7372,17 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="227"/>
         <source>Looped</source>
-        <translation>En bucle</translation>
+        <translation>En Bucle</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="232"/>
         <source>Output screen</source>
-        <translation>Pantalla de sortida</translation>
+        <translation>Pantalla de Sortida</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="245"/>
         <source>Output mode</source>
-        <translation>Mode de sortida</translation>
+        <translation>Mode de Sortida</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="263"/>
@@ -7392,7 +7392,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="277"/>
         <source>Fullscreen</source>
-        <translation>Pantalla completa</translation>
+        <translation>Pantalla Completa</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="282"/>
@@ -7539,7 +7539,7 @@ el giny per a omplir aquesta llista</translation>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="35"/>
         <source>Solo Frame</source>
-        <translation>Marc Exclusiu</translation>
+        <translation>Marc Solo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="36"/>
