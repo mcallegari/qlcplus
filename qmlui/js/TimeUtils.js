@@ -281,6 +281,8 @@ function posToMs(x, timescale, tickSize)
   */
 function posToBeat(x, tickSize, beatsDivision)
 {
+    if (!beatsDivision)
+        return 0
     return Math.round(x / (tickSize / beatsDivision)) * 1000
 }
 
@@ -314,6 +316,8 @@ function timeToBeatPosition(currentTime, tickSize, bpmNumber, beatsDivision)
 
 function beatsToSize(time, tickSize, beatsDivision)
 {
+    if (!beatsDivision)
+        return 0;
     return (tickSize / beatsDivision) * (time / 1000);
 }
 

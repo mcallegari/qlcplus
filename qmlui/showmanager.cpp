@@ -58,6 +58,11 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     view->engine()->addImageProvider(QLatin1String("waveform"), m_waveformProvider);
     view->rootContext()->setContextProperty("waveformProvider", m_waveformProvider);
 
+    /* Relay Function changes to the UI, so Show Items can update
+       their preview lines when the referenced Function is edited */
+    connect(m_doc, SIGNAL(functionChanged(quint32)),
+            this, SIGNAL(functionChanged(quint32)));
+
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
 }
@@ -254,21 +259,29 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
     if (division == m_currentShow->timeDivisionType())
         return;
 
+    /* Set the division type first: setTimeScale needs it to
+       calculate the tick size against the new time division */
+    m_currentShow->setTimeDivisionType(division);
+
+    /* Notify the new beats division before any geometry-related signal.
+       setTimeScale emits tickSizeChanged/timeScaleChanged, which make the
+       UI recalculate the items geometry right away. If the beats division
+       is still the previous one, beat sizes are computed with a stale
+       (possibly zero) divider, messing up the whole timeline preview */
+    if (division != Show::Time)
+        emit beatsDivisionChanged(m_currentShow->beatsDivision());
+
     if (division == Show::Time)
     {
-        setTimeScale(5.0);
         m_currentShow->setTempoType(Function::Time);
+        setTimeScale(5.0);
     }
     else
     {
-        setTimeScale(1.0);
         m_currentShow->setTempoType(Function::Beats);
+        setTimeScale(1.0);
     }
-    m_currentShow->setTimeDivisionType(division);
     emit timeDivisionChanged(division);
-
-    if (division != Show::Time)
-        emit beatsDivisionChanged(m_currentShow->beatsDivision());
 }
 
 int ShowManager::beatsDivision() const
@@ -402,12 +415,11 @@ void ShowManager::deleteSelectedTrack()
         Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteTrack, m_currentShow->id(), track->id()),
         QVariant());
 
+    // removeTrack() destroys the track ShowFunctions too, so drop every
+    // reference to them (items, selection, clipboard) beforehand
     QList <ShowFunction *> sfList = track->showFunctions();
     for (ShowFunction *sf : sfList)
-    {
-        QQuickItem *item = m_itemsMap.take(sf->id());
-        delete item;
-    }
+        deleteShowItem(sf);
 
     m_currentShow->removeTrack(selectedTrackId());
     m_doc->setModified();
@@ -579,16 +591,23 @@ void ShowManager::deleteShowItems(QVariantList data)
         quint32 trackIndex = ssi.m_trackIndex;
         qDebug() << "Selected item has track index:" << trackIndex;
 
+        ShowFunction *showFunc = ssi.m_showFunc.data();
+        if (showFunc == nullptr)
+            continue;
+
         // drop any clipboard reference to the item being deleted to
         // avoid dangling pointers when pasting later
         for (int i = m_clipboard.count() - 1; i >= 0; i--)
         {
-            if (m_clipboard.at(i).m_showFunc == ssi.m_showFunc)
+            if (m_clipboard.at(i).m_showFunc == showFunc)
                 m_clipboard.removeAt(i);
         }
 
+        if (trackIndex >= quint32(m_currentShow->tracks().count()))
+            continue;
+
         Track *track = m_currentShow->tracks().at(trackIndex);
-        quint32 sfId = ssi.m_showFunc->id();
+        quint32 sfId = showFunc->id();
 
         // serialize the item before removing it, as the undo action
         // needs to restore it from its XML representation
@@ -597,12 +616,10 @@ void ShowManager::deleteShowItems(QVariantList data)
             Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteFunction, m_currentShow->id(), sfId),
             QVariant());
 
-        track->removeShowFunction(ssi.m_showFunc, true);
+        track->removeShowFunction(showFunc, true);
+        m_itemsMap.remove(sfId);
         if (ssi.m_item != nullptr)
-        {
-            m_itemsMap.remove(sfId);
-            delete ssi.m_item;
-        }
+            delete ssi.m_item.data();
     }
 
     m_selectedItems.clear();
@@ -624,6 +641,29 @@ void ShowManager::refreshView()
 
 void ShowManager::deleteShowItem(ShowFunction *sf)
 {
+    if (sf == nullptr)
+        return;
+
+    // the caller deletes the ShowFunction right after this, so drop
+    // every reference to it before it becomes dangling
+    int selectedCount = m_selectedItems.count();
+    for (int i = m_selectedItems.count() - 1; i >= 0; i--)
+    {
+        if (m_selectedItems.at(i).m_showFunc == sf)
+            m_selectedItems.removeAt(i);
+    }
+    if (m_selectedItems.count() != selectedCount)
+        emit selectedItemsCountChanged(m_selectedItems.count());
+
+    int clipboardCount = m_clipboard.count();
+    for (int i = m_clipboard.count() - 1; i >= 0; i--)
+    {
+        if (m_clipboard.at(i).m_showFunc == sf)
+            m_clipboard.removeAt(i);
+    }
+    if (m_clipboard.count() != clipboardCount)
+        emit clipboardItemsCountChanged(m_clipboard.count());
+
     quint32 sfId = sf->id();
     QQuickItem *item = m_itemsMap.value(sfId, nullptr);
     if (item != nullptr)
@@ -649,6 +689,13 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         dstTrack = new Track(Function::invalidId(), m_currentShow);
         dstTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
         m_currentShow->addTrack(dstTrack);
+
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddTrack, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddTrack, m_currentShow->id(), dstTrack->id()));
+
+        // the item is going to be moved on the newly created Track
+        newTrackIdx = m_currentShow->tracks().count() - 1;
         emit tracksChanged();
     }
     else
@@ -683,9 +730,39 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         Track *srcTrack = m_currentShow->tracks().at(originalTrackIdx);
         srcTrack->removeShowFunction(sf, false);
         dstTrack->addShowFunction(sf);
+
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetTrack, sf->id(),
+                                          originalTrackIdx, newTrackIdx);
     }
 
     m_doc->setModified();
+
+    return true;
+}
+
+bool ShowManager::moveShowItemToTrack(ShowFunction *sf, int trackIdx)
+{
+    if (m_currentShow == nullptr || sf == nullptr)
+        return false;
+
+    if (trackIdx < 0 || trackIdx >= m_currentShow->tracks().count())
+        return false;
+
+    Track *dstTrack = m_currentShow->tracks().at(trackIdx);
+    Track *srcTrack = m_currentShow->getTrackFromShowFunctionID(sf->id());
+
+    if (dstTrack == nullptr || srcTrack == dstTrack)
+        return false;
+
+    if (srcTrack != nullptr)
+        srcTrack->removeShowFunction(sf, false);
+
+    dstTrack->addShowFunction(sf);
+
+    m_doc->setModified();
+
+    // the item didn't move through the UI, so the view has to be rebuilt
+    refreshView();
 
     return true;
 }
@@ -1250,6 +1327,7 @@ void ShowManager::resetContents()
 
     // the clipboard holds ShowFunction pointers belonging to the show
     // being closed, so drop them to avoid dangling references
+    // (the selection is already cleared by resetView() above)
     if (m_clipboard.isEmpty() == false)
     {
         m_clipboard.clear();
@@ -1263,6 +1341,14 @@ void ShowManager::resetContents()
 
 void ShowManager::resetView()
 {
+    // the selection references the items about to be destroyed,
+    // so clear it before deleting anything
+    if (m_selectedItems.isEmpty() == false)
+    {
+        m_selectedItems.clear();
+        emit selectedItemsCountChanged(0);
+    }
+
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while (it.hasNext())
     {
@@ -1499,7 +1585,7 @@ QVariantList ShowManager::selectedItemRefs() const
     foreach (SelectedShowItem si, m_selectedItems)
     {
         if (si.m_showFunc != nullptr)
-            list.append(QVariant::fromValue(si.m_showFunc));
+            list.append(QVariant::fromValue(si.m_showFunc.data()));
     }
     return list;
 }
@@ -1509,6 +1595,9 @@ QStringList ShowManager::selectedItemNames() const
     QStringList names;
     foreach (SelectedShowItem si, m_selectedItems)
     {
+        if (si.m_showFunc == nullptr)
+            continue;
+
         Function *func = m_doc->function(si.m_showFunc->functionID());
         if (func != nullptr)
             names.append(func->name());
@@ -1674,25 +1763,60 @@ void ShowManager::copyToClipboard()
     emit clipboardItemsCountChanged(m_clipboard.count());
 }
 
-void ShowManager::pasteFromClipboard()
+bool ShowManager::pasteFromClipboard()
 {
-    quint32 lowerTime = UINT_MAX;
+    if (m_currentShow == nullptr)
+        return false;
 
-    // pre-parse copied items to find the one with lowest start time
+    quint32 lowerTime = UINT_MAX;
+    quint32 lowerTrack = UINT_MAX;
+
+    // pre-parse copied items to find the ones with the
+    // lowest start time and the topmost track
     for (SelectedShowItem item : m_clipboard)
     {
+        if (item.m_showFunc == nullptr)
+            continue;
+
         if (item.m_showFunc->startTime() < lowerTime)
             lowerTime = item.m_showFunc->startTime();
+
+        if (item.m_trackIndex < lowerTrack)
+            lowerTrack = item.m_trackIndex;
     }
+
+    QList<Track*> trackList = m_currentShow->tracks();
+
+    // paste on the currently selected track, if any. Items copied from
+    // multiple tracks keep their relative track offset, just like they
+    // keep their relative start time
+    int targetTrack = trackList.indexOf(m_currentShow->track(selectedTrackId()));
+    if (targetTrack < 0)
+        targetTrack = int(lowerTrack);
+
+    bool overlapping = false;
+    int pasted = 0;
 
     // now add the ShowFunctions on the proper tracks
     // while keeping the delta time of the original items
     for (SelectedShowItem item : m_clipboard)
     {
-        Track *track = m_currentShow->tracks().at(item.m_trackIndex);
+        if (item.m_showFunc == nullptr)
+            continue;
+
+        int trackIdx = targetTrack + (int(item.m_trackIndex) - int(lowerTrack));
+
+        // don't paste outside the existing tracks
+        if (trackIdx < 0 || trackIdx >= trackList.count())
+            continue;
+
+        Track *track = trackList.at(trackIdx);
 
         if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
+        {
+            overlapping = true;
             continue;
+        }
 
         Function *func = m_doc->function(item.m_showFunc->functionID());
         if (func == nullptr)
@@ -1708,8 +1832,13 @@ void ShowManager::pasteFromClipboard()
             sequence->setBoundSceneID(scene->id());
         }
 
-        addItems(contextItem(), item.m_trackIndex,
+        addItems(contextItem(), trackIdx,
                  m_currentTime + item.m_showFunc->startTime() - lowerTime,
-                 QVariantList() << func->id(), item.m_showFunc);
+                 QVariantList() << func->id(), item.m_showFunc.data());
+        pasted++;
     }
+
+    // signal a failure only if overlapping prevented
+    // every single item from being pasted
+    return pasted > 0 || overlapping == false;
 }

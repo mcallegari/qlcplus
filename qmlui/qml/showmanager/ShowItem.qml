@@ -45,6 +45,10 @@ Item
     property string infoText: ""
     property string toolTipText: ""
 
+    // mouse position within the item, used to place the tooltip
+    property real tooltipX: 0
+    property real tooltipY: 0
+
     // Snap-to-item properties
     property var snapEdges: []
     property real snapThreshold: 15
@@ -119,19 +123,6 @@ Item
         toolTipText = tooltip
     }
 
-    /* Locker image */
-    Image
-    {
-        x: Math.max(0, itemRoot.width - width - 1)
-        y: itemRoot.height - height - 3
-        z: 4
-        width: itemRoot.height / 3
-        height: width
-        source: "qrc:/lock.svg"
-        sourceSize: Qt.size(width, height)
-        visible: sfRef ? (sfRef.locked ? true : false) : false
-    }
-
     /* Waveform for audio items */
     Item
     {
@@ -183,6 +174,19 @@ Item
         z: 3
         anchors.fill: parent
         contextType: "2d"
+
+        /* Repaint the preview lines when the referenced Function
+           is modified (e.g. a Chaser step time or an EFX duration) */
+        Connections
+        {
+            target: showManager
+
+            function onFunctionChanged(fid)
+            {
+                if (funcRef && fid === funcRef.id)
+                    prCanvas.requestPaint()
+            }
+        }
 
         onPaint:
         {
@@ -286,17 +290,6 @@ Item
             Drag.active: itemRoot.dragActive
             Drag.keys: [ "function" ]
 
-            Image
-            {
-                x: 3
-                y: itemRoot.height - height - 3
-                visible: infoText ? false : true
-                width: itemRoot.height / 3
-                height: width
-                source: funcRef ? functionManager.functionIcon(funcRef.type) : ""
-                sourceSize: Qt.size(width, height)
-            }
-
             RobotoText
             {
                 x: 3
@@ -337,6 +330,10 @@ Item
         }
         onPositionChanged: (mouse) =>
         {
+            // keep track of the hovering position to place the tooltip
+            itemRoot.tooltipX = mouse.x
+            itemRoot.tooltipY = mouse.y
+
             if (!isDragging)
                 return
 
@@ -453,12 +450,43 @@ Item
         onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
     }
 
-    Text
+    /* Function type icon and locker image. These are kept at root level with a
+       z above prCanvas, so they are drawn on top of step dividers and fade lines.
+       They follow showItemBody so they move along with the item while dragging */
+    Image
     {
-        anchors.fill: parent
-        ToolTip.visible: sfMouseArea.containsMouse
-        ToolTip.delay: 1000
-        ToolTip.text: toolTipText
+        id: funcIcon
+        x: showItemBody.x + 3
+        y: showItemBody.y + itemRoot.height - height - 3
+        z: 4
+        visible: infoText ? false : true
+        width: itemRoot.height / 3
+        height: width
+        source: funcRef ? functionManager.functionIcon(funcRef.type) : ""
+        sourceSize: Qt.size(width, height)
+    }
+
+    Image
+    {
+        x: showItemBody.x + (funcIcon.visible ? funcIcon.width + 6 : 3)
+        y: showItemBody.y + itemRoot.height - height - 3
+        z: 4
+        width: itemRoot.height / 3
+        height: width
+        source: "qrc:/lock.svg"
+        sourceSize: Qt.size(width, height)
+        visible: sfRef ? (sfRef.locked ? true : false) : false
+    }
+
+    /* Item information tooltip, displayed at the mouse position */
+    ToolTip
+    {
+        id: itemToolTip
+        x: itemRoot.tooltipX + (UISettings.iconSizeMedium / 2)
+        y: itemRoot.tooltipY
+        visible: sfMouseArea.containsMouse && !isDragging && text !== ""
+        delay: 1000
+        text: toolTipText
     }
 
     /* horizontal left handler */

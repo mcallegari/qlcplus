@@ -661,27 +661,37 @@ void InputOutputManager::configurePlugin(bool input)
     if (m_selectedUniverseIndex == -1)
         return;
 
-    QLCIOPlugin *plugin = nullptr;
-
     if (input)
     {
         InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
         if (patch == nullptr || patch->plugin() == nullptr)
             return;
-        plugin = patch->plugin();
+
+        m_ioMap->configurePlugin(patch->plugin()->name());
     }
     else
     {
-        OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
+        // an output universe can have multiple patches, so open the
+        // configuration dialog of every patched plugin, once each
+        QStringList configured;
 
-        if (patch == nullptr || patch->plugin() == nullptr)
-            return;
-        plugin = patch->plugin();
+        for (int i = 0; i < m_ioMap->outputPatchesCount(m_selectedUniverseIndex); i++)
+        {
+            OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex, i);
+
+            if (patch == nullptr || patch->plugin() == nullptr)
+                continue;
+
+            QString pluginName = patch->plugin()->name();
+
+            if (configured.contains(pluginName))
+                continue;
+
+            configured.append(pluginName);
+            m_ioMap->configurePlugin(pluginName);
+        }
     }
-
-    if (plugin)
-        m_ioMap->configurePlugin(plugin->name());
 }
 
 bool InputOutputManager::inputCanConfigure() const
@@ -702,12 +712,18 @@ bool InputOutputManager::outputCanConfigure() const
     if (m_selectedUniverseIndex == -1)
         return false;
 
-    OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
+    for (int i = 0; i < m_ioMap->outputPatchesCount(m_selectedUniverseIndex); i++)
+    {
+        OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex, i);
 
-    if (patch == nullptr || patch->plugin() == nullptr)
-        return false;
+        if (patch == nullptr || patch->plugin() == nullptr)
+            continue;
 
-    return patch->plugin()->canConfigure();
+        if (patch->plugin()->canConfigure())
+            return true;
+    }
+
+    return false;
 }
 
 int InputOutputManager::outputPatchesCount(int universe) const

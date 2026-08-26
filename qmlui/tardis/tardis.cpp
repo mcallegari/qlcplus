@@ -165,7 +165,7 @@ void Tardis::undoAction()
         int code = processAction(action, true);
 
         /* If there are active network connections, send the action there too */
-        forwardActionToNetwork(code, action);
+        forwardActionToNetwork(code, action, true);
 
         if (m_historyIndex == -1)
             break;
@@ -220,14 +220,28 @@ void Tardis::resetHistory()
     m_busy = false;
 }
 
-void Tardis::forwardActionToNetwork(int code, TardisAction &action)
+void Tardis::forwardActionToNetwork(int code, TardisAction &action, bool undo)
 {
-    if (m_networkManager->connectionsCount())
+    if (m_networkManager->connectionsCount() == 0)
+        return;
+
+    TardisAction netAction = action;
+
+    /* When undoing, the peers must replay what has just been applied locally,
+     * not the original action: the code has already been reversed by
+     * processAction (e.g. FunctionCreate -> FunctionDelete) and the value to
+     * transmit is the old one. Normalize the action so that the receiving side
+     * handles it exactly like a regular forward action */
+    if (undo)
     {
-        QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                Q_ARG(int, code),
-                Q_ARG(TardisAction, action));
+        netAction.m_action = code;
+        netAction.m_newValue = action.m_oldValue;
+        netAction.m_oldValue = action.m_newValue;
     }
+
+    QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
+            Q_ARG(int, code),
+            Q_ARG(TardisAction, netAction));
 }
 
 void Tardis::run()
@@ -1288,6 +1302,18 @@ int Tardis::processAction(TardisAction &action, bool undo)
             {
                 ShowFunction *sf = show->showFunction(action.m_objID);
                 sf->setDuration(undo ? action.m_oldValue.toUInt() : action.m_newValue.toUInt());
+            }
+        }
+        break;
+
+        case ShowManagerItemSetTrack:
+        {
+            Show *show = m_showManager->currentShow();
+            if (show != nullptr)
+            {
+                ShowFunction *sf = show->showFunction(action.m_objID);
+                if (sf != nullptr)
+                    m_showManager->moveShowItemToTrack(sf, value->toInt());
             }
         }
         break;
