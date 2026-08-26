@@ -352,7 +352,10 @@ public:
     Q_INVOKABLE QVariantList previewData(Function *f) const;
 
     Q_INVOKABLE void copyToClipboard();
-    Q_INVOKABLE void pasteFromClipboard();
+    /** Paste the clipboard items on the selected track at the cursor
+     *  position. Returns false if no item could be pasted because of
+     *  overlapping with the existing items */
+    Q_INVOKABLE bool pasteFromClipboard();
 
 protected slots:
     void slotTimeChanged(quint32 msec_time);

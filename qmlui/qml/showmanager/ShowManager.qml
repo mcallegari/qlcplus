@@ -237,7 +237,19 @@ Rectangle
                 faColor: UISettings.fgMain
                 tooltip: qsTr("Paste items in the clipboard at cursor position")
                 counter: showManager.clipboardItemsCount
-                onClicked: showManager.pasteFromClipboard()
+                onClicked:
+                {
+                    if (showManager.pasteFromClipboard() === false)
+                        pasteErrorPopup.open()
+                }
+
+                CustomPopupDialog
+                {
+                    id: pasteErrorPopup
+                    title: qsTr("Paste error")
+                    standardButtons: Dialog.Ok
+                    message: qsTr("It is not possible to paste the items on the selected track at the current cursor position")
+                }
             }
 
             // filler

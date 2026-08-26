@@ -1763,11 +1763,16 @@ void ShowManager::copyToClipboard()
     emit clipboardItemsCountChanged(m_clipboard.count());
 }
 
-void ShowManager::pasteFromClipboard()
+bool ShowManager::pasteFromClipboard()
 {
-    quint32 lowerTime = UINT_MAX;
+    if (m_currentShow == nullptr)
+        return false;
 
-    // pre-parse copied items to find the one with lowest start time
+    quint32 lowerTime = UINT_MAX;
+    quint32 lowerTrack = UINT_MAX;
+
+    // pre-parse copied items to find the ones with the
+    // lowest start time and the topmost track
     for (SelectedShowItem item : m_clipboard)
     {
         if (item.m_showFunc == nullptr)
@@ -1775,7 +1780,22 @@ void ShowManager::pasteFromClipboard()
 
         if (item.m_showFunc->startTime() < lowerTime)
             lowerTime = item.m_showFunc->startTime();
+
+        if (item.m_trackIndex < lowerTrack)
+            lowerTrack = item.m_trackIndex;
     }
+
+    QList<Track*> trackList = m_currentShow->tracks();
+
+    // paste on the currently selected track, if any. Items copied from
+    // multiple tracks keep their relative track offset, just like they
+    // keep their relative start time
+    int targetTrack = trackList.indexOf(m_currentShow->track(selectedTrackId()));
+    if (targetTrack < 0)
+        targetTrack = int(lowerTrack);
+
+    bool overlapping = false;
+    int pasted = 0;
 
     // now add the ShowFunctions on the proper tracks
     // while keeping the delta time of the original items
@@ -1784,10 +1804,19 @@ void ShowManager::pasteFromClipboard()
         if (item.m_showFunc == nullptr)
             continue;
 
-        Track *track = m_currentShow->tracks().at(item.m_trackIndex);
+        int trackIdx = targetTrack + (int(item.m_trackIndex) - int(lowerTrack));
+
+        // don't paste outside the existing tracks
+        if (trackIdx < 0 || trackIdx >= trackList.count())
+            continue;
+
+        Track *track = trackList.at(trackIdx);
 
         if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
+        {
+            overlapping = true;
             continue;
+        }
 
         Function *func = m_doc->function(item.m_showFunc->functionID());
         if (func == nullptr)
@@ -1803,8 +1832,13 @@ void ShowManager::pasteFromClipboard()
             sequence->setBoundSceneID(scene->id());
         }
 
-        addItems(contextItem(), item.m_trackIndex,
+        addItems(contextItem(), trackIdx,
                  m_currentTime + item.m_showFunc->startTime() - lowerTime,
                  QVariantList() << func->id(), item.m_showFunc.data());
+        pasted++;
     }
+
+    // signal a failure only if overlapping prevented
+    // every single item from being pasted
+    return pasted > 0 || overlapping == false;
 }
