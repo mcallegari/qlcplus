@@ -181,6 +181,7 @@ public:
         ShowManagerDeleteFunction,
         ShowManagerItemSetStartTime,
         ShowManagerItemSetDuration,
+        ShowManagerItemSetTrack,
 
         /* Simple Desk actions */
         SimpleDeskSetChannel = 0xC000,
@@ -305,7 +306,10 @@ public:
     /** Reset the actions history */
     void resetHistory();
 
-    void forwardActionToNetwork(int code, TardisAction &action);
+    /** Send an action to the connected peers. @a code is the action code to
+     *  transmit, which may differ from action.m_action when @a undo is true
+     *  (e.g. undoing a FunctionCreate transmits a FunctionDelete) */
+    void forwardActionToNetwork(int code, TardisAction &action, bool undo = false);
 
     /** @reimp */
     void run() override; // thread run function

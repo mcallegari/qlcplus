@@ -21,6 +21,7 @@
 #define SHOWMANAGER_H
 
 #include <QObject>
+#include <QPointer>
 #include <QQuickItem>
 
 #include "previewcontext.h"
@@ -36,8 +37,11 @@ class WaveformImageProvider;
 typedef struct
 {
     quint32 m_trackIndex;
-    ShowFunction *m_showFunc;
-    QQuickItem *m_item;
+    /* guarded pointers: Show items and ShowFunctions can be destroyed
+     * while still referenced here (view rebuild, undo, show closing),
+     * so use QPointer to have them automatically reset to nullptr */
+    QPointer<ShowFunction> m_showFunc;
+    QPointer<QQuickItem> m_item;
 } SelectedShowItem;
 
 class ShowManager final : public PreviewContext
@@ -288,6 +292,11 @@ public:
                                       int newTrackIdx, int newStartTime,
                                       bool itemSnapped = false);
 
+    /** Move a ShowFunction item to the Track at $trackIdx.
+     *  This is used to apply a track change coming from an undo/redo or
+     *  from a connected network peer, where the UI didn't move the item */
+    bool moveShowItemToTrack(ShowFunction *sf, int trackIdx);
+
     /** Set the start time of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemStartTime(ShowFunction *sf, int startTime);
 
@@ -343,7 +352,10 @@ public:
     Q_INVOKABLE QVariantList previewData(Function *f) const;
 
     Q_INVOKABLE void copyToClipboard();
-    Q_INVOKABLE void pasteFromClipboard();
+    /** Paste the clipboard items on the selected track at the cursor
+     *  position. Returns false if no item could be pasted because of
+     *  overlapping with the existing items */
+    Q_INVOKABLE bool pasteFromClipboard();
 
 protected slots:
     void slotTimeChanged(quint32 msec_time);
@@ -380,6 +392,10 @@ signals:
     void selectedItemsCountChanged(int count);
     void clipboardItemsCountChanged(int count);
     void multipleSelectionChanged();
+
+    /** Notify the UI that the Function with the given $fid has been modified,
+     *  so Show Items referencing it can repaint their preview lines */
+    void functionChanged(quint32 fid);
 
 private:
     /** The background color for Show Items */
