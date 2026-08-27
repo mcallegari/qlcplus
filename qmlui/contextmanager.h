@@ -183,7 +183,8 @@ private:
     QVector3D m_lastPickedPoint;
 
     /** Keep track of the last item type that was
-     *  clicked, to handle the Del keypress */
+     *  clicked, to handle the Del keypress and to only steal
+     *  CTRL+A when a preview area was the last clicked widget */
     int m_lastClickedType;
 
     /*********************************************************************

@@ -537,7 +537,12 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         switch(e->key())
         {
             case Qt::Key_A:
-                toggleFixturesSelection();
+                // Only steal CTRL+A to select all the fixtures in the
+                // preview if a preview area (2D/3D view) was the last
+                // clicked widget. Otherwise, let it go through so text
+                // fields can handle their own "select all" shortcut.
+                if (m_lastClickedType == App::FixtureDragItem)
+                    toggleFixturesSelection();
             break;
             case Qt::Key_Tab:
                 selectNextFixtureGroup();

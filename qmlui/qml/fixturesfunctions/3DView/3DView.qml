@@ -383,6 +383,10 @@ Rectangle
                 sourceDevice: mDevice
                 onPressed: (mouse) =>
                 {
+                    // mark the preview as the last clicked area, so CTRL+A
+                    // is handled here instead of being stolen from other
+                    // focused widgets like text fields
+                    contextManager.setLastClickedType(App.FixtureDragItem)
                     directionCounter = 0
                     dx = 0
                     dy = 0

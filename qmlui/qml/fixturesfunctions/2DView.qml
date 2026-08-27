@@ -231,6 +231,10 @@ Rectangle
                 onPressed: (mouse) =>
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
+                    // mark the preview as the last clicked area, so CTRL+A
+                    // is handled here instead of being stolen from other
+                    // focused widgets like text fields
+                    contextManager.setLastClickedType(App.FixtureDragItem)
                     var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
 
                     // pressing on nothing starts to draw the selection rectangle
