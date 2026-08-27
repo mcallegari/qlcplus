@@ -89,6 +89,11 @@ public:
     /** Returns a Click And Go type from the given string */
     static ClickAndGoWidget::ClickAndGo stringToClickAndGoType(QString str);
 
+private:
+    QImage getDPIAwareImage(int width, int height) const;
+
+    static QImage getDPIAwareImageStatic(const ClickAndGoWidget* parent, int width, int height);
+
 protected:
     /**
      * Prepare the widget to display a linear gradient
@@ -119,12 +124,12 @@ protected:
      * PresetResource Class
      *************************************************************************/
 private:
-    class PresetResource
+    class PresetResource final
     {
     public:
-        PresetResource(QString path, QString text, uchar min, uchar max);
-        PresetResource(QColor color1, QColor color2, QString text, uchar min, uchar max);
-        PresetResource(int index, QString text, uchar min, uchar max);
+        PresetResource(const ClickAndGoWidget* parent, QString path, QString text, uchar min, uchar max);
+        PresetResource(const ClickAndGoWidget* parent, QColor color1, QColor color2, QString text, uchar min, uchar max);
+        PresetResource(const ClickAndGoWidget* parent, int index, QString text, uchar min, uchar max);
 
     public:
         QImage m_thumbnail;
