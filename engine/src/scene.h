@@ -197,6 +197,7 @@ public slots:
 public:
     void addFixture(quint32 fixtureId);
     bool removeFixture(quint32 fixtureId);
+    bool moveFixture(int from, int to);
     QList<quint32> fixtures() const;
 
 private:
