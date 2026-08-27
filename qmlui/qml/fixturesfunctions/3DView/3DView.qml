@@ -395,6 +395,11 @@ Rectangle
 
                 onClicked: (mouse) =>
                 {
+                    // right button is reserved for camera rotation, so it
+                    // must not be used to select/deselect items in the view
+                    if (mouse.button === Qt.RightButton)
+                        return
+
                     // calculate normalized coordinates
                     // (x, y) screen coords → [-1, 1] range
                     var ndcX = ((2.0 * mouse.x) / scene3d.width) - 1.0
