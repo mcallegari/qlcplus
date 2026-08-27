@@ -25,6 +25,8 @@ import Qt3D.Render
 import Qt3D.Input
 import Qt3D.Extras
 
+import org.qlcplus.classes 1.0
+
 Rectangle
 {
     anchors.fill: parent
@@ -355,8 +357,13 @@ Rectangle
 
                 function setZoom(amount)
                 {
-                    if ((amount < 0 && View3D.cameraPosition.z < 1) ||
-                        (amount > 0 && View3D.cameraPosition.z > 30))
+                    // clamp on the actual distance to the view center, not on the
+                    // raw camera Z position, which drifts off-axis after panning
+                    // or rotating and would otherwise block zooming in one direction
+                    var distance = viewCamera.position.minus(viewCamera.viewCenter).length()
+
+                    if ((amount < 0 && distance < 1) ||
+                        (amount > 0 && distance > 30))
                         return
 
                     translate(Qt.vector3d(0, 0, -amount), Camera.DontTranslateViewCenter)
@@ -509,10 +516,14 @@ Rectangle
 
                 onWheel: (wheel) =>
                 {
-                    if (wheel.angleDelta.y > 0)
-                        viewCamera.setZoom(-1)
-                    else
-                        viewCamera.setZoom(1)
+                    // Scale the zoom step with the actual wheel delta instead of a
+                    // fixed +-1 per event. A standard mouse wheel reports angleDelta
+                    // in multiples of 120 (one "click"), while a trackpad's smooth
+                    // two-finger scroll/pinch sends a stream of much smaller deltas.
+                    // Using a fixed step made trackpad zooming feel jerky/intermittent,
+                    // since most of those small events produced the same full-size jump.
+                    var step = wheel.angleDelta.y / 120
+                    viewCamera.setZoom(-step)
                 }
             }
 
