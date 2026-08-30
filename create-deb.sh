@@ -28,7 +28,7 @@ build_flavour() {
     fi
 
     echo "==> Building QLC+ ${flavour#v} packages"
-    ln -sf "changelog-$flavour" debian/changelog
+    cp "debian/changelog-$flavour" debian/changelog
 
     # -us -uc: don't sign the source and changes files. Signing needs a GPG
     # key, and would abort the build when none is available. Sign afterwards
