@@ -32,21 +32,43 @@ Entity
 
     property int headIndex
     property real dimmerValue: 0
-    property real shutterValue: 0
+    property real shutterValue: 1.0
     property real lightIntensity: dimmerValue * shutterValue
 
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Qt.vector3d(0, 0, 0)
 
+    /* Orientation of the parent bar. SpotlightConeEntity and the shading/
+       scattering shaders need a pan/tilt angle to place and aim each beam;
+       when they are missing the cone model matrix collapses and nothing is
+       drawn. LED bars never pan, and tilt (motorised bars) is pushed down
+       from the parent through tiltRotation. */
+    property real panRotation: 0
+    property real tiltRotation: 0
+
     property real raymarchSteps
     property real cutoffAngle
     property real distCutoff
     property real headLength
-    property real coneBottomRadius
     property real coneTopRadius
+    /* Derived exactly like Fixture3DItem so that changing the beam aperture
+       (zoom) keeps the cone geometry consistent. */
+    property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
     property Texture2D goboTexture
     property real goboRotation: 0
+
+    /* Spotlight matrices — same math as Fixture3DItem.qml. These are read as
+       uniforms by SpotlightConeEntity; the per-head lightPos and lightMatrix
+       are provided by the parent via setHeadLightProps(). */
+    property matrix4x4 lightMatrix
+    property matrix4x4 lightViewMatrix:
+        Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
+    property matrix4x4 lightProjectionMatrix:
+        Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
+    property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
+    property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
+        Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
     readonly property Layer spotlightShadingLayer: Layer { }
     readonly property Layer outputDepthLayer: Layer { }
@@ -60,7 +82,9 @@ Entity
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        //scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect // this hangs your PC
+        // Volumetric beam in the air. This mirrors Fixture3DItem: the cost is
+        // governed by raymarchSteps, which is 0 on Low render quality.
+        scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
