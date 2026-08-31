@@ -206,6 +206,18 @@ public:
 protected slots:
     void slotFrameProcessed();
 
+private:
+    /** Create the QFrameAction (if needed) and attach it to the current
+     *  scene root entity. Called both when the user enables the FPS counter
+     *  and whenever the 3D scene is (re)initialized, so the setting survives
+     *  switching to another view and back. */
+    void attachFrameAction();
+
+    /** Detach and destroy the QFrameAction. Must be called before the scene
+     *  root entity is torn down, otherwise Qt3D would delete the action
+     *  (it gets reparented on addComponent) and leave a dangling pointer. */
+    void detachFrameAction();
+
 signals:
     void frameCountEnabledChanged();
     void FPSChanged(int fps);
@@ -216,6 +228,9 @@ signals:
 private:
     QElapsedTimer m_fpsElapsed;
     QFrameAction *m_frameAction;
+    /** User-requested state of the FPS counter, kept independently from
+     *  m_frameAction so it persists across 3D scene teardown/rebuild */
+    bool m_frameCountEnabled;
     int m_frameCount;
     int m_minFrameCount;
     int m_maxFrameCount;
