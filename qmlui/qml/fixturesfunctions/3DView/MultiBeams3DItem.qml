@@ -81,7 +81,7 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property real shutterValue: 1.0
+    property real shutterValue: sAnimator.shutterValue
     property vector3d lightDir: Math3D.getLightDirection(transform, 0, tiltTransform)
 
     property var headsList: []
@@ -113,18 +113,20 @@ Entity
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
 
+            // Bind the shared beam properties to the parent so that render
+            // quality, zoom, shutter and tilt keep updating every head after
+            // creation. coneBottomRadius is derived inside LightEntity.
             var headNode = component.createObject(fixtureEntity,
             {
                 "headIndex": i,
-                "lightDir": lightDir,
-                "shutterValue": shutterValue,
-                "raymarchSteps": raymarchSteps,
-                "cutoffAngle": cutoffAngle,
+                "lightDir": Qt.binding(function() { return fixtureEntity.lightDir }),
+                "shutterValue": Qt.binding(function() { return fixtureEntity.shutterValue }),
+                "raymarchSteps": Qt.binding(function() { return fixtureEntity.raymarchSteps }),
+                "cutoffAngle": Qt.binding(function() { return fixtureEntity.cutoffAngle }),
+                "tiltRotation": Qt.binding(function() { return fixtureEntity.tiltRotation }),
                 "distCutoff": distCutoff,
                 "headLength": headLength,
-                "coneBottomRadius": coneBottomRadius,
                 "coneTopRadius": coneTopRadius,
-                "tiltRotation": tiltRotation,
                 "goboTexture": goboTexture
             });
 
@@ -160,26 +162,37 @@ Entity
         return headsList[headIndex]
     }
 
+    // The C++ side computes a single emitter position/orientation for the whole
+    // bar (headIndex is always 0). Spread the beams evenly across the bar's
+    // physical width, centered on the fixture origin and rotated by the bar's
+    // current orientation matrix.
     function setHeadLightProps(headIndex, pos, matrix)
     {
-        for (var h = 0; h < headsNumber; h++)
+        var n = headsList.length
+        if (n === 0)
+            return
+
+        var spacing = (n > 1) ? (phySize.x / n) : 0
+        for (var h = 0; h < n; h++)
         {
-            var head = getHead(h)
-            var hPos = Qt.vector3d(pos.x * h, pos.y, pos.z)
-            head.lightPos = hPos
+            var localX = (h - (n - 1) / 2) * spacing
+            var worldOffset = matrix.times(Qt.vector4d(localX, 0, 0, 0)).toVector3d()
+            var head = headsList[h]
+            head.lightPos = pos.plus(worldOffset)
             head.lightMatrix = matrix
-            console.log("Setting light info: " + hPos + ", m: " + matrix)
         }
     }
 
     function setHeadIntensity(headIndex, intensity)
     {
-        headsList[headIndex].dimmerValue = intensity
+        if (headIndex >= 0 && headIndex < headsList.length)
+            headsList[headIndex].dimmerValue = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
     {
-        headsList[headIndex].lightColor = color
+        if (headIndex >= 0 && headIndex < headsList.length)
+            headsList[headIndex].lightColor = color
     }
 
     // See Fixture3DItem: timestamp of the previous setPosition() call, used to pace
