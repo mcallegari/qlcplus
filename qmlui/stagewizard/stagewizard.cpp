@@ -99,7 +99,7 @@ StageWizard::StageWizard(Doc *doc,
     // fires *before* FixtureManager sets the fixture name, so we only record the
     // IDs here and assign them to the target box once patching is fully done
     // (fixturesCountChanged is emitted at the end of addFixture()).
-    connect(m_doc, &Doc::fixtureAdded, this, &StageWizard::slotFixtureAdded);
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
     connect(m_fixtureManager, &FixtureManager::fixturesCountChanged, this, [this]()
     {
         if (m_droppedFixtureIDs.isEmpty())
