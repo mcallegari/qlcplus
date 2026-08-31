@@ -39,6 +39,10 @@ void MonitorProperties_Test::defaults()
     QCOMPARE(mp.pointOfView(), MonitorProperties::Undefined);
     QCOMPARE(mp.stageType(), MonitorProperties::StageSimple);
     QCOMPARE(mp.labelsVisible(), false);
+    QCOMPARE(mp.renderQuality(), 2);
+    QCOMPARE(mp.ambientLightIntensity(), 0.6);
+    QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.showFPS(), false);
     QVERIFY(mp.commonBackgroundImage().isEmpty());
 }
 
@@ -109,6 +113,43 @@ void MonitorProperties_Test::lightItemsXML()
     QCOMPARE(loaded.lightPosition("moving_head.dae", 0), QVector3D(1.5f, 2.5f, 3.5f));
 }
 
+void MonitorProperties_Test::renderSettingsXML()
+{
+    Doc doc(this);
+    MonitorProperties mp;
+    mp.setRenderQuality(3);
+    mp.setAmbientLightIntensity(0.25);
+    mp.setSmokeAmount(0.9);
+    mp.setShowFPS(true);
+
+    QByteArray xmlData;
+    QBuffer buffer(&xmlData);
+    QVERIFY(buffer.open(QIODevice::WriteOnly));
+
+    QXmlStreamWriter writer(&buffer);
+    writer.writeStartDocument();
+    QVERIFY(mp.saveXML(&writer, &doc));
+    writer.writeEndDocument();
+    buffer.close();
+
+    MonitorProperties loaded;
+    QXmlStreamReader reader(xmlData);
+    while (reader.readNextStartElement())
+    {
+        if (reader.name() == KXMLQLCMonitorProperties)
+        {
+            QVERIFY(loaded.loadXML(reader, &doc));
+            break;
+        }
+        reader.skipCurrentElement();
+    }
+
+    QCOMPARE(loaded.renderQuality(), 3);
+    QCOMPARE(loaded.ambientLightIntensity(), 0.25);
+    QCOMPARE(loaded.smokeAmount(), 0.9);
+    QCOMPARE(loaded.showFPS(), true);
+}
+
 void MonitorProperties_Test::genericItems()
 {
     MonitorProperties mp;
@@ -143,6 +184,10 @@ void MonitorProperties_Test::reset()
     mp.setPointOfView(MonitorProperties::FrontView);
     mp.setStageType(MonitorProperties::StageBox);
     mp.setLabelsVisible(true);
+    mp.setRenderQuality(0);
+    mp.setAmbientLightIntensity(0.1);
+    mp.setSmokeAmount(0.2);
+    mp.setShowFPS(true);
     mp.setFixturePosition(1,0,0,QVector3D(1,2,3));
     mp.setItemName(2,"foo");
     mp.setCommonBackgroundImage("img.png");
@@ -154,6 +199,10 @@ void MonitorProperties_Test::reset()
     QCOMPARE(mp.pointOfView(), MonitorProperties::Undefined);
     QCOMPARE(mp.stageType(), MonitorProperties::StageSimple);
     QCOMPARE(mp.labelsVisible(), false);
+    QCOMPARE(mp.renderQuality(), 2);
+    QCOMPARE(mp.ambientLightIntensity(), 0.6);
+    QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.showFPS(), false);
     QCOMPARE(mp.fixtureItemsID().count(), 0);
     QCOMPARE(mp.lightResources().count(), 0);
     QCOMPARE(mp.genericItemsID().count(), 0);
