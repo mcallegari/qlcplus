@@ -28,6 +28,7 @@ function pluginIconFromName(name)
         case "MIDI": return "qrc:/midiplugin.svg";
         case "OSC": return "qrc:/oscplugin.svg";
         case "E1.31": return "qrc:/e131plugin.svg";
+        case "IDN": return "qrc:/idnplugin.svg";
         case "Loopback": return "qrc:/loop.svg";
         default: return "";
     }
