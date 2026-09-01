@@ -42,6 +42,7 @@ void MonitorProperties_Test::defaults()
     QCOMPARE(mp.renderQuality(), 2);
     QCOMPARE(mp.ambientLightIntensity(), 0.6);
     QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.fixtureLightIntensity(), 1.0);
     QCOMPARE(mp.showFPS(), false);
     QVERIFY(mp.commonBackgroundImage().isEmpty());
 }
@@ -120,6 +121,7 @@ void MonitorProperties_Test::renderSettingsXML()
     mp.setRenderQuality(3);
     mp.setAmbientLightIntensity(0.25);
     mp.setSmokeAmount(0.9);
+    mp.setFixtureLightIntensity(0.4);
     mp.setShowFPS(true);
 
     QByteArray xmlData;
@@ -147,6 +149,7 @@ void MonitorProperties_Test::renderSettingsXML()
     QCOMPARE(loaded.renderQuality(), 3);
     QCOMPARE(loaded.ambientLightIntensity(), 0.25);
     QCOMPARE(loaded.smokeAmount(), 0.9);
+    QCOMPARE(loaded.fixtureLightIntensity(), 0.4);
     QCOMPARE(loaded.showFPS(), true);
 }
 
@@ -202,6 +205,7 @@ void MonitorProperties_Test::reset()
     QCOMPARE(mp.renderQuality(), 2);
     QCOMPARE(mp.ambientLightIntensity(), 0.6);
     QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.fixtureLightIntensity(), 1.0);
     QCOMPARE(mp.showFPS(), false);
     QCOMPARE(mp.fixtureItemsID().count(), 0);
     QCOMPARE(mp.lightResources().count(), 0);
