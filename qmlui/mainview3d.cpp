@@ -2704,6 +2704,21 @@ void MainView3D::setSmokeAmount(float smokeAmount)
     emit smokeAmountChanged(smokeAmount);
 }
 
+float MainView3D::fixtureLightIntensity() const
+{
+    return m_monProps->fixtureLightIntensity();
+}
+
+void MainView3D::setFixtureLightIntensity(float intensity)
+{
+    if (float(m_monProps->fixtureLightIntensity()) == intensity)
+        return;
+
+    m_monProps->setFixtureLightIntensity(intensity);
+    m_doc->setModified();
+    emit fixtureLightIntensityChanged(intensity);
+}
+
 void MainView3D::applyRenderSettings()
 {
     // The values already live in m_monProps (set defaults, or loaded from the
@@ -2711,6 +2726,7 @@ void MainView3D::applyRenderSettings()
     emit renderQualityChanged(renderQuality());
     emit ambientIntensityChanged(ambientIntensity());
     emit smokeAmountChanged(smokeAmount());
+    emit fixtureLightIntensityChanged(fixtureLightIntensity());
     applyFrameCountEnabled(m_monProps->showFPS());
 }
 
