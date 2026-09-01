@@ -109,6 +109,7 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
+    Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -512,6 +513,10 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    /** Global multiplier on the light fixtures cast on surfaces */
+    float fixtureLightIntensity() const;
+    void setFixtureLightIntensity(float intensity);
+
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
@@ -533,6 +538,7 @@ signals:
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
+    void fixtureLightIntensityChanged(float fixtureLightIntensity);
 
 private:
     /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
