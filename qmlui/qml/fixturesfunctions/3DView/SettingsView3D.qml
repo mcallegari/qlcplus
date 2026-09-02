@@ -595,7 +595,21 @@ Rectangle
                                 height: width
                                 imgSource: "qrc:/lock.svg"
                                 checkable: true
-                                checked: true
+                                checked: View3D ? View3D.scaleLocked : true
+                                onToggled: View3D.scaleLocked = checked
+
+                                // clicking a checkable Button assigns "checked" and
+                                // therefore breaks the binding above, so the value
+                                // has to be restored explicitly when it changes on
+                                // the C++ side (e.g. on project load)
+                                Connections
+                                {
+                                    target: View3D
+                                    function onScaleLockedChanged()
+                                    {
+                                        scaleLocked.checked = View3D.scaleLocked
+                                    }
+                                }
                             }
                         }
 

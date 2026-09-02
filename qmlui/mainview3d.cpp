@@ -181,6 +181,10 @@ void MainView3D::slotRefreshView()
     // smoke, show FPS) that may have changed on project load
     applyRenderSettings();
 
+    // the "Scale" lock is persisted too. It only affects the settings panel,
+    // so notifying the QML side is enough
+    emit scaleLockedChanged();
+
     for (Fixture *fixture : m_doc->fixtures())
     {
         if (m_monProps->containsFixture(fixture->id()))
@@ -2543,6 +2547,22 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     }
 
     emit genericItemsScaleChanged();
+}
+
+bool MainView3D::scaleLocked() const
+{
+    return m_monProps->scaleLocked();
+}
+
+void MainView3D::setScaleLocked(bool locked)
+{
+    if (m_monProps->scaleLocked() == locked)
+        return;
+
+    // persist the choice in the project (see MonitorProperties)
+    m_monProps->setScaleLocked(locked);
+    m_doc->setModified();
+    emit scaleLockedChanged();
 }
 
 QVector3D MainView3D::position3DMarker() const

@@ -123,6 +123,7 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(bool scaleLocked READ scaleLocked WRITE setScaleLocked NOTIFY scaleLockedChanged)
 
     Q_PROPERTY(QVector3D position3DMarker READ position3DMarker WRITE setPosition3DMarker NOTIFY position3DMarkerChanged)
     Q_PROPERTY(bool position3DMarkerVisible READ position3DMarkerVisible WRITE setPosition3DMarkerVisible NOTIFY position3DMarkerVisibleChanged)
@@ -433,6 +434,12 @@ public:
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
 
+    /** Get/Set whether the "Scale" X/Y/Z fields of the 3D view settings panel
+     *  are locked together. Stored in MonitorProperties, so the choice survives
+     *  a view switch and is saved in the project */
+    bool scaleLocked() const;
+    void setScaleLocked(bool locked);
+
     QVector3D position3DMarker() const;
     Q_INVOKABLE void setPosition3DMarker(QVector3D pos);
     bool position3DMarkerVisible() const;
@@ -448,6 +455,7 @@ signals:
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void scaleLockedChanged();
     void position3DMarkerChanged();
     void position3DMarkerVisibleChanged();
 

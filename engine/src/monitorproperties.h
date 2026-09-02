@@ -174,6 +174,19 @@ private:
     bool m_showFPS;
 
     /********************************************************************
+     * 3D View editing
+     ********************************************************************/
+public:
+    /** Get/Set whether the 3D view "Scale" X/Y/Z fields of a generic item
+     *  are locked together, i.e. editing one of them scales the item
+     *  uniformly on the three axes */
+    inline void setScaleLocked(bool locked) { m_scaleLocked = locked; }
+    inline bool scaleLocked() const { return m_scaleLocked; }
+
+private:
+    bool m_scaleLocked;
+
+    /********************************************************************
      * Items flags
      ********************************************************************/
 public:
