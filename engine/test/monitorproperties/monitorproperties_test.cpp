@@ -43,6 +43,7 @@ void MonitorProperties_Test::defaults()
     QCOMPARE(mp.ambientLightIntensity(), 0.6);
     QCOMPARE(mp.smokeAmount(), 0.8);
     QCOMPARE(mp.showFPS(), false);
+    QCOMPARE(mp.scaleLocked(), true);
     QVERIFY(mp.commonBackgroundImage().isEmpty());
 }
 
@@ -113,14 +114,18 @@ void MonitorProperties_Test::lightItemsXML()
     QCOMPARE(loaded.lightPosition("moving_head.dae", 0), QVector3D(1.5f, 2.5f, 3.5f));
 }
 
-void MonitorProperties_Test::renderSettingsXML()
+void MonitorProperties_Test::view3DSettingsXML()
 {
+#ifndef QMLUI
+    QSKIP("The 3D view settings are saved only by the QML UI build");
+#else
     Doc doc(this);
     MonitorProperties mp;
     mp.setRenderQuality(3);
     mp.setAmbientLightIntensity(0.25);
     mp.setSmokeAmount(0.9);
     mp.setShowFPS(true);
+    mp.setScaleLocked(false);
 
     QByteArray xmlData;
     QBuffer buffer(&xmlData);
@@ -148,6 +153,8 @@ void MonitorProperties_Test::renderSettingsXML()
     QCOMPARE(loaded.ambientLightIntensity(), 0.25);
     QCOMPARE(loaded.smokeAmount(), 0.9);
     QCOMPARE(loaded.showFPS(), true);
+    QCOMPARE(loaded.scaleLocked(), false);
+#endif
 }
 
 void MonitorProperties_Test::genericItems()
@@ -188,6 +195,7 @@ void MonitorProperties_Test::reset()
     mp.setAmbientLightIntensity(0.1);
     mp.setSmokeAmount(0.2);
     mp.setShowFPS(true);
+    mp.setScaleLocked(false);
     mp.setFixturePosition(1,0,0,QVector3D(1,2,3));
     mp.setItemName(2,"foo");
     mp.setCommonBackgroundImage("img.png");
@@ -203,6 +211,7 @@ void MonitorProperties_Test::reset()
     QCOMPARE(mp.ambientLightIntensity(), 0.6);
     QCOMPARE(mp.smokeAmount(), 0.8);
     QCOMPARE(mp.showFPS(), false);
+    QCOMPARE(mp.scaleLocked(), true);
     QCOMPARE(mp.fixtureItemsID().count(), 0);
     QCOMPARE(mp.lightResources().count(), 0);
     QCOMPARE(mp.genericItemsID().count(), 0);
