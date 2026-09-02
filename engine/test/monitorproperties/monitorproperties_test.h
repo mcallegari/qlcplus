@@ -33,6 +33,7 @@ private slots:
     void lightItemsXML();
     void view3DSettingsXML();
     void genericItems();
+    void genericItemsXML();
     void reset();
 };
 

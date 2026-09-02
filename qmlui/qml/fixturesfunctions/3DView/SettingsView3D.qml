@@ -740,23 +740,74 @@ Rectangle
                             }
                         }
 
+                        GridLayout
+                        {
+                            visible: selGenericCount
+                            Layout.fillWidth: true
+                            columns: 2
+                            columnSpacing: 5
+                            rowSpacing: 4
+
+                            // row 1
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                label: qsTr("Name")
+                            }
+                            CustomTextEdit
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                // a name identifies a single item
+                                enabled: selGenericCount === 1
+                                text: View3D.genericItemsName
+
+                                onTextEdited: View3D.genericItemsName = text
+                            }
+
+                            // row 2
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                label: qsTr("Color")
+                            }
+                            Rectangle
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                color: View3D.genericItemsColor
+                                border.width: 1
+                                border.color: UISettings.bgLight
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onClicked: itemColorTool.visible = !itemColorTool.visible
+                                }
+                            }
+                        }
+
                         ListView
                         {
                             id: itemsList
-                            width: parent.width
-                            // show all the items and let the Flickable scrollbar handle
-                            // scrolling, so there are not two nested scrollbars
-                            height: count * UISettings.listItemHeight
-                            interactive: false
+                            Layout.fillWidth: true
+                            // show at most a handful of items and let the list
+                            // scroll on its own beyond that, so a long list does
+                            // not push the rest of the panel out of reach.
+                            // The height has to go through the layout, which
+                            // would otherwise size the list by its implicit
+                            // height and collapse it
+                            Layout.preferredHeight: Math.min(count, 8) * UISettings.listItemHeight
                             model: View3D.genericItemsList
                             clip: true
+                            ScrollBar.vertical: CustomScrollBar { id: itemsScrollBar }
 
                             delegate:
                                 Rectangle
                                 {
-                                    // account for the Flickable scrollbar so the lock
+                                    // account for the list scrollbar so the lock
                                     // icon on the right edge stays visible
-                                    width: itemsList.width - (sbar.visible ? sbar.width : 0)
+                                    width: itemsList.width - (itemsScrollBar.visible ? itemsScrollBar.width : 0)
                                     height: UISettings.listItemHeight
                                     color: isSelected ? UISettings.highlight : "transparent"
 
@@ -803,4 +854,21 @@ Rectangle
         } // Column
         ScrollBar.vertical: CustomScrollBar { id: sbar }
     } // Flickable
+
+    ColorTool
+    {
+        id: itemColorTool
+        // open to the left of the panel, where there is room for it
+        x: -width
+        y: (settingsRoot.height - height) / 2
+        z: 10
+        visible: false
+
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                View3D.genericItemsColor = Qt.rgba(r, g, b, 1.0)
+            }
+        onClose: visible = false
+    }
 }
