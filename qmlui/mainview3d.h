@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QQuickView>
 #include <QElapsedTimer>
+#include <QColor>
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
@@ -123,6 +124,8 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
     Q_PROPERTY(bool genericSelectedLocked READ genericSelectedLocked NOTIFY genericSelectedLockedChanged)
+    Q_PROPERTY(QString genericItemsName READ genericItemsName WRITE setGenericItemsName NOTIFY genericItemsNameChanged)
+    Q_PROPERTY(QColor genericItemsColor READ genericItemsColor WRITE setGenericItemsColor NOTIFY genericItemsColorChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
@@ -420,6 +423,14 @@ public:
      *  to be displayed in QML */
     QVariant genericItemsList() const;
 
+    void updateGenericItemName(quint32 itemID, QString name);
+    QString genericItemsName() const;
+    void setGenericItemsName(QString name);
+
+    void updateGenericItemColor(quint32 itemID, QColor color);
+    QColor genericItemsColor() const;
+    void setGenericItemsColor(QColor color);
+
     void updateGenericItemPosition(quint32 itemID, QVector3D pos) const;
     QVector3D genericItemsPosition() const;
     void setGenericItemsPosition(QVector3D pos);
@@ -445,8 +456,20 @@ protected:
      *  selection, so a click in either one has to be reflected in the other */
     void updateGenericItemSelection(quint32 itemID, bool enable);
 
+    /** Render the mesh tree rooted at $entity with the base color $color.
+     *  The color scales the diffuse color each material was loaded with,
+     *  rather than replacing it, so a mesh made of several materials keeps
+     *  its shading variation. A material is restored to the color it was
+     *  loaded with when $color is MonitorProperties::defaultItemColor */
+    void applyItemColor(QEntity *entity, QColor color);
+
+    /** Apply the base color $color to a single mesh material */
+    void applyMaterialColor(QMaterial *material, QColor color);
+
 signals:
     void genericItemsListChanged();
+    void genericItemsNameChanged();
+    void genericItemsColorChanged();
     void genericSelectedCountChanged();
     void genericSelectedLockedChanged();
     void genericItemsPositionChanged();
