@@ -162,6 +162,15 @@ public:
     inline void setFixtureLightIntensity(qreal intensity) { m_fixtureLightIntensity = intensity; }
     inline qreal fixtureLightIntensity() const { return m_fixtureLightIntensity; }
 
+    /** Get/Set whether the 3D view scales each fixture's light by the "Lumens"
+     *  physical property of its mode, so that a rig of mixed fixtures shows the
+     *  relative output of its members instead of every fixture emitting the
+     *  same amount of light. Off by default: most fixture definitions leave
+     *  Lumens unset, and a project that has never enabled it must render
+     *  exactly as it always has. */
+    inline void setUseFixtureLumens(bool use) { m_useFixtureLumens = use; }
+    inline bool useFixtureLumens() const { return m_useFixtureLumens; }
+
     /** Get/Set whether the 3D view FPS counter overlay is shown */
     inline void setShowFPS(bool show) { m_showFPS = show; }
     inline bool showFPS() const { return m_showFPS; }
@@ -171,6 +180,7 @@ private:
     qreal m_ambientLightIntensity;
     qreal m_smokeAmount;
     qreal m_fixtureLightIntensity;
+    bool m_useFixtureLumens;
     bool m_showFPS;
 
     /********************************************************************

@@ -100,6 +100,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_position3DMarkerVisible(false)
     , m_markerEntity(nullptr)
     , m_stageEntity(nullptr)
+    , m_referenceLumens(0)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -850,8 +851,13 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     m_entitiesMap[itemID] = mesh;
 
     newItem->setProperty("itemID", itemID);
+    newItem->setProperty("bulbLumens", fixtureEmitterLumens(fixture));
     if (meshPath.isEmpty() == false)
         newItem->setProperty("itemSource", meshPath);
+
+    // the reference is the brightest emitter in the project, so it can move
+    // whenever a fixture is added
+    updateReferenceLumens();
 }
 
 void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -2018,6 +2024,8 @@ void MainView3D::removeFixtureItem(quint32 itemID)
 
     delete mesh;
 
+    updateReferenceLumens();
+
     if (m_scene3D)
         QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 }
@@ -2719,14 +2727,80 @@ void MainView3D::setFixtureLightIntensity(float intensity)
     emit fixtureLightIntensityChanged(intensity);
 }
 
+bool MainView3D::useFixtureLumens() const
+{
+    return m_monProps->useFixtureLumens();
+}
+
+void MainView3D::setUseFixtureLumens(bool use)
+{
+    if (m_monProps->useFixtureLumens() == use)
+        return;
+
+    m_monProps->setUseFixtureLumens(use);
+    m_doc->setModified();
+    emit useFixtureLumensChanged(use);
+}
+
+qreal MainView3D::referenceLumens() const
+{
+    return m_referenceLumens;
+}
+
+qreal MainView3D::fixtureEmitterLumens(Fixture *fixture)
+{
+    if (fixture == nullptr)
+        return 0;
+
+    QLCFixtureMode *mode = fixture->fixtureMode();
+    if (mode == nullptr)
+        return 0;
+
+    // QLCPhysical lives on the mode, which falls back to the definition's
+    // global <Physical> when the mode doesn't override it. There is no
+    // per-head physical, so this is the output of the whole fixture.
+    int lumens = mode->physical().bulbLumens();
+    if (lumens <= 0)
+        return 0;
+
+    // Split it between the emitters the 3D view actually draws: a Dimmer gets
+    // one lamp per channel, everything else one per head (a separate item per
+    // head for moving heads, cells within a single item for the bars). Without
+    // this an 8 cell bar would cast eight times the light of a moving head
+    // with the same figure in its definition.
+    // A mode that declares no <Head> gets none: QLCFixtureMode synthesizes
+    // nothing, so heads() is 0 there. That is a single emitter fixture, which
+    // is what falling through to the undivided figure below gives it.
+    quint32 emitters = fixture->type() == QLCFixtureDef::Dimmer ?
+                           fixture->channels() : quint32(fixture->heads());
+
+    return emitters > 1 ? qreal(lumens) / qreal(emitters) : qreal(lumens);
+}
+
+void MainView3D::updateReferenceLumens()
+{
+    qreal reference = 0;
+
+    for (Fixture *fixture : m_doc->fixtures())
+        reference = qMax(reference, fixtureEmitterLumens(fixture));
+
+    if (reference == m_referenceLumens)
+        return;
+
+    m_referenceLumens = reference;
+    emit referenceLumensChanged(m_referenceLumens);
+}
+
 void MainView3D::applyRenderSettings()
 {
     // The values already live in m_monProps (set defaults, or loaded from the
     // project). Push them to the QML side / shaders and sync the FPS counter.
+    updateReferenceLumens();
     emit renderQualityChanged(renderQuality());
     emit ambientIntensityChanged(ambientIntensity());
     emit smokeAmountChanged(smokeAmount());
     emit fixtureLightIntensityChanged(fixtureLightIntensity());
+    emit useFixtureLumensChanged(useFixtureLumens());
     applyFrameCountEnabled(m_monProps->showFPS());
 }
 

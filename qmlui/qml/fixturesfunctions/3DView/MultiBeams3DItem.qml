@@ -82,6 +82,18 @@ Entity
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
     property real shutterValue: sAnimator.shutterValue
+    /* Lumens of a single emitter of this fixture, from the "Lumens" physical
+       property of its mode. 0 when the fixture definition carries no data */
+    property real bulbLumens: 0
+    /* Relative output of this fixture: its lumens against the brightest emitter
+       in the project, so the reference fixture stays at the brightness it has
+       always rendered at and everything else falls in below it. 1.0 (unscaled)
+       when the "Lumens" setting is off, when this definition has no lumens, or
+       when no fixture in the project has any. */
+    property real lumensScale:
+        (View3D && View3D.useFixtureLumens && bulbLumens > 0 && View3D.referenceLumens > 0) ?
+            Math.min(1.0, bulbLumens / View3D.referenceLumens) : 1.0
+
     property vector3d lightDir: Math3D.getLightDirection(transform, 0, tiltTransform)
 
     property var headsList: []
@@ -121,6 +133,7 @@ Entity
                 "headIndex": i,
                 "lightDir": Qt.binding(function() { return fixtureEntity.lightDir }),
                 "shutterValue": Qt.binding(function() { return fixtureEntity.shutterValue }),
+                "lumensScale": Qt.binding(function() { return fixtureEntity.lumensScale }),
                 "raymarchSteps": Qt.binding(function() { return fixtureEntity.raymarchSteps }),
                 "cutoffAngle": Qt.binding(function() { return fixtureEntity.cutoffAngle }),
                 "tiltRotation": Qt.binding(function() { return fixtureEntity.tiltRotation }),

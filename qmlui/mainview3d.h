@@ -110,6 +110,8 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
     Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
+    Q_PROPERTY(bool useFixtureLumens READ useFixtureLumens WRITE setUseFixtureLumens NOTIFY useFixtureLumensChanged)
+    Q_PROPERTY(qreal referenceLumens READ referenceLumens NOTIFY referenceLumensChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -517,6 +519,22 @@ public:
     float fixtureLightIntensity() const;
     void setFixtureLightIntensity(float intensity);
 
+    /** Scale each fixture's light by the "Lumens" of its mode, so a rig of
+     *  mixed fixtures shows their relative output */
+    bool useFixtureLumens() const;
+    void setUseFixtureLumens(bool use);
+
+    /** Lumens of the brightest emitter in the project, i.e. the output that
+     *  renders unscaled when useFixtureLumens is on. 0 when no fixture in the
+     *  project carries lumens data, which turns the scaling into a no-op. */
+    qreal referenceLumens() const;
+
+    /** Lumens of a single emitter of $fixture: the "Lumens" of its mode (or of
+     *  the fixture definition, when the mode inherits it) divided between the
+     *  emitters the 3D view draws for that fixture. 0 when the definition
+     *  carries no lumens data. */
+    static qreal fixtureEmitterLumens(Fixture *fixture);
+
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
@@ -526,6 +544,11 @@ protected:
      *  to the running scene and notify the QML side. Called on project load /
      *  when the 3D view becomes visible. Does not mark the project modified. */
     void applyRenderSettings();
+
+    /** Recompute referenceLumens() from the fixtures currently in the project
+     *  and notify the QML side if it moved. Called whenever the set of
+     *  fixtures changes, since the reference is the maximum over all of them. */
+    void updateReferenceLumens();
     QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
                            const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
@@ -539,6 +562,8 @@ signals:
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
     void fixtureLightIntensityChanged(float fixtureLightIntensity);
+    void useFixtureLumensChanged(bool useFixtureLumens);
+    void referenceLumensChanged(qreal referenceLumens);
 
 private:
     /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
@@ -551,6 +576,9 @@ private:
 
     /** Reference to the selected stage Entity */
     QEntity *m_stageEntity;
+
+    /** Cached maximum of fixtureEmitterLumens() over the project's fixtures */
+    qreal m_referenceLumens;
 };
 
 #endif // MAINVIEW3D_H
