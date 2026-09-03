@@ -93,6 +93,10 @@ typedef struct
      *  generation must be discarded, otherwise they would resurrect
      *  already deleted entities */
     quint32 m_generation;
+    /** Width in metres of one repeating section of a tileable mesh, or 0 for
+     *  the ordinary meshes that simply stretch when scaled. See
+     *  MainView3D::meshTileWidth */
+    qreal m_tileWidth;
 } SceneItem;
 
 class MainView3D final : public PreviewContext
@@ -390,6 +394,23 @@ public:
     Q_INVOKABLE void createGenericItem(QString filename, int itemID);
 
     Q_INVOKABLE void initializeItem(int itemID, QEntity *fxEntity, QSceneLoader *loader);
+
+    /** Add the mesh loaded by $loader to the deferred rendering pipeline.
+     *  Called by Generic3DItem for the repeated sections of a tileable item:
+     *  those are extra copies of a mesh already accounted for by
+     *  initializeItem, so they get the scene layer and effect but contribute
+     *  neither a bounding volume nor a selection box */
+    Q_INVOKABLE void initializeItemTile(int itemID, QSceneLoader *loader);
+
+    /** Width in metres of one repeating section of the mesh at $source, or 0
+     *  if the mesh is not tileable.
+     *
+     *  A mesh opts in through its file name: anything ending with _tile_<N>m
+     *  (curtain_tile_1m.obj) declares itself a section <N> metres wide that can
+     *  be repeated along the X axis. For such an item the X scale is a section
+     *  count rather than a stretch factor, so the pleats of a curtain keep
+     *  their size however wide it is drawn */
+    static qreal meshTileWidth(const QString &source);
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
