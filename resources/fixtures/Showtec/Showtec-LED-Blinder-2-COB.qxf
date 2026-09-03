@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>LED Blinder 2 COB</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer intensity (Left COB LED)">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
