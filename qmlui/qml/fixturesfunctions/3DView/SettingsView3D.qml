@@ -353,9 +353,12 @@ Rectangle
                             }
                             else
                             {
+                                // more than one item is selected, so the fields hold an
+                                // offset from the neutral base they were reset to. Every
+                                // item moves by that much, whatever its type
                                 var newPos = Qt.vector3d(x - lastPosition.x, y - lastPosition.y, z - lastPosition.z)
-                                contextManager.fixturesPosition = newPos
-                                View3D.genericItemsPosition = newPos
+                                contextManager.moveFixtures(newPos)
+                                View3D.moveGenericItems(newPos)
                                 lastPosition = Qt.vector3d(x, y, z)
                             }
                         }
@@ -454,9 +457,11 @@ Rectangle
                             }
                             else
                             {
+                                // more than one item is selected: rotate each of them by
+                                // the offset entered, rather than setting an absolute angle
                                 var newRot = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
-                                contextManager.fixturesRotation = newRot
-                                View3D.genericItemsRotation = newRot
+                                contextManager.rotateFixtures(newRot)
+                                View3D.rotateGenericItems(newRot)
                                 lastRotation = Qt.vector3d(x, y, z)
                             }
                         }
@@ -542,14 +547,16 @@ Rectangle
                             if (isUpdating)
                                 return;
 
-                            if (selGenericCount == 1)
+                            if (selFixturesCount == 0 && selGenericCount == 1)
                             {
                                 View3D.genericItemsScale = Qt.vector3d(x, y, z)
                             }
                             else
                             {
+                                // more than one item is selected, so the fields hold an
+                                // offset from the neutral 100% they were reset to
                                 var newScale = Qt.vector3d(x - lastScale.x, y - lastScale.y, z - lastScale.z)
-                                View3D.genericItemsScale = newScale
+                                View3D.scaleGenericItems(newScale)
                                 lastScale = Qt.vector3d(x, y, z)
                             }
                             if (scaleLocked.checked)

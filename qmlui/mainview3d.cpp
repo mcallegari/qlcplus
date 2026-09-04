@@ -2665,31 +2665,31 @@ QVector3D MainView3D::genericItemsPosition() const
 
 void MainView3D::setGenericItemsPosition(QVector3D pos)
 {
-    if (m_genericSelectedItems.isEmpty())
+    // an absolute position identifies a single item. When more than one item is
+    // selected the value entered is an offset instead, applied by moveGenericItems
+    if (m_genericSelectedItems.count() != 1)
         return;
 
-    if (m_genericSelectedItems.count() == 1)
-    {
-        quint32 itemID = m_genericSelectedItems.first();
+    quint32 itemID = m_genericSelectedItems.first();
 
+    // do not move locked items
+    if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
+        return;
+
+    updateGenericItemPosition(itemID, pos);
+
+    emit genericItemsPositionChanged();
+}
+
+void MainView3D::moveGenericItems(QVector3D offset)
+{
+    for (int &itemID : m_genericSelectedItems)
+    {
         // do not move locked items
         if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
-            return;
+            continue;
 
-        updateGenericItemPosition(itemID, pos);
-    }
-    else
-    {
-        // relative position change
-        for (int &itemID : m_genericSelectedItems)
-        {
-            // do not move locked items
-            if (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag)
-                continue;
-
-            QVector3D newPos = m_monProps->itemPosition(itemID) + pos;
-            updateGenericItemPosition(itemID, newPos);
-        }
+        updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID) + offset);
     }
 
     emit genericItemsPositionChanged();
@@ -2730,33 +2730,35 @@ QVector3D MainView3D::genericItemsRotation() const
 
 void MainView3D::setGenericItemsRotation(QVector3D rot)
 {
-    if (m_genericSelectedItems.isEmpty())
+    // an absolute rotation identifies a single item. When more than one item is
+    // selected the value entered is an offset instead, applied by rotateGenericItems
+    if (m_genericSelectedItems.count() != 1)
         return;
 
-    if (m_genericSelectedItems.count() == 1)
+    updateGenericItemRotation(m_genericSelectedItems.first(), rot);
+
+    emit genericItemsRotationChanged();
+}
+
+void MainView3D::rotateGenericItems(QVector3D degrees)
+{
+    for (int &itemID : m_genericSelectedItems)
     {
-        updateGenericItemRotation(m_genericSelectedItems.first(), rot);
+        QVector3D newRot = m_monProps->itemRotation(itemID) + degrees;
+
+        // normalize back to a 0-359 range
+        if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
+        else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
+
+        if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
+        else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
+
+        if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
+        else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
+
+        updateGenericItemRotation(itemID, newRot);
     }
-    else
-    {
-        // relative position change
-        for (int &itemID : m_genericSelectedItems)
-        {
-            QVector3D newRot = m_monProps->itemRotation(itemID) + rot;
 
-            // normalize back to a 0-359 range
-            if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
-            else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
-
-            if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
-            else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
-
-            if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
-            else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
-
-            updateGenericItemRotation(itemID, newRot);
-        }
-    }
     emit genericItemsRotationChanged();
 }
 
@@ -2815,22 +2817,23 @@ QVector3D MainView3D::genericItemsScale() const
 
 void MainView3D::setGenericItemsScale(QVector3D scale)
 {
-    if (m_genericSelectedItems.isEmpty())
+    // an absolute scale identifies a single item. When more than one item is
+    // selected the value entered is an offset instead, applied by scaleGenericItems
+    if (m_genericSelectedItems.count() != 1)
         return;
 
-    QVector3D normScale(scale.x() / 100.0, scale.y() / 100.0, scale.z() / 100.0);
-    if (m_genericSelectedItems.count() == 1)
-    {
-        updateGenericItemScale(m_genericSelectedItems.first(), normScale);
-    }
-    else
-    {
-        for (int &itemID : m_genericSelectedItems)
-        {
-            QVector3D newScale = m_monProps->itemScale(itemID) + normScale;
-            updateGenericItemScale(itemID, newScale);
-        }
-    }
+    updateGenericItemScale(m_genericSelectedItems.first(),
+                           QVector3D(scale.x() / 100.0, scale.y() / 100.0, scale.z() / 100.0));
+
+    emit genericItemsScaleChanged();
+}
+
+void MainView3D::scaleGenericItems(QVector3D offset)
+{
+    QVector3D normOffset(offset.x() / 100.0, offset.y() / 100.0, offset.z() / 100.0);
+
+    for (int &itemID : m_genericSelectedItems)
+        updateGenericItemScale(itemID, m_monProps->itemScale(itemID) + normOffset);
 
     emit genericItemsScaleChanged();
 }

@@ -454,17 +454,34 @@ public:
     QColor genericItemsColor() const;
     void setGenericItemsColor(QColor color);
 
+    /** Set/Get the position of the selected generic items. The setter is an
+     *  absolute position, so it applies only when a single item is selected */
     void updateGenericItemPosition(quint32 itemID, QVector3D pos);
     QVector3D genericItemsPosition() const;
     void setGenericItemsPosition(QVector3D pos);
 
+    /** Move every selected generic item by the provided $offset. This is what a
+     *  multiple selection edits, as no single absolute position can describe it */
+    Q_INVOKABLE void moveGenericItems(QVector3D offset);
+
+    /** Set/Get the rotation of the selected generic items. The setter is an
+     *  absolute rotation, so it applies only when a single item is selected */
     void updateGenericItemRotation(quint32 itemID, QVector3D rot);
     QVector3D genericItemsRotation() const;
     void setGenericItemsRotation(QVector3D rot);
 
+    /** Rotate every selected generic item by the provided $degrees */
+    Q_INVOKABLE void rotateGenericItems(QVector3D degrees);
+
+    /** Set/Get the scale of the selected generic items, as a percentage. The
+     *  setter is an absolute scale, so it applies only when a single item is
+     *  selected */
     void updateGenericItemScale(quint32 itemID, QVector3D scale);
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
+
+    /** Scale every selected generic item by the provided $offset percentage */
+    Q_INVOKABLE void scaleGenericItems(QVector3D offset);
 
     /** Get/Set whether the "Scale" X/Y/Z fields of the 3D view settings panel
      *  are locked together. Stored in MonitorProperties, so the choice survives
