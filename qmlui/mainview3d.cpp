@@ -31,6 +31,7 @@
 #include <QUrl>
 #include <QXmlStreamReader>
 #include <QRegularExpression>
+#include <QtMath>
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DCore/QNode>
@@ -100,7 +101,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_position3DMarkerVisible(false)
     , m_markerEntity(nullptr)
     , m_stageEntity(nullptr)
-    , m_referenceLumens(0)
+    , m_referenceCandela(0)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -851,13 +852,13 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     m_entitiesMap[itemID] = mesh;
 
     newItem->setProperty("itemID", itemID);
-    newItem->setProperty("bulbLumens", fixtureEmitterLumens(fixture));
+    newItem->setProperty("bulbCandela", fixtureEmitterCandela(fixture));
     if (meshPath.isEmpty() == false)
         newItem->setProperty("itemSource", meshPath);
 
     // the reference is the brightest emitter in the project, so it can move
     // whenever a fixture is added
-    updateReferenceLumens();
+    updateReferenceCandela();
 }
 
 void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -2024,7 +2025,7 @@ void MainView3D::removeFixtureItem(quint32 itemID)
 
     delete mesh;
 
-    updateReferenceLumens();
+    updateReferenceCandela();
 
     if (m_scene3D)
         QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
@@ -2742,9 +2743,9 @@ void MainView3D::setUseFixtureLumens(bool use)
     emit useFixtureLumensChanged(use);
 }
 
-qreal MainView3D::referenceLumens() const
+qreal MainView3D::referenceCandela() const
 {
-    return m_referenceLumens;
+    return m_referenceCandela;
 }
 
 qreal MainView3D::fixtureEmitterLumens(Fixture *fixture)
@@ -2777,25 +2778,57 @@ qreal MainView3D::fixtureEmitterLumens(Fixture *fixture)
     return emitters > 1 ? qreal(lumens) / qreal(emitters) : qreal(lumens);
 }
 
-void MainView3D::updateReferenceLumens()
+qreal MainView3D::beamSolidAngle(qreal fullAngleDegrees)
+{
+    if (fullAngleDegrees <= 0 || fullAngleDegrees >= 360)
+        return 0;
+
+    return 2.0 * M_PI * (1.0 - qCos(qDegreesToRadians(fullAngleDegrees / 2.0)));
+}
+
+qreal MainView3D::fixtureEmitterCandela(Fixture *fixture)
+{
+    qreal lumens = fixtureEmitterLumens(fixture);
+    if (lumens <= 0)
+        return 0;
+
+    QLCFixtureMode *mode = fixture->fixtureMode();
+    if (mode == nullptr)
+        return 0;
+
+    // Same fallback the cone geometry uses above, so the photometry describes
+    // the cone that is actually drawn for a definition that gives no lens
+    // angle. It is a constant across all such fixtures, so it does not disturb
+    // their balance against each other.
+    qreal degrees = mode->physical().lensDegreesMax() ?
+                        mode->physical().lensDegreesMax() : 30;
+
+    qreal solidAngle = beamSolidAngle(degrees);
+    if (solidAngle <= 0)
+        return 0;
+
+    return lumens / solidAngle;
+}
+
+void MainView3D::updateReferenceCandela()
 {
     qreal reference = 0;
 
     for (Fixture *fixture : m_doc->fixtures())
-        reference = qMax(reference, fixtureEmitterLumens(fixture));
+        reference = qMax(reference, fixtureEmitterCandela(fixture));
 
-    if (reference == m_referenceLumens)
+    if (reference == m_referenceCandela)
         return;
 
-    m_referenceLumens = reference;
-    emit referenceLumensChanged(m_referenceLumens);
+    m_referenceCandela = reference;
+    emit referenceCandelaChanged(m_referenceCandela);
 }
 
 void MainView3D::applyRenderSettings()
 {
     // The values already live in m_monProps (set defaults, or loaded from the
     // project). Push them to the QML side / shaders and sync the FPS counter.
-    updateReferenceLumens();
+    updateReferenceCandela();
     emit renderQualityChanged(renderQuality());
     emit ambientIntensityChanged(ambientIntensity());
     emit smokeAmountChanged(smokeAmount());

@@ -111,7 +111,7 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
     Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
     Q_PROPERTY(bool useFixtureLumens READ useFixtureLumens WRITE setUseFixtureLumens NOTIFY useFixtureLumensChanged)
-    Q_PROPERTY(qreal referenceLumens READ referenceLumens NOTIFY referenceLumensChanged)
+    Q_PROPERTY(qreal referenceCandela READ referenceCandela NOTIFY referenceCandelaChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -524,16 +524,28 @@ public:
     bool useFixtureLumens() const;
     void setUseFixtureLumens(bool use);
 
-    /** Lumens of the brightest emitter in the project, i.e. the output that
-     *  renders unscaled when useFixtureLumens is on. 0 when no fixture in the
-     *  project carries lumens data, which turns the scaling into a no-op. */
-    qreal referenceLumens() const;
+    /** Luminous intensity of the brightest emitter in the project, i.e. the
+     *  output that renders unscaled when useFixtureLumens is on. 0 when no
+     *  fixture in the project carries the data, which turns the scaling into
+     *  a no-op. */
+    qreal referenceCandela() const;
 
     /** Lumens of a single emitter of $fixture: the "Lumens" of its mode (or of
      *  the fixture definition, when the mode inherits it) divided between the
      *  emitters the 3D view draws for that fixture. 0 when the definition
      *  carries no lumens data. */
     static qreal fixtureEmitterLumens(Fixture *fixture);
+
+    /** Luminous intensity of a single emitter of $fixture, in candela: its
+     *  lumens spread over the solid angle of its beam at the widest the lens
+     *  opens. This, not the raw flux, is what the renderer's light intensity
+     *  behaves like, since nothing in the shading divides by the area the cone
+     *  covers. 0 when the definition carries no lumens data. */
+    static qreal fixtureEmitterCandela(Fixture *fixture);
+
+    /** Solid angle, in steradian, of a cone of full angle $fullAngleDegrees:
+     *  2*pi*(1 - cos(angle / 2)). 0 for an angle outside (0, 360). */
+    static qreal beamSolidAngle(qreal fullAngleDegrees);
 
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
@@ -545,10 +557,10 @@ protected:
      *  when the 3D view becomes visible. Does not mark the project modified. */
     void applyRenderSettings();
 
-    /** Recompute referenceLumens() from the fixtures currently in the project
+    /** Recompute referenceCandela() from the fixtures currently in the project
      *  and notify the QML side if it moved. Called whenever the set of
      *  fixtures changes, since the reference is the maximum over all of them. */
-    void updateReferenceLumens();
+    void updateReferenceCandela();
     QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
                            const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
@@ -563,7 +575,7 @@ signals:
     void smokeAmountChanged(float smokeAmount);
     void fixtureLightIntensityChanged(float fixtureLightIntensity);
     void useFixtureLumensChanged(bool useFixtureLumens);
-    void referenceLumensChanged(qreal referenceLumens);
+    void referenceCandelaChanged(qreal referenceCandela);
 
 private:
     /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
@@ -577,8 +589,8 @@ private:
     /** Reference to the selected stage Entity */
     QEntity *m_stageEntity;
 
-    /** Cached maximum of fixtureEmitterLumens() over the project's fixtures */
-    qreal m_referenceLumens;
+    /** Cached maximum of fixtureEmitterCandela() over the project's fixtures */
+    qreal m_referenceCandela;
 };
 
 #endif // MAINVIEW3D_H
