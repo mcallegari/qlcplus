@@ -99,10 +99,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_position3DMarker(QVector3D())
     , m_position3DMarkerVisible(false)
     , m_markerEntity(nullptr)
-    , m_renderQuality(HighQuality)
     , m_stageEntity(nullptr)
-    , m_ambientIntensity(0.6)
-    , m_smokeAmount(0.8)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -179,6 +176,14 @@ void MainView3D::slotRefreshView()
     // recreate the stage entity and notify the UI to update the selector
     createStage();
     emit stageIndexChanged(m_monProps->stageType());
+
+    // re-apply the persisted "Rendering" settings (quality, ambient light,
+    // smoke, show FPS) that may have changed on project load
+    applyRenderSettings();
+
+    // the "Scale" lock is persisted too. It only affects the settings panel,
+    // so notifying the QML side is enough
+    emit scaleLockedChanged();
 
     for (Fixture *fixture : m_doc->fixtures())
     {
@@ -391,6 +396,18 @@ bool MainView3D::frameCountEnabled() const
 }
 
 void MainView3D::setFrameCountEnabled(bool enable)
+{
+    if (m_frameCountEnabled == enable)
+        return;
+
+    applyFrameCountEnabled(enable);
+
+    // persist the choice in the project (see MonitorProperties)
+    m_monProps->setShowFPS(enable);
+    m_doc->setModified();
+}
+
+void MainView3D::applyFrameCountEnabled(bool enable)
 {
     if (m_frameCountEnabled == enable)
         return;
@@ -1266,17 +1283,17 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
 
         Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
 
-        if (baseItem != nullptr)
+        // A mesh based fixture only tilts if the loaded scene has a base item
+        // under the head, i.e. it is a moving head or a scanner. An item drawn
+        // without a mesh has no base to look for: its head entity IS the movable
+        // part, so a Tilt channel is enough. Without the second case, a motorized
+        // beam bar would animate a tilt angle that nothing ever applies.
+        if ((baseItem != nullptr || loader == nullptr) && transform != nullptr &&
+            fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
         {
-            if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
-            {
-                // If there is a base item and a tilt channel,
-                // this is either a moving head or a scanner
-                if (transform != nullptr)
-                    QMetaObject::invokeMethod(meshRef->m_rootItem, "bindTiltTransform",
-                            Q_ARG(QVariant, QVariant::fromValue(transform)),
-                            Q_ARG(QVariant, tiltDeg));
-            }
+            QMetaObject::invokeMethod(meshRef->m_rootItem, "bindTiltTransform",
+                    Q_ARG(QVariant, QVariant::fromValue(transform)),
+                    Q_ARG(QVariant, tiltDeg));
         }
 
         meshRef->m_rootItem->setProperty("focusMinDegrees", focusMin);
@@ -2532,6 +2549,22 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     emit genericItemsScaleChanged();
 }
 
+bool MainView3D::scaleLocked() const
+{
+    return m_monProps->scaleLocked();
+}
+
+void MainView3D::setScaleLocked(bool locked)
+{
+    if (m_monProps->scaleLocked() == locked)
+        return;
+
+    // persist the choice in the project (see MonitorProperties)
+    m_monProps->setScaleLocked(locked);
+    m_doc->setModified();
+    emit scaleLockedChanged();
+}
+
 QVector3D MainView3D::position3DMarker() const
 {
     return m_position3DMarker;
@@ -2606,16 +2639,17 @@ void MainView3D::setPosition3DMarkerVisible(bool visible)
 
 MainView3D::RenderQuality MainView3D::renderQuality() const
 {
-    return m_renderQuality;
+    return RenderQuality(m_monProps->renderQuality());
 }
 
 void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
 {
-    if (m_renderQuality == renderQuality)
+    if (m_monProps->renderQuality() == int(renderQuality))
         return;
 
-    m_renderQuality = renderQuality;
-    emit renderQualityChanged(m_renderQuality);
+    m_monProps->setRenderQuality(int(renderQuality));
+    m_doc->setModified();
+    emit renderQualityChanged(renderQuality);
 }
 
 QStringList MainView3D::stagesList() const
@@ -2662,30 +2696,42 @@ void MainView3D::createStage()
 
 float MainView3D::ambientIntensity() const
 {
-    return m_ambientIntensity;
+    return m_monProps->ambientLightIntensity();
 }
 
 void MainView3D::setAmbientIntensity(float ambientIntensity)
 {
-    if (m_ambientIntensity == ambientIntensity)
+    if (float(m_monProps->ambientLightIntensity()) == ambientIntensity)
         return;
 
-    m_ambientIntensity = ambientIntensity;
-    emit ambientIntensityChanged(m_ambientIntensity);
+    m_monProps->setAmbientLightIntensity(ambientIntensity);
+    m_doc->setModified();
+    emit ambientIntensityChanged(ambientIntensity);
 }
 
 float MainView3D::smokeAmount() const
 {
-    return m_smokeAmount;
+    return m_monProps->smokeAmount();
 }
 
 void MainView3D::setSmokeAmount(float smokeAmount)
 {
-    if (m_smokeAmount == smokeAmount)
+    if (float(m_monProps->smokeAmount()) == smokeAmount)
         return;
 
-    m_smokeAmount = smokeAmount;
-    emit smokeAmountChanged(m_smokeAmount);
+    m_monProps->setSmokeAmount(smokeAmount);
+    m_doc->setModified();
+    emit smokeAmountChanged(smokeAmount);
+}
+
+void MainView3D::applyRenderSettings()
+{
+    // The values already live in m_monProps (set defaults, or loaded from the
+    // project). Push them to the QML side / shaders and sync the FPS counter.
+    emit renderQualityChanged(renderQuality());
+    emit ambientIntensityChanged(ambientIntensity());
+    emit smokeAmountChanged(smokeAmount());
+    applyFrameCountEnabled(m_monProps->showFPS());
 }
 
 bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
