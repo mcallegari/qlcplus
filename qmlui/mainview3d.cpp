@@ -2236,6 +2236,9 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     itemEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     itemEntity->setProperty("sceneEffect", QVariant::fromValue(sceneEffect));
+
+    applyItemColor(itemEntity, m_monProps->itemColor(itemID));
+
     updateGenericItemsList();
 }
 
@@ -2266,6 +2269,8 @@ void MainView3D::initializeItemTile(int itemID, QSceneLoader *loader)
     // the bounding volume and the selection box belong to the item as a whole
     // and have been set up by initializeItem already
     inspectEntity(entities[0], meshRef, sceneDeferredLayer, sceneEffect, false, QVector3D());
+
+    applyItemColor(entities[0], m_monProps->itemColor(itemID));
 }
 
 void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
@@ -2315,6 +2320,8 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
 
     emit genericSelectedCountChanged();
     emit genericSelectedLockedChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
 }
 
 void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifiers)
@@ -2405,6 +2412,8 @@ void MainView3D::removeSelectedGenericItems()
     m_genericSelectedItems.clear();
     m_genericPreviousIndex = -1;
     emit genericSelectedCountChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
     updateGenericItemsList();
 }
 
@@ -2466,6 +2475,157 @@ void MainView3D::updateGenericItemSelection(quint32 itemID, bool enable)
 QVariant MainView3D::genericItemsList() const
 {
     return QVariant::fromValue(m_genericItemsList);
+}
+
+void MainView3D::applyMaterialColor(QMaterial *material, QColor color)
+{
+    QParameter *diffuseParam = nullptr;
+
+    for (QParameter *param : material->parameters())
+    {
+        if (param->name() == QLatin1String("diffuse"))
+        {
+            diffuseParam = param;
+            break;
+        }
+    }
+
+    // a material with no diffuse parameter is not part of the geometry pass
+    if (diffuseParam == nullptr)
+        return;
+
+    // the first time a material is colored, remember the diffuse color the
+    // mesh was loaded with: every later color starts from that one again,
+    // instead of compounding on the previous result
+    QVariant baseDiffuse = material->property("baseDiffuse");
+    if (baseDiffuse.isValid() == false)
+    {
+        baseDiffuse = diffuseParam->value();
+        material->setProperty("baseDiffuse", baseDiffuse);
+    }
+
+    QColor defColor = MonitorProperties::defaultItemColor();
+
+    // the default color leaves the mesh exactly as it was loaded. Restore the
+    // original value rather than a scaled copy of it, so that an item that
+    // has never been colored renders as it did before base colors existed
+    if (color == defColor)
+    {
+        diffuseParam->setValue(baseDiffuse);
+        return;
+    }
+
+    QVector3D base;
+
+    if (baseDiffuse.userType() == QMetaType::QVector3D)
+    {
+        base = baseDiffuse.value<QVector3D>();
+    }
+    else
+    {
+        QColor baseColor = baseDiffuse.value<QColor>();
+        base = QVector3D(baseColor.redF(), baseColor.greenF(), baseColor.blueF());
+    }
+
+    // scale the material color by how far the requested color is from the
+    // default one. A mesh with no material of its own is rendered with the
+    // default color, so it ends up rendered with exactly $color
+    QVector3D tint(base.x() * (color.redF() / defColor.redF()),
+                   base.y() * (color.greenF() / defColor.greenF()),
+                   base.z() * (color.blueF() / defColor.blueF()));
+
+    diffuseParam->setValue(QColor::fromRgbF(qBound(0.0f, tint.x(), 1.0f),
+                                            qBound(0.0f, tint.y(), 1.0f),
+                                            qBound(0.0f, tint.z(), 1.0f)));
+}
+
+void MainView3D::applyItemColor(QEntity *entity, QColor color)
+{
+    if (entity == nullptr)
+        return;
+
+    for (QComponent *component : entity->components())
+    {
+        QMaterial *material = qobject_cast<QMaterial *>(component);
+        if (material != nullptr)
+            applyMaterialColor(material, color);
+    }
+
+    for (QEntity *subEntity : entity->findChildren<QEntity *>(QString(), Qt::FindDirectChildrenOnly))
+        applyItemColor(subEntity, color);
+}
+
+void MainView3D::updateGenericItemName(quint32 itemID, QString name)
+{
+    if (isEnabled() == false)
+        return;
+
+    QString currName = m_monProps->itemName(itemID);
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetName, itemID, QVariant(currName), QVariant(name));
+
+    m_monProps->setItemName(itemID, name);
+
+    // refresh just the entry that changed: rebuilding the whole list model
+    // would drop the selection while the name is being typed
+    int index = m_monProps->genericItemsID().indexOf(itemID);
+    if (index >= 0)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(index, 0),
+                                            "name", m_monProps->itemName(itemID));
+
+    emit genericItemsNameChanged();
+}
+
+QString MainView3D::genericItemsName() const
+{
+    if (m_genericSelectedItems.count() == 1)
+        return m_monProps->itemName(m_genericSelectedItems.first());
+
+    return QString();
+}
+
+void MainView3D::setGenericItemsName(QString name)
+{
+    // a name identifies a single item, so it is not applied to a multiple selection
+    if (m_genericSelectedItems.count() != 1)
+        return;
+
+    updateGenericItemName(m_genericSelectedItems.first(), name);
+}
+
+void MainView3D::updateGenericItemColor(quint32 itemID, QColor color)
+{
+    if (isEnabled() == false)
+        return;
+
+    QColor currColor = m_monProps->itemColor(itemID);
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetColor, itemID, QVariant(currColor), QVariant(color));
+
+    m_monProps->setItemColor(itemID, color);
+
+    SceneItem *item = m_genericMap.value(itemID, nullptr);
+    if (item == nullptr)
+        return;
+
+    applyItemColor(item->m_rootItem, color);
+}
+
+QColor MainView3D::genericItemsColor() const
+{
+    if (m_genericSelectedItems.count() == 1)
+        return m_monProps->itemColor(m_genericSelectedItems.first());
+
+    return MonitorProperties::defaultItemColor();
+}
+
+void MainView3D::setGenericItemsColor(QColor color)
+{
+    if (m_genericSelectedItems.isEmpty())
+        return;
+
+    for (int &itemID : m_genericSelectedItems)
+        updateGenericItemColor(itemID, color);
+
+    emit genericItemsColorChanged();
 }
 
 void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos) const

@@ -182,8 +182,70 @@ void MonitorProperties_Test::genericItems()
     QCOMPARE(mp.itemScale(id), QVector3D(2,2,2));
     QCOMPARE(mp.itemFlags(id), quint32(MonitorProperties::InvertedPanFlag));
 
+    // an item with no custom color reports the default one
+    QCOMPARE(mp.itemColor(id), MonitorProperties::defaultItemColor());
+
+    mp.setItemColor(id, QColor(Qt::blue));
+    QCOMPARE(mp.itemColor(id), QColor(Qt::blue));
+
+    // an item with no custom name is known by its resource file name
+    quint32 unnamedID = 101;
+    mp.setItemResource(unnamedID, "/some/where/curtain_tile_1m.obj");
+    QCOMPARE(mp.itemName(unnamedID), QString("curtain_tile_1m"));
+
     mp.removeItem(id);
     QCOMPARE(mp.containsItem(id), false);
+}
+
+void MonitorProperties_Test::genericItemsXML()
+{
+    Doc doc(this);
+    MonitorProperties mp;
+
+    // one item with a custom name and color, one left at the defaults
+    mp.setItemResource(1, "cube.obj");
+    mp.setItemName(1, "Riser");
+    mp.setItemColor(1, QColor(Qt::red));
+    mp.setItemPosition(1, QVector3D(1000, 0, 2000));
+
+    mp.setItemResource(2, "cube.obj");
+
+    QByteArray xmlData;
+    QBuffer buffer(&xmlData);
+    QVERIFY(buffer.open(QIODevice::WriteOnly));
+
+    QXmlStreamWriter writer(&buffer);
+    writer.writeStartDocument();
+    QVERIFY(mp.saveXML(&writer, &doc));
+    writer.writeEndDocument();
+    buffer.close();
+
+    // an item with no custom color must be saved exactly as it was before
+    // base colors existed, so that such a project stays readable by any
+    // QLC+ version and looks the same in all of them
+    QCOMPARE(xmlData.count("Color="), 1);
+
+    MonitorProperties loaded;
+    QXmlStreamReader reader(xmlData);
+    while (reader.readNextStartElement())
+    {
+        if (reader.name() == KXMLQLCMonitorProperties)
+        {
+            QVERIFY(loaded.loadXML(reader, &doc));
+            break;
+        }
+        reader.skipCurrentElement();
+    }
+
+    QCOMPARE(loaded.genericItemsID().count(), 2);
+    QCOMPARE(loaded.itemName(1), QString("Riser"));
+    QCOMPARE(loaded.itemColor(1), QColor(Qt::red));
+    QCOMPARE(loaded.itemPosition(1), QVector3D(1000, 0, 2000));
+
+    // an item saved with no color reads back as the default one, and keeps
+    // taking its name from the mesh file
+    QCOMPARE(loaded.itemName(2), QString("cube"));
+    QCOMPARE(loaded.itemColor(2), MonitorProperties::defaultItemColor());
 }
 
 void MonitorProperties_Test::reset()
