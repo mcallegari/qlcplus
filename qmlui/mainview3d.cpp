@@ -95,6 +95,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_gBuffer(nullptr)
     , m_latestGenericID(0)
     , m_initRetryCount(0)
+    , m_genericPreviousIndex(-1)
     , m_position3DMarker(QVector3D())
     , m_position3DMarkerVisible(false)
     , m_markerEntity(nullptr)
@@ -265,6 +266,8 @@ void MainView3D::resetItems()
     }
     m_genericMap.clear();
     m_genericItemsList->clear();
+    m_genericSelectedItems.clear();
+    m_genericPreviousIndex = -1;
     m_latestGenericID = 0;
     m_createItemCount = 0;
 
@@ -2184,6 +2187,7 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
                 meshRef->m_rootItem->setProperty("isSelected", false);
                 meshRef->m_selectionBox->setProperty("isSelected", false);
             }
+            updateGenericItemSelection(id, false);
         }
         m_genericSelectedItems.clear();
         emit genericSelectedCountChanged();
@@ -2197,10 +2201,21 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
         meshRef->m_selectionBox->setProperty("isSelected", enable);
     }
 
+    // an item already selected must not be added a second time: the number of
+    // selected items is what tells a single selection from a multiple one, and
+    // a duplicate makes a single item look like two, hiding the properties
+    // that only apply to one item
     if (enable)
-        m_genericSelectedItems.append(itemID);
+    {
+        if (m_genericSelectedItems.contains(itemID) == false)
+            m_genericSelectedItems.append(itemID);
+    }
     else
+    {
         m_genericSelectedItems.removeAll(itemID);
+    }
+
+    updateGenericItemSelection(itemID, enable);
 
     emit genericSelectedCountChanged();
     emit genericSelectedLockedChanged();
@@ -2212,7 +2227,22 @@ void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifier
     if (index < 0 || index >= ids.count())
         return;
 
+    // Shift extends the selection from the row clicked last to this one,
+    // adding every row in between to whatever is selected already
+    if ((keyModifiers & Qt::ShiftModifier) && m_genericPreviousIndex >= 0 &&
+        m_genericPreviousIndex < ids.count())
+    {
+        int first = qMin(index, m_genericPreviousIndex);
+        int last = qMax(index, m_genericPreviousIndex);
+
+        for (int i = first; i <= last; i++)
+            setItemSelection(ids.at(i), true, Qt::ShiftModifier);
+
+        return;
+    }
+
     setItemSelection(ids.at(index), enable, keyModifiers);
+    m_genericPreviousIndex = index;
 }
 
 int MainView3D::genericSelectedCount() const
@@ -2277,6 +2307,7 @@ void MainView3D::removeSelectedGenericItems()
         m_monProps->removeItem(id);
     }
     m_genericSelectedItems.clear();
+    m_genericPreviousIndex = -1;
     emit genericSelectedCountChanged();
     updateGenericItemsList();
 }
@@ -2320,12 +2351,20 @@ void MainView3D::updateGenericItemsList()
         QVariantMap itemMap;
         itemMap.insert("itemID", itemID);
         itemMap.insert("name", m_monProps->itemName(itemID));
-        itemMap.insert("isSelected", false);
+        itemMap.insert("isSelected", m_genericSelectedItems.contains(itemID));
         itemMap.insert("isLocked", (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag) ? true : false);
         m_genericItemsList->addDataMap(itemMap);
     }
 
     emit genericItemsListChanged();
+}
+
+void MainView3D::updateGenericItemSelection(quint32 itemID, bool enable)
+{
+    int index = m_monProps->genericItemsID().indexOf(itemID);
+    if (index >= 0)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(index, 0),
+                                            "isSelected", enable);
 }
 
 QVariant MainView3D::genericItemsList() const

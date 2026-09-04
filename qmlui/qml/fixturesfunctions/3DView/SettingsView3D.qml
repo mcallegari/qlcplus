@@ -97,20 +97,6 @@ Rectangle
         isUpdating = false
     }
 
-    ModelSelector
-    {
-        id: giSelector
-        onItemsCountChanged: { }
-
-        // keep the 3D view selection in sync with the list selection,
-        // including multi-row (range) selections. Use ControlModifier so
-        // each row is added/removed without clearing the others
-        onItemSelectionChanged: (itemIndex, selected) =>
-        {
-            View3D.setItemSelectionByIndex(itemIndex, selected, Qt.ControlModifier)
-        }
-    }
-
     // catch wheel events over the whole panel so they don't
     // fall through to the 3D view behind and zoom it in/out.
     // This sits below the Flickable, which consumes its own wheel
@@ -759,9 +745,13 @@ Rectangle
                                             anchors.fill: parent
                                             onClicked: (mouse) =>
                                             {
-                                                // giSelector.onItemSelectionChanged keeps the
-                                                // 3D view selection in sync (see above)
-                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
+                                                // the 3D view owns the selection and highlights the
+                                                // rows of the items it holds, so a click here and a
+                                                // click on the mesh itself cannot drift apart.
+                                                // A plain click selects this item alone, Ctrl adds
+                                                // or removes it and Shift extends the selection
+                                                var select = (mouse.modifiers & Qt.ControlModifier) ? !isSelected : true
+                                                View3D.setItemSelectionByIndex(index, select, mouse.modifiers)
                                             }
                                         }
                                     }
