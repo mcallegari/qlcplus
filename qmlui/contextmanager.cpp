@@ -947,6 +947,10 @@ void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal 
         m_2DView->updateFixturePosition(itemID, newPos);
     if (m_3DView->isEnabled())
         m_3DView->updateFixturePosition(itemID, newPos);
+
+    // this is where an undo/redo of a fixture move lands, so the
+    // editable properties need to be told the value has changed
+    emit fixturesPositionChanged();
 }
 
 void ContextManager::setFixturesOffset(qreal x, qreal y)
@@ -1531,6 +1535,10 @@ void ContextManager::setFixtureRotation(quint32 itemID, QVector3D degrees)
         m_2DView->updateFixtureRotation(itemID, degrees);
     if (m_3DView->isEnabled())
         m_3DView->updateFixtureRotation(itemID, degrees);
+
+    // this is where an undo/redo of a fixture rotation lands, so the
+    // editable properties need to be told the value has changed
+    emit fixturesRotationChanged();
 }
 
 void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse)

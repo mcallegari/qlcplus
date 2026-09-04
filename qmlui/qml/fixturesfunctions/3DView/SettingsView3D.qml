@@ -93,6 +93,31 @@ Rectangle
 
     onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
+    // an item can also change without the selection changing: an undo or redo,
+    // or a drag in the 3D view. Follow those, but only when a single item is
+    // selected, because with more than one the fields hold the relative offset
+    // entered so far rather than any item's own values
+    function refreshSelectedItemValues()
+    {
+        if (selFixturesCount + selGenericCount == 1)
+            refreshItemValues()
+    }
+
+    Connections
+    {
+        target: contextManager
+        function onFixturesPositionChanged() { refreshSelectedItemValues() }
+        function onFixturesRotationChanged() { refreshSelectedItemValues() }
+    }
+
+    Connections
+    {
+        target: View3D
+        function onGenericItemsPositionChanged() { refreshSelectedItemValues() }
+        function onGenericItemsRotationChanged() { refreshSelectedItemValues() }
+        function onGenericItemsScaleChanged() { refreshSelectedItemValues() }
+    }
+
     function refreshPositionValues(generic)
     {
         isUpdating = true
