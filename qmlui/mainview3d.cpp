@@ -102,6 +102,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_markerEntity(nullptr)
     , m_stageEntity(nullptr)
     , m_referenceCandela(0)
+    , m_referenceThrow(0)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -856,9 +857,10 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (meshPath.isEmpty() == false)
         newItem->setProperty("itemSource", meshPath);
 
-    // the reference is the brightest emitter in the project, so it can move
+    // both references are taken over the whole project, so either can move
     // whenever a fixture is added
     updateReferenceCandela();
+    updateReferenceThrow();
 }
 
 void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -1680,6 +1682,9 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
 
     updateLightMatrix(mesh, itemID);
+
+    // hanging a fixture higher or lower changes the rig's scale
+    updateReferenceThrow();
 }
 
 QVector3D MainView3D::fixtureExtents(quint32 itemID) const
@@ -2026,6 +2031,7 @@ void MainView3D::removeFixtureItem(quint32 itemID)
     delete mesh;
 
     updateReferenceCandela();
+    updateReferenceThrow();
 
     if (m_scene3D)
         QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
@@ -2824,11 +2830,52 @@ void MainView3D::updateReferenceCandela()
     emit referenceCandelaChanged(m_referenceCandela);
 }
 
+qreal MainView3D::referenceThrow() const
+{
+    return m_referenceThrow;
+}
+
+void MainView3D::updateReferenceThrow()
+{
+    qreal total = 0;
+    int count = 0;
+
+    // Only the fixtures actually placed in the 3D view have a position, and
+    // only those are part of the rig whose scale is being measured.
+    for (Fixture *fixture : m_doc->fixtures())
+    {
+        if (m_monProps->containsFixture(fixture->id()) == false)
+            continue;
+
+        for (quint32 &subID : m_monProps->fixtureIDList(fixture->id()))
+        {
+            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+
+            // Positions are stored in millimetres, measured up from the floor,
+            // which is where the shader's world units start too.
+            total += m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex).y() / 1000.0;
+            count++;
+        }
+    }
+
+    // A rig standing entirely on the floor has no throw to speak of and gets 0,
+    // which the shader reads as "no falloff".
+    qreal reference = count ? total / qreal(count) : 0;
+
+    if (reference == m_referenceThrow)
+        return;
+
+    m_referenceThrow = reference;
+    emit referenceThrowChanged(m_referenceThrow);
+}
+
 void MainView3D::applyRenderSettings()
 {
     // The values already live in m_monProps (set defaults, or loaded from the
     // project). Push them to the QML side / shaders and sync the FPS counter.
     updateReferenceCandela();
+    updateReferenceThrow();
     emit renderQualityChanged(renderQuality());
     emit ambientIntensityChanged(ambientIntensity());
     emit smokeAmountChanged(smokeAmount());

@@ -54,6 +54,17 @@ uniform float headLength;
 // spotlight_scattering.frag, through the smoke amount.
 uniform float fixtureLightIntensity;
 
+// Distance, in world units, at which fixture light lands unscaled: the mean
+// height of the rig above the floor, derived from the project. Light that has
+// travelled further is dimmed by the square of the ratio and light that has
+// travelled less is brightened, as illuminance does in the room. Normalising on
+// the rig's own scale keeps the frame's overall exposure where it was, so this
+// term changes the balance between near and far throws without acting as a
+// second global gain on top of fixtureLightIntensity. 0 disables it, which is
+// how this pass has always rendered: a beam lands the same brightness however
+// far it has travelled.
+uniform float referenceThrow;
+
 void main()
 {
 
@@ -81,10 +92,21 @@ void main()
     float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(q.z) - 0.5 * headLength) / coneDistCutoff);
     vec2 tc = (mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * ((-q.xy) * (1.0 / r))) * 0.5 + 0.5;
 
+    // Distance the light has travelled to reach this fragment, measured along
+    // the beam axis from the emitter, the same quantity the cone radius above
+    // is a function of. Floored so a surface up against the lens cannot divide
+    // the intensity to infinity.
+    float falloff = 1.0;
+    if (referenceThrow > 0.0)
+    {
+        float beamDist = max(abs(q.z) - 0.5 * headLength, 0.25);
+        falloff = (referenceThrow * referenceThrow) / (beamDist * beamDist);
+    }
+
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
     float goboMask = gSample.a * gSample.r;
 
-    vec3 finalColor = fixtureLightIntensity * shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
+    vec3 finalColor = fixtureLightIntensity * falloff * shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
 
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
     //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
