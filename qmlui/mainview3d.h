@@ -370,9 +370,9 @@ public:
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
-    /** Select/deselect a generic item by its row $index in the items list model.
-     *  Used to keep the 3D selection in sync with multi-row (range) selections
-     *  performed on the QML list */
+    /** Select/deselect the generic item on row $index of the items list model.
+     *  $keyModifiers has the same meaning as in setItemSelection, plus Shift,
+     *  which extends the selection from the row clicked last to $index */
     Q_INVOKABLE void setItemSelectionByIndex(int index, bool enable, int keyModifiers);
 
     /** Get the number of generic items currently selected */
@@ -419,6 +419,11 @@ public:
 protected:
     void updateGenericItemsList();
 
+    /** Mark the row of item $itemID in the items list model as selected or not.
+     *  The 3D view and the list in the settings panel are two views of the same
+     *  selection, so a click in either one has to be reflected in the other */
+    void updateGenericItemSelection(quint32 itemID, bool enable);
+
 signals:
     void genericItemsListChanged();
     void genericSelectedCountChanged();
@@ -438,6 +443,9 @@ private:
     ListModel *m_genericItemsList;
 
     QList<int> m_genericSelectedItems;
+
+    /** Row of the generic item clicked last, for Shift range selections */
+    int m_genericPreviousIndex;
 
     /** Map of the generic items in the scene */
     QMap<quint32, SceneItem*> m_genericMap;
