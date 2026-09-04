@@ -48,30 +48,20 @@ Rectangle
     property vector3d lastScale
     property bool isUpdating: false
 
-    onSelFixturesCountChanged:
+    onSelFixturesCountChanged: refreshItemValues()
+
+    onSelGenericCountChanged: refreshItemValues()
+
+    // Display the values of the selected item, whatever its type.
+    // With more than one item selected, the editable values become
+    // relative offsets, so they are reset to a neutral base
+    function refreshItemValues()
     {
         isUpdating = true
-        var pos = contextManager.fixturesPosition
-        var rot = contextManager.fixturesRotation
-        if (selFixturesCount + selGenericCount > 1)
-        {
-            lastPosition = Qt.vector3d(0, 0, 0)
-            lastRotation = Qt.vector3d(0, 0, 0)
-            pos = lastPosition
-            rot = lastRotation
-        }
+        var pos
+        var rot
+        var scl
 
-        currentPosition = pos
-        currentRotation = rot
-        isUpdating = false
-    }
-
-    onSelGenericCountChanged:
-    {
-        isUpdating = true
-        var pos = View3D.genericItemsPosition
-        var rot = View3D.genericItemsRotation
-        var scl = View3D.genericItemsScale
         if (selFixturesCount + selGenericCount > 1)
         {
             lastPosition = Qt.vector3d(0, 0, 0)
@@ -80,6 +70,19 @@ Rectangle
             pos = lastPosition
             rot = lastRotation
             scl = lastScale
+        }
+        else if (selGenericCount == 1)
+        {
+            pos = View3D.genericItemsPosition
+            rot = View3D.genericItemsRotation
+            scl = View3D.genericItemsScale
+        }
+        else
+        {
+            // a single fixture, or nothing selected
+            pos = contextManager.fixturesPosition
+            rot = contextManager.fixturesRotation
+            scl = currentScale
         }
 
         currentPosition = pos
