@@ -2861,6 +2861,12 @@ void MainView3D::updateReferenceThrow()
 
     // A rig standing entirely on the floor has no throw to speak of and gets 0,
     // which the shader reads as "no falloff".
+    //
+    // Known limitation: floor standing fixtures are averaged in with the hung
+    // ones, so a rig that mixes the two pulls the reference below the height
+    // the hung fixtures throw from, and an uplighter close to what it lights
+    // then renders very hot. Weighting or excluding near floor fixtures is left
+    // for a later change; for now the "Fixture light" gain pulls the frame back.
     qreal reference = count ? total / qreal(count) : 0;
 
     if (reference == m_referenceThrow)

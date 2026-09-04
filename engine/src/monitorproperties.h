@@ -162,12 +162,18 @@ public:
     inline void setFixtureLightIntensity(qreal intensity) { m_fixtureLightIntensity = intensity; }
     inline qreal fixtureLightIntensity() const { return m_fixtureLightIntensity; }
 
-    /** Get/Set whether the 3D view scales each fixture's light by the "Lumens"
-     *  physical property of its mode, so that a rig of mixed fixtures shows the
-     *  relative output of its members instead of every fixture emitting the
-     *  same amount of light. Off by default: most fixture definitions leave
-     *  Lumens unset, and a project that has never enabled it must render
-     *  exactly as it always has. */
+    /** Get/Set whether the 3D view renders each fixture photometrically: its
+     *  light scaled by the "Lumens" physical property of its mode, so a rig of
+     *  mixed fixtures shows the relative output of its members instead of every
+     *  fixture emitting the same amount of light, and falling off with the
+     *  square of the distance it travels. Off by default: most fixture
+     *  definitions leave Lumens unset, and a project that has never enabled it
+     *  must render exactly as it always has.
+     *
+     *  The feature is still experimental and is labelled as such in the UI. It
+     *  depends on fixture definitions carrying sensible Lumens and lens angle
+     *  figures, and the reference distance it derives does not yet suit rigs
+     *  that mix hung fixtures with floor standing ones. */
     inline void setUseFixtureLumens(bool use) { m_useFixtureLumens = use; }
     inline bool useFixtureLumens() const { return m_useFixtureLumens; }
 

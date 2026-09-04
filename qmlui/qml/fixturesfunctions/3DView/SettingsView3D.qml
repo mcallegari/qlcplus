@@ -276,7 +276,7 @@ Rectangle
                         }
 
                         // row 4
-                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Lumens") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Lumens (experimental)") }
                         CustomCheckBox
                         {
                             implicitHeight: UISettings.listItemHeight
