@@ -115,6 +115,8 @@ Rectangle
                     for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                     {
                         headEntity = fixtureItem.getHead(iHead)
+                        if (!headEntity)
+                            continue
 
                         component.createObject(frameGraph.myShadowFrameGraphNode,
                         {
@@ -236,11 +238,14 @@ Rectangle
                 for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
                     headEntity = fixtureItem.getHead(iHead)
+                    if (!headEntity)
+                        continue
 
                     component.createObject(frameGraph.myCameraSelector,
                     {
                         "gBuffer": gBufferTarget,
-                        "shadowTex": headEntity.depthTex,
+                        // heads that don't cast shadows have no shadow map at all
+                        "shadowTex": fixtureItem.useShadows ? headEntity.depthTex : null,
                         "useShadows": fixtureItem.useShadows,
                         "spotlightShadingLayer": headEntity.spotlightShadingLayer,
                         "frameTarget": frameTarget
@@ -269,6 +274,8 @@ Rectangle
                 for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
                     headEntity = fixtureItem.getHead(iHead)
+                    if (!headEntity)
+                        continue
 
                     component.createObject(frameGraph.myCameraSelector,
                     {
@@ -282,7 +289,7 @@ Rectangle
                         "frontDepth": depthTarget,
                         "gBuffer": gBufferTarget,
                         "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,
-                        "shadowTex": headEntity.depthTex,
+                        "shadowTex": fixtureItem.useShadows ? headEntity.depthTex : null,
                         "frameTarget": frameTarget,
                         "useShadows": fixtureItem.useShadows
                     });
