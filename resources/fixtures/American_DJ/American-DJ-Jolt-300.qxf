@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Jolt 300</Model>
- <Type>LED Bar (Beams)</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
