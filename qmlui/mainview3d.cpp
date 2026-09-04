@@ -84,6 +84,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_createItemCount(0)
     , m_sceneGeneration(0)
     , m_frameAction(nullptr)
+    , m_frameCountEnabled(false)
     , m_frameCount(0)
     , m_minFrameCount(0)
     , m_maxFrameCount(0)
@@ -272,7 +273,11 @@ void MainView3D::resetItems()
     m_minFrameCount = 0;
     m_maxFrameCount = 0;
     m_avgFrameCount = 1.0;
-    setFrameCountEnabled(false);
+    // Tear down the QFrameAction, since the scene root entity it is attached
+    // to is about to be destroyed, but keep the user's "Show FPS" preference
+    // (m_frameCountEnabled) so it is restored when the 3D scene is rebuilt,
+    // e.g. after switching to another view and back.
+    detachFrameAction();
 }
 
 void MainView3D::resetCameraPosition()
@@ -382,33 +387,51 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
 
 bool MainView3D::frameCountEnabled() const
 {
-    return m_frameAction != nullptr ? true : false;
+    return m_frameCountEnabled;
 }
 
 void MainView3D::setFrameCountEnabled(bool enable)
 {
+    if (m_frameCountEnabled == enable)
+        return;
+
+    m_frameCountEnabled = enable;
+
     if (enable)
     {
-        m_frameAction = new QFrameAction();
-        connect(m_frameAction, &QFrameAction::triggered, this, &MainView3D::slotFrameProcessed);
-        if (m_sceneRootEntity)
-            m_sceneRootEntity->addComponent(m_frameAction);
-        m_fpsElapsed.start();
+        attachFrameAction();
     }
     else
     {
-        if (m_frameAction)
-        {
-            disconnect(m_frameAction, &QFrameAction::triggered, this, &MainView3D::slotFrameProcessed);
-            delete m_frameAction;
-            m_frameAction = nullptr;
-        }
+        detachFrameAction();
         m_frameCount = 0;
         m_minFrameCount = 0;
         m_maxFrameCount = 0;
         m_avgFrameCount = 0;
     }
     emit frameCountEnabledChanged();
+}
+
+void MainView3D::attachFrameAction()
+{
+    if (m_frameAction == nullptr)
+    {
+        m_frameAction = new QFrameAction();
+        connect(m_frameAction, &QFrameAction::triggered, this, &MainView3D::slotFrameProcessed);
+    }
+    if (m_sceneRootEntity)
+        m_sceneRootEntity->addComponent(m_frameAction);
+    m_fpsElapsed.start();
+}
+
+void MainView3D::detachFrameAction()
+{
+    if (m_frameAction)
+    {
+        disconnect(m_frameAction, &QFrameAction::triggered, this, &MainView3D::slotFrameProcessed);
+        delete m_frameAction;
+        m_frameAction = nullptr;
+    }
 }
 
 void MainView3D::slotFrameProcessed()
@@ -542,8 +565,10 @@ bool MainView3D::initialize3DProperties()
 
     m_initRetryCount = 0;
 
-    if (m_frameAction)
-        m_sceneRootEntity->addComponent(m_frameAction);
+    // re-attach the FPS counter if the user had it enabled: the previous
+    // QFrameAction (if any) was destroyed together with the old scene root
+    if (m_frameCountEnabled)
+        attachFrameAction();
 
     qDebug() << m_sceneRootEntity << m_quadEntity << m_gBuffer;
 

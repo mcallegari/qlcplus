@@ -280,6 +280,7 @@ Rectangle
                         {
                             implicitHeight: UISettings.listItemHeight
                             implicitWidth: implicitHeight
+                            checked: View3D ? View3D.frameCountEnabled : false
                             onToggled: View3D.frameCountEnabled = checked
                         }
 
