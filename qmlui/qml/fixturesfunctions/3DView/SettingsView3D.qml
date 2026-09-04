@@ -97,20 +97,6 @@ Rectangle
         isUpdating = false
     }
 
-    ModelSelector
-    {
-        id: giSelector
-        onItemsCountChanged: { }
-
-        // keep the 3D view selection in sync with the list selection,
-        // including multi-row (range) selections. Use ControlModifier so
-        // each row is added/removed without clearing the others
-        onItemSelectionChanged: (itemIndex, selected) =>
-        {
-            View3D.setItemSelectionByIndex(itemIndex, selected, Qt.ControlModifier)
-        }
-    }
-
     // catch wheel events over the whole panel so they don't
     // fall through to the 3D view behind and zoom it in/out.
     // This sits below the Flickable, which consumes its own wheel
@@ -725,23 +711,74 @@ Rectangle
                             }
                         }
 
+                        GridLayout
+                        {
+                            visible: selGenericCount
+                            Layout.fillWidth: true
+                            columns: 2
+                            columnSpacing: 5
+                            rowSpacing: 4
+
+                            // row 1
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                label: qsTr("Name")
+                            }
+                            CustomTextEdit
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                // a name identifies a single item
+                                enabled: selGenericCount === 1
+                                text: View3D.genericItemsName
+
+                                onTextEdited: View3D.genericItemsName = text
+                            }
+
+                            // row 2
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                label: qsTr("Color")
+                            }
+                            Rectangle
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                color: View3D.genericItemsColor
+                                border.width: 1
+                                border.color: UISettings.bgLight
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onClicked: itemColorTool.visible = !itemColorTool.visible
+                                }
+                            }
+                        }
+
                         ListView
                         {
                             id: itemsList
-                            width: parent.width
-                            // show all the items and let the Flickable scrollbar handle
-                            // scrolling, so there are not two nested scrollbars
-                            height: count * UISettings.listItemHeight
-                            interactive: false
+                            Layout.fillWidth: true
+                            // show at most a handful of items and let the list
+                            // scroll on its own beyond that, so a long list does
+                            // not push the rest of the panel out of reach.
+                            // The height has to go through the layout, which
+                            // would otherwise size the list by its implicit
+                            // height and collapse it
+                            Layout.preferredHeight: Math.min(count, 8) * UISettings.listItemHeight
                             model: View3D.genericItemsList
                             clip: true
+                            ScrollBar.vertical: CustomScrollBar { id: itemsScrollBar }
 
                             delegate:
                                 Rectangle
                                 {
-                                    // account for the Flickable scrollbar so the lock
+                                    // account for the list scrollbar so the lock
                                     // icon on the right edge stays visible
-                                    width: itemsList.width - (sbar.visible ? sbar.width : 0)
+                                    width: itemsList.width - (itemsScrollBar.visible ? itemsScrollBar.width : 0)
                                     height: UISettings.listItemHeight
                                     color: isSelected ? UISettings.highlight : "transparent"
 
@@ -759,9 +796,13 @@ Rectangle
                                             anchors.fill: parent
                                             onClicked: (mouse) =>
                                             {
-                                                // giSelector.onItemSelectionChanged keeps the
-                                                // 3D view selection in sync (see above)
-                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
+                                                // the 3D view owns the selection and highlights the
+                                                // rows of the items it holds, so a click here and a
+                                                // click on the mesh itself cannot drift apart.
+                                                // A plain click selects this item alone, Ctrl adds
+                                                // or removes it and Shift extends the selection
+                                                var select = (mouse.modifiers & Qt.ControlModifier) ? !isSelected : true
+                                                View3D.setItemSelectionByIndex(index, select, mouse.modifiers)
                                             }
                                         }
                                     }
@@ -784,4 +825,21 @@ Rectangle
         } // Column
         ScrollBar.vertical: CustomScrollBar { id: sbar }
     } // Flickable
+
+    ColorTool
+    {
+        id: itemColorTool
+        // open to the left of the panel, where there is room for it
+        x: -width
+        y: (settingsRoot.height - height) / 2
+        z: 10
+        visible: false
+
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                View3D.genericItemsColor = Qt.rgba(r, g, b, 1.0)
+            }
+        onClose: visible = false
+    }
 }
