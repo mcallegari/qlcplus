@@ -42,6 +42,19 @@ Entity
     property bool useScattering: false
     property bool useShadows: false
     property real shutterValue: sAnimator.shutterValue
+    /* Luminous intensity of a single emitter of this fixture, in candela: the
+       "Lumens" physical property of its mode spread over the solid angle of the
+       beam at the widest the lens opens. 0 when the definition has no data */
+    property real bulbCandela: 0
+    /* Relative output of this fixture: its intensity against the brightest
+       emitter in the project, so the reference fixture stays at the brightness
+       it has always rendered at and everything else falls in around it. 1.0
+       (unscaled) when the "Lumens" setting is off, when this definition has no
+       lumens, or when no fixture in the project has any. */
+    property real lumensScale:
+        (View3D && View3D.useFixtureLumens && bulbCandela > 0 && View3D.referenceCandela > 0) ?
+            bulbCandela / View3D.referenceCandela : 1.0
+
 
     onItemIDChanged:
     {
@@ -104,7 +117,8 @@ Entity
                    so their own surface IS the whole light contribution of the
                    fixture: scaling it here scales that contribution exactly once. */
                 property real lightIntensity:
-                    dimmerValue * shutterValue * (View3D ? View3D.fixtureLightIntensity : 1.0)
+                    dimmerValue * shutterValue * lumensScale *
+                    (View3D ? View3D.fixtureLightIntensity : 1.0)
                 property real headWidth: phySize.x / headsLayout.width
                 property real headHeight: phySize.z / headsLayout.height
                 property color lightColor: Qt.rgba(0, 0, 0, 1)

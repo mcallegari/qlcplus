@@ -110,6 +110,9 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
     Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
+    Q_PROPERTY(bool useFixtureLumens READ useFixtureLumens WRITE setUseFixtureLumens NOTIFY useFixtureLumensChanged)
+    Q_PROPERTY(qreal referenceCandela READ referenceCandela NOTIFY referenceCandelaChanged)
+    Q_PROPERTY(qreal referenceThrow READ referenceThrow NOTIFY referenceThrowChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -517,6 +520,42 @@ public:
     float fixtureLightIntensity() const;
     void setFixtureLightIntensity(float intensity);
 
+    /** Scale each fixture's light by the "Lumens" of its mode, so a rig of
+     *  mixed fixtures shows their relative output */
+    bool useFixtureLumens() const;
+    void setUseFixtureLumens(bool use);
+
+    /** Luminous intensity of the brightest emitter in the project, i.e. the
+     *  output that renders unscaled when useFixtureLumens is on. 0 when no
+     *  fixture in the project carries the data, which turns the scaling into
+     *  a no-op. */
+    qreal referenceCandela() const;
+
+    /** Distance, in metres, at which fixture light lands unscaled once the
+     *  inverse square falloff is applied: the mean height above the floor of
+     *  the fixtures placed in the project, which is what tells a club rig from
+     *  an arena one. Derived rather than asked for, since the 3D view is
+     *  already a to-scale model of the venue. 0 when nothing is placed above
+     *  the floor, which turns the falloff off. */
+    qreal referenceThrow() const;
+
+    /** Lumens of a single emitter of $fixture: the "Lumens" of its mode (or of
+     *  the fixture definition, when the mode inherits it) divided between the
+     *  emitters the 3D view draws for that fixture. 0 when the definition
+     *  carries no lumens data. */
+    static qreal fixtureEmitterLumens(Fixture *fixture);
+
+    /** Luminous intensity of a single emitter of $fixture, in candela: its
+     *  lumens spread over the solid angle of its beam at the widest the lens
+     *  opens. This, not the raw flux, is what the renderer's light intensity
+     *  behaves like, since nothing in the shading divides by the area the cone
+     *  covers. 0 when the definition carries no lumens data. */
+    static qreal fixtureEmitterCandela(Fixture *fixture);
+
+    /** Solid angle, in steradian, of a cone of full angle $fullAngleDegrees:
+     *  2*pi*(1 - cos(angle / 2)). 0 for an angle outside (0, 360). */
+    static qreal beamSolidAngle(qreal fullAngleDegrees);
+
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
@@ -526,6 +565,18 @@ protected:
      *  to the running scene and notify the QML side. Called on project load /
      *  when the 3D view becomes visible. Does not mark the project modified. */
     void applyRenderSettings();
+
+    /** Recompute referenceCandela() from the fixtures currently in the project
+     *  and notify the QML side if it moved. Called whenever the set of
+     *  fixtures changes, since the reference is the maximum over all of them. */
+    void updateReferenceCandela();
+
+    /** Recompute referenceThrow() from the positions of the fixtures placed in
+     *  the project and notify the QML side if it moved. Called whenever a
+     *  fixture is added, removed or moved. Deliberately independent of pan and
+     *  tilt: a reference that tracked where the heads point would make the
+     *  whole frame breathe as they move. */
+    void updateReferenceThrow();
     QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
                            const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
@@ -539,6 +590,9 @@ signals:
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
     void fixtureLightIntensityChanged(float fixtureLightIntensity);
+    void useFixtureLumensChanged(bool useFixtureLumens);
+    void referenceCandelaChanged(qreal referenceCandela);
+    void referenceThrowChanged(qreal referenceThrow);
 
 private:
     /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
@@ -551,6 +605,13 @@ private:
 
     /** Reference to the selected stage Entity */
     QEntity *m_stageEntity;
+
+    /** Cached maximum of fixtureEmitterCandela() over the project's fixtures */
+    qreal m_referenceCandela;
+
+    /** Cached mean height above the floor, in metres, of the project's placed
+     *  fixture items */
+    qreal m_referenceThrow;
 };
 
 #endif // MAINVIEW3D_H
