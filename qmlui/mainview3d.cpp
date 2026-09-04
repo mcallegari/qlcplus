@@ -1283,17 +1283,17 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
 
         Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
 
-        if (baseItem != nullptr)
+        // A mesh based fixture only tilts if the loaded scene has a base item
+        // under the head, i.e. it is a moving head or a scanner. An item drawn
+        // without a mesh has no base to look for: its head entity IS the movable
+        // part, so a Tilt channel is enough. Without the second case, a motorized
+        // beam bar would animate a tilt angle that nothing ever applies.
+        if ((baseItem != nullptr || loader == nullptr) && transform != nullptr &&
+            fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
         {
-            if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
-            {
-                // If there is a base item and a tilt channel,
-                // this is either a moving head or a scanner
-                if (transform != nullptr)
-                    QMetaObject::invokeMethod(meshRef->m_rootItem, "bindTiltTransform",
-                            Q_ARG(QVariant, QVariant::fromValue(transform)),
-                            Q_ARG(QVariant, tiltDeg));
-            }
+            QMetaObject::invokeMethod(meshRef->m_rootItem, "bindTiltTransform",
+                    Q_ARG(QVariant, QVariant::fromValue(transform)),
+                    Q_ARG(QVariant, tiltDeg));
         }
 
         meshRef->m_rootItem->setProperty("focusMinDegrees", focusMin);
