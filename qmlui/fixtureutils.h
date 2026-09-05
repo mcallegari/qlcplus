@@ -62,8 +62,22 @@ public:
     static QColor blendColors(QColor a, QColor b, float mix);
 
     /** Return the color of the head with $headIndex of $fixture.
-     *  This considers: RGB / CMY / WAUVLI channels, dimmers and gel color */
-    static QColor headColor(Fixture *fixture, int headIndex = 0);
+     *  This considers: RGB / CMY / WAUVLI channels, dimmers and gel color.
+     *
+     *  When $useBulbTemperature is set, a head that produces no colour of its
+     *  own - no RGB, CMY or WAUVLI channel, i.e. a plain white fixture - is
+     *  tinted by the "ColourTemperature" of its bulb instead of coming back
+     *  pure white. Off by default, so callers that have always drawn such a
+     *  fixture white keep doing so. */
+    static QColor headColor(Fixture *fixture, int headIndex = 0,
+                            bool useBulbTemperature = false);
+
+    /** Chromaticity of a black body at $kelvin, as a linear RGB colour
+     *  normalised so its largest component is full: a tint to multiply a
+     *  white emitter by, which changes its colour without changing how
+     *  bright it is. Invalid (an invalid QColor) outside 1667-25000 K, the
+     *  range the Planckian locus approximation below is defined over. */
+    static QColor colourTemperatureTint(int kelvin);
 
     static QColor applyColorFilter(QColor source, QColor filter);
 

@@ -1441,7 +1441,10 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 Q_ARG(QVariant, headIdx),
                 Q_ARG(QVariant, intensityValue));
 
-        color = FixtureUtils::headColor(fixture, headIdx);
+        // The 3D view renders the light this head actually casts, so a white
+        // emitter is tinted by the colour temperature its definition declares
+        // rather than being rendered as pure white.
+        color = FixtureUtils::headColor(fixture, headIdx, true);
 
         QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
                                   Q_ARG(QVariant, headIdx),

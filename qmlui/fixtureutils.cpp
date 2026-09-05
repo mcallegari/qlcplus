@@ -338,7 +338,7 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
     return QColor(mr * 255.0, mg * 255.0, mb * 255.0);
 }
 
-QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
+QColor FixtureUtils::headColor(Fixture *fixture, int headIndex, bool useBulbTemperature)
 {
     if (fixture == nullptr)
         return QColor();
@@ -392,9 +392,81 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
     //qDebug() << "fixture" << fixture->name() << "head" << headIndex << "hasdimmer" << hasDimmer;
 
     if (colorFound == false)
+    {
+        // Nothing on this head makes a colour, so it is a plain white emitter.
+        // Its definition may still say what shade of white: a 3200 K tungsten
+        // balanced par and a 6500 K daylight one are visibly different lamps,
+        // and rendering both as pure white throws that away.
+        if (useBulbTemperature && fixture->fixtureMode() != nullptr)
+        {
+            QColor tint = colourTemperatureTint(fixture->fixtureMode()->physical().bulbColourTemperature());
+            if (tint.isValid())
+                return tint;
+        }
         return Qt::white;
+    }
 
     return finalColor;
+}
+
+QColor FixtureUtils::colourTemperatureTint(int kelvin)
+{
+    // "Unknown" in a fixture definition, and anything the approximation below
+    // is not defined over. Both mean "no tint", which is what an invalid
+    // colour tells the caller.
+    if (kelvin < 1667 || kelvin > 25000)
+        return QColor();
+
+    // Chromaticity of the Planckian locus, by Kim et al's cubic approximation.
+    qreal t = kelvin;
+    qreal t2 = t * t;
+    qreal t3 = t2 * t;
+    qreal x;
+
+    if (kelvin <= 4000)
+        x = -0.2661239e9 / t3 - 0.2343589e6 / t2 + 0.8776956e3 / t + 0.179910;
+    else
+        x = -3.0258469e9 / t3 + 2.1070379e6 / t2 + 0.2226347e3 / t + 0.240390;
+
+    qreal x2 = x * x;
+    qreal x3 = x2 * x;
+    qreal y;
+
+    if (kelvin <= 2222)
+        y = -1.1063814 * x3 - 1.34811020 * x2 + 2.18555832 * x - 0.20219683;
+    else if (kelvin <= 4000)
+        y = -0.9549476 * x3 - 1.37418593 * x2 + 2.09137015 * x - 0.16748867;
+    else
+        y = 3.0817580 * x3 - 5.87338670 * x2 + 3.75112997 * x - 0.37001483;
+
+    if (y <= 0)
+        return QColor();
+
+    // xyY to XYZ at unit luminance, then XYZ to linear sRGB. The rest of the
+    // renderer treats a colour's components as linear - an RGB fixture's DMX
+    // values go to the shader as they are - so this stops at linear too, with
+    // no sRGB transfer function applied.
+    qreal X = x / y;
+    qreal Y = 1.0;
+    qreal Z = (1.0 - x - y) / y;
+
+    qreal r =  3.2404542 * X - 1.5371385 * Y - 0.4985314 * Z;
+    qreal g = -0.9692660 * X + 1.8760108 * Y + 0.0415560 * Z;
+    qreal b =  0.0556434 * X - 0.2040259 * Y + 1.0572252 * Z;
+
+    r = qMax(r, 0.0);
+    g = qMax(g, 0.0);
+    b = qMax(b, 0.0);
+
+    // Normalise on the largest component rather than on luminance. This is a
+    // tint that gets multiplied into a white emitter, and how much light that
+    // emitter puts out is already decided by its dimmer and its Lumens; a tint
+    // that also dimmed would take the brightness away twice.
+    qreal peak = qMax(r, qMax(g, b));
+    if (peak <= 0)
+        return QColor();
+
+    return QColor::fromRgbF(r / peak, g / peak, b / peak);
 }
 
 QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
