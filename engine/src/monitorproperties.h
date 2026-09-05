@@ -137,6 +137,59 @@ private:
     StageType m_stageType;
 
     /********************************************************************
+     * 3D View rendering
+     ********************************************************************/
+public:
+    /** Get/Set the 3D view render quality. The value matches the
+     *  MainView3D::RenderQuality enum (0 = Low ... 3 = Ultra) */
+    inline void setRenderQuality(int quality) { m_renderQuality = quality; }
+    inline int renderQuality() const { return m_renderQuality; }
+
+    /** Get/Set the 3D view ambient light intensity (0.0 - 1.0) */
+    inline void setAmbientLightIntensity(qreal intensity) { m_ambientLightIntensity = intensity; }
+    inline qreal ambientLightIntensity() const { return m_ambientLightIntensity; }
+
+    /** Get/Set the 3D view smoke/haze amount (0.0 - 1.0) */
+    inline void setSmokeAmount(qreal amount) { m_smokeAmount = amount; }
+    inline qreal smokeAmount() const { return m_smokeAmount; }
+
+    /** Get/Set the 3D view fixture light intensity: a global multiplier on the
+     *  light fixtures cast on surfaces (1.0 = unscaled). Ambient light governs
+     *  how bright the set is on its own, so this is what sets the balance
+     *  between the two when a rig has enough fixtures to wash the stage out.
+     *  The volumetric beams in the air are not affected: those are already
+     *  scaled by the smoke amount. */
+    inline void setFixtureLightIntensity(qreal intensity) { m_fixtureLightIntensity = intensity; }
+    inline qreal fixtureLightIntensity() const { return m_fixtureLightIntensity; }
+
+    /** Get/Set whether the 3D view renders each fixture photometrically: its
+     *  light scaled by the "Lumens" physical property of its mode, so a rig of
+     *  mixed fixtures shows the relative output of its members instead of every
+     *  fixture emitting the same amount of light, and falling off with the
+     *  square of the distance it travels. Off by default: most fixture
+     *  definitions leave Lumens unset, and a project that has never enabled it
+     *  must render exactly as it always has.
+     *
+     *  The feature is still experimental and is labelled as such in the UI. It
+     *  depends on fixture definitions carrying sensible Lumens and lens angle
+     *  figures, and the reference distance it derives does not yet suit rigs
+     *  that mix hung fixtures with floor standing ones. */
+    inline void setUseFixtureLumens(bool use) { m_useFixtureLumens = use; }
+    inline bool useFixtureLumens() const { return m_useFixtureLumens; }
+
+    /** Get/Set whether the 3D view FPS counter overlay is shown */
+    inline void setShowFPS(bool show) { m_showFPS = show; }
+    inline bool showFPS() const { return m_showFPS; }
+
+private:
+    int m_renderQuality;
+    qreal m_ambientLightIntensity;
+    qreal m_smokeAmount;
+    qreal m_fixtureLightIntensity;
+    bool m_useFixtureLumens;
+    bool m_showFPS;
+
+    /********************************************************************
      * Items flags
      ********************************************************************/
 public:
