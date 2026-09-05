@@ -492,8 +492,8 @@ Rectangle
                                     newPos = Qt.vector3d(0, -yDelta, 0)
                             }
 
-                            contextManager.fixturesPosition = newPos
-                            View3D.genericItemsPosition = newPos
+                            contextManager.moveFixtures(newPos)
+                            View3D.moveGenericItems(newPos)
                         }
                     }
                     else if (mouse.buttons === Qt.RightButton)  // camera rotation
