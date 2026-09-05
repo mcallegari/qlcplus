@@ -158,6 +158,30 @@ public:
     inline void setBeamEdgeSoftness(qreal softness) { m_beamEdgeSoftness = softness; }
     inline qreal beamEdgeSoftness() const { return m_beamEdgeSoftness; }
 
+    /** Get/Set the 3D view fixture light intensity: a global multiplier on the
+     *  light fixtures cast on surfaces (1.0 = unscaled). Ambient light governs
+     *  how bright the set is on its own, so this is what sets the balance
+     *  between the two when a rig has enough fixtures to wash the stage out.
+     *  The volumetric beams in the air are not affected: those are already
+     *  scaled by the smoke amount. */
+    inline void setFixtureLightIntensity(qreal intensity) { m_fixtureLightIntensity = intensity; }
+    inline qreal fixtureLightIntensity() const { return m_fixtureLightIntensity; }
+
+    /** Get/Set whether the 3D view renders each fixture photometrically: its
+     *  light scaled by the "Lumens" physical property of its mode, so a rig of
+     *  mixed fixtures shows the relative output of its members instead of every
+     *  fixture emitting the same amount of light, and falling off with the
+     *  square of the distance it travels. Off by default: most fixture
+     *  definitions leave Lumens unset, and a project that has never enabled it
+     *  must render exactly as it always has.
+     *
+     *  The feature is still experimental and is labelled as such in the UI. It
+     *  depends on fixture definitions carrying sensible Lumens and lens angle
+     *  figures, and the reference distance it derives does not yet suit rigs
+     *  that mix hung fixtures with floor standing ones. */
+    inline void setUseFixtureLumens(bool use) { m_useFixtureLumens = use; }
+    inline bool useFixtureLumens() const { return m_useFixtureLumens; }
+
     /** Get/Set whether the 3D view FPS counter overlay is shown */
     inline void setShowFPS(bool show) { m_showFPS = show; }
     inline bool showFPS() const { return m_showFPS; }
@@ -167,7 +191,23 @@ private:
     qreal m_ambientLightIntensity;
     qreal m_smokeAmount;
     qreal m_beamEdgeSoftness;
+
+    qreal m_fixtureLightIntensity;
+    bool m_useFixtureLumens;
     bool m_showFPS;
+
+    /********************************************************************
+     * 3D View editing
+     ********************************************************************/
+public:
+    /** Get/Set whether the 3D view "Scale" X/Y/Z fields of a generic item
+     *  are locked together, i.e. editing one of them scales the item
+     *  uniformly on the three axes */
+    inline void setScaleLocked(bool locked) { m_scaleLocked = locked; }
+    inline bool scaleLocked() const { return m_scaleLocked; }
+
+private:
+    bool m_scaleLocked;
 
     /********************************************************************
      * Items flags
@@ -311,6 +351,17 @@ public:
     /** Get/Set the resource string for an item with ID $itemID */
     QString itemResource(quint32 itemID) const;
     void setItemResource(quint32 itemID, QString resource);
+
+    /** Get/Set the base color for an item with ID $itemID.
+     *  Items with no custom color set report $defaultItemColor */
+    QColor itemColor(quint32 itemID) const;
+    void setItemColor(quint32 itemID, QColor color);
+
+    /** The color reported for a generic item that has no custom color set.
+     *  It is the neutral grey the 3D view renders a mesh with when the mesh
+     *  carries no material of its own, so an item left at this color looks
+     *  exactly like it did before base colors existed */
+    static QColor defaultItemColor();
 
     /** Get/Set the 3D position of an item with ID $itemID */
     QVector3D itemPosition(quint32 itemID) const;

@@ -56,9 +56,14 @@
 #define KXMLQLCMonitorRenderAmbient     QStringLiteral("Ambient")
 #define KXMLQLCMonitorRenderSmoke       QStringLiteral("Smoke")
 #define KXMLQLCMonitorRenderBeamSoft    QStringLiteral("BeamSoftness")
+#define KXMLQLCMonitorRenderFxLight     QStringLiteral("FixtureLight")
+#define KXMLQLCMonitorRenderLumens      QStringLiteral("Lumens")
 #define KXMLQLCMonitorRenderShowFPS     QStringLiteral("ShowFPS")
+
+#define KXMLQLCMonitorScaleLock     QStringLiteral("ScaleLock")
 #define KXMLQLCMonitorItemName      QStringLiteral("Name")
 #define KXMLQLCMonitorItemRes       QStringLiteral("Res")
+#define KXMLQLCMonitorItemColor     QStringLiteral("Color")
 
 #define KXMLQLCMonitorItemXPosition     QStringLiteral("XPos")
 #define KXMLQLCMonitorItemYPosition     QStringLiteral("YPos")
@@ -95,6 +100,14 @@
 /* 0 keeps the hard beam edge every release before this one drew, so a project
    without the attribute renders exactly as it did */
 #define RENDER_DEFAULT_BEAMSOFT 0.0
+/* Unscaled: a project that has never touched this renders exactly as before */
+#define RENDER_DEFAULT_FXLIGHT  1.0
+/* Off: every fixture emits the same amount of light, as it always has */
+#define RENDER_DEFAULT_LUMENS   false
+
+/* The 3D view "Scale" fields of a generic item start locked together,
+   matching the previous hardcoded state of the QML lock button */
+#define SCALE_DEFAULT_LOCKED    true
 
 MonitorProperties::MonitorProperties()
     : m_font(QFont("Arial", 12))
@@ -109,7 +122,10 @@ MonitorProperties::MonitorProperties()
     , m_ambientLightIntensity(RENDER_DEFAULT_AMBIENT)
     , m_smokeAmount(RENDER_DEFAULT_SMOKE)
     , m_beamEdgeSoftness(RENDER_DEFAULT_BEAMSOFT)
+    , m_fixtureLightIntensity(RENDER_DEFAULT_FXLIGHT)
+    , m_useFixtureLumens(RENDER_DEFAULT_LUMENS)
     , m_showFPS(false)
+    , m_scaleLocked(SCALE_DEFAULT_LOCKED)
     , m_showLabels(false)
 {
 }
@@ -125,7 +141,10 @@ void MonitorProperties::reset()
     m_ambientLightIntensity = RENDER_DEFAULT_AMBIENT;
     m_smokeAmount = RENDER_DEFAULT_SMOKE;
     m_beamEdgeSoftness = RENDER_DEFAULT_BEAMSOFT;
+    m_fixtureLightIntensity = RENDER_DEFAULT_FXLIGHT;
+    m_useFixtureLumens = RENDER_DEFAULT_LUMENS;
     m_showFPS = false;
+    m_scaleLocked = SCALE_DEFAULT_LOCKED;
     m_fixtureItems.clear();
     m_lightItems.clear();
     m_genericItems.clear();
@@ -600,6 +619,26 @@ void MonitorProperties::setItemResource(quint32 itemID, QString resource)
     m_genericItems[itemID].m_resource = resource;
 }
 
+QColor MonitorProperties::defaultItemColor()
+{
+    // the 3D view falls back to a diffuse component of 0.64 for a mesh with
+    // no material of its own. Keep the value 8 bit exact, so that a color
+    // saved to a project file compares equal to this one when read back
+    return QColor(163, 163, 163);
+}
+
+QColor MonitorProperties::itemColor(quint32 itemID) const
+{
+    QColor color = m_genericItems[itemID].m_color;
+
+    return color.isValid() ? color : defaultItemColor();
+}
+
+void MonitorProperties::setItemColor(quint32 itemID, QColor color)
+{
+    m_genericItems[itemID].m_color = color;
+}
+
 QVector3D MonitorProperties::itemPosition(quint32 itemID) const
 {
     return m_genericItems[itemID].m_position;
@@ -737,9 +776,17 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
                 setSmokeAmount(tAttrs.value(KXMLQLCMonitorRenderSmoke).toString().toDouble());
             if (tAttrs.hasAttribute(KXMLQLCMonitorRenderBeamSoft))
                 setBeamEdgeSoftness(tAttrs.value(KXMLQLCMonitorRenderBeamSoft).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderFxLight))
+                setFixtureLightIntensity(tAttrs.value(KXMLQLCMonitorRenderFxLight).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderLumens))
+                setUseFixtureLumens(tAttrs.value(KXMLQLCMonitorRenderLumens).toString().toInt() != 0);
             if (tAttrs.hasAttribute(KXMLQLCMonitorRenderShowFPS))
                 setShowFPS(tAttrs.value(KXMLQLCMonitorRenderShowFPS).toString().toInt() != 0);
             root.skipCurrentElement();
+        }
+        else if (root.name() == KXMLQLCMonitorScaleLock)
+        {
+            setScaleLocked(root.readElementText().toInt() != 0);
         }
         else if (root.name() == KXMLQLCMonitorStageItem)
         {
@@ -896,6 +943,10 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             if (tAttrs.hasAttribute(KXMLQLCMonitorItemName))
                 item.m_name = tAttrs.value(KXMLQLCMonitorItemName).toString();
 
+            // no color attribute means an item rendered with the default color
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemColor))
+                item.m_color = QColor(tAttrs.value(KXMLQLCMonitorItemColor).toString());
+
             m_genericItems[itemID] = item;
             root.skipCurrentElement();
         }
@@ -963,8 +1014,13 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     doc->writeAttribute(KXMLQLCMonitorRenderAmbient, QString::number(ambientLightIntensity()));
     doc->writeAttribute(KXMLQLCMonitorRenderSmoke, QString::number(smokeAmount()));
     doc->writeAttribute(KXMLQLCMonitorRenderBeamSoft, QString::number(beamEdgeSoftness()));
+    doc->writeAttribute(KXMLQLCMonitorRenderFxLight, QString::number(fixtureLightIntensity()));
+    doc->writeAttribute(KXMLQLCMonitorRenderLumens, QString::number(useFixtureLumens() ? 1 : 0));
     doc->writeAttribute(KXMLQLCMonitorRenderShowFPS, QString::number(showFPS() ? 1 : 0));
     doc->writeEndElement();
+
+    /* 3D view editing settings */
+    doc->writeTextElement(KXMLQLCMonitorScaleLock, QString::number(scaleLocked() ? 1 : 0));
 #endif
 
     // ***********************************************************
@@ -1125,6 +1181,11 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 
         if (item.m_name.isEmpty() == false)
             doc->writeAttribute(KXMLQLCMonitorItemName, item.m_name);
+
+        // write the color only when one has been explicitly set, so that
+        // projects that don't use custom colors are saved as they were before
+        if (item.m_color.isValid())
+            doc->writeAttribute(KXMLQLCMonitorItemColor, item.m_color.name());
 
         doc->writeEndElement();
     }

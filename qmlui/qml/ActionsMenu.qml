@@ -30,7 +30,7 @@ Popup
     id: menuRoot
     padding: 0
 
-    property Item submenuItem: null
+    property var submenuItem: null
     property int flagSize: UISettings.iconSizeDefault * 1.5
 
     onClosed: submenuItem = null
@@ -261,13 +261,11 @@ Popup
             }
             onEntered: submenuItem = recentMenu
 
-            Rectangle
+            SubMenu
             {
                 id: recentMenu
-                x: menuRoot.width
-                width: recentColumn.width
-                height: recentColumn.height
-                color: UISettings.bgStrong
+                parent: fileOpen
+                x: fileOpen.width
                 visible: submenuItem === recentMenu
 
                 Column
@@ -393,6 +391,7 @@ Popup
         }
         ContextMenuEntry
         {
+            id: netEntry
             imgSource: "qrc:/network.svg"
             //faSource: FontAwesome.fa_network_wired
             //faColor: "darkseagreen"
@@ -405,13 +404,11 @@ Popup
                     submenuItem = networkMenu
             }
 
-            Rectangle
+            SubMenu
             {
                 id: networkMenu
-                x: menuRoot.width
-                width: networkColumn.width
-                height: networkColumn.height
-                color: UISettings.bgStrong
+                parent: netEntry
+                x: netEntry.width
                 visible: submenuItem === networkMenu
 
                 Column
@@ -509,6 +506,7 @@ Popup
 
         ContextMenuEntry
         {
+            id: langEntry
             faSource: FontAwesome.fa_earth_europe
             faColor: "deepskyblue"
             entryText: qsTr("Language")
@@ -520,14 +518,12 @@ Popup
                     submenuItem = languageMenu
             }
 
-            Rectangle
+            SubMenu
             {
                 id: languageMenu
-                x: menuRoot.width
-                y: -height + parent.height
-                width: languageColumn.width
-                height: languageColumn.height
-                color: UISettings.bgStrong
+                parent: langEntry
+                x: langEntry.width
+                y: langEntry.height - height
                 visible: submenuItem === languageMenu
 
                 GridLayout
