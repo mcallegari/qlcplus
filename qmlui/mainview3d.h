@@ -109,6 +109,7 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
+    Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -207,6 +208,12 @@ protected slots:
     void slotFrameProcessed();
 
 private:
+    /** Apply the FPS counter enabled state to the running scene (attach/detach
+     *  the QFrameAction, reset counters, notify QML). Unlike setFrameCountEnabled()
+     *  this does not persist the value nor mark the project modified, so it is
+     *  safe to call while loading a project. */
+    void applyFrameCountEnabled(bool enable);
+
     /** Create the QFrameAction (if needed) and attach it to the current
      *  scene root entity. Called both when the user enables the FPS counter
      *  and whenever the 3D scene is (re)initialized, so the setting survives
@@ -506,10 +513,19 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    /** Global multiplier on the light fixtures cast on surfaces */
+    float fixtureLightIntensity() const;
+    void setFixtureLightIntensity(float intensity);
+
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
     void createStage();
+
+    /** Re-apply the "Rendering" settings persisted in the project (MonitorProperties)
+     *  to the running scene and notify the QML side. Called on project load /
+     *  when the 3D view becomes visible. Does not mark the project modified. */
+    void applyRenderSettings();
     QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
                            const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
@@ -522,21 +538,19 @@ signals:
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
+    void fixtureLightIntensityChanged(float fixtureLightIntensity);
 
 private:
-    RenderQuality m_renderQuality;
+    /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
+       stored in the project through MonitorProperties (m_monProps), so they
+       persist in the workspace file. The getters/setters below proxy to it,
+       the same way stageIndex() does. */
 
     QStringList m_stagesList;
     QStringList m_stageResourceList;
 
     /** Reference to the selected stage Entity */
     QEntity *m_stageEntity;
-
-    /** Ambient light amount (0.0 - 1.0) */
-    float m_ambientIntensity;
-
-    /** Smoke amount (0.0 - 1.0) */
-    float m_smokeAmount;
 };
 
 #endif // MAINVIEW3D_H
