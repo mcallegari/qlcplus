@@ -2616,6 +2616,15 @@ void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
 
     m_renderQuality = renderQuality;
     emit renderQualityChanged(m_renderQuality);
+
+    // The frame graph is built once, and it reads the flags on each fixture item
+    // that say which passes that fixture needs - flags that follow the render
+    // quality. Changing the quality therefore only flips those flags: the passes
+    // they select are added or dropped when the frame graph is built again, so do
+    // that here. Without it, raising the quality from Low leaves the scene with no
+    // spotlight pass at all until the 3D view is left and entered again.
+    if (m_scene3D)
+        QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 }
 
 QStringList MainView3D::stagesList() const
