@@ -116,6 +116,9 @@ void MonitorProperties_Test::lightItemsXML()
 
 void MonitorProperties_Test::renderSettingsXML()
 {
+#ifndef QMLUI
+    QSKIP("The 3D view rendering settings are saved only by the QML UI build");
+#else
     Doc doc(this);
     MonitorProperties mp;
     mp.setRenderQuality(3);
@@ -151,6 +154,7 @@ void MonitorProperties_Test::renderSettingsXML()
     QCOMPARE(loaded.smokeAmount(), 0.9);
     QCOMPARE(loaded.fixtureLightIntensity(), 0.4);
     QCOMPARE(loaded.showFPS(), true);
+#endif
 }
 
 void MonitorProperties_Test::genericItems()
