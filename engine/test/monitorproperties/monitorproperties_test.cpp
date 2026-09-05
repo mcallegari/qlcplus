@@ -39,6 +39,12 @@ void MonitorProperties_Test::defaults()
     QCOMPARE(mp.pointOfView(), MonitorProperties::Undefined);
     QCOMPARE(mp.stageType(), MonitorProperties::StageSimple);
     QCOMPARE(mp.labelsVisible(), false);
+    QCOMPARE(mp.renderQuality(), 2);
+    QCOMPARE(mp.ambientLightIntensity(), 0.6);
+    QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.fixtureLightIntensity(), 1.0);
+    QCOMPARE(mp.showFPS(), false);
+    QCOMPARE(mp.scaleLocked(), true);
     QVERIFY(mp.commonBackgroundImage().isEmpty());
 }
 
@@ -109,6 +115,51 @@ void MonitorProperties_Test::lightItemsXML()
     QCOMPARE(loaded.lightPosition("moving_head.dae", 0), QVector3D(1.5f, 2.5f, 3.5f));
 }
 
+void MonitorProperties_Test::view3DSettingsXML()
+{
+#ifndef QMLUI
+    QSKIP("The 3D view settings are saved only by the QML UI build");
+#else
+    Doc doc(this);
+    MonitorProperties mp;
+    mp.setRenderQuality(3);
+    mp.setAmbientLightIntensity(0.25);
+    mp.setSmokeAmount(0.9);
+    mp.setFixtureLightIntensity(0.4);
+    mp.setShowFPS(true);
+    mp.setScaleLocked(false);
+
+    QByteArray xmlData;
+    QBuffer buffer(&xmlData);
+    QVERIFY(buffer.open(QIODevice::WriteOnly));
+
+    QXmlStreamWriter writer(&buffer);
+    writer.writeStartDocument();
+    QVERIFY(mp.saveXML(&writer, &doc));
+    writer.writeEndDocument();
+    buffer.close();
+
+    MonitorProperties loaded;
+    QXmlStreamReader reader(xmlData);
+    while (reader.readNextStartElement())
+    {
+        if (reader.name() == KXMLQLCMonitorProperties)
+        {
+            QVERIFY(loaded.loadXML(reader, &doc));
+            break;
+        }
+        reader.skipCurrentElement();
+    }
+
+    QCOMPARE(loaded.renderQuality(), 3);
+    QCOMPARE(loaded.ambientLightIntensity(), 0.25);
+    QCOMPARE(loaded.smokeAmount(), 0.9);
+    QCOMPARE(loaded.fixtureLightIntensity(), 0.4);
+    QCOMPARE(loaded.showFPS(), true);
+    QCOMPARE(loaded.scaleLocked(), false);
+#endif
+}
+
 void MonitorProperties_Test::genericItems()
 {
     MonitorProperties mp;
@@ -131,8 +182,70 @@ void MonitorProperties_Test::genericItems()
     QCOMPARE(mp.itemScale(id), QVector3D(2,2,2));
     QCOMPARE(mp.itemFlags(id), quint32(MonitorProperties::InvertedPanFlag));
 
+    // an item with no custom color reports the default one
+    QCOMPARE(mp.itemColor(id), MonitorProperties::defaultItemColor());
+
+    mp.setItemColor(id, QColor(Qt::blue));
+    QCOMPARE(mp.itemColor(id), QColor(Qt::blue));
+
+    // an item with no custom name is known by its resource file name
+    quint32 unnamedID = 101;
+    mp.setItemResource(unnamedID, "/some/where/curtain_tile_1m.obj");
+    QCOMPARE(mp.itemName(unnamedID), QString("curtain_tile_1m"));
+
     mp.removeItem(id);
     QCOMPARE(mp.containsItem(id), false);
+}
+
+void MonitorProperties_Test::genericItemsXML()
+{
+    Doc doc(this);
+    MonitorProperties mp;
+
+    // one item with a custom name and color, one left at the defaults
+    mp.setItemResource(1, "cube.obj");
+    mp.setItemName(1, "Riser");
+    mp.setItemColor(1, QColor(Qt::red));
+    mp.setItemPosition(1, QVector3D(1000, 0, 2000));
+
+    mp.setItemResource(2, "cube.obj");
+
+    QByteArray xmlData;
+    QBuffer buffer(&xmlData);
+    QVERIFY(buffer.open(QIODevice::WriteOnly));
+
+    QXmlStreamWriter writer(&buffer);
+    writer.writeStartDocument();
+    QVERIFY(mp.saveXML(&writer, &doc));
+    writer.writeEndDocument();
+    buffer.close();
+
+    // an item with no custom color must be saved exactly as it was before
+    // base colors existed, so that such a project stays readable by any
+    // QLC+ version and looks the same in all of them
+    QCOMPARE(xmlData.count("Color="), 1);
+
+    MonitorProperties loaded;
+    QXmlStreamReader reader(xmlData);
+    while (reader.readNextStartElement())
+    {
+        if (reader.name() == KXMLQLCMonitorProperties)
+        {
+            QVERIFY(loaded.loadXML(reader, &doc));
+            break;
+        }
+        reader.skipCurrentElement();
+    }
+
+    QCOMPARE(loaded.genericItemsID().count(), 2);
+    QCOMPARE(loaded.itemName(1), QString("Riser"));
+    QCOMPARE(loaded.itemColor(1), QColor(Qt::red));
+    QCOMPARE(loaded.itemPosition(1), QVector3D(1000, 0, 2000));
+
+    // an item saved with no color reads back as the default one, and keeps
+    // taking its name from the mesh file
+    QCOMPARE(loaded.itemName(2), QString("cube"));
+    QCOMPARE(loaded.itemColor(2), MonitorProperties::defaultItemColor());
 }
 
 void MonitorProperties_Test::reset()
@@ -143,6 +256,11 @@ void MonitorProperties_Test::reset()
     mp.setPointOfView(MonitorProperties::FrontView);
     mp.setStageType(MonitorProperties::StageBox);
     mp.setLabelsVisible(true);
+    mp.setRenderQuality(0);
+    mp.setAmbientLightIntensity(0.1);
+    mp.setSmokeAmount(0.2);
+    mp.setShowFPS(true);
+    mp.setScaleLocked(false);
     mp.setFixturePosition(1,0,0,QVector3D(1,2,3));
     mp.setItemName(2,"foo");
     mp.setCommonBackgroundImage("img.png");
@@ -154,6 +272,12 @@ void MonitorProperties_Test::reset()
     QCOMPARE(mp.pointOfView(), MonitorProperties::Undefined);
     QCOMPARE(mp.stageType(), MonitorProperties::StageSimple);
     QCOMPARE(mp.labelsVisible(), false);
+    QCOMPARE(mp.renderQuality(), 2);
+    QCOMPARE(mp.ambientLightIntensity(), 0.6);
+    QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.fixtureLightIntensity(), 1.0);
+    QCOMPARE(mp.showFPS(), false);
+    QCOMPARE(mp.scaleLocked(), true);
     QCOMPARE(mp.fixtureItemsID().count(), 0);
     QCOMPARE(mp.lightResources().count(), 0);
     QCOMPARE(mp.genericItemsID().count(), 0);
