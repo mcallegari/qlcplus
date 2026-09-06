@@ -52,3 +52,7 @@ if (UNIX AND NOT APPLE)
    install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/org.qlcplus.QLCPlus.e131.metainfo.xml"
            DESTINATION ${METAINFODIR})
 endif()
+
+if(NOT ANDROID AND NOT IOS)
+    add_subdirectory(test)
+endif()
