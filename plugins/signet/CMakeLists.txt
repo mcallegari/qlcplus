@@ -1,5 +1,7 @@
 set(module_name "signet")
 
+find_package(OpenSSL REQUIRED)
+
 set(TS_FILES
     SigNet_de_DE.ts
     SigNet_es_ES.ts
@@ -31,6 +33,8 @@ target_sources(${module_name} PRIVATE
     signetcontroller.cpp signetcontroller.h
     signetpacketizer.cpp signetpacketizer.h
     signetplugin.cpp signetplugin.h
+    snowcodec.cpp snowcodec.h
+    snowprovisioner.cpp snowprovisioner.h
     sdk/sig-net-coap.cpp sdk/sig-net-coap.hpp
     sdk/sig-net-constants.hpp
     sdk/sig-net-crypto-qt.cpp sdk/sig-net-crypto.hpp
@@ -50,6 +54,8 @@ target_link_libraries(${module_name} PRIVATE
     Qt${QT_MAJOR_VERSION}::Gui
     Qt${QT_MAJOR_VERSION}::Network
     Qt${QT_MAJOR_VERSION}::Widgets
+    OpenSSL::Crypto
+    OpenSSL::SSL
 )
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")

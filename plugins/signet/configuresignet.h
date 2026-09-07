@@ -23,6 +23,7 @@
 #include "ui_configuresignet.h"
 
 class SigNetPlugin;
+class QTreeWidget;
 
 class ConfigureSigNet final : public QDialog, public Ui_ConfigureSigNet
 {
@@ -37,14 +38,20 @@ public:
 private slots:
     void slotGenerateTuid();
     void slotGenerateKey();
+    void slotDeriveKeyFromPassphrase();
+    void slotImportSnowManifest();
+    void slotFetchSnowPublicKey();
+    void slotProvisionSnowDevice();
 
 private:
     void fillMappingTree();
     void fillNodesTree();
+    void fillSnowTree();
     void showError(const QString& title, const QString& message);
 
 private:
     SigNetPlugin* m_plugin;
+    QTreeWidget* m_snowTree = nullptr;
 };
 
 #endif

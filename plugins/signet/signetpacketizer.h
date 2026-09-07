@@ -70,7 +70,17 @@ public:
                                       quint32 sessionId,
                                       quint32 seqNum,
                                       quint16 messageId,
-                                      const QByteArray& managerGlobalKey);
+                                      const QByteArray& managerGlobalKey,
+                                      quint8 queryLevel = SigNet::QUERY_HEARTBEAT);
+
+    static QByteArray buildPollReplyPacket(const QString& scope,
+                                           const QByteArray& localTuid,
+                                           quint32 sessionId,
+                                           quint32 seqNum,
+                                           quint16 messageId,
+                                           const QByteArray& citizenKey,
+                                           const QString& label,
+                                           quint32 roleCapability);
 
     static QByteArray buildTodControlPacket(const QString& scope,
                                             const QByteArray& localTuid,
@@ -91,6 +101,17 @@ public:
                                             quint32 seqNum,
                                             quint16 messageId,
                                             const QByteArray& managerLocalKey);
+
+    // Builds the CoAP message carried within a SNOW TLS/DTLS tunnel.  SNOW
+    // uses the normal six Sig-Net options, Security-Mode 0xFF and a zero-byte
+    // Sig-Net-Auth option because the tunnel supplies confidentiality and
+    // integrity.  The caller is responsible for stream framing and transport.
+    static QByteArray buildSnowPacket(const QString& scope,
+                                      const QStringList& resourceSegments,
+                                      const QList<TLV>& tlvs,
+                                      const QByteArray& localTuid,
+                                      quint16 manufacturerCode,
+                                      quint16 messageId);
 
     static bool parseMessage(const QByteArray& datagram, Message& message, QString* error = nullptr);
     static bool verifyMessage(const Message& message, const QByteArray& key);

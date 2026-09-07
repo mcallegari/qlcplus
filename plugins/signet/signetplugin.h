@@ -21,6 +21,7 @@
 #define SIGNETPLUGIN_H
 
 #include <QByteArray>
+#include <QDateTime>
 #include <QHash>
 #include <QMutex>
 #include <QNetworkAddressEntry>
@@ -28,6 +29,8 @@
 
 #include "qlcioplugin.h"
 #include "signetcontroller.h"
+
+class QSettings;
 
 #define SIGNET_UNIVERSE "signetUniverse"
 #define SIGNET_ENDPOINT "signetEndpoint"
@@ -40,12 +43,23 @@
 #define SETTINGS_TUID "SigNetPlugin/tuid"
 #define SETTINGS_SESSION "SigNetPlugin/session"
 #define SETTINGS_IFACE_WAIT_TIME "SigNetPlugin/ifacewait"
+#define SETTINGS_SNOW_TRUSTED "SigNetPlugin/snow/trusted"
+#define SETTINGS_SNOW_MANIFEST_POM "SigNetPlugin/snow/manifestPomPublicKey"
+#define SETTINGS_SNOW_POM_PRIVATE "SigNetPlugin/snow/pomPrivateKey"
+#define SETTINGS_SNOW_POM_PUBLIC "SigNetPlugin/snow/pomPublicKey"
 
 struct SigNetIO
 {
     QNetworkInterface iface;
     QNetworkAddressEntry address;
     SigNetController* controller = nullptr;
+};
+
+struct SigNetSnowTrustedDevice
+{
+    QString tuid;
+    QByteArray publicKey;
+    QDateTime trustedAt;
 };
 
 class SigNetPlugin final : public QLCIOPlugin
@@ -80,6 +94,14 @@ public:
 
     QList<SigNetIO> getIOMapping() const;
     QHash<QString, SigNetNodeInfo> discoveredNodes() const;
+    QHash<QString, SigNetSnowTrustedDevice> snowTrustedDevices() const;
+    QByteArray snowManifestPomPublicKey() const;
+    bool importSnowManifest(const QString& fileName, QString* error = nullptr);
+    bool importSnowManifestData(const QByteArray& manifest, QString* error = nullptr);
+    void revokeSnowDevice(const QString& tuid);
+    QByteArray snowPomPublicKey(QString* error = nullptr);
+    bool fetchSnowDevicePublicKey(const QString& tuid, QByteArray& publicKey, QString* error = nullptr);
+    bool provisionSnowDevice(const QString& tuid, QString* error = nullptr);
 
     QString scope() const;
     QString k0Hex() const;
@@ -105,6 +127,8 @@ signals:
 private:
     bool requestLine(quint32 line);
     void loadSettings();
+    void loadSnowTrustDirectory(QSettings& settings);
+    bool ensureSnowPomKey(QString* error);
     void deriveKeys();
     void incrementSessionOnStartup();
 
@@ -119,6 +143,10 @@ private:
     QByteArray m_senderKey;
     QByteArray m_citizenKey;
     QByteArray m_managerGlobalKey;
+    QHash<QString, SigNetSnowTrustedDevice> m_snowTrustedDevices;
+    QByteArray m_snowManifestPomPublicKey;
+    QByteArray m_snowPomPrivateKey;
+    QByteArray m_snowPomPublicKey;
     mutable QMutex m_securityMutex;
     quint32 m_sessionId;
     quint16 m_messageId;

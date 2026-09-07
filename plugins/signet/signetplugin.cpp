@@ -20,13 +20,23 @@
 #include "signetplugin.h"
 
 #include <QDebug>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QRandomGenerator>
 #include <QSettings>
 #include <limits>
 #include <utility>
 
+#include <openssl/core_names.h>
+#include <openssl/evp.h>
+#include <openssl/params.h>
+#include <openssl/x509.h>
+
 #include "configuresignet.h"
 #include "signetpacketizer.h"
+#include "snowprovisioner.h"
 #include "sig-net-crypto.hpp"
 
 namespace
@@ -42,6 +52,51 @@ QByteArray hexToBytes(const QString& hex)
     if (clean.size() % 2 != 0)
         return QByteArray();
     return QByteArray::fromHex(clean);
+}
+
+bool decodeBase64Key(const QString& encodedText, QByteArray& key)
+{
+    const QByteArray encoded = encodedText.toLatin1();
+    key = QByteArray::fromBase64(encoded);
+    return !key.isEmpty() && key.toBase64() == encoded;
+}
+
+bool generateP256Key(QByteArray& privateKey, QByteArray& publicKey)
+{
+    EVP_PKEY_CTX* context = EVP_PKEY_CTX_new_from_name(nullptr, "EC", nullptr);
+    if (!context || EVP_PKEY_keygen_init(context) != 1)
+    {
+        EVP_PKEY_CTX_free(context);
+        return false;
+    }
+    char groupName[] = "prime256v1";
+    OSSL_PARAM parameters[] = {
+        OSSL_PARAM_construct_utf8_string(OSSL_PKEY_PARAM_GROUP_NAME, groupName, 0),
+        OSSL_PARAM_construct_end()
+    };
+    EVP_PKEY* key = nullptr;
+    if (EVP_PKEY_CTX_set_params(context, parameters) != 1 || EVP_PKEY_generate(context, &key) != 1)
+    {
+        EVP_PKEY_free(key);
+        EVP_PKEY_CTX_free(context);
+        return false;
+    }
+    EVP_PKEY_CTX_free(context);
+    const int privateLength = i2d_PrivateKey(key, nullptr);
+    const int publicLength = i2d_PUBKEY(key, nullptr);
+    if (privateLength <= 0 || publicLength <= 0)
+    {
+        EVP_PKEY_free(key);
+        return false;
+    }
+    privateKey.resize(privateLength);
+    publicKey.resize(publicLength);
+    unsigned char* privateOutput = reinterpret_cast<unsigned char*>(privateKey.data());
+    unsigned char* publicOutput = reinterpret_cast<unsigned char*>(publicKey.data());
+    i2d_PrivateKey(key, &privateOutput);
+    i2d_PUBKEY(key, &publicOutput);
+    EVP_PKEY_free(key);
+    return true;
 }
 }
 
@@ -108,6 +163,39 @@ void SigNetPlugin::loadSettings()
     m_sessionId = settings.value(SETTINGS_SESSION, 0).toUInt();
     m_messageId = 0;
     incrementSessionOnStartup();
+    loadSnowTrustDirectory(settings);
+}
+
+void SigNetPlugin::loadSnowTrustDirectory(QSettings& settings)
+{
+    QMutexLocker locker(&m_securityMutex);
+    m_snowTrustedDevices.clear();
+    m_snowManifestPomPublicKey = QByteArray::fromBase64(settings.value(SETTINGS_SNOW_MANIFEST_POM).toByteArray());
+    m_snowPomPrivateKey = QByteArray::fromBase64(settings.value(SETTINGS_SNOW_POM_PRIVATE).toByteArray());
+    m_snowPomPublicKey = QByteArray::fromBase64(settings.value(SETTINGS_SNOW_POM_PUBLIC).toByteArray());
+
+    settings.beginGroup(SETTINGS_SNOW_TRUSTED);
+    const QStringList tuids = settings.childGroups();
+    for (const QString& tuid : tuids)
+    {
+        QByteArray tuidBytes;
+        if (!SigNetPacketizer::parseTuid(tuid, tuidBytes))
+            continue;
+
+        settings.beginGroup(tuid);
+        const QByteArray publicKey = QByteArray::fromBase64(settings.value(QStringLiteral("publicKey")).toByteArray());
+        const QDateTime trustedAt = settings.value(QStringLiteral("trustedAt")).toDateTime();
+        settings.endGroup();
+        if (publicKey.isEmpty())
+            continue;
+
+        SigNetSnowTrustedDevice entry;
+        entry.tuid = tuid.toUpper();
+        entry.publicKey = publicKey;
+        entry.trustedAt = trustedAt;
+        m_snowTrustedDevices.insert(entry.tuid, entry);
+    }
+    settings.endGroup();
 }
 
 void SigNetPlugin::deriveKeys()
@@ -411,10 +499,248 @@ QHash<QString, SigNetNodeInfo> SigNetPlugin::discoveredNodes() const
 
         const auto controllerNodes = io.controller->discoveredNodes();
         for (auto it = controllerNodes.cbegin(); it != controllerNodes.cend(); ++it)
-            nodes.insert(it.key(), it.value());
+        {
+            const auto existing = nodes.constFind(it.key());
+            if (existing != nodes.cend() && existing->offboarded && it.value().offboarded &&
+                !existing->address.isNull() && !it.value().address.isNull() &&
+                existing->address != it.value().address)
+            {
+                SigNetNodeInfo collision = it.value();
+                collision.beaconCollision = true;
+                nodes.insert(it.key(), collision);
+            }
+            else
+            {
+                nodes.insert(it.key(), it.value());
+            }
+        }
     }
 
     return nodes;
+}
+
+QHash<QString, SigNetSnowTrustedDevice> SigNetPlugin::snowTrustedDevices() const
+{
+    QMutexLocker locker(&m_securityMutex);
+    return m_snowTrustedDevices;
+}
+
+QByteArray SigNetPlugin::snowManifestPomPublicKey() const
+{
+    QMutexLocker locker(&m_securityMutex);
+    return m_snowManifestPomPublicKey;
+}
+
+bool SigNetPlugin::importSnowManifest(const QString& fileName, QString* error)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        if (error)
+            *error = tr("Cannot read %1: %2").arg(fileName, file.errorString());
+        return false;
+    }
+
+    return importSnowManifestData(file.readAll(), error);
+}
+
+bool SigNetPlugin::importSnowManifestData(const QByteArray& manifest, QString* error)
+{
+    QJsonParseError parseError;
+    const QJsonDocument document = QJsonDocument::fromJson(manifest, &parseError);
+    if (document.isNull() || !document.isObject())
+    {
+        if (error)
+            *error = tr("Invalid SNOW manifest JSON: %1").arg(parseError.errorString());
+        return false;
+    }
+
+    const QJsonObject topLevel = document.object();
+    QJsonObject root = topLevel.value(QStringLiteral("sig-net_snow_manifest")).toObject();
+    if (root.isEmpty())
+        root = topLevel.value(QStringLiteral("sig - net_snow_manifest")).toObject();
+    if (root.isEmpty())
+    {
+        if (error)
+            *error = tr("The SNOW manifest root object is missing.");
+        return false;
+    }
+
+    QByteArray pomPublicKey;
+    if (!decodeBase64Key(root.value(QStringLiteral("pom_public_key")).toString(), pomPublicKey) ||
+        pomPublicKey.size() < 64 || pomPublicKey.size() > 1024)
+    {
+        if (error)
+            *error = tr("The SNOW manifest POM public key is invalid.");
+        return false;
+    }
+
+    const QJsonArray devices = root.value(QStringLiteral("devices")).toArray();
+    if (devices.isEmpty())
+    {
+        if (error)
+            *error = tr("The SNOW manifest contains no devices.");
+        return false;
+    }
+
+    QHash<QString, SigNetSnowTrustedDevice> imported;
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    for (const QJsonValue& value : devices)
+    {
+        if (!value.isObject())
+        {
+            if (error)
+                *error = tr("A SNOW manifest device entry is not an object.");
+            return false;
+        }
+
+        const QJsonObject object = value.toObject();
+        const QString tuid = object.value(QStringLiteral("tuid")).toString().trimmed().toUpper();
+        QByteArray tuidBytes;
+        QByteArray publicKey;
+        if (!SigNetPacketizer::parseTuid(tuid, tuidBytes) ||
+            !decodeBase64Key(object.value(QStringLiteral("public_key")).toString(), publicKey) ||
+            publicKey.size() < 33 || publicKey.size() > 1024)
+        {
+            if (error)
+                *error = tr("A SNOW manifest device has an invalid TUID or public key.");
+            return false;
+        }
+
+        if (imported.contains(tuid))
+        {
+            if (error)
+                *error = tr("The SNOW manifest contains TUID %1 more than once.").arg(tuid);
+            return false;
+        }
+
+        SigNetSnowTrustedDevice entry;
+        entry.tuid = tuid;
+        entry.publicKey = publicKey;
+        entry.trustedAt = now;
+        imported.insert(tuid, entry);
+    }
+
+    QMutexLocker locker(&m_securityMutex);
+    QSettings settings;
+    for (auto it = imported.cbegin(); it != imported.cend(); ++it)
+    {
+        const auto existing = m_snowTrustedDevices.constFind(it.key());
+        if (existing != m_snowTrustedDevices.cend() && existing->publicKey != it.value().publicKey)
+        {
+            if (error)
+                *error = tr("TUID %1 is already trusted with a different public key. Revoke it before replacing its identity.")
+                             .arg(it.key());
+            return false;
+        }
+    }
+
+    for (auto it = imported.cbegin(); it != imported.cend(); ++it)
+    {
+        m_snowTrustedDevices.insert(it.key(), it.value());
+        settings.beginGroup(QStringLiteral("%1/%2").arg(QLatin1String(SETTINGS_SNOW_TRUSTED), it.key()));
+        settings.setValue(QStringLiteral("publicKey"), it.value().publicKey.toBase64());
+        settings.setValue(QStringLiteral("trustedAt"), it.value().trustedAt);
+        settings.endGroup();
+    }
+    m_snowManifestPomPublicKey = pomPublicKey;
+    settings.setValue(SETTINGS_SNOW_MANIFEST_POM, pomPublicKey.toBase64());
+    return true;
+}
+
+void SigNetPlugin::revokeSnowDevice(const QString& tuid)
+{
+    const QString normalizedTuid = tuid.trimmed().toUpper();
+    QMutexLocker locker(&m_securityMutex);
+    m_snowTrustedDevices.remove(normalizedTuid);
+    QSettings settings;
+    settings.remove(QStringLiteral("%1/%2").arg(QLatin1String(SETTINGS_SNOW_TRUSTED), normalizedTuid));
+}
+
+bool SigNetPlugin::ensureSnowPomKey(QString* error)
+{
+    if (!m_snowPomPrivateKey.isEmpty() && !m_snowPomPublicKey.isEmpty())
+        return true;
+    if (!generateP256Key(m_snowPomPrivateKey, m_snowPomPublicKey))
+    {
+        if (error) *error = tr("Unable to generate the SNOW POM key pair.");
+        return false;
+    }
+    QSettings settings;
+    settings.setValue(SETTINGS_SNOW_POM_PRIVATE, m_snowPomPrivateKey.toBase64());
+    settings.setValue(SETTINGS_SNOW_POM_PUBLIC, m_snowPomPublicKey.toBase64());
+    return true;
+}
+
+QByteArray SigNetPlugin::snowPomPublicKey(QString* error)
+{
+    QMutexLocker locker(&m_securityMutex);
+    if (!ensureSnowPomKey(error))
+        return QByteArray();
+    return m_snowPomPublicKey;
+}
+
+bool SigNetPlugin::fetchSnowDevicePublicKey(const QString& tuid, QByteArray& publicKey, QString* error)
+{
+    const QString normalizedTuid = tuid.trimmed().toUpper();
+    const SigNetNodeInfo node = discoveredNodes().value(normalizedTuid);
+    if (node.tuid.isEmpty() || !node.offboarded || node.address.isNull() || node.otwPort == 0)
+    {
+        if (error) *error = tr("The selected device must be a discovered, offboarded SNOW device.");
+        return false;
+    }
+    if (!(node.otwCapabilities & (SigNet::OTW_CAP_TLS_1_2 | SigNet::OTW_CAP_TLS_1_3)))
+    {
+        if (error) *error = tr("The selected device does not advertise TLS-over-TCP support.");
+        return false;
+    }
+    return SnowProvisioner::fetchPublicKey(node.address, node.otwPort, publicKey, error);
+}
+
+bool SigNetPlugin::provisionSnowDevice(const QString& tuid, QString* error)
+{
+    const QString normalizedTuid = tuid.trimmed().toUpper();
+    const SigNetNodeInfo node = discoveredNodes().value(normalizedTuid);
+    const SigNetSnowTrustedDevice trusted = snowTrustedDevices().value(normalizedTuid);
+    if (node.tuid.isEmpty() || !node.offboarded || node.address.isNull() || node.otwPort == 0 || trusted.publicKey.isEmpty())
+    {
+        if (error) *error = tr("The selected device must be an offboarded, SNOW-capable device with a trusted public key.");
+        return false;
+    }
+    if (!(node.otwCapabilities & (SigNet::OTW_CAP_TLS_1_2 | SigNet::OTW_CAP_TLS_1_3)))
+    {
+        if (error) *error = tr("The selected device does not advertise TLS-over-TCP support.");
+        return false;
+    }
+
+    QString pomError;
+    const QByteArray pomPublicKey = snowPomPublicKey(&pomError);
+    if (pomPublicKey.isEmpty())
+    {
+        if (error) *error = pomError;
+        return false;
+    }
+    const QByteArray manifestPom = snowManifestPomPublicKey();
+    if (!manifestPom.isEmpty() && manifestPom != pomPublicKey)
+    {
+        if (error) *error = tr("The imported manifest POM key does not match this Manager's POM identity.");
+        return false;
+    }
+
+    SnowProvisioningRequest request;
+    request.address = node.address;
+    request.port = node.otwPort;
+    request.roleCapability = quint8(node.roleCapability);
+    request.tuid = normalizedTuid;
+    request.operationalScope = scope();
+    request.localTuid = localTuidBytes();
+    request.trustedPublicKey = trusted.publicKey;
+    request.senderKey = senderKey();
+    request.citizenKey = citizenKey();
+    request.managerGlobalKey = managerGlobalKey();
+    request.managerLocalKey = managerLocalKey(normalizedTuid);
+    request.pomPublicKey = pomPublicKey;
+    return SnowProvisioner::provision(request, error);
 }
 
 QString SigNetPlugin::scope() const

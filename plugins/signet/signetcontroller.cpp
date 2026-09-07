@@ -33,6 +33,7 @@ namespace
 constexpr quint16 KDefaultRdmEndpoint = 1;
 constexpr int KKeepAliveRateMs = 1000;
 constexpr int KPollRateMs = 3000;
+constexpr int KBeaconTimeoutMs = 15000;
 
 QStringList uriSegments(const QString& uri)
 {
@@ -46,11 +47,19 @@ quint16 payloadToU16(const QByteArray& data)
     return (quint8(data.at(0)) << 8) | quint8(data.at(1));
 }
 
+quint32 payloadToU32(const QByteArray& data)
+{
+    if (data.size() < 4)
+        return 0;
+    return (quint32(quint8(data.at(0))) << 24) |
+           (quint32(quint8(data.at(1))) << 16) |
+           (quint32(quint8(data.at(2))) << 8) |
+           quint8(data.at(3));
+}
+
 QString payloadToLabel(const QByteArray& data)
 {
-    if (data.size() <= 1)
-        return QString();
-    return QString::fromUtf8(data.constData() + 1, data.size() - 1);
+    return QString::fromUtf8(data);
 }
 
 qulonglong uidValue(const QString& uid)
@@ -115,6 +124,7 @@ void SigNetController::ensureReceiveSocket()
     m_receiveSocket->joinMulticastGroup(SigNetPacketizer::nodeSendAddress(), m_interface);
     m_receiveSocket->joinMulticastGroup(SigNetPacketizer::nodeLostAddress(), m_interface);
     m_receiveSocket->joinMulticastGroup(SigNetPacketizer::nodeBeaconAddress(), m_interface);
+    m_receiveSocket->joinMulticastGroup(SigNetPacketizer::managerPollAddress(), m_interface);
 }
 
 QString SigNetController::getNetworkIP() const
@@ -252,7 +262,15 @@ quint64 SigNetController::getPacketReceivedNumber() const
 
 QHash<QString, SigNetNodeInfo> SigNetController::discoveredNodes() const
 {
-    return m_discoveredNodes;
+    QHash<QString, SigNetNodeInfo> nodes;
+    const QDateTime cutoff = QDateTime::currentDateTimeUtc().addMSecs(-KBeaconTimeoutMs);
+    for (auto it = m_discoveredNodes.cbegin(); it != m_discoveredNodes.cend(); ++it)
+    {
+        if (it.value().offboarded && it.value().lastSeen < cutoff)
+            continue;
+        nodes.insert(it.key(), it.value());
+    }
+    return nodes;
 }
 
 QByteArray SigNetController::currentLocalTuid() const
@@ -345,8 +363,6 @@ bool SigNetController::sendRDMCommand(quint32 universe, uchar command, QVariantL
     {
         if (targetAddress.isEmpty() && !discoveredNode.address.isNull())
             targetAddress = discoveredNode.address.toString();
-        if ((info.rdmTargetTuid.isEmpty() || targetEndpoint == 0) && discoveredNode.lastEndpoint != 0)
-            targetEndpoint = discoveredNode.lastEndpoint;
     }
 
     if (targetEndpoint == 0)
@@ -491,6 +507,56 @@ void SigNetController::handleLevelMessage(const SigNetPacketizer::Message& messa
     }
 }
 
+void SigNetController::handlePollMessage(const SigNetPacketizer::Message& message)
+{
+    const QByteArray localTuid = currentLocalTuid();
+    for (const SigNetPacketizer::TLV& tlv : message.tlvs)
+    {
+        if (tlv.type != SigNet::TID_POLL || tlv.value.size() != 25)
+            continue;
+
+        const QByteArray tuidLo = tlv.value.mid(10, SigNet::TUID_LENGTH);
+        const QByteArray tuidHi = tlv.value.mid(16, SigNet::TUID_LENGTH);
+        const quint16 targetEndpoint = payloadToU16(tlv.value.mid(22, 2));
+        const quint8 queryLevel = quint8(tlv.value.at(24));
+        if (queryLevel < SigNet::QUERY_FULL || localTuid < tuidLo || localTuid > tuidHi ||
+            (targetEndpoint != 0 && targetEndpoint != 0xFFFF))
+        {
+            continue;
+        }
+
+        quint32 roleCapability = SigNet::ROLE_CAP_MANAGER;
+        {
+            QMutexLocker locker(&m_dataMutex);
+            const Type controllerType = type();
+            if (controllerType & Output)
+                roleCapability |= SigNet::ROLE_CAP_SENDER;
+            if (controllerType & Input)
+                roleCapability |= SigNet::ROLE_CAP_VISUALISER;
+        }
+
+        const QByteArray packet = SigNetPacketizer::buildPollReplyPacket(
+            m_plugin->scope(),
+            localTuid,
+            m_plugin->sessionId(),
+            m_plugin->nextSequence(0),
+            m_plugin->nextMessageId(),
+            m_plugin->citizenKey(),
+            QStringLiteral("QLC+ SigNet"),
+            roleCapability);
+        if (packet.isEmpty())
+            return;
+
+        if (m_sendSocket->writeDatagram(packet,
+                                        SigNetPacketizer::nodeSendAddress(),
+                                        SigNet::SIGNET_UDP_PORT) > 0)
+        {
+            ++m_packetSent;
+        }
+        return;
+    }
+}
+
 void SigNetController::updateNodeInfo(const QString& tuid,
                                       const QHostAddress& sender,
                                       quint16 endpoint,
@@ -499,11 +565,20 @@ void SigNetController::updateNodeInfo(const QString& tuid,
 {
     SigNetNodeInfo info = m_discoveredNodes.value(tuid);
     bool pollReplySeen = false;
+    const QDateTime now = QDateTime::currentDateTimeUtc();
+    if (offboarded && info.offboarded && !info.address.isNull() && info.address != sender &&
+        info.lastSeen.msecsTo(now) <= KBeaconTimeoutMs)
+    {
+        info.beaconCollision = true;
+        qWarning().nospace().noquote()
+            << "[SigNet] SNOW beacon collision for TUID " << tuid
+            << ": " << info.address.toString() << " and " << sender.toString();
+    }
     info.tuid = tuid;
     info.address = sender;
     info.lastEndpoint = endpoint;
     info.offboarded = offboarded;
-    info.lastSeen = QDateTime::currentDateTimeUtc();
+    info.lastSeen = now;
 
     for (const SigNetPacketizer::TLV& tlv : tlvs)
     {
@@ -513,6 +588,10 @@ void SigNetController::updateNodeInfo(const QString& tuid,
                 if (tlv.value.size() >= 12)
                 {
                     pollReplySeen = true;
+                    info.soemCode = (quint32(quint8(tlv.value.at(6))) << 24) |
+                                    (quint32(quint8(tlv.value.at(7))) << 16) |
+                                    (quint32(quint8(tlv.value.at(8))) << 8) |
+                                    quint8(tlv.value.at(9));
                     info.changeCount = payloadToU16(tlv.value.mid(10, 2));
                 }
                 break;
@@ -523,7 +602,26 @@ void SigNetController::updateNodeInfo(const QString& tuid,
                 info.endpointCount = payloadToU16(tlv.value);
                 break;
             case SigNet::TID_RT_ROLE_CAPABILITY:
-                info.roleCapability = tlv.value.isEmpty() ? 0 : quint8(tlv.value.at(0));
+                // Protocol v1.07 uses a big-endian 32-bit role bitfield. Accept
+                // the previous one-byte representation as a compatibility aid.
+                info.roleCapability = tlv.value.size() >= 4 ? payloadToU32(tlv.value) :
+                                      (tlv.value.isEmpty() ? 0 : quint8(tlv.value.at(0)));
+                break;
+            case SigNet::TID_RT_OTW_CAPABILITY:
+                if (tlv.value.size() == 3)
+                {
+                    info.otwPort = payloadToU16(tlv.value);
+                    info.otwCapabilities = quint8(tlv.value.at(2));
+                }
+                break;
+            case SigNet::TID_EP_DIRECTION:
+                if (endpoint != 0 && !tlv.value.isEmpty())
+                {
+                    if (quint8(tlv.value.at(0)) & SigNet::EP_DIR_RDM_ENABLE)
+                        info.rdmEndpoints.insert(endpoint);
+                    else
+                        info.rdmEndpoints.remove(endpoint);
+                }
                 break;
             default:
                 break;
@@ -538,11 +636,40 @@ void SigNetController::updateNodeInfo(const QString& tuid,
             << "[SigNet] POLL_REPLY UID " << info.tuid
             << " address " << info.address.toString()
             << " endpoint " << info.lastEndpoint
-            << " changeCount " << info.changeCount
             << " endpoints " << info.endpointCount
-            << " label \"" << info.label << "\""
-            << " offboarded " << info.offboarded;
+            << " label \"" << info.label << "\"";
     }
+}
+
+void SigNetController::requestTodData(const QString& targetTuid,
+                                      quint16 targetEndpoint,
+                                      const QHostAddress& destination)
+{
+    if (targetEndpoint == 0 || destination.isNull())
+        return;
+
+    QByteArray targetTuidBytes;
+    if (!SigNetPacketizer::parseTuid(targetTuid, targetTuidBytes))
+        return;
+
+    const QByteArray managerLocalKey = m_plugin->managerLocalKey(targetTuid);
+    if (managerLocalKey.isEmpty())
+        return;
+
+    const QByteArray packet = SigNetPacketizer::buildTodControlPacket(m_plugin->scope(),
+                                                                        currentLocalTuid(),
+                                                                        targetTuidBytes,
+                                                                        targetEndpoint,
+                                                                        SigNet::TOD_CONTROL_FLUSH_FULL,
+                                                                        m_plugin->sessionId(),
+                                                                        m_plugin->nextSequence(0),
+                                                                        m_plugin->nextMessageId(),
+                                                                        managerLocalKey);
+    if (packet.isEmpty())
+        return;
+
+    if (m_sendSocket->writeDatagram(packet, destination, SigNet::SIGNET_UDP_PORT) > 0)
+        ++m_packetSent;
 }
 
 void SigNetController::handleRdmPayload(quint32 universe, const QByteArray& payload)
@@ -585,12 +712,47 @@ void SigNetController::handleTodData(quint32 universe, const QByteArray& payload
     emit rdmValueChanged(universe, m_line, values);
 }
 
+void SigNetController::recordTodData(const QString& targetTuid, quint16 endpoint, const QByteArray& payload)
+{
+    if (payload.size() < 2 || !m_discoveredNodes.contains(targetTuid))
+        return;
+
+    QStringList& cachedUids = m_discoveredNodes[targetTuid].rdmTodUids[endpoint];
+    QStringList receivedUids;
+    const int uidCount = qMax(0, (payload.size() - 2) / 6);
+    for (int i = 0; i < uidCount; ++i)
+    {
+        quint16 estaId = 0;
+        quint32 deviceId = 0;
+        const QString uid = RDMProtocol::byteArrayToUID(payload.mid(2 + (i * 6), 6), estaId, deviceId);
+        if (!uid.isEmpty())
+        {
+            receivedUids.append(uid);
+            m_discoveredRdmUids.insert(uid);
+            if (!cachedUids.contains(uid))
+                cachedUids.append(uid);
+        }
+    }
+    cachedUids.sort();
+
+    qDebug().nospace().noquote()
+        << "[SigNet] RDM TOD_DATA from " << targetTuid
+        << " endpoint " << endpoint
+        << " contains " << receivedUids.size() << " UID(s): "
+        << receivedUids.join(", ");
+}
+
 bool SigNetController::emitCachedDiscovery(quint32 universe, qulonglong startUid, qulonglong endUid)
 {
     if (!m_universeMap.contains(universe))
         return false;
 
-    QStringList cachedUids = m_universeMap.value(universe).cachedRdmUids;
+    QSet<QString> cachedUidSet;
+    for (const QString& uid : m_universeMap.value(universe).cachedRdmUids)
+        cachedUidSet.insert(uid);
+    cachedUidSet.unite(m_discoveredRdmUids);
+
+    QStringList cachedUids = cachedUidSet.values();
     if (cachedUids.isEmpty())
     {
         for (auto it = m_discoveredNodes.cbegin(); it != m_discoveredNodes.cend(); ++it)
@@ -600,6 +762,8 @@ bool SigNetController::emitCachedDiscovery(quint32 universe, qulonglong startUid
         }
         cachedUids.removeDuplicates();
     }
+
+    cachedUids.sort();
 
     if (cachedUids.isEmpty())
         return false;
@@ -644,6 +808,21 @@ void SigNetController::handleNodeMessage(const SigNetPacketizer::Message& messag
 
     updateNodeInfo(targetTuid, sender, endpoint, message.tlvs, offboarded);
 
+    for (const SigNetPacketizer::TLV& tlv : message.tlvs)
+    {
+        if (tlv.type == SigNet::TID_EP_DIRECTION &&
+            endpoint != 0 &&
+            !tlv.value.isEmpty() &&
+            (quint8(tlv.value.at(0)) & SigNet::EP_DIR_RDM_ENABLE))
+        {
+            requestTodData(targetTuid, endpoint, sender);
+        }
+        else if (tlv.type == SigNet::TID_RDM_TOD_DATA)
+        {
+            recordTodData(targetTuid, endpoint, tlv.value);
+        }
+    }
+
     for (auto it = m_universeMap.cbegin(); it != m_universeMap.cend(); ++it)
     {
         const bool configuredMatch = it.value().rdmTargetTuid.compare(targetTuid, Qt::CaseInsensitive) == 0;
@@ -686,26 +865,34 @@ void SigNetController::processPendingPackets()
             continue;
 
         if (segments.at(0) != QLatin1String(SigNet::SIGNET_URI_PREFIX) ||
-            segments.at(1) != QLatin1String(SigNet::SIGNET_URI_VERSION) ||
-            segments.at(2) != m_plugin->scope())
+            segments.at(1) != QLatin1String(SigNet::SIGNET_URI_VERSION))
         {
             continue;
         }
 
+        const QString scope = segments.at(2);
         const QString resource = segments.at(3);
-        QByteArray verificationKey;
 
+        // SNOW discovery is deliberately scoped to local, even when this
+        // manager operates the show on another Sig-Net scope.
+        QByteArray verificationKey;
         if (message.options.security_mode == SigNet::SECURITY_MODE_UNPROVISIONED)
         {
-            if (resource == QLatin1String("node_beacon"))
+            if (scope == QLatin1String(SigNet::SIGNET_URI_SCOPE_DEFAULT) &&
+                resource == QLatin1String("node_beacon"))
                 handleNodeMessage(message, sender, true);
             continue;
         }
+
+        if (scope != m_plugin->scope())
+            continue;
 
         if (resource == QLatin1String("level"))
             verificationKey = m_plugin->senderKey();
         else if (resource == QLatin1String("node") || resource == QLatin1String("node_lost"))
             verificationKey = m_plugin->citizenKey();
+        else if (resource == QLatin1String("poll"))
+            verificationKey = m_plugin->managerGlobalKey();
         else
             continue;
 
@@ -719,6 +906,8 @@ void SigNetController::processPendingPackets()
 
         if (resource == QLatin1String("level"))
             handleLevelMessage(message);
+        else if (resource == QLatin1String("poll"))
+            handlePollMessage(message);
         else
             handleNodeMessage(message, sender, resource == QLatin1String("node_lost"));
     }
@@ -766,7 +955,8 @@ void SigNetController::slotSendPoll()
                                                                 m_plugin->sessionId(),
                                                                 m_plugin->nextSequence(0),
                                                                 m_plugin->nextMessageId(),
-                                                                m_plugin->managerGlobalKey());
+                                                                m_plugin->managerGlobalKey(),
+                                                                m_initialFullPoll ? SigNet::QUERY_FULL : SigNet::QUERY_HEARTBEAT);
     if (packet.isEmpty())
         return;
 
@@ -775,5 +965,6 @@ void SigNetController::slotSendPoll()
                                     SigNet::SIGNET_UDP_PORT) > 0)
     {
         ++m_packetSent;
+        m_initialFullPoll = false;
     }
 }

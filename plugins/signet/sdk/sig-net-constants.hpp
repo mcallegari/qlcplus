@@ -140,10 +140,28 @@ static const uint16_t TID_RT_MULT               = 0x0606;  // Multicast routing 
 static const uint16_t TID_RT_MULT_OVERRIDE       = 0x0606;  // Alias: v0.15 section 11.6.6 name for TID_RT_MULT
 static const uint16_t TID_RT_IDENTIFY           = 0x0607;  // Identify state: 0x00=Off, 0x01=On (0/1 byte)
 static const uint16_t TID_RT_STATUS             = 0x0608;  // Device health bitfield: Bit0=HW Fault, Bit1=Factory, Bit2=Locked (0/4 bytes)
-static const uint16_t TID_RT_ROLE_CAPABILITY    = 0x0609;  // Role bitfield: Bit0=Node, Bit1=Sender, Bit2=Manager (0/1 byte)
+static const uint16_t TID_RT_ROLE_CAPABILITY    = 0x0609;  // Role/capability bitfield (0/4 bytes, big-endian)
 static const uint16_t TID_RT_REBOOT             = 0x060A;  // Reboot command with BOOT magic (5 bytes)
 static const uint16_t TID_RT_MODEL_NAME         = 0x060B;  // Product model UTF-8 string, max 64 bytes (0/1-64 bytes)
 static const uint16_t TID_RT_SCOPE              = 0x060C;  // Operational URI scope UTF-8 string, max 32 bytes (0/1-32 bytes)
+static const uint16_t TID_RT_OTW_CAPABILITY     = 0x060D;  // OTW listener port + supported transport/authentication bitfield (0/3 bytes)
+
+// Sig-Net Over-the-Wire (SNOW) Type Identifiers. These are deliberately kept
+// in a separate namespace from normal Sig-Net TIDs and are only valid during
+// SNOW TLS/DTLS or SNRP transactions.
+static const uint16_t TOTW_RT_COME_HOME          = 0x7001;
+static const uint16_t TOTW_RT_PUBLIC_KEY         = 0x7002;
+static const uint16_t TOTW_RT_IDENTIFY           = 0x7003;
+static const uint16_t TOTW_RT_KEY_KS             = 0x7004;
+static const uint16_t TOTW_RT_KEY_KC             = 0x7005;
+static const uint16_t TOTW_RT_KEY_KM_GLOBAL      = 0x7006;
+static const uint16_t TOTW_RT_KEY_KM_LOCAL       = 0x7007;
+static const uint16_t TOTW_RT_KEY_K0             = 0x7008;
+static const uint16_t TOTW_RT_POM_PUBLIC_KEY     = 0x7009;
+static const uint16_t TOTW_RT_POM_WIPE           = 0x700A;
+static const uint16_t TOTW_RT_OTW_REOPEN         = 0x700B;
+static const uint16_t TOTW_RT_UPDATE_POM         = 0x700C;
+static const uint16_t TOTW_RT_SCOPE              = 0x700D;
 
 // Section 11.7 - Data Endpoint Type Identifiers (Data Endpoints 1-N only)
 static const uint16_t TID_EP_UNIVERSE           = 0x0901;  // Assigned universe 1-63999, 0=unset (0/2 bytes)
@@ -325,6 +343,14 @@ static const uint32_t SoemCodeSdkNode     = 0x534c0012;
 static const uint8_t ROLE_CAP_NODE    = 0x01;  // Bit 0: Node role supported
 static const uint8_t ROLE_CAP_SENDER  = 0x02;  // Bit 1: Sender role supported
 static const uint8_t ROLE_CAP_MANAGER = 0x04;  // Bit 2: Manager role supported
+static const uint8_t ROLE_CAP_VISUALISER = 0x08; // Bit 3: Visualiser role supported
+
+// TID_RT_OTW_CAPABILITY transport/authentication bitfield.
+static const uint8_t OTW_CAP_DTLS_1_2 = 0x01;
+static const uint8_t OTW_CAP_DTLS_1_3 = 0x02;
+static const uint8_t OTW_CAP_TLS_1_2  = 0x04;
+static const uint8_t OTW_CAP_TLS_1_3  = 0x08;
+static const uint8_t OTW_CAP_PIN      = 0x10;
 
 //------------------------------------------------------------------------------
 // Device Status Bit Positions (TID_RT_STATUS, Section 11.6.8)

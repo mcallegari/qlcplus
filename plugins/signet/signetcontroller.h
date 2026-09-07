@@ -47,7 +47,13 @@ struct SigNetNodeInfo
     quint16 endpointCount = 0;
     quint16 changeCount = 0;
     quint32 roleCapability = 0;
+    quint32 soemCode = 0;
+    quint16 otwPort = 0;
+    quint8 otwCapabilities = 0;
+    QSet<quint16> rdmEndpoints;
+    QHash<quint16, QStringList> rdmTodUids;
     bool offboarded = false;
+    bool beaconCollision = false;
     QDateTime lastSeen;
 };
 
@@ -112,9 +118,12 @@ private:
     void updateNodeInfo(const QString& tuid, const QHostAddress& sender, quint16 endpoint, const QList<SigNetPacketizer::TLV>& tlvs, bool offboarded);
     bool acceptFreshness(const SigNetPacketizer::Message& message);
     void handleLevelMessage(const SigNetPacketizer::Message& message);
+    void handlePollMessage(const SigNetPacketizer::Message& message);
     void handleNodeMessage(const SigNetPacketizer::Message& message, const QHostAddress& sender, bool offboarded);
     void handleRdmPayload(quint32 universe, const QByteArray& payload);
     void handleTodData(quint32 universe, const QByteArray& payload);
+    void requestTodData(const QString& targetTuid, quint16 targetEndpoint, const QHostAddress& destination);
+    void recordTodData(const QString& targetTuid, quint16 endpoint, const QByteArray& payload);
     bool emitCachedDiscovery(quint32 universe, qulonglong startUid, qulonglong endUid);
     QByteArray currentLocalTuid() const;
 
@@ -140,10 +149,12 @@ private:
     QMap<quint32, SigNetUniverseInfo> m_universeMap;
     QSet<QHostAddress> m_levelSubscriptions;
     QHash<QString, SigNetNodeInfo> m_discoveredNodes;
+    QSet<QString> m_discoveredRdmUids;
     QHash<QByteArray, quint32> m_sessionByTuid;
     QHash<QByteArray, quint32> m_sequenceBySenderId;
     QTimer m_keepAliveTimer;
     QTimer m_pollTimer;
+    bool m_initialFullPoll = true;
 };
 
 #endif

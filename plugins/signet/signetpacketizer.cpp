@@ -19,8 +19,8 @@
 
 #include "signetpacketizer.h"
 
-#include <QDebug>
 #include <QStringList>
+#include <limits>
 
 #include "sig-net-coap.hpp"
 #include "sig-net-constants.hpp"
@@ -140,6 +140,69 @@ QByteArray buildSignedPacket(const QString& scope,
     const QString uri = buildUriString(scope, resourceSegments);
     return finalizePacket(packet, uri, options, payload, signingKey);
 }
+
+QByteArray buildSnowPacket(const QString& scope,
+                           const QStringList& resourceSegments,
+                           const QList<SigNetPacketizer::TLV>& tlvs,
+                           const QByteArray& localTuid,
+                           quint16 manufacturerCode,
+                           quint16 messageId)
+{
+    if (scope != QLatin1String(SigNet::SIGNET_URI_SCOPE_DEFAULT) ||
+        localTuid.size() != static_cast<int>(SigNet::TUID_LENGTH))
+    {
+        return QByteArray();
+    }
+
+    SigNet::PacketBuffer payload;
+    for (const SigNetPacketizer::TLV& tlv : tlvs)
+    {
+        if (tlv.value.size() > std::numeric_limits<quint16>::max())
+            return QByteArray();
+        const SigNet::TLVBlock block(tlv.type,
+                                     static_cast<quint16>(tlv.value.size()),
+                                     reinterpret_cast<const uint8_t*>(tlv.value.constData()));
+        if (SigNet::TLV::EncodeTLV(payload, block) != SigNet::SIGNET_SUCCESS)
+            return QByteArray();
+    }
+
+    SigNet::PacketBuffer packet;
+    if (SigNet::CoAP::BuildCoAPHeader(packet, messageId) != SigNet::SIGNET_SUCCESS)
+        return QByteArray();
+
+    QStringList uriSegments;
+    uriSegments << QString(SigNet::SIGNET_URI_PREFIX)
+                << QString(SigNet::SIGNET_URI_VERSION)
+                << scope;
+    uriSegments.append(resourceSegments);
+    if (!encodeUriPath(packet, uriSegments))
+        return QByteArray();
+
+    SigNet::SigNetOptions options;
+    options.security_mode = SigNet::SECURITY_MODE_UNPROVISIONED;
+    options.mfg_code = manufacturerCode;
+    if (SigNet::Security::BuildSenderID(reinterpret_cast<const uint8_t*>(localTuid.constData()),
+                                        0,
+                                        options.sender_id) != SigNet::SIGNET_SUCCESS ||
+        SigNet::Security::BuildSigNetOptionsWithoutHMAC(packet, options, KUriPathOption) != SigNet::SIGNET_SUCCESS ||
+        SigNet::CoAP::EncodeCoAPOption(packet,
+                                       SigNet::SIGNET_OPTION_HMAC,
+                                       SigNet::SIGNET_OPTION_SEQ_NUM,
+                                       nullptr,
+                                       0) != SigNet::SIGNET_SUCCESS)
+    {
+        return QByteArray();
+    }
+
+    if (payload.GetSize() > 0 &&
+        (packet.WriteByte(SigNet::COAP_PAYLOAD_MARKER) != SigNet::SIGNET_SUCCESS ||
+         packet.WriteBytes(payload.GetBuffer(), payload.GetSize()) != SigNet::SIGNET_SUCCESS))
+    {
+        return QByteArray();
+    }
+
+    return QByteArray(reinterpret_cast<const char*>(packet.GetBuffer()), packet.GetSize());
+}
 }
 
 QHostAddress SigNetPacketizer::levelMulticastAddress(quint16 universe)
@@ -232,7 +295,8 @@ QByteArray SigNetPacketizer::buildPollPacket(const QString& scope,
                                              quint32 sessionId,
                                              quint32 seqNum,
                                              quint16 messageId,
-                                             const QByteArray& managerGlobalKey)
+                                             const QByteArray& managerGlobalKey,
+                                             quint8 queryLevel)
 {
     SigNet::PacketBuffer payload;
     uint8_t tuidLo[SigNet::TUID_LENGTH] = { 0, 0, 0, 0, 0, 0 };
@@ -244,7 +308,7 @@ QByteArray SigNetPacketizer::buildPollPacket(const QString& scope,
                                       tuidLo,
                                       tuidHi,
                                       0xFFFF,
-                                      SigNet::QUERY_HEARTBEAT) != SigNet::SIGNET_SUCCESS)
+                                      queryLevel) != SigNet::SIGNET_SUCCESS)
     {
         return QByteArray();
     }
@@ -258,6 +322,56 @@ QByteArray SigNetPacketizer::buildPollPacket(const QString& scope,
                              seqNum,
                              messageId,
                              managerGlobalKey);
+}
+
+QByteArray SigNetPacketizer::buildPollReplyPacket(const QString& scope,
+                                                  const QByteArray& localTuid,
+                                                  quint32 sessionId,
+                                                  quint32 seqNum,
+                                                  quint16 messageId,
+                                                  const QByteArray& citizenKey,
+                                                  const QString& label,
+                                                  quint32 roleCapability)
+{
+    if (localTuid.size() != static_cast<int>(SigNet::TUID_LENGTH))
+        return QByteArray();
+
+    SigNet::PacketBuffer payload;
+    if (SigNet::TLV::EncodeTID_POLL_REPLY(payload,
+                                          reinterpret_cast<const uint8_t*>(localTuid.constData()),
+                                          0x7FF8,
+                                          0x0001,
+                                          0) != SigNet::SIGNET_SUCCESS)
+    {
+        return QByteArray();
+    }
+
+    const QByteArray labelData = label.toUtf8().left(64);
+    const SigNet::TLVBlock labelTlv(SigNet::TID_RT_DEVICE_LABEL,
+                                    static_cast<quint16>(labelData.size()),
+                                    reinterpret_cast<const uint8_t*>(labelData.constData()));
+    if (SigNet::TLV::EncodeTLV(payload, labelTlv) != SigNet::SIGNET_SUCCESS)
+        return QByteArray();
+
+    const uint8_t roles[] = {
+        static_cast<uint8_t>((roleCapability >> 24) & 0xFF),
+        static_cast<uint8_t>((roleCapability >> 16) & 0xFF),
+        static_cast<uint8_t>((roleCapability >> 8) & 0xFF),
+        static_cast<uint8_t>(roleCapability & 0xFF)
+    };
+    const SigNet::TLVBlock rolesTlv(SigNet::TID_RT_ROLE_CAPABILITY, sizeof(roles), roles);
+    if (SigNet::TLV::EncodeTLV(payload, rolesTlv) != SigNet::SIGNET_SUCCESS)
+        return QByteArray();
+
+    return buildSignedPacket(scope,
+                             QStringList() << QString(SigNet::SIGNET_URI_NODE) << tuidToString(localTuid),
+                             payload,
+                             localTuid,
+                             0,
+                             sessionId,
+                             seqNum,
+                             messageId,
+                             citizenKey);
 }
 
 QByteArray SigNetPacketizer::buildTodControlPacket(const QString& scope,
@@ -288,16 +402,6 @@ QByteArray SigNetPacketizer::buildTodControlPacket(const QString& scope,
                              seqNum,
                              messageId,
                              managerLocalKey);
-    if (!packet.isEmpty())
-    {
-        qDebug().nospace().noquote()
-            << "[SigNet] RDM TOD derived key uri="
-            << buildUriString(scope, resourceSegments)
-            << " session=" << sessionId
-            << " seq=" << seqNum
-            << " key=" << managerLocalKey.toHex();
-    }
-
     return packet;
 }
 
@@ -330,17 +434,17 @@ QByteArray SigNetPacketizer::buildRdmCommandPacket(const QString& scope,
                              seqNum,
                              messageId,
                              managerLocalKey);
-    if (!packet.isEmpty())
-    {
-        qDebug().nospace().noquote()
-            << "[SigNet] RDM command derived key uri="
-            << buildUriString(scope, resourceSegments)
-            << " session=" << sessionId
-            << " seq=" << seqNum
-            << " key=" << managerLocalKey.toHex();
-    }
-
     return packet;
+}
+
+QByteArray SigNetPacketizer::buildSnowPacket(const QString& scope,
+                                              const QStringList& resourceSegments,
+                                              const QList<TLV>& tlvs,
+                                              const QByteArray& localTuid,
+                                              quint16 manufacturerCode,
+                                              quint16 messageId)
+{
+    return ::buildSnowPacket(scope, resourceSegments, tlvs, localTuid, manufacturerCode, messageId);
 }
 
 bool SigNetPacketizer::parseMessage(const QByteArray& datagram, Message& message, QString* error)

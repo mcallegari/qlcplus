@@ -10,6 +10,8 @@
 #include <QMessageAuthenticationCode>
 #include <QRandomGenerator>
 
+#include <openssl/evp.h>
+
 namespace
 {
 int hexNibble(char ch)
@@ -140,6 +142,59 @@ int32_t GenerateRandomK0(uint8_t* k0_output)
         k0_output[i] = uint8_t(QRandomGenerator::global()->bounded(256));
 
     return SIGNET_SUCCESS;
+}
+
+int32_t ValidatePassphrase(const char* passphrase, uint32_t passphrase_len)
+{
+    if (!passphrase)
+        return SIGNET_ERROR_INVALID_ARG;
+    if (passphrase_len < PASSPHRASE_MIN_LENGTH)
+        return SIGNET_PASSPHRASE_TOO_SHORT;
+    if (passphrase_len > PASSPHRASE_MAX_LENGTH)
+        return SIGNET_PASSPHRASE_TOO_LONG;
+
+    bool hasUpper = false;
+    bool hasLower = false;
+    bool hasDigit = false;
+    bool hasSymbol = false;
+    for (uint32_t i = 0; i < passphrase_len; ++i)
+    {
+        const unsigned char character = static_cast<unsigned char>(passphrase[i]);
+        hasUpper |= character >= 'A' && character <= 'Z';
+        hasLower |= character >= 'a' && character <= 'z';
+        hasDigit |= character >= '0' && character <= '9';
+        hasSymbol |= std::strchr(PASSPHRASE_SYMBOLS, character) != nullptr;
+
+        if (i >= 2 && passphrase[i] == passphrase[i - 1] && passphrase[i] == passphrase[i - 2])
+            return SIGNET_PASSPHRASE_CONSECUTIVE_IDENTICAL;
+
+        if (i >= 3)
+        {
+            const int step1 = int(character) - int(static_cast<unsigned char>(passphrase[i - 1]));
+            const int step2 = int(static_cast<unsigned char>(passphrase[i - 1])) - int(static_cast<unsigned char>(passphrase[i - 2]));
+            const int step3 = int(static_cast<unsigned char>(passphrase[i - 2])) - int(static_cast<unsigned char>(passphrase[i - 3]));
+            if ((step1 == 1 || step1 == -1) && step1 == step2 && step2 == step3)
+                return SIGNET_PASSPHRASE_CONSECUTIVE_SEQUENTIAL;
+        }
+    }
+
+    const int classCount = int(hasUpper) + int(hasLower) + int(hasDigit) + int(hasSymbol);
+    return classCount >= 3 ? SIGNET_PASSPHRASE_VALID : SIGNET_PASSPHRASE_INSUFFICIENT_CLASSES;
+}
+
+int32_t DeriveK0FromPassphrase(const char* passphrase, uint32_t passphrase_len, uint8_t* k0_output)
+{
+    if (!passphrase || passphrase_len == 0 || !k0_output)
+        return SIGNET_ERROR_INVALID_ARG;
+
+    return PKCS5_PBKDF2_HMAC(passphrase,
+                             static_cast<int>(passphrase_len),
+                             reinterpret_cast<const unsigned char*>(PBKDF2_SALT),
+                             static_cast<int>(std::strlen(PBKDF2_SALT)),
+                             static_cast<int>(PBKDF2_ITERATIONS),
+                             EVP_sha256(),
+                             static_cast<int>(K0_KEY_LENGTH),
+                             k0_output) == 1 ? SIGNET_SUCCESS : SIGNET_ERROR_CRYPTO;
 }
 
 } // namespace Crypto
