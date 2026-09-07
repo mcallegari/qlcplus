@@ -120,6 +120,12 @@ Rectangle
         actionsMenu.saveBeforeExit()
     }
 
+    Shortcut
+    {
+        sequence: StandardKey.Open
+        onActivated: actionsMenu.handleOpenAction()
+    }
+
     function loadResource(qmlRes)
     {
         mainViewLoader.source = qmlRes

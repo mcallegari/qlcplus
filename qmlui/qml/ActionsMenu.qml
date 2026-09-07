@@ -29,23 +29,82 @@ Popup
 {
     id: menuRoot
     padding: 0
+    contentWidth: requiredMenuWidth()
+    contentHeight: actionsMenuEntries.implicitHeight
+    width: contentWidth
+    height: contentHeight
 
-    property Item submenuItem: null
+    property var submenuItem: null
     property int flagSize: UISettings.iconSizeDefault * 1.5
 
-    onClosed: submenuItem = null
+    onSubmenuItemChanged:
+    {
+        if (submenuItem !== recentFilesPopup)
+            recentFilesPopup.close()
+        if (submenuItem !== networkMenuPopup)
+            networkMenuPopup.close()
+        if (submenuItem !== languageMenuPopup)
+            languageMenuPopup.close()
+    }
+
+    onClosed:
+    {
+        submenuItem = null
+        closeSubmenus()
+        openFileCoordinator.completeDismissal()
+        recentFileCoordinator.completeDismissal()
+    }
+
+    function showSubmenu(popup)
+    {
+        submenuItem = popup
+        if (!popup.opened)
+            popup.open()
+    }
+
+    function closeSubmenus()
+    {
+        recentFilesPopup.close()
+        networkMenuPopup.close()
+        languageMenuPopup.close()
+    }
+
+    function requiredMenuWidth()
+    {
+        let requiredWidth = 0
+        for (let index = 0; index < actionsMenuEntries.children.length; ++index)
+            requiredWidth = Math.max(requiredWidth,
+                                     actionsMenuEntries.children[index].implicitWidth)
+        return requiredWidth
+    }
 
     function handleSaveAction()
     {
         if (qlcplus.fileName())
-            qlcplus.saveWorkspace(qlcplus.fileName())
+        {
+            if (qlcplus.saveWorkspace(qlcplus.fileName()))
+                pendingWorkspaceAction.dispatch(false)
+            else
+                pendingWorkspaceAction.cancel()
+        }
         else
             openDialog(App.SaveAsMode)
     }
 
+    function handleOpenAction()
+    {
+        if (qlcplus.docModified)
+        {
+            pendingWorkspaceAction.action = "#OPEN"
+            saveFirstPopup.open()
+        }
+        else
+            openDialog(App.OpenMode)
+    }
+
     function saveBeforeExit()
     {
-        saveFirstPopup.action = "#EXIT"
+        pendingWorkspaceAction.action = "#EXIT"
         saveFirstPopup.open()
     }
 
@@ -82,7 +141,7 @@ Popup
         }
 
         if (Qt.platform.os === "linux")
-            customDialog.open()
+            customDialogLoader.item.open()
         else
             nativeDialog.open()
     }
@@ -90,6 +149,8 @@ Popup
     function handleAccept()
     {
         console.log("Selected file: " + dialogSelectedFile)
+
+        let dispatchPendingActionOnClose = false
 
         switch (dialogOpMode)
         {
@@ -106,10 +167,10 @@ Popup
             case App.SaveMode:
             case App.SaveAsMode:
             {
-                qlcplus.saveWorkspace(dialogSelectedFile)
-
-                if (saveFirstPopup.action == "#EXIT")
-                    qlcplus.exit()
+                if (qlcplus.saveWorkspace(dialogSelectedFile))
+                    dispatchPendingActionOnClose = pendingWorkspaceAction.hasAction
+                else
+                    pendingWorkspaceAction.cancel()
             }
             break
             case App.ImportMode:
@@ -122,6 +183,8 @@ Popup
             }
             break
         }
+
+        return dispatchPendingActionOnClose
     }
 
     FileDialog
@@ -136,24 +199,383 @@ Popup
         {
             dialogSelectedFile = selectedFile
             dialogCurrentFolder = currentFolder
-            handleAccept()
+            if (handleAccept())
+            {
+                nativeDialogSaveCoordinator.trigger()
+                if (!visible)
+                    nativeDialogSaveCoordinator.completeDismissal()
+            }
+        }
+
+        onRejected: pendingWorkspaceAction.cancel()
+        onVisibleChanged:
+        {
+            if (!visible)
+                nativeDialogSaveCoordinator.completeDismissal()
         }
     }
 
-    PopupFolderBrowser
+    PlatformPopupLoader
     {
-        id: customDialog
-        title: dialogTitle
-        currentFolder: dialogCurrentFolder
-        nameFilters: dialogNameFilters
-        standardButtons: Dialog.Cancel |
-            ((dialogOpMode === App.SaveMode | dialogOpMode === App.SaveAsMode) ? Dialog.Save : Dialog.Open)
+        id: customDialogLoader
 
-        onAccepted:
+        sourceComponent: Component
         {
-            dialogSelectedFile = currentFolder + folderSeparator() + selectedFile
-            dialogCurrentFolder = currentFolder
-            handleAccept()
+            PopupFolderBrowser
+            {
+                title: dialogTitle
+                currentFolder: dialogCurrentFolder
+                nameFilters: dialogNameFilters
+                standardButtons: Dialog.Cancel |
+                    ((dialogOpMode === App.SaveMode | dialogOpMode === App.SaveAsMode) ? Dialog.Save : Dialog.Open)
+
+                onAccepted:
+                {
+                    dialogSelectedFile = currentFolder + folderSeparator() + selectedFile
+                    dialogCurrentFolder = currentFolder
+                    if (handleAccept())
+                        customDialogSaveCoordinator.trigger()
+                }
+
+                onRejected: pendingWorkspaceAction.cancel()
+
+                onClosed:
+                {
+                    customDialogSaveCoordinator.completeDismissal()
+                }
+            }
+        }
+    }
+
+    DeferredPopupAction
+    {
+        id: openFileCoordinator
+
+        onDismissRequested:
+        {
+            submenuItem = null
+            menuRoot.close()
+        }
+        onActionRequested: handleOpenAction()
+    }
+
+    DeferredPopupAction
+    {
+        id: recentFileCoordinator
+
+        property string filePath: ""
+
+        onDismissRequested:
+        {
+            submenuItem = null
+            recentFilesPopup.close()
+            menuRoot.close()
+        }
+        onActionRequested:
+        {
+            const selectedFilePath = filePath
+            filePath = ""
+
+            if (qlcplus.docModified)
+            {
+                pendingWorkspaceAction.action = selectedFilePath
+                saveFirstPopup.open()
+            }
+            else
+                qlcplus.loadWorkspace(selectedFilePath)
+        }
+    }
+
+    PendingWorkspaceAction
+    {
+        id: pendingWorkspaceAction
+
+        onOpenRequested: openDialog(App.OpenMode)
+        onNewRequested: qlcplus.newWorkspace()
+        onExitRequested: function(discardChanges) {
+            qlcplus.exit(discardChanges)
+        }
+        onRecentRequested: function(filePath) {
+            qlcplus.loadWorkspace(filePath)
+        }
+    }
+
+    DeferredPopupAction
+    {
+        id: saveFirstCoordinator
+
+        property int selectedRole: Dialog.Cancel
+
+        onDismissRequested: saveFirstPopup.close()
+        onActionRequested:
+        {
+            if (selectedRole === Dialog.Yes)
+                handleSaveAction()
+            else if (selectedRole === Dialog.No)
+                pendingWorkspaceAction.dispatch(true)
+            else
+                pendingWorkspaceAction.cancel()
+
+            selectedRole = Dialog.Cancel
+        }
+    }
+
+    DeferredPopupAction
+    {
+        id: customDialogSaveCoordinator
+
+        onActionRequested: pendingWorkspaceAction.dispatch(false)
+    }
+
+    DeferredPopupAction
+    {
+        id: nativeDialogSaveCoordinator
+
+        onActionRequested: pendingWorkspaceAction.dispatch(false)
+    }
+
+    ActionsMenuGeometry
+    {
+        id: recentMenuGeometry
+        mainMenuWidth: menuRoot.width
+        requestedSubmenuWidth: Math.max(mainMenuWidth, mainView.width * 0.55)
+        windowWidth: mainView.width
+        popupLeft: menuRoot.x
+        margin: 8
+    }
+
+    ActionsMenuGeometry
+    {
+        id: networkMenuGeometry
+        mainMenuWidth: menuRoot.width
+        requestedSubmenuWidth: Math.max(mainMenuWidth,
+                                        networkColumn.implicitWidth)
+        windowWidth: mainView.width
+        popupLeft: menuRoot.x
+        margin: 8
+    }
+
+    ActionsMenuGeometry
+    {
+        id: languageMenuGeometry
+        mainMenuWidth: menuRoot.width
+        requestedSubmenuWidth: Math.max(mainMenuWidth,
+                                        languageColumn.implicitWidth)
+        windowWidth: mainView.width
+        popupLeft: menuRoot.x
+        margin: 8
+    }
+
+    RecentFilesPopup
+    {
+        id: recentFilesPopup
+        parent: menuRoot.contentItem
+        x: recentMenuGeometry.submenuX
+        y: fileOpen.y
+        width: recentMenuGeometry.submenuWidth
+        recentFiles: qlcplus.recentFiles
+
+        onFileSelected: function(filePath) {
+            recentFileCoordinator.filePath = filePath
+            recentFileCoordinator.trigger()
+        }
+
+        onClosed:
+        {
+            if (submenuItem === recentFilesPopup)
+                submenuItem = null
+        }
+    }
+
+    ActionsSubmenuPopup
+    {
+        id: networkMenuPopup
+        parent: menuRoot.contentItem
+        x: networkMenuGeometry.submenuX
+        y: networkEntry.y
+        width: networkMenuGeometry.submenuWidth
+        height: networkColumn.implicitHeight
+
+        contentItem:
+            Column
+            {
+                id: networkColumn
+                width: networkMenuPopup.width
+
+                ContextMenuEntry
+                {
+                    id: startServer
+                    objectName: "networkServerEntry"
+                    entryText: qsTr("Server setup")
+
+                    onClicked:
+                    {
+                        submenuItem = null
+                        menuRoot.close()
+                        pNetServer.open()
+                    }
+                }
+
+                ContextMenuEntry
+                {
+                    id: connectToServer
+                    objectName: "networkClientEntry"
+                    entryText: qsTr("Client setup")
+
+                    onClicked:
+                    {
+                        submenuItem = null
+                        menuRoot.close()
+                        pNetClient.open()
+                    }
+                }
+            }
+
+        onClosed:
+        {
+            if (submenuItem === networkMenuPopup)
+                submenuItem = null
+        }
+    }
+
+    PopupNetworkServer
+    {
+        id: pNetServer
+        implicitWidth: Math.min(UISettings.bigItemHeight * 4,
+                                mainView.width / 3)
+    }
+
+    PopupNetworkClient
+    {
+        id: pNetClient
+        implicitWidth: Math.min(UISettings.bigItemHeight * 4,
+                                mainView.width / 3)
+    }
+
+    ActionsSubmenuPopup
+    {
+        id: languageMenuPopup
+        parent: menuRoot.contentItem
+        x: languageMenuGeometry.submenuX
+        y: Math.max(0, Math.min(languageEntry.y + languageEntry.height - height,
+                                mainView.height - menuRoot.y - height - 8))
+        width: languageMenuGeometry.submenuWidth
+        height: languageColumn.implicitHeight
+
+        contentItem:
+            GridLayout
+            {
+                id: languageColumn
+                width: languageMenuPopup.width
+                columns: 2
+                columnSpacing: 0
+                rowSpacing: 0
+
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_ca_ES"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_ca.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Catalan")
+                    onClicked: setLanguage("ca_ES")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_nl_NL"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_nl.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Dutch")
+                    onClicked: setLanguage("nl_NL")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_en_EN"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_uk_us.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("English")
+                    onClicked: setLanguage("en_EN")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_fr_FR"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_fr.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("French")
+                    onClicked: setLanguage("fr_FR")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_de_DE"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_de.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("German")
+                    onClicked: setLanguage("de_DE")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_it_IT"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_it.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Italian")
+                    onClicked: setLanguage("it_IT")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_ja_JP"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_jp.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Japanese")
+                    onClicked: setLanguage("ja_JP")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_pl_PL"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_pl.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Polish")
+                    onClicked: setLanguage("pl_PL")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_ru_RU"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_ru.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Russian")
+                    onClicked: setLanguage("ru_RU")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_es_ES"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_es.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Spanish")
+                    onClicked: setLanguage("es_ES")
+                }
+                ContextMenuEntry
+                {
+                    objectName: "languageEntry_uk_UA"
+                    Layout.fillWidth: true
+                    imgSource: "qrc:/flag_ua.svg"
+                    iconWidth: flagSize
+                    entryText: qsTr("Ukrainian")
+                    onClicked: setLanguage("uk_UA")
+                }
+            }
+
+        onClosed:
+        {
+            if (submenuItem === languageMenuPopup)
+                submenuItem = null
         }
     }
 
@@ -166,45 +588,18 @@ Popup
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
-        property string action: ""
+        onClosed:
+        {
+            if (saveFirstCoordinator.pending)
+                saveFirstCoordinator.completeDismissal()
+            else
+                pendingWorkspaceAction.cancel()
+        }
 
         onClicked: function(role)
         {
-            if (role === Dialog.Yes)
-            {
-                if (qlcplus.fileName())
-                {
-                    console.log("YES clicked 1")
-                    qlcplus.saveWorkspace(qlcplus.fileName())
-                    if (action == "#EXIT")
-                        qlcplus.exit()
-                }
-                else
-                {
-                    console.log("YES clicked 2")
-                    //openDialog(App.SaveMode)
-                    handleSaveAction()
-                    if (action == "#EXIT")
-                        return
-                }
-            }
-            else if (role === Dialog.No)
-            {
-                if (action == "#OPEN")
-                    openDialog(App.OpenMode)
-                else if (action == "#NEW")
-                    qlcplus.newWorkspace()
-                else if (action == "#EXIT")
-                    qlcplus.exit(true)
-                else
-                    qlcplus.loadWorkspace(action)
-            }
-            else if (role === Dialog.Cancel)
-            {
-                console.log("Cancel clicked")
-            }
-
-            action = ""
+            saveFirstCoordinator.selectedRole = role
+            saveFirstCoordinator.trigger()
         }
     }
 
@@ -212,15 +607,16 @@ Popup
         Rectangle
         {
             //radius: 2
+            anchors.fill: parent
             border.width: 1
             border.color: UISettings.bgStronger
             color: UISettings.bgStrong
-            height: actionsMenuEntries.height
         }
 
     Column
     {
         id: actionsMenuEntries
+        width: menuRoot.contentWidth
 
         ContextMenuEntry
         {
@@ -231,7 +627,7 @@ Popup
             {
                 if (qlcplus.docModified)
                 {
-                    saveFirstPopup.action = "#NEW"
+                    pendingWorkspaceAction.action = "#NEW"
                     saveFirstPopup.open()
                 }
                 else
@@ -247,56 +643,8 @@ Popup
             id: fileOpen
             imgSource: "qrc:/fileopen.svg"
             entryText: qsTr("Open file")
-            onClicked:
-            {
-                if (qlcplus.docModified)
-                {
-                    saveFirstPopup.action = "#OPEN"
-                    saveFirstPopup.open()
-                }
-                else
-                    openDialog(App.OpenMode)
-
-                menuRoot.close()
-            }
-            onEntered: submenuItem = recentMenu
-
-            Rectangle
-            {
-                id: recentMenu
-                x: menuRoot.width
-                width: recentColumn.width
-                height: recentColumn.height
-                color: UISettings.bgStrong
-                visible: submenuItem === recentMenu
-
-                Column
-                {
-                    id: recentColumn
-                    Repeater
-                    {
-                        model: qlcplus.recentFiles
-                        delegate:
-                            ContextMenuEntry
-                            {
-                                entryText: modelData
-                                onClicked:
-                                {
-                                    if (qlcplus.docModified)
-                                    {
-                                        saveFirstPopup.open()
-                                        saveFirstPopup.action = entryText
-                                    }
-                                    else
-                                    {
-                                        menuRoot.close()
-                                        qlcplus.loadWorkspace(entryText)
-                                    }
-                                }
-                            }
-                        }
-                }
-            }
+            onClicked: openFileCoordinator.trigger()
+            onEntered: showSubmenu(recentFilesPopup)
         }
 
         ContextMenuEntry
@@ -393,68 +741,13 @@ Popup
         }
         ContextMenuEntry
         {
+            id: networkEntry
             imgSource: "qrc:/network.svg"
             //faSource: FontAwesome.fa_network_wired
             //faColor: "darkseagreen"
             entryText: qsTr("Network")
-            onEntered: submenuItem = networkMenu
-
-            onClicked:
-            {
-                if (Qt.platform.os === "android")
-                    submenuItem = networkMenu
-            }
-
-            Rectangle
-            {
-                id: networkMenu
-                x: menuRoot.width
-                width: networkColumn.width
-                height: networkColumn.height
-                color: UISettings.bgStrong
-                visible: submenuItem === networkMenu
-
-                Column
-                {
-                    id: networkColumn
-
-                    ContextMenuEntry
-                    {
-                        id: startServer
-                        entryText: qsTr("Server setup")
-
-                        onClicked:
-                        {
-                            menuRoot.close()
-                            pNetServer.open()
-                        }
-
-                        PopupNetworkServer
-                        {
-                            id: pNetServer
-                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                        }
-                    }
-
-                    ContextMenuEntry
-                    {
-                        id: connectToServer
-                        entryText: qsTr("Client setup")
-
-                        onClicked:
-                        {
-                            menuRoot.close()
-                            pNetClient.open()
-                        }
-
-                        PopupNetworkClient
-                        {
-                            id: pNetClient
-                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
-                        }
-                    }
-                }
-            }
+            onEntered: showSubmenu(networkMenuPopup)
+            onClicked: showSubmenu(networkMenuPopup)
         }
 
         ContextMenuEntry
@@ -509,124 +802,12 @@ Popup
 
         ContextMenuEntry
         {
+            id: languageEntry
             faSource: FontAwesome.fa_earth_europe
             faColor: "deepskyblue"
             entryText: qsTr("Language")
-            onEntered: submenuItem = languageMenu
-
-            onClicked:
-            {
-                if (Qt.platform.os === "android")
-                    submenuItem = languageMenu
-            }
-
-            Rectangle
-            {
-                id: languageMenu
-                x: menuRoot.width
-                y: -height + parent.height
-                width: languageColumn.width
-                height: languageColumn.height
-                color: UISettings.bgStrong
-                visible: submenuItem === languageMenu
-
-                GridLayout
-                {
-                    id: languageColumn
-                    columns: 2
-                    columnSpacing: 0
-                    rowSpacing: 0
-
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_ca.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Catalan")
-                        onClicked: setLanguage("ca_ES")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_nl.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Dutch")
-                        onClicked: setLanguage("nl_NL")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_uk_us.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("English")
-                        onClicked: setLanguage("en_EN")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_fr.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("French")
-                        onClicked: setLanguage("fr_FR")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_de.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("German")
-                        onClicked: setLanguage("de_DE")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_it.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Italian")
-                        onClicked: setLanguage("it_IT")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_jp.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Japanese")
-                        onClicked: setLanguage("ja_JP")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_pl.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Polish")
-                        onClicked: setLanguage("pl_PL")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_ru.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Russian")
-                        onClicked: setLanguage("ru_RU")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_es.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Spanish")
-                        onClicked: setLanguage("es_ES")
-                    }
-                    ContextMenuEntry
-                    {
-                        Layout.fillWidth: true
-                        imgSource: "qrc:/flag_ua.svg"
-                        iconWidth: flagSize
-                        entryText: qsTr("Ukrainian")
-                        onClicked: setLanguage("uk_UA")
-                    }
-                }
-            }
+            onEntered: showSubmenu(languageMenuPopup)
+            onClicked: showSubmenu(languageMenuPopup)
         }
 
         ContextMenuEntry
@@ -650,4 +831,3 @@ Popup
         }
     }
 }
-

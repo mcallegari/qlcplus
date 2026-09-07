@@ -102,7 +102,9 @@ install(FILES ${QT_PLUGINS_DIR}/imageformats/libqsvg.dylib DESTINATION ${INSTALL
 # multimedia
 if(QT_MAJOR_VERSION GREATER 5)
     install(FILES ${QT_PLUGINS_DIR}/multimedia/libdarwinmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
-    install(FILES ${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
+    if(EXISTS "${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib")
+        install(FILES ${QT_PLUGINS_DIR}/multimedia/libffmpegmediaplugin.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/multimedia)
+    endif()
 else()
     install(FILES ${QT_PLUGINS_DIR}/audio/libqtaudio_coreaudio.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/audio)
     install(FILES ${QT_PLUGINS_DIR}/mediaservice/libqavfmediaplayer.dylib DESTINATION ${INSTALLROOT}/${PLUGINDIR}/mediaservice)

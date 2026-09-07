@@ -24,9 +24,11 @@ import "."
 Rectangle
 {
     id: baseMenuEntry
+    objectName: "contextMenuEntry"
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
     implicitWidth: itemWidth
     height: iconHeight + 6
+    activeFocusOnTab: true
 
     property string imgSource: ""
     property string entryText: ""
@@ -35,18 +37,41 @@ Rectangle
     property color bgColor: "transparent"
     property color hoverColor: UISettings.highlight
     property color pressColor: UISettings.highlightPressed
+    property real labelMaximumWidth: -1
+    property int labelElide: Text.ElideNone
 
     property int iconHeight: UISettings.iconSizeDefault
     property int iconWidth: iconHeight
-    property int itemWidth: entryRow.width + 20
+    property int itemWidth: entryRow.implicitWidth + 20
 
     signal clicked
     signal entered
     signal exited
 
-    color: bgColor
+    color: activeFocus ? hoverColor : bgColor
     border.color: UISettings.bgLight
     border.width: 1
+
+    Accessible.role: Accessible.Button
+    Accessible.name: entryText
+
+    function trigger()
+    {
+        if (enabled)
+            clicked()
+    }
+
+    Keys.onSpacePressed: event =>
+    {
+        trigger()
+        event.accepted = true
+    }
+    Keys.onReturnPressed: event =>
+    {
+        trigger()
+        event.accepted = true
+    }
+    Accessible.onPressAction: trigger()
 
     states: [
         State
@@ -99,10 +124,13 @@ Rectangle
 
         RobotoText
         {
+            id: entryLabel
             label: entryText
             height: baseMenuEntry.height
             fontSize: UISettings.textSizeDefault
             fontBold: true
+            maximumWidth: baseMenuEntry.labelMaximumWidth
+            textElide: baseMenuEntry.labelElide
         }
     }
 
@@ -113,7 +141,7 @@ Rectangle
         hoverEnabled: baseMenuEntry.visible
         onEntered: baseMenuEntry.entered()
         onExited: baseMenuEntry.exited()
-        onReleased: baseMenuEntry.clicked()
+        onReleased: baseMenuEntry.trigger()
     }
 
     Rectangle

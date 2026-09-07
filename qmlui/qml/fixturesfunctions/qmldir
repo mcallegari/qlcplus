@@ -26,7 +26,9 @@ MenuBarEntry 0.1 ../MenuBarEntry.qml
 MultiColorBox 0.1 ../MultiColorBox.qml
 PaletteFanningBox 0.1 ../PaletteFanningBox.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
+RGBMatrixColorRow 0.1 ../RGBMatrixColorRow.qml
 RobotoText 0.1 ../RobotoText.qml
+ResponsiveFormLabel 0.1 ../ResponsiveFormLabel.qml
 SectionBox 0.1 ../SectionBox.qml
 SidePanel 0.1 ../SidePanel.qml
 TimeEditTool 0.1 ../TimeEditTool.qml

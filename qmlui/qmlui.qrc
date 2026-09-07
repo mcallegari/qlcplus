@@ -4,6 +4,9 @@
 
     <!-- Common components -->
     <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
+    <file alias="ActionsMenuGeometry.qml">qml/ActionsMenuGeometry.qml</file>
+    <file alias="ActionsSubmenuPopup.qml">qml/ActionsSubmenuPopup.qml</file>
+    <file alias="RecentFilesPopup.qml">qml/RecentFilesPopup.qml</file>
     <file alias="BeatGeneratorsPanel.qml">qml/BeatGeneratorsPanel.qml</file>
     <file alias="ChannelToolLoader.qml">qml/ChannelToolLoader.qml</file>
     <file alias="ChaserStepDelegate.qml">qml/ChaserStepDelegate.qml</file>
@@ -24,6 +27,8 @@
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="CustomTextInput.qml">qml/CustomTextInput.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
+    <file alias="DeferredPopupAction.qml">qml/DeferredPopupAction.qml</file>
+    <file alias="PendingWorkspaceAction.qml">qml/PendingWorkspaceAction.qml</file>
     <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>
     <file alias="DMXAddressWidget.qml">qml/DMXAddressWidget.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
@@ -45,9 +50,12 @@
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="MultiColorBox.qml">qml/MultiColorBox.qml</file>
     <file alias="PaletteFanningBox.qml">qml/PaletteFanningBox.qml</file>
+    <file alias="PlatformPopupLoader.qml">qml/PlatformPopupLoader.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="QLCPlusKnob.qml">qml/QLCPlusKnob.qml</file>
+    <file alias="RGBMatrixColorRow.qml">qml/RGBMatrixColorRow.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
+    <file alias="ResponsiveFormLabel.qml">qml/ResponsiveFormLabel.qml</file>
     <file alias="SectionBox.qml">qml/SectionBox.qml</file>
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
     <file alias="SimpleDesk.qml">qml/SimpleDesk.qml</file>
