@@ -585,6 +585,47 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     return QVariant::fromValue(outputSources);
 }
 
+QVariant InputOutputManager::universeFeedbackSources(int universe)
+{
+    QVariantList feedbackSources;
+
+    InputPatch *ip = m_ioMap->inputPatch(universe);
+    if (ip == nullptr)
+        return QVariant::fromValue(feedbackSources);
+
+    QString pluginName = ip->pluginName();
+
+    QString currPlugin;
+    int currLine = -1;
+    OutputPatch *fp = m_ioMap->feedbackPatch(universe);
+    if (fp != nullptr)
+    {
+        currPlugin = fp->pluginName();
+        currLine = fp->output();
+    }
+
+    QLCIOPlugin *plugin = m_doc->ioPluginCache()->plugin(pluginName);
+    int i = 0;
+    foreach (QString pLine, m_ioMap->pluginOutputs(pluginName))
+    {
+        quint32 uni = m_ioMap->outputMapping(pluginName, i);
+        if (uni == InputOutputMap::invalidUniverse() ||
+           (uni == (quint32)universe || (plugin && plugin->capabilities() & QLCIOPlugin::Infinite)))
+        {
+            QVariantMap lineMap;
+            lineMap.insert("universe", universe);
+            lineMap.insert("name", pLine);
+            lineMap.insert("line", i);
+            lineMap.insert("plugin", pluginName);
+            lineMap.insert("checked", (pluginName == currPlugin && i == currLine) ? true : false);
+            feedbackSources.append(lineMap);
+        }
+        i++;
+    }
+
+    return QVariant::fromValue(feedbackSources);
+}
+
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
     m_ioMap->setOutputPatch(universe, plugin, "", "", line.toUInt(), false, index);
@@ -639,6 +680,12 @@ bool InputOutputManager::setFeedbackPatch(int universe, bool enable)
         m_doc->setModified();
     }
     return true;
+}
+
+void InputOutputManager::setFeedbackLine(int universe, QString plugin, int line)
+{
+    m_ioMap->setOutputPatch(universe, plugin, "", "", (quint32)line, true);
+    m_doc->setModified();
 }
 
 void InputOutputManager::removeInputPatch(int universe)

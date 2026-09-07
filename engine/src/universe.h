@@ -232,7 +232,7 @@ public:
      * Get the reference to the feedback plugin associated to this universe.
      * If not present NULL is returned.
      */
-    OutputPatch *feedbackPatch() const;
+    Q_INVOKABLE OutputPatch *feedbackPatch() const;
 
     /**
      * This is the actual function that writes data to an output patch

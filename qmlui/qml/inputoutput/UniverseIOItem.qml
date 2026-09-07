@@ -101,6 +101,7 @@ Rectangle
 
                             universeID: universe ? universe.id : -1
                             patch: universe ? universe.inputPatch : null
+                            universe: uniItem.universe
 
                             Drag.active: ipMouseArea.drag.active
                             Drag.source: ipMouseArea
