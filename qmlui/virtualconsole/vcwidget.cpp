@@ -113,11 +113,11 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     if (widget == nullptr)
         return false;
 
-    m_backgroundImage = widget->m_backgroundImage;
-
     m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
     if (m_hasCustomBackgroundColor == true)
         setBackgroundColor(widget->backgroundColor());
+
+    m_backgroundImage = widget->m_backgroundImage;
 
     m_hasCustomForegroundColor = widget->m_hasCustomForegroundColor;
     if (m_hasCustomForegroundColor == true)
@@ -445,7 +445,6 @@ void VCWidget::setBackgroundImage(QString path)
 
     enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, path);
 
-    m_hasCustomBackgroundColor = false;
     m_backgroundImage = path;
 
     emit backgroundImageChanged(path);
