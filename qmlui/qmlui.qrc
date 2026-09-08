@@ -24,6 +24,8 @@
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="CustomTextInput.qml">qml/CustomTextInput.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
+    <file alias="DeferredPopupAction.qml">qml/DeferredPopupAction.qml</file>
+    <file alias="PendingWorkspaceAction.qml">qml/PendingWorkspaceAction.qml</file>
     <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>
     <file alias="DMXAddressWidget.qml">qml/DMXAddressWidget.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
@@ -45,6 +47,7 @@
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="MultiColorBox.qml">qml/MultiColorBox.qml</file>
     <file alias="PaletteFanningBox.qml">qml/PaletteFanningBox.qml</file>
+    <file alias="PlatformPopupLoader.qml">qml/PlatformPopupLoader.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="QLCPlusKnob.qml">qml/QLCPlusKnob.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>

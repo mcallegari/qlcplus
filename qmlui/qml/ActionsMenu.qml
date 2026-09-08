@@ -33,19 +33,42 @@ Popup
     property Item submenuItem: null
     property int flagSize: UISettings.iconSizeDefault * 1.5
 
-    onClosed: submenuItem = null
+    onClosed:
+    {
+        submenuItem = null
+        openFileCoordinator.completeDismissal()
+        recentFileCoordinator.completeDismissal()
+    }
 
     function handleSaveAction()
     {
         if (qlcplus.fileName())
-            qlcplus.saveWorkspace(qlcplus.fileName())
+        {
+            if (qlcplus.saveWorkspace(qlcplus.fileName()))
+                pendingWorkspaceAction.dispatch(false)
+            else
+                pendingWorkspaceAction.cancel()
+        }
         else
             openDialog(App.SaveAsMode)
     }
 
+    function handleOpenAction()
+    {
+        if (qlcplus.docModified)
+        {
+            pendingWorkspaceAction.action = "#OPEN"
+            saveFirstPopup.open()
+        }
+        else
+            openDialog(App.OpenMode)
+
+        menuRoot.close()
+    }
+
     function saveBeforeExit()
     {
-        saveFirstPopup.action = "#EXIT"
+        pendingWorkspaceAction.action = "#EXIT"
         saveFirstPopup.open()
     }
 
@@ -82,7 +105,7 @@ Popup
         }
 
         if (Qt.platform.os === "linux")
-            customDialog.open()
+            customDialogLoader.item.open()
         else
             nativeDialog.open()
     }
@@ -90,6 +113,8 @@ Popup
     function handleAccept()
     {
         console.log("Selected file: " + dialogSelectedFile)
+
+        let dispatchPendingActionOnClose = false
 
         switch (dialogOpMode)
         {
@@ -106,10 +131,10 @@ Popup
             case App.SaveMode:
             case App.SaveAsMode:
             {
-                qlcplus.saveWorkspace(dialogSelectedFile)
-
-                if (saveFirstPopup.action == "#EXIT")
-                    qlcplus.exit()
+                if (qlcplus.saveWorkspace(dialogSelectedFile))
+                    dispatchPendingActionOnClose = pendingWorkspaceAction.hasAction
+                else
+                    pendingWorkspaceAction.cancel()
             }
             break
             case App.ImportMode:
@@ -122,6 +147,8 @@ Popup
             }
             break
         }
+
+        return dispatchPendingActionOnClose
     }
 
     FileDialog
@@ -136,25 +163,138 @@ Popup
         {
             dialogSelectedFile = selectedFile
             dialogCurrentFolder = currentFolder
-            handleAccept()
+            if (handleAccept())
+            {
+                nativeDialogSaveCoordinator.trigger()
+                if (!visible)
+                    nativeDialogSaveCoordinator.completeDismissal()
+            }
+        }
+
+        onRejected: pendingWorkspaceAction.cancel()
+        onVisibleChanged:
+        {
+            if (!visible)
+                nativeDialogSaveCoordinator.completeDismissal()
         }
     }
 
-    PopupFolderBrowser
+    PlatformPopupLoader
     {
-        id: customDialog
-        title: dialogTitle
-        currentFolder: dialogCurrentFolder
-        nameFilters: dialogNameFilters
-        standardButtons: Dialog.Cancel |
-            ((dialogOpMode === App.SaveMode | dialogOpMode === App.SaveAsMode) ? Dialog.Save : Dialog.Open)
+        id: customDialogLoader
 
-        onAccepted:
+        sourceComponent: Component
         {
-            dialogSelectedFile = currentFolder + folderSeparator() + selectedFile
-            dialogCurrentFolder = currentFolder
-            handleAccept()
+            PopupFolderBrowser
+            {
+                title: dialogTitle
+                currentFolder: dialogCurrentFolder
+                nameFilters: dialogNameFilters
+                standardButtons: Dialog.Cancel |
+                    ((dialogOpMode === App.SaveMode | dialogOpMode === App.SaveAsMode) ? Dialog.Save : Dialog.Open)
+
+                onAccepted:
+                {
+                    dialogSelectedFile = currentFolder + folderSeparator() + selectedFile
+                    dialogCurrentFolder = currentFolder
+                    if (handleAccept())
+                        customDialogSaveCoordinator.trigger()
+                }
+
+                onRejected: pendingWorkspaceAction.cancel()
+
+                onClosed:
+                {
+                    customDialogSaveCoordinator.completeDismissal()
+                }
+            }
         }
+    }
+
+    DeferredPopupAction
+    {
+        id: openFileCoordinator
+
+        onDismissRequested:
+        {
+            submenuItem = null
+            menuRoot.close()
+        }
+        onActionRequested: handleOpenAction()
+    }
+
+    DeferredPopupAction
+    {
+        id: recentFileCoordinator
+
+        property string filePath: ""
+
+        onDismissRequested:
+        {
+            submenuItem = null
+            menuRoot.close()
+        }
+        onActionRequested:
+        {
+            const selectedFilePath = filePath
+            filePath = ""
+
+            if (qlcplus.docModified)
+            {
+                pendingWorkspaceAction.action = selectedFilePath
+                saveFirstPopup.open()
+            }
+            else
+                qlcplus.loadWorkspace(selectedFilePath)
+        }
+    }
+
+    PendingWorkspaceAction
+    {
+        id: pendingWorkspaceAction
+
+        onOpenRequested: openDialog(App.OpenMode)
+        onNewRequested: qlcplus.newWorkspace()
+        onExitRequested: function(discardChanges) {
+            qlcplus.exit(discardChanges)
+        }
+        onRecentRequested: function(filePath) {
+            qlcplus.loadWorkspace(filePath)
+        }
+    }
+
+    DeferredPopupAction
+    {
+        id: saveFirstCoordinator
+
+        property int selectedRole: Dialog.Cancel
+
+        onDismissRequested: saveFirstPopup.close()
+        onActionRequested:
+        {
+            if (selectedRole === Dialog.Yes)
+                handleSaveAction()
+            else if (selectedRole === Dialog.No)
+                pendingWorkspaceAction.dispatch(true)
+            else
+                pendingWorkspaceAction.cancel()
+
+            selectedRole = Dialog.Cancel
+        }
+    }
+
+    DeferredPopupAction
+    {
+        id: customDialogSaveCoordinator
+
+        onActionRequested: pendingWorkspaceAction.dispatch(false)
+    }
+
+    DeferredPopupAction
+    {
+        id: nativeDialogSaveCoordinator
+
+        onActionRequested: pendingWorkspaceAction.dispatch(false)
     }
 
     CustomPopupDialog
@@ -166,45 +306,18 @@ Popup
         message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
-        property string action: ""
+        onClosed:
+        {
+            if (saveFirstCoordinator.pending)
+                saveFirstCoordinator.completeDismissal()
+            else
+                pendingWorkspaceAction.cancel()
+        }
 
         onClicked: function(role)
         {
-            if (role === Dialog.Yes)
-            {
-                if (qlcplus.fileName())
-                {
-                    console.log("YES clicked 1")
-                    qlcplus.saveWorkspace(qlcplus.fileName())
-                    if (action == "#EXIT")
-                        qlcplus.exit()
-                }
-                else
-                {
-                    console.log("YES clicked 2")
-                    //openDialog(App.SaveMode)
-                    handleSaveAction()
-                    if (action == "#EXIT")
-                        return
-                }
-            }
-            else if (role === Dialog.No)
-            {
-                if (action == "#OPEN")
-                    openDialog(App.OpenMode)
-                else if (action == "#NEW")
-                    qlcplus.newWorkspace()
-                else if (action == "#EXIT")
-                    qlcplus.exit(true)
-                else
-                    qlcplus.loadWorkspace(action)
-            }
-            else if (role === Dialog.Cancel)
-            {
-                console.log("Cancel clicked")
-            }
-
-            action = ""
+            saveFirstCoordinator.selectedRole = role
+            saveFirstCoordinator.trigger()
         }
     }
 
@@ -231,7 +344,7 @@ Popup
             {
                 if (qlcplus.docModified)
                 {
-                    saveFirstPopup.action = "#NEW"
+                    pendingWorkspaceAction.action = "#NEW"
                     saveFirstPopup.open()
                 }
                 else
@@ -247,18 +360,7 @@ Popup
             id: fileOpen
             imgSource: "qrc:/fileopen.svg"
             entryText: qsTr("Open file")
-            onClicked:
-            {
-                if (qlcplus.docModified)
-                {
-                    saveFirstPopup.action = "#OPEN"
-                    saveFirstPopup.open()
-                }
-                else
-                    openDialog(App.OpenMode)
-
-                menuRoot.close()
-            }
+            onClicked: openFileCoordinator.trigger()
             onEntered: submenuItem = recentMenu
 
             Rectangle
@@ -282,16 +384,8 @@ Popup
                                 entryText: modelData
                                 onClicked:
                                 {
-                                    if (qlcplus.docModified)
-                                    {
-                                        saveFirstPopup.open()
-                                        saveFirstPopup.action = entryText
-                                    }
-                                    else
-                                    {
-                                        menuRoot.close()
-                                        qlcplus.loadWorkspace(entryText)
-                                    }
+                                    recentFileCoordinator.filePath = entryText
+                                    recentFileCoordinator.trigger()
                                 }
                             }
                         }
@@ -650,4 +744,3 @@ Popup
         }
     }
 }
-
