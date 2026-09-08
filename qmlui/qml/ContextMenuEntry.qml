@@ -35,10 +35,12 @@ Rectangle
     property color bgColor: "transparent"
     property color hoverColor: UISettings.highlight
     property color pressColor: UISettings.highlightPressed
+    property real labelMaximumWidth: -1
+    property int labelElide: Text.ElideNone
 
     property int iconHeight: UISettings.iconSizeDefault
     property int iconWidth: iconHeight
-    property int itemWidth: entryRow.width + 20
+    property int itemWidth: entryRow.implicitWidth + 20
 
     signal clicked
     signal entered
@@ -99,10 +101,13 @@ Rectangle
 
         RobotoText
         {
+            id: entryLabel
             label: entryText
             height: baseMenuEntry.height
             fontSize: UISettings.textSizeDefault
             fontBold: true
+            maximumWidth: baseMenuEntry.labelMaximumWidth
+            textElide: baseMenuEntry.labelElide
         }
     }
 

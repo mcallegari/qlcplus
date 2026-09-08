@@ -23,7 +23,9 @@ import "."
 Rectangle
 {
     id: rtRoot
-    width: wrapText ? 100 : leftMargin + textBox.paintedWidth + rightMargin
+    width: wrapText ? 100 : maximumWidth >= 0 ?
+        Math.min(naturalWidth, maximumWidth) :
+        leftMargin + textBox.paintedWidth + rightMargin
     height: UISettings.iconSizeDefault
 
     color: "transparent"
@@ -39,6 +41,9 @@ Rectangle
     property int textVAlign: wrapText ? Text.AlignVCenter : Text.AlignTop
     property alias leftMargin: textBox.x
     property real rightMargin: 0
+    readonly property real naturalWidth: leftMargin + textBox.implicitWidth + rightMargin
+    property real maximumWidth: -1
+    property alias textElide: textBox.elide
 
     Text
     {
@@ -57,4 +62,3 @@ Rectangle
         verticalAlignment: textVAlign
     }
 }
-

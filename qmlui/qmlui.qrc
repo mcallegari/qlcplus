@@ -4,6 +4,9 @@
 
     <!-- Common components -->
     <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
+    <file alias="ActionsMenuGeometry.qml">qml/ActionsMenuGeometry.qml</file>
+    <file alias="ActionsSubmenuPopup.qml">qml/ActionsSubmenuPopup.qml</file>
+    <file alias="RecentFilesPopup.qml">qml/RecentFilesPopup.qml</file>
     <file alias="BeatGeneratorsPanel.qml">qml/BeatGeneratorsPanel.qml</file>
     <file alias="ChannelToolLoader.qml">qml/ChannelToolLoader.qml</file>
     <file alias="ChaserStepDelegate.qml">qml/ChaserStepDelegate.qml</file>

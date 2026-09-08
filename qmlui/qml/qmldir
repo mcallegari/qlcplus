@@ -1,6 +1,7 @@
 singleton UISettings 1.0 UISettings.qml
 singleton FontAwesome 1.0 FontAwesomeVariables.qml
 
+ActionsSubmenuPopup 0.1 ActionsSubmenuPopup.qml
 ChaserStepDelegate 0.1 ChaserStepDelegate.qml
 ChaserWidget 0.1 ChaserWidget.qml
 ColorTool 0.1 ColorTool.qml
