@@ -172,11 +172,13 @@ public:
     Q_INVOKABLE void setInputProfile(int universe, QString profileName);
 
     Q_INVOKABLE void configurePlugin(bool input);
+    Q_INVOKABLE void configurePluginByName(QString pluginName);
 
     bool inputCanConfigure() const;
     bool outputCanConfigure() const;
 
 signals:
+    void ioSourcesChanged();
     void inputCanConfigureChanged();
     void outputCanConfigureChanged();
 
