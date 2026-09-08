@@ -35,6 +35,7 @@ MultiColorBox 0.1 MultiColorBox.qml
 QLCPlusFader 0.1 QLCPlusFader.qml
 QLCPlusKnob 0.1 QLCPlusKnob.qml
 RobotoText 0.1 RobotoText.qml
+ResponsiveFormLabel 0.1 ResponsiveFormLabel.qml
 SectionBox 0.1 SectionBox.qml
 SidePanel 0.1 SidePanel.qml
 TimeEditTool 0.1 TimeEditTool.qml
