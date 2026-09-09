@@ -1,0 +1,16 @@
+# Q Light Controller Plus - tileable pleated stage curtain
+# Heavy velour. Fixture light is applied as plain diffuse Lambert, so the diffuse
+# colour alone decides how much of a beam the curtain gives back. It is set high
+# enough that a beam carries the fabric into the compressive part of the tone
+# mapping, where the falloff spreads and softens rather than tracking the folds.
+# The specular is only reached by the ambient pass, and is deliberately broad -
+# a low exponent - so that it reads as light sitting in the nap of a thick cloth
+# rather than as a highlight on its surface. The softness of the shading across a
+# fold comes from the mesh, whose normals are much flatter than its geometry.
+newmtl curtain
+Ka 0.000000 0.000000 0.000000
+Kd 0.420000 0.390000 0.390000
+Ks 0.250000 0.240000 0.240000
+Ns 6.000000
+d 1.000000
+illum 2

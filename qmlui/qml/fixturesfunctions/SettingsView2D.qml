@@ -79,7 +79,7 @@ Rectangle
         }
         else
         {
-            contextManager.fixturesRotation = Qt.vector3d(rot.x - lastRotation.x, rot.y - lastRotation.y, rot.z - lastRotation.z)
+            contextManager.rotateFixtures(Qt.vector3d(rot.x - lastRotation.x, rot.y - lastRotation.y, rot.z - lastRotation.z))
             lastRotation = Qt.vector3d(rot.x, rot.y, rot.z)
         }
     }

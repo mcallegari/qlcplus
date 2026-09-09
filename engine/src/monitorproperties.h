@@ -137,6 +137,56 @@ private:
     StageType m_stageType;
 
     /********************************************************************
+     * 3D View rendering
+     ********************************************************************/
+public:
+    /** Get/Set the 3D view render quality. The value matches the
+     *  MainView3D::RenderQuality enum (0 = Low ... 3 = Ultra) */
+    inline void setRenderQuality(int quality) { m_renderQuality = quality; }
+    inline int renderQuality() const { return m_renderQuality; }
+
+    /** Get/Set the 3D view ambient light intensity (0.0 - 1.0) */
+    inline void setAmbientLightIntensity(qreal intensity) { m_ambientLightIntensity = intensity; }
+    inline qreal ambientLightIntensity() const { return m_ambientLightIntensity; }
+
+    /** Get/Set the 3D view smoke/haze amount (0.0 - 1.0) */
+    inline void setSmokeAmount(qreal amount) { m_smokeAmount = amount; }
+    inline qreal smokeAmount() const { return m_smokeAmount; }
+
+    /** Get/Set the 3D view fixture light intensity: a global multiplier on the
+     *  light fixtures cast on surfaces (1.0 = unscaled). Ambient light governs
+     *  how bright the set is on its own, so this is what sets the balance
+     *  between the two when a rig has enough fixtures to wash the stage out.
+     *  The volumetric beams in the air are not affected: those are already
+     *  scaled by the smoke amount. */
+    inline void setFixtureLightIntensity(qreal intensity) { m_fixtureLightIntensity = intensity; }
+    inline qreal fixtureLightIntensity() const { return m_fixtureLightIntensity; }
+
+    /** Get/Set whether the 3D view FPS counter overlay is shown */
+    inline void setShowFPS(bool show) { m_showFPS = show; }
+    inline bool showFPS() const { return m_showFPS; }
+
+private:
+    int m_renderQuality;
+    qreal m_ambientLightIntensity;
+    qreal m_smokeAmount;
+    qreal m_fixtureLightIntensity;
+    bool m_showFPS;
+
+    /********************************************************************
+     * 3D View editing
+     ********************************************************************/
+public:
+    /** Get/Set whether the 3D view "Scale" X/Y/Z fields of a generic item
+     *  are locked together, i.e. editing one of them scales the item
+     *  uniformly on the three axes */
+    inline void setScaleLocked(bool locked) { m_scaleLocked = locked; }
+    inline bool scaleLocked() const { return m_scaleLocked; }
+
+private:
+    bool m_scaleLocked;
+
+    /********************************************************************
      * Items flags
      ********************************************************************/
 public:
@@ -278,6 +328,17 @@ public:
     /** Get/Set the resource string for an item with ID $itemID */
     QString itemResource(quint32 itemID) const;
     void setItemResource(quint32 itemID, QString resource);
+
+    /** Get/Set the base color for an item with ID $itemID.
+     *  Items with no custom color set report $defaultItemColor */
+    QColor itemColor(quint32 itemID) const;
+    void setItemColor(quint32 itemID, QColor color);
+
+    /** The color reported for a generic item that has no custom color set.
+     *  It is the neutral grey the 3D view renders a mesh with when the mesh
+     *  carries no material of its own, so an item left at this color looks
+     *  exactly like it did before base colors existed */
+    static QColor defaultItemColor();
 
     /** Get/Set the 3D position of an item with ID $itemID */
     QVector3D itemPosition(quint32 itemID) const;

@@ -48,30 +48,20 @@ Rectangle
     property vector3d lastScale
     property bool isUpdating: false
 
-    onSelFixturesCountChanged:
+    onSelFixturesCountChanged: refreshItemValues()
+
+    onSelGenericCountChanged: refreshItemValues()
+
+    // Display the values of the selected item, whatever its type.
+    // With more than one item selected, the editable values become
+    // relative offsets, so they are reset to a neutral base
+    function refreshItemValues()
     {
         isUpdating = true
-        var pos = contextManager.fixturesPosition
-        var rot = contextManager.fixturesRotation
-        if (selFixturesCount + selGenericCount > 1)
-        {
-            lastPosition = Qt.vector3d(0, 0, 0)
-            lastRotation = Qt.vector3d(0, 0, 0)
-            pos = lastPosition
-            rot = lastRotation
-        }
+        var pos
+        var rot
+        var scl
 
-        currentPosition = pos
-        currentRotation = rot
-        isUpdating = false
-    }
-
-    onSelGenericCountChanged:
-    {
-        isUpdating = true
-        var pos = View3D.genericItemsPosition
-        var rot = View3D.genericItemsRotation
-        var scl = View3D.genericItemsScale
         if (selFixturesCount + selGenericCount > 1)
         {
             lastPosition = Qt.vector3d(0, 0, 0)
@@ -80,6 +70,19 @@ Rectangle
             pos = lastPosition
             rot = lastRotation
             scl = lastScale
+        }
+        else if (selGenericCount == 1)
+        {
+            pos = View3D.genericItemsPosition
+            rot = View3D.genericItemsRotation
+            scl = View3D.genericItemsScale
+        }
+        else
+        {
+            // a single fixture, or nothing selected
+            pos = contextManager.fixturesPosition
+            rot = contextManager.fixturesRotation
+            scl = currentScale
         }
 
         currentPosition = pos
@@ -90,25 +93,36 @@ Rectangle
 
     onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
+    // an item can also change without the selection changing: an undo or redo,
+    // or a drag in the 3D view. Follow those, but only when a single item is
+    // selected, because with more than one the fields hold the relative offset
+    // entered so far rather than any item's own values
+    function refreshSelectedItemValues()
+    {
+        if (selFixturesCount + selGenericCount == 1)
+            refreshItemValues()
+    }
+
+    Connections
+    {
+        target: contextManager
+        function onFixturesPositionChanged() { refreshSelectedItemValues() }
+        function onFixturesRotationChanged() { refreshSelectedItemValues() }
+    }
+
+    Connections
+    {
+        target: View3D
+        function onGenericItemsPositionChanged() { refreshSelectedItemValues() }
+        function onGenericItemsRotationChanged() { refreshSelectedItemValues() }
+        function onGenericItemsScaleChanged() { refreshSelectedItemValues() }
+    }
+
     function refreshPositionValues(generic)
     {
         isUpdating = true
         currentPosition = generic ? View3D.genericItemsPosition : contextManager.fixturesPosition
         isUpdating = false
-    }
-
-    ModelSelector
-    {
-        id: giSelector
-        onItemsCountChanged: { }
-
-        // keep the 3D view selection in sync with the list selection,
-        // including multi-row (range) selections. Use ControlModifier so
-        // each row is added/removed without clearing the others
-        onItemSelectionChanged: (itemIndex, selected) =>
-        {
-            View3D.setItemSelectionByIndex(itemIndex, selected, Qt.ControlModifier)
-        }
     }
 
     // catch wheel events over the whole panel so they don't
@@ -229,6 +243,7 @@ Rectangle
                         Component.onCompleted:
                         {
                             ambIntSpin.value = View3D.ambientIntensity * 100
+                            fxLightSpin.value = View3D.fixtureLightIntensity * 100
                             smokeSpin.value = View3D.smokeAmount * 100
                         }
 
@@ -262,6 +277,19 @@ Rectangle
                         }
 
                         // row 3
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Fixture light") }
+                        CustomSpinBox
+                        {
+                            id: fxLightSpin
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            from: 0
+                            to: 200
+                            suffix: "%"
+                            onValueModified: View3D.fixtureLightIntensity = value / 100
+                        }
+
+                        // row 4
                         RobotoText { height: UISettings.listItemHeight; label: qsTr("Smoke amount") }
                         CustomSpinBox
                         {
@@ -274,7 +302,7 @@ Rectangle
                             onValueModified: View3D.smokeAmount = value / 100
                         }
 
-                        // row 4
+                        // row 5
                         RobotoText { height: UISettings.listItemHeight; label: qsTr("Show FPS") }
                         CustomCheckBox
                         {
@@ -325,9 +353,12 @@ Rectangle
                             }
                             else
                             {
+                                // more than one item is selected, so the fields hold an
+                                // offset from the neutral base they were reset to. Every
+                                // item moves by that much, whatever its type
                                 var newPos = Qt.vector3d(x - lastPosition.x, y - lastPosition.y, z - lastPosition.z)
-                                contextManager.fixturesPosition = newPos
-                                View3D.genericItemsPosition = newPos
+                                contextManager.moveFixtures(newPos)
+                                View3D.moveGenericItems(newPos)
                                 lastPosition = Qt.vector3d(x, y, z)
                             }
                         }
@@ -426,9 +457,11 @@ Rectangle
                             }
                             else
                             {
+                                // more than one item is selected: rotate each of them by
+                                // the offset entered, rather than setting an absolute angle
                                 var newRot = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
-                                contextManager.fixturesRotation = newRot
-                                View3D.genericItemsRotation = newRot
+                                contextManager.rotateFixtures(newRot)
+                                View3D.rotateGenericItems(newRot)
                                 lastRotation = Qt.vector3d(x, y, z)
                             }
                         }
@@ -514,14 +547,16 @@ Rectangle
                             if (isUpdating)
                                 return;
 
-                            if (selGenericCount == 1)
+                            if (selFixturesCount == 0 && selGenericCount == 1)
                             {
                                 View3D.genericItemsScale = Qt.vector3d(x, y, z)
                             }
                             else
                             {
+                                // more than one item is selected, so the fields hold an
+                                // offset from the neutral 100% they were reset to
                                 var newScale = Qt.vector3d(x - lastScale.x, y - lastScale.y, z - lastScale.z)
-                                View3D.genericItemsScale = newScale
+                                View3D.scaleGenericItems(newScale)
                                 lastScale = Qt.vector3d(x, y, z)
                             }
                             if (scaleLocked.checked)
@@ -581,7 +616,21 @@ Rectangle
                                 height: width
                                 imgSource: "qrc:/lock.svg"
                                 checkable: true
-                                checked: true
+                                checked: View3D ? View3D.scaleLocked : true
+                                onToggled: View3D.scaleLocked = checked
+
+                                // clicking a checkable Button assigns "checked" and
+                                // therefore breaks the binding above, so the value
+                                // has to be restored explicitly when it changes on
+                                // the C++ side (e.g. on project load)
+                                Connections
+                                {
+                                    target: View3D
+                                    function onScaleLockedChanged()
+                                    {
+                                        scaleLocked.checked = View3D.scaleLocked
+                                    }
+                                }
                             }
                         }
 
@@ -726,23 +775,74 @@ Rectangle
                             }
                         }
 
+                        GridLayout
+                        {
+                            visible: selGenericCount
+                            Layout.fillWidth: true
+                            columns: 2
+                            columnSpacing: 5
+                            rowSpacing: 4
+
+                            // row 1
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                label: qsTr("Name")
+                            }
+                            CustomTextEdit
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                // a name identifies a single item
+                                enabled: selGenericCount === 1
+                                text: View3D.genericItemsName
+
+                                onTextEdited: View3D.genericItemsName = text
+                            }
+
+                            // row 2
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                label: qsTr("Color")
+                            }
+                            Rectangle
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                color: View3D.genericItemsColor
+                                border.width: 1
+                                border.color: UISettings.bgLight
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onClicked: itemColorTool.visible = !itemColorTool.visible
+                                }
+                            }
+                        }
+
                         ListView
                         {
                             id: itemsList
-                            width: parent.width
-                            // show all the items and let the Flickable scrollbar handle
-                            // scrolling, so there are not two nested scrollbars
-                            height: count * UISettings.listItemHeight
-                            interactive: false
+                            Layout.fillWidth: true
+                            // show at most a handful of items and let the list
+                            // scroll on its own beyond that, so a long list does
+                            // not push the rest of the panel out of reach.
+                            // The height has to go through the layout, which
+                            // would otherwise size the list by its implicit
+                            // height and collapse it
+                            Layout.preferredHeight: Math.min(count, 8) * UISettings.listItemHeight
                             model: View3D.genericItemsList
                             clip: true
+                            ScrollBar.vertical: CustomScrollBar { id: itemsScrollBar }
 
                             delegate:
                                 Rectangle
                                 {
-                                    // account for the Flickable scrollbar so the lock
+                                    // account for the list scrollbar so the lock
                                     // icon on the right edge stays visible
-                                    width: itemsList.width - (sbar.visible ? sbar.width : 0)
+                                    width: itemsList.width - (itemsScrollBar.visible ? itemsScrollBar.width : 0)
                                     height: UISettings.listItemHeight
                                     color: isSelected ? UISettings.highlight : "transparent"
 
@@ -760,9 +860,13 @@ Rectangle
                                             anchors.fill: parent
                                             onClicked: (mouse) =>
                                             {
-                                                // giSelector.onItemSelectionChanged keeps the
-                                                // 3D view selection in sync (see above)
-                                                giSelector.selectItem(index, itemsList.model, mouse.modifiers)
+                                                // the 3D view owns the selection and highlights the
+                                                // rows of the items it holds, so a click here and a
+                                                // click on the mesh itself cannot drift apart.
+                                                // A plain click selects this item alone, Ctrl adds
+                                                // or removes it and Shift extends the selection
+                                                var select = (mouse.modifiers & Qt.ControlModifier) ? !isSelected : true
+                                                View3D.setItemSelectionByIndex(index, select, mouse.modifiers)
                                             }
                                         }
                                     }
@@ -785,4 +889,21 @@ Rectangle
         } // Column
         ScrollBar.vertical: CustomScrollBar { id: sbar }
     } // Flickable
+
+    ColorTool
+    {
+        id: itemColorTool
+        // open to the left of the panel, where there is room for it
+        x: -width
+        y: (settingsRoot.height - height) / 2
+        z: 10
+        visible: false
+
+        onToolColorChanged:
+            function(r, g, b, w, a, uv)
+            {
+                View3D.genericItemsColor = Qt.rgba(r, g, b, 1.0)
+            }
+        onClose: visible = false
+    }
 }

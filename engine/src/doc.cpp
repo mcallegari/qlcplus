@@ -596,6 +596,8 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
             ChannelModifier *chMod = fixture->channelModifier(s);
             if (chMod != NULL)
                 newFixture->setChannelModifier(s, chMod);
+            else
+                newFixture->setUnknownChannelModifier(s, fixture->channelModifierName(s));
         }
 
         m_fixtures.insert(id, newFixture);
