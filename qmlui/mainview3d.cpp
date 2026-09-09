@@ -99,10 +99,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_position3DMarker(QVector3D())
     , m_position3DMarkerVisible(false)
     , m_markerEntity(nullptr)
-    , m_renderQuality(HighQuality)
     , m_stageEntity(nullptr)
-    , m_ambientIntensity(0.6)
-    , m_smokeAmount(0.8)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -179,6 +176,10 @@ void MainView3D::slotRefreshView()
     // recreate the stage entity and notify the UI to update the selector
     createStage();
     emit stageIndexChanged(m_monProps->stageType());
+
+    // re-apply the persisted "Rendering" settings (quality, ambient light,
+    // smoke, show FPS) that may have changed on project load
+    applyRenderSettings();
 
     for (Fixture *fixture : m_doc->fixtures())
     {
@@ -391,6 +392,18 @@ bool MainView3D::frameCountEnabled() const
 }
 
 void MainView3D::setFrameCountEnabled(bool enable)
+{
+    if (m_frameCountEnabled == enable)
+        return;
+
+    applyFrameCountEnabled(enable);
+
+    // persist the choice in the project (see MonitorProperties)
+    m_monProps->setShowFPS(enable);
+    m_doc->setModified();
+}
+
+void MainView3D::applyFrameCountEnabled(bool enable)
 {
     if (m_frameCountEnabled == enable)
         return;
@@ -2606,16 +2619,17 @@ void MainView3D::setPosition3DMarkerVisible(bool visible)
 
 MainView3D::RenderQuality MainView3D::renderQuality() const
 {
-    return m_renderQuality;
+    return RenderQuality(m_monProps->renderQuality());
 }
 
 void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
 {
-    if (m_renderQuality == renderQuality)
+    if (m_monProps->renderQuality() == int(renderQuality))
         return;
 
-    m_renderQuality = renderQuality;
-    emit renderQualityChanged(m_renderQuality);
+    m_monProps->setRenderQuality(int(renderQuality));
+    m_doc->setModified();
+    emit renderQualityChanged(renderQuality);
 }
 
 QStringList MainView3D::stagesList() const
@@ -2662,30 +2676,58 @@ void MainView3D::createStage()
 
 float MainView3D::ambientIntensity() const
 {
-    return m_ambientIntensity;
+    return m_monProps->ambientLightIntensity();
 }
 
 void MainView3D::setAmbientIntensity(float ambientIntensity)
 {
-    if (m_ambientIntensity == ambientIntensity)
+    if (float(m_monProps->ambientLightIntensity()) == ambientIntensity)
         return;
 
-    m_ambientIntensity = ambientIntensity;
-    emit ambientIntensityChanged(m_ambientIntensity);
+    m_monProps->setAmbientLightIntensity(ambientIntensity);
+    m_doc->setModified();
+    emit ambientIntensityChanged(ambientIntensity);
 }
 
 float MainView3D::smokeAmount() const
 {
-    return m_smokeAmount;
+    return m_monProps->smokeAmount();
 }
 
 void MainView3D::setSmokeAmount(float smokeAmount)
 {
-    if (m_smokeAmount == smokeAmount)
+    if (float(m_monProps->smokeAmount()) == smokeAmount)
         return;
 
-    m_smokeAmount = smokeAmount;
-    emit smokeAmountChanged(m_smokeAmount);
+    m_monProps->setSmokeAmount(smokeAmount);
+    m_doc->setModified();
+    emit smokeAmountChanged(smokeAmount);
+}
+
+float MainView3D::fixtureLightIntensity() const
+{
+    return m_monProps->fixtureLightIntensity();
+}
+
+void MainView3D::setFixtureLightIntensity(float intensity)
+{
+    if (float(m_monProps->fixtureLightIntensity()) == intensity)
+        return;
+
+    m_monProps->setFixtureLightIntensity(intensity);
+    m_doc->setModified();
+    emit fixtureLightIntensityChanged(intensity);
+}
+
+void MainView3D::applyRenderSettings()
+{
+    // The values already live in m_monProps (set defaults, or loaded from the
+    // project). Push them to the QML side / shaders and sync the FPS counter.
+    emit renderQualityChanged(renderQuality());
+    emit ambientIntensityChanged(ambientIntensity());
+    emit smokeAmountChanged(smokeAmount());
+    emit fixtureLightIntensityChanged(fixtureLightIntensity());
+    applyFrameCountEnabled(m_monProps->showFPS());
 }
 
 bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
