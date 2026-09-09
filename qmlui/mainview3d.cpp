@@ -96,13 +96,11 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_gBuffer(nullptr)
     , m_latestGenericID(0)
     , m_initRetryCount(0)
+    , m_genericPreviousIndex(-1)
     , m_position3DMarker(QVector3D())
     , m_position3DMarkerVisible(false)
     , m_markerEntity(nullptr)
-    , m_renderQuality(HighQuality)
     , m_stageEntity(nullptr)
-    , m_ambientIntensity(0.6)
-    , m_smokeAmount(0.8)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -179,6 +177,14 @@ void MainView3D::slotRefreshView()
     // recreate the stage entity and notify the UI to update the selector
     createStage();
     emit stageIndexChanged(m_monProps->stageType());
+
+    // re-apply the persisted "Rendering" settings (quality, ambient light,
+    // smoke, show FPS) that may have changed on project load
+    applyRenderSettings();
+
+    // the "Scale" lock is persisted too. It only affects the settings panel,
+    // so notifying the QML side is enough
+    emit scaleLockedChanged();
 
     for (Fixture *fixture : m_doc->fixtures())
     {
@@ -266,6 +272,8 @@ void MainView3D::resetItems()
     }
     m_genericMap.clear();
     m_genericItemsList->clear();
+    m_genericSelectedItems.clear();
+    m_genericPreviousIndex = -1;
     m_latestGenericID = 0;
     m_createItemCount = 0;
 
@@ -391,6 +399,18 @@ bool MainView3D::frameCountEnabled() const
 }
 
 void MainView3D::setFrameCountEnabled(bool enable)
+{
+    if (m_frameCountEnabled == enable)
+        return;
+
+    applyFrameCountEnabled(enable);
+
+    // persist the choice in the project (see MonitorProperties)
+    m_monProps->setShowFPS(enable);
+    m_doc->setModified();
+}
+
+void MainView3D::applyFrameCountEnabled(bool enable)
 {
     if (m_frameCountEnabled == enable)
         return;
@@ -722,6 +742,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_selectionBox = nullptr;
     mesh->m_goboTexture = nullptr;
     mesh->m_generation = m_sceneGeneration;
+    mesh->m_tileWidth = 0;
     m_createItemCount++;
 
     if (fixture->type() == QLCFixtureDef::LEDBarBeams)
@@ -2013,6 +2034,21 @@ void MainView3D::removeFixtureItem(quint32 itemID)
  * Generic items
  *********************************************************************/
 
+qreal MainView3D::meshTileWidth(const QString &source)
+{
+    // <name>_tile_<N>m.<ext>, where N is the section width in metres
+    QRegularExpression re(QStringLiteral("_tile_([0-9]+(?:\\.[0-9]+)?)m\\.[^.]+$"));
+    QRegularExpressionMatch match = re.match(source);
+
+    if (match.hasMatch() == false)
+        return 0;
+
+    bool ok = false;
+    qreal width = match.captured(1).toDouble(&ok);
+
+    return ok && width > 0 ? width : 0;
+}
+
 void MainView3D::createGenericItem(QString filename, int itemID)
 {
     if (isEnabled() == false)
@@ -2085,6 +2121,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
     mesh->m_selectionBox = nullptr;
     mesh->m_goboTexture = nullptr;
     mesh->m_generation = m_sceneGeneration;
+    mesh->m_tileWidth = meshTileWidth(filename);
 
     QEntity *newItem = qobject_cast<QEntity *>(m_genericComponent->create());
     if (newItem == nullptr)
@@ -2178,6 +2215,14 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
     meshRef->m_selectionBox->setProperty("color", QVector4D(0, 1, 0, 2.0));
 
+    // A tileable mesh declares its section width in its file name, but the
+    // sections only abut seamlessly if they are spaced by the width the mesh
+    // actually has, so prefer that once it is known
+    if (meshRef->m_tileWidth > 0 && meshRef->m_volume.m_extents.x() > 0)
+        meshRef->m_tileWidth = meshRef->m_volume.m_extents.x();
+
+    itemEntity->setProperty("tileWidthX", meshRef->m_tileWidth);
+
     updateGenericItemScale(itemID, m_monProps->itemScale(itemID));
     updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID));
     updateGenericItemRotation(itemID, m_monProps->itemRotation(itemID));
@@ -2191,7 +2236,41 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     itemEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     itemEntity->setProperty("sceneEffect", QVariant::fromValue(sceneEffect));
+
+    applyItemColor(itemEntity, m_monProps->itemColor(itemID));
+
     updateGenericItemsList();
+}
+
+void MainView3D::initializeItemTile(int itemID, QSceneLoader *loader)
+{
+    if (isEnabled() == false || m_sceneRootEntity == nullptr || loader == nullptr)
+        return;
+
+    SceneItem *meshRef = m_genericMap.value(itemID, nullptr);
+    if (meshRef == nullptr)
+        return;
+
+    // discard asynchronous mesh callbacks belonging to a scene that has
+    // already been reset (see initializeFixture)
+    if (meshRef->m_generation != m_sceneGeneration)
+    {
+        qDebug() << "[MainView3D] discarding stale mesh callback for generic item tile" << itemID;
+        return;
+    }
+
+    QVector<QEntity *> entities = loader->entities();
+    if (entities.isEmpty())
+        return;
+
+    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+
+    // the bounding volume and the selection box belong to the item as a whole
+    // and have been set up by initializeItem already
+    inspectEntity(entities[0], meshRef, sceneDeferredLayer, sceneEffect, false, QVector3D());
+
+    applyItemColor(entities[0], m_monProps->itemColor(itemID));
 }
 
 void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
@@ -2209,6 +2288,7 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
                 meshRef->m_rootItem->setProperty("isSelected", false);
                 meshRef->m_selectionBox->setProperty("isSelected", false);
             }
+            updateGenericItemSelection(id, false);
         }
         m_genericSelectedItems.clear();
         emit genericSelectedCountChanged();
@@ -2222,13 +2302,26 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
         meshRef->m_selectionBox->setProperty("isSelected", enable);
     }
 
+    // an item already selected must not be added a second time: the number of
+    // selected items is what tells a single selection from a multiple one, and
+    // a duplicate makes a single item look like two, hiding the properties
+    // that only apply to one item
     if (enable)
-        m_genericSelectedItems.append(itemID);
+    {
+        if (m_genericSelectedItems.contains(itemID) == false)
+            m_genericSelectedItems.append(itemID);
+    }
     else
+    {
         m_genericSelectedItems.removeAll(itemID);
+    }
+
+    updateGenericItemSelection(itemID, enable);
 
     emit genericSelectedCountChanged();
     emit genericSelectedLockedChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
 }
 
 void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifiers)
@@ -2237,7 +2330,22 @@ void MainView3D::setItemSelectionByIndex(int index, bool enable, int keyModifier
     if (index < 0 || index >= ids.count())
         return;
 
+    // Shift extends the selection from the row clicked last to this one,
+    // adding every row in between to whatever is selected already
+    if ((keyModifiers & Qt::ShiftModifier) && m_genericPreviousIndex >= 0 &&
+        m_genericPreviousIndex < ids.count())
+    {
+        int first = qMin(index, m_genericPreviousIndex);
+        int last = qMax(index, m_genericPreviousIndex);
+
+        for (int i = first; i <= last; i++)
+            setItemSelection(ids.at(i), true, Qt::ShiftModifier);
+
+        return;
+    }
+
     setItemSelection(ids.at(index), enable, keyModifiers);
+    m_genericPreviousIndex = index;
 }
 
 int MainView3D::genericSelectedCount() const
@@ -2302,7 +2410,10 @@ void MainView3D::removeSelectedGenericItems()
         m_monProps->removeItem(id);
     }
     m_genericSelectedItems.clear();
+    m_genericPreviousIndex = -1;
     emit genericSelectedCountChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
     updateGenericItemsList();
 }
 
@@ -2345,7 +2456,7 @@ void MainView3D::updateGenericItemsList()
         QVariantMap itemMap;
         itemMap.insert("itemID", itemID);
         itemMap.insert("name", m_monProps->itemName(itemID));
-        itemMap.insert("isSelected", false);
+        itemMap.insert("isSelected", m_genericSelectedItems.contains(itemID));
         itemMap.insert("isLocked", (m_monProps->itemFlags(itemID) & MonitorProperties::LockedFlag) ? true : false);
         m_genericItemsList->addDataMap(itemMap);
     }
@@ -2353,12 +2464,171 @@ void MainView3D::updateGenericItemsList()
     emit genericItemsListChanged();
 }
 
+void MainView3D::updateGenericItemSelection(quint32 itemID, bool enable)
+{
+    int index = m_monProps->genericItemsID().indexOf(itemID);
+    if (index >= 0)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(index, 0),
+                                            "isSelected", enable);
+}
+
 QVariant MainView3D::genericItemsList() const
 {
     return QVariant::fromValue(m_genericItemsList);
 }
 
-void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos) const
+void MainView3D::applyMaterialColor(QMaterial *material, QColor color)
+{
+    QParameter *diffuseParam = nullptr;
+
+    for (QParameter *param : material->parameters())
+    {
+        if (param->name() == QLatin1String("diffuse"))
+        {
+            diffuseParam = param;
+            break;
+        }
+    }
+
+    // a material with no diffuse parameter is not part of the geometry pass
+    if (diffuseParam == nullptr)
+        return;
+
+    // the first time a material is colored, remember the diffuse color the
+    // mesh was loaded with: every later color starts from that one again,
+    // instead of compounding on the previous result
+    QVariant baseDiffuse = material->property("baseDiffuse");
+    if (baseDiffuse.isValid() == false)
+    {
+        baseDiffuse = diffuseParam->value();
+        material->setProperty("baseDiffuse", baseDiffuse);
+    }
+
+    QColor defColor = MonitorProperties::defaultItemColor();
+
+    // the default color leaves the mesh exactly as it was loaded. Restore the
+    // original value rather than a scaled copy of it, so that an item that
+    // has never been colored renders as it did before base colors existed
+    if (color == defColor)
+    {
+        diffuseParam->setValue(baseDiffuse);
+        return;
+    }
+
+    QVector3D base;
+
+    if (baseDiffuse.userType() == QMetaType::QVector3D)
+    {
+        base = baseDiffuse.value<QVector3D>();
+    }
+    else
+    {
+        QColor baseColor = baseDiffuse.value<QColor>();
+        base = QVector3D(baseColor.redF(), baseColor.greenF(), baseColor.blueF());
+    }
+
+    // scale the material color by how far the requested color is from the
+    // default one. A mesh with no material of its own is rendered with the
+    // default color, so it ends up rendered with exactly $color
+    QVector3D tint(base.x() * (color.redF() / defColor.redF()),
+                   base.y() * (color.greenF() / defColor.greenF()),
+                   base.z() * (color.blueF() / defColor.blueF()));
+
+    diffuseParam->setValue(QColor::fromRgbF(qBound(0.0f, tint.x(), 1.0f),
+                                            qBound(0.0f, tint.y(), 1.0f),
+                                            qBound(0.0f, tint.z(), 1.0f)));
+}
+
+void MainView3D::applyItemColor(QEntity *entity, QColor color)
+{
+    if (entity == nullptr)
+        return;
+
+    for (QComponent *component : entity->components())
+    {
+        QMaterial *material = qobject_cast<QMaterial *>(component);
+        if (material != nullptr)
+            applyMaterialColor(material, color);
+    }
+
+    for (QEntity *subEntity : entity->findChildren<QEntity *>(QString(), Qt::FindDirectChildrenOnly))
+        applyItemColor(subEntity, color);
+}
+
+void MainView3D::updateGenericItemName(quint32 itemID, QString name)
+{
+    if (isEnabled() == false)
+        return;
+
+    QString currName = m_monProps->itemName(itemID);
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetName, itemID, QVariant(currName), QVariant(name));
+
+    m_monProps->setItemName(itemID, name);
+
+    // refresh just the entry that changed: rebuilding the whole list model
+    // would drop the selection while the name is being typed
+    int index = m_monProps->genericItemsID().indexOf(itemID);
+    if (index >= 0)
+        m_genericItemsList->setDataWithRole(m_genericItemsList->index(index, 0),
+                                            "name", m_monProps->itemName(itemID));
+
+    emit genericItemsNameChanged();
+}
+
+QString MainView3D::genericItemsName() const
+{
+    if (m_genericSelectedItems.count() == 1)
+        return m_monProps->itemName(m_genericSelectedItems.first());
+
+    return QString();
+}
+
+void MainView3D::setGenericItemsName(QString name)
+{
+    // a name identifies a single item, so it is not applied to a multiple selection
+    if (m_genericSelectedItems.count() != 1)
+        return;
+
+    updateGenericItemName(m_genericSelectedItems.first(), name);
+}
+
+void MainView3D::updateGenericItemColor(quint32 itemID, QColor color)
+{
+    if (isEnabled() == false)
+        return;
+
+    QColor currColor = m_monProps->itemColor(itemID);
+    Tardis::instance()->enqueueAction(Tardis::GenericItemSetColor, itemID, QVariant(currColor), QVariant(color));
+
+    m_monProps->setItemColor(itemID, color);
+
+    SceneItem *item = m_genericMap.value(itemID, nullptr);
+    if (item == nullptr)
+        return;
+
+    applyItemColor(item->m_rootItem, color);
+}
+
+QColor MainView3D::genericItemsColor() const
+{
+    if (m_genericSelectedItems.count() == 1)
+        return m_monProps->itemColor(m_genericSelectedItems.first());
+
+    return MonitorProperties::defaultItemColor();
+}
+
+void MainView3D::setGenericItemsColor(QColor color)
+{
+    if (m_genericSelectedItems.isEmpty())
+        return;
+
+    for (int &itemID : m_genericSelectedItems)
+        updateGenericItemColor(itemID, color);
+
+    emit genericItemsColorChanged();
+}
+
+void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)
 {
     if (isEnabled() == false)
         return;
@@ -2367,6 +2637,10 @@ void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos) const
     Tardis::instance()->enqueueAction(Tardis::GenericItemSetPosition, itemID, QVariant(currPos), QVariant(pos));
 
     m_monProps->setItemPosition(itemID, pos);
+
+    // this is also where an undo/redo of a move lands, so the
+    // editable properties need to be told the value has changed
+    emit genericItemsPositionChanged();
 
     SceneItem *item = m_genericMap.value(itemID, nullptr);
     if (item == nullptr || item->m_rootTransform == nullptr)
@@ -2421,7 +2695,7 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
     emit genericItemsPositionChanged();
 }
 
-void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot) const
+void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot)
 {
     if (isEnabled() == false)
         return;
@@ -2430,6 +2704,11 @@ void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot) const
     Tardis::instance()->enqueueAction(Tardis::GenericItemSetRotation, itemID, QVariant(currRot), QVariant(rot));
 
     m_monProps->setItemRotation(itemID, rot);
+
+    // this is also where an undo/redo of a rotation lands, so the
+    // editable properties need to be told the value has changed
+    emit genericItemsRotationChanged();
+
     SceneItem *item = m_genericMap.value(itemID, nullptr);
     if (item == nullptr || item->m_rootTransform == nullptr)
         return;
@@ -2481,18 +2760,42 @@ void MainView3D::setGenericItemsRotation(QVector3D rot)
     emit genericItemsRotationChanged();
 }
 
-void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale) const
+void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale)
 {
     if (isEnabled() == false)
         return;
+
+    SceneItem *item = m_genericMap.value(itemID, nullptr);
+    int tileCount = 0;
+
+    // A tileable item is drawn as a whole number of sections, so round the
+    // requested X scale to one and store the rounded value: everything that
+    // reads the scale back (the settings spin boxes, the selection box, the
+    // picking volume) then agrees with what is actually drawn
+    if (item != nullptr && item->m_tileWidth > 0)
+    {
+        tileCount = qMax(1, qRound(scale.x()));
+        scale.setX(float(tileCount));
+    }
 
     QVector3D currScale = m_monProps->itemScale(itemID);
     Tardis::instance()->enqueueAction(Tardis::GenericItemSetScale, itemID, QVariant(currScale), QVariant(scale));
 
     m_monProps->setItemScale(itemID, scale);
-    SceneItem *item = m_genericMap.value(itemID, nullptr);
+
+    // this is also where an undo/redo of a resize lands, so the
+    // editable properties need to be told the value has changed
+    emit genericItemsScaleChanged();
+
     if (item == nullptr || item->m_rootTransform == nullptr)
         return;
+
+    // Generic3DItem undoes the X scale and lays out $tileCount copies of the
+    // mesh instead, so the item grows along X by repeating rather than by
+    // stretching. The scale is still set on the transform, as the selection
+    // box and the picking volume are derived from it
+    if (tileCount)
+        item->m_rootItem->setProperty("tileCountX", tileCount);
 
     item->m_rootTransform->setScale3D(scale);
     if (item->m_selectionBox)
@@ -2530,6 +2833,22 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     }
 
     emit genericItemsScaleChanged();
+}
+
+bool MainView3D::scaleLocked() const
+{
+    return m_monProps->scaleLocked();
+}
+
+void MainView3D::setScaleLocked(bool locked)
+{
+    if (m_monProps->scaleLocked() == locked)
+        return;
+
+    // persist the choice in the project (see MonitorProperties)
+    m_monProps->setScaleLocked(locked);
+    m_doc->setModified();
+    emit scaleLockedChanged();
 }
 
 QVector3D MainView3D::position3DMarker() const
@@ -2606,16 +2925,17 @@ void MainView3D::setPosition3DMarkerVisible(bool visible)
 
 MainView3D::RenderQuality MainView3D::renderQuality() const
 {
-    return m_renderQuality;
+    return RenderQuality(m_monProps->renderQuality());
 }
 
 void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
 {
-    if (m_renderQuality == renderQuality)
+    if (m_monProps->renderQuality() == int(renderQuality))
         return;
 
-    m_renderQuality = renderQuality;
-    emit renderQualityChanged(m_renderQuality);
+    m_monProps->setRenderQuality(int(renderQuality));
+    m_doc->setModified();
+    emit renderQualityChanged(renderQuality);
 }
 
 QStringList MainView3D::stagesList() const
@@ -2662,30 +2982,58 @@ void MainView3D::createStage()
 
 float MainView3D::ambientIntensity() const
 {
-    return m_ambientIntensity;
+    return m_monProps->ambientLightIntensity();
 }
 
 void MainView3D::setAmbientIntensity(float ambientIntensity)
 {
-    if (m_ambientIntensity == ambientIntensity)
+    if (float(m_monProps->ambientLightIntensity()) == ambientIntensity)
         return;
 
-    m_ambientIntensity = ambientIntensity;
-    emit ambientIntensityChanged(m_ambientIntensity);
+    m_monProps->setAmbientLightIntensity(ambientIntensity);
+    m_doc->setModified();
+    emit ambientIntensityChanged(ambientIntensity);
 }
 
 float MainView3D::smokeAmount() const
 {
-    return m_smokeAmount;
+    return m_monProps->smokeAmount();
 }
 
 void MainView3D::setSmokeAmount(float smokeAmount)
 {
-    if (m_smokeAmount == smokeAmount)
+    if (float(m_monProps->smokeAmount()) == smokeAmount)
         return;
 
-    m_smokeAmount = smokeAmount;
-    emit smokeAmountChanged(m_smokeAmount);
+    m_monProps->setSmokeAmount(smokeAmount);
+    m_doc->setModified();
+    emit smokeAmountChanged(smokeAmount);
+}
+
+float MainView3D::fixtureLightIntensity() const
+{
+    return m_monProps->fixtureLightIntensity();
+}
+
+void MainView3D::setFixtureLightIntensity(float intensity)
+{
+    if (float(m_monProps->fixtureLightIntensity()) == intensity)
+        return;
+
+    m_monProps->setFixtureLightIntensity(intensity);
+    m_doc->setModified();
+    emit fixtureLightIntensityChanged(intensity);
+}
+
+void MainView3D::applyRenderSettings()
+{
+    // The values already live in m_monProps (set defaults, or loaded from the
+    // project). Push them to the QML side / shaders and sync the FPS counter.
+    emit renderQualityChanged(renderQuality());
+    emit ambientIntensityChanged(ambientIntensity());
+    emit smokeAmountChanged(smokeAmount());
+    emit fixtureLightIntensityChanged(fixtureLightIntensity());
+    applyFrameCountEnabled(m_monProps->showFPS());
 }
 
 bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,

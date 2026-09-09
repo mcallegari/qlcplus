@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QQuickView>
 #include <QElapsedTimer>
+#include <QColor>
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
@@ -93,6 +94,10 @@ typedef struct
      *  generation must be discarded, otherwise they would resurrect
      *  already deleted entities */
     quint32 m_generation;
+    /** Width in metres of one repeating section of a tileable mesh, or 0 for
+     *  the ordinary meshes that simply stretch when scaled. See
+     *  MainView3D::meshTileWidth */
+    qreal m_tileWidth;
 } SceneItem;
 
 class MainView3D final : public PreviewContext
@@ -109,6 +114,7 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
+    Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -119,9 +125,12 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(QVariant genericItemsList READ genericItemsList NOTIFY genericItemsListChanged)
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
     Q_PROPERTY(bool genericSelectedLocked READ genericSelectedLocked NOTIFY genericSelectedLockedChanged)
+    Q_PROPERTY(QString genericItemsName READ genericItemsName WRITE setGenericItemsName NOTIFY genericItemsNameChanged)
+    Q_PROPERTY(QColor genericItemsColor READ genericItemsColor WRITE setGenericItemsColor NOTIFY genericItemsColorChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
     Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
+    Q_PROPERTY(bool scaleLocked READ scaleLocked WRITE setScaleLocked NOTIFY scaleLockedChanged)
 
     Q_PROPERTY(QVector3D position3DMarker READ position3DMarker WRITE setPosition3DMarker NOTIFY position3DMarkerChanged)
     Q_PROPERTY(bool position3DMarkerVisible READ position3DMarkerVisible WRITE setPosition3DMarkerVisible NOTIFY position3DMarkerVisibleChanged)
@@ -207,6 +216,12 @@ protected slots:
     void slotFrameProcessed();
 
 private:
+    /** Apply the FPS counter enabled state to the running scene (attach/detach
+     *  the QFrameAction, reset counters, notify QML). Unlike setFrameCountEnabled()
+     *  this does not persist the value nor mark the project modified, so it is
+     *  safe to call while loading a project. */
+    void applyFrameCountEnabled(bool enable);
+
     /** Create the QFrameAction (if needed) and attach it to the current
      *  scene root entity. Called both when the user enables the FPS counter
      *  and whenever the 3D scene is (re)initialized, so the setting survives
@@ -383,11 +398,28 @@ public:
 
     Q_INVOKABLE void initializeItem(int itemID, QEntity *fxEntity, QSceneLoader *loader);
 
+    /** Add the mesh loaded by $loader to the deferred rendering pipeline.
+     *  Called by Generic3DItem for the repeated sections of a tileable item:
+     *  those are extra copies of a mesh already accounted for by
+     *  initializeItem, so they get the scene layer and effect but contribute
+     *  neither a bounding volume nor a selection box */
+    Q_INVOKABLE void initializeItemTile(int itemID, QSceneLoader *loader);
+
+    /** Width in metres of one repeating section of the mesh at $source, or 0
+     *  if the mesh is not tileable.
+     *
+     *  A mesh opts in through its file name: anything ending with _tile_<N>m
+     *  (curtain_tile_1m.obj) declares itself a section <N> metres wide that can
+     *  be repeated along the X axis. For such an item the X scale is a section
+     *  count rather than a stretch factor, so the pleats of a curtain keep
+     *  their size however wide it is drawn */
+    static qreal meshTileWidth(const QString &source);
+
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
-    /** Select/deselect a generic item by its row $index in the items list model.
-     *  Used to keep the 3D selection in sync with multi-row (range) selections
-     *  performed on the QML list */
+    /** Select/deselect the generic item on row $index of the items list model.
+     *  $keyModifiers has the same meaning as in setItemSelection, plus Shift,
+     *  which extends the selection from the row clicked last to $index */
     Q_INVOKABLE void setItemSelectionByIndex(int index, bool enable, int keyModifiers);
 
     /** Get the number of generic items currently selected */
@@ -414,17 +446,31 @@ public:
      *  to be displayed in QML */
     QVariant genericItemsList() const;
 
-    void updateGenericItemPosition(quint32 itemID, QVector3D pos) const;
+    void updateGenericItemName(quint32 itemID, QString name);
+    QString genericItemsName() const;
+    void setGenericItemsName(QString name);
+
+    void updateGenericItemColor(quint32 itemID, QColor color);
+    QColor genericItemsColor() const;
+    void setGenericItemsColor(QColor color);
+
+    void updateGenericItemPosition(quint32 itemID, QVector3D pos);
     QVector3D genericItemsPosition() const;
     void setGenericItemsPosition(QVector3D pos);
 
-    void updateGenericItemRotation(quint32 itemID, QVector3D rot) const;
+    void updateGenericItemRotation(quint32 itemID, QVector3D rot);
     QVector3D genericItemsRotation() const;
     void setGenericItemsRotation(QVector3D rot);
 
-    void updateGenericItemScale(quint32 itemID, QVector3D scale) const;
+    void updateGenericItemScale(quint32 itemID, QVector3D scale);
     QVector3D genericItemsScale() const;
     void setGenericItemsScale(QVector3D scale);
+
+    /** Get/Set whether the "Scale" X/Y/Z fields of the 3D view settings panel
+     *  are locked together. Stored in MonitorProperties, so the choice survives
+     *  a view switch and is saved in the project */
+    bool scaleLocked() const;
+    void setScaleLocked(bool locked);
 
     QVector3D position3DMarker() const;
     Q_INVOKABLE void setPosition3DMarker(QVector3D pos);
@@ -434,13 +480,31 @@ public:
 protected:
     void updateGenericItemsList();
 
+    /** Mark the row of item $itemID in the items list model as selected or not.
+     *  The 3D view and the list in the settings panel are two views of the same
+     *  selection, so a click in either one has to be reflected in the other */
+    void updateGenericItemSelection(quint32 itemID, bool enable);
+
+    /** Render the mesh tree rooted at $entity with the base color $color.
+     *  The color scales the diffuse color each material was loaded with,
+     *  rather than replacing it, so a mesh made of several materials keeps
+     *  its shading variation. A material is restored to the color it was
+     *  loaded with when $color is MonitorProperties::defaultItemColor */
+    void applyItemColor(QEntity *entity, QColor color);
+
+    /** Apply the base color $color to a single mesh material */
+    void applyMaterialColor(QMaterial *material, QColor color);
+
 signals:
     void genericItemsListChanged();
+    void genericItemsNameChanged();
+    void genericItemsColorChanged();
     void genericSelectedCountChanged();
     void genericSelectedLockedChanged();
     void genericItemsPositionChanged();
     void genericItemsRotationChanged();
     void genericItemsScaleChanged();
+    void scaleLockedChanged();
     void position3DMarkerChanged();
     void position3DMarkerVisibleChanged();
 
@@ -453,6 +517,9 @@ private:
     ListModel *m_genericItemsList;
 
     QList<int> m_genericSelectedItems;
+
+    /** Row of the generic item clicked last, for Shift range selections */
+    int m_genericPreviousIndex;
 
     /** Map of the generic items in the scene */
     QMap<quint32, SceneItem*> m_genericMap;
@@ -506,10 +573,19 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    /** Global multiplier on the light fixtures cast on surfaces */
+    float fixtureLightIntensity() const;
+    void setFixtureLightIntensity(float intensity);
+
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
     void createStage();
+
+    /** Re-apply the "Rendering" settings persisted in the project (MonitorProperties)
+     *  to the running scene and notify the QML side. Called on project load /
+     *  when the 3D view becomes visible. Does not mark the project modified. */
+    void applyRenderSettings();
     QVector3D unprojectToWorld(const float &aspect, const QVector2D &ndcMousePos) const;
     bool rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
                            const QVector3D &center, const QVector3D &extents, float &hitDistance) const;
@@ -522,21 +598,19 @@ signals:
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
+    void fixtureLightIntensityChanged(float fixtureLightIntensity);
 
 private:
-    RenderQuality m_renderQuality;
+    /* The "Rendering" settings (quality, ambient light, smoke, show FPS) are
+       stored in the project through MonitorProperties (m_monProps), so they
+       persist in the workspace file. The getters/setters below proxy to it,
+       the same way stageIndex() does. */
 
     QStringList m_stagesList;
     QStringList m_stageResourceList;
 
     /** Reference to the selected stage Entity */
     QEntity *m_stageEntity;
-
-    /** Ambient light amount (0.0 - 1.0) */
-    float m_ambientIntensity;
-
-    /** Smoke amount (0.0 - 1.0) */
-    float m_smokeAmount;
 };
 
 #endif // MAINVIEW3D_H

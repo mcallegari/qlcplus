@@ -52,6 +52,7 @@
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
     <file alias="SimpleDesk.qml">qml/SimpleDesk.qml</file>
     <file alias="SingleAxisTool.qml">qml/SingleAxisTool.qml</file>
+    <file alias="SubMenu.qml">qml/SubMenu.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
