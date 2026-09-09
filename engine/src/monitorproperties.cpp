@@ -50,6 +50,14 @@
 #define KXMLQLCMonitorLightEmitter  QStringLiteral("LightEmitter")
 #define KXMLQLCMonitorStageItem     QStringLiteral("StageItem")
 #define KXMLQLCMonitorMeshItem      QStringLiteral("MeshItem")
+
+#define KXMLQLCMonitorRendering         QStringLiteral("Rendering")
+#define KXMLQLCMonitorRenderQuality     QStringLiteral("Quality")
+#define KXMLQLCMonitorRenderAmbient     QStringLiteral("Ambient")
+#define KXMLQLCMonitorRenderSmoke       QStringLiteral("Smoke")
+#define KXMLQLCMonitorRenderFxLight     QStringLiteral("FixtureLight")
+#define KXMLQLCMonitorRenderLumens      QStringLiteral("Lumens")
+#define KXMLQLCMonitorRenderShowFPS     QStringLiteral("ShowFPS")
 #define KXMLQLCMonitorItemName      QStringLiteral("Name")
 #define KXMLQLCMonitorItemRes       QStringLiteral("Res")
 
@@ -79,6 +87,17 @@
 #define GRID_DEFAULT_HEIGHT 3
 #define GRID_DEFAULT_DEPTH  5
 
+/* 3D view rendering defaults. RENDER_DEFAULT_QUALITY matches
+   MainView3D::HighQuality and the other two match the MainView3D members
+   they replace, so a project without a <Rendering> node looks unchanged. */
+#define RENDER_DEFAULT_QUALITY  2
+#define RENDER_DEFAULT_AMBIENT  0.6
+#define RENDER_DEFAULT_SMOKE    0.8
+/* Unscaled: a project that has never touched this renders exactly as before */
+#define RENDER_DEFAULT_FXLIGHT  1.0
+/* Off: every fixture emits the same amount of light, as it always has */
+#define RENDER_DEFAULT_LUMENS   false
+
 MonitorProperties::MonitorProperties()
     : m_font(QFont("Arial", 12))
     , m_displayMode(DMX)
@@ -88,6 +107,12 @@ MonitorProperties::MonitorProperties()
     , m_gridUnits(Meters)
     , m_pointOfView(Undefined)
     , m_stageType(StageSimple)
+    , m_renderQuality(RENDER_DEFAULT_QUALITY)
+    , m_ambientLightIntensity(RENDER_DEFAULT_AMBIENT)
+    , m_smokeAmount(RENDER_DEFAULT_SMOKE)
+    , m_fixtureLightIntensity(RENDER_DEFAULT_FXLIGHT)
+    , m_useFixtureLumens(RENDER_DEFAULT_LUMENS)
+    , m_showFPS(false)
     , m_showLabels(false)
 {
 }
@@ -99,6 +124,12 @@ void MonitorProperties::reset()
     m_pointOfView = Undefined;
     m_stageType = StageSimple;
     m_showLabels = false;
+    m_renderQuality = RENDER_DEFAULT_QUALITY;
+    m_ambientLightIntensity = RENDER_DEFAULT_AMBIENT;
+    m_smokeAmount = RENDER_DEFAULT_SMOKE;
+    m_fixtureLightIntensity = RENDER_DEFAULT_FXLIGHT;
+    m_useFixtureLumens = RENDER_DEFAULT_LUMENS;
+    m_showFPS = false;
     m_fixtureItems.clear();
     m_lightItems.clear();
     m_genericItems.clear();
@@ -700,6 +731,22 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             setGridSize(QVector3D(w, h, d));
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCMonitorRendering)
+        {
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderQuality))
+                setRenderQuality(tAttrs.value(KXMLQLCMonitorRenderQuality).toString().toInt());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderAmbient))
+                setAmbientLightIntensity(tAttrs.value(KXMLQLCMonitorRenderAmbient).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderSmoke))
+                setSmokeAmount(tAttrs.value(KXMLQLCMonitorRenderSmoke).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderFxLight))
+                setFixtureLightIntensity(tAttrs.value(KXMLQLCMonitorRenderFxLight).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderLumens))
+                setUseFixtureLumens(tAttrs.value(KXMLQLCMonitorRenderLumens).toString().toInt() != 0);
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderShowFPS))
+                setShowFPS(tAttrs.value(KXMLQLCMonitorRenderShowFPS).toString().toInt() != 0);
+            root.skipCurrentElement();
+        }
         else if (root.name() == KXMLQLCMonitorStageItem)
         {
             setStageType(StageType(root.readElementText().toInt()));
@@ -915,6 +962,16 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 
 #ifdef QMLUI
     doc->writeTextElement(KXMLQLCMonitorStageItem, QString::number(stageType()));
+
+    /* 3D view rendering settings */
+    doc->writeStartElement(KXMLQLCMonitorRendering);
+    doc->writeAttribute(KXMLQLCMonitorRenderQuality, QString::number(renderQuality()));
+    doc->writeAttribute(KXMLQLCMonitorRenderAmbient, QString::number(ambientLightIntensity()));
+    doc->writeAttribute(KXMLQLCMonitorRenderSmoke, QString::number(smokeAmount()));
+    doc->writeAttribute(KXMLQLCMonitorRenderFxLight, QString::number(fixtureLightIntensity()));
+    doc->writeAttribute(KXMLQLCMonitorRenderLumens, QString::number(useFixtureLumens() ? 1 : 0));
+    doc->writeAttribute(KXMLQLCMonitorRenderShowFPS, QString::number(showFPS() ? 1 : 0));
+    doc->writeEndElement();
 #endif
 
     // ***********************************************************

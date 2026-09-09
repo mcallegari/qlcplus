@@ -100,7 +100,32 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property real lightIntensity: dimmerValue * shutterValue
+    /* Luminous intensity of a single emitter of this fixture, in candela: the
+       "Lumens" physical property of its mode spread over the solid angle of the
+       beam at the widest the lens opens. 0 when the definition has no data */
+    property real bulbCandela: 0
+    /* How far the current zoom concentrates the beam, as the ratio of the two
+       cone solid angles: 1.0 at the widest the lens opens, rising as the beam
+       closes in, which is what a zoom does to the light it lays on a surface */
+    property real beamConcentration:
+    {
+        var widest = (focusMaxDegrees / 2.0) * (Math.PI / 180.0)
+        if (widest <= 0 || cutoffAngle <= 0)
+            return 1.0
+        return (1.0 - Math.cos(widest)) / (1.0 - Math.cos(cutoffAngle))
+    }
+    /* Relative output of this fixture: its intensity against the brightest
+       emitter in the project, so the reference fixture stays at the brightness
+       it has always rendered at and everything else falls in around it. Goes
+       above 1.0 on a beam zoomed in past its widest, which the tone mapping in
+       gamma_correct.frag rolls off. 1.0 (unscaled) when the "Lumens" setting is
+       off, when this definition has no lumens, or when no fixture in the
+       project has any. */
+    property real lumensScale:
+        (View3D && View3D.useFixtureLumens && bulbCandela > 0 && View3D.referenceCandela > 0) ?
+            (bulbCandela / View3D.referenceCandela) * beamConcentration : 1.0
+
+    property real lightIntensity: dimmerValue * shutterValue * lumensScale
     property real dimmerValue: 0
     property real shutterValue: sAnimator.shutterValue
     property color lightColor: Qt.rgba(0, 0, 0, 1)

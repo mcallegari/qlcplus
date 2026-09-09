@@ -34,7 +34,21 @@ TechniqueFilter
         Parameter { name: "normalTex"; value: gBuffer ? gBuffer.normal : null },
         Parameter { name: "depthTex"; value: gBuffer ? gBuffer.depth : null },
         Parameter { name: "shadowTex"; value: shadowTex },
-        Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) }
+        Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) },
+        // Global gain on the light fixtures cast on surfaces. Supplied here, at
+        // the frame graph level, so it applies once to every fixture rather than
+        // having to be threaded through each item type's lightIntensity.
+        Parameter { name: "fixtureLightIntensity"; value: View3D ? View3D.fixtureLightIntensity : 1.0 },
+        // Distance at which fixture light lands unscaled, for the inverse square
+        // falloff. Derived from the rig rather than set by the user, and gated
+        // by the same opt in as the photometric scaling it completes, so a
+        // project that has not enabled Lumens renders as it always has. Also
+        // frame graph level, for the same reason.
+        Parameter
+        {
+            name: "referenceThrow"
+            value: View3D && View3D.useFixtureLumens ? View3D.referenceThrow : 0.0
+        }
     ]
 
     RenderStateSet
