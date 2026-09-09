@@ -197,19 +197,25 @@ VCWidgetItem
             nextIndex: sideFaderMode === VCCueList.Crossfade ? sideFaderLayout.nextStepIndex : -1
             //tempoType: chaserEditor.tempoType
             isRunning: playbackStatus === VCCueList.Playing ? true : false
+            columnsWidths: cueListObj ? cueListObj.columnsWidths : []
 
             onIndexChanged: if (cueListObj) cueListObj.playbackIndex = index
             //onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
             onNoteTextChanged: if (cueListObj) cueListObj.setStepNote(index, text)
             onAddFunctions: (list, index) =>
             {
-                if (cueListObj) 
+                if (cueListObj)
                     cueListObj.addFunctions(list, index)
             }
             onEnterPressed: (list, index) =>
             {
-                if (cueListObj) 
+                if (cueListObj)
                     cueListObj.playCurrentStep()
+            }
+            onColumnsResized: (widths) =>
+            {
+                if (cueListObj)
+                    cueListObj.columnsWidths = widths
             }
 
             states: [
