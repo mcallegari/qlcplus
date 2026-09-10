@@ -636,9 +636,15 @@ var testAlgo;
         }
       }
 
-      // Optimize: Fast array clearing using fill()
+      // Clear the map. Array.prototype.fill() is ES6 and is NOT available in
+      // the Qt5 script engine QLC+ still builds against, where it throws
+      // "Result of expression 'util.pixelMap[y].fill' [undefined] is not a
+      // function" and the script returns an empty map. Clear by hand instead.
       for (y = 0; y < height; y++) {
-        util.pixelMap[y].fill(0);
+        var row = util.pixelMap[y];
+        for (x = 0; x < width; x++) {
+          row[x] = 0;
+        }
       }
 
       for (var i = 0; i < algo.linesAmount; i++)
