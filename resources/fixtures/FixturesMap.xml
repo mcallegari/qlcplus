@@ -2022,6 +2022,9 @@
     <F n="Venue-THINPAR-64" m="ThinPar 64"/>
     <F n="Venue-TriStrip3Z" m="TriStrip3Z"/>
   </M>
+  <M n="Warmdance">
+    <F n="Warmdance-ZQ06199" m="ZQ06199"/>
+  </M>
   <M n="XStatic">
     <F n="XStatic-X-240Bar-RGB" m="X-240Bar RGB"/>
   </M>
