@@ -1445,6 +1445,9 @@
   <M n="NJD">
     <F n="NJD-Spectre" m="Spectre"/>
   </M>
+  <M n="Oppsk">
+    <F n="Oppsk-Wall-Washer-Light-Bar" m="Wall Washer Light Bar"/>
+  </M>
   <M n="Optima_Lighting">
     <F n="Optima-Lighting-PAR64-LED" m="PAR64 LED"/>
   </M>
