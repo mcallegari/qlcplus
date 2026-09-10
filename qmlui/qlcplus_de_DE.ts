@@ -4823,7 +4823,7 @@ Bitte einen anderen Namen angeben.</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="260"/>
         <source>Show FPS</source>
-        <translation>Frames pro Sekunde anzeigen</translation>
+        <translation>FPS anzeigen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="474"/>
