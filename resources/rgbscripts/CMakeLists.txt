@@ -6,6 +6,8 @@ set(SCRIPT_FILES
     blinder.js
     circles.js
     circular.js
+    confetti.js
+    connectdots.js
     evenodd.js
     fill.js
     fillfromcenter.js
@@ -15,11 +17,15 @@ set(SCRIPT_FILES
     fireworks.js
     flyingobjects.js
     gradient.js
+    juggle.js
+    lantern.js
     lines.js
     marquee.js
+    meteor.js
     noise.js
     onebyone.js
     opposite.js
+    pacifica.js
     plasma.js
     randomcolumn.js
     randomfillcolumn.js
@@ -29,15 +35,20 @@ set(SCRIPT_FILES
     randompixelperrowmulticolor.js
     randomrow.js
     randomsingle.js
+    ripple.js
+    shapes.js
     sinewave.js
     snowbubbles.js
     squares.js
     squaresfromcenter.js
+    stagepulse.js
     starfield.js
     stripes.js
     stripesfromcenter.js
     strobe.js
+    twinklefox.js
     verticalfall.js
+    waterflow.js
     waves.js
 )
 
