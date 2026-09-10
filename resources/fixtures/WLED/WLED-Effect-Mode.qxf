@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<!-- WLED "Effect" DMX mode. Effect/palette lists (220 effects,
+     72 palettes); DMX value on the Effect/Palette channel = WLED index.
+     Physical dimensions are illustrative, not a fixed product spec: WLED
+     is firmware that runs on arbitrary ESP32/ESP8266 hardware. Sized here
+     after a common ESP32-DevKitC-style dev board (~55x28x13mm). -->
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.14.4 GIT</Version>
+  <Author>Branson</Author>
+ </Creator>
+ <Manufacturer>WLED</Manufacturer>
+ <Model>Effect Mode</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Solid</Capability>
+  <Capability Min="1" Max="1">Blink</Capability>
+  <Capability Min="2" Max="2">Breathe</Capability>
+  <Capability Min="3" Max="3">Wipe</Capability>
+  <Capability Min="4" Max="4">Wipe Random</Capability>
+  <Capability Min="5" Max="5">Random Colors</Capability>
+  <Capability Min="6" Max="6">Sweep</Capability>
+  <Capability Min="7" Max="7">Dynamic</Capability>
+  <Capability Min="8" Max="8">Colorloop</Capability>
+  <Capability Min="9" Max="9">Rainbow</Capability>
+  <Capability Min="10" Max="10">Scan</Capability>
+  <Capability Min="11" Max="11">Scan Dual</Capability>
+  <Capability Min="12" Max="12">Fade</Capability>
+  <Capability Min="13" Max="13">Theater</Capability>
+  <Capability Min="14" Max="14">Theater Rainbow</Capability>
+  <Capability Min="15" Max="15">Running</Capability>
+  <Capability Min="16" Max="16">Saw</Capability>
+  <Capability Min="17" Max="17">Twinkle</Capability>
+  <Capability Min="18" Max="18">Dissolve</Capability>
+  <Capability Min="19" Max="19">Dissolve Rnd</Capability>
+  <Capability Min="20" Max="20">Sparkle</Capability>
+  <Capability Min="21" Max="21">Sparkle Dark</Capability>
+  <Capability Min="22" Max="22">Sparkle+</Capability>
+  <Capability Min="23" Max="23">Strobe</Capability>
+  <Capability Min="24" Max="24">Strobe Rainbow</Capability>
+  <Capability Min="25" Max="25">Strobe Mega</Capability>
+  <Capability Min="26" Max="26">Blink Rainbow</Capability>
+  <Capability Min="27" Max="27">Android</Capability>
+  <Capability Min="28" Max="28">Chase</Capability>
+  <Capability Min="29" Max="29">Chase Random</Capability>
+  <Capability Min="30" Max="30">Chase Rainbow</Capability>
+  <Capability Min="31" Max="31">Chase Flash</Capability>
+  <Capability Min="32" Max="32">Chase Flash Rnd</Capability>
+  <Capability Min="33" Max="33">Rainbow Runner</Capability>
+  <Capability Min="34" Max="34">Colorful</Capability>
+  <Capability Min="35" Max="35">Traffic Light</Capability>
+  <Capability Min="36" Max="36">Sweep Random</Capability>
+  <Capability Min="37" Max="37">Chase 2</Capability>
+  <Capability Min="38" Max="38">Aurora</Capability>
+  <Capability Min="39" Max="39">Stream</Capability>
+  <Capability Min="40" Max="40">Scanner</Capability>
+  <Capability Min="41" Max="41">Lighthouse</Capability>
+  <Capability Min="42" Max="42">Fireworks</Capability>
+  <Capability Min="43" Max="43">Rain</Capability>
+  <Capability Min="44" Max="44">Tetrix</Capability>
+  <Capability Min="45" Max="45">Fire Flicker</Capability>
+  <Capability Min="46" Max="46">Gradient</Capability>
+  <Capability Min="47" Max="47">Loading</Capability>
+  <Capability Min="48" Max="48">Rolling Balls</Capability>
+  <Capability Min="49" Max="49">Fairy</Capability>
+  <Capability Min="50" Max="50">Two Dots</Capability>
+  <Capability Min="51" Max="51">Fairytwinkle</Capability>
+  <Capability Min="52" Max="52">Running Dual</Capability>
+  <Capability Min="53" Max="53">Image</Capability>
+  <Capability Min="54" Max="54">Chase 3</Capability>
+  <Capability Min="55" Max="55">Tri Wipe</Capability>
+  <Capability Min="56" Max="56">Tri Fade</Capability>
+  <Capability Min="57" Max="57">Lightning</Capability>
+  <Capability Min="58" Max="58">ICU</Capability>
+  <Capability Min="59" Max="59">Multi Comet</Capability>
+  <Capability Min="60" Max="60">Scanner Dual</Capability>
+  <Capability Min="61" Max="61">Stream 2</Capability>
+  <Capability Min="62" Max="62">Oscillate</Capability>
+  <Capability Min="63" Max="63">Pride 2015</Capability>
+  <Capability Min="64" Max="64">Juggle</Capability>
+  <Capability Min="65" Max="65">Palette</Capability>
+  <Capability Min="66" Max="66">Fire 2012</Capability>
+  <Capability Min="67" Max="67">Colorwaves</Capability>
+  <Capability Min="68" Max="68">Bpm</Capability>
+  <Capability Min="69" Max="69">Fill Noise</Capability>
+  <Capability Min="70" Max="70">Noise 1</Capability>
+  <Capability Min="71" Max="71">Noise 2</Capability>
+  <Capability Min="72" Max="72">Noise 3</Capability>
+  <Capability Min="73" Max="73">Noise 4</Capability>
+  <Capability Min="74" Max="74">Colortwinkles</Capability>
+  <Capability Min="75" Max="75">Lake</Capability>
+  <Capability Min="76" Max="76">Meteor</Capability>
+  <Capability Min="77" Max="77">Copy Segment</Capability>
+  <Capability Min="78" Max="78">Railway</Capability>
+  <Capability Min="79" Max="79">Ripple</Capability>
+  <Capability Min="80" Max="80">Twinklefox</Capability>
+  <Capability Min="81" Max="81">Twinklecat</Capability>
+  <Capability Min="82" Max="82">Halloween Eyes</Capability>
+  <Capability Min="83" Max="83">Solid Pattern</Capability>
+  <Capability Min="84" Max="84">Solid Pattern Tri</Capability>
+  <Capability Min="85" Max="85">Spots</Capability>
+  <Capability Min="86" Max="86">Spots Fade</Capability>
+  <Capability Min="87" Max="87">Glitter</Capability>
+  <Capability Min="88" Max="88">Candle</Capability>
+  <Capability Min="89" Max="89">Fireworks Starburst</Capability>
+  <Capability Min="90" Max="90">Fireworks 1D</Capability>
+  <Capability Min="91" Max="91">Bouncing Balls</Capability>
+  <Capability Min="92" Max="92">Sinelon</Capability>
+  <Capability Min="93" Max="93">Sinelon Dual</Capability>
+  <Capability Min="94" Max="94">Sinelon Rainbow</Capability>
+  <Capability Min="95" Max="95">Popcorn</Capability>
+  <Capability Min="96" Max="96">Drip</Capability>
+  <Capability Min="97" Max="97">Plasma</Capability>
+  <Capability Min="98" Max="98">Percent</Capability>
+  <Capability Min="99" Max="99">Ripple Rainbow</Capability>
+  <Capability Min="100" Max="100">Heartbeat</Capability>
+  <Capability Min="101" Max="101">Pacifica</Capability>
+  <Capability Min="102" Max="102">Candle Multi</Capability>
+  <Capability Min="103" Max="103">Solid Glitter</Capability>
+  <Capability Min="104" Max="104">Sunrise</Capability>
+  <Capability Min="105" Max="105">Phased</Capability>
+  <Capability Min="106" Max="106">Twinkleup</Capability>
+  <Capability Min="107" Max="107">Noise Pal</Capability>
+  <Capability Min="108" Max="108">Sine</Capability>
+  <Capability Min="109" Max="109">Phased Noise</Capability>
+  <Capability Min="110" Max="110">Flow</Capability>
+  <Capability Min="111" Max="111">Chunchun</Capability>
+  <Capability Min="112" Max="112">Dancing Shadows</Capability>
+  <Capability Min="113" Max="113">Washing Machine</Capability>
+  <Capability Min="114" Max="114">Rotozoomer</Capability>
+  <Capability Min="115" Max="115">Blends</Capability>
+  <Capability Min="116" Max="116">TV Simulator</Capability>
+  <Capability Min="117" Max="117">Dynamic Smooth</Capability>
+  <Capability Min="118" Max="118">Spaceships</Capability>
+  <Capability Min="119" Max="119">Crazy Bees</Capability>
+  <Capability Min="120" Max="120">Ghost Rider</Capability>
+  <Capability Min="121" Max="121">Blobs</Capability>
+  <Capability Min="122" Max="122">Scrolling Text</Capability>
+  <Capability Min="123" Max="123">Drift Rose</Capability>
+  <Capability Min="124" Max="124">Distortion Waves</Capability>
+  <Capability Min="125" Max="125">Soap</Capability>
+  <Capability Min="126" Max="126">Octopus</Capability>
+  <Capability Min="127" Max="127">Waving Cell</Capability>
+  <Capability Min="128" Max="128">Pixels</Capability>
+  <Capability Min="129" Max="129">Pixelwave</Capability>
+  <Capability Min="130" Max="130">Juggles</Capability>
+  <Capability Min="131" Max="131">Matripix</Capability>
+  <Capability Min="132" Max="132">Gravimeter</Capability>
+  <Capability Min="133" Max="133">Plasmoid</Capability>
+  <Capability Min="134" Max="134">Puddles</Capability>
+  <Capability Min="135" Max="135">Midnoise</Capability>
+  <Capability Min="136" Max="136">Noisemeter</Capability>
+  <Capability Min="137" Max="137">Freqwave</Capability>
+  <Capability Min="138" Max="138">Freqmatrix</Capability>
+  <Capability Min="139" Max="139">GEQ</Capability>
+  <Capability Min="140" Max="140">Waterfall</Capability>
+  <Capability Min="141" Max="141">Freqpixels</Capability>
+  <Capability Min="142" Max="142">RSVD</Capability>
+  <Capability Min="143" Max="143">Noisefire</Capability>
+  <Capability Min="144" Max="144">Puddlepeak</Capability>
+  <Capability Min="145" Max="145">Noisemove</Capability>
+  <Capability Min="146" Max="146">Noise2D</Capability>
+  <Capability Min="147" Max="147">Perlin Move</Capability>
+  <Capability Min="148" Max="148">Ripple Peak</Capability>
+  <Capability Min="149" Max="149">Firenoise</Capability>
+  <Capability Min="150" Max="150">Squared Swirl</Capability>
+  <Capability Min="151" Max="151">PacMan</Capability>
+  <Capability Min="152" Max="152">DNA</Capability>
+  <Capability Min="153" Max="153">Matrix</Capability>
+  <Capability Min="154" Max="154">Metaballs</Capability>
+  <Capability Min="155" Max="155">Freqmap</Capability>
+  <Capability Min="156" Max="156">Gravcenter</Capability>
+  <Capability Min="157" Max="157">Gravcentric</Capability>
+  <Capability Min="158" Max="158">Gravfreq</Capability>
+  <Capability Min="159" Max="159">DJ Light</Capability>
+  <Capability Min="160" Max="160">Funky Plank</Capability>
+  <Capability Min="161" Max="161">Shimmer</Capability>
+  <Capability Min="162" Max="162">Pulser</Capability>
+  <Capability Min="163" Max="163">Blurz</Capability>
+  <Capability Min="164" Max="164">Drift</Capability>
+  <Capability Min="165" Max="165">Waverly</Capability>
+  <Capability Min="166" Max="166">Sun Radiation</Capability>
+  <Capability Min="167" Max="167">Colored Bursts</Capability>
+  <Capability Min="168" Max="168">Julia</Capability>
+  <Capability Min="169" Max="169">RSVD</Capability>
+  <Capability Min="170" Max="170">RSVD</Capability>
+  <Capability Min="171" Max="171">RSVD</Capability>
+  <Capability Min="172" Max="172">Game Of Life</Capability>
+  <Capability Min="173" Max="173">Tartan</Capability>
+  <Capability Min="174" Max="174">Polar Lights</Capability>
+  <Capability Min="175" Max="175">Swirl</Capability>
+  <Capability Min="176" Max="176">Lissajous</Capability>
+  <Capability Min="177" Max="177">Frizzles</Capability>
+  <Capability Min="178" Max="178">Plasma Ball</Capability>
+  <Capability Min="179" Max="179">Flow Stripe</Capability>
+  <Capability Min="180" Max="180">Hiphotic</Capability>
+  <Capability Min="181" Max="181">Sindots</Capability>
+  <Capability Min="182" Max="182">DNA Spiral</Capability>
+  <Capability Min="183" Max="183">Black Hole</Capability>
+  <Capability Min="184" Max="184">Wavesins</Capability>
+  <Capability Min="185" Max="185">Rocktaves</Capability>
+  <Capability Min="186" Max="186">Akemi</Capability>
+  <Capability Min="187" Max="187">PS Volcano</Capability>
+  <Capability Min="188" Max="188">PS Fire</Capability>
+  <Capability Min="189" Max="189">PS Fireworks</Capability>
+  <Capability Min="190" Max="190">PS Vortex</Capability>
+  <Capability Min="191" Max="191">PS Fuzzy Noise</Capability>
+  <Capability Min="192" Max="192">PS Ballpit</Capability>
+  <Capability Min="193" Max="193">PS Box</Capability>
+  <Capability Min="194" Max="194">PS Attractor</Capability>
+  <Capability Min="195" Max="195">PS Impact</Capability>
+  <Capability Min="196" Max="196">PS Waterfall</Capability>
+  <Capability Min="197" Max="197">PS Spray</Capability>
+  <Capability Min="198" Max="198">PS GEQ 2D</Capability>
+  <Capability Min="199" Max="199">PS GEQ Nova</Capability>
+  <Capability Min="200" Max="200">PS Ghost Rider</Capability>
+  <Capability Min="201" Max="201">PS Blobs</Capability>
+  <Capability Min="202" Max="202">PS DripDrop</Capability>
+  <Capability Min="203" Max="203">PS Pinball</Capability>
+  <Capability Min="204" Max="204">PS Dancing Shadows</Capability>
+  <Capability Min="205" Max="205">PS Fireworks 1D</Capability>
+  <Capability Min="206" Max="206">PS Sparkler</Capability>
+  <Capability Min="207" Max="207">PS Hourglass</Capability>
+  <Capability Min="208" Max="208">PS Spray 1D</Capability>
+  <Capability Min="209" Max="209">PS 1D Balance</Capability>
+  <Capability Min="210" Max="210">PS Chase</Capability>
+  <Capability Min="211" Max="211">PS Starburst</Capability>
+  <Capability Min="212" Max="212">PS GEQ 1D</Capability>
+  <Capability Min="213" Max="213">PS Fire 1D</Capability>
+  <Capability Min="214" Max="214">PS Sonic Stream</Capability>
+  <Capability Min="215" Max="215">PS Sonic Boom</Capability>
+  <Capability Min="216" Max="216">PS Springy</Capability>
+  <Capability Min="217" Max="217">PS Galaxy</Capability>
+  <Capability Min="218" Max="218">Color Clouds</Capability>
+  <Capability Min="219" Max="219">Slow Transition</Capability>
+  <Capability Min="220" Max="255">Reserved (clamps to Slow Transition)</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Effect speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Effect Intensity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect intensity (low to high)</Capability>
+ </Channel>
+ <Channel Name="Palette">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Default</Capability>
+  <Capability Min="1" Max="1">* Random Cycle</Capability>
+  <Capability Min="2" Max="2">* Color 1</Capability>
+  <Capability Min="3" Max="3">* Colors 1&amp;2</Capability>
+  <Capability Min="4" Max="4">* Color Gradient</Capability>
+  <Capability Min="5" Max="5">* Colors Only</Capability>
+  <Capability Min="6" Max="6">Party</Capability>
+  <Capability Min="7" Max="7">Cloud</Capability>
+  <Capability Min="8" Max="8">Lava</Capability>
+  <Capability Min="9" Max="9">Ocean</Capability>
+  <Capability Min="10" Max="10">Forest</Capability>
+  <Capability Min="11" Max="11">Rainbow</Capability>
+  <Capability Min="12" Max="12">Rainbow Bands</Capability>
+  <Capability Min="13" Max="13">Sunset</Capability>
+  <Capability Min="14" Max="14">Rivendell</Capability>
+  <Capability Min="15" Max="15">Breeze</Capability>
+  <Capability Min="16" Max="16">Red &amp; Blue</Capability>
+  <Capability Min="17" Max="17">Yellowout</Capability>
+  <Capability Min="18" Max="18">Analogous</Capability>
+  <Capability Min="19" Max="19">Splash</Capability>
+  <Capability Min="20" Max="20">Pastel</Capability>
+  <Capability Min="21" Max="21">Sunset 2</Capability>
+  <Capability Min="22" Max="22">Beach</Capability>
+  <Capability Min="23" Max="23">Vintage</Capability>
+  <Capability Min="24" Max="24">Departure</Capability>
+  <Capability Min="25" Max="25">Landscape</Capability>
+  <Capability Min="26" Max="26">Beech</Capability>
+  <Capability Min="27" Max="27">Sherbet</Capability>
+  <Capability Min="28" Max="28">Hult</Capability>
+  <Capability Min="29" Max="29">Hult 64</Capability>
+  <Capability Min="30" Max="30">Drywet</Capability>
+  <Capability Min="31" Max="31">Jul</Capability>
+  <Capability Min="32" Max="32">Grintage</Capability>
+  <Capability Min="33" Max="33">Rewhi</Capability>
+  <Capability Min="34" Max="34">Tertiary</Capability>
+  <Capability Min="35" Max="35">Fire</Capability>
+  <Capability Min="36" Max="36">Icefire</Capability>
+  <Capability Min="37" Max="37">Cyane</Capability>
+  <Capability Min="38" Max="38">Light Pink</Capability>
+  <Capability Min="39" Max="39">Autumn</Capability>
+  <Capability Min="40" Max="40">Magenta</Capability>
+  <Capability Min="41" Max="41">Magred</Capability>
+  <Capability Min="42" Max="42">Yelmag</Capability>
+  <Capability Min="43" Max="43">Yelblu</Capability>
+  <Capability Min="44" Max="44">Orange &amp; Teal</Capability>
+  <Capability Min="45" Max="45">Tiamat</Capability>
+  <Capability Min="46" Max="46">April Night</Capability>
+  <Capability Min="47" Max="47">Orangery</Capability>
+  <Capability Min="48" Max="48">C9</Capability>
+  <Capability Min="49" Max="49">Sakura</Capability>
+  <Capability Min="50" Max="50">Aurora</Capability>
+  <Capability Min="51" Max="51">Atlantica</Capability>
+  <Capability Min="52" Max="52">C9 2</Capability>
+  <Capability Min="53" Max="53">C9 New</Capability>
+  <Capability Min="54" Max="54">Temperature</Capability>
+  <Capability Min="55" Max="55">Aurora 2</Capability>
+  <Capability Min="56" Max="56">Retro Clown</Capability>
+  <Capability Min="57" Max="57">Candy</Capability>
+  <Capability Min="58" Max="58">Toxy Reaf</Capability>
+  <Capability Min="59" Max="59">Fairy Reaf</Capability>
+  <Capability Min="60" Max="60">Semi Blue</Capability>
+  <Capability Min="61" Max="61">Pink Candy</Capability>
+  <Capability Min="62" Max="62">Red Reaf</Capability>
+  <Capability Min="63" Max="63">Aqua Flash</Capability>
+  <Capability Min="64" Max="64">Yelblu Hot</Capability>
+  <Capability Min="65" Max="65">Lite Light</Capability>
+  <Capability Min="66" Max="66">Red Flash</Capability>
+  <Capability Min="67" Max="67">Blink Red</Capability>
+  <Capability Min="68" Max="68">Red Shift</Capability>
+  <Capability Min="69" Max="69">Red Tide</Capability>
+  <Capability Min="70" Max="70">Candy2</Capability>
+  <Capability Min="71" Max="71">Traffic Light</Capability>
+  <Capability Min="72" Max="255">Reserved (clamps to Traffic Light)</Capability>
+ </Channel>
+ <Channel Name="Effect Option">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect option / segment macro (see WLED docs)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Secondary Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Secondary Red</Capability>
+ </Channel>
+ <Channel Name="Secondary Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Secondary Green</Capability>
+ </Channel>
+ <Channel Name="Secondary Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Secondary Blue</Capability>
+ </Channel>
+ <Channel Name="Tertiary Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Tertiary Red</Capability>
+ </Channel>
+ <Channel Name="Tertiary Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Tertiary Green</Capability>
+ </Channel>
+ <Channel Name="Tertiary Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Tertiary Blue</Capability>
+ </Channel>
+ <Mode Name="Effect (15ch)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.01" Width="55" Height="28" Depth="13"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="15" DmxConnector="Other"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Effect</Channel>
+  <Channel Number="2">Effect Speed</Channel>
+  <Channel Number="3">Effect Intensity</Channel>
+  <Channel Number="4">Palette</Channel>
+  <Channel Number="5">Effect Option</Channel>
+  <Channel Number="6">Red</Channel>
+  <Channel Number="7">Green</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">Secondary Red</Channel>
+  <Channel Number="10">Secondary Green</Channel>
+  <Channel Number="11">Secondary Blue</Channel>
+  <Channel Number="12">Tertiary Red</Channel>
+  <Channel Number="13">Tertiary Green</Channel>
+  <Channel Number="14">Tertiary Blue</Channel>
+ </Mode>
+ <Mode Name="Single DRGB (4ch)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.01" Width="55" Height="28" Depth="13"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="15" DmxConnector="Other"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+ <Mode Name="Single RGB (3ch)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.01" Width="55" Height="28" Depth="13"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="15" DmxConnector="Other"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+</FixtureDefinition>
