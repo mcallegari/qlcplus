@@ -113,6 +113,11 @@ const wsStatus = document.getElementById("wsStatus");
 const brandTitle = document.querySelector(".brand-title");
 const appMeta = document.getElementById("appMeta");
 
+const connectedTranslationEnglishFallback = "Connected";
+const disconnectedTranslationEnglishFallback = "Disconnected";
+let connectedTranslation = connectedTranslationEnglishFallback;
+let disconnectedTranslation = disconnectedTranslationEnglishFallback;
+
 function updateWebPixelDensity() {
   const dpr = window.devicePixelRatio || 1;
   const dpi = 96 * dpr;
@@ -174,8 +179,8 @@ function setStatus(connected) {
   wsStatus.textContent = "";
   wsStatus.classList.toggle("connected", connected);
   wsStatus.classList.toggle("disconnected", !connected);
-  wsStatus.setAttribute("aria-label", connected ? "Connected" : "Disconnected");
-  wsStatus.title = connected ? "Connected" : "Disconnected";
+  wsStatus.setAttribute("aria-label", connected ? connectedTranslation : disconnectedTranslation);
+  wsStatus.title = connected ? connectedTranslation : disconnectedTranslation;
 }
 
 function updatePagesCompact() {
@@ -1145,15 +1150,6 @@ function renderXYPad(widget) {
     }
     const rel = clamp(ev.clientY - rect.top, 0, rect.height);
     return (rel / rect.height) * 255;
-  };
-
-  const handleRangePointer = (axis, ev, container) => {
-    const value = rangeValueFromPointer(axis, ev, container);
-    const which = pickRangeTarget(axis, value);
-    setActiveRangeHandle(axis, which);
-    updateRangeValue(axis, which, value);
-    syncRangeInputs();
-    sendRangeUpdate(axis);
   };
 
   const rangeDrag = { active: false, axis: null, which: null, container: null };
@@ -2375,7 +2371,6 @@ function renderFrame(widget, isSolo) {
   const root = applyWidgetBase(document.createElement("div"), widget);
   root.classList.add(isSolo ? "vc-soloframe" : "vc-frame");
 
-  let headerHeight = 0;
   let pageSelect = null;
   let enableBtn = null;
   let collapseBtn = null;
@@ -2383,7 +2378,6 @@ function renderFrame(widget, isSolo) {
   if (widget.showHeader) {
     const header = document.createElement("div");
     header.className = "vc-frame-header";
-    headerHeight = 28;
 
     collapseBtn = document.createElement("button");
     collapseBtn.className = "frame-btn";
@@ -2690,6 +2684,12 @@ function renderVC(vcData) {
   const appVersion = vcData.app?.version || "";
   if (brandTitle) brandTitle.textContent = appName;
   appMeta.textContent = appVersion;
+  if (vcData.translations?.loadProject) document.getElementById("loadProjectBtn").innerText = vcData.translations?.loadProject;
+  if (vcData.translations?.simpleDesk) document.getElementById("loadProjectBtn").nextElementSibling.innerText = vcData.translations?.simpleDesk;
+  if (vcData.translations?.configuration) document.getElementById("loadProjectBtn").nextElementSibling.nextElementSibling.innerText = vcData.translations?.configuration;
+  connectedTranslation = vcData.translations?.connected || connectedTranslationEnglishFallback;
+  disconnectedTranslation = vcData.translations?.disconnected || disconnectedTranslationEnglishFallback;
+  setStatus(wsStatus.classList.contains('connected'));
   renderPages(vcData);
 }
 

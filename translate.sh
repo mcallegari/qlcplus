@@ -81,16 +81,6 @@ is_cmake_build_dir() {
   [[ -e "$1/CMakeCache.txt" || -d "$1/CMakeFiles" ]]
 }
 
-find_ts_for_lang() {
-  # args: lang, flavor
-  local lang="$1"; local flavor="$2"
-  if [[ "$flavor" == "qmlui" ]]; then
-    find . -type f -path "./qmlui/*" -name "*_${lang}.ts"
-  else
-    find . -type f -not -path "./qmlui/*" -name "*_${lang}.ts"
-  fi
-}
-
 case "$ACTION" in
   update)
     echo "Scanning for translation folders and updating .ts files..."
@@ -128,7 +118,7 @@ case "$ACTION" in
       # Gather files
       files_tmp="$(mktemp)"
       if [[ "$FLAVOR" == "qmlui" ]]; then
-        find . -type f -path "./qmlui/*" -name "*_${lang}.ts" > "$files_tmp"
+        find . -type f \( -path "./qmlui/*" -o -path "./plugins/*" -o -path "./webaccess/*" \) -name "*_${lang}.ts" > "$files_tmp"
       else
         find . -type f -not -path "./qmlui/*" -name "*_${lang}.ts" > "$files_tmp"
       fi
@@ -156,7 +146,7 @@ case "$ACTION" in
     # Collect reference TS files for the flavor
     refs_tmp="$(mktemp)"
     if [[ "$FLAVOR" == "qmlui" ]]; then
-      find . -type f -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
+      find . -type f \( -path "./qmlui/*" -o -path "./plugins/*" -o -path "./webaccess/*" \) -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
     else
       find . -type f -not -path "./qmlui/*" -name "*_[a-z][a-z]_[A-Z][A-Z].ts" > "$refs_tmp"
     fi

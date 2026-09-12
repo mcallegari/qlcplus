@@ -50,6 +50,7 @@
 
 #include "function.h"
 #include "chaser.h"
+#include "app.h"
 #include "doc.h"
 #include "fixture.h"
 #include "qlcchannel.h"
@@ -372,7 +373,7 @@ static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
     {
         QString selected = (i + 1 == uni) ? " selected" : "";
         bodyHTML += "<option value=\"" + QString::number(i) + "\"" + selected + ">"
-                + uniList.at(i) + "</option>\n";
+                + uniList.at(i).toHtmlEscaped() + "</option>\n";
     }
 
     bodyHTML += "</select>\n"
@@ -412,7 +413,7 @@ static QString getSimpleDeskQmlHtml(const Doc *doc, const SimpleDesk *sd)
                 "</main>\n"
                 "</div>\n";
 
-    return QString(HTML_HEADER) + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+    return QString(HTML_HEADER(" lang=\"" + App::languageHTML() + "\"")) + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 }
 
 WebAccessQml::WebAccessQml(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
@@ -481,7 +482,7 @@ void WebAccessQml::slotHandleHTTPRequest(QHttpRequest *req, QHttpResponse *resp)
 
     if (serveWebFile(resp, "/webaccess-v5.html", "text/html"))
         return;
-    content = QString(HTML_HEADER) + "</head><body>Missing webaccess-v5.html</body></html>";
+    content = QString(HTML_HEADER(" lang=\"" + App::languageHTML() + "\"")) + "</head><body>Missing webaccess-v5.html</body></html>";
     sendHtmlResponse(resp, content);
 }
 
@@ -1361,6 +1362,13 @@ QByteArray WebAccessQml::getVCJson()
     appObj["name"] = QString(APPNAME);
     appObj["version"] = QString(APPVERSION);
     root["app"] = appObj;
+    QJsonObject translationObj;
+    translationObj["loadProject"] = QObject::tr("Load project");
+    translationObj["simpleDesk"] = QObject::tr("Simple Desk");
+    translationObj["configuration"] = QObject::tr("Configuration");
+    translationObj["connected"] = QObject::tr("Connected");
+    translationObj["disconnected"] = QObject::tr("Disconnected");
+    root["translations"] = translationObj;
     root["pixelDensity"] = m_vc->pixelDensity();
     root["selectedPage"] = m_vc->selectedPage();
     QJsonObject uiStyle = loadUiStyleJson();

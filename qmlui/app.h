@@ -166,6 +166,8 @@ public:
     Q_INVOKABLE void toggleFullscreen();
 
     Q_INVOKABLE void setLanguage(QString locale);
+    static QString language();
+    static QString languageHTML();
 
     Q_INVOKABLE QString goboSystemPath() const;
 

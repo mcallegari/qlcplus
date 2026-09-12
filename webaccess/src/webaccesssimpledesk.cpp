@@ -85,7 +85,7 @@ QString WebAccessSimpleDesk::getHTML(const Doc *doc, const SimpleDesk *sd)
 
     bodyHTML += "<div id=\"slidersContainer\"></div>\n\n";
 
-    QString str = HTML_HEADER + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+    QString str = HTML_HEADER(" lang=\"" + LANGUAGE_HTML + "\"") + JScode + CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
 }
