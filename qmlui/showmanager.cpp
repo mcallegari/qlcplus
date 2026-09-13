@@ -127,6 +127,13 @@ void ShowManager::setCurrentShowID(int currentShowID)
         emit showDurationChanged(0);
         emit showNameChanged("");
     }
+
+    /* Emit time/beat change in case the new Show differs */
+    emit timeDivisionChanged(timeDivision());
+    emit beatsDivisionChanged(beatsDivision());
+    m_timeScale = 0.0; // force setTimeScale() to recompute and notify
+    setTimeScale(timeDivision() == Show::Time ? 5.0 : 1.0);
+
     emit tracksChanged();
     setPlaybackState(m_currentShow != nullptr ? m_currentShow->isRunning() : false,
                      m_currentShow != nullptr ? m_currentShow->isPaused() : false);
@@ -251,6 +258,24 @@ Show::TimeDivision ShowManager::timeDivision() const
     return m_currentShow->timeDivisionType();
 }
 
+bool ShowManager::hasBeatBasedItems() const
+{
+    if (m_currentShow == nullptr)
+        return false;
+
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            Function *func = m_doc->function(sf->functionID());
+            if (func != nullptr && func->tempoType() == Function::Beats)
+                return true;
+        }
+    }
+
+    return false;
+}
+
 void ShowManager::setTimeDivision(Show::TimeDivision division)
 {
     if (m_currentShow == nullptr)
@@ -258,6 +283,35 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
 
     if (division == m_currentShow->timeDivisionType())
         return;
+
+    /* A beat tempo Function's items are always positioned in "beats as ms"
+       (1000 units per beat) regardless of the Show's own timeline
+       division, and are not affected by this switch. However, since they
+       can be freely dragged/resized in pixels while the Show is showing a
+       Time-based ruler, they may end up sitting at an arbitrary fractional
+       beat position instead of on a beat. When the user switches to a BPM
+       ruler, tidy those up by snapping them to the nearest whole beat (the
+       user is warned about this beforehand, see hasBeatBasedItems()) */
+    if (division != Show::Time && m_currentShow->timeDivisionType() == Show::Time)
+    {
+        foreach (Track *track, m_currentShow->tracks())
+        {
+            foreach (ShowFunction *sf, track->showFunctions())
+            {
+                Function *func = m_doc->function(sf->functionID());
+                if (func == nullptr || func->tempoType() != Function::Beats)
+                    continue;
+
+                quint32 startBeats = qRound((double)sf->startTime() / 1000.0);
+                quint32 durationBeats = qRound((double)sf->duration() / 1000.0);
+                if (durationBeats == 0)
+                    durationBeats = 1;
+
+                sf->setStartTime(startBeats * 1000);
+                sf->setDuration(durationBeats * 1000);
+            }
+        }
+    }
 
     /* Set the division type first: setTimeScale needs it to
        calculate the tick size against the new time division */
@@ -508,25 +562,70 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
 
-        if (timeDivision() == Show::Time)
+        /* A Function keeps its own tempo type when dropped on a track: a
+           Show can freely mix time-based and beat-based items regardless
+           of its own timeline division, so dropping a Function here must
+           not silently override a tempo type the user already chose for
+           it in its own editor */
+        if (func->tempoType() == Function::Time)
         {
-            func->setTempoType(Function::Time);
             showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
         }
         else
         {
-            func->setTempoType(Function::Beats);
             if (func->type() == Function::AudioType || func->type() == Function::VideoType)
                 func->setTotalDuration(func->duration());
             showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 4000);
         }
-        showFunc->setStartTime(startTime);
+
+        /* startTime is the drop position translated by the caller using
+           the Show's own ruler (Time or BPM), i.e. it is only guaranteed
+           to be in the dropped Function's own unit when that Function's
+           tempo type matches the Show's current division. Since a
+           Function keeps its own tempo type regardless of the Show's
+           division, convert it to that Function's unit when they differ,
+           using the live BPM */
+        quint32 itemStartTime = (quint32)startTime;
+        bool showIsBeats = timeDivision() != Show::Time;
+        bool funcIsBeats = func->tempoType() == Function::Beats;
+
+        if (showIsBeats != funcIsBeats)
+        {
+            int bpm = m_doc->inputOutputMap()->bpmNumber();
+            int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+            itemStartTime = showIsBeats
+                    ? Function::beatsToTime(itemStartTime, beatDuration)  // Show is BPM, Function is Time
+                    : Function::timeToBeats(itemStartTime, beatDuration); // Show is Time, Function is Beats
+        }
+
+        showFunc->setStartTime(itemStartTime);
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
         // when pasting, inherit the customized properties of the source item
         if (sourceFunc != nullptr)
         {
-            showFunc->setDuration(sourceFunc->duration());
+            /* sourceFunc->duration() is expressed in the unit of ITS OWN
+               Function (which may not even be the same Function as the one
+               being pasted here, in a mixed selection), so it needs the
+               same unit conversion as startTime above, relative to the
+               Function this ShowFunction actually wraps */
+            quint32 pastedDuration = sourceFunc->duration();
+            Function *sourceOwnerFunc = m_doc->function(sourceFunc->functionID());
+            bool sourceIsBeats = (sourceOwnerFunc != nullptr) ?
+                        (sourceOwnerFunc->tempoType() == Function::Beats) : funcIsBeats;
+
+            if (sourceIsBeats != funcIsBeats)
+            {
+                int bpm = m_doc->inputOutputMap()->bpmNumber();
+                int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+                pastedDuration = funcIsBeats
+                        ? Function::timeToBeats(pastedDuration, beatDuration)
+                        : Function::beatsToTime(pastedDuration, beatDuration);
+            }
+
+            showFunc->setDuration(pastedDuration);
             showFunc->setColor(sourceFunc->color());
             showFunc->setLocked(sourceFunc->isLocked());
         }

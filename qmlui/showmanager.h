@@ -177,6 +177,14 @@ public:
     void setTimeDivision(Show::TimeDivision division);
     int beatsDivision() const;
 
+    /** Return true if the current Show has any item on its tracks whose
+     *  Function is beat (BPM) tempo based. Used to warn the user before
+     *  switching the Show from a Time to a BPM based division, since doing
+     *  so snaps those items' start/duration to the nearest whole beat
+     *  (they may have been placed at an arbitrary fractional-beat pixel
+     *  position while the Show was displaying a Time based ruler) */
+    Q_INVOKABLE bool hasBeatBasedItems() const;
+
     /** Get/Set the current time scale of the Show Manager timeline */
     float timeScale() const;
     void setTimeScale(float timeScale);
