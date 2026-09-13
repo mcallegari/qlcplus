@@ -54,6 +54,29 @@ Popup
             openDialog(App.SaveAsMode)
     }
 
+    /** Open a project or fixture file, e.g. dropped onto the main window.
+      * Goes through the same "unsaved changes" guard as the File menu */
+    function openFile(url)
+    {
+        var path = url.toString()
+
+        if (path.endsWith("qxf") || path.endsWith("d4"))
+        {
+            qlcplus.loadFixture(path)
+            return
+        }
+
+        if (qlcplus.docModified)
+        {
+            saveFirstPopup.action = path
+            saveFirstPopup.open()
+        }
+        else
+        {
+            qlcplus.loadWorkspace(path)
+        }
+    }
+
     function saveBeforeExit()
     {
         saveFirstPopup.action = "#EXIT"
