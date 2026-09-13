@@ -155,7 +155,7 @@
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">Exit calibration adjustment and return to normal control - 5 sec.</Capability>
-  <Capability Min="10" Max="14" Preset="">Reset entire fixture - 5 sec.</Capability>
+  <Capability Min="10" Max="14">Reset entire fixture - 5 sec.</Capability>
   <Capability Min="15" Max="16">No function</Capability>
   <Capability Min="17" Max="17">Reset beam only - 5 sec.</Capability>
   <Capability Min="18" Max="18" Preset="ResetPanTilt">Reset pan and tilt only - 5 sec.</Capability>
