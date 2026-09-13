@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Lucas Mignone</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>Diamond 19TW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Movement Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Normal</Capability>
+  <Capability Min="16" Max="31">Movement with backout</Capability>
+  <Capability Min="32" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Shutter Function">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Normal Shutter Functions</Capability>
+  <Capability Min="16" Max="31" Preset="RampUpSlowToFast">Pulse-effect Forward</Capability>
+  <Capability Min="32" Max="47" Preset="RampDownSlowToFast">Pulse-effect Reverse</Capability>
+  <Capability Min="48" Max="63" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="64" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="32" Max="223" Preset="StrobeSlowToFast">Strobe Rate (slow to fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Shutter 2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse-effect in sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Virtual Color Function">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">On Function</Capability>
+  <Capability Min="16" Max="31">CTC Function</Capability>
+  <Capability Min="32" Max="47">Forward Spin</Capability>
+  <Capability Min="48" Max="63">Reverse Spin</Capability>
+  <Capability Min="64" Max="79">Continuous</Capability>
+  <Capability Min="80" Max="111">Color Bounce</Capability>
+  <Capability Min="112" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="Virtual Color 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="223">Color Temperature Correction 2800K-&gt;6300K</Capability>
+  <Capability Min="224" Max="227">White 2800K</Capability>
+  <Capability Min="228" Max="231">White 3200K</Capability>
+  <Capability Min="232" Max="235">White 3800K</Capability>
+  <Capability Min="236" Max="239">White 4200K</Capability>
+  <Capability Min="240" Max="243">White 4600K</Capability>
+  <Capability Min="244" Max="247">White 5000K</Capability>
+  <Capability Min="248" Max="251">White 5600K</Capability>
+  <Capability Min="252" Max="255">White 6300K</Capability>
+ </Channel>
+ <Channel Name="Virtual Color 2 (Only on Color Bounce)">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">Black</Capability>
+  <Capability Min="1" Max="2">Warm White</Capability>
+  <Capability Min="3" Max="4">Cool White</Capability>
+  <Capability Min="5" Max="255">Warm White-&gt;Cool White</Capability>
+ </Channel>
+ <Channel Name="Warm White - All" Preset="IntensityWhite"/>
+ <Channel Name="Cool White - All" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="WARM WHITE-1" Preset="IntensityWhite"/>
+ <Channel Name="COOL WHITE-1" Preset="IntensityWhite"/>
+ <Channel Name="WARM WHITE-2" Preset="IntensityWhite"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="7">Normal</Capability>
+  <Capability Min="8" Max="15">Reset All</Capability>
+  <Capability Min="16" Max="23">Pan&amp;Tilt Reset</Capability>
+  <Capability Min="24" Max="47">TBD</Capability>
+  <Capability Min="48" Max="55">Other Reset</Capability>
+  <Capability Min="56" Max="63">Display Off</Capability>
+  <Capability Min="64" Max="71">Display On</Capability>
+  <Capability Min="72" Max="79">TBD</Capability>
+  <Capability Min="80" Max="87">TBD</Capability>
+  <Capability Min="88" Max="95">Hibernation</Capability>
+  <Capability Min="96" Max="255">TBD</Capability>
+ </Channel>
+ <Channel Name="COOL WHITE-2" Preset="IntensityWhite"/>
+ <Mode Name="STAND (13 Channel)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Movement Speed</Channel>
+  <Channel Number="3">Shutter Function</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Virtual Color Function</Channel>
+  <Channel Number="7">Virtual Color 1</Channel>
+  <Channel Number="8">Virtual Color 2 (Only on Color Bounce)</Channel>
+  <Channel Number="9">Warm White - All</Channel>
+  <Channel Number="10">Cool White - All</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Control</Channel>
+ </Mode>
+ <Mode Name="EXT-1 (20 Channel)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Movement Function</Channel>
+  <Channel Number="6">Shutter Function</Channel>
+  <Channel Number="7">Shutter</Channel>
+  <Channel Number="8">Dimmer</Channel>
+  <Channel Number="9">Virtual Color Function</Channel>
+  <Channel Number="10">Virtual Color 1</Channel>
+  <Channel Number="11">Virtual Color 2 (Only on Color Bounce)</Channel>
+  <Channel Number="12">Warm White - All</Channel>
+  <Channel Number="13">Cool White - All</Channel>
+  <Channel Number="14">Zoom</Channel>
+  <Channel Number="15">WARM WHITE-1</Channel>
+  <Channel Number="16">COOL WHITE-1</Channel>
+  <Channel Number="17">WARM WHITE-2</Channel>
+  <Channel Number="18">COOL WHITE-2</Channel>
+  <Channel Number="19">Control</Channel>
+ </Mode>
+ <Mode Name="BAS-8 (12 Channel)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Movement Speed</Channel>
+  <Channel Number="3">Shutter 2</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Virtual Color Function</Channel>
+  <Channel Number="6">Virtual Color 1</Channel>
+  <Channel Number="7">Virtual Color 2 (Only on Color Bounce)</Channel>
+  <Channel Number="8">Warm White - All</Channel>
+  <Channel Number="9">Cool White - All</Channel>
+  <Channel Number="10">Zoom</Channel>
+  <Channel Number="11">Control</Channel>
+ </Mode>
+ <Mode Name="BAS-16 (14 Channel)">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Movement Speed</Channel>
+  <Channel Number="5">Shutter 2</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Virtual Color Function</Channel>
+  <Channel Number="8">Virtual Color 1</Channel>
+  <Channel Number="9">Virtual Color 2 (Only on Color Bounce)</Channel>
+  <Channel Number="10">Warm White - All</Channel>
+  <Channel Number="11">Cool White - All</Channel>
+  <Channel Number="12">Zoom</Channel>
+  <Channel Number="13">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3811" ColourTemperature="0"/>
+  <Dimensions Weight="11" Width="338" Height="449" Depth="235"/>
+  <Lens Name="PC" DegreesMin="7" DegreesMax="41"/>
+  <Focus Type="Head" PanMax="630" TiltMax="265"/>
+  <Technical PowerConsumption="6" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

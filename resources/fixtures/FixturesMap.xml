@@ -80,6 +80,7 @@
     <F n="American-DJ-Focus-Spot-4Z" m="Focus Spot 4Z"/>
     <F n="American-DJ-Focus-Spot-5Z" m="Focus Spot 5Z"/>
     <F n="American-DJ-Focus-Spot-Three-Z" m="Focus Spot Three Z"/>
+    <F n="American-DJ-Focus-Spot-Two" m="Focus Spot Two"/>
     <F n="American-DJ-Fog-Fury-3000-WiFly" m="Fog Fury 3000 WiFly"/>
     <F n="American-DJ-Fog-Fury-Jett-Pro" m="Fog Fury Jett Pro"/>
     <F n="American-DJ-Fog-Fury-Jett" m="Fog Fury Jett"/>
@@ -425,6 +426,7 @@
     <F n="Cameo-Storm" m="Storm"/>
     <F n="Cameo-Strobe-3x3.5W" m="Strobe 3x3.5W"/>
     <F n="Cameo-Strobe-6x10W" m="Strobe 6x10W"/>
+    <F n="Cameo-Studio-PAR-64-Can-RGBWA+UV-CLPST64RGBWAU12" m="Studio PAR 64 CAN RGBWA+UV - CLPST64RGBWAU12W"/>
     <F n="Cameo-Studio-PAR-64-Q-8W-(CLPST64Q8W)" m="Studio PAR 64 Q 8W (CLPST64Q8W)"/>
     <F n="Cameo-Studio-PAR-64-RGBWA-UV-12W" m="Studio PAR 64 RGBWA UV 12W"/>
     <F n="Cameo-Superfly-XS" m="Superfly XS"/>
@@ -837,6 +839,7 @@
     <F n="Eurolite-GKF-60" m="GKF-60"/>
     <F n="Eurolite-KLS-180-6" m="KLS-180-6"/>
     <F n="Eurolite-KLS200" m="KLS200"/>
+    <F n="Eurolite-LED-4C-12-Silent-Slim-Spot" m="LED 4C-12 Silent Slim Spot"/>
     <F n="Eurolite-LED-ACS-BAR-12" m="LED ACS BAR-12"/>
     <F n="Eurolite-LED-B-40-Beam" m="LED B-40 Beam"/>
     <F n="Eurolite-LED-Bar-2-RGBA-252_10_40__Indoor" m="LED Bar 2 RGBA 252/10 40° Indoor"/>
@@ -887,6 +890,7 @@
     <F n="Eurolite-LED-SLS-18-TCL" m="LED SLS-18x3W TCL"/>
     <F n="Eurolite-LED-SLS-180-RGB" m="LED SLS-180 RGB"/>
     <F n="Eurolite-LED-SLS-183-10-RGB" m="LED SLS-183/10 RGB"/>
+    <F n="Eurolite-LED-SLS-3-HCL-3x10W" m="LED SLS-3 HCL 3x10W"/>
     <F n="Eurolite-LED-SLS-5-BCL" m="LED SLS 5 BCL"/>
     <F n="Eurolite-LED-SLS-603" m="LED SLS-603"/>
     <F n="Eurolite-LED-SLS-7-HCL" m="LED SLS-7 HCL"/>
@@ -1366,6 +1370,7 @@
     <F n="Martin-MAC-700-Profile" m="MAC 700 Profile"/>
     <F n="Martin-MAC-700-Wash" m="MAC 700 Wash"/>
     <F n="Martin-MAC-Aura" m="MAC Aura"/>
+    <F n="Martin-MAC-Aura_XIP" m="MAC Aura XIP"/>
     <F n="Martin-MAC-Axiom-Hybrid" m="MAC Axiom Hybrid"/>
     <F n="Martin-MAC-Encore-Performance" m="MAC Encore Performance"/>
     <F n="Martin-MAC-Quantum-Profile" m="Mac Quantum Profile"/>
@@ -1482,6 +1487,7 @@
     <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
     <F n="Pro-Lights-CromoWash100" m="CromoWash100"/>
     <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
+    <F n="Pro-Lights-Diamond-19TW" m="Diamond 19TW"/>
     <F n="Pro-Lights-EclCyclorama-100" m="EclCyclorama 100"/>
     <F n="Pro-Lights-EclExpo-Flood-150FC" m="EclExpo Flood 150FC"/>
     <F n="Pro-Lights-EclFresnel-2KTW" m="EclFresnel 2KTW"/>
@@ -1513,6 +1519,7 @@
     <F n="Pro-Lights-Strobo-1500DMX" m="Strobo 1500DMX"/>
     <F n="Pro-Lights-StudioCOBFC" m="StudioCOBFC"/>
     <F n="Pro-Lights-StudioCOBPLUSFC" m="STUDIOCOBPLUSFC"/>
+    <F n="Pro-Lights-Sunblast-3000-FC" m="Sunblast 3000 FC"/>
     <F n="Pro-Lights-SunPix-12TRI" m="SunPix 12TRI"/>
     <F n="Pro-Lights-UVStrip18" m="UVStrip18"/>
     <F n="Pro-Lights-V200" m="V200"/>
@@ -1605,6 +1612,7 @@
     <F n="Rockville-Battery-Strip-24" m="Battery Strip 24"/>
     <F n="Rockville-Best-Strip-60-RGBWAUV" m="Best Strip 60"/>
     <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
+    <F n="Rockville-Rockstrip-252" m="Rockstrip 252"/>
     <F n="Rockville-Rockwedge-LED" m="Rockwedge LED"/>
   </M>
   <M n="Rosco">
@@ -1796,6 +1804,7 @@
     <F n="Stairville-CLB5-Compact-LED-Bar-RGBW-RGBWW" m="CLB5 Compact LED Bar RGBW / RGBWW"/>
     <F n="Stairville-Compact-LED-Bar-CLB8" m="Compact LED-Bar CLB8"/>
     <F n="Stairville-Crown-FX-PAR77" m="Crown FX PAR77"/>
+    <F n="Stairville-CX-60-HEX" m="CX-60 HEX"/>
     <F n="Stairville-DCL-Flat-Par-18x4W-CW-WW" m="DCL Flat Par 18x4W CW/WW"/>
     <F n="Stairville-DDS-405" m="DDS 405"/>
     <F n="Stairville-DJ-Lase-150-RGY-MkII" m="DJ Lase 150-RGY MkII"/>
@@ -1945,6 +1954,7 @@
     <F n="UKing-ZQ02021-Beam-Pro" m="ZQ02021 Beam Pro"/>
     <F n="UKing-ZQ02102-Moving-Head" m="ZQ02102 Moving Head"/>
     <F n="UKing-ZQ02319-Mini-40W-Beam-Moving-Head" m="ZQ-02319"/>
+    <F n="UKing-ZQ02367-120W-Beam" m="120W Beam ZQ02367"/>
     <F n="UKing-ZQ06122-9-Eye-COB-Matrix" m="ZQ06122 9-Eye COB Matrix"/>
     <F n="UKing-ZQB117-Par-Can-4in1-RGBW" m="ZQ-B117 Par Can 4in1 RGBW"/>
     <F n="UKing-ZQB20-Mini-Spider" m="ZQ-B20 Mini Spider"/>
