@@ -315,6 +315,7 @@ Rectangle
                                                 mcDragItem.itemLabel = mcEntryItem.tLabel
                                                 mcDragItem.itemIcon = mcEntryItem.iSrc
                                                 channelList.dragActive = true
+                                                UISettings.internalDragActive = true
                                             }
                                             else
                                             {
@@ -323,6 +324,7 @@ Rectangle
                                                 mcDragItem.x = 0
                                                 mcDragItem.y = 0
                                                 channelList.dragActive = false
+                                                UISettings.internalDragActive = false
                                             }
                                         }
 
@@ -393,6 +395,43 @@ Rectangle
                             }
                         } // ListView
 
+                        // Tracks whichever item is currently being dragged (be it mcDragItem,
+                        // from this same list, or a drag item from another view such as
+                        // EditorView's main channel list) and recomputes the insertion index
+                        // from its live position. This is deliberately NOT driven by
+                        // DropArea.onPositionChanged: with a Drag.target reparented inside a
+                        // ListView, Qt keeps sending spurious entered/exited pairs instead of
+                        // continuous position updates, so positionChanged never fires during
+                        // the drag. The dragged item's own x/y binding, however, is always
+                        // kept up to date by the MouseArea drag mechanism, so we watch that
+                        // directly instead.
+                        Connections
+                        {
+                            id: dragPosTracker
+                            ignoreUnknownSignals: true
+                            target: null
+                            function onYChanged() { updateDragInsertIndex() }
+                            function onXChanged() { updateDragInsertIndex() }
+                        }
+
+                        function updateDragInsertIndex()
+                        {
+                            var dragItem = dragPosTracker.target
+                            if (!dragItem)
+                                return
+
+                            var centerPos = dragItem.mapToItem(channelList, dragItem.width / 2, dragItem.height / 2)
+                            var idx = channelList.indexAt(centerPos.x, centerPos.y)
+                            var item = channelList.itemAt(centerPos.x, centerPos.y)
+                            if (item === null)
+                            {
+                                channelList.dragInsertIndex = -1
+                                return
+                            }
+                            var itemY = item.mapToItem(channelList, 0, 0).y
+                            channelList.dragInsertIndex = (centerPos.y < itemY + item.height / 2) ? idx : idx + 1
+                        }
+
                         DropArea
                         {
                             id: clDropArea
@@ -401,6 +440,16 @@ Rectangle
                             // accept only channels
                             keys: [ "channel" ]
 
+                            onEntered: (drag) =>
+                            {
+                                dragPosTracker.target = drag.source
+                                updateDragInsertIndex()
+                            }
+                            onExited:
+                            {
+                                dragPosTracker.target = null
+                                channelList.dragInsertIndex = -1
+                            }
                             onDropped:
                             {
                                 var idx = channelList.dragInsertIndex
@@ -419,22 +468,8 @@ Rectangle
                                         mode.moveChannel(drag.source.itemsList[i].cRef, idx + i)
                                     }
                                 }
+                                dragPosTracker.target = null
                                 channelList.dragInsertIndex = -1
-                            }
-                            onPositionChanged: (drag) =>
-                            {
-                                var yInList = drag.y - chEditToolbar.height - UISettings.listItemHeight
-                                var idx = channelList.indexAt(drag.x, yInList)
-                                var item = channelList.itemAt(drag.x, yInList)
-                                if (item === null)
-                                    return
-                                var itemY = item.mapToItem(channelList, 0, 0).y
-
-                                //console.log("Item index:" + idx)
-                                if (drag.y < (itemY + item.height) / 2)
-                                    channelList.dragInsertIndex = idx
-                                else
-                                    channelList.dragInsertIndex = idx + 1
                             }
                         }
                     }
