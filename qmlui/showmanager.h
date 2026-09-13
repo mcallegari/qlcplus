@@ -297,8 +297,7 @@ public:
      *  $originalTrackIdx and moved into $newTrackIdx and true is returned.
      */
     Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
-                                      int newTrackIdx, int newStartTime,
-                                      bool itemSnapped = false);
+                                      int newTrackIdx, int newStartTime);
 
     /** Move a ShowFunction item to the Track at $trackIdx.
      *  This is used to apply a track change coming from an undo/redo or

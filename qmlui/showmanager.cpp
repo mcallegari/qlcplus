@@ -772,7 +772,7 @@ void ShowManager::deleteShowItem(ShowFunction *sf)
     }
 }
 
-bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime, bool itemSnapped)
+bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
 {
     if (m_currentShow == nullptr || sf == nullptr)
         return false;
@@ -806,22 +806,8 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
             return false;
     }
 
-    int newTime = newStartTime;
-
-    if (m_gridEnabled && !itemSnapped)
-    {
-        // calculate the X position from time and time scale
-        // timescale * 1000 : tickSize = time : x
-        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0);
-        // round to the nearest snap position
-        xPos = qRound(xPos / m_tickSize) * m_tickSize;
-        // recalculate the time from pixels
-        // xPos : time = tickSize : timescale * 1000
-        newTime = xPos * (1000 * m_timeScale) / m_tickSize;
-    }
-
-    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), newTime);
-    sf->setStartTime(newTime);
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), newStartTime);
+    sf->setStartTime(newStartTime);
 
     // check if we need to move the ShowFunction to a different Track
     if (newTrackIdx != originalTrackIdx)

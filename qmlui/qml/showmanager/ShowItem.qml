@@ -456,11 +456,26 @@ Item
             {
                 infoText = ""
 
+                // a Function keeps its own tempo type regardless of the Show's
+                // ruler (see updateGeometry() above), so the dropped position
+                // must be converted using ITS OWN unit, like the resize handlers do
+                var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+                var dropX = itemRoot.x + showItemBody.x
+
+                // grid snapping: snap to the nearest beat on a BPM ruler
+                // (skipped if already snapped to another item's edge)
+                if (showManager.gridEnabled && !itemSnapped && timeDivision !== Show.Time)
+                    dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+
                 var newTime
                 if (timeDivision === Show.Time)
-                    newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
+                    newTime = itemIsBeats
+                            ? TimeUtils.posToBeatsMsOnTimeline(dropX, timeScale, tickSize, ioManager.bpmNumber)
+                            : TimeUtils.posToMs(dropX, timeScale, tickSize)
                 else
-                    newTime = TimeUtils.posToBeat(itemRoot.x + showItemBody.x, tickSize, beatsDivision)
+                    newTime = itemIsBeats
+                            ? TimeUtils.posToBeat(dropX, tickSize, beatsDivision)
+                            : TimeUtils.posToBeatMs(dropX, tickSize, ioManager.bpmNumber, beatsDivision)
 
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 if (newTime < 0)
@@ -468,7 +483,7 @@ Item
 
                 if (newTrackIdx >= 0)
                 {
-                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime, itemSnapped)
+                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
                     if (res === true)
                         trackIndex = newTrackIdx
