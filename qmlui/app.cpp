@@ -38,6 +38,7 @@
 #include <QScreen>
 #include <QtMath>
 #include <QFileInfo>
+#include <QFileOpenEvent>
 #include <QDir>
 #include <unistd.h>
 
@@ -471,6 +472,26 @@ bool App::eventFilter(QObject *obj, QEvent *event)
             event->ignore();
             return true;
         }
+    }
+    else if (event->type() == QEvent::FileOpen)
+    {
+        // On macOS, opening a .qxw/.qxf file from Finder (double click,
+        // "Open With", or a Dock drop) doesn't come in through argv: the OS
+        // delivers it as a FileOpen event to the application instead, which
+        // is why it needs to be caught here rather than in QCommandLineParser.
+        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
+        QString filename = foe->file();
+        if (filename.isEmpty())
+            filename = foe->url().toLocalFile();
+
+        if (filename.isEmpty() == false)
+        {
+            if (filename.endsWith(KExtFixture))
+                loadFixture(filename);
+            else
+                loadWorkspace(filename);
+        }
+        return true;
     }
 
     return QQuickView::eventFilter(obj, event);
