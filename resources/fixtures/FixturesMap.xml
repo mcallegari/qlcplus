@@ -348,8 +348,11 @@
     <F n="Briteq-BT-ORBIT" m="BT-ORBIT"/>
     <F n="Briteq-BT-Smartzoom" m="BT Smartzoom"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
+    <F n="Briteq-BT-Theatre-150EZ" m="BT-Theatre 150EZ"/>
+    <F n="Briteq-BT-Theatre-200TW" m="BT-Theatre 200TW"/>
     <F n="Briteq-BT-Theatre-250EZ-Mk3" m="BT Theatre 250EZ Mk3"/>
     <F n="Briteq-BT-Theatre-250EZ" m="BT Theatre 250EZ (and 250EZ Mk2)"/>
+    <F n="Briteq-BT-Theatre-261FC" m="BT-Theatre 261FC"/>
     <F n="Briteq-BT-Theatre-50WW" m="BT-Theatre 50WW"/>
     <F n="Briteq-BT-Theatre-HD1" m="BT Theatre HD1"/>
     <F n="Briteq-BT-Theatre-HD2" m="BT Theatre HD2"/>
@@ -565,6 +568,7 @@
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
     <F n="Chauvet-onAir-Panel-1-IP" m="onAir Panel 1 IP"/>
+    <F n="Chauvet-Ovation-CYC-1-FC" m="Ovation CYC 1 FC"/>
     <F n="Chauvet-Ovation-E-910FC" m="Ovation E-910FC"/>
     <F n="Chauvet-Ovation-F-415FC" m="Ovation F-415FC"/>
     <F n="Chauvet-Ovation-F-915FC" m="Ovation F-915FC"/>
@@ -1761,6 +1765,7 @@
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>
     <F n="Showtec-Vintage-Blaze" m="Vintage Blaze"/>
     <F n="Showtec-XB-Wave" m="XB-Wave"/>
+    <F n="Showtec-Xpression-2000W-Wash-Beam" m="Xpression 2000W Wash Beam"/>
     <F n="Showtec-XS-1W-Mini-Moving-Beam" m="XS-1W Mini Moving Beam"/>
     <F n="Showtec-ZIPP-LED-DMX" m="ZIPP LED DMX"/>
   </M>
