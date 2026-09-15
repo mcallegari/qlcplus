@@ -259,6 +259,13 @@ private:
     bool enqueueFunction(quint32 fID, FunctionOperation operation);
 
     /**
+     * Releases everything a run of the script may have allocated or claimed:
+     * the QJSEngine, any Functions this script started, and any GenericFaders
+     * it requested. Safe to call more than once.
+     */
+    void finishAndCleanUp();
+
+    /**
      * Packs a (universe, fixture, channel) triple into a single 64-bit key
      * used to de-duplicate queued fixture values (see m_fixtureValueQueue
      * below). 16 bits for the universe, 24 for the fixture ID and 24 for

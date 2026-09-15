@@ -64,33 +64,62 @@ void ScriptRunner::stop()
     if (m_running == false)
         return;
 
-    if (m_engine)
-    {
-        m_engine->setInterrupted(true);
-        m_engine->deleteLater();
-        m_engine = NULL;
-    }
+    // Flip the flag first, before anything else.
+    // Every blocking loop in this class polls m_running to know when to give up.
+    m_running = false;
 
-    // Stop all functions started by this script
+    if (m_engine)
+        m_engine->setInterrupted(true);
+
+    // Block until the worker thread (run()) has actually returned before
+    // touching anything it owns. This was missing entirely before - stop()
+    // fired setInterrupted() and immediately deleted the engine via
+    // deleteLater() while the script might still legitimately be executing
+    // native code for a little while longer.
+    wait();
+
+    // Whatever run() didn't already clean up on its own, clean up now.
+    // No-op if run() got there first (the common case).
+    finishAndCleanUp();
+}
+
+void ScriptRunner::finishAndCleanUp()
+{
+    QMutexLocker locker(&m_mutex);
+
+    // Already cleaned up - without this guard, calling this twice would
+    // double-delete m_engine.
+    if (m_engine == NULL && m_startedFunctions.isEmpty() && m_fadersMap.isEmpty())
+        return;
+
+    m_running = false;
+
+    // Delete directly to avoid leaking memory; deleteLater() fails here
+    // because the worker thread does not run a Qt event loop.
+    delete m_engine;
+    m_engine = NULL;
+
     foreach (quint32 fID, m_startedFunctions)
     {
         Function *function = m_doc->function(fID);
-        if (function == NULL)
-            continue;
-
-        function->stop(FunctionParent::master());
+        if (function != NULL)
+            function->stop(FunctionParent::master());
     }
     m_startedFunctions.clear();
 
-    // request to delete all the active faders
-    foreach (QSharedPointer<GenericFader> fader, m_fadersMap)
+    QMapIterator<quint32, QSharedPointer<GenericFader>> it(m_fadersMap);
+    while (it.hasNext())
     {
-        if (!fader.isNull())
-            fader->requestDelete();
+        it.next();
+        it.value()->requestDelete();
     }
     m_fadersMap.clear();
 
-    m_running = false;
+    m_functionQueue.clear();
+    m_fixtureValueQueue.clear();
+    disconnect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
+    disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+    m_waitFunctionId = Function::invalidId();
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -201,62 +230,81 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         });
     }
     // if we don't have to wait and there are some functions in the queue
-    if (m_waitFunctionId == Function::invalidId() && m_functionQueue.count())
+        while (true)
     {
-        while (!m_functionQueue.isEmpty())
+        QPair<quint32, FunctionOperation> pair;
         {
-            QPair<quint32, FunctionOperation> &pair = m_functionQueue.head();
-            quint32 fID = pair.first;
-            FunctionOperation operation = pair.second;
-
-            Function *function = m_doc->function(fID);
-            if (function == NULL)
-            {
-                qWarning() << QString("No such function (ID %1)").arg(fID);
-                continue;
-            }
-
-            if (operation == FunctionOperation::START || operation == FunctionOperation::START_DONT_STOP)
-            {
-                function->start(timer, FunctionParent::master());
-                if (operation == FunctionOperation::START)
-                    m_startedFunctions << fID;
-            }
-            else if (operation == FunctionOperation::STOP)
-            {
-                function->stop(FunctionParent::master());
-                m_startedFunctions.removeAll(fID);
-            }
-            else if (operation == FunctionOperation::WAIT_START)
-            {
-                if (!function->isRunning())
-                {
-                    // the function is not running, so we we wait and we stop dequeuing
-                    m_waitFunctionId = fID;
-                    connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), SLOT(slotWaitFunctionStarted(quint32)));
-                    break;
-                }
-            }
-            else if (operation == FunctionOperation::WAIT_STOP)
-            {
-                if (!function->stopped())
-                {
-                    // the function has to start or is still running, so we wait and we stop dequeuing
-                    m_waitFunctionId = fID;
-                    connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), SLOT(slotWaitFunctionStopped(quint32)));
-                    break;
-                }
-            }
-            // we can continue with the next function in the queue
-            m_functionQueue.removeFirst();
+            QMutexLocker locker(&m_mutex);
+            if (m_waitFunctionId != Function::invalidId() || m_functionQueue.isEmpty())
+                break;
+            pair = m_functionQueue.head();
         }
+
+        quint32 fID = pair.first;
+        FunctionOperation operation = pair.second;
+
+        Function *function = m_doc->function(fID);
+        if (function == NULL)
+        {
+            qWarning() << QString("No such function (ID %1)").arg(fID);
+            // Must remove the bad entry - the old code's plain "continue;"
+            // left it at the head of the queue forever, spinning write()
+            // (called once per MasterTimer tick) in an infinite loop and
+            // freezing DMX output for every universe.
+            QMutexLocker locker(&m_mutex);
+            m_functionQueue.removeFirst();
+            continue;
+        }
+
+        bool waiting = false;
+
+        if (operation == FunctionOperation::START || operation == FunctionOperation::START_DONT_STOP)
+        {
+            function->start(timer, FunctionParent::master());
+            if (operation == FunctionOperation::START)
+            {
+                QMutexLocker locker(&m_mutex);
+                m_startedFunctions.insert(fID);
+            }
+        }
+        else if (operation == FunctionOperation::STOP)
+        {
+            function->stop(FunctionParent::master());
+            QMutexLocker locker(&m_mutex);
+            m_startedFunctions.remove(fID);
+        }
+        else if (operation == FunctionOperation::WAIT_START)
+        {
+            if (!function->isRunning())
+            {
+                QMutexLocker locker(&m_mutex);
+                m_waitFunctionId = fID;
+                connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), SLOT(slotWaitFunctionStarted(quint32)), Qt::UniqueConnection);
+                waiting = true;
+            }
+        }
+        else if (operation == FunctionOperation::WAIT_STOP)
+        {
+            if (!function->stopped())
+            {
+                QMutexLocker locker(&m_mutex);
+                m_waitFunctionId = fID;
+                connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), SLOT(slotWaitFunctionStopped(quint32)), Qt::UniqueConnection);
+                waiting = true;
+            }
+        }
+
+        if (waiting)
+            break;
+
+        QMutexLocker locker(&m_mutex);
+        if (!m_functionQueue.isEmpty())
+            m_functionQueue.removeFirst();
     }
 
-    // If the JS call method has ended on its own, the thread has finished.
-    // Keep running until every queued operation has been dispatched, otherwise
-    // commands issued right before the script fell off the end would be lost
-    if (m_running == false && m_functionQueue.isEmpty() &&
-        m_waitFunctionId == Function::invalidId())
+    // If the JS call method has ended on its own, the thread has finished,
+    // therefore there's nothing else to run here
+    if (m_running == false)
         return false;
 
     return true;
@@ -314,10 +362,9 @@ void ScriptRunner::run()
         qDebug() << "[ScriptRunner] Code executed";
     }
 
-    // Signal write() that the JS code is done. Note that this must not stop
-    // the Script right away: pending queued operations are dispatched by
-    // write() on the MasterTimer thread and have to be flushed first
-    m_running = false;
+    // Routing both "stopped by user" and "finished by itself" through
+    // finishAndCleanUp ensures single cleanup regardless of how the script ends.
+    finishAndCleanUp();
 }
 
 /************************************************************************
