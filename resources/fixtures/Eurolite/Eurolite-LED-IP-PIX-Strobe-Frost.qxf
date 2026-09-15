@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.3.0 GIT</Version>
+  <Author>Bram Janssen</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED IP PIX Strobe Frost</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Warm white Segment 1" Preset="IntensityWhite"/>
+ <Channel Name="Warm white Segment 2" Preset="IntensityWhite"/>
+ <Channel Name="Warm white Segment 3" Preset="IntensityWhite"/>
+ <Channel Name="Warm white Segment 4" Preset="IntensityWhite"/>
+ <Channel Name="Cold white Segment 1" Preset="IntensityWhite"/>
+ <Channel Name="Cold white Segment 2" Preset="IntensityWhite"/>
+ <Channel Name="Cold white Segment 3" Preset="IntensityWhite"/>
+ <Channel Name="Cold white Segment 4" Preset="IntensityWhite"/>
+ <Channel Name="Strobe white">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Red Segment 1" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 2" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 3" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 3" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 4" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 4" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 5" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 5" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 6" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 6" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 7" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 7" Preset="IntensityBlue"/>
+ <Channel Name="Red Segment 8" Preset="IntensityRed"/>
+ <Channel Name="Green Segment 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segment 8" Preset="IntensityBlue"/>
+ <Channel Name="Strobe RGB">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Increasing frost effect 0-100%</Capability>
+ </Channel>
+ <Channel Name="Red Segement 1 + 2" Preset="IntensityRed"/>
+ <Channel Name="Green Segement 1 + 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segement 1 + 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Segement 3 + 4" Preset="IntensityRed"/>
+ <Channel Name="Green Segement 3 + 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segement 3 + 4" Preset="IntensityBlue"/>
+ <Channel Name="Red Segement 5 + 6" Preset="IntensityRed"/>
+ <Channel Name="Green Segement 5 + 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segement 5 + 6" Preset="IntensityBlue"/>
+ <Channel Name="Red Segement 7 + 8" Preset="IntensityRed"/>
+ <Channel Name="Green Segement 7 + 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Segement 7 + 8" Preset="IntensityBlue"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Auto Programs White">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="47">Program 1</Capability>
+  <Capability Min="48" Max="67">Program 2</Capability>
+  <Capability Min="68" Max="87">Program 3</Capability>
+  <Capability Min="88" Max="107">Program 4</Capability>
+  <Capability Min="108" Max="127">Program 5</Capability>
+  <Capability Min="128" Max="147">Program 6</Capability>
+  <Capability Min="148" Max="167">Program 7</Capability>
+  <Capability Min="168" Max="187">Program 8</Capability>
+  <Capability Min="188" Max="207">Program 9</Capability>
+  <Capability Min="208" Max="227">Program 10</Capability>
+  <Capability Min="228" Max="247">Program 11</Capability>
+  <Capability Min="248" Max="255">Program 12</Capability>
+ </Channel>
+ <Channel Name="Speed (White)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed of the auto programs 1 – 12</Capability>
+ </Channel>
+ <Channel Name="Auto Programs RGB">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No function</Capability>
+  <Capability Min="8" Max="15">Program 1</Capability>
+  <Capability Min="16" Max="23">Program 2</Capability>
+  <Capability Min="24" Max="31">Program 3</Capability>
+  <Capability Min="32" Max="39">Program 4</Capability>
+  <Capability Min="40" Max="47">Program 5</Capability>
+  <Capability Min="48" Max="55">Program 6</Capability>
+  <Capability Min="56" Max="63">Program 7</Capability>
+  <Capability Min="64" Max="71">Program 8</Capability>
+  <Capability Min="72" Max="87">Program 9</Capability>
+  <Capability Min="88" Max="95">Program 10</Capability>
+  <Capability Min="96" Max="103">Program 11</Capability>
+  <Capability Min="104" Max="111">Program 12</Capability>
+  <Capability Min="112" Max="119">Program 13</Capability>
+  <Capability Min="120" Max="127">Program 14</Capability>
+  <Capability Min="128" Max="135">Program 15</Capability>
+  <Capability Min="136" Max="143">Program 16</Capability>
+  <Capability Min="144" Max="151">Program 17</Capability>
+  <Capability Min="152" Max="159">Program 18</Capability>
+  <Capability Min="160" Max="167">Program 19</Capability>
+  <Capability Min="168" Max="175">Program 20</Capability>
+  <Capability Min="176" Max="183">Program 21</Capability>
+  <Capability Min="184" Max="191">Program 22</Capability>
+  <Capability Min="192" Max="199">Program 23</Capability>
+  <Capability Min="200" Max="207">Program 24</Capability>
+  <Capability Min="208" Max="215">Program 25</Capability>
+  <Capability Min="216" Max="223">Program 26</Capability>
+  <Capability Min="224" Max="231">Program 27</Capability>
+  <Capability Min="232" Max="239">Program 28</Capability>
+  <Capability Min="240" Max="247">Program 29</Capability>
+  <Capability Min="248" Max="255">Program 30</Capability>
+ </Channel>
+ <Channel Name="Speed (RGB)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed of the auto programs 1 – 30</Capability>
+ </Channel>
+ <Channel Name="Speed (White / RGB)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Increasing speed of the auto programs</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Cold white">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
+ </Channel>
+ <Channel Name="Warm white">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
+ </Channel>
+ <Channel Name="W-CTO">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">3200K</Capability>
+  <Capability Min="31" Max="45">3300K</Capability>
+  <Capability Min="46" Max="56">3400K</Capability>
+  <Capability Min="57" Max="65">3500K</Capability>
+  <Capability Min="66" Max="74">3600K</Capability>
+  <Capability Min="75" Max="82">3700K</Capability>
+  <Capability Min="83" Max="89">3800K</Capability>
+  <Capability Min="90" Max="95">3900K</Capability>
+  <Capability Min="96" Max="102">4000K</Capability>
+  <Capability Min="103" Max="109">4100K</Capability>
+  <Capability Min="110" Max="116">4200K</Capability>
+  <Capability Min="117" Max="123">4300K</Capability>
+  <Capability Min="124" Max="130">4400K</Capability>
+  <Capability Min="131" Max="137">4500K</Capability>
+  <Capability Min="138" Max="143">4600K</Capability>
+  <Capability Min="144" Max="149">4700K</Capability>
+  <Capability Min="150" Max="154">4800K</Capability>
+  <Capability Min="155" Max="160">4900K</Capability>
+  <Capability Min="161" Max="165">5000K</Capability>
+  <Capability Min="166" Max="169">5100K</Capability>
+  <Capability Min="170" Max="173">5200K</Capability>
+  <Capability Min="174" Max="177">5300K</Capability>
+  <Capability Min="178" Max="182">5400K</Capability>
+  <Capability Min="183" Max="187">5500K</Capability>
+  <Capability Min="188" Max="191">5600K</Capability>
+  <Capability Min="192" Max="195">5700K</Capability>
+  <Capability Min="196" Max="199">5800K</Capability>
+  <Capability Min="200" Max="203">5900K</Capability>
+  <Capability Min="204" Max="207">6000K</Capability>
+  <Capability Min="208" Max="212">6100K</Capability>
+  <Capability Min="213" Max="216">6200K</Capability>
+  <Capability Min="217" Max="222">6300K</Capability>
+  <Capability Min="223" Max="227">6400K</Capability>
+  <Capability Min="228" Max="235">6500K</Capability>
+  <Capability Min="236" Max="255">6600K</Capability>
+ </Channel>
+ <Channel Name="Strobe Effects White">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="169" Preset="PulseSlowToFast">Opening pulse effect with increasing speed</Capability>
+  <Capability Min="170" Max="211" Preset="RampDownSlowToFast">Closing pulse effect with increasing speed</Capability>
+  <Capability Min="212" Max="255" Preset="StrobeRandom">Random strobe effect</Capability>
+ </Channel>
+ <Channel Name="Background Red" Preset="IntensityRed"/>
+ <Channel Name="Background Green" Preset="IntensityGreen"/>
+ <Channel Name="Background Blue" Preset="IntensityBlue"/>
+ <Channel Name="Direction">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Forwards</Capability>
+  <Capability Min="128" Max="255">Backwards</Capability>
+ </Channel>
+ <Mode Name="35 Channel">
+  <Channel Number="0">Warm white Segment 1</Channel>
+  <Channel Number="1">Warm white Segment 2</Channel>
+  <Channel Number="2">Warm white Segment 3</Channel>
+  <Channel Number="3">Warm white Segment 4</Channel>
+  <Channel Number="4">Cold white Segment 1</Channel>
+  <Channel Number="5">Cold white Segment 2</Channel>
+  <Channel Number="6">Cold white Segment 3</Channel>
+  <Channel Number="7">Cold white Segment 4</Channel>
+  <Channel Number="8">Strobe white</Channel>
+  <Channel Number="9">Red Segment 1</Channel>
+  <Channel Number="10">Green Segment 1</Channel>
+  <Channel Number="11">Blue Segment 1</Channel>
+  <Channel Number="12">Red Segment 2</Channel>
+  <Channel Number="13">Green Segment 2</Channel>
+  <Channel Number="14">Blue Segment 2</Channel>
+  <Channel Number="15">Red Segment 3</Channel>
+  <Channel Number="16">Green Segment 3</Channel>
+  <Channel Number="17">Blue Segment 3</Channel>
+  <Channel Number="18">Red Segment 4</Channel>
+  <Channel Number="19">Green Segment 4</Channel>
+  <Channel Number="20">Blue Segment 4</Channel>
+  <Channel Number="21">Red Segment 5</Channel>
+  <Channel Number="22">Green Segment 5</Channel>
+  <Channel Number="23">Blue Segment 5</Channel>
+  <Channel Number="24">Red Segment 6</Channel>
+  <Channel Number="25">Green Segment 6</Channel>
+  <Channel Number="26">Blue Segment 6</Channel>
+  <Channel Number="27">Red Segment 7</Channel>
+  <Channel Number="28">Green Segment 7</Channel>
+  <Channel Number="29">Blue Segment 7</Channel>
+  <Channel Number="30">Red Segment 8</Channel>
+  <Channel Number="31">Green Segment 8</Channel>
+  <Channel Number="32">Blue Segment 8</Channel>
+  <Channel Number="33">Strobe RGB</Channel>
+  <Channel Number="34">Frost</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="33 Channel">
+  <Channel Number="0">Warm white Segment 1</Channel>
+  <Channel Number="1">Warm white Segment 2</Channel>
+  <Channel Number="2">Warm white Segment 3</Channel>
+  <Channel Number="3">Warm white Segment 4</Channel>
+  <Channel Number="4">Cold white Segment 1</Channel>
+  <Channel Number="5">Cold white Segment 2</Channel>
+  <Channel Number="6">Cold white Segment 3</Channel>
+  <Channel Number="7">Cold white Segment 4</Channel>
+  <Channel Number="8">Red Segment 1</Channel>
+  <Channel Number="9">Green Segment 1</Channel>
+  <Channel Number="10">Blue Segment 1</Channel>
+  <Channel Number="11">Red Segment 2</Channel>
+  <Channel Number="12">Green Segment 2</Channel>
+  <Channel Number="13">Blue Segment 2</Channel>
+  <Channel Number="14">Red Segment 3</Channel>
+  <Channel Number="15">Green Segment 3</Channel>
+  <Channel Number="16">Blue Segment 3</Channel>
+  <Channel Number="17">Red Segment 4</Channel>
+  <Channel Number="18">Green Segment 4</Channel>
+  <Channel Number="19">Blue Segment 4</Channel>
+  <Channel Number="20">Red Segment 5</Channel>
+  <Channel Number="21">Green Segment 5</Channel>
+  <Channel Number="22">Blue Segment 5</Channel>
+  <Channel Number="23">Red Segment 6</Channel>
+  <Channel Number="24">Green Segment 6</Channel>
+  <Channel Number="25">Blue Segment 6</Channel>
+  <Channel Number="26">Red Segment 7</Channel>
+  <Channel Number="27">Green Segment 7</Channel>
+  <Channel Number="28">Blue Segment 7</Channel>
+  <Channel Number="29">Red Segment 8</Channel>
+  <Channel Number="30">Green Segment 8</Channel>
+  <Channel Number="31">Blue Segment 8</Channel>
+  <Channel Number="32">Frost</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="32 Channel">
+  <Channel Number="0">Warm white Segment 1</Channel>
+  <Channel Number="1">Warm white Segment 2</Channel>
+  <Channel Number="2">Warm white Segment 3</Channel>
+  <Channel Number="3">Warm white Segment 4</Channel>
+  <Channel Number="4">Cold white Segment 1</Channel>
+  <Channel Number="5">Cold white Segment 2</Channel>
+  <Channel Number="6">Cold white Segment 3</Channel>
+  <Channel Number="7">Cold white Segment 4</Channel>
+  <Channel Number="8">Red Segment 1</Channel>
+  <Channel Number="9">Green Segment 1</Channel>
+  <Channel Number="10">Blue Segment 1</Channel>
+  <Channel Number="11">Red Segment 2</Channel>
+  <Channel Number="12">Green Segment 2</Channel>
+  <Channel Number="13">Blue Segment 2</Channel>
+  <Channel Number="14">Red Segment 3</Channel>
+  <Channel Number="15">Green Segment 3</Channel>
+  <Channel Number="16">Blue Segment 3</Channel>
+  <Channel Number="17">Red Segment 4</Channel>
+  <Channel Number="18">Green Segment 4</Channel>
+  <Channel Number="19">Blue Segment 4</Channel>
+  <Channel Number="20">Red Segment 5</Channel>
+  <Channel Number="21">Green Segment 5</Channel>
+  <Channel Number="22">Blue Segment 5</Channel>
+  <Channel Number="23">Red Segment 6</Channel>
+  <Channel Number="24">Green Segment 6</Channel>
+  <Channel Number="25">Blue Segment 6</Channel>
+  <Channel Number="26">Red Segment 7</Channel>
+  <Channel Number="27">Green Segment 7</Channel>
+  <Channel Number="28">Blue Segment 7</Channel>
+  <Channel Number="29">Red Segment 8</Channel>
+  <Channel Number="30">Green Segment 8</Channel>
+  <Channel Number="31">Blue Segment 8</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="26 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="10000" ColourTemperature="0"/>
+   <Dimensions Weight="3.73" Width="380" Height="176" Depth="108"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="4" Height="2"/>
+   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red Segement 1 + 2</Channel>
+  <Channel Number="1">Green Segement 1 + 2</Channel>
+  <Channel Number="2">Blue Segement 1 + 2</Channel>
+  <Channel Number="3">Warm white Segment 1</Channel>
+  <Channel Number="4">Cold white Segment 1</Channel>
+  <Channel Number="5">Red Segement 3 + 4</Channel>
+  <Channel Number="6">Green Segement 3 + 4</Channel>
+  <Channel Number="7">Blue Segement 3 + 4</Channel>
+  <Channel Number="8">Warm white Segment 2</Channel>
+  <Channel Number="9">Cold white Segment 2</Channel>
+  <Channel Number="10">Red Segement 5 + 6</Channel>
+  <Channel Number="11">Green Segement 5 + 6</Channel>
+  <Channel Number="12">Blue Segement 5 + 6</Channel>
+  <Channel Number="13">Warm white Segment 3</Channel>
+  <Channel Number="14">Cold white Segment 3</Channel>
+  <Channel Number="15">Red Segement 7 + 8</Channel>
+  <Channel Number="16">Green Segement 7 + 8</Channel>
+  <Channel Number="17">Blue Segement 7 + 8</Channel>
+  <Channel Number="18">Warm white Segment 4</Channel>
+  <Channel Number="19">Cold white Segment 4</Channel>
+  <Channel Number="20">Strobe</Channel>
+  <Channel Number="21">Auto Programs White</Channel>
+  <Channel Number="22">Speed (White)</Channel>
+  <Channel Number="23">Auto Programs RGB</Channel>
+  <Channel Number="24">Speed (RGB)</Channel>
+  <Channel Number="25">Frost</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="25 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="10000" ColourTemperature="0"/>
+   <Dimensions Weight="3.73" Width="380" Height="176" Depth="108"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="4" Height="2"/>
+   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red Segement 1 + 2</Channel>
+  <Channel Number="1">Green Segement 1 + 2</Channel>
+  <Channel Number="2">Blue Segement 1 + 2</Channel>
+  <Channel Number="3">Warm white Segment 1</Channel>
+  <Channel Number="4">Cold white Segment 1</Channel>
+  <Channel Number="5">Red Segement 3 + 4</Channel>
+  <Channel Number="6">Green Segement 3 + 4</Channel>
+  <Channel Number="7">Blue Segement 3 + 4</Channel>
+  <Channel Number="8">Warm white Segment 2</Channel>
+  <Channel Number="9">Cold white Segment 2</Channel>
+  <Channel Number="10">Red Segement 5 + 6</Channel>
+  <Channel Number="11">Green Segement 5 + 6</Channel>
+  <Channel Number="12">Blue Segement 5 + 6</Channel>
+  <Channel Number="13">Warm white Segment 3</Channel>
+  <Channel Number="14">Cold white Segment 3</Channel>
+  <Channel Number="15">Red Segement 7 + 8</Channel>
+  <Channel Number="16">Green Segement 7 + 8</Channel>
+  <Channel Number="17">Blue Segement 7 + 8</Channel>
+  <Channel Number="18">Warm white Segment 4</Channel>
+  <Channel Number="19">Cold white Segment 4</Channel>
+  <Channel Number="20">Strobe</Channel>
+  <Channel Number="21">Auto Programs White</Channel>
+  <Channel Number="22">Auto Programs RGB</Channel>
+  <Channel Number="23">Speed (White / RGB)</Channel>
+  <Channel Number="24">Frost</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="19 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="10000" ColourTemperature="0"/>
+   <Dimensions Weight="3.73" Width="380" Height="176" Depth="108"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="3" Height="1"/>
+   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Cold white</Channel>
+  <Channel Number="5">Warm white</Channel>
+  <Channel Number="6">W-CTO</Channel>
+  <Channel Number="7">Auto Programs White</Channel>
+  <Channel Number="8" ActsOn="7">Speed (White)</Channel>
+  <Channel Number="9">Strobe white</Channel>
+  <Channel Number="10" ActsOn="9">Strobe Effects White</Channel>
+  <Channel Number="11">Auto Programs RGB</Channel>
+  <Channel Number="12" ActsOn="11">Speed (RGB)</Channel>
+  <Channel Number="13">Strobe RGB</Channel>
+  <Channel Number="14">Background Red</Channel>
+  <Channel Number="15">Background Green</Channel>
+  <Channel Number="16">Background Blue</Channel>
+  <Channel Number="17">Direction</Channel>
+  <Channel Number="18">Frost</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="10000" ColourTemperature="0"/>
+   <Dimensions Weight="3.73" Width="380" Height="176" Depth="108"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="2" Height="1"/>
+   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Warm white</Channel>
+  <Channel Number="4">Cold white</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Auto Programs White</Channel>
+  <Channel Number="7" ActsOn="6">Speed (White)</Channel>
+  <Channel Number="8">Auto Programs RGB</Channel>
+  <Channel Number="9" ActsOn="8">Speed (RGB)</Channel>
+  <Channel Number="10">Frost</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="10000" ColourTemperature="0"/>
+   <Dimensions Weight="3.73" Width="380" Height="176" Depth="108"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Warm white</Channel>
+  <Channel Number="4">Cold white</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Frost</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="10000" ColourTemperature="0"/>
+  <Dimensions Weight="3.73" Width="380" Height="176" Depth="108"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="3"/>
+  <Technical PowerConsumption="180" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

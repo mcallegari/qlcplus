@@ -264,6 +264,7 @@
     <F n="beamZ-Illusion-II" m="Illusion II"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
     <F n="beamZ-LCB1215IP" m="LCB1215IP"/>
+    <F n="beamZ-LCB183-LED-Bar-18x3W" m="LCB183 LED Bar 18x3W"/>
     <F n="beamZ-LCB244" m="LCB244"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
@@ -418,6 +419,7 @@
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
+    <F n="Cameo-NanoSpot-300" m="NanoSpot 300"/>
     <F n="Cameo-Octafly-XS" m="Octafly XS"/>
     <F n="Cameo-OPUS-S5" m="OPUS S5"/>
     <F n="Cameo-P2-FC" m="P2 FC"/>
@@ -452,6 +454,7 @@
   </M>
   <M n="Chauvet">
     <F n="Chauvet-200b" m="200b"/>
+    <F n="Chauvet-4Bar-Hex-ILS" m="4Bar Hex ILS"/>
     <F n="Chauvet-4Bar-Tri" m="4Bar Tri"/>
     <F n="Chauvet-4Bar" m="4Bar"/>
     <F n="Chauvet-4Play" m="4Play"/>
@@ -858,6 +861,8 @@
     <F n="Eurolite-LED-FE-800" m="LED FE-800"/>
     <F n="Eurolite-LED-Flood-Light-252-RGB-19" m="LED Flood Light 252 RGB 19°"/>
     <F n="Eurolite-LED-H2O-Water-Effect" m="LED H2O Water Effect"/>
+    <F n="Eurolite-LED-IP-PIX-Strobe-Frost" m="LED IP PIX Strobe Frost"/>
+    <F n="Eurolite-LED-IP-PIX-Strobe-MK2" m="LED IP PIX Strobe MK2"/>
     <F n="Eurolite-LED-KLS-120-FX" m="LED KLS-120 FX"/>
     <F n="Eurolite-LED-KLS-180" m="LED KLS-180"/>
     <F n="Eurolite-LED-KLS-2500" m="LED KLS-2500"/>
@@ -1062,6 +1067,7 @@
   <M n="Ghost">
     <F n="Ghost-Green-30" m="Green 30"/>
     <F n="Ghost-Lumy" m="Lumy"/>
+    <F n="Ghost-SLIM-PAR56-V2" m="SLIM PAR56 V2"/>
     <F n="Ghost-Spoty" m="Spoty"/>
     <F n="Ghost-Venum-12W-RGBW" m="Venum 12W RGBW"/>
   </M>
@@ -1525,6 +1531,7 @@
     <F n="Pro-Lights-StudioCOBPLUSFC" m="STUDIOCOBPLUSFC"/>
     <F n="Pro-Lights-Sunblast-3000-FC" m="Sunblast 3000 FC"/>
     <F n="Pro-Lights-SunPix-12TRI" m="SunPix 12TRI"/>
+    <F n="Pro-Lights-Tribe-Crystal" m="Tribe Crystal"/>
     <F n="Pro-Lights-UVStrip18" m="UVStrip18"/>
     <F n="Pro-Lights-V200" m="V200"/>
     <F n="Pro-Lights-XP250" m="XP250"/>
