@@ -17,13 +17,13 @@
   limitations under the License.
 */
 
-#include <QQmlEngine>
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
 #if !defined(Q_OS_IOS)
 #include <QProcess>
 #endif
+#include <QMutexLocker>
 #include <QDebug>
 
 #include "scriptrunner.h"
@@ -140,41 +140,65 @@ QStringList ScriptRunner::collectScriptData()
 
 int ScriptRunner::currentWaitTime() const
 {
+    QMutexLocker locker(&m_mutex);
     return m_waitCount * MasterTimer::tick();
+}
+
+quint64 ScriptRunner::fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel)
+{
+    return (quint64(universe & 0xFFFFu) << 48)
+         | (quint64(fixtureID & 0xFFFFFFu) << 24)
+         |  quint64(channel & 0xFFFFFFu);
 }
 
 bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 {
-    if (m_waitCount > 0)
-        m_waitCount--;
-
-    if (m_fixtureValueQueue.count())
     {
-        while (!m_fixtureValueQueue.isEmpty())
-        {
-            FixtureValue val = m_fixtureValueQueue.dequeue();
+        QMutexLocker locker(&m_mutex);
+        if (m_waitCount > 0)
+            m_waitCount--;
+    }
 
-            QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
+    QHash<quint64, FixtureValue> fixtureValues;
+    {
+        QMutexLocker locker(&m_mutex);
+        fixtureValues.swap(m_fixtureValueQueue);
+    }
+
+    for (const FixtureValue &val : std::as_const(fixtureValues))
+    {
+        if (val.m_universe >= quint32(universes.count()))
+        {
+            qWarning() << QString("Skipping fixture value: invalid universe %1").arg(val.m_universe);
+            continue;
+        }
+
+        QSharedPointer<GenericFader> fader;
+        {
+            QMutexLocker locker(&m_mutex);
+            fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
             if (fader.isNull())
             {
                 fader = universes[val.m_universe]->requestFader();
+                if (fader.isNull())
+                    continue;
                 //fader->adjustIntensity(getAttributeValue(Intensity));
                 //fader->setBlendMode(blendMode());
                 m_fadersMap[val.m_universe] = fader;
             }
-
-            const uchar targetValue = val.m_value;
-            const uint fadeTime = val.m_fadeTime;
-            fader->updateChannel(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel,
-                                 [targetValue, fadeTime](FadeChannel &fc)
-            {
-                fc.setStart(fc.current());
-                fc.setTarget(targetValue);
-                fc.setFadeTime(fadeTime);
-                fc.setElapsed(0);
-                fc.setReady(false);
-            });
         }
+
+        const uchar targetValue = val.m_value;
+        const uint fadeTime = val.m_fadeTime;
+        fader->updateChannel(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel,
+                             [targetValue, fadeTime](FadeChannel &fc)
+        {
+            fc.setStart(fc.current());
+            fc.setTarget(targetValue);
+            fc.setFadeTime(fadeTime);
+            fc.setElapsed(0);
+            fc.setReady(false);
+        });
     }
     // if we don't have to wait and there are some functions in the queue
     if (m_waitFunctionId == Function::invalidId() && m_functionQueue.count())
@@ -240,6 +264,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
 void ScriptRunner::slotWaitFunctionStarted(quint32 fid)
 {
+    QMutexLocker locker(&m_mutex);
     if (m_waitFunctionId == fid)
     {
         disconnect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
@@ -249,17 +274,21 @@ void ScriptRunner::slotWaitFunctionStarted(quint32 fid)
 
 void ScriptRunner::slotWaitFunctionStopped(quint32 fid)
 {
+    QMutexLocker locker(&m_mutex);
     if (m_waitFunctionId == fid)
     {
         disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
-        m_startedFunctions.removeAll(fid);
+        m_startedFunctions.remove(fid);
         m_waitFunctionId = Function::invalidId();
     }
 }
 
 void ScriptRunner::run()
 {
-    m_waitCount = 0;
+    {
+        QMutexLocker locker(&m_mutex);
+        m_waitCount = 0;
+    }
 
     m_engine = new QJSEngine();
     QJSValue objectValue = m_engine->newQObject(this);
@@ -347,7 +376,10 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     val.m_channel = channel;
     val.m_value = value;
     val.m_fadeTime = time;
-    m_fixtureValueQueue.enqueue(val);
+
+    QMutexLocker locker(&m_mutex);
+    // Overwrite the value in place to prevent infinite queue growth.
+    m_fixtureValueQueue.insert(fixtureValueKey(val.m_universe, fxID, channel), val);
 
     return true;
 }
@@ -384,6 +416,7 @@ bool ScriptRunner::enqueueFunction(quint32 fID, FunctionOperation operation)
     pair.first = fID;
     pair.second = operation;
 
+    QMutexLocker locker(&m_mutex);
     m_functionQueue.enqueue(pair);
 
     return true;
