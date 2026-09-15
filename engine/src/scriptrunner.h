@@ -23,7 +23,10 @@
 #include <QThread>
 #include <QQueue>
 #include <QPair>
+#include <QStringList>
 #include <QMap>
+#include <QVariantMap>
+#include <QJSValue>
 #include <QHash>
 #include <QSet>
 #include <QMutex>
@@ -36,7 +39,6 @@
 class GenericFader;
 class MasterTimer;
 class QJSEngine;
-class QJSValue;
 class Universe;
 class Doc;
 class Fixture;
@@ -96,6 +98,13 @@ public slots:
      * @return true if successful. False on error.
      */
     bool setFixture(quint32 fxID, quint32 channel, uchar value, uint time = 0);
+
+    /**
+     * End user documentation: Engine.getFixtureChannelValue(fxID, channel) -
+     * returns the current DMX value (0-255) of the given channel of the given
+     * Fixture.
+     */
+    int getFixtureChannelValue(quint32 fxID, quint32 channel);
 
     /**
      * Handle "stopOnExit" command
@@ -239,6 +248,22 @@ public slots:
      * QLC+'s debug output (qDebug).
      */
     void debugLog(QString message);
+
+    /** Engine.storeValue(key, value) - stores value under key in memory that
+     *  survives for as long as QLC+ is running. */
+    bool storeValue(QString key, QJSValue value);
+
+    /** Engine.listValues() - returns the keys currently saved via storeValue(). */
+    QStringList listValues();
+
+    /** Engine.getValue(key) - retrieves a value previously saved with storeValue(). */
+    QJSValue getValue(QString key);
+
+    /** Engine.clearValue(key) - clears one previously stored value. */
+    bool clearValue(QString key);
+
+    /** Engine.clearAllValues() - removes every stored key/value pair. */
+    bool clearAllValues();
 
     /**
      * Handle "random" command (string version)
@@ -390,6 +415,17 @@ private:
     // synchronized before, which is a genuine data race on top of the
     // functional bugs fixed in later commits.
     mutable QMutex m_mutex;
+
+    // Values stashed by Engine.storeValue() / retrieved by Engine.getValue().
+    // Deliberately static (shared across every ScriptRunner instance, and
+    // outliving all of them) so a "one-shot" script can pass data on to the
+    // NEXT run of a script - a brand new ScriptRunner with a brand new
+    // QJSEngine. Stored as QVariant, not QJSValue, because a QJSValue is
+    // only valid for the lifetime of the specific QJSEngine that created
+    // it, and that engine is destroyed when the script that created the
+    // value finishes.
+    static QVariantMap s_storedValues;
+    static QMutex s_storedValuesMutex;
 };
 
 #endif

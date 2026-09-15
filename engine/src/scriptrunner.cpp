@@ -26,6 +26,7 @@
 #endif
 #include <QMutexLocker>
 #include <QElapsedTimer>
+#include <QVariant>
 #include <QDebug>
 
 #include "scriptrunner.h"
@@ -38,6 +39,9 @@
 // How often (in milliseconds) the various wait*() polling loops below are
 // allowed to ask the JS engine to run a garbage collection pass.
 static const int GC_INTERVAL_MS = 5000;
+
+QVariantMap ScriptRunner::s_storedValues;
+QMutex ScriptRunner::s_storedValuesMutex;
 
 ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     : QThread(parent)
@@ -477,6 +481,21 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     return true;
 }
 
+int ScriptRunner::getFixtureChannelValue(quint32 fxID, quint32 channel)
+{
+    if (m_running == false)
+        return 0;
+
+    Fixture *fxi = validateFixtureChannel(fxID, channel);
+    if (fxi == NULL)
+        return 0;
+
+    int universe = int(fxi->universe());
+    int address = fxi->address() + int(channel);
+
+    return getChannelValue(universe, address);
+}
+
 bool ScriptRunner::stopOnExit(bool value)
 {
     m_stopOnExit = value;
@@ -769,6 +788,64 @@ int ScriptRunner::getBPM()
 void ScriptRunner::debugLog(QString message)
 {
     qDebug() << "[Script]" << message;
+}
+
+bool ScriptRunner::storeValue(QString key, QJSValue value)
+{
+    if (m_running == false)
+        return false;
+
+    QMutexLocker locker(&s_storedValuesMutex);
+    s_storedValues[key] = value.toVariant();
+
+    return true;
+}
+
+QStringList ScriptRunner::listValues()
+{
+    if (m_running == false)
+        return QStringList();
+
+    QMutexLocker locker(&s_storedValuesMutex);
+    return s_storedValues.keys();
+}
+
+QJSValue ScriptRunner::getValue(QString key)
+{
+    if (m_running == false || m_engine == NULL)
+        return QJSValue(QJSValue::UndefinedValue);
+
+    QVariant stored;
+    {
+        QMutexLocker locker(&s_storedValuesMutex);
+        if (!s_storedValues.contains(key))
+            return QJSValue(QJSValue::UndefinedValue);
+        stored = s_storedValues.value(key);
+    }
+
+    // Re-wrap as a QJSValue belonging to THIS script's engine - a QJSValue
+    // can't be shared across QJSEngine instances.
+    return m_engine->toScriptValue(stored);
+}
+
+bool ScriptRunner::clearValue(QString key)
+{
+    if (m_running == false)
+        return false;
+
+    QMutexLocker locker(&s_storedValuesMutex);
+    return s_storedValues.remove(key) > 0;
+}
+
+bool ScriptRunner::clearAllValues()
+{
+    if (m_running == false)
+        return false;
+
+    QMutexLocker locker(&s_storedValuesMutex);
+    s_storedValues.clear();
+
+    return true;
 }
 
 int ScriptRunner::random(QString minTime, QString maxTime)
