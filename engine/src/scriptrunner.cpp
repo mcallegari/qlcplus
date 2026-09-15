@@ -75,6 +75,12 @@ void ScriptRunner::stop()
     // Every blocking loop in this class polls m_running to know when to give up.
     m_running = false;
 
+    // waitTime() can be sleeping on m_waitCondition rather than polling, so
+    // it needs an explicit wake-up here - otherwise a script sitting in a
+    // long waitTime() call wouldn't notice m_running has gone false until
+    // its next periodic wake-up at the latest.
+    m_waitCondition.wakeAll();
+
     if (m_engine)
         m_engine->setInterrupted(true);
 
@@ -192,7 +198,11 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
     {
         QMutexLocker locker(&m_mutex);
         if (m_waitCount > 0)
+        {
             m_waitCount--;
+            if (m_waitCount == 0)
+                m_waitCondition.wakeAll();
+        }
     }
 
     QHash<quint64, FixtureValue> fixtureValues;
@@ -606,42 +616,26 @@ bool ScriptRunner::systemCommand(QString command)
 
 bool ScriptRunner::waitTime(uint ms)
 {
-    m_waitCount += ms / MasterTimer::tick();
-
     if (m_running == false)
         return false;
 
     qDebug() << Q_FUNC_INFO;
 
-    while (m_waitCount > 0)
-    {
-        if (m_running == false)
-            break;
+    QMutexLocker locker(&m_mutex);
+    m_waitCount += ms / MasterTimer::tick();
 
-        usleep(10000);
+    while (m_running && m_waitCount > 0)
+    {
+        m_waitCondition.wait(&m_mutex, 10);
+        maybeCollectGarbage();
     }
 
-    return true;
+    return m_running;
 }
 
 bool ScriptRunner::waitTime(QString time)
 {
-    m_waitCount += Function::stringToSpeed(time) / MasterTimer::tick();
-
-    if (m_running == false)
-        return false;
-
-    qDebug() << Q_FUNC_INFO;
-
-    while (m_waitCount > 0)
-    {
-        if (m_running == false)
-            break;
-
-        usleep(10000);
-    }
-
-    return true;
+    return waitTime(Function::stringToSpeed(time));
 }
 
 bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
