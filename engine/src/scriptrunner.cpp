@@ -32,6 +32,7 @@
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
+#include "inputoutputmap.h"
 #include "universe.h"
 
 // How often (in milliseconds) the various wait*() polling loops below are
@@ -48,6 +49,7 @@ ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     , m_stopOnExit(true)
     , m_waitCount(0)
     , m_waitFunctionId(Function::invalidId())
+    , m_waitingForBeat(false)
 {
 }
 
@@ -132,7 +134,9 @@ void ScriptRunner::finishAndCleanUp()
     m_fixtureValueQueue.clear();
     disconnect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), this, SLOT(slotWaitFunctionStarted(quint32)));
     disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
+    disconnect(m_doc->inputOutputMap(), SIGNAL(beat()), this, SLOT(slotBeatOccurred()));
     m_waitFunctionId = Function::invalidId();
+    m_waitingForBeat = false;
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -614,6 +618,27 @@ bool ScriptRunner::systemCommand(QString command)
     return true;
 }
 
+bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
+{
+    while (m_running)
+    {
+        bool pending;
+        {
+            QMutexLocker locker(&m_mutex);
+            pending = isPending();
+        }
+
+        if (!pending)
+            break;
+
+        maybeCollectGarbage();
+
+        usleep(10000);
+    }
+
+    return m_running;
+}
+
 bool ScriptRunner::waitTime(uint ms)
 {
     if (m_running == false)
@@ -636,27 +661,51 @@ bool ScriptRunner::waitTime(uint ms)
 bool ScriptRunner::waitTime(QString time)
 {
     return waitTime(Function::stringToSpeed(time));
-}
-
-bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
+}bool ScriptRunner::waitTick(uint ticks)
 {
-    while (m_running)
+    if (m_running == false || ticks == 0)
+        return false;
+
+    QMutexLocker locker(&m_mutex);
+    m_waitCount += ticks;
+
+    while (m_running && m_waitCount > 0)
     {
-        bool pending;
-        {
-            QMutexLocker locker(&m_mutex);
-            pending = isPending();
-        }
-
-        if (!pending)
-            break;
-
+        m_waitCondition.wait(&m_mutex, 10);
         maybeCollectGarbage();
-
-        usleep(10000);
     }
 
     return m_running;
+}
+
+bool ScriptRunner::waitBeat(uint beats)
+{
+    if (m_running == false || beats == 0)
+        return false;
+
+    for (uint i = 0; i < beats; ++i)
+    {
+        {
+            QMutexLocker locker(&m_mutex);
+            m_waitingForBeat = true;
+            connect(m_doc->inputOutputMap(), SIGNAL(beat()), this, SLOT(slotBeatOccurred()), Qt::UniqueConnection);
+        }
+
+        if (!waitForCondition([this]() { return m_waitingForBeat; }))
+            return false;
+    }
+
+    return m_running;
+}
+
+void ScriptRunner::slotBeatOccurred()
+{
+    QMutexLocker locker(&m_mutex);
+    if (m_waitingForBeat)
+    {
+        disconnect(m_doc->inputOutputMap(), SIGNAL(beat()), this, SLOT(slotBeatOccurred()));
+        m_waitingForBeat = false;
+    }
 }
 
 bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)

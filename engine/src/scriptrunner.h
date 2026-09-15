@@ -183,6 +183,20 @@ public slots:
     bool waitTime(QString time);
 
     /**
+     * End user documentation: Engine.waitTick(ticks) - pauses the script
+     * for a given number of MasterTimer engine ticks (realtime effects).
+     * Defaults to 1 tick if unspecified.
+     */
+    bool waitTick(uint ticks = 1);
+
+    /**
+     * End user documentation: Engine.waitBeat(beats) - pauses the script
+     * until the given number of beats occur according to QLC+'s BPM tracker.
+     * Defaults to 1 beat if unspecified.
+     */
+    bool waitBeat(uint beats = 1);
+
+    /**
      * Handle "waitFunctionStart" command (string version)
      *
      * @param fID The Function ID to wait for starting
@@ -238,6 +252,9 @@ protected slots:
 
     /** Triggered when the script's execution pauses to await the completion of a function */
     void slotWaitFunctionStopped(quint32 fid);
+
+    /** Triggered when the script's execution pauses to await the next beat (see waitBeat()) */
+    void slotBeatOccurred();
 
 protected:
     /** QThread reimplemented method */
@@ -343,6 +360,10 @@ private:
 
     // ID of the function that the script is waiting for
     quint32 m_waitFunctionId;
+
+    // True while the script is blocked inside waitBeat(), waiting for
+    // InputOutputMap::beat() to fire.
+    bool m_waitingForBeat;
 
     // Map used to lookup a GenericFader instance for a Universe ID
     QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
