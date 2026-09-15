@@ -39,6 +39,7 @@ class QJSEngine;
 class QJSValue;
 class Universe;
 class Doc;
+class Fixture;
 
 typedef struct
 {
@@ -229,7 +230,7 @@ public slots:
      * @param maxTime Maximum time in milliseconds
      * @return true if successful. False on error.
      */
-    int random(int minTime, int maxTime);
+    int random(uint minTime, uint maxTime);
 
 protected slots:
     /** Triggered when the script's execution pauses to await the starting of a function */
@@ -299,6 +300,12 @@ private:
      * legitimately take in QLC+ today.
      */
     static quint64 fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel);
+
+    /**
+     * Validates the fixture and channel, returning the Fixture pointer if valid,
+     * or nullptr if invalid. Logs appropriate warnings.
+     */
+    Fixture* validateFixtureChannel(quint32 fxID, quint32 channel);
 
 private:
     Doc *m_doc;

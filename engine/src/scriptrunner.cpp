@@ -20,6 +20,7 @@
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
+#include <utility>
 #if !defined(Q_OS_IOS)
 #include <QProcess>
 #endif
@@ -389,6 +390,24 @@ void ScriptRunner::maybeCollectGarbage()
     }
 }
 
+Fixture* ScriptRunner::validateFixtureChannel(quint32 fxID, quint32 channel)
+{
+    Fixture *fxi = m_doc->fixture(fxID);
+    if (fxi == NULL)
+    {
+        qWarning() << QString("No such fixture (ID: %1)").arg(fxID);
+        return NULL;
+    }
+
+    if (channel >= fxi->channels())
+    {
+        qWarning() << QString("Fixture (%1) has no channel number %2").arg(fxi->name()).arg(channel);
+        return NULL;
+    }
+
+    return fxi;
+}
+
 /************************************************************************
  * JS exported methods
  ************************************************************************/
@@ -418,18 +437,9 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
 
     qDebug() << Q_FUNC_INFO;
 
-    Fixture *fxi = m_doc->fixture(fxID);
+    Fixture *fxi = validateFixtureChannel(fxID, channel);
     if (fxi == NULL)
-    {
-        qWarning() << QString("No such fixture (ID: %1)").arg(fxID);
         return false;
-    }
-
-    if (channel >= fxi->channels())
-    {
-        qWarning() << QString("Fixture (%1) has no channel number %2").arg(fxi->name()).arg(channel);
-        return false;
-    }
 
     int address = fxi->address() + channel;
     if (address >= 512)
@@ -587,10 +597,8 @@ bool ScriptRunner::systemCommand(QString command)
 
 #if !defined(Q_OS_IOS)
     qint64 pid;
-    QProcess *newProcess = new QProcess();
-    newProcess->setProgram(programName);
-    newProcess->setArguments(programArgs);
-    newProcess->startDetached(&pid);
+    // Uses static overload to prevent leaking QProcess instances
+    QProcess::startDetached(programName, programArgs, QString(), &pid);
 #endif
 
     return true;
@@ -712,16 +720,24 @@ int ScriptRunner::random(QString minTime, QString maxTime)
     if (m_running == false)
         return 0;
 
-    int min = Function::stringToSpeed(minTime);
-    int max = Function::stringToSpeed(maxTime);
-
-    return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
+    return random(Function::stringToSpeed(minTime), Function::stringToSpeed(maxTime));
 }
 
-int ScriptRunner::random(int minTime, int maxTime)
+int ScriptRunner::random(uint minTime, uint maxTime)
 {
     if (m_running == false)
         return 0;
 
-    return QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
+    // Previously: QRandomGenerator::global()->generate() % ((maxTime + 1) - minTime) + minTime;
+    // in 32-bit int/uint arithmetic. If maxTime is INT_MAX, "maxTime + 1"
+    // overflows a signed int (UB); generate() itself can already exceed
+    // INT_MAX, so mixing signed/unsigned produces a garbage modulus for
+    // large or inverted (max < min) ranges. Do the arithmetic in 64-bit.
+    if (maxTime < minTime)
+        std::swap(minTime, maxTime);
+
+    qint64 range = qint64(maxTime) - qint64(minTime) + 1;
+    quint64 offset = QRandomGenerator::global()->generate64() % quint64(range);
+
+    return int(qint64(minTime) + qint64(offset));
 }
