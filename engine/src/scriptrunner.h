@@ -28,6 +28,7 @@
 #include <QSet>
 #include <QMutex>
 #include <QWaitCondition>
+#include <QElapsedTimer>
 #include <atomic>
 #include <functional>
 #include "function.h"
@@ -257,6 +258,31 @@ private:
 
     /** Common code to enqueue function */
     bool enqueueFunction(quint32 fID, FunctionOperation operation);
+
+    /**
+     * Checks if the global GC interval has elapsed and triggers a garbage
+     * collection pass if one is not already running.
+     */
+    void maybeCollectGarbage();
+
+    // Global timer to track time elapsed since the last GC pass across all wait calls.
+    QElapsedTimer m_gcTimer;
+
+    // Prevents recursive GC calls if collectGarbage() triggers unexpected event loop processing.
+    bool m_gcRunning;
+
+        /**
+     * Blocks the calling (script-interpreter) thread until the provided
+     * condition evaluates to false. Handles periodic GC throttling.
+     */
+    bool waitForCondition(std::function<bool()> isPending);
+
+    /**
+     * Blocks the calling (script-interpreter) thread until the queued
+     * WAIT_START/WAIT_STOP request for fID has actually been resolved
+     * by write() (which runs on the MasterTimer thread).
+     */
+    bool waitForFunctionOperation(quint32 fID, FunctionOperation operation);
 
     /**
      * Releases everything a run of the script may have allocated or claimed:

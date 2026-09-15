@@ -24,6 +24,7 @@
 #include <QProcess>
 #endif
 #include <QMutexLocker>
+#include <QElapsedTimer>
 #include <QDebug>
 
 #include "scriptrunner.h"
@@ -32,8 +33,13 @@
 #include "mastertimer.h"
 #include "universe.h"
 
+// How often (in milliseconds) the various wait*() polling loops below are
+// allowed to ask the JS engine to run a garbage collection pass.
+static const int GC_INTERVAL_MS = 5000;
+
 ScriptRunner::ScriptRunner(Doc *doc, const QString &content, QObject *parent)
     : QThread(parent)
+    , m_gcRunning(false)
     , m_doc(doc)
     , m_content(content)
     , m_running(false)
@@ -343,6 +349,8 @@ void ScriptRunner::run()
     m_engine->globalObject().setProperty("Engine", objectValue);
     QQmlEngine::setObjectOwnership(this, QQmlEngine::CppOwnership);
 
+    m_gcTimer.start(); // Start global garbage collection timer
+
     QJSValue script = m_engine->evaluate("(function run() { " + m_content + " })");
 
     if (script.isCallable() == false)
@@ -365,6 +373,20 @@ void ScriptRunner::run()
     // Routing both "stopped by user" and "finished by itself" through
     // finishAndCleanUp ensures single cleanup regardless of how the script ends.
     finishAndCleanUp();
+}
+
+void ScriptRunner::maybeCollectGarbage()
+{
+    if (m_engine == NULL || m_gcRunning)
+        return;
+
+    if (m_gcTimer.elapsed() >= GC_INTERVAL_MS)
+    {
+        m_gcRunning = true;
+        m_engine->collectGarbage();
+        m_gcTimer.restart();
+        m_gcRunning = false;
+    }
 }
 
 /************************************************************************
@@ -614,14 +636,50 @@ bool ScriptRunner::waitTime(QString time)
     return true;
 }
 
+bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
+{
+    while (m_running)
+    {
+        bool pending;
+        {
+            QMutexLocker locker(&m_mutex);
+            pending = isPending();
+        }
+
+        if (!pending)
+            break;
+
+        maybeCollectGarbage();
+
+        usleep(10000);
+    }
+
+    return m_running;
+}
+
+bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
+{
+    QPair<quint32, FunctionOperation> pair(fID, operation);
+
+    return waitForCondition([this, pair, fID]() {
+        return m_functionQueue.contains(pair) || m_waitFunctionId == fID;
+    });
+}
+
 bool ScriptRunner::waitFunctionStart(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_START);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_START))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_START);
 }
 
 bool ScriptRunner::waitFunctionStop(quint32 fID)
 {
-    return enqueueFunction(fID, FunctionOperation::WAIT_STOP);
+    if (!enqueueFunction(fID, FunctionOperation::WAIT_STOP))
+        return false;
+
+    return waitForFunctionOperation(fID, FunctionOperation::WAIT_STOP);
 }
 
 bool ScriptRunner::setBlackout(bool enable)
