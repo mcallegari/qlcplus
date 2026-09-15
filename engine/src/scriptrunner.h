@@ -229,6 +229,18 @@ public slots:
     bool setBPM(int bpm);
 
     /**
+     * End user documentation: Engine.getBPM() - returns the current number of
+     * beats per minute tracked by QLC+. The counterpart to Engine.setBPM().
+     */
+    int getBPM();
+
+    /**
+     * End user documentation: Engine.debugLog(message) - prints message to
+     * QLC+'s debug output (qDebug).
+     */
+    void debugLog(QString message);
+
+    /**
      * Handle "random" command (string version)
      *
      * @param minTime Minimum time, expressed as QLC+ styled string

@@ -758,6 +758,19 @@ bool ScriptRunner::setBPM(int bpm)
     return true;
 }
 
+int ScriptRunner::getBPM()
+{
+    if (m_running == false)
+        return 0;
+
+    return m_doc->inputOutputMap()->bpmNumber();
+}
+
+void ScriptRunner::debugLog(QString message)
+{
+    qDebug() << "[Script]" << message;
+}
+
 int ScriptRunner::random(QString minTime, QString maxTime)
 {
     if (m_running == false)
