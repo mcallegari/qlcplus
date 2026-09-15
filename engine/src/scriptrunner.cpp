@@ -35,6 +35,8 @@
 #include "mastertimer.h"
 #include "inputoutputmap.h"
 #include "universe.h"
+#include "qlcpalette.h"
+#include "qlcfixturehead.h"
 
 // How often (in milliseconds) the various wait*() polling loops below are
 // allowed to ask the JS engine to run a garbage collection pass.
@@ -873,4 +875,236 @@ int ScriptRunner::random(uint minTime, uint maxTime)
     quint64 offset = QRandomGenerator::global()->generate64() % quint64(range);
 
     return int(qint64(minTime) + qint64(offset));
+}
+
+QJSValue ScriptRunner::getPalette(quint32 pID)
+{
+    if (m_running == false || m_engine == nullptr)
+        return QJSValue(QJSValue::UndefinedValue);
+
+    QLCPalette *palette = m_doc->palette(pID);
+    if (palette == nullptr)
+    {
+        qWarning() << QString("No such palette (ID %1)").arg(pID);
+        return QJSValue(QJSValue::UndefinedValue);
+    }
+
+    QJSValue obj = m_engine->newObject();
+    obj.setProperty("id", palette->id());
+    obj.setProperty("name", palette->name());
+    obj.setProperty("type", QLCPalette::typeToString(palette->type()));
+
+    QJSValue valArray = m_engine->newArray();
+    QVariantList vals = palette->values();
+    for (int i = 0; i < vals.count(); ++i)
+        valArray.setProperty(i, m_engine->toScriptValue(vals.at(i)));
+
+    obj.setProperty("values", valArray);
+    return obj;
+}
+
+bool ScriptRunner::applyPaletteHead(quint32 pID, quint32 fxID, int head, uint fadeTime)
+{
+    QJSValue targetObj = m_engine->newObject();
+    targetObj.setProperty("fxID", fxID);
+    targetObj.setProperty("head", head);
+
+    QJSValue array = m_engine->newArray();
+    array.setProperty(0, targetObj);
+
+    return applyPalette(pID, array, fadeTime);
+}
+
+bool ScriptRunner::applyPalette(quint32 pID, QJSValue fixtureIDs, uint fadeTime)
+{
+    if (m_running == false)
+        return false;
+
+    QLCPalette *palette = m_doc->palette(pID);
+    if (palette == nullptr)
+    {
+        qWarning() << QString("No such palette (ID %1)").arg(pID);
+        return false;
+    }
+
+    struct TargetSpec { quint32 fxID; int head; }; // head: -1 = all heads
+
+    QList<TargetSpec> targets;
+    QList<quint32> fxList;
+
+    auto parseItem = [&](const QJSValue &item) {
+        if (item.isNumber())
+        {
+            quint32 fid = item.toUInt();
+            targets.append({ fid, -1 });
+            if (!fxList.contains(fid))
+                fxList.append(fid);
+        }
+        else if (item.isObject() && item.hasProperty("fxID"))
+        {
+            quint32 fid = item.property("fxID").toUInt();
+            int headIdx = item.hasProperty("head") ? item.property("head").toInt() : -1;
+            targets.append({ fid, headIdx });
+            if (!fxList.contains(fid))
+                fxList.append(fid);
+        }
+    };
+
+    if (fixtureIDs.isArray())
+    {
+        quint32 length = fixtureIDs.property("length").toUInt();
+        for (quint32 i = 0; i < length; ++i)
+            parseItem(fixtureIDs.property(i));
+    }
+    else
+    {
+        parseItem(fixtureIDs);
+    }
+
+    if (fxList.isEmpty())
+        return false;
+
+    QList<SceneValue> sceneValues = palette->valuesFromFixtures(m_doc, fxList);
+    if (sceneValues.isEmpty())
+        return false;
+
+    QMutexLocker locker(&m_mutex);
+    for (const SceneValue &sv : sceneValues)
+    {
+        Fixture *fxi = validateFixtureChannel(sv.fxi, sv.channel);
+        if (fxi == nullptr)
+            continue;
+
+        int chHead = -1;
+        for (int h = 0; h < fxi->heads(); ++h)
+        {
+            if (fxi->head(h).channels().contains(sv.channel))
+            {
+                chHead = h;
+                break;
+            }
+        }
+
+        bool matched = false;
+        for (const TargetSpec &target : targets)
+        {
+            if (target.fxID == sv.fxi)
+            {
+                if (target.head == -1 || chHead == target.head || chHead == -1)
+                {
+                    matched = true;
+                    break;
+                }
+            }
+        }
+
+        if (!matched)
+            continue;
+
+        FixtureValue val;
+        val.m_universe = fxi->universe();
+        val.m_fixtureID = sv.fxi;
+        val.m_channel = sv.channel;
+        val.m_value = sv.value;
+        val.m_fadeTime = fadeTime;
+
+        m_fixtureValueQueue.insert(fixtureValueKey(val.m_universe, val.m_fixtureID, val.m_channel), val);
+    }
+
+    return true;
+}
+
+quint32 ScriptRunner::createPalette(QString name, QString typeStr, QJSValue values)
+{
+    if (m_running == false)
+        return QLCPalette::invalidId();
+
+    QLCPalette::PaletteType pType = QLCPalette::stringToType(typeStr);
+    if (pType == QLCPalette::Undefined)
+    {
+        qWarning() << QString("Invalid palette type: %1").arg(typeStr);
+        return QLCPalette::invalidId();
+    }
+
+    QVariantList valList;
+    if (values.isArray())
+    {
+        quint32 length = values.property("length").toUInt();
+        for (quint32 i = 0; i < length; ++i)
+            valList.append(values.property(i).toVariant());
+    }
+    else if (!values.isUndefined() && !values.isNull())
+    {
+        valList.append(values.toVariant());
+    }
+
+    if (valList.isEmpty())
+    {
+        qWarning() << "Cannot create a palette without values";
+        return QLCPalette::invalidId();
+    }
+
+    // Construct parentless on the ScriptRunner worker thread, then hand
+    // ownership to Doc's thread before registering it, since Doc expects
+    // to own/signal on its own (main UI) thread.
+    QLCPalette *palette = new QLCPalette(pType, nullptr);
+    palette->setName(name);
+    palette->setValues(valList);
+    palette->moveToThread(m_doc->thread());
+
+    bool success = false;
+    QMetaObject::invokeMethod(m_doc, [this, palette, &success]() {
+        success = m_doc->addPalette(palette, QLCPalette::invalidId());
+    }, Qt::BlockingQueuedConnection);
+
+    if (!success)
+    {
+        QMetaObject::invokeMethod(palette, &QObject::deleteLater, Qt::QueuedConnection);
+        return QLCPalette::invalidId();
+    }
+
+    return palette->id();
+}
+
+bool ScriptRunner::updatePalette(quint32 pID, QString name, QString typeStr, QJSValue values)
+{
+    Q_UNUSED(typeStr);
+
+    if (m_running == false)
+        return false;
+
+    QLCPalette *palette = m_doc->palette(pID);
+    if (palette == nullptr)
+    {
+        qWarning() << QString("Cannot update: No such palette (ID %1)").arg(pID);
+        return false;
+    }
+
+    QVariantList valList;
+    bool hasValues = false;
+    if (!values.isUndefined() && !values.isNull())
+    {
+        if (values.isArray())
+        {
+            quint32 length = values.property("length").toUInt();
+            for (quint32 i = 0; i < length; ++i)
+                valList.append(values.property(i).toVariant());
+        }
+        else
+        {
+            valList.append(values.toVariant());
+        }
+        if (!valList.isEmpty())
+            hasValues = true;
+    }
+
+    // Run on Doc's thread so QObject signals fired by setName/setValues emit safely.
+    QMetaObject::invokeMethod(m_doc, [palette, name, valList, hasValues]() {
+        if (!name.isEmpty())
+            palette->setName(name);
+        if (hasValues)
+            palette->setValues(valList);
+    }, Qt::BlockingQueuedConnection);
+
+    return true;
 }

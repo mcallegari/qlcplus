@@ -42,6 +42,7 @@ class QJSEngine;
 class Universe;
 class Doc;
 class Fixture;
+class QLCPalette;
 
 typedef struct
 {
@@ -282,6 +283,37 @@ public slots:
      * @return true if successful. False on error.
      */
     int random(uint minTime, uint maxTime);
+
+    /**
+     * Engine.getPalette(pID) - returns an object with the ID, name, type,
+     * and values of the specified Palette.
+     */
+    QJSValue getPalette(quint32 pID);
+
+    /**
+     * Engine.applyPaletteHead(pID, fxID, head, fadeTime) - applies the
+     * values of a Palette to a specific 0-based head index of a fixture.
+     */
+    bool applyPaletteHead(quint32 pID, quint32 fxID, int head, uint fadeTime = 0);
+
+    /**
+     * Engine.applyPalette(pID, fixtureIDs, fadeTime) - applies the values
+     * of a Palette to one or more fixtures or specific heads.
+     * fixtureIDs: single ID (12), array of IDs ([10, 11]), or head objects
+     * ([{fxID: 12, head: 1}]).
+     */
+    bool applyPalette(quint32 pID, QJSValue fixtureIDs, uint fadeTime = 0);
+
+    /**
+     * Creates a new Palette in the Document, auto-assigning the next
+     * available ID. Returns that ID, or 0xFFFFFFFFu on failure.
+     */
+    quint32 createPalette(QString name, QString typeStr, QJSValue values);
+
+    /**
+     * Updates an existing Palette's name, type, or values.
+     */
+    bool updatePalette(quint32 pID, QString name, QString typeStr, QJSValue values);
 
 protected slots:
     /** Triggered when the script's execution pauses to await the starting of a function */
