@@ -765,15 +765,6 @@ bool ScriptRunner::waitBeat(uint beats)
     return m_running;
 }
 
-bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
-{
-    QPair<quint32, FunctionOperation> pair(fID, operation);
-
-    return waitForCondition([this, pair, fID]() {
-        return m_functionQueue.contains(pair) || m_waitFunctionId == fID;
-    });
-}
-
 bool ScriptRunner::waitFunctionStart(quint32 fID)
 {
     if (!enqueueFunction(fID, FunctionOperation::WAIT_START))
