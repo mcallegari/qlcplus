@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QCoreApplication>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QRandomGenerator>
@@ -86,6 +87,9 @@ quint32 Script::totalDuration()
         return m_cachedDuration;
 
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
+    // Fix thread affinity: MasterTimerPrivate lacks a Qt event loop, which causes queued cross-thread
+    // signals to freeze. Moving ScriptRunner to the main thread routes signals to a working event loop.
+    runner->moveToThread(qApp->thread());
     runner->collectScriptData();
     m_cachedDuration = runner->currentWaitTime();
     m_durationValid = true;
@@ -232,6 +236,9 @@ QList<quint32> Script::fixtureList() const
 QStringList Script::syntaxErrorsLines() const
 {
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
+    // Fix thread affinity: MasterTimerPrivate lacks a Qt event loop, which causes queued cross-thread
+    // signals to freeze. Moving ScriptRunner to the main thread routes signals to a working event loop.
+    runner->moveToThread(qApp->thread());
     QStringList errorList = runner->collectScriptData();
     //runner->deleteLater();
 
@@ -338,6 +345,9 @@ bool Script::saveXML(QXmlStreamWriter *doc) const
 void Script::preRun(MasterTimer* timer)
 {
     m_runner = new ScriptRunner(doc(), m_data);
+    // Fix thread affinity: MasterTimerPrivate lacks a Qt event loop, which causes queued cross-thread
+    // signals to freeze. Moving ScriptRunner to the main thread routes signals to a working event loop.
+    m_runner->moveToThread(qApp->thread());
     m_runner->execute();
 
     Function::preRun(timer);
@@ -590,4 +600,3 @@ QString Script::convertLegacyMethod(QString method)
     else if (method == systemLegacy) return systemCmd;
     else return "";
 }
-
