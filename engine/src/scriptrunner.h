@@ -101,9 +101,15 @@ public slots:
     bool setFixture(quint32 fxID, quint32 channel, uchar value, uint time = 0);
 
     /**
+     * Handle "getFixtureChannelValue" command.
+     *
      * End user documentation: Engine.getFixtureChannelValue(fxID, channel) -
      * returns the current DMX value (0-255) of the given channel of the given
      * Fixture.
+     *
+     * @param fxID The Fixture ID
+     * @param channel The fixture channel to read
+     * @return the channel DMX value, or 0 if the Fixture/channel is invalid
      */
     int getFixtureChannelValue(quint32 fxID, quint32 channel);
 
@@ -193,16 +199,26 @@ public slots:
     bool waitTime(QString time);
 
     /**
+     * Handle "waitTick" command.
+     *
      * End user documentation: Engine.waitTick(ticks) - pauses the script
      * for a given number of MasterTimer engine ticks (realtime effects).
      * Defaults to 1 tick if unspecified.
+     *
+     * @param ticks (optional) The number of ticks to wait for (default: 1)
+     * @return true if successful, false if stopped while waiting.
      */
     bool waitTick(uint ticks = 1);
 
     /**
+     * Handle "waitBeat" command.
+     *
      * End user documentation: Engine.waitBeat(beats) - pauses the script
      * until the given number of beats occur according to QLC+'s BPM tracker.
      * Defaults to 1 beat if unspecified.
+     *
+     * @param beats (optional) The number of beats to wait for (default: 1)
+     * @return true if successful, false if stopped while waiting.
      */
     bool waitBeat(uint beats = 1);
 
@@ -239,31 +255,81 @@ public slots:
     bool setBPM(int bpm);
 
     /**
+     * Handle "getBPM" command.
+     *
      * End user documentation: Engine.getBPM() - returns the current number of
      * beats per minute tracked by QLC+. The counterpart to Engine.setBPM().
+     *
+     * @return the current BPM number, or 0 if the script isn't running.
      */
     int getBPM();
 
     /**
+     * Handle "debugLog" command.
+     *
      * End user documentation: Engine.debugLog(message) - prints message to
-     * QLC+'s debug output (qDebug).
+     * QLC+'s debug output (qDebug). Handy for troubleshooting a script without
+     * having to change what it actually controls.
+     *
+     * @param message The text to print to the debug output
      */
     void debugLog(QString message);
 
-    /** Engine.storeValue(key, value) - stores value under key in memory that
-     *  survives for as long as QLC+ is running. */
+    /**
+     * Handle "storeValue" command.
+     *
+     * End user documentation: Engine.storeValue(key, value) - stores value
+     * under key in memory that survives for as long as QLC+ is running. Lets
+     * a "one-shot" script pass information on to the next time it runs.
+     *
+     * @param key Name to store the value under
+     * @param value The value to store
+     * @return true if successful. False on error.
+     */
     bool storeValue(QString key, QJSValue value);
 
-    /** Engine.listValues() - returns the keys currently saved via storeValue(). */
+    /**
+     * Handle "listValues" command.
+     *
+     * End user documentation: Engine.listValues() - returns an array of string
+     * keys currently saved in memory via Engine.storeValue().
+     *
+     * @return a QStringList containing all stored keys
+     */
     QStringList listValues();
 
-    /** Engine.getValue(key) - retrieves a value previously saved with storeValue(). */
+    /**
+     * Handle "getValue" command.
+     *
+     * End user documentation: Engine.getValue(key) - retrieves a value
+     * previously saved with Engine.storeValue(key, value). Returns undefined
+     * if nothing has been stored under that key yet.
+     *
+     * @param key Name the value was stored under
+     * @return the stored value, or undefined if not found
+     */
     QJSValue getValue(QString key);
 
-    /** Engine.clearValue(key) - clears one previously stored value. */
+    /**
+     * Handle "clearValue" command.
+     *
+     * End user documentation: Engine.clearValue(key) - clears a value previously
+     * saved with Engine.storeValue(key, value) to prevent unbounded memory
+     * growth when using dynamically generated keys.
+     *
+     * @param key Name the value was stored under
+     * @return true if successful, false if the key didn't exist or on error.
+     */
     bool clearValue(QString key);
 
-    /** Engine.clearAllValues() - removes every stored key/value pair. */
+    /**
+     * Handle "clearAllValues" command.
+     *
+     * End user documentation: Engine.clearAllValues() - removes all key/value
+     * pairs currently saved in memory via Engine.storeValue().
+     *
+     * @return true if successful, false on error.
+     */
     bool clearAllValues();
 
     /**
@@ -285,33 +351,63 @@ public slots:
     int random(uint minTime, uint maxTime);
 
     /**
-     * Engine.getPalette(pID) - returns an object with the ID, name, type,
-     * and values of the specified Palette.
+     * Handle "getPalette" command.
+     *
+     * End user documentation: Engine.getPalette(pID) - returns an object
+     * with the ID, name, type, and values of the specified Palette.
+     *
+     * @param pID The Palette ID to retrieve
+     * @return a QJSValue object containing palette metadata, or undefined if not found
      */
     QJSValue getPalette(quint32 pID);
 
     /**
-     * Engine.applyPaletteHead(pID, fxID, head, fadeTime) - applies the
-     * values of a Palette to a specific 0-based head index of a fixture.
+     * Handle "applyPaletteHead" command.
+     *
+     * End user documentation: Engine.applyPaletteHead(pID, fxID, head, fadeTime) -
+     * applies the values of a Palette to a specific 0-based head index of a fixture.
+     *
+     * @param pID The Palette ID to apply
+     * @param fxID The target Fixture ID
+     * @param head The 0-based head index
+     * @param fadeTime (optional) Fade time in milliseconds to apply the values
+     * @return true if successful, false on error
      */
     bool applyPaletteHead(quint32 pID, quint32 fxID, int head, uint fadeTime = 0);
 
     /**
-     * Engine.applyPalette(pID, fixtureIDs, fadeTime) - applies the values
-     * of a Palette to one or more fixtures or specific heads.
-     * fixtureIDs: single ID (12), array of IDs ([10, 11]), or head objects
-     * ([{fxID: 12, head: 1}]).
+     * Handle "applyPalette" command.
+     *
+     * End user documentation: Engine.applyPalette(pID, fixtureIDs, fadeTime) -
+     * applies the values of a Palette to one or more fixtures or specific heads.
+     *
+     * @param pID The Palette ID to apply
+     * @param fixtureIDs Single ID (12), array of IDs ([10, 11]), or head objects ([{fxID: 12, head: 1}])
+     * @param fadeTime (optional) Fade time in milliseconds to apply the values
+     * @return true if successful, false on error
      */
     bool applyPalette(quint32 pID, QJSValue fixtureIDs, uint fadeTime = 0);
 
     /**
-     * Creates a new Palette in the Document, auto-assigning the next
-     * available ID. Returns that ID, or 0xFFFFFFFFu on failure.
+     * Handle "createPalette" command.
+     * Creates a new Palette in the Document and automatically assigns the next available ID.
+     *
+     * @param name The name of the palette
+     * @param typeStr The type string (e.g., "Color", "Dimmer", "PanTilt", "Zoom")
+     * @param values Single value or array of values (e.g., "#ff0000", [128, 64], 255)
+     * @return The auto-assigned ID of the created palette, or 0xFFFFFFFFu on failure.
      */
     quint32 createPalette(QString name, QString typeStr, QJSValue values);
 
     /**
-     * Updates an existing Palette's name, type, or values.
+     * Handle "updatePalette" command.
+     * Updates an existing Palette in the Document with new name, type, or values.
+     *
+     * @param pID The ID of the palette to update
+     * @param name The new name of the palette (or empty string to keep current name)
+     * @param typeStr The new type string (or empty string to keep current type)
+     * @param values Single value, array of values, or undefined to keep current values
+     * @return true if successful, false if the palette ID does not exist or on error.
      */
     bool updatePalette(quint32 pID, QString name, QString typeStr, QJSValue values);
 
@@ -358,7 +454,7 @@ private:
     // Prevents recursive GC calls if collectGarbage() triggers unexpected event loop processing.
     bool m_gcRunning;
 
-        /**
+    /**
      * Blocks the calling (script-interpreter) thread until the provided
      * condition evaluates to false. Handles periodic GC throttling.
      */
@@ -370,13 +466,6 @@ private:
      * by write() (which runs on the MasterTimer thread).
      */
     bool waitForFunctionOperation(quint32 fID, FunctionOperation operation);
-
-    /**
-     * Releases everything a run of the script may have allocated or claimed:
-     * the QJSEngine, any Functions this script started, and any GenericFaders
-     * it requested. Safe to call more than once.
-     */
-    void finishAndCleanUp();
 
     /**
      * Packs a (universe, fixture, channel) triple into a single 64-bit key
@@ -392,6 +481,13 @@ private:
      * or nullptr if invalid. Logs appropriate warnings.
      */
     Fixture* validateFixtureChannel(quint32 fxID, quint32 channel);
+
+    /**
+     * Releases everything a run of the script may have allocated or claimed:
+     * the QJSEngine, any Functions this script started, and any GenericFaders
+     * it requested. Safe to call more than once.
+     */
+    void finishAndCleanUp();
 
 private:
     Doc *m_doc;

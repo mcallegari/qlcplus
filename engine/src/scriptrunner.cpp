@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
@@ -120,6 +121,7 @@ void ScriptRunner::finishAndCleanUp()
     delete m_engine;
     m_engine = NULL;
 
+    // Stop all functions started by this script that are not flagged to not stop on exit.
     foreach (quint32 fID, m_startedFunctions)
     {
         Function *function = m_doc->function(fID);
@@ -128,6 +130,7 @@ void ScriptRunner::finishAndCleanUp()
     }
     m_startedFunctions.clear();
 
+    // request to delete all the active faders
     QMapIterator<quint32, QSharedPointer<GenericFader>> it(m_fadersMap);
     while (it.hasNext())
     {
@@ -198,6 +201,9 @@ int ScriptRunner::currentWaitTime() const
 
 quint64 ScriptRunner::fixtureValueKey(quint32 universe, quint32 fixtureID, quint32 channel)
 {
+    // 16 bits for the universe, 24 for the fixture ID, 24 for the channel:
+    // comfortably more range than any of these can legitimately take today,
+    // and it fits exactly into 64 bits.
     return (quint64(universe & 0xFFFFu) << 48)
          | (quint64(fixtureID & 0xFFFFFFu) << 24)
          |  quint64(channel & 0xFFFFFFu);
@@ -211,10 +217,16 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         {
             m_waitCount--;
             if (m_waitCount == 0)
+                // Wake up a script that's sleeping in waitTime() as soon as
+                // its wait is actually over, rather than waiting for that
+                // loop's own (throttled) periodic wake-up.
                 m_waitCondition.wakeAll();
         }
     }
 
+    // Pull the whole fixture-value queue out under the lock, then work
+    // on our own local copy - this keeps the critical section short
+    // and avoids holding the mutex while we call into GenericFader.
     QHash<quint64, FixtureValue> fixtureValues;
     {
         QMutexLocker locker(&m_mutex);
@@ -223,6 +235,12 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
     for (const FixtureValue &val : std::as_const(fixtureValues))
     {
+        // val.m_universe is cached at the time setFixture() was called
+        // and then sits in the queue until the next write(). If the
+        // number of active universes has since shrunk (or was smaller
+        // than expected to begin with), universes[val.m_universe] below
+        // is an out-of-bounds QList access - undefined behaviour, and a
+        // very likely crash. Validate it before indexing.
         if (val.m_universe >= quint32(universes.count()))
         {
             qWarning() << QString("Skipping fixture value: invalid universe %1").arg(val.m_universe);
@@ -256,12 +274,15 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             fc.setReady(false);
         });
     }
-    // if we don't have to wait and there are some functions in the queue
-        while (true)
+
+    // Process as many queued function start/stop/wait requests as we
+    // can without blocking on one that isn't ready yet.
+    while (true)
     {
         QPair<quint32, FunctionOperation> pair;
         {
             QMutexLocker locker(&m_mutex);
+            // if we have to wait, or there's nothing queued, stop here
             if (m_waitFunctionId != Function::invalidId() || m_functionQueue.isEmpty())
                 break;
             pair = m_functionQueue.head();
@@ -304,6 +325,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         {
             if (!function->isRunning())
             {
+                // the function is not running, so we wait and we stop dequeuing
                 QMutexLocker locker(&m_mutex);
                 m_waitFunctionId = fID;
                 connect(m_doc->masterTimer(), SIGNAL(functionStarted(quint32)), SLOT(slotWaitFunctionStarted(quint32)), Qt::UniqueConnection);
@@ -314,6 +336,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         {
             if (!function->stopped())
             {
+                // the function has to start or is still running, so we wait and we stop dequeuing
                 QMutexLocker locker(&m_mutex);
                 m_waitFunctionId = fID;
                 connect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), SLOT(slotWaitFunctionStopped(quint32)), Qt::UniqueConnection);
@@ -324,6 +347,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         if (waiting)
             break;
 
+        // we can continue with the next function in the queue
         QMutexLocker locker(&m_mutex);
         if (!m_functionQueue.isEmpty())
             m_functionQueue.removeFirst();
@@ -355,6 +379,16 @@ void ScriptRunner::slotWaitFunctionStopped(quint32 fid)
         disconnect(m_doc->masterTimer(), SIGNAL(functionStopped(quint32)), this, SLOT(slotWaitFunctionStopped(quint32)));
         m_startedFunctions.remove(fid);
         m_waitFunctionId = Function::invalidId();
+    }
+}
+
+void ScriptRunner::slotBeatOccurred()
+{
+    QMutexLocker locker(&m_mutex);
+    if (m_waitingForBeat)
+    {
+        disconnect(m_doc->inputOutputMap(), SIGNAL(beat()), this, SLOT(slotBeatOccurred()));
+        m_waitingForBeat = false;
     }
 }
 
@@ -536,6 +570,37 @@ bool ScriptRunner::enqueueFunction(quint32 fID, FunctionOperation operation)
     return true;
 }
 
+bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
+{
+    while (m_running)
+    {
+        bool pending;
+        {
+            QMutexLocker locker(&m_mutex);
+            pending = isPending();
+        }
+
+        if (!pending)
+            break;
+
+        maybeCollectGarbage(); // Use global GC checker
+
+        usleep(10000);
+    }
+
+    return m_running;
+}
+
+bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
+{
+    QPair<quint32, FunctionOperation> pair(fID, operation);
+
+    // Block thread in polling loop until write() fully resolves this request.
+    return waitForCondition([this, pair, fID]() {
+        return m_functionQueue.contains(pair) || m_waitFunctionId == fID;
+    });
+}
+
 bool ScriptRunner::startFunction(quint32 fID)
 {
     return enqueueFunction(fID, m_stopOnExit ? FunctionOperation::START : FunctionOperation::START_DONT_STOP);
@@ -639,27 +704,6 @@ bool ScriptRunner::systemCommand(QString command)
     return true;
 }
 
-bool ScriptRunner::waitForCondition(std::function<bool()> isPending)
-{
-    while (m_running)
-    {
-        bool pending;
-        {
-            QMutexLocker locker(&m_mutex);
-            pending = isPending();
-        }
-
-        if (!pending)
-            break;
-
-        maybeCollectGarbage();
-
-        usleep(10000);
-    }
-
-    return m_running;
-}
-
 bool ScriptRunner::waitTime(uint ms)
 {
     if (m_running == false)
@@ -682,7 +726,9 @@ bool ScriptRunner::waitTime(uint ms)
 bool ScriptRunner::waitTime(QString time)
 {
     return waitTime(Function::stringToSpeed(time));
-}bool ScriptRunner::waitTick(uint ticks)
+}
+
+bool ScriptRunner::waitTick(uint ticks)
 {
     if (m_running == false || ticks == 0)
         return false;
@@ -717,16 +763,6 @@ bool ScriptRunner::waitBeat(uint beats)
     }
 
     return m_running;
-}
-
-void ScriptRunner::slotBeatOccurred()
-{
-    QMutexLocker locker(&m_mutex);
-    if (m_waitingForBeat)
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(beat()), this, SLOT(slotBeatOccurred()));
-        m_waitingForBeat = false;
-    }
 }
 
 bool ScriptRunner::waitForFunctionOperation(quint32 fID, FunctionOperation operation)
@@ -797,6 +833,13 @@ bool ScriptRunner::storeValue(QString key, QJSValue value)
     if (m_running == false)
         return false;
 
+    // Convert to a QVariant so the value can outlive both this script's
+    // QJSEngine (which is destroyed when the script exits) and be picked
+    // up cleanly by a completely different QJSEngine belonging to a later
+    // run of a "one-shot" script. A QJSValue is only valid for the
+    // lifetime of the specific QJSEngine that created it, so keeping the
+    // QJSValue itself around here wouldn't be safe. toVariant() handles
+    // numbers, strings, booleans, arrays and plain objects.
     QMutexLocker locker(&s_storedValuesMutex);
     s_storedValues[key] = value.toVariant();
 
@@ -905,6 +948,7 @@ QJSValue ScriptRunner::getPalette(quint32 pID)
 
 bool ScriptRunner::applyPaletteHead(quint32 pID, quint32 fxID, int head, uint fadeTime)
 {
+    // Delegate directly to applyPalette by wrapping the single head request into an object
     QJSValue targetObj = m_engine->newObject();
     targetObj.setProperty("fxID", fxID);
     targetObj.setProperty("head", head);
@@ -1017,7 +1061,7 @@ bool ScriptRunner::applyPalette(quint32 pID, QJSValue fixtureIDs, uint fadeTime)
 quint32 ScriptRunner::createPalette(QString name, QString typeStr, QJSValue values)
 {
     if (m_running == false)
-        return QLCPalette::invalidId();
+        return QLCPalette::invalidId(); //0xFFFFFFFFu
 
     QLCPalette::PaletteType pType = QLCPalette::stringToType(typeStr);
     if (pType == QLCPalette::Undefined)
