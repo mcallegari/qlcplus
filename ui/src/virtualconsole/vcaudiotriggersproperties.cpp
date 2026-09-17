@@ -17,9 +17,11 @@
   limitations under the License.
 */
 
+#include <QLabel>
 #include <QTreeWidgetItem>
 #include <QToolButton>
 #include <QComboBox>
+#include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <qmath.h>
 
@@ -30,6 +32,7 @@
 #include "vcwidgetselection.h"
 #include "vcaudiotriggers.h"
 #include "audiocapture.h"
+#include "spectrumgrid.h"
 #include "qlcmacros.h"
 #include "audiobar.h"
 
@@ -46,6 +49,9 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers
     : QDialog(triggers)
     , m_doc(doc)
     , m_maxFrequency(maxFrequency)
+    , m_gridCombo(NULL)
+    , m_gammaSpin(NULL)
+    , m_initialGridMode(triggers->spectrumGridMode())
 {
     setupUi(this);
 
@@ -53,12 +59,34 @@ AudioTriggersConfiguration::AudioTriggersConfiguration(VCAudioTriggers *triggers
 
     m_nameEdit->setText(m_triggers->caption());
 
+    QLabel *gridLabel = new QLabel(tr("Spectrum grid:"), this);
+    m_gridCombo = new QComboBox(this);
+    m_gridCombo->addItem(tr("Uniform log"), int(SpectrumGridMode::LogUniform));
+    m_gridCombo->addItem(tr("Semi-log (1-2-5)"), int(SpectrumGridMode::SemiLogPreferred));
+    const int gridIndex = m_gridCombo->findData(int(m_initialGridMode));
+    m_gridCombo->setCurrentIndex(gridIndex >= 0 ? gridIndex : 0);
+    gridLayout->addWidget(gridLabel, 1, 2, Qt::AlignRight);
+    gridLayout->addWidget(m_gridCombo, 1, 3);
+
+    QLabel *gammaLabel = new QLabel(tr("Low band emphasis:"), this);
+    m_gammaSpin = new QDoubleSpinBox(this);
+    m_gammaSpin->setRange(1.0, 4.0);
+    m_gammaSpin->setSingleStep(0.1);
+    m_gammaSpin->setDecimals(1);
+    m_gammaSpin->setValue(triggers->spectrumLowBandGamma());
+    gridLayout->addWidget(gammaLabel, 2, 2, Qt::AlignRight);
+    gridLayout->addWidget(m_gammaSpin, 2, 3);
+
     m_barsNumSpin->setFixedWidth(70);
     m_barsNumSpin->setFixedHeight(30);
     m_barsNumSpin->setValue(bandsNumber);
 
     connect(m_barsNumSpin, SIGNAL(valueChanged(int)),
             this, SLOT(updateTree()));
+    connect(m_gridCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotGridModeChanged(int)));
+    connect(m_gammaSpin, SIGNAL(valueChanged(double)),
+            this, SLOT(slotGammaChanged(double)));
 
     /* External input */
     m_inputSelWidget = new InputSelectionWidget(m_doc, this);
@@ -87,8 +115,24 @@ void AudioTriggersConfiguration::accept()
     m_triggers->setKeySequence(m_inputSelWidget->keySequence());
     m_triggers->setInputSource(m_inputSelWidget->inputSource());
 
-    /* Close dialog */
+    const SpectrumGridMode mode = SpectrumGridMode(m_gridCombo->currentData().toInt());
+    m_triggers->setSpectrumGridMode(mode);
+    m_triggers->setSpectrumLowBandGamma(m_gammaSpin->value());
+
     QDialog::accept();
+}
+
+void AudioTriggersConfiguration::slotGammaChanged(double value)
+{
+    m_triggers->setSpectrumLowBandGamma(value);
+    updateTree();
+}
+
+void AudioTriggersConfiguration::slotGridModeChanged(int index)
+{
+    Q_UNUSED(index)
+    m_triggers->setSpectrumGridMode(SpectrumGridMode(m_gridCombo->currentData().toInt()));
+    updateTree();
 }
 
 void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
@@ -227,22 +271,16 @@ void AudioTriggersConfiguration::updateTree()
     updateTreeItem(volItem, 1000);
 
     const int bandsNumber = m_barsNumSpin->value();
-    const double minFreq = AudioCapture::minFrequency();
-    const double maxFreq = m_maxFrequency;
-    const double logRange = (bandsNumber > 0 && maxFreq > minFreq) ? qLn(maxFreq / minFreq) : 0.0;
+    const double minFreq = qMax(1.0, double(AudioCapture::minFrequency()));
+    const double maxFreq = double(m_maxFrequency);
+    const SpectrumGridMode gridMode = SpectrumGridMode(m_gridCombo->currentData().toInt());
+    const double gamma = m_gammaSpin ? m_gammaSpin->value() : 1.0;
+    const QVector<double> edges = computeSpectrumBandEdges(bandsNumber, minFreq, maxFreq, gridMode, gamma);
 
     for (int i = 0; i < bandsNumber; i++)
     {
-        double bandStartFreq = minFreq;
-        double bandEndFreq = maxFreq;
-        if (logRange > 0.0)
-        {
-            bandStartFreq = minFreq * qExp(logRange * (double(i) / double(bandsNumber)));
-            bandEndFreq = minFreq * qExp(logRange * (double(i + 1) / double(bandsNumber)));
-        }
-
-        int bandStartHz = qCeil(bandStartFreq);
-        int bandEndHz = (i == bandsNumber - 1) ? int(maxFreq) : (qCeil(bandEndFreq) - 1);
+        int bandStartHz = int(qCeil(edges[i]));
+        int bandEndHz = (i == bandsNumber - 1) ? int(maxFreq) : (qCeil(edges[i + 1]) - 1);
         if (bandEndHz <= bandStartHz)
             bandEndHz = bandStartHz;
 
