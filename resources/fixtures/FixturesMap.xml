@@ -286,6 +286,7 @@
     <F n="beamZ-STB448-Strobe-Bar-RGBAW" m="STB448 Strobe Bar RGBAW"/>
   </M>
   <M n="Betopper">
+    <F n="Betopper-LB150" m="LB150"/>
     <F n="Betopper-LB230" m="LB230"/>
     <F n="Betopper-LM108" m="LM108 Wash Moving Head"/>
     <F n="Betopper-LM70" m="LM70"/>
@@ -504,6 +505,7 @@
     <F n="Chauvet-EZLink-Par-Q6-BT" m="EZLink Par Q6 BT"/>
     <F n="Chauvet-EZPAR-64-RGBA" m="EZPar 64 RGBA"/>
     <F n="Chauvet-Followspot-120ST" m="Followspot 120ST"/>
+    <F n="Chauvet-Followspot-400G" m="Followspot 400G"/>
     <F n="Chauvet-Freedom-H1" m="Freedom H1"/>
     <F n="Chauvet-Freedom-Par-Hex-4" m="Freedom Par Hex 4"/>
     <F n="Chauvet-Freedom-Stick" m="Freedom Stick"/>
@@ -529,6 +531,7 @@
     <F n="Chauvet-Intimidator-Beam-Q60" m="Intimidator Beam Q60"/>
     <F n="Chauvet-Intimidator-Hybrid-140SR" m="Intimidator Hybrid 140SR"/>
     <F n="Chauvet-Intimidator-Scan-305-IRC" m="Intimidator Scan 305 IRC"/>
+    <F n="Chauvet-Intimidator-Scan-360" m="Intimidator Scan 360"/>
     <F n="Chauvet-Intimidator-Scan-LED-100" m="Intimidator Scan LED 100"/>
     <F n="Chauvet-Intimidator-Scan-LED-200" m="Intimidator Scan LED 200"/>
     <F n="Chauvet-Intimidator-Scan-LED-300" m="Intimidator Scan LED 300"/>
@@ -553,6 +556,7 @@
     <F n="Chauvet-Intimidator-Wash-Zoom-450-IRC" m="Intimidator Wash Zoom 450 IRC"/>
     <F n="Chauvet-Intimidator-Wave-360-IRC" m="Intimidator Wave 360 IRC"/>
     <F n="Chauvet-Kinta-FX" m="Kinta FX"/>
+    <F n="Chauvet-Kinta-HP" m="Kinta HP"/>
     <F n="Chauvet-LED-PAR-64-36B" m="LED PAR 64-36B"/>
     <F n="Chauvet-LED-PAR-64-Tri-B" m="LED PAR 64 Tri-B"/>
     <F n="Chauvet-LED-PAR-64-Tri-C" m="LED PAR 64 Tri-C"/>
@@ -569,6 +573,7 @@
     <F n="Chauvet-MiN-Spot-RGBW" m="MiN Spot RGBW"/>
     <F n="Chauvet-Mini-Kinta-IRC" m="Mini Kinta IRC"/>
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
+    <F n="Chauvet-MiniSphere-3" m="MiniSphere 3"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
     <F n="Chauvet-onAir-Panel-1-IP" m="onAir Panel 1 IP"/>
     <F n="Chauvet-Ovation-CYC-1-FC" m="Ovation CYC 1 FC"/>
@@ -595,6 +600,7 @@
     <F n="Chauvet-Scorpion-Dual-RGB" m="Scorpion Dual RGB"/>
     <F n="Chauvet-Scorpion-Dual" m="Scorpion Dual"/>
     <F n="Chauvet-Scorpion-Storm-FX-RGB" m="Scorpion Storm FX RGB"/>
+    <F n="Chauvet-Scorpion-Storm-RGBY" m="Scorpion Storm RGBY"/>
     <F n="Chauvet-Scorpion-Storm-RGX" m="Scorpion Storm RGX"/>
     <F n="Chauvet-Shocker-90-IRC-QRG" m="Shocker 90 IRC&#10;QRG"/>
     <F n="Chauvet-Slim-Par-Pro-RGBA" m="Slim Par Pro RGBA"/>
@@ -789,6 +795,7 @@
     <F n="Eliminator-Lighting-MEGA-HEX-L-PAR" m="MEGA HEX L PAR"/>
     <F n="Eliminator-Lighting-Stealth-Beam" m="Stealth Beam"/>
     <F n="Eliminator-Lighting-Stealth-Wash-Zoom" m="Stealth Wash Zoom"/>
+    <F n="Eliminator-Lighting-Stryker-Spot" m="Stryker Spot"/>
   </M>
   <M n="Elumen8">
     <F n="Elumen8-COB-Tri-4-Pixel-Batten" m="COB Tri 4 Pixel Batten"/>
@@ -828,6 +835,7 @@
     <F n="Equinox-Ultra-Scan-LED" m="Ultra Scan LED"/>
   </M>
   <M n="ETC">
+    <F n="ETC-ColorSource-Fresnel-V-MAX" m="ColorSource Fresnel V MAX"/>
     <F n="ETC-ColorSource-Fresnel-V" m="ColorSource Fresnel V"/>
     <F n="ETC-ColorSource-PAR" m="ColorSource PAR"/>
     <F n="ETC-ColorSource-Spot" m="ColorSource Spot"/>
@@ -880,6 +888,7 @@
     <F n="Eurolite-LED-PAR64-RGBA" m="LED PAR64 RGBA"/>
     <F n="Eurolite-LED-PAR64-White" m="LED PAR64 White"/>
     <F n="Eurolite-LED-PARty-Hybrid-spot" m="LED PARty Hybrid Spot"/>
+    <F n="Eurolite-LED-Party-Panel-RGB+UV-V2" m="LED Party Panel RGB+UV V2"/>
     <F n="Eurolite-LED-Party-Panel-RGB+UV" m="LED Party Panel RGB+UV"/>
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PARty-TCL-spot" m="LED PARty TCL spot"/>
@@ -1682,6 +1691,7 @@
     <F n="Shehds-LED-Beam-8x12W-RGBW" m="LED Beam 8x12W RGBW"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
     <F n="Shehds-LED-Flat-Par-7x18W-RGBWA+UV" m="LED Flat Par 7x18W RGBWA+UV"/>
+    <F n="Shehds-LED-Spot-100W" m="LED Spot 100W"/>
     <F n="Shehds-LED-Wall-Wash-18x18W-RGBWA+UV" m="LED Wall Wash 18x18W RGBWA+UV"/>
     <F n="Shehds-PAR-Light-Battery-6x18W-RGBAW+UV" m="PAR Light Battery 6x18W RGBAW+UV"/>
     <F n="Shehds-Wash-Zoom-36x18W" m="Wash Zoom LED 36x18W RGBWA+UV"/>

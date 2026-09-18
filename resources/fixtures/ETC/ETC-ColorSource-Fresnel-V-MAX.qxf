@@ -7,7 +7,7 @@
   <Author>Edgar Aichinger</Author>
  </Creator>
  <Manufacturer>ETC</Manufacturer>
- <Model>ColorSource Fresnel V</Model>
+ <Model>ColorSource Fresnel V MAX</Model>
  <Type>Color Changer</Type>
  <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red" Preset="IntensityRed"/>
