@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.2.2</Version>
+  <Version>5.3.0 GIT</Version>
   <Author>Adam Nuclear</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -13,18 +13,10 @@
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
- <Channel Name="Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Warm white, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold white, increasing brightness 0-100%</Capability>
- </Channel>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
  <Channel Name="White Colour Temperature">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">Off</Capability>
   <Capability Min="1" Max="30">3200K</Capability>
   <Capability Min="31" Max="45">3300K</Capability>
@@ -163,226 +155,50 @@
   <Capability Min="0" Max="127">Forwards</Capability>
   <Capability Min="128" Max="255">Backwards</Capability>
  </Channel>
- <Channel Name="Warm White 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Warm white segment 1, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Warm White 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Warm white segment 2, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Warm White 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Warm white segment 3, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Warm White 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Warm white segment 4, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Cold White 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold white segment 1, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Cold White 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold white segment 2, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Cold White 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold white segment 3, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Cold White 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold white segment 4, increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 1+2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 1+2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 1+2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 3+4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 3+4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 3+4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 5+6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 5+6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 5+6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 7+8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 7+8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 7+8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Red 8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Green 8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
- <Channel Name="Blue 8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Increasing brightness 0-100%</Capability>
- </Channel>
+ <Channel Name="Warm White 1" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 2" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 3" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 4" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 1" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 2" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 3" Preset="IntensityWhite"/>
+ <Channel Name="Cold White 4" Preset="IntensityWhite"/>
+ <Channel Name="Red 1+2" Preset="IntensityRed"/>
+ <Channel Name="Green 1+2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1+2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3+4" Preset="IntensityRed"/>
+ <Channel Name="Green 3+4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3+4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5+6" Preset="IntensityRed"/>
+ <Channel Name="Green 5+6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5+6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7+8" Preset="IntensityRed"/>
+ <Channel Name="Green 7+8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7+8" Preset="IntensityBlue"/>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Red 5" Preset="IntensityRed"/>
+ <Channel Name="Green 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue 5" Preset="IntensityBlue"/>
+ <Channel Name="Red 6" Preset="IntensityRed"/>
+ <Channel Name="Green 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue 6" Preset="IntensityBlue"/>
+ <Channel Name="Red 7" Preset="IntensityRed"/>
+ <Channel Name="Green 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue 7" Preset="IntensityBlue"/>
+ <Channel Name="Red 8" Preset="IntensityRed"/>
+ <Channel Name="Green 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue 8" Preset="IntensityBlue"/>
  <Mode Name="6 Channel">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>

@@ -36,6 +36,7 @@ qlcplus (4.14.5) stable; urgency=low
   * New fixture: Eurolite LED Party Panel RGB+UV (thanks to bass42)
   * New fixture: Betopper LB150 (thanks to The Ward Studios)
   * New fixtures: Chauvet Intimidator Scan 360, Kinta HP, Scorpion Storm RGBY, MiniSphere 3, Followspot 400G (thanks to Nate Doyon)
+  * New fixture: Eurolite LED IP PIX Strobe RGB CW+WW (thank to Adam Nuclear)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 13 Jun 2026 18:19:20 +0200
 
