@@ -99,9 +99,6 @@ Entity
     readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
-    /** Beam edge softness. 0 keeps the top hat beam this fixture has always
-        drawn; see spotlight_shading.frag */
-    property real beamEdgeSoftness: 0
     property real coneTopRadius: transform ? (0.24023 / 2) * transform.scale3D.x * 0.7 : 0.0 // (diameter / 2) * scale * magic number
 
     property real headLength:

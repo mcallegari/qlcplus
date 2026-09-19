@@ -71,24 +71,8 @@ uniform float referenceThrow;
 // Rendering the cone as a top hat therefore gives every fixture a hard rim it
 // does not have; wash devices, whose whole purpose is an edgeless pool, suffer
 // most. Fixture types that draw the cone at the field angle set this so that
-// the 50% point lands back on the declared beam angle.
-uniform float beamEdgeSoftness;
-
-// Fade the beam towards its rim. 'offset' is the point's offset from the beam
-// axis in light space and 'radius' the radius of the cone there, so their
-// ratio is 1.0 exactly on the rim
-float beamPenumbra(vec2 offset, float radius)
-{
-    if (beamEdgeSoftness <= 0.0)
-        return 1.0;
-
-    float soft = min(beamEdgeSoftness, 1.0);
-    return 1.0 - smoothstep(1.0 - soft, 1.0, length(offset) / radius);
-}
-
-// Softness of the beam's outer edge, as a fraction of the cone radius at the
-// point being lit. A real lens does not cut off sharply, and how soft the cut
-// is depends on where the fixture is focused. 0 leaves the beam hard edged
+// the 50% point lands back on the declared beam angle, and fixtures with a
+// focus channel sharpen it as they are focused. 0 leaves the beam hard edged
 uniform float beamEdgeSoftness;
 
 // Fade the beam towards its rim. 'offset' is the point's offset from the beam
