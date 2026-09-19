@@ -27,6 +27,9 @@
 #include "previewcontext.h"
 #include "show.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
+
 class Doc;
 class Track;
 class Function;
@@ -43,6 +46,8 @@ typedef struct
     QPointer<ShowFunction> m_showFunc;
     QPointer<QQuickItem> m_item;
 } SelectedShowItem;
+
+#define KXMLQLCShowManager QStringLiteral("ShowManager")
 
 class ShowManager final : public PreviewContext
 {
@@ -365,6 +370,7 @@ public:
     Q_INVOKABLE bool pasteFromClipboard();
 
 protected slots:
+    void slotFunctionRemoved(quint32 id);
     void slotTimeChanged(quint32 msec_time);
     void slotShowFinished();
     void slotShowStopped();
@@ -421,6 +427,18 @@ private:
     QList<SelectedShowItem> m_clipboard;
 
     WaveformImageProvider *m_waveformProvider;
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
+    /** Save the Show Manager view state (the Show being edited and
+     *  the timeline zoom level) to the workspace XML */
+    bool saveXML(QXmlStreamWriter *doc) const;
+
+    /** Restore the Show Manager view state from the workspace XML.
+     *  The Functions must have been loaded already */
+    bool loadXML(QXmlStreamReader &root);
 };
 
 #endif // SHOWMANAGER_H
