@@ -39,7 +39,10 @@ Entity
     property int headIndex
     property real dimmerValue: 0
     property real shutterValue: 1.0
-    property real lightIntensity: dimmerValue * shutterValue
+    /* Relative output of the parent fixture. See MultiBeams3DItem, which
+       pushes it down to every emitter of the bar */
+    property real lumensScale: 1.0
+    property real lightIntensity: dimmerValue * shutterValue * lumensScale
 
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
