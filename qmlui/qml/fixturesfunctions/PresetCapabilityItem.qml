@@ -34,8 +34,24 @@ Rectangle
 
     property QLCCapability capability
     property int capIndex
+    property real edgeRatio: 0.1
 
     signal valueChanged(int value)
+
+    function valueFromX(x)
+    {
+        var edgeWidth = iRoot.width * edgeRatio
+
+        if (x <= edgeWidth)
+            return capability.min
+
+        if (x >= iRoot.width - edgeWidth)
+            return capability.max
+
+        var midWidth = iRoot.width - (edgeWidth * 2)
+        var midPos = x - edgeWidth
+        return ((capability.max - capability.min) * midPos) / midWidth + capability.min
+    }
 
     onCapabilityChanged:
     {
@@ -129,6 +145,30 @@ Rectangle
     }
     Rectangle
     {
+        id: minEdgeHighlight
+        x: 0
+        y: 0
+        width: iRoot.width * iRoot.edgeRatio
+        height: parent.height
+        z: 5
+        color: UISettings.highlight
+        opacity: 0.3
+        visible: false
+    }
+    Rectangle
+    {
+        id: maxEdgeHighlight
+        x: iRoot.width - width
+        y: 0
+        width: iRoot.width * iRoot.edgeRatio
+        height: parent.height
+        z: 5
+        color: UISettings.highlight
+        opacity: 0.3
+        visible: false
+    }
+    Rectangle
+    {
         id: capBar
         y: parent.height - height
         width: 0
@@ -143,13 +183,23 @@ Rectangle
         hoverEnabled: true
         preventStealing: false
 
-        onPositionChanged: (mouse) => { capBar.width = mouse.x }
-        onExited: capBar.width = 0
-        onClicked:
+        onPositionChanged: (mouse) =>
         {
-            var value = ((capability.max - capability.min) * capBar.width) / iRoot.width
-            //console.log("max: " + capability.max + " min: " + capability.min + " value: " + value)
-            valueChanged(value + capability.min)
+            capBar.width = mouse.x
+            var edgeWidth = iRoot.width * iRoot.edgeRatio
+            minEdgeHighlight.visible = mouse.x <= edgeWidth
+            maxEdgeHighlight.visible = mouse.x >= iRoot.width - edgeWidth
+        }
+        onExited:
+        {
+            capBar.width = 0
+            minEdgeHighlight.visible = false
+            maxEdgeHighlight.visible = false
+        }
+        onClicked: (mouse) =>
+        {
+            var value = valueFromX(mouse.x)
+            valueChanged(value)
         }
     }
 }
