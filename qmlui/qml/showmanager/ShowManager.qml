@@ -854,7 +854,8 @@ Rectangle
     {
         id: horScrollBar
         x: timelineHeader.x
-        y: showMgrContainer.height - height
+        // keep it at the bottom of the Show items area, above the bottom panel
+        y: showContents.y + showContents.height - height
         z: 10
         width: timelineHeader.width
         orientation: Qt.Horizontal
