@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QQmlContext>
 #include <QtMath>
 #include <QVector>
@@ -32,6 +34,9 @@
 #include "show.h"
 #include "doc.h"
 #include "app.h"
+
+#define KXMLQLCShowManagerCurrentShow QStringLiteral("CurrentShow")
+#define KXMLQLCShowManagerTimeScale   QStringLiteral("TimeScale")
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
@@ -62,6 +67,10 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
        their preview lines when the referenced Function is edited */
     connect(m_doc, SIGNAL(functionChanged(quint32)),
             this, SIGNAL(functionChanged(quint32)));
+
+    /* Close the Show being edited if it gets deleted */
+    connect(m_doc, SIGNAL(functionRemoved(quint32)),
+            this, SLOT(slotFunctionRemoved(quint32)));
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
@@ -1409,6 +1418,13 @@ void ShowManager::resetContents()
     }
 
     m_currentShow = nullptr;
+    emit currentShowIDChanged(Function::invalidId());
+    emit showNameChanged(QString());
+    emit showDurationChanged(0);
+    emit timeDivisionChanged(Show::Time);
+
+    m_timeScale = 0.0; // force setTimeScale() to recompute and notify
+    setTimeScale(5.0);
 
     // the clipboard holds ShowFunction pointers belonging to the show
     // being closed, so drop them to avoid dangling references
@@ -1710,6 +1726,14 @@ void ShowManager::setSelectedItemsLock(bool lock)
     }
 }
 
+void ShowManager::slotFunctionRemoved(quint32 id)
+{
+    /* The Function is still valid at this point, but it is about to be
+       destroyed: drop every reference to it and its items before that */
+    if (m_currentShow != nullptr && m_currentShow->id() == id)
+        resetContents();
+}
+
 void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;
@@ -1926,4 +1950,51 @@ bool ShowManager::pasteFromClipboard()
     // signal a failure only if overlapping prevented
     // every single item from being pasted
     return pasted > 0 || overlapping == false;
+}
+
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
+bool ShowManager::saveXML(QXmlStreamWriter *doc) const
+{
+    Q_ASSERT(doc != nullptr);
+
+    /* Nothing to remember if no Show is being edited */
+    if (m_currentShow == nullptr)
+        return true;
+
+    doc->writeStartElement(KXMLQLCShowManager);
+    doc->writeAttribute(KXMLQLCShowManagerCurrentShow, QString::number(m_currentShow->id()));
+    doc->writeAttribute(KXMLQLCShowManagerTimeScale, QString::number(m_timeScale));
+    doc->writeEndElement();
+
+    return true;
+}
+
+bool ShowManager::loadXML(QXmlStreamReader &root)
+{
+    if (root.name() != KXMLQLCShowManager)
+    {
+        qWarning() << Q_FUNC_INFO << "Show Manager node not found";
+        return false;
+    }
+
+    QXmlStreamAttributes attrs = root.attributes();
+    root.skipCurrentElement();
+
+    /* Ignore a reference to a missing Function or to one that is not a Show */
+    bool ok = false;
+    quint32 showID = attrs.value(KXMLQLCShowManagerCurrentShow).toUInt(&ok);
+    if (ok == false || qobject_cast<Show *>(m_doc->function(showID)) == nullptr)
+        return true;
+
+    /* This also applies the default time scale of the Show time division */
+    setCurrentShowID(showID);
+
+    float timeScale = attrs.value(KXMLQLCShowManagerTimeScale).toFloat(&ok);
+    if (ok && timeScale > 0)
+        setTimeScale(timeScale);
+
+    return true;
 }

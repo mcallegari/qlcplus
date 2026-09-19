@@ -32,6 +32,22 @@ SidePanel
     property int selectedItemsCount: functionManager.selectedFunctionCount + functionManager.selectedFolderCount
     property bool inShowManager: false
 
+    function confirmDeleteSelectedItems()
+    {
+        var selNames = functionManager.selectedItemNames()
+        deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
+        deleteItemsPopup.open()
+    }
+
+    Connections
+    {
+        target: contextManager
+        function onRequestFunctionsDeletion()
+        {
+            confirmDeleteSelectedItems()
+        }
+    }
+
     function createFunctionAndEditor(fType)
     {
         var i
@@ -314,13 +330,7 @@ SidePanel
                 faColor: "crimson"
                 tooltip: qsTr("Delete the selected functions")
                 counter: selectedItemsCount && !functionManager.isEditing
-                onClicked:
-                {
-                    var selNames = functionManager.selectedItemNames()
-                    //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
-                    deleteItemsPopup.open()
-                }
+                onClicked: confirmDeleteSelectedItems()
 
                 CustomPopupDialog
                 {
@@ -330,18 +340,7 @@ SidePanel
                     {
                         var funcIdList = functionManager.selectedFunctionsID()
 
-                        // check if we're deleting the curennt show
-                        var showFuncId = showManager.currentShowID
-
-                        for (var i = 0; i < funcIdList.length; i++)
-                        {
-                            if (funcIdList[i] === showFuncId)
-                            {
-                                showManager.resetContents()
-                                break
-                            }
-                        }
-
+                        // the Show Manager closes the current Show by itself if it gets deleted
                         functionManager.deleteSelectedFolders()
                         functionManager.deleteFunctions(funcIdList)
                     }

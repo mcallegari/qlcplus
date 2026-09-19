@@ -868,6 +868,14 @@ QSharedPointer<GenericFader> RGBMatrix::getFader(Universe *universe)
 
 void RGBMatrix::updateFaderValues(FadeChannel &fc, uchar value, uint fadeTime)
 {
+    // If the channel is already fading towards the requested value, let it
+    // continue undisturbed. Restarting start/elapsed on every step (even when
+    // the target doesn't change) would keep resetting the fade before it can
+    // ever reach its target, which is especially noticeable when the fade out
+    // time is longer than the step duration
+    if (fc.target() == value)
+        return;
+
     fc.setStart(fc.current());
     fc.setTarget(value);
     fc.setElapsed(0);
