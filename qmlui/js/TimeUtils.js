@@ -355,7 +355,10 @@ function posToBeatsMsOnTimeline(x, timescale, tickSize, bpmNumber)
 {
     if (!bpmNumber)
         return 0;
-    var realMs = posToMs(x, timescale, tickSize);
+    // keep the intermediate milliseconds unrounded: rounding them here would
+    // lose up to half a millisecond, which is a whole unit or more once
+    // converted to beats, and the caller rounds the result anyway
+    var realMs = x * (1000 * timescale) / tickSize;
     return (realMs / (60000 / bpmNumber)) * 1000;
 }
 
