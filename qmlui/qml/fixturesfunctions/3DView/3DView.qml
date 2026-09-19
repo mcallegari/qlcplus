@@ -59,7 +59,9 @@ Rectangle
         objectName: "scene3DItem"
         z: 1
         anchors.left: parent.left
-        anchors.right: parent.right
+        // stop at the side settings panel when it is open, so the camera
+        // stays centred on the part of the view that can actually be seen
+        anchors.right: threeDSettings.visible ? threeDSettings.left : parent.right
         anchors.top: groupsBar.visible ? groupsBar.bottom : parent.top
         anchors.bottom: parent.bottom
         aspects: ["input", "logic"]
