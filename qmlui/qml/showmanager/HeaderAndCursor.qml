@@ -141,7 +141,12 @@ Rectangle
         onPaint:
         {
             var fontSize = headerHeight * 0.55
-            var subDividers = showManager.beatsDivision
+            // for a Time based show, divide the space between two big markers
+            // into up to 5 spaces (one per second), or fewer if the big
+            // markers are closer together than 5 seconds
+            var subDividers = timeDivision === Show.Time
+                    ? Math.min(5, Math.round(timeScale))
+                    : showManager.beatsDivision
             context.globalAlpha = 1.0
             context.lineWidth = 1
 
@@ -166,7 +171,37 @@ Rectangle
 
             //console.log("xPos: " + xPos + ", msTime: " + msTime)
 
+            var subTickTop = height * 0.75
+
             context.beginPath()
+
+            // paint the small sub-tick markers first, in gray
+            if (subDividers > 1)
+            {
+                var subXPos = xPos
+                var subMsTime = msTime
+
+                for (var j = 0; j < divNum; j++)
+                {
+                    if (subMsTime >= 0)
+                    {
+                        var subX = subXPos - (tickSize / subDividers)
+                        for (var s = 0; s < subDividers - 1; s++)
+                        {
+                            context.moveTo(subX, subTickTop)
+                            context.lineTo(subX, height)
+                            subX -= (tickSize / subDividers)
+                        }
+                    }
+                    subXPos -= tickSize
+                    subMsTime -= timeScale * 1000
+                }
+            }
+            context.strokeStyle = UISettings.bgLight
+            context.stroke()
+
+            context.beginPath()
+            context.strokeStyle = showTimeMarkers ? "white" : UISettings.bgLight
             context.fillStyle = "white"
 
             // paint bars and text markers from the end to the beginning
@@ -175,17 +210,6 @@ Rectangle
                 // don't even bother to paint if we're outside the timeline
                 if (msTime >= 0)
                 {
-                    if (subDividers > 1)
-                    {
-                        var subX = xPos - (tickSize / subDividers)
-                        for (var s = 0; s < subDividers - 1; s++)
-                        {
-                            context.moveTo(subX, height / 2)
-                            context.lineTo(subX, height)
-                            subX -= (tickSize / subDividers)
-                        }
-                    }
-
                     context.moveTo(xPos, 0)
                     context.lineTo(xPos, height)
 

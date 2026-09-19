@@ -141,6 +141,7 @@ bool VCCueList::copyFrom(const VCWidget *widget)
 
     setPlaybackLayout(cuelist->playbackLayout());
     setNextPrevBehavior(cuelist->nextPrevBehavior());
+    setColumnsWidths(cuelist->columnsWidths());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -454,6 +455,20 @@ void VCCueList::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInt
         return;
 
     stopChaser();
+}
+
+QVariantList VCCueList::columnsWidths() const
+{
+    return m_columnsWidths;
+}
+
+void VCCueList::setColumnsWidths(QVariantList widths)
+{
+    if (m_columnsWidths == widths)
+        return;
+
+    m_columnsWidths = widths;
+    emit columnsWidthsChanged();
 }
 
 quint32 VCCueList::chaserID() const
@@ -1072,6 +1087,15 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         {
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCVCCueListColumnsWidths)
+        {
+            QVariantList widths;
+            QStringList wList = root.readElementText().split(",");
+            for (QString wStr : wList)
+                widths.append(wStr.toDouble());
+
+            setColumnsWidths(widths);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown VC Cue list tag:" << root.name().toString();
@@ -1111,6 +1135,16 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc) const
     /* Crossfade cue list */
     if (sideFaderMode() != None)
         doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
+
+    /* Steps list columns widths */
+    if (!m_columnsWidths.isEmpty())
+    {
+        QStringList wList;
+        for (QVariant w : m_columnsWidths)
+            wList.append(QString::number(w.toDouble(), 'f', 2));
+
+        doc->writeTextElement(KXMLQLCVCCueListColumnsWidths, wList.join(","));
+    }
 
     /* Input controls */
     saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, false, KXMLQLCVCCueListNext);

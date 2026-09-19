@@ -329,10 +329,16 @@ Rectangle
 
                 onWheel: (wheel)=>
                 {
-                    //console.log("Wheel delta: " + wheel.angleDelta.y)
-                    if (wheel.angleDelta.y > 0)
+                    // High-resolution trackpads can send wheel events whose
+                    // angle delta is zero. Do not treat a neutral or purely
+                    // horizontal event as a request to zoom out.
+                    var deltaY = wheel.angleDelta.y
+                    if (deltaY === 0)
+                        deltaY = wheel.pixelDelta.y
+
+                    if (deltaY > 0)
                         setZoom(0.5)
-                    else
+                    else if (deltaY < 0)
                         setZoom(-0.5)
                 }
             }

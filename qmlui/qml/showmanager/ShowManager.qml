@@ -317,6 +317,7 @@ Rectangle
 
             CustomComboBox
             {
+                id: timeDivisionCombo
                 model: [
                     { mLabel: qsTr("Time"), mValue: Show.Time },
                     { mLabel: qsTr("BPM 4/4"), mValue: Show.BPM_4_4 },
@@ -325,7 +326,45 @@ Rectangle
                 ]
                 enabled: showManager.isEditing
                 currValue: showManager.timeDivision
-                onValueChanged: showManager.timeDivision = currValue
+                onValueChanged:
+                {
+                    if (currValue !== Show.Time &&
+                            showManager.timeDivision === Show.Time &&
+                            showManager.hasBeatBasedItems())
+                    {
+                        beatAlignWarningPopup.pendingDivision = currValue
+                        beatAlignWarningPopup.open()
+                    }
+                    else
+                    {
+                        showManager.timeDivision = currValue
+                    }
+                }
+
+                CustomPopupDialog
+                {
+                    id: beatAlignWarningPopup
+                    title: qsTr("Switch to BPM markers")
+                    message: qsTr("Warning: all beat-based functions will be aligned to the nearest beat")
+                    standardButtons: Dialog.Ok | Dialog.Cancel
+
+                    property var pendingDivision: Show.Time
+
+                    // the OK/Cancel buttons only emit clicked(role) (see
+                    // CustomPopupDialog's footer), while accepted()/rejected()
+                    // only fire when confirming with the Enter key, so both
+                    // paths must be handled to cover mouse and keyboard
+                    onClicked: (role) =>
+                    {
+                        if (role === Dialog.Ok)
+                            showManager.timeDivision = pendingDivision
+                        else
+                            timeDivisionCombo.currValue = showManager.timeDivision
+                        close()
+                    }
+                    onAccepted: showManager.timeDivision = pendingDivision
+                    onRejected: timeDivisionCombo.currValue = showManager.timeDivision
+                }
             }
 
             ZoomItem

@@ -4,9 +4,12 @@ qlcplus (4.14.5) stable; urgency=low
   * engine: apply submaster updates to all Chaser crossfade steps (thanks to Christoph Müllner)
   * ui: improve Audio editor fileds editing (thanks to Christoph Müllner)
   * Input profiles: added Behringer X-Touch Compact (thanks to Benedict Stein)
+  * Fixture update: ETC ColorSource Fresnel V and V MAX (thanks to Edgar Aichinger)
   * New fixture: Shehds 300W LED Beam Wash & Gobo 3in1 with Ring (thanks to Charles Mountford)
   * New fixture: Acme Deluge (thanks to Paul)
-  * New fixtures: Both Lighting BO-TUBE192, Varytec Razor Derby (thanks to Fede79)
+  * New fixtures: Both Lighting BO-TUBE192, Varytec Razor Derby, Rockville Rockstrip 252, Pro-Lights Tribe Crystal (thanks to Fede79)
+  * New fixtures: American DJ Focus Spot Two, Chauvet Ovation CYC 1 FC, beamZ LCB183 LED Bar 18x3W, Shehds LED Spot 100W (thanks to Fede79)
+  * New fixtures: Chauvet 4Bar Hex ILS, Cameo NanoSpot 300 (thanks to Fede79)
   * New fixture: Ledj Slimline 9Q8 (thanks to Jason)
   * New fixture: Betopper LPC-1218 (thanks to Michael)
   * New fixture: Shehds PAR Light Battery 6x18W RGBAW+UV (thanks to Maurizio)
@@ -18,8 +21,22 @@ qlcplus (4.14.5) stable; urgency=low
   * New fixture: Litecraft MarsX.1 (thanks to Georg Müller)
   * New fixture: Starway SupraKolor (thanks to Rodolphe Catrais)
   * New fixtures: Varytec LED Pad7 7x10W 6in1 RGBWA BL, Showtec ACT Fresnel 150 WW (thanks to Laurent Georget)
-  * New fixtures: beamZ PartyBar 2, PartyBar 3
+  * New fixtures: beamZ PartyBar 2, PartyBar 3, Martin MAC Aura XIP, Showtec Xpression 2000W Wash Beam
   * New fixtures: GLP Matrix Eye 2 and 4 (thanks to Liam Clark)
+  * New fixtures: Equinox Fusion 140 and 260ZR, Ledj Stage Par CZ200 3200K (thanks to Matt Carter)
+  * New fixture: Eurolite LED 4C-12 Silent Slim Spot (thaks to Giovanni)
+  * New fixture: Pro-Lights Diamond 19TW (thanks to Lucas Mignone)
+  * New fixture: UKing 120W Beam ZQ02367 (thanks to Whopper)
+  * New fixtures: Cameo Studio PAR 64 CAN RGBWA+UV, Stairville CX-60 HEX, Eurolite LED SLS-3 HCL 3x10W (thanks to Daniel Toplak)
+  * New fixture: Pro-Lights Sunblast 3000 FC (thanks to Tolmino Muccitelli)
+  * New fixtures: Briteq BT-Theatre 150EZ, BT-Theatre 200TW, BT-Theatre 261FC (thanks to Wim Van Laer)
+  * New fixture: Ghost SLIM PAR56 V2 (thanks to Batiste Dali)
+  * New fixtures: Eurolite LED IP PIX Strobe MK2 and Frost (thanks to Bram Janssen)
+  * New fixture: Eliminator Lighting Stryker Spot (thanks to Puddnutz)
+  * New fixture: Eurolite LED Party Panel RGB+UV (thanks to bass42)
+  * New fixture: Betopper LB150 (thanks to The Ward Studios)
+  * New fixtures: Chauvet Intimidator Scan 360, Kinta HP, Scorpion Storm RGBY, MiniSphere 3, Followspot 400G (thanks to Nate Doyon)
+  * New fixture: Eurolite LED IP PIX Strobe RGB CW+WW (thank to Adam Nuclear)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 13 Jun 2026 18:19:20 +0200
 
