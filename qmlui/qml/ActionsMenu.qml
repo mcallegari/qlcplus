@@ -255,16 +255,18 @@ Popup
        NOTE: it is deliberately NOT a child of fileMenuEntry, unlike the other
        submenus here. A ContextMenuEntry sibling below it in the column grabs
        the hover for the whole area, leaving only the first row of the submenu
-       reachable. Parenting to menuRoot avoids that entirely */
+       reachable. Parenting to menuRoot avoids that entirely.
+       A Popup is not an Item, so the parent is its contentItem */
     SubMenu
     {
         id: fileMenu
-        parent: menuRoot
+        parent: menuRoot.contentItem
         x: actionsMenuEntries.width
         y: fileMenuEntry.y
         // stay open while the recent files list, which belongs to one of the
         // entries inside here, is the active submenu
-        visible: submenuItem === fileMenu || submenuItem === recentMenu
+        visible: menuRoot.compactMode &&
+                 (submenuItem === fileMenu || submenuItem === recentMenu)
     }
 
     Column
