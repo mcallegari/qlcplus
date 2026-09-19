@@ -42,6 +42,8 @@ void MonitorProperties_Test::defaults()
     QCOMPARE(mp.renderQuality(), 2);
     QCOMPARE(mp.ambientLightIntensity(), 0.6);
     QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.beamEdgeSoftness(), 0.0);
+
     QCOMPARE(mp.fixtureLightIntensity(), 1.0);
     QCOMPARE(mp.useFixtureLumens(), false);
     QCOMPARE(mp.showFPS(), false);
@@ -126,6 +128,8 @@ void MonitorProperties_Test::view3DSettingsXML()
     mp.setRenderQuality(3);
     mp.setAmbientLightIntensity(0.25);
     mp.setSmokeAmount(0.9);
+    mp.setBeamEdgeSoftness(0.35);
+
     mp.setFixtureLightIntensity(0.4);
     mp.setUseFixtureLumens(true);
     mp.setShowFPS(true);
@@ -156,6 +160,8 @@ void MonitorProperties_Test::view3DSettingsXML()
     QCOMPARE(loaded.renderQuality(), 3);
     QCOMPARE(loaded.ambientLightIntensity(), 0.25);
     QCOMPARE(loaded.smokeAmount(), 0.9);
+    QCOMPARE(loaded.beamEdgeSoftness(), 0.35);
+
     QCOMPARE(loaded.fixtureLightIntensity(), 0.4);
     QCOMPARE(loaded.useFixtureLumens(), true);
     QCOMPARE(loaded.showFPS(), true);
@@ -262,6 +268,8 @@ void MonitorProperties_Test::reset()
     mp.setRenderQuality(0);
     mp.setAmbientLightIntensity(0.1);
     mp.setSmokeAmount(0.2);
+    mp.setBeamEdgeSoftness(0.5);
+
     mp.setUseFixtureLumens(true);
     mp.setShowFPS(true);
     mp.setScaleLocked(false);
@@ -279,6 +287,8 @@ void MonitorProperties_Test::reset()
     QCOMPARE(mp.renderQuality(), 2);
     QCOMPARE(mp.ambientLightIntensity(), 0.6);
     QCOMPARE(mp.smokeAmount(), 0.8);
+    QCOMPARE(mp.beamEdgeSoftness(), 0.0);
+
     QCOMPARE(mp.fixtureLightIntensity(), 1.0);
     QCOMPARE(mp.useFixtureLumens(), false);
     QCOMPARE(mp.showFPS(), false);

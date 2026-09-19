@@ -245,6 +245,7 @@ Rectangle
                             ambIntSpin.value = View3D.ambientIntensity * 100
                             fxLightSpin.value = View3D.fixtureLightIntensity * 100
                             smokeSpin.value = View3D.smokeAmount * 100
+                            beamSoftSpin.value = View3D.beamEdgeSoftness * 100
                         }
 
                         // row 1
@@ -313,6 +314,19 @@ Rectangle
                         }
 
                         // row 6
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Beam edge softness") }
+                        CustomSpinBox
+                        {
+                            id: beamSoftSpin
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            from: 0
+                            to: 100
+                            suffix: "%"
+                            onValueModified: View3D.beamEdgeSoftness = value / 100
+                        }
+
+                        // row 7
                         RobotoText { height: UISettings.listItemHeight; label: qsTr("Show FPS") }
                         CustomCheckBox
                         {
@@ -322,7 +336,7 @@ Rectangle
                             onToggled: View3D.frameCountEnabled = checked
                         }
 
-                        // row 7
+                        // row 8
                         RobotoText { height: UISettings.listItemHeight; label: qsTr("Show fixture groups") }
                         CustomCheckBox
                         {

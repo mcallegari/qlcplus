@@ -79,6 +79,10 @@ Entity
     property real focusMaxDegrees: 5
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
+    /** Beam edge softness, shared by every emitter of the bar.
+        See Fixture3DItem, which carries the same properties */
+    property real focusFactor: 1.0
+    property real beamEdgeSoftness: View3D.beamEdgeSoftness * focusFactor
 
     /* **************** Rendering quality properties **************** */
     /* See Fixture3DItem: a beam bar lights surfaces and draws its beams */
@@ -220,7 +224,8 @@ Entity
                 "distCutoff": Qt.binding(function() { return fixtureEntity.distCutoff }),
                 "headLength": Qt.binding(function() { return fixtureEntity.headLength }),
                 "coneTopRadius": Qt.binding(function() { return fixtureEntity.coneTopRadius }),
-                "goboTexture": Qt.binding(function() { return fixtureEntity.goboTexture })
+                "goboTexture": Qt.binding(function() { return fixtureEntity.goboTexture }),
+                "beamEdgeSoftness": Qt.binding(function() { return fixtureEntity.beamEdgeSoftness })
             });
 
             if (headNode === null)
@@ -367,6 +372,11 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
+    function setFocus(value)
+    {
+        focusFactor = 1.0 - ((0.9 * value) / 255.0)
+    }
+
     // Same signature as Fixture3DItem: MainView3D calls this with degrees == true
     // when the fixture has a fixed zoom set in the monitor properties
     function setZoom(value, degrees)
@@ -440,7 +450,15 @@ Entity
         ]
     }
 
-    property Texture2D goboTexture: Texture2D { }
+    property Texture2D goboTexture:
+        Texture2D
+        {
+            // sampled at whatever resolution the beam happens to cover, so it
+            // needs filtering: the Qt3D default of Nearest re-introduces the
+            // stair steps the mask is painted smooth to avoid
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+        }
 
     /* headEntity is NOT listed here: it is an Entity, not a Component, so QML
        rejected it with a "Cannot append ... to a QML list of QComponent*"

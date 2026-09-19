@@ -114,6 +114,8 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
+    Q_PROPERTY(float beamEdgeSoftness READ beamEdgeSoftness WRITE setBeamEdgeSoftness NOTIFY beamEdgeSoftnessChanged)
+
     Q_PROPERTY(float fixtureLightIntensity READ fixtureLightIntensity WRITE setFixtureLightIntensity NOTIFY fixtureLightIntensityChanged)
     Q_PROPERTY(bool useFixtureLumens READ useFixtureLumens WRITE setUseFixtureLumens NOTIFY useFixtureLumensChanged)
     Q_PROPERTY(qreal referenceCandela READ referenceCandela NOTIFY referenceCandelaChanged)
@@ -593,6 +595,11 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    /** Get/Set how soft the beam edges are, as a fraction of the
+     *  beam radius. 0 means beams cut off sharply */
+    float beamEdgeSoftness() const;
+    void setBeamEdgeSoftness(float beamEdgeSoftness);
+
     /** Global multiplier on the light fixtures cast on surfaces */
     float fixtureLightIntensity() const;
     void setFixtureLightIntensity(float intensity);
@@ -666,6 +673,8 @@ signals:
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
+    void beamEdgeSoftnessChanged(float beamEdgeSoftness);
+
     void fixtureLightIntensityChanged(float fixtureLightIntensity);
     void useFixtureLumensChanged(bool useFixtureLumens);
     void referenceCandelaChanged(qreal referenceCandela);

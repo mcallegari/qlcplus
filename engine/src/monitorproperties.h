@@ -153,6 +153,11 @@ public:
     inline void setSmokeAmount(qreal amount) { m_smokeAmount = amount; }
     inline qreal smokeAmount() const { return m_smokeAmount; }
 
+    /** Get/Set how soft the 3D view beam edges are, as a fraction of the
+     *  beam radius (0.0 - 1.0). 0 means beams cut off sharply */
+    inline void setBeamEdgeSoftness(qreal softness) { m_beamEdgeSoftness = softness; }
+    inline qreal beamEdgeSoftness() const { return m_beamEdgeSoftness; }
+
     /** Get/Set the 3D view fixture light intensity: a global multiplier on the
      *  light fixtures cast on surfaces (1.0 = unscaled). Ambient light governs
      *  how bright the set is on its own, so this is what sets the balance
@@ -185,6 +190,8 @@ private:
     int m_renderQuality;
     qreal m_ambientLightIntensity;
     qreal m_smokeAmount;
+    qreal m_beamEdgeSoftness;
+
     qreal m_fixtureLightIntensity;
     bool m_useFixtureLumens;
     bool m_showFPS;

@@ -55,6 +55,7 @@
 #define KXMLQLCMonitorRenderQuality     QStringLiteral("Quality")
 #define KXMLQLCMonitorRenderAmbient     QStringLiteral("Ambient")
 #define KXMLQLCMonitorRenderSmoke       QStringLiteral("Smoke")
+#define KXMLQLCMonitorRenderBeamSoft    QStringLiteral("BeamSoftness")
 #define KXMLQLCMonitorRenderFxLight     QStringLiteral("FixtureLight")
 #define KXMLQLCMonitorRenderLumens      QStringLiteral("Lumens")
 #define KXMLQLCMonitorRenderShowFPS     QStringLiteral("ShowFPS")
@@ -96,6 +97,9 @@
 #define RENDER_DEFAULT_QUALITY  2
 #define RENDER_DEFAULT_AMBIENT  0.6
 #define RENDER_DEFAULT_SMOKE    0.8
+/* 0 keeps the hard beam edge every release before this one drew, so a project
+   without the attribute renders exactly as it did */
+#define RENDER_DEFAULT_BEAMSOFT 0.0
 /* Unscaled: a project that has never touched this renders exactly as before */
 #define RENDER_DEFAULT_FXLIGHT  1.0
 /* Off: every fixture emits the same amount of light, as it always has */
@@ -117,6 +121,7 @@ MonitorProperties::MonitorProperties()
     , m_renderQuality(RENDER_DEFAULT_QUALITY)
     , m_ambientLightIntensity(RENDER_DEFAULT_AMBIENT)
     , m_smokeAmount(RENDER_DEFAULT_SMOKE)
+    , m_beamEdgeSoftness(RENDER_DEFAULT_BEAMSOFT)
     , m_fixtureLightIntensity(RENDER_DEFAULT_FXLIGHT)
     , m_useFixtureLumens(RENDER_DEFAULT_LUMENS)
     , m_showFPS(false)
@@ -135,6 +140,7 @@ void MonitorProperties::reset()
     m_renderQuality = RENDER_DEFAULT_QUALITY;
     m_ambientLightIntensity = RENDER_DEFAULT_AMBIENT;
     m_smokeAmount = RENDER_DEFAULT_SMOKE;
+    m_beamEdgeSoftness = RENDER_DEFAULT_BEAMSOFT;
     m_fixtureLightIntensity = RENDER_DEFAULT_FXLIGHT;
     m_useFixtureLumens = RENDER_DEFAULT_LUMENS;
     m_showFPS = false;
@@ -768,6 +774,8 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
                 setAmbientLightIntensity(tAttrs.value(KXMLQLCMonitorRenderAmbient).toString().toDouble());
             if (tAttrs.hasAttribute(KXMLQLCMonitorRenderSmoke))
                 setSmokeAmount(tAttrs.value(KXMLQLCMonitorRenderSmoke).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorRenderBeamSoft))
+                setBeamEdgeSoftness(tAttrs.value(KXMLQLCMonitorRenderBeamSoft).toString().toDouble());
             if (tAttrs.hasAttribute(KXMLQLCMonitorRenderFxLight))
                 setFixtureLightIntensity(tAttrs.value(KXMLQLCMonitorRenderFxLight).toString().toDouble());
             if (tAttrs.hasAttribute(KXMLQLCMonitorRenderLumens))
@@ -1005,6 +1013,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     doc->writeAttribute(KXMLQLCMonitorRenderQuality, QString::number(renderQuality()));
     doc->writeAttribute(KXMLQLCMonitorRenderAmbient, QString::number(ambientLightIntensity()));
     doc->writeAttribute(KXMLQLCMonitorRenderSmoke, QString::number(smokeAmount()));
+    doc->writeAttribute(KXMLQLCMonitorRenderBeamSoft, QString::number(beamEdgeSoftness()));
     doc->writeAttribute(KXMLQLCMonitorRenderFxLight, QString::number(fixtureLightIntensity()));
     doc->writeAttribute(KXMLQLCMonitorRenderLumens, QString::number(useFixtureLumens() ? 1 : 0));
     doc->writeAttribute(KXMLQLCMonitorRenderShowFPS, QString::number(showFPS() ? 1 : 0));

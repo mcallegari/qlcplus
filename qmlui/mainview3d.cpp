@@ -1609,6 +1609,12 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     case QLCChannel::BeamZoomBigSmall:
                         QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, 255 - value), Q_ARG(QVariant, false));
                     break;
+                    case QLCChannel::BeamFocusNearFar:
+                        QMetaObject::invokeMethod(fixtureItem, "setFocus", Q_ARG(QVariant, value));
+                    break;
+                    case QLCChannel::BeamFocusFarNear:
+                        QMetaObject::invokeMethod(fixtureItem, "setFocus", Q_ARG(QVariant, 255 - value));
+                    break;
                     default:
                     break;
                 }
@@ -3285,9 +3291,26 @@ void MainView3D::applyRenderSettings()
     emit renderQualityChanged(renderQuality());
     emit ambientIntensityChanged(ambientIntensity());
     emit smokeAmountChanged(smokeAmount());
+    emit beamEdgeSoftnessChanged(beamEdgeSoftness());
+
     emit fixtureLightIntensityChanged(fixtureLightIntensity());
     emit useFixtureLumensChanged(useFixtureLumens());
     applyFrameCountEnabled(m_monProps->showFPS());
+}
+
+float MainView3D::beamEdgeSoftness() const
+{
+    return m_monProps->beamEdgeSoftness();
+}
+
+void MainView3D::setBeamEdgeSoftness(float beamEdgeSoftness)
+{
+    if (float(m_monProps->beamEdgeSoftness()) == beamEdgeSoftness)
+        return;
+
+    m_monProps->setBeamEdgeSoftness(beamEdgeSoftness);
+    m_doc->setModified();
+    emit beamEdgeSoftnessChanged(beamEdgeSoftness);
 }
 
 bool MainView3D::rayIntersectsAABB(const QVector3D &rayOrigin, const QVector3D &rayDir,
@@ -3477,8 +3500,15 @@ void GoboTextureImage::paint(QPainter *painter)
     int w = painter->device()->width();
     int h = painter->device()->height();
 
+    // The mask is sampled as a continuous function of the distance from the beam
+    // axis, so its own edges want to be smooth: without this the aperture, and
+    // every gobo drawn inside it, lands on the beam as a stair-stepped outline
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    painter->setRenderHint(QPainter::SmoothPixmapTransform, true);
+
     painter->fillRect(0, 0, w, h, Qt::black);
     painter->setBrush(QBrush(Qt::white));
+    painter->setPen(Qt::NoPen);
     painter->drawEllipse(2, 2, w - 4, h - 4);
     if (m_renderer)
     {

@@ -67,6 +67,12 @@ Entity
     property real focusMaxDegrees: 30
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2.0) * (Math.PI / 180.0)
+    /** How much of the beam edge softness set in the 3D view settings this
+        fixture is currently using. Fixtures with a focus channel sharpen the
+        edge from there through setFocus() */
+    property real focusFactor: 1.0
+    /** Softness of the beam's outer edge, as a fraction of the cone radius */
+    property real beamEdgeSoftness: View3D.beamEdgeSoftness * focusFactor
 
     /* **************** Rendering quality properties **************** */
     /* Whether this fixture lights the surfaces it is aimed at (useShading) and
@@ -291,6 +297,17 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
+    function setFocus(value)
+    {
+        // A focus channel sets a focal distance rather than an edge width, and
+        // the 3D view does not know how far away the lit surface is. Approximate
+        // it: a beam focused short of what it lands on is soft, one focused
+        // beyond it is sharp, so run the channel from softest to sharpest.
+        // A tenth of the softness is left at the sharp end, as a real lens
+        // never cuts perfectly either
+        focusFactor = 1.0 - ((0.9 * value) / 255.0)
+    }
+
     function setZoom(value, degrees)
     {
         if (degrees)
@@ -372,7 +389,15 @@ Entity
         }
 
     /* **************** Gobo properties **************** */
-    property Texture2D goboTexture: Texture2D { }
+    property Texture2D goboTexture:
+        Texture2D
+        {
+            // sampled at whatever resolution the beam happens to cover, so it
+            // needs filtering: the Qt3D default of Nearest re-introduces the
+            // stair steps the mask is painted smooth to avoid
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+        }
     property real goboRotation: 0
 
     function setGoboSpeed(cw, speed)
