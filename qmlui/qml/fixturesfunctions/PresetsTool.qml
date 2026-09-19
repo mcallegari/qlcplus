@@ -33,6 +33,7 @@ Rectangle
     clip: true
 
     property bool closeOnSelect: false
+    property var dragTarget: null
     property alias presetModel: prList.model
     property int selectedFixture: -1
     property int selectedChannel: -1
@@ -127,6 +128,8 @@ Rectangle
                             id: prMouseArea
                             anchors.fill: parent
                             hoverEnabled: true
+                            drag.target: toolRoot.dragTarget ? toolRoot.dragTarget : toolRoot
+                            drag.axis: Drag.XAndYAxis
 
                             onClicked:
                             {
