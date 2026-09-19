@@ -620,14 +620,14 @@ public:
      *  the fixture definition, when the mode inherits it) divided between the
      *  emitters the 3D view draws for that fixture. 0 when the definition
      *  carries no lumens data. */
-    static qreal fixtureEmitterLumens(Fixture *fixture);
+    static qreal fixtureEmitterLumens(Fixture *fixture, bool allowNominal = true);
 
     /** Luminous intensity of a single emitter of $fixture, in candela: its
      *  lumens spread over the solid angle of its beam at the widest the lens
      *  opens. This, not the raw flux, is what the renderer's light intensity
      *  behaves like, since nothing in the shading divides by the area the cone
      *  covers. 0 when the definition carries no lumens data. */
-    static qreal fixtureEmitterCandela(Fixture *fixture);
+    static qreal fixtureEmitterCandela(Fixture *fixture, bool allowNominal = true);
 
     /** Solid angle, in steradian, of a cone of full angle $fullAngleDegrees:
      *  2*pi*(1 - cos(angle / 2)). 0 for an angle outside (0, 360). */

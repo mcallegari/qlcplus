@@ -64,6 +64,27 @@ uniform float fixtureLightIntensity;
 // how this pass has always rendered: a beam lands the same brightness however
 // far it has travelled.
 uniform float referenceThrow;
+// Softness of the beam's outer edge, as a fraction of the cone radius at the
+// point being sampled. A stage fixture publishes its beam angle as the full
+// width at 50% of peak intensity and its field angle as the width at 10%, so
+// the declared aperture is where the light is half out, not where it stops.
+// Rendering the cone as a top hat therefore gives every fixture a hard rim it
+// does not have; wash devices, whose whole purpose is an edgeless pool, suffer
+// most. Fixture types that draw the cone at the field angle set this so that
+// the 50% point lands back on the declared beam angle.
+uniform float beamEdgeSoftness;
+
+// Fade the beam towards its rim. 'offset' is the point's offset from the beam
+// axis in light space and 'radius' the radius of the cone there, so their
+// ratio is 1.0 exactly on the rim
+float beamPenumbra(vec2 offset, float radius)
+{
+    if (beamEdgeSoftness <= 0.0)
+        return 1.0;
+
+    float soft = min(beamEdgeSoftness, 1.0);
+    return 1.0 - smoothstep(1.0 - soft, 1.0, length(offset) / radius);
+}
 
 void main()
 {
@@ -104,7 +125,7 @@ void main()
     }
 
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
-    float goboMask = gSample.a * gSample.r;
+    float goboMask = gSample.a * gSample.r * beamPenumbra(q.xy, r);
 
     vec3 finalColor = fixtureLightIntensity * falloff * shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
 

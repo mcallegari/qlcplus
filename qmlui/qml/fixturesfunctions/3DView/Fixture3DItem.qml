@@ -38,6 +38,12 @@ Entity
     property bool isSelected: false
     property int headsNumber: 1
 
+    /* Emitters this item lights the scene with. 3DView.qml builds one shadow
+       pass and one shading pass per emitter, so this is what governs the item's
+       render cost. Here every head is a real lamp and gets its own emitter;
+       PixelBar3DItem, whose head count is a pixel resolution, reports fewer. */
+    readonly property int lightsNumber: headsNumber
+
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
     property int meshType: MainView3D.NoMeshType
@@ -63,6 +69,11 @@ Entity
     property real cutoffAngle: (focusMinDegrees / 2.0) * (Math.PI / 180.0)
 
     /* **************** Rendering quality properties **************** */
+    /* Whether this fixture lights the surfaces it is aimed at (useShading) and
+       whether it also draws a volumetric beam in the air (useScattering). Every
+       fixture that throws a beam does both; see PixelBar3DItem for one that
+       lights surfaces without drawing a beam. */
+    property bool useShading: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property int raymarchSteps:
@@ -82,6 +93,9 @@ Entity
     readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
+    /** Beam edge softness. 0 keeps the top hat beam this fixture has always
+        drawn; see spotlight_shading.frag */
+    property real beamEdgeSoftness: 0
     property real coneTopRadius: transform ? (0.24023 / 2) * transform.scale3D.x * 0.7 : 0.0 // (diameter / 2) * scale * magic number
 
     property real headLength:
