@@ -79,7 +79,7 @@ Rectangle
         border.color: UISettings.bgMedium
         useFontawesome: true
         label: FontAwesome.fa_xmark
-        onClicked: mainView.loadResource("qrc:/FixturesAndFunctions.qml")
+        onClicked: mainView.restoreContext()
     }
 
     Component
