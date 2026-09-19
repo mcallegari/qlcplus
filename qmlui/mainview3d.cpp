@@ -722,6 +722,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_selectionBox = nullptr;
     mesh->m_goboTexture = nullptr;
     mesh->m_generation = m_sceneGeneration;
+    mesh->m_tileWidth = 0;
     m_createItemCount++;
 
     if (fixture->type() == QLCFixtureDef::LEDBarBeams)
@@ -2013,6 +2014,21 @@ void MainView3D::removeFixtureItem(quint32 itemID)
  * Generic items
  *********************************************************************/
 
+qreal MainView3D::meshTileWidth(const QString &source)
+{
+    // <name>_tile_<N>m.<ext>, where N is the section width in metres
+    QRegularExpression re(QStringLiteral("_tile_([0-9]+(?:\\.[0-9]+)?)m\\.[^.]+$"));
+    QRegularExpressionMatch match = re.match(source);
+
+    if (match.hasMatch() == false)
+        return 0;
+
+    bool ok = false;
+    qreal width = match.captured(1).toDouble(&ok);
+
+    return ok && width > 0 ? width : 0;
+}
+
 void MainView3D::createGenericItem(QString filename, int itemID)
 {
     if (isEnabled() == false)
@@ -2085,6 +2101,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
     mesh->m_selectionBox = nullptr;
     mesh->m_goboTexture = nullptr;
     mesh->m_generation = m_sceneGeneration;
+    mesh->m_tileWidth = meshTileWidth(filename);
 
     QEntity *newItem = qobject_cast<QEntity *>(m_genericComponent->create());
     if (newItem == nullptr)
@@ -2178,6 +2195,14 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
     meshRef->m_selectionBox->setProperty("color", QVector4D(0, 1, 0, 2.0));
 
+    // A tileable mesh declares its section width in its file name, but the
+    // sections only abut seamlessly if they are spaced by the width the mesh
+    // actually has, so prefer that once it is known
+    if (meshRef->m_tileWidth > 0 && meshRef->m_volume.m_extents.x() > 0)
+        meshRef->m_tileWidth = meshRef->m_volume.m_extents.x();
+
+    itemEntity->setProperty("tileWidthX", meshRef->m_tileWidth);
+
     updateGenericItemScale(itemID, m_monProps->itemScale(itemID));
     updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID));
     updateGenericItemRotation(itemID, m_monProps->itemRotation(itemID));
@@ -2192,6 +2217,35 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     itemEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     itemEntity->setProperty("sceneEffect", QVariant::fromValue(sceneEffect));
     updateGenericItemsList();
+}
+
+void MainView3D::initializeItemTile(int itemID, QSceneLoader *loader)
+{
+    if (isEnabled() == false || m_sceneRootEntity == nullptr || loader == nullptr)
+        return;
+
+    SceneItem *meshRef = m_genericMap.value(itemID, nullptr);
+    if (meshRef == nullptr)
+        return;
+
+    // discard asynchronous mesh callbacks belonging to a scene that has
+    // already been reset (see initializeFixture)
+    if (meshRef->m_generation != m_sceneGeneration)
+    {
+        qDebug() << "[MainView3D] discarding stale mesh callback for generic item tile" << itemID;
+        return;
+    }
+
+    QVector<QEntity *> entities = loader->entities();
+    if (entities.isEmpty())
+        return;
+
+    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+
+    // the bounding volume and the selection box belong to the item as a whole
+    // and have been set up by initializeItem already
+    inspectEntity(entities[0], meshRef, sceneDeferredLayer, sceneEffect, false, QVector3D());
 }
 
 void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
@@ -2486,13 +2540,32 @@ void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale) const
     if (isEnabled() == false)
         return;
 
+    SceneItem *item = m_genericMap.value(itemID, nullptr);
+    int tileCount = 0;
+
+    // A tileable item is drawn as a whole number of sections, so round the
+    // requested X scale to one and store the rounded value: everything that
+    // reads the scale back (the settings spin boxes, the selection box, the
+    // picking volume) then agrees with what is actually drawn
+    if (item != nullptr && item->m_tileWidth > 0)
+    {
+        tileCount = qMax(1, qRound(scale.x()));
+        scale.setX(float(tileCount));
+    }
+
     QVector3D currScale = m_monProps->itemScale(itemID);
     Tardis::instance()->enqueueAction(Tardis::GenericItemSetScale, itemID, QVariant(currScale), QVariant(scale));
 
     m_monProps->setItemScale(itemID, scale);
-    SceneItem *item = m_genericMap.value(itemID, nullptr);
     if (item == nullptr || item->m_rootTransform == nullptr)
         return;
+
+    // Generic3DItem undoes the X scale and lays out $tileCount copies of the
+    // mesh instead, so the item grows along X by repeating rather than by
+    // stretching. The scale is still set on the transform, as the selection
+    // box and the picking volume are derived from it
+    if (tileCount)
+        item->m_rootItem->setProperty("tileCountX", tileCount);
 
     item->m_rootTransform->setScale3D(scale);
     if (item->m_selectionBox)
