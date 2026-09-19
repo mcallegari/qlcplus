@@ -38,6 +38,12 @@ Entity
     property bool isSelected: false
     property int headsNumber: 1
 
+    /* Emitters this item lights the scene with. 3DView.qml builds one shadow
+       pass and one shading pass per emitter, so this is what governs the item's
+       render cost. Here every head is a real lamp and gets its own emitter;
+       PixelBar3DItem, whose head count is a pixel resolution, reports fewer. */
+    readonly property int lightsNumber: headsNumber
+
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
     property int meshType: MainView3D.NoMeshType

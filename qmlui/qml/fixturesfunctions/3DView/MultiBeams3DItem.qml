@@ -36,6 +36,12 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
     property int headsNumber: 1
+
+    /* Emitters this item lights the scene with. 3DView.qml builds one shadow
+       pass and one shading pass per emitter, so this is what governs the item's
+       render cost. Here every head is a real lamp and gets its own emitter;
+       PixelBar3DItem, whose head count is a pixel resolution, reports fewer. */
+    readonly property int lightsNumber: headsNumber
     property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
 

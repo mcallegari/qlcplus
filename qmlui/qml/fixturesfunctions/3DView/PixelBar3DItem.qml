@@ -72,6 +72,154 @@ Entity
     readonly property int cellRows:
         layoutMatchesHeads ? headsLayout.height : 1
 
+    /* **************** Light zone properties **************** */
+    /* Every emitter this item creates costs the renderer a shadow map pass -
+       the whole scene re-rendered from the emitter's point of view - and a
+       shading pass over the screen area its cone covers, both on every frame.
+       That is affordable per cell while a bar has a few dozen of them, but the
+       head count of this fixture type is a pixel resolution rather than a count
+       of lamps: the Pulse LED Bar 320 declares 320 heads, and 320 scene
+       re-renders a frame is not something any GPU is going to do.
+
+       So the cells are grouped into light zones. The glowing patches on the
+       housing stay one per cell - they are plain geometry in the G buffer and
+       cost almost nothing - and only the zones light the room. A zone emits the
+       sum of what its cells emit, so the bar puts the same quantity of light
+       into the room however it is grouped; what is given up is the spatial
+       detail of that light, not its amount or its colour.
+
+       How many zones is derived from the bar rather than configured: what
+       decides how much detail a batten's light has on a wall is how long the
+       batten is, not how finely its maker chose to divide it. One zone per 25
+       centimetres gives a 1 metre batten four and a 2 metre one eight, which is
+       about where the pools of neighbouring zones stop being resolvable at the
+       throws these are rigged at. */
+    readonly property real lightZoneSpacing: 0.25
+
+    /* Ceiling on the zone grid. This is the one number that decides what a bar
+       costs to render, so it belongs on the quality dial. Low builds the
+       emitters but neither shades nor shadows them (see useShading below), so
+       its value never reaches the GPU. */
+    readonly property int maxLightZones:
+    {
+        switch (View3D.renderQuality)
+        {
+            case MainView3D.MediumQuality: return 4
+            case MainView3D.HighQuality: return 8
+            default: return 16
+        }
+    }
+
+    /* The zone grid: zones across the width of the bar and along its depth.
+       Assigned by updateHeads() rather than bound, because 3DView.qml builds a
+       branch of the frame graph per emitter and keeps a reference to it, so the
+       emitters must not come and go underneath it. Nothing these are derived
+       from moves during the life of a scene anyway: the quality dial already
+       needs the 3D view re-entered before useShading and useShadows take
+       effect. */
+    property int zoneColumns: 1
+    property int zoneRows: 1
+
+    /* Emitters this item lights the scene with. 3DView.qml walks this, not
+       headsNumber, when it builds the frame graph. */
+    readonly property int lightsNumber: zoneColumns * zoneRows
+
+    readonly property real zoneWidth: phySize.x / zoneColumns
+    readonly property real zoneDepth: phySize.z / zoneRows
+
+    /* Zone a cell of the bar belongs to. The cell grid does not have to divide
+       evenly into the zone grid - a 10 cell bar in 4 zones gives 3, 3, 2, 2 -
+       so this maps rather than divides, and clamps because a cell exactly on
+       the far edge would otherwise land one past the last zone. */
+    function zoneOfCell(cellIndex)
+    {
+        var column = cellIndex % cellColumns
+        var row = Math.floor(cellIndex / cellColumns)
+        var zoneColumn = Math.min(zoneColumns - 1, Math.floor((column * zoneColumns) / cellColumns))
+        var zoneRow = Math.min(zoneRows - 1, Math.floor((row * zoneRows) / cellRows))
+
+        return (zoneRow * zoneColumns) + zoneColumn
+    }
+
+    function computeLightZones()
+    {
+        // Never more zones than there are cells to fill them, and never fewer
+        // than one: a blinder 30 cm across is a single zone.
+        var columns = Math.max(1, Math.min(cellColumns, Math.round(phySize.x / lightZoneSpacing)))
+        var rows = Math.max(1, Math.min(cellRows, Math.round(phySize.z / lightZoneSpacing)))
+
+        // Halve the longer axis until the grid fits the cap, so a long batten
+        // gives up resolution along its length before it gives up its rows.
+        while (columns * rows > maxLightZones && (columns > 1 || rows > 1))
+        {
+            if (columns >= rows && columns > 1)
+                columns = Math.floor(columns / 2)
+            else if (rows > 1)
+                rows = Math.floor(rows / 2)
+            else
+                break
+        }
+
+        zoneColumns = columns
+        zoneRows = rows
+    }
+
+    /* What each cell of the bar is currently emitting, and the running sum of
+       it per zone. A cell contributes its dimmer times its colour to the zone
+       it belongs to; keeping the sum rather than recomputing it means a chase
+       step costs one subtraction and one addition per cell that changed, not a
+       walk of every cell in the zone.
+
+       Summing is not an approximation of what per cell emitters did. The
+       shading pass is additive into the HDR frame buffer, so wherever several
+       cells lit the same surface their contributions already added up there; a
+       zone is that same sum arriving from one emitter instead of forty. */
+    property var cellDimmers: []
+    property var cellColors: []
+    property var zoneSums: []
+
+    function accumulateCell(cellIndex, sign)
+    {
+        var base = zoneOfCell(cellIndex) * 3
+        var dimmer = cellDimmers[cellIndex]
+        var cellColor = cellColors[cellIndex]
+
+        zoneSums[base] += sign * dimmer * cellColor.r
+        zoneSums[base + 1] += sign * dimmer * cellColor.g
+        zoneSums[base + 2] += sign * dimmer * cellColor.b
+    }
+
+    /* Hand a zone's accumulated output to its emitter. The magnitude goes into
+       the dimmer and only the hue into the colour, because a colour component
+       cannot exceed 1 while the sum over a zone's cells both can and must:
+       forty cells at full is forty times the light of one. */
+    function updateZoneLight(zoneIndex)
+    {
+        var emitter = headsList[zoneIndex]
+        if (!emitter)
+            return
+
+        var base = zoneIndex * 3
+        var red = Math.max(0, zoneSums[base])
+        var green = Math.max(0, zoneSums[base + 1])
+        var blue = Math.max(0, zoneSums[base + 2])
+        var peak = Math.max(red, Math.max(green, blue))
+
+        // Below this the zone is off. A running sum drifts, and what
+        // RenderShadowMapFilter reads to decide whether an emitter is worth a
+        // shadow map pass at all is a non zero intensity, so a zone that has
+        // been faded out must settle to exactly zero rather than to a hair
+        // above it.
+        if (peak <= 0.0001)
+        {
+            emitter.dimmerValue = 0
+            return
+        }
+
+        emitter.lightColor = Qt.rgba(red / peak, green / peak, blue / peak, 1)
+        emitter.dimmerValue = peak
+    }
+
     /* **************** Focus properties **************** */
     /* A pixel bar is a wash device: battens and blinders of this type carry
        lenses of 40 degrees and up, and the Jolt style blinders 120. Default
@@ -161,8 +309,8 @@ Entity
     /* Shadows are not optional: spotlight_shading.frag bounds the light with
        the emitter's shadow map and nothing else, so a cell without one lights
        everything inside its cone projection, straight through the walls of the
-       stage environment. RenderShadowMapFilter matches no render pass while a
-       cell is dark, so an unlit bar costs nothing. */
+       stage environment. RenderShadowMapFilter disables itself while a zone is
+       dark, so an unlit bar costs nothing. */
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
 
     /* Resolution of each cell's shadow map. A single head fixture can afford
@@ -186,10 +334,13 @@ Entity
     readonly property int raymarchSteps: 0
 
     /* **************** Spotlight cone properties **************** */
-    /* Radius of a single cell. The 0.7 factor matches Fixture3DItem, where it
-       compensates the mesh lens being slightly larger than the emitting surface. */
+    /* Radius of the emitting face of one zone, which is a section of the bar
+       rather than a single cell: the light of a zone leaves the whole strip of
+       LEDs it stands for, so the cone starts as wide as that strip. The 0.7
+       factor matches Fixture3DItem, where it compensates the mesh lens being
+       slightly larger than the emitting surface. */
     property real coneTopRadius:
-        Math.max(0.005, 0.5 * 0.7 * Math.min(phySize.x / cellColumns, phySize.z / cellRows))
+        Math.max(0.005, 0.5 * 0.7 * Math.min(zoneWidth, zoneDepth))
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
 
     /* Depth of the emitter inside the fixture body. The emitters sit ON the
@@ -219,6 +370,9 @@ Entity
         }
 
         headsList = []
+        cellDimmers = []
+        cellColors = []
+        zoneSums = []
 
         // itemID is invalid while the item is being built - MainView3D sets the
         // real one right after creation - and MainView3D::resetItems() sets it
@@ -239,7 +393,13 @@ Entity
             return
         }
 
-        for (i = 0; i < headsNumber; i++)
+        // One emitter per light zone, not per cell. MainView3D::createFixtureItem()
+        // hands this item its physical size before it hands it the item ID that
+        // brought us here, so the bar's length is known and the zone grid can be
+        // settled before anything is built from it.
+        computeLightZones()
+
+        for (i = 0; i < lightsNumber; i++)
         {
             // Everything shared with the parent is bound rather than copied:
             // most of these are only known once MainView3D::initializeFixture()
@@ -265,25 +425,42 @@ Entity
 
             if (headNode === null)
             {
-                console.warn("PixelBar3DItem: cannot create cell", i, "of item", itemID)
+                console.warn("PixelBar3DItem: cannot create light zone", i, "of item", itemID)
                 break
             }
 
             headsList.push(headNode)
         }
 
-        // 3DView.qml walks headsNumber heads when it builds the frame graph, so
-        // this must never promise more emitters than actually exist
-        if (headsList.length !== headsNumber)
-            headsNumber = headsList.length
+        // 3DView.qml walks lightsNumber emitters when it builds the frame graph,
+        // so that must never promise more of them than actually exist. Falling
+        // back to a single row keeps zoneOfCell() consistent with what was built.
+        if (headsList.length !== lightsNumber)
+        {
+            zoneColumns = Math.max(1, headsList.length)
+            zoneRows = 1
+        }
+
+        // One slot per cell for the cell state, three per zone for the running
+        // sums the cells are accumulated into
+        for (i = 0; i < headsNumber; i++)
+        {
+            cellDimmers.push(0)
+            cellColors.push(Qt.rgba(0, 0, 0, 1))
+        }
+
+        for (i = 0; i < lightsNumber * 3; i++)
+            zoneSums.push(0)
 
         // initializeFixture() is what hands us phySize and the lens angles, so
         // the cone geometry logged below is only meaningful once it has returned
         View3D.initializeFixture(itemID, fixtureEntity, null)
 
-        console.log("PixelBar3DItem: item", itemID, "cells:", headsList.length,
+        console.log("PixelBar3DItem: item", itemID, "cells:", headsNumber,
                     "layout:", headsLayout.width + "x" + headsLayout.height,
                     "used as:", cellColumns + "x" + cellRows,
+                    "| light zones:", zoneColumns + "x" + zoneRows,
+                    "of max", maxLightZones,
                     "| lens:", focusMinDegrees + "-" + focusMaxDegrees + " deg",
                     "cone top/bottom:", coneTopRadius.toFixed(4) + "/" + coneBottomRadius.toFixed(2),
                     "| field:", (fieldHalfAngle * 2 * 180 / Math.PI).toFixed(0) + " deg",
@@ -315,48 +492,52 @@ Entity
     }
 
     // The C++ side computes a single emitter position and orientation for the
-    // whole bar (headIndex is always 0), so spread the cells over the fixture
-    // body here: evenly across its width and depth, centered on the origin and
-    // rotated by the bar's current orientation matrix. Same as MultiBeams3DItem,
-    // and it must stay the same, because the emissive cell planes below are laid
-    // out on the identical grid.
+    // whole bar (headIndex is always 0), so spread the light zones over the
+    // fixture body here: evenly across its width and depth, centered on the
+    // origin and rotated by the bar's current orientation matrix. The emissive
+    // cell planes below are laid out on the finer cell grid, but on the same
+    // origin and the same axes, so a zone sits exactly over the run of cells it
+    // stands for.
     function setHeadLightProps(headIndex, pos, matrix)
     {
         var count = headsList.length
         if (count === 0)
             return
 
-        var cellWidth = phySize.x / cellColumns
-        var cellDepth = phySize.z / cellRows
-
-        for (var h = 0; h < count; h++)
+        for (var z = 0; z < count; z++)
         {
-            var column = h % cellColumns
-            var row = Math.floor(h / cellColumns)
+            var column = z % zoneColumns
+            var row = Math.floor(z / zoneColumns)
             // On the emitting face, not the middle of the bar. The housing is
             // drawn as one cuboid spanning the full phySize.y, so an emitter at
             // the centre sits INSIDE it and the shadow map records the bar's own
-            // underside as the first surface the light meets - every cell then
+            // underside as the first surface the light meets - every zone then
             // fails its own shadow test and the bar lights nothing. (The beam bar
             // gets away with a centred emitter because its body is two half
             // height cuboids, so the centre is already on a face.)
-            var localPos = Qt.vector4d(-(phySize.x / 2) + ((column + 0.5) * cellWidth),
+            var localPos = Qt.vector4d(-(phySize.x / 2) + ((column + 0.5) * zoneWidth),
                                        -(phySize.y / 2),
-                                       -(phySize.z / 2) + ((row + 0.5) * cellDepth), 0)
+                                       -(phySize.z / 2) + ((row + 0.5) * zoneDepth), 0)
 
-            var head = headsList[h]
+            var head = headsList[z]
             head.lightPos = pos.plus(matrix.times(localPos).toVector3d())
             head.lightMatrix = matrix
         }
     }
 
-    /* A cell is two things that have to move together: the emitter that lights
-       the room, and the glowing patch on the housing that shows which pixel is
-       lit. Drive both from every value update. */
+    /* A cell is two things that have to move together: the glowing patch on the
+       housing that shows which pixel is lit, which is one per cell, and the
+       light thrown into the room, which comes from the zone the cell belongs to
+       and is the sum of every cell in it. Drive both from every value update. */
     function setHeadIntensity(headIndex, intensity)
     {
-        if (headIndex >= 0 && headIndex < headsList.length)
-            headsList[headIndex].dimmerValue = intensity
+        if (headIndex >= 0 && headIndex < cellDimmers.length)
+        {
+            accumulateCell(headIndex, -1)
+            cellDimmers[headIndex] = intensity
+            accumulateCell(headIndex, 1)
+            updateZoneLight(zoneOfCell(headIndex))
+        }
 
         var plane = headsRepeater.objectAt(headIndex)
         if (plane)
@@ -365,8 +546,13 @@ Entity
 
     function setHeadRGBColor(headIndex, color)
     {
-        if (headIndex >= 0 && headIndex < headsList.length)
-            headsList[headIndex].lightColor = color
+        if (headIndex >= 0 && headIndex < cellColors.length)
+        {
+            accumulateCell(headIndex, -1)
+            cellColors[headIndex] = color
+            accumulateCell(headIndex, 1)
+            updateZoneLight(zoneOfCell(headIndex))
+        }
 
         var plane = headsRepeater.objectAt(headIndex)
         if (plane)

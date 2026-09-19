@@ -810,6 +810,34 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             if (phy.layoutSize() != QSize(1, 1))
                 newItem->setProperty("headsLayout", phy.layoutSize());
         }
+
+        // A pixel bar decides how many light emitters to build from its physical
+        // length rather than from its head count, which for this fixture type is
+        // a pixel resolution and can run into the hundreds (see the light zones
+        // in PixelBar3DItem). It builds them the moment it is handed an item ID,
+        // at the end of this function, and initializeFixture() would not hand it
+        // a size until after that - so a 2 metre batten would size its zone grid
+        // on the 1 metre default and then have to tear the emitters down again,
+        // by which time the frame graph may already hold references to them.
+        // Give it the size up front: initializeFixture() derives the same value
+        // from the same physical properties and writes it back unchanged.
+        if (isPixelBar)
+        {
+            QVector3D fxSize(0.3, 0.3, 0.3);
+
+            if (fxMode != nullptr)
+            {
+                QLCPhysical phy = fxMode->physical();
+                if (phy.width())
+                    fxSize.setX(phy.width() / 1000.0);
+                if (phy.height())
+                    fxSize.setY(phy.height() / 1000.0);
+                if (phy.depth())
+                    fxSize.setZ(phy.depth() / 1000.0);
+            }
+
+            newItem->setProperty("phySize", QVariant::fromValue(fxSize));
+        }
     }
     else
     {
