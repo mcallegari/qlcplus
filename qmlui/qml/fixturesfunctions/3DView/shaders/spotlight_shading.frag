@@ -49,6 +49,11 @@ uniform sampler2D shadowTex;
 
 uniform float headLength;
 
+// Global gain on fixture light landing on surfaces, from the 3D view
+// Rendering settings. The volumetric beams have their own scaling in
+// spotlight_scattering.frag, through the smoke amount.
+uniform float fixtureLightIntensity;
+
 void main()
 {
 
@@ -79,7 +84,7 @@ void main()
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
     float goboMask = gSample.a * gSample.r;
 
-    vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
+    vec3 finalColor = fixtureLightIntensity * shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
 
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
     //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);

@@ -229,6 +229,7 @@ Rectangle
                         Component.onCompleted:
                         {
                             ambIntSpin.value = View3D.ambientIntensity * 100
+                            fxLightSpin.value = View3D.fixtureLightIntensity * 100
                             smokeSpin.value = View3D.smokeAmount * 100
                         }
 
@@ -262,6 +263,19 @@ Rectangle
                         }
 
                         // row 3
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Fixture light") }
+                        CustomSpinBox
+                        {
+                            id: fxLightSpin
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            from: 0
+                            to: 200
+                            suffix: "%"
+                            onValueModified: View3D.fixtureLightIntensity = value / 100
+                        }
+
+                        // row 4
                         RobotoText { height: UISettings.listItemHeight; label: qsTr("Smoke amount") }
                         CustomSpinBox
                         {
@@ -274,7 +288,7 @@ Rectangle
                             onValueModified: View3D.smokeAmount = value / 100
                         }
 
-                        // row 4
+                        // row 5
                         RobotoText { height: UISettings.listItemHeight; label: qsTr("Show FPS") }
                         CustomCheckBox
                         {
