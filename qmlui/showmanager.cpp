@@ -209,6 +209,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
         return edges;
 
     int beatsDivision = m_currentShow->beatsDivision();
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
 
     for (Track *track : m_currentShow->tracks())
     {
@@ -217,18 +218,37 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
             if (sf->functionID() == excludeFuncId)
                 continue;
 
+            // an item's times are in its Function's own unit (ms or beats as ms),
+            // so convert them the same way ShowItem.qml updateGeometry() does
+            Function *func = m_doc->function(sf->functionID());
+            bool itemIsBeats = func != nullptr && func->tempoType() == Function::Beats;
+            double startTime = sf->startTime();
+            double endTime = startTime + sf->duration();
             double startX, endX;
-            quint32 endTime = sf->startTime() + sf->duration();
 
             if (timeDivision() == Show::Time)
             {
-                startX = ((double)sf->startTime() * m_tickSize) / (m_timeScale * 1000.0);
-                endX = ((double)endTime * m_tickSize) / (m_timeScale * 1000.0);
+                if (itemIsBeats)
+                {
+                    // beats as ms -> real ms
+                    double beatMs = bpm > 0 ? 60000.0 / bpm : 0;
+                    startTime = (startTime / 1000.0) * beatMs;
+                    endTime = (endTime / 1000.0) * beatMs;
+                }
+                startX = (startTime * m_tickSize) / (m_timeScale * 1000.0);
+                endX = (endTime * m_tickSize) / (m_timeScale * 1000.0);
+            }
+            else if (itemIsBeats)
+            {
+                startX = (m_tickSize / beatsDivision) * (startTime / 1000.0);
+                endX = (m_tickSize / beatsDivision) * (endTime / 1000.0);
             }
             else
             {
-                startX = (m_tickSize / beatsDivision) * ((double)sf->startTime() / 1000.0);
-                endX = (m_tickSize / beatsDivision) * ((double)endTime / 1000.0);
+                // real ms -> position on the bar-based ruler
+                double barDuration = bpm > 0 ? (60000.0 / bpm) * beatsDivision : 0;
+                startX = barDuration > 0 ? (m_tickSize * startTime) / barDuration : 0;
+                endX = barDuration > 0 ? (m_tickSize * endTime) / barDuration : 0;
             }
 
             // filter: skip items entirely outside the visible viewport
@@ -1758,9 +1778,11 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
         Function *func = m_doc->function(sf->functionID());
         if (func != nullptr)
         {
+            // items are half-open intervals [start, start + duration), so an
+            // item starting exactly where another one ends is not overlapping
             quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            if (startTime == fst ||
+                (startTime < fst + sf->duration() && fst < startTime + duration))
             {
                 return true;
             }

@@ -549,6 +549,10 @@ Item
                             ? TimeUtils.posToBeat(dropX, tickSize, beatsDivision)
                             : TimeUtils.posToBeatMs(dropX, tickSize, ioManager.bpmNumber, beatsDivision)
 
+                // round to the nearest unit: truncating a snapped position that is
+                // a hair below the edge would make the item overlap its neighbour
+                newTime = Math.round(newTime)
+
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 if (newTime < 0)
                     newTime = 0
@@ -757,6 +761,9 @@ Item
                         }
                     }
 
+                    newStartTime = Math.round(newStartTime)
+                    newDuration = Math.round(newDuration)
+
                     if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
                         showManager.setShowItemDuration(sfRef, newDuration)
                     else
@@ -874,6 +881,8 @@ Item
                                 ? (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
                                 : TimeUtils.posToBeatMs(itemRoot.width, tickSize, ioManager.bpmNumber, beatsDivision)
                     }
+
+                    newDuration = Math.round(newDuration)
 
                     if (showManager.setShowItemDuration(sfRef, newDuration) === false)
                         updateGeometry()
