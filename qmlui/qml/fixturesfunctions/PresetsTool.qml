@@ -173,11 +173,8 @@ Rectangle
 
                             if (toolRoot.showPalette)
                             {
-                                let pct = (capability.max > capability.min)
-                                    ? Math.round((val - capability.min) * 100 / (capability.max - capability.min))
-                                    : 0
+                                let pct = Math.round(val * 100 / 255)
                                 paletteBox.updateValues(capability.preset, pct)
-                                paletteBox.updatePreview()
                             }
 
                             if (closeOnSelect)
