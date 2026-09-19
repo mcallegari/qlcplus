@@ -322,6 +322,10 @@ protected slots:
     void slotFixtureDeleted(quint32 itemID);
     void slotFixtureFlagsChanged(quint32 itemID, quint32 flags);
 
+    /** Invoked when the fixture tree of the Fixture Manager has been
+     *  rebuilt, to highlight the selected fixtures in it again */
+    void slotFixtureTreeChanged();
+
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
