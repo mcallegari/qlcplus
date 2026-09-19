@@ -426,6 +426,16 @@ int App::defaultMask() const
 
 void App::keyPressEvent(QKeyEvent *e)
 {
+    // If a text input item (e.g. an inline name being edited) currently has
+    // focus, let it handle the key press first (e.g. Delete/Backspace to edit
+    // text) instead of triggering global shortcuts like function/item deletion
+    QQuickItem *focusItem = activeFocusItem();
+    if (focusItem && (focusItem->flags() & QQuickItem::ItemAcceptsInputMethod))
+    {
+        QQuickView::keyPressEvent(e);
+        return;
+    }
+
     if (m_contextManager)
         m_contextManager->handleKeyPress(e);
 
