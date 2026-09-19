@@ -273,7 +273,7 @@ function timeToQlcString(value, type)
 function posToMs(x, timescale, tickSize)
 {
     // tickSize : 1000 * timescale = x : result
-    return parseInt(x * (1000 * timescale) / tickSize);
+    return Math.round(x * (1000 * timescale) / tickSize);
 }
 
 /** Return a value in beats for the given
