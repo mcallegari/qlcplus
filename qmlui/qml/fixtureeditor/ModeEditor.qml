@@ -395,6 +395,20 @@ Rectangle
                             }
                         } // ListView
 
+                        // drag highlight for dropping past the last channel (appending
+                        // at the end): the per-delegate highlight line can't show this
+                        // since there is no delegate at index count, so draw it in the
+                        // empty row channelList's parent reserves below the list
+                        Rectangle
+                        {
+                            visible: channelList.dragInsertIndex === channelList.count && channelList.count > 0
+                            y: channelList.y + channelList.height
+                            width: channelList.width
+                            height: 2
+                            z: 1
+                            color: UISettings.selection
+                        }
+
                         // Tracks whichever item is currently being dragged (be it mcDragItem,
                         // from this same list, or a drag item from another view such as
                         // EditorView's main channel list) and recomputes the insertion index
@@ -425,7 +439,19 @@ Rectangle
                             var item = channelList.itemAt(centerPos.x, centerPos.y)
                             if (item === null)
                             {
-                                channelList.dragInsertIndex = -1
+                                // no delegate under the drag position: either we're above
+                                // the header/outside the list horizontally (invalid drop),
+                                // or below the last row. The DropArea (clDropArea) fills
+                                // channelList's parent, which is deliberately one extra
+                                // row taller than channelList itself, so there is real,
+                                // droppable space below the last delegate - treat landing
+                                // there as "insert at the end"
+                                var headerY = channelList.headerItem ? channelList.headerItem.height : 0
+                                if (channelList.count > 0 && centerPos.y >= headerY &&
+                                        centerPos.y < channelList.height + UISettings.listItemHeight)
+                                    channelList.dragInsertIndex = channelList.count
+                                else
+                                    channelList.dragInsertIndex = -1
                                 return
                             }
                             var itemY = item.mapToItem(channelList, 0, 0).y
