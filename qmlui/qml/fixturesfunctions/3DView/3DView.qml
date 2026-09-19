@@ -345,16 +345,53 @@ Rectangle
             });
         }
 
+        // A click with no modifier makes the clicked item the only one selected,
+        // whether it is a fixture or a custom item, and whether or not it was
+        // selected already. Only when it is the only item selected does it get
+        // deselected instead. Ctrl or Shift, as well as the multiple selection
+        // mode, add the item to the selection or remove it
+        function isExclusiveClick(modifiers)
+        {
+            return (modifiers & (Qt.ControlModifier | Qt.ShiftModifier)) === 0 &&
+                   contextManager.multipleSelection === false
+        }
+
+        function isOnlySelection()
+        {
+            return contextManager.selectedFixturesCount + View3D.genericSelectedCount === 1
+        }
+
         function selectFixtureItem(itemID, select, modifiers)
         {
             console.log("Select item: " + itemID + ", select: " + select)
-            contextManager.setItemSelection(itemID, select, modifiers)
+
+            if (isExclusiveClick(modifiers) && !(select === false && isOnlySelection()))
+            {
+                // without a modifier, setItemSelection() replaces the fixtures
+                // selection, but the custom items one has to be cleared here
+                View3D.resetGenericSelection()
+                contextManager.setItemSelection(itemID, true, Qt.NoModifier)
+            }
+            else
+            {
+                contextManager.setItemSelection(itemID, select, Qt.ControlModifier)
+            }
         }
 
         function selectGenericItem(itemID, select, modifiers, worldIntersection)
         {
             console.log("Select item: " + itemID + ", select: " + select)
-            View3D.setItemSelection(itemID, select, modifiers)
+
+            if (isExclusiveClick(modifiers) && !(select === false && isOnlySelection()))
+            {
+                // the same the other way round
+                contextManager.resetFixtureSelection()
+                View3D.setItemSelection(itemID, true, Qt.NoModifier)
+            }
+            else
+            {
+                View3D.setItemSelection(itemID, select, Qt.ControlModifier)
+            }
             contextManager.setPositionPickPoint(worldIntersection)
         }
 

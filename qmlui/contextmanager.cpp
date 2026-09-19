@@ -94,6 +94,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
     connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
+    connect(m_fixtureManager, &FixtureManager::groupsTreeModelChanged, this, &ContextManager::slotFixtureTreeChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
@@ -489,6 +490,7 @@ void ContextManager::resetContexts()
     for (quint32 &itemID : m_selectedFixtures)
         setFixtureSelection(itemID, -1, false);
     m_selectedFixtures.clear();
+    m_3DView->resetGenericSelection();
 
     m_functionManager->setEditorFunction(-1, true, false);
     m_functionManager->selectFunctionID(-1, false);
@@ -515,6 +517,7 @@ void ContextManager::resetViewItems()
     for (const quint32 &itemID : selected)
         setFixtureSelection(itemID, -1, false);
     m_selectedFixtures.clear();
+    m_3DView->resetGenericSelection();
 
     if (m_2DView->isEnabled())
         m_2DView->resetItems();
@@ -1643,6 +1646,23 @@ void ContextManager::slotFixtureDeleted(quint32 itemID)
         m_2DView->removeFixtureItem(itemID);
     if (m_3DView->isEnabled())
         m_3DView->removeFixtureItem(itemID);
+}
+
+void ContextManager::slotFixtureTreeChanged()
+{
+    // the tree is built without any selection, the first time the Fixtures
+    // panel is shown and again whenever it is refreshed, so a fixture
+    // selected in a preview beforehand would not be highlighted in it
+    for (quint32 &itemID : m_selectedFixtures)
+    {
+        // dimmers are selected by head in the previews, and a head
+        // selection is not reflected in the tree (see setFixtureSelection)
+        Fixture *fixture = m_doc->fixture(FixtureUtils::itemFixtureID(itemID));
+        if (fixture == nullptr || fixture->type() == QLCFixtureDef::Dimmer)
+            continue;
+
+        m_fixtureManager->setItemRoleData(itemID, 2, TreeModel::IsSelectedRole);
+    }
 }
 
 void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)

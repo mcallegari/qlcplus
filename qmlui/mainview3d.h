@@ -422,6 +422,10 @@ public:
 
     Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
 
+    /** Deselect every generic item. The selection outlives a rebuild of the
+     *  scene, so this is what clears it when the project is reset */
+    Q_INVOKABLE void resetGenericSelection();
+
     /** Select/deselect the generic item on row $index of the items list model.
      *  $keyModifiers has the same meaning as in setItemSelection, plus Shift,
      *  which extends the selection from the row clicked last to $index */

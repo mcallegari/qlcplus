@@ -207,7 +207,17 @@ void MainView3D::slotRefreshView()
         }
     }
 
-    for (quint32 &itemID : m_monProps->genericItemsID())
+    // drop the selected items that no longer exist, in case the
+    // items changed while the 3D view was not shown
+    QList<quint32> genericIDs = m_monProps->genericItemsID();
+    for (int i = m_genericSelectedItems.count() - 1; i >= 0; i--)
+    {
+        if (genericIDs.contains(m_genericSelectedItems.at(i)) == false)
+            m_genericSelectedItems.removeAt(i);
+    }
+    emit genericSelectedCountChanged();
+
+    for (quint32 &itemID : genericIDs)
     {
         QString path = m_monProps->itemResource(itemID);
         createGenericItem(path, itemID);
@@ -275,7 +285,10 @@ void MainView3D::resetItems()
     }
     m_genericMap.clear();
     m_genericItemsList->clear();
-    m_genericSelectedItems.clear();
+    // the selection is kept, as the fixtures one is in ContextManager: this
+    // runs every time the 3D view is left, and the items selected along with
+    // the fixtures are expected to be still selected when it is shown again.
+    // initializeItem() applies it to each item as the scene is rebuilt
     m_genericPreviousIndex = -1;
     m_latestGenericID = 0;
     m_createItemCount = 0;
@@ -2308,6 +2321,13 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
 
     applyItemColor(itemEntity, m_monProps->itemColor(itemID));
 
+    // restore the selection of an item selected before the scene was rebuilt
+    if (m_genericSelectedItems.contains(itemID))
+    {
+        itemEntity->setProperty("isSelected", true);
+        meshRef->m_selectionBox->setProperty("isSelected", true);
+    }
+
     updateGenericItemsList();
 }
 
@@ -2386,6 +2406,28 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
     }
 
     updateGenericItemSelection(itemID, enable);
+
+    emit genericSelectedCountChanged();
+    emit genericSelectedLockedChanged();
+    emit genericItemsNameChanged();
+    emit genericItemsColorChanged();
+}
+
+void MainView3D::resetGenericSelection()
+{
+    for (int &id : m_genericSelectedItems)
+    {
+        SceneItem *meshRef = m_genericMap.value(id, nullptr);
+        if (meshRef && meshRef->m_rootItem)
+        {
+            meshRef->m_rootItem->setProperty("isSelected", false);
+            if (meshRef->m_selectionBox)
+                meshRef->m_selectionBox->setProperty("isSelected", false);
+        }
+        updateGenericItemSelection(id, false);
+    }
+    m_genericSelectedItems.clear();
+    m_genericPreviousIndex = -1;
 
     emit genericSelectedCountChanged();
     emit genericSelectedLockedChanged();
