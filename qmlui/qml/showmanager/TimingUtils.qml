@@ -48,6 +48,8 @@ Rectangle
     property bool hasSingleSelection: selectedItems.length === 1
     property bool hasMultipleSelection: selectedItems.length > 1
     property int tempoType: showManager.timeDivision === Show.Time ? QLCFunction.Time : QLCFunction.Beats
+    property bool isBeatBased: showManager.timeDivision === Show.Beats
+    property int beatsDivision: showManager.beatsDivision > 0 ? showManager.beatsDivision : 4
 
     function refreshSelection()
     {
@@ -124,6 +126,15 @@ Rectangle
 
         lastTimingSpinValue = value
 
+        if (isBeatBased)
+        {
+            // value is beats encoded as 1000 units per beat (bar.beat, no fractions here)
+            var totalBeats = Math.round(value / 1000)
+            overlayBarsSpin.value = Math.floor(totalBeats / beatsDivision)
+            overlayBeatsSpin.value = totalBeats - (overlayBarsSpin.value * beatsDivision)
+            return
+        }
+
         overlayHoursSpin.value = Math.floor(value / 3600000)
         value -= overlayHoursSpin.value * 3600000
         overlayMinutesSpin.value = Math.floor(value / 60000)
@@ -135,6 +146,9 @@ Rectangle
 
     function overlayTotalValue()
     {
+        if (isBeatBased)
+            return ((overlayBarsSpin.value * beatsDivision) + overlayBeatsSpin.value) * 1000
+
         return (overlayHoursSpin.value * 3600000)
                 + (overlayMinutesSpin.value * 60000)
                 + (overlaySecondsSpin.value * 1000)
@@ -608,6 +622,7 @@ Rectangle
         {
             anchors.fill: parent
             spacing: 3
+            visible: !isBeatBased
 
             CustomSpinBox
             {
@@ -650,6 +665,35 @@ Rectangle
                 from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -999 : 0
                 to: 999
                 suffix: "ms"
+                onValueModified: panelContainer.applyOverlaySpinValue()
+            }
+        }
+
+        RowLayout
+        {
+            anchors.fill: parent
+            spacing: 3
+            visible: isBeatBased
+
+            CustomSpinBox
+            {
+                id: overlayBarsSpin
+                Layout.fillWidth: true
+                Layout.preferredHeight: timeEditOverlay.height
+                from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -999 : 0
+                to: 999
+                suffix: qsTr(" bar")
+                onValueModified: panelContainer.applyOverlaySpinValue()
+            }
+
+            CustomSpinBox
+            {
+                id: overlayBeatsSpin
+                Layout.fillWidth: true
+                Layout.preferredHeight: timeEditOverlay.height
+                from: (panelContainer.isTimingField(activeField) && hasMultipleSelection) ? -(beatsDivision - 1) : 0
+                to: beatsDivision - 1
+                suffix: qsTr(" beat")
                 onValueModified: panelContainer.applyOverlaySpinValue()
             }
         }

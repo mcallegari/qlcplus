@@ -82,8 +82,19 @@ private:
     /** Flag used to sinchronize playback to beats */
     bool beatSynced;
 
-    /** Total time the runner has to run */
+    /** m_elapsedTime at the moment beatSynced became true, and the ms
+     *  equivalent of m_elapsedBeats at that same moment (i.e. the resumed
+     *  beat position, if any). Used to derive a smoothly advancing, but
+     *  beat-zeroed, cursor position for a BPM based Show (see write()) */
+    quint32 m_syncElapsedTime;
+    quint32 m_syncBeatsTime;
+
+    /** Total time (in ms) the runner has to run, computed from m_timeFunctions */
     quint32 m_totalRunTime;
+
+    /** Total time (in beats, expressed as ms, i.e. 1000 per beat) the
+     *  runner has to run, computed from m_beatFunctions */
+    quint32 m_totalRunBeats;
 
     /** List of the currently running Functions and their stop time */
     QList < QPair<Function *, quint32> > m_runningQueue;

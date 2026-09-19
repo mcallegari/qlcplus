@@ -63,6 +63,15 @@ void main()
 
     if(flag < 2.1)
         finalColor += (1.0 - isGuiElement) * ambient * ( albedo.rgb * max(0.0, dot(l, n)) + specular.rgb * pow(max(0.0, dot(r, v) ), shininess));
+    else
+        // A bloom flagged surface is an emitter: the lit cells of a pixel bar or
+        // a strobe. It makes its own light, so it takes no ambient - but it has
+        // to put that light on the screen, which until now only the bloom chain
+        // did. That chain is scaled by the smoke amount, so with haze turned
+        // down a lit emitter came out darker than the housing around it. Emit
+        // the surface colour here and let bloom stay what it should be: the
+        // halo in the air around the emitter, which is what haze governs.
+        finalColor += (1.0 - isGuiElement) * albedo.rgb;
 
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
 }

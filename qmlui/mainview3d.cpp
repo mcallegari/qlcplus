@@ -777,10 +777,17 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     else if (fixture->type() == QLCFixtureDef::LEDBarPixels ||
              fixture->type() == QLCFixtureDef::Strobe)
     {
-        mesh->m_goboTexture = nullptr;
-        QUrl componentSrc = fixture->type() == QLCFixtureDef::LEDBarPixels ?
-                                QUrl("qrc:/PixelBar3DItem.qml") :
-                                QUrl("qrc:/Strobe3DItem.qml");
+        bool isPixelBar = fixture->type() == QLCFixtureDef::LEDBarPixels;
+
+        // A pixel bar lights the surfaces it is aimed at, so it runs the same
+        // spotlight shading pass as every other emitter, and that pass masks the
+        // light with the gobo texture: goboMask is sampled from goboTex in
+        // spotlight_shading.frag, so a cell left without one emits nothing at
+        // all. A strobe casts no light and needs no mask.
+        mesh->m_goboTexture = isPixelBar ? new GoboTextureImage(512, 512, openGobo) : nullptr;
+
+        QUrl componentSrc = isPixelBar ? QUrl("qrc:/PixelBar3DItem.qml")
+                                       : QUrl("qrc:/Strobe3DItem.qml");
 
         QQmlComponent *lbComp = new QQmlComponent(m_view->engine(), componentSrc);
         if (lbComp->isError())
@@ -790,6 +797,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         if (newItem == nullptr)
         {
             qDebug() << "Fixture 3D item creation failed !!";
+            delete mesh->m_goboTexture;
             delete mesh;
             m_createItemCount--;
             return;
@@ -801,6 +809,34 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             QLCPhysical phy = fxMode->physical();
             if (phy.layoutSize() != QSize(1, 1))
                 newItem->setProperty("headsLayout", phy.layoutSize());
+        }
+
+        // A pixel bar decides how many light emitters to build from its physical
+        // length rather than from its head count, which for this fixture type is
+        // a pixel resolution and can run into the hundreds (see the light zones
+        // in PixelBar3DItem). It builds them the moment it is handed an item ID,
+        // at the end of this function, and initializeFixture() would not hand it
+        // a size until after that - so a 2 metre batten would size its zone grid
+        // on the 1 metre default and then have to tear the emitters down again,
+        // by which time the frame graph may already hold references to them.
+        // Give it the size up front: initializeFixture() derives the same value
+        // from the same physical properties and writes it back unchanged.
+        if (isPixelBar)
+        {
+            QVector3D fxSize(0.3, 0.3, 0.3);
+
+            if (fxMode != nullptr)
+            {
+                QLCPhysical phy = fxMode->physical();
+                if (phy.width())
+                    fxSize.setX(phy.width() / 1000.0);
+                if (phy.height())
+                    fxSize.setY(phy.height() / 1000.0);
+                if (phy.depth())
+                    fxSize.setZ(phy.depth() / 1000.0);
+            }
+
+            newItem->setProperty("phySize", QVariant::fromValue(fxSize));
         }
     }
     else
@@ -1202,6 +1238,18 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
         tiltDeg = phy.focusTiltMax() ? phy.focusTiltMax() : 270;
         focusMin = phy.lensDegreesMin() ? phy.lensDegreesMin() : 10;
         focusMax = phy.lensDegreesMax() ? phy.lensDegreesMax() : 30;
+
+        // A pixel bar is a wash device - battens and blinders of this type carry
+        // lenses of 40 degrees and up - so a definition that gives no lens angle
+        // should still wash rather than spotlight. The narrow fallback above
+        // describes a beam fixture and would light a stripe the width of one cell.
+        if (fixture->type() == QLCFixtureDef::LEDBarPixels)
+        {
+            if (phy.lensDegreesMin() == 0)
+                focusMin = 120;
+            if (phy.lensDegreesMax() == 0)
+                focusMax = 120;
+        }
     }
 
     qDebug() << "Initialize fixture" << fixture->id();
@@ -2960,6 +3008,15 @@ void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
     m_monProps->setRenderQuality(int(renderQuality));
     m_doc->setModified();
     emit renderQualityChanged(renderQuality);
+
+    // The frame graph is built once, and it reads the flags on each fixture item
+    // that say which passes that fixture needs - flags that follow the render
+    // quality. Changing the quality therefore only flips those flags: the passes
+    // they select are added or dropped when the frame graph is built again, so do
+    // that here. Without it, raising the quality from Low leaves the scene with no
+    // spotlight pass at all until the 3D view is left and entered again.
+    if (m_scene3D)
+        QMetaObject::invokeMethod(m_scene3D, "updateFrameGraph", Q_ARG(QVariant, true));
 }
 
 QStringList MainView3D::stagesList() const
@@ -3069,7 +3126,12 @@ qreal MainView3D::referenceCandela() const
     return m_referenceCandela;
 }
 
-qreal MainView3D::fixtureEmitterLumens(Fixture *fixture)
+/** Nominal output of an LED Bar (Pixels) whose definition declares no Lumens:
+ *  the median of the 19 definitions of that type in the fixture library that
+ *  do declare it. See fixtureEmitterLumens(). */
+#define NOMINAL_PIXEL_BAR_LUMENS 2160
+
+qreal MainView3D::fixtureEmitterLumens(Fixture *fixture, bool allowNominal)
 {
     if (fixture == nullptr)
         return 0;
@@ -3082,6 +3144,28 @@ qreal MainView3D::fixtureEmitterLumens(Fixture *fixture)
     // global <Physical> when the mode doesn't override it. There is no
     // per-head physical, so this is the output of the whole fixture.
     int lumens = mode->physical().bulbLumens();
+
+    // "Unknown" normally means "render at the reference level", i.e. as bright
+    // as the brightest emitter in the project. That is a safe default for a
+    // beam fixture, where the whole class sits within a stop or two of each
+    // other, but it is the worst possible one for a pixel bar: the type spans
+    // decorative chase battens of a few tens of lumens and blinders of tens of
+    // thousands, and only 19 of the 63 definitions of this type in the library
+    // declare the figure at all. Left at the reference, the 44 that do not
+    // would every one of them light a room like a blinder.
+    //
+    // So give an undeclared pixel bar a nominal output instead: the median of
+    // the ones that do declare it. It is a guess, but it is a guess drawn from
+    // the library rather than invented, it is bounded, and it fails in the
+    // direction a user can see and correct - too dim, add Lumens to the
+    // definition - rather than swamping the frame.
+    //
+    // PowerConsumption was measured as an alternative, since every definition
+    // of this type carries it: across the 19 that declare both, efficacy spans
+    // 0.4 to 351 lm/W, a spread of 3000 to 1, so it estimates nothing.
+    if (allowNominal && lumens <= 0 && fixture->type() == QLCFixtureDef::LEDBarPixels)
+        lumens = NOMINAL_PIXEL_BAR_LUMENS;
+
     if (lumens <= 0)
         return 0;
 
@@ -3107,9 +3191,9 @@ qreal MainView3D::beamSolidAngle(qreal fullAngleDegrees)
     return 2.0 * M_PI * (1.0 - qCos(qDegreesToRadians(fullAngleDegrees / 2.0)));
 }
 
-qreal MainView3D::fixtureEmitterCandela(Fixture *fixture)
+qreal MainView3D::fixtureEmitterCandela(Fixture *fixture, bool allowNominal)
 {
-    qreal lumens = fixtureEmitterLumens(fixture);
+    qreal lumens = fixtureEmitterLumens(fixture, allowNominal);
     if (lumens <= 0)
         return 0;
 
@@ -3136,7 +3220,14 @@ void MainView3D::updateReferenceCandela()
     qreal reference = 0;
 
     for (Fixture *fixture : m_doc->fixtures())
-        reference = qMax(reference, fixtureEmitterCandela(fixture));
+        // Only fixtures that actually declare their output set the reference.
+        // The nominal above is a stand in for missing data, and a stand in must
+        // never become the thing everything else is measured against: five of
+        // the library's pixel bars declare a 15 to 25 degree lens and no Lumens
+        // at all, and a nominal output squeezed into that solid angle comes out
+        // at tens of thousands of candela - enough to take over as the project
+        // reference and dim every real fixture in the rig around it.
+        reference = qMax(reference, fixtureEmitterCandela(fixture, false));
 
     if (reference == m_referenceCandela)
         return;

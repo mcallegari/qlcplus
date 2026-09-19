@@ -110,9 +110,18 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
+                /* lightsNumber, not headsNumber: an item is free to light the
+                   scene with fewer emitters than it has heads. Every pass below
+                   costs one render view per emitter - the shadow pass re-renders
+                   the whole scene into a depth map, the shading pass draws the
+                   cone - so a fixture whose head count is a pixel resolution
+                   rather than a count of lamps (an LED Bar (Pixels) can declare
+                   hundreds) groups its cells into a bounded number of light
+                   zones and reports that here. For every other item type the two
+                   are the same number. */
                 if (fixtureItem.useShadows)
                 {
-                    for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
+                    for (iHead = 0; iHead < fixtureItem.lightsNumber; iHead++)
                     {
                         headEntity = fixtureItem.getHead(iHead)
                         if (!headEntity)
@@ -228,14 +237,18 @@ Rectangle
                     console.log("Error loading component:", component.errorString())
             }
 
+            // This pass is what puts a fixture's light on a surface, so it is
+            // gated by useShading and NOT by useScattering: the two were the
+            // same flag until LED Bar (Pixels) needed to light the room without
+            // drawing a beam in the air.
             for (ic = 0; ic < fixtures.length; ++ic)
             {
                 fixtureItem = fixtures[ic]
 
-                if (fixtureItem.useScattering === false)
+                if (fixtureItem.useShading === false)
                     continue
 
-                for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
+                for (iHead = 0; iHead < fixtureItem.lightsNumber; iHead++)
                 {
                     headEntity = fixtureItem.getHead(iHead)
                     if (!headEntity)
@@ -271,7 +284,7 @@ Rectangle
                 if (fixtureItem.useScattering === false)
                     continue
 
-                for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
+                for (iHead = 0; iHead < fixtureItem.lightsNumber; iHead++)
                 {
                     headEntity = fixtureItem.getHead(iHead)
                     if (!headEntity)
