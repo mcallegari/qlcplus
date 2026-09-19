@@ -202,6 +202,11 @@ Popup
 
         property string action: ""
 
+        // The menu, and any open sub-menu, would otherwise stay on top of the
+        // dialog (e.g. when closing the window), hiding it and still taking
+        // clicks: a recent file entry would replace the pending action
+        onAboutToShow: menuRoot.close()
+
         onClicked: function(role)
         {
             if (role === Dialog.Yes)
