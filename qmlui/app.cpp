@@ -555,6 +555,10 @@ void App::slotClosing()
 {
     stopAllFunctions();
 
+    /** Store a UI settings change made right before quitting */
+    if (m_uiManager)
+        m_uiManager->flushSettings();
+
     if (m_contextManager)
     {
         delete m_contextManager;

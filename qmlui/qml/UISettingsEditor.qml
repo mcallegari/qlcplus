@@ -40,7 +40,6 @@ Rectangle
         origItemHeight = UISettings.listItemHeight
         origIconMedium = UISettings.iconSizeMedium
         origTextSizeDefault = UISettings.textSizeDefault
-        sfRestore.origScaleFactor = qlcplus.uiScaleFactor
     }
 
     ColorTool
@@ -175,13 +174,10 @@ Rectangle
 
             IconButton
             {
-                id: sfRestore
                 width: origIconMedium
                 height: width
                 imgSource: "qrc:/undo.svg"
                 tooltip: qsTr("Reset to default")
-
-                property real origScaleFactor
 
                 onClicked: uiManager.setModified("scalingFactor", 1.0)
             }
