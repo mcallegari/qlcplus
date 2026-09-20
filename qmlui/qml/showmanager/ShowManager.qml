@@ -378,7 +378,7 @@ Rectangle
                     if (showManager.timeScale >= 1.0)
                         showManager.timeScale += 1.0
                     else
-                        showManager.timeScale += 0.1
+                        showManager.timeScale = Math.round((showManager.timeScale + 0.1) * 10) / 10
                     centerView()
                 }
 
@@ -387,7 +387,7 @@ Rectangle
                     if (showManager.timeScale > 1.0)
                         showManager.timeScale -= 1.0
                     else
-                        showManager.timeScale -= 0.1
+                        showManager.timeScale = Math.round((showManager.timeScale - 0.1) * 10) / 10
                     centerView()
                 }
             }
