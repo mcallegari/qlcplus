@@ -555,6 +555,10 @@ void App::slotClosing()
 {
     stopAllFunctions();
 
+    /** Store a UI settings change made right before quitting */
+    if (m_uiManager)
+        m_uiManager->flushSettings();
+
     if (m_contextManager)
     {
         delete m_contextManager;
@@ -1181,6 +1185,10 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
         {
             m_virtualConsole->loadXML(doc);
         }
+        else if (doc.name() == KXMLQLCShowManager)
+        {
+            m_showManager->loadXML(doc);
+        }
 #if 0
         else if (doc.name() == KXMLQLCSimpleDesk)
         {
@@ -1263,6 +1271,9 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 
     /* Write virtual console to the XML document */
     m_virtualConsole->saveXML(&doc);
+
+    /* Write the Show Manager view state to the XML document */
+    m_showManager->saveXML(&doc);
 
     /* Write Simple Desk to the XML document */
     //SimpleDesk::instance()->saveXML(&doc);

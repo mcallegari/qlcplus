@@ -255,9 +255,15 @@ public:
     /** Adds an offset (in mm) to the selected Fixture positions. This is called only by the 2D view */
     Q_INVOKABLE void setFixturesOffset(qreal x, qreal y);
 
-    /** Set/Get the position of the currently selected fixtures */
+    /** Set/Get the position of the currently selected fixtures.
+     *  The setter is an absolute position, so it applies only when a single
+     *  fixture is selected */
     QVector3D fixturesPosition() const;
     void setFixturesPosition(QVector3D position);
+
+    /** Move every selected fixture by the provided $offset. This is what a
+     *  multiple selection edits, as no single absolute position can describe it */
+    Q_INVOKABLE void moveFixtures(QVector3D offset);
 
     /** Set the gelatine color for the selected fixtures */
     Q_INVOKABLE void setFixturesGelColor(QColor color);
@@ -286,10 +292,16 @@ public:
 
     Q_INVOKABLE void createFixtureGroup();
 
-    /** Set/Get the rotation of the currently selected fixtures */
+    /** Set/Get the rotation of the currently selected fixtures.
+     *  The setter is an absolute rotation, so it applies only when a single
+     *  fixture is selected */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
     void setFixtureRotation(quint32 itemID, QVector3D degrees);
+
+    /** Rotate every selected fixture by the provided $degrees. This is what a
+     *  multiple selection edits, as no single absolute rotation can describe it */
+    Q_INVOKABLE void rotateFixtures(QVector3D degrees);
 
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
@@ -315,6 +327,10 @@ protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotFixtureDeleted(quint32 itemID);
     void slotFixtureFlagsChanged(quint32 itemID, quint32 flags);
+
+    /** Invoked when the fixture tree of the Fixture Manager has been
+     *  rebuilt, to highlight the selected fixtures in it again */
+    void slotFixtureTreeChanged();
 
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotPresetChanged(const QLCChannel *channel, quint8 value);

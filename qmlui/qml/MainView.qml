@@ -125,6 +125,14 @@ Rectangle
         mainViewLoader.source = qmlRes
     }
 
+    // reload the view of the context selected in the menu bar,
+    // after a resource loaded with loadResource has replaced it
+    function restoreContext()
+    {
+        var entry = menuBarGroup.checkedButton
+        mainViewLoader.source = entry ? entry.ctxRes : "qrc:/FixturesAndFunctions.qml"
+    }
+
     FontLoader
     {
         source: "qrc:/RobotoCondensed-Regular.ttf"

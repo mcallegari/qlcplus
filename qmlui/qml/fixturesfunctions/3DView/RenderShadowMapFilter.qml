@@ -25,6 +25,23 @@ LayerFilter
 {
     property Entity fixtureItem
 
+    /* A dark emitter has nothing to cast a shadow of, and disabling the filter
+       here drops the whole branch below it - the render target bind and the
+       depth clear go with it. Matching an invalid pass name, which is what this
+       used to do, kept the scene from being drawn but still left Qt3D building
+       a render view for the leaf, so every dark emitter in the project cost a
+       render target switch and a 1024x1024 depth clear on every frame. That was
+       affordable while a fixture meant one emitter; a multi cell bar has one
+       per cell, so a rig with a few pixel battens in it was clearing a couple
+       of hundred megabytes of depth buffer per frame to draw nothing.
+
+       SpotlightConeEntity gates the shading cone on the same condition, so
+       nothing samples a shadow map while it is not being kept up to date, and
+       this node sits ahead of the camera selector in the frame graph, so a
+       cell that comes on gets its map rendered before it is read in the very
+       same frame. */
+    enabled: fixtureItem && fixtureItem.lightIntensity ? true : false
+
     CameraSelector
     {
         RenderTargetSelector
@@ -39,7 +56,7 @@ LayerFilter
                 RenderPassFilter
                 {
                     id: geometryPass
-                    matchAny: FilterKey { name: "pass"; value: { return fixtureItem && fixtureItem.lightIntensity ? "shadows" : "invalid" } }
+                    matchAny: FilterKey { name: "pass"; value: "shadows" }
 
                     parameters: [
                         Parameter { name: "lightViewMatrix"; value: fixtureItem ? fixtureItem.lightViewMatrix : Qt.matrix4x4() },

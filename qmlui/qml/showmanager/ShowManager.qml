@@ -482,7 +482,11 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight
-        width: showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width
+        // the right panel and the tracks column can together be wider than the
+        // Show Manager itself (a narrow window, a different screen density or a
+        // smaller UI scaling factor), which would make this width negative and
+        // hand HeaderAndCursor a zero or negative visibleWidth to divide by
+        width: Math.max(0, showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width)
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
@@ -854,7 +858,8 @@ Rectangle
     {
         id: horScrollBar
         x: timelineHeader.x
-        y: showMgrContainer.height - height
+        // keep it at the bottom of the Show items area, above the bottom panel
+        y: showContents.y + showContents.height - height
         z: 10
         width: timelineHeader.width
         orientation: Qt.Horizontal

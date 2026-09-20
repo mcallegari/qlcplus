@@ -39,7 +39,10 @@ Entity
     property int headIndex
     property real dimmerValue: 0
     property real shutterValue: 1.0
-    property real lightIntensity: dimmerValue * shutterValue
+    /* Relative output of the parent fixture. See MultiBeams3DItem, which
+       pushes it down to every emitter of the bar */
+    property real lumensScale: 1.0
+    property real lightIntensity: dimmerValue * shutterValue * lumensScale
 
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
@@ -69,6 +72,9 @@ Entity
     /* Derived exactly like Fixture3DItem so that changing the beam aperture
        (zoom) keeps the cone geometry consistent. */
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
+    /** Beam edge softness, pushed down from the parent bar. 0 is the top hat
+        beam every fixture had before, which is what a beam bar still wants. */
+    property real beamEdgeSoftness: 0
     property Texture2D goboTexture
     property real goboRotation: 0
 
@@ -134,21 +140,32 @@ Entity
             ] // attachments
         }
 
+    /* Cone geometry this emitter is drawn with. The scene owns one shared mesh
+       that every fixture uses, which works only as long as every fixture agrees
+       on distCutoff: the vertex shader scales the cone radius per emitter, but
+       not its length, so the length has to come from the mesh itself and the
+       last item to write it wins. An item that wants its own throw distance
+       must therefore bring its own mesh; leave this null to keep using the
+       shared one. */
+    property ConeMesh coneMesh: null
+
     function setupScattering(sceneEntity)
     {
+        var mesh = coneMesh ? coneMesh : sceneEntity.coneMesh
+
         shadingCone.coneEffect = sceneEntity.spotlightShadingEffect
         shadingCone.parent = sceneEntity
-        shadingCone.spotlightConeMesh = sceneEntity.coneMesh
+        shadingCone.spotlightConeMesh = mesh
 
         // Volumetric beam in the air. As in Fixture3DItem, its cost is governed
         // by raymarchSteps, which is 0 on Low render quality.
         scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect
         scatteringCone.parent = sceneEntity
-        scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
+        scatteringCone.spotlightConeMesh = mesh
 
         outDepthCone.coneEffect = sceneEntity.outputFrontDepthEffect
         outDepthCone.parent = sceneEntity
-        outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
+        outDepthCone.spotlightConeMesh = mesh
     }
 
     /* Must be called before this entity is destroyed: setupScattering() moves the

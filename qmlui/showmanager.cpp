@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QQmlContext>
 #include <QtMath>
 #include <QVector>
@@ -32,6 +34,9 @@
 #include "show.h"
 #include "doc.h"
 #include "app.h"
+
+#define KXMLQLCShowManagerCurrentShow QStringLiteral("CurrentShow")
+#define KXMLQLCShowManagerTimeScale   QStringLiteral("TimeScale")
 
 /* Timeline zoom limits. Every item position and size is computed by
    dividing by the time scale, so it must never reach zero or go
@@ -68,6 +73,10 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
        their preview lines when the referenced Function is edited */
     connect(m_doc, SIGNAL(functionChanged(quint32)),
             this, SIGNAL(functionChanged(quint32)));
+
+    /* Close the Show being edited if it gets deleted */
+    connect(m_doc, SIGNAL(functionRemoved(quint32)),
+            this, SLOT(slotFunctionRemoved(quint32)));
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
@@ -215,6 +224,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
         return edges;
 
     int beatsDivision = m_currentShow->beatsDivision();
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
 
     for (Track *track : m_currentShow->tracks())
     {
@@ -223,18 +233,37 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
             if (sf->functionID() == excludeFuncId)
                 continue;
 
+            // an item's times are in its Function's own unit (ms or beats as ms),
+            // so convert them the same way ShowItem.qml updateGeometry() does
+            Function *func = m_doc->function(sf->functionID());
+            bool itemIsBeats = func != nullptr && func->tempoType() == Function::Beats;
+            double startTime = sf->startTime();
+            double endTime = startTime + sf->duration();
             double startX, endX;
-            quint32 endTime = sf->startTime() + sf->duration();
 
             if (timeDivision() == Show::Time)
             {
-                startX = ((double)sf->startTime() * m_tickSize) / (m_timeScale * 1000.0);
-                endX = ((double)endTime * m_tickSize) / (m_timeScale * 1000.0);
+                if (itemIsBeats)
+                {
+                    // beats as ms -> real ms
+                    double beatMs = bpm > 0 ? 60000.0 / bpm : 0;
+                    startTime = (startTime / 1000.0) * beatMs;
+                    endTime = (endTime / 1000.0) * beatMs;
+                }
+                startX = (startTime * m_tickSize) / (m_timeScale * 1000.0);
+                endX = (endTime * m_tickSize) / (m_timeScale * 1000.0);
+            }
+            else if (itemIsBeats)
+            {
+                startX = (m_tickSize / beatsDivision) * (startTime / 1000.0);
+                endX = (m_tickSize / beatsDivision) * (endTime / 1000.0);
             }
             else
             {
-                startX = (m_tickSize / beatsDivision) * ((double)sf->startTime() / 1000.0);
-                endX = (m_tickSize / beatsDivision) * ((double)endTime / 1000.0);
+                // real ms -> position on the bar-based ruler
+                double barDuration = bpm > 0 ? (60000.0 / bpm) * beatsDivision : 0;
+                startX = barDuration > 0 ? (m_tickSize * startTime) / barDuration : 0;
+                endX = barDuration > 0 ? (m_tickSize * endTime) / barDuration : 0;
             }
 
             // filter: skip items entirely outside the visible viewport
@@ -1417,6 +1446,13 @@ void ShowManager::resetContents()
     }
 
     m_currentShow = nullptr;
+    emit currentShowIDChanged(Function::invalidId());
+    emit showNameChanged(QString());
+    emit showDurationChanged(0);
+    emit timeDivisionChanged(Show::Time);
+
+    m_timeScale = 0.0; // force setTimeScale() to recompute and notify
+    setTimeScale(5.0);
 
     // the clipboard holds ShowFunction pointers belonging to the show
     // being closed, so drop them to avoid dangling references
@@ -1718,6 +1754,14 @@ void ShowManager::setSelectedItemsLock(bool lock)
     }
 }
 
+void ShowManager::slotFunctionRemoved(quint32 id)
+{
+    /* The Function is still valid at this point, but it is about to be
+       destroyed: drop every reference to it and its items before that */
+    if (m_currentShow != nullptr && m_currentShow->id() == id)
+        resetContents();
+}
+
 void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;
@@ -1766,9 +1810,11 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
         Function *func = m_doc->function(sf->functionID());
         if (func != nullptr)
         {
+            // items are half-open intervals [start, start + duration), so an
+            // item starting exactly where another one ends is not overlapping
             quint32 fst = sf->startTime();
-            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
-                (fst >= startTime && fst <= startTime + duration))
+            if (startTime == fst ||
+                (startTime < fst + sf->duration() && fst < startTime + duration))
             {
                 return true;
             }
@@ -1934,4 +1980,51 @@ bool ShowManager::pasteFromClipboard()
     // signal a failure only if overlapping prevented
     // every single item from being pasted
     return pasted > 0 || overlapping == false;
+}
+
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
+
+bool ShowManager::saveXML(QXmlStreamWriter *doc) const
+{
+    Q_ASSERT(doc != nullptr);
+
+    /* Nothing to remember if no Show is being edited */
+    if (m_currentShow == nullptr)
+        return true;
+
+    doc->writeStartElement(KXMLQLCShowManager);
+    doc->writeAttribute(KXMLQLCShowManagerCurrentShow, QString::number(m_currentShow->id()));
+    doc->writeAttribute(KXMLQLCShowManagerTimeScale, QString::number(m_timeScale));
+    doc->writeEndElement();
+
+    return true;
+}
+
+bool ShowManager::loadXML(QXmlStreamReader &root)
+{
+    if (root.name() != KXMLQLCShowManager)
+    {
+        qWarning() << Q_FUNC_INFO << "Show Manager node not found";
+        return false;
+    }
+
+    QXmlStreamAttributes attrs = root.attributes();
+    root.skipCurrentElement();
+
+    /* Ignore a reference to a missing Function or to one that is not a Show */
+    bool ok = false;
+    quint32 showID = attrs.value(KXMLQLCShowManagerCurrentShow).toUInt(&ok);
+    if (ok == false || qobject_cast<Show *>(m_doc->function(showID)) == nullptr)
+        return true;
+
+    /* This also applies the default time scale of the Show time division */
+    setCurrentShowID(showID);
+
+    float timeScale = attrs.value(KXMLQLCShowManagerTimeScale).toFloat(&ok);
+    if (ok && timeScale > 0)
+        setTimeScale(timeScale);
+
+    return true;
 }

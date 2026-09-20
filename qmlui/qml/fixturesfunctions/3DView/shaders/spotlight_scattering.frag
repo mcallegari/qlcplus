@@ -42,6 +42,20 @@ uniform float coneDistCutoff;
 
 uniform float smokeAmount;
 
+// Softness of the beam's outer edge, as a fraction of the cone radius at the
+// point being sampled. Kept identical to spotlight_shading.frag so that the
+// beam in the air and the light it lays on a surface share the same rim
+uniform float beamEdgeSoftness;
+
+float beamPenumbra(vec2 offset, float radius)
+{
+    if (beamEdgeSoftness <= 0.0)
+        return 1.0;
+
+    float soft = min(beamEdgeSoftness, 1.0);
+    return 1.0 - smoothstep(1.0 - soft, 1.0, length(offset) / radius);
+}
+
 uniform sampler2D depthTex;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 inverseViewProjectionMatrix;
@@ -137,7 +151,7 @@ void main()
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
 
-        float goboMask = gSample.a * gSample.r;
+        float goboMask = gSample.a * gSample.r * beamPenumbra(myq.xy, r);
 
         float contrib =  (1.0 / (1.0  + 0.09 * dist + 0.032 * dist * dist)) * stepLength;
 
