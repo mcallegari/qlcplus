@@ -522,6 +522,51 @@ void ContextManager::resetViewItems()
         m_3DView->resetItems();
 }
 
+bool ContextManager::handleShowManagerKeyPress(QKeyEvent *e)
+{
+    /* Key events are delivered here either directly by the main view, or by
+     * the signal of a detached context. In the latter case the Show Manager
+     * is on screen in its own window, even though it is not the current
+     * context of the main view */
+    PreviewContext *senderContext = qobject_cast<PreviewContext *>(sender());
+    QString activeContext = senderContext != nullptr ? senderContext->name() : currentContext();
+
+    if (activeContext != "SHOWMGR" || e->modifiers() != Qt::NoModifier)
+        return false;
+
+    /* Holding a key down must not toggle the playback over and over */
+    if (e->isAutoRepeat())
+        return false;
+
+    ShowManager *showMgr = qobject_cast<ShowManager *>(contextByName("SHOWMGR"));
+    if (showMgr == nullptr || showMgr->isEditing() == false)
+        return false;
+
+    /* Never steal keys from a popup: a modal dialog and its buttons own
+     * them while it is open, and this handler runs before the event is
+     * delivered to the QML scene */
+    QQuickView *view = senderContext != nullptr ? senderContext->view() : m_view;
+    for (QQuickItem *item = view->activeFocusItem(); item != nullptr; item = item->parentItem())
+    {
+        if (item->inherits("QQuickPopupItem"))
+            return false;
+    }
+
+    switch (e->key())
+    {
+        case Qt::Key_Space:
+            showMgr->playShow();
+        return true;
+        case Qt::Key_Escape:
+            showMgr->stopShow();
+        return true;
+        default:
+        break;
+    }
+
+    return false;
+}
+
 void ContextManager::handleKeyPress(QKeyEvent *e)
 {
     int key = e->key();
@@ -531,6 +576,9 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         return;
 
     qDebug() << "Key press event received:" << e->text();
+
+    if (handleShowManagerKeyPress(e))
+        return;
 
     if (e->modifiers() & Qt::ControlModifier)
     {
