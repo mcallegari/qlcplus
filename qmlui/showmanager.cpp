@@ -394,8 +394,13 @@ void ShowManager::setTimeScale(float timeScale)
     }
     else
     {
+        /* On shutdown the Doc is destroyed as a child of App, which happens
+           once ~App() has already returned: m_view is no longer an App by
+           then, so the cast fails. Nothing is on screen at that point, so
+           the current tick size can simply be kept */
         App *app = qobject_cast<App *>(m_view);
-        m_tickSize = app->pixelDensity() * (18 * tickScale);
+        if (app != nullptr)
+            m_tickSize = app->pixelDensity() * (18 * tickScale);
     }
 
     emit tickSizeChanged(m_tickSize);
