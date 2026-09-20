@@ -38,6 +38,12 @@
 #define KXMLQLCShowManagerCurrentShow QStringLiteral("CurrentShow")
 #define KXMLQLCShowManagerTimeScale   QStringLiteral("TimeScale")
 
+/* Timeline zoom limits. Every item position and size is computed by
+   dividing by the time scale, so it must never reach zero or go
+   negative: that would produce infinite, NaN or negative geometry */
+#define SHOWMGR_MIN_TIME_SCALE 0.1f
+#define SHOWMGR_MAX_TIME_SCALE 100.0f
+
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_cursorMovedDuringPause(false)
@@ -382,6 +388,8 @@ float ShowManager::timeScale() const
 
 void ShowManager::setTimeScale(float timeScale)
 {
+    timeScale = qBound(SHOWMGR_MIN_TIME_SCALE, timeScale, SHOWMGR_MAX_TIME_SCALE);
+
     if (m_timeScale == timeScale)
         return;
 
