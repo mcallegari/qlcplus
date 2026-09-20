@@ -153,6 +153,10 @@ public slots:
     void handleKeyRelease(QKeyEvent *e);
 
 private:
+    /** Handle a key press that controls the Show Manager playback.
+     *  Returns true if the key was consumed */
+    bool handleShowManagerKeyPress(QKeyEvent *e);
+
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */
