@@ -437,8 +437,19 @@ void App::keyPressEvent(QKeyEvent *e)
     }
 
     if (m_contextManager)
+    {
+        // Offer the key to the contexts first. One that acts on it accepts
+        // the event, and it must then not reach the QML scene as well, or a
+        // button that happens to hold the focus would be activated by the
+        // very same key press
+        e->ignore();
         m_contextManager->handleKeyPress(e);
 
+        if (e->isAccepted())
+            return;
+    }
+
+    e->accept();
     QQuickView::keyPressEvent(e);
 }
 

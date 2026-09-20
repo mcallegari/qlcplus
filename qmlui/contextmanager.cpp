@@ -581,7 +581,11 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
     qDebug() << "Key press event received:" << e->text();
 
     if (handleShowManagerKeyPress(e))
+    {
+        /* Consume it, so it does not reach the QML scene on top of this */
+        e->accept();
         return;
+    }
 
     if (e->modifiers() & Qt::ControlModifier)
     {
