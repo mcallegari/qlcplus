@@ -70,18 +70,16 @@
       var isConnected = false;
 
       // Keypad variables
-      var by = 'B';
-      var at = 'A';
-      var th = 'T';
-      var pl = '+';
-      var mi = '-';
       var chanl = [];
       var vall = [];
       var chanlvall = [];
-      var channels, c, v, first, last, step, range;
+      var channels, c, v;
       var reqchan;
-      var addval;
       var values = [];
+      // Channels set by the last command with an explicit channel spec,
+      // reused by a following command that omits one (e.g. "AT ZERO"
+      // after "1 THRU 8 AT 100"). Mirrors KeyPadParser::m_channels.
+      var lastChannels = [];
 
       function connect()
       {
@@ -130,7 +128,16 @@
       {
         if (isConnected === true)
         {
-          document.getElementById('commInput').value = document.getElementById('commInput').value + cmd;
+          var field = document.getElementById('commInput');
+          var current = field.value;
+          // Words (AT, THRU, FULL, ZERO, BY, +%, -%) get a space on both
+          // sides so the box reads like the native app ("2 AT FULL").
+          // Digits are appended with no separator so multi-digit numbers
+          // (e.g. "2", "5" -> "25") keep working.
+          var isWord = /^[A-Z]+$|^[+-]%$/.test(cmd);
+          var needsLeadingSpace = isWord && current.length > 0 && !/\s$/.test(current);
+          var trailingSpace = isWord ? ' ' : '';
+          field.value = current + (needsLeadingSpace ? ' ' : '') + cmd + trailingSpace;
         }
         else
         {
@@ -213,130 +220,197 @@
           });
       }
 
-      // Evaluate commands
-      function chval(c)
+      // Split a raw keypad command into whole-word tokens.
+      // Accepts both space-separated words ("4 THRU 8 AT FULL") and the
+      // compact single-letter codes produced by the on-screen buttons
+      // ("4T8A255"), mirroring engine/src/keypadparser.cpp's grammar.
+      function tokenize(c)
       {
-        // This function evaluates string that could contain
-        //  'T' = THRU, 'B' = BY
-        // Returns three values first, last and step values
-        // first, last and step should be channels number or values.
-        //addval=0;
-        if (c.split(pl).length > 1)
-        {
-          addval = c.split(pl)[1];
-        }
-        if (c.split(mi).length > 1)
-        {
-          addval = c.split(mi)[1];
-        }
-
-        if (c.split(by).length > 1)
-        {
-          step = c.split(by)[1];
-          range = c.split(by)[0];
-          first = range.split(th)[0];
-          last = range.split(th)[1];
-        }
-        else
-        {
-          if (c.split(th).length>1)
-          {
-            step = 1;
-            range = c.split(by)[0];
-            first = range.split(th)[0];
-            last = range.split(th)[1];
-          }
-          else
-          {
-            step = 1;
-            range = c.split(th);
-            first = range[0];
-            last = range[0];
-          }
-        }
-        return [parseInt(first,10), parseInt(last,10), parseInt(step,10)];
+        // "ENTER" is the UI's send trigger, not part of the command grammar
+        // (the native app strips it the same way: it's the keypress that
+        // calls parseCommand(), never a token inside the string).
+        var withoutEnter = c.replace(/ENTER/g, ' ');
+        var spaced = withoutEnter.replace(/AT|THRU|FULL|ZERO|BY|\+%|-%|[ATB+-]/g, ' $& ');
+        return spaced.split(/\s+/).filter(function(t) { return t.length > 0; });
       }
 
+      // Evaluate a keypad command string. This is a token-for-token port of
+      // KeyPadParser::parseCommand() (engine/src/keypadparser.cpp): AT/THRU/
+      // FULL/ZERO/BY are whole-word commands (also accepted as the single
+      // letters A/T/B composed by the on-screen buttons), FULL and ZERO are
+      // self-sufficient (any preceding AT is simply superseded), a second
+      // THRU after a value defines a value range that is linearly
+      // interpolated across the channel range, and a command with no
+      // channel spec (e.g. "AT ZERO") reuses the channels set by the last
+      // command that had one, exactly like the engine's m_channels.
       function chans_vals(c)
       {
-        // Main function. Split command at "AT" string.
-        // Left part are single channel number, a range of channels and optionally a step value.
-        // Right part are a single value, a range of values and optionally a step value.
-        // Calls to chval function to evaluate channels numbers and values.
-        // Arrange it on an array used later to assign channels values
-        // calling setChannel function in a loop
-          //console.log(c);
         chanlvall = [];
         chanl = [];
         vall = [];
-        if (c.split(at).length > 1)
+
+        var tokens = tokenize(c.toUpperCase());
+        var lastCommand = 'NONE';
+        var fromChannel = 0, toChannel = 0, byChannel = 1;
+        var fromValue = 0, toValue = 0;
+        var channelSet = false;
+        var thruCount = 0;
+
+        for (var idx = 0; idx < tokens.length; idx++)
         {
-          a = c.split(at);
-          // Call to chval function to assing first, last and step number channels
-          chans = chval(a[0]);
-          // Call to chval function to assing first, last and step value of channels
-          vals = chval(a[1]);
-          //console.log('canals values', chans, vals);
-          // Set a list of channels for a single channel, a range of channels with a given step
-          for (var i = chans[0]; i <= chans[1]; i += chans[2])
-            chanl.push(i);
-          // Set a list of values for a single value, a range of values
-          if (vals[0] === vals[1])
+          var token = tokens[idx];
+
+          if (token === 'AT' || token === 'A')
           {
-            for (i = 1; i <= chanl.length; i++)
-            {
-              vall.push(vals[0]);
-            }
+            lastCommand = 'AT';
+          }
+          else if (token === 'THRU' || token === 'T')
+          {
+            lastCommand = 'THRU';
+          }
+          else if (token === 'FULL')
+          {
+            toValue = 255;
+            lastCommand = 'FULL';
+          }
+          else if (token === 'ZERO')
+          {
+            toValue = 0;
+            lastCommand = 'ZERO';
+          }
+          else if (token === 'BY' || token === 'B')
+          {
+            lastCommand = 'BY';
+          }
+          else if (token === '+')
+          {
+            lastCommand = 'PLUS';
+          }
+          else if (token === '-')
+          {
+            lastCommand = 'MINUS';
+          }
+          else if (token === '+%')
+          {
+            lastCommand = 'PLUSPERCENT';
+          }
+          else if (token === '-%')
+          {
+            lastCommand = 'MINUSPERCENT';
           }
           else
           {
-            llarg = chanl.length - 1;
-            for (var i = vals[0]; i <= vals[1]; i += Math.round(vals[1] / llarg))
+            var number = parseInt(token, 10);
+            if (isNaN(number))
+              continue;
+
+            switch (lastCommand)
             {
-              vall.push(i);
+              case 'NONE':
+                if (number <= 0)
+                  break;
+                fromChannel = number;
+                toChannel = fromChannel;
+                channelSet = true;
+              break;
+              case 'AT':
+                fromValue = number;
+                toValue = fromValue;
+              break;
+              case 'THRU':
+                if (thruCount === 0)
+                  toChannel = number;
+                else
+                  toValue = number;
+                thruCount++;
+              break;
+              case 'FULL':
+                fromValue = 255;
+                toValue = 255;
+              break;
+              case 'ZERO':
+                fromValue = 0;
+                toValue = 0;
+              break;
+              case 'BY':
+                byChannel = number;
+              break;
+              case 'PLUS':
+              case 'MINUS':
+              case 'PLUSPERCENT':
+              case 'MINUSPERCENT':
+                toValue = number;
+              break;
             }
           }
-          //for (var i = chans[0]; i <= chans[1]; i += chans[2])
-          //    console.log(chans[i])
-
-          // Set an array of channels number with a dmx value for that channel.
-          chanlvall = zip(chanl, vall);
-          document.getElementById('commInput').value = '';
-          // Iterate on array chanvall and set dmx values for every channel number
-          //oldvals=zip(values);
-          for (i = 0, len = chanlvall.length; i < len; i++)
-          {
-            c = chanlvall[i][0];
-            v = chanlvall[i][1];
-            // console.log(c, v);
-            // console.log(parseInt(values[c-1]) + parseInt(v * 2.55));
-              if (a.toString().split(pl).length > 1)
-              {
-                if ((parseInt(values[c-1]) + parseInt(v * 2.55)) >= 255)
-                {
-                  v = 255;
-                }
-                else
-                {
-                  v = parseInt(values[c-1]) + parseInt(v * 2.55);
-                }
-              }
-              if (a.toString().split(mi).length > 1)
-              {
-                if ((parseInt(values[c-1]) + parseInt(v * 2.55)) <= 0)
-                {
-                  v = 0;
-                }
-                else
-                {
-                  v = parseInt(values[c-1]) + parseInt(v * 2.55);
-                }
-              }
-            setChannel(c, v);
-          }
-          values = [];
-          reqChannelsRange(1, 1, 512);
         }
+
+        // No channel spec in this command: reuse the last selected channels,
+        // applying a flat toValue to each (matches parseCommand()'s
+        // channelSet == false branch).
+        if (channelSet === false)
+        {
+          if (lastChannels.length === 0)
+            return;
+
+          for (var i = 0; i < lastChannels.length; i++)
+          {
+            chanl.push(lastChannels[i]);
+            vall.push(toValue);
+          }
+        }
+        else
+        {
+          lastChannels = [];
+          for (var ch = fromChannel; ch <= toChannel; ch += byChannel)
+          {
+            chanl.push(ch);
+            lastChannels.push(ch);
+          }
+
+          var valueDelta = 0;
+          if (toValue !== fromValue)
+          {
+            var chanSpan = (toChannel - fromChannel) / byChannel;
+            valueDelta = (toValue - fromValue) / chanSpan;
+          }
+
+          var value = fromValue;
+          for (var i = 0; i < chanl.length; i++)
+          {
+            var ch2 = chanl[i];
+            var current = parseInt(values[ch2 - 1], 10) || 0;
+
+            if (lastCommand === 'PLUS')
+              vall.push(Math.min(255, Math.max(0, current + toValue)));
+            else if (lastCommand === 'MINUS')
+              vall.push(Math.min(255, Math.max(0, current - toValue)));
+            else if (lastCommand === 'PLUSPERCENT')
+              vall.push(Math.min(255, Math.max(0, Math.round(current * (1.0 + toValue / 100.0)))));
+            else if (lastCommand === 'MINUSPERCENT')
+              vall.push(Math.min(255, Math.max(0, Math.round(current - (current * (toValue / 100.0))))));
+            else if (lastCommand === 'ZERO')
+              vall.push(0);
+            else if (lastCommand === 'FULL')
+              vall.push(255);
+            else
+              vall.push(Math.round(value));
+
+            value += valueDelta;
+          }
+        }
+
+        chanlvall = zip(chanl, vall);
+        document.getElementById('commInput').value = '';
+
+        for (i = 0, len = chanlvall.length; i < len; i++)
+        {
+          c = chanlvall[i][0];
+          v = chanlvall[i][1];
+          setChannel(c, v);
+        }
+        values = [];
+        reqChannelsRange(1, 1, 512);
       }
     </script>
   </head>
@@ -353,32 +427,32 @@
         <td><div class="button button-keypad" onclick="composeCommand('7');">7</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('8');">8</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('9');">9</div></td>
-        <td><div class="button button-keypad" title="Sets a value for a specified DMX channel or group of channels (range)" onclick="composeCommand('A');">AT</div></td>
+        <td><div class="button button-keypad" title="Sets a value for a specified DMX channel or group of channels (range)" onclick="composeCommand('AT');">AT</div></td>
       </tr>
       <tr>
         <td><div class="button button-keypad" onclick="composeCommand('4');">4</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('5');">5</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('6');">6</div></td>
-        <td><div class="button button-keypad" title="Selects a range of DMX channels" onclick="composeCommand('T');">THRU</div></td>
+        <td><div class="button button-keypad" title="Selects a range of DMX channels" onclick="composeCommand('THRU');">THRU</div></td>
       </tr>
       <tr>
         <td><div class="button button-keypad" onclick="composeCommand('1');">1</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('2');">2</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('3');">3</div></td>
-        <td><div class="button button-keypad" title="Sets the maximum value (255) to the selected DMX channels or group of channels" onclick="composeCommand('A255');">FULL</div></td>
+        <td><div class="button button-keypad" title="Sets the maximum value (255) to the selected DMX channels or group of channels" onclick="composeCommand('FULL');">FULL</div></td>
       </tr>
       <tr>
-        <td><div class="button button-keypad" title="Reduces by given percentage the current channel values" onclick="composeCommand('A-');">-%</div></td>
+        <td><div class="button button-keypad" title="Reduces by given percentage the current channel values" onclick="composeCommand('-%');">-%</div></td>
         <td><div class="button button-keypad" onclick="composeCommand('0');">0</div></td>
-        <td><div class="button button-keypad" title="Increases by given percentage the current channel values" onclick="composeCommand('A+');">+%</div></td>
-        <td><div class="button button-keypad" title="Sets the minimum value (0) to the selected DMX channels or group of channels" onclick="composeCommand('A00');">ZERO</div></td>
+        <td><div class="button button-keypad" title="Increases by given percentage the current channel values" onclick="composeCommand('+%');">+%</div></td>
+        <td><div class="button button-keypad" title="Sets the minimum value (0) to the selected DMX channels or group of channels" onclick="composeCommand('ZERO');">ZERO</div></td>
       </tr>
       <tr>
         <td colspan="2">
           <div class="button button-enter" title="Send command" onclick="chans_vals(getElementById('commInput').value);">ENTER</div>
         </td>
         <td><div class="button button-keypad" style="background: gray;" title="Clears the command input field" onclick="getElementById('commInput').value = '';">CLR</div></td>
-        <td><div class="button button-keypad" title="Sets a channels gap within a range" onclick="composeCommand('B');">BY</div></td>
+        <td><div class="button button-keypad" title="Sets a channels gap within a range" onclick="composeCommand('BY');">BY</div></td>
       </tr>
     </table>
     <br><br>
