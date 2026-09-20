@@ -285,7 +285,7 @@ Rectangle
                 faColor: UISettings.fgMain
                 bgColor: showManager.isPaused ? "green" :
                          (showManager.isPlaying ? "darkorange" : UISettings.bgLight)
-                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause") : qsTr("Play or resume")
+                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause (Space)") : qsTr("Play or resume (Space)")
                 checkable: false
                 enabled: showManager.isEditing
                 onClicked: showManager.playShow()
@@ -298,7 +298,7 @@ Rectangle
                 faSource: FontAwesome.fa_stop
                 faColor: UISettings.fgMain
                 bgColor: showManager.isPlaying ? "red" : UISettings.bgLight
-                tooltip: qsTr("Stop or rewind")
+                tooltip: qsTr("Stop or rewind (Esc)")
                 checkable: false
                 enabled: showManager.isEditing
                 onClicked: showManager.stopShow()
