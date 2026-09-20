@@ -192,51 +192,6 @@ Item
         toolTipText = tooltip
     }
 
-    /* Waveform for audio items */
-    Item
-    {
-        z: 3
-        anchors.fill: parent
-        clip: true
-        visible: funcRef && funcRef.type === QLCFunction.AudioType
-
-        Image
-        {
-            id: waveformImage
-            x: 0
-            y: 0
-            // Natural width spans the full audio duration so the waveform is
-            // not stretched; the parent Item's clip:true crops it to the
-            // show item's visible width.
-            width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
-                   ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
-                   : itemRoot.width
-            height: itemRoot.height
-            cache: false
-            fillMode: Image.Stretch
-
-            source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
-
-            function reload()
-            {
-                const old = source;
-                source = "";
-                source = old;
-            }
-
-            Connections
-            {
-                target: waveformProvider
-
-                function onWaveformUpdated(fid)
-                {
-                    if (funcRef && fid === funcRef.id)
-                        waveformImage.reload()
-                }
-            }
-        }
-    }
-
     Canvas
     {
         id: prCanvas
@@ -344,6 +299,46 @@ Item
 
             Drag.active: itemRoot.dragActive
             Drag.keys: [ "function" ]
+
+            /* Waveform for audio items. It is a child of the item body, and
+               declared before the labels, so that it is painted over the body
+               background but behind the Function name and info texts */
+            Image
+            {
+                id: waveformImage
+                x: 0
+                y: 0
+                // Natural width spans the full audio duration so the waveform is
+                // not stretched; the body's clip:true crops it to the
+                // show item's visible width.
+                width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
+                       ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
+                       : itemRoot.width
+                height: itemRoot.height
+                cache: false
+                fillMode: Image.Stretch
+                visible: funcRef && funcRef.type === QLCFunction.AudioType
+
+                source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
+
+                function reload()
+                {
+                    const old = source;
+                    source = "";
+                    source = old;
+                }
+
+                Connections
+                {
+                    target: waveformProvider
+
+                    function onWaveformUpdated(fid)
+                    {
+                        if (funcRef && fid === funcRef.id)
+                            waveformImage.reload()
+                    }
+                }
+            }
 
             RobotoText
             {
