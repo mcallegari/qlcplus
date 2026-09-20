@@ -178,6 +178,20 @@ Rectangle
 
             IconButton
             {
+                id: snapItemsButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_magnet
+                faColor: "lightsteelblue"
+                tooltip: qsTr("Snap to nearby items (hold Ctrl while dragging to suspend)")
+                checkable: true
+                checked: showManager.snapToItems
+                onToggled: showManager.snapToItems = checked
+            }
+
+            IconButton
+            {
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
