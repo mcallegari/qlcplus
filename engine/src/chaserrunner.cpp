@@ -29,6 +29,7 @@
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "qlcmacros.h"
+#include "tempomap.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
@@ -38,6 +39,8 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     , m_doc(doc)
     , m_chaser(chaser)
     , m_updateOverrideSpeeds(false)
+    , m_clockTime(0)
+    , m_nextStepStart(-1)
     , m_startOffset(0)
     , m_lastRunStepIdx(-1)
     , m_lastFunctionID(Function::invalidId())
@@ -46,13 +49,22 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
 {
     Q_ASSERT(chaser != NULL);
 
+    if (chaser->tempoType() == Function::Beats)
+        m_tempoMapClock = chaser->tempoMapClock();
+
     m_pendingAction.m_action = ChaserNoAction;
     m_pendingAction.m_masterIntensity = 1.0;
     m_pendingAction.m_stepIntensity = 1.0;
     m_pendingAction.m_fadeMode = Chaser::FromFunction;
     m_pendingAction.m_stepIndex = -1;
 
-    if (startTime > 0)
+    if (hasTempoMapClock())
+    {
+        m_clockTime = m_tempoMapClock->origin + startTime;
+        if (startTime > 0)
+            seekClockStep(startTime);
+    }
+    else if (startTime > 0)
     {
         qDebug() << "[ChaserRunner] startTime:" << startTime;
         int idx = 0;
@@ -109,6 +121,12 @@ void ChaserRunner::slotChaserChanged()
             step->m_fadeIn = stepFadeIn(step->m_index);
             step->m_fadeOut = stepFadeOut(step->m_index);
             step->m_duration = stepDuration(step->m_index);
+
+            if (hasTempoMapClock())
+            {
+                step->m_fadeIn = clockSpeedToTime(step->m_fadeIn, m_clockTime);
+                step->m_fadeOut = clockSpeedToTime(step->m_fadeOut, m_clockTime);
+            }
         }
     }
     foreach (ChaserRunnerStep *step, delList)
@@ -222,6 +240,69 @@ uint ChaserRunner::stepDuration(int stepIdx) const
     }
 
     return speed;
+}
+
+/****************************************************************************
+ * Tempo map clock
+ ****************************************************************************/
+
+bool ChaserRunner::hasTempoMapClock() const
+{
+    return m_tempoMapClock.isNull() == false;
+}
+
+double ChaserRunner::fallbackBpm() const
+{
+    return m_doc->masterTimer()->bpmNumber();
+}
+
+uint ChaserRunner::clockSpeedToTime(uint speed, double time) const
+{
+    if (speed == 0 || speed == Function::defaultSpeed() || speed == Function::infiniteSpeed())
+        return speed;
+
+    return qRound((speed / 1000.0) * m_tempoMapClock->map.beatDurationAt(time, fallbackBpm()));
+}
+
+void ChaserRunner::seekClockStep(quint32 startTime)
+{
+    // Walk the steps from the Show item start on the tempo map, exactly as
+    // they would have run, so that starting in the middle of an item lands
+    // on the same step and beat phase as playing it from its start
+    double stepStart = m_tempoMapClock->origin;
+    int stepsCount = m_chaser->stepsCount();
+    bool loop = m_chaser->runOrder() == Function::Loop;
+
+    for (int idx = 0; stepsCount > 0; idx = (idx + 1) % stepsCount)
+    {
+        uint duration = stepDuration(idx);
+        if (duration == Function::infiniteSpeed())
+        {
+            m_pendingAction.m_action = ChaserSetStepIndex;
+            m_pendingAction.m_stepIndex = idx;
+            m_nextStepStart = stepStart;
+            break;
+        }
+
+        double stepEnd = m_tempoMapClock->map.stepEnd(stepStart, duration / 1000.0, fallbackBpm());
+        if (m_clockTime < stepEnd)
+        {
+            m_pendingAction.m_action = ChaserSetStepIndex;
+            m_pendingAction.m_stepIndex = idx;
+            m_nextStepStart = stepStart;
+            qDebug() << "[ChaserRunner] Starting from step:" << idx << "started at" << stepStart;
+            break;
+        }
+
+        // a whole pass with no progress would never reach startTime
+        if (idx == stepsCount - 1 && (loop == false || stepEnd <= m_tempoMapClock->origin))
+            break;
+
+        stepStart = stepEnd;
+    }
+
+    m_startOffset = m_nextStepStart >= 0 ? m_clockTime - m_nextStepStart : 0;
+    Q_UNUSED(startTime)
 }
 
 /****************************************************************************
@@ -558,6 +639,34 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
     }
 
     newStep->m_duration = stepDuration(index);
+    newStep->m_endTime = -1;
+
+    Function::TempoType tempoType = m_chaser->tempoType();
+    const TempoMapClock *childClock = NULL;
+    TempoMapClock clock;
+
+    if (hasTempoMapClock())
+    {
+        // Run the step on the tempo map: a step that follows another one
+        // starts exactly where the previous one ended, not on the tick that
+        // noticed it, so that ticks never accumulate into a drift
+        double stepStart = m_nextStepStart >= 0 ? m_nextStepStart : m_clockTime;
+        m_nextStepStart = -1;
+
+        if (newStep->m_duration != Function::infiniteSpeed())
+            newStep->m_endTime = m_tempoMapClock->map.stepEnd(stepStart, newStep->m_duration / 1000.0,
+                                                              fallbackBpm());
+
+        // fades are handed to the step in ms at the section tempo, so the
+        // step Function doesn't convert them with the global BPM
+        newStep->m_fadeIn = clockSpeedToTime(newStep->m_fadeIn, stepStart);
+        newStep->m_fadeOut = clockSpeedToTime(newStep->m_fadeOut, stepStart);
+        tempoType = Function::Time;
+
+        // a nested Beats tempo Chaser follows the same tempo map
+        clock = TempoMapClock(m_tempoMapClock->map, quint32(qRound(m_clockTime)));
+        childClock = &clock;
+    }
 
     if (m_startOffset != 0)
         newStep->m_elapsed = m_startOffset + MasterTimer::tick();
@@ -596,7 +705,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal mIntensity,
 
     // Start the fire up!
     func->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut,
-                func->defaultSpeed(), m_chaser->tempoType());
+                func->defaultSpeed(), tempoType, childClock);
     m_runnerSteps.append(newStep);
     m_roundTime->restart();
 }
@@ -758,6 +867,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
         case ChaserNextStep:
         case ChaserPreviousStep:
             clearRunningList();
+            // a manual step change starts the next step now
+            m_nextStepStart = -1;
             // the actual action will be performed below, on startNewStep
         break;
         case ChaserSetStepIndex:
@@ -786,15 +897,30 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
     foreach (ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
+        bool stepDone = false;
+
+        if (hasTempoMapClock())
         {
-            step->m_elapsedBeats += 1000;
-            qDebug() << "[ChaserRunner] Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+            // end the step on the tick nearest to its exact end time
+            stepDone = step->m_endTime >= 0 &&
+                       m_clockTime + (MasterTimer::tick() / 2.0) >= step->m_endTime;
+            if (stepDone)
+                m_nextStepStart = step->m_endTime;
+        }
+        else
+        {
+            if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
+            {
+                step->m_elapsedBeats += 1000;
+                qDebug() << "[ChaserRunner] Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+            }
+
+            stepDone = step->m_duration != Function::infiniteSpeed() &&
+                ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
+                 (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration));
         }
 
-        if (step->m_duration != Function::infiniteSpeed() &&
-            ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
-             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration)))
+        if (stepDone)
         {
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
@@ -843,6 +969,7 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
     }
 
     m_pendingAction.m_action = ChaserNoAction;
+    m_clockTime += MasterTimer::tick();
     return true;
 }
 
