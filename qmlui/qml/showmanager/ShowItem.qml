@@ -29,7 +29,8 @@ Item
     id: itemRoot
     height: UISettings.mediumItemHeight
     y: trackIndex >= 0 ? parseInt(height) * trackIndex : 0
-    z: 2
+    // raised above the other items while it's being dragged
+    z: (dragActive || groupFollow) ? 3 : 2
     property ShowFunction sfRef: null
     property QLCFunction funcRef: null
     property int startTime: sfRef ? sfRef.startTime : -1
@@ -58,9 +59,46 @@ Item
     /* MouseArea emits clicked() right after released(), by which point
        dragActive has already been cleared, so the end of a drag would
        otherwise run the selection handler below - and with Ctrl held down to
-       suspend snapping that would toggle the item out of the selection */
+       suspend snapping, or Shift to lock the drag axis, that would toggle the
+       item out of the selection */
     property bool dragWasActive: false
     property bool itemSnapped: false
+
+    /* Offset of the item body from its original position while dragging.
+       The body snaps vertically to the Tracks, so dragOffsetY is always a
+       whole number of Tracks, stored in dragTrackDelta */
+    property real dragOffsetX: 0
+    property real dragOffsetY: 0
+    property int dragTrackDelta: 0
+
+    /* Holding Shift while dragging locks the movement to the axis the item
+       was moving along when Shift was seen: horizontally to change only the
+       start time, or vertically to change only the Track */
+    readonly property int axisNone: 0
+    readonly property int axisHorizontal: 1
+    readonly property int axisVertical: 2
+    property int dragAxisLock: axisNone
+
+    /* Dragging a selected item drags the whole selection. groupItems holds
+       the other selected (and unlocked) items, which follow the dragged one
+       through showManager.groupDragOffset */
+    property bool groupDrag: false
+    property var groupItems: []
+    property bool groupFollow: isSelected && !dragActive && showManager.groupDragActive
+                               && !(sfRef && sfRef.locked)
+
+    // the range of Tracks the dragged item(s) can be moved by
+    property int minTrackDelta: 0
+    property int maxTrackDelta: 0
+    // how far left the dragged item(s) can be moved before reaching 0
+    property real minOffsetX: 0
+
+    /* Width of the resize handles: at most 10 pixels, but never more than a
+       quarter of the item each, so that at least half of a thin item is left
+       to click on to select it or drag it. It is updated in updateGeometry(),
+       so that it doesn't change while resizing */
+    property real handleWidth: 10
+    property bool handlesVisible: (sfRef ? (sfRef.locked ? false : true) : false) && handleWidth >= 2
 
     /* Snapping is suspended for the duration of a single gesture while the
        Ctrl modifier is held down, which is what allows an item to be placed
@@ -168,6 +206,26 @@ Item
                 width = TimeUtils.timeToBeatSize(duration, ioManager.bpmNumber, beatsDivision, tickSize)
             }
         }
+
+        handleWidth = Math.min(10, width / 4)
+        // dragging the right handler breaks its position binding
+        horRightHandler.x = Qt.binding(function() { return itemRoot.width - itemRoot.handleWidth })
+    }
+
+    /* Convert an X position on the timeline to a start time expressed in
+       THIS item's own Function unit (see updateGeometry()) */
+    function positionToTime(xPos)
+    {
+        var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+
+        if (timeDivision === Show.Time)
+            return itemIsBeats
+                    ? TimeUtils.posToBeatsMsOnTimeline(xPos, timeScale, tickSize, ioManager.bpmNumber)
+                    : TimeUtils.posToMs(xPos, timeScale, tickSize)
+        else
+            return itemIsBeats
+                    ? TimeUtils.posToBeat(xPos, tickSize, beatsDivision)
+                    : TimeUtils.posToBeatMs(xPos, tickSize, ioManager.bpmNumber, beatsDivision)
     }
 
     /* Convert a value expressed in THIS item's own Function unit (real ms
@@ -388,6 +446,8 @@ Item
         Rectangle
         {
             id: showItemBody
+            x: dragActive ? dragOffsetX : (groupFollow ? showManager.groupDragOffset.x : 0)
+            y: dragActive ? dragOffsetY : (groupFollow ? showManager.groupDragOffset.y : 0)
             width: itemRoot.width
             height: itemRoot.height
             color: sfRef ? sfRef.color : UISettings.bgLight
@@ -475,7 +535,42 @@ Item
             dragActive = false
             dragWasActive = false
             itemSnapped = false
+            dragOffsetX = 0
+            dragOffsetY = 0
+            dragTrackDelta = 0
+            dragAxisLock = axisNone
             snapEdges = getVisibleSnapEdges()
+
+            groupItems = []
+            if (isSelected && showManager.selectedItemsCount > 1)
+            {
+                var views = showManager.selectedItemViews()
+                var others = []
+                for (var i = 0; i < views.length; i++)
+                {
+                    var v = views[i]
+                    if (v && v !== itemRoot && v.sfRef && !v.sfRef.locked)
+                        others.push(v)
+                }
+                groupItems = others
+            }
+            groupDrag = groupItems.length > 0
+
+            // a single item can be dropped past the last Track to create a
+            // new one, while a selection can only be moved across existing ones
+            var minTrack = trackIndex
+            var maxTrack = trackIndex
+            var minX = itemRoot.x
+            for (var j = 0; j < groupItems.length; j++)
+            {
+                minTrack = Math.min(minTrack, groupItems[j].trackIndex)
+                maxTrack = Math.max(maxTrack, groupItems[j].trackIndex)
+                minX = Math.min(minX, groupItems[j].x)
+            }
+            var tracksCount = showManager.tracksCount()
+            minTrackDelta = -minTrack
+            maxTrackDelta = (groupDrag ? tracksCount - 1 : tracksCount) - maxTrack
+            minOffsetX = -minX
         }
         onPositionChanged: (mouse) =>
         {
@@ -494,18 +589,62 @@ Item
                 if (Math.abs(dx) < 30 && Math.abs(dy) < 30)
                     return
                 dragActive = true
-                itemRoot.z++
                 infoTextBox.height = itemRoot.height / 4
                 infoTextBox.textHAlign = Text.AlignLeft
+
+                if (groupDrag)
+                {
+                    // the other selected items move along, so their
+                    // edges are no targets to snap to
+                    var edges = []
+                    for (var e = 0; e < snapEdges.length; e++)
+                    {
+                        var moving = false
+                        for (var g = 0; g < groupItems.length; g++)
+                        {
+                            var gi = groupItems[g]
+                            if (Math.abs(snapEdges[e] - gi.x) < 0.5 ||
+                                Math.abs(snapEdges[e] - (gi.x + gi.width)) < 0.5)
+                            {
+                                moving = true
+                                break
+                            }
+                        }
+                        if (!moving)
+                            edges.push(snapEdges[e])
+                    }
+                    snapEdges = edges
+                    showManager.groupDragOffset = Qt.point(0, 0)
+                    showManager.groupDragActive = true
+                }
             }
 
-            // snap-to-item: check start edge if clicked on first half,
-            // end edge if clicked on second half
+            if (mouse.modifiers & Qt.ShiftModifier)
+            {
+                if (dragAxisLock === axisNone)
+                    dragAxisLock = Math.abs(dx) >= Math.abs(dy) ? axisHorizontal : axisVertical
+            }
+            else
+            {
+                dragAxisLock = axisNone
+            }
+
+            if (dragAxisLock === axisHorizontal)
+                dy = 0
+            else if (dragAxisLock === axisVertical)
+                dx = 0
+
+            // snap vertically to the nearest Track
+            dragTrackDelta = Math.max(minTrackDelta, Math.min(maxTrackDelta, Math.round(dy / itemRoot.height)))
+            dy = dragTrackDelta * itemRoot.height
+
             showManager.snapGuideX = -1
             itemSnapped = false
 
-            if (snappingActive(mouse.modifiers))
+            if (dragAxisLock !== axisVertical && snappingActive(mouse.modifiers))
             {
+                // snap-to-item: check start edge if clicked on first half,
+                // end edge if clicked on second half
                 var checkStart = (pressMouseX < itemRoot.width / 2)
                 var edgePos = checkStart ? (itemRoot.x + dx) : (itemRoot.x + dx + itemRoot.width)
                 var bestDelta = snapThreshold + 1
@@ -529,8 +668,13 @@ Item
                 }
             }
 
-            showItemBody.x = dx
-            showItemBody.y = dy
+            // never move an item before the beginning of the Show
+            dx = Math.max(dx, minOffsetX)
+
+            dragOffsetX = dx
+            dragOffsetY = dy
+            if (groupDrag)
+                showManager.groupDragOffset = Qt.point(dx, dy)
 
             var txt
             if (timeDivision === Show.Time)
@@ -551,37 +695,50 @@ Item
             {
                 infoText = ""
 
-                // a Function keeps its own tempo type regardless of the Show's
-                // ruler (see updateGeometry() above), so the dropped position
-                // must be converted using ITS OWN unit, like the resize handlers do
-                var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
-                var dropX = itemRoot.x + showItemBody.x
+                var moveX = dragOffsetX
+                var dropX = itemRoot.x + moveX
 
                 // grid snapping: snap to the nearest beat on a BPM ruler
-                // (skipped if already snapped to another item's edge)
-                if (showManager.gridEnabled && !itemSnapped
+                // (skipped if already snapped to another item's edge, if the
+                // item hasn't moved horizontally, or while Ctrl suspends snapping)
+                if (showManager.gridEnabled && !itemSnapped && moveX !== 0
                         && !snapSuspended(mouse.modifiers) && timeDivision !== Show.Time)
+                {
                     dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+                    moveX = dropX - itemRoot.x
+                }
 
-                var newTime
-                if (timeDivision === Show.Time)
-                    newTime = itemIsBeats
-                            ? TimeUtils.posToBeatsMsOnTimeline(dropX, timeScale, tickSize, ioManager.bpmNumber)
-                            : TimeUtils.posToMs(dropX, timeScale, tickSize)
-                else
-                    newTime = itemIsBeats
-                            ? TimeUtils.posToBeat(dropX, tickSize, beatsDivision)
-                            : TimeUtils.posToBeatMs(dropX, tickSize, ioManager.bpmNumber, beatsDivision)
-
-                // round to the nearest unit: truncating a snapped position that is
+                // a Function keeps its own tempo type regardless of the Show's
+                // ruler (see updateGeometry() above), so the dropped position
+                // must be converted using ITS OWN unit, like the resize handlers do.
+                // An item moved only across Tracks keeps its exact start time.
+                // Round to the nearest unit: truncating a snapped position that is
                 // a hair below the edge would make the item overlap its neighbour
-                newTime = Math.round(newTime)
-
-                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
+                var newTime = moveX === 0 ? startTime : Math.round(positionToTime(dropX))
+                var newTrackIdx = trackIndex + dragTrackDelta
                 if (newTime < 0)
                     newTime = 0
 
-                if (newTrackIdx >= 0)
+                if (groupDrag)
+                {
+                    var items = [ itemRoot ]
+                    var tracks = [ newTrackIdx ]
+                    var times = [ newTime ]
+
+                    for (var i = 0; i < groupItems.length; i++)
+                    {
+                        var gi = groupItems[i]
+                        items.push(gi)
+                        tracks.push(gi.trackIndex + dragTrackDelta)
+                        times.push(moveX === 0 ? gi.startTime : Math.max(0, Math.round(gi.positionToTime(gi.x + moveX))))
+                    }
+
+                    showManager.moveShowItems(items, tracks, times)
+                    showManager.groupDragActive = false
+                    showManager.groupDragOffset = Qt.point(0, 0)
+                    prCanvas.requestPaint()
+                }
+                else if (newTrackIdx >= 0)
                 {
                     var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
@@ -591,9 +748,8 @@ Item
                     prCanvas.requestPaint()
                 }
 
-                showItemBody.x = 0
-                showItemBody.y = 0
-                itemRoot.z--
+                dragOffsetX = 0
+                dragOffsetY = 0
             }
 
             showManager.enableFlicking(true)
@@ -601,6 +757,29 @@ Item
             isDragging = false
             dragWasActive = dragActive
             dragActive = false
+            groupDrag = false
+            groupItems = []
+            itemSnapped = false
+            updateGeometry()
+        }
+
+        onCanceled:
+        {
+            // put everything back, including the items following a group drag
+            if (groupDrag)
+            {
+                showManager.groupDragActive = false
+                showManager.groupDragOffset = Qt.point(0, 0)
+            }
+            showManager.snapGuideX = -1
+            showManager.enableFlicking(true)
+            infoText = ""
+            dragOffsetX = 0
+            dragOffsetY = 0
+            isDragging = false
+            dragActive = false
+            groupDrag = false
+            groupItems = []
             itemSnapped = false
             updateGeometry()
         }
@@ -668,10 +847,10 @@ Item
     {
         id: horLeftHandler
         z: 2
-        width: 10
+        width: handleWidth
         height: itemRoot.height
         color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
-        visible: sfRef ? (sfRef.locked ? false : true) : false
+        visible: handlesVisible
 
         MouseArea
         {
@@ -816,12 +995,12 @@ Item
     Rectangle
     {
         id: horRightHandler
-        x: itemRoot.width - 10
+        x: itemRoot.width - handleWidth
         z: 2
-        width: 10
+        width: handleWidth
         height: itemRoot.height
         color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
-        visible: sfRef ? (sfRef.locked ? false : true) : false
+        visible: handlesVisible
 
         MouseArea
         {
