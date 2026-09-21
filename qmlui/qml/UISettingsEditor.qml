@@ -20,6 +20,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Dialogs
 
 import org.qlcplus.classes 1.0
 import "."
@@ -34,6 +35,10 @@ Rectangle
     property real origIconMedium: { origIconMedium = UISettings.iconSizeMedium }
     property real origTextSizeDefault: { origTextSizeDefault = UISettings.textSizeDefault}
     property real origIconDefault: {origIconDefault = UISettings.iconSizeDefault}
+
+    property bool profileSaveMode: false
+    property string profileFolder: uiManager.userConfFolder()
+    property var profileNameFilters: [ qsTr("UI profiles") + " (*.json)", qsTr("All files") + " (*)" ]
 
     onVisibleChanged:
     {
@@ -68,6 +73,81 @@ Rectangle
         id: messagePopup
         standardButtons: Dialog.Ok
         onAccepted: close()
+    }
+
+    function openProfileDialog(saveMode)
+    {
+        profileSaveMode = saveMode
+
+        if (Qt.platform.os === "linux")
+        {
+            customProfileDialog.selectedFile = ""
+            customProfileDialog.open()
+        }
+        else
+        {
+            nativeProfileDialog.open()
+        }
+    }
+
+    function handleProfile(fileUrl)
+    {
+        if (profileSaveMode)
+        {
+            if (uiManager.saveProfile(fileUrl) === false)
+            {
+                messagePopup.title = qsTr("Error")
+                messagePopup.message = qsTr("Unable to save the UI profile to:") + "<br>" + fileUrl
+                messagePopup.open()
+            }
+            return
+        }
+
+        if (uiManager.loadProfile(fileUrl) === false)
+        {
+            messagePopup.title = qsTr("Error")
+            messagePopup.message = qsTr("Unable to load a UI profile from:") + "<br>" + fileUrl
+            messagePopup.open()
+            return
+        }
+
+        /* refresh the color selectors with the loaded values */
+        for (var i = 0; i < editorGrid.children.length; i++)
+        {
+            var child = editorGrid.children[i]
+            if (child.kName !== undefined && child.item)
+                child.item.init(child, uiManager.getDefault(child.kName),
+                                       uiManager.getModified(child.kName))
+        }
+    }
+
+    FileDialog
+    {
+        id: nativeProfileDialog
+        title: profileSaveMode ? qsTr("Save UI profile") : qsTr("Load UI profile")
+        fileMode: profileSaveMode ? FileDialog.SaveFile : FileDialog.OpenFile
+        currentFolder: "file:///" + profileFolder
+        nameFilters: profileNameFilters
+
+        onAccepted: handleProfile(selectedFile)
+    }
+
+    PopupFolderBrowser
+    {
+        id: customProfileDialog
+        title: profileSaveMode ? qsTr("Save UI profile") : qsTr("Load UI profile")
+        currentFolder: profileFolder
+        nameFilters: profileNameFilters
+        standardButtons: Dialog.Cancel | (profileSaveMode ? Dialog.Save : Dialog.Open)
+
+        onAccepted:
+        {
+            if (selectedFile === "")
+                return
+
+            profileFolder = currentFolder
+            handleProfile(currentFolder + folderSeparator() + selectedFile)
+        }
     }
 
     GenericButton
@@ -660,38 +740,48 @@ Rectangle
             }
         }
 
-        GenericButton
+        RowLayout
         {
             Layout.columnSpan: 4
             Layout.alignment: Qt.AlignHCenter
-            width: origIconMedium * 10
-            height: origIconDefault
-            fontSize: origTextSizeDefault
-            label: qsTr("Save to file")
-            onClicked:
+            spacing: origIconMedium
+
+            GenericButton
             {
-                var fPath = uiManager.userConfFilepath()
-                if (uiManager.saveSettings() === true)
+                width: origIconMedium * 10
+                height: origIconDefault
+                fontSize: origTextSizeDefault
+                label: qsTr("Load profile")
+                onClicked: openProfileDialog(false)
+
+                Image
                 {
-                    messagePopup.title = qsTr("Operation completed")
-                    messagePopup.message = qsTr("File successfully saved to:" + "<br>" + fPath)
+                    x: parent.width * 0.05
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.height * 0.75
+                    height: width
+                    source: "qrc:/fileopen.svg"
+                    sourceSize: Qt.size(width, height)
                 }
-                else
-                {
-                    messagePopup.title = qsTr("Error")
-                    messagePopup.message = qsTr("Unable to save file:" + "<br>" + fPath)
-                }
-                messagePopup.open()
             }
 
-            Image
+            GenericButton
             {
-                x: parent.width * 0.05
-                anchors.verticalCenter: parent.verticalCenter
-                width: parent.height * 0.75
-                height: width
-                source: "qrc:/filesave.svg"
-                sourceSize: Qt.size(width, height)
+                width: origIconMedium * 10
+                height: origIconDefault
+                fontSize: origTextSizeDefault
+                label: qsTr("Save profile")
+                onClicked: openProfileDialog(true)
+
+                Image
+                {
+                    x: parent.width * 0.05
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.height * 0.75
+                    height: width
+                    source: "qrc:/filesave.svg"
+                    sourceSize: Qt.size(width, height)
+                }
             }
         }
     }

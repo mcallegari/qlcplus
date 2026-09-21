@@ -21,6 +21,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
+#include <QUrl>
 #include <QDir>
 
 #include "qlcfile.h"
@@ -98,42 +99,53 @@ void UiManager::initialize()
 
     /** Then load (if available) the user configuration. Changes applied
      *  from file must not schedule a save of what has just been read */
-    m_loading = true;
-
-    QFile jsonFile(userConfFilepath());
-    if (jsonFile.exists())
+    QJsonObject root;
+    if (QFile::exists(userConfFilepath()) && readFromFile(userConfFilepath(), root))
     {
-        QJsonParseError parseError;
-        if (jsonFile.open(QIODevice::ReadOnly) != true)
-        {
-            m_loading = false;
-            return;
-        }
+        m_loading = true;
+        applySettings(root);
+        m_loading = false;
+    }
+}
 
-        QByteArray ba = jsonFile.readAll();
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(ba, &parseError);
+bool UiManager::readFromFile(QString filePath, QJsonObject &root) const
+{
+    QFile jsonFile(filePath);
+    if (jsonFile.open(QIODevice::ReadOnly) != true)
+        return false;
 
-        if (parseError.error != QJsonParseError::NoError)
-        {
-            qWarning() << "UI Style parse error at" << parseError.offset << ":" << parseError.errorString();
-        }
-        else
-        {
-            QJsonObject jsonObject = jsonDoc.object();
-            for (QString &category : jsonObject.keys())
-            {
-                QJsonObject categoryObj = jsonObject.value(category).toObject();
-                for (QString &paramName : categoryObj.keys())
-                {
-                    QJsonValue paramVal = categoryObj.value(paramName);
-                    setModified(paramName, paramVal.toVariant());
-                }
-            }
-        }
-        jsonFile.close();
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonFile.readAll(), &parseError);
+    jsonFile.close();
+
+    if (parseError.error != QJsonParseError::NoError)
+    {
+        qWarning() << "UI Style parse error at" << parseError.offset << ":" << parseError.errorString();
+        return false;
     }
 
-    m_loading = false;
+    if (jsonDoc.isObject() == false)
+        return false;
+
+    root = jsonDoc.object();
+    return true;
+}
+
+void UiManager::applySettings(const QJsonObject &root)
+{
+    for (const QString &category : root.keys())
+    {
+        QJsonObject categoryObj = root.value(category).toObject();
+        for (const QString &paramName : categoryObj.keys())
+        {
+            if (m_parameterMap.contains(paramName) == false)
+            {
+                qWarning() << "Unknown UI parameter" << paramName;
+                continue;
+            }
+            setModified(paramName, categoryObj.value(paramName).toVariant());
+        }
+    }
 }
 
 void UiManager::setDefaultParameter(QString category, QString name, QVariant value)
@@ -183,16 +195,85 @@ void UiManager::flushSettings()
     saveSettings();
 }
 
-QString UiManager::userConfFilepath() const
+QString UiManager::userConfFolder() const
 {
     QDir userConfDir = QLCFile::userDirectory(QString(USERQLCPLUSDIR), QString(USERQLCPLUSDIR), QStringList());
-    return userConfDir.absolutePath() + QDir::separator() + UISTYLEFILE;
+    return userConfDir.absolutePath();
+}
+
+QString UiManager::userConfFilepath() const
+{
+    return userConfFolder() + QDir::separator() + UISTYLEFILE;
 }
 
 bool UiManager::saveSettings() const
 {
+    return saveToFile(userConfFilepath());
+}
+
+bool UiManager::saveProfile(QString filePath) const
+{
+    QString localPath = filePath;
+    if (localPath.startsWith("file:"))
+        localPath = QUrl(filePath).toLocalFile();
+
+    if (localPath.endsWith(".json", Qt::CaseInsensitive) == false)
+        localPath.append(".json");
+
+    return saveToFile(localPath);
+}
+
+bool UiManager::loadProfile(QString filePath)
+{
+    QString localPath = filePath;
+    if (localPath.startsWith("file:"))
+        localPath = QUrl(filePath).toLocalFile();
+
+    QJsonObject root;
+    if (readFromFile(localPath, root) == false)
+        return false;
+
+    /** A profile only carries the parameters that differ from the
+     *  default, so everything else reverts to its default. Only the
+     *  parameters actually changing are touched, to avoid needless
+     *  relayouts of the whole UI */
+    QMap<QString, QVariant> values;
+    for (auto it = m_parameterMap.cbegin(); it != m_parameterMap.cend(); ++it)
+        values.insert(it.key(), it.value().m_default);
+
+    int found = 0;
+    for (const QString &category : root.keys())
+    {
+        QJsonObject categoryObj = root.value(category).toObject();
+        for (const QString &paramName : categoryObj.keys())
+        {
+            if (values.contains(paramName) == false)
+                continue;
+
+            values.insert(paramName, categoryObj.value(paramName).toVariant());
+            found++;
+        }
+    }
+
+    /** Refuse a JSON file that is not a UI profile, rather than
+     *  silently reverting everything to the defaults */
+    if (root.isEmpty() == false && found == 0)
+        return false;
+
+    for (auto it = values.cbegin(); it != values.cend(); ++it)
+    {
+        if (QJsonValue::fromVariant(it.value()) !=
+            QJsonValue::fromVariant(getModified(it.key())))
+            setModified(it.key(), it.value());
+    }
+
+    return true;
+}
+
+bool UiManager::saveToFile(QString filePath) const
+{
     bool ret = true;
-    QFile jsonFile(userConfFilepath());
+    QFile jsonFile(filePath);
     QMap<QString, QJsonObject*> objMap;
     QJsonObject objRoot;
 
