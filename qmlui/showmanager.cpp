@@ -47,6 +47,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_selectedTrackId(-1)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
+    , m_boxSelectMode(false)
 {
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
@@ -1592,6 +1593,20 @@ void ShowManager::setMultipleSelection(bool multipleSelection)
     emit multipleSelectionChanged();
 }
 
+bool ShowManager::boxSelectMode() const
+{
+    return m_boxSelectMode;
+}
+
+void ShowManager::setBoxSelectMode(bool enable)
+{
+    if (m_boxSelectMode == enable)
+        return;
+
+    m_boxSelectMode = enable;
+    emit boxSelectModeChanged();
+}
+
 void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected, int keyModifiers)
 {
     bool allowMulti = m_multipleSelection
@@ -1662,6 +1677,67 @@ void ShowManager::resetItemsSelection()
     }
     m_selectedItems.clear();
     emit selectedItemsCountChanged(m_selectedItems.count());
+}
+
+void ShowManager::selectItemsInRect(QRectF rect, bool addToSelection)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    int prevCount = m_selectedItems.count();
+
+    if (addToSelection == false)
+    {
+        foreach (SelectedShowItem ssi, m_selectedItems)
+        {
+            if (ssi.m_item != nullptr)
+                ssi.m_item->setProperty("isSelected", false);
+        }
+        m_selectedItems.clear();
+    }
+
+    int trkIdx = 0;
+
+    foreach (Track *track, m_currentShow->tracks())
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            QQuickItem *item = m_itemsMap.value(sf->id(), nullptr);
+            if (item == nullptr)
+                continue;
+
+            QRectF itemRect(item->x(), item->y(), item->width(), item->height());
+            if (rect.contains(itemRect) == false)
+                continue;
+
+            bool alreadySelected = false;
+            foreach (SelectedShowItem si, m_selectedItems)
+            {
+                if (si.m_showFunc == sf)
+                {
+                    alreadySelected = true;
+                    break;
+                }
+            }
+
+            if (alreadySelected)
+                continue;
+
+            item->setProperty("isSelected", true);
+
+            SelectedShowItem selection;
+            selection.m_trackIndex = trkIdx;
+            selection.m_showFunc = sf;
+            selection.m_item = item;
+            m_selectedItems.append(selection);
+        }
+
+        trkIdx++;
+    }
+
+    if (addToSelection == false || m_selectedItems.count() != prevCount)
+        emit selectedItemsCountChanged(m_selectedItems.count());
+    emit itemClicked(App::ShowDragItem);
 }
 
 QVariantList ShowManager::selectedItemRefs() const

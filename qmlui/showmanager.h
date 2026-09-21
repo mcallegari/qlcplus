@@ -71,6 +71,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
     Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
+    Q_PROPERTY(bool boxSelectMode READ boxSelectMode WRITE setBoxSelectMode NOTIFY boxSelectModeChanged)
 
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -337,11 +338,21 @@ public:
     bool multipleSelection() const;
     void setMultipleSelection(bool multipleSelection);
 
+    /** Get/Set the box selection mode for Show items. When enabled, dragging
+     *  on the timeline draws a box selecting the items it wholly contains */
+    bool boxSelectMode() const;
+    void setBoxSelectMode(bool enable);
+
     /** Add an item to the selection tracking list */
     Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected, int keyModifiers);
 
     /** Deselect all the selected items at once */
     Q_INVOKABLE void resetItemsSelection();
+
+    /** Select the Show items lying entirely within $rect, expressed in the
+     *  coordinates of the items' parent. If $addToSelection is false,
+     *  the current selection is replaced, otherwise it is extended */
+    Q_INVOKABLE void selectItemsInRect(QRectF rect, bool addToSelection);
 
     Q_INVOKABLE QVariantList selectedItemRefs() const;
     Q_INVOKABLE QStringList selectedItemNames() const;
@@ -399,6 +410,7 @@ signals:
     void selectedItemsCountChanged(int count);
     void clipboardItemsCountChanged(int count);
     void multipleSelectionChanged();
+    void boxSelectModeChanged();
 
     /** Notify the UI that the Function with the given $fid has been modified,
      *  so Show Items referencing it can repaint their preview lines */
@@ -416,6 +428,9 @@ private:
 
     /** Flag to enable multi selection in Show items */
     bool m_multipleSelection;
+
+    /** Flag to enable box selection of Show items */
+    bool m_boxSelectMode;
 
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;
