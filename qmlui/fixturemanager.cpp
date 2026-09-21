@@ -1721,6 +1721,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
+    emit groupsTreeModelChanged();
     emit fixturesCountChanged();
     emit fixturesMapChanged();
 

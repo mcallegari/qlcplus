@@ -69,6 +69,7 @@ Entity
             Parameter { name: "coneBottomRadius"; value: mtl.fxItem ? mtl.fxItem.coneBottomRadius : 0 },
             Parameter { name: "coneDistCutoff"; value: mtl.fxItem ? mtl.fxItem.distCutoff : 0 },
             Parameter { name: "headLength"; value: mtl.fxItem ? mtl.fxItem.headLength : 0 },
+            Parameter { name: "beamEdgeSoftness"; value: mtl.fxItem ? mtl.fxItem.beamEdgeSoftness : 0 },
             Parameter { name: "lightIntensity"; value: mtl.fxItem ? mtl.fxItem.lightIntensity : 0 },
             Parameter { name: "lightColor"; value: mtl.fxItem ? mtl.fxItem.lightColor : Qt.rgba(0,0,0,0) },
             Parameter { name: "lightDir"; value: mtl.fxItem ? mtl.fxItem.lightDir : Qt.vector3d(0,0,0) },

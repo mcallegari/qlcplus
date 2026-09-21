@@ -280,7 +280,10 @@ Rectangle
               {
                   Loader
                   {
-                      width: functionsListView.width
+                      // leave room for the scrollbar, which is drawn on top of
+                      // the list and would otherwise cover the right side of a
+                      // row, including the autostart function marker
+                      width: functionsListView.width - (fMgrScrollBar.visible ? fMgrScrollBar.width : 0)
                       source: (type === App.FunctionDragItem && !hasChildren) ?
                                   "qrc:/FunctionDelegate.qml" : "qrc:/TreeNodeDelegate.qml"
 

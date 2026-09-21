@@ -38,6 +38,12 @@ Entity
     property bool isSelected: false
     property int headsNumber: 1
 
+    /* Emitters this item lights the scene with. 3DView.qml builds one shadow
+       pass and one shading pass per emitter, so this is what governs the item's
+       render cost. Here every head is a real lamp and gets its own emitter;
+       PixelBar3DItem, whose head count is a pixel resolution, reports fewer. */
+    readonly property int lightsNumber: headsNumber
+
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
     property int meshType: MainView3D.NoMeshType
@@ -61,8 +67,19 @@ Entity
     property real focusMaxDegrees: 30
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2.0) * (Math.PI / 180.0)
+    /** How much of the beam edge softness set in the 3D view settings this
+        fixture is currently using. Fixtures with a focus channel sharpen the
+        edge from there through setFocus() */
+    property real focusFactor: 1.0
+    /** Softness of the beam's outer edge, as a fraction of the cone radius */
+    property real beamEdgeSoftness: View3D.beamEdgeSoftness * focusFactor
 
     /* **************** Rendering quality properties **************** */
+    /* Whether this fixture lights the surfaces it is aimed at (useShading) and
+       whether it also draws a volumetric beam in the air (useScattering). Every
+       fixture that throws a beam does both; see PixelBar3DItem for one that
+       lights surfaces without drawing a beam. */
+    property bool useShading: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property int raymarchSteps:
@@ -100,7 +117,32 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property real lightIntensity: dimmerValue * shutterValue
+    /* Luminous intensity of a single emitter of this fixture, in candela: the
+       "Lumens" physical property of its mode spread over the solid angle of the
+       beam at the widest the lens opens. 0 when the definition has no data */
+    property real bulbCandela: 0
+    /* How far the current zoom concentrates the beam, as the ratio of the two
+       cone solid angles: 1.0 at the widest the lens opens, rising as the beam
+       closes in, which is what a zoom does to the light it lays on a surface */
+    property real beamConcentration:
+    {
+        var widest = (focusMaxDegrees / 2.0) * (Math.PI / 180.0)
+        if (widest <= 0 || cutoffAngle <= 0)
+            return 1.0
+        return (1.0 - Math.cos(widest)) / (1.0 - Math.cos(cutoffAngle))
+    }
+    /* Relative output of this fixture: its intensity against the brightest
+       emitter in the project, so the reference fixture stays at the brightness
+       it has always rendered at and everything else falls in around it. Goes
+       above 1.0 on a beam zoomed in past its widest, which the tone mapping in
+       gamma_correct.frag rolls off. 1.0 (unscaled) when the "Lumens" setting is
+       off, when this definition has no lumens, or when no fixture in the
+       project has any. */
+    property real lumensScale:
+        (View3D && View3D.useFixtureLumens && bulbCandela > 0 && View3D.referenceCandela > 0) ?
+            (bulbCandela / View3D.referenceCandela) * beamConcentration : 1.0
+
+    property real lightIntensity: dimmerValue * shutterValue * lumensScale
     property real dimmerValue: 0
     property real shutterValue: sAnimator.shutterValue
     property color lightColor: Qt.rgba(0, 0, 0, 1)
@@ -252,6 +294,17 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
+    function setFocus(value)
+    {
+        // A focus channel sets a focal distance rather than an edge width, and
+        // the 3D view does not know how far away the lit surface is. Approximate
+        // it: a beam focused short of what it lands on is soft, one focused
+        // beyond it is sharp, so run the channel from softest to sharpest.
+        // A tenth of the softness is left at the sharp end, as a real lens
+        // never cuts perfectly either
+        focusFactor = 1.0 - ((0.9 * value) / 255.0)
+    }
+
     function setZoom(value, degrees)
     {
         if (degrees)
@@ -333,7 +386,15 @@ Entity
         }
 
     /* **************** Gobo properties **************** */
-    property Texture2D goboTexture: Texture2D { }
+    property Texture2D goboTexture:
+        Texture2D
+        {
+            // sampled at whatever resolution the beam happens to cover, so it
+            // needs filtering: the Qt3D default of Nearest re-introduces the
+            // stair steps the mask is painted smooth to avoid
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+        }
     property real goboRotation: 0
 
     function setGoboSpeed(cw, speed)

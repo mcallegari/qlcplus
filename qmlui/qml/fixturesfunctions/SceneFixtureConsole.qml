@@ -18,6 +18,7 @@
 */
 
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import org.qlcplus.classes 1.0
@@ -76,13 +77,15 @@ Rectangle
     ListView
     {
         id: fixtureList
-        anchors.fill: parent
+        width: parent.width
+        height: parent.height - (fxScrollBar.visible ? fxScrollBar.height : 0)
         orientation: ListView.Horizontal
         model: sceneEditor.fixtureList
         boundsBehavior: Flickable.StopAtBounds
         highlightFollowsCurrentItem: false
         currentIndex: -1
         z: 1
+        ScrollBar.horizontal: fxScrollBar
 
         delegate:
             Rectangle
@@ -125,5 +128,15 @@ Rectangle
                     border.color: fixtureList.currentIndex == index ? UISettings.selection : "transparent"
                 }
             }
+    }
+
+    // outside the ListView, so it doesn't cover the channel values
+    CustomScrollBar
+    {
+        id: fxScrollBar
+        y: parent.height - height
+        z: 1
+        width: parent.width
+        orientation: Qt.Horizontal
     }
 }

@@ -36,12 +36,34 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
     property int headsNumber: 0
+
+    /* Emitters this item lights the scene with. 3DView.qml builds one shadow
+       pass and one shading pass per emitter, so this is what governs the item's
+       render cost. Here every head is a real lamp and gets its own emitter;
+       PixelBar3DItem, whose head count is a pixel resolution, reports fewer. */
+    readonly property int lightsNumber: headsNumber
     property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
     property alias itemSource: eSceneLoader.source
+    /* A strobe is drawn as emissive geometry only, so it neither lights
+       surfaces nor draws a beam. See Fixture3DItem for what these gate. */
+    property bool useShading: false
     property bool useScattering: false
     property bool useShadows: false
     property real shutterValue: sAnimator.shutterValue
+    /* Luminous intensity of a single emitter of this fixture, in candela: the
+       "Lumens" physical property of its mode spread over the solid angle of the
+       beam at the widest the lens opens. 0 when the definition has no data */
+    property real bulbCandela: 0
+    /* Relative output of this fixture: its intensity against the brightest
+       emitter in the project, so the reference fixture stays at the brightness
+       it has always rendered at and everything else falls in around it. 1.0
+       (unscaled) when the "Lumens" setting is off, when this definition has no
+       lumens, or when no fixture in the project has any. */
+    property real lumensScale:
+        (View3D && View3D.useFixtureLumens && bulbCandela > 0 && View3D.referenceCandela > 0) ?
+            bulbCandela / View3D.referenceCandela : 1.0
+
 
     onItemIDChanged:
     {
@@ -99,7 +121,13 @@ Entity
             {
                 id: headDelegate
                 property real dimmerValue: 0
-                property real lightIntensity: dimmerValue * shutterValue
+                /* Scaled by the global "Fixture light" setting, like the spotlight
+                   passes are. These cells are emissive geometry rather than a cone,
+                   so their own surface IS the whole light contribution of the
+                   fixture: scaling it here scales that contribution exactly once. */
+                property real lightIntensity:
+                    dimmerValue * shutterValue * lumensScale *
+                    (View3D ? View3D.fixtureLightIntensity : 1.0)
                 property real headWidth: phySize.x / headsLayout.width
                 property real headHeight: phySize.z / headsLayout.height
                 property color lightColor: Qt.rgba(0, 0, 0, 1)

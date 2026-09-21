@@ -267,8 +267,57 @@ Item
     {
         id: prCanvas
         z: 3
-        anchors.fill: parent
+        height: itemRoot.height
         contextType: "2d"
+
+        /** A Canvas allocates a backing image, and on the scene graph side a
+          * texture, for its whole size - so filling the item would mean one
+          * allocation per Show item as wide as that item is on the timeline,
+          * whether or not any of it is on screen. Zooming in multiplies every
+          * item's width by the same factor, so that grows without bound: a
+          * long Show can end up holding a gigabyte of backing images, and any
+          * item wider than the maximum texture size the driver supports (a
+          * common limit is 16384 pixels, which a four minute item reaches at a
+          * time scale of 1) has to be rescaled on the CPU on every repaint
+          * before it can be uploaded.
+          *
+          * The timeline header and the grid already avoid this by keeping
+          * their Canvas no bigger than the visible area and moving it as the
+          * view scrolls; do the same here, clipping the Canvas to the part of
+          * the item that is actually on screen and painting with the item's
+          * own coordinates shifted by the Canvas position, so the painting
+          * code below stays unchanged. */
+        property Item timelineView:
+        {
+            /* itemRoot.parent is the Flickable's contentItem,
+               itemRoot.parent.parent is the Flickable itself */
+            var f = itemRoot.parent ? itemRoot.parent.parent : null
+            return (f && f.contentX !== undefined) ? f : null
+        }
+
+        property real viewLeft: timelineView ? timelineView.contentX - itemRoot.x : 0
+        property real viewRight: timelineView ? viewLeft + timelineView.width : itemRoot.width
+
+        x: timelineView ? Math.max(0, Math.min(viewLeft, itemRoot.width)) : 0
+        width: timelineView ? Math.max(0, Math.min(viewRight, itemRoot.width) - x)
+                            : itemRoot.width
+
+        onXChanged: requestPaint()
+
+        /* The painted positions come from the item's own size and from the
+           timeline scale, but the Canvas is now sized by the visible area
+           instead of by the item, so zooming no longer resizes it and no
+           repaint is triggered by itself: ask for one explicitly */
+        Connections
+        {
+            target: itemRoot
+
+            function onWidthChanged() { prCanvas.requestPaint() }
+            function onTimeScaleChanged() { prCanvas.requestPaint() }
+            function onTickSizeChanged() { prCanvas.requestPaint() }
+            function onTimeDivisionChanged() { prCanvas.requestPaint() }
+            function onBeatsDivisionChanged() { prCanvas.requestPaint() }
+        }
 
         /* Repaint the preview lines when the referenced Function
            is modified (e.g. a Chaser step time or an EFX duration) */
@@ -285,6 +334,14 @@ Item
 
         onPaint:
         {
+            /* an item scrolled out of the visible area has no width, and then
+               Qt never creates a drawing context for the Canvas */
+            if (context === null || context === undefined)
+                return
+
+            context.reset()
+            context.clearRect(0, 0, width, height)
+
             if (sfRef === null || funcRef === null)
                 return
 
@@ -293,12 +350,19 @@ Item
             if (previewData === null || previewData === undefined)
                 return
 
+            /* paint in the item's own coordinates: the Canvas covers only the
+               visible slice of the item (see above), so shift it into place */
+            context.save()
+            context.translate(-prCanvas.x, 0)
+
+            var visLeft = prCanvas.x
+            var visRight = prCanvas.x + prCanvas.width
+
             context.strokeStyle = "#ddd"
             context.fillStyle = "transparent"
             context.lineWidth = 1
 
             context.beginPath()
-            context.clearRect(0, 0, width, height)
 
             //console.log("About to paint " + previewData.length + " values")
 
@@ -317,8 +381,15 @@ Item
                         var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
-                            lastTime += previewData[1]
+                            lastTime += previewData[i + 1]
                             xPos = timeValueToPixels(lastTime)
+                            /* the number of repeats is a ratio of times, so it
+                               is not bounded by the item's width on screen:
+                               stop as soon as the lines leave the painted area */
+                            if (xPos > visRight)
+                                break
+                            if (xPos < visLeft)
+                                continue
                             context.moveTo(xPos, 0)
                             context.lineTo(xPos, itemRoot.height)
                         }
@@ -347,6 +418,7 @@ Item
 
             }
             context.stroke()
+            context.restore()
         }
     }
 
@@ -505,6 +577,10 @@ Item
                     newTime = itemIsBeats
                             ? TimeUtils.posToBeat(dropX, tickSize, beatsDivision)
                             : TimeUtils.posToBeatMs(dropX, tickSize, ioManager.bpmNumber, beatsDivision)
+
+                // round to the nearest unit: truncating a snapped position that is
+                // a hair below the edge would make the item overlap its neighbour
+                newTime = Math.round(newTime)
 
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 if (newTime < 0)
@@ -720,6 +796,9 @@ Item
                         }
                     }
 
+                    newStartTime = Math.round(newStartTime)
+                    newDuration = Math.round(newDuration)
+
                     if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
                         showManager.setShowItemDuration(sfRef, newDuration)
                     else
@@ -839,6 +918,8 @@ Item
                                 ? (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
                                 : TimeUtils.posToBeatMs(itemRoot.width, tickSize, ioManager.bpmNumber, beatsDivision)
                     }
+
+                    newDuration = Math.round(newDuration)
 
                     if (showManager.setShowItemDuration(sfRef, newDuration) === false)
                         updateGeometry()

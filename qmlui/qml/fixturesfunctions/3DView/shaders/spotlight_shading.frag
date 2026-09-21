@@ -49,6 +49,44 @@ uniform sampler2D shadowTex;
 
 uniform float headLength;
 
+// Global gain on fixture light landing on surfaces, from the 3D view
+// Rendering settings. The volumetric beams have their own scaling in
+// spotlight_scattering.frag, through the smoke amount.
+uniform float fixtureLightIntensity;
+
+// Distance, in world units, at which fixture light lands unscaled: the mean
+// height of the rig above the floor, derived from the project. Light that has
+// travelled further is dimmed by the square of the ratio and light that has
+// travelled less is brightened, as illuminance does in the room. Normalising on
+// the rig's own scale keeps the frame's overall exposure where it was, so this
+// term changes the balance between near and far throws without acting as a
+// second global gain on top of fixtureLightIntensity. 0 disables it, which is
+// how this pass has always rendered: a beam lands the same brightness however
+// far it has travelled.
+uniform float referenceThrow;
+// Softness of the beam's outer edge, as a fraction of the cone radius at the
+// point being sampled. A stage fixture publishes its beam angle as the full
+// width at 50% of peak intensity and its field angle as the width at 10%, so
+// the declared aperture is where the light is half out, not where it stops.
+// Rendering the cone as a top hat therefore gives every fixture a hard rim it
+// does not have; wash devices, whose whole purpose is an edgeless pool, suffer
+// most. Fixture types that draw the cone at the field angle set this so that
+// the 50% point lands back on the declared beam angle, and fixtures with a
+// focus channel sharpen it as they are focused. 0 leaves the beam hard edged
+uniform float beamEdgeSoftness;
+
+// Fade the beam towards its rim. 'offset' is the point's offset from the beam
+// axis in light space and 'radius' the radius of the cone there, so their
+// ratio is 1.0 exactly on the rim
+float beamPenumbra(vec2 offset, float radius)
+{
+    if (beamEdgeSoftness <= 0.0)
+        return 1.0;
+
+    float soft = min(beamEdgeSoftness, 1.0);
+    return 1.0 - smoothstep(1.0 - soft, 1.0, length(offset) / radius);
+}
+
 void main()
 {
 
@@ -76,10 +114,21 @@ void main()
     float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(q.z) - 0.5 * headLength) / coneDistCutoff);
     vec2 tc = (mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * ((-q.xy) * (1.0 / r))) * 0.5 + 0.5;
 
-    vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
-    float goboMask = gSample.a * gSample.r;
+    // Distance the light has travelled to reach this fragment, measured along
+    // the beam axis from the emitter, the same quantity the cone radius above
+    // is a function of. Floored so a surface up against the lens cannot divide
+    // the intensity to infinity.
+    float falloff = 1.0;
+    if (referenceThrow > 0.0)
+    {
+        float beamDist = max(abs(q.z) - 0.5 * headLength, 0.25);
+        falloff = (referenceThrow * referenceThrow) / (beamDist * beamDist);
+    }
 
-    vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
+    vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
+    float goboMask = gSample.a * gSample.r * beamPenumbra(q.xy, r);
+
+    vec3 finalColor = fixtureLightIntensity * falloff * shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
 
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
     //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);

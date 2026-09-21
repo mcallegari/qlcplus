@@ -49,6 +49,19 @@ Rectangle
     onVisibleWidthChanged:
     {
         console.log("Visible width changed to: " + visibleWidth)
+
+        /** The visible area can legitimately collapse to nothing while the
+          * layout settles - on startup, while the window is resized or moved
+          * to a screen with a different density, or when the UI scaling factor
+          * changes. Dividing by it would then make timeHeader.x NaN, and since
+          * that position is assigned here rather than bound, the NaN would
+          * stick: the onVisibleXChanged comparisons below are all false against
+          * NaN, so nothing would ever restore a valid position. The Canvas
+          * would keep feeding NaN coordinates to the scene graph on every
+          * repaint, which corrupts the rendering and can hang the GPU */
+        if (visibleWidth <= 0)
+            return
+
         timeHeader.x = ((visibleX / visibleWidth) * visibleWidth) - visibleWidth
         timeHeader.requestPaint()
     }
@@ -64,6 +77,11 @@ Rectangle
           * Here, it is necessary to monitor the Flickable scroll position to properly
           * shift and render the Canvas.
           */
+
+        // same reason as in onVisibleWidthChanged: never divide by a
+        // collapsed visible area, or the Canvas position becomes NaN
+        if (visibleWidth <= 0)
+            return
 
         if (visibleX < timeHeader.x + visibleWidth || visibleX > timeHeader.x + (visibleWidth * 2))
         {
@@ -132,8 +150,8 @@ Rectangle
     Canvas
     {
         id: timeHeader
-        x: -visibleWidth
-        width: visibleWidth * 3
+        x: -Math.max(0, visibleWidth)
+        width: Math.max(0, visibleWidth * 3)
         height: headerHeight
         antialiasing: true
         contextType: "2d"

@@ -29,11 +29,20 @@
 
 #define UISTYLEFILE "qlcplusUiStyle.json"
 
+/** Time to wait before writing the UI settings out, in milliseconds */
+#define UISTYLE_SAVE_DELAY 1000
+
 UiManager::UiManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_loading(false)
 {
+    /** Every change made in the UI settings page is stored automatically,
+     *  so the look of the application is preserved across restarts */
+    m_saveTimer.setSingleShot(true);
+    m_saveTimer.setInterval(UISTYLE_SAVE_DELAY);
+    connect(&m_saveTimer, &QTimer::timeout, this, [this]() { saveSettings(); });
 }
 
 UiManager::~UiManager()
@@ -87,13 +96,19 @@ void UiManager::initialize()
     setDefaultParameter("colors", "toolbarSelectionMain", m_uiStyle->property("toolbarSelectionMain"));
     setDefaultParameter("colors", "toolbarSelectionSub", m_uiStyle->property("toolbarSelectionSub"));
 
-    /** Then load (if available) the user configuration */
+    /** Then load (if available) the user configuration. Changes applied
+     *  from file must not schedule a save of what has just been read */
+    m_loading = true;
+
     QFile jsonFile(userConfFilepath());
     if (jsonFile.exists())
     {
         QJsonParseError parseError;
         if (jsonFile.open(QIODevice::ReadOnly) != true)
+        {
+            m_loading = false;
             return;
+        }
 
         QByteArray ba = jsonFile.readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(ba, &parseError);
@@ -117,6 +132,8 @@ void UiManager::initialize()
         }
         jsonFile.close();
     }
+
+    m_loading = false;
 }
 
 void UiManager::setDefaultParameter(QString category, QString name, QVariant value)
@@ -147,6 +164,23 @@ void UiManager::setModified(QString name, QVariant value)
     m_parameterMap.insert(name, prop);
     std::string str = name.toStdString();
     m_uiStyle->setProperty(str.c_str(), value);
+
+    scheduleSave();
+}
+
+void UiManager::scheduleSave()
+{
+    if (m_loading == false)
+        m_saveTimer.start();
+}
+
+void UiManager::flushSettings()
+{
+    if (m_saveTimer.isActive() == false)
+        return;
+
+    m_saveTimer.stop();
+    saveSettings();
 }
 
 QString UiManager::userConfFilepath() const
@@ -170,6 +204,13 @@ bool UiManager::saveSettings() const
         QString paramName = it.key();
         UiProperty prop = it.value();
 
+        /** Skip the parameters left untouched, so that a future change of
+         *  the QLC+ default style still reaches the users who customized
+         *  something else */
+        if (QJsonValue::fromVariant(prop.m_modified) ==
+            QJsonValue::fromVariant(prop.m_default))
+            continue;
+
         if (objMap.contains(prop.m_category) == false)
             objMap.insert(prop.m_category, new QJsonObject());
 
@@ -184,6 +225,8 @@ bool UiManager::saveSettings() const
         cIt.next();
         objRoot[cIt.key()] = *cIt.value();
     }
+
+    qDeleteAll(objMap);
 
     /** Finally, store on file */
     QByteArray ba = QJsonDocument(objRoot).toJson();
