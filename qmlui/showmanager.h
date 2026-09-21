@@ -79,6 +79,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool groupDragActive READ groupDragActive WRITE setGroupDragActive NOTIFY groupDragActiveChanged)
     Q_PROPERTY(QPointF groupDragOffset READ groupDragOffset WRITE setGroupDragOffset NOTIFY groupDragOffsetChanged)
+    Q_PROPERTY(bool boxSelectMode READ boxSelectMode WRITE setBoxSelectMode NOTIFY boxSelectModeChanged)
 
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -373,6 +374,11 @@ public:
     bool multipleSelection() const;
     void setMultipleSelection(bool multipleSelection);
 
+    /** Get/Set the box selection mode for Show items. When enabled, dragging
+     *  on the timeline draws a box selecting the items it wholly contains */
+    bool boxSelectMode() const;
+    void setBoxSelectMode(bool enable);
+
     /** Add an item to the selection tracking list */
     Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected, int keyModifiers);
 
@@ -383,6 +389,10 @@ public:
      *  Track of the last selected item when no Track is selected.
      *  Returns false if there is no Track to select the items from */
     Q_INVOKABLE bool selectAllTrackItems();
+    /** Select the Show items lying entirely within $rect, expressed in the
+     *  coordinates of the items' parent. If $addToSelection is false,
+     *  the current selection is replaced, otherwise it is extended */
+    Q_INVOKABLE void selectItemsInRect(QRectF rect, bool addToSelection);
 
     Q_INVOKABLE QVariantList selectedItemRefs() const;
 
@@ -460,6 +470,7 @@ signals:
     void multipleSelectionChanged();
     void groupDragActiveChanged();
     void groupDragOffsetChanged();
+    void boxSelectModeChanged();
 
     /** Notify the UI that the Function with the given $fid has been modified,
      *  so Show Items referencing it can repaint their preview lines */
@@ -481,6 +492,9 @@ private:
     /** State of a multiple selection being dragged */
     bool m_groupDragActive;
     QPointF m_groupDragOffset;
+
+    /** Flag to enable box selection of Show items */
+    bool m_boxSelectMode;
 
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;

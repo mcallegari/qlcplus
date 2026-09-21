@@ -440,6 +440,9 @@ Item
     {
         id: sfMouseArea
         anchors.fill: parent
+        // in box selection mode, presses fall through to the timeline
+        // so that a selection box can be started on top of an item
+        enabled: !showManager.boxSelectMode
         hoverEnabled: true
         preventStealing: true
 
@@ -856,6 +859,7 @@ Item
         {
             id: horLeftHdlMa
             anchors.fill: parent
+            enabled: !showManager.boxSelectMode
             preventStealing: true
             hoverEnabled: true
             cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
@@ -1006,6 +1010,7 @@ Item
         {
             id: horRightHdlMa
             anchors.fill: parent
+            enabled: !showManager.boxSelectMode
             preventStealing: true
             hoverEnabled: true
             cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor

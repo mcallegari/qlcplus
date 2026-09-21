@@ -455,6 +455,23 @@ SidePanel
 
             IconButton
             {
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_object_group
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Box select items (or hold Ctrl while dragging on the timeline)")
+                visible: inShowManager
+                checkable: true
+                checked: showManager ? showManager.boxSelectMode : false
+                onToggled:
+                {
+                    if (showManager)
+                        showManager.boxSelectMode = checked
+                }
+            }
+
+            IconButton
+            {
                 z: 2
                 width: iconSize
                 height: iconSize
