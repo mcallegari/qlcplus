@@ -244,7 +244,7 @@ void ShowManager::setSnapGuideX(double snapGuideX)
     emit snapGuideXChanged();
 }
 
-QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
+QVariantList ShowManager::getSnapEdges(quint32 excludeItemId,
                                        double viewportLeft, double viewportRight) const
 {
     QVariantList edges;
@@ -259,7 +259,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
     {
         for (ShowFunction *sf : track->showFunctions())
         {
-            if (sf->functionID() == excludeFuncId)
+            if (sf->id() == excludeItemId)
                 continue;
 
             // an item's times are in its Function's own unit (ms or beats as ms),

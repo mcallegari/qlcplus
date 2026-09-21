@@ -365,8 +365,8 @@ public:
     Q_INVOKABLE bool cutTimeAtCursor(int length, int cursorTime);
 
     /** Returns pixel X positions of all item edges (start + end) across all tracks,
-     *  excluding the item with the given function ID */
-    Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeFuncId,
+     *  excluding the Show item with the given ID */
+    Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeItemId,
                                           double viewportLeft = -1, double viewportRight = -1) const;
 
     /** Returns the number of the currently selected Show items */
