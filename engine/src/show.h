@@ -25,6 +25,7 @@
 #include <QSet>
 
 #include "function.h"
+#include "tempomap.h"
 #include "track.h"
 
 class QXmlStreamReader;
@@ -92,6 +93,38 @@ public:
 private:
     TimeDivision m_timeDivisionType;
     int m_timeDivisionBPM;
+
+    /*********************************************************************
+     * Tempo map
+     *********************************************************************/
+public:
+    /** Get the tempo sections of this Show */
+    const TempoMap &tempoMap() const;
+
+    /**
+     * Replace the tempo sections of this Show.
+     *
+     * The items of a Show with tempo sections are all positioned in
+     * milliseconds, while without sections the items of Beats tempo
+     * Functions are positioned in beats. So when a Time based Show gets its
+     * first section, or loses its last one, the items of its Beats tempo
+     * Functions are converted using the current BPM, which leaves them
+     * where they were on the timeline.
+     */
+    void setTempoMap(const TempoMap &tempoMap);
+
+    /** Returns true if the tempo map drives this Show: it has sections
+     *  and its timeline is Time based */
+    bool isTempoMapActive() const;
+
+private:
+    void convertBeatItems(bool toTime);
+
+signals:
+    void tempoMapChanged();
+
+private:
+    TempoMap m_tempoMap;
 
     /*********************************************************************
      * Tracks

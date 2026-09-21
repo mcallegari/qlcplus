@@ -38,6 +38,7 @@
 #include "audio.h"
 #include "video.h"
 #include "scene.h"
+#include "tempomap.h"
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
@@ -572,6 +573,11 @@ uint Function::beatsToTime(uint beats, int beatDuration)
     return ((float)beats / 1000.0) * beatDuration;
 }
 
+QSharedPointer<const TempoMapClock> Function::tempoMapClock() const
+{
+    return m_tempoMapClock;
+}
+
 Function::TempoType Function::overrideTempoType() const
 {
     return m_overrideTempoType;
@@ -1064,6 +1070,7 @@ void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
 
     m_paused = false;
     m_running = false;
+    m_tempoMapClock.clear();
     emit stopped(m_id);
 }
 
@@ -1139,7 +1146,8 @@ void Function::roundElapsed(quint32 roundTime)
  *****************************************************************************/
 
 void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime,
-                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType)
+                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType,
+                     const TempoMapClock *tempoClock)
 {
     qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
 
@@ -1168,6 +1176,10 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
     m_overrideTempoType = overrideTempoType == Original ? tempoType() : overrideTempoType;
+    if (tempoClock != NULL)
+        m_tempoMapClock = QSharedPointer<const TempoMapClock>(new TempoMapClock(*tempoClock));
+    else
+        m_tempoMapClock.clear();
 
     m_stop = false;
     timer->startFunction(this);

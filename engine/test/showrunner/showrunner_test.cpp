@@ -23,6 +23,8 @@
 #undef private
 #include "show.h"
 #include "track.h"
+#include "tempomap.h"
+#include "chaser.h"
 #include "scene.h"
 #include "doc.h"
 #include "showrunner_test.h"
@@ -70,6 +72,57 @@ void ShowRunner_Test::stopRunner()
     runner.stop();
     QCOMPARE(runner.m_elapsedTime, quint32(0));
     QCOMPARE(runner.m_runningQueue.count(), 0);
+}
+void ShowRunner_Test::tempoMapRunner()
+{
+    Show *show = new Show(m_doc);
+    m_doc->addFunction(show);
+
+    Chaser *chaser = new Chaser(m_doc);
+    chaser->setTempoType(Function::Beats);
+    m_doc->addFunction(chaser);
+
+    Track *track = new Track(Function::invalidId(), show);
+    show->addTrack(track);
+
+    TempoMap map;
+    map.addSection(TempoSection(0, 60000, 127.5, 4, "Song"));
+    show->setTempoMap(map);
+
+    // with a tempo map, a Beats tempo item is positioned in ms
+    ShowFunction *sf = track->createShowFunction(chaser->id());
+    sf->setStartTime(1000);
+    sf->setDuration(3000);
+
+    ShowRunner runner(m_doc, show->id());
+    QCOMPARE(runner.m_tempoMapActive, true);
+    QCOMPARE(runner.m_timeFunctions.count(), 1);
+    QCOMPARE(runner.m_beatFunctions.count(), 0);
+    QCOMPARE(runner.m_totalRunTime, quint32(4000));
+
+    // the Chaser is started at 1000 ms with the tempo map, from the item start
+    int i = 0;
+    for (; i < 100 && runner.m_runningQueue.isEmpty(); i++)
+        runner.write(m_doc->masterTimer());
+    QCOMPARE(runner.m_elapsedTime, quint32(1020));
+    QVERIFY(chaser->tempoMapClock().isNull() == false);
+    QCOMPARE(chaser->tempoMapClock()->origin, quint32(1000));
+    QCOMPARE(chaser->tempoMapClock()->map.count(), 1);
+
+    // and stopped at 4000 ms, not after 4000 beats, which also ends the Show
+    for (; i < 300 && runner.m_runningQueue.isEmpty() == false; i++)
+        runner.write(m_doc->masterTimer());
+    QCOMPARE(runner.m_elapsedTime, quint32(4000));
+
+    // started in the middle of the item: the Chaser gets the same origin
+    // and the offset into the item
+    chaser->stop(FunctionParent::master());
+    ShowRunner midRunner(m_doc, show->id(), 2500);
+    midRunner.write(m_doc->masterTimer());
+    QCOMPARE(midRunner.m_runningQueue.count(), 1);
+    QCOMPARE(chaser->tempoMapClock()->origin, quint32(1000));
+    QCOMPARE(chaser->elapsed(), quint32(1500));
+    midRunner.stop();
 }
 
 QTEST_APPLESS_MAIN(ShowRunner_Test)

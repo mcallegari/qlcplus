@@ -37,6 +37,7 @@ private slots:
     void initRunner();
     void intensity();
     void stopRunner();
+    void tempoMapRunner();
 
 private:
     Doc *m_doc;
