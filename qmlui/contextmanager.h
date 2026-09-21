@@ -31,6 +31,7 @@ class Doc;
 class MainView2D;
 class MainView3D;
 class MainViewDMX;
+class ShowManager;
 class FixtureManager;
 class FunctionManager;
 class GenericDMXSource;
@@ -153,9 +154,13 @@ public slots:
     void handleKeyRelease(QKeyEvent *e);
 
 private:
-    /** Handle a key press that controls the Show Manager playback.
+    /** Handle a key press that controls the Show Manager playback or clipboard.
      *  Returns true if the key was consumed */
     bool handleShowManagerKeyPress(QKeyEvent *e);
+
+    /** Handle the Ctrl+X/C/V clipboard keys on the Show Manager timeline.
+     *  Returns true if the key was consumed */
+    bool handleShowManagerClipboardKey(ShowManager *showMgr, QQuickView *view, int key);
 
     /** Reference to the QML view root */
     QQuickView *m_view;

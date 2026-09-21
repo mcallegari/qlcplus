@@ -46,7 +46,34 @@ Rectangle
     property int selectedTrackIndex: -1
 
     onShowIDChanged: renderAndCenter()
-    Component.onCompleted: renderAndCenter()
+    Component.onCompleted:
+    {
+        renderAndCenter()
+        syncSelectedTrackIndex()
+    }
+
+    // the Track selection also changes without a click on a Track (e.g. when
+    // selecting items or deleting the selected Track), and it outlives this
+    // view when switching to another context and back
+    function syncSelectedTrackIndex()
+    {
+        var tracks = showManager.tracks
+        selectedTrackIndex = -1
+        for (var i = 0; tracks && i < tracks.length; i++)
+        {
+            if (tracks[i].id === showManager.selectedTrackId)
+            {
+                selectedTrackIndex = i
+                break
+            }
+        }
+    }
+
+    Connections
+    {
+        target: showManager
+        function onSelectedTrackIdChanged() { syncSelectedTrackIndex() }
+    }
 
     function centerView()
     {
@@ -232,12 +259,24 @@ Rectangle
 
             IconButton
             {
+                id: cutBtn
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_scissors
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Cut the selected items, to move them on paste (Ctrl+X)")
+                counter: showManager.selectedItemsCount
+                onClicked: showManager.cutToClipboard()
+            }
+
+            IconButton
+            {
                 id: copyBtn
                 width: parent.height - 6
                 height: width
                 faSource: FontAwesome.fa_copy
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Copy the selected items in the clipboard")
+                tooltip: qsTr("Copy the selected items in the clipboard (Ctrl+C)")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.copyToClipboard()
             }
@@ -249,20 +288,25 @@ Rectangle
                 height: width
                 faSource: FontAwesome.fa_paste
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Paste items in the clipboard at cursor position")
+                tooltip: qsTr("Paste items in the clipboard at cursor position (Ctrl+V)")
                 counter: showManager.clipboardItemsCount
-                onClicked:
-                {
-                    if (showManager.pasteFromClipboard() === false)
-                        pasteErrorPopup.open()
-                }
+                onClicked: showManager.pasteFromClipboard()
 
                 CustomPopupDialog
                 {
-                    id: pasteErrorPopup
-                    title: qsTr("Paste error")
+                    id: clipboardErrorPopup
                     standardButtons: Dialog.Ok
-                    message: qsTr("It is not possible to paste the items on the selected track at the current cursor position")
+                }
+
+                Connections
+                {
+                    target: showManager
+                    function onClipboardActionFailed(title, message)
+                    {
+                        clipboardErrorPopup.title = title
+                        clipboardErrorPopup.message = message
+                        clipboardErrorPopup.open()
+                    }
                 }
             }
 
@@ -578,6 +622,7 @@ Rectangle
                             isSelected: showMgrContainer.selectedTrackIndex === index ? true : false
 
                             onTrackSelected: showMgrContainer.selectedTrackIndex = index
+                            onTrackDeselected: showMgrContainer.selectedTrackIndex = -1
                         }
                 }
             }
