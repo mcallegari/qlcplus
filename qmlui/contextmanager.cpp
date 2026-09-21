@@ -542,7 +542,20 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
                 // clicked widget. Otherwise, let it go through so text
                 // fields can handle their own "select all" shortcut.
                 if (m_lastClickedType == App::FixtureDragItem)
+                {
                     toggleFixturesSelection();
+                }
+                else if (m_lastClickedType == App::ShowDragItem ||
+                         m_lastClickedType == App::TrackDragItem)
+                {
+                    // the Show Manager timeline was the last clicked widget:
+                    // select all the items of the selected Track
+                    ShowManager *showMgr = qobject_cast<ShowManager *>(contextByName("SHOWMGR"));
+                    // consume it, so that it doesn't also select the text of
+                    // the Track name field holding the focus
+                    if (showMgr != nullptr && showMgr->selectAllTrackItems())
+                        e->accept();
+                }
             break;
             case Qt::Key_Tab:
                 selectNextFixtureGroup();

@@ -47,6 +47,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_selectedTrackId(-1)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
+    , m_groupDragActive(false)
 {
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
@@ -818,11 +819,124 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
 
         Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetTrack, sf->id(),
                                           originalTrackIdx, newTrackIdx);
+
+        // keep the selection in sync, as deleting items relies on it
+        for (SelectedShowItem &ssi : m_selectedItems)
+        {
+            if (ssi.m_showFunc == sf)
+                ssi.m_trackIndex = newTrackIdx;
+        }
     }
 
     m_doc->setModified();
 
     return true;
+}
+
+bool ShowManager::moveShowItems(QVariantList items, QVariantList trackIndexes, QVariantList startTimes)
+{
+    if (m_currentShow == nullptr)
+        return false;
+
+    if (items.count() != trackIndexes.count() || items.count() != startTimes.count())
+        return false;
+
+    struct ItemMove
+    {
+        QQuickItem *item;
+        ShowFunction *sf;
+        Track *srcTrack;
+        int srcTrackIdx;
+        int dstTrackIdx;
+        quint32 startTime;
+    };
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    QList<ItemMove> moves;
+    QList<ShowFunction *> movingFuncs;
+
+    for (int i = 0; i < items.count(); i++)
+    {
+        ItemMove move;
+        move.item = items.at(i).value<QQuickItem *>();
+        if (move.item == nullptr)
+            return false;
+
+        move.sf = move.item->property("sfRef").value<ShowFunction *>();
+        move.srcTrack = move.sf ? m_currentShow->getTrackFromShowFunctionID(move.sf->id()) : nullptr;
+        if (move.srcTrack == nullptr)
+            return false;
+
+        move.srcTrackIdx = tracks.indexOf(move.srcTrack);
+        move.dstTrackIdx = trackIndexes.at(i).toInt();
+        if (move.dstTrackIdx < 0 || move.dstTrackIdx >= tracks.count())
+            return false;
+
+        int startTime = startTimes.at(i).toInt();
+        move.startTime = startTime < 0 ? 0 : quint32(startTime);
+
+        moves.append(move);
+        movingFuncs.append(move.sf);
+    }
+
+    // check all the destinations before moving anything
+    for (int i = 0; i < moves.count(); i++)
+    {
+        const ItemMove &move = moves.at(i);
+
+        if (checkOverlapping(tracks.at(move.dstTrackIdx), movingFuncs, move.startTime, move.sf->duration()))
+            return false;
+
+        for (int j = i + 1; j < moves.count(); j++)
+        {
+            const ItemMove &other = moves.at(j);
+            if (other.dstTrackIdx != move.dstTrackIdx)
+                continue;
+
+            if (move.startTime < other.startTime + other.sf->duration() &&
+                other.startTime < move.startTime + move.sf->duration())
+                return false;
+        }
+    }
+
+    for (const ItemMove &move : moves)
+    {
+        if (move.sf->startTime() != move.startTime)
+        {
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, move.sf->id(),
+                                              move.sf->startTime(), move.startTime);
+            move.sf->setStartTime(move.startTime);
+        }
+
+        if (move.dstTrackIdx != move.srcTrackIdx)
+        {
+            move.srcTrack->removeShowFunction(move.sf, false);
+            tracks.at(move.dstTrackIdx)->addShowFunction(move.sf);
+
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetTrack, move.sf->id(),
+                                              move.srcTrackIdx, move.dstTrackIdx);
+
+            move.item->setProperty("trackIndex", move.dstTrackIdx);
+
+            for (SelectedShowItem &ssi : m_selectedItems)
+            {
+                if (ssi.m_showFunc == move.sf)
+                    ssi.m_trackIndex = move.dstTrackIdx;
+            }
+        }
+    }
+
+    m_doc->setModified();
+
+    return true;
+}
+
+int ShowManager::tracksCount() const
+{
+    if (m_currentShow == nullptr)
+        return 0;
+
+    return m_currentShow->tracks().count();
 }
 
 bool ShowManager::moveShowItemToTrack(ShowFunction *sf, int trackIdx)
@@ -1664,6 +1778,96 @@ void ShowManager::resetItemsSelection()
     emit selectedItemsCountChanged(m_selectedItems.count());
 }
 
+bool ShowManager::selectAllTrackItems()
+{
+    if (m_currentShow == nullptr)
+        return false;
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    int trackIdx = -1;
+
+    for (int i = 0; i < tracks.count(); i++)
+    {
+        if (int(tracks.at(i)->id()) == m_selectedTrackId)
+        {
+            trackIdx = i;
+            break;
+        }
+    }
+
+    // no Track selected: use the one of the last selected item
+    if (trackIdx < 0 && m_selectedItems.isEmpty() == false)
+        trackIdx = m_selectedItems.last().m_trackIndex;
+
+    if (trackIdx < 0 || trackIdx >= tracks.count())
+        return false;
+
+    foreach (SelectedShowItem ssi, m_selectedItems)
+    {
+        if (ssi.m_item != nullptr)
+            ssi.m_item->setProperty("isSelected", false);
+    }
+    m_selectedItems.clear();
+
+    foreach (ShowFunction *sf, tracks.at(trackIdx)->showFunctions())
+    {
+        QQuickItem *item = m_itemsMap.value(sf->id(), nullptr);
+        if (item == nullptr)
+            continue;
+
+        item->setProperty("isSelected", true);
+
+        SelectedShowItem selection;
+        selection.m_trackIndex = trackIdx;
+        selection.m_showFunc = sf;
+        selection.m_item = item;
+        m_selectedItems.append(selection);
+    }
+
+    emit selectedItemsCountChanged(m_selectedItems.count());
+
+    return true;
+}
+
+QVariantList ShowManager::selectedItemViews() const
+{
+    QVariantList list;
+    foreach (SelectedShowItem si, m_selectedItems)
+    {
+        if (si.m_item != nullptr)
+            list.append(QVariant::fromValue(si.m_item.data()));
+    }
+    return list;
+}
+
+bool ShowManager::groupDragActive() const
+{
+    return m_groupDragActive;
+}
+
+void ShowManager::setGroupDragActive(bool active)
+{
+    if (m_groupDragActive == active)
+        return;
+
+    m_groupDragActive = active;
+    emit groupDragActiveChanged();
+}
+
+QPointF ShowManager::groupDragOffset() const
+{
+    return m_groupDragOffset;
+}
+
+void ShowManager::setGroupDragOffset(QPointF offset)
+{
+    if (m_groupDragOffset == offset)
+        return;
+
+    m_groupDragOffset = offset;
+    emit groupDragOffsetChanged();
+}
+
 QVariantList ShowManager::selectedItemRefs() const
 {
     QVariantList list;
@@ -1761,6 +1965,34 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
             quint32 fst = sf->startTime();
             if ((startTime >= fst && startTime <= fst + sf->duration()) ||
                 (fst >= startTime && fst <= startTime + duration))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool ShowManager::checkOverlapping(Track *track, const QList<ShowFunction *> &exclude,
+                                   quint32 startTime, quint32 duration) const
+{
+    if (track == nullptr)
+        return false;
+
+    foreach (ShowFunction *sf, track->showFunctions())
+    {
+        if (exclude.contains(sf))
+            continue;
+
+        Function *func = m_doc->function(sf->functionID());
+        if (func != nullptr)
+        {
+            // items are half-open intervals [start, start + duration), so an
+            // item starting exactly where another one ends is not overlapping
+            quint32 fst = sf->startTime();
+            if (startTime == fst ||
+                (startTime < fst + sf->duration() && fst < startTime + duration))
             {
                 return true;
             }

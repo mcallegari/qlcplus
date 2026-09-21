@@ -71,6 +71,8 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
     Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
+    Q_PROPERTY(bool groupDragActive READ groupDragActive WRITE setGroupDragActive NOTIFY groupDragActiveChanged)
+    Q_PROPERTY(QPointF groupDragOffset READ groupDragOffset WRITE setGroupDragOffset NOTIFY groupDragOffsetChanged)
 
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -299,6 +301,20 @@ public:
     Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
                                       int newTrackIdx, int newStartTime);
 
+    /** Move several Show items at once, as when dragging a multiple selection.
+     *  $items are the QML Show items, $trackIndexes and $startTimes their
+     *  destination Track indices and start times, in the same order.
+     *  All the destinations are checked for overlapping first, against the
+     *  items that stay where they are and against each other, and nothing
+     *  is moved unless every item fits. Unlike checkAndMoveItem, no Track
+     *  is created: all the destination Tracks must already exist.
+     *  Returns true if the items have been moved */
+    Q_INVOKABLE bool moveShowItems(QVariantList items, QVariantList trackIndexes,
+                                   QVariantList startTimes);
+
+    /** Return the number of Tracks of the Show being edited */
+    Q_INVOKABLE int tracksCount() const;
+
     /** Move a ShowFunction item to the Track at $trackIdx.
      *  This is used to apply a track change coming from an undo/redo or
      *  from a connected network peer, where the UI didn't move the item */
@@ -343,7 +359,25 @@ public:
     /** Deselect all the selected items at once */
     Q_INVOKABLE void resetItemsSelection();
 
+    /** Select all the items of the currently selected Track, or of the
+     *  Track of the last selected item when no Track is selected.
+     *  Returns false if there is no Track to select the items from */
+    Q_INVOKABLE bool selectAllTrackItems();
+
     Q_INVOKABLE QVariantList selectedItemRefs() const;
+
+    /** Returns the QML items of the currently selected Show items */
+    Q_INVOKABLE QVariantList selectedItemViews() const;
+
+    /** Get/Set the flag telling the selected Show items to follow the
+     *  one being dragged, by the offset in groupDragOffset */
+    bool groupDragActive() const;
+    void setGroupDragActive(bool active);
+
+    /** Get/Set the offset, in pixels, of the Show item being dragged
+     *  from its original position */
+    QPointF groupDragOffset() const;
+    void setGroupDragOffset(QPointF offset);
     Q_INVOKABLE QStringList selectedItemNames() const;
 
     /** Returns true if at least one of the selected items is locked */
@@ -394,11 +428,17 @@ private:
     bool checkOverlapping(Track *track, ShowFunction *sourceFunc,
                           quint32 startTime, quint32 duration) const;
 
+    /** Same as above, but ignoring all the ShowFunctions in $exclude */
+    bool checkOverlapping(Track *track, const QList<ShowFunction *> &exclude,
+                          quint32 startTime, quint32 duration) const;
+
 signals:
     void itemsColorChanged(QColor itemsColor);
     void selectedItemsCountChanged(int count);
     void clipboardItemsCountChanged(int count);
     void multipleSelectionChanged();
+    void groupDragActiveChanged();
+    void groupDragOffsetChanged();
 
     /** Notify the UI that the Function with the given $fid has been modified,
      *  so Show Items referencing it can repaint their preview lines */
@@ -416,6 +456,10 @@ private:
 
     /** Flag to enable multi selection in Show items */
     bool m_multipleSelection;
+
+    /** State of a multiple selection being dragged */
+    bool m_groupDragActive;
+    QPointF m_groupDragOffset;
 
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;

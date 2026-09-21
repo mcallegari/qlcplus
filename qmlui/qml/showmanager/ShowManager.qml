@@ -603,6 +603,8 @@ Rectangle
                 {
                     showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()
+                    // the timeline now owns the keyboard shortcuts (e.g. Ctrl+A)
+                    showManager.itemClicked(App.ShowDragItem)
                 }
             }
 
