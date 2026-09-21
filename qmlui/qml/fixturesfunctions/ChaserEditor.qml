@@ -172,7 +172,20 @@ Rectangle
                     faColor: UISettings.fgMain
                     tooltip: qsTr("Duplicate the selected step(s)")
                     enabled: !chaserEditor.previewEnabled && chWidget.selector.itemsCount
-                    onClicked: chaserEditor.duplicateSteps(chWidget.selector.itemsList())
+                    onClicked:
+                    {
+                        var indices = chWidget.selector.itemsList()
+                        var firstNew = chWidget.model.rowCount()
+
+                        if (!chaserEditor.duplicateSteps(indices))
+                            return
+
+                        // the duplicated steps are appended, so select them in place of the originals
+                        chWidget.resetStepSelection()
+                        for (var i = 0; i < indices.length; i++)
+                            chWidget.selectStep(firstNew + i, Qt.ControlModifier)
+                        chWidget.scrollToItem(firstNew + indices.length - 1)
+                    }
                 }
 
                 IconButton

@@ -1002,7 +1002,10 @@ void FunctionManager::moveFunctions(QString newPath)
 
 void FunctionManager::cloneFunctions()
 {
-    for (QVariant &fidVar : m_selectedIDList)
+    QVariantList sourceIDs = m_selectedIDList;
+    QVariantList cloneIDs;
+
+    for (QVariant &fidVar : sourceIDs)
     {
         Function *func = m_doc->function(fidVar.toUInt());
         if (func == nullptr)
@@ -1018,6 +1021,8 @@ void FunctionManager::cloneFunctions()
                 delete copy;
                 continue;
             }
+
+            cloneIDs.append(QVariant(copy->id()));
 
             /* If the cloned Function is a Sequence,
              * clone the bound Scene too */
@@ -1035,6 +1040,39 @@ void FunctionManager::cloneFunctions()
             }
         }
     }
+
+    if (cloneIDs.isEmpty())
+        return;
+
+    /* Make the clones the new selection, moving any
+     * running preview from the originals to the clones */
+    for (QVariant &fidVar : m_selectedIDList)
+    {
+        Function *f = m_doc->function(fidVar.toUInt());
+        if (m_previewEnabled && f != nullptr)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionStop, f->id(), true, false);
+            f->stop(FunctionParent::master());
+        }
+    }
+
+    m_selectedIDList = cloneIDs;
+    m_selectedFolderList.clear();
+
+    for (QVariant &fidVar : m_selectedIDList)
+    {
+        Function *f = m_doc->function(fidVar.toUInt());
+        if (m_previewEnabled && f != nullptr)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionStart, f->id(), false, true);
+            f->start(m_doc->masterTimer(), FunctionParent::master());
+        }
+    }
+
+    updateFunctionsTree();
+
+    emit selectedFolderCountChanged(0);
+    emit selectedFunctionCountChanged(m_selectedIDList.count());
 }
 
 void FunctionManager::deleteEditorItems(QVariantList list)
@@ -1748,7 +1786,28 @@ void FunctionManager::addFunctionTreeItem(Function *func)
         QString fPath = func->path(true).replace("/", TreeModel::separator());
         TreeModelItem *item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         if (m_selectedIDList.contains(QVariant(func->id())))
-            item->setFlag(TreeModel::Selected, true);
+        {
+            /* For a Function in a folder, addItem returns the top level
+             * folder item, so look up the Function's own item instead */
+            if (fPath.isEmpty() == false)
+            {
+                TreeModelItem *folder = m_functionTree->itemAtPath(fPath);
+                item = nullptr;
+                if (folder != nullptr && folder->children() != nullptr)
+                {
+                    for (TreeModelItem *child : folder->children()->items())
+                    {
+                        if (child->data(0).value<Function *>() == func)
+                        {
+                            item = child;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (item != nullptr)
+                item->setFlag(TreeModel::Selected, true);
+        }
     }
 
     switch (func->type())
