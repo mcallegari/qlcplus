@@ -76,6 +76,7 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
     Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
+    Q_PROPERTY(QVariantList cutItemIds READ cutItemIds NOTIFY cutItemIdsChanged)
     Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool groupDragActive READ groupDragActive WRITE setGroupDragActive NOTIFY groupDragActiveChanged)
     Q_PROPERTY(QPointF groupDragOffset READ groupDragOffset WRITE setGroupDragOffset NOTIFY groupDragOffsetChanged)
@@ -256,6 +257,10 @@ signals:
     void selectedTrackIdChanged(int id);
 
 private:
+    /** Select the topmost Track holding a selected Show item, without
+     *  claiming the keyboard shortcuts for the Track like a click does */
+    void selectTrackOfSelectedItems();
+
     /** The index of the currently selected track */
     int m_selectedTrackId;
 
@@ -422,11 +427,27 @@ public:
      */
     Q_INVOKABLE QVariantList previewData(Function *f) const;
 
+    /** Copy the selected items in the clipboard. Nothing happens
+     *  when no item is selected */
     Q_INVOKABLE void copyToClipboard();
-    /** Paste the clipboard items on the selected track at the cursor
-     *  position. Returns false if no item could be pasted because of
-     *  overlapping with the existing items */
+
+    /** Mark the selected items as cut: they stay where they are, dimmed,
+     *  until they are moved by the next paste. Copying cancels the cut.
+     *  Returns false, and emits clipboardActionFailed, if the selection
+     *  contains locked items */
+    Q_INVOKABLE bool cutToClipboard();
+
+    /** Paste the clipboard items at the cursor position, the earliest one
+     *  starting at the cursor. Items keep their relative start times and
+     *  Track offsets, gap Tracks included. The topmost Track of the items
+     *  lands on the selected Track, or the items land on their own Tracks
+     *  when no Track is selected. Pasting cut items moves them.
+     *  Nothing is pasted unless every item fits: on failure false is
+     *  returned and clipboardActionFailed carries the reason */
     Q_INVOKABLE bool pasteFromClipboard();
+
+    /** Returns the ShowFunction IDs of the items pending a cut */
+    QVariantList cutItemIds() const;
 
 protected slots:
     void slotFunctionRemoved(quint32 id);
@@ -463,10 +484,22 @@ private:
     bool checkOverlapping(Track *track, const QList<ShowFunction *> &exclude,
                           quint32 startTime, quint32 duration) const;
 
+    /** Convert a time value between the unit of the Show timeline and
+     *  the unit of $func, which differ when one of them is beat-based */
+    quint32 showToFunctionTime(const Function *func, quint32 value) const;
+    quint32 functionToShowTime(const Function *func, quint32 value) const;
+
+    /** Drop the pending cut state, keeping the clipboard as a copy */
+    void clearCutState();
+
 signals:
     void itemsColorChanged(QColor itemsColor);
     void selectedItemsCountChanged(int count);
     void clipboardItemsCountChanged(int count);
+    void cutItemIdsChanged();
+
+    /** Notify the UI that a clipboard action could not be performed */
+    void clipboardActionFailed(QString title, QString message);
     void multipleSelectionChanged();
     void groupDragActiveChanged();
     void groupDragOffsetChanged();
@@ -498,6 +531,9 @@ private:
 
     /** Holds the item currently ready for pasting */
     QList<SelectedShowItem> m_clipboard;
+
+    /** True when the clipboard items are cut, and so pending a move */
+    bool m_clipboardIsCut;
 
     WaveformImageProvider *m_waveformProvider;
 

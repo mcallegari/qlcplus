@@ -63,6 +63,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_multipleSelection(false)
     , m_groupDragActive(false)
     , m_boxSelectMode(false)
+    , m_clipboardIsCut(false)
 {
     QSettings settings;
     QVariant snap = settings.value(SETTINGS_SNAP_TO_ITEMS);
@@ -521,6 +522,33 @@ void ShowManager::moveTrack(int index, int direction)
     emit tracksChanged();
 }
 
+void ShowManager::selectTrackOfSelectedItems()
+{
+    if (m_currentShow == nullptr || m_selectedItems.isEmpty())
+        return;
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    int topIdx = -1;
+
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_showFunc == nullptr)
+            continue;
+
+        int idx = tracks.indexOf(m_currentShow->getTrackFromShowFunctionID(ssi.m_showFunc->id()));
+        if (idx >= 0 && (topIdx < 0 || idx < topIdx))
+            topIdx = idx;
+    }
+
+    if (topIdx < 0 || int(tracks.at(topIdx)->id()) == m_selectedTrackId)
+        return;
+
+    // unlike setSelectedTrackId(), the items keep the keyboard shortcuts
+    // (e.g. Delete must remove the items, not the Track)
+    m_selectedTrackId = tracks.at(topIdx)->id();
+    emit selectedTrackIdChanged(m_selectedTrackId);
+}
+
 void ShowManager::deleteSelectedTrack()
 {
     if (m_currentShow == nullptr)
@@ -547,6 +575,11 @@ void ShowManager::deleteSelectedTrack()
 
     m_currentShow->removeTrack(selectedTrackId());
     m_doc->setModified();
+
+    // the deleted Track can't stay selected, or pasting would silently
+    // fall back to the items own Tracks while the UI shows no selection
+    m_selectedTrackId = -1;
+    emit selectedTrackIdChanged(m_selectedTrackId);
 
     QQuickItem *itemsArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
     renderView(itemsArea);
@@ -795,7 +828,10 @@ void ShowManager::deleteShowItems(QVariantList data)
     emit selectedItemsCountChanged(0);
 
     if (m_clipboard.count() != clipboardCount)
+    {
         emit clipboardItemsCountChanged(m_clipboard.count());
+        emit cutItemIdsChanged();
+    }
 }
 
 void ShowManager::refreshView()
@@ -831,7 +867,10 @@ void ShowManager::deleteShowItem(ShowFunction *sf)
             m_clipboard.removeAt(i);
     }
     if (m_clipboard.count() != clipboardCount)
+    {
         emit clipboardItemsCountChanged(m_clipboard.count());
+        emit cutItemIdsChanged();
+    }
 
     quint32 sfId = sf->id();
     QQuickItem *item = m_itemsMap.value(sfId, nullptr);
@@ -1603,6 +1642,7 @@ void ShowManager::resetContents()
     emit currentTimeChanged(m_currentTime);
 
     m_selectedTrackId = -1;
+    emit selectedTrackIdChanged(m_selectedTrackId);
     m_cursorMovedDuringPause = false;
 
     if (m_currentShow != nullptr)
@@ -1629,6 +1669,7 @@ void ShowManager::resetContents()
         m_clipboard.clear();
         emit clipboardItemsCountChanged(0);
     }
+    clearCutState();
 
     emit tracksChanged();
     emit isEditingChanged();
@@ -1874,7 +1915,10 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
         }
     }
     if (changed)
+    {
+        selectTrackOfSelectedItems();
         emit selectedItemsCountChanged(m_selectedItems.count());
+    }
     emit itemClicked(App::ShowDragItem);
 }
 
@@ -1935,6 +1979,7 @@ bool ShowManager::selectAllTrackItems()
         m_selectedItems.append(selection);
     }
 
+    selectTrackOfSelectedItems();
     emit selectedItemsCountChanged(m_selectedItems.count());
 
     return true;
@@ -2036,7 +2081,10 @@ void ShowManager::selectItemsInRect(QRectF rect, bool addToSelection)
     }
 
     if (addToSelection == false || m_selectedItems.count() != prevCount)
+    {
+        selectTrackOfSelectedItems();
         emit selectedItemsCountChanged(m_selectedItems.count());
+    }
     emit itemClicked(App::ShowDragItem);
 }
 
@@ -2254,12 +2302,97 @@ QVariantList ShowManager::previewData(Function *f) const
 
 void ShowManager::copyToClipboard()
 {
+    // copying nothing keeps what is already in the clipboard
+    if (m_selectedItems.isEmpty())
+        return;
+
     m_clipboard.clear();
 
     for (SelectedShowItem item : m_selectedItems)
         m_clipboard.append(item);
 
+    clearCutState();
     emit clipboardItemsCountChanged(m_clipboard.count());
+}
+
+bool ShowManager::cutToClipboard()
+{
+    if (m_selectedItems.isEmpty())
+        return false;
+
+    // pasting cut items moves them, which a lock forbids
+    if (selectedItemsLocked())
+    {
+        emit clipboardActionFailed(tr("Cut error"),
+                                   tr("Locked items cannot be cut. Unlock them first, or copy them instead."));
+        return false;
+    }
+
+    m_clipboard.clear();
+
+    for (SelectedShowItem item : m_selectedItems)
+        m_clipboard.append(item);
+
+    m_clipboardIsCut = true;
+    emit clipboardItemsCountChanged(m_clipboard.count());
+    emit cutItemIdsChanged();
+
+    return true;
+}
+
+QVariantList ShowManager::cutItemIds() const
+{
+    QVariantList list;
+
+    if (m_clipboardIsCut == false)
+        return list;
+
+    for (const SelectedShowItem &item : m_clipboard)
+    {
+        if (item.m_showFunc != nullptr)
+            list.append(item.m_showFunc->id());
+    }
+
+    return list;
+}
+
+void ShowManager::clearCutState()
+{
+    if (m_clipboardIsCut == false)
+        return;
+
+    m_clipboardIsCut = false;
+    emit cutItemIdsChanged();
+}
+
+quint32 ShowManager::showToFunctionTime(const Function *func, quint32 value) const
+{
+    bool showIsBeats = timeDivision() != Show::Time;
+    bool funcIsBeats = func->tempoType() == Function::Beats;
+
+    if (showIsBeats == funcIsBeats)
+        return value;
+
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+    return funcIsBeats ? Function::timeToBeats(value, beatDuration)
+                       : Function::beatsToTime(value, beatDuration);
+}
+
+quint32 ShowManager::functionToShowTime(const Function *func, quint32 value) const
+{
+    bool showIsBeats = timeDivision() != Show::Time;
+    bool funcIsBeats = func->tempoType() == Function::Beats;
+
+    if (showIsBeats == funcIsBeats)
+        return value;
+
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+    return showIsBeats ? Function::timeToBeats(value, beatDuration)
+                       : Function::beatsToTime(value, beatDuration);
 }
 
 bool ShowManager::pasteFromClipboard()
@@ -2267,79 +2400,174 @@ bool ShowManager::pasteFromClipboard()
     if (m_currentShow == nullptr)
         return false;
 
+    struct PasteItem
+    {
+        ShowFunction *sf;
+        Function *func;
+        int srcTrackIdx;
+        int dstTrackIdx;
+        quint32 showTime;   // source start time, in the Show timeline unit
+        quint32 dstTime;    // destination start time, in the unit of func
+    };
+
+    QList<Track *> tracks = m_currentShow->tracks();
+    QList<PasteItem> pasteList;
+    QList<ShowFunction *> cutFuncs;
     quint32 lowerTime = UINT_MAX;
-    quint32 lowerTrack = UINT_MAX;
+    int topTrack = INT_MAX;
+    int bottomTrack = -1;
 
-    // pre-parse copied items to find the ones with the
-    // lowest start time and the topmost track
-    for (SelectedShowItem item : m_clipboard)
+    // pre-parse the clipboard items to find the one with the
+    // lowest start time, and the topmost and bottommost tracks
+    for (const SelectedShowItem &item : std::as_const(m_clipboard))
     {
         if (item.m_showFunc == nullptr)
             continue;
 
-        if (item.m_showFunc->startTime() < lowerTime)
-            lowerTime = item.m_showFunc->startTime();
-
-        if (item.m_trackIndex < lowerTrack)
-            lowerTrack = item.m_trackIndex;
-    }
-
-    QList<Track*> trackList = m_currentShow->tracks();
-
-    // paste on the currently selected track, if any. Items copied from
-    // multiple tracks keep their relative track offset, just like they
-    // keep their relative start time
-    int targetTrack = trackList.indexOf(m_currentShow->track(selectedTrackId()));
-    if (targetTrack < 0)
-        targetTrack = int(lowerTrack);
-
-    bool overlapping = false;
-    int pasted = 0;
-
-    // now add the ShowFunctions on the proper tracks
-    // while keeping the delta time of the original items
-    for (SelectedShowItem item : m_clipboard)
-    {
-        if (item.m_showFunc == nullptr)
+        PasteItem pi;
+        pi.sf = item.m_showFunc.data();
+        pi.func = m_doc->function(pi.sf->functionID());
+        if (pi.func == nullptr)
             continue;
 
-        int trackIdx = targetTrack + (int(item.m_trackIndex) - int(lowerTrack));
-
-        // don't paste outside the existing tracks
-        if (trackIdx < 0 || trackIdx >= trackList.count())
-            continue;
-
-        Track *track = trackList.at(trackIdx);
-
-        if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
+        // a Sequence can't be pasted without its bound Scene
+        if (pi.func->type() == Function::SequenceType)
         {
-            overlapping = true;
-            continue;
-        }
-
-        Function *func = m_doc->function(item.m_showFunc->functionID());
-        if (func == nullptr)
-            continue;
-
-        if (func->type() == Function::SequenceType)
-        {
-            Sequence *sequence = qobject_cast<Sequence*>(func);
-            Scene *scene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
-            if (scene == nullptr)
+            Sequence *sequence = qobject_cast<Sequence*>(pi.func);
+            if (m_doc->function(sequence->boundSceneID()) == nullptr)
                 continue;
-
-            sequence->setBoundSceneID(scene->id());
         }
 
-        addItems(contextItem(), trackIdx,
-                 m_currentTime + item.m_showFunc->startTime() - lowerTime,
-                 QVariantList() << func->id(), item.m_showFunc.data());
-        pasted++;
+        // the items may have been moved since they were copied,
+        // so use the Track they are on now
+        Track *srcTrack = m_currentShow->getTrackFromShowFunctionID(pi.sf->id());
+        pi.srcTrackIdx = srcTrack != nullptr ? tracks.indexOf(srcTrack) : int(item.m_trackIndex);
+        pi.dstTrackIdx = pi.srcTrackIdx;
+
+        // items can mix time and beat based Functions, so compare
+        // their start times on the Show timeline
+        pi.showTime = functionToShowTime(pi.func, pi.sf->startTime());
+        pi.dstTime = 0;
+
+        lowerTime = qMin(lowerTime, pi.showTime);
+        topTrack = qMin(topTrack, pi.srcTrackIdx);
+        bottomTrack = qMax(bottomTrack, pi.srcTrackIdx);
+
+        pasteList.append(pi);
+        if (m_clipboardIsCut)
+            cutFuncs.append(pi.sf);
     }
 
-    // signal a failure only if overlapping prevented
-    // every single item from being pasted
-    return pasted > 0 || overlapping == false;
+    if (pasteList.isEmpty())
+    {
+        emit clipboardActionFailed(tr("Paste error"), tr("There are no items to paste."));
+        return false;
+    }
+
+    // the topmost Track of the items lands on the selected Track, and the
+    // others follow below, gap Tracks included. With no Track selected,
+    // the items land on the Tracks they come from
+    int selectedIdx = tracks.indexOf(m_currentShow->track(m_selectedTrackId));
+    int trackOffset = selectedIdx >= 0 ? selectedIdx - topTrack : 0;
+
+    if (bottomTrack + trackOffset >= tracks.count())
+    {
+        emit clipboardActionFailed(tr("Paste error"),
+            tr("The items span %1 tracks, but only %2 tracks are available from the selected track downwards.")
+                .arg(bottomTrack - topTrack + 1).arg(tracks.count() - (topTrack + trackOffset)));
+        return false;
+    }
+
+    quint32 cursorTime = m_currentTime > 0 ? quint32(m_currentTime) : 0;
+
+    // check every destination before pasting anything
+    for (PasteItem &pi : pasteList)
+    {
+        if (m_clipboardIsCut && pi.sf->isLocked())
+        {
+            emit clipboardActionFailed(tr("Paste error"),
+                tr("\"%1\" has been locked since it was cut, so it cannot be moved.").arg(pi.func->name()));
+            return false;
+        }
+
+        pi.dstTrackIdx = pi.srcTrackIdx + trackOffset;
+        pi.dstTime = showToFunctionTime(pi.func, cursorTime + (pi.showTime - lowerTime));
+
+        // cut items leave their place, so they don't prevent pasting over it
+        Track *dstTrack = tracks.at(pi.dstTrackIdx);
+        if (checkOverlapping(dstTrack, cutFuncs, pi.dstTime, pi.sf->duration()))
+        {
+            emit clipboardActionFailed(tr("Paste error"),
+                tr("\"%1\" would overlap an existing item on track \"%2\".")
+                    .arg(pi.func->name(), dstTrack->name()));
+            return false;
+        }
+    }
+
+    QList<ShowFunction *> pastedFuncs;
+
+    if (m_clipboardIsCut)
+    {
+        QVariantList views, trackIndexes, startTimes;
+
+        for (const PasteItem &pi : std::as_const(pasteList))
+        {
+            views.append(QVariant::fromValue(m_itemsMap.value(pi.sf->id(), nullptr)));
+            trackIndexes.append(pi.dstTrackIdx);
+            startTimes.append(pi.dstTime);
+            pastedFuncs.append(pi.sf);
+        }
+
+        if (moveShowItems(views, trackIndexes, startTimes) == false)
+        {
+            emit clipboardActionFailed(tr("Paste error"), tr("The cut items could not be moved."));
+            return false;
+        }
+
+        // the moved items stay in the clipboard, now as a copy
+        clearCutState();
+    }
+    else
+    {
+        for (const PasteItem &pi : std::as_const(pasteList))
+        {
+            addItems(contextItem(), pi.dstTrackIdx, cursorTime + (pi.showTime - lowerTime),
+                     QVariantList() << pi.func->id(), pi.sf);
+
+            Track *dstTrack = tracks.at(pi.dstTrackIdx);
+            if (dstTrack->showFunctions().isEmpty() == false)
+                pastedFuncs.append(dstTrack->showFunctions().last());
+        }
+    }
+
+    // the pasted items replace the selection
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_item != nullptr)
+            ssi.m_item->setProperty("isSelected", false);
+    }
+    m_selectedItems.clear();
+
+    for (ShowFunction *sf : std::as_const(pastedFuncs))
+    {
+        QQuickItem *view = m_itemsMap.value(sf->id(), nullptr);
+        if (view == nullptr)
+            continue;
+
+        view->setProperty("isSelected", true);
+
+        SelectedShowItem selection;
+        selection.m_trackIndex = tracks.indexOf(m_currentShow->getTrackFromShowFunctionID(sf->id()));
+        selection.m_showFunc = sf;
+        selection.m_item = view;
+        m_selectedItems.append(selection);
+    }
+
+    selectTrackOfSelectedItems();
+    emit selectedItemsCountChanged(m_selectedItems.count());
+    emit showDurationChanged(m_currentShow->totalDuration());
+
+    return true;
 }
 
 /*********************************************************************

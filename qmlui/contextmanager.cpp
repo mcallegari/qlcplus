@@ -534,10 +534,11 @@ bool ContextManager::handleShowManagerKeyPress(QKeyEvent *e)
     PreviewContext *senderContext = qobject_cast<PreviewContext *>(sender());
     QString activeContext = senderContext != nullptr ? senderContext->name() : currentContext();
 
-    if (activeContext != "SHOWMGR" || e->modifiers() != Qt::NoModifier)
+    if (activeContext != "SHOWMGR")
         return false;
 
-    /* Holding a key down must not toggle the playback over and over */
+    /* Holding a key down must not toggle the playback over and over,
+     * nor paste the same items over and over */
     if (e->isAutoRepeat())
         return false;
 
@@ -555,6 +556,12 @@ bool ContextManager::handleShowManagerKeyPress(QKeyEvent *e)
             return false;
     }
 
+    if (e->modifiers() == Qt::ControlModifier)
+        return handleShowManagerClipboardKey(showMgr, view, e->key());
+
+    if (e->modifiers() != Qt::NoModifier)
+        return false;
+
     switch (e->key())
     {
         case Qt::Key_Space:
@@ -568,6 +575,41 @@ bool ContextManager::handleShowManagerKeyPress(QKeyEvent *e)
     }
 
     return false;
+}
+
+bool ContextManager::handleShowManagerClipboardKey(ShowManager *showMgr, QQuickView *view, int key)
+{
+    if (key != Qt::Key_X && key != Qt::Key_C && key != Qt::Key_V)
+        return false;
+
+    /* The timeline has no focus of its own: it owns the clipboard keys
+     * when it was the last clicked area, like it does for Ctrl+A */
+    if (m_lastClickedType != App::ShowDragItem && m_lastClickedType != App::TrackDragItem)
+        return false;
+
+    /* A text field being edited (e.g. a Track being renamed) keeps its
+     * own cut, copy and paste. Read-only fields, like the Track names
+     * that take the focus on click, do not count */
+    QQuickItem *focusItem = view->activeFocusItem();
+    if (focusItem != nullptr &&
+        (focusItem->inherits("QQuickTextInput") || focusItem->inherits("QQuickTextEdit")) &&
+        focusItem->property("readOnly").toBool() == false)
+        return false;
+
+    switch (key)
+    {
+        case Qt::Key_X:
+            showMgr->cutToClipboard();
+        break;
+        case Qt::Key_C:
+            showMgr->copyToClipboard();
+        break;
+        case Qt::Key_V:
+            showMgr->pasteFromClipboard();
+        break;
+    }
+
+    return true;
 }
 
 void ContextManager::handleKeyPress(QKeyEvent *e)
