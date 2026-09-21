@@ -41,6 +41,9 @@ Item
     property real tickSize: showManager.tickSize
     property int beatsDivision: showManager.beatsDivision
     property bool isSelected: false
+    // cut items are dimmed until they are moved by a paste
+    property bool isCutPending: sfRef ? showManager.cutItemIds.indexOf(sfRef.id) >= 0 : false
+    opacity: isCutPending ? 0.5 : 1.0
     property bool isDragging: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
