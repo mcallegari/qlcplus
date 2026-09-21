@@ -794,9 +794,9 @@ Item
                     newStartTime = Math.round(newStartTime)
                     newDuration = Math.round(newDuration)
 
-                    if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
-                        showManager.setShowItemDuration(sfRef, newDuration)
-                    else
+                    // the left edge moves the start and changes the duration while
+                    // the end stays put, so both must be checked together
+                    if (showManager.setShowItemStartTimeAndDuration(sfRef, newStartTime, newDuration) === false)
                         updateGeometry()
 
                     if (funcRef && showManager.stretchFunctions === true)

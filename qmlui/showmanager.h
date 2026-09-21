@@ -326,6 +326,10 @@ public:
     /** Set the duration of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemDuration(ShowFunction *sf, int duration);
 
+    /** Set both the start time and the duration of a ShowFunction item
+     *  (if not overlapping), checking the resulting span as a whole */
+    Q_INVOKABLE bool setShowItemStartTimeAndDuration(ShowFunction *sf, int startTime, int duration);
+
     /** Insert a time segment in a ShowFunction item, applying type-specific rules */
     Q_INVOKABLE bool insertShowItemTime(ShowFunction *sf, int length);
 

@@ -958,6 +958,27 @@ bool ShowManager::setShowItemDuration(ShowFunction *sf, int duration)
     return true;
 }
 
+bool ShowManager::setShowItemStartTimeAndDuration(ShowFunction *sf, int startTime, int duration)
+{
+    if (sf == nullptr)
+        return false;
+
+    Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+    if (track == nullptr)
+        return false;
+
+    bool overlapping = checkOverlapping(track, sf, startTime, duration);
+    if (overlapping)
+        return false;
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(), sf->startTime(), startTime);
+    sf->setStartTime(startTime);
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(), sf->duration(), duration);
+    sf->setDuration(duration);
+
+    return true;
+}
+
 int ShowManager::minimumTimelineDuration(Show::TimeDivision division) const
 {
     return division == Show::Time ? 1 : 125;
