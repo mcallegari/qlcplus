@@ -29,6 +29,7 @@
 #include "chaseraction.h"
 
 class QElapsedTimer;
+class TempoMapClock;
 class FadeChannel;
 class ChaserStep;
 class Function;
@@ -51,6 +52,7 @@ typedef struct
     uint m_fadeIn;                      //! Step fade in in ms
     uint m_fadeOut;                     //! Step fade out in ms
     uint m_duration;                    //! Step hold in ms
+    double m_endTime;                   //! Step end time on the tempo map clock, or -1
     Universe::BlendMode m_blendMode;    //! The original Function blend mode
     int m_intensityOverrideId;          //! An ID to control the step intensity
     int m_pIntensityOverrideId;         //! An ID to control the step parent intensity
@@ -86,6 +88,35 @@ private:
 
 private:
     bool m_updateOverrideSpeeds;
+
+    /************************************************************************
+     * Tempo map clock
+     ************************************************************************/
+private:
+    /** Returns true if the steps run on the beat grid of a Show tempo map
+     *  instead of the MasterTimer beats */
+    bool hasTempoMapClock() const;
+
+    /** Get the global BPM, used before the first tempo section */
+    double fallbackBpm() const;
+
+    /** Convert a fade speed in beats to ms, at the tempo of $time */
+    uint clockSpeedToTime(uint speed, double time) const;
+
+    /** Find the step running at the Show time m_clockTime, when the Chaser
+     *  has been started $startTime ms after its Show item start */
+    void seekClockStep(quint32 startTime);
+
+private:
+    /** A copy of the tempo map of the Show that started the Chaser */
+    QSharedPointer<const TempoMapClock> m_tempoMapClock;
+
+    /** The Show time of the current tick, in ms */
+    double m_clockTime;
+
+    /** The exact time the next step should start from, when it follows a
+     *  step that ended on its own. -1 means "now" (m_clockTime) */
+    double m_nextStepStart;
 
     /************************************************************************
      * Step control

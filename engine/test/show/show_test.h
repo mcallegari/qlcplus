@@ -38,6 +38,8 @@ private slots:
     void duration();
     void load();
     void save();
+    void tempoMap();
+    void tempoMapSaveLoad();
 
 private:
     Doc *m_doc;

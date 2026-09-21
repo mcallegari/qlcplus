@@ -30,6 +30,7 @@
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "chaserstep.h"
+#include "tempomap.h"
 #include "universe.h"
 #include "qlcfile.h"
 #include "fixture.h"
@@ -1416,6 +1417,156 @@ void ChaserRunner_Test::adjustMasterIntensityAcrossRunningCrossfadeSteps()
     QCOMPARE(universes[0]->postGMValue(0), uchar(0));
     QCOMPARE(universes[0]->postGMValue(1), uchar(0));
     m_doc->inputOutputMap()->releaseUniverses(false);
+}
+
+/* Set up m_chaser as a looping Beats tempo Chaser with steps of $beats
+   beats, started by a Show at $origin on $map */
+static void setupTempoMapChaser(Chaser *chaser, const TempoMap &map, quint32 origin, uint beats)
+{
+    chaser->setTempoType(Function::Beats);
+    chaser->setRunOrder(Function::Loop);
+    chaser->setDirection(Function::Forward);
+    chaser->setDurationMode(Chaser::Common);
+    chaser->setDuration(beats);
+    chaser->m_tempoMapClock = QSharedPointer<const TempoMapClock>(new TempoMapClock(map, origin));
+}
+
+void ChaserRunner_Test::tempoMapNoDrift()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 600000, 127.5));
+    setupTempoMapChaser(m_chaser, map, 0, 1000);
+    double beat = 60000.0 / 127.5;
+
+    ChaserRunner cr(m_doc, m_chaser);
+    MasterTimer timer(m_doc);
+    int lastStep = -1;
+    int changes = 0;
+
+    // about 3 minutes: every step change must land on the tick nearest to
+    // its beat, however far into the run it is
+    for (int i = 0; i < 9400; i++)
+    {
+        QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+        timer.timerTick();
+
+        if (cr.m_lastRunStepIdx != lastStep)
+        {
+            if (lastStep != -1)
+            {
+                changes++;
+                double expected = changes * beat;
+                QVERIFY2(qAbs(i * 20.0 - expected) <= 10.0,
+                         qPrintable(QString("change %1 at %2 ms, expected %3 ms")
+                                    .arg(changes).arg(i * 20).arg(expected)));
+            }
+            lastStep = cr.m_lastRunStepIdx;
+        }
+    }
+
+    QCOMPARE(changes, int((9400 * 20.0 - 10) / beat));
+}
+
+void ChaserRunner_Test::tempoMapOffGridStart()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 600000, 120));
+    // the item starts at 730 ms, at beat 1.46: the first step ends on beat 2
+    setupTempoMapChaser(m_chaser, map, 730, 1000);
+
+    ChaserRunner cr(m_doc, m_chaser);
+    MasterTimer timer(m_doc);
+
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr.m_lastRunStepIdx, 0);
+    QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 1000.0);
+
+    int i = 1;
+    for (; i < 100 && cr.m_lastRunStepIdx == 0; i++)
+        cr.write(&timer, QList<Universe*>());
+
+    // the write at 730 + 13 ticks = 990 ms is the one nearest to 1000 ms
+    QCOMPARE(i - 1, 13);
+    QCOMPARE(cr.m_lastRunStepIdx, 1);
+    QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 1500.0);
+}
+
+void ChaserRunner_Test::tempoMapSeek()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 600000, 120));
+    setupTempoMapChaser(m_chaser, map, 0, 1000);
+
+    // started 3250 ms into the item: 6.5 beats, so the 7th step (index 0 of
+    // the third round) is running, and it started at 3000 ms
+    ChaserRunner cr(m_doc, m_chaser, 3250);
+    MasterTimer timer(m_doc);
+
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserSetStepIndex);
+    QCOMPARE(cr.m_pendingAction.m_stepIndex, 0);
+
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr.m_lastRunStepIdx, 0);
+    QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 3500.0);
+
+    // started 1250 ms in: step 2, which started at 1000 ms
+    ChaserRunner cr2(m_doc, m_chaser, 1250);
+    QCOMPARE(cr2.m_pendingAction.m_stepIndex, 2);
+    QVERIFY(cr2.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr2.m_runnerSteps.first()->m_endTime, 1500.0);
+}
+
+void ChaserRunner_Test::tempoMapFades()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 10000, 60));
+    map.addSection(TempoSection(10000, 10000, 120));
+    setupTempoMapChaser(m_chaser, map, 0, 1000);
+    m_chaser->setFadeInMode(Chaser::Common);
+    m_chaser->setFadeInSpeed(500);
+    m_chaser->setFadeOutMode(Chaser::Common);
+    m_chaser->setFadeOutSpeed(1000);
+
+    // half a beat and a beat at 60 BPM
+    ChaserRunner cr(m_doc, m_chaser);
+    MasterTimer timer(m_doc);
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr.m_runnerSteps.first()->m_fadeIn, uint(500));
+    QCOMPARE(cr.m_runnerSteps.first()->m_fadeOut, uint(1000));
+
+    // and at 120 BPM
+    ChaserRunner cr2(m_doc, m_chaser, 10000);
+    QVERIFY(cr2.write(&timer, QList<Universe*>()) == true);
+    QCOMPARE(cr2.m_runnerSteps.first()->m_fadeIn, uint(250));
+    QCOMPARE(cr2.m_runnerSteps.first()->m_fadeOut, uint(500));
+}
+
+void ChaserRunner_Test::tempoMapNextStep()
+{
+    TempoMap map;
+    map.addSection(TempoSection(0, 600000, 120));
+    setupTempoMapChaser(m_chaser, map, 0, 2000);
+
+    ChaserRunner cr(m_doc, m_chaser);
+    MasterTimer timer(m_doc);
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+
+    // 10 ticks in (200 ms), a manual next step starts now and locks to the
+    // grid again: 2 beats from beat 0.4 end on beat 2
+    for (int i = 0; i < 9; i++)
+        cr.write(&timer, QList<Universe*>());
+
+    ChaserAction action;
+    action.m_action = ChaserNextStep;
+    action.m_masterIntensity = 1.0;
+    action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
+    action.m_stepIndex = -1;
+    cr.setAction(action);
+    QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
+
+    QCOMPARE(cr.m_lastRunStepIdx, 1);
+    QCOMPARE(cr.m_runnerSteps.first()->m_endTime, 1000.0);
 }
 
 QTEST_APPLESS_MAIN(ChaserRunner_Test)
