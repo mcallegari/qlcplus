@@ -44,7 +44,12 @@ CustomPopupDialog
         return folderBrowser.separator()
     }
 
-    onOpened: folderList.selectedIndex = -1
+    onOpened:
+    {
+        folderList.selectedIndex = -1
+        // list the files created since the last time the dialog was shown
+        folderBrowser.folderModelChanged()
+    }
 
     contentItem:
         GridLayout
