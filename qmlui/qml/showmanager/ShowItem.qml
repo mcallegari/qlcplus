@@ -63,8 +63,8 @@ Item
         // itemRoot.parent.parent is the Flickable (itemsArea)
         var flickable = itemRoot.parent ? itemRoot.parent.parent : null
         if (flickable && flickable.contentX !== undefined)
-            return showManager.getSnapEdges(sfRef.functionID, flickable.contentX, flickable.contentX + flickable.width)
-        return showManager.getSnapEdges(sfRef.functionID)
+            return showManager.getSnapEdges(sfRef.id, flickable.contentX, flickable.contentX + flickable.width)
+        return showManager.getSnapEdges(sfRef.id)
     }
 
     onStartTimeChanged: updateGeometry()
