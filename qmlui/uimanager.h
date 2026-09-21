@@ -21,6 +21,7 @@
 #define UIMANAGER_H
 
 #include <QQuickView>
+#include <QJsonObject>
 #include <QObject>
 #include <QTimer>
 
@@ -54,10 +55,32 @@ public:
     Q_INVOKABLE QVariant getModified(QString name) const;
     Q_INVOKABLE void setModified(QString name, QVariant value);
 
-    Q_INVOKABLE QString userConfFilepath() const;
-    Q_INVOKABLE bool saveSettings() const;
+    /** Return the folder holding the user UI settings, which is also
+     *  where UI profiles are proposed to be saved */
+    Q_INVOKABLE QString userConfFolder() const;
+    QString userConfFilepath() const;
+    bool saveSettings() const;
+
+    /** Save the current UI settings as a profile to $filePath.
+     *  A ".json" extension is appended when missing */
+    Q_INVOKABLE bool saveProfile(QString filePath) const;
+
+    /** Replace the current UI settings with the profile stored
+     *  in $filePath. Parameters not present in the profile are
+     *  reverted to their default value */
+    Q_INVOKABLE bool loadProfile(QString filePath);
 
 private:
+    /** Write the parameters that differ from their default to $filePath */
+    bool saveToFile(QString filePath) const;
+
+    /** Parse the JSON file at $filePath into $root.
+     *  Return false if the file cannot be read or parsed */
+    bool readFromFile(QString filePath, QJsonObject &root) const;
+
+    /** Apply the parameters found in $root. Unknown ones are ignored */
+    void applySettings(const QJsonObject &root);
+
     /** Schedule a deferred save of the UI settings. Changes come in bursts
      *  (dragging the scaling factor slider emits one per pixel), so the
      *  actual write is coalesced into a single one */
