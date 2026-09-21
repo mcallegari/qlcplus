@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlContext>
+#include <QSettings>
 #include <QtMath>
 #include <QVector>
 #include <algorithm>
@@ -35,6 +36,7 @@
 #include "doc.h"
 #include "app.h"
 
+#define SETTINGS_SNAP_TO_ITEMS QStringLiteral("showmanager/snaptoitems")
 #define KXMLQLCShowManagerCurrentShow QStringLiteral("CurrentShow")
 #define KXMLQLCShowManagerTimeScale   QStringLiteral("TimeScale")
 
@@ -52,6 +54,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentShow(nullptr)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
+    , m_snapToItems(true)
     , m_snapGuideX(-1.0)
     , m_timeScale(5.0)
     , m_currentTime(0)
@@ -59,6 +62,11 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
 {
+    QSettings settings;
+    QVariant snap = settings.value(SETTINGS_SNAP_TO_ITEMS);
+    if (snap.isValid())
+        m_snapToItems = snap.toBool();
+
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
     qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
@@ -199,6 +207,24 @@ void ShowManager::setGridEnabled(bool gridEnabled)
 
     m_gridEnabled = gridEnabled;
     emit gridEnabledChanged(m_gridEnabled);
+}
+
+bool ShowManager::snapToItems() const
+{
+    return m_snapToItems;
+}
+
+void ShowManager::setSnapToItems(bool snapToItems)
+{
+    if (m_snapToItems == snapToItems)
+        return;
+
+    m_snapToItems = snapToItems;
+
+    QSettings settings;
+    settings.setValue(SETTINGS_SNAP_TO_ITEMS, m_snapToItems);
+
+    emit snapToItemsChanged(m_snapToItems);
 }
 
 double ShowManager::snapGuideX() const

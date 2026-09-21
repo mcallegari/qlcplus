@@ -55,10 +55,36 @@ Item
     property real pressMouseX: 0
     property real pressMouseY: 0
     property bool dragActive: false
+    /* MouseArea emits clicked() right after released(), by which point
+       dragActive has already been cleared, so the end of a drag would
+       otherwise run the selection handler below - and with Ctrl held down to
+       suspend snapping that would toggle the item out of the selection */
+    property bool dragWasActive: false
     property bool itemSnapped: false
+
+    /* Snapping is suspended for the duration of a single gesture while the
+       Ctrl modifier is held down, which is what allows an item to be placed
+       freely right next to another one's edge or to a grid division without
+       having to turn snapping off in the toolbar. Both this and the toolbar
+       flag are read on every mouse move and on release, so pressing or
+       releasing Ctrl halfway through a drag takes effect immediately */
+    function snapSuspended(modifiers)
+    {
+        return (modifiers & Qt.ControlModifier) !== 0
+    }
+
+    function snappingActive(modifiers)
+    {
+        return showManager.snapToItems && !snapSuspended(modifiers)
+    }
 
     function getVisibleSnapEdges()
     {
+        // nothing to snap to when snapping is off, which spares us from
+        // walking all the Show tracks on every press
+        if (!showManager.snapToItems)
+            return []
+
         // itemRoot.parent is the Flickable's contentItem,
         // itemRoot.parent.parent is the Flickable (itemsArea)
         var flickable = itemRoot.parent ? itemRoot.parent.parent : null
@@ -447,6 +473,7 @@ Item
             pressMouseY = mouse.y
             isDragging = true
             dragActive = false
+            dragWasActive = false
             itemSnapped = false
             snapEdges = getVisibleSnapEdges()
         }
@@ -474,31 +501,32 @@ Item
 
             // snap-to-item: check start edge if clicked on first half,
             // end edge if clicked on second half
-            var checkStart = (pressMouseX < itemRoot.width / 2)
-            var edgePos = checkStart ? (itemRoot.x + dx) : (itemRoot.x + dx + itemRoot.width)
-            var bestDelta = snapThreshold + 1
-            var bestSnapX = -1
+            showManager.snapGuideX = -1
+            itemSnapped = false
 
-            for (var i = 0; i < snapEdges.length; i++)
+            if (snappingActive(mouse.modifiers))
             {
-                var d = snapEdges[i] - edgePos
-                if (Math.abs(d) < Math.abs(bestDelta))
+                var checkStart = (pressMouseX < itemRoot.width / 2)
+                var edgePos = checkStart ? (itemRoot.x + dx) : (itemRoot.x + dx + itemRoot.width)
+                var bestDelta = snapThreshold + 1
+                var bestSnapX = -1
+
+                for (var i = 0; i < snapEdges.length; i++)
                 {
-                    bestDelta = d
-                    bestSnapX = snapEdges[i]
+                    var d = snapEdges[i] - edgePos
+                    if (Math.abs(d) < Math.abs(bestDelta))
+                    {
+                        bestDelta = d
+                        bestSnapX = snapEdges[i]
+                    }
                 }
-            }
 
-            if (Math.abs(bestDelta) <= snapThreshold)
-            {
-                dx += bestDelta
-                showManager.snapGuideX = bestSnapX
-                itemSnapped = true
-            }
-            else
-            {
-                showManager.snapGuideX = -1
-                itemSnapped = false
+                if (Math.abs(bestDelta) <= snapThreshold)
+                {
+                    dx += bestDelta
+                    showManager.snapGuideX = bestSnapX
+                    itemSnapped = true
+                }
             }
 
             showItemBody.x = dx
@@ -531,7 +559,8 @@ Item
 
                 // grid snapping: snap to the nearest beat on a BPM ruler
                 // (skipped if already snapped to another item's edge)
-                if (showManager.gridEnabled && !itemSnapped && timeDivision !== Show.Time)
+                if (showManager.gridEnabled && !itemSnapped
+                        && !snapSuspended(mouse.modifiers) && timeDivision !== Show.Time)
                     dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
 
                 var newTime
@@ -570,6 +599,7 @@ Item
             showManager.enableFlicking(true)
             updateTooltipText()
             isDragging = false
+            dragWasActive = dragActive
             dragActive = false
             itemSnapped = false
             updateGeometry()
@@ -577,8 +607,11 @@ Item
 
         onClicked: (mouse) =>
         {
-            if (dragActive)
+            if (dragWasActive)
+            {
+                dragWasActive = false
                 return
+            }
             var multi = ((mouse.modifiers & Qt.ControlModifier) || (mouse.modifiers & Qt.ShiftModifier))
                     || (showManager && showManager.multipleSelection)
             if (multi)
@@ -672,27 +705,28 @@ Item
                 var newX = origItemX + dx
 
                 // snap-to-item: check left edge
-                var bestDist = snapThreshold + 1
-                var bestSnapX = -1
-                for (var i = 0; i < snapEdges.length; i++)
+                showManager.snapGuideX = -1
+                itemSnapped = false
+
+                if (snappingActive(mouse.modifiers))
                 {
-                    var dist = Math.abs(snapEdges[i] - newX)
-                    if (dist < bestDist)
+                    var bestDist = snapThreshold + 1
+                    var bestSnapX = -1
+                    for (var i = 0; i < snapEdges.length; i++)
                     {
-                        bestDist = dist
-                        bestSnapX = snapEdges[i]
+                        var dist = Math.abs(snapEdges[i] - newX)
+                        if (dist < bestDist)
+                        {
+                            bestDist = dist
+                            bestSnapX = snapEdges[i]
+                        }
                     }
-                }
-                if (bestSnapX >= 0 && bestDist <= snapThreshold)
-                {
-                    newX = bestSnapX
-                    showManager.snapGuideX = bestSnapX
-                    itemSnapped = true
-                }
-                else
-                {
-                    showManager.snapGuideX = -1
-                    itemSnapped = false
+                    if (bestSnapX >= 0 && bestDist <= snapThreshold)
+                    {
+                        newX = bestSnapX
+                        showManager.snapGuideX = bestSnapX
+                        itemSnapped = true
+                    }
                 }
 
                 // clamp: don't allow shrinking past minimum width
@@ -719,7 +753,8 @@ Item
                     }
 
                     // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled)
+                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled
+                            && !snapSuspended(mouse.modifiers))
                     {
                         var currX = itemRoot.x
                         itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
@@ -815,28 +850,29 @@ Item
                     var newWidth = obj.x + (horRightHdlMa.width - mouse.x)
 
                     // snap-to-item: check right edge
-                    var rightEdge = itemRoot.x + newWidth
-                    var bestDist = snapThreshold + 1
-                    var bestSnapX = -1
-                    for (var i = 0; i < snapEdges.length; i++)
+                    showManager.snapGuideX = -1
+                    itemSnapped = false
+
+                    if (snappingActive(mouse.modifiers))
                     {
-                        var dist = Math.abs(snapEdges[i] - rightEdge)
-                        if (dist < bestDist)
+                        var rightEdge = itemRoot.x + newWidth
+                        var bestDist = snapThreshold + 1
+                        var bestSnapX = -1
+                        for (var i = 0; i < snapEdges.length; i++)
                         {
-                            bestDist = dist
-                            bestSnapX = snapEdges[i]
+                            var dist = Math.abs(snapEdges[i] - rightEdge)
+                            if (dist < bestDist)
+                            {
+                                bestDist = dist
+                                bestSnapX = snapEdges[i]
+                            }
                         }
-                    }
-                    if (bestSnapX >= 0 && bestDist <= snapThreshold)
-                    {
-                        newWidth = bestSnapX - itemRoot.x
-                        showManager.snapGuideX = bestSnapX
-                        itemSnapped = true
-                    }
-                    else
-                    {
-                        showManager.snapGuideX = -1
-                        itemSnapped = false
+                        if (bestSnapX >= 0 && bestDist <= snapThreshold)
+                        {
+                            newWidth = bestSnapX - itemRoot.x
+                            showManager.snapGuideX = bestSnapX
+                            itemSnapped = true
+                        }
                     }
 
                     itemRoot.width = newWidth
@@ -845,7 +881,7 @@ Item
                     updateTooltipText()
                 }
             }
-            onReleased:
+            onReleased: (mouse) =>
             {
                 if (drag.active === false)
                     return
@@ -855,7 +891,8 @@ Item
                 if (sfRef)
                 {
                     // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && showManager.gridEnabled)
+                    if (!itemSnapped && showManager.gridEnabled
+                            && !snapSuspended(mouse.modifiers))
                     {
                         var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
                         itemRoot.width = snappedEndPos - itemRoot.x

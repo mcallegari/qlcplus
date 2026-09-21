@@ -60,6 +60,7 @@ class ShowManager final : public PreviewContext
 
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
+    Q_PROPERTY(bool snapToItems READ snapToItems WRITE setSnapToItems NOTIFY snapToItemsChanged)
     Q_PROPERTY(double snapGuideX READ snapGuideX WRITE setSnapGuideX NOTIFY snapGuideXChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(bool isPaused READ isPaused NOTIFY isPausedChanged)
@@ -122,6 +123,11 @@ public:
     bool gridEnabled() const;
     void setGridEnabled(bool gridEnabled);
 
+    /** Get/Set the snapping of Show items to the nearby items' edges.
+     *  Stored in the local computer settings, so it survives a restart */
+    bool snapToItems() const;
+    void setSnapToItems(bool snapToItems);
+
     /** Get/Set the X position of the snap guide line (-1 = hidden) */
     double snapGuideX() const;
     void setSnapGuideX(double snapGuideX);
@@ -144,6 +150,7 @@ signals:
     void showNameChanged(QString showName);
     void stretchFunctionsChanged(bool stretchFunction);
     void gridEnabledChanged(bool gridEnabled);
+    void snapToItemsChanged(bool snapToItems);
     void snapGuideXChanged();
     void isPlayingChanged(bool playing);
     void isPausedChanged(bool paused);
@@ -169,6 +176,10 @@ private:
     /** Flag that indicates if the Show items should be
      *  snapped to the closest grid divisor */
     bool m_gridEnabled;
+
+    /** Flag that indicates if the Show items should be
+     *  snapped to the edges of the nearby items */
+    bool m_snapToItems;
 
     /** X position of the snap guide line (-1 = hidden) */
     double m_snapGuideX;
