@@ -45,6 +45,11 @@ Rectangle
     property int showID: showManager.currentShowID
     property int selectedTrackIndex: -1
 
+    // the tempo sections lane, below the ruler of a Time based Show
+    property bool tempoLaneVisible: showManager.isEditing && showManager.timeDivision === Show.Time
+                                    && tempoLaneButton.checked
+    property int laneHeight: tempoLaneVisible ? headerHeight : 0
+
     onShowIDChanged: renderAndCenter()
     Component.onCompleted:
     {
@@ -73,6 +78,12 @@ Rectangle
     {
         target: showManager
         function onSelectedTrackIdChanged() { syncSelectedTrackIndex() }
+        // a Show with tempo sections always shows them
+        function onTempoSectionsChanged()
+        {
+            if (showManager.tempoSections.length > 0)
+                tempoLaneButton.checked = true
+        }
     }
 
     function centerView()
@@ -215,6 +226,20 @@ Rectangle
                 checkable: true
                 checked: showManager.snapToItems
                 onToggled: showManager.snapToItems = checked
+            }
+
+            IconButton
+            {
+                id: tempoLaneButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_drum
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Show the tempo sections")
+                checkable: true
+                checked: showManager.tempoSections.length > 0
+                enabled: showManager.isEditing && showManager.timeDivision === Show.Time
             }
 
             IconButton
@@ -386,7 +411,14 @@ Rectangle
                 currValue: showManager.timeDivision
                 onValueChanged:
                 {
-                    if (currValue !== Show.Time &&
+                    if (currValue !== Show.Time && showManager.tempoSections.length > 0)
+                    {
+                        // tempo sections exist only on a Time ruler. The combo
+                        // ignores a new value while it is emitting this one
+                        Qt.callLater(function() { timeDivisionCombo.currValue = Show.Time })
+                        tempoSectionsPopup.open()
+                    }
+                    else if (currValue !== Show.Time &&
                             showManager.timeDivision === Show.Time &&
                             showManager.hasBeatBasedItems())
                     {
@@ -397,6 +429,15 @@ Rectangle
                     {
                         showManager.timeDivision = currValue
                     }
+                }
+
+                CustomPopupDialog
+                {
+                    id: tempoSectionsPopup
+                    title: qsTr("Switch to BPM markers")
+                    message: qsTr("This Show has tempo sections, which work only with Time markers.\n" +
+                                  "Delete the tempo sections to switch to BPM markers.")
+                    standardButtons: Dialog.Ok
                 }
 
                 CustomPopupDialog
@@ -576,15 +617,63 @@ Rectangle
         }
     }
 
+    // the tempo lane label, left of the lane
+    Rectangle
+    {
+        y: topBar.height + headerHeight
+        z: 5
+        width: trackWidth + verticalDivider.width
+        height: laneHeight
+        visible: tempoLaneVisible
+        color: UISettings.bgStrong
+
+        RobotoText
+        {
+            anchors.fill: parent
+            anchors.leftMargin: 5
+            textVAlign: Text.AlignVCenter
+            label: qsTr("Tempo")
+        }
+    }
+
+    // the tempo lane can be flicked horizontally, together with the timeline
+    Flickable
+    {
+        id: tempoLaneFlickable
+        x: timelineHeader.x
+        y: topBar.height + headerHeight
+        // below the timeline header, which draws the cursor across the lane
+        z: 3.5
+        width: timelineHeader.width
+        height: laneHeight
+        visible: tempoLaneVisible
+        clip: true
+
+        boundsBehavior: Flickable.StopAtBounds
+        flickableDirection: Flickable.HorizontalFlick
+        interactive: false
+
+        contentWidth: timelineHeader.contentWidth
+        contentX: xViewOffset
+
+        TempoLane
+        {
+            width: tempoLaneFlickable.contentWidth
+            height: tempoLaneFlickable.height
+            visibleX: xViewOffset
+            visibleWidth: tempoLaneFlickable.width
+        }
+    }
+
     // the main flickable area containing the tracks list and the Show items
     // this can be flicked only vertically
     Flickable
     {
         id: showContents
-        y: topBar.height + headerHeight
+        y: topBar.height + headerHeight + laneHeight
         z: 3 // below timelineHeader
         width: parent.width - rightPanel.width
-        height: showMgrContainer.height - topBar.height - headerHeight - (bottomPanel.visible ? bottomPanel.height : 0)
+        height: showMgrContainer.height - topBar.height - headerHeight - laneHeight - (bottomPanel.visible ? bottomPanel.height : 0)
         clip: true
 
         boundsBehavior: Flickable.StopAtBounds
@@ -922,6 +1011,13 @@ Rectangle
                 onTickSizeChanged: requestPaint()
                 onBeatsDivisionChanged: requestPaint()
                 onHeightChanged: requestPaint()
+
+                Connections
+                {
+                    target: showManager
+                    function onTempoSectionsChanged() { gridCanvas.requestPaint() }
+                    function onTimeScaleChanged() { gridCanvas.requestPaint() }
+                }
                 onVisibleChanged: if (visible) updatePosition()
 
                 Connections
@@ -955,13 +1051,35 @@ Rectangle
                     var absPos = parseInt((x + width) / tickSize) * tickSize
                     var xPos = absPos - x
 
+                    // inside the tempo sections, their beat grid replaces the time grid
+                    var sectionRanges = []
+                    if (showManager.tempoMapActive)
+                    {
+                        var sections = showManager.tempoSections
+                        for (var s = 0; s < sections.length; s++)
+                        {
+                            sectionRanges.push(TimeUtils.timeToSize(sections[s].startTime, timeScale, tickSize))
+                            sectionRanges.push(TimeUtils.timeToSize(sections[s].startTime + sections[s].duration, timeScale, tickSize))
+                        }
+                    }
+
+                    function inSection(pos)
+                    {
+                        for (var r = 0; r < sectionRanges.length; r += 2)
+                        {
+                            if (pos >= sectionRanges[r] && pos < sectionRanges[r + 1])
+                                return true
+                        }
+                        return false
+                    }
+
                     context.beginPath()
 
                     // paint dividers from the end to the beginning
                     for (var i = 0; i < divNum; i++)
                     {
                         // don't even bother to paint if we're outside the timeline
-                        if (absPos >= 0)
+                        if (absPos >= 0 && (sectionRanges.length === 0 || !inSection(absPos)))
                         {
                             if (subDividers > 1)
                             {
@@ -982,6 +1100,28 @@ Rectangle
                     }
                     context.closePath()
                     context.stroke()
+
+                    if (sectionRanges.length === 0)
+                        return
+
+                    // the tempo section grid: bars, beats, then beat subdivisions
+                    var lines = showManager.tempoGridLines(x, x + width)
+                    for (var w = 2; w >= 0; w--)
+                    {
+                        context.globalAlpha = w === 2 ? 1.0 : (w === 1 ? 0.6 : 0.3)
+                        context.strokeStyle = w === 2 ? UISettings.fgMedium : UISettings.bgLight
+                        context.beginPath()
+                        for (var l = 0; l < lines.length; l += 3)
+                        {
+                            if (lines[l + 1] !== w)
+                                continue
+                            var lx = Math.round(lines[l] - x) + 0.5
+                            context.moveTo(lx, 0)
+                            context.lineTo(lx, height)
+                        }
+                        context.stroke()
+                    }
+                    context.globalAlpha = 1.0
                 }
             }
 

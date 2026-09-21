@@ -167,6 +167,51 @@ Item
         function onBpmNumberChanged() { updateGeometry() }
     }
 
+    /* Returns true if the item position is stored in "beats as ms": a Beats
+       tempo Function, unless the Show runs on tempo sections, which keep
+       every item in ms. The property is read live rather than bound, since
+       adding the first section converts the items before notifying it */
+    function isBeatsItem()
+    {
+        return funcRef !== null && funcRef.tempoType === QLCFunction.Beats
+               && showManager.tempoMapActive === false
+    }
+
+    /* Returns true if the item runs on the Show tempo sections */
+    function isTempoItem()
+    {
+        return funcRef !== null && funcRef.tempoType === QLCFunction.Beats
+               && showManager.tempoMapActive === true
+    }
+
+    /* Convert an item duration to the Function own unit: on tempo sections
+       a Beats tempo item lasts ms, while its Function lasts beats */
+    function itemToFunctionDuration(value)
+    {
+        if (isTempoItem())
+            return Math.round((value / showManager.tempoBeatDuration(startTime)) * 1000)
+        return value
+    }
+
+    /* Snap an X position to the grid: the tempo section grid inside a
+       section, otherwise multiples of $fallbackStep (0 = no snapping) */
+    function gridSnap(xPos, fallbackStep)
+    {
+        if (showManager.tempoMapActive)
+            return showManager.snapToTempoGrid(xPos, fallbackStep)
+        return fallbackStep > 0 ? Math.round(xPos / fallbackStep) * fallbackStep : xPos
+    }
+
+    Connections
+    {
+        target: showManager
+        function onTempoSectionsChanged()
+        {
+            itemRoot.updateGeometry()
+            prCanvas.requestPaint()
+        }
+    }
+
     function updateGeometry()
     {
         if (isDragging || funcRef == null)
@@ -181,7 +226,7 @@ Item
            match whichever ruler (Time or BPM) the Show is currently
            displaying - never assume the Show's division tells us the
            item's own unit. */
-        var itemIsBeats = funcRef.tempoType === QLCFunction.Beats
+        var itemIsBeats = isBeatsItem()
 
         if (timeDivision === Show.Time)
         {
@@ -219,7 +264,7 @@ Item
        THIS item's own Function unit (see updateGeometry()) */
     function positionToTime(xPos)
     {
-        var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+        var itemIsBeats = isBeatsItem()
 
         if (timeDivision === Show.Time)
             return itemIsBeats
@@ -241,7 +286,12 @@ Item
         if (funcRef == null)
             return 0
 
-        var itemIsBeats = funcRef.tempoType === QLCFunction.Beats
+        var itemIsBeats = isBeatsItem()
+
+        // on tempo sections, the Function beats last as long as they do at
+        // the tempo of the item start
+        if (isTempoItem())
+            return TimeUtils.timeToSize((value / 1000) * showManager.tempoBeatDuration(startTime), timeScale, tickSize)
 
         if (timeDivision === Show.Time)
         {
@@ -394,7 +444,10 @@ Item
                 switch (previewData[i])
                 {
                     case ShowManager.RepeatingDuration:
-                        var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
+                        var funcDuration = isTempoItem()
+                                ? (funcRef.totalDuration / 1000) * showManager.tempoBeatDuration(startTime)
+                                : funcRef.totalDuration
+                        var loopCount = funcDuration ? Math.floor(sfRef.duration / funcDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
                             lastTime += previewData[i + 1]
@@ -704,13 +757,15 @@ Item
                 var moveX = dragOffsetX
                 var dropX = itemRoot.x + moveX
 
-                // grid snapping: snap to the nearest beat on a BPM ruler
+                // grid snapping: snap to the nearest beat on a BPM ruler, or
+                // to the tempo section grid on a Time ruler
                 // (skipped if already snapped to another item's edge, if the
                 // item hasn't moved horizontally, or while Ctrl suspends snapping)
                 if (showManager.gridEnabled && !itemSnapped && moveX !== 0
-                        && !snapSuspended(mouse.modifiers) && timeDivision !== Show.Time)
+                        && !snapSuspended(mouse.modifiers)
+                        && (timeDivision !== Show.Time || showManager.tempoMapActive))
                 {
-                    dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+                    dropX = gridSnap(dropX, timeDivision !== Show.Time ? tickSize / beatsDivision : 0)
                     moveX = dropX - itemRoot.x
                 }
 
@@ -943,12 +998,12 @@ Item
                             && !snapSuspended(mouse.modifiers))
                     {
                         var currX = itemRoot.x
-                        itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
+                        itemRoot.x = gridSnap(itemRoot.x, tickSize)
                         itemRoot.width += (currX - itemRoot.x)
                     }
 
                     var newDuration, newStartTime
-                    var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+                    var itemIsBeats = isBeatsItem()
 
                     if (timeDivision === Show.Time)
                     {
@@ -986,7 +1041,7 @@ Item
                         updateGeometry()
 
                     if (funcRef && showManager.stretchFunctions === true)
-                        funcRef.totalDuration = sfRef.duration
+                        funcRef.totalDuration = itemToFunctionDuration(sfRef.duration)
 
                     prCanvas.requestPaint()
                 }
@@ -1081,12 +1136,12 @@ Item
                     if (!itemSnapped && showManager.gridEnabled
                             && !snapSuspended(mouse.modifiers))
                     {
-                        var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
+                        var snappedEndPos = gridSnap(itemRoot.x + itemRoot.width, tickSize)
                         itemRoot.width = snappedEndPos - itemRoot.x
                     }
 
                     var newDuration
-                    var itemIsBeats = funcRef && funcRef.tempoType === QLCFunction.Beats
+                    var itemIsBeats = isBeatsItem()
 
                     if (timeDivision === Show.Time)
                     {
@@ -1107,7 +1162,7 @@ Item
                         updateGeometry()
 
                     if (funcRef && showManager.stretchFunctions === true)
-                        funcRef.totalDuration = sfRef.duration
+                        funcRef.totalDuration = itemToFunctionDuration(sfRef.duration)
 
                     prCanvas.requestPaint()
                 }

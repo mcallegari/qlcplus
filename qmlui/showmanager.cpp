@@ -156,6 +156,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
     /* Emit time/beat change in case the new Show differs */
     emit timeDivisionChanged(timeDivision());
+    emit tempoSectionsChanged();
     emit beatsDivisionChanged(beatsDivision());
     m_timeScale = 0.0; // force setTimeScale() to recompute and notify
     setTimeScale(timeDivision() == Show::Time ? 5.0 : 1.0);
@@ -265,7 +266,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
             // an item's times are in its Function's own unit (ms or beats as ms),
             // so convert them the same way ShowItem.qml updateGeometry() does
             Function *func = m_doc->function(sf->functionID());
-            bool itemIsBeats = func != nullptr && func->tempoType() == Function::Beats;
+            bool itemIsBeats = itemInBeats(func);
             double startTime = sf->startTime();
             double endTime = startTime + sf->duration();
             double startX, endX;
@@ -301,6 +302,23 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
                 if (endX < viewportLeft || startX > viewportRight)
                     continue;
             }
+
+            edges.append(startX);
+            edges.append(endX);
+        }
+    }
+
+    // the tempo section edges are snap targets too
+    if (tempoMapActive())
+    {
+        for (const TempoSection &section : m_currentShow->tempoMap().sections())
+        {
+            double startX = timeToPosition(section.startTime);
+            double endX = timeToPosition(section.endTime());
+
+            if (viewportLeft >= 0 && viewportRight >= 0 &&
+                (endX < viewportLeft || startX > viewportRight))
+                continue;
 
             edges.append(startX);
             edges.append(endX);
@@ -347,6 +365,14 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
 
     if (division == m_currentShow->timeDivisionType())
         return;
+
+    /* Tempo sections exist only on a Time ruler, where the items of their
+       Beats tempo Functions are positioned in ms */
+    if (division != Show::Time && m_currentShow->tempoMap().isEmpty() == false)
+    {
+        emit timeDivisionChanged(m_currentShow->timeDivisionType());
+        return;
+    }
 
     /* A beat tempo Function's items are always positioned in "beats as ms"
        (1000 units per beat) regardless of the Show's own timeline
@@ -464,6 +490,278 @@ void ShowManager::setCurrentTime(int currentTime)
 
     m_currentTime = currentTime;
     emit currentTimeChanged(currentTime);
+}
+
+/*********************************************************************
+ * Tempo sections
+ ********************************************************************/
+
+/* The smallest distance in pixels between two tempo grid lines */
+#define TEMPO_GRID_MIN_SPACING  8.0
+
+QVariantList ShowManager::tempoSections() const
+{
+    QVariantList list;
+
+    if (m_currentShow == nullptr)
+        return list;
+
+    const QList<TempoSection> &sections = m_currentShow->tempoMap().sections();
+    for (int i = 0; i < sections.count(); i++)
+    {
+        const TempoSection &section = sections.at(i);
+        QVariantMap map;
+        map.insert("index", i);
+        map.insert("startTime", section.startTime);
+        map.insert("duration", section.duration);
+        map.insert("bpm", section.bpm);
+        map.insert("beatsPerBar", section.beatsPerBar);
+        map.insert("name", section.name);
+        list.append(map);
+    }
+
+    return list;
+}
+
+bool ShowManager::tempoMapActive() const
+{
+    return m_currentShow != nullptr && m_currentShow->isTempoMapActive();
+}
+
+void ShowManager::setTempoMap(const TempoMap &tempoMap)
+{
+    m_currentShow->setTempoMap(tempoMap);
+    m_doc->setModified();
+    emit tempoSectionsChanged();
+    emit showDurationChanged(m_currentShow->totalDuration());
+}
+
+int ShowManager::addTempoSection(int time)
+{
+    if (m_currentShow == nullptr || timeDivision() != Show::Time || time < 0)
+        return -1;
+
+    TempoMap map = m_currentShow->tempoMap();
+    if (map.sectionIndexAt(time) != -1)
+        return -1;
+
+    // up to the next section, or a minute
+    quint32 duration = 60000;
+    for (const TempoSection &section : map.sections())
+    {
+        if (section.startTime > (quint32)time)
+        {
+            duration = qMin(duration, section.startTime - (quint32)time);
+            break;
+        }
+    }
+
+    int index = map.addSection(TempoSection(time, duration, 120.0, 4, tr("Section %1").arg(map.count() + 1)));
+    if (index == -1)
+        return -1;
+
+    setTempoMap(map);
+    return index;
+}
+
+QVariantList ShowManager::addTempoSectionsFromSelection()
+{
+    QVariantList indices;
+
+    if (m_currentShow == nullptr || timeDivision() != Show::Time)
+        return indices;
+
+    TempoMap map = m_currentShow->tempoMap();
+    QList<quint32> startTimes;
+
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_showFunc.isNull())
+            continue;
+
+        Function *func = m_doc->function(ssi.m_showFunc->functionID());
+        if (func == nullptr || func->type() != Function::AudioType)
+            continue;
+
+        TempoSection section(ssi.m_showFunc->startTime(), ssi.m_showFunc->duration(m_doc),
+                             120.0, 4, func->name());
+        if (map.addSection(section) != -1)
+            startTimes.append(section.startTime);
+    }
+
+    if (startTimes.isEmpty())
+        return indices;
+
+    setTempoMap(map);
+
+    // the indices are known only once all the sections are in place
+    for (quint32 startTime : startTimes)
+        indices.append(map.sectionIndexAt(startTime));
+
+    return indices;
+}
+
+bool ShowManager::updateTempoSection(int index, int startTime, int duration,
+                                     double bpm, int beatsPerBar, QString name)
+{
+    if (m_currentShow == nullptr || startTime < 0 || duration <= 0)
+        return false;
+
+    TempoMap map = m_currentShow->tempoMap();
+    if (map.updateSection(index, TempoSection(startTime, duration, bpm, beatsPerBar, name)) == false)
+        return false;
+
+    setTempoMap(map);
+    return true;
+}
+
+bool ShowManager::splitTempoSection(int index, int time)
+{
+    if (m_currentShow == nullptr || time < 0)
+        return false;
+
+    TempoMap map = m_currentShow->tempoMap();
+    TempoSection section = map.section(index);
+    double beatMs = section.beatDuration();
+    double splitTime = section.startTime + std::round((time - section.startTime) / beatMs) * beatMs;
+
+    if (map.splitSection(index, qRound(splitTime)) == false)
+        return false;
+
+    setTempoMap(map);
+    return true;
+}
+
+void ShowManager::removeTempoSection(int index)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    TempoMap map = m_currentShow->tempoMap();
+    if (map.removeSection(index))
+        setTempoMap(map);
+}
+
+double ShowManager::tempoBeatDuration(double time) const
+{
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+
+    if (m_currentShow == nullptr)
+        return 60000.0 / (bpm > 0 ? bpm : 120);
+
+    return m_currentShow->tempoMap().beatDurationAt(time, bpm);
+}
+
+double ShowManager::timeToPosition(double time) const
+{
+    return (time * m_tickSize) / (m_timeScale * 1000.0);
+}
+
+double ShowManager::positionToTime(double xPos) const
+{
+    return m_tickSize > 0 ? (xPos * m_timeScale * 1000.0) / m_tickSize : 0;
+}
+
+double ShowManager::tempoGridStep(const TempoSection &section) const
+{
+    double beatWidth = timeToPosition(section.beatDuration());
+    if (beatWidth <= 0)
+        return 0;
+
+    // quarter beats, half beats, beats, then bars and groups of bars
+    const double steps[] = { 0.25, 0.5, 1.0, 1.0 * section.beatsPerBar,
+                             4.0 * section.beatsPerBar, 16.0 * section.beatsPerBar };
+
+    for (double step : steps)
+    {
+        if (step * beatWidth >= TEMPO_GRID_MIN_SPACING)
+            return step;
+    }
+
+    return steps[5];
+}
+
+QVariantList ShowManager::tempoGridLines(double fromX, double toX) const
+{
+    QVariantList lines;
+
+    if (tempoMapActive() == false || m_tickSize <= 0)
+        return lines;
+
+    double fromTime = positionToTime(fromX);
+    double toTime = positionToTime(toX);
+
+    for (const TempoSection &section : m_currentShow->tempoMap().sections())
+    {
+        if (section.endTime() < fromTime || section.startTime > toTime)
+            continue;
+
+        double step = tempoGridStep(section);
+        double beatMs = section.beatDuration();
+        double stepMs = step * beatMs;
+        if (stepMs <= 0)
+            continue;
+
+        double first = qMax(0.0, std::ceil((fromTime - section.startTime) / stepMs));
+        for (double n = first; ; n++)
+        {
+            double time = section.startTime + (n * stepMs);
+            if (time >= section.endTime() || time > toTime)
+                break;
+
+            double beat = n * step;
+            int weight = 0;
+            int bar = 0;
+            double barPos = beat / section.beatsPerBar;
+
+            if (qAbs(barPos - std::round(barPos)) < 0.001)
+            {
+                weight = 2;
+                bar = qRound(barPos) + 1;
+            }
+            else if (qAbs(beat - std::round(beat)) < 0.001)
+            {
+                weight = 1;
+            }
+
+            lines.append(timeToPosition(time));
+            lines.append(weight);
+            lines.append(bar);
+        }
+    }
+
+    return lines;
+}
+
+double ShowManager::snapToTempoGrid(double xPos, double fallbackStep) const
+{
+    if (tempoMapActive())
+    {
+        double time = positionToTime(xPos);
+        const TempoMap &map = m_currentShow->tempoMap();
+        int index = map.sectionIndexAt(time);
+
+        if (index >= 0)
+        {
+            TempoSection section = map.section(index);
+            double stepMs = tempoGridStep(section) * section.beatDuration();
+            if (stepMs > 0)
+            {
+                double snapped = section.startTime + std::round((time - section.startTime) / stepMs) * stepMs;
+                return timeToPosition(qMin(snapped, (double)section.endTime()));
+            }
+        }
+    }
+
+    if (fallbackStep > 0)
+        return std::round(xPos / fallbackStep) * fallbackStep;
+
+    return xPos;
+}
+
+bool ShowManager::itemInBeats(const Function *func) const
+{
+    return func != nullptr && func->tempoType() == Function::Beats && tempoMapActive() == false;
 }
 
 /*********************************************************************
@@ -679,6 +977,11 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             if (func->type() == Function::AudioType || func->type() == Function::VideoType)
                 func->setTotalDuration(func->duration());
             showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 4000);
+
+            // with tempo sections the item is in ms: the Function beats last
+            // as long as they do at the tempo where the item is dropped
+            if (tempoMapActive())
+                showFunc->setDuration(qRound((showFunc->duration() / 1000.0) * tempoBeatDuration(startTime)));
         }
 
         /* startTime is the drop position translated by the caller using
@@ -690,7 +993,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
            using the live BPM */
         quint32 itemStartTime = (quint32)startTime;
         bool showIsBeats = timeDivision() != Show::Time;
-        bool funcIsBeats = func->tempoType() == Function::Beats;
+        bool funcIsBeats = itemInBeats(func);
 
         if (showIsBeats != funcIsBeats)
         {
@@ -716,7 +1019,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             quint32 pastedDuration = sourceFunc->duration();
             Function *sourceOwnerFunc = m_doc->function(sourceFunc->functionID());
             bool sourceIsBeats = (sourceOwnerFunc != nullptr) ?
-                        (sourceOwnerFunc->tempoType() == Function::Beats) : funcIsBeats;
+                        itemInBeats(sourceOwnerFunc) : funcIsBeats;
 
             if (sourceIsBeats != funcIsBeats)
             {
@@ -1657,6 +1960,7 @@ void ShowManager::resetContents()
     emit showNameChanged(QString());
     emit showDurationChanged(0);
     emit timeDivisionChanged(Show::Time);
+    emit tempoSectionsChanged();
 
     m_timeScale = 0.0; // force setTimeScale() to recompute and notify
     setTimeScale(5.0);
@@ -2368,7 +2672,7 @@ void ShowManager::clearCutState()
 quint32 ShowManager::showToFunctionTime(const Function *func, quint32 value) const
 {
     bool showIsBeats = timeDivision() != Show::Time;
-    bool funcIsBeats = func->tempoType() == Function::Beats;
+    bool funcIsBeats = itemInBeats(func);
 
     if (showIsBeats == funcIsBeats)
         return value;
@@ -2383,7 +2687,7 @@ quint32 ShowManager::showToFunctionTime(const Function *func, quint32 value) con
 quint32 ShowManager::functionToShowTime(const Function *func, quint32 value) const
 {
     bool showIsBeats = timeDivision() != Show::Time;
-    bool funcIsBeats = func->tempoType() == Function::Beats;
+    bool funcIsBeats = itemInBeats(func);
 
     if (showIsBeats == funcIsBeats)
         return value;

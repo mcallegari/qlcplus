@@ -72,6 +72,9 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(float tickSize READ tickSize NOTIFY tickSizeChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
 
+    Q_PROPERTY(QVariantList tempoSections READ tempoSections NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool tempoMapActive READ tempoMapActive NOTIFY tempoSectionsChanged)
+
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
@@ -232,6 +235,71 @@ private:
 
     /** The current time position of the Show in ms */
     int m_currentTime;
+
+    /*********************************************************************
+      * Tempo sections
+      ********************************************************************/
+public:
+    /** Get the tempo sections of the current Show, as a list of maps with
+     *  the keys index, startTime, duration, bpm, beatsPerBar and name */
+    QVariantList tempoSections() const;
+
+    /** Returns true if the current Show runs on its tempo sections. The
+     *  items of Beats tempo Functions are then positioned in ms */
+    bool tempoMapActive() const;
+
+    /** Add a tempo section starting at $time (ms), lasting up to the next
+     *  section or one minute. Returns the new section index, or -1 */
+    Q_INVOKABLE int addTempoSection(int time);
+
+    /** Add a tempo section for each selected audio item, with the item
+     *  position and name, unless it would overlap another section.
+     *  Returns the indices of the sections added */
+    Q_INVOKABLE QVariantList addTempoSectionsFromSelection();
+
+    /** Replace the tempo section at $index. Returns false, leaving the
+     *  section unchanged, if it would overlap another section */
+    Q_INVOKABLE bool updateTempoSection(int index, int startTime, int duration,
+                                        double bpm, int beatsPerBar, QString name);
+
+    /** Split the tempo section at $index in two at the beat nearest to
+     *  $time (ms), so that the second part keeps the same beat grid */
+    Q_INVOKABLE bool splitTempoSection(int index, int time);
+
+    /** Remove the tempo section at $index */
+    Q_INVOKABLE void removeTempoSection(int index);
+
+    /** Get the duration in ms of a beat at $time, from the tempo sections
+     *  or the current BPM before the first section */
+    Q_INVOKABLE double tempoBeatDuration(double time) const;
+
+    /** Get the tempo section beat grid lines between the X positions $fromX
+     *  and $toX of the timeline, as a flat list of triplets: the X position,
+     *  the line weight (0 = beat subdivision, 1 = beat, 2 = bar) and the bar
+     *  number (1 based) for bar lines. The grid gets coarser when zooming
+     *  out, down to a line every 16 bars */
+    Q_INVOKABLE QVariantList tempoGridLines(double fromX, double toX) const;
+
+    /** Snap the timeline X position $xPos to the nearest line of the tempo
+     *  section grid it lies in. Outside the sections, snap it to multiples
+     *  of $fallbackStep pixels, or leave it untouched if that is 0 */
+    Q_INVOKABLE double snapToTempoGrid(double xPos, double fallbackStep) const;
+
+private:
+    void setTempoMap(const TempoMap &tempoMap);
+
+    /** Returns true if the item of $func is positioned in "beats as ms":
+     *  a Beats tempo Function in a Show that doesn't run on tempo sections */
+    bool itemInBeats(const Function *func) const;
+
+    /** Get the grid step in beats for $section at the current zoom */
+    double tempoGridStep(const TempoSection &section) const;
+
+    double timeToPosition(double time) const;
+    double positionToTime(double xPos) const;
+
+signals:
+    void tempoSectionsChanged();
 
     /*********************************************************************
       * Tracks
