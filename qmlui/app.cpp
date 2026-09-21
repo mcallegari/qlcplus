@@ -437,8 +437,19 @@ void App::keyPressEvent(QKeyEvent *e)
     }
 
     if (m_contextManager)
+    {
+        // Offer the key to the contexts first. One that acts on it accepts
+        // the event, and it must then not reach the QML scene as well, or a
+        // button that happens to hold the focus would be activated by the
+        // very same key press
+        e->ignore();
         m_contextManager->handleKeyPress(e);
 
+        if (e->isAccepted())
+            return;
+    }
+
+    e->accept();
     QQuickView::keyPressEvent(e);
 }
 
@@ -554,6 +565,10 @@ void App::slotScreenChanged(QScreen *screen)
 void App::slotClosing()
 {
     stopAllFunctions();
+
+    /** Store a UI settings change made right before quitting */
+    if (m_uiManager)
+        m_uiManager->flushSettings();
 
     if (m_contextManager)
     {
@@ -1181,6 +1196,10 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
         {
             m_virtualConsole->loadXML(doc);
         }
+        else if (doc.name() == KXMLQLCShowManager)
+        {
+            m_showManager->loadXML(doc);
+        }
 #if 0
         else if (doc.name() == KXMLQLCSimpleDesk)
         {
@@ -1263,6 +1282,9 @@ QFile::FileError App::saveXML(const QString& fileName, bool autosave)
 
     /* Write virtual console to the XML document */
     m_virtualConsole->saveXML(&doc);
+
+    /* Write the Show Manager view state to the XML document */
+    m_showManager->saveXML(&doc);
 
     /* Write Simple Desk to the XML document */
     //SimpleDesk::instance()->saveXML(&doc);

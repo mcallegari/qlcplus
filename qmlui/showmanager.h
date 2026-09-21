@@ -27,6 +27,9 @@
 #include "previewcontext.h"
 #include "show.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
+
 class Doc;
 class Track;
 class Function;
@@ -44,6 +47,8 @@ typedef struct
     QPointer<QQuickItem> m_item;
 } SelectedShowItem;
 
+#define KXMLQLCShowManager QStringLiteral("ShowManager")
+
 class ShowManager final : public PreviewContext
 {
     Q_OBJECT
@@ -55,6 +60,7 @@ class ShowManager final : public PreviewContext
 
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
+    Q_PROPERTY(bool snapToItems READ snapToItems WRITE setSnapToItems NOTIFY snapToItemsChanged)
     Q_PROPERTY(double snapGuideX READ snapGuideX WRITE setSnapGuideX NOTIFY snapGuideXChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(bool isPaused READ isPaused NOTIFY isPausedChanged)
@@ -119,6 +125,11 @@ public:
     bool gridEnabled() const;
     void setGridEnabled(bool gridEnabled);
 
+    /** Get/Set the snapping of Show items to the nearby items' edges.
+     *  Stored in the local computer settings, so it survives a restart */
+    bool snapToItems() const;
+    void setSnapToItems(bool snapToItems);
+
     /** Get/Set the X position of the snap guide line (-1 = hidden) */
     double snapGuideX() const;
     void setSnapGuideX(double snapGuideX);
@@ -141,6 +152,7 @@ signals:
     void showNameChanged(QString showName);
     void stretchFunctionsChanged(bool stretchFunction);
     void gridEnabledChanged(bool gridEnabled);
+    void snapToItemsChanged(bool snapToItems);
     void snapGuideXChanged();
     void isPlayingChanged(bool playing);
     void isPausedChanged(bool paused);
@@ -166,6 +178,10 @@ private:
     /** Flag that indicates if the Show items should be
      *  snapped to the closest grid divisor */
     bool m_gridEnabled;
+
+    /** Flag that indicates if the Show items should be
+     *  snapped to the edges of the nearby items */
+    bool m_snapToItems;
 
     /** X position of the snap guide line (-1 = hidden) */
     double m_snapGuideX;
@@ -326,6 +342,10 @@ public:
     /** Set the duration of a ShowFunction item (if not overlapping) */
     Q_INVOKABLE bool setShowItemDuration(ShowFunction *sf, int duration);
 
+    /** Set both the start time and the duration of a ShowFunction item
+     *  (if not overlapping), checking the resulting span as a whole */
+    Q_INVOKABLE bool setShowItemStartTimeAndDuration(ShowFunction *sf, int startTime, int duration);
+
     /** Insert a time segment in a ShowFunction item, applying type-specific rules */
     Q_INVOKABLE bool insertShowItemTime(ShowFunction *sf, int length);
 
@@ -399,6 +419,7 @@ public:
     Q_INVOKABLE bool pasteFromClipboard();
 
 protected slots:
+    void slotFunctionRemoved(quint32 id);
     void slotTimeChanged(quint32 msec_time);
     void slotShowFinished();
     void slotShowStopped();
@@ -465,6 +486,18 @@ private:
     QList<SelectedShowItem> m_clipboard;
 
     WaveformImageProvider *m_waveformProvider;
+
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
+    /** Save the Show Manager view state (the Show being edited and
+     *  the timeline zoom level) to the workspace XML */
+    bool saveXML(QXmlStreamWriter *doc) const;
+
+    /** Restore the Show Manager view state from the workspace XML.
+     *  The Functions must have been loaded already */
+    bool loadXML(QXmlStreamReader &root);
 };
 
 #endif // SHOWMANAGER_H

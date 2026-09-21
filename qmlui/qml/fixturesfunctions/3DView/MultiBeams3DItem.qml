@@ -36,6 +36,12 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
     property int headsNumber: 1
+
+    /* Emitters this item lights the scene with. 3DView.qml builds one shadow
+       pass and one shading pass per emitter, so this is what governs the item's
+       render cost. Here every head is a real lamp and gets its own emitter;
+       PixelBar3DItem, whose head count is a pixel resolution, reports fewer. */
+    readonly property int lightsNumber: headsNumber
     property size headsLayout: Qt.size(1, 1)
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
 
@@ -73,8 +79,14 @@ Entity
     property real focusMaxDegrees: 5
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
+    /** Beam edge softness, shared by every emitter of the bar.
+        See Fixture3DItem, which carries the same properties */
+    property real focusFactor: 1.0
+    property real beamEdgeSoftness: View3D.beamEdgeSoftness * focusFactor
 
     /* **************** Rendering quality properties **************** */
+    /* See Fixture3DItem: a beam bar lights surfaces and draws its beams */
+    property bool useShading: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
 
     /* Shadows are not optional for this renderer: spotlight_shading.frag bounds
@@ -124,6 +136,31 @@ Entity
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
     property real shutterValue: sAnimator.shutterValue
+    /* Luminous intensity of a single emitter of this fixture, in candela: the
+       "Lumens" physical property of its mode spread over the solid angle of the
+       beam at the widest the lens opens. 0 when the definition has no data */
+    property real bulbCandela: 0
+    /* How far the current zoom concentrates the beam, as the ratio of the two
+       cone solid angles: 1.0 at the widest the lens opens, rising as the beam
+       closes in, which is what a zoom does to the light it lays on a surface */
+    property real beamConcentration:
+    {
+        var widest = (focusMaxDegrees / 2.0) * (Math.PI / 180.0)
+        if (widest <= 0 || cutoffAngle <= 0)
+            return 1.0
+        return (1.0 - Math.cos(widest)) / (1.0 - Math.cos(cutoffAngle))
+    }
+    /* Relative output of this fixture: its intensity against the brightest
+       emitter in the project, so the reference fixture stays at the brightness
+       it has always rendered at and everything else falls in around it. Goes
+       above 1.0 on a beam zoomed in past its widest, which the tone mapping in
+       gamma_correct.frag rolls off. 1.0 (unscaled) when the "Lumens" setting is
+       off, when this definition has no lumens, or when no fixture in the
+       project has any. */
+    property real lumensScale:
+        (View3D && View3D.useFixtureLumens && bulbCandela > 0 && View3D.referenceCandela > 0) ?
+            (bulbCandela / View3D.referenceCandela) * beamConcentration : 1.0
+
     property vector3d lightDir: Math3D.getLightDirection(transform, null, tiltTransform)
 
     property var headsList: []
@@ -180,13 +217,15 @@ Entity
                 "enabled": Qt.binding(function() { return fixtureEntity.enabled }),
                 "lightDir": Qt.binding(function() { return fixtureEntity.lightDir }),
                 "shutterValue": Qt.binding(function() { return fixtureEntity.shutterValue }),
+                "lumensScale": Qt.binding(function() { return fixtureEntity.lumensScale }),
                 "raymarchSteps": Qt.binding(function() { return fixtureEntity.beamRaymarchSteps }),
                 "cutoffAngle": Qt.binding(function() { return fixtureEntity.cutoffAngle }),
                 "tiltRotation": Qt.binding(function() { return fixtureEntity.tiltRotation }),
                 "distCutoff": Qt.binding(function() { return fixtureEntity.distCutoff }),
                 "headLength": Qt.binding(function() { return fixtureEntity.headLength }),
                 "coneTopRadius": Qt.binding(function() { return fixtureEntity.coneTopRadius }),
-                "goboTexture": Qt.binding(function() { return fixtureEntity.goboTexture })
+                "goboTexture": Qt.binding(function() { return fixtureEntity.goboTexture }),
+                "beamEdgeSoftness": Qt.binding(function() { return fixtureEntity.beamEdgeSoftness })
             });
 
             if (headNode === null)
@@ -333,6 +372,11 @@ Entity
         sAnimator.setShutter(type, low, high)
     }
 
+    function setFocus(value)
+    {
+        focusFactor = 1.0 - ((0.9 * value) / 255.0)
+    }
+
     // Same signature as Fixture3DItem: MainView3D calls this with degrees == true
     // when the fixture has a fixed zoom set in the monitor properties
     function setZoom(value, degrees)
@@ -406,7 +450,15 @@ Entity
         ]
     }
 
-    property Texture2D goboTexture: Texture2D { }
+    property Texture2D goboTexture:
+        Texture2D
+        {
+            // sampled at whatever resolution the beam happens to cover, so it
+            // needs filtering: the Qt3D default of Nearest re-introduces the
+            // stair steps the mask is painted smooth to avoid
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+        }
 
     /* headEntity is NOT listed here: it is an Entity, not a Component, so QML
        rejected it with a "Cannot append ... to a QML list of QComponent*"

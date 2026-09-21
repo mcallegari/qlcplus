@@ -22,6 +22,7 @@
 
 #include <QQuickView>
 #include <QObject>
+#include <QTimer>
 
 typedef struct
 {
@@ -43,6 +44,11 @@ public:
     void initialize();
     void setDefaultParameter(QString category, QString name, QVariant value);
 
+    /** Write out any pending UI settings change right away. To be called
+     *  when the application is closing, so a change made in the last
+     *  second before quitting is not lost */
+    void flushSettings();
+
     Q_INVOKABLE QVariant getDefault(QString name) const;
 
     Q_INVOKABLE QVariant getModified(QString name) const;
@@ -52,6 +58,11 @@ public:
     Q_INVOKABLE bool saveSettings() const;
 
 private:
+    /** Schedule a deferred save of the UI settings. Changes come in bursts
+     *  (dragging the scaling factor slider emits one per pixel), so the
+     *  actual write is coalesced into a single one */
+    void scheduleSave();
+
     /** Reference to the QML view root */
     QQuickView *m_view;
 
@@ -64,6 +75,14 @@ private:
     /** A map ok key,value representing every UI parameter
      *  that can be changed at runtime */
     QMap<QString, UiProperty> m_parameterMap;
+
+    /** Timer used to coalesce the automatic saving of the UI settings */
+    QTimer m_saveTimer;
+
+    /** Flag raised while loading the user configuration, to tell the
+     *  parameter changes coming from file apart from the ones made by
+     *  the user. The former must not trigger a save */
+    bool m_loading;
 };
 
 #endif // UIMANAGER_H

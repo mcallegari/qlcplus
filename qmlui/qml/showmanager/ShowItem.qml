@@ -58,8 +58,9 @@ Item
     property bool dragActive: false
     /* MouseArea emits clicked() right after released(), by which point
        dragActive has already been cleared, so the end of a drag would
-       otherwise run the selection handler below - and with Shift held down to
-       lock the drag axis that would toggle the item out of the selection */
+       otherwise run the selection handler below - and with Ctrl held down to
+       suspend snapping, or Shift to lock the drag axis, that would toggle the
+       item out of the selection */
     property bool dragWasActive: false
     property bool itemSnapped: false
 
@@ -99,8 +100,29 @@ Item
     property real handleWidth: 10
     property bool handlesVisible: (sfRef ? (sfRef.locked ? false : true) : false) && handleWidth >= 2
 
+    /* Snapping is suspended for the duration of a single gesture while the
+       Ctrl modifier is held down, which is what allows an item to be placed
+       freely right next to another one's edge or to a grid division without
+       having to turn snapping off in the toolbar. Both this and the toolbar
+       flag are read on every mouse move and on release, so pressing or
+       releasing Ctrl halfway through a drag takes effect immediately */
+    function snapSuspended(modifiers)
+    {
+        return (modifiers & Qt.ControlModifier) !== 0
+    }
+
+    function snappingActive(modifiers)
+    {
+        return showManager.snapToItems && !snapSuspended(modifiers)
+    }
+
     function getVisibleSnapEdges()
     {
+        // nothing to snap to when snapping is off, which spares us from
+        // walking all the Show tracks on every press
+        if (!showManager.snapToItems)
+            return []
+
         // itemRoot.parent is the Flickable's contentItem,
         // itemRoot.parent.parent is the Flickable (itemsArea)
         var flickable = itemRoot.parent ? itemRoot.parent.parent : null
@@ -254,57 +276,61 @@ Item
         toolTipText = tooltip
     }
 
-    /* Waveform for audio items */
-    Item
-    {
-        z: 3
-        anchors.fill: parent
-        clip: true
-        visible: funcRef && funcRef.type === QLCFunction.AudioType
-
-        Image
-        {
-            id: waveformImage
-            x: 0
-            y: 0
-            // Natural width spans the full audio duration so the waveform is
-            // not stretched; the parent Item's clip:true crops it to the
-            // show item's visible width.
-            width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
-                   ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
-                   : itemRoot.width
-            height: itemRoot.height
-            cache: false
-            fillMode: Image.Stretch
-
-            source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
-
-            function reload()
-            {
-                const old = source;
-                source = "";
-                source = old;
-            }
-
-            Connections
-            {
-                target: waveformProvider
-
-                function onWaveformUpdated(fid)
-                {
-                    if (funcRef && fid === funcRef.id)
-                        waveformImage.reload()
-                }
-            }
-        }
-    }
-
     Canvas
     {
         id: prCanvas
         z: 3
-        anchors.fill: parent
+        height: itemRoot.height
         contextType: "2d"
+
+        /** A Canvas allocates a backing image, and on the scene graph side a
+          * texture, for its whole size - so filling the item would mean one
+          * allocation per Show item as wide as that item is on the timeline,
+          * whether or not any of it is on screen. Zooming in multiplies every
+          * item's width by the same factor, so that grows without bound: a
+          * long Show can end up holding a gigabyte of backing images, and any
+          * item wider than the maximum texture size the driver supports (a
+          * common limit is 16384 pixels, which a four minute item reaches at a
+          * time scale of 1) has to be rescaled on the CPU on every repaint
+          * before it can be uploaded.
+          *
+          * The timeline header and the grid already avoid this by keeping
+          * their Canvas no bigger than the visible area and moving it as the
+          * view scrolls; do the same here, clipping the Canvas to the part of
+          * the item that is actually on screen and painting with the item's
+          * own coordinates shifted by the Canvas position, so the painting
+          * code below stays unchanged. */
+        property Item timelineView:
+        {
+            /* itemRoot.parent is the Flickable's contentItem,
+               itemRoot.parent.parent is the Flickable itself */
+            var f = itemRoot.parent ? itemRoot.parent.parent : null
+            return (f && f.contentX !== undefined) ? f : null
+        }
+
+        property real viewLeft: timelineView ? timelineView.contentX - itemRoot.x : 0
+        property real viewRight: timelineView ? viewLeft + timelineView.width : itemRoot.width
+
+        x: timelineView ? Math.max(0, Math.min(viewLeft, itemRoot.width)) : 0
+        width: timelineView ? Math.max(0, Math.min(viewRight, itemRoot.width) - x)
+                            : itemRoot.width
+
+        onXChanged: requestPaint()
+
+        /* The painted positions come from the item's own size and from the
+           timeline scale, but the Canvas is now sized by the visible area
+           instead of by the item, so zooming no longer resizes it and no
+           repaint is triggered by itself: ask for one explicitly */
+        Connections
+        {
+            target: itemRoot
+
+            function onWidthChanged() { prCanvas.requestPaint() }
+            function onTimeScaleChanged() { prCanvas.requestPaint() }
+            function onTickSizeChanged() { prCanvas.requestPaint() }
+            function onTimeDivisionChanged() { prCanvas.requestPaint() }
+            function onBeatsDivisionChanged() { prCanvas.requestPaint() }
+        }
 
         /* Repaint the preview lines when the referenced Function
            is modified (e.g. a Chaser step time or an EFX duration) */
@@ -321,6 +347,14 @@ Item
 
         onPaint:
         {
+            /* an item scrolled out of the visible area has no width, and then
+               Qt never creates a drawing context for the Canvas */
+            if (context === null || context === undefined)
+                return
+
+            context.reset()
+            context.clearRect(0, 0, width, height)
+
             if (sfRef === null || funcRef === null)
                 return
 
@@ -329,12 +363,19 @@ Item
             if (previewData === null || previewData === undefined)
                 return
 
+            /* paint in the item's own coordinates: the Canvas covers only the
+               visible slice of the item (see above), so shift it into place */
+            context.save()
+            context.translate(-prCanvas.x, 0)
+
+            var visLeft = prCanvas.x
+            var visRight = prCanvas.x + prCanvas.width
+
             context.strokeStyle = "#ddd"
             context.fillStyle = "transparent"
             context.lineWidth = 1
 
             context.beginPath()
-            context.clearRect(0, 0, width, height)
 
             //console.log("About to paint " + previewData.length + " values")
 
@@ -353,8 +394,15 @@ Item
                         var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
                         for (var l = 0; l < loopCount; l++)
                         {
-                            lastTime += previewData[1]
+                            lastTime += previewData[i + 1]
                             xPos = timeValueToPixels(lastTime)
+                            /* the number of repeats is a ratio of times, so it
+                               is not bounded by the item's width on screen:
+                               stop as soon as the lines leave the painted area */
+                            if (xPos > visRight)
+                                break
+                            if (xPos < visLeft)
+                                continue
                             context.moveTo(xPos, 0)
                             context.lineTo(xPos, itemRoot.height)
                         }
@@ -383,6 +431,7 @@ Item
 
             }
             context.stroke()
+            context.restore()
         }
     }
 
@@ -408,6 +457,46 @@ Item
 
             Drag.active: itemRoot.dragActive
             Drag.keys: [ "function" ]
+
+            /* Waveform for audio items. It is a child of the item body, and
+               declared before the labels, so that it is painted over the body
+               background but behind the Function name and info texts */
+            Image
+            {
+                id: waveformImage
+                x: 0
+                y: 0
+                // Natural width spans the full audio duration so the waveform is
+                // not stretched; the body's clip:true crops it to the
+                // show item's visible width.
+                width: (funcRef && funcRef.totalDuration && sfRef && sfRef.duration)
+                       ? itemRoot.width * (funcRef.totalDuration / sfRef.duration)
+                       : itemRoot.width
+                height: itemRoot.height
+                cache: false
+                fillMode: Image.Stretch
+                visible: funcRef && funcRef.type === QLCFunction.AudioType
+
+                source: (funcRef && funcRef.type === QLCFunction.AudioType) ? "image://waveform/" + funcRef.id : ""
+
+                function reload()
+                {
+                    const old = source;
+                    source = "";
+                    source = old;
+                }
+
+                Connections
+                {
+                    target: waveformProvider
+
+                    function onWaveformUpdated(fid)
+                    {
+                        if (funcRef && fid === funcRef.id)
+                            waveformImage.reload()
+                    }
+                }
+            }
 
             RobotoText
             {
@@ -552,7 +641,7 @@ Item
             showManager.snapGuideX = -1
             itemSnapped = false
 
-            if (dragAxisLock !== axisVertical)
+            if (dragAxisLock !== axisVertical && snappingActive(mouse.modifiers))
             {
                 // snap-to-item: check start edge if clicked on first half,
                 // end edge if clicked on second half
@@ -610,9 +699,10 @@ Item
                 var dropX = itemRoot.x + moveX
 
                 // grid snapping: snap to the nearest beat on a BPM ruler
-                // (skipped if already snapped to another item's edge, or
-                // if the item hasn't moved horizontally)
-                if (showManager.gridEnabled && !itemSnapped && moveX !== 0 && timeDivision !== Show.Time)
+                // (skipped if already snapped to another item's edge, if the
+                // item hasn't moved horizontally, or while Ctrl suspends snapping)
+                if (showManager.gridEnabled && !itemSnapped && moveX !== 0
+                        && !snapSuspended(mouse.modifiers) && timeDivision !== Show.Time)
                 {
                     dropX = Math.round(dropX / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
                     moveX = dropX - itemRoot.x
@@ -621,8 +711,10 @@ Item
                 // a Function keeps its own tempo type regardless of the Show's
                 // ruler (see updateGeometry() above), so the dropped position
                 // must be converted using ITS OWN unit, like the resize handlers do.
-                // An item moved only across Tracks keeps its exact start time
-                var newTime = moveX === 0 ? startTime : positionToTime(dropX)
+                // An item moved only across Tracks keeps its exact start time.
+                // Round to the nearest unit: truncating a snapped position that is
+                // a hair below the edge would make the item overlap its neighbour
+                var newTime = moveX === 0 ? startTime : Math.round(positionToTime(dropX))
                 var newTrackIdx = trackIndex + dragTrackDelta
                 if (newTime < 0)
                     newTime = 0
@@ -638,7 +730,7 @@ Item
                         var gi = groupItems[i]
                         items.push(gi)
                         tracks.push(gi.trackIndex + dragTrackDelta)
-                        times.push(moveX === 0 ? gi.startTime : Math.max(0, gi.positionToTime(gi.x + moveX)))
+                        times.push(moveX === 0 ? gi.startTime : Math.max(0, Math.round(gi.positionToTime(gi.x + moveX))))
                     }
 
                     showManager.moveShowItems(items, tracks, times)
@@ -792,27 +884,28 @@ Item
                 var newX = origItemX + dx
 
                 // snap-to-item: check left edge
-                var bestDist = snapThreshold + 1
-                var bestSnapX = -1
-                for (var i = 0; i < snapEdges.length; i++)
+                showManager.snapGuideX = -1
+                itemSnapped = false
+
+                if (snappingActive(mouse.modifiers))
                 {
-                    var dist = Math.abs(snapEdges[i] - newX)
-                    if (dist < bestDist)
+                    var bestDist = snapThreshold + 1
+                    var bestSnapX = -1
+                    for (var i = 0; i < snapEdges.length; i++)
                     {
-                        bestDist = dist
-                        bestSnapX = snapEdges[i]
+                        var dist = Math.abs(snapEdges[i] - newX)
+                        if (dist < bestDist)
+                        {
+                            bestDist = dist
+                            bestSnapX = snapEdges[i]
+                        }
                     }
-                }
-                if (bestSnapX >= 0 && bestDist <= snapThreshold)
-                {
-                    newX = bestSnapX
-                    showManager.snapGuideX = bestSnapX
-                    itemSnapped = true
-                }
-                else
-                {
-                    showManager.snapGuideX = -1
-                    itemSnapped = false
+                    if (bestSnapX >= 0 && bestDist <= snapThreshold)
+                    {
+                        newX = bestSnapX
+                        showManager.snapGuideX = bestSnapX
+                        itemSnapped = true
+                    }
                 }
 
                 // clamp: don't allow shrinking past minimum width
@@ -839,7 +932,8 @@ Item
                     }
 
                     // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled)
+                    if (!itemSnapped && itemRoot.x && showManager.gridEnabled
+                            && !snapSuspended(mouse.modifiers))
                     {
                         var currX = itemRoot.x
                         itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
@@ -876,9 +970,12 @@ Item
                         }
                     }
 
-                    if (showManager.setShowItemStartTime(sfRef, newStartTime) === true)
-                        showManager.setShowItemDuration(sfRef, newDuration)
-                    else
+                    newStartTime = Math.round(newStartTime)
+                    newDuration = Math.round(newDuration)
+
+                    // the left edge moves the start and changes the duration while
+                    // the end stays put, so both must be checked together
+                    if (showManager.setShowItemStartTimeAndDuration(sfRef, newStartTime, newDuration) === false)
                         updateGeometry()
 
                     if (funcRef && showManager.stretchFunctions === true)
@@ -932,28 +1029,29 @@ Item
                     var newWidth = obj.x + (horRightHdlMa.width - mouse.x)
 
                     // snap-to-item: check right edge
-                    var rightEdge = itemRoot.x + newWidth
-                    var bestDist = snapThreshold + 1
-                    var bestSnapX = -1
-                    for (var i = 0; i < snapEdges.length; i++)
+                    showManager.snapGuideX = -1
+                    itemSnapped = false
+
+                    if (snappingActive(mouse.modifiers))
                     {
-                        var dist = Math.abs(snapEdges[i] - rightEdge)
-                        if (dist < bestDist)
+                        var rightEdge = itemRoot.x + newWidth
+                        var bestDist = snapThreshold + 1
+                        var bestSnapX = -1
+                        for (var i = 0; i < snapEdges.length; i++)
                         {
-                            bestDist = dist
-                            bestSnapX = snapEdges[i]
+                            var dist = Math.abs(snapEdges[i] - rightEdge)
+                            if (dist < bestDist)
+                            {
+                                bestDist = dist
+                                bestSnapX = snapEdges[i]
+                            }
                         }
-                    }
-                    if (bestSnapX >= 0 && bestDist <= snapThreshold)
-                    {
-                        newWidth = bestSnapX - itemRoot.x
-                        showManager.snapGuideX = bestSnapX
-                        itemSnapped = true
-                    }
-                    else
-                    {
-                        showManager.snapGuideX = -1
-                        itemSnapped = false
+                        if (bestSnapX >= 0 && bestDist <= snapThreshold)
+                        {
+                            newWidth = bestSnapX - itemRoot.x
+                            showManager.snapGuideX = bestSnapX
+                            itemSnapped = true
+                        }
                     }
 
                     itemRoot.width = newWidth
@@ -962,7 +1060,7 @@ Item
                     updateTooltipText()
                 }
             }
-            onReleased:
+            onReleased: (mouse) =>
             {
                 if (drag.active === false)
                     return
@@ -972,7 +1070,8 @@ Item
                 if (sfRef)
                 {
                     // check grid snapping (skip if item-snapped)
-                    if (!itemSnapped && showManager.gridEnabled)
+                    if (!itemSnapped && showManager.gridEnabled
+                            && !snapSuspended(mouse.modifiers))
                     {
                         var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
                         itemRoot.width = snappedEndPos - itemRoot.x
@@ -993,6 +1092,8 @@ Item
                                 ? (Math.round(itemRoot.width / (tickSize / beatsDivision)) * 1000)
                                 : TimeUtils.posToBeatMs(itemRoot.width, tickSize, ioManager.bpmNumber, beatsDivision)
                     }
+
+                    newDuration = Math.round(newDuration)
 
                     if (showManager.setShowItemDuration(sfRef, newDuration) === false)
                         updateGeometry()

@@ -178,6 +178,20 @@ Rectangle
 
             IconButton
             {
+                id: snapItemsButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_magnet
+                faColor: "lightsteelblue"
+                tooltip: qsTr("Snap to nearby items (hold Ctrl while dragging to suspend)")
+                checkable: true
+                checked: showManager.snapToItems
+                onToggled: showManager.snapToItems = checked
+            }
+
+            IconButton
+            {
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
@@ -285,7 +299,7 @@ Rectangle
                 faColor: UISettings.fgMain
                 bgColor: showManager.isPaused ? "green" :
                          (showManager.isPlaying ? "darkorange" : UISettings.bgLight)
-                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause") : qsTr("Play or resume")
+                tooltip: (showManager.isPlaying && !showManager.isPaused) ? qsTr("Pause (Space)") : qsTr("Play or resume (Space)")
                 checkable: false
                 enabled: showManager.isEditing
                 onClicked: showManager.playShow()
@@ -298,7 +312,7 @@ Rectangle
                 faSource: FontAwesome.fa_stop
                 faColor: UISettings.fgMain
                 bgColor: showManager.isPlaying ? "red" : UISettings.bgLight
-                tooltip: qsTr("Stop or rewind")
+                tooltip: qsTr("Stop or rewind (Esc)")
                 checkable: false
                 enabled: showManager.isEditing
                 onClicked: showManager.stopShow()
@@ -378,7 +392,7 @@ Rectangle
                     if (showManager.timeScale >= 1.0)
                         showManager.timeScale += 1.0
                     else
-                        showManager.timeScale += 0.1
+                        showManager.timeScale = Math.round((showManager.timeScale + 0.1) * 10) / 10
                     centerView()
                 }
 
@@ -387,7 +401,7 @@ Rectangle
                     if (showManager.timeScale > 1.0)
                         showManager.timeScale -= 1.0
                     else
-                        showManager.timeScale -= 0.1
+                        showManager.timeScale = Math.round((showManager.timeScale - 0.1) * 10) / 10
                     centerView()
                 }
             }
@@ -482,7 +496,11 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight
-        width: showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width
+        // the right panel and the tracks column can together be wider than the
+        // Show Manager itself (a narrow window, a different screen density or a
+        // smaller UI scaling factor), which would make this width negative and
+        // hand HeaderAndCursor a zero or negative visibleWidth to divide by
+        width: Math.max(0, showMgrContainer.width - trackWidth - verticalDivider.width - rightPanel.width)
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
@@ -856,7 +874,8 @@ Rectangle
     {
         id: horScrollBar
         x: timelineHeader.x
-        y: showMgrContainer.height - height
+        // keep it at the bottom of the Show items area, above the bottom panel
+        y: showContents.y + showContents.height - height
         z: 10
         width: timelineHeader.width
         orientation: Qt.Horizontal

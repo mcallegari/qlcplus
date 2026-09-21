@@ -94,6 +94,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
     connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
     connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
+    connect(m_fixtureManager, &FixtureManager::groupsTreeModelChanged, this, &ContextManager::slotFixtureTreeChanged);
 
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
@@ -489,6 +490,7 @@ void ContextManager::resetContexts()
     for (quint32 &itemID : m_selectedFixtures)
         setFixtureSelection(itemID, -1, false);
     m_selectedFixtures.clear();
+    m_3DView->resetGenericSelection();
 
     m_functionManager->setEditorFunction(-1, true, false);
     m_functionManager->selectFunctionID(-1, false);
@@ -515,11 +517,57 @@ void ContextManager::resetViewItems()
     for (const quint32 &itemID : selected)
         setFixtureSelection(itemID, -1, false);
     m_selectedFixtures.clear();
+    m_3DView->resetGenericSelection();
 
     if (m_2DView->isEnabled())
         m_2DView->resetItems();
     if (m_3DView->isEnabled())
         m_3DView->resetItems();
+}
+
+bool ContextManager::handleShowManagerKeyPress(QKeyEvent *e)
+{
+    /* Key events are delivered here either directly by the main view, or by
+     * the signal of a detached context. In the latter case the Show Manager
+     * is on screen in its own window, even though it is not the current
+     * context of the main view */
+    PreviewContext *senderContext = qobject_cast<PreviewContext *>(sender());
+    QString activeContext = senderContext != nullptr ? senderContext->name() : currentContext();
+
+    if (activeContext != "SHOWMGR" || e->modifiers() != Qt::NoModifier)
+        return false;
+
+    /* Holding a key down must not toggle the playback over and over */
+    if (e->isAutoRepeat())
+        return false;
+
+    ShowManager *showMgr = qobject_cast<ShowManager *>(contextByName("SHOWMGR"));
+    if (showMgr == nullptr || showMgr->isEditing() == false)
+        return false;
+
+    /* Never steal keys from a popup: a modal dialog and its buttons own
+     * them while it is open, and this handler runs before the event is
+     * delivered to the QML scene */
+    QQuickView *view = senderContext != nullptr ? senderContext->view() : m_view;
+    for (QQuickItem *item = view->activeFocusItem(); item != nullptr; item = item->parentItem())
+    {
+        if (item->inherits("QQuickPopupItem"))
+            return false;
+    }
+
+    switch (e->key())
+    {
+        case Qt::Key_Space:
+            showMgr->playShow();
+        return true;
+        case Qt::Key_Escape:
+            showMgr->stopShow();
+        return true;
+        default:
+        break;
+    }
+
+    return false;
 }
 
 void ContextManager::handleKeyPress(QKeyEvent *e)
@@ -531,6 +579,13 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         return;
 
     qDebug() << "Key press event received:" << e->text();
+
+    if (handleShowManagerKeyPress(e))
+    {
+        /* Consume it, so it does not reach the QML scene on top of this */
+        e->accept();
+        return;
+    }
 
     if (e->modifiers() & Qt::ControlModifier)
     {
@@ -960,6 +1015,10 @@ void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal 
         m_2DView->updateFixturePosition(itemID, newPos);
     if (m_3DView->isEnabled())
         m_3DView->updateFixturePosition(itemID, newPos);
+
+    // this is where an undo/redo of a fixture move lands, so the
+    // editable properties need to be told the value has changed
+    emit fixturesPositionChanged();
 }
 
 void ContextManager::setFixturesOffset(qreal x, qreal y)
@@ -1017,50 +1076,50 @@ QVector3D ContextManager::fixturesPosition() const
 
 void ContextManager::setFixturesPosition(QVector3D position)
 {
-    if (m_selectedFixtures.isEmpty())
+    // an absolute position identifies a single fixture. When more than one item
+    // is selected the value entered is an offset instead, applied by moveFixtures
+    if (m_selectedFixtures.count() != 1)
         return;
 
-    if (m_selectedFixtures.count() == 1)
+    quint32 itemID = m_selectedFixtures.first();
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    // do not move locked items
+    if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
+        return;
+
+    QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
+
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(position));
+
+    m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, position);
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixturePosition(itemID, position);
+
+    emit fixturesPositionChanged();
+}
+
+void ContextManager::moveFixtures(QVector3D offset)
+{
+    for (quint32 &itemID : m_selectedFixtures)
     {
-        quint32 itemID = m_selectedFixtures.first();
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         // do not move locked items
         if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
-            return;
+            continue;
 
         QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
+        QVector3D newPos = currPos + offset;
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
 
-        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(position));
-
-        // absolute position change
-        m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, position);
+        m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixturePosition(m_selectedFixtures.first(), position);
-    }
-    else
-    {
-        // relative position change
-        for (quint32 &itemID : m_selectedFixtures)
-        {
-            quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-            quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
-            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-
-            // do not move locked items
-            if (m_monProps->fixtureFlags(fxID, headIndex, linkedIndex) & MonitorProperties::LockedFlag)
-                continue;
-
-            QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
-            QVector3D newPos = currPos + position;
-            Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
-
-            m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
-            if (m_3DView->isEnabled())
-                m_3DView->updateFixturePosition(itemID, newPos);
-        }
+            m_3DView->updateFixturePosition(itemID, newPos);
     }
 
     emit fixturesPositionChanged();
@@ -1478,52 +1537,55 @@ QVector3D ContextManager::fixturesRotation() const
 
 void ContextManager::setFixturesRotation(QVector3D degrees)
 {
-    if (m_selectedFixtures.count() == 1)
+    // an absolute rotation identifies a single fixture. When more than one item
+    // is selected the value entered is an offset instead, applied by rotateFixtures
+    if (m_selectedFixtures.count() != 1)
+        return;
+
+    quint32 itemID = m_selectedFixtures.first();
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    QVector3D rotation = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(degrees));
+
+    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, degrees);
+    if (m_2DView->isEnabled())
+        m_2DView->updateFixtureRotation(itemID, degrees);
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixtureRotation(itemID, degrees);
+
+    emit fixturesRotationChanged();
+}
+
+void ContextManager::rotateFixtures(QVector3D degrees)
+{
+    for (quint32 &itemID : m_selectedFixtures)
     {
-        quint32 itemID = m_selectedFixtures.first();
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
         quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
         QVector3D rotation = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+        QVector3D newRot = rotation + degrees;
 
-        Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(degrees));
+        // normalize back to a 0-359 range
+        if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
+        else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
 
-        // absolute rotation change
-        m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, degrees);
+        if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
+        else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
+
+        if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
+        else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
+
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(newRot));
+
+        m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, newRot);
         if (m_2DView->isEnabled())
-            m_2DView->updateFixtureRotation(itemID, degrees);
+            m_2DView->updateFixtureRotation(itemID, newRot);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixtureRotation(itemID, degrees);
-    }
-    else
-    {
-        // relative rotation change
-        for (quint32 &itemID : m_selectedFixtures)
-        {
-            quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-            quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
-            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-            QVector3D rotation = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
-            QVector3D newRot = rotation + degrees;
-
-            // normalize back to a 0-359 range
-            if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
-            else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
-
-            if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
-            else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
-
-            if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
-            else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
-
-            Tardis::instance()->enqueueAction(Tardis::FixtureSetRotation, itemID, QVariant(rotation), QVariant(newRot));
-
-            m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, newRot);
-            if (m_2DView->isEnabled())
-                m_2DView->updateFixtureRotation(itemID, newRot);
-            if (m_3DView->isEnabled())
-                m_3DView->updateFixtureRotation(itemID, newRot);
-        }
+            m_3DView->updateFixtureRotation(itemID, newRot);
     }
 
     emit fixturesRotationChanged();
@@ -1544,6 +1606,10 @@ void ContextManager::setFixtureRotation(quint32 itemID, QVector3D degrees)
         m_2DView->updateFixtureRotation(itemID, degrees);
     if (m_3DView->isEnabled())
         m_3DView->updateFixtureRotation(itemID, degrees);
+
+    // this is where an undo/redo of a fixture rotation lands, so the
+    // editable properties need to be told the value has changed
+    emit fixturesRotationChanged();
 }
 
 void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse)
@@ -1645,6 +1711,23 @@ void ContextManager::slotFixtureDeleted(quint32 itemID)
         m_2DView->removeFixtureItem(itemID);
     if (m_3DView->isEnabled())
         m_3DView->removeFixtureItem(itemID);
+}
+
+void ContextManager::slotFixtureTreeChanged()
+{
+    // the tree is built without any selection, the first time the Fixtures
+    // panel is shown and again whenever it is refreshed, so a fixture
+    // selected in a preview beforehand would not be highlighted in it
+    for (quint32 &itemID : m_selectedFixtures)
+    {
+        // dimmers are selected by head in the previews, and a head
+        // selection is not reflected in the tree (see setFixtureSelection)
+        Fixture *fixture = m_doc->fixture(FixtureUtils::itemFixtureID(itemID));
+        if (fixture == nullptr || fixture->type() == QLCFixtureDef::Dimmer)
+            continue;
+
+        m_fixtureManager->setItemRoleData(itemID, 2, TreeModel::IsSelectedRole);
+    }
 }
 
 void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)
