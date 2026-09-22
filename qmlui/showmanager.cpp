@@ -665,15 +665,9 @@ int ShowManager::addTempoSection(int time)
     return index;
 }
 
-QVariantList ShowManager::addTempoSectionsFromSelection()
+QList<TempoSection> ShowManager::selectedAudioSections() const
 {
-    QVariantList indices;
-
-    if (m_currentShow == nullptr || timeDivision() != Show::Time)
-        return indices;
-
-    TempoMap map = m_currentShow->tempoMap();
-    QList<quint32> startTimes;
+    QList<TempoSection> sections;
 
     for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
     {
@@ -684,9 +678,52 @@ QVariantList ShowManager::addTempoSectionsFromSelection()
         if (func == nullptr || func->type() != Function::AudioType)
             continue;
 
-        TempoSection section(ssi.m_showFunc->startTime(), ssi.m_showFunc->duration(m_doc),
-                             120.0, 4, func->name());
-        if (map.addSection(section) != -1)
+        sections.append(TempoSection(ssi.m_showFunc->startTime(), ssi.m_showFunc->duration(m_doc),
+                                     120.0, 4, func->name()));
+    }
+
+    std::sort(sections.begin(), sections.end(),
+              [](const TempoSection &a, const TempoSection &b) { return a.startTime < b.startTime; });
+
+    return sections;
+}
+
+QVariantMap ShowManager::tempoSelectionInfo() const
+{
+    QVariantMap info;
+    int audio = 0;
+    int overlapping = 0;
+
+    if (m_currentShow != nullptr)
+    {
+        const TempoMap &map = m_currentShow->tempoMap();
+        for (const TempoSection &section : selectedAudioSections())
+        {
+            audio++;
+            if (map.canPlace(section) == false)
+                overlapping++;
+        }
+    }
+
+    info.insert("audio", audio);
+    info.insert("overlapping", overlapping);
+    return info;
+}
+
+QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
+{
+    QVariantList indices;
+
+    if (m_currentShow == nullptr || timeDivision() != Show::Time)
+        return indices;
+
+    TempoMap map = m_currentShow->tempoMap();
+    QList<quint32> startTimes;
+
+    for (const TempoSection &section : selectedAudioSections())
+    {
+        int index = startPrecedence ? map.insertSection(section) : map.addSection(section);
+        if (index != -1)
             startTimes.append(section.startTime);
     }
 

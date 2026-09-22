@@ -267,10 +267,17 @@ public:
      *  section or one minute. Returns the new section index, or -1 */
     Q_INVOKABLE int addTempoSection(int time);
 
+    /** Get the number of selected audio items ("audio") and how many of
+     *  them overlap a tempo section ("overlapping") */
+    Q_INVOKABLE QVariantMap tempoSelectionInfo() const;
+
     /** Add a tempo section for each selected audio item, with the item
-     *  position and name, unless it would overlap another section.
+     *  position and name. Without $startPrecedence, items overlapping another
+     *  section are skipped. With it, the items are taken in start order and
+     *  each new section takes over from its start, cutting (or splitting)
+     *  the section there, and ends where the next section starts.
      *  Returns the indices of the sections added */
-    Q_INVOKABLE QVariantList addTempoSectionsFromSelection();
+    Q_INVOKABLE QVariantList addTempoSectionsFromSelection(bool startPrecedence = false);
 
     /** Replace the tempo section at $index. Returns false, leaving the
      *  section unchanged, if it would overlap another section */
@@ -301,6 +308,9 @@ public:
     Q_INVOKABLE double snapToTempoGrid(double xPos, double fallbackStep) const;
 
 private:
+    /** Get a tempo section for each selected audio item, in start order */
+    QList<TempoSection> selectedAudioSections() const;
+
     /** Set the tempo sections of the current Show, recording the change,
      *  and the item conversion of a first section, as one undo step */
     void setTempoMap(const TempoMap &tempoMap);
