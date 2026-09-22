@@ -175,6 +175,64 @@ bool TempoMap::splitSection(int index, quint32 time)
     return true;
 }
 
+int TempoMap::insertSection(const TempoSection &section)
+{
+    if (isValid(section) == false)
+        return -1;
+
+    QList<TempoSection> sections = m_sections;
+    quint32 start = section.startTime;
+    quint32 end = section.endTime();
+
+    for (const TempoSection &other : std::as_const(sections))
+    {
+        if (other.startTime == start)
+            return -1;
+
+        // the sections are sorted, so the first one found clips the end
+        if (other.startTime > start && other.startTime < end)
+        {
+            end = other.startTime;
+            break;
+        }
+    }
+
+    for (int i = 0; i < sections.count(); i++)
+    {
+        TempoSection cut = sections.at(i);
+        if (cut.startTime >= start || cut.endTime() <= start)
+            continue;
+
+        quint32 cutEnd = cut.endTime();
+        cut.duration = start - cut.startTime;
+        sections.replace(i, cut);
+
+        // nothing else starts before cutEnd, so end is the end of $section
+        if (cutEnd > end)
+        {
+            double beatMs = cut.beatDuration();
+            double resume = cut.startTime + std::ceil((end - cut.startTime) / beatMs - 0.001) * beatMs;
+            quint32 resumeTime = qMax(end, quint32(qRound(resume)));
+
+            if (resumeTime + beatMs <= cutEnd + 1)
+                sections.insert(i + 1, TempoSection(resumeTime, cutEnd - resumeTime, cut.bpm,
+                                                    cut.beatsPerBar, cut.name));
+        }
+        break;
+    }
+
+    TempoSection inserted = section;
+    inserted.duration = end - start;
+
+    int index = 0;
+    while (index < sections.count() && sections.at(index).startTime < start)
+        index++;
+    sections.insert(index, inserted);
+
+    m_sections = sections;
+    return index;
+}
+
 void TempoMap::clear()
 {
     m_sections.clear();
