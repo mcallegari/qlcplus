@@ -315,6 +315,9 @@ public:
     /** Remove the tempo section at $index */
     Q_INVOKABLE void removeTempoSection(int index);
 
+    /** Remove all the tempo sections of the current Show */
+    Q_INVOKABLE void removeAllTempoSections();
+
     /** Get the duration in ms of a beat at $time, from the tempo sections
      *  or the current BPM before the first section */
     Q_INVOKABLE double tempoBeatDuration(double time) const;
