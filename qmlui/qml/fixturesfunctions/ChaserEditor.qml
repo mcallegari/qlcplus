@@ -274,7 +274,7 @@ Rectangle
             {
                 id: chModes
                 width: parent.width
-                isExpanded: false
+                isExpanded: true
                 sectionLabel: qsTr("Run properties")
 
                 sectionContents:
