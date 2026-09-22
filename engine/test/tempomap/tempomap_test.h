@@ -30,6 +30,10 @@ private slots:
     void sections();
     void overlap();
     void split();
+    void insertOverlappingStart();
+    void insertClipsEnd();
+    void insertInside();
+    void insertRejected();
     void sectionIndexAt();
     void stepEndOnGrid();
     void stepEndOffGrid();

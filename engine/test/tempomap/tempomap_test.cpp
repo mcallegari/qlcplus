@@ -89,6 +89,79 @@ void TempoMap_Test::split()
     QCOMPARE(map.section(1), TempoSection(4000, 6000, 128, 4, "Song"));
 }
 
+void TempoMap_Test::insertOverlappingStart()
+{
+    // two songs overlapping at the edges: the new song takes over at its start
+    TempoMap map;
+    map.addSection(TempoSection(0, 200000, 128, 4, "Song 1"));
+
+    QCOMPARE(map.insertSection(TempoSection(195000, 205000, 96.5, 4, "Song 2")), 1);
+    QCOMPARE(map.count(), 2);
+    QCOMPARE(map.section(0), TempoSection(0, 195000, 128, 4, "Song 1"));
+    QCOMPARE(map.section(1), TempoSection(195000, 205000, 96.5, 4, "Song 2"));
+
+    // no overlap: same as addSection
+    QCOMPARE(map.insertSection(TempoSection(500000, 1000, 120, 4, "Song 4")), 2);
+    QCOMPARE(map.count(), 3);
+}
+
+void TempoMap_Test::insertClipsEnd()
+{
+    // the next existing section keeps its start
+    TempoMap map;
+    map.addSection(TempoSection(0, 200000, 128, 4, "Song 1"));
+    map.addSection(TempoSection(395000, 100000, 140, 4, "Song 3"));
+
+    QCOMPARE(map.insertSection(TempoSection(195000, 205000, 96.5, 4, "Song 2")), 1);
+    QCOMPARE(map.count(), 3);
+    QCOMPARE(map.section(0), TempoSection(0, 195000, 128, 4, "Song 1"));
+    QCOMPARE(map.section(1), TempoSection(195000, 200000, 96.5, 4, "Song 2"));
+    QCOMPARE(map.section(2), TempoSection(395000, 100000, 140, 4, "Song 3"));
+}
+
+void TempoMap_Test::insertInside()
+{
+    // 120 BPM: 500 ms beats from 1000. The outer section carries on after
+    // the inserted one from the next beat of its own grid
+    TempoMap map;
+    map.addSection(TempoSection(1000, 20000, 120, 4, "Song"));
+
+    QCOMPARE(map.insertSection(TempoSection(5000, 3200, 90, 3, "Bridge")), 1);
+    QCOMPARE(map.count(), 3);
+    QCOMPARE(map.section(0), TempoSection(1000, 4000, 120, 4, "Song"));
+    QCOMPARE(map.section(1), TempoSection(5000, 3200, 90, 3, "Bridge"));
+    QCOMPARE(map.section(2), TempoSection(8500, 12500, 120, 4, "Song"));
+
+    // ending on a beat of the outer grid: no gap
+    TempoMap onBeat;
+    onBeat.addSection(TempoSection(1000, 20000, 120, 4, "Song"));
+    QCOMPARE(onBeat.insertSection(TempoSection(5000, 3000, 90, 3, "Bridge")), 1);
+    QCOMPARE(onBeat.section(2), TempoSection(8000, 13000, 120, 4, "Song"));
+
+    // less than a beat left after the inserted section: no remainder
+    TempoMap tail;
+    tail.addSection(TempoSection(1000, 10000, 120, 4, "Song"));
+    QCOMPARE(tail.insertSection(TempoSection(5000, 5800, 90, 3, "Outro")), 1);
+    QCOMPARE(tail.count(), 2);
+    QCOMPARE(tail.section(0), TempoSection(1000, 4000, 120, 4, "Song"));
+    QCOMPARE(tail.section(1), TempoSection(5000, 5800, 90, 3, "Outro"));
+}
+
+void TempoMap_Test::insertRejected()
+{
+    TempoMap map;
+    map.addSection(TempoSection(1000, 1000, 120, 4, "Song"));
+
+    // a section already starts there
+    QCOMPARE(map.insertSection(TempoSection(1000, 5000, 90)), -1);
+    // invalid
+    QCOMPARE(map.insertSection(TempoSection(3000, 0, 90)), -1);
+    QCOMPARE(map.insertSection(TempoSection(3000, 1000, 0)), -1);
+
+    QCOMPARE(map.count(), 1);
+    QCOMPARE(map.section(0), TempoSection(1000, 1000, 120, 4, "Song"));
+}
+
 void TempoMap_Test::sectionIndexAt()
 {
     TempoMap map;

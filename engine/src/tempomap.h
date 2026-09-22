@@ -106,6 +106,15 @@ public:
      *  inside the section. Both parts keep the original tempo */
     bool splitSection(int index, quint32 time);
 
+    /** Insert $section, giving it precedence at its start but not at its end:
+     *  - a section containing its start is cut there. If that section also
+     *    runs past the end of $section, it carries on after it from the first
+     *    beat of its own grid, as long as at least one beat is left
+     *  - $section ends where the next section starts
+     *  Returns the index of the inserted section, or -1 if it is invalid or a
+     *  section already starts at the same time */
+    int insertSection(const TempoSection &section);
+
     void clear();
 
     /** Get the index of the section containing $time, or -1 if $time is not
