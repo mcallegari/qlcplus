@@ -270,14 +270,16 @@ double TempoMap::stepEnd(double startTime, double beats, double fallbackBpm) con
  * Load & Save
  ****************************************************************************/
 
-bool TempoMap::saveXML(QXmlStreamWriter *doc) const
+bool TempoMap::saveXML(QXmlStreamWriter *doc, bool itemsInMs) const
 {
     Q_ASSERT(doc != NULL);
 
-    if (m_sections.isEmpty())
+    if (m_sections.isEmpty() && itemsInMs == false)
         return true;
 
     doc->writeStartElement(KXMLQLCTempoMap);
+    if (itemsInMs)
+        doc->writeAttribute(KXMLQLCTempoMapItemUnit, KXMLQLCTempoMapItemUnitMs);
 
     foreach (TempoSection section, m_sections)
     {

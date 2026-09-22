@@ -30,7 +30,9 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCTempoMap QStringLiteral("TempoMap")
+#define KXMLQLCTempoMap             QStringLiteral("TempoMap")
+#define KXMLQLCTempoMapItemUnit     QStringLiteral("ItemUnit")
+#define KXMLQLCTempoMapItemUnitMs   QStringLiteral("ms")
 
 /**
  * A stretch of a Show timeline with its own tempo. The section beat grid
@@ -150,7 +152,10 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QXmlStreamWriter *doc) const;
+    /** Save the tempo map. The element is written if there are sections,
+     *  or if $itemsInMs is true, to record that the items of the Show are
+     *  positioned in ms (see Show::itemsInMs()) */
+    bool saveXML(QXmlStreamWriter *doc, bool itemsInMs = false) const;
     bool loadXML(QXmlStreamReader &root);
 };
 
