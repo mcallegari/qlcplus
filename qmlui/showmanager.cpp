@@ -27,8 +27,10 @@
 #include <algorithm>
 
 #include "waveformimageprovider.h"
+#include "tempodetector.h"
 #include "showmanager.h"
 #include "sequence.h"
+#include "audio.h"
 #include "tardis.h"
 #include "chaser.h"
 #include "scene.h"
@@ -38,6 +40,7 @@
 #include "app.h"
 
 #define SETTINGS_SNAP_TO_ITEMS QStringLiteral("showmanager/snaptoitems")
+#define SETTINGS_DETECT_TEMPO QStringLiteral("showmanager/detecttempo")
 #define KXMLQLCShowManagerCurrentShow QStringLiteral("CurrentShow")
 #define KXMLQLCShowManagerTimeScale   QStringLiteral("TimeScale")
 
@@ -59,6 +62,8 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_snapGuideX(-1.0)
     , m_timeScale(5.0)
     , m_currentTime(0)
+    , m_tempoDetectionShowId(Function::invalidId())
+    , m_detectTempo(false)
     , m_selectedTrackId(-1)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
@@ -70,6 +75,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     QVariant snap = settings.value(SETTINGS_SNAP_TO_ITEMS);
     if (snap.isValid())
         m_snapToItems = snap.toBool();
+    m_detectTempo = settings.value(SETTINGS_DETECT_TEMPO, false).toBool();
 
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
@@ -80,6 +86,10 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     m_waveformProvider = new WaveformImageProvider(doc);
     view->engine()->addImageProvider(QLatin1String("waveform"), m_waveformProvider);
     view->rootContext()->setContextProperty("waveformProvider", m_waveformProvider);
+
+    m_tempoDetector = new TempoDetector(doc, this);
+    connect(m_tempoDetector, &TempoDetector::progress, this, &ShowManager::tempoDetectionProgress);
+    connect(m_tempoDetector, &TempoDetector::finished, this, &ShowManager::slotTempoDetectionFinished);
 
     /* Relay Function changes to the UI, so Show Items can update
        their preview lines when the referenced Function is edited */
@@ -131,6 +141,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
     {
         if (m_currentShow->id() == (quint32)currentShowID)
             return;
+        m_tempoDetector->stop();
         disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         disconnect(m_currentShow, SIGNAL(showFinished()), this, SLOT(slotShowFinished()));
         disconnect(m_currentShow, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
@@ -665,6 +676,15 @@ int ShowManager::addTempoSection(int time)
     return index;
 }
 
+TempoSection ShowManager::audioItemSection(const ShowFunction *sf, double bpm) const
+{
+    Function *func = m_doc->function(sf->functionID());
+    if (func == nullptr || func->type() != Function::AudioType)
+        return TempoSection();
+
+    return TempoSection(sf->startTime(), sf->duration(m_doc), bpm, 4, func->name());
+}
+
 QList<TempoSection> ShowManager::selectedAudioSections() const
 {
     QList<TempoSection> sections;
@@ -674,12 +694,9 @@ QList<TempoSection> ShowManager::selectedAudioSections() const
         if (ssi.m_showFunc.isNull())
             continue;
 
-        Function *func = m_doc->function(ssi.m_showFunc->functionID());
-        if (func == nullptr || func->type() != Function::AudioType)
-            continue;
-
-        sections.append(TempoSection(ssi.m_showFunc->startTime(), ssi.m_showFunc->duration(m_doc),
-                                     120.0, 4, func->name()));
+        TempoSection section = audioItemSection(ssi.m_showFunc, 120.0);
+        if (section.duration > 0)
+            sections.append(section);
     }
 
     std::sort(sections.begin(), sections.end(),
@@ -712,6 +729,38 @@ QVariantMap ShowManager::tempoSelectionInfo() const
 
 QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
 {
+    return addAudioSections(selectedAudioSections(), startPrecedence, false);
+}
+
+QVariantList ShowManager::addTempoSectionsForItems(const QVariantList &items, bool startPrecedence)
+{
+    QList<TempoSection> sections;
+
+    if (m_currentShow == nullptr)
+        return QVariantList();
+
+    for (const QVariant &item : items)
+    {
+        QVariantMap map = item.toMap();
+        ShowFunction *sf = m_currentShow->showFunction(map.value("itemId").toUInt());
+        double bpm = map.value("bpm").toDouble();
+        if (sf == nullptr || bpm <= 0)
+            continue;
+
+        TempoSection section = audioItemSection(sf, bpm);
+        if (section.duration > 0)
+            sections.append(section);
+    }
+
+    std::sort(sections.begin(), sections.end(),
+              [](const TempoSection &a, const TempoSection &b) { return a.startTime < b.startTime; });
+
+    return addAudioSections(sections, startPrecedence, true);
+}
+
+QVariantList ShowManager::addAudioSections(const QList<TempoSection> &sections, bool startPrecedence,
+                                           bool updateSameStart)
+{
     QVariantList indices;
 
     if (m_currentShow == nullptr || timeDivision() != Show::Time)
@@ -720,8 +769,18 @@ QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
     TempoMap map = m_currentShow->tempoMap();
     QList<quint32> startTimes;
 
-    for (const TempoSection &section : selectedAudioSections())
+    for (const TempoSection &section : sections)
     {
+        int existing = map.sectionIndexAt(section.startTime);
+        if (updateSameStart && existing != -1 && map.section(existing).startTime == section.startTime)
+        {
+            TempoSection updated = map.section(existing);
+            updated.bpm = section.bpm;
+            if (map.updateSection(existing, updated))
+                startTimes.append(section.startTime);
+            continue;
+        }
+
         int index = startPrecedence ? map.insertSection(section) : map.addSection(section);
         if (index != -1)
             startTimes.append(section.startTime);
@@ -737,6 +796,95 @@ QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
         indices.append(map.sectionIndexAt(startTime));
 
     return indices;
+}
+
+bool ShowManager::detectSelectionTempo()
+{
+    if (m_currentShow == nullptr || m_tempoDetector->isRunning())
+        return false;
+
+    QList<QPair<quint32, TempoDetector::Job>> items;
+
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_showFunc.isNull())
+            continue;
+
+        Audio *audio = qobject_cast<Audio *>(m_doc->function(ssi.m_showFunc->functionID()));
+        if (audio == nullptr)
+            continue;
+
+        TempoDetector::Job job = { ssi.m_showFunc->id(), audio->name(),
+                                   audio->getSourceFileName(), ssi.m_showFunc->duration(m_doc) };
+        items.append(qMakePair(ssi.m_showFunc->startTime(), job));
+    }
+
+    if (items.isEmpty())
+        return false;
+
+    std::sort(items.begin(), items.end(),
+              [](const QPair<quint32, TempoDetector::Job> &a, const QPair<quint32, TempoDetector::Job> &b)
+              { return a.first < b.first; });
+
+    QList<TempoDetector::Job> jobs;
+    for (const QPair<quint32, TempoDetector::Job> &item : items)
+        jobs.append(item.second);
+
+    m_tempoDetectionShowId = m_currentShow->id();
+    m_tempoDetector->start(jobs);
+    emit tempoDetectionRunningChanged();
+
+    return true;
+}
+
+void ShowManager::stopTempoDetection()
+{
+    m_tempoDetector->stop();
+}
+
+bool ShowManager::tempoDetectionRunning() const
+{
+    return m_tempoDetector->isRunning();
+}
+
+bool ShowManager::detectTempo() const
+{
+    return m_detectTempo;
+}
+
+void ShowManager::setDetectTempo(bool detect)
+{
+    if (m_detectTempo == detect)
+        return;
+
+    m_detectTempo = detect;
+
+    QSettings settings;
+    settings.setValue(SETTINGS_DETECT_TEMPO, m_detectTempo);
+
+    emit detectTempoChanged();
+}
+
+void ShowManager::slotTempoDetectionFinished(const QVariantList &results)
+{
+    emit tempoDetectionRunningChanged();
+
+    if (m_currentShow == nullptr || m_currentShow->id() != m_tempoDetectionShowId)
+    {
+        emit tempoDetectionFinished(QVariantList());
+        return;
+    }
+
+    // the analysis steps are 0.01 BPM
+    QVariantList rounded;
+    for (const QVariant &result : results)
+    {
+        QVariantMap map = result.toMap();
+        map.insert("bpm", qRound(map.value("bpm").toDouble() * 100.0) / 100.0);
+        rounded.append(map);
+    }
+
+    emit tempoDetectionFinished(rounded);
 }
 
 bool ShowManager::updateTempoSection(int index, int startTime, int duration,
@@ -2078,6 +2226,7 @@ bool ShowManager::cutTimeAtCursor(int length, int cursorTime)
 
 void ShowManager::resetContents()
 {
+    m_tempoDetector->stop();
     resetView();
     m_currentTime = 0;
     emit currentTimeChanged(m_currentTime);

@@ -38,6 +38,7 @@ class Function;
 class Chaser;
 class ShowFunction;
 class WaveformImageProvider;
+class TempoDetector;
 
 typedef struct
 {
@@ -77,6 +78,8 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(QVariantList tempoSections READ tempoSections NOTIFY tempoSectionsChanged)
     Q_PROPERTY(bool itemsInMs READ itemsInMs NOTIFY tempoSectionsChanged)
     Q_PROPERTY(bool tempoGridActive READ tempoGridActive NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool tempoDetectionRunning READ tempoDetectionRunning NOTIFY tempoDetectionRunningChanged)
+    Q_PROPERTY(bool detectTempo READ detectTempo WRITE setDetectTempo NOTIFY detectTempoChanged)
 
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
@@ -279,6 +282,27 @@ public:
      *  Returns the indices of the sections added */
     Q_INVOKABLE QVariantList addTempoSectionsFromSelection(bool startPrecedence = false);
 
+    /** Like addTempoSectionsFromSelection(), for the audio items of $items:
+     *  a list of maps with the keys itemId and bpm. A section already starting
+     *  where an item starts gets the item tempo, keeping its length and name */
+    Q_INVOKABLE QVariantList addTempoSectionsForItems(const QVariantList &items, bool startPrecedence);
+
+    /** Detect in the background the tempo of each selected audio item,
+     *  reporting tempoDetectionProgress() and then tempoDetectionFinished().
+     *  Returns false if there is nothing to detect */
+    Q_INVOKABLE bool detectSelectionTempo();
+
+    /** Stop detecting: the items being analysed report the tempo of their
+     *  audio analysed so far, the others are reported as not detected */
+    Q_INVOKABLE void stopTempoDetection();
+
+    bool tempoDetectionRunning() const;
+
+    /** Get/Set whether adding tempo sections from the selected audio items
+     *  detects their tempo. Stored in the local computer settings */
+    bool detectTempo() const;
+    void setDetectTempo(bool detect);
+
     /** Replace the tempo section at $index. Returns false, leaving the
      *  section unchanged, if it would overlap another section */
     Q_INVOKABLE bool updateTempoSection(int index, int startTime, int duration,
@@ -311,6 +335,18 @@ private:
     /** Get a tempo section for each selected audio item, in start order */
     QList<TempoSection> selectedAudioSections() const;
 
+    /** Get the tempo section of the audio item $sf, or one with no duration
+     *  if $sf is not an audio item */
+    TempoSection audioItemSection(const ShowFunction *sf, double bpm) const;
+
+    /** Add $sections, in start order, as addTempoSectionsFromSelection() does.
+     *  With $updateSameStart, a section starting where an existing one starts
+     *  sets the tempo of the existing one instead */
+    QVariantList addAudioSections(const QList<TempoSection> &sections, bool startPrecedence,
+                                  bool updateSameStart);
+
+    void slotTempoDetectionFinished(const QVariantList &results);
+
     /** Set the tempo sections of the current Show, recording the change,
      *  and the item conversion of a first section, as one undo step */
     void setTempoMap(const TempoMap &tempoMap);
@@ -329,6 +365,21 @@ private:
 
 signals:
     void tempoSectionsChanged();
+    void tempoDetectionRunningChanged();
+    void detectTempoChanged();
+    void tempoDetectionProgress(int done, int total);
+
+    /** $results is a list of maps, in start order, with the keys itemId,
+     *  name, bpm (0 when not detected), agreement (the share of the audio
+     *  agreeing with bpm, 0 to 1) and stopped. It is empty when the Show
+     *  being edited changed during the detection */
+    void tempoDetectionFinished(const QVariantList &results);
+
+private:
+    TempoDetector *m_tempoDetector;
+    /** The Show whose items are being detected */
+    quint32 m_tempoDetectionShowId;
+    bool m_detectTempo;
 
     /*********************************************************************
       * Tracks
