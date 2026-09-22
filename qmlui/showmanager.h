@@ -27,6 +27,8 @@
 #include "previewcontext.h"
 #include "show.h"
 
+class Chaser;
+
 class QXmlStreamReader;
 class QXmlStreamWriter;
 
@@ -71,6 +73,10 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
     Q_PROPERTY(float tickSize READ tickSize NOTIFY tickSizeChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
+
+    Q_PROPERTY(QVariantList tempoSections READ tempoSections NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool itemsInMs READ itemsInMs NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool tempoGridActive READ tempoGridActive NOTIFY tempoSectionsChanged)
 
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
@@ -232,6 +238,97 @@ private:
 
     /** The current time position of the Show in ms */
     int m_currentTime;
+
+    /*********************************************************************
+      * Tempo sections
+      ********************************************************************/
+public:
+    /** Get the tempo sections of the current Show, as a list of maps with
+     *  the keys index, startTime, duration, bpm, beatsPerBar and name */
+    QVariantList tempoSections() const;
+
+    /** Returns true if all the items of the current Show are positioned in
+     *  ms, including those of Beats tempo Functions (see Show::itemsInMs()) */
+    bool itemsInMs() const;
+
+    /** Returns true if the current Show has tempo sections and shows a Time
+     *  ruler, so that the timeline displays and snaps to their beat grid */
+    bool tempoGridActive() const;
+
+    /** Restore the tempo sections state of the Show with ID $showId, as
+     *  saved by tempoStateToByteArray() (used by undo) */
+    void restoreTempoState(quint32 showId, const QByteArray &state);
+
+    /** Make the item with ID $itemId of the current Show use the Function
+     *  with ID $functionId */
+    void setShowItemFunction(quint32 itemId, quint32 functionId);
+
+    /** Add a tempo section starting at $time (ms), lasting up to the next
+     *  section or one minute. Returns the new section index, or -1 */
+    Q_INVOKABLE int addTempoSection(int time);
+
+    /** Get the number of selected audio items ("audio") and how many of
+     *  them overlap a tempo section ("overlapping") */
+    Q_INVOKABLE QVariantMap tempoSelectionInfo() const;
+
+    /** Add a tempo section for each selected audio item, with the item
+     *  position and name. Without $startPrecedence, items overlapping another
+     *  section are skipped. With it, the items are taken in start order and
+     *  each new section takes over from its start, cutting (or splitting)
+     *  the section there, and ends where the next section starts.
+     *  Returns the indices of the sections added */
+    Q_INVOKABLE QVariantList addTempoSectionsFromSelection(bool startPrecedence = false);
+
+    /** Replace the tempo section at $index. Returns false, leaving the
+     *  section unchanged, if it would overlap another section */
+    Q_INVOKABLE bool updateTempoSection(int index, int startTime, int duration,
+                                        double bpm, int beatsPerBar, QString name);
+
+    /** Split the tempo section at $index in two at the beat nearest to
+     *  $time (ms), so that the second part keeps the same beat grid */
+    Q_INVOKABLE bool splitTempoSection(int index, int time);
+
+    /** Remove the tempo section at $index */
+    Q_INVOKABLE void removeTempoSection(int index);
+
+    /** Get the duration in ms of a beat at $time, from the tempo sections
+     *  or the current BPM before the first section */
+    Q_INVOKABLE double tempoBeatDuration(double time) const;
+
+    /** Get the tempo section beat grid lines between the X positions $fromX
+     *  and $toX of the timeline, as a flat list of triplets: the X position,
+     *  the line weight (0 = beat subdivision, 1 = beat, 2 = bar) and the bar
+     *  number (1 based) for bar lines. The grid gets coarser when zooming
+     *  out, down to a line every 16 bars */
+    Q_INVOKABLE QVariantList tempoGridLines(double fromX, double toX) const;
+
+    /** Snap the timeline X position $xPos to the nearest line of the tempo
+     *  section grid it lies in. Outside the sections, snap it to multiples
+     *  of $fallbackStep pixels, or leave it untouched if that is 0 */
+    Q_INVOKABLE double snapToTempoGrid(double xPos, double fallbackStep) const;
+
+private:
+    /** Get a tempo section for each selected audio item, in start order */
+    QList<TempoSection> selectedAudioSections() const;
+
+    /** Set the tempo sections of the current Show, recording the change,
+     *  and the item conversion of a first section, as one undo step */
+    void setTempoMap(const TempoMap &tempoMap);
+
+    static QByteArray tempoStateToByteArray(const Show *show);
+
+    /** Returns true if the item of $func is positioned in "beats as ms":
+     *  a Beats tempo Function in a Show that doesn't run on tempo sections */
+    bool itemInBeats(const Function *func) const;
+
+    /** Get the grid step in beats for $section at the current zoom */
+    double tempoGridStep(const TempoSection &section) const;
+
+    double timeToPosition(double time) const;
+    double positionToTime(double xPos) const;
+
+signals:
+    void tempoSectionsChanged();
 
     /*********************************************************************
       * Tracks
@@ -445,6 +542,59 @@ public:
      *  Nothing is pasted unless every item fits: on failure false is
      *  returned and clipboardActionFailed carries the reason */
     Q_INVOKABLE bool pasteFromClipboard();
+
+    /*********************************************************************
+     * Chaser tempo conversion
+     *********************************************************************/
+public:
+    /**
+     * Describe a Chaser tempo conversion before applying it. $options holds:
+     * - chaserIds: the Chasers to convert, or empty for those of the
+     *   selected Show items
+     * - toBeats: true to convert Time tempo Chasers to Beats, false for the
+     *   reverse
+     * - bpmMode: "section" for the tempo of the section under each item, or
+     *   "fixed" for the BPM in "bpm"
+     * - resolution: the beat rounding when converting to beats
+     * - clone: true to convert copies of the Chasers, used by the items in
+     *   "allItems" (every item of the Show using a Chaser) or the selected
+     *   ones, false to convert the Chasers themselves
+     * - perTempo: with clone, one copy per tempo of the items, instead of a
+     *   single copy at the first item tempo
+     *
+     * Returns a map with "valid", "message" (why it can't be applied),
+     * "lines" (a description) and "chaserIds" (the Chasers converted)
+     */
+    Q_INVOKABLE QVariantMap tempoConversionPreview(QVariantMap options);
+
+    /** Apply a Chaser tempo conversion described by $options (see
+     *  tempoConversionPreview()), as a single undo step */
+    Q_INVOKABLE bool applyTempoConversion(QVariantMap options);
+
+    /** Returns true if the selected Show items include Chasers */
+    Q_INVOKABLE bool selectionHasChasers() const;
+
+private:
+    struct TempoConversionGroup
+    {
+        double bpm;
+        QList<ShowFunction *> items;
+    };
+
+    struct TempoConversionPlan
+    {
+        Chaser *chaser;
+        QList<TempoConversionGroup> groups;
+        /** The distinct tempos of the items following the conversion */
+        QList<double> itemBpms;
+    };
+
+    QList<TempoConversionPlan> tempoConversionPlans(const QVariantMap &options, QString &error) const;
+
+    /** Convert the stored times of $sf between ms and beats at the global
+     *  BPM, for a Chaser changing tempo type in a Show that doesn't keep
+     *  its items in ms. Returns the new times as { start, duration } */
+    QPair<quint32, quint32> convertedItemTimes(const ShowFunction *sf, bool toBeats) const;
 
     /** Returns the ShowFunction IDs of the items pending a cut */
     QVariantList cutItemIds() const;

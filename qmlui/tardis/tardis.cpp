@@ -984,6 +984,34 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
+        case ChaserSetState:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            if (chaser == nullptr)
+                break;
+
+            QBuffer buffer;
+            buffer.setData(value->toByteArray());
+            buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+            QXmlStreamReader xmlReader(&buffer);
+            xmlReader.readNextStartElement();
+
+            // the name, path, visibility and blend mode are loaded by
+            // Function::loader(), not by loadXML(), and a tempo conversion
+            // doesn't change them, so the Chaser keeps its own
+            Chaser state(m_doc);
+            state.setName(chaser->name());
+            state.setPath(chaser->path(true));
+            state.setVisible(chaser->isVisible());
+            state.setBlendMode(chaser->blendMode());
+            if (state.loadXML(xmlReader))
+            {
+                chaser->copyFrom(&state);
+                // copyFrom() doesn't notify the tempo change to the editors
+                emit chaser->tempoTypeChanged();
+            }
+        }
+        break;
 
         /* *********************** EFX editing actions *********************** */
 
@@ -1324,6 +1352,27 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 ShowFunction *sf = show->showFunction(action.m_objID);
                 if (sf != nullptr)
                     m_showManager->moveShowItemToTrack(sf, value->toInt());
+            }
+        }
+        break;
+
+        case ShowManagerSetTempoMap:
+            m_showManager->restoreTempoState(action.m_objID, value->toByteArray());
+        break;
+
+        case ShowManagerItemSetFunction:
+            m_showManager->setShowItemFunction(action.m_objID, value->toUInt());
+        break;
+
+        case ShowManagerShowItemSetTimes:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(action.m_objID));
+            QVariantList times = value->toList();
+            ShowFunction *sf = (show != nullptr && times.count() == 3) ? show->showFunction(times.at(0).toUInt()) : nullptr;
+            if (sf != nullptr)
+            {
+                sf->setStartTime(times.at(1).toUInt());
+                sf->setDuration(times.at(2).toUInt());
             }
         }
         break;

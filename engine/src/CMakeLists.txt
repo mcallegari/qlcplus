@@ -70,6 +70,7 @@ add_library(${module_name} SHARED
     show.cpp show.h
     showfunction.cpp showfunction.h
     showrunner.cpp showrunner.h
+    tempomap.cpp tempomap.h
     track.cpp track.h
     universe.cpp universe.h
     video.cpp video.h

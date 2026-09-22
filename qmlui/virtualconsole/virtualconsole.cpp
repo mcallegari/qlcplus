@@ -279,6 +279,23 @@ QVariantList VirtualConsole::usageList(quint32 fid) const
     return list;
 }
 
+QStringList VirtualConsole::speedDialsUsing(quint32 fid) const
+{
+    QStringList captions;
+
+    for (VCWidget *widget : m_widgetsMap)
+    {
+        if (widget == nullptr || widget->type() != VCWidget::SpeedWidget)
+            continue;
+
+        VCSpeedDial *speedDial = qobject_cast<VCSpeedDial *>(widget);
+        if (speedDial != nullptr && speedDial->functions().contains(fid))
+            captions.append(widget->caption());
+    }
+
+    return captions;
+}
+
 QVariantList VirtualConsole::widgetsList(QVariantList typeFilters, quint32 excludeWidgetId) const
 {
     QVariantList list;

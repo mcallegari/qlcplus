@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlContext>
+#include <QtCore/QBuffer>
 #include <QSettings>
 #include <QtMath>
 #include <QVector>
@@ -156,6 +157,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
     /* Emit time/beat change in case the new Show differs */
     emit timeDivisionChanged(timeDivision());
+    emit tempoSectionsChanged();
     emit beatsDivisionChanged(beatsDivision());
     m_timeScale = 0.0; // force setTimeScale() to recompute and notify
     setTimeScale(timeDivision() == Show::Time ? 5.0 : 1.0);
@@ -265,7 +267,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeItemId,
             // an item's times are in its Function's own unit (ms or beats as ms),
             // so convert them the same way ShowItem.qml updateGeometry() does
             Function *func = m_doc->function(sf->functionID());
-            bool itemIsBeats = func != nullptr && func->tempoType() == Function::Beats;
+            bool itemIsBeats = itemInBeats(func);
             double startTime = sf->startTime();
             double endTime = startTime + sf->duration();
             double startX, endX;
@@ -307,6 +309,23 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeItemId,
         }
     }
 
+    // the tempo section edges are snap targets too
+    if (tempoGridActive())
+    {
+        for (const TempoSection &section : m_currentShow->tempoMap().sections())
+        {
+            double startX = timeToPosition(section.startTime);
+            double endX = timeToPosition(section.endTime());
+
+            if (viewportLeft >= 0 && viewportRight >= 0 &&
+                (endX < viewportLeft || startX > viewportRight))
+                continue;
+
+            edges.append(startX);
+            edges.append(endX);
+        }
+    }
+
     return edges;
 }
 
@@ -325,6 +344,10 @@ Show::TimeDivision ShowManager::timeDivision() const
 bool ShowManager::hasBeatBasedItems() const
 {
     if (m_currentShow == nullptr)
+        return false;
+
+    // nothing is snapped on a BPM ruler when all the items are in ms
+    if (m_currentShow->itemsInMs())
         return false;
 
     foreach (Track *track, m_currentShow->tracks())
@@ -348,6 +371,7 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
     if (division == m_currentShow->timeDivisionType())
         return;
 
+
     /* A beat tempo Function's items are always positioned in "beats as ms"
        (1000 units per beat) regardless of the Show's own timeline
        division, and are not affected by this switch. However, since they
@@ -356,7 +380,10 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
        beat position instead of on a beat. When the user switches to a BPM
        ruler, tidy those up by snapping them to the nearest whole beat (the
        user is warned about this beforehand, see hasBeatBasedItems()) */
-    if (division != Show::Time && m_currentShow->timeDivisionType() == Show::Time)
+    /* The time division is display only for a Show whose items are all
+       positioned in ms, so nothing is snapped there */
+    if (division != Show::Time && m_currentShow->timeDivisionType() == Show::Time &&
+        m_currentShow->itemsInMs() == false)
     {
         foreach (Track *track, m_currentShow->tracks())
         {
@@ -400,6 +427,8 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
         setTimeScale(1.0);
     }
     emit timeDivisionChanged(division);
+    // the tempo grid is shown on a Time ruler only
+    emit tempoSectionsChanged();
 }
 
 int ShowManager::beatsDivision() const
@@ -464,6 +493,413 @@ void ShowManager::setCurrentTime(int currentTime)
 
     m_currentTime = currentTime;
     emit currentTimeChanged(currentTime);
+}
+
+/*********************************************************************
+ * Tempo sections
+ ********************************************************************/
+
+/* The smallest distance in pixels between two tempo grid lines */
+#define TEMPO_GRID_MIN_SPACING  8.0
+
+QVariantList ShowManager::tempoSections() const
+{
+    QVariantList list;
+
+    if (m_currentShow == nullptr)
+        return list;
+
+    const QList<TempoSection> &sections = m_currentShow->tempoMap().sections();
+    for (int i = 0; i < sections.count(); i++)
+    {
+        const TempoSection &section = sections.at(i);
+        QVariantMap map;
+        map.insert("index", i);
+        map.insert("startTime", section.startTime);
+        map.insert("duration", section.duration);
+        map.insert("bpm", section.bpm);
+        map.insert("beatsPerBar", section.beatsPerBar);
+        map.insert("name", section.name);
+        list.append(map);
+    }
+
+    return list;
+}
+
+bool ShowManager::itemsInMs() const
+{
+    return m_currentShow != nullptr && m_currentShow->itemsInMs();
+}
+
+bool ShowManager::tempoGridActive() const
+{
+    return m_currentShow != nullptr && timeDivision() == Show::Time &&
+           m_currentShow->tempoMap().isEmpty() == false;
+}
+
+QByteArray ShowManager::tempoStateToByteArray(const Show *show)
+{
+    QByteArray data;
+    QBuffer buffer(&data);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    show->saveXMLTempoMap(&xmlWriter);
+    xmlWriter.writeEndDocument();
+    buffer.close();
+
+    return data;
+}
+
+void ShowManager::restoreTempoState(quint32 showId, const QByteArray &state)
+{
+    Show *show = qobject_cast<Show*>(m_doc->function(showId));
+    if (show == nullptr)
+        return;
+
+    TempoMap map;
+    bool itemsInMs = false;
+
+    // an empty state is a Show whose items were never converted to ms
+    if (state.isEmpty() == false)
+    {
+        QBuffer buffer;
+        buffer.setData(state);
+        buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+        QXmlStreamReader xmlReader(&buffer);
+        xmlReader.readNextStartElement();
+        itemsInMs = xmlReader.attributes().value(KXMLQLCTempoMapItemUnit) == KXMLQLCTempoMapItemUnitMs;
+        map.loadXML(xmlReader);
+    }
+
+    show->restoreTempoMap(map, itemsInMs);
+
+    if (show == m_currentShow)
+    {
+        emit tempoSectionsChanged();
+        emit showDurationChanged(m_currentShow->totalDuration());
+    }
+}
+
+void ShowManager::setShowItemFunction(quint32 itemId, quint32 functionId)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    ShowFunction *sf = m_currentShow->showFunction(itemId);
+    Function *func = m_doc->function(functionId);
+    if (sf == nullptr || func == nullptr)
+        return;
+
+    sf->setFunctionID(functionId);
+
+    QQuickItem *item = m_itemsMap.value(itemId, nullptr);
+    if (item != nullptr)
+        item->setProperty("funcRef", QVariant::fromValue(func));
+}
+
+void ShowManager::setTempoMap(const TempoMap &tempoMap)
+{
+    QByteArray oldState = tempoStateToByteArray(m_currentShow);
+
+    // the first section converts the Beats tempo items to ms: keep their
+    // times, to record the conversion as part of the same undo step
+    QMap<ShowFunction *, QPair<quint32, quint32>> beatItems;
+    if (m_currentShow->itemsInMs() == false)
+    {
+        for (Track *track : m_currentShow->tracks())
+        {
+            for (ShowFunction *sf : track->showFunctions())
+            {
+                Function *func = m_doc->function(sf->functionID());
+                if (func != nullptr && func->tempoType() == Function::Beats)
+                    beatItems.insert(sf, qMakePair(sf->startTime(), sf->duration()));
+            }
+        }
+    }
+
+    m_currentShow->setTempoMap(tempoMap);
+
+    for (auto it = beatItems.constBegin(); it != beatItems.constEnd(); ++it)
+    {
+        ShowFunction *sf = it.key();
+        if (sf->startTime() != it.value().first)
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(),
+                                              it.value().first, sf->startTime());
+        if (sf->duration() != it.value().second)
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(),
+                                              it.value().second, sf->duration());
+    }
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerSetTempoMap, m_currentShow->id(),
+                                      oldState, tempoStateToByteArray(m_currentShow));
+
+    emit tempoSectionsChanged();
+    emit showDurationChanged(m_currentShow->totalDuration());
+}
+
+int ShowManager::addTempoSection(int time)
+{
+    if (m_currentShow == nullptr || timeDivision() != Show::Time || time < 0)
+        return -1;
+
+    TempoMap map = m_currentShow->tempoMap();
+    if (map.sectionIndexAt(time) != -1)
+        return -1;
+
+    // up to the next section, or a minute
+    quint32 duration = 60000;
+    for (const TempoSection &section : map.sections())
+    {
+        if (section.startTime > (quint32)time)
+        {
+            duration = qMin(duration, section.startTime - (quint32)time);
+            break;
+        }
+    }
+
+    int index = map.addSection(TempoSection(time, duration, 120.0, 4, tr("Section %1").arg(map.count() + 1)));
+    if (index == -1)
+        return -1;
+
+    setTempoMap(map);
+    return index;
+}
+
+QList<TempoSection> ShowManager::selectedAudioSections() const
+{
+    QList<TempoSection> sections;
+
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_showFunc.isNull())
+            continue;
+
+        Function *func = m_doc->function(ssi.m_showFunc->functionID());
+        if (func == nullptr || func->type() != Function::AudioType)
+            continue;
+
+        sections.append(TempoSection(ssi.m_showFunc->startTime(), ssi.m_showFunc->duration(m_doc),
+                                     120.0, 4, func->name()));
+    }
+
+    std::sort(sections.begin(), sections.end(),
+              [](const TempoSection &a, const TempoSection &b) { return a.startTime < b.startTime; });
+
+    return sections;
+}
+
+QVariantMap ShowManager::tempoSelectionInfo() const
+{
+    QVariantMap info;
+    int audio = 0;
+    int overlapping = 0;
+
+    if (m_currentShow != nullptr)
+    {
+        const TempoMap &map = m_currentShow->tempoMap();
+        for (const TempoSection &section : selectedAudioSections())
+        {
+            audio++;
+            if (map.canPlace(section) == false)
+                overlapping++;
+        }
+    }
+
+    info.insert("audio", audio);
+    info.insert("overlapping", overlapping);
+    return info;
+}
+
+QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
+{
+    QVariantList indices;
+
+    if (m_currentShow == nullptr || timeDivision() != Show::Time)
+        return indices;
+
+    TempoMap map = m_currentShow->tempoMap();
+    QList<quint32> startTimes;
+
+    for (const TempoSection &section : selectedAudioSections())
+    {
+        int index = startPrecedence ? map.insertSection(section) : map.addSection(section);
+        if (index != -1)
+            startTimes.append(section.startTime);
+    }
+
+    if (startTimes.isEmpty())
+        return indices;
+
+    setTempoMap(map);
+
+    // the indices are known only once all the sections are in place
+    for (quint32 startTime : startTimes)
+        indices.append(map.sectionIndexAt(startTime));
+
+    return indices;
+}
+
+bool ShowManager::updateTempoSection(int index, int startTime, int duration,
+                                     double bpm, int beatsPerBar, QString name)
+{
+    if (m_currentShow == nullptr || startTime < 0 || duration <= 0)
+        return false;
+
+    TempoMap map = m_currentShow->tempoMap();
+    if (map.updateSection(index, TempoSection(startTime, duration, bpm, beatsPerBar, name)) == false)
+        return false;
+
+    setTempoMap(map);
+    return true;
+}
+
+bool ShowManager::splitTempoSection(int index, int time)
+{
+    if (m_currentShow == nullptr || time < 0)
+        return false;
+
+    TempoMap map = m_currentShow->tempoMap();
+    TempoSection section = map.section(index);
+    double beatMs = section.beatDuration();
+    double splitTime = section.startTime + std::round((time - section.startTime) / beatMs) * beatMs;
+
+    if (map.splitSection(index, qRound(splitTime)) == false)
+        return false;
+
+    setTempoMap(map);
+    return true;
+}
+
+void ShowManager::removeTempoSection(int index)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    TempoMap map = m_currentShow->tempoMap();
+    if (map.removeSection(index))
+        setTempoMap(map);
+}
+
+double ShowManager::tempoBeatDuration(double time) const
+{
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+
+    if (m_currentShow == nullptr)
+        return 60000.0 / (bpm > 0 ? bpm : 120);
+
+    return m_currentShow->tempoMap().beatDurationAt(time, bpm);
+}
+
+double ShowManager::timeToPosition(double time) const
+{
+    return (time * m_tickSize) / (m_timeScale * 1000.0);
+}
+
+double ShowManager::positionToTime(double xPos) const
+{
+    return m_tickSize > 0 ? (xPos * m_timeScale * 1000.0) / m_tickSize : 0;
+}
+
+double ShowManager::tempoGridStep(const TempoSection &section) const
+{
+    double beatWidth = timeToPosition(section.beatDuration());
+    if (beatWidth <= 0)
+        return 0;
+
+    // quarter beats, half beats, beats, then bars and groups of bars
+    const double steps[] = { 0.25, 0.5, 1.0, 1.0 * section.beatsPerBar,
+                             4.0 * section.beatsPerBar, 16.0 * section.beatsPerBar };
+
+    for (double step : steps)
+    {
+        if (step * beatWidth >= TEMPO_GRID_MIN_SPACING)
+            return step;
+    }
+
+    return steps[5];
+}
+
+QVariantList ShowManager::tempoGridLines(double fromX, double toX) const
+{
+    QVariantList lines;
+
+    if (tempoGridActive() == false || m_tickSize <= 0)
+        return lines;
+
+    double fromTime = positionToTime(fromX);
+    double toTime = positionToTime(toX);
+
+    for (const TempoSection &section : m_currentShow->tempoMap().sections())
+    {
+        if (section.endTime() < fromTime || section.startTime > toTime)
+            continue;
+
+        double step = tempoGridStep(section);
+        double beatMs = section.beatDuration();
+        double stepMs = step * beatMs;
+        if (stepMs <= 0)
+            continue;
+
+        double first = qMax(0.0, std::ceil((fromTime - section.startTime) / stepMs));
+        for (double n = first; ; n++)
+        {
+            double time = section.startTime + (n * stepMs);
+            if (time >= section.endTime() || time > toTime)
+                break;
+
+            double beat = n * step;
+            int weight = 0;
+            int bar = 0;
+            double barPos = beat / section.beatsPerBar;
+
+            if (qAbs(barPos - std::round(barPos)) < 0.001)
+            {
+                weight = 2;
+                bar = qRound(barPos) + 1;
+            }
+            else if (qAbs(beat - std::round(beat)) < 0.001)
+            {
+                weight = 1;
+            }
+
+            lines.append(timeToPosition(time));
+            lines.append(weight);
+            lines.append(bar);
+        }
+    }
+
+    return lines;
+}
+
+double ShowManager::snapToTempoGrid(double xPos, double fallbackStep) const
+{
+    if (tempoGridActive())
+    {
+        double time = positionToTime(xPos);
+        const TempoMap &map = m_currentShow->tempoMap();
+        int index = map.sectionIndexAt(time);
+
+        if (index >= 0)
+        {
+            TempoSection section = map.section(index);
+            double stepMs = tempoGridStep(section) * section.beatDuration();
+            if (stepMs > 0)
+            {
+                double snapped = section.startTime + std::round((time - section.startTime) / stepMs) * stepMs;
+                return timeToPosition(qMin(snapped, (double)section.endTime()));
+            }
+        }
+    }
+
+    if (fallbackStep > 0)
+        return std::round(xPos / fallbackStep) * fallbackStep;
+
+    return xPos;
+}
+
+bool ShowManager::itemInBeats(const Function *func) const
+{
+    return func != nullptr && func->tempoType() == Function::Beats && itemsInMs() == false;
 }
 
 /*********************************************************************
@@ -679,6 +1115,11 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             if (func->type() == Function::AudioType || func->type() == Function::VideoType)
                 func->setTotalDuration(func->duration());
             showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 4000);
+
+            // with tempo sections the item is in ms: the Function beats last
+            // as long as they do at the tempo where the item is dropped
+            if (itemsInMs())
+                showFunc->setDuration(qRound((showFunc->duration() / 1000.0) * tempoBeatDuration(startTime)));
         }
 
         /* startTime is the drop position translated by the caller using
@@ -690,7 +1131,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
            using the live BPM */
         quint32 itemStartTime = (quint32)startTime;
         bool showIsBeats = timeDivision() != Show::Time;
-        bool funcIsBeats = func->tempoType() == Function::Beats;
+        bool funcIsBeats = itemInBeats(func);
 
         if (showIsBeats != funcIsBeats)
         {
@@ -716,7 +1157,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             quint32 pastedDuration = sourceFunc->duration();
             Function *sourceOwnerFunc = m_doc->function(sourceFunc->functionID());
             bool sourceIsBeats = (sourceOwnerFunc != nullptr) ?
-                        (sourceOwnerFunc->tempoType() == Function::Beats) : funcIsBeats;
+                        itemInBeats(sourceOwnerFunc) : funcIsBeats;
 
             if (sourceIsBeats != funcIsBeats)
             {
@@ -1657,6 +2098,7 @@ void ShowManager::resetContents()
     emit showNameChanged(QString());
     emit showDurationChanged(0);
     emit timeDivisionChanged(Show::Time);
+    emit tempoSectionsChanged();
 
     m_timeScale = 0.0; // force setTimeScale() to recompute and notify
     setTimeScale(5.0);
@@ -2142,6 +2584,365 @@ void ShowManager::slotFunctionRemoved(quint32 id)
         resetContents();
 }
 
+/*********************************************************************
+ * Chaser tempo conversion
+ *********************************************************************/
+
+bool ShowManager::selectionHasChasers() const
+{
+    for (const SelectedShowItem &ssi : m_selectedItems)
+    {
+        if (ssi.m_showFunc.isNull())
+            continue;
+
+        Function *func = m_doc->function(ssi.m_showFunc->functionID());
+        if (func != nullptr &&
+            (func->type() == Function::ChaserType || func->type() == Function::SequenceType))
+            return true;
+    }
+
+    return false;
+}
+
+QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const QVariantMap &options,
+                                                                            QString &error) const
+{
+    QList<TempoConversionPlan> plans;
+    bool toBeats = options.value("toBeats", true).toBool();
+    bool clone = options.value("clone", false).toBool();
+    bool allItems = options.value("allItems", false).toBool();
+    bool perTempo = options.value("perTempo", true).toBool();
+    bool fixedBpm = options.value("bpmMode").toString() == "fixed";
+    double bpm = options.value("bpm", 120.0).toDouble();
+    int globalBpm = m_doc->inputOutputMap()->bpmNumber();
+    Function::TempoType sourceType = toBeats ? Function::Time : Function::Beats;
+
+    // the Chasers to convert, with the selected items using each of them
+    QList<Chaser *> chasers;
+    QMap<Chaser *, QList<ShowFunction *>> selectedItems;
+    QVariantList chaserIds = options.value("chaserIds").toList();
+
+    if (chaserIds.isEmpty())
+    {
+        for (const SelectedShowItem &ssi : m_selectedItems)
+        {
+            if (ssi.m_showFunc.isNull())
+                continue;
+
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(ssi.m_showFunc->functionID()));
+            if (chaser == nullptr || chaser->tempoType() != sourceType)
+                continue;
+
+            if (chasers.contains(chaser) == false)
+                chasers.append(chaser);
+            selectedItems[chaser].append(ssi.m_showFunc);
+        }
+    }
+    else
+    {
+        for (const QVariant &id : chaserIds)
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(id.toUInt()));
+            if (chaser != nullptr && chaser->tempoType() == sourceType && chasers.contains(chaser) == false)
+                chasers.append(chaser);
+        }
+    }
+
+    if (chasers.isEmpty())
+    {
+        error = toBeats ? tr("There is no Time tempo Chaser to convert.")
+                        : tr("There is no Beats tempo Chaser to convert.");
+        return plans;
+    }
+
+    if (fixedBpm && bpm <= 0)
+    {
+        error = tr("The BPM must be greater than zero.");
+        return plans;
+    }
+
+    for (Chaser *chaser : chasers)
+    {
+        TempoConversionPlan plan;
+        plan.chaser = chaser;
+
+        // the items that follow the conversion
+        QList<ShowFunction *> items = selectedItems.value(chaser);
+        if (clone && allItems && m_currentShow != nullptr)
+        {
+            items.clear();
+            for (Track *track : m_currentShow->tracks())
+                for (ShowFunction *sf : track->showFunctions())
+                    if (sf->functionID() == chaser->id())
+                        items.append(sf);
+        }
+
+        for (ShowFunction *sf : items)
+        {
+            double itemBpm = bpm;
+            if (fixedBpm == false)
+            {
+                itemBpm = globalBpm > 0 ? globalBpm : 120;
+                if (m_currentShow != nullptr)
+                    itemBpm = 60000.0 / m_currentShow->tempoMap().beatDurationAt(sf->startTime(), itemBpm);
+            }
+            itemBpm = qRound(itemBpm * 100) / 100.0;
+            if (plan.itemBpms.contains(itemBpm) == false)
+                plan.itemBpms.append(itemBpm);
+
+            // one group per tempo for copies, one group otherwise
+            int groupIndex = -1;
+            for (int g = 0; g < plan.groups.count(); g++)
+            {
+                if (clone == false || perTempo == false || plan.groups.at(g).bpm == itemBpm)
+                {
+                    groupIndex = g;
+                    break;
+                }
+            }
+
+            if (groupIndex == -1)
+            {
+                TempoConversionGroup group;
+                group.bpm = itemBpm;
+                plan.groups.append(group);
+                groupIndex = plan.groups.count() - 1;
+            }
+            plan.groups[groupIndex].items.append(sf);
+        }
+
+        // a Chaser with no item to follow (e.g. from its editor)
+        if (plan.groups.isEmpty())
+        {
+            TempoConversionGroup group;
+            group.bpm = fixedBpm ? bpm : (globalBpm > 0 ? globalBpm : 120);
+            if (fixedBpm == false && m_currentShow != nullptr)
+                group.bpm = qRound(60000.0 / m_currentShow->tempoMap().beatDurationAt(m_currentTime, group.bpm) * 100) / 100.0;
+            plan.groups.append(group);
+        }
+
+        plans.append(plan);
+    }
+
+    return plans;
+}
+
+QPair<quint32, quint32> ShowManager::convertedItemTimes(const ShowFunction *sf, bool toBeats) const
+{
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    double beatMs = 60000.0 / (bpm > 0 ? bpm : 120);
+
+    if (toBeats)
+        return qMakePair(quint32(qRound64((sf->startTime() / beatMs) * 1000.0)),
+                         quint32(qRound64((sf->duration() / beatMs) * 1000.0)));
+
+    return qMakePair(quint32(qRound64((sf->startTime() / 1000.0) * beatMs)),
+                     quint32(qRound64((sf->duration() / 1000.0) * beatMs)));
+}
+
+static QString speedToString(uint value, bool beats)
+{
+    if (value == Function::infiniteSpeed())
+        return QString(QChar(0x221E));
+    if (value == Function::defaultSpeed())
+        return ShowManager::tr("default");
+    if (beats)
+        return value == 1000 ? ShowManager::tr("1 beat") : ShowManager::tr("%1 beats").arg(value / 1000.0);
+    return ShowManager::tr("%1 ms").arg(value);
+}
+
+QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
+{
+    QVariantMap result;
+    QVariantList chaserIds;
+    QStringList lines;
+    QString error;
+
+    QList<TempoConversionPlan> plans = tempoConversionPlans(options, error);
+    bool toBeats = options.value("toBeats", true).toBool();
+    bool clone = options.value("clone", false).toBool();
+    double resolution = options.value("resolution", 0.25).toDouble();
+
+    for (const TempoConversionPlan &plan : plans)
+    {
+        chaserIds.append(plan.chaser->id());
+
+        for (const TempoConversionGroup &group : plan.groups)
+        {
+            QString target = clone ? tr("new copy \"%1\"").arg(plan.chaser->name() +
+                                     (toBeats ? tr(" (beats") : tr(" (time")) +
+                                     (plan.groups.count() > 1 ? QString(", %1)").arg(group.bpm) : QString(")")))
+                                   : tr("the Chaser itself");
+            if (group.items.isEmpty())
+            {
+                lines.append(tr("%1: at %2 BPM → %3").arg(plan.chaser->name()).arg(group.bpm).arg(target));
+            }
+            else
+            {
+                QString items = group.items.count() == 1 ? tr("1 item") : tr("%1 items").arg(group.items.count());
+                lines.append(tr("%1: %2 at %3 BPM → %4")
+                             .arg(plan.chaser->name()).arg(items).arg(group.bpm).arg(target));
+            }
+
+            // preview the step timings at this tempo
+            auto convert = [&](uint value)
+            {
+                return toBeats ? Chaser::timeToBeats(value, group.bpm, resolution)
+                               : Chaser::beatsToTime(value, group.bpm);
+            };
+
+            if (plan.chaser->durationMode() == Chaser::Common)
+                lines.append(tr("    Steps: %1 → %2").arg(speedToString(plan.chaser->duration(), !toBeats))
+                             .arg(speedToString(convert(plan.chaser->duration()), toBeats)));
+            if (plan.chaser->fadeInMode() == Chaser::Common)
+                lines.append(tr("    Fade in: %1 → %2").arg(speedToString(plan.chaser->fadeInSpeed(), !toBeats))
+                             .arg(speedToString(convert(plan.chaser->fadeInSpeed()), toBeats)));
+            if (plan.chaser->fadeOutMode() == Chaser::Common)
+                lines.append(tr("    Fade out: %1 → %2").arg(speedToString(plan.chaser->fadeOutSpeed(), !toBeats))
+                             .arg(speedToString(convert(plan.chaser->fadeOutSpeed()), toBeats)));
+
+            QList<ChaserStep> steps = plan.chaser->steps();
+            for (int i = 0; i < steps.count() && i < 8; i++)
+            {
+                const ChaserStep &step = steps.at(i);
+                if (plan.chaser->durationMode() != Chaser::PerStep &&
+                    plan.chaser->fadeInMode() != Chaser::PerStep && plan.chaser->fadeOutMode() != Chaser::PerStep)
+                    break;
+
+                lines.append(tr("    Step %1: hold %2 → %3, fade in %4 → %5")
+                             .arg(i + 1)
+                             .arg(speedToString(step.hold, !toBeats)).arg(speedToString(convert(step.hold), toBeats))
+                             .arg(speedToString(step.fadeIn, !toBeats)).arg(speedToString(convert(step.fadeIn), toBeats)));
+            }
+            if (steps.count() > 8 && plan.chaser->durationMode() == Chaser::PerStep)
+                lines.append(tr("    … and %1 more steps").arg(steps.count() - 8));
+        }
+
+        if (clone == false)
+        {
+            if (plan.itemBpms.count() > 1)
+            {
+                QStringList tempos;
+                for (double itemBpm : plan.itemBpms)
+                    tempos.append(QString::number(itemBpm));
+                lines.append(tr("    Its items are at %1 BPM, but a Chaser converted in place has a single tempo: "
+                                "%2 BPM. Convert to copies for one per tempo.")
+                             .arg(tempos.join(", ")).arg(plan.groups.first().bpm));
+            }
+
+            // every use of the Chaser changes with it
+            QList<quint32> usage = m_doc->getUsage(plan.chaser->id());
+            QSet<quint32> users;
+            bool fixUps = false;
+            for (int i = 0; i < usage.count(); i += 2)
+            {
+                users.insert(usage.at(i));
+                Show *show = qobject_cast<Show *>(m_doc->function(usage.at(i)));
+                if (show != nullptr && show->itemsInMs() == false)
+                    fixUps = true;
+            }
+            if (users.isEmpty() == false)
+                lines.append(tr("    Used in %1 Shows or Functions, which all change with it.").arg(users.count()));
+            if (fixUps)
+                lines.append(tr("    Its items in Shows without tempo sections are adjusted to stay in place."));
+        }
+    }
+
+    result.insert("valid", error.isEmpty());
+    result.insert("message", error);
+    result.insert("lines", lines);
+    result.insert("chaserIds", chaserIds);
+    return result;
+}
+
+bool ShowManager::applyTempoConversion(QVariantMap options)
+{
+    QString error;
+    QList<TempoConversionPlan> plans = tempoConversionPlans(options, error);
+    if (plans.isEmpty())
+        return false;
+
+    bool toBeats = options.value("toBeats", true).toBool();
+    bool clone = options.value("clone", false).toBool();
+    double resolution = options.value("resolution", 0.25).toDouble();
+    Function::TempoType newType = toBeats ? Function::Beats : Function::Time;
+
+    for (const TempoConversionPlan &plan : plans)
+    {
+        Chaser *chaser = plan.chaser;
+
+        if (clone == false)
+        {
+            // Shows that position Beats tempo items in beats would read the
+            // items of this Chaser in the wrong unit once it changes type
+            for (Function *f : m_doc->functionsByType(Function::ShowType))
+            {
+                Show *show = qobject_cast<Show *>(f);
+                if (show == nullptr || show->itemsInMs())
+                    continue;
+
+                for (Track *track : show->tracks())
+                {
+                    for (ShowFunction *sf : track->showFunctions())
+                    {
+                        if (sf->functionID() != chaser->id())
+                            continue;
+
+                        QPair<quint32, quint32> times = convertedItemTimes(sf, toBeats);
+                        QVariantList oldTimes = { sf->id(), sf->startTime(), sf->duration() };
+                        QVariantList newTimes = { sf->id(), times.first, times.second };
+                        sf->setStartTime(times.first);
+                        sf->setDuration(times.second);
+                        Tardis::instance()->enqueueAction(Tardis::ShowManagerShowItemSetTimes, show->id(),
+                                                          oldTimes, newTimes);
+                    }
+                }
+            }
+
+            QByteArray oldState = Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, chaser->id());
+            chaser->convertTempoType(newType, plan.groups.first().bpm, resolution);
+            Tardis::instance()->enqueueAction(Tardis::ChaserSetState, chaser->id(), oldState,
+                                              Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, chaser->id()));
+            continue;
+        }
+
+        for (const TempoConversionGroup &group : plan.groups)
+        {
+            Function *copy = chaser->createCopy(m_doc);
+            Chaser *copyChaser = qobject_cast<Chaser *>(copy);
+            if (copyChaser == nullptr)
+                continue;
+
+            copyChaser->setName(chaser->name() + (toBeats ? tr(" (beats") : tr(" (time")) +
+                                (plan.groups.count() > 1 ? QString(", %1)").arg(group.bpm) : QString(")")));
+            copyChaser->convertTempoType(newType, group.bpm, resolution);
+            Tardis::instance()->enqueueAction(Tardis::FunctionCreate, copy->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, copy->id()));
+
+            for (ShowFunction *sf : group.items)
+            {
+                if (m_currentShow->itemsInMs() == false)
+                {
+                    QPair<quint32, quint32> times = convertedItemTimes(sf, toBeats);
+                    QVariantList oldTimes = { sf->id(), sf->startTime(), sf->duration() };
+                    QVariantList newTimes = { sf->id(), times.first, times.second };
+                    sf->setStartTime(times.first);
+                    sf->setDuration(times.second);
+                    Tardis::instance()->enqueueAction(Tardis::ShowManagerShowItemSetTimes, m_currentShow->id(),
+                                                      oldTimes, newTimes);
+                }
+
+                quint32 oldId = sf->functionID();
+                setShowItemFunction(sf->id(), copy->id());
+                Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetFunction, sf->id(), oldId, copy->id());
+            }
+        }
+    }
+
+    emit showDurationChanged(m_currentShow != nullptr ? m_currentShow->totalDuration() : 0);
+    return true;
+}
+
 void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;
@@ -2368,7 +3169,7 @@ void ShowManager::clearCutState()
 quint32 ShowManager::showToFunctionTime(const Function *func, quint32 value) const
 {
     bool showIsBeats = timeDivision() != Show::Time;
-    bool funcIsBeats = func->tempoType() == Function::Beats;
+    bool funcIsBeats = itemInBeats(func);
 
     if (showIsBeats == funcIsBeats)
         return value;
@@ -2383,7 +3184,7 @@ quint32 ShowManager::showToFunctionTime(const Function *func, quint32 value) con
 quint32 ShowManager::functionToShowTime(const Function *func, quint32 value) const
 {
     bool showIsBeats = timeDivision() != Show::Time;
-    bool funcIsBeats = func->tempoType() == Function::Beats;
+    bool funcIsBeats = itemInBeats(func);
 
     if (showIsBeats == funcIsBeats)
         return value;

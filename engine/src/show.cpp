@@ -25,6 +25,7 @@
 #include <QList>
 
 #include "showrunner.h"
+#include "mastertimer.h"
 #include "function.h"
 #include "show.h"
 #include "doc.h"
@@ -40,6 +41,7 @@
 Show::Show(Doc* doc) : Function(doc, Function::ShowType)
     , m_timeDivisionType(Time)
     , m_timeDivisionBPM(120)
+    , m_itemsInMs(false)
     , m_latestTrackId(0)
     , m_latestShowFunctionID(0)
     , m_runner(NULL)
@@ -108,6 +110,8 @@ bool Show::copyFrom(const Function* function)
 
     m_timeDivisionType = show->m_timeDivisionType;
     m_timeDivisionBPM = show->m_timeDivisionBPM;
+    m_tempoMap = show->m_tempoMap;
+    m_itemsInMs = show->m_itemsInMs;
     m_latestTrackId = show->m_latestTrackId;
     m_latestShowFunctionID = show->m_latestShowFunctionID;
 
@@ -183,6 +187,83 @@ int Show::timeDivisionBPM() const
 void Show::setTimeDivisionBPM(int BPM)
 {
     m_timeDivisionBPM = BPM;
+}
+
+/*********************************************************************
+ * Tempo map
+ *********************************************************************/
+
+const TempoMap &Show::tempoMap() const
+{
+    return m_tempoMap;
+}
+
+void Show::setTempoMap(const TempoMap &tempoMap)
+{
+    if (m_itemsInMs == false && tempoMap.isEmpty() == false)
+    {
+        convertBeatItemsToTime();
+        m_itemsInMs = true;
+    }
+
+    m_tempoMap = tempoMap;
+
+    emit tempoMapChanged();
+    emit changed(id());
+}
+
+bool Show::itemsInMs() const
+{
+    return m_itemsInMs;
+}
+
+void Show::restoreTempoMap(const TempoMap &tempoMap, bool itemsInMs)
+{
+    m_tempoMap = tempoMap;
+    m_itemsInMs = itemsInMs;
+
+    emit tempoMapChanged();
+    emit changed(id());
+}
+
+bool Show::saveXMLTempoMap(QXmlStreamWriter *doc) const
+{
+    return m_tempoMap.saveXML(doc, m_itemsInMs);
+}
+
+bool Show::loadXMLTempoMap(QXmlStreamReader &root)
+{
+    // a tempo map without the items unit comes from a prototype which
+    // positioned the items in ms whenever the Show had sections
+    QString unit = root.attributes().value(KXMLQLCTempoMapItemUnit).toString();
+
+    if (m_tempoMap.loadXML(root) == false)
+        return false;
+
+    m_itemsInMs = (unit == KXMLQLCTempoMapItemUnitMs) || m_tempoMap.isEmpty() == false;
+    return true;
+}
+
+void Show::convertBeatItemsToTime()
+{
+    int bpm = doc()->masterTimer()->bpmNumber();
+    if (bpm <= 0)
+        return;
+
+    double beatMs = 60000.0 / bpm;
+
+    foreach (Track *track, m_tracks)
+    {
+        foreach (ShowFunction *sf, track->showFunctions())
+        {
+            Function *func = doc()->function(sf->functionID());
+            if (func == NULL || func->tempoType() != Function::Beats)
+                continue;
+
+            sf->setStartTime(qRound((sf->startTime() / 1000.0) * beatMs));
+            sf->setDuration(qRound((sf->duration() / 1000.0) * beatMs));
+        }
+    }
 }
 
 QString Show::tempoToString(Show::TimeDivision type)
@@ -375,6 +456,8 @@ bool Show::saveXML(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCShowTimeBPM, QString::number(m_timeDivisionBPM));
     doc->writeEndElement();
 
+    saveXMLTempoMap(doc);
+
     foreach (Track *track, m_tracks)
         track->saveXML(doc);
 
@@ -407,6 +490,10 @@ bool Show::loadXML(QXmlStreamReader &root)
             int bpm = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
             setTimeDivision(stringToTempo(type), bpm);
             root.skipCurrentElement();
+        }
+        else if (root.name() == KXMLQLCTempoMap)
+        {
+            loadXMLTempoMap(root);
         }
         else if (root.name() == KXMLQLCTrack)
         {

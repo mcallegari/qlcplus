@@ -34,6 +34,9 @@ private slots:
     void cleanup();
 
     void initial();
+    void tempoConversionValues();
+    void convertToBeats();
+    void convertToTime();
     void directionRunOrder();
     void steps();
     void stepAt();

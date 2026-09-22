@@ -144,6 +144,28 @@ public:
     /** @reimpl */
     quint32 totalDuration() override;
 
+    /*********************************************************************
+     * Tempo conversion
+     *********************************************************************/
+public:
+    /** Convert the speed $time (ms) to beats (1000 units per beat) at $bpm,
+     *  rounded to the nearest multiple of $resolution beats. Zero, infinite
+     *  and default speeds are kept, and any other value is at least
+     *  $resolution beats */
+    static uint timeToBeats(uint time, double bpm, double resolution);
+
+    /** Convert the speed $beats (1000 units per beat) to ms at $bpm.
+     *  Zero, infinite and default speeds are kept */
+    static uint beatsToTime(uint beats, double bpm);
+
+    /**
+     * Convert the Chaser to the $type tempo, converting its common fade in,
+     * fade out and duration and each step's fade in, hold and fade out at
+     * $bpm. Converting to beats rounds to multiples of $resolution beats.
+     * Unlike setTempoType(), this doesn't use the global BPM.
+     */
+    void convertTempoType(TempoType type, double bpm, double resolution);
+
 public slots:
     /**
      * Catches Doc::functionRemoved() so that destroyed members can be
