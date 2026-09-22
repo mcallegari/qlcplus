@@ -36,6 +36,7 @@ class Doc;
 class Track;
 class Function;
 class Chaser;
+class Collection;
 class ShowFunction;
 class WaveformImageProvider;
 
@@ -561,9 +562,10 @@ public:
      * - resolution: the beat rounding when converting to beats
      * - clone: true to convert copies of the Chasers, used by the items in
      *   "allItems" (every item of the Show using a Chaser) or the selected
-     *   ones, false to convert the Chasers themselves. Chasers started from
-     *   Collections are only converted in place, and copies are only made
-     *   in the Show being edited
+     *   ones, false to convert the Chasers themselves. A Chaser started
+     *   from a Collection is copied together with the Collections leading
+     *   to it, so the original Collection is left alone. Copies are only
+     *   made in the Show being edited
      * - perTempo: with clone, one copy per tempo of the items, instead of a
      *   single copy at the first item tempo
      *
@@ -577,18 +579,21 @@ public:
     Q_INVOKABLE bool applyTempoConversion(QVariantMap options);
 
 private:
-    struct TempoConversionGroup
-    {
-        double bpm;
-        QList<ShowFunction *> items;
-    };
-
     struct TempoConversionItem
     {
         Show *show;
         ShowFunction *sf;
-        /** True when the item starts the Chaser from a Collection */
-        bool viaCollection;
+        /** Every route from the item to the Chaser, each listing the
+         *  Collections walked through, from the Function the item starts
+         *  down to the one holding the Chaser. Empty when the item starts
+         *  the Chaser directly */
+        QList<QList<Collection *>> paths;
+    };
+
+    struct TempoConversionGroup
+    {
+        double bpm;
+        QList<TempoConversionItem> items;
     };
 
     struct TempoConversionPlan
@@ -607,13 +612,46 @@ private:
     {
         /** The number of Chasers found already in the target tempo */
         int skipped = 0;
-        /** The Chasers not copied, as they are only used in Collections */
-        QStringList notCopied;
+    };
+
+    /** A Chaser found inside the Function a Show item starts, with the
+     *  Collections walked through to reach it */
+    struct ChaserPath
+    {
+        Chaser *chaser;
+        QList<Collection *> path;
     };
 
     /** Append $func to $chasers if it is a Chaser, or the Chasers inside it
-     *  if it is a Collection, looking into nested Collections */
-    void collectChasers(Function *func, QList<Chaser *> &chasers, QSet<quint32> &visited) const;
+     *  if it is a Collection, looking into nested Collections. $path holds
+     *  the Collections walked through so far, and $visited the Functions of
+     *  that branch, so that a Collection holding itself ends the recursion */
+    void collectChasers(Function *func, QList<ChaserPath> &chasers, QSet<quint32> visited,
+                        const QList<Collection *> &path = QList<Collection *>()) const;
+
+    /** A converted Chaser to put in place of the original one, inside the
+     *  Collections an item goes through to reach it */
+    struct TempoCollectionReplacement
+    {
+        QList<Collection *> path;
+        Chaser *chaser;
+        Function *copy;
+        double bpm;
+    };
+
+    /** Copy $collection, which is at depth $depth of the path of each of
+     *  $replacements, putting in place of the member leading on either the
+     *  converted Chaser or a copy of the next Collection down. Copies
+     *  needing the same replacements are shared through $cache, and $bpms
+     *  gives the tempos each Collection is copied at, to name the copies of
+     *  one Collection apart. Returns the copy, or nullptr on failure.
+     *
+     *  The copies are new Functions, so their member changes need no undo
+     *  action of their own: undoing their creation removes them */
+    Collection *copyCollectionPath(Collection *collection, int depth,
+                                   const QList<TempoCollectionReplacement> &replacements,
+                                   bool toBeats, const QMap<Collection *, QSet<double>> &bpms,
+                                   QHash<QString, Collection *> &cache);
 
     QList<TempoConversionPlan> tempoConversionPlans(const QVariantMap &options, QString &error,
                                                     TempoConversionScan *scan = nullptr) const;
