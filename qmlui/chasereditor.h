@@ -135,6 +135,10 @@ protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
     void slotStepIndexChanged(int index);
 
+    /** Refresh the editor when the Chaser tempo changes elsewhere, e.g. by
+     *  the Show Manager tempo converter or by undo */
+    void slotTempoTypeChanged();
+
 signals:
     void stepsListChanged();
     void playbackIndexChanged(int playbackIndex);
