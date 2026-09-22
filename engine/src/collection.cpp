@@ -30,6 +30,7 @@
 #include "collection.h"
 #include "function.h"
 #include "doc.h"
+#include "tempomap.h"
 
 /*****************************************************************************
  * Initialization
@@ -288,6 +289,7 @@ void Collection::preRun(MasterTimer *timer)
 {
     Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
+    QSharedPointer<const TempoMapClock> clock = tempoMapClock();
     {
         QMutexLocker locker(&m_functionListMutex);
         m_runningChildren.clear();
@@ -314,7 +316,17 @@ void Collection::preRun(MasterTimer *timer)
                     this, SLOT(slotChildStarted(quint32)));
 
             //function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
-            function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            if (clock.isNull() == false)
+            {
+                // a Show with tempo sections runs the Beats tempo members
+                // on its tempo map, from where this Collection started
+                function->start(timer, functionParent(), elapsed(), overrideFadeInSpeed(), overrideFadeOutSpeed(),
+                                overrideDuration(), Function::Original, clock.data());
+            }
+            else
+            {
+                function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            }
         }
         m_tick = 1;
     }
