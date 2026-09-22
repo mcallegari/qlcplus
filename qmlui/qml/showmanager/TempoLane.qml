@@ -136,7 +136,26 @@ Rectangle
 
     function addSectionsFromSelection()
     {
-        var indices = showManager.addTempoSectionsFromSelection()
+        var info = showManager.tempoSelectionInfo()
+        if (info.audio === 0)
+        {
+            messagePopup.message = qsTr("Select one or more audio items to add tempo sections for.")
+            messagePopup.open()
+            return
+        }
+        if (info.overlapping > 0)
+        {
+            overlapPopup.audioCount = info.audio
+            overlapPopup.overlapCount = info.overlapping
+            overlapPopup.open()
+            return
+        }
+        finishAddFromSelection(false)
+    }
+
+    function finishAddFromSelection(startPrecedence)
+    {
+        var indices = showManager.addTempoSectionsFromSelection(startPrecedence)
         if (indices.length === 1)
         {
             selectedIndex = indices[0]
@@ -144,8 +163,11 @@ Rectangle
         }
         else if (indices.length === 0)
         {
-            messagePopup.message = qsTr("No tempo section was added.\n" +
-                                        "Select one or more audio items that no tempo section overlaps.")
+            messagePopup.message = startPrecedence ?
+                        qsTr("No tempo section was added.\n" +
+                             "A tempo section already starts where each selected audio item starts.") :
+                        qsTr("No tempo section was added.\n" +
+                             "Every selected audio item overlaps a tempo section.")
             messagePopup.open()
         }
     }
@@ -497,6 +519,76 @@ Rectangle
         parent: mainView
         title: qsTr("Tempo sections")
         standardButtons: Dialog.Ok
+    }
+
+    CustomPopupDialog
+    {
+        id: overlapPopup
+        parent: mainView
+        width: mainView.width / 3
+        title: qsTr("Tempo sections")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+
+        property int audioCount: 0
+        property int overlapCount: 0
+
+        // opened after this popup has closed
+        onAccepted: Qt.callLater(laneRoot.finishAddFromSelection, precedenceCheck.checked)
+
+        contentItem:
+            ColumnLayout
+            {
+                spacing: 10
+
+                Text
+                {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    text: overlapPopup.audioCount === 1 ?
+                               qsTr("The selected audio item overlaps a tempo section.") :
+                               qsTr("%1 of the %2 selected audio items overlap tempo sections.")
+                                   .arg(overlapPopup.overlapCount).arg(overlapPopup.audioCount)
+                }
+
+                RowLayout
+                {
+                    Layout.fillWidth: true
+
+                    CustomCheckBox
+                    {
+                        id: precedenceCheck
+                        implicitWidth: UISettings.iconSizeMedium
+                        implicitHeight: implicitWidth
+                        checked: true
+                    }
+                    Text
+                    {
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        color: UISettings.fgMain
+                        font.family: UISettings.robotoFontName
+                        font.pixelSize: UISettings.textSizeDefault
+                        text: qsTr("Take over from the start of each new section: an existing section is " +
+                                    "cut where a new one starts and, if it ran past the end of the new one, " +
+                                    "resumes after it on its own beat grid. A new section ends where an " +
+                                    "existing one starts.")
+                    }
+                }
+
+                Text
+                {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    visible: !precedenceCheck.checked
+                    text: qsTr("Only the audio items that don't overlap a tempo section get one.")
+                }
+            }
     }
 
     CustomPopupDialog
