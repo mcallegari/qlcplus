@@ -240,9 +240,10 @@ void ShowRunner::write(MasterTimer *timer)
                 }
             }
 
-            if (m_tempoMapActive && f->tempoType() == Function::Beats)
+            if (m_tempoMapActive && (f->tempoType() == Function::Beats || f->type() == Function::CollectionType))
             {
-                // run the Function beats on the tempo map, from the item start
+                // run the Function beats on the tempo map, from the item start.
+                // A Collection hands the clock to its Beats tempo members
                 TempoMapClock clock(m_tempoMap, sf->startTime());
                 f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset,
                          Function::defaultSpeed(), Function::defaultSpeed(), Function::defaultSpeed(),
