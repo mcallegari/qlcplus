@@ -53,8 +53,9 @@ CustomPopupDialog
             bpm: bpmSource >= 0 ? showManager.tempoSections[bpmSource].bpm : bpmSpin.realValue,
             resolution: resolutionCombo.currValue,
             clone: modeCombo.currValue === 1,
-            allItems: itemsCombo.currValue === 1,
-            perTempo: perTempoCheck.checked
+            allItems: scopeCombo.currValue === "selected" && itemsCombo.currValue === 1,
+            perTempo: perTempoCheck.checked,
+            scope: scopeCombo.currValue
         }
         return opts
     }
@@ -89,6 +90,7 @@ CustomPopupDialog
 
     onOpened:
     {
+        scopeCombo.currValue = showManager.selectedItemsCount > 0 ? "selected" : "show"
         bpmCombo.currValue = hasSections ? -1 : -2
         bpmSpin.setValue(ioManager.bpmNumber * 100)
         refresh()
@@ -129,6 +131,27 @@ CustomPopupDialog
                         popupRoot.toBeats = value === 1
                         popupRoot.refresh()
                     }
+                }
+
+                RobotoText
+                {
+                    visible: popupRoot.fromShow
+                    label: qsTr("Chasers of")
+                }
+
+                CustomComboBox
+                {
+                    id: scopeCombo
+                    visible: popupRoot.fromShow
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: UISettings.listItemHeight
+                    model: [
+                        { mLabel: qsTr("Selected items"), mValue: "selected" },
+                        { mLabel: qsTr("Whole Show"), mValue: "show" },
+                        { mLabel: qsTr("All Shows"), mValue: "allShows" }
+                    ]
+                    currValue: "selected"
+                    onValueChanged: popupRoot.refresh()
                 }
 
                 RobotoText { label: qsTr("Tempo") }
@@ -211,14 +234,14 @@ CustomPopupDialog
 
                 RobotoText
                 {
-                    visible: modeCombo.currValue === 1 && popupRoot.fromShow
+                    visible: modeCombo.currValue === 1 && popupRoot.fromShow && scopeCombo.currValue === "selected"
                     label: qsTr("Copies used by")
                 }
 
                 CustomComboBox
                 {
                     id: itemsCombo
-                    visible: modeCombo.currValue === 1 && popupRoot.fromShow
+                    visible: modeCombo.currValue === 1 && popupRoot.fromShow && scopeCombo.currValue === "selected"
                     Layout.fillWidth: true
                     Layout.preferredHeight: UISettings.listItemHeight
                     model: [
