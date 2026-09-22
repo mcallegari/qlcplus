@@ -39,10 +39,18 @@ Rectangle
     property real visibleWidth: 0
     property var sections: showManager.tempoSections
 
-    // the index of the section the menus and the editor act on
-    property int menuSectionIndex: -1
-    // the time where the lane menu was opened
-    property real menuTime: 0
+    // the section selected by tapping it, which the lane buttons act on
+    property int selectedIndex: -1
+    property bool cursorInSelection: selectedIndex >= 0 && selectedIndex < sections.length &&
+                                     showManager.currentTime > sections[selectedIndex].startTime &&
+                                     showManager.currentTime < sections[selectedIndex].startTime +
+                                                               sections[selectedIndex].duration
+
+    onSectionsChanged:
+    {
+        if (selectedIndex >= sections.length)
+            selectedIndex = -1
+    }
 
     readonly property real snapThreshold: 15
     readonly property real edgeWidth: 6
@@ -109,6 +117,37 @@ Rectangle
     function maxEndFor(index)
     {
         return index < sections.length - 1 ? sections[index + 1].startTime : -1
+    }
+
+    function addSectionAt(time)
+    {
+        var index = showManager.addTempoSection(time)
+        if (index < 0)
+        {
+            messagePopup.message = qsTr("A tempo section can't start inside another one.\n" +
+                                        "Move the cursor outside the existing sections.")
+            messagePopup.open()
+            return
+        }
+        // the tempo of a new section always needs setting
+        selectedIndex = index
+        openEditor(index)
+    }
+
+    function addSectionsFromSelection()
+    {
+        var indices = showManager.addTempoSectionsFromSelection()
+        if (indices.length === 1)
+        {
+            selectedIndex = indices[0]
+            openEditor(indices[0])
+        }
+        else if (indices.length === 0)
+        {
+            messagePopup.message = qsTr("No tempo section was added.\n" +
+                                        "Select one or more audio items that no tempo section overlaps.")
+            messagePopup.open()
+        }
     }
 
     function openEditor(index)
@@ -208,26 +247,16 @@ Rectangle
         }
     }
 
-    /* Background: left click moves the cursor, right click opens the menu */
+    /* Background: a tap moves the cursor and clears the section selection */
     MouseArea
     {
         anchors.fill: parent
         z: 0
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onClicked: (mouse) =>
         {
-            if (mouse.button === Qt.RightButton)
-            {
-                laneRoot.menuTime = laneRoot.xToTime(mouse.x)
-                laneMenu.x = mouse.x
-                laneMenu.y = mouse.y
-                laneMenu.open()
-            }
-            else
-            {
-                showManager.currentTime = laneRoot.xToTime(mouse.x)
-            }
+            laneRoot.selectedIndex = -1
+            showManager.currentTime = laneRoot.xToTime(mouse.x)
         }
     }
 
@@ -242,8 +271,10 @@ Rectangle
                 z: 1
                 height: laneRoot.height
                 color: Qt.rgba(0.35, 0.55, 0.85, sectionMa.containsMouse || dragging ? 0.55 : 0.4)
-                border.width: 1
-                border.color: "#6fa0e0"
+                border.width: isSelected ? 2 : 1
+                border.color: isSelected ? UISettings.selection : "#6fa0e0"
+
+                property bool isSelected: laneRoot.selectedIndex === index
                 clip: true
 
                 property var section: modelData
@@ -283,6 +314,7 @@ Rectangle
 
                     onPressed: (mouse) =>
                     {
+                        laneRoot.selectedIndex = index
                         if (mouse.button !== Qt.LeftButton)
                             return
                         pressX = mapToItem(laneRoot, mouse.x, 0).x
@@ -346,17 +378,11 @@ Rectangle
                         sectionItem.dragging = false
                     }
 
+                    // right click is a shortcut to the editor, like a double click
                     onClicked: (mouse) =>
                     {
                         if (mouse.button === Qt.RightButton)
-                        {
-                            var pos = mapToItem(laneRoot, mouse.x, mouse.y)
-                            laneRoot.menuSectionIndex = index
-                            laneRoot.menuTime = laneRoot.xToTime(pos.x)
-                            sectionMenu.x = pos.x
-                            sectionMenu.y = pos.y
-                            sectionMenu.open()
-                        }
+                            laneRoot.openEditor(index)
                     }
 
                     onDoubleClicked: (mouse) =>
@@ -393,6 +419,7 @@ Rectangle
 
                         onPressed: (mouse) =>
                         {
+                            laneRoot.selectedIndex = sectionIndex
                             pressX = mapToItem(laneRoot, mouse.x, 0).x
                             edges = laneRoot.snapEdgesFor(sectionIndex)
                             sectionItem.dragX = sectionItem.x
@@ -464,127 +491,11 @@ Rectangle
             }
     }
 
-    /* The menu of the lane background */
-    Popup
-    {
-        id: laneMenu
-        padding: 0
-        // keep the menu within the window
-        margins: 0
-
-        background:
-            Rectangle
-            {
-                color: UISettings.bgStrong
-                border.color: UISettings.bgStronger
-            }
-
-        Column
-        {
-            ContextMenuEntry
-            {
-                height: UISettings.listItemHeight
-                faSource: FontAwesome.fa_plus
-                faColor: "limegreen"
-                iconHeight: UISettings.listItemHeight
-                entryText: qsTr("Add a tempo section here")
-                onClicked:
-                {
-                    laneMenu.close()
-                    var index = showManager.addTempoSection(laneRoot.menuTime)
-                    // the tempo of a new section always needs setting
-                    if (index >= 0)
-                        laneRoot.openEditor(index)
-                }
-            }
-
-            ContextMenuEntry
-            {
-                height: UISettings.listItemHeight
-                faSource: FontAwesome.fa_music
-                faColor: UISettings.fgMain
-                iconHeight: UISettings.listItemHeight
-                entryText: qsTr("Add tempo sections from the selected audio items")
-                onClicked:
-                {
-                    laneMenu.close()
-                    var indices = showManager.addTempoSectionsFromSelection()
-                    if (indices.length === 1)
-                        laneRoot.openEditor(indices[0])
-                    else if (indices.length === 0)
-                        noSectionPopup.open()
-                }
-            }
-        }
-    }
-
-    /* The menu of a section */
-    Popup
-    {
-        id: sectionMenu
-        padding: 0
-        margins: 0
-
-        background:
-            Rectangle
-            {
-                color: UISettings.bgStrong
-                border.color: UISettings.bgStronger
-            }
-
-        Column
-        {
-            ContextMenuEntry
-            {
-                height: UISettings.listItemHeight
-                faSource: FontAwesome.fa_pen
-                faColor: UISettings.fgMain
-                iconHeight: UISettings.listItemHeight
-                entryText: qsTr("Edit the tempo section")
-                onClicked:
-                {
-                    sectionMenu.close()
-                    laneRoot.openEditor(laneRoot.menuSectionIndex)
-                }
-            }
-
-            ContextMenuEntry
-            {
-                height: UISettings.listItemHeight
-                faSource: FontAwesome.fa_scissors
-                faColor: UISettings.fgMain
-                iconHeight: UISettings.listItemHeight
-                entryText: qsTr("Split the tempo section here")
-                onClicked:
-                {
-                    showManager.splitTempoSection(laneRoot.menuSectionIndex, laneRoot.menuTime)
-                    sectionMenu.close()
-                }
-            }
-
-            ContextMenuEntry
-            {
-                height: UISettings.listItemHeight
-                faSource: FontAwesome.fa_trash_can
-                faColor: "crimson"
-                iconHeight: UISettings.listItemHeight
-                entryText: qsTr("Delete the tempo section")
-                onClicked:
-                {
-                    showManager.removeTempoSection(laneRoot.menuSectionIndex)
-                    sectionMenu.close()
-                }
-            }
-        }
-    }
-
     CustomPopupDialog
     {
-        id: noSectionPopup
+        id: messagePopup
         parent: mainView
         title: qsTr("Tempo sections")
-        message: qsTr("No tempo section was added.\n" +
-                      "Select one or more audio items that no tempo section overlaps.")
         standardButtons: Dialog.Ok
     }
 

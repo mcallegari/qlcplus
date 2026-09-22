@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlContext>
+#include <QtCore/QBuffer>
 #include <QSettings>
 #include <QtMath>
 #include <QVector>
@@ -309,7 +310,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
     }
 
     // the tempo section edges are snap targets too
-    if (tempoMapActive())
+    if (tempoGridActive())
     {
         for (const TempoSection &section : m_currentShow->tempoMap().sections())
         {
@@ -345,6 +346,10 @@ bool ShowManager::hasBeatBasedItems() const
     if (m_currentShow == nullptr)
         return false;
 
+    // nothing is snapped on a BPM ruler when all the items are in ms
+    if (m_currentShow->itemsInMs())
+        return false;
+
     foreach (Track *track, m_currentShow->tracks())
     {
         foreach (ShowFunction *sf, track->showFunctions())
@@ -366,13 +371,6 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
     if (division == m_currentShow->timeDivisionType())
         return;
 
-    /* Tempo sections exist only on a Time ruler, where the items of their
-       Beats tempo Functions are positioned in ms */
-    if (division != Show::Time && m_currentShow->tempoMap().isEmpty() == false)
-    {
-        emit timeDivisionChanged(m_currentShow->timeDivisionType());
-        return;
-    }
 
     /* A beat tempo Function's items are always positioned in "beats as ms"
        (1000 units per beat) regardless of the Show's own timeline
@@ -382,7 +380,10 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
        beat position instead of on a beat. When the user switches to a BPM
        ruler, tidy those up by snapping them to the nearest whole beat (the
        user is warned about this beforehand, see hasBeatBasedItems()) */
-    if (division != Show::Time && m_currentShow->timeDivisionType() == Show::Time)
+    /* The time division is display only for a Show whose items are all
+       positioned in ms, so nothing is snapped there */
+    if (division != Show::Time && m_currentShow->timeDivisionType() == Show::Time &&
+        m_currentShow->itemsInMs() == false)
     {
         foreach (Track *track, m_currentShow->tracks())
         {
@@ -426,6 +427,8 @@ void ShowManager::setTimeDivision(Show::TimeDivision division)
         setTimeScale(1.0);
     }
     emit timeDivisionChanged(division);
+    // the tempo grid is shown on a Time ruler only
+    emit tempoSectionsChanged();
 }
 
 int ShowManager::beatsDivision() const
@@ -523,15 +526,113 @@ QVariantList ShowManager::tempoSections() const
     return list;
 }
 
-bool ShowManager::tempoMapActive() const
+bool ShowManager::itemsInMs() const
 {
-    return m_currentShow != nullptr && m_currentShow->isTempoMapActive();
+    return m_currentShow != nullptr && m_currentShow->itemsInMs();
+}
+
+bool ShowManager::tempoGridActive() const
+{
+    return m_currentShow != nullptr && timeDivision() == Show::Time &&
+           m_currentShow->tempoMap().isEmpty() == false;
+}
+
+QByteArray ShowManager::tempoStateToByteArray(const Show *show)
+{
+    QByteArray data;
+    QBuffer buffer(&data);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    show->saveXMLTempoMap(&xmlWriter);
+    xmlWriter.writeEndDocument();
+    buffer.close();
+
+    return data;
+}
+
+void ShowManager::restoreTempoState(quint32 showId, const QByteArray &state)
+{
+    Show *show = qobject_cast<Show*>(m_doc->function(showId));
+    if (show == nullptr)
+        return;
+
+    TempoMap map;
+    bool itemsInMs = false;
+
+    // an empty state is a Show whose items were never converted to ms
+    if (state.isEmpty() == false)
+    {
+        QBuffer buffer;
+        buffer.setData(state);
+        buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+        QXmlStreamReader xmlReader(&buffer);
+        xmlReader.readNextStartElement();
+        itemsInMs = xmlReader.attributes().value(KXMLQLCTempoMapItemUnit) == KXMLQLCTempoMapItemUnitMs;
+        map.loadXML(xmlReader);
+    }
+
+    show->restoreTempoMap(map, itemsInMs);
+
+    if (show == m_currentShow)
+    {
+        emit tempoSectionsChanged();
+        emit showDurationChanged(m_currentShow->totalDuration());
+    }
+}
+
+void ShowManager::setShowItemFunction(quint32 itemId, quint32 functionId)
+{
+    if (m_currentShow == nullptr)
+        return;
+
+    ShowFunction *sf = m_currentShow->showFunction(itemId);
+    Function *func = m_doc->function(functionId);
+    if (sf == nullptr || func == nullptr)
+        return;
+
+    sf->setFunctionID(functionId);
+
+    QQuickItem *item = m_itemsMap.value(itemId, nullptr);
+    if (item != nullptr)
+        item->setProperty("funcRef", QVariant::fromValue(func));
 }
 
 void ShowManager::setTempoMap(const TempoMap &tempoMap)
 {
+    QByteArray oldState = tempoStateToByteArray(m_currentShow);
+
+    // the first section converts the Beats tempo items to ms: keep their
+    // times, to record the conversion as part of the same undo step
+    QMap<ShowFunction *, QPair<quint32, quint32>> beatItems;
+    if (m_currentShow->itemsInMs() == false)
+    {
+        for (Track *track : m_currentShow->tracks())
+        {
+            for (ShowFunction *sf : track->showFunctions())
+            {
+                Function *func = m_doc->function(sf->functionID());
+                if (func != nullptr && func->tempoType() == Function::Beats)
+                    beatItems.insert(sf, qMakePair(sf->startTime(), sf->duration()));
+            }
+        }
+    }
+
     m_currentShow->setTempoMap(tempoMap);
-    m_doc->setModified();
+
+    for (auto it = beatItems.constBegin(); it != beatItems.constEnd(); ++it)
+    {
+        ShowFunction *sf = it.key();
+        if (sf->startTime() != it.value().first)
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetStartTime, sf->id(),
+                                              it.value().first, sf->startTime());
+        if (sf->duration() != it.value().second)
+            Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetDuration, sf->id(),
+                                              it.value().second, sf->duration());
+    }
+
+    Tardis::instance()->enqueueAction(Tardis::ShowManagerSetTempoMap, m_currentShow->id(),
+                                      oldState, tempoStateToByteArray(m_currentShow));
+
     emit tempoSectionsChanged();
     emit showDurationChanged(m_currentShow->totalDuration());
 }
@@ -685,7 +786,7 @@ QVariantList ShowManager::tempoGridLines(double fromX, double toX) const
 {
     QVariantList lines;
 
-    if (tempoMapActive() == false || m_tickSize <= 0)
+    if (tempoGridActive() == false || m_tickSize <= 0)
         return lines;
 
     double fromTime = positionToTime(fromX);
@@ -735,7 +836,7 @@ QVariantList ShowManager::tempoGridLines(double fromX, double toX) const
 
 double ShowManager::snapToTempoGrid(double xPos, double fallbackStep) const
 {
-    if (tempoMapActive())
+    if (tempoGridActive())
     {
         double time = positionToTime(xPos);
         const TempoMap &map = m_currentShow->tempoMap();
@@ -761,7 +862,7 @@ double ShowManager::snapToTempoGrid(double xPos, double fallbackStep) const
 
 bool ShowManager::itemInBeats(const Function *func) const
 {
-    return func != nullptr && func->tempoType() == Function::Beats && tempoMapActive() == false;
+    return func != nullptr && func->tempoType() == Function::Beats && itemsInMs() == false;
 }
 
 /*********************************************************************
@@ -980,7 +1081,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
             // with tempo sections the item is in ms: the Function beats last
             // as long as they do at the tempo where the item is dropped
-            if (tempoMapActive())
+            if (itemsInMs())
                 showFunc->setDuration(qRound((showFunc->duration() / 1000.0) * tempoBeatDuration(startTime)));
         }
 

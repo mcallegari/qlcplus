@@ -168,20 +168,21 @@ Item
     }
 
     /* Returns true if the item position is stored in "beats as ms": a Beats
-       tempo Function, unless the Show runs on tempo sections, which keep
-       every item in ms. The property is read live rather than bound, since
-       adding the first section converts the items before notifying it */
+       tempo Function, unless the Show keeps all its items in ms, as it does
+       once it has had tempo sections. The property is read live rather than
+       bound, since adding the first section converts the items before
+       notifying it */
     function isBeatsItem()
     {
         return funcRef !== null && funcRef.tempoType === QLCFunction.Beats
-               && showManager.tempoMapActive === false
+               && showManager.itemsInMs === false
     }
 
-    /* Returns true if the item runs on the Show tempo sections */
+    /* Returns true if the item runs on the Show tempo map */
     function isTempoItem()
     {
         return funcRef !== null && funcRef.tempoType === QLCFunction.Beats
-               && showManager.tempoMapActive === true
+               && showManager.itemsInMs === true
     }
 
     /* Convert an item duration to the Function own unit: on tempo sections
@@ -197,7 +198,7 @@ Item
        section, otherwise multiples of $fallbackStep (0 = no snapping) */
     function gridSnap(xPos, fallbackStep)
     {
-        if (showManager.tempoMapActive)
+        if (showManager.tempoGridActive)
             return showManager.snapToTempoGrid(xPos, fallbackStep)
         return fallbackStep > 0 ? Math.round(xPos / fallbackStep) * fallbackStep : xPos
     }
@@ -288,10 +289,15 @@ Item
 
         var itemIsBeats = isBeatsItem()
 
-        // on tempo sections, the Function beats last as long as they do at
-        // the tempo of the item start
+        // on the Show tempo map, the Function beats last as long as they do
+        // at the tempo of the item start
         if (isTempoItem())
-            return TimeUtils.timeToSize((value / 1000) * showManager.tempoBeatDuration(startTime), timeScale, tickSize)
+        {
+            var ms = (value / 1000) * showManager.tempoBeatDuration(startTime)
+            return timeDivision === Show.Time
+                    ? TimeUtils.timeToSize(ms, timeScale, tickSize)
+                    : TimeUtils.timeToBeatSize(ms, ioManager.bpmNumber, beatsDivision, tickSize)
+        }
 
         if (timeDivision === Show.Time)
         {
@@ -763,7 +769,7 @@ Item
                 // item hasn't moved horizontally, or while Ctrl suspends snapping)
                 if (showManager.gridEnabled && !itemSnapped && moveX !== 0
                         && !snapSuspended(mouse.modifiers)
-                        && (timeDivision !== Show.Time || showManager.tempoMapActive))
+                        && (timeDivision !== Show.Time || showManager.tempoGridActive))
                 {
                     dropX = gridSnap(dropX, timeDivision !== Show.Time ? tickSize / beatsDivision : 0)
                     moveX = dropX - itemRoot.x

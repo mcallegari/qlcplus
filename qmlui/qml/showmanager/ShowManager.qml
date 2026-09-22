@@ -411,14 +411,7 @@ Rectangle
                 currValue: showManager.timeDivision
                 onValueChanged:
                 {
-                    if (currValue !== Show.Time && showManager.tempoSections.length > 0)
-                    {
-                        // tempo sections exist only on a Time ruler. The combo
-                        // ignores a new value while it is emitting this one
-                        Qt.callLater(function() { timeDivisionCombo.currValue = Show.Time })
-                        tempoSectionsPopup.open()
-                    }
-                    else if (currValue !== Show.Time &&
+                    if (currValue !== Show.Time &&
                             showManager.timeDivision === Show.Time &&
                             showManager.hasBeatBasedItems())
                     {
@@ -429,15 +422,6 @@ Rectangle
                     {
                         showManager.timeDivision = currValue
                     }
-                }
-
-                CustomPopupDialog
-                {
-                    id: tempoSectionsPopup
-                    title: qsTr("Switch to BPM markers")
-                    message: qsTr("This Show has tempo sections, which work only with Time markers.\n" +
-                                  "Delete the tempo sections to switch to BPM markers.")
-                    standardButtons: Dialog.Ok
                 }
 
                 CustomPopupDialog
@@ -617,7 +601,7 @@ Rectangle
         }
     }
 
-    // the tempo lane label, left of the lane
+    // the tempo lane buttons, left of the lane
     Rectangle
     {
         y: topBar.height + headerHeight
@@ -627,12 +611,75 @@ Rectangle
         visible: tempoLaneVisible
         color: UISettings.bgStrong
 
-        RobotoText
+        property bool sectionSelected: tempoLane.selectedIndex >= 0
+
+        Row
         {
-            anchors.fill: parent
-            anchors.leftMargin: 5
-            textVAlign: Text.AlignVCenter
-            label: qsTr("Tempo")
+            x: 2
+            height: parent.height
+            spacing: 2
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_plus
+                faColor: "limegreen"
+                tooltip: qsTr("Add a tempo section at the cursor")
+                onClicked: tempoLane.addSectionAt(showManager.currentTime)
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_music
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Add tempo sections from the selected audio items")
+                onClicked: tempoLane.addSectionsFromSelection()
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_pen
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Edit the selected tempo section")
+                enabled: parent.parent.sectionSelected
+                onClicked: tempoLane.openEditor(tempoLane.selectedIndex)
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_scissors
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Split the selected tempo section at the cursor")
+                enabled: parent.parent.sectionSelected && tempoLane.cursorInSelection
+                onClicked: showManager.splitTempoSection(tempoLane.selectedIndex, showManager.currentTime)
+            }
+
+            IconButton
+            {
+                width: parent.height - 2
+                height: width
+                anchors.verticalCenter: parent.verticalCenter
+                faSource: FontAwesome.fa_trash_can
+                faColor: "crimson"
+                tooltip: qsTr("Delete the selected tempo section")
+                enabled: parent.parent.sectionSelected
+                onClicked:
+                {
+                    showManager.removeTempoSection(tempoLane.selectedIndex)
+                    tempoLane.selectedIndex = -1
+                }
+            }
         }
     }
 
@@ -658,6 +705,7 @@ Rectangle
 
         TempoLane
         {
+            id: tempoLane
             width: tempoLaneFlickable.contentWidth
             height: tempoLaneFlickable.height
             visibleX: xViewOffset
@@ -1053,7 +1101,7 @@ Rectangle
 
                     // inside the tempo sections, their beat grid replaces the time grid
                     var sectionRanges = []
-                    if (showManager.tempoMapActive)
+                    if (showManager.tempoGridActive)
                     {
                         var sections = showManager.tempoSections
                         for (var s = 0; s < sections.length; s++)

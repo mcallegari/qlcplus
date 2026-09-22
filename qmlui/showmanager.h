@@ -73,7 +73,8 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
 
     Q_PROPERTY(QVariantList tempoSections READ tempoSections NOTIFY tempoSectionsChanged)
-    Q_PROPERTY(bool tempoMapActive READ tempoMapActive NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool itemsInMs READ itemsInMs NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool tempoGridActive READ tempoGridActive NOTIFY tempoSectionsChanged)
 
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
@@ -244,9 +245,21 @@ public:
      *  the keys index, startTime, duration, bpm, beatsPerBar and name */
     QVariantList tempoSections() const;
 
-    /** Returns true if the current Show runs on its tempo sections. The
-     *  items of Beats tempo Functions are then positioned in ms */
-    bool tempoMapActive() const;
+    /** Returns true if all the items of the current Show are positioned in
+     *  ms, including those of Beats tempo Functions (see Show::itemsInMs()) */
+    bool itemsInMs() const;
+
+    /** Returns true if the current Show has tempo sections and shows a Time
+     *  ruler, so that the timeline displays and snaps to their beat grid */
+    bool tempoGridActive() const;
+
+    /** Restore the tempo sections state of the Show with ID $showId, as
+     *  saved by tempoStateToByteArray() (used by undo) */
+    void restoreTempoState(quint32 showId, const QByteArray &state);
+
+    /** Make the item with ID $itemId of the current Show use the Function
+     *  with ID $functionId */
+    void setShowItemFunction(quint32 itemId, quint32 functionId);
 
     /** Add a tempo section starting at $time (ms), lasting up to the next
      *  section or one minute. Returns the new section index, or -1 */
@@ -286,7 +299,11 @@ public:
     Q_INVOKABLE double snapToTempoGrid(double xPos, double fallbackStep) const;
 
 private:
+    /** Set the tempo sections of the current Show, recording the change,
+     *  and the item conversion of a first section, as one undo step */
     void setTempoMap(const TempoMap &tempoMap);
+
+    static QByteArray tempoStateToByteArray(const Show *show);
 
     /** Returns true if the item of $func is positioned in "beats as ms":
      *  a Beats tempo Function in a Show that doesn't run on tempo sections */

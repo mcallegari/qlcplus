@@ -984,6 +984,23 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, int(pairValue.first));
         }
         break;
+        case ChaserSetState:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            if (chaser == nullptr)
+                break;
+
+            QBuffer buffer;
+            buffer.setData(value->toByteArray());
+            buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+            QXmlStreamReader xmlReader(&buffer);
+            xmlReader.readNextStartElement();
+
+            Chaser state(m_doc);
+            if (state.loadXML(xmlReader))
+                chaser->copyFrom(&state);
+        }
+        break;
 
         /* *********************** EFX editing actions *********************** */
 
@@ -1324,6 +1341,27 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 ShowFunction *sf = show->showFunction(action.m_objID);
                 if (sf != nullptr)
                     m_showManager->moveShowItemToTrack(sf, value->toInt());
+            }
+        }
+        break;
+
+        case ShowManagerSetTempoMap:
+            m_showManager->restoreTempoState(action.m_objID, value->toByteArray());
+        break;
+
+        case ShowManagerItemSetFunction:
+            m_showManager->setShowItemFunction(action.m_objID, value->toUInt());
+        break;
+
+        case ShowManagerShowItemSetTimes:
+        {
+            Show *show = qobject_cast<Show *>(m_doc->function(action.m_objID));
+            QVariantList times = value->toList();
+            ShowFunction *sf = (show != nullptr && times.count() == 3) ? show->showFunction(times.at(0).toUInt()) : nullptr;
+            if (sf != nullptr)
+            {
+                sf->setStartTime(times.at(1).toUInt());
+                sf->setDuration(times.at(2).toUInt());
             }
         }
         break;
