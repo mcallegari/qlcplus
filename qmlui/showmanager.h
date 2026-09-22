@@ -399,12 +399,6 @@ signals:
      *  being edited changed during the detection */
     void tempoDetectionFinished(const QVariantList &results);
 
-private:
-    TempoDetector *m_tempoDetector;
-    /** The Show whose items are being detected */
-    quint32 m_tempoDetectionShowId;
-    bool m_detectTempo;
-
     void tempoBeatActiveChanged();
     void currentBeatsPerBarChanged();
     void currentBeatInBarChanged();
@@ -415,6 +409,11 @@ private:
     void tempoBeat();
 
 private:
+    TempoDetector *m_tempoDetector;
+    /** The Show whose items are being detected */
+    quint32 m_tempoDetectionShowId;
+    bool m_detectTempo;
+
     /** Recompute tempoBeatActive/currentBeatsPerBar/currentBeatInBar for
      *  $time (ms) and emit tempoBeat() when a new beat is reached */
     void updateTempoBeat(quint32 time);
