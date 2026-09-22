@@ -24,6 +24,7 @@
 #include "show.h"
 #include "track.h"
 #include "tempomap.h"
+#include "collection.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
@@ -130,6 +131,71 @@ void ShowRunner_Test::tempoMapRunner()
     ShowRunner noSectionsRunner(m_doc, show->id());
     QCOMPARE(noSectionsRunner.m_tempoMapActive, true);
     QCOMPARE(noSectionsRunner.m_totalRunTime, quint32(4000));
+}
+
+void ShowRunner_Test::tempoMapCollection()
+{
+    Show *show = new Show(m_doc);
+    m_doc->addFunction(show);
+
+    Chaser *chaser = new Chaser(m_doc);
+    chaser->setTempoType(Function::Beats);
+    m_doc->addFunction(chaser);
+
+    Chaser *timeChaser = new Chaser(m_doc);
+    m_doc->addFunction(timeChaser);
+
+    Collection *inner = new Collection(m_doc);
+    m_doc->addFunction(inner);
+    inner->addFunction(chaser->id());
+
+    Collection *outer = new Collection(m_doc);
+    m_doc->addFunction(outer);
+    outer->addFunction(inner->id());
+    outer->addFunction(timeChaser->id());
+
+    Track *track = new Track(Function::invalidId(), show);
+    show->addTrack(track);
+
+    TempoMap map;
+    map.addSection(TempoSection(0, 60000, 96.5, 4, "Song"));
+    show->setTempoMap(map);
+
+    ShowFunction *sf = track->createShowFunction(outer->id());
+    sf->setStartTime(1000);
+    sf->setDuration(3000);
+
+    // started in the middle of the item: the Collection gets the tempo map
+    // clock although it is a Time tempo Function
+    ShowRunner runner(m_doc, show->id(), 2500);
+    runner.write(m_doc->masterTimer());
+    QCOMPARE(runner.m_runningQueue.count(), 1);
+    QVERIFY(outer->tempoMapClock().isNull() == false);
+    QCOMPARE(outer->tempoMapClock()->origin, quint32(1000));
+    QCOMPARE(outer->elapsed(), quint32(1500));
+
+    // it hands the clock and its offset to its members, through a nested
+    // Collection, down to the Beats tempo Chaser
+    outer->preRun(m_doc->masterTimer());
+    inner->preRun(m_doc->masterTimer());
+    QVERIFY(chaser->tempoMapClock().isNull() == false);
+    QCOMPARE(chaser->tempoMapClock()->origin, quint32(1000));
+    QCOMPARE(chaser->tempoMapClock()->map.count(), 1);
+    QCOMPARE(chaser->elapsed(), quint32(1500));
+    runner.stop();
+    outer->stop(FunctionParent::master());
+
+    // a Collection started outside a Show with tempo sections starts its
+    // members as before: no clock, from their start
+    Collection *plain = new Collection(m_doc);
+    m_doc->addFunction(plain);
+    plain->addFunction(chaser->id());
+    chaser->stop(FunctionParent(FunctionParent::Function, inner->id()));
+    plain->start(m_doc->masterTimer(), FunctionParent::master(), 1500);
+    plain->preRun(m_doc->masterTimer());
+    QVERIFY(plain->tempoMapClock().isNull());
+    QVERIFY(chaser->tempoMapClock().isNull());
+    QCOMPARE(chaser->elapsed(), quint32(0));
 }
 
 QTEST_APPLESS_MAIN(ShowRunner_Test)

@@ -250,8 +250,8 @@ Rectangle
                 height: width
                 faSource: FontAwesome.fa_right_left
                 faColor: UISettings.fgMain
-                tooltip: qsTr("Convert the selected Chasers between Time and Beats tempo")
-                enabled: showManager.selectedItemsCount > 0 && showManager.selectionHasChasers()
+                tooltip: qsTr("Convert Chasers between Time and Beats tempo, in the selected items, the whole Show or all Shows")
+                enabled: showManager.isEditing
                 onClicked:
                 {
                     tempoConverter.chaserIds = []

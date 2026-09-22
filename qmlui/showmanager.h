@@ -603,8 +603,11 @@ public:
 public:
     /**
      * Describe a Chaser tempo conversion before applying it. $options holds:
-     * - chaserIds: the Chasers to convert, or empty for those of the
-     *   selected Show items
+     * - chaserIds: the Chasers to convert, or empty for those of the Show
+     *   items in "scope", including those started from Collections
+     * - scope: "selected" for the selected items, "show" for every item of
+     *   the Show being edited, "allShows" for every item of every Show.
+     *   Chasers already in the target tempo are skipped
      * - toBeats: true to convert Time tempo Chasers to Beats, false for the
      *   reverse
      * - bpmMode: "section" for the tempo of the section under each item, or
@@ -612,7 +615,9 @@ public:
      * - resolution: the beat rounding when converting to beats
      * - clone: true to convert copies of the Chasers, used by the items in
      *   "allItems" (every item of the Show using a Chaser) or the selected
-     *   ones, false to convert the Chasers themselves
+     *   ones, false to convert the Chasers themselves. Chasers started from
+     *   Collections are only converted in place, and copies are only made
+     *   in the Show being edited
      * - perTempo: with clone, one copy per tempo of the items, instead of a
      *   single copy at the first item tempo
      *
@@ -625,14 +630,19 @@ public:
      *  tempoConversionPreview()), as a single undo step */
     Q_INVOKABLE bool applyTempoConversion(QVariantMap options);
 
-    /** Returns true if the selected Show items include Chasers */
-    Q_INVOKABLE bool selectionHasChasers() const;
-
 private:
     struct TempoConversionGroup
     {
         double bpm;
         QList<ShowFunction *> items;
+    };
+
+    struct TempoConversionItem
+    {
+        Show *show;
+        ShowFunction *sf;
+        /** True when the item starts the Chaser from a Collection */
+        bool viaCollection;
     };
 
     struct TempoConversionPlan
@@ -641,9 +651,26 @@ private:
         QList<TempoConversionGroup> groups;
         /** The distinct tempos of the items following the conversion */
         QList<double> itemBpms;
+        /** The number of items at each of those tempos */
+        QMap<double, int> bpmUses;
+        /** The number of items starting the Chaser from a Collection */
+        int collectionItems;
     };
 
-    QList<TempoConversionPlan> tempoConversionPlans(const QVariantMap &options, QString &error) const;
+    struct TempoConversionScan
+    {
+        /** The number of Chasers found already in the target tempo */
+        int skipped = 0;
+        /** The Chasers not copied, as they are only used in Collections */
+        QStringList notCopied;
+    };
+
+    /** Append $func to $chasers if it is a Chaser, or the Chasers inside it
+     *  if it is a Collection, looking into nested Collections */
+    void collectChasers(Function *func, QList<Chaser *> &chasers, QSet<quint32> &visited) const;
+
+    QList<TempoConversionPlan> tempoConversionPlans(const QVariantMap &options, QString &error,
+                                                    TempoConversionScan *scan = nullptr) const;
 
     /** Convert the stored times of $sf between ms and beats at the global
      *  BPM, for a Chaser changing tempo type in a Show that doesn't keep
