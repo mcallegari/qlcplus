@@ -81,6 +81,10 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(bool tempoGridActive READ tempoGridActive NOTIFY tempoSectionsChanged)
     Q_PROPERTY(bool tempoDetectionRunning READ tempoDetectionRunning NOTIFY tempoDetectionRunningChanged)
     Q_PROPERTY(bool detectTempo READ detectTempo WRITE setDetectTempo NOTIFY detectTempoChanged)
+    Q_PROPERTY(bool tempoBeatActive READ tempoBeatActive NOTIFY tempoBeatActiveChanged)
+    Q_PROPERTY(int currentBeatsPerBar READ currentBeatsPerBar NOTIFY currentBeatsPerBarChanged)
+    Q_PROPERTY(int currentBeatInBar READ currentBeatInBar NOTIFY currentBeatInBarChanged)
+    Q_PROPERTY(double currentBpm READ currentBpm NOTIFY currentBpmChanged)
 
     Q_PROPERTY(QVariant tracks READ tracks NOTIFY tracksChanged)
     Q_PROPERTY(int selectedTrackId READ selectedTrackId WRITE setSelectedTrackId NOTIFY selectedTrackIdChanged)
@@ -259,6 +263,22 @@ public:
      *  ruler, so that the timeline displays and snaps to their beat grid */
     bool tempoGridActive() const;
 
+    /** Returns true if the current Show is playing back within one of its
+     *  tempo sections, so currentBeatsPerBar/currentBeatInBar are live */
+    bool tempoBeatActive() const;
+
+    /** The beats-per-bar of the tempo section currently playing, or the last
+     *  known value when playback is not within a tempo section */
+    int currentBeatsPerBar() const;
+
+    /** The 1-based beat number within the current bar of the tempo section
+     *  currently playing */
+    int currentBeatInBar() const;
+
+    /** The BPM of the tempo section currently playing, or the last known
+     *  value when playback is not within a tempo section */
+    double currentBpm() const;
+
     /** Restore the tempo sections state of the Show with ID $showId, as
      *  saved by tempoStateToByteArray() (used by undo) */
     void restoreTempoState(quint32 showId, const QByteArray &state);
@@ -379,11 +399,32 @@ signals:
      *  being edited changed during the detection */
     void tempoDetectionFinished(const QVariantList &results);
 
+    void tempoBeatActiveChanged();
+    void currentBeatsPerBarChanged();
+    void currentBeatInBarChanged();
+    void currentBpmChanged();
+
+    /** Emitted once for each beat of the current Show's active tempo
+     *  section, while it is playing back within one */
+    void tempoBeat();
+
 private:
     TempoDetector *m_tempoDetector;
     /** The Show whose items are being detected */
     quint32 m_tempoDetectionShowId;
     bool m_detectTempo;
+
+    /** Recompute tempoBeatActive/currentBeatsPerBar/currentBeatInBar for
+     *  $time (ms) and emit tempoBeat() when a new beat is reached */
+    void updateTempoBeat(quint32 time);
+
+    bool m_tempoBeatActive;
+    int m_currentBeatsPerBar;
+    int m_currentBeatInBar;
+    double m_currentBpm;
+    /** Index (since the active section's start) of the last beat reached,
+     *  or -1 when not currently within a tempo section */
+    int m_lastBeatIndex;
 
     /*********************************************************************
       * Tracks

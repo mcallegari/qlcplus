@@ -522,6 +522,76 @@ Rectangle
             // spacer
             Rectangle
             {
+                width: UISettings.iconSizeDefault / 4
+                color: "transparent"
+                visible: showManager.tempoGridActive
+            }
+
+            // ################## SHOW TEMPO ##################
+            RobotoText
+            {
+                visible: showManager.tempoGridActive
+                label: "Tempo: " + (showManager.tempoBeatActive ? showManager.currentBpm.toFixed(2) : qsTr("None"))
+                fontSize: UISettings.textSizeDefault
+                Layout.alignment: Qt.AlignTop
+                implicitWidth: width
+                implicitHeight: parent.height
+            }
+
+            // ################## SHOW TEMPO BEAT/BAR ##################
+            Rectangle
+            {
+                id: showBeatBarIndicator
+                visible: showManager.tempoGridActive
+                implicitWidth: height
+                implicitHeight: mainToolbar.height * 0.5
+                Layout.alignment: Qt.AlignVCenter
+                radius: height / 2
+                border.width: 2
+                border.color: UISettings.bgMedium
+                color: showManager.tempoBeatActive ? "#B35900" : UISettings.bgMedium
+
+                ColorAnimation on color
+                {
+                    id: showBeatFlash
+                    from: "#FFFFFF"
+                    to: "#B35900"
+                    duration: 150
+                    running: false
+                }
+
+                Connections
+                {
+                    target: showManager
+                    function onTempoBeat()
+                    {
+                        showBeatFlash.restart()
+                        showBeatTextFlash.restart()
+                    }
+                }
+
+                RobotoText
+                {
+                    anchors.centerIn: parent
+                    visible: showManager.tempoBeatActive
+                    label: showManager.currentBeatInBar.toString()
+                    labelColor: "white"
+                    fontSize: UISettings.textSizeDefault
+
+                    ColorAnimation on labelColor
+                    {
+                        id: showBeatTextFlash
+                        from: "black"
+                        to: "white"
+                        duration: 150
+                        running: false
+                    }
+                }
+            }
+
+            // spacer
+            Rectangle
+            {
                 width: UISettings.iconSizeDefault / 2
                 color: "transparent"
             }
