@@ -261,6 +261,12 @@ void EditorView::addPresetChannel(QString name, int group)
             case QLCChannel::UV:
                 channel->setPreset(QLCChannel::IntensityUV);
             break;
+            case QLCChannel::Lime:
+                channel->setPreset(QLCChannel::IntensityLime);
+            break;
+            case QLCChannel::Indigo:
+                channel->setPreset(QLCChannel::IntensityIndigo);
+            break;
             default:
             break;
         }
