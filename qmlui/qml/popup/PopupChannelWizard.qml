@@ -91,6 +91,16 @@ CustomPopupDialog
                         compTypes = [ QLCChannel.Red, QLCChannel.Green, QLCChannel.Blue, QLCChannel.White ]
                         compNames = [ "Red", "Green", "Blue", "White" ]
                     break
+                    case EditorRef.RGBAChannel:
+                        compNum = 4
+                        compTypes = [ QLCChannel.Red, QLCChannel.Green, QLCChannel.Blue, QLCChannel.Amber ]
+                        compNames = [ "Red", "Green", "Blue", "Amber" ]
+                    break
+                    case EditorRef.RGBLChannel:
+                        compNum = 4
+                        compTypes = [ QLCChannel.Red, QLCChannel.Green, QLCChannel.Blue, QLCChannel.Lime ]
+                        compNames = [ "Red", "Green", "Blue", "Lime" ]
+                    break
                     case EditorRef.RGBAWChannel:
                         compNum = 5
                         compTypes = [ QLCChannel.Red, QLCChannel.Green, QLCChannel.Blue, QLCChannel.Amber, QLCChannel.White ]
@@ -202,8 +212,12 @@ CustomPopupDialog
                             { mLabel: qsTr("White"), mIcon: "qrc:/white.svg", mValue: QLCChannel.White },
                             { mLabel: qsTr("Amber"), mIcon: "qrc:/amber.svg", mValue: QLCChannel.Amber },
                             { mLabel: qsTr("UV"), mIcon: "qrc:/uv.svg", mValue: QLCChannel.UV },
+                            { mLabel: qsTr("Lime"), mIcon: "qrc:/lime.svg", mValue: QLCChannel.Lime },
+                            { mLabel: qsTr("Indigo"), mIcon: "qrc:/indigo.svg", mValue: QLCChannel.Indigo },
                             { mLabel: qsTr("RGB"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBChannel },
                             { mLabel: qsTr("RGBW"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBWChannel },
+                            { mLabel: qsTr("RGBA"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBAChannel },
+                            { mLabel: qsTr("RGBL"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBLChannel },
                             { mLabel: qsTr("RGBAW"), mIcon: "qrc:/color.svg", mValue: EditorRef.RGBAWChannel },
                             { mLabel: qsTr("Dimmer"), mIcon: "qrc:/dimmer.svg", mValue: QLCChannel.Intensity },
                             { mLabel: qsTr("Pan"), mIcon: "qrc:/pan.svg", mValue: QLCChannel.Pan },

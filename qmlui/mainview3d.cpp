@@ -1512,6 +1512,24 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     qreal masterDimmerValue = masterDimmerChannel != QLCChannel::invalid() ?
                               qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0 : 1.0;
 
+    // Fixture3DItem (used for every fixture type except LED bars/pixel bars/
+    // strobes - see the component selection in createFixtureItem()) renders a
+    // single beam mesh and only exposes one light colour/intensity slot,
+    // unlike MultiBeams3DItem/PixelBar3DItem/Strobe3DItem, which instantiate
+    // one emitter per declared head. Sending it one setHeadRGBColor() call
+    // per head - as if it could keep them separate - just leaves the last
+    // head's colour on screen and silently drops the others, so a fixture
+    // like a moving head with several independently addressable RGBW zones
+    // in one lens never shows a blended beam colour. For those single-mesh
+    // types, composite every head's colour into one, intensity-weighted so a
+    // head that is off does not tint the blend.
+    bool singleBeamMesh = fixture->type() != QLCFixtureDef::LEDBarBeams &&
+                          fixture->type() != QLCFixtureDef::LEDBarPixels &&
+                          fixture->type() != QLCFixtureDef::Strobe;
+
+    qreal compositeIntensity = 0;
+    qreal weightedR = 0, weightedG = 0, weightedB = 0, totalWeight = 0;
+
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
         quint32 headDimmerChannel = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
@@ -1528,17 +1546,42 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
         //qDebug() << "Head" << headIdx << "dimmer channel:" << headDimmerIndex << "intensity" << intensityValue;
 
-        QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
-                Q_ARG(QVariant, headIdx),
-                Q_ARG(QVariant, intensityValue));
-
         color = FixtureUtils::headColor(fixture, headIdx);
 
-        QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
-                                  Q_ARG(QVariant, headIdx),
-                                  Q_ARG(QVariant, color));
+        if (singleBeamMesh)
+        {
+            compositeIntensity = qMax(compositeIntensity, intensityValue);
+            weightedR += color.redF() * intensityValue;
+            weightedG += color.greenF() * intensityValue;
+            weightedB += color.blueF() * intensityValue;
+            totalWeight += intensityValue;
+        }
+        else
+        {
+            QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
+                    Q_ARG(QVariant, headIdx),
+                    Q_ARG(QVariant, intensityValue));
+
+            QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
+                                      Q_ARG(QVariant, headIdx),
+                                      Q_ARG(QVariant, color));
+        }
         colorSet = true;
     } // for heads
+
+    if (singleBeamMesh && fixture->heads() > 0)
+    {
+        color = totalWeight > 0 ? QColor::fromRgbF(weightedR / totalWeight, weightedG / totalWeight, weightedB / totalWeight)
+                                 : Qt::black;
+
+        QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
+                Q_ARG(QVariant, 0),
+                Q_ARG(QVariant, compositeIntensity));
+
+        QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
+                                  Q_ARG(QVariant, 0),
+                                  Q_ARG(QVariant, color));
+    }
 
     // now scan all the channels for "common" capabilities
     for (int i = 0; i < int(fixture->channels()); i++)

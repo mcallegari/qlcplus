@@ -244,6 +244,10 @@ public slots:
     void slotDocLoaded();
     void slotFunctionAdded(quint32 fid);
 
+    /** Register the tree item of the Function with ID $fid under its new
+     *  name, when the Function has been renamed outside this manager */
+    void slotFunctionNameChanged(quint32 fid);
+
 private:
     /** Reference of the QML view */
     QQuickView *m_view;

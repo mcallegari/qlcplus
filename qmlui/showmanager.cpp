@@ -27,8 +27,10 @@
 #include <algorithm>
 
 #include "waveformimageprovider.h"
+#include "tempodetector.h"
 #include "showmanager.h"
 #include "sequence.h"
+#include "audio.h"
 #include "tardis.h"
 #include "collection.h"
 #include "chaser.h"
@@ -39,6 +41,7 @@
 #include "app.h"
 
 #define SETTINGS_SNAP_TO_ITEMS QStringLiteral("showmanager/snaptoitems")
+#define SETTINGS_DETECT_TEMPO QStringLiteral("showmanager/detecttempo")
 #define KXMLQLCShowManagerCurrentShow QStringLiteral("CurrentShow")
 #define KXMLQLCShowManagerTimeScale   QStringLiteral("TimeScale")
 
@@ -60,6 +63,8 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_snapGuideX(-1.0)
     , m_timeScale(5.0)
     , m_currentTime(0)
+    , m_tempoDetectionShowId(Function::invalidId())
+    , m_detectTempo(false)
     , m_tempoBeatActive(false)
     , m_currentBeatsPerBar(4)
     , m_currentBeatInBar(1)
@@ -76,6 +81,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     QVariant snap = settings.value(SETTINGS_SNAP_TO_ITEMS);
     if (snap.isValid())
         m_snapToItems = snap.toBool();
+    m_detectTempo = settings.value(SETTINGS_DETECT_TEMPO, false).toBool();
 
     view->rootContext()->setContextProperty("showManager", this);
     qmlRegisterUncreatableType<Show>("org.qlcplus.classes", 1, 0, "Show", "Can't create a Show");
@@ -86,6 +92,10 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     m_waveformProvider = new WaveformImageProvider(doc);
     view->engine()->addImageProvider(QLatin1String("waveform"), m_waveformProvider);
     view->rootContext()->setContextProperty("waveformProvider", m_waveformProvider);
+
+    m_tempoDetector = new TempoDetector(doc, this);
+    connect(m_tempoDetector, &TempoDetector::progress, this, &ShowManager::tempoDetectionProgress);
+    connect(m_tempoDetector, &TempoDetector::finished, this, &ShowManager::slotTempoDetectionFinished);
 
     /* Relay Function changes to the UI, so Show Items can update
        their preview lines when the referenced Function is edited */
@@ -137,6 +147,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
     {
         if (m_currentShow->id() == (quint32)currentShowID)
             return;
+        m_tempoDetector->stop();
         disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         disconnect(m_currentShow, SIGNAL(showFinished()), this, SLOT(slotShowFinished()));
         disconnect(m_currentShow, SIGNAL(stopped(quint32)), this, SLOT(slotShowStopped()));
@@ -252,7 +263,7 @@ void ShowManager::setSnapGuideX(double snapGuideX)
     emit snapGuideXChanged();
 }
 
-QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
+QVariantList ShowManager::getSnapEdges(quint32 excludeItemId,
                                        double viewportLeft, double viewportRight) const
 {
     QVariantList edges;
@@ -267,7 +278,7 @@ QVariantList ShowManager::getSnapEdges(quint32 excludeFuncId,
     {
         for (ShowFunction *sf : track->showFunctions())
         {
-            if (sf->functionID() == excludeFuncId)
+            if (sf->id() == excludeItemId)
                 continue;
 
             // an item's times are in its Function's own unit (ms or beats as ms),
@@ -753,6 +764,15 @@ int ShowManager::addTempoSection(int time)
     return index;
 }
 
+TempoSection ShowManager::audioItemSection(const ShowFunction *sf, double bpm) const
+{
+    Function *func = m_doc->function(sf->functionID());
+    if (func == nullptr || func->type() != Function::AudioType)
+        return TempoSection();
+
+    return TempoSection(sf->startTime(), sf->duration(m_doc), bpm, 4, func->name());
+}
+
 QList<TempoSection> ShowManager::selectedAudioSections() const
 {
     QList<TempoSection> sections;
@@ -762,12 +782,9 @@ QList<TempoSection> ShowManager::selectedAudioSections() const
         if (ssi.m_showFunc.isNull())
             continue;
 
-        Function *func = m_doc->function(ssi.m_showFunc->functionID());
-        if (func == nullptr || func->type() != Function::AudioType)
-            continue;
-
-        sections.append(TempoSection(ssi.m_showFunc->startTime(), ssi.m_showFunc->duration(m_doc),
-                                     120.0, 4, func->name()));
+        TempoSection section = audioItemSection(ssi.m_showFunc, 120.0);
+        if (section.duration > 0)
+            sections.append(section);
     }
 
     std::sort(sections.begin(), sections.end(),
@@ -800,6 +817,38 @@ QVariantMap ShowManager::tempoSelectionInfo() const
 
 QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
 {
+    return addAudioSections(selectedAudioSections(), startPrecedence, false);
+}
+
+QVariantList ShowManager::addTempoSectionsForItems(const QVariantList &items, bool startPrecedence)
+{
+    QList<TempoSection> sections;
+
+    if (m_currentShow == nullptr)
+        return QVariantList();
+
+    for (const QVariant &item : items)
+    {
+        QVariantMap map = item.toMap();
+        ShowFunction *sf = m_currentShow->showFunction(map.value("itemId").toUInt());
+        double bpm = map.value("bpm").toDouble();
+        if (sf == nullptr || bpm <= 0)
+            continue;
+
+        TempoSection section = audioItemSection(sf, bpm);
+        if (section.duration > 0)
+            sections.append(section);
+    }
+
+    std::sort(sections.begin(), sections.end(),
+              [](const TempoSection &a, const TempoSection &b) { return a.startTime < b.startTime; });
+
+    return addAudioSections(sections, startPrecedence, true);
+}
+
+QVariantList ShowManager::addAudioSections(const QList<TempoSection> &sections, bool startPrecedence,
+                                           bool updateSameStart)
+{
     QVariantList indices;
 
     if (m_currentShow == nullptr || timeDivision() != Show::Time)
@@ -808,8 +857,18 @@ QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
     TempoMap map = m_currentShow->tempoMap();
     QList<quint32> startTimes;
 
-    for (const TempoSection &section : selectedAudioSections())
+    for (const TempoSection &section : sections)
     {
+        int existing = map.sectionIndexAt(section.startTime);
+        if (updateSameStart && existing != -1 && map.section(existing).startTime == section.startTime)
+        {
+            TempoSection updated = map.section(existing);
+            updated.bpm = section.bpm;
+            if (map.updateSection(existing, updated))
+                startTimes.append(section.startTime);
+            continue;
+        }
+
         int index = startPrecedence ? map.insertSection(section) : map.addSection(section);
         if (index != -1)
             startTimes.append(section.startTime);
@@ -825,6 +884,95 @@ QVariantList ShowManager::addTempoSectionsFromSelection(bool startPrecedence)
         indices.append(map.sectionIndexAt(startTime));
 
     return indices;
+}
+
+bool ShowManager::detectSelectionTempo()
+{
+    if (m_currentShow == nullptr || m_tempoDetector->isRunning())
+        return false;
+
+    QList<QPair<quint32, TempoDetector::Job>> items;
+
+    for (const SelectedShowItem &ssi : std::as_const(m_selectedItems))
+    {
+        if (ssi.m_showFunc.isNull())
+            continue;
+
+        Audio *audio = qobject_cast<Audio *>(m_doc->function(ssi.m_showFunc->functionID()));
+        if (audio == nullptr)
+            continue;
+
+        TempoDetector::Job job = { ssi.m_showFunc->id(), audio->name(),
+                                   audio->getSourceFileName(), ssi.m_showFunc->duration(m_doc) };
+        items.append(qMakePair(ssi.m_showFunc->startTime(), job));
+    }
+
+    if (items.isEmpty())
+        return false;
+
+    std::sort(items.begin(), items.end(),
+              [](const QPair<quint32, TempoDetector::Job> &a, const QPair<quint32, TempoDetector::Job> &b)
+              { return a.first < b.first; });
+
+    QList<TempoDetector::Job> jobs;
+    for (const QPair<quint32, TempoDetector::Job> &item : items)
+        jobs.append(item.second);
+
+    m_tempoDetectionShowId = m_currentShow->id();
+    m_tempoDetector->start(jobs);
+    emit tempoDetectionRunningChanged();
+
+    return true;
+}
+
+void ShowManager::stopTempoDetection()
+{
+    m_tempoDetector->stop();
+}
+
+bool ShowManager::tempoDetectionRunning() const
+{
+    return m_tempoDetector->isRunning();
+}
+
+bool ShowManager::detectTempo() const
+{
+    return m_detectTempo;
+}
+
+void ShowManager::setDetectTempo(bool detect)
+{
+    if (m_detectTempo == detect)
+        return;
+
+    m_detectTempo = detect;
+
+    QSettings settings;
+    settings.setValue(SETTINGS_DETECT_TEMPO, m_detectTempo);
+
+    emit detectTempoChanged();
+}
+
+void ShowManager::slotTempoDetectionFinished(const QVariantList &results)
+{
+    emit tempoDetectionRunningChanged();
+
+    if (m_currentShow == nullptr || m_currentShow->id() != m_tempoDetectionShowId)
+    {
+        emit tempoDetectionFinished(QVariantList());
+        return;
+    }
+
+    // the analysis steps are 0.01 BPM
+    QVariantList rounded;
+    for (const QVariant &result : results)
+    {
+        QVariantMap map = result.toMap();
+        map.insert("bpm", qRound(map.value("bpm").toDouble() * 100.0) / 100.0);
+        rounded.append(map);
+    }
+
+    emit tempoDetectionFinished(rounded);
 }
 
 bool ShowManager::updateTempoSection(int index, int startTime, int duration,
@@ -866,6 +1014,14 @@ void ShowManager::removeTempoSection(int index)
     TempoMap map = m_currentShow->tempoMap();
     if (map.removeSection(index))
         setTempoMap(map);
+}
+
+void ShowManager::removeAllTempoSections()
+{
+    if (m_currentShow == nullptr || m_currentShow->tempoMap().isEmpty())
+        return;
+
+    setTempoMap(TempoMap());
 }
 
 double ShowManager::tempoBeatDuration(double time) const
@@ -2166,6 +2322,7 @@ bool ShowManager::cutTimeAtCursor(int length, int cursorTime)
 
 void ShowManager::resetContents()
 {
+    m_tempoDetector->stop();
     resetView();
     m_currentTime = 0;
     emit currentTimeChanged(m_currentTime);
@@ -2676,8 +2833,12 @@ void ShowManager::slotFunctionRemoved(quint32 id)
  * Chaser tempo conversion
  *********************************************************************/
 
-void ShowManager::collectChasers(Function *func, QList<Chaser *> &chasers, QSet<quint32> &visited) const
+void ShowManager::collectChasers(Function *func, QList<ChaserPath> &chasers, QSet<quint32> visited,
+                                 const QList<Collection *> &path) const
 {
+    // the visited set follows the branch being walked, not the whole walk, so
+    // a Chaser held by two Collections of the same item is reported by each
+    // of them, while a Collection holding itself still ends the recursion
     if (func == nullptr || visited.contains(func->id()))
         return;
     visited.insert(func->id());
@@ -2685,7 +2846,7 @@ void ShowManager::collectChasers(Function *func, QList<Chaser *> &chasers, QSet<
     Chaser *chaser = qobject_cast<Chaser *>(func);
     if (chaser != nullptr)
     {
-        chasers.append(chaser);
+        chasers.append({ chaser, path });
         return;
     }
 
@@ -2693,8 +2854,10 @@ void ShowManager::collectChasers(Function *func, QList<Chaser *> &chasers, QSet<
     if (collection == nullptr)
         return;
 
+    QList<Collection *> childPath = path;
+    childPath.append(collection);
     for (quint32 id : collection->functions())
-        collectChasers(m_doc->function(id), chasers, visited);
+        collectChasers(m_doc->function(id), chasers, visited, childPath);
 }
 
 QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const QVariantMap &options,
@@ -2727,12 +2890,12 @@ QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const 
     auto addItem = [&](Show *show, ShowFunction *sf)
     {
         Function *func = m_doc->function(sf->functionID());
-        QList<Chaser *> found;
-        QSet<quint32> visited;
-        collectChasers(func, found, visited);
+        QList<ChaserPath> found;
+        collectChasers(func, found, QSet<quint32>());
 
-        for (Chaser *chaser : found)
+        for (const ChaserPath &cp : found)
         {
+            Chaser *chaser = cp.chaser;
             if (chaser->tempoType() != sourceType)
             {
                 skipped.insert(chaser);
@@ -2741,7 +2904,26 @@ QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const 
 
             if (chasers.contains(chaser) == false)
                 chasers.append(chaser);
-            chaserItems[chaser].append({ show, sf, func != chaser });
+
+            // an item reaching the same Chaser through more than one
+            // Collection is one item, with a route through each of them
+            QList<TempoConversionItem> &items = chaserItems[chaser];
+            int index = -1;
+            for (int i = 0; i < items.count(); i++)
+                if (items.at(i).sf == sf)
+                    index = i;
+
+            if (index == -1)
+            {
+                QList<QList<Collection *>> paths;
+                if (cp.path.isEmpty() == false)
+                    paths.append(cp.path);
+                items.append({ show, sf, paths });
+            }
+            else if (cp.path.isEmpty() == false)
+            {
+                items[index].paths.append(cp.path);
+            }
         }
     };
 
@@ -2835,9 +3017,29 @@ QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const 
         {
             items.clear();
             for (Track *track : m_currentShow->tracks())
+            {
                 for (ShowFunction *sf : track->showFunctions())
-                    if (sf->functionID() == chaser->id())
-                        items.append({ m_currentShow, sf, false });
+                {
+                    // the item may reach the Chaser through Collections
+                    QList<ChaserPath> found;
+                    QList<QList<Collection *>> paths;
+                    bool direct = false;
+                    collectChasers(m_doc->function(sf->functionID()), found, QSet<quint32>());
+
+                    for (const ChaserPath &cp : found)
+                    {
+                        if (cp.chaser != chaser)
+                            continue;
+                        if (cp.path.isEmpty())
+                            direct = true;
+                        else
+                            paths.append(cp.path);
+                    }
+
+                    if (direct || paths.isEmpty() == false)
+                        items.append({ m_currentShow, sf, paths });
+                }
+            }
         }
 
         for (const TempoConversionItem &item : items)
@@ -2849,14 +3051,10 @@ QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const 
                 plan.itemBpms.append(itemBpm);
             plan.bpmUses[itemBpm]++;
 
-            // a copy can't replace a Chaser inside a Collection, which would
-            // change the Collection wherever it is used
-            if (item.viaCollection)
-            {
+            // a copy of a Chaser inside a Collection goes with a copy of the
+            // Collections leading to it, so the original ones are left alone
+            if (item.paths.isEmpty() == false)
                 plan.collectionItems++;
-                if (clone)
-                    continue;
-            }
 
             // one group per tempo for copies, one group otherwise
             int groupIndex = -1;
@@ -2876,14 +3074,7 @@ QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const 
                 plan.groups.append(group);
                 groupIndex = plan.groups.count() - 1;
             }
-            plan.groups[groupIndex].items.append(item.sf);
-        }
-
-        if (clone && items.isEmpty() == false && plan.groups.isEmpty())
-        {
-            // only used through Collections: nothing to copy
-            scan->notCopied.append(chaser->name());
-            continue;
+            plan.groups[groupIndex].items.append(item);
         }
 
         // converted in place, a Chaser takes the tempo of most of its items
@@ -2912,9 +3103,6 @@ QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const 
 
         plans.append(plan);
     }
-
-    if (plans.isEmpty())
-        error = tr("Nothing to copy: these Chasers are only used inside Collections, which can only be converted in place.");
 
     return plans;
 }
@@ -2954,6 +3142,8 @@ QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
     QList<TempoConversionPlan> plans = tempoConversionPlans(options, error, &scan);
     bool toBeats = options.value("toBeats", true).toBool();
     bool clone = options.value("clone", false).toBool();
+    bool allItems = options.value("allItems", false).toBool();
+    QString scope = options.value("scope", "selected").toString();
     double resolution = options.value("resolution", 0.25).toDouble();
 
     if (plans.isEmpty() == false && scan.skipped > 0)
@@ -2965,9 +3155,6 @@ QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
             lines.append(toBeats ? tr("%1 Chasers already in Beats tempo, skipped.").arg(scan.skipped)
                                  : tr("%1 Chasers already in Time tempo, skipped.").arg(scan.skipped));
     }
-    if (plans.isEmpty() == false && scan.notCopied.isEmpty() == false)
-        lines.append(tr("Only used inside Collections, not copied (convert in place instead): %1")
-                     .arg(scan.notCopied.join(", ")));
 
     for (const TempoConversionPlan &plan : plans)
     {
@@ -3025,10 +3212,61 @@ QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
         }
 
         if (clone && plan.collectionItems > 0)
+        {
+            // the Collections leading to the Chaser are copied with it, so
+            // the ones the items use now are left as they are
+            QStringList collections;
+            for (const TempoConversionGroup &group : plan.groups)
+                for (const TempoConversionItem &item : group.items)
+                    for (const QList<Collection *> &path : item.paths)
+                        for (Collection *collection : path)
+                            if (collections.contains(collection->name()) == false)
+                                collections.append(collection->name());
+
             lines.append(plan.collectionItems == 1
-                         ? tr("    1 of its items starts it from a Collection and keeps the original.")
-                         : tr("    %1 of its items start it from a Collection and keep the original.")
-                           .arg(plan.collectionItems));
+                         ? tr("    1 of its items starts it from a Collection.")
+                         : tr("    %1 of its items start it from a Collection.").arg(plan.collectionItems));
+            lines.append(collections.count() == 1
+                         ? tr("    Copied with it, leaving the original alone: %1").arg(collections.first())
+                         : tr("    Copied with it, leaving the originals alone: %1").arg(collections.join(", ")));
+        }
+
+        // converting a selection at a time copies the Chaser again on each
+        // pass, so say what this selection leaves behind
+        if (clone && allItems == false && scope == "selected" && m_currentShow != nullptr)
+        {
+            QList<ShowFunction *> converted;
+            for (const TempoConversionGroup &group : plan.groups)
+                for (const TempoConversionItem &item : group.items)
+                    converted.append(item.sf);
+
+            int others = 0;
+            for (Track *track : m_currentShow->tracks())
+            {
+                for (ShowFunction *sf : track->showFunctions())
+                {
+                    if (converted.contains(sf))
+                        continue;
+
+                    QList<ChaserPath> found;
+                    collectChasers(m_doc->function(sf->functionID()), found, QSet<quint32>());
+                    for (const ChaserPath &cp : found)
+                    {
+                        if (cp.chaser != plan.chaser)
+                            continue;
+                        others++;
+                        break;
+                    }
+                }
+            }
+
+            if (others > 0)
+                lines.append(others == 1
+                             ? tr("    1 more item of this Show uses it and is not selected. Converting it later "
+                                  "makes a second copy: use Whole Show to convert it in one step.")
+                             : tr("    %1 more items of this Show use it and are not selected. Converting them "
+                                  "later makes more copies: use Whole Show to convert them in one step.").arg(others));
+        }
 
         if (clone == false)
         {
@@ -3044,9 +3282,7 @@ QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
                     tempos.append(QString::number(itemBpm));
                 lines.append(tr("    Its items are at %1 BPM, but a Chaser converted in place has a single tempo: "
                                 "%2 BPM.").arg(tempos.join(", ")).arg(plan.groups.first().bpm));
-                // a Chaser inside a Collection can't be replaced by copies
-                if (plan.collectionItems < plan.groups.first().items.count())
-                    lines.append(tr("    Convert to copies for one per tempo."));
+                lines.append(tr("    Convert to copies for one per tempo."));
             }
 
             // every use of the Chaser changes with it
@@ -3076,6 +3312,84 @@ QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
     return result;
 }
 
+Collection *ShowManager::copyCollectionPath(Collection *collection, int depth,
+                                            const QList<TempoCollectionReplacement> &replacements,
+                                            bool toBeats, const QMap<Collection *, QSet<double>> &bpms,
+                                            QHash<QString, Collection *> &cache)
+{
+    if (collection == nullptr || replacements.isEmpty())
+        return nullptr;
+
+    // what each member leading to a converted Chaser is replaced with: the
+    // Chaser copy when this Collection holds it, or a copy of the Collection
+    // below, built first so that the whole chain is replaced
+    QMap<quint32, quint32> members;
+    QList<Collection *> children;
+    QMap<Collection *, QList<TempoCollectionReplacement>> childReplacements;
+
+    for (const TempoCollectionReplacement &replacement : replacements)
+    {
+        if (replacement.path.count() == depth + 1)
+        {
+            members.insert(replacement.chaser->id(), replacement.copy->id());
+            continue;
+        }
+
+        Collection *child = replacement.path.at(depth + 1);
+        if (children.contains(child) == false)
+            children.append(child);
+        childReplacements[child].append(replacement);
+    }
+
+    for (Collection *child : children)
+    {
+        Collection *childCopy = copyCollectionPath(child, depth + 1, childReplacements.value(child),
+                                                   toBeats, bpms, cache);
+        if (childCopy == nullptr)
+            return nullptr;
+        members.insert(child->id(), childCopy->id());
+    }
+
+    // a Collection copy carrying the same replacements is shared, so items
+    // converted together keep using one copy instead of one each
+    QStringList signature;
+    signature.append(QString::number(collection->id()));
+    for (auto it = members.constBegin(); it != members.constEnd(); ++it)
+        signature.append(QString("%1>%2").arg(it.key()).arg(it.value()));
+
+    QString key = signature.join(",");
+    if (cache.contains(key))
+        return cache.value(key);
+
+    Collection *copy = qobject_cast<Collection *>(collection->createCopy(m_doc));
+    if (copy == nullptr)
+        return nullptr;
+
+    // when the Collection is copied at several tempos, the copies are named
+    // apart. The name is set before the copy is recorded, so that undoing
+    // and redoing the conversion brings back the same name
+    bool perTempo = bpms.value(collection).count() > 1;
+    double bpm = replacements.first().bpm;
+    copy->setName(collection->name() +
+                  (toBeats ? (perTempo ? tr(" (beats, %1)").arg(bpm) : tr(" (beats)"))
+                           : (perTempo ? tr(" (time, %1)").arg(bpm) : tr(" (time)"))));
+
+    for (auto it = members.constBegin(); it != members.constEnd(); ++it)
+    {
+        // keep the member in its place, as a Collection runs its members
+        // in order when it is used as a Show item
+        int index = copy->functions().indexOf(it.key());
+        copy->removeFunction(it.key());
+        copy->addFunction(it.value(), index);
+    }
+
+    Tardis::instance()->enqueueAction(Tardis::FunctionCreate, copy->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, copy->id()));
+
+    cache.insert(key, copy);
+    return copy;
+}
+
 bool ShowManager::applyTempoConversion(QVariantMap options)
 {
     QString error;
@@ -3087,6 +3401,12 @@ bool ShowManager::applyTempoConversion(QVariantMap options)
     bool clone = options.value("clone", false).toBool();
     double resolution = options.value("resolution", 0.25).toDouble();
     Function::TempoType newType = toBeats ? Function::Beats : Function::Time;
+
+    // the converted Chasers each item needs put in place inside the
+    // Collections it goes through, gathered over every plan so that two
+    // Chasers converted inside one Collection share a single copy of it
+    QList<ShowFunction *> collectionItems;
+    QHash<ShowFunction *, QList<TempoCollectionReplacement>> itemReplacements;
 
     for (const TempoConversionPlan &plan : plans)
     {
@@ -3140,8 +3460,21 @@ bool ShowManager::applyTempoConversion(QVariantMap options)
             Tardis::instance()->enqueueAction(Tardis::FunctionCreate, copy->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, copy->id()));
 
-            for (ShowFunction *sf : group.items)
+            for (const TempoConversionItem &item : group.items)
             {
+                ShowFunction *sf = item.sf;
+
+                // an item that starts a Collection keeps starting one, so
+                // its times stay in the unit they are stored in
+                if (item.paths.isEmpty() == false)
+                {
+                    if (itemReplacements.contains(sf) == false)
+                        collectionItems.append(sf);
+                    for (const QList<Collection *> &path : item.paths)
+                        itemReplacements[sf].append({ path, chaser, copy, group.bpm });
+                    continue;
+                }
+
                 if (m_currentShow->itemsInMs() == false)
                 {
                     QPair<quint32, quint32> times = convertedItemTimes(sf, toBeats);
@@ -3159,6 +3492,32 @@ bool ShowManager::applyTempoConversion(QVariantMap options)
             }
         }
     }
+
+    // copy the Collections leading to the converted Chasers, and point the
+    // items at the top copy: the original Collections are left alone
+    QHash<QString, Collection *> collectionCache;
+
+    // the tempos each Collection is copied at, so that a Collection used in
+    // songs at different tempos gets one copy per tempo, named apart
+    QMap<Collection *, QSet<double>> collectionBpms;
+    for (ShowFunction *sf : collectionItems)
+        for (const TempoCollectionReplacement &replacement : itemReplacements.value(sf))
+            for (Collection *collection : replacement.path)
+                collectionBpms[collection].insert(replacement.bpm);
+
+    for (ShowFunction *sf : collectionItems)
+    {
+        const QList<TempoCollectionReplacement> &replacements = itemReplacements.value(sf);
+        Collection *top = copyCollectionPath(replacements.first().path.first(), 0, replacements,
+                                             toBeats, collectionBpms, collectionCache);
+        if (top == nullptr)
+            continue;
+
+        quint32 oldId = sf->functionID();
+        setShowItemFunction(sf->id(), top->id());
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetFunction, sf->id(), oldId, top->id());
+    }
+
 
     emit showDurationChanged(m_currentShow != nullptr ? m_currentShow->totalDuration() : 0);
     return true;

@@ -696,12 +696,49 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 faSource: FontAwesome.fa_trash_can
                 faColor: "crimson"
-                tooltip: qsTr("Delete the selected tempo section")
-                enabled: parent.parent.sectionSelected
+                tooltip: qsTr("Delete the selected tempo section\nShift+click: delete all the tempo sections")
+                // enabled without a selection too, to delete all the sections
+                enabled: showManager.tempoSections.length > 0
                 onClicked:
                 {
+                    if (parent.parent.sectionSelected === false)
+                        return
                     showManager.removeTempoSection(tempoLane.selectedIndex)
                     tempoLane.selectedIndex = -1
+                }
+
+                // takes Shift+click only, so the button click (deleting the
+                // selected section only) doesn't happen. Other presses are
+                // declined and reach the button
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onPressed: (mouse) => mouse.accepted = (mouse.modifiers & Qt.ShiftModifier) ? true : false
+                    onClicked: deleteAllTempoPopup.open()
+                }
+
+                CustomPopupDialog
+                {
+                    id: deleteAllTempoPopup
+                    title: qsTr("Delete all tempo sections")
+                    message: qsTr("Are you sure you want to delete all tempo sections?")
+                    standardButtons: Dialog.Yes | Dialog.No
+
+                    function deleteAll()
+                    {
+                        showManager.removeAllTempoSections()
+                        tempoLane.selectedIndex = -1
+                    }
+
+                    // like beatAlignWarningPopup: buttons emit clicked(role),
+                    // the Enter key emits accepted()
+                    onClicked: (role) =>
+                    {
+                        if (role === Dialog.Yes)
+                            deleteAll()
+                        close()
+                    }
+                    onAccepted: deleteAll()
                 }
             }
         }

@@ -1002,7 +1002,10 @@ void FunctionManager::moveFunctions(QString newPath)
 
 void FunctionManager::cloneFunctions()
 {
-    for (QVariant &fidVar : m_selectedIDList)
+    QVariantList sourceIDs = m_selectedIDList;
+    QVariantList cloneIDs;
+
+    for (QVariant &fidVar : sourceIDs)
     {
         Function *func = m_doc->function(fidVar.toUInt());
         if (func == nullptr)
@@ -1018,6 +1021,8 @@ void FunctionManager::cloneFunctions()
                 delete copy;
                 continue;
             }
+
+            cloneIDs.append(QVariant(copy->id()));
 
             /* If the cloned Function is a Sequence,
              * clone the bound Scene too */
@@ -1035,6 +1040,39 @@ void FunctionManager::cloneFunctions()
             }
         }
     }
+
+    if (cloneIDs.isEmpty())
+        return;
+
+    /* Make the clones the new selection, moving any
+     * running preview from the originals to the clones */
+    for (QVariant &fidVar : m_selectedIDList)
+    {
+        Function *f = m_doc->function(fidVar.toUInt());
+        if (m_previewEnabled && f != nullptr)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionStop, f->id(), true, false);
+            f->stop(FunctionParent::master());
+        }
+    }
+
+    m_selectedIDList = cloneIDs;
+    m_selectedFolderList.clear();
+
+    for (QVariant &fidVar : m_selectedIDList)
+    {
+        Function *f = m_doc->function(fidVar.toUInt());
+        if (m_previewEnabled && f != nullptr)
+        {
+            Tardis::instance()->enqueueAction(Tardis::FunctionStart, f->id(), false, true);
+            f->start(m_doc->masterTimer(), FunctionParent::master());
+        }
+    }
+
+    updateFunctionsTree();
+
+    emit selectedFolderCountChanged(0);
+    emit selectedFunctionCountChanged(m_selectedIDList.count());
 }
 
 void FunctionManager::deleteEditorItems(QVariantList list)
@@ -1739,6 +1777,12 @@ void FunctionManager::addFunctionTreeItem(Function *func)
 
     QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
+    /* A tree item is registered under the name the Function has when it is
+       added, so a rename made elsewhere would leave it under the old name.
+       The connection is unique, as this is called on every tree rebuild */
+    connect(func, SIGNAL(nameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)),
+            static_cast<Qt::ConnectionType>(Qt::AutoConnection | Qt::UniqueConnection));
+
     if ((m_filter == 0 || m_filter & func->type()) &&
         (m_searchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_searchFilter)))
     {
@@ -1748,7 +1792,28 @@ void FunctionManager::addFunctionTreeItem(Function *func)
         QString fPath = func->path(true).replace("/", TreeModel::separator());
         TreeModelItem *item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         if (m_selectedIDList.contains(QVariant(func->id())))
-            item->setFlag(TreeModel::Selected, true);
+        {
+            /* For a Function in a folder, addItem returns the top level
+             * folder item, so look up the Function's own item instead */
+            if (fPath.isEmpty() == false)
+            {
+                TreeModelItem *folder = m_functionTree->itemAtPath(fPath);
+                item = nullptr;
+                if (folder != nullptr && folder->children() != nullptr)
+                {
+                    for (TreeModelItem *child : folder->children()->items())
+                    {
+                        if (child->data(0).value<Function *>() == func)
+                        {
+                            item = child;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (item != nullptr)
+                item->setFlag(TreeModel::Selected, true);
+        }
     }
 
     switch (func->type())
@@ -1864,4 +1929,53 @@ void FunctionManager::slotFunctionAdded(quint32 fid)
 
     Function *func = m_doc->function(fid);
     addFunctionTreeItem(func);
+}
+
+void FunctionManager::slotFunctionNameChanged(quint32 fid)
+{
+    Function *func = m_doc->function(fid);
+    if (func == nullptr)
+        return;
+
+    QString fPath = func->path(true).replace("/", TreeModel::separator());
+    QList<TreeModelItem *> items;
+
+    if (fPath.isEmpty())
+    {
+        items = m_functionTree->items();
+    }
+    else
+    {
+        TreeModelItem *node = m_functionTree->itemAtPath(fPath);
+        if (node == nullptr || node->hasChildren() == false)
+            return;
+        items = node->children()->items();
+    }
+
+    // the item is found by the Function it refers to, since the name it is
+    // registered under is the one the Function had before the rename
+    for (TreeModelItem *item : items)
+    {
+        QVariantList data = item->data();
+        if (data.isEmpty() || data.at(0).value<Function *>() != func)
+            continue;
+
+        if (item->label() == func->name())
+            return;
+
+        QString oldPath = fPath.isEmpty() ? item->label()
+                                          : QString("%1%2%3").arg(fPath)
+                                            .arg(TreeModel::separator()).arg(item->label());
+        if (m_functionTree->removeItem(oldPath) == false)
+            return;
+
+        QVariantList params;
+        params.append(QVariant::fromValue(func)); // classRef
+        params.append(App::FunctionDragItem); // type
+        TreeModelItem *newItem = m_functionTree->addItem(func->name(), params, fPath);
+        if (newItem != nullptr && m_selectedIDList.contains(QVariant(func->id())))
+            newItem->setFlag(TreeModel::Selected, true);
+
+        return;
+    }
 }

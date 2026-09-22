@@ -36,8 +36,10 @@ class Doc;
 class Track;
 class Function;
 class Chaser;
+class Collection;
 class ShowFunction;
 class WaveformImageProvider;
+class TempoDetector;
 
 typedef struct
 {
@@ -77,6 +79,8 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(QVariantList tempoSections READ tempoSections NOTIFY tempoSectionsChanged)
     Q_PROPERTY(bool itemsInMs READ itemsInMs NOTIFY tempoSectionsChanged)
     Q_PROPERTY(bool tempoGridActive READ tempoGridActive NOTIFY tempoSectionsChanged)
+    Q_PROPERTY(bool tempoDetectionRunning READ tempoDetectionRunning NOTIFY tempoDetectionRunningChanged)
+    Q_PROPERTY(bool detectTempo READ detectTempo WRITE setDetectTempo NOTIFY detectTempoChanged)
     Q_PROPERTY(bool tempoBeatActive READ tempoBeatActive NOTIFY tempoBeatActiveChanged)
     Q_PROPERTY(int currentBeatsPerBar READ currentBeatsPerBar NOTIFY currentBeatsPerBarChanged)
     Q_PROPERTY(int currentBeatInBar READ currentBeatInBar NOTIFY currentBeatInBarChanged)
@@ -299,6 +303,27 @@ public:
      *  Returns the indices of the sections added */
     Q_INVOKABLE QVariantList addTempoSectionsFromSelection(bool startPrecedence = false);
 
+    /** Like addTempoSectionsFromSelection(), for the audio items of $items:
+     *  a list of maps with the keys itemId and bpm. A section already starting
+     *  where an item starts gets the item tempo, keeping its length and name */
+    Q_INVOKABLE QVariantList addTempoSectionsForItems(const QVariantList &items, bool startPrecedence);
+
+    /** Detect in the background the tempo of each selected audio item,
+     *  reporting tempoDetectionProgress() and then tempoDetectionFinished().
+     *  Returns false if there is nothing to detect */
+    Q_INVOKABLE bool detectSelectionTempo();
+
+    /** Stop detecting: the items being analysed report the tempo of their
+     *  audio analysed so far, the others are reported as not detected */
+    Q_INVOKABLE void stopTempoDetection();
+
+    bool tempoDetectionRunning() const;
+
+    /** Get/Set whether adding tempo sections from the selected audio items
+     *  detects their tempo. Stored in the local computer settings */
+    bool detectTempo() const;
+    void setDetectTempo(bool detect);
+
     /** Replace the tempo section at $index. Returns false, leaving the
      *  section unchanged, if it would overlap another section */
     Q_INVOKABLE bool updateTempoSection(int index, int startTime, int duration,
@@ -310,6 +335,9 @@ public:
 
     /** Remove the tempo section at $index */
     Q_INVOKABLE void removeTempoSection(int index);
+
+    /** Remove all the tempo sections of the current Show */
+    Q_INVOKABLE void removeAllTempoSections();
 
     /** Get the duration in ms of a beat at $time, from the tempo sections
      *  or the current BPM before the first section */
@@ -331,6 +359,18 @@ private:
     /** Get a tempo section for each selected audio item, in start order */
     QList<TempoSection> selectedAudioSections() const;
 
+    /** Get the tempo section of the audio item $sf, or one with no duration
+     *  if $sf is not an audio item */
+    TempoSection audioItemSection(const ShowFunction *sf, double bpm) const;
+
+    /** Add $sections, in start order, as addTempoSectionsFromSelection() does.
+     *  With $updateSameStart, a section starting where an existing one starts
+     *  sets the tempo of the existing one instead */
+    QVariantList addAudioSections(const QList<TempoSection> &sections, bool startPrecedence,
+                                  bool updateSameStart);
+
+    void slotTempoDetectionFinished(const QVariantList &results);
+
     /** Set the tempo sections of the current Show, recording the change,
      *  and the item conversion of a first section, as one undo step */
     void setTempoMap(const TempoMap &tempoMap);
@@ -349,6 +389,21 @@ private:
 
 signals:
     void tempoSectionsChanged();
+    void tempoDetectionRunningChanged();
+    void detectTempoChanged();
+    void tempoDetectionProgress(int done, int total);
+
+    /** $results is a list of maps, in start order, with the keys itemId,
+     *  name, bpm (0 when not detected), agreement (the share of the audio
+     *  agreeing with bpm, 0 to 1) and stopped. It is empty when the Show
+     *  being edited changed during the detection */
+    void tempoDetectionFinished(const QVariantList &results);
+
+private:
+    TempoDetector *m_tempoDetector;
+    /** The Show whose items are being detected */
+    quint32 m_tempoDetectionShowId;
+    bool m_detectTempo;
 
     void tempoBeatActiveChanged();
     void currentBeatsPerBarChanged();
@@ -504,8 +559,8 @@ public:
     Q_INVOKABLE bool cutTimeAtCursor(int length, int cursorTime);
 
     /** Returns pixel X positions of all item edges (start + end) across all tracks,
-     *  excluding the item with the given function ID */
-    Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeFuncId,
+     *  excluding the Show item with the given ID */
+    Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeItemId,
                                           double viewportLeft = -1, double viewportRight = -1) const;
 
     /** Returns the number of the currently selected Show items */
@@ -603,9 +658,10 @@ public:
      * - resolution: the beat rounding when converting to beats
      * - clone: true to convert copies of the Chasers, used by the items in
      *   "allItems" (every item of the Show using a Chaser) or the selected
-     *   ones, false to convert the Chasers themselves. Chasers started from
-     *   Collections are only converted in place, and copies are only made
-     *   in the Show being edited
+     *   ones, false to convert the Chasers themselves. A Chaser started
+     *   from a Collection is copied together with the Collections leading
+     *   to it, so the original Collection is left alone. Copies are only
+     *   made in the Show being edited
      * - perTempo: with clone, one copy per tempo of the items, instead of a
      *   single copy at the first item tempo
      *
@@ -619,18 +675,21 @@ public:
     Q_INVOKABLE bool applyTempoConversion(QVariantMap options);
 
 private:
-    struct TempoConversionGroup
-    {
-        double bpm;
-        QList<ShowFunction *> items;
-    };
-
     struct TempoConversionItem
     {
         Show *show;
         ShowFunction *sf;
-        /** True when the item starts the Chaser from a Collection */
-        bool viaCollection;
+        /** Every route from the item to the Chaser, each listing the
+         *  Collections walked through, from the Function the item starts
+         *  down to the one holding the Chaser. Empty when the item starts
+         *  the Chaser directly */
+        QList<QList<Collection *>> paths;
+    };
+
+    struct TempoConversionGroup
+    {
+        double bpm;
+        QList<TempoConversionItem> items;
     };
 
     struct TempoConversionPlan
@@ -649,13 +708,46 @@ private:
     {
         /** The number of Chasers found already in the target tempo */
         int skipped = 0;
-        /** The Chasers not copied, as they are only used in Collections */
-        QStringList notCopied;
+    };
+
+    /** A Chaser found inside the Function a Show item starts, with the
+     *  Collections walked through to reach it */
+    struct ChaserPath
+    {
+        Chaser *chaser;
+        QList<Collection *> path;
     };
 
     /** Append $func to $chasers if it is a Chaser, or the Chasers inside it
-     *  if it is a Collection, looking into nested Collections */
-    void collectChasers(Function *func, QList<Chaser *> &chasers, QSet<quint32> &visited) const;
+     *  if it is a Collection, looking into nested Collections. $path holds
+     *  the Collections walked through so far, and $visited the Functions of
+     *  that branch, so that a Collection holding itself ends the recursion */
+    void collectChasers(Function *func, QList<ChaserPath> &chasers, QSet<quint32> visited,
+                        const QList<Collection *> &path = QList<Collection *>()) const;
+
+    /** A converted Chaser to put in place of the original one, inside the
+     *  Collections an item goes through to reach it */
+    struct TempoCollectionReplacement
+    {
+        QList<Collection *> path;
+        Chaser *chaser;
+        Function *copy;
+        double bpm;
+    };
+
+    /** Copy $collection, which is at depth $depth of the path of each of
+     *  $replacements, putting in place of the member leading on either the
+     *  converted Chaser or a copy of the next Collection down. Copies
+     *  needing the same replacements are shared through $cache, and $bpms
+     *  gives the tempos each Collection is copied at, to name the copies of
+     *  one Collection apart. Returns the copy, or nullptr on failure.
+     *
+     *  The copies are new Functions, so their member changes need no undo
+     *  action of their own: undoing their creation removes them */
+    Collection *copyCollectionPath(Collection *collection, int depth,
+                                   const QList<TempoCollectionReplacement> &replacements,
+                                   bool toBeats, const QMap<Collection *, QSet<double>> &bpms,
+                                   QHash<QString, Collection *> &cache);
 
     QList<TempoConversionPlan> tempoConversionPlans(const QVariantMap &options, QString &error,
                                                     TempoConversionScan *scan = nullptr) const;
