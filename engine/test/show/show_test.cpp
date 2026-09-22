@@ -338,7 +338,7 @@ void Show_Test::tempoMap()
 {
     Show s(m_doc);
     QVERIFY(s.tempoMap().isEmpty());
-    QVERIFY(s.isTempoMapActive() == false);
+    QVERIFY(s.itemsInMs() == false);
 
     Chaser *beatChaser = new Chaser(m_doc);
     beatChaser->setTempoType(Function::Beats);
@@ -364,7 +364,7 @@ void Show_Test::tempoMap()
 
     // the first section converts beat items to ms, leaving time items alone
     s.setTempoMap(map);
-    QVERIFY(s.isTempoMapActive());
+    QVERIFY(s.itemsInMs());
     QCOMPARE(s.tempoMap().count(), 1);
     QCOMPARE(beatItem->startTime(), quint32(2000));
     QCOMPARE(beatItem->duration(), quint32(1000));
@@ -376,18 +376,35 @@ void Show_Test::tempoMap()
     s.setTempoMap(map);
     QCOMPARE(beatItem->startTime(), quint32(2000));
 
-    // removing the last section converts beat items back
+    // removing all the sections never converts back
     s.setTempoMap(TempoMap());
-    QVERIFY(s.isTempoMapActive() == false);
-    QCOMPARE(beatItem->startTime(), quint32(4000));
-    QCOMPARE(beatItem->duration(), quint32(2000));
-    QCOMPARE(timeItem->startTime(), quint32(4000));
+    QVERIFY(s.itemsInMs());
+    QVERIFY(s.tempoMap().isEmpty());
+    QCOMPARE(beatItem->startTime(), quint32(2000));
+    QCOMPARE(beatItem->duration(), quint32(1000));
 
-    // a BPM based Show never converts and never runs on the tempo map
+    // the time division is display only: nothing is converted either way
     s.setTimeDivision(Show::BPM_4_4, 120);
     s.setTempoMap(map);
-    QVERIFY(s.isTempoMapActive() == false);
-    QCOMPARE(beatItem->startTime(), quint32(4000));
+    QVERIFY(s.itemsInMs());
+    QCOMPARE(beatItem->startTime(), quint32(2000));
+
+    // restoring a previous state converts nothing (undo)
+    s.restoreTempoMap(TempoMap(), false);
+    QVERIFY(s.itemsInMs() == false);
+    QVERIFY(s.tempoMap().isEmpty());
+    QCOMPARE(beatItem->startTime(), quint32(2000));
+
+    // the first section of a BPM based Show converts too
+    Show bpmShow(m_doc);
+    bpmShow.setTimeDivision(Show::BPM_3_4, 120);
+    Track *t2 = new Track(Function::invalidId(), &bpmShow);
+    bpmShow.addTrack(t2);
+    ShowFunction *bpmItem = t2->createShowFunction(beatChaser->id());
+    bpmItem->setStartTime(4000);
+    bpmItem->setDuration(2000);
+    bpmShow.setTempoMap(map);
+    QCOMPARE(bpmItem->startTime(), quint32(2000));
 
     m_doc->clearContents();
 }
@@ -406,6 +423,7 @@ void Show_Test::tempoMapSaveLoad()
     QVERIFY(s.saveXML(&xmlWriter) == true);
     xmlWriter.setDevice(NULL);
     buffer.close();
+    QVERIFY(buffer.data().contains("ItemUnit=\"ms\""));
 
     buffer.open(QIODevice::ReadOnly | QIODevice::Text);
     QXmlStreamReader xmlReader(&buffer);
@@ -415,15 +433,59 @@ void Show_Test::tempoMapSaveLoad()
     QVERIFY(s2.loadXML(xmlReader) == true);
     QCOMPARE(s2.tempoMap().count(), 1);
     QCOMPARE(s2.tempoMap().section(0), TempoSection(12500, 215000, 127.5, 4, "Song A"));
-    QVERIFY(s2.isTempoMapActive());
+    QVERIFY(s2.itemsInMs());
 
-    // a Show without sections doesn't write a tempo map
+    // a Show that lost all its sections still records its items unit
     Show s3(m_doc);
+    s3.setTempoMap(map);
+    s3.setTempoMap(TempoMap());
     QBuffer buffer3;
     buffer3.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter3(&buffer3);
     QVERIFY(s3.saveXML(&xmlWriter3) == true);
-    QVERIFY(buffer3.data().contains("TempoMap") == false);
+    xmlWriter3.setDevice(NULL);
+    buffer3.close();
+
+    buffer3.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader3(&buffer3);
+    xmlReader3.readNextStartElement();
+    Show s4(m_doc);
+    QVERIFY(s4.loadXML(xmlReader3) == true);
+    QVERIFY(s4.tempoMap().isEmpty());
+    QVERIFY(s4.itemsInMs());
+
+    // a Show that never had sections doesn't write a tempo map
+    Show s5(m_doc);
+    QBuffer buffer5;
+    buffer5.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter5(&buffer5);
+    QVERIFY(s5.saveXML(&xmlWriter5) == true);
+    QVERIFY(buffer5.data().contains("TempoMap") == false);
+
+    // a tempo map without the items unit, with sections, means ms
+    QBuffer buffer6;
+    buffer6.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter6(&buffer6);
+    xmlWriter6.writeStartElement("Function");
+    xmlWriter6.writeAttribute("Type", "Show");
+    xmlWriter6.writeStartElement("TempoMap");
+    xmlWriter6.writeStartElement("Section");
+    xmlWriter6.writeAttribute("Start", "0");
+    xmlWriter6.writeAttribute("Duration", "1000");
+    xmlWriter6.writeAttribute("BPM", "120");
+    xmlWriter6.writeAttribute("BeatsPerBar", "4");
+    xmlWriter6.writeEndElement();
+    xmlWriter6.writeEndElement();
+    xmlWriter6.writeEndElement();
+    xmlWriter6.setDevice(NULL);
+    buffer6.close();
+
+    buffer6.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader6(&buffer6);
+    xmlReader6.readNextStartElement();
+    Show s6(m_doc);
+    QVERIFY(s6.loadXML(xmlReader6) == true);
+    QVERIFY(s6.itemsInMs());
 }
 
 QTEST_APPLESS_MAIN(Show_Test)

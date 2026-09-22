@@ -123,6 +123,13 @@ void ShowRunner_Test::tempoMapRunner()
     QCOMPARE(chaser->tempoMapClock()->origin, quint32(1000));
     QCOMPARE(chaser->elapsed(), quint32(1500));
     midRunner.stop();
+
+    // with all the sections removed, the items stay in ms and the Chaser
+    // keeps running on the tempo map, at the global BPM
+    show->setTempoMap(TempoMap());
+    ShowRunner noSectionsRunner(m_doc, show->id());
+    QCOMPARE(noSectionsRunner.m_tempoMapActive, true);
+    QCOMPARE(noSectionsRunner.m_totalRunTime, quint32(4000));
 }
 
 QTEST_APPLESS_MAIN(ShowRunner_Test)

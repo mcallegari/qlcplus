@@ -98,8 +98,9 @@ private:
     quint32 m_totalRunBeats;
 
     /** A copy of the Show tempo map, when it drives the Show (see
-     *  Show::isTempoMapActive()). All the items are then positioned in ms
-     *  and Beats tempo Functions run on the tempo map beats */
+     *  Show::itemsInMs()). All the items are then positioned in ms and
+     *  Beats tempo Functions run on the tempo map beats, which follow the
+     *  global BPM where there are no sections */
     bool m_tempoMapActive;
     TempoMap m_tempoMap;
 

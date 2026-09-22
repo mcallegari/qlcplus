@@ -57,7 +57,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
     if (m_show == NULL)
         return;
 
-    m_tempoMapActive = m_show->isTempoMapActive();
+    m_tempoMapActive = m_show->itemsInMs();
     if (m_tempoMapActive)
         m_tempoMap = m_show->tempoMap();
 

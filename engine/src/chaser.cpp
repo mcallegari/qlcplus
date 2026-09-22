@@ -612,6 +612,66 @@ QList<quint32> Chaser::components() const
 }
 
 /*****************************************************************************
+ * Tempo conversion
+ *****************************************************************************/
+
+uint Chaser::timeToBeats(uint time, double bpm, double resolution)
+{
+    if (time == 0 || time == Function::infiniteSpeed() || time == Function::defaultSpeed() ||
+        bpm <= 0 || resolution <= 0)
+        return time;
+
+    double beats = (time * bpm) / 60000.0;
+    double rounded = qMax(resolution, qRound64(beats / resolution) * resolution);
+
+    return uint(qRound64(rounded * 1000.0));
+}
+
+uint Chaser::beatsToTime(uint beats, double bpm)
+{
+    if (beats == 0 || beats == Function::infiniteSpeed() || beats == Function::defaultSpeed() ||
+        bpm <= 0)
+        return beats;
+
+    return uint(qRound64((beats / 1000.0) * (60000.0 / bpm)));
+}
+
+void Chaser::convertTempoType(TempoType type, double bpm, double resolution)
+{
+    if (type == tempoType() || bpm <= 0)
+        return;
+
+    bool toBeats = type == Function::Beats;
+    auto convert = [=](uint value)
+    {
+        return toBeats ? timeToBeats(value, bpm, resolution) : beatsToTime(value, bpm);
+    };
+
+    uint commonFadeIn = convert(fadeInSpeed());
+    uint commonFadeOut = convert(fadeOutSpeed());
+    uint commonDuration = convert(duration());
+
+    // setTempoType() converts the common speeds with the global BPM,
+    // so they are set again afterwards
+    setTempoType(type);
+    setFadeInSpeed(commonFadeIn);
+    setFadeOutSpeed(commonFadeOut);
+    setDuration(commonDuration);
+
+    QList<ChaserStep> stepsList = steps();
+    for (int i = 0; i < stepsList.count(); i++)
+    {
+        ChaserStep step = stepsList.at(i);
+        step.fadeIn = convert(step.fadeIn);
+        step.hold = convert(step.hold);
+        step.fadeOut = convert(step.fadeOut);
+        step.duration = step.hold == Function::infiniteSpeed() ? Function::infiniteSpeed()
+                                                               : step.fadeIn + step.hold;
+        replaceStep(step, i);
+    }
+}
+
+/*****************************************************************************
  * Running
  *****************************************************************************/
 
