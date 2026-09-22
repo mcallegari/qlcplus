@@ -928,6 +928,14 @@ void ShowManager::removeTempoSection(int index)
         setTempoMap(map);
 }
 
+void ShowManager::removeAllTempoSections()
+{
+    if (m_currentShow == nullptr || m_currentShow->tempoMap().isEmpty())
+        return;
+
+    setTempoMap(TempoMap());
+}
+
 double ShowManager::tempoBeatDuration(double time) const
 {
     int bpm = m_doc->inputOutputMap()->bpmNumber();
