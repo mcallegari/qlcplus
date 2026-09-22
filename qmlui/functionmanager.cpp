@@ -1739,6 +1739,12 @@ void FunctionManager::addFunctionTreeItem(Function *func)
 
     QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
+    /* A tree item is registered under the name the Function has when it is
+       added, so a rename made elsewhere would leave it under the old name.
+       The connection is unique, as this is called on every tree rebuild */
+    connect(func, SIGNAL(nameChanged(quint32)), this, SLOT(slotFunctionNameChanged(quint32)),
+            static_cast<Qt::ConnectionType>(Qt::AutoConnection | Qt::UniqueConnection));
+
     if ((m_filter == 0 || m_filter & func->type()) &&
         (m_searchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_searchFilter)))
     {
@@ -1864,4 +1870,53 @@ void FunctionManager::slotFunctionAdded(quint32 fid)
 
     Function *func = m_doc->function(fid);
     addFunctionTreeItem(func);
+}
+
+void FunctionManager::slotFunctionNameChanged(quint32 fid)
+{
+    Function *func = m_doc->function(fid);
+    if (func == nullptr)
+        return;
+
+    QString fPath = func->path(true).replace("/", TreeModel::separator());
+    QList<TreeModelItem *> items;
+
+    if (fPath.isEmpty())
+    {
+        items = m_functionTree->items();
+    }
+    else
+    {
+        TreeModelItem *node = m_functionTree->itemAtPath(fPath);
+        if (node == nullptr || node->hasChildren() == false)
+            return;
+        items = node->children()->items();
+    }
+
+    // the item is found by the Function it refers to, since the name it is
+    // registered under is the one the Function had before the rename
+    for (TreeModelItem *item : items)
+    {
+        QVariantList data = item->data();
+        if (data.isEmpty() || data.at(0).value<Function *>() != func)
+            continue;
+
+        if (item->label() == func->name())
+            return;
+
+        QString oldPath = fPath.isEmpty() ? item->label()
+                                          : QString("%1%2%3").arg(fPath)
+                                            .arg(TreeModel::separator()).arg(item->label());
+        if (m_functionTree->removeItem(oldPath) == false)
+            return;
+
+        QVariantList params;
+        params.append(QVariant::fromValue(func)); // classRef
+        params.append(App::FunctionDragItem); // type
+        TreeModelItem *newItem = m_functionTree->addItem(func->name(), params, fPath);
+        if (newItem != nullptr && m_selectedIDList.contains(QVariant(func->id())))
+            newItem->setFlag(TreeModel::Selected, true);
+
+        return;
+    }
 }
