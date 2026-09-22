@@ -60,6 +60,11 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_snapGuideX(-1.0)
     , m_timeScale(5.0)
     , m_currentTime(0)
+    , m_tempoBeatActive(false)
+    , m_currentBeatsPerBar(4)
+    , m_currentBeatInBar(1)
+    , m_currentBpm(0.0)
+    , m_lastBeatIndex(-1)
     , m_selectedTrackId(-1)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
@@ -536,6 +541,88 @@ bool ShowManager::tempoGridActive() const
 {
     return m_currentShow != nullptr && timeDivision() == Show::Time &&
            m_currentShow->tempoMap().isEmpty() == false;
+}
+
+bool ShowManager::tempoBeatActive() const
+{
+    return m_tempoBeatActive;
+}
+
+int ShowManager::currentBeatsPerBar() const
+{
+    return m_currentBeatsPerBar;
+}
+
+int ShowManager::currentBeatInBar() const
+{
+    return m_currentBeatInBar;
+}
+
+double ShowManager::currentBpm() const
+{
+    return m_currentBpm;
+}
+
+void ShowManager::updateTempoBeat(quint32 time)
+{
+    bool active = false;
+    int beatsPerBar = m_currentBeatsPerBar;
+    int beatInBar = m_currentBeatInBar;
+    double bpm = m_currentBpm;
+    bool pulse = false;
+    int beatIndex = -1;
+
+    if (m_currentShow != nullptr && m_currentShow->isRunning())
+    {
+        const TempoMap &map = m_currentShow->tempoMap();
+        int sectionIndex = map.sectionIndexAt(time);
+
+        if (sectionIndex >= 0)
+        {
+            TempoSection section = map.section(sectionIndex);
+            double beatMs = section.beatDuration();
+
+            active = true;
+            beatsPerBar = section.beatsPerBar;
+            bpm = section.bpm;
+            beatIndex = beatMs > 0 ? int((time - section.startTime) / beatMs) : 0;
+
+            if (beatIndex != m_lastBeatIndex)
+            {
+                beatInBar = (beatIndex % beatsPerBar) + 1;
+                pulse = true;
+            }
+        }
+    }
+
+    m_lastBeatIndex = active ? beatIndex : -1;
+
+    if (m_tempoBeatActive != active)
+    {
+        m_tempoBeatActive = active;
+        emit tempoBeatActiveChanged();
+    }
+
+    if (m_currentBeatsPerBar != beatsPerBar)
+    {
+        m_currentBeatsPerBar = beatsPerBar;
+        emit currentBeatsPerBarChanged();
+    }
+
+    if (m_currentBeatInBar != beatInBar)
+    {
+        m_currentBeatInBar = beatInBar;
+        emit currentBeatInBarChanged();
+    }
+
+    if (qFuzzyCompare(m_currentBpm + 1.0, bpm + 1.0) == false)
+    {
+        m_currentBpm = bpm;
+        emit currentBpmChanged();
+    }
+
+    if (pulse)
+        emit tempoBeat();
 }
 
 QByteArray ShowManager::tempoStateToByteArray(const Show *show)
@@ -3081,6 +3168,7 @@ void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;
     emit currentTimeChanged(m_currentTime);
+    updateTempoBeat(msec_time);
 }
 
 void ShowManager::slotShowFinished()
@@ -3109,6 +3197,8 @@ void ShowManager::setPlaybackState(bool playing, bool paused)
         m_isPaused = paused;
         emit isPausedChanged(m_isPaused);
     }
+
+    updateTempoBeat(quint32(qMax(0, m_currentTime)));
 }
 
 bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
