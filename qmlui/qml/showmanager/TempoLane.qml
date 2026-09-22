@@ -52,6 +52,9 @@ Rectangle
             selectedIndex = -1
     }
 
+    // the take over choice of the sections being detected
+    property bool detectPrecedence: false
+
     readonly property real snapThreshold: 15
     readonly property real edgeWidth: 6
 
@@ -143,19 +146,25 @@ Rectangle
             messagePopup.open()
             return
         }
-        if (info.overlapping > 0)
-        {
-            overlapPopup.audioCount = info.audio
-            overlapPopup.overlapCount = info.overlapping
-            overlapPopup.open()
-            return
-        }
-        finishAddFromSelection(false)
+        addPopup.audioCount = info.audio
+        addPopup.overlapCount = info.overlapping
+        addPopup.open()
     }
 
     function finishAddFromSelection(startPrecedence)
     {
-        var indices = showManager.addTempoSectionsFromSelection(startPrecedence)
+        if (showManager.detectTempo)
+        {
+            detectPrecedence = startPrecedence
+            if (showManager.detectSelectionTempo())
+                detectPopup.open()
+            return
+        }
+        showAdded(showManager.addTempoSectionsFromSelection(startPrecedence), startPrecedence)
+    }
+
+    function showAdded(indices, startPrecedence)
+    {
         if (indices.length === 1)
         {
             selectedIndex = indices[0]
@@ -523,7 +532,7 @@ Rectangle
 
     CustomPopupDialog
     {
-        id: overlapPopup
+        id: addPopup
         parent: mainView
         width: mainView.width / 3
         title: qsTr("Tempo sections")
@@ -533,7 +542,7 @@ Rectangle
         property int overlapCount: 0
 
         // opened after this popup has closed
-        onAccepted: Qt.callLater(laneRoot.finishAddFromSelection, precedenceCheck.checked)
+        onAccepted: Qt.callLater(laneRoot.finishAddFromSelection, overlapCount > 0 && precedenceCheck.checked)
 
         contentItem:
             ColumnLayout
@@ -547,15 +556,52 @@ Rectangle
                     color: UISettings.fgMain
                     font.family: UISettings.robotoFontName
                     font.pixelSize: UISettings.textSizeDefault
-                    text: overlapPopup.audioCount === 1 ?
-                               qsTr("The selected audio item overlaps a tempo section.") :
-                               qsTr("%1 of the %2 selected audio items overlap tempo sections.")
-                                   .arg(overlapPopup.overlapCount).arg(overlapPopup.audioCount)
+                    text: addPopup.audioCount === 1 ?
+                              qsTr("Add a tempo section for the selected audio item.") :
+                              qsTr("Add tempo sections for the %1 selected audio items.").arg(addPopup.audioCount)
                 }
 
                 RowLayout
                 {
                     Layout.fillWidth: true
+
+                    CustomCheckBox
+                    {
+                        implicitWidth: UISettings.iconSizeMedium
+                        implicitHeight: implicitWidth
+                        checked: showManager.detectTempo
+                        onToggled: showManager.detectTempo = checked
+                    }
+                    Text
+                    {
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        color: UISettings.fgMain
+                        font.family: UISettings.robotoFontName
+                        font.pixelSize: UISettings.textSizeDefault
+                        text: qsTr("Detect the BPM of each item from its audio. The tempos are listed " +
+                                   "for checking before any section is added.")
+                    }
+                }
+
+                Text
+                {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    visible: addPopup.overlapCount > 0
+                    text: addPopup.audioCount === 1 ?
+                               qsTr("The selected audio item overlaps a tempo section.") :
+                               qsTr("%1 of the %2 selected audio items overlap tempo sections.")
+                                   .arg(addPopup.overlapCount).arg(addPopup.audioCount)
+                }
+
+                RowLayout
+                {
+                    Layout.fillWidth: true
+                    visible: addPopup.overlapCount > 0
 
                     CustomCheckBox
                     {
@@ -585,8 +631,268 @@ Rectangle
                     color: UISettings.fgMain
                     font.family: UISettings.robotoFontName
                     font.pixelSize: UISettings.textSizeDefault
-                    visible: !precedenceCheck.checked
+                    visible: addPopup.overlapCount > 0 && !precedenceCheck.checked
                     text: qsTr("Only the audio items that don't overlap a tempo section get one.")
+                }
+
+                Text
+                {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    // always shown, so that ticking the detection doesn't move the popup under a finger
+                    visible: addPopup.overlapCount > 0
+                    text: qsTr("When detecting the BPM, a section that starts where an audio item starts " +
+                               "gets the detected tempo, keeping its length and name.")
+                }
+            }
+    }
+
+    Connections
+    {
+        target: showManager
+
+        function onTempoDetectionProgress(done, total)
+        {
+            detectPopup.done = done
+            detectPopup.total = total
+        }
+
+        function onTempoDetectionFinished(results)
+        {
+            detectPopup.close()
+            if (results.length === 0)
+            {
+                messagePopup.message = qsTr("The tempo detection was stopped because the Show being edited changed.")
+                messagePopup.open()
+                return
+            }
+            reviewPopup.load(results)
+            reviewPopup.open()
+        }
+    }
+
+    CustomPopupDialog
+    {
+        id: detectPopup
+        width: mainView.width / 3
+        title: qsTr("Detecting tempos")
+        standardButtons: Dialog.Cancel
+        closePolicy: Popup.NoAutoClose
+
+        property int done: 0
+        property int total: 0
+
+        Component.onCompleted: standardButton(Dialog.Cancel).text = qsTr("Stop")
+
+        // the tempos found so far are listed for review
+        onRejected: showManager.stopTempoDetection()
+
+        contentItem:
+            ColumnLayout
+            {
+                spacing: 10
+
+                Text
+                {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    text: qsTr("%1 of %2 audio items analysed. " +
+                               "The tempos are listed for checking before any section is added.")
+                              .arg(detectPopup.done).arg(detectPopup.total)
+                }
+
+                ProgressBar
+                {
+                    Layout.fillWidth: true
+                    from: 0
+                    to: Math.max(1, detectPopup.total)
+                    value: detectPopup.done
+                }
+            }
+    }
+
+    CustomPopupDialog
+    {
+        id: reviewPopup
+        width: mainView.width / 2
+        title: qsTr("Detected tempos")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+
+        // below this share of the audio agreeing with a tempo, it is worth checking
+        readonly property real checkBelow: 0.6
+        property int toCheck: 0
+        property bool onlyToCheck: false
+
+        function load(results)
+        {
+            rowsModel.clear()
+            toCheck = 0
+            for (var i = 0; i < results.length; i++)
+            {
+                var r = results[i]
+                // a tempo from part of the audio is worth checking too
+                var check = r.bpm <= 0 || r.stopped || r.agreement < checkBelow
+                if (check)
+                    toCheck++
+                // without a tempo, a row is left out so as not to replace a section set by hand
+                rowsModel.append({ itemId: r.itemId, name: r.name, bpm: r.bpm > 0 ? r.bpm : 120.0,
+                                   detected: r.bpm > 0, agreement: r.agreement, stopped: r.stopped,
+                                   check: check, include: r.bpm > 0 })
+            }
+            onlyToCheck = false
+        }
+
+        onAccepted:
+        {
+            var items = []
+            for (var i = 0; i < rowsModel.count; i++)
+                if (rowsModel.get(i).include)
+                    items.push({ itemId: rowsModel.get(i).itemId, bpm: rowsModel.get(i).bpm })
+            if (items.length === 0)
+                return
+            var indices = showManager.addTempoSectionsForItems(items, laneRoot.detectPrecedence)
+            Qt.callLater(laneRoot.showAdded, indices, laneRoot.detectPrecedence)
+        }
+
+        ListModel { id: rowsModel }
+
+        contentItem:
+            ColumnLayout
+            {
+                spacing: 5
+
+                Text
+                {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    color: UISettings.fgMain
+                    font.family: UISettings.robotoFontName
+                    font.pixelSize: UISettings.textSizeDefault
+                    text: (reviewPopup.toCheck === 0 ?
+                               qsTr("A tempo was found for every item.") :
+                               qsTr("%1 of the %2 tempos need checking.").arg(reviewPopup.toCheck).arg(rowsModel.count)) +
+                          " " + qsTr("Detection can find half or double the actual tempo: " +
+                                     "correct it with ½ and ×2. A tempo that wanders, as with a live band, " +
+                                     "gets its average. Only the ticked items get a section.")
+                }
+
+                RowLayout
+                {
+                    Layout.fillWidth: true
+                    visible: reviewPopup.toCheck > 0 && reviewPopup.toCheck < rowsModel.count
+
+                    CustomCheckBox
+                    {
+                        implicitWidth: UISettings.iconSizeMedium
+                        implicitHeight: implicitWidth
+                        checked: reviewPopup.onlyToCheck
+                        onToggled: reviewPopup.onlyToCheck = checked
+                    }
+                    RobotoText
+                    {
+                        Layout.fillWidth: true
+                        label: qsTr("Only show the tempos that need checking")
+                    }
+                }
+
+                ListView
+                {
+                    id: rowsView
+                    Layout.fillWidth: true
+                    // the same height when filtering, so that the popup doesn't move under a finger
+                    Layout.preferredHeight: Math.min(rowsModel.count * UISettings.listItemHeight, mainView.height * 0.5)
+                    clip: true
+                    boundsBehavior: Flickable.StopAtBounds
+                    model: rowsModel
+                    ScrollBar.vertical: CustomScrollBar { }
+
+                    delegate:
+                        RowLayout
+                        {
+                            width: rowsView.width - (rowsView.contentHeight > rowsView.height ? 15 : 0)
+                            height: visible ? UISettings.listItemHeight : 0
+                            visible: !reviewPopup.onlyToCheck || model.check
+                            spacing: 5
+
+                            CustomCheckBox
+                            {
+                                implicitWidth: UISettings.iconSizeMedium
+                                implicitHeight: implicitWidth
+                                checked: model.include
+                                onToggled: rowsModel.setProperty(index, "include", checked)
+                            }
+
+                            RobotoText
+                            {
+                                Layout.fillWidth: true
+                                height: UISettings.listItemHeight
+                                label: model.name
+                            }
+
+                            RobotoText
+                            {
+                                height: UISettings.listItemHeight
+                                labelColor: model.check ? "orange" : UISettings.fgMedium
+                                label: !model.detected ? (model.stopped ? qsTr("stopped") : qsTr("not found")) :
+                                       model.stopped ? qsTr("partial, %1% agree").arg(Math.round(model.agreement * 100)) :
+                                                       qsTr("%1% agree").arg(Math.round(model.agreement * 100))
+                            }
+
+                            CustomDoubleSpinBox
+                            {
+                                id: rowSpin
+                                Layout.preferredWidth: UISettings.bigItemHeight * 1.6
+                                Layout.preferredHeight: UISettings.listItemHeight
+                                realFrom: 1
+                                realTo: 999
+                                realStep: 0.5
+                                decimals: 2
+                                suffix: ""
+                                Component.onCompleted: setValue(Math.round(model.bpm * 100))
+                                onRealValueChanged:
+                                {
+                                    if (Math.abs(realValue - model.bpm) > 0.001)
+                                    {
+                                        rowsModel.setProperty(index, "bpm", realValue)
+                                        rowsModel.setProperty(index, "include", true)
+                                    }
+                                }
+                            }
+
+                            GenericButton
+                            {
+                                Layout.preferredWidth: UISettings.listItemHeight * 1.2
+                                Layout.preferredHeight: UISettings.listItemHeight
+                                label: "½"
+                                onClicked:
+                                {
+                                    var bpm = Math.max(1, Math.round(model.bpm * 50) / 100)
+                                    rowsModel.setProperty(index, "bpm", bpm)
+                                    rowsModel.setProperty(index, "include", true)
+                                    rowSpin.setValue(Math.round(bpm * 100))
+                                }
+                            }
+
+                            GenericButton
+                            {
+                                Layout.preferredWidth: UISettings.listItemHeight * 1.2
+                                Layout.preferredHeight: UISettings.listItemHeight
+                                label: "×2"
+                                onClicked:
+                                {
+                                    var bpm = Math.min(999, model.bpm * 2)
+                                    rowsModel.setProperty(index, "bpm", bpm)
+                                    rowsModel.setProperty(index, "include", true)
+                                    rowSpin.setValue(Math.round(bpm * 100))
+                                }
+                            }
+                        }
                 }
             }
     }
