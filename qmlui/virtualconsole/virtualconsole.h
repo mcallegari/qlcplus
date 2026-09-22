@@ -85,6 +85,10 @@ public:
     /** Get a list of Widgets that use $fid */
     Q_INVOKABLE QVariantList usageList(quint32 fid) const;
 
+    /** Get the captions of the Speed Dial widgets controlling the speeds
+     *  of the Function with ID $fid */
+    Q_INVOKABLE QStringList speedDialsUsing(quint32 fid) const;
+
     /** Get a filtered list of VC widgets.
      *  $typeFilters can contain VCWidget::WidgetType values.
      *  If empty, all widgets are returned.

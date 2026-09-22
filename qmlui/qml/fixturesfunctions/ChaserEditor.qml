@@ -318,10 +318,36 @@ Rectangle
                         currValue: chaserEditor.tempoType
                         onValueChanged: (value) => chaserEditor.tempoType = value
                     }
-                    RobotoText
+                    RowLayout
                     {
-                        label: qsTr("Tempo")
                         Layout.fillWidth: true
+
+                        RobotoText
+                        {
+                            label: qsTr("Tempo")
+                            Layout.fillWidth: true
+                        }
+
+                        IconButton
+                        {
+                            implicitWidth: UISettings.iconSizeMedium
+                            implicitHeight: implicitWidth
+                            faSource: FontAwesome.fa_right_left
+                            faColor: UISettings.fgMain
+                            tooltip: qsTr("Convert between Time and Beats tempo at a chosen BPM")
+                            onClicked:
+                            {
+                                chaserTempoConverter.chaserIds = [ ceContainer.functionID ]
+                                chaserTempoConverter.toBeats = chaserEditor.tempoType === QLCFunction.Time
+                                chaserTempoConverter.open()
+                            }
+
+                            PopupChaserTempoConverter
+                            {
+                                id: chaserTempoConverter
+                                parent: mainView
+                            }
+                        }
                     }
 
                     // Row 2

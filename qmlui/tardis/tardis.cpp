@@ -996,9 +996,20 @@ int Tardis::processAction(TardisAction &action, bool undo)
             QXmlStreamReader xmlReader(&buffer);
             xmlReader.readNextStartElement();
 
+            // the name, path, visibility and blend mode are loaded by
+            // Function::loader(), not by loadXML(), and a tempo conversion
+            // doesn't change them, so the Chaser keeps its own
             Chaser state(m_doc);
+            state.setName(chaser->name());
+            state.setPath(chaser->path(true));
+            state.setVisible(chaser->isVisible());
+            state.setBlendMode(chaser->blendMode());
             if (state.loadXML(xmlReader))
+            {
                 chaser->copyFrom(&state);
+                // copyFrom() doesn't notify the tempo change to the editors
+                emit chaser->tempoTypeChanged();
+            }
         }
         break;
 

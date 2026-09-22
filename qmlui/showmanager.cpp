@@ -2547,6 +2547,365 @@ void ShowManager::slotFunctionRemoved(quint32 id)
         resetContents();
 }
 
+/*********************************************************************
+ * Chaser tempo conversion
+ *********************************************************************/
+
+bool ShowManager::selectionHasChasers() const
+{
+    for (const SelectedShowItem &ssi : m_selectedItems)
+    {
+        if (ssi.m_showFunc.isNull())
+            continue;
+
+        Function *func = m_doc->function(ssi.m_showFunc->functionID());
+        if (func != nullptr &&
+            (func->type() == Function::ChaserType || func->type() == Function::SequenceType))
+            return true;
+    }
+
+    return false;
+}
+
+QList<ShowManager::TempoConversionPlan> ShowManager::tempoConversionPlans(const QVariantMap &options,
+                                                                            QString &error) const
+{
+    QList<TempoConversionPlan> plans;
+    bool toBeats = options.value("toBeats", true).toBool();
+    bool clone = options.value("clone", false).toBool();
+    bool allItems = options.value("allItems", false).toBool();
+    bool perTempo = options.value("perTempo", true).toBool();
+    bool fixedBpm = options.value("bpmMode").toString() == "fixed";
+    double bpm = options.value("bpm", 120.0).toDouble();
+    int globalBpm = m_doc->inputOutputMap()->bpmNumber();
+    Function::TempoType sourceType = toBeats ? Function::Time : Function::Beats;
+
+    // the Chasers to convert, with the selected items using each of them
+    QList<Chaser *> chasers;
+    QMap<Chaser *, QList<ShowFunction *>> selectedItems;
+    QVariantList chaserIds = options.value("chaserIds").toList();
+
+    if (chaserIds.isEmpty())
+    {
+        for (const SelectedShowItem &ssi : m_selectedItems)
+        {
+            if (ssi.m_showFunc.isNull())
+                continue;
+
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(ssi.m_showFunc->functionID()));
+            if (chaser == nullptr || chaser->tempoType() != sourceType)
+                continue;
+
+            if (chasers.contains(chaser) == false)
+                chasers.append(chaser);
+            selectedItems[chaser].append(ssi.m_showFunc);
+        }
+    }
+    else
+    {
+        for (const QVariant &id : chaserIds)
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(id.toUInt()));
+            if (chaser != nullptr && chaser->tempoType() == sourceType && chasers.contains(chaser) == false)
+                chasers.append(chaser);
+        }
+    }
+
+    if (chasers.isEmpty())
+    {
+        error = toBeats ? tr("There is no Time tempo Chaser to convert.")
+                        : tr("There is no Beats tempo Chaser to convert.");
+        return plans;
+    }
+
+    if (fixedBpm && bpm <= 0)
+    {
+        error = tr("The BPM must be greater than zero.");
+        return plans;
+    }
+
+    for (Chaser *chaser : chasers)
+    {
+        TempoConversionPlan plan;
+        plan.chaser = chaser;
+
+        // the items that follow the conversion
+        QList<ShowFunction *> items = selectedItems.value(chaser);
+        if (clone && allItems && m_currentShow != nullptr)
+        {
+            items.clear();
+            for (Track *track : m_currentShow->tracks())
+                for (ShowFunction *sf : track->showFunctions())
+                    if (sf->functionID() == chaser->id())
+                        items.append(sf);
+        }
+
+        for (ShowFunction *sf : items)
+        {
+            double itemBpm = bpm;
+            if (fixedBpm == false)
+            {
+                itemBpm = globalBpm > 0 ? globalBpm : 120;
+                if (m_currentShow != nullptr)
+                    itemBpm = 60000.0 / m_currentShow->tempoMap().beatDurationAt(sf->startTime(), itemBpm);
+            }
+            itemBpm = qRound(itemBpm * 100) / 100.0;
+            if (plan.itemBpms.contains(itemBpm) == false)
+                plan.itemBpms.append(itemBpm);
+
+            // one group per tempo for copies, one group otherwise
+            int groupIndex = -1;
+            for (int g = 0; g < plan.groups.count(); g++)
+            {
+                if (clone == false || perTempo == false || plan.groups.at(g).bpm == itemBpm)
+                {
+                    groupIndex = g;
+                    break;
+                }
+            }
+
+            if (groupIndex == -1)
+            {
+                TempoConversionGroup group;
+                group.bpm = itemBpm;
+                plan.groups.append(group);
+                groupIndex = plan.groups.count() - 1;
+            }
+            plan.groups[groupIndex].items.append(sf);
+        }
+
+        // a Chaser with no item to follow (e.g. from its editor)
+        if (plan.groups.isEmpty())
+        {
+            TempoConversionGroup group;
+            group.bpm = fixedBpm ? bpm : (globalBpm > 0 ? globalBpm : 120);
+            if (fixedBpm == false && m_currentShow != nullptr)
+                group.bpm = qRound(60000.0 / m_currentShow->tempoMap().beatDurationAt(m_currentTime, group.bpm) * 100) / 100.0;
+            plan.groups.append(group);
+        }
+
+        plans.append(plan);
+    }
+
+    return plans;
+}
+
+QPair<quint32, quint32> ShowManager::convertedItemTimes(const ShowFunction *sf, bool toBeats) const
+{
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    double beatMs = 60000.0 / (bpm > 0 ? bpm : 120);
+
+    if (toBeats)
+        return qMakePair(quint32(qRound64((sf->startTime() / beatMs) * 1000.0)),
+                         quint32(qRound64((sf->duration() / beatMs) * 1000.0)));
+
+    return qMakePair(quint32(qRound64((sf->startTime() / 1000.0) * beatMs)),
+                     quint32(qRound64((sf->duration() / 1000.0) * beatMs)));
+}
+
+static QString speedToString(uint value, bool beats)
+{
+    if (value == Function::infiniteSpeed())
+        return QString(QChar(0x221E));
+    if (value == Function::defaultSpeed())
+        return ShowManager::tr("default");
+    if (beats)
+        return value == 1000 ? ShowManager::tr("1 beat") : ShowManager::tr("%1 beats").arg(value / 1000.0);
+    return ShowManager::tr("%1 ms").arg(value);
+}
+
+QVariantMap ShowManager::tempoConversionPreview(QVariantMap options)
+{
+    QVariantMap result;
+    QVariantList chaserIds;
+    QStringList lines;
+    QString error;
+
+    QList<TempoConversionPlan> plans = tempoConversionPlans(options, error);
+    bool toBeats = options.value("toBeats", true).toBool();
+    bool clone = options.value("clone", false).toBool();
+    double resolution = options.value("resolution", 0.25).toDouble();
+
+    for (const TempoConversionPlan &plan : plans)
+    {
+        chaserIds.append(plan.chaser->id());
+
+        for (const TempoConversionGroup &group : plan.groups)
+        {
+            QString target = clone ? tr("new copy \"%1\"").arg(plan.chaser->name() +
+                                     (toBeats ? tr(" (beats") : tr(" (time")) +
+                                     (plan.groups.count() > 1 ? QString(", %1)").arg(group.bpm) : QString(")")))
+                                   : tr("the Chaser itself");
+            if (group.items.isEmpty())
+            {
+                lines.append(tr("%1: at %2 BPM → %3").arg(plan.chaser->name()).arg(group.bpm).arg(target));
+            }
+            else
+            {
+                QString items = group.items.count() == 1 ? tr("1 item") : tr("%1 items").arg(group.items.count());
+                lines.append(tr("%1: %2 at %3 BPM → %4")
+                             .arg(plan.chaser->name()).arg(items).arg(group.bpm).arg(target));
+            }
+
+            // preview the step timings at this tempo
+            auto convert = [&](uint value)
+            {
+                return toBeats ? Chaser::timeToBeats(value, group.bpm, resolution)
+                               : Chaser::beatsToTime(value, group.bpm);
+            };
+
+            if (plan.chaser->durationMode() == Chaser::Common)
+                lines.append(tr("    Steps: %1 → %2").arg(speedToString(plan.chaser->duration(), !toBeats))
+                             .arg(speedToString(convert(plan.chaser->duration()), toBeats)));
+            if (plan.chaser->fadeInMode() == Chaser::Common)
+                lines.append(tr("    Fade in: %1 → %2").arg(speedToString(plan.chaser->fadeInSpeed(), !toBeats))
+                             .arg(speedToString(convert(plan.chaser->fadeInSpeed()), toBeats)));
+            if (plan.chaser->fadeOutMode() == Chaser::Common)
+                lines.append(tr("    Fade out: %1 → %2").arg(speedToString(plan.chaser->fadeOutSpeed(), !toBeats))
+                             .arg(speedToString(convert(plan.chaser->fadeOutSpeed()), toBeats)));
+
+            QList<ChaserStep> steps = plan.chaser->steps();
+            for (int i = 0; i < steps.count() && i < 8; i++)
+            {
+                const ChaserStep &step = steps.at(i);
+                if (plan.chaser->durationMode() != Chaser::PerStep &&
+                    plan.chaser->fadeInMode() != Chaser::PerStep && plan.chaser->fadeOutMode() != Chaser::PerStep)
+                    break;
+
+                lines.append(tr("    Step %1: hold %2 → %3, fade in %4 → %5")
+                             .arg(i + 1)
+                             .arg(speedToString(step.hold, !toBeats)).arg(speedToString(convert(step.hold), toBeats))
+                             .arg(speedToString(step.fadeIn, !toBeats)).arg(speedToString(convert(step.fadeIn), toBeats)));
+            }
+            if (steps.count() > 8 && plan.chaser->durationMode() == Chaser::PerStep)
+                lines.append(tr("    … and %1 more steps").arg(steps.count() - 8));
+        }
+
+        if (clone == false)
+        {
+            if (plan.itemBpms.count() > 1)
+            {
+                QStringList tempos;
+                for (double itemBpm : plan.itemBpms)
+                    tempos.append(QString::number(itemBpm));
+                lines.append(tr("    Its items are at %1 BPM, but a Chaser converted in place has a single tempo: "
+                                "%2 BPM. Convert to copies for one per tempo.")
+                             .arg(tempos.join(", ")).arg(plan.groups.first().bpm));
+            }
+
+            // every use of the Chaser changes with it
+            QList<quint32> usage = m_doc->getUsage(plan.chaser->id());
+            QSet<quint32> users;
+            bool fixUps = false;
+            for (int i = 0; i < usage.count(); i += 2)
+            {
+                users.insert(usage.at(i));
+                Show *show = qobject_cast<Show *>(m_doc->function(usage.at(i)));
+                if (show != nullptr && show->itemsInMs() == false)
+                    fixUps = true;
+            }
+            if (users.isEmpty() == false)
+                lines.append(tr("    Used in %1 Shows or Functions, which all change with it.").arg(users.count()));
+            if (fixUps)
+                lines.append(tr("    Its items in Shows without tempo sections are adjusted to stay in place."));
+        }
+    }
+
+    result.insert("valid", error.isEmpty());
+    result.insert("message", error);
+    result.insert("lines", lines);
+    result.insert("chaserIds", chaserIds);
+    return result;
+}
+
+bool ShowManager::applyTempoConversion(QVariantMap options)
+{
+    QString error;
+    QList<TempoConversionPlan> plans = tempoConversionPlans(options, error);
+    if (plans.isEmpty())
+        return false;
+
+    bool toBeats = options.value("toBeats", true).toBool();
+    bool clone = options.value("clone", false).toBool();
+    double resolution = options.value("resolution", 0.25).toDouble();
+    Function::TempoType newType = toBeats ? Function::Beats : Function::Time;
+
+    for (const TempoConversionPlan &plan : plans)
+    {
+        Chaser *chaser = plan.chaser;
+
+        if (clone == false)
+        {
+            // Shows that position Beats tempo items in beats would read the
+            // items of this Chaser in the wrong unit once it changes type
+            for (Function *f : m_doc->functionsByType(Function::ShowType))
+            {
+                Show *show = qobject_cast<Show *>(f);
+                if (show == nullptr || show->itemsInMs())
+                    continue;
+
+                for (Track *track : show->tracks())
+                {
+                    for (ShowFunction *sf : track->showFunctions())
+                    {
+                        if (sf->functionID() != chaser->id())
+                            continue;
+
+                        QPair<quint32, quint32> times = convertedItemTimes(sf, toBeats);
+                        QVariantList oldTimes = { sf->id(), sf->startTime(), sf->duration() };
+                        QVariantList newTimes = { sf->id(), times.first, times.second };
+                        sf->setStartTime(times.first);
+                        sf->setDuration(times.second);
+                        Tardis::instance()->enqueueAction(Tardis::ShowManagerShowItemSetTimes, show->id(),
+                                                          oldTimes, newTimes);
+                    }
+                }
+            }
+
+            QByteArray oldState = Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, chaser->id());
+            chaser->convertTempoType(newType, plan.groups.first().bpm, resolution);
+            Tardis::instance()->enqueueAction(Tardis::ChaserSetState, chaser->id(), oldState,
+                                              Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, chaser->id()));
+            continue;
+        }
+
+        for (const TempoConversionGroup &group : plan.groups)
+        {
+            Function *copy = chaser->createCopy(m_doc);
+            Chaser *copyChaser = qobject_cast<Chaser *>(copy);
+            if (copyChaser == nullptr)
+                continue;
+
+            copyChaser->setName(chaser->name() + (toBeats ? tr(" (beats") : tr(" (time")) +
+                                (plan.groups.count() > 1 ? QString(", %1)").arg(group.bpm) : QString(")")));
+            copyChaser->convertTempoType(newType, group.bpm, resolution);
+            Tardis::instance()->enqueueAction(Tardis::FunctionCreate, copy->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, copy->id()));
+
+            for (ShowFunction *sf : group.items)
+            {
+                if (m_currentShow->itemsInMs() == false)
+                {
+                    QPair<quint32, quint32> times = convertedItemTimes(sf, toBeats);
+                    QVariantList oldTimes = { sf->id(), sf->startTime(), sf->duration() };
+                    QVariantList newTimes = { sf->id(), times.first, times.second };
+                    sf->setStartTime(times.first);
+                    sf->setDuration(times.second);
+                    Tardis::instance()->enqueueAction(Tardis::ShowManagerShowItemSetTimes, m_currentShow->id(),
+                                                      oldTimes, newTimes);
+                }
+
+                quint32 oldId = sf->functionID();
+                setShowItemFunction(sf->id(), copy->id());
+                Tardis::instance()->enqueueAction(Tardis::ShowManagerItemSetFunction, sf->id(), oldId, copy->id());
+            }
+        }
+    }
+
+    emit showDurationChanged(m_currentShow != nullptr ? m_currentShow->totalDuration() : 0);
+    return true;
+}
+
 void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;

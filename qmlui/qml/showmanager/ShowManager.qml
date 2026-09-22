@@ -244,6 +244,30 @@ Rectangle
 
             IconButton
             {
+                id: tempoConvertButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_right_left
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Convert the selected Chasers between Time and Beats tempo")
+                enabled: showManager.selectedItemsCount > 0 && showManager.selectionHasChasers()
+                onClicked:
+                {
+                    tempoConverter.chaserIds = []
+                    tempoConverter.toBeats = true
+                    tempoConverter.open()
+                }
+
+                PopupChaserTempoConverter
+                {
+                    id: tempoConverter
+                    parent: mainView
+                }
+            }
+
+            IconButton
+            {
                 id: stretchBtn
                 width: parent.height - 6
                 height: width
