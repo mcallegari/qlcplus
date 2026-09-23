@@ -71,6 +71,8 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentBpm(0.0)
     , m_lastBeatIndex(-1)
     , m_selectedTrackId(-1)
+    , m_rangeStart(-1)
+    , m_rangeEnd(-1)
     , m_itemsColor(Qt::gray)
     , m_multipleSelection(false)
     , m_groupDragActive(false)
@@ -155,6 +157,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     m_cursorMovedDuringPause = false;
+    clearTimeRange();
     emit currentShowIDChanged(currentShowID);
     emit isEditingChanged();
 
@@ -2330,6 +2333,7 @@ void ShowManager::resetContents()
     m_selectedTrackId = -1;
     emit selectedTrackIdChanged(m_selectedTrackId);
     m_cursorMovedDuringPause = false;
+    clearTimeRange();
 
     if (m_currentShow != nullptr)
     {
@@ -3950,6 +3954,394 @@ bool ShowManager::pasteFromClipboard()
     selectTrackOfSelectedItems();
     emit selectedItemsCountChanged(m_selectedItems.count());
     emit showDurationChanged(m_currentShow->totalDuration());
+
+    return true;
+}
+
+/*********************************************************************
+ * Time range editing
+ *********************************************************************/
+
+int ShowManager::rangeStart() const
+{
+    return m_rangeStart;
+}
+
+int ShowManager::rangeEnd() const
+{
+    return m_rangeEnd;
+}
+
+bool ShowManager::hasTimeRange() const
+{
+    return m_rangeStart >= 0 && m_rangeEnd > m_rangeStart;
+}
+
+void ShowManager::setTimeRange(int start, int end)
+{
+    if (start > end)
+        std::swap(start, end);
+
+    start = qMax(0, start);
+    end = qMax(0, end);
+
+    if (start == end)
+    {
+        clearTimeRange();
+        return;
+    }
+
+    if (start == m_rangeStart && end == m_rangeEnd)
+        return;
+
+    m_rangeStart = start;
+    m_rangeEnd = end;
+    emit timeRangeChanged();
+}
+
+void ShowManager::clearTimeRange()
+{
+    if (m_rangeStart == -1 && m_rangeEnd == -1)
+        return;
+
+    m_rangeStart = -1;
+    m_rangeEnd = -1;
+    emit timeRangeChanged();
+}
+
+bool ShowManager::isCroppable(const Function *func, bool contentShift, QSet<quint32> visited) const
+{
+    if (func == nullptr)
+        return false;
+
+    switch (func->type())
+    {
+        case Function::SceneType:
+            return true;
+        case Function::ChaserType:
+        case Function::SequenceType:
+        case Function::EFXType:
+        case Function::RGBMatrixType:
+            return contentShift == false || func->runOrder() != Function::SingleShot;
+        case Function::CollectionType:
+        {
+            // a Collection holding itself adds nothing new to check
+            if (visited.contains(func->id()))
+                return true;
+            visited.insert(func->id());
+
+            const Collection *collection = qobject_cast<const Collection *>(func);
+            if (collection == nullptr)
+                return false;
+
+            for (quint32 id : collection->functions())
+            {
+                Function *member = m_doc->function(id);
+                if (member != nullptr && isCroppable(member, contentShift, visited) == false)
+                    return false;
+            }
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+ShowManager::TimeRangePlan ShowManager::timeRangePlan(bool remove) const
+{
+    TimeRangePlan plan;
+
+    if (m_currentShow == nullptr || hasTimeRange() == false)
+        return plan;
+
+    // the items of Beats tempo Functions may be positioned in beats
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    int beatDuration = bpm > 0 ? (60000 / bpm) : 500;
+
+    for (Track *track : m_currentShow->tracks())
+    {
+        for (ShowFunction *sf : track->showFunctions())
+        {
+            Function *func = m_doc->function(sf->functionID());
+            if (func == nullptr)
+                continue;
+
+            // the range, in the item unit
+            bool inBeats = itemInBeats(func);
+            quint32 start = inBeats ? Function::timeToBeats(m_rangeStart, beatDuration) : m_rangeStart;
+            quint32 end = inBeats ? Function::timeToBeats(m_rangeEnd, beatDuration) : m_rangeEnd;
+            quint32 length = end - start;
+            quint32 itemStart = sf->startTime();
+            quint32 itemDuration = sf->duration(m_doc);
+            quint32 itemEnd = itemStart + itemDuration;
+
+            if (length == 0 || itemEnd <= start)
+                continue;
+
+            TimeRangeEdit edit = { track, sf, TimeRangeEdit::Move, itemStart, itemDuration, 0, 0 };
+            bool contentShift = false;
+
+            if (remove)
+            {
+                if (itemStart >= end)
+                {
+                    edit.startTime = itemStart - length;
+                }
+                else if (itemStart >= start && itemEnd <= end)
+                {
+                    edit.action = TimeRangeEdit::Delete;
+                }
+                else if (itemStart < start)
+                {
+                    // the item end, or its middle, falls within the range
+                    edit.action = TimeRangeEdit::Crop;
+                    edit.duration = itemEnd <= end ? start - itemStart : itemDuration - length;
+                    contentShift = itemEnd > end;
+                }
+                else
+                {
+                    // the item start falls within the range
+                    edit.action = TimeRangeEdit::Crop;
+                    edit.startTime = start;
+                    edit.duration = itemEnd - end;
+                    contentShift = true;
+                }
+            }
+            else
+            {
+                if (itemStart >= start)
+                {
+                    edit.startTime = itemStart + length;
+                }
+                else
+                {
+                    // the item crosses the range start: split it around the space
+                    edit.action = TimeRangeEdit::Split;
+                    edit.duration = start - itemStart;
+                    edit.splitStartTime = end;
+                    edit.splitDuration = itemEnd - start;
+                    contentShift = true;
+                }
+            }
+
+            if (edit.action != TimeRangeEdit::Move)
+            {
+                QString reason;
+                if (sf->isLocked())
+                    reason = tr("the item is locked");
+                else if (edit.action != TimeRangeEdit::Delete && isCroppable(func, contentShift) == false)
+                    reason = edit.action == TimeRangeEdit::Split ? tr("the item can't be split")
+                                                                 : tr("the item can't be cropped");
+
+                if (reason.isEmpty() == false)
+                    plan.blockers.append(QString("%1 (%2): %3").arg(func->name(), track->name(), reason));
+            }
+
+            plan.items.append(edit);
+        }
+    }
+
+    planTempoSections(plan, remove, m_rangeStart, m_rangeEnd);
+
+    return plan;
+}
+
+void ShowManager::planTempoSections(TimeRangePlan &plan, bool remove, quint32 start, quint32 end) const
+{
+    const quint32 length = end - start;
+
+    for (const TempoSection &section : m_currentShow->tempoMap().sections())
+    {
+        quint32 sectionEnd = section.endTime();
+        double beatMs = section.beatDuration();
+
+        if (sectionEnd <= start)
+        {
+            plan.tempoMap.addSection(section);
+            continue;
+        }
+
+        if (section.startTime >= (remove ? end : start))
+        {
+            TempoSection moved = section;
+            moved.startTime = remove ? section.startTime - length : section.startTime + length;
+            plan.tempoMap.addSection(moved);
+            plan.sectionsMoved++;
+            continue;
+        }
+
+        if (remove && section.startTime >= start && sectionEnd <= end)
+        {
+            plan.sectionsDeleted++;
+            continue;
+        }
+
+        plan.sectionsCropped++;
+
+        /* Removing or inserting a whole number of beats keeps the beat grid
+           of what follows in place, so the section just changes length */
+        double beats = length / beatMs;
+        bool wholeBeats = qAbs(beats - std::round(beats)) * beatMs <= 1.0;
+
+        if (section.startTime < start && sectionEnd > (remove ? end : start) && wholeBeats)
+        {
+            TempoSection resized = section;
+            resized.duration = remove ? section.duration - length : section.duration + length;
+            plan.tempoMap.addSection(resized);
+            continue;
+        }
+
+        // the part before the range keeps its place and grid
+        if (section.startTime < start)
+        {
+            TempoSection before = section;
+            before.duration = start - section.startTime;
+            plan.tempoMap.addSection(before);
+        }
+
+        /* The part after the range (removal) or after the range start
+           (insertion) moves with the timeline. It starts again from the
+           first beat of the original grid, to keep its grid on the beats */
+        quint32 cutTime = remove ? end : start;
+        if (sectionEnd <= cutTime)
+            continue;
+
+        double firstBeat = section.startTime +
+                std::ceil((cutTime - section.startTime) / beatMs - 0.000001) * beatMs;
+        quint32 afterStart = quint32(qRound(firstBeat));
+        if (afterStart >= sectionEnd)
+            continue;
+
+        TempoSection after = section;
+        after.startTime = remove ? afterStart - length : afterStart + length;
+        after.duration = sectionEnd - afterStart;
+        plan.tempoMap.addSection(after);
+    }
+}
+
+bool ShowManager::isTimeRangePlanValid(const TimeRangePlan &plan) const
+{
+    // without a range, the plan holds no tempo sections at all
+    if (m_currentShow == nullptr || hasTimeRange() == false || plan.blockers.isEmpty() == false)
+        return false;
+
+    return plan.items.isEmpty() == false ||
+           plan.tempoMap.sections() != m_currentShow->tempoMap().sections();
+}
+
+QVariantMap ShowManager::timeRangeEditInfo(bool remove) const
+{
+    QVariantMap info;
+    TimeRangePlan plan = timeRangePlan(remove);
+
+    int deleted = 0, cropped = 0, split = 0, moved = 0;
+    for (const TimeRangeEdit &edit : std::as_const(plan.items))
+    {
+        switch (edit.action)
+        {
+            case TimeRangeEdit::Move: moved++; break;
+            case TimeRangeEdit::Delete: deleted++; break;
+            case TimeRangeEdit::Crop: cropped++; break;
+            case TimeRangeEdit::Split: split++; break;
+        }
+    }
+
+    info.insert("valid", isTimeRangePlanValid(plan));
+    info.insert("blockers", plan.blockers);
+    info.insert("deleted", deleted);
+    info.insert("cropped", cropped);
+    info.insert("split", split);
+    info.insert("moved", moved);
+    info.insert("sectionsDeleted", plan.sectionsDeleted);
+    info.insert("sectionsCropped", plan.sectionsCropped);
+    info.insert("sectionsMoved", plan.sectionsMoved);
+
+    return info;
+}
+
+void ShowManager::applyTimeRangePlan(const TimeRangePlan &plan)
+{
+    quint32 showId = m_currentShow->id();
+
+    for (const TimeRangeEdit &edit : plan.items)
+    {
+        ShowFunction *sf = edit.sf;
+
+        if (edit.action == TimeRangeEdit::Delete)
+        {
+            // serialize the item before removing it, as the undo action
+            // needs to restore it from its XML representation
+            Tardis::instance()->enqueueAction(
+                Tardis::ShowManagerDeleteFunction, showId,
+                Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteFunction, showId, sf->id()),
+                QVariant());
+
+            deleteShowItem(sf);
+            edit.track->removeShowFunction(sf, true);
+            continue;
+        }
+
+        if (edit.action == TimeRangeEdit::Split)
+        {
+            ShowFunction *part = edit.track->createShowFunction(sf->functionID());
+            part->setStartTime(edit.splitStartTime);
+            part->setDuration(edit.splitDuration);
+            part->setColor(sf->color());
+
+            Tardis::instance()->enqueueAction(
+                Tardis::ShowManagerAddFunction, showId, QVariant(),
+                Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddFunction, showId, part->id()));
+
+            addShowItem(part, edit.track->id());
+        }
+
+        QVariantList oldTimes = { sf->id(), sf->startTime(), sf->duration() };
+        QVariantList newTimes = { sf->id(), edit.startTime, edit.duration };
+        sf->setStartTime(edit.startTime);
+        sf->setDuration(edit.duration);
+        Tardis::instance()->enqueueAction(Tardis::ShowManagerShowItemSetTimes, showId, oldTimes, newTimes);
+    }
+
+    if (plan.tempoMap.sections() != m_currentShow->tempoMap().sections())
+        setTempoMap(plan.tempoMap);
+
+    m_doc->setModified();
+    emit showDurationChanged(m_currentShow->totalDuration());
+}
+
+bool ShowManager::removeTimeRange()
+{
+    if (m_currentShow == nullptr || m_currentShow->isRunning())
+        return false;
+
+    TimeRangePlan plan = timeRangePlan(true);
+    if (isTimeRangePlanValid(plan) == false)
+        return false;
+
+    applyTimeRangePlan(plan);
+
+    // the cursor follows the timeline it was on
+    if (m_currentTime >= m_rangeEnd)
+        setCurrentTime(m_currentTime - (m_rangeEnd - m_rangeStart));
+    else if (m_currentTime > m_rangeStart)
+        setCurrentTime(m_rangeStart);
+
+    clearTimeRange();
+
+    return true;
+}
+
+bool ShowManager::insertTimeRange()
+{
+    if (m_currentShow == nullptr || m_currentShow->isRunning())
+        return false;
+
+    TimeRangePlan plan = timeRangePlan(false);
+    if (isTimeRangePlanValid(plan) == false)
+        return false;
+
+    // the range stays selected, now on the inserted space
+    applyTimeRangePlan(plan);
 
     return true;
 }
