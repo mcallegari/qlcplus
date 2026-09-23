@@ -399,6 +399,107 @@ Rectangle
                 }
             }
 
+            IconButton
+            {
+                id: removeRangeBtn
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_delete_left
+                faColor: "crimson"
+                tooltip: qsTr("Remove the selected time range from the whole Show\n(drag on the ruler to select a time range)")
+                enabled: showManager.isEditing && showManager.hasTimeRange && !showManager.isPlaying
+                onClicked:
+                {
+                    var info = showManager.timeRangeEditInfo(true)
+                    if (!timeRangeErrorPopup.check(info, qsTr("Remove time range"),
+                                                   qsTr("The time range can't be removed from the Show.")))
+                        return
+
+                    var lines = []
+                    if (info.deleted)
+                        lines.push(qsTr("%1 item(s) deleted").arg(info.deleted))
+                    if (info.cropped)
+                        lines.push(qsTr("%1 item(s) cropped").arg(info.cropped))
+                    if (info.moved)
+                        lines.push(qsTr("%1 item(s) moved back").arg(info.moved))
+                    if (info.sectionsDeleted)
+                        lines.push(qsTr("%1 tempo section(s) deleted").arg(info.sectionsDeleted))
+                    if (info.sectionsCropped)
+                        lines.push(qsTr("%1 tempo section(s) cropped").arg(info.sectionsCropped))
+                    if (info.sectionsMoved)
+                        lines.push(qsTr("%1 tempo section(s) moved back").arg(info.sectionsMoved))
+
+                    removeRangePopup.message =
+                        qsTr("Are you sure you want to remove the time range from %1 to %2 from the whole Show?")
+                            .arg(TimeUtils.msToString(showManager.rangeStart))
+                            .arg(TimeUtils.msToString(showManager.rangeEnd)) +
+                        "\n\n" + lines.join("\n")
+                    removeRangePopup.open()
+                }
+
+                CustomPopupDialog
+                {
+                    id: removeRangePopup
+                    title: qsTr("Remove time range")
+                    standardButtons: Dialog.Yes | Dialog.No
+
+                    // both the Yes button and the Enter key emit accepted()
+                    onAccepted: showManager.removeTimeRange()
+                }
+
+                CustomPopupDialog
+                {
+                    id: timeRangeErrorPopup
+                    standardButtons: Dialog.Ok
+
+                    /* Show why the time range edit described by $info can't be
+                       applied, returning false, or return true if it can */
+                    function check(info, dialogTitle, reason)
+                    {
+                        if (info.valid)
+                            return true
+
+                        title = dialogTitle
+                        if (info.blockers.length === 0)
+                        {
+                            message = qsTr("There is nothing to change in the Show.")
+                        }
+                        else
+                        {
+                            var maxItems = 10
+                            var names = info.blockers.slice(0, maxItems)
+                            if (info.blockers.length > maxItems)
+                                names.push(qsTr("...and %1 more").arg(info.blockers.length - maxItems))
+
+                            message = reason + "\n\n" + names.join("\n") + "\n\n" +
+                                qsTr("Audio and Video items can't be cropped or split, nor Collections holding them.\n" +
+                                     "Chasers, Sequences, EFX and RGB Matrices running once (Single Shot)\n" +
+                                     "can only lose their end. Locked items can't be changed.")
+                        }
+                        open()
+                        return false
+                    }
+                }
+            }
+
+            IconButton
+            {
+                id: insertRangeBtn
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_arrows_left_right
+                faColor: "limegreen"
+                tooltip: qsTr("Insert empty space in the selected time range, moving forward what follows\n(drag on the ruler to select a time range)")
+                enabled: showManager.isEditing && showManager.hasTimeRange && !showManager.isPlaying
+                onClicked:
+                {
+                    var info = showManager.timeRangeEditInfo(false)
+                    if (timeRangeErrorPopup.check(info, qsTr("Insert time range"),
+                                                  qsTr("Empty space can't be inserted in the time range.")))
+                        showManager.insertTimeRange()
+                }
+            }
+
             // filler
             Rectangle
             {
@@ -661,6 +762,7 @@ Rectangle
                 else
                     showManager.currentTime = TimeUtils.posToBeatMs(mouseX, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
                 showManager.resetItemsSelection()
+                showManager.clearTimeRange()
             }
         }
     }
