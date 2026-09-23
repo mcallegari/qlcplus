@@ -127,7 +127,7 @@ Rectangle
         width: 1
         color: "transparent"
         z: 1
-        visible: cursorHeight ? (x >= visibleX ? true : false) : false
+        visible: cursorHeight ? (x >= visibleX && x <= visibleX + visibleWidth) : false
 
         Rectangle
         {

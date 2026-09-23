@@ -86,11 +86,51 @@ Rectangle
         }
     }
 
+    Connections
+    {
+        target: showManager
+        // page the timeline forward while the cursor line nears the right
+        // edge of the currently visible area, so playback stays in view
+        function onCurrentTimeChanged()
+        {
+            if (showManager.isPlaying)
+                followCursor()
+        }
+    }
+
     function centerView()
     {
         var xPos = TimeUtils.timeToSize(showManager.currentTime, timeScale, tickSize) - (timelineHeader.width / 2)
         if (xPos >= 0)
             xViewOffset = xPos
+    }
+
+    function cursorPixelX()
+    {
+        if (showManager.timeDivision === Show.Time)
+            return TimeUtils.timeToSize(showManager.currentTime, timeScale, tickSize)
+        else
+            return TimeUtils.timeToBeatPosition(showManager.currentTime, tickSize, ioManager.bpmNumber, showManager.beatsDivision)
+    }
+
+    // jumps xViewOffset forward by a page when the cursor gets within a
+    // small margin of the visible area's right edge. Left untouched
+    // otherwise, so manual scrolling/flicking during playback isn't fought
+    function followCursor()
+    {
+        var pageWidth = timelineHeader.width
+        if (pageWidth <= 0)
+            return
+
+        var cursorX = cursorPixelX()
+        var margin = pageWidth * 0.01
+        var rightEdge = xViewOffset + pageWidth
+
+        if (cursorX < rightEdge - margin)
+            return
+
+        var maxOffset = Math.max(0, timelineHeader.contentWidth - pageWidth)
+        xViewOffset = Math.min(maxOffset, Math.max(0, cursorX - margin))
     }
 
     function renderAndCenter()
