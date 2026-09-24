@@ -35,6 +35,7 @@ private slots:
     void addRemove();
     void writeZeroFade();
     void writeLoop();
+    void fadeOutWhilePaused();
     void adjustIntensity();
 
 private:
