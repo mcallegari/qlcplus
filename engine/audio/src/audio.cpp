@@ -373,6 +373,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setFadeIn(elapsed() ? 0 : fadeIn);
         m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->setUserStop(false);
+        m_outputStartUSecs.store(0);
         m_audio_out->start();
     }
 
@@ -386,13 +387,29 @@ void Audio::setPause(bool enable)
         if (m_audio_out != NULL)
         {
             if (enable)
+            {
                 m_audio_out->suspend();
+            }
             else
+            {
+                // a device suspended during the pause needs to wake up again
+                m_outputStartUSecs.store(m_audio_out->playedUSecs());
                 m_audio_out->resume();
+            }
         }
 
         Function::setPause(enable);
     }
+}
+
+bool Audio::isWaitingForOutput() const
+{
+    if (isRunning() == false || m_audio_out == NULL)
+        return false;
+
+    qint64 played = m_audio_out->playedUSecs();
+
+    return played >= 0 && played <= m_outputStartUSecs.load();
 }
 
 void Audio::write(MasterTimer* timer, QList<Universe *> universes)
@@ -403,7 +420,9 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
     if (isPaused())
         return;
 
-    incrementElapsed();
+    // keep elapsed() in step with what is actually heard
+    if (isWaitingForOutput() == false)
+        incrementElapsed();
 
     if (m_audio_out && !m_audio_out->isLooped())
     {

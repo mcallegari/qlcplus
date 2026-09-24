@@ -22,6 +22,7 @@
 
 #include <QThread>
 #include <QMutex>
+#include <atomic>
 
 #include "audiodecoder.h"
 
@@ -104,8 +105,23 @@ public:
 
     bool isEos() const;
 
+    /*!
+     * Returns how much audio (in microseconds) the output device has played
+     * since this renderer started, or -1 if the backend can't tell.
+     * Thread safe.
+     */
+    qint64 playedUSecs() const;
+
+protected:
+    /*!
+     * Stores the value returned by playedUSecs(). Subclasses that can
+     * query their device position should call this from the renderer thread.
+     */
+    void setPlayedUSecs(qint64 usecs);
+
 private:
     bool m_looped;
+    std::atomic<qint64> m_playedUSecs;
 
     /*********************************************************************
      * Fade sequences

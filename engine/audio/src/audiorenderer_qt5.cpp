@@ -44,6 +44,9 @@ AudioRendererQt5::AudioRendererQt5(QString device, Doc *doc, QObject *parent)
         devName = var.toString();
 
     m_deviceInfo = doc->audioPluginCache()->getOutputDeviceInfo(devName);
+
+    // the device position is known from processedUSecs()
+    setPlayedUSecs(0);
 }
 
 AudioRendererQt5::~AudioRendererQt5()
@@ -147,6 +150,8 @@ qint64 AudioRendererQt5::writeAudio(unsigned char *data, qint64 maxSize)
     if (m_audioOutput == NULL)
         return 0;
 
+    setPlayedUSecs(m_audioOutput->processedUSecs());
+
     // Write only as much as currently fits in the device buffer. The base
     // renderer tracks the leftover (pendingAudioBytes) and retries, so
     // partial writes keep a small buffer steadily topped up.
@@ -192,6 +197,7 @@ void AudioRendererQt5::run()
         if (m_audioOutput == NULL)
         {
             qWarning() << "Cannot open audio output stream from device" << m_deviceInfo.deviceName();
+            setPlayedUSecs(-1);
             return;
         }
 
@@ -213,6 +219,7 @@ void AudioRendererQt5::run()
         if (m_audioOutput->error() != QAudio::NoError)
         {
             qWarning() << "Cannot start audio output stream. Error:" << m_audioOutput->error();
+            setPlayedUSecs(-1);
             return;
         }
     }

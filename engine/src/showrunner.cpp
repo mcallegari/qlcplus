@@ -29,6 +29,9 @@
 
 #define TIMER_INTERVAL 50
 
+/** Maximum time (in ms) a Show waits for an output to start */
+#define OUTPUT_HOLD_TIMEOUT 2000
+
 static bool compareShowFunctions(const ShowFunction *sf1, const ShowFunction *sf2)
 {
     if (sf1->startTime() < sf2->startTime())
@@ -144,9 +147,50 @@ void ShowRunner::start()
 
 void ShowRunner::setPause(bool enable)
 {
+    // On resume, an audio device suspended during the pause has to wake up
+    // again. Resume the Audio first and, if it isn't heard straight away,
+    // hold the rest of the Show as when it is started (see write()).
+    // The Show is still paused here, so write() doesn't run meanwhile.
+    bool hold = false;
+
+    if (enable == false)
+    {
+        for (int i = 0; i < m_runningQueue.count(); i++)
+        {
+            Function *f = m_runningQueue.at(i).first;
+            if (f->type() == Function::AudioType)
+                f->setPause(false);
+        }
+
+        hold = isWaitingForOutput();
+        if (hold && m_outputHold == false)
+        {
+            m_outputHold = true;
+            m_outputHoldTime = 0;
+        }
+    }
+
     for (int i = 0; i < m_runningQueue.count(); i++)
     {
         Function *f = m_runningQueue.at(i).first;
+
+        if (enable == false)
+        {
+            // already resumed above
+            if (f->type() == Function::AudioType)
+                continue;
+
+            // Functions paused by an output hold stay paused until it's released
+            if (m_holdPausedFunctions.contains(f))
+                continue;
+
+            if (hold && f->type() != Function::VideoType && f->isPaused())
+            {
+                m_holdPausedFunctions.append(f);
+                continue;
+            }
+        }
+
         f->setPause(enable);
     }
 }
@@ -165,6 +209,9 @@ void ShowRunner::stop()
     }
 
     m_runningQueue.clear();
+    m_outputHold = false;
+    m_preStartedFunctions.clear();
+    m_holdPausedFunctions.clear();
     qDebug() << "ShowRunner stopped";
 }
 
@@ -176,6 +223,23 @@ FunctionParent ShowRunner::functionParent() const
 void ShowRunner::write(MasterTimer *timer)
 {
     //qDebug() << Q_FUNC_INFO << "elapsed:" << m_elapsedTime << ", total:" << m_totalRunTime;
+
+    // Phase 0. An Audio doesn't sound the moment it's started, so the Show
+    // timeline (and every other item on it) waits for it to be heard,
+    // otherwise the whole Show would run ahead of the music
+    if (m_outputHold)
+    {
+        if (isWaitingForOutput() && m_outputHoldTime < OUTPUT_HOLD_TIMEOUT)
+        {
+            m_outputHoldTime += MasterTimer::tick();
+            return;
+        }
+        releaseOutputHold();
+    }
+    else if (startOutputHold())
+    {
+        return;
+    }
 
     // Phase 1. Check all the Functions that need to be started
     // m_timeFunctions is ordered by startup time, so when we found an entry
@@ -215,7 +279,7 @@ void ShowRunner::write(MasterTimer *timer)
         quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
         Function *f = m_doc->function(sf->functionID());
-        if (f == nullptr)
+        if (f == nullptr || m_preStartedFunctions.remove(sf))
         {
             m_currentTimeFunctionIndex++;
             continue;
@@ -369,6 +433,96 @@ void ShowRunner::write(MasterTimer *timer)
     else if (beatSynced)
     {
         emit timeChanged(m_syncBeatsTime + (m_elapsedTime - m_syncElapsedTime));
+    }
+}
+
+/************************************************************************
+ * Output hold
+ ************************************************************************/
+
+bool ShowRunner::startOutputHold()
+{
+    bool started = false;
+
+    for (int i = m_currentTimeFunctionIndex; i < m_timeFunctions.count(); i++)
+    {
+        ShowFunction *sf = m_timeFunctions.at(i);
+        if (sf->startTime() > m_elapsedTime)
+            break;
+
+        Function *f = m_doc->function(sf->functionID());
+        if (f == nullptr || f->type() != Function::AudioType ||
+            m_preStartedFunctions.contains(sf))
+            continue;
+
+        requestTrackIntensity(sf, f);
+        f->start(m_doc->masterTimer(), functionParent(), m_elapsedTime - sf->startTime());
+        m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
+        m_preStartedFunctions.insert(sf);
+        started = true;
+    }
+
+    if (started == false)
+        return false;
+
+    // freeze what is already running (e.g. a Chaser spanning two songs), so
+    // it doesn't run ahead either. Audio and Video keep their own clock.
+    for (int i = 0; i < m_runningQueue.count(); i++)
+    {
+        Function *f = m_runningQueue.at(i).first;
+        if (f->type() == Function::AudioType || f->type() == Function::VideoType ||
+            f->isRunning() == false || f->isPaused())
+            continue;
+
+        f->setPause(true);
+        m_holdPausedFunctions.append(f);
+    }
+
+    m_outputHold = true;
+    m_outputHoldTime = 0;
+
+    return true;
+}
+
+void ShowRunner::releaseOutputHold()
+{
+    if (m_outputHoldTime >= OUTPUT_HOLD_TIMEOUT)
+        qWarning() << "[ShowRunner] output didn't start within" << OUTPUT_HOLD_TIMEOUT << "ms. Continuing";
+    else
+        qDebug() << "[ShowRunner] output started after" << m_outputHoldTime << "ms";
+
+    for (int i = 0; i < m_runningQueue.count(); i++)
+    {
+        Function *f = m_runningQueue.at(i).first;
+        if (m_holdPausedFunctions.contains(f))
+            f->setPause(false);
+    }
+
+    m_holdPausedFunctions.clear();
+    m_outputHold = false;
+}
+
+bool ShowRunner::isWaitingForOutput() const
+{
+    for (int i = 0; i < m_runningQueue.count(); i++)
+    {
+        if (m_runningQueue.at(i).first->isWaitingForOutput())
+            return true;
+    }
+
+    return false;
+}
+
+void ShowRunner::requestTrackIntensity(ShowFunction *sf, Function *f)
+{
+    foreach (Track *track, m_show->tracks())
+    {
+        if (track->showFunctions().contains(sf))
+        {
+            int intOverrideId = f->requestAttributeOverride(Function::Intensity, m_intensityMap[track->id()]);
+            sf->setIntensityOverrideId(intOverrideId);
+            break;
+        }
     }
 }
 

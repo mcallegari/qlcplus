@@ -26,6 +26,7 @@
 AudioRenderer::AudioRenderer (QObject* parent)
     : QThread (parent)
     , m_looped(false)
+    , m_playedUSecs(-1)
     , m_fadeStep(0.0)
     , m_userStop(true)
     , m_pause(false)
@@ -61,6 +62,16 @@ void AudioRenderer::setLooped(bool looped)
 bool AudioRenderer::isEos() const
 {
     return m_isEos;
+}
+
+qint64 AudioRenderer::playedUSecs() const
+{
+    return m_playedUSecs.load();
+}
+
+void AudioRenderer::setPlayedUSecs(qint64 usecs)
+{
+    m_playedUSecs.store(usecs);
 }
 
 bool AudioRenderer::backendDrainedAtEos() const
