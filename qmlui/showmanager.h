@@ -561,6 +561,26 @@ public:
     /** Cut time at cursor position for all the items covering that position */
     Q_INVOKABLE bool cutTimeAtCursor(int length, int cursorTime);
 
+    /** Split every currently selected Show item at the cursor position.
+     *  When $noSnap is false and grid snapping is enabled, the cursor position
+     *  is first snapped to the nearest visible grid division.
+     *  Every selected item is validated before anything is changed: if any of
+     *  them is locked, of a Function type that doesn't support splitting, or
+     *  isn't actually spanning the cursor position, nothing is split and an
+     *  explanation is returned. An empty string is returned on success. */
+    Q_INVOKABLE QString splitSelectedItems(bool noSnap);
+
+    /** Join the currently selected Show items. Selected items are grouped by
+     *  the Track they belong to: within each group of two or more items,
+     *  they must reference the same Function and be perfectly adjacent (no
+     *  gap, no overlap) to be merged into a single item spanning their
+     *  combined duration. Tracks with just one selected item are ignored.
+     *  Every qualifying group is validated before anything is changed: if
+     *  any of them contains a locked item, an incompatible Function type, a
+     *  gap/overlap or a mismatched Function reference, nothing is joined and
+     *  an explanation is returned. An empty string is returned on success. */
+    Q_INVOKABLE QString joinSelectedItems();
+
     /** Returns pixel X positions of all item edges (start + end) across all tracks,
      *  excluding the Show item with the given ID */
     Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeItemId,
@@ -888,6 +908,14 @@ private:
 
     bool insertShowItemTimeAt(ShowFunction *sf, int length, int cursorTime);
     bool cutShowItemTimeAt(ShowFunction *sf, int length, int cursorTime);
+
+    // Split/Join helpers
+    /** Returns true if $func's items can be split/joined on the timeline */
+    bool isSplitJoinCompatible(Function *func) const;
+
+    /** Returns the current cursor time (m_currentTime), snapped to the
+     *  nearest visible grid division when grid snapping is enabled */
+    int snappedCursorTime() const;
 
     /** Check items overlapping for the given track, ShowFunction,
      *  start time and duration. Returns true if overlapping is

@@ -500,6 +500,105 @@ Rectangle
                 }
             }
 
+            // this is a plain Rectangle + MouseArea, rather than an IconButton, because
+            // splitting needs the mouse click's keyboard modifiers (to temporarily
+            // suspend grid snapping), which Button's clicked() signal doesn't carry
+            Rectangle
+            {
+                id: splitBtn
+                z: 2
+                width: parent.height - 6
+                height: width
+                visible: showManager.selectedItemsCount > 0
+                radius: 5
+                border.color: "#1D1D1D"
+                border.width: 2
+                color: splitMa.pressed ? UISettings.highlightPressed
+                       : splitMa.containsMouse ? UISettings.hover
+                       : UISettings.bgLight
+
+                Text
+                {
+                    anchors.centerIn: parent
+                    color: UISettings.fgMain
+                    font.family: UISettings.fontAwesomeFontName
+                    font.pixelSize: parent.height * 0.70
+                    text: FontAwesome.fa_scissors
+                }
+
+                ToolTip
+                {
+                    visible: splitMa.containsMouse
+                    text: qsTr("Split the selected items at the cursor position (hold Ctrl to ignore grid snapping)")
+                    delay: 1000
+                    timeout: 5000
+                    background:
+                        Rectangle
+                        {
+                            color: UISettings.bgMedium
+                            border.width: 1
+                            border.color: UISettings.bgLight
+                        }
+                    contentItem:
+                        Text
+                        {
+                            text: qsTr("Split the selected items at the cursor position (hold Ctrl to ignore grid snapping)")
+                            color: "white"
+                        }
+                }
+
+                MouseArea
+                {
+                    id: splitMa
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: (mouse) =>
+                    {
+                        var errorMsg = showManager.splitSelectedItems((mouse.modifiers & Qt.ControlModifier) !== 0)
+                        if (errorMsg.length > 0)
+                        {
+                            splitErrorPopup.message = errorMsg
+                            splitErrorPopup.open()
+                        }
+                    }
+                }
+
+                CustomPopupDialog
+                {
+                    id: splitErrorPopup
+                    title: qsTr("Cannot split")
+                    standardButtons: Dialog.Ok
+                }
+            }
+
+            IconButton
+            {
+                id: joinBtn
+                z: 2
+                width: parent.height - 6
+                height: width
+                faSource: FontAwesome.fa_code_merge
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Join the selected items")
+                counter: showManager.selectedItemsCount
+                onClicked:
+                {
+                    var errorMsg = showManager.joinSelectedItems()
+                    if (errorMsg.length > 0)
+                    {
+                        joinErrorPopup.message = errorMsg
+                        joinErrorPopup.open()
+                    }
+                }
+
+                CustomPopupDialog
+                {
+                    id: joinErrorPopup
+                    title: qsTr("Cannot join")
+                    standardButtons: Dialog.Ok
+                }
+            }
+
             // filler
             Rectangle
             {
