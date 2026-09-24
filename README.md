@@ -39,6 +39,8 @@ This is a __fork__ of mcallegari's QLC+ project (the home of QLC+).
 
 Here I incubate new features, fixes and improvements for V5 that I would like accepted into QLC+.
 
+__Find out what the fork adds [here](https://github.com/mjcmatrix/qlcplus/wiki).__
+
 :warning: Be aware that new feature data gets saved to the project file. Though kept as compatible as possible, if you open a project file saved by this fork in a mainstream version of QLC+ that does not have the PRs accepted yet, you may lose the changes, or your project may break. I recommend using a separate project file with this fork.
 
 ## My use case
@@ -50,8 +52,6 @@ I depends on all of these new features as my daily driver while I'm working on s
 ## Introduction
 
 **QLC+** is powerful and user-friendly software to control lighting. QLC+ supports a [huge amount of hardware,](https://qlcplus.org/discover/compatibility) runs on Linux, Windows (10+), macOS (10.12+), and Raspberry Pi. Whether you're an experienced lighting professional or just getting started, QLC+ empowers you to take control of your lighting fixtures with ease. The primary goal of this project is to bring QLC+ to the level of available commercial software.
-
-__Find out what the fork adds [here](https://github.com/mjcmatrix/qlcplus/wiki).__
 
 ## Downloads, Building QLC+, Support, Contributing
 
