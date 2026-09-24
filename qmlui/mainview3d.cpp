@@ -121,6 +121,11 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     m_genericItemsList->setRoleNames(listRoles);
 
     resetCameraPosition();
+
+    m_smokeClock.start();
+    m_smokeTimer.setInterval(100);
+    connect(&m_smokeTimer, &QTimer::timeout, this, &MainView3D::slotUpdateSmoke);
+    m_smokeTimer.start();
 }
 
 MainView3D::~MainView3D()
@@ -631,6 +636,21 @@ QString MainView3D::makeShader(QString str) {
 #endif
 
 )";
+
+    // a shader shares code by naming a file of the resources on a line of its own
+    static const QRegularExpression include(QStringLiteral("^#include \"([^\"]+)\"$"),
+                                            QRegularExpression::MultilineOption);
+    QRegularExpressionMatch match;
+    while ((match = include.match(str)).hasMatch())
+    {
+        QFile file(QStringLiteral(":/") + match.captured(1));
+        QString source;
+        if (file.open(QIODevice::ReadOnly))
+            source = QString::fromUtf8(file.readAll());
+        else
+            qWarning() << "Shader include not found:" << match.captured(1);
+        str.replace(match.capturedStart(), match.capturedLength(), source);
+    }
 
     return prefix + str;
 }
@@ -2681,6 +2701,132 @@ void MainView3D::setAmbientIntensity(float ambientIntensity)
 
     m_ambientIntensity = ambientIntensity;
     emit ambientIntensityChanged(m_ambientIntensity);
+}
+
+/* The channel that makes a smoke machine or hazer output smoke. Libraries
+   disagree on how to mark it (Intensity or Effect group, "Fog", "Pump",
+   "Smoke", "Output Volume"), so take the first intensity channel that is not
+   a colour or a dimmer - on fixtures with LEDs those light the smoke, they do
+   not make it - and fall back to the first channel, which is where most
+   single purpose machines put their output. */
+static int smokeOutputChannel(const Fixture *fixture)
+{
+    for (quint32 i = 0; i < fixture->channels(); i++)
+    {
+        const QLCChannel *ch = fixture->channel(i);
+        if (ch == nullptr || ch->group() != QLCChannel::Intensity)
+            continue;
+        if (ch->colour() != QLCChannel::NoColour)
+            continue;
+        if (ch->preset() == QLCChannel::IntensityMasterDimmer ||
+            ch->preset() == QLCChannel::IntensityDimmer ||
+            ch->preset() == QLCChannel::IntensityMasterDimmerFine ||
+            ch->preset() == QLCChannel::IntensityDimmerFine)
+            continue;
+        return int(i);
+    }
+    return fixture->channels() > 0 ? 0 : -1;
+}
+
+void MainView3D::slotUpdateSmoke()
+{
+    qint64 now = m_smokeClock.elapsed();
+    float dt = qBound(0.0f, float(now - m_smokeLastTick) / 1000.0f, 0.5f);
+    m_smokeLastTick = now;
+
+    if (m_enabled == false || m_doc == nullptr)
+        return;
+
+    // seconds for the density to follow the output up, and to clear from full
+    // once it stops: a jet dies with its pump, haze hangs in the room
+    const float riseTime = 1.5f;
+    const float jetClearTime = 3.0f;
+    const float hazeClearTime = 30.0f;
+    // metres per second the jet front travels, and how far it can reach
+    const float jetSpeed = 2.5f;
+    const float maxReach = 5.0f;
+
+    QVariantList emitters;
+    int count = 0;
+    bool active = false;
+
+    for (Fixture *fixture : m_doc->fixtures())
+    {
+        if (fixture->type() != QLCFixtureDef::Smoke && fixture->type() != QLCFixtureDef::Hazer)
+            continue;
+
+        quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), 0, 0);
+        SceneItem *item = m_entitiesMap.value(itemID, nullptr);
+        if (item == nullptr || item->m_rootTransform == nullptr)
+            continue;
+
+        int channel = smokeOutputChannel(fixture);
+        float output = channel < 0 ? 0.0f : float(fixture->channelValueAt(channel)) / 255.0f;
+
+        SmokeState &state = m_smokeStates[fixture->id()];
+        if (output > state.m_density)
+            state.m_density += (output - state.m_density) * qMin(1.0f, dt / riseTime);
+        else
+            state.m_density = qMax(output, state.m_density - dt /
+                                   (fixture->type() == QLCFixtureDef::Hazer ? hazeClearTime : jetClearTime));
+
+        if (output > 0.02f)
+            state.m_reach = qMin(maxReach, state.m_reach + jetSpeed * dt * output);
+        else if (state.m_density < 0.01f)
+            state.m_reach = 0.0f;
+
+        if (state.m_density < 0.005f || count >= maxSmokeEmitters)
+            continue;
+
+        active = true;
+        // smoke.dae fires out of its front, along the mesh's +Z: the jet follows
+        // the machine as the fixture is rotated, and a hazer has no jet at all
+        QVector3D dir = fixture->type() == QLCFixtureDef::Hazer ?
+                            QVector3D() :
+                            item->m_rootTransform->rotation().rotatedVector(QVector3D(0, 0, 1)).normalized();
+        QVector3D pos = item->m_rootTransform->translation() + dir * 0.25f;
+        emitters << QVariant::fromValue(QVector4D(pos, state.m_density));
+        emitters << QVariant::fromValue(QVector4D(dir, qMax(0.3f, state.m_reach)));
+        quint32 dimmer = fixture->masterIntensityChannel();
+        float intensity = dimmer == QLCChannel::invalid() || int(dimmer) == channel ?
+                              1.0f : float(fixture->channelValueAt(int(dimmer))) / 255.0f;
+        QColor led = FixtureUtils::headColor(fixture, 0);
+        emitters << QVariant::fromValue(QVector4D(led.redF(), led.greenF(), led.blueF(), 0) * intensity);
+        count++;
+    }
+
+    if (active == false && m_smokeEmitterCount == 0)
+        return;
+
+    // the array uniform is declared with a fixed size: pad it
+    while (emitters.count() < maxSmokeEmitters * 3)
+        emitters << QVariant::fromValue(QVector4D());
+
+    m_smokeEmitters = emitters;
+    m_smokeEmitterCount = count;
+    emit smokeEmittersChanged();
+}
+
+QVariantList MainView3D::smokeEmitters() const
+{
+    if (m_smokeEmitters.isEmpty())
+    {
+        QVariantList empty;
+        for (int i = 0; i < maxSmokeEmitters * 3; i++)
+            empty << QVariant::fromValue(QVector4D());
+        return empty;
+    }
+    return m_smokeEmitters;
+}
+
+int MainView3D::smokeEmitterCount() const
+{
+    return m_smokeEmitterCount;
+}
+
+float MainView3D::smokeTime() const
+{
+    return float(m_smokeLastTick % 1000000) / 1000.0f;
 }
 
 float MainView3D::smokeAmount() const

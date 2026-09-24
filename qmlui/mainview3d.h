@@ -24,6 +24,8 @@
 #include <QObject>
 #include <QQuickView>
 #include <QElapsedTimer>
+#include <QTimer>
+#include <QHash>
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
@@ -109,6 +111,9 @@ class MainView3D final : public PreviewContext
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
+    Q_PROPERTY(QVariantList smokeEmitters READ smokeEmitters NOTIFY smokeEmittersChanged)
+    Q_PROPERTY(int smokeEmitterCount READ smokeEmitterCount NOTIFY smokeEmittersChanged)
+    Q_PROPERTY(float smokeTime READ smokeTime NOTIFY smokeEmittersChanged)
 
     Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
     Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
@@ -506,6 +511,20 @@ public:
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 
+    /** The smoke that Smoke and Hazer fixtures have put in the room, as three
+     *  vec4 per emitter: (position, density), (direction, reach) and the colour
+     *  of its own LEDs. A hazer has a null direction: its haze spreads around
+     *  it instead of along a jet */
+    QVariantList smokeEmitters() const;
+    int smokeEmitterCount() const;
+    float smokeTime() const;
+
+    /** Maximum number of smoke emitters the scattering shader evaluates */
+    static const int maxSmokeEmitters = 8;
+
+protected slots:
+    void slotUpdateSmoke();
+
     Q_INVOKABLE void pickEntity(const float &aspect, const QVector2D &ndcMousePos, int modifiers) const;
 
 protected:
@@ -522,6 +541,7 @@ signals:
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
     void smokeAmountChanged(float smokeAmount);
+    void smokeEmittersChanged();
 
 private:
     RenderQuality m_renderQuality;
@@ -537,6 +557,20 @@ private:
 
     /** Smoke amount (0.0 - 1.0) */
     float m_smokeAmount;
+
+    /** What a smoke machine has put in the air so far: density follows the
+     *  output channel slowly, and the jet reaches further while it fires */
+    struct SmokeState
+    {
+        float m_density = 0.0;
+        float m_reach = 0.0;
+    };
+    QHash<quint32, SmokeState> m_smokeStates;
+    QTimer m_smokeTimer;
+    QElapsedTimer m_smokeClock;
+    qint64 m_smokeLastTick = 0;
+    QVariantList m_smokeEmitters;
+    int m_smokeEmitterCount = 0;
 };
 
 #endif // MAINVIEW3D_H

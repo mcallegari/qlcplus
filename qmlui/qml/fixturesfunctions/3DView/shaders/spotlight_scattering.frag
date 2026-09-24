@@ -42,6 +42,8 @@ uniform float coneDistCutoff;
 
 uniform float smokeAmount;
 
+#include "smoke_plume.glsl"
+
 uniform sampler2D depthTex;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 inverseViewProjectionMatrix;
@@ -143,10 +145,10 @@ void main()
         float contrib =  (1.0 / (1.0  + 0.09 * dist + 0.032 * dist * dist)) * stepLength;
 
         contrib *= shadowMask;
-        accum += contrib * goboMask;
+        accum += contrib * goboMask * (smokeAmount + 6.0 * plumeDensity(p));
 
         p += rd * stepLength;
     }
-    MGL_FRAG_COLOR = vec4(accum * lightIntensity * smokeAmount * lightColor, 0.0);
+    MGL_FRAG_COLOR = vec4(accum * lightIntensity * lightColor, 0.0);
     //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
 }
