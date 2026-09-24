@@ -131,6 +131,9 @@ private:
     AudioDecoder *m_decoder;
     /** output interface to render audio data got from m_decoder */
     AudioRenderer *m_audio_out;
+    /** m_audio_out played time (in us) when playback was last started
+     *  or resumed. The output is waiting to be heard until it moves on */
+    std::atomic<qint64> m_outputStartUSecs {0};
     /** Audio device to use for rendering */
     QString m_audioDevice;
     /** Name of the source audio file */
@@ -163,7 +166,8 @@ public:
     /** @reimpl */
     void setPause(bool enable) override;
 
-    /** @reimpl: true until the audio device starts playing */
+    /** @reimpl: true until the audio device starts playing, after
+     *  a start or a resume */
     bool isWaitingForOutput() const override;
 
     /** @reimpl */

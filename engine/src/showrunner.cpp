@@ -141,13 +141,49 @@ void ShowRunner::start()
 
 void ShowRunner::setPause(bool enable)
 {
+    // On resume, an audio device suspended during the pause has to wake up
+    // again. Resume the Audio first and, if it isn't heard straight away,
+    // hold the rest of the Show as when it is started (see write()).
+    // The Show is still paused here, so write() doesn't run meanwhile.
+    bool hold = false;
+
+    if (enable == false)
+    {
+        for (int i = 0; i < m_runningQueue.count(); i++)
+        {
+            Function *f = m_runningQueue.at(i).first;
+            if (f->type() == Function::AudioType)
+                f->setPause(false);
+        }
+
+        hold = isWaitingForOutput();
+        if (hold && m_outputHold == false)
+        {
+            m_outputHold = true;
+            m_outputHoldTime = 0;
+        }
+    }
+
     for (int i = 0; i < m_runningQueue.count(); i++)
     {
         Function *f = m_runningQueue.at(i).first;
 
-        // Functions paused by an output hold stay paused until it's released
-        if (enable == false && m_holdPausedFunctions.contains(f))
-            continue;
+        if (enable == false)
+        {
+            // already resumed above
+            if (f->type() == Function::AudioType)
+                continue;
+
+            // Functions paused by an output hold stay paused until it's released
+            if (m_holdPausedFunctions.contains(f))
+                continue;
+
+            if (hold && f->type() != Function::VideoType && f->isPaused())
+            {
+                m_holdPausedFunctions.append(f);
+                continue;
+            }
+        }
 
         f->setPause(enable);
     }
