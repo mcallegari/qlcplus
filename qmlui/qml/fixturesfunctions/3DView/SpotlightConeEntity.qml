@@ -82,6 +82,9 @@ Entity
                         value: mtl.fxItem ? mtl.fxItem.lightViewProjectionScaleAndOffsetMatrix : Qt.matrix4x4() },
 
             Parameter { name: "smokeAmount"; value: View3D.smokeAmount },
+            Parameter { name: "smokeEmitters[0]"; value: View3D.smokeEmitters },
+            Parameter { name: "smokeEmitterCount"; value: View3D.smokeEmitterCount },
+            Parameter { name: "smokeTime"; value: View3D.smokeTime },
             Parameter { name: "goboTex"; value: mtl.fxItem ? mtl.fxItem.goboTexture : null },
             Parameter { name: "goboRotation";
                         value: {
