@@ -724,7 +724,17 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_generation = m_sceneGeneration;
     m_createItemCount++;
 
-    if (fixture->type() == QLCFixtureDef::LEDBarBeams)
+    /* A colour changer with several heads and nothing that moves them (a T-bar
+       of PARs, a multi-head wash bar) lights each head separately, but the PAR
+       mesh has a single emitter, so every head would collapse into one light
+       showing whichever head was written last. Draw it as a beam bar instead:
+       one emitter per head, laid out across its physical size. */
+    const bool beamPerHead = fixture->type() == QLCFixtureDef::LEDBarBeams ||
+        (fixture->type() == QLCFixtureDef::ColorChanger && fixture->heads() > 1 &&
+         fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid() &&
+         fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid());
+
+    if (beamPerHead)
     {
         mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
@@ -802,7 +812,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     QString meshFile = FixtureUtils::fixtureLightResource(fixture);
     meshPath.append(meshFile);
 
-    switch (fixture->type())
+    switch (beamPerHead ? QLCFixtureDef::LEDBarBeams : fixture->type())
     {
         case QLCFixtureDef::ColorChanger:
         case QLCFixtureDef::Dimmer:
@@ -830,7 +840,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         break;
     }
 
-    if (meshFile.isEmpty())
+    if (meshFile.isEmpty() || beamPerHead)
         meshPath.clear();
 
     // at last, add the new fixture to the items map
