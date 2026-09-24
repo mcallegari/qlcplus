@@ -2323,6 +2323,249 @@ bool ShowManager::cutTimeAtCursor(int length, int cursorTime)
     return changed;
 }
 
+bool ShowManager::isSplitJoinCompatible(Function *func) const
+{
+    if (func == nullptr)
+        return false;
+
+    switch (func->type())
+    {
+        case Function::SceneType:
+        case Function::ChaserType:
+        case Function::EFXType:
+        case Function::CollectionType:
+        case Function::RGBMatrixType:
+        case Function::SequenceType:
+            return true;
+        case Function::AudioType:
+        case Function::VideoType:
+            // a non-looped Audio/Video item's duration is tied to the media
+            // file length, so it can't be freely carved into two pieces
+            return func->runOrder() == Function::Loop;
+        default:
+            return false;
+    }
+}
+
+int ShowManager::snappedCursorTime() const
+{
+    if (m_gridEnabled == false || m_tickSize <= 0)
+        return m_currentTime;
+
+    double time = double(m_currentTime);
+    double x;
+
+    if (timeDivision() == Show::Time)
+    {
+        x = (time * double(m_tickSize)) / 1000.0 / double(m_timeScale);
+    }
+    else
+    {
+        int bpm = m_doc->inputOutputMap()->bpmNumber();
+        int division = beatsDivision();
+        if (bpm <= 0 || division <= 0)
+            return m_currentTime;
+
+        x = (double(bpm) / double(division)) * double(m_tickSize) * (time / 60000.0);
+    }
+
+    double snappedX = qRound(x / double(m_tickSize)) * double(m_tickSize);
+
+    if (timeDivision() == Show::Time)
+        return int(qRound(snappedX * (1000.0 * double(m_timeScale)) / double(m_tickSize)));
+
+    int bpm = m_doc->inputOutputMap()->bpmNumber();
+    int division = beatsDivision();
+    if (bpm <= 0 || division <= 0)
+        return m_currentTime;
+
+    return int(qRound((snappedX * 60000.0) / ((double(bpm) / double(division)) * double(m_tickSize))));
+}
+
+QString ShowManager::splitSelectedItems(bool noSnap)
+{
+    if (m_currentShow == nullptr)
+        return tr("There is no Show being edited.");
+
+    if (m_selectedItems.isEmpty())
+        return tr("Select at least one item to split.");
+
+    int cursorTime = noSnap ? m_currentTime : snappedCursorTime();
+
+    // the cursor is tracked in the Show's own ruler unit, which must be
+    // converted to "beats as ms" to compare it against a beat-tempo item's
+    // startTime/duration, exactly as insertTimeAtCursor/cutTimeAtCursor do
+    int compareTime = cursorTime;
+    if (timeDivision() != Show::Time)
+    {
+        int bpm = m_doc->inputOutputMap()->bpmNumber();
+        if (bpm <= 0)
+            return tr("Unable to determine the current BPM to compute the cursor position.");
+
+        compareTime = int(qRound((double(cursorTime) / (60000.0 / double(bpm))) * 1000.0));
+    }
+
+    // validate every selected item first: either they can all be split, or none are
+    QList<ShowFunction *> targets;
+    for (const SelectedShowItem &ssi : m_selectedItems)
+    {
+        ShowFunction *sf = ssi.m_showFunc.data();
+        if (sf == nullptr)
+            continue;
+
+        Function *func = m_doc->function(sf->functionID());
+        QString name = func != nullptr ? func->name() : tr("Unknown");
+
+        if (sf->isLocked())
+            return tr("\"%1\" is locked and cannot be split.").arg(name);
+
+        if (isSplitJoinCompatible(func) == false)
+        {
+            return tr("\"%1\" is a %2 and doesn't support splitting.")
+                    .arg(name, Function::typeToString(func != nullptr ? func->type() : Function::Undefined));
+        }
+
+        int start = int(sf->startTime());
+        int end = start + int(sf->duration());
+        if (compareTime <= start || compareTime >= end)
+            return tr("The cursor is not within \"%1\".").arg(name);
+
+        targets.append(sf);
+    }
+
+    if (targets.isEmpty())
+        return tr("Select at least one item to split.");
+
+    foreach (ShowFunction *sf, targets)
+    {
+        Track *track = m_currentShow->getTrackFromShowFunctionID(sf->id());
+        if (track == nullptr)
+            continue;
+
+        int start = int(sf->startTime());
+        int end = start + int(sf->duration());
+
+        // shrink the original item to end exactly where the split happens...
+        setShowItemDurationWithUndo(sf, compareTime - start);
+
+        // ...and create a new item, referencing the same Function, to cover the rest
+        ShowFunction *newSf = track->createShowFunction(sf->functionID());
+        newSf->setStartTime(quint32(compareTime));
+        newSf->setDuration(quint32(end - compareTime));
+        newSf->setColor(sf->color());
+        newSf->setLocked(sf->isLocked());
+
+        Tardis::instance()->enqueueAction(
+            Tardis::ShowManagerAddFunction, m_currentShow->id(), QVariant(),
+            Tardis::instance()->actionToByteArray(Tardis::ShowManagerAddFunction, m_currentShow->id(), newSf->id()));
+
+        addShowItem(newSf, track->id());
+    }
+
+    m_doc->setModified();
+    emit showDurationChanged(m_currentShow->totalDuration());
+
+    return QString();
+}
+
+QString ShowManager::joinSelectedItems()
+{
+    if (m_currentShow == nullptr)
+        return tr("There is no Show being edited.");
+
+    if (m_selectedItems.count() < 2)
+        return tr("Select two or more adjacent items on the same track to join.");
+
+    // group the selected items by the track they belong to
+    QMap<quint32, QList<ShowFunction *>> groups;
+    for (const SelectedShowItem &ssi : m_selectedItems)
+    {
+        if (ssi.m_showFunc != nullptr)
+            groups[ssi.m_trackIndex].append(ssi.m_showFunc.data());
+    }
+
+    // validate every group of two or more items first: either everything
+    // qualifying can be joined, or nothing is
+    QList<QList<ShowFunction *>> joinGroups;
+    for (auto it = groups.constBegin(); it != groups.constEnd(); ++it)
+    {
+        if (it.value().count() < 2)
+            continue;
+
+        QList<ShowFunction *> group = it.value();
+        std::sort(group.begin(), group.end(), [](ShowFunction *a, ShowFunction *b)
+        {
+            return a->startTime() < b->startTime();
+        });
+
+        for (int i = 0; i < group.count(); i++)
+        {
+            ShowFunction *sf = group.at(i);
+            Function *func = m_doc->function(sf->functionID());
+            QString name = func != nullptr ? func->name() : tr("Unknown");
+
+            if (sf->isLocked())
+                return tr("\"%1\" is locked and cannot be joined.").arg(name);
+
+            if (isSplitJoinCompatible(func) == false)
+            {
+                return tr("\"%1\" is a %2 and doesn't support joining.")
+                        .arg(name, Function::typeToString(func != nullptr ? func->type() : Function::Undefined));
+            }
+
+            if (i > 0)
+            {
+                ShowFunction *prev = group.at(i - 1);
+                if (prev->functionID() != sf->functionID())
+                    return tr("Only items referencing the same function can be joined.");
+
+                if (prev->startTime() + prev->duration() != sf->startTime())
+                {
+                    return tr("\"%1\" is not immediately next to the previous selected item on "
+                              "its track: joining would leave a gap or an overlap.").arg(name);
+                }
+            }
+        }
+
+        joinGroups.append(group);
+    }
+
+    if (joinGroups.isEmpty())
+        return tr("Select two or more adjacent, compatible items on the same track to join.");
+
+    foreach (const QList<ShowFunction *> &group, joinGroups)
+    {
+        ShowFunction *first = group.first();
+        ShowFunction *last = group.last();
+        quint32 newDuration = (last->startTime() + last->duration()) - first->startTime();
+
+        setShowItemDurationWithUndo(first, int(newDuration));
+
+        for (int i = 1; i < group.count(); i++)
+        {
+            ShowFunction *sf = group.at(i);
+            quint32 sfId = sf->id();
+
+            Tardis::instance()->enqueueAction(
+                Tardis::ShowManagerDeleteFunction, m_currentShow->id(),
+                Tardis::instance()->actionToByteArray(Tardis::ShowManagerDeleteFunction, m_currentShow->id(), sfId),
+                QVariant());
+
+            // drop every UI/selection/clipboard reference before the ShowFunction is deleted
+            deleteShowItem(sf);
+
+            Track *track = m_currentShow->getTrackFromShowFunctionID(sfId);
+            if (track != nullptr)
+                track->removeShowFunction(sf, true);
+        }
+    }
+
+    m_doc->setModified();
+    emit showDurationChanged(m_currentShow->totalDuration());
+
+    return QString();
+}
+
 void ShowManager::resetContents()
 {
     m_tempoDetector->stop();
