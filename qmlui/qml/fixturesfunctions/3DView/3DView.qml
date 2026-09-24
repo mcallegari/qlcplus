@@ -318,19 +318,9 @@ Rectangle
 
             component.createObject(frameGraph.myCameraSelector,
             {
+                // no target: FXAA writes the frame straight to the screen
                 "inTexture": hdr0ColorTexture,
-                "outRenderTarget": hdr1RenderTarget,
                 "screenQuadFXAALayer": screenQuadFXAAEntity.quadLayer
-            });
-
-            component = Qt.createComponent("BlitFilter.qml");
-            if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString())
-
-            component.createObject(frameGraph.myCameraSelector,
-            {
-                "inTexture": hdr1ColorTexture,
-                "screenQuadBlitLayer": screenQuadBlitEntity.quadLayer
             });
         }
 
@@ -550,13 +540,6 @@ Rectangle
                 id: screenQuadFXAAEntity
                 quadLayer: Layer { }
                 quadEffect: FXAAEffect { }
-            }
-
-            GenericScreenQuadEntity
-            {
-                id: screenQuadBlitEntity
-                quadLayer: Layer { }
-                quadEffect: BlitEffect { }
             }
 
             GenericScreenQuadEntity
@@ -807,35 +790,6 @@ Rectangle
                     {
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: hdr0ColorTexture
-                    }
-                ]
-            }
-
-            property Texture2D hdr1ColorTexture:
-                Texture2D
-                {
-                    id: hdr1ColorTexture
-                    width: 1024
-                    height: 1024
-                    format: Texture.RGBA16F
-                    generateMipMaps: false
-                    magnificationFilter: Texture.Linear
-                    minificationFilter: Texture.Linear
-                    wrapMode
-                    {
-                        x: WrapMode.ClampToEdge
-                        y: WrapMode.ClampToEdge
-                    }
-                }
-
-            RenderTarget
-            {
-                id: hdr1RenderTarget
-                attachments: [
-                    RenderTargetOutput
-                    {
-                        attachmentPoint: RenderTargetOutput.Color0
-                        texture: hdr1ColorTexture
                     }
                 ]
             }
