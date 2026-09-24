@@ -1546,7 +1546,10 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
         //qDebug() << "Head" << headIdx << "dimmer channel:" << headDimmerIndex << "intensity" << intensityValue;
 
-        color = FixtureUtils::headColor(fixture, headIdx);
+        // The 3D view renders the light this head actually casts, so a white
+        // emitter is tinted by the colour temperature its definition declares
+        // rather than being rendered as pure white.
+        color = FixtureUtils::headColor(fixture, headIdx, true);
 
         if (singleBeamMesh)
         {
