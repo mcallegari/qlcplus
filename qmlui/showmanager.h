@@ -96,6 +96,10 @@ class ShowManager final : public PreviewContext
     Q_PROPERTY(QPointF groupDragOffset READ groupDragOffset WRITE setGroupDragOffset NOTIFY groupDragOffsetChanged)
     Q_PROPERTY(bool boxSelectMode READ boxSelectMode WRITE setBoxSelectMode NOTIFY boxSelectModeChanged)
 
+    Q_PROPERTY(int rangeStart READ rangeStart NOTIFY timeRangeChanged)
+    Q_PROPERTY(int rangeEnd READ rangeEnd NOTIFY timeRangeChanged)
+    Q_PROPERTY(bool hasTimeRange READ hasTimeRange NOTIFY timeRangeChanged)
+
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
@@ -557,6 +561,26 @@ public:
     /** Cut time at cursor position for all the items covering that position */
     Q_INVOKABLE bool cutTimeAtCursor(int length, int cursorTime);
 
+    /** Split every currently selected Show item at the cursor position.
+     *  When $noSnap is false and grid snapping is enabled, the cursor position
+     *  is first snapped to the nearest visible grid division.
+     *  Every selected item is validated before anything is changed: if any of
+     *  them is locked, of a Function type that doesn't support splitting, or
+     *  isn't actually spanning the cursor position, nothing is split and an
+     *  explanation is returned. An empty string is returned on success. */
+    Q_INVOKABLE QString splitSelectedItems(bool noSnap);
+
+    /** Join the currently selected Show items. Selected items are grouped by
+     *  the Track they belong to: within each group of two or more items,
+     *  they must reference the same Function and be perfectly adjacent (no
+     *  gap, no overlap) to be merged into a single item spanning their
+     *  combined duration. Tracks with just one selected item are ignored.
+     *  Every qualifying group is validated before anything is changed: if
+     *  any of them contains a locked item, an incompatible Function type, a
+     *  gap/overlap or a mismatched Function reference, nothing is joined and
+     *  an explanation is returned. An empty string is returned on success. */
+    Q_INVOKABLE QString joinSelectedItems();
+
     /** Returns pixel X positions of all item edges (start + end) across all tracks,
      *  excluding the Show item with the given ID */
     Q_INVOKABLE QVariantList getSnapEdges(quint32 excludeItemId,
@@ -638,6 +662,107 @@ public:
      *  Nothing is pasted unless every item fits: on failure false is
      *  returned and clipboardActionFailed carries the reason */
     Q_INVOKABLE bool pasteFromClipboard();
+
+    /*********************************************************************
+     * Time range editing
+     *********************************************************************/
+public:
+    /** Get the selected time range of the timeline, in ms. With no range
+     *  selected, both are -1 */
+    int rangeStart() const;
+    int rangeEnd() const;
+    bool hasTimeRange() const;
+
+    /** Select the time range between $start and $end (ms, in any order).
+     *  An empty range clears the selection */
+    Q_INVOKABLE void setTimeRange(int start, int end);
+    Q_INVOKABLE void clearTimeRange();
+
+    /**
+     * Describe the removal ($remove true) of the selected time range from
+     * the whole Show, or the insertion of empty space in it, before
+     * applying it. Returns a map with:
+     * - valid: false if the edit can't be applied
+     * - blockers: the names of the items preventing it, with the reason
+     * - deleted, cropped, split, moved: the number of items affected
+     * - sectionsDeleted, sectionsCropped, sectionsMoved: the same for the
+     *   tempo sections
+     *
+     * Removing the range deletes the items within it, shifts back the
+     * items after it and crops the items crossing its edges. Inserting
+     * space shifts forward the items from the range start, splitting in
+     * two the items crossing it. Items crossing the range edges must be
+     * of a Function that can be cropped, and none of the items to delete,
+     * crop or split can be locked
+     */
+    Q_INVOKABLE QVariantMap timeRangeEditInfo(bool remove) const;
+
+    /** Remove the selected time range from the Show, as described by
+     *  timeRangeEditInfo(), as a single undo step. Returns false, changing
+     *  nothing, if the removal is not valid */
+    Q_INVOKABLE bool removeTimeRange();
+
+    /** Insert empty space in the selected time range, as described by
+     *  timeRangeEditInfo(), as a single undo step. Returns false, changing
+     *  nothing, if the insertion is not valid */
+    Q_INVOKABLE bool insertTimeRange();
+
+signals:
+    void timeRangeChanged();
+
+private:
+    struct TimeRangeEdit
+    {
+        enum Action { Move, Delete, Crop, Split };
+
+        Track *track;
+        ShowFunction *sf;
+        Action action;
+        /** The new item times, in the item unit */
+        quint32 startTime;
+        quint32 duration;
+        /** The second part of a split item */
+        quint32 splitStartTime;
+        quint32 splitDuration;
+    };
+
+    struct TimeRangePlan
+    {
+        QList<TimeRangeEdit> items;
+        QStringList blockers;
+        TempoMap tempoMap;
+        int sectionsDeleted = 0;
+        int sectionsCropped = 0;
+        int sectionsMoved = 0;
+    };
+
+    /** Plan the removal or insertion of the selected time range */
+    TimeRangePlan timeRangePlan(bool remove) const;
+
+    /** Plan the tempo sections of $plan for a removal or an insertion of
+     *  the time range from $start to $end (ms) */
+    void planTempoSections(TimeRangePlan &plan, bool remove, quint32 start, quint32 end) const;
+
+    /** Returns true if an item of $func can be cropped. Cropping only changes
+     *  the item times, never the Function, so it always stops the Function
+     *  earlier, which works for any lighting Function. With $contentShift,
+     *  the Function also starts at a later point of the timeline, or loses a
+     *  stretch in its middle, but runs from its beginning as usual: that only
+     *  works for a Function that holds still or repeats itself. Audio and
+     *  Video can't be cropped, nor Collections holding them.
+     *  $visited guards against Collections holding themselves */
+    bool isCroppable(const Function *func, bool contentShift,
+                     QSet<quint32> visited = QSet<quint32>()) const;
+
+    /** Returns true if $plan has no blockers and changes something */
+    bool isTimeRangePlanValid(const TimeRangePlan &plan) const;
+
+    /** Apply $plan to the current Show, as a single undo step */
+    void applyTimeRangePlan(const TimeRangePlan &plan);
+
+    /** The selected time range, in ms, or -1 */
+    int m_rangeStart;
+    int m_rangeEnd;
 
     /*********************************************************************
      * Chaser tempo conversion
@@ -783,6 +908,14 @@ private:
 
     bool insertShowItemTimeAt(ShowFunction *sf, int length, int cursorTime);
     bool cutShowItemTimeAt(ShowFunction *sf, int length, int cursorTime);
+
+    // Split/Join helpers
+    /** Returns true if $func's items can be split/joined on the timeline */
+    bool isSplitJoinCompatible(Function *func) const;
+
+    /** Returns the current cursor time (m_currentTime), snapped to the
+     *  nearest visible grid division when grid snapping is enabled */
+    int snappedCursorTime() const;
 
     /** Check items overlapping for the given track, ShowFunction,
      *  start time and duration. Returns true if overlapping is

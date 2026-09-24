@@ -46,6 +46,57 @@ Rectangle
 
     signal clicked(int mouseX, int mouseY)
 
+    // the selected time range, in pixels
+    property real rangeLeft: showManager.hasTimeRange ? timeToPos(showManager.rangeStart) : 0
+    property real rangeRight: showManager.hasTimeRange ? timeToPos(showManager.rangeEnd) : 0
+
+    function timeToPos(time)
+    {
+        if (timeDivision === Show.Time)
+            return TimeUtils.timeToSize(time, timeScale, tickSize)
+        return TimeUtils.timeToBeatPosition(time, tickSize, bpmNumber, beatsDivision)
+    }
+
+    function posToTime(xPos)
+    {
+        if (timeDivision === Show.Time)
+            return TimeUtils.posToMs(xPos, timeScale, tickSize)
+        return Math.round(TimeUtils.posToBeatMs(xPos, tickSize, bpmNumber, beatsDivision))
+    }
+
+    /* Snap a range edge like a Show item edge: to the nearby items edges,
+       otherwise to the grid. Holding Ctrl suspends snapping */
+    function snapRangePos(xPos, modifiers)
+    {
+        if (modifiers & Qt.ControlModifier)
+            return xPos
+
+        if (showManager.snapToItems)
+        {
+            var edges = showManager.getSnapEdges(4294967295, visibleX, visibleX + visibleWidth)
+            var threshold = 10
+            var nearest = -1
+            for (var i = 0; i < edges.length; i++)
+            {
+                var distance = Math.abs(edges[i] - xPos)
+                if (distance <= threshold && (nearest < 0 || distance < Math.abs(nearest - xPos)))
+                    nearest = edges[i]
+            }
+            if (nearest >= 0)
+                return nearest
+        }
+
+        if (showManager.gridEnabled)
+        {
+            if (showManager.tempoGridActive)
+                return showManager.snapToTempoGrid(xPos, 0)
+            if (timeDivision !== Show.Time)
+                return Math.round(xPos / (tickSize / beatsDivision)) * (tickSize / beatsDivision)
+        }
+
+        return xPos
+    }
+
     onVisibleWidthChanged:
     {
         console.log("Visible width changed to: " + visibleWidth)
@@ -145,6 +196,19 @@ Rectangle
             y: headerHeight
             color: UISettings.selection
         }
+    }
+
+    /* The selected time range, drawn over the tracks like the cursor */
+    Rectangle
+    {
+        z: 0.5
+        x: rangeLeft
+        width: Math.max(1, rangeRight - rangeLeft)
+        height: cursorHeight ? cursorHeight : headerHeight
+        visible: showManager.hasTimeRange && rangeRight >= visibleX && rangeLeft <= visibleX + visibleWidth
+        color: Qt.rgba(UISettings.selection.r, UISettings.selection.g, UISettings.selection.b, 0.15)
+        border.width: 1
+        border.color: UISettings.selection
     }
 
     Canvas
@@ -250,10 +314,52 @@ Rectangle
         }
     }
 
+    /* Clicking on the ruler moves the cursor, dragging on it selects a
+       time range */
     MouseArea
     {
         enabled: showTimeMarkers
         anchors.fill: parent
-        onClicked: (mouse) => tlHeaderCursorLayer.clicked(mouse.x, mouse.y)
+        // the ruler selects ranges rather than flicking the timeline
+        preventStealing: true
+
+        property real pressX: 0
+        property bool rangeActive: false
+
+        function updateRange(mouse)
+        {
+            var from = snapRangePos(pressX, mouse.modifiers)
+            var to = snapRangePos(Math.max(0, Math.min(mouse.x, width)), mouse.modifiers)
+            showManager.setTimeRange(posToTime(from), posToTime(to))
+        }
+
+        onPressed: (mouse) =>
+        {
+            pressX = mouse.x
+            rangeActive = false
+        }
+
+        onPositionChanged: (mouse) =>
+        {
+            if (!rangeActive && Math.abs(mouse.x - pressX) < Qt.styleHints.startDragDistance)
+                return
+
+            rangeActive = true
+            updateRange(mouse)
+        }
+
+        onReleased: (mouse) =>
+        {
+            if (rangeActive)
+                updateRange(mouse)
+        }
+
+        onClicked: (mouse) =>
+        {
+            // the click following a range selection
+            if (rangeActive)
+                return
+            tlHeaderCursorLayer.clicked(mouse.x, mouse.y)
+        }
     }
 }

@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QMutex>
 #include <QMap>
+#include <QSet>
 
 #include <function.h>
 #include "tempomap.h"
@@ -109,6 +110,37 @@ private:
 
 private:
     FunctionParent functionParent() const;
+
+    /************************************************************************
+     * Output hold
+     ************************************************************************/
+private:
+    /** Start the Audio items due at m_elapsedTime ahead of everything else
+     *  and hold the Show until they are actually heard (an audio device can
+     *  take hundreds of ms to wake up). Returns true if a hold began */
+    bool startOutputHold();
+
+    /** Resume the Show after a hold */
+    void releaseOutputHold();
+
+    /** Returns true if any running Function is still waiting for its output */
+    bool isWaitingForOutput() const;
+
+    /** Apply the track intensity of $sf to its Function $f */
+    void requestTrackIntensity(ShowFunction *sf, Function *f);
+
+private:
+    /** True while the Show is held, waiting for an output to start */
+    bool m_outputHold = false;
+
+    /** How long (in ms) the current hold has lasted */
+    quint32 m_outputHoldTime = 0;
+
+    /** Items started by startOutputHold(), to be skipped by write() */
+    QSet<ShowFunction *> m_preStartedFunctions;
+
+    /** Functions paused by startOutputHold(), resumed on release */
+    QList<Function *> m_holdPausedFunctions;
 
 signals:
     void timeChanged(quint32 time);

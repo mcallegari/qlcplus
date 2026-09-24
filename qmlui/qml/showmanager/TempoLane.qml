@@ -954,6 +954,21 @@ Rectangle
                     from: 1
                     to: 16
                 }
+
+                // to remove the section time from the Show, or insert space in it
+                GenericButton
+                {
+                    Layout.columnSpan: 2
+                    Layout.fillWidth: true
+                    label: qsTr("Select the section time range")
+                    onClicked:
+                    {
+                        var section = laneRoot.sections[sectionEditor.sectionIndex]
+                        if (section !== undefined)
+                            showManager.setTimeRange(section.startTime, section.startTime + section.duration)
+                        sectionEditor.close()
+                    }
+                }
             }
     }
 }

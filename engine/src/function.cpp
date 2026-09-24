@@ -1098,6 +1098,11 @@ bool Function::isPaused() const
     return m_paused;
 }
 
+bool Function::isWaitingForOutput() const
+{
+    return false;
+}
+
 /*****************************************************************************
  * Elapsed ticks while running
  *****************************************************************************/
