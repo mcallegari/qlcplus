@@ -842,6 +842,14 @@ public:
      */
     bool isPaused() const;
 
+    /**
+     * Check if the function has been started but its output hasn't actually
+     * begun yet (e.g. an audio device still waking up). A Show holds its
+     * timeline while this is true, so that the rest of the Show stays in
+     * time with it. The default implementation returns false.
+     */
+    virtual bool isWaitingForOutput() const;
+
     bool startedAsChild() const;
 
 private:

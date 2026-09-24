@@ -163,6 +163,9 @@ public:
     /** @reimpl */
     void setPause(bool enable) override;
 
+    /** @reimpl: true until the audio device starts playing */
+    bool isWaitingForOutput() const override;
+
     /** @reimpl */
     void write(MasterTimer* timer, QList<Universe*> universes) override;
 

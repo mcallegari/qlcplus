@@ -395,6 +395,11 @@ void Audio::setPause(bool enable)
     }
 }
 
+bool Audio::isWaitingForOutput() const
+{
+    return isRunning() && m_audio_out != NULL && m_audio_out->playedUSecs() == 0;
+}
+
 void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
@@ -403,7 +408,9 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
     if (isPaused())
         return;
 
-    incrementElapsed();
+    // keep elapsed() in step with what is actually heard
+    if (isWaitingForOutput() == false)
+        incrementElapsed();
 
     if (m_audio_out && !m_audio_out->isLooped())
     {
