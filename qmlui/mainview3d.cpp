@@ -1214,7 +1214,16 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, const QSce
         QTexture2D *tex = fxEntity->property("goboTexture").value<QTexture2D *>();
         //tex->setFormat(Qt3DRender::QAbstractTexture::RGBA8U);
         if (tex != nullptr)
+        {
             tex->addTextureImage(meshRef->m_goboTexture);
+            // Sampled at every ray march step across the whole beam and on the
+            // floor at any distance: without mipmaps and filtering the gobo
+            // aliases into noise as soon as the projection is minified.
+            tex->setGenerateMipMaps(true);
+            tex->setMinificationFilter(QAbstractTexture::LinearMipMapLinear);
+            tex->setMagnificationFilter(QAbstractTexture::Linear);
+            tex->setMaximumAnisotropy(16.0f);
+        }
         else
             qWarning() << "[MainView3D] no goboTexture on item" << itemID << "- skipping gobo setup";
     }
