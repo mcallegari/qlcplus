@@ -1,8 +1,8 @@
 /*
-  Q Light Controller
-  script_test.h
+  Q Light Controller Plus
+  e131packetizer_test.h
 
-  Copyright (C) Heikki Junnila
+  Copyright (c) Q Light Controller Plus
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,22 +17,22 @@
   limitations under the License.
 */
 
-#ifndef SCRIPT_TEST_H
-#define SCRIPT_TEST_H
+#ifndef E131PACKETIZER_TEST_H
+#define E131PACKETIZER_TEST_H
 
 #include <QObject>
 
-class Script_Test final : public QObject
+class E131Packetizer_Test final : public QObject
 {
     Q_OBJECT
 
 private slots:
-    void initTestCase();
-    void initial();
-#ifndef QMLUI
-    void setFixtureRejectsMissingUniverse();
-    void setFixtureAcceptsPresentUniverse();
-#endif
+    void checkPacketRejectsTruncatedPacket();
+    void fillDMXdataRejectsZeroPropertyCount();
+    void fillDMXdataRejectsStartCodeOnly();
+    void fillDMXdataRejectsOversizedPropertyCount();
+    void fillDMXdataRejectsTruncatedPayload();
+    void fillDMXdataAcceptsValidPayload();
 };
 
 #endif

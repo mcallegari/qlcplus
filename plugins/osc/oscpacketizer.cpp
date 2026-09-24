@@ -116,7 +116,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
     //qDebug() << "[OSC] path extracted:" << path;
 
     int currPos = commaPos + 1;
-    while (tagsEnded == false)
+    while (tagsEnded == false && currPos < data.size())
     {
         switch (data.at(currPos))
         {
@@ -131,6 +131,9 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
         }
         currPos++;
     }
+    if (tagsEnded == false)
+        return false;
+
     // round current position to 4
     int left = (typeArray.count() + 1) % 4;
     currPos += 3 - left;
@@ -144,7 +147,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
             case IntegerTag:
             {
                 if (currPos + 4 > data.size())
-                    break;
+                    return false;
                 quint32 iVal;
 
                 *((uchar*)(&iVal) + 3) = data.at(currPos);
@@ -164,7 +167,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
             case FloatTag:
             {
                 if (currPos + 4 > data.size())
-                    break;
+                    return false;
                 float fVal;
 
                 *((uchar*)(&fVal) + 3) = data.at(currPos);
@@ -182,7 +185,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
             case DoubleTag:
             {
                 if (currPos + 8 > data.size())
-                    break;
+                    return false;
 
                 double dVal;
                 *((uchar*)(&dVal) + 7) = data.at(currPos);
@@ -203,6 +206,9 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
             case StringTag:
             {
                 int firstZeroPos = data.indexOf('\0', currPos);
+                if (firstZeroPos < currPos)
+                    return false;
+
                 QString str = QString(data.mid(currPos, firstZeroPos - currPos));
                 qDebug() << "[OSC] string:" << str;
                 // align current position to a multiple of 4
@@ -215,6 +221,9 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
                 // A OSC timestamp would be helpful to defer
                 // value changes, but since QLC+ plugins don't support
                 // such thing, let's skip it.
+                if (currPos + 8 > data.size())
+                    return false;
+
                 currPos += 8;
             }
             break;
@@ -250,16 +259,22 @@ QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& 
             // Check where we are here
             while (bufPos < data.size() && data.at(bufPos) != '#')
             {
+                if (data.size() - bufPos < 4)
+                    return messages;
+
                 quint32 msgSize = (uchar(data.at(bufPos)) << 24) + (uchar(data.at(bufPos + 1)) << 16) + (uchar(data.at(bufPos + 2)) << 8) + uchar(data.at(bufPos + 3));
                 qDebug() << "[OSC] Bundle message size:" << msgSize;
                 bufPos += 4;
 
-                if (data.size() >= bufPos + (int)msgSize)
+                if (msgSize > quint32(data.size() - bufPos))
                 {
-                    QByteArray msgData = data.mid(bufPos, msgSize);
-                    if (parseMessage(msgData, path, values) == true)
-                        messages.append(QPair<QString, QByteArray>(path, values));
+                    bufPos = data.size();
+                    continue;
                 }
+
+                QByteArray msgData = data.mid(bufPos, msgSize);
+                if (parseMessage(msgData, path, values) == true)
+                    messages.append(QPair<QString, QByteArray>(path, values));
                 bufPos += msgSize;
             }
             //qDebug() << "Buf pos=" << bufPos << "data size=" << data.size();
@@ -275,6 +290,3 @@ QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& 
 
     return messages;
 }
-
-
-
