@@ -63,6 +63,10 @@ Rectangle
         anchors.top: groupsBar.visible ? groupsBar.bottom : parent.top
         anchors.bottom: parent.bottom
         aspects: ["input", "logic"]
+        /* The deferred renderer anti-aliases with FXAA in its last pass; a
+           multisampled Scene3D framebuffer on top of it paid for the same
+           edges twice */
+        multisample: false
 
         function updateFrameGraph(create)
         {
