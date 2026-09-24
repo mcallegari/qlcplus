@@ -35,7 +35,7 @@
 
 ## Matrix Fork :traffic_light: ⌗ :traffic_light: :feet: 
 
-This is a __fork__ of mcallegari's QLC+ project (the home of QLC+).
+This is a __fork__ of Massimo Callegari's QLC+ project (the home of QLC+).
 
 Here I incubate new features, fixes and improvements for V5 that I would like accepted into QLC+.
 
@@ -45,9 +45,9 @@ __Find out what the fork adds [here](https://github.com/mjcmatrix/qlcplus/wiki).
 
 ## My use case
 
-I am a volunteer light and sound technician for a stage show. My primary use for this software is pre-programmed light shows ran to music using Show Manager, and shows that are driven live from prepared scenes, collections, chasers and EFX using the Virtual Console with separate sound. I also want to enhance the QLC+ V5 workflow for users.
+I am a volunteer light and sound technician for an annual stage show. My primary use for this software is pre-programmed light shows ran to music using Show Manager, and shows that are driven live from prepared scenes, collections, chasers and EFX using the Virtual Console with separate sound. I also want to enhance the QLC+ V5 workflow for users.
 
-I depends on all of these new features as my daily driver while I'm working on shows. Others might use them too.
+I depends on all the new features and fixes which are my daily driver while I'm working on shows. Others might use them too.
 
 ## Introduction
 
@@ -55,11 +55,11 @@ I depends on all of these new features as my daily driver while I'm working on s
 
 ## Downloads, Building QLC+, Support, Contributing
 
-I may publish Linux AppImage downloads here soon.
+I may publish Linux AppImage downloads here soon. For now, if you need this, compile master from source.
 
 For the mainstream app, please visit Massimo's upstream here: https://github.com/mcallegari/qlcplus
 
-Compilation guides and platform-specific instructions are available in our [GitHub Wiki](https://github.com/mcallegari/qlcplus/wiki).
+ititCompilation guides and platform-specific instructions are available in our [GitHub Wiki](https://github.com/mcallegari/qlcplus/wiki).
 
 ## License
 <a href="https://github.com/mcallegari/qlcplus/blob/master/COPYING">
