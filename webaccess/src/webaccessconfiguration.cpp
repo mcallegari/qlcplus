@@ -378,7 +378,7 @@ QString WebAccessConfiguration::getHTML(const Doc *doc, const WebAccessAuth *aut
         bodyHTML += "</div>";
     }
 
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+    QString str = HTML_HEADER(" lang=\"" + LANGUAGE_HTML + "\"") + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
 }

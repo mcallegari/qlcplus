@@ -24,6 +24,7 @@
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
 #include "commonjscss.h"
+#include "qlci18n.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "rgbalgorithm.h"
@@ -2009,13 +2010,13 @@ QString WebAccess::getVCHTML()
     widgetsHTML += "</div>\n";
     m_JScode += "\n</script>\n";
 
-    QString str = HTML_HEADER + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n" + m_JScode + "</body>\n</html>";
+    QString str = HTML_HEADER(" lang=\"" + QLCi18n::loadedLanguageHTML() + "\"") + m_CSScode + "</head>\n<body>\n" + widgetsHTML + "</div>\n" + m_JScode + "</body>\n</html>";
     return str;
 }
 
 QString WebAccess::getSimpleDeskHTML() const
 {
-    QString str = HTML_HEADER;
+    QString str = HTML_HEADER(" lang=\"" + QLCi18n::loadedLanguageHTML() + "\"");
     return str;
 }
 

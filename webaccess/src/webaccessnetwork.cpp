@@ -350,7 +350,7 @@ QString WebAccessNetwork::getHTML()
     bodyHTML += "<input type=\"button\" value=\"" + tr("Shutdown") + "\" onclick=\"javascript:websocket.send('QLC+SYS|HALT');\">";
     bodyHTML += "</div>\n";
 
-    QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
+    QString str = HTML_HEADER(" lang=\"" + LANGUAGE_HTML + "\"") + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 
     return str;
 }
