@@ -1062,23 +1062,27 @@ void InputOutputPatchEditor::slotAudioInputPreview(bool enable)
 
     if (enable == true)
     {
-        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
+        connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32,int,double)));
         m_inputCapture->registerBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
     }
     else
     {
         m_inputCapture->unregisterBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);
-        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                   this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
+        disconnect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32,int,double)),
+                   this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32,int,double)));
     }
 }
 
-void InputOutputPatchEditor::slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+void InputOutputPatchEditor::slotAudioUpdateLevel(double *spectrumBands, int size, double maxMagnitude,
+                                                quint32 power, int spectrumGridMode,
+                                                double spectrumLowBandGamma)
 {
     Q_UNUSED(spectrumBands)
     Q_UNUSED(size)
     Q_UNUSED(maxMagnitude)
+    Q_UNUSED(spectrumGridMode)
+    Q_UNUSED(spectrumLowBandGamma)
 
     m_levelProgress->setValue(power);
 }

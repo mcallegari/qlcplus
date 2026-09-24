@@ -20,6 +20,7 @@
 #ifndef AUDIOTRIGGERWIDGET_H
 #define AUDIOTRIGGERWIDGET_H
 
+#include <QVector>
 #include <QWidget>
 
 /** @addtogroup ui_vc_widgets
@@ -38,6 +39,9 @@ public:
 
     void setMaxFrequency(int freq);
 
+    /** Band edges in Hz (size bars + 1); drives bar widths on the log-frequency axis */
+    void setBandFrequencyEdges(const QVector<double> &edges);
+
     uchar getUcharVolume() const;
     uchar getUcharBand(int idx);
 
@@ -51,6 +55,8 @@ protected:
     void paintEvent(QPaintEvent* e) override;
 
 private:
+    void recomputeBarLayout();
+
     double *m_spectrumBands;
     int m_spectrumHeight;
     quint32 m_volumeBarHeight;
@@ -58,6 +64,12 @@ private:
     int m_barsNumber;
     float m_barWidth;
     int m_maxFrequency;
+
+    QVector<double> m_bandEdges;
+    QVector<float> m_barXStart;
+    QVector<float> m_barPixelWidth;
+    float m_spectrumPixelWidth;
+    float m_volumeBarPixelWidth;
 };
 
 /** @} */
