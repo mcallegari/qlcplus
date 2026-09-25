@@ -41,7 +41,10 @@ ComboBox
 
     textRole: "mLabel"
     valueRole: "mValue"
-    wheelEnabled: true
+    // Disabled to prevent accidental value changes when scrolling over a
+    // combo box that happens to be under the mouse cursor (e.g. the
+    // Modifier/Precedence columns in the fixture channels list)
+    wheelEnabled: false
     currentIndex: 0
 
     property string currentIcon
