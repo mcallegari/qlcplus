@@ -28,7 +28,7 @@
   <Capability Min="91" Max="110">R: Up / G: 0% / B: 100%</Capability>
   <Capability Min="111" Max="130">R: 100% / G: 0% / B: Down</Capability>
   <Capability Min="131" Max="150">R: 100% / G: Up / B: Up</Capability>
-  <Capability Min="151" Max="170">R: Down / G: Down / B: 100% R: 100% / G: 100% / B: 100%</Capability>
+  <Capability Min="151" Max="170">R: Down / G: Down / B: 100%</Capability>
   <Capability Min="171" Max="200">R: 100% / G: 100% / B: 100%</Capability>
   <Capability Min="201" Max="205">White 1: 3200K</Capability>
   <Capability Min="206" Max="210">White 2: 3400K</Capability>
@@ -63,7 +63,7 @@
   <Capability Min="170" Max="179">Custom (activated after 3 secs)</Capability>
   <Capability Min="180" Max="189">Sound 1</Capability>
   <Capability Min="190" Max="199">Sound 2</Capability>
-  <Capability Min="200" Max="219">Reset (activated after 3 secs)</Capability>
+  <Capability Min="200" Max="219" Preset="ResetAll">Reset (activated after 3 secs)</Capability>
   <Capability Min="220" Max="235">No function</Capability>
   <Capability Min="236" Max="239">Dim 0</Capability>
   <Capability Min="240" Max="243">Dim 1</Capability>
@@ -97,7 +97,7 @@
   <Channel Number="11">Control</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="LED" Lumens="4500" ColourTemperature="3200"/>
+  <Bulb Type="37 x 3W RGB LED" Lumens="2800" ColourTemperature="3200"/>
   <Dimensions Weight="6.5" Width="296" Height="344" Depth="184"/>
   <Lens Name="Other" DegreesMin="6" DegreesMax="6"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
