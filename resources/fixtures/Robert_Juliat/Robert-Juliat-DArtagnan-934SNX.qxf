@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Robert Juliat</Manufacturer>
  <Model>D'Artagnan 934SNX</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Lamp">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="255">Lamp On</Capability>

@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Par 64 100W COB UV</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="8 Bit">
   <Channel Number="0">Dimmer</Channel>
