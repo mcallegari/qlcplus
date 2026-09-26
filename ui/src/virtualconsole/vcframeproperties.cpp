@@ -76,6 +76,19 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_extEnableLayout->addWidget(m_inputEnableWidget);
 
     /************************************************************************
+     * Collapse frame
+     ************************************************************************/
+
+    m_inputCollapseWidget = new InputSelectionWidget(m_doc, this);
+    m_inputCollapseWidget->setTitle(tr("External Input - Collapse"));
+    m_inputCollapseWidget->setCustomFeedbackVisibility(true);
+    m_inputCollapseWidget->setKeySequence(m_frame->collapseKeySequence());
+    m_inputCollapseWidget->setInputSource(m_frame->inputSource(VCFrame::collpseInputSourceId));
+    m_inputCollapseWidget->setWidgetPage(m_frame->page());
+    m_inputCollapseWidget->show();
+    m_extEnableLayout->addWidget(m_inputCollapseWidget);
+
+    /************************************************************************
      * Previous page
      ************************************************************************/
 
@@ -284,11 +297,13 @@ void VCFrameProperties::accept()
 
     /* Key sequences */
     m_frame->setEnableKeySequence(m_inputEnableWidget->keySequence());
+    m_frame->setCollapseKeySequence(m_inputCollapseWidget->keySequence());
     m_frame->setNextPageKeySequence(m_inputNextPageWidget->keySequence());
     m_frame->setPreviousPageKeySequence(m_inputPrevPageWidget->keySequence());
 
     /* Input sources */
     m_frame->setInputSource(m_inputEnableWidget->inputSource(), VCFrame::enableInputSourceId);
+    m_frame->setInputSource(m_inputCollapseWidget->inputSource(), VCFrame::collpseInputSourceId);
     m_frame->setInputSource(m_inputNextPageWidget->inputSource(), VCFrame::nextPageInputSourceId);
     m_frame->setInputSource(m_inputPrevPageWidget->inputSource(), VCFrame::previousPageInputSourceId);
 

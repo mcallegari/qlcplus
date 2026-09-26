@@ -59,6 +59,7 @@ const QSize VCFrame::defaultSize(QSize(200, 200));
 const quint8 VCFrame::nextPageInputSourceId = 0;
 const quint8 VCFrame::previousPageInputSourceId = 1;
 const quint8 VCFrame::enableInputSourceId = 2;
+const quint8 VCFrame::collpseInputSourceId = 3;
 const quint8 VCFrame::shortcutsBaseInputSourceId = 20;
 
 VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse)
@@ -712,6 +713,16 @@ QKeySequence VCFrame::enableKeySequence() const
     return m_enableKeySequence;
 }
 
+void VCFrame::setCollapseKeySequence(const QKeySequence &keySequence)
+{
+    m_collapseKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCFrame::collapseKeySequence() const
+{
+    return m_collapseKeySequence;
+}
+
 void VCFrame::setNextPageKeySequence(const QKeySequence& keySequence)
 {
     m_nextPageKeySequence = QKeySequence(keySequence);
@@ -739,6 +750,8 @@ void VCFrame::slotKeyPressed(const QKeySequence& keySequence)
 
     if (m_enableKeySequence == keySequence)
         setDisableState(!isDisabled());
+    else if (m_collapseKeySequence == keySequence && m_collapseButton != NULL)
+        m_collapseButton->toggle();
     else if (m_previousPageKeySequence == keySequence)
         slotPreviousPage();
     else if (m_nextPageKeySequence == keySequence)
@@ -755,20 +768,48 @@ void VCFrame::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCFrame::updateFeedback()
 {
-    QSharedPointer<QLCInputSource> src = inputSource(enableInputSourceId);
-    if (!src.isNull() && src->isValid() == true)
     {
-        if (m_disableState == false)
+        QSharedPointer<QLCInputSource> src = inputSource(enableInputSourceId);
+        if (!src.isNull() && src->isValid() == true)
         {
-            sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), enableInputSourceId);
+            if (m_disableState == false)
+            {
+                sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), enableInputSourceId);
+            }
+            else
+            {
+                // temporarily revert the disabled state otherwise this
+                // feedback will never go through (cause of acceptsInput)
+                m_disableState = false;
+                sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), enableInputSourceId);
+                m_disableState = true;
+            }
         }
-        else
+    }
+
+    {
+        QSharedPointer<QLCInputSource> src = inputSource(collpseInputSourceId);
+        if (!src.isNull() && src->isValid() == true)
         {
-            // temporarily revert the disabled state otherwise this
-            // feedback will never go through (cause of acceptsInput)
-            m_disableState = false;
-            sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), enableInputSourceId);
-            m_disableState = true;
+            if (m_collapsed == false)
+            {
+                sendFeedback(src->feedbackValue(QLCInputFeedback::UpperValue), collpseInputSourceId);
+            }
+            else
+            {
+                // temporarily revert the disabled state otherwise this
+                // feedback will never go through (cause of acceptsInput)
+                if (m_disableState)
+                {
+                    m_disableState = false;
+                    sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), collpseInputSourceId);
+                    m_disableState = true;
+                }
+                else
+                {
+                    sendFeedback(src->feedbackValue(QLCInputFeedback::LowerValue), collpseInputSourceId);
+                }
+            }
         }
     }
 
@@ -806,6 +847,8 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
 
     if (checkInputSource(universe, pagedCh, value, sender(), enableInputSourceId) && value)
         setDisableState(!isDisabled());
+    else if (checkInputSource(universe, pagedCh, value, sender(), collpseInputSourceId) && value && m_collapseButton != NULL)
+        m_collapseButton->toggle();
     else if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId) && value)
         slotPreviousPage();
     else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId) && value)
@@ -857,6 +900,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setPagesLoop(frame->m_pagesLoop);
 
     setEnableKeySequence(frame->m_enableKeySequence);
+    setCollapseKeySequence(frame->m_collapseKeySequence);
     setNextPageKeySequence(frame->m_nextPageKeySequence);
     setPreviousPageKeySequence(frame->m_previousPageKeySequence);
     setShortcuts(frame->shortcuts());
@@ -1114,6 +1158,12 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             if (str.isEmpty() == false)
                 setEnableKeySequence(stripKeySequence(QKeySequence(str)));
         }
+        else if (root.name() == KXMLQLCVCFrameCollapseSource)
+        {
+            QString str = loadXMLSources(root, collpseInputSourceId);
+            if (str.isEmpty() == false)
+                setCollapseKeySequence(stripKeySequence(QKeySequence(str)));
+        }
         else if (root.name() == KXMLQLCVCFrameNext)
         {
             QString str = loadXMLSources(root, nextPageInputSourceId);
@@ -1362,16 +1412,33 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
 
         /* Enable control */
-        QString keySeq = m_enableKeySequence.toString();
-        QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
-
-        if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
         {
-            doc->writeStartElement(KXMLQLCVCFrameEnableSource);
-            if (keySeq.isEmpty() == false)
-                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
-            saveXMLInput(doc, enableSrc);
-            doc->writeEndElement();
+            QString keySeq = m_enableKeySequence.toString();
+            QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
+
+            if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
+            {
+                doc->writeStartElement(KXMLQLCVCFrameEnableSource);
+                if (keySeq.isEmpty() == false)
+                    doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+                saveXMLInput(doc, enableSrc);
+                doc->writeEndElement();
+            }
+        }
+
+        /* Collapse control */
+        {
+            QString keySeq = m_collapseKeySequence.toString();
+            QSharedPointer<QLCInputSource> collapseSrc = inputSource(collpseInputSourceId);
+
+            if (keySeq.isEmpty() == false || (!collapseSrc.isNull() && collapseSrc->isValid()))
+            {
+                doc->writeStartElement(KXMLQLCVCFrameCollapseSource);
+                if (keySeq.isEmpty() == false)
+                    doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+                saveXMLInput(doc, collapseSrc);
+                doc->writeEndElement();
+            }
         }
 
         /* Multipage mode */
@@ -1383,29 +1450,33 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             doc->writeEndElement();
 
             /* Next page */
-            keySeq = m_nextPageKeySequence.toString();
-            QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
-
-            if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
             {
-                doc->writeStartElement(KXMLQLCVCFrameNext);
-                if (keySeq.isEmpty() == false)
-                    doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
-                saveXMLInput(doc, nextSrc);
-                doc->writeEndElement();
+                QString keySeq = m_nextPageKeySequence.toString();
+                QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
+
+                if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
+                {
+                    doc->writeStartElement(KXMLQLCVCFrameNext);
+                    if (keySeq.isEmpty() == false)
+                        doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+                    saveXMLInput(doc, nextSrc);
+                    doc->writeEndElement();
+                }
             }
 
             /* Previous page */
-            keySeq = m_previousPageKeySequence.toString();
-            QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
-
-            if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
             {
-                doc->writeStartElement(KXMLQLCVCFramePrevious);
-                if (keySeq.isEmpty() == false)
-                    doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
-                saveXMLInput(doc, prevSrc);
-                doc->writeEndElement();
+                QString keySeq = m_previousPageKeySequence.toString();
+                QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
+
+                if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
+                {
+                    doc->writeStartElement(KXMLQLCVCFramePrevious);
+                    if (keySeq.isEmpty() == false)
+                        doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+                    saveXMLInput(doc, prevSrc);
+                    doc->writeEndElement();
+                }
             }
 
             /* Page shortcuts */
