@@ -75,7 +75,7 @@
   <Capability Min="0" Max="255">Reserved</Capability>
  </Channel>
  <Mode Name="13 Channel">
-  <Channel Number="0" ActsOn="12">Pan</Channel>
+  <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
   <Channel Number="3">Tilt fine</Channel>
@@ -88,6 +88,13 @@
   <Channel Number="10">Vector Speed (Color)</Channel>
   <Channel Number="11">Movement Macros</Channel>
   <Channel Number="12">Reserved</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer/Strobe</Channel>
+  <Channel Number="3">Color Macro</Channel>
+  <Channel Number="4">Reserved</Channel>
  </Mode>
  <Physical>
   <Bulb Type="1 x 14W RGB LED" Lumens="0" ColourTemperature="0"/>
