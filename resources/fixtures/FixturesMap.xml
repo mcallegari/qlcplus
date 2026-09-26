@@ -286,6 +286,7 @@
     <F n="beamZ-STB448-Strobe-Bar-RGBAW" m="STB448 Strobe Bar RGBAW"/>
   </M>
   <M n="Betopper">
+    <F n="Betopper-L1015" m="L1015"/>
     <F n="Betopper-LB150" m="LB150"/>
     <F n="Betopper-LB230" m="LB230"/>
     <F n="Betopper-LM108" m="LM108 Wash Moving Head"/>
@@ -705,6 +706,7 @@
     <F n="Color-Imagination-LedSpot-90-SI-052" m="LedSpot 90 (SI-052)"/>
   </M>
   <M n="ColorKey">
+    <F n="ColorKey-PartyLight-FX" m="PartyLight FX"/>
     <F n="ColorKey-Scorpius" m="Scorpius"/>
     <F n="ColorKey-WaferPar-Quad-W-12-v2" m="WaferPar Quad-W 12"/>
   </M>
@@ -858,6 +860,7 @@
     <F n="Eurolite-LED-ACS-BAR-12" m="LED ACS BAR-12"/>
     <F n="Eurolite-LED-B-40-Beam" m="LED B-40 Beam"/>
     <F n="Eurolite-LED-Bar-2-RGBA-252_10_40__Indoor" m="LED Bar 2 RGBA 252/10 40° Indoor"/>
+    <F n="Eurolite-LED-Bar-8-Swing-QCL" m="LED Bar 8 Swing QCL"/>
     <F n="Eurolite-LED-Bar-RGB-252_10_40__Indoor" m="LED Bar RGB 252/10 40° Indoor"/>
     <F n="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar" m="LED CBB-3 COB RBG 3x15W Bar"/>
     <F n="Eurolite-LED-CLS-9-QCL-RGBW-9x8W-12" m="LED CLS-9 QCL RGBW 9x8W 12"/>
@@ -871,6 +874,7 @@
     <F n="Eurolite-LED-H2O-Water-Effect" m="LED H2O Water Effect"/>
     <F n="Eurolite-LED-IP-PIX-Strobe-Frost" m="LED IP PIX Strobe Frost"/>
     <F n="Eurolite-LED-IP-PIX-Strobe-MK2" m="LED IP PIX Strobe MK2"/>
+    <F n="Eurolite-LED-IP-PIX-Strobe-RGB-CW-WW" m="LED IP PIX Strobe RGB CW+WW"/>
     <F n="Eurolite-LED-KLS-120-FX" m="LED KLS-120 FX"/>
     <F n="Eurolite-LED-KLS-180" m="LED KLS-180"/>
     <F n="Eurolite-LED-KLS-2500" m="LED KLS-2500"/>
@@ -1462,6 +1466,7 @@
     <F n="Nicols-Birdy-Wash-122" m="Birdy Wash 122"/>
     <F n="Nicols-Galaxy-Laser" m="Galaxy Laser LD-488"/>
     <F n="Nicols-IP-Wash-120" m="IP Wash 120"/>
+    <F n="Nicols-Moover-Spot-120" m="Moover Spot 120"/>
     <F n="Nicols-Movelight" m="Movelight"/>
     <F n="Nicols-Strob-LED-W" m="Strob LED W"/>
     <F n="Nicols-WP600Z" m="WP600Z"/>
@@ -1687,6 +1692,7 @@
     <F n="Shehds-JMS-WEBB-LED-Wash-BigBeeEye-19X40W" m="JMS WEBB LED Wash Big Bee Eye 19X40W"/>
     <F n="Shehds-LED-200W-RGB-FLASH" m="LED 200W RGB FLASH"/>
     <F n="Shehds-LED-Beam+Wash-19x15W-RGBW-Zoom" m="LED Beam+Wash 19x15W RGBW Zoom Lighting"/>
+    <F n="Shehds-LED-Beam+Wash-7x40W-RGBW-Zoom" m="LED Beam+Wash 7x40W RGBW Zoom"/>
     <F n="Shehds-LED-Beam-12x12W-RGBW" m="LED Beam 12x12W RGBW"/>
     <F n="Shehds-LED-Beam-8x12W-RGBW" m="LED Beam 8x12W RGBW"/>
     <F n="Shehds-LED-Flat-Par-18x18W-RGBWA+UV" m="LED Flat Par 18x18W RGBWA+UV"/>
@@ -1694,6 +1700,7 @@
     <F n="Shehds-LED-Spot-100W" m="LED Spot 100W"/>
     <F n="Shehds-LED-Wall-Wash-18x18W-RGBWA+UV" m="LED Wall Wash 18x18W RGBWA+UV"/>
     <F n="Shehds-PAR-Light-Battery-6x18W-RGBAW+UV" m="PAR Light Battery 6x18W RGBAW+UV"/>
+    <F n="Shehds-ShockCore200B" m="ShockCore 200B"/>
     <F n="Shehds-Wash-Zoom-36x18W" m="Wash Zoom LED 36x18W RGBWA+UV"/>
   </M>
   <M n="Showlite">
@@ -1899,8 +1906,8 @@
     <F n="Stairville-SonicPulse-MH-Wash-1208" m="SonicPulse MH Wash 1208"/>
     <F n="Stairville-Stage-PAR-CX-2-RGBAW" m="Stage PAR CX-2 RGBAW"/>
     <F n="Stairville-Stage-Quad-LED-Bundle-RGB-WW" m="Stage Quad LED Bundle RGB WW"/>
+    <F n="Stairville-Stage-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
-    <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF-2000"/>
     <F n="Stairville-Wild-Wash-132-LED-CW" m="Wild Wash 132 LED CW"/>
     <F n="Stairville-Wild-Wash-132-RGB-LED" m="Wild Wash 132 RGB LED"/>
@@ -1975,6 +1982,8 @@
     <F n="UKing-ZQ01513-100WCOB-Cast-Aluminum-Park-Light" m="ZQ01513 100WCOB Cast Aluminum Park Light"/>
     <F n="UKing-ZQ02021-Beam-Pro" m="ZQ02021 Beam Pro"/>
     <F n="UKing-ZQ02102-Moving-Head" m="ZQ02102 Moving Head"/>
+    <F n="UKing-ZQ02115-140W-Moving-Head" m="ZQ02115 140W Moving Head"/>
+    <F n="UKing-ZQ02255-80W-Mini-Beam" m="ZQ02255 80W Mini Beam"/>
     <F n="UKing-ZQ02319-Mini-40W-Beam-Moving-Head" m="ZQ-02319"/>
     <F n="UKing-ZQ02367-120W-Beam" m="120W Beam ZQ02367"/>
     <F n="UKing-ZQ06122-9-Eye-COB-Matrix" m="ZQ06122 9-Eye COB Matrix"/>
@@ -2034,6 +2043,7 @@
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
     <F n="Varytec-LED-Theater-Spot-100" m="LED Theater Spot 100"/>
+    <F n="Varytec-LED-Theatre-Spot-120-FC" m="LED Theatre Spot 120 FC"/>
     <F n="Varytec-LED-Typhoon-PAR-Outdoor-12x10" m="LED Typhoon PAR Outdoor (12x10)"/>
     <F n="Varytec-Razor-Derby" m="Razor Derby"/>
     <F n="Varytec-RGB-LED-Spot-38" m="RGB LED Spot 38"/>

@@ -9,7 +9,8 @@ qlcplus (4.14.5) stable; urgency=low
   * New fixture: Acme Deluge (thanks to Paul)
   * New fixtures: Both Lighting BO-TUBE192, Varytec Razor Derby, Rockville Rockstrip 252, Pro-Lights Tribe Crystal (thanks to Fede79)
   * New fixtures: American DJ Focus Spot Two, Chauvet Ovation CYC 1 FC, beamZ LCB183 LED Bar 18x3W, Shehds LED Spot 100W (thanks to Fede79)
-  * New fixtures: Chauvet 4Bar Hex ILS, Cameo NanoSpot 300 (thanks to Fede79)
+  * New fixtures: Chauvet 4Bar Hex ILS, Cameo NanoSpot 300, Betopper L1015, UKing ZQ02115 140W Moving Head (thanks to Fede79)
+  * New fixtures: Varytec LED Theatre Spot 120 FC, Stairville Stage TRI LED Bundle Complete, Shehds LED Beam+Wash 7x40W RGBW Zoom (thanks to Fede79)
   * New fixture: Ledj Slimline 9Q8 (thanks to Jason)
   * New fixture: Betopper LPC-1218 (thanks to Michael)
   * New fixture: Shehds PAR Light Battery 6x18W RGBAW+UV (thanks to Maurizio)
@@ -34,9 +35,13 @@ qlcplus (4.14.5) stable; urgency=low
   * New fixtures: Eurolite LED IP PIX Strobe MK2 and Frost (thanks to Bram Janssen)
   * New fixture: Eliminator Lighting Stryker Spot (thanks to Puddnutz)
   * New fixture: Eurolite LED Party Panel RGB+UV (thanks to bass42)
-  * New fixture: Betopper LB150 (thanks to The Ward Studios)
+  * New fixtures: Betopper LB150, Shehds ShockCore 200B (thanks to The Ward Studios)
   * New fixtures: Chauvet Intimidator Scan 360, Kinta HP, Scorpion Storm RGBY, MiniSphere 3, Followspot 400G (thanks to Nate Doyon)
   * New fixture: Eurolite LED IP PIX Strobe RGB CW+WW (thank to Adam Nuclear)
+  * New fixture: UKing ZQ02255 80W Mini Beam (thanks to Steve Fox)
+  * New fixture: Eurolite LED Bar 8 Swing QCL (thanks to Hans-Jürgen Tappe)
+  * New fixture: ColorKey PartyLight FX (thanks to Frederick Launoy)
+  * New fixture: Nicols Moover Spot 120 (thanks to Philippe Thibault)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 13 Jun 2026 18:19:20 +0200
 
