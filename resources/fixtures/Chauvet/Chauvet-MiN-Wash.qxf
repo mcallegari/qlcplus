@@ -4,7 +4,7 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.12.6</Version>
-  <Author>Deluxe Producciones</Author>
+  <Author>Cristian Deluxe</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>MiN Wash</Model>
@@ -97,10 +97,10 @@
   <Channel Number="4">Reserved</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="1 x 14W RGB LED" Lumens="0" ColourTemperature="0"/>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="3.8" Width="173" Height="249" Depth="173"/>
   <Lens Name="Other" DegreesMin="27" DegreesMax="53"/>
-  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="61" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
