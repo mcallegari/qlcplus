@@ -97,7 +97,7 @@
   <Channel Number="11">Control</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="37 x 3W RGB LED" Lumens="2800" ColourTemperature="3200"/>
+  <Bulb Type="LED" Lumens="2800" ColourTemperature="3200"/>
   <Dimensions Weight="6.5" Width="296" Height="344" Depth="184"/>
   <Lens Name="Other" DegreesMin="6" DegreesMax="6"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
