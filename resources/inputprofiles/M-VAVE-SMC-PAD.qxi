@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>qlctool</Name>
+  <Version>5.2.2</Version>
+  <Author>Cristian Deluxe</Author>
+ </Creator>
+ <Manufacturer>M-VAVE</Manufacturer>
+ <Model>SMC-PAD</Model>
+ <Type>MIDI</Type>
+ <Channel Number="25">
+  <Name>Left (&lt;)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Right (&gt;)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Play</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Stop</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Knob 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Knob 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Knob 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Knob 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Knob 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Knob 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Knob 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Knob 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="37028">
+  <Name>Pad 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37029">
+  <Name>Pad 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37030">
+  <Name>Pad 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37031">
+  <Name>Pad 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37032">
+  <Name>Pad 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37033">
+  <Name>Pad 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37034">
+  <Name>Pad 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37035">
+  <Name>Pad 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37036">
+  <Name>Pad 9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37037">
+  <Name>Pad 10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37038">
+  <Name>Pad 11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37039">
+  <Name>Pad 12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37040">
+  <Name>Pad 13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37041">
+  <Name>Pad 14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37042">
+  <Name>Pad 15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37043">
+  <Name>Pad 16</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37044">
+  <Name>Pad 1 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37045">
+  <Name>Pad 2 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37046">
+  <Name>Pad 3 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37047">
+  <Name>Pad 4 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37048">
+  <Name>Pad 5 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37049">
+  <Name>Pad 6 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37050">
+  <Name>Pad 7 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37051">
+  <Name>Pad 8 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37052">
+  <Name>Pad 9 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37053">
+  <Name>Pad 10 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37054">
+  <Name>Pad 11 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37055">
+  <Name>Pad 12 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37056">
+  <Name>Pad 13 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37057">
+  <Name>Pad 14 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37058">
+  <Name>Pad 15 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37059">
+  <Name>Pad 16 (bank B)</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
