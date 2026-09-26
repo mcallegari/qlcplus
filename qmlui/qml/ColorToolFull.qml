@@ -42,6 +42,36 @@ Rectangle
     property bool showWhite: (colorsMask & App.White) || isPaletteEditing
     property bool showAmber: (colorsMask & App.Amber) || isPaletteEditing
     property bool showUV: (colorsMask & App.UV) || isPaletteEditing
+    
+    // Mixed color combining RGB + WAUV using additive mixing
+    property color mixedColor: {
+        var r = currentRGB.r
+        var g = currentRGB.g  
+        var b = currentRGB.b
+        
+        // Add White (brightens all channels equally)
+        if (showWhite) {
+            r = Math.min(1.0, r + currentWAUV.r)
+            g = Math.min(1.0, g + currentWAUV.r)
+            b = Math.min(1.0, b + currentWAUV.r)
+        }
+        
+        // Add Amber (uses upstream's color 0xFFFF7E00 -> R=1.0, G=0.49, B=0.0)
+        if (showAmber) {
+            r = Math.min(1.0, r + currentWAUV.g * 1.0)
+            g = Math.min(1.0, g + currentWAUV.g * 0.49)
+            b = Math.min(1.0, b + currentWAUV.g * 0.0)
+        }
+        
+        // Add UV (uses upstream's violet color 0xFF9400D3 -> R=0.58, G=0.0, B=0.83)
+        if (showUV) {
+            r = Math.min(1.0, r + currentWAUV.b * 0.58)
+            g = Math.min(1.0, g + currentWAUV.b * 0.0)
+            b = Math.min(1.0, b + currentWAUV.b * 0.83)
+        }
+        
+        return Qt.rgba(r, g, b, 1.0)
+    }
 
     // Crosshair tracking
     property real clickedX: 0
@@ -352,8 +382,11 @@ Rectangle
             stepSize: 1
             wheelEnabled: true
             value: currentWAUV.r * 255
-            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                                  valueAt(position) / 255, currentWAUV.g, currentWAUV.b)
+            onMoved: {
+                currentWAUV.r = valueAt(position) / 255
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         CustomSpinBox
@@ -365,8 +398,11 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.r * 255
-            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                                          value / 255, currentWAUV.g, currentWAUV.b)
+            onValueModified: {
+                currentWAUV.r = value / 255
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         RobotoText
@@ -386,8 +422,11 @@ Rectangle
             stepSize: 1
             wheelEnabled: true
             value: currentWAUV.g * 255
-            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                                  currentWAUV.r, valueAt(position) / 255, currentWAUV.b)
+            onMoved: {
+                currentWAUV.g = valueAt(position) / 255
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         CustomSpinBox
@@ -399,8 +438,11 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.g * 255
-            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                                          currentWAUV.r, value / 255, currentWAUV.b)
+            onValueModified: {
+                currentWAUV.g = value / 255
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         RobotoText
@@ -420,8 +462,11 @@ Rectangle
             stepSize: 1
             wheelEnabled: true
             value: currentWAUV.b * 255
-            onMoved: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                                  currentWAUV.r, currentWAUV.g, valueAt(position) / 255)
+            onMoved: {
+                currentWAUV.b = valueAt(position) / 255
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
 
         CustomSpinBox
@@ -433,8 +478,11 @@ Rectangle
             from: 0
             to: 255
             value: currentWAUV.b * 255
-            onValueModified: toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
-                                          currentWAUV.r, currentWAUV.g, value / 255)
+            onValueModified: {
+                currentWAUV.b = value / 255
+                toolColorChanged(currentRGB.r, currentRGB.g, currentRGB.b,
+                               currentWAUV.r, currentWAUV.g, currentWAUV.b)
+            }
         }
     }
 
@@ -451,10 +499,11 @@ Rectangle
 
         MultiColorBox
         {
-            width: UISettings.mediumItemHeight
+            id: selectedColorBox
+            width: UISettings.bigItemHeight
             height: UISettings.listItemHeight
-            primary: currentRGB
-            secondary: currentWAUV
+            primary: mixedColor
+            secondary: "black"
         }
     }
 }

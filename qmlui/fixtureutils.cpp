@@ -371,13 +371,31 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
     quint32 indigo = fixture->channelNumber(QLCChannel::Indigo, QLCChannel::MSB, headIndex);
 
     if (white != QLCChannel::invalid() && fixture->channelValueAt(white))
-        finalColor = blendColors(finalColor, Qt::white, (float)fixture->channelValueAt(white) / 255.0);
+    {
+        float whiteIntensity = (float)fixture->channelValueAt(white) / 255.0;
+        // Additive mixing: white brightens all channels equally
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + whiteIntensity));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + whiteIntensity));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + whiteIntensity));
+    }
 
     if (amber != QLCChannel::invalid() && fixture->channelValueAt(amber))
-        finalColor = blendColors(finalColor, QColor(0xFFFF7E00), (float)fixture->channelValueAt(amber) / 255.0);
+    {
+        float amberIntensity = (float)fixture->channelValueAt(amber) / 255.0;
+        // Additive mixing: amber uses upstream's color 0xFFFF7E00 (R=1.0, G=0.49, B=0.0)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + amberIntensity * 1.0));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + amberIntensity * 0.49));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + amberIntensity * 0.0));
+    }
 
     if (UV != QLCChannel::invalid() && fixture->channelValueAt(UV))
-        finalColor = blendColors(finalColor, QColor(0xFF9400D3), (float)fixture->channelValueAt(UV) / 255.0);
+    {
+        float uvIntensity = (float)fixture->channelValueAt(UV) / 255.0;
+        // Additive mixing: UV uses upstream's violet color 0xFF9400D3 (R=0.58, G=0.0, B=0.83)
+        finalColor.setRedF(qMin(1.0, finalColor.redF() + uvIntensity * 0.58));
+        finalColor.setGreenF(qMin(1.0, finalColor.greenF() + uvIntensity * 0.0));
+        finalColor.setBlueF(qMin(1.0, finalColor.blueF() + uvIntensity * 0.83));
+    }
 
     if (lime != QLCChannel::invalid() && fixture->channelValueAt(lime))
         finalColor = blendColors(finalColor, QColor(0xFFADFF2F), (float)fixture->channelValueAt(lime) / 255.0);
