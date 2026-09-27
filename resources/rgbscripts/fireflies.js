@@ -58,6 +58,13 @@ void testAlgo; // Reserved for development/debugging
     algo.visibility = 30;
     algo.properties.push("name:visibility|type:range|display:Visibility %|values:10,90|write:setVisibility|read:getVisibility");
 
+    var util = {};
+    util.initialized = false;
+    util.fireflies = [];
+    util.frameCount = 0;
+    util.width = 0;
+    util.height = 0;
+
     // Setters and getters
     algo.setCount = function(v) {
         var n = parseInt(v, 10);
@@ -85,13 +92,6 @@ void testAlgo; // Reserved for development/debugging
 
     algo.setVisibility = function(v) { var n = parseInt(v, 10); if (!isNaN(n)) algo.visibility = Math.max(10, Math.min(90, n)); };
     algo.getVisibility = function() { return algo.visibility; };
-
-    var util = {};
-    util.initialized = false;
-    util.fireflies = [];
-    util.frameCount = 0;
-    util.width = 0;
-    util.height = 0;
 
     // Utility functions
     function scaleColor(rgb, scale255) {

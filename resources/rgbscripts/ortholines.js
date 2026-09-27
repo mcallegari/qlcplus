@@ -36,6 +36,12 @@
   algo.acceptColors = 0; // plasma-driven
   algo.properties = [];
 
+  // --- State ---
+  var util = {};
+  util.features = [];
+  util.lastW = 0; util.lastH = 0; util.frame = 0;
+  util.gradientData = []; util.colorArray = []; util.gradInitialized = false;
+
   // --- Properties ---
   algo.featureCount = 24; // 1..80
   algo.properties.push("name:features|type:range|display:Features|values:1,80|write:setFeatures|read:getFeatures");
@@ -121,13 +127,6 @@
   algo.properties.push("name:activepct|type:range|display:Active Lines (%)|values:0,100|write:setActivePct|read:getActivePct");
   algo.setActivePct = function(v){ var n=parseInt(v,10); if(isNaN(n)) n=100; if(n<0)n=0; if(n>100)n=100; algo.activePct=n; };
   algo.getActivePct = function(){ return algo.activePct; };
-
-
-  // --- State ---
-  var util = {};
-  util.features = [];
-  util.lastW = 0; util.lastH = 0; util.frame = 0;
-  util.gradientData = []; util.colorArray = []; util.gradInitialized = false;
 
 
   // --- Helpers ---
