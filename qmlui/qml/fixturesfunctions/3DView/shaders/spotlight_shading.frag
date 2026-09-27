@@ -77,7 +77,7 @@ void main()
     vec2 tc = (mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * ((-q.xy) * (1.0 / r))) * 0.5 + 0.5;
 
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
-    float goboMask = gSample.a * gSample.r;
+    vec3 goboMask = gSample.rgb * gSample.a;
 
     vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
 
